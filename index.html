@@ -9,38 +9,37 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Alpine.js (for lightweight interactivity) -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
   <!-- Optional: Alpine Collapse plugin for smooth accordion transitions -->
   <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
 
   <style>
-    /* BRANDING — tweak these to your palette */
-    :root{
+    :root {
       --brand-bg: #fbfbf9;
-      --brand-ink: #262b26; /* deep green-black */
-      --brand-accent: #45818e; /* teal */
-      --brand-soft: #e5e8e5; /* soft gray-green */
+      --brand-ink: #262b26;
+      --brand-accent: #45818e;
+      --brand-soft: #e5e8e5;
     }
 
-    /* Ensure brand colors & badges print accurately */
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
     @media print {
-      /* Hide interaction-only UI in print */
-      .print\:hide{ display: none !important; }
-      /* Show our dedicated print section */
-      .print\:show{ display: block !important; }
+      .print\:hide { display: none !important; }
+      .print\:show { display: block !important; }
       html, body { background: white !important; }
     }
 
-    /* Nice focus outlines */
-    .focus-ring:focus{ outline: 3px solid var(--brand-accent); outline-offset: 2px; }
+    .focus-ring:focus {
+      outline: 3px solid var(--brand-accent);
+      outline-offset: 2px;
+    }
   </style>
+  <!-- Papa Parse for CSV parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
 <body class="min-h-screen bg-[var(--brand-bg)] text-[var(--brand-ink)]">
   <div x-data="courseApp()" x-init="init()" class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
 
-    <!-- SCREEN UI WRAPPER: hide ALL of this during print -->
+    <!-- SCREEN-ONLY UI (hidden in print) -->
     <div class="print:hide">
       <!-- HEADER -->
       <header class="flex items-center justify-between gap-4 mb-6">
@@ -53,11 +52,7 @@
             <p class="text-sm text-gray-600">Free stack: HTML + Tailwind + Alpine. No build tools.</p>
           </div>
         </div>
-
-        <div class="flex items-center gap-2">
-          <button @click="resetSelections()" class="focus-ring rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-gray-50">Reset</button>
-          <button @click="printSelected()" class="focus-ring rounded-xl px-3 py-2 bg-[var(--brand-accent)] text-white shadow hover:opacity-95">Print Selected → PDF</button>
-        </div>
+        <!-- top-right controls removed per request -->
       </header>
 
       <!-- CONTROLS / FILTERS -->
@@ -67,7 +62,6 @@
             <span class="text-xs uppercase tracking-wide text-gray-500">Search</span>
             <input x-model.trim.debounce.250ms="search" type="search" placeholder="Title, subject, keyword…" class="focus-ring w-full mt-1 rounded-xl border-gray-300" />
           </label>
-
           <label class="block">
             <span class="text-xs uppercase tracking-wide text-gray-500">Subject</span>
             <select x-model="filters.subject" class="focus-ring w-full mt-1 rounded-xl border-gray-300">
@@ -77,17 +71,15 @@
               </template>
             </select>
           </label>
-
           <label class="block">
-            <span class="text-xs uppercase tracking-wide text-gray-500">Level</span>
-            <select x-model="filters.level" class="focus-ring w-full mt-1 rounded-xl border-gray-300">
+            <span class="text-xs uppercase tracking-wide text-gray-500">Grade</span>
+            <select x-model="filters.levelTag" class="focus-ring w-full mt-1 rounded-xl border-gray-300">
               <option value="">All</option>
               <template x-for="lvl in levelList" :key="lvl">
                 <option :value="lvl" x-text="lvl"></option>
               </template>
             </select>
           </label>
-
           <label class="block">
             <span class="text-xs uppercase tracking-wide text-gray-500">Rotation</span>
             <select x-model="filters.rotation" class="focus-ring w-full mt-1 rounded-xl border-gray-300">
@@ -102,9 +94,9 @@
         <!-- Legend -->
         <div class="mt-4 flex flex-wrap items-center gap-3 text-sm">
           <span class="text-xs uppercase tracking-wide text-gray-500">Legend:</span>
-          <template x-for="(hex, name) in subjectColors" :key="name">
+          <template x-for="name in Object.keys(subjectColors)" :key="name">
             <span class="inline-flex items-center gap-2">
-              <span class="inline-block size-4 rounded" :style="`background:${hex}`"></span>
+              <span class="inline-block size-4 rounded" :style="'background:' + subjectColors[name]"></span>
               <span x-text="name"></span>
             </span>
           </template>
@@ -122,6 +114,7 @@
           </div>
           <div class="flex items-center gap-2">
             <button @click="printSelected()" class="focus-ring rounded-xl px-3 py-2 bg-[var(--brand-accent)] text-white shadow hover:opacity-95">Print Selected</button>
+            <button @click="resetSelections()" class="focus-ring rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-gray-50">Reset</button>
             <button @click="toggleCompact()" class="focus-ring rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-gray-50" x-text="compact ? 'Comfortable view' : 'Compact view'"></button>
           </div>
         </div>
@@ -132,6 +125,7 @@
         <template x-for="c in filtered" :key="c.id">
           <article class="group rounded-2xl border border-gray-200 bg-white overflow-hidden" :class="compact ? 'rounded-none border-0' : ''">
             <div class="flex">
+              <!-- color rail -->
               <div class="w-2 shrink-0" :style="`background:${subjectColors[c.subject] ?? '#666d66'}`"></div>
 
               <div class="flex-1 p-3 sm:p-4">
@@ -144,7 +138,7 @@
                         <h3 class="font-semibold text-lg leading-tight" x-text="c.title"></h3>
                         <div class="flex items-center gap-2 text-sm text-gray-500">
                           <span class="px-2 py-0.5 rounded-full border" x-text="c.subject" :style="`border-color:${subjectColors[c.subject]}; color:${subjectColors[c.subject]}`"></span>
-                          <span class="px-2 py-0.5 rounded-full bg-gray-100" x-text="c.level"></span>
+                          <span class="px-2 py-0.5 rounded-full bg-gray-100" x-text="c.levelDisplay"></span>
                           <span class="px-2 py-0.5 rounded-full bg-gray-100" x-text="c.rotation"></span>
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-5 transition-transform" :class="c.open ? 'rotate-180' : ''"><path fill="currentColor" d="m12 15l-5-5h10z"/></svg>
                         </div>
@@ -180,7 +174,7 @@
       <footer class="mt-12 text-sm text-gray-500">
         <p>Tip: Use your browser’s “Save as PDF” from the Print dialog to create a PDF that preserves brand colors.</p>
       </footer>
-    </div> <!-- /print:hide wrapper -->
+    </div>
 
     <!-- PRINT-ONLY VIEW (built from selected) -->
     <section class="print:show hidden mt-8">
@@ -199,12 +193,12 @@
                   <h3 class="font-semibold text-lg" x-text="c.title"></h3>
                   <div class="flex items-center gap-2 text-sm text-gray-700">
                     <span class="px-2 py-0.5 rounded-full border" x-text="c.subject" :style="`border-color:${subjectColors[c.subject]}; color:${subjectColors[c.subject]}`"></span>
-                    <span class="px-2 py-0.5 rounded-full bg-gray-100" x-text="c.level"></span>
+                    <span class="px-2 py-0.5 rounded-full bg-gray-100" x-text="c.levelDisplay"></span>
                     <span class="px-2 py-0.5 rounded-full bg-gray-100" x-text="c.rotation"></span>
                   </div>
                 </div>
                 <p class="mt-2 text-gray-700" x-text="c.summary"></p>
-                <div class="mt-3 grid sm:grid-cols-2 gap-3">
+                <div class="mt-3 grid sm:grid-cols-2 gap-3" x-show="!compact">
                   <template x-for="row in c.details" :key="'p-'+row.label">
                     <div class="rounded-xl border border-gray-200 p-3">
                       <div class="text-xs uppercase tracking-wide text-gray-500" x-text="row.label"></div>
@@ -222,216 +216,288 @@
   </div>
 
   <script>
-    function courseApp(){
-      return {
-        compact: false,
-        search: '',
-        filters: { subject: '', level: '', rotation: '' },
-        printGate: false,
-        subjectColors: {
-          "Bible": "#b14d3a",
-          "History": "#cf7057",
-          "Science": "#45818e",
-          "Literature": "#666d66",
-          "Latin": "#d2d6d2",
-          "Art": "#e5e8e5"
-        },
-        courses: [
-          { id: 1, title: "Bible: Grade 1", subject: "Bible", level: "G1", rotation: "R1", summary: "Short daily lessons with Scripture memory and stories.", details: [ { label: "Overview", value: "Foundational Bible stories with gentle narration and copywork." }, { label: "Books", value: "<ul class='list-disc ml-5'><li>Old Testament Stories</li><li>Psalms for Children</li></ul>" } ], checked: false, open: false },
-          { id: 2, title: "History: Early Modern (1650–1800)", subject: "History", level: "G4–G6", rotation: "R3", summary: "Living books survey of exploration, revolutions, and great ideas.", details: [ { label: "Scope", value: "Age of Reason, American & French Revolutions, great biographies." }, { label: "Activities", value: "Timelines, map drills, narration notebooks." } ], checked: false, open: false },
-          { id: 3, title: "Science: Nature Study — Botany", subject: "Science", level: "G1–G3", rotation: "R2", summary: "Hands-on nature walks and simple experiments centered on plants.", details: [ { label: "Equipment", value: "Hand lens, field notebook, colored pencils." }, { label: "Assessments", value: "Weekly nature journal entries and term-end show-and-tell." } ], checked: false, open: false },
-          { id: 4, title: "Literature: Tales & Fables", subject: "Literature", level: "G2–G3", rotation: "R1", summary: "Classic tales with rich narration practice and copywork.", details: [ { label: "Texts", value: "<em>Aesop's Fables</em>, Grimm, Andersen selections." }, { label: "Writing", value: "Weekly written narration, commonplace excerpts." } ], checked: false, open: false },
-          { id: 5, title: "Latin: Prima Latina", subject: "Latin", level: "G4–G5", rotation: "R2", summary: "Introductory Latin vocabulary, prayers, and roots.", details: [ { label: "Format", value: "3 short lessons weekly; oral drills; copywork." }, { label: "Outcomes", value: "Comfort with pronunciation, basic grammar awareness." } ], checked: false, open: false },
-          { id: 6, title: "Art: Picture Study — Rembrandt", subject: "Art", level: "G6–G8", rotation: "R4", summary: "Term-long picture study focusing on composition and light.", details: [ { label: "Works", value: "Six key paintings; weekly study & narration." }, { label: "Notebook", value: "Sketches, color studies; gallery reflections." } ], checked: false, open: false }
-        ],
-        get subjectList(){ return [...new Set(this.courses.map(c => c.subject))].sort(); },
-        get levelList(){ return [...new Set(this.courses.map(c => c.level))].sort(); },
-        get rotationList(){ return [...new Set(this.courses.map(c => c.rotation))].sort(); },
-        get filtered(){ const q = this.search.toLowerCase(); return this.courses.filter(c => { const matchesQ = !q || [c.title, c.subject, c.summary].join(' ').toLowerCase().includes(q); const matchesS = !this.filters.subject || c.subject === this.filters.subject; const matchesL = !this.filters.level || c.level === this.filters.level; const matchesR = !this.filters.rotation || c.rotation === this.filters.rotation; return matchesQ && matchesS && matchesL && matchesR; }); },
-        get selected(){ return this.courses.filter(c => c.checked); },
-        init(){ const saved = localStorage.getItem('pf_courses'); if(saved){ try{ const ids = JSON.parse(saved); this.courses.forEach(c => { c.checked = !!ids.includes(c.id); }); }catch(e){} } window.addEventListener('afterprint', () => { this.printGate = false; }); },
-        persist(){ const ids = this.courses.filter(c => c.checked).map(c => c.id); localStorage.setItem('pf_courses', JSON.stringify(ids)); },
-        printSelected(){ if(!this.selected.length){ alert('Select at least one course to print.'); return; } this.printGate = true; setTimeout(() => window.print(), 50); },
-        resetSelections(){ this.courses.forEach(c => c.checked = false); this.persist(); },
-        selectAllVisible(){ this.filtered.forEach(c => c.checked = true); this.persist(); },
-        clearAllVisible(){ this.filtered.forEach(c => c.checked = false); this.persist(); },
-        toggleCompact(){ this.compact = !this.compact; }
-      }
-    }
-  </script>
-</body>
-</html>
-<script></script>
-    function courseApp(){
-      return {
-        // UI state
-        compact: false,
-        search: '',
-        filters: { subject: '', level: '', rotation: '' },
-        printGate: false, // reserved if you want Option 2 later
+  function courseApp() {
+    return {
+      // ===== Data sources (two CSVs from one Google Sheet with two tabs) =====
+      dataSources: {
+        courses: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=0&single=true&output=csv',
+        topics:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=1919021076&single=true&output=csv'
+      },
 
-        // Subject -> color mapping (edit to match your brand palette)
-        subjectColors: {
-          "Bible": "#b14d3a",
-          "History": "#cf7057",
-          "Science": "#45818e",
-          "Literature": "#666d66",
-          "Latin": "#d2d6d2",
-          "Art": "#e5e8e5"
-        },
 
-        courses: [
-          {
-            id: 1,
-            title: "Bible: Grade 1",
-            subject: "Bible",
-            level: "G1",
-            rotation: "R1",
-            summary: "Short daily lessons with Scripture memory and stories.",
-            details: [
-              { label: "Overview", value: "Foundational Bible stories with gentle narration and copywork." },
-              { label: "Books", value: "<ul class='list-disc ml-5'><li>Old Testament Stories</li><li>Psalms for Children</li></ul>" },
-            ],
-            checked: false,
-            open: false,
-          },
-          {
-            id: 2,
-            title: "History: Early Modern (1650–1800)",
-            subject: "History",
-            level: "G4–G6",
-            rotation: "R3",
-            summary: "Living books survey of exploration, revolutions, and great ideas.",
-            details: [
-              { label: "Scope", value: "Age of Reason, American & French Revolutions, great biographies." },
-              { label: "Activities", value: "Timelines, map drills, narration notebooks." },
-            ],
-            checked: false,
-            open: false,
-          },
-          {
-            id: 3,
-            title: "Science: Nature Study — Botany",
-            subject: "Science",
-            level: "G1–G3",
-            rotation: "R2",
-            summary: "Hands-on nature walks and simple experiments centered on plants.",
-            details: [
-              { label: "Equipment", value: "Hand lens, field notebook, colored pencils." },
-              { label: "Assessments", value: "Weekly nature journal entries and term-end show-and-tell." },
-            ],
-            checked: false,
-            open: false,
-          },
-          {
-            id: 4,
-            title: "Literature: Tales & Fables",
-            subject: "Literature",
-            level: "G2–G3",
-            rotation: "R1",
-            summary: "Classic tales with rich narration practice and copywork.",
-            details: [
-              { label: "Texts", value: "<em>Aesop's Fables</em>, Grimm, Andersen selections." },
-              { label: "Writing", value: "Weekly written narration, commonplace excerpts." },
-            ],
-            checked: false,
-            open: false,
-          },
-          {
-            id: 5,
-            title: "Latin: Prima Latina",
-            subject: "Latin",
-            level: "G4–G5",
-            rotation: "R2",
-            summary: "Introductory Latin vocabulary, prayers, and roots.",
-            details: [
-              { label: "Format", value: "3 short lessons weekly; oral drills; copywork." },
-              { label: "Outcomes", value: "Comfort with pronunciation, basic grammar awareness." },
-            ],
-            checked: false,
-            open: false,
-          },
-          {
-            id: 6,
-            title: "Art: Picture Study — Rembrandt",
-            subject: "Art",
-            level: "G6–G8",
-            rotation: "R4",
-            summary: "Term-long picture study focusing on composition and light.",
-            details: [
-              { label: "Works", value: "Six key paintings; weekly study & narration." },
-              { label: "Notebook", value: "Sketches, color studies; gallery reflections." },
-            ],
-            checked: false,
-            open: false,
-          },
-        ],
+      // ===== Field maps (case-insensitive headers) =====
+      courseFields: {
+        course_id: 'Course_ID',
+        course_title: 'Course',
+        subject: 'Subject',
+        schedule_text: 'Scheduling_R3',
+        grade_text: 'Grade_Text',
+        grade_filter: 'Grade_Filter',
+        description: 'Program_Description_R3',
+        combining_placement: 'Combining&PlacementTips_R3'
+      },
+      topicFields: {
+        topic_id: 'Topic_ID',
+        course_id: 'Course_ID_R3', // comma-separated list of Course_IDs
+        topic_title: 'Topic',
+        topic_description: 'Program_Description_R3',
+        combining_placement: 'Combining&PlacementTips_R3',
+        schedule_text: 'Scheduling_R3',
+        grade_text: 'Grade_Text',
+        grade_filter: 'Grade_Filter'
+      },
 
-        get subjectList(){
-          // Unique subjects derived from data
-          return [...new Set(this.courses.map(c => c.subject))].sort();
-        },
-        get levelList(){
-          return [...new Set(this.courses.map(c => c.level))].sort();
-        },
-        get rotationList(){
-          return [...new Set(this.courses.map(c => c.rotation))].sort();
-        },
 
-        get filtered(){
-          const q = this.search.toLowerCase();
-          return this.courses.filter(c => {
-            const matchesQ = !q || [c.title, c.subject, c.summary].join(' ').toLowerCase().includes(q);
-            const matchesS = !this.filters.subject || c.subject === this.filters.subject;
-            const matchesL = !this.filters.level || c.level === this.filters.level;
-            const matchesR = !this.filters.rotation || c.rotation === this.filters.rotation;
-            return matchesQ && matchesS && matchesL && matchesR;
+      // ===== UI state =====
+      compact: false,
+      search: '',
+      filters: { subject: '', levelTag: '', rotation: '' }, // levelTag = G1, G2, ...
+      printGate: false,
+
+      // Subject → color mapping
+      subjectColors: {
+        "Bible": "#b14d3a", "History": "#cf7057", "Science": "#45818e",
+        "Literature": "#666d66", "Latin": "#d2d6d2", "Art": "#e5e8e5"
+      },
+
+      // Data
+      courses: [],
+      courseIndex: {},
+
+      // ===== Derived lists for filters =====
+      get subjectList(){ return [...new Set(this.courses.map(c => c.subject).filter(Boolean))].sort(); },
+      get levelList(){
+        const tags = new Set();
+        this.courses.forEach(c => (c.levelTags||[]).forEach(t => tags.add(t)));
+        return [...tags].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));
+      },
+      get rotationList(){ return [...new Set(this.courses.map(c => c.rotation).filter(Boolean))].sort(); },
+
+      // ===== Filtering logic =====
+      get filtered(){
+        const q = this.search.toLowerCase();
+        return this.courses.filter(c => {
+          const hay = [c.title, c.subject, c.summary, c.levelDisplay, c.rotation].join(' ').toLowerCase();
+          const matchesQ = !q || hay.includes(q);
+          const matchesS = !this.filters.subject || c.subject === this.filters.subject;
+          const matchesL = !this.filters.levelTag || (c.levelTags||[]).includes(this.filters.levelTag);
+          const matchesR = !this.filters.rotation || c.rotation === this.filters.rotation;
+          return matchesQ && matchesS && matchesL && matchesR;
+        });
+      },
+
+      // Selected
+      get selected(){ return this.courses.filter(c => c.checked); },
+
+      // ===== Lifecycle =====
+      async init(){
+        await this.loadDualCSVs();
+        const saved = JSON.parse(localStorage.getItem('pf_courses') || '[]');
+        this.courses.forEach(c => { if(saved.includes(c.id)) c.checked = true; });
+        window.addEventListener('afterprint', () => { this.printGate = false; });
+      },
+
+      // ===== CSV loading (two tabs) =====
+      async loadDualCSVs(){
+        const { courses, topics } = this.dataSources;
+        // If URLs aren't set yet, show dummy so Preview works
+        if(!courses.includes('http') || !topics.includes('http')){
+          this.courses = this.buildDummy();
+          return;
+        }
+        try{
+          const [coursesCSV, topicsCSV] = await Promise.all([
+            fetch(courses, { mode: 'cors' }).then(r => r.text()),
+            fetch(topics,  { mode: 'cors' }).then(r => r.text())
+          ]);
+          const parsedCourses = Papa.parse(coursesCSV, { header: true, skipEmptyLines: true });
+          const parsedTopics  = Papa.parse(topicsCSV,  { header: true, skipEmptyLines: true });
+
+          this.courseIndex = {};
+          // Build course objects
+          parsedCourses.data.forEach((row) => {
+            const c = this.rowToCourse(row);
+            if(!c) return;
+            this.courseIndex[c.id] = { ...c, topics: [], checked: false, open: true }; // open by default
           });
-        },
 
-        get selected(){ return this.courses.filter(c => c.checked); },
+          // Attach topics to multiple courses
+          parsedTopics.data.forEach((row) => {
+            const t = this.rowToTopic(row);
+            if (!t) return;
+            const courseIds = t.course_id.split(',').map(id => id.trim());
+            courseIds.forEach(cid => {
+              const parent = this.courseIndex[cid];
+              if (parent) parent.topics.push(t);
+            });
+          });
 
-        init(){
-          // Restore selections from localStorage
-          const saved = localStorage.getItem('pf_courses');
-          if(saved){
-            try{
-              const ids = JSON.parse(saved);
-              this.courses.forEach(c => { c.checked = !!ids.includes(c.id); });
-            }catch(e){ /* ignore */ }
+          // Final list
+          this.courses = Object.values(this.courseIndex).map(c => this.decorateCourse(c));
+        }catch(err){
+          console.error('CSV load failed:', err);
+          alert('Could not load one or both CSVs. Showing dummy structure.\n' + err);
+          this.courses = this.buildDummy();
+        }
+      },
+
+      // ===== Row mappers =====
+      _getCI(row, want){
+        const wants = Array.isArray(want) ? want : [want];
+        const keys = Object.keys(row);
+        for (const w of wants) {
+          const key = keys.find(k => k && k.toLowerCase() === String(w).toLowerCase());
+          if (key) return row[key];
+        }
+        // fuzzy contains match as fallback
+        for (const w of wants) {
+          const key = keys.find(k => k && k.toLowerCase().includes(String(w).toLowerCase()));
+          if (key) return row[key];
+        }
+        return '';
+      },
+      rowToCourse(row){
+        if(!row) return null;
+        const g = (k) => this._getCI(row, this.courseFields[k]);
+      
+        const id    = (g('course_id')    || '').toString().trim();
+        const title = (g('course_title') || '').toString().trim();
+        if(!id && !title) return null;
+      
+        // Subject now comes from CSV; fallback to title prefix if missing.
+        let subject = (g('subject') || '').toString().trim();
+        if(!subject && title.includes(':')) subject = title.split(':')[0].trim();
+      
+        const gradeText   = (g('grade_text')   || '').toString().trim();   // e.g., "GRADE(S): 1-6"
+        const gradeFilter = (g('grade_filter') || '').toString().trim();   // e.g., "G1, G2, G3"
+      
+        const rotation      = ''; // no rotation column in your data
+        const schedule_text = (g('schedule_text')  || '').toString().trim(); // single text block
+        const description   = (g('description')    || '').toString().trim();
+        const combining     = (g('combining_placement') || '').toString().trim();
+      
+        const levelDisplay = gradeText || '';
+        const levelTags    = (gradeFilter && /G\s*\d+/i.test(gradeFilter))
+          ? (gradeFilter.match(/G\s*\d+/gi) || []).map(s => 'G' + s.replace(/[^0-9]/g,''))
+          : this.computeGradeTags(gradeText);
+      
+        const details = [];
+        if(description) details.push({ label:'Description', value: description });
+        if(combining)   details.push({ label:'Combining & Placement', value: combining });
+      
+        const summary = schedule_text || '';
+      
+        return { id: id||title, title: title||id, subject, levelDisplay, levelTags, rotation, summary, details };
+      },
+      rowToTopic(row){
+        if(!row) return null;
+        const g = (k) => this._getCI(row, this.topicFields[k]);
+      
+        const course_id   = (g('course_id')  || '').toString().trim();  // comma-separated Course_IDs
+        const topic_title = (g('topic_title')|| '').toString().trim();
+        if(!course_id || !topic_title) return null;
+      
+        const topic_id    = (g('topic_id')   || '').toString().trim() || undefined;
+        const topic_desc  = (g('topic_description') || '').toString().trim();
+        const combining   = (g('combining_placement') || '').toString().trim();
+        const schedule_t  = (g('schedule_text') || '').toString().trim();
+      
+        const details = [];
+        if(topic_desc) details.push({ label:'Description', value: topic_desc });
+        if(combining)  details.push({ label:'Combining & Placement', value: combining });
+        if(schedule_t) details.unshift({ label:'Schedule', value: schedule_t });
+      
+        return { topic_id, course_id, topic_title, details };
+      },
+
+      // ===== Helpers =====
+      formatGradesDisplay(gr){
+        if(!gr) return '';
+        const range = gr.match(/^(?:[Gg]?(\\d+))\\s*[–-]\\s*[Gg]?(\\d+)$/); // 1–4 / 1-4
+        if(range){ return `GRADES ${range[1]}–${range[2]}`; }
+        const single = gr.match(/^[Gg]?(\\d+)$/);
+        if(single){ return `GRADE ${single[1]}`; }
+        return gr.toUpperCase();
+      },
+      computeGradeTags(gr){
+        const tags=[];
+        const range = gr && gr.match(/^(?:[Gg]?(\\d+))\\s*[–-]\\s*[Gg]?(\\d+)$/);
+        if(range){ const a=+range[1], b=+range[2]; for(let i=Math.min(a,b); i<=Math.max(a,b); i++) tags.push(`G${i}`); return tags; }
+        const single = gr && gr.match(/^[Gg]?(\\d+)$/);
+        if(single){ return [`G${+single[1]}`]; }
+        if(gr && gr.includes(',')){ gr.split(',').forEach(x=>{ const n=x.replace(/[^0-9]/g,''); if(n) tags.push(`G${+n}`); }); }
+        return tags;
+      },
+      decorateCourse(c){
+        if(c.subject && !this.subjectColors[c.subject]) this.subjectColors[c.subject] = '#666d66';
+        c.open = true; // open accordions by default
+        return c;
+      },
+
+      // ===== Actions =====
+      persist(){ const ids = this.courses.filter(c => c.checked).map(c => c.id); localStorage.setItem('pf_courses', JSON.stringify(ids)); },
+      printSelected(){ if(!this.selected.length){ alert('Select at least one course to print.'); return; } this.printGate = true; setTimeout(()=>window.print(),50); },
+      resetSelections(){ this.courses.forEach(c => c.checked = false); this.persist(); },
+      selectAllVisible(){ this.filtered.forEach(c => c.checked = true); this.persist(); },
+      clearAllVisible(){ this.filtered.forEach(c => c.checked = false); this.persist(); },
+      toggleCompact(){
+        this.compact = !this.compact;
+      
+        // Close accordions when compact is ON, but keep any course open if a topic is selected.
+        if (this.compact) {
+          this.courses.forEach(c => {
+            const topicSelected = (c.topics || []).some(t => t.checked);
+            c.open = !!topicSelected; // stay open only if a topic is checked
+          });
+        } else {
+          // Comfortable view: open everything again
+          this.courses.forEach(c => c.open = true);
+        }
+      },
+
+      // ===== Dummy data (structure preview only) =====
+      buildDummy(){
+        if(!this.subjectColors['Citizenship']) this.subjectColors['Citizenship'] = '#4a6f6a';
+        return [
+          {
+            id:'CIT-07-US',
+            title:'Citizenship · Grade 7 (U.S.)',
+            subject:'Citizenship',
+            levelDisplay:'GRADES 7–8',
+            levelTags:['G7','G8'],
+            rotation:'',
+            summary:'2×/wk · 30 min · ✱ morning · ⬔ partial teacher',
+            details:[
+              { label:'Description', value:'Study of government foundations, civics, and responsibilities.' },
+              { label:'Combining & Placement', value:'Combine adjacent grades where appropriate.' }
+            ],
+            topics:[
+              { topic_id:'CIT-07-US-1', course_id:'CIT-07-US', topic_title:'Foundations of Government',
+                details:[ {label:'Description', value:'What is government? Forms and purposes.'},
+                          {label:'Combining & Placement', value:'Families may combine 7–8.'} ] }
+            ],
+            checked:false, open:true
+          },
+          {
+            id:'SCI-G1-BOT',
+            title:'Science · Nature Study — Botany',
+            subject:'Science',
+            levelDisplay:'GRADES 1–3',
+            levelTags:['G1','G2','G3'],
+            rotation:'R2',
+            summary:'2×/wk · 20 min · _ afternoon',
+            details:[
+              { label:'Description', value:'Hands-on nature study centered on plants.' },
+              { label:'Combining & Placement', value:'Light prep; combine siblings in 1–3.' }
+            ],
+            topics:[],
+            checked:false, open:true
           }
-
-          // After-print reset to screen view
-          window.addEventListener('afterprint', () => { this.printGate = false; });
-        },
-
-        persist(){
-          const ids = this.courses.filter(c => c.checked).map(c => c.id);
-          localStorage.setItem('pf_courses', JSON.stringify(ids));
-        },
-
-        printSelected(){
-          if(!this.selected.length){ alert('Select at least one course to print.'); return; }
-          this.printGate = true;
-          setTimeout(() => window.print(), 50);
-        },
-
-        resetSelections(){
-          this.courses.forEach(c => c.checked = false);
-          this.persist();
-        },
-
-        selectAllVisible(){
-          this.filtered.forEach(c => c.checked = true);
-          this.persist();
-        },
-        clearAllVisible(){
-          this.filtered.forEach(c => c.checked = false);
-          this.persist();
-        },
-        toggleCompact(){ this.compact = !this.compact; },
+        ];
       }
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>
