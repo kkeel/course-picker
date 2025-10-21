@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Course Picker · Plumfield</title>
+  <title>Alveary Course List<\/title>
 
   <!-- TailwindCSS via CDN (free) -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -44,12 +44,11 @@
       <!-- HEADER -->
       <header class="flex items-center justify-between gap-4 mb-6">
         <div class="flex items-center gap-3">
-          <div class="size-10 rounded-xl bg-[var(--brand-accent)]/10 flex items-center justify-center">
-            <span class="font-bold text-[var(--brand-accent)]">PH</span>
+          <div class="size-10 rounded-xl bg-[var(--brand-accent)]/10 flex items-center justify-center overflow-hidden">
+            <img src="logo.png" alt="Alveary" class="h-8 w-8 object-contain" />
           </div>
           <div>
-            <h1 class="text-2xl sm:text-3xl font-semibold">Plumfield Course Picker</h1>
-            <p class="text-sm text-gray-600">Free stack: HTML + Tailwind + Alpine. No build tools.</p>
+            <h1 class="text-2xl sm:text-3xl font-semibold">Alveary Course List<\/h1>
           </div>
         </div>
         <!-- top-right controls removed per request -->
@@ -80,28 +79,10 @@
               </template>
             </select>
           </label>
-          <label class="block">
-            <span class="text-xs uppercase tracking-wide text-gray-500">Rotation</span>
-            <select x-model="filters.rotation" class="focus-ring w-full mt-1 rounded-xl border-gray-300">
-              <option value="">All</option>
-              <template x-for="r in rotationList" :key="r">
-                <option :value="r" x-text="r"></option>
-              </template>
-            </select>
-          </label>
+          
         </div>
 
-        <!-- Legend -->
-        <div class="mt-4 flex flex-wrap items-center gap-3 text-sm">
-          <span class="text-xs uppercase tracking-wide text-gray-500">Legend:</span>
-          <template x-for="name in Object.keys(subjectColors)" :key="name">
-            <span class="inline-flex items-center gap-2">
-              <span class="inline-block size-4 rounded" :style="'background:' + subjectColors[name]"></span>
-              <span x-text="name"></span>
-            </span>
-          </template>
-        </div>
-      </section>
+        </section>
 
       <!-- SELECTED SUMMARY BAR -->
       <div class="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-[var(--brand-soft)]">
@@ -139,7 +120,7 @@
                         <div class="flex items-center gap-2 text-sm text-gray-500">
                           <span class="px-2 py-0.5 rounded-full border" x-text="c.subject" :style="`border-color:${subjectColors[c.subject]}; color:${subjectColors[c.subject]}`"></span>
                           <span class="px-2 py-0.5 rounded-full bg-gray-100" x-text="c.levelDisplay"></span>
-                          <span class="px-2 py-0.5 rounded-full bg-gray-100" x-text="c.rotation"></span>
+                          
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-5 transition-transform" :class="c.open ? 'rotate-180' : ''"><path fill="currentColor" d="m12 15l-5-5h10z"/></svg>
                         </div>
                       </div>
@@ -194,7 +175,7 @@
                   <div class="flex items-center gap-2 text-sm text-gray-700">
                     <span class="px-2 py-0.5 rounded-full border" x-text="c.subject" :style="`border-color:${subjectColors[c.subject]}; color:${subjectColors[c.subject]}`"></span>
                     <span class="px-2 py-0.5 rounded-full bg-gray-100" x-text="c.levelDisplay"></span>
-                    <span class="px-2 py-0.5 rounded-full bg-gray-100" x-text="c.rotation"></span>
+                    
                   </div>
                 </div>
                 <p class="mt-2 text-gray-700" x-text="c.summary"></p>
@@ -251,13 +232,18 @@
       // ===== UI state =====
       compact: false,
       search: '',
-      filters: { subject: '', levelTag: '', rotation: '' }, // levelTag = G1, G2, ...
+      filters: { subject: '', levelTag: '' }, // levelTag = G1, G2, ...
       printGate: false,
 
       // Subject → color mapping
       subjectColors: {
-        "Bible": "#b14d3a", "History": "#cf7057", "Science": "#45818e",
-        "Literature": "#666d66", "Latin": "#d2d6d2", "Art": "#e5e8e5"
+        // Alveary brand palette examples
+        "Bible": "#596e5e",
+        "History": "#7b8b7f",
+        "Science": "#3b413b",
+        "Literature": "#666d66",
+        "Latin": "#d2d6d2",
+        "Art": "#e5e8e5"
       },
 
       // Data
@@ -271,18 +257,17 @@
         this.courses.forEach(c => (c.levelTags||[]).forEach(t => tags.add(t)));
         return [...tags].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));
       },
-      get rotationList(){ return [...new Set(this.courses.map(c => c.rotation).filter(Boolean))].sort(); },
+      
 
       // ===== Filtering logic =====
       get filtered(){
         const q = this.search.toLowerCase();
         return this.courses.filter(c => {
-          const hay = [c.title, c.subject, c.summary, c.levelDisplay, c.rotation].join(' ').toLowerCase();
+          const hay = [c.title, c.subject, c.summary, c.levelDisplay].join(' ').toLowerCase();
           const matchesQ = !q || hay.includes(q);
           const matchesS = !this.filters.subject || c.subject === this.filters.subject;
           const matchesL = !this.filters.levelTag || (c.levelTags||[]).includes(this.filters.levelTag);
-          const matchesR = !this.filters.rotation || c.rotation === this.filters.rotation;
-          return matchesQ && matchesS && matchesL && matchesR;
+          return matchesQ && matchesS && matchesL;
         });
       },
 
