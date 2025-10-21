@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Course Picker · Plumfield</title>
+
+  <!-- TailwindCSS via CDN (free) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Alpine.js (for lightweight interactivity) -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Optional: Alpine Collapse plugin for smooth accordion transitions -->
+  <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    /* BRANDING — tweak these to your palette */
+    :root{
+      --brand-bg: #fbfbf9;
+      --brand-ink: #262b26; /* deep green-black */
+      --brand-accent: #45818e; /* teal */
+      --brand-soft: #e5e8e5; /* soft gray-green */
+    }
+
+    /* Ensure brand colors & badges print accurately */
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+    @media print {
+      /* Hide interaction-only UI in print */
+      .print\:hide{ display: none !important; }
+      /* Show our dedicated print section */
+      .print\:show{ display: block !important; }
+      html, body { background: white !important; }
+    }
+
+    /* Nice focus outlines */
+    .focus-ring:focus{ outline: 3px solid var(--brand-accent); outline-offset: 2px; }
+  </style>
+</head>
+<body class="min-h-screen bg-[var(--brand-bg)] text-[var(--brand-ink)]">
+  <div x-data="courseApp()" x-init="init()" class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+
+    <!-- HEADER -->
+    <header class="flex items-center justify-between gap-4 mb-6">
+      <div class="flex items-center gap-3">
+        <div class="size-10 rounded-xl bg-[var(--brand-accent)]/10 flex items-center justify-center">
+          <span class="font-bold text-[var(--brand-accent)]">PH</span>
+        </div>
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-semibold">Plumfield Course Picker</h1>
+          <p class="text-sm text-gray-600">Free stack: HTML + Tailwind + Alpine. No build tools.</p>
+        </div>
+      </div>
+
+      <div class="print:hide flex items-center gap-2">
+        <button @click="resetSelections()" class="focus-ring rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-gray-50">Reset</button>
+        <button @click="printSelected()" class="focus-ring rounded-xl px-3 py-2 bg-[var(--brand-accent)] text-white shadow hover:opacity-95">Print Selected → PDF</button>
+      </div>
+    </header>
+
+    <!-- CONTROLS / FILTERS -->
+    <section class="print:hide rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 mb-6">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <label class="block">
+          <span class="text-xs uppercase tracking-wide text-gray-500">Search</span>
+          <input x-model.trim.debounce.250ms="search" type="search" placeholder="Title, subject, keyword…" class="focus-ring w-full mt-1 rounded-xl border-gray-300" />
+        </label>
+
+        <label class="block">
+          <span class="text-xs uppercase tracking-wide text-gray-500">Subject</span>
+          <select x-model="filters.subject" class="focus-ring w-full mt-1 rounded-xl border-gray-300">
+            <option value="">All</option>
+            <template x-for="s in subjectList" :key="s">
+              <option :value="s" x-text="s"></option>
+            </template>
+          </select>
+        </label>
+
+        <label class="block">
+          <span class="text-xs uppercase tracking-wide text-gray-500">Level</span>
+          <select x-model="filters.level" class="focus-ring w-full mt-1 rounded-xl border-gray-300">
+            <option value="">All</option>
+            <template x-for="lvl in levelList" :key="lvl">
+              <option :value="lvl" x-text="lvl"></option>
+            </template>
+          </select>
+        </label>
+
+        <label class="block">
+          <span class="text-xs uppercase tracking-wide text-gray-500">Rotation</span>
+          <select x-model="filters.rotation" class="focus-ring w-full mt-1 rounded-xl border-gray-300">
+            <option value="">All</option>
+            <template x-for="r in rotationList" :key="r">
+              <option :value="r" x-text="r"></option>
+            </template>
+          </select>
+        </label>
+      </div>
+
+      <!-- Legend -->
+      <div class="mt-4 flex flex-wrap items-center gap-3 text-sm">
+        <span class="text-xs uppercase tracking-wide text-gray-500">Legend:</span>
+        <template x-for="(hex, name) in subjectColors" :key="name">
+          <span class="inline-flex items-center gap-2">
+            <span class="inline-block size-4 rounded" :style="`background:${hex}`"></span>
+            <span x-text="name"></span>
+          </span>
+        </template>
+      </div>
+    </section>
+
+    <!-- SELECTED SUMMARY BAR -->
+    <div class="print:hide sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-[var(--brand-soft)]">
+      <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
+        <div class="text-sm">
+          <strong x-text="selected.length"></strong> selected
+          <template x-if="selected.length">
+            <span>· <button @click="selectAllVisible()" class="underline">Select visible</button> · <button @click="clearAllVisible()" class="underline">Clear visible</button></span>
+          </template>
+        </div>
+        <div class="flex items-center gap-2">
+          <button @click="printSelected()" class="focus-ring rounded-xl px-3 py-2 bg-[var(--brand-accent)] text-white shadow hover:opacity-95">Print Selected</button>
+          <button @click="toggleCompact()" class="focus-ring rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-gray-50" x-text="compact ? 'Comfortable view' : 'Compact view'"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- COURSE LIST -->
+    <section class="space-y-3" :class="compact ? 'divide-y divide-gray-200' : ''">
+      <template x-for="c in filtered" :key="c.id">
+        <article class="group rounded-2xl border border-gray-200 bg-white overflow-hidden" :class="compact ? 'rounded-none border-0' : ''">
+          <div class="flex">
+            <!-- color rail -->
+            <div class="w-2 shrink-0" :style="`background:${subjectColors[c.subject] ?? '#666d66'}`"></div>
+
+            <div class="flex-1 p-3 sm:p-4">
+              <div class="flex items-start gap-3">
+                <input type="checkbox" class="mt-1 size-5 rounded border-gray-300 focus-ring" :id="'chk-'+c.id" x-model="c.checked" @change="persist()" />
+
+                <div class="flex-1">
+                  <button class="w-full text-left" @click="c.open = !c.open" :aria-expanded="c.open" :aria-controls="'panel-'+c.id">
+                    <div class="flex items-center justify-between gap-3">
+                      <h3 class="font-semibold text-lg leading-tight" x-text="c.title"></h3>
+                      <div class="flex items-center gap-2 text-sm text-gray-500">
+                        <span class="px-2 py-0.5 rounded-full border" x-text="c.subject" :style="`border-color:${subjectColors[c.subject]}; color:${subjectColors[c.subject]}`"></span>
+                        <span class="px-2 py-0.5 rounded-full bg-gray-100" x-text="c.level"></span>
+                        <span class="px-2 py-0.5 rounded-full bg-gray-100" x-text="c.rotation"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-5 transition-transform" :class="c.open ? 'rotate-180' : ''"><path fill="currentColor" d="m12 15l-5-5h10z"/></svg>
+                      </div>
+                    </div>
+                  </button>
+
+                  <!-- ACCORDION PANEL -->
+                  <div x-show="c.open" x-collapse class="mt-3" :id="'panel-'+c.id">
+                    <p class="text-gray-700" x-text="c.summary"></p>
+
+                    <div class="mt-3 grid sm:grid-cols-2 gap-3">
+                      <template x-for="row in c.details" :key="row.label">
+                        <div class="rounded-xl border border-gray-200 p-3">
+                          <div class="text-xs uppercase tracking-wide text-gray-500" x-text="row.label"></div>
+                          <div class="mt-1" x-html="row.value"></div>
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </template>
+
+      <template x-if="!filtered.length">
+        <p class="text-center text-gray-500 py-12">No courses match your filters.</p>
+      </template>
+    </section>
+
+    <!-- PRINT-ONLY VIEW (built from selected) -->
+    <section class="print:show hidden mt-8">
+      <header class="mb-4">
+        <h2 class="text-2xl font-semibold">Selected Courses</h2>
+        <p class="text-gray-600">This section is automatically generated for printing/PDF and maintains color coding + branding.</p>
+      </header>
+
+      <div class="space-y-3">
+        <template x-for="c in selected" :key="'p-'+c.id">
+          <article class="rounded-xl border border-gray-200 bg-white overflow-hidden">
+            <div class="flex">
+              <div class="w-2 shrink-0" :style="`background:${subjectColors[c.subject] ?? '#666d66'}`"></div>
+              <div class="flex-1 p-3">
+                <div class="flex items-center justify-between gap-3">
+                  <h3 class="font-semibold text-lg" x-text="c.title"></h3>
+                  <div class="flex items-center gap-2 text-sm text-gray-700">
+                    <span class="px-2 py-0.5 rounded-full border" x-text="c.subject" :style="`border-color:${subjectColors[c.subject]}; color:${subjectColors[c.subject]}`"></span>
+                    <span class="px-2 py-0.5 rounded-full bg-gray-100" x-text="c.level"></span>
+                    <span class="px-2 py-0.5 rounded-full bg-gray-100" x-text="c.rotation"></span>
+                  </div>
+                </div>
+                <p class="mt-2 text-gray-700" x-text="c.summary"></p>
+                <div class="mt-3 grid sm:grid-cols-2 gap-3">
+                  <template x-for="row in c.details" :key="'p-'+row.label">
+                    <div class="rounded-xl border border-gray-200 p-3">
+                      <div class="text-xs uppercase tracking-wide text-gray-500" x-text="row.label"></div>
+                      <div class="mt-1" x-html="row.value"></div>
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </article>
+        </template>
+      </div>
+    </section>
+
+    <!-- FOOTER (screen only) -->
+    <footer class="print:hide mt-12 text-sm text-gray-500">
+      <p>Tip: Use your browser’s “Save as PDF” from the Print dialog to create a PDF that preserves brand colors.</p>
+    </footer>
+  </div>
+
+  <script>
+    function courseApp(){
+      return {
+        // UI state
+        compact: false,
+        search: '',
+        filters: { subject: '', level: '', rotation: '' },
+        printGate: false, // toggled just-in-time for printing
+
+        // Subject -> color mapping (edit to match your brand palette)
+        subjectColors: {
+          "Bible": "#b14d3a",
+          "History": "#cf7057",
+          "Science": "#45818e",
+          "Literature": "#666d66",
+          "Latin": "#d2d6d2",
+          "Art": "#e5e8e5"
+        },
+
+        courses: [
+          {
+            id: 1,
+            title: "Bible: Grade 1",
+            subject: "Bible",
+            level: "G1",
+            rotation: "R1",
+            summary: "Short daily lessons with Scripture memory and stories.",
+            details: [
+              { label: "Overview", value: "Foundational Bible stories with gentle narration and copywork." },
+              { label: "Books", value: "<ul class='list-disc ml-5'><li>Old Testament Stories</li><li>Psalms for Children</li></ul>" },
+            ],
+            checked: false,
+            open: false,
+          },
+          {
+            id: 2,
+            title: "History: Early Modern (1650–1800)",
+            subject: "History",
+            level: "G4–G6",
+            rotation: "R3",
+            summary: "Living books survey of exploration, revolutions, and great ideas.",
+            details: [
+              { label: "Scope", value: "Age of Reason, American & French Revolutions, great biographies." },
+              { label: "Activities", value: "Timelines, map drills, narration notebooks." },
+            ],
+            checked: false,
+            open: false,
+          },
+          {
+            id: 3,
+            title: "Science: Nature Study — Botany",
+            subject: "Science",
+            level: "G1–G3",
+            rotation: "R2",
+            summary: "Hands-on nature walks and simple experiments centered on plants.",
+            details: [
+              { label: "Equipment", value: "Hand lens, field notebook, colored pencils." },
+              { label: "Assessments", value: "Weekly nature journal entries and term-end show-and-tell." },
+            ],
+            checked: false,
+            open: false,
+          },
+          {
+            id: 4,
+            title: "Literature: Tales & Fables",
+            subject: "Literature",
+            level: "G2–G3",
+            rotation: "R1",
+            summary: "Classic tales with rich narration practice and copywork.",
+            details: [
+              { label: "Texts", value: "<em>Aesop's Fables</em>, Grimm, Andersen selections." },
+              { label: "Writing", value: "Weekly written narration, commonplace excerpts." },
+            ],
+            checked: false,
+            open: false,
+          },
+          {
+            id: 5,
+            title: "Latin: Prima Latina",
+            subject: "Latin",
+            level: "G4–G5",
+            rotation: "R2",
+            summary: "Introductory Latin vocabulary, prayers, and roots.",
+            details: [
+              { label: "Format", value: "3 short lessons weekly; oral drills; copywork." },
+              { label: "Outcomes", value: "Comfort with pronunciation, basic grammar awareness." },
+            ],
+            checked: false,
+            open: false,
+          },
+          {
+            id: 6,
+            title: "Art: Picture Study — Rembrandt",
+            subject: "Art",
+            level: "G6–G8",
+            rotation: "R4",
+            summary: "Term-long picture study focusing on composition and light.",
+            details: [
+              { label: "Works", value: "Six key paintings; weekly study & narration." },
+              { label: "Notebook", value: "Sketches, color studies; gallery reflections." },
+            ],
+            checked: false,
+            open: false,
+          },
+        ],
+
+        get subjectList(){
+          // Unique subjects derived from data
+          return [...new Set(this.courses.map(c => c.subject))].sort();
+        },
+        get levelList(){
+          return [...new Set(this.courses.map(c => c.level))].sort();
+        },
+        get rotationList(){
+          return [...new Set(this.courses.map(c => c.rotation))].sort();
+        },
+
+        get filtered(){
+          const q = this.search.toLowerCase();
+          return this.courses.filter(c => {
+            const matchesQ = !q || [c.title, c.subject, c.summary].join(' ').toLowerCase().includes(q);
+            const matchesS = !this.filters.subject || c.subject === this.filters.subject;
+            const matchesL = !this.filters.level || c.level === this.filters.level;
+            const matchesR = !this.filters.rotation || c.rotation === this.filters.rotation;
+            return matchesQ && matchesS && matchesL && matchesR;
+          });
+        },
+
+        get selected(){ return this.courses.filter(c => c.checked); },
+
+        init(){
+          // Restore selections from localStorage
+          const saved = localStorage.getItem('pf_courses');
+          if(saved){
+            try{
+              const ids = JSON.parse(saved);
+              this.courses.forEach(c => { c.checked = !!ids.includes(c.id); });
+            }catch(e){ /* ignore */ }
+          }
+
+          // After-print reset to screen view
+          window.addEventListener('afterprint', () => { this.printGate = false; });
+        },
+
+        persist(){
+          const ids = this.courses.filter(c => c.checked).map(c => c.id);
+          localStorage.setItem('pf_courses', JSON.stringify(ids));
+        },
+
+        printSelected(){
+          if(!this.selected.length){ alert('Select at least one course to print.'); return; }
+          this.printGate = true;
+          // Give the DOM a tick to render the print section, then open dialog
+          setTimeout(() => window.print(), 50);
+        },
+
+        resetSelections(){
+          this.courses.forEach(c => c.checked = false);
+          this.persist();
+        },
+
+        selectAllVisible(){
+          this.filtered.forEach(c => c.checked = true);
+          this.persist();
+        },
+        clearAllVisible(){
+          this.filtered.forEach(c => c.checked = false);
+          this.persist();
+        },
+        toggleCompact(){ this.compact = !this.compact; },
+      }
+    }
+  </script>
+</body>
+</html>
