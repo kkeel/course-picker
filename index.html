@@ -300,28 +300,34 @@
       // ===== CSV loading (two tabs) =====
       async loadDualCSVs(){
         const { courses, topics } = this.dataSources;
+      
         // If URLs aren't set yet, show dummy so Preview works
         if(!courses.includes('http') || !topics.includes('http')){
           this.courses = this.buildDummy();
           return;
         }
+      
+        // Cache-buster to avoid stale CSVs on GitHub Pages / Google
+        const addCB = (u) => u + (u.includes('?') ? '&' : '?') + 'cb=' + Date.now();
+        const coursesUrl = addCB(courses);
+        const topicsUrl  = addCB(topics);
+      
         try{
           const [coursesCSV, topicsCSV] = await Promise.all([
-            fetch(courses, { mode: 'cors' }).then(r => r.text()),
-            fetch(topics,  { mode: 'cors' }).then(r => r.text())
+            fetch(coursesUrl, { mode: 'cors' }).then(r => r.text()),
+            fetch(topicsUrl,  { mode: 'cors' }).then(r => r.text())
           ]);
           const parsedCourses = Papa.parse(coursesCSV, { header: true, skipEmptyLines: true });
           const parsedTopics  = Papa.parse(topicsCSV,  { header: true, skipEmptyLines: true });
-
+      
           this.courseIndex = {};
-          // Build course objects
+      
           parsedCourses.data.forEach((row) => {
             const c = this.rowToCourse(row);
             if(!c) return;
-            this.courseIndex[c.id] = { ...c, topics: [], checked: false, open: true }; // open by default
+            this.courseIndex[c.id] = { ...c, topics: [], checked: false, open: true };
           });
-
-          // Attach topics to multiple courses
+      
           parsedTopics.data.forEach((row) => {
             const t = this.rowToTopic(row);
             if (!t) return;
@@ -331,15 +337,15 @@
               if (parent) parent.topics.push(t);
             });
           });
-
-          // Final list
+      
           this.courses = Object.values(this.courseIndex).map(c => this.decorateCourse(c));
         }catch(err){
           console.error('CSV load failed:', err);
           alert('Could not load one or both CSVs. Showing dummy structure.\n' + err);
           this.courses = this.buildDummy();
         }
-      },
+      }
+
 
       // ===== Row mappers =====
       _getCI(row, want){
