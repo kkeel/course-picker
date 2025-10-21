@@ -125,8 +125,8 @@
       </div>
     </div>
 
-    <!-- COURSE LIST -->
-    <section class="space-y-3" :class="compact ? 'divide-y divide-gray-200' : ''">
+    <!-- COURSE LIST (now hidden in print) -->
+    <section class="space-y-3 print:hide" :class="compact ? 'divide-y divide-gray-200' : ''">
       <template x-for="c in filtered" :key="c.id">
         <article class="group rounded-2xl border border-gray-200 bg-white overflow-hidden" :class="compact ? 'rounded-none border-0' : ''">
           <div class="flex">
@@ -225,7 +225,7 @@
         compact: false,
         search: '',
         filters: { subject: '', level: '', rotation: '' },
-        printGate: false, // toggled just-in-time for printing
+        printGate: false, // reserved if you want Option 2 later
 
         // Subject -> color mapping (edit to match your brand palette)
         subjectColors: {
@@ -370,7 +370,6 @@
         printSelected(){
           if(!this.selected.length){ alert('Select at least one course to print.'); return; }
           this.printGate = true;
-          // Give the DOM a tick to render the print section, then open dialog
           setTimeout(() => window.print(), 50);
         },
 
