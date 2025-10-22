@@ -32,18 +32,15 @@
       font-size: .8rem;
       cursor: pointer;
       display: inline-flex; gap:.35rem; align-items:center;
-      background: #bdc5bf; color:#262b26;
-      color: #ffffff;
-      transition: background-color 0.2s ease, transform 0.1s ease;
+      background: #bdc5bf;           /* unselected */
+      color:#262b26;                  /* readable */
+      transition: background-color 0.2s, transform 0.1s;
     }
-    .pill:hover {
-      background: #b3bbb4;     /* subtle hover shade */
-      transform: translateY(-1px);
-    }
+    .pill:hover { background:#b3bbb4; transform: translateY(-1px); }
     .pill.active {
-      background: #bdc5bf;     /* selected state */
-      border-color: #596e5e;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      background:#9da89f;             /* selected */
+      border-color:#8e988f;
+      box-shadow:0 1px 3px rgba(0,0,0,.1);
     }
     
     .icon { width:18px; height:18px; border-radius:999px; display:block; }
