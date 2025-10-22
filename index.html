@@ -74,36 +74,34 @@
   </header>
 
   <!-- Streamlined Welcome + Guidance -->
-    <section class="max-w-3xl mx-auto mb-8">
+  <!-- Top section: white background + italic intro + guidance list -->
+    <section class="bg-white rounded-2xl px-4 sm:px-6 py-5 mb-6">
     
-      <!-- Welcome (left-justified, inline heading + text) -->
-        <div class="mb-8 welcome-inline">
-          <div class="flex flex-wrap items-baseline gap-2">
-            <span class="text-2xl font-semibold text-[var(--green-dark)] leading-tight">Welcome</span>
-            <p class="text-base leading-relaxed text-gray-700 m-0">
-              The guidance below is designed to help you plan your year with intention and grace.
-              A Charlotte Mason education should fit the child, not force the child to fit the curriculum.
-            </p>
-          </div>
-        </div>
+      <!-- italic intro (no 'Welcome' heading) -->
+      <p class="italic text-base leading-relaxed text-gray-700 mb-6">
+        The guidance below is designed to help you plan your year with intention and grace.
+        A Charlotte Mason education should fit the child, not force the child to fit the curriculum.
+      </p>
     
-      <!-- Guidance list -->
+      <!-- Guidance list (no boxes; dark-green dividers) -->
       <template x-for="(g, i) in guidance" :key="g.key">
-        <div class="mb-8">
-          <div class="flex items-center gap-3 mb-3">
+        <div class="mb-6">
+          <div class="flex items-center gap-3 mb-2">
             <img :src="g.icon" class="h-9 w-9" alt="">
             <h3 class="text-xl font-semibold text-[var(--green-dark)]" x-text="g.title"></h3>
           </div>
           <div class="text-sm leading-7 text-gray-800" x-html="g.html"></div>
+    
           <!-- divider except after last -->
-          <div x-show="i < guidance.length - 1" class="border-t mt-6 pt-6" style="border-color: var(--green-dark);"></div>
+          <div x-show="i < guidance.length - 1"
+               class="border-t mt-5 pt-5"
+               style="border-color: var(--green-dark);"></div>
         </div>
       </template>
-    
     </section>
 
   <!-- Filters / view controls -->
-  <section class="panel mb-4">
+  <section class="panel mb-4 border-t border-gray-200 pt-4">
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
       <label class="block">
         <span class="text-xs uppercase tracking-wide text-gray-500">Search</span>
