@@ -28,6 +28,26 @@
       --band-green: #596e5e; /* used by .course-band */
     }
 
+    /* Indent amount for topic-level elements */
+    :root { --topic-indent: 1rem; }
+    
+    /* Visual nesting without breaking the grid alignment */
+    .topic-band-indent { margin-left: var(--topic-indent); }
+    
+    /* Only the schedule (left column) gets indented, so the grey description column still aligns */
+    .topic-schedule-indent { padding-left: var(--topic-indent); }
+    
+    /* Optional: a soft connector line to emphasize nesting */
+    .topic-connector {
+      border-left: 3px solid var(--green-light);
+      margin-left: calc(var(--topic-indent) - 3px);
+      padding-left: calc(var(--topic-indent) - 3px);
+      border-radius: 6px;
+    }
+    @media print{
+      .topic-connector { border-left-color: var(--green-light) !important; }
+    }
+
     /* Topic band (slightly lighter than course band) */
     .topic-band{ background: var(--green-light); color:#fff; }
     .topic-band .band-title{ font-size:14px; line-height:1.2; }
@@ -193,9 +213,9 @@
                 <template x-if="c.topics && c.topics.length">
                   <div class="mt-2 space-y-2">
                     <template x-for="t in c.topics" :key="t.topic_id">
-                      <div>
+                      <div class="topic-connector">
                         <!-- Topic band (title + grades only) -->
-                        <div class="topic-band rounded-md overflow-hidden">
+                        <div class="topic-band rounded-md overflow-hidden topic-band-indent">
                           <div class="px-3 py-2 border-white/10 flex items-center gap-2">
                             <input type="checkbox"
                                    class="size-5 rounded border-white/50"
@@ -209,7 +229,9 @@
                         </div>
                         <!-- Topic row: Schedule | Description | Combining -->
                         <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
-                          <div class="col-span-3 px-3 py-3 course-copy"><div x-html="t.summary || '&nbsp;'"></div></div>
+                          <div class="col-span-3 px-3 py-3 course-copy topic-schedule-indent">
+                            <div x-html="t.summary || '&nbsp;'"></div>
+                          </div>
                           <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
                             <template x-if="t.details.find(d => d.label === 'Description')">
                               <div x-html="t.details.find(d => d.label === 'Description').value"></div>
@@ -279,15 +301,17 @@
                 </template>
 
                 <template x-for="t in (c.topics||[]).filter(tt=>tt.checked)" :key="t.topic_id">
-                  <div>
+                  <div class="topic-connector">
                     <!-- Topic band (title + grades only) -->
-                    <div class="topic-band rounded-md overflow-hidden">
+                    <div class="topic-band rounded-md overflow-hidden topic-band-indent">
                       <div class="px-3 py-2 border-white/10">
                         <div class="band-title font-crimson" x-text="t.topic_title"></div>
                       </div>
                     </div>
                     <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
-                      <div class="col-span-3 px-3 py-3 course-copy"><div x-html="t.summary || '&nbsp;'"></div></div>
+                      <div class="col-span-3 px-3 py-3 course-copy topic-schedule-indent">
+                        <div x-html="t.summary || '&nbsp;'"></div>
+                      </div>
                       <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
                         <template x-if="t.details.find(d => d.label === 'Description')"><div x-html="t.details.find(d => d.label === 'Description').value"></div></template>
                       </div>
