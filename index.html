@@ -56,6 +56,9 @@
       .no-print{ display:none !important; }
       .badge { width:16px; height:16px; }
     }
+    @media (max-width: 480px){
+      .welcome-inline p { margin-top: .25rem; }
+    }
   </style>
 </head>
 <body>
@@ -73,16 +76,16 @@
   <!-- Streamlined Welcome + Guidance -->
     <section class="max-w-3xl mx-auto mb-8">
     
-      <!-- Welcome -->
-      <div class="text-center mb-8">
-        <h2 class="text-2xl font-semibold text-[var(--green-dark)] mb-2">
-          Welcome to the Alveary Course Planner
-        </h2>
-        <p class="text-base leading-relaxed text-gray-700">
-          The guidance below is designed to help you plan your year with intention and grace.
-          A Charlotte Mason education should fit the child, not force the child to fit the curriculum.
-        </p>
-      </div>
+      <!-- Welcome (left-justified, inline heading + text) -->
+        <div class="mb-8 welcome-inline">
+          <div class="flex flex-wrap items-baseline gap-2">
+            <span class="text-2xl font-semibold text-[var(--green-dark)] leading-tight">Welcome</span>
+            <p class="text-base leading-relaxed text-gray-700 m-0">
+              The guidance below is designed to help you plan your year with intention and grace.
+              A Charlotte Mason education should fit the child, not force the child to fit the curriculum.
+            </p>
+          </div>
+        </div>
     
       <!-- Guidance list -->
       <template x-for="(g, i) in guidance" :key="g.key">
@@ -93,7 +96,7 @@
           </div>
           <div class="text-sm leading-7 text-gray-800" x-html="g.html"></div>
           <!-- divider except after last -->
-          <div x-show="i < guidance.length - 1" class="border-t border-gray-300 mt-6 pt-6"></div>
+          <div x-show="i < guidance.length - 1" class="border-t mt-6 pt-6" style="border-color: var(--green-dark);"></div>
         </div>
       </template>
     
