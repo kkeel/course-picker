@@ -25,8 +25,30 @@
     .band-title{ font-size:12px; line-height:1.2; }
     .desc-bg{ background:var(--gray-soft); }
     input[type="checkbox"]{ accent-color: var(--check-green); }
-    .pill{ border:1px solid #e5e7eb; padding:.35rem .55rem; border-radius:999px; font-size:.8rem; cursor:pointer; display:inline-flex; gap:.35rem; align-items:center; background:#fff; }
-    .pill.active{ background:#e7ebe8; border-color:#d3d8d4; }
+    /* pill style */
+    .pill {
+      border: 1px solid #9da89f;
+      padding: .35rem .55rem;
+      border-radius: 999px;
+      font-size: .8rem;
+      cursor: pointer;
+      display: inline-flex;
+      gap: .35rem;
+      align-items: center;
+      background: #bdc5bf;     /* lighter green base */
+      color: #262b26;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+    .pill:hover {
+      background: #b3bbb4;     /* subtle hover shade */
+      transform: translateY(-1px);
+    }
+    .pill.active {
+      background: #9da89f;     /* selected state */
+      border-color: #8e988f;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
     .icon { width:18px; height:18px; border-radius:999px; display:block; }
     .badge { width:18px; height:18px; border-radius:999px; display:block; margin-left:.35rem; }
     .tiny{ font-size:11px; opacity:.85; }
@@ -50,7 +72,7 @@
   </header>
 
   <!-- Welcome intro -->
-  <section class="panel mb-6 text-center max-w-3xl mx-auto">
+  <section class="panel mb-6 text-left max-w-3xl mx-auto">
     <h2 class="text-2xl font-semibold text-[var(--green-dark)] mb-2">
       Welcome to the Alveary Course Planner
     </h2>
@@ -156,7 +178,7 @@
             <div class="flex flex-wrap items-center gap-2">
               <template x-for="opt in useOptions" :key="opt.value">
                 <button class="pill"
-                        :class="{'active': plan[c.id]?.use===opt.value}"
+                        :class="{'active': (Array.isArray(plan[c.id]?.use) ? plan[c.id]?.use.includes(opt.value) : plan[c.id]?.use === opt.value)}"
                         @click="setUse(c.id,opt.value)">
                   <img class="icon" :src="opt.icon" :alt="opt.label + ' icon'">
                   <span class="tiny" x-text="opt.short"></span>
@@ -293,9 +315,10 @@ function planningApp(){
 
         // plan filter
         let matchesPlan=true;
-        const use=this.plan[c.id]?.use ?? '';
-        if(this.filters.planUse==='(none)') matchesPlan = !use;
-        else if(this.filters.planUse) matchesPlan = use===this.filters.planUse;
+        const use = this.plan[c.id]?.use || [];
+        const uses = Array.isArray(use) ? use : [use];
+        if(this.filters.planUse === '(none)') matchesPlan = uses.length === 0;
+        else if(this.filters.planUse) matchesPlan = uses.includes(this.filters.planUse);
 
         // view toggles
         const passPlanned = !this.onlyPlanned || !!use;
@@ -382,7 +405,19 @@ function planningApp(){
     },
     loadPlan(){ try{ this.plan=JSON.parse(localStorage.getItem('pf_plan_v1')||'{}'); }catch{ this.plan={}; } },
     persistPlan(){ localStorage.setItem('pf_plan_v1', JSON.stringify(this.plan)); },
-    setUse(id,use){ this.plan[id]={ ...(this.plan[id]||{}), use, ts:Date.now() }; this.persistPlan(); },
+    setUse(id, use) {
+      const existing = this.plan[id]?.use || [];
+      // Normalize to array
+      const currentUses = Array.isArray(existing) ? existing : existing ? [existing] : [];
+    
+      // If already selected, remove it; otherwise add it
+      const newUses = currentUses.includes(use)
+        ? currentUses.filter(u => u !== use)
+        : [...currentUses, use];
+    
+      this.plan[id] = { ...(this.plan[id] || {}), use: newUses, ts: Date.now() };
+      this.persistPlan();
+    },
     editNote(id){ this.noteFor=id; this.noteDraft=(this.plan[id]?.note)||''; this.$refs.noteDlg.showModal(); },
     saveNote(){ if(this.noteFor){ this.plan[this.noteFor]={ ...(this.plan[this.noteFor]||{}), note:this.noteDraft, ts:Date.now() }; this.persistPlan(); } this.$refs.noteDlg.close(); },
 
