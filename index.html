@@ -25,11 +25,34 @@
       --tan-light: #babac8;     /* optional subtle tan highlight */
       --gray-soft: #f4f6fa;
       --check-green: #9da89f;
+      --band-green: #596e5e; /* used by .course-band */
     }
 
     /* Topic band (slightly lighter than course band) */
-    .topic-band{ background:#adb58f; color:#fff; }
-    .topic-band .band-title{ font-size:12px; line-height:1.2; }
+    .topic-band{ background: var(--green-light); color:#fff; }
+    .topic-band .band-title{ font-size:14px; line-height:1.2; }
+
+    /* Filters panel — soft brand background + gentle border */
+    #filters{
+      background: var(--cream-soft);
+      border-color: var(--green-light);
+    }
+    
+    /* Labels in the filters area: slightly softer ink */
+    #filters span.text-xs{
+      color: #7b8b7f; /* or var(--green-medium) if you prefer */
+    }
+
+    /* Brand-styled secondary buttons */
+    .btn-secondary{
+      background: var(--green-light) !important;
+      color: var(--brand-ink) !important;
+      border-color: var(--green-medium) !important;
+    }
+    .btn-secondary:hover{
+      background: var(--green-medium) !important;
+      color:#fff !important;
+    }
 
     /* Keep colors when printing */
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -49,7 +72,7 @@
     }
 
     .course-band{ background: var(--band-green); color:#fff; }
-    .course-band .band-title{ font-size:12px; line-height:1.2; }
+    .course-band .band-title{ font-size:16px; line-height:1.2; }
     .course-copy{ color: var(--brand-ink); font-size: 9pt; }
     .desc-bg{ background: var(--gray-soft); }
 
@@ -80,7 +103,7 @@
       </header>
 
       <!-- Filters -->
-      <section class="rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 mb-6">
+      <section id="filters" class="rounded-2xl border border-gray-200 p-4 sm:p-5 mb-6">
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <label class="block">
             <span class="text-xs uppercase tracking-wide text-gray-500">Search</span>
@@ -119,10 +142,11 @@
           </button>
             <button
               @click="localStorage.removeItem('pf_csv_cache_v1'); location.reload()"
-              class="rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-[#f4f6fa]">
+              class="btn-secondary rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-[#f4f6fa]">
               Refresh data
             </button>
-          <button @click="printSelected()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print Selected</button>
+          <button @click="printSelected()" class="btn-secondary
+             rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print Selected</button>
         </div>
       </div>
 
