@@ -113,6 +113,11 @@
             class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">
             Clear
           </button>
+            <button
+              @click="localStorage.removeItem('pf_csv_cache_v1'); location.reload()"
+              class="rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-[#f4f6fa]">
+              Refresh data
+            </button>
           <button @click="printSelected()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print Selected</button>
         </div>
       </div>
@@ -159,20 +164,28 @@
                   <div class="mt-2 space-y-2">
                     <template x-for="t in c.topics" :key="t.topic_id">
                       <div>
-                        <!-- Topic band -->
+                        <!-- Topic band (title + grades only) -->
                         <div class="topic-band rounded-md overflow-hidden">
                           <div class="grid grid-cols-12">
-                            <div class="col-span-3 px-3 py-2 border-white/10 flex items-center gap-2">
-                              <input type="checkbox" class="size-5 rounded border-white/50" :id="'chk-t-'+t.topic_id" x-model="t.checked" @change="persist()" />
-                              <div class="band-title font-crimson"><span x-text="t.topic_title"></span></div>
+                            <!-- Title + checkbox -->
+                            <div class="col-span-8 px-3 py-2 border-white/10 flex items-center gap-2">
+                              <input type="checkbox"
+                                     class="size-5 rounded border-white/50"
+                                     :id="'chk-t-'+t.topic_id"
+                                     x-model="t.checked"
+                                     @change="persist()" />
+                              <div class="band-title font-crimson">
+                                <span x-text="t.topic_title"></span>
+                              </div>
                             </div>
-                            <div class="col-span-5 px-3 py-2 border-white/10"><div class="band-title">Description</div></div>
-                            <div class="col-span-4 px-3 py-2 border-white/10">
-                              <div class="band-title">Combining &amp; Placement<br><span class="text-[11px] opacity-90" x-text="t.levelDisplay"></span></div>
+                            <!-- Grades (right aligned) -->
+                            <div class="col-span-4 px-3 py-2 border-white/10 text-right">
+                              <div class="band-title">
+                                GRADE(S): <span class="opacity-90" x-text="t.levelDisplay"></span>
+                              </div>
                             </div>
                           </div>
                         </div>
-
                         <!-- Topic row: Schedule | Description | Combining -->
                         <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
                           <div class="col-span-3 px-3 py-3 course-copy"><div x-html="t.summary || '&nbsp;'"></div></div>
@@ -243,11 +256,17 @@
 
                 <template x-for="t in (c.topics||[]).filter(tt=>tt.checked)" :key="t.topic_id">
                   <div>
+                    <!-- Topic band (title + grades only) -->
                     <div class="topic-band rounded-md overflow-hidden">
                       <div class="grid grid-cols-12">
-                        <div class="col-span-3 px-3 py-2 border-white/10"><div class="band-title font-crimson" x-text="t.topic_title"></div></div>
-                        <div class="col-span-5 px-3 py-2 border-white/10"><div class="band-title">Description</div></div>
-                        <div class="col-span-4 px-3 py-2 border-white/10"><div class="band-title">Combining &amp; Placement<br><span class="text-[11px] opacity-90" x-text="t.levelDisplay"></span></div></div>
+                        <div class="col-span-8 px-3 py-2 border-white/10">
+                          <div class="band-title font-crimson" x-text="t.topic_title"></div>
+                        </div>
+                        <div class="col-span-4 px-3 py-2 border-white/10 text-right">
+                          <div class="band-title">
+                            GRADE(S): <span class="opacity-90" x-text="t.levelDisplay"></span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
@@ -442,35 +461,50 @@
           },
       
           async loadDualCSVs(){
-            const addCB = (u) => u + (u.includes('?') ? '&' : '?') + 'cb=' + Date.now();
-            try{
-              const [coursesCSV, topicsCSV] = await Promise.all([
-                fetch(addCB(this.dataSources.courses), { mode:'cors' }).then(r=>r.text()),
-                fetch(addCB(this.dataSources.topics),  { mode:'cors' }).then(r=>r.text())
-              ]);
-              const pc = Papa.parse(coursesCSV, { header:true, skipEmptyLines:true });
-              const pt = Papa.parse(topicsCSV,  { header:true, skipEmptyLines:true });
-      
-              this.courseIndex = {};
-              pc.data.forEach(row => {
-                const c = this.rowToCourse(row);
-                if(c) this.courseIndex[c.id] = { ...c, topics: [] };
-              });
-      
-              pt.data.forEach(row => {
-                const t = this.rowToTopic(row);
-                if(!t) return;
-                t.course_ids.forEach(cid => {
-                  if(this.courseIndex[cid]) this.courseIndex[cid].topics.push(t);
-                });
-              });
-      
-              this.courses = Object.values(this.courseIndex);
-            }catch(err){
-              console.error('CSV load failed:', err);
-              alert('Could not load CSVs.');
-              this.courses = [];
+            const cacheKey = 'pf_csv_cache_v1';
+            const maxAgeMs = 6 * 60 * 60 * 1000; // 6 hours
+            const now = Date.now();
+          
+            // Try cache
+            let cached;
+            try { cached = JSON.parse(localStorage.getItem(cacheKey) || 'null'); } catch {}
+            if (cached && (now - cached.ts) < maxAgeMs) {
+              const pc = Papa.parse(cached.courses, { header:true, skipEmptyLines:true });
+              const pt = Papa.parse(cached.topics,  { header:true, skipEmptyLines:true });
+              this.applyParsed(pc, pt);
+              return;
             }
+          
+            // Fetch fresh
+            const [coursesCSV, topicsCSV] = await Promise.all([
+              fetch(this.dataSources.courses, { mode:'cors' }).then(r=>r.text()),
+              fetch(this.dataSources.topics,  { mode:'cors' }).then(r=>r.text())
+            ]);
+          
+            // Save to cache
+            localStorage.setItem(cacheKey, JSON.stringify({ ts: now, courses: coursesCSV, topics: topicsCSV }));
+          
+            const pc = Papa.parse(coursesCSV, { header:true, skipEmptyLines:true });
+            const pt = Papa.parse(topicsCSV,  { header:true, skipEmptyLines:true });
+            this.applyParsed(pc, pt);
+          },
+          
+          applyParsed(pc, pt){
+            this.courseIndex = {};
+            pc.data.forEach(row => {
+              const c = this.rowToCourse(row);
+              if(c) this.courseIndex[c.id] = { ...c, topics: [] };
+            });
+          
+            pt.data.forEach(row => {
+              const t = this.rowToTopic(row);
+              if(!t) return;
+              t.course_ids.forEach(cid => {
+                if(this.courseIndex[cid]) this.courseIndex[cid].topics.push(t);
+              });
+            });
+          
+            this.courses = Object.values(this.courseIndex);
           },
       
           /* ---------- Persist course + topic selection ---------- */
