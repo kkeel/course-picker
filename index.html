@@ -133,6 +133,9 @@
       @media (min-width: 640px){
         .schedule-col { padding-right:.25rem; }
       }
+    /* make topic rows a bit smaller than course title */
+      .topics-list { font-size: 0.92rem; }
+      .topics-list label span { line-height:1.3; }
   </style>
 </head>
 <body>
@@ -203,7 +206,7 @@
           <option value="">All</option>
           <option value="Core">Core</option>
           <option value="Family">Family</option>
-          <option value="High Interest">High-Interest</option>
+          <option value="High Interest">High Interest</option>
           <option value="Additional">Additional</option>
           <option value="(none)">Undecided</option>
         </select>
@@ -260,8 +263,10 @@
             <!-- info button (only if description or combining exists) -->
               <button x-show="c.hasInfo"
                       @click="c.infoOpen = !c.infoOpen"
+                      :aria-expanded="c.infoOpen"
                       class="ml-1 text-xs bg-white/15 hover:bg-white/25 px-2 py-1 rounded">
-                i
+                <span x-show="!c.infoOpen">i</span>
+                <span x-show="c.infoOpen">–</span>
               </button>
           </div>
 
@@ -276,10 +281,6 @@
                   <span class="tiny" x-text="opt.short"></span>
                 </button>
               </template>
-              <button class="pill" @click="editNote(c.id)">
-                <span class="tiny">Note</span>
-                <span class="tiny opacity-75" x-show="plan[c.id]?.note">•</span>
-              </button>
             </div>
           </div>
         </div>
@@ -326,13 +327,12 @@
 
         <!-- topics -->
         <template x-if="c.topics && c.topics.length">
-          <div class="px-3 pb-3">
+          <div class="px-3 pb-3 topics-list">
             <div class="text-xs uppercase tracking-wide text-gray-500 mt-2 mb-1">Topics</div>
             <template x-for="t in c.topics" :key="t.topic_id">
               <label class="flex items-center gap-2 py-1">
                 <input type="checkbox" class="size-4" x-model="t.checked" @change="persistChecked()" />
                 <span x-text="t.topic_title"></span>
-                <button @click="openInfo(t, c)" class="text-xs ml-1 underline">info</button>
               </label>
             </template>
           </div>
