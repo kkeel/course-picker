@@ -21,20 +21,18 @@
     .title{ color:var(--green-dark); font-weight:700; font-size:34px; }
     .course-card{ border:1px solid #e5e7eb; background:#fff; border-radius:.75rem; overflow:hidden; }
     .course-band{ background:var(--band-green); color:#fff; }
-    .band-title{ font-size:12px; line-height:1.2; }
+    .band-title{ font-family: "Crimson Text", serif; font-size: 1.05rem; line-height: 1.15; }
     .desc-bg{ background:var(--gray-soft); }
     input[type="checkbox"]{ accent-color: var(--check-green); }
     /* pill style */
     .pill {
-      border: 1px solid #bdc5bf;
+      border: 1px solid #9da89f;
       padding: .35rem .55rem;
       border-radius: 999px;
       font-size: .8rem;
       cursor: pointer;
-      display: inline-flex;
-      gap: .35rem;
-      align-items: center;
-      background: #596e5e;     /* lighter green base */
+      display: inline-flex; gap:.35rem; align-items:center;
+      background: #bdc5bf; color:#262b26;
       color: #ffffff;
       transition: background-color 0.2s ease, transform 0.1s ease;
     }
@@ -59,6 +57,16 @@
     @media (max-width: 480px){
       .welcome-inline p { margin-top: .25rem; }
     }
+    /* legend + helper text under filters */
+      .legend img{ width:18px; height:18px; border-radius:999px; }
+      .legend li{ display:flex; align-items:center; gap:.4rem; }
+      
+      /* inline note area */
+      .note-area { background:#f4f6fa; border-radius:.5rem; padding:.5rem .6rem; }
+      .note-area textarea{
+        width:100%; border:1px solid #d9ded9; border-radius:.5rem; min-height:64px;
+        padding:.5rem .6rem; font-size:.9rem; background:#fff;
+      }
     /* Headings + icon row */
       .guidance-head {
         display: flex;
@@ -210,6 +218,20 @@
         <strong x-text="selectedCount"></strong> selected
       </div>
     </div>
+    <!-- helper row: tip + legend -->
+      <div class="mt-3 text-sm text-gray-700 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+        <div>
+          <em>Tip:</em> Click <strong>“i”</strong> on any course or topic to view Description and Combining &amp; Placement guidance.
+        </div>
+        <ul class="legend flex flex-wrap items-center gap-3">
+          <li><img src="Core%20Subjects.png" alt=""> Core</li>
+          <li><img src="Family%20Subjects.png" alt=""> Family</li>
+          <li><img src="Combine%20Subjects.png" alt=""> Combine</li>
+          <li><img src="High%20Interest%20Subjects.png" alt=""> High Interest</li>
+          <li><img src="Additional%20Subjects.png" alt=""> Additional</li>
+          <li><img src="Plan%20Your%20Year.png" alt=""> Plan</li>
+        </ul>
+      </div>
   </section>
 
   <!-- Sticky actions -->
@@ -231,12 +253,6 @@
             <input type="checkbox" class="size-5 rounded border-white/50" x-model="c.checked" @change="persistChecked()" />
             <div class="band-title flex items-center gap-1">
               <span x-text="c.title"></span>
-              <!-- multiple plan badges -->
-              <span class="flex items-center gap-1 ml-1" x-show="(iconsFor(plan[c.id]?.use).length)">
-                <template x-for="ic in iconsFor(plan[c.id]?.use)" :key="ic">
-                  <img class="badge" :src="ic" alt="" />
-                </template>
-              </span>
             </div>
             <!-- info -->
             <button @click="openInfo(c)" class="ml-1 text-xs bg-white/15 hover:bg-white/25 px-2 py-1 rounded">i</button>
@@ -261,13 +277,23 @@
           </div>
         </div>
 
-        <!-- row -->
-        <div class="grid grid-cols-12">
-          <div class="col-span-4 px-3 py-3 text-sm" x-html="c.summary || '&nbsp;'"></div>
-          <div class="col-span-8 px-4 py-4 desc-bg text-sm leading-relaxed">
-            <em class="opacity-60">Tip:</em> Click “i” for description & combining guidance.
+        <!-- row body -->
+          <div class="grid grid-cols-12">
+            <div class="col-span-4 px-3 py-3 text-sm" x-html="c.summary || '&nbsp;'"></div>
+          
+            <!-- inline planning note -->
+            <div class="col-span-8 px-4 py-4">
+              <div class="note-area">
+                <label class="text-xs uppercase tracking-wide text-gray-500 block mb-1">
+                  Planning note (optional)
+                </label>
+                <textarea
+                  :value="plan[c.id]?.note || ''"
+                  @input="plan[c.id]={ ...(plan[c.id]||{}), note:$event.target.value, ts:Date.now() }; persistPlan();"
+                  placeholder="Add any details for your plan (who it’s for, pacing, resources, etc.)"></textarea>
+              </div>
+            </div>
           </div>
-        </div>
 
         <!-- topics -->
         <template x-if="c.topics && c.topics.length">
@@ -391,11 +417,12 @@ function planningApp(){
     ],
 
     useOptions:[
-      {label:'Core', value:'Core', short:'Core', icon:'Core%20Subjects.png'},
-      {label:'Family', value:'Family', short:'Family', icon:'Family%20Subjects.png'},
-      {label:'High Interest', value:'High Interest', short:'Interest', icon:'High%20Interest%20Subjects.png'},
-      {label:'Additional', value:'Additional', short:'Add', icon:'Additional%20Subjects.png'},
-      {label:'Undecided', value:'', short:'None', icon:'Plan%20Your%20Year.png'}
+      {label:'Core Subject', value:'Core', icon:'Core%20Subjects.png'},
+      {label:'Family', value:'Family', icon:'Family%20Subjects.png'},
+      {label:'Combine', value:'Combine', icon:'Combine%20Subjects.png'},
+      {label:'High Interest', value:'High Interest', icon:'High%20Interest%20Subjects.png'},
+      {label:'Additional', value:'Additional', icon:'Additional%20Subjects.png'},
+      {label:'Plan', value:'Plan', icon:'Plan%20Your%20Year.png'} // using Plan icon
     ],
 
     /* ---------- sources (same as your list page) ---------- */
@@ -531,11 +558,13 @@ function planningApp(){
     editNote(id){ this.noteFor=id; this.noteDraft=(this.plan[id]?.note)||''; this.$refs.noteDlg.showModal(); },
     saveNote(){ if(this.noteFor){ this.plan[this.noteFor]={ ...(this.plan[this.noteFor]||{}), note:this.noteDraft, ts:Date.now() }; this.persistPlan(); } this.$refs.noteDlg.close(); },
 
-    iconMap: {
-      'Core': 'Core%20Subjects.png',
-      'Family': 'Family%20Subjects.png',
-      'High Interest': 'High%20Interest%20Subjects.png',
-      'Additional': 'Additional%20Subjects.png'
+    iconMap:{
+      'Core':'Core%20Subjects.png',
+      'Family':'Family%20Subjects.png',
+      'Combine':'Combine%20Subjects.png',
+      'High Interest':'High%20Interest%20Subjects.png',
+      'Additional':'Additional%20Subjects.png',
+      'Plan':'Plan%20Your%20Year.png'
     },
     iconsFor(use){
       const uses = Array.isArray(use) ? use : (use ? [use] : []);
