@@ -95,33 +95,29 @@
   </header>
 
   <!-- Streamlined Welcome + Guidance -->
-  <!-- Top section: white intro card + guidance blocks -->
+  <!-- Top info: one white card containing intro + all guidance -->
     <section class="mb-6">
-    
-      <!-- italic intro inside a subtle white card -->
-      <div class="intro-card mb-6">
-        <p class="italic text-base leading-relaxed text-gray-700 m-0">
+      <div class="intro-card">
+        <!-- italic intro -->
+        <p class="italic text-base leading-relaxed text-gray-700 m-0 mb-4">
           The guidance below is designed to help you plan your year with intention and grace.
           A Charlotte Mason education should fit the child, not force the child to fit the curriculum.
         </p>
-      </div>
     
-      <!-- Guidance list (no boxes) -->
-      <template x-for="(g, i) in guidance" :key="g.key">
-        <div class="guidance-block">
-          <div class="guidance-head flex items-center gap-3">
-            <img :src="g.icon" class="h-9 w-9" alt="">
-            <h3 class="text-xl font-semibold text-[var(--green-dark)]" x-text="g.title"></h3>
+        <!-- Guidance list inside the same card -->
+        <template x-for="(g, i) in guidance" :key="g.key">
+          <div class="guidance-block">
+            <div class="guidance-head flex items-center gap-3">
+              <img :src="g.icon" class="h-9 w-9" alt="">
+              <h3 class="text-xl font-semibold text-[var(--green-dark)]" x-text="g.title"></h3>
+            </div>
+    
+            <div class="guidance-copy" x-html="g.html"></div>
+    
+            <div x-show="i < guidance.length - 1" class="divider-green"></div>
           </div>
-    
-          <!-- tighter, PDF-like paragraph formatting -->
-          <div class="guidance-copy" x-html="g.html"></div>
-    
-          <!-- thin dark-green divider except after last -->
-          <div x-show="i < guidance.length - 1" class="divider-green"></div>
-        </div>
-      </template>
-    
+        </template>
+      </div>
     </section>
 
   <!-- Filters / view controls -->
