@@ -16,17 +16,25 @@
       --green-dark:#596e5e; --gray-soft:#f4f6fa;
       --band-green:#596e5e; --check-green:#9da89f;
     }
-    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    *{-webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;}
     body{ background:var(--brand-bg); color:var(--brand-ink); font-family:'DM Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
     .title{ color:var(--green-dark); font-weight:700; font-size:34px; }
     .panel{ border:1px solid #e5e7eb; background:#fff; border-radius:1rem; padding:1rem; }
+    .course-card{ border:1px solid #e5e7eb; background:#fff; border-radius:.75rem; overflow:hidden; }
     .course-band{ background:var(--band-green); color:#fff; }
     .band-title{ font-size:12px; line-height:1.2; }
     .desc-bg{ background:var(--gray-soft); }
     input[type="checkbox"]{ accent-color: var(--check-green); }
-    .pill{ border:1px solid #e5e7eb; padding:.35rem .6rem; border-radius:999px; font-size:.8rem; cursor:pointer; }
+    .pill{ border:1px solid #e5e7eb; padding:.35rem .55rem; border-radius:999px; font-size:.8rem; cursor:pointer; display:inline-flex; gap:.35rem; align-items:center; background:#fff; }
     .pill.active{ background:#e7ebe8; border-color:#d3d8d4; }
+    .icon { width:18px; height:18px; border-radius:999px; display:block; }
+    .badge { width:18px; height:18px; border-radius:999px; display:block; margin-left:.35rem; }
+    .tiny{ font-size:11px; opacity:.85; }
     dialog::backdrop{ background:rgba(0,0,0,.25); }
+    @media print{
+      .no-print{ display:none !important; }
+      .badge { width:16px; height:16px; }
+    }
   </style>
 </head>
 <body>
@@ -36,65 +44,32 @@
   <header class="flex items-center gap-3 mb-6">
     <img src="Alveary%20Lt.%20Green.png" alt="" class="h-10 w-10 object-contain">
     <h1 class="title">Alveary Course Planning</h1>
-    <div class="ml-auto text-sm">
-      <a href="./index.html" class="underline">↩︎ Back to Course List</a>
+    <div class="ml-auto text-sm no-print">
+      <a href="./courses.html" class="underline">View / Print Course List</a>
     </div>
   </header>
 
-  <!-- Guidance (collapsible cards + your icons) -->
-  <section class="grid md:grid-cols-2 gap-4 mb-6">
-    <!-- Core Subjects -->
-    <details class="panel" open>
-      <summary class="flex items-center gap-3 cursor-pointer">
-        <img src="Core%20Subjects.png" class="h-10 w-10" alt="">
-        <span class="font-semibold">Core Subjects</span>
-      </summary>
-      <div class="mt-3 text-sm leading-6">
-        Focus on your must-have requirements (e.g., Bible, History, Geography, English/Reading, Literature, Science, Math). Note any stream changes (e.g., only Ancient), or planned combinations (e.g., G2+G3 in Science).
-      </div>
-    </details>
-
-    <!-- High Interest -->
-    <details class="panel">
-      <summary class="flex items-center gap-3 cursor-pointer">
-        <img src="High%20Interest%20Subjects.png" class="h-10 w-10" alt="">
-        <span class="font-semibold">High-Interest Subjects</span>
-      </summary>
-      <div class="mt-3 text-sm leading-6">
-        Pick a few spark subjects per child or for the family. Rotate by term if needed (e.g., Shakespeare ➝ Plutarch ➝ Composer) or stretch a term over two for a gentler pace.
-      </div>
-    </details>
-
-    <!-- Additional Subjects -->
-    <details class="panel">
-      <summary class="flex items-center gap-3 cursor-pointer">
-        <img src="Additional%20Subjects.png" class="h-10 w-10" alt="">
-        <span class="font-semibold">Additional Subjects</span>
-      </summary>
-      <div class="mt-3 text-sm leading-6">
-        Add one or two priorities you haven’t covered yet—credits, family values, or future goals. These can include non-Alveary resources (co-ops, ACT prep) or skills like cooking/car care.
-      </div>
-    </details>
-
-    <!-- Plan Your Year -->
-    <details class="panel">
-      <summary class="flex items-center gap-3 cursor-pointer">
-        <img src="Plan%20Your%20Year.png" class="h-10 w-10" alt="">
-        <span class="font-semibold">Plan Your Year</span>
-      </summary>
-      <div class="mt-3 text-sm leading-6">
-        Build your timetable with Alveary’s tools. Keep a short “maybe” list to add later. See “Relational Education,” “Balancing the Feast,” and “Tips for Combining Students” for guidance.
-      </div>
-    </details>
+  <!-- Guidance (collapsible; remembers state) -->
+  <section class="grid md:grid-cols-2 gap-4 mb-6 no-print">
+    <template x-for="g in guidance" :key="g.key">
+      <details class="panel" :open="isOpen(g.key)" @toggle="toggleOpen(g.key,$event.target.open)">
+        <summary class="flex items-center gap-3 cursor-pointer select-none">
+          <img :src="g.icon" class="h-10 w-10" alt="">
+          <span class="font-semibold" x-text="g.title"></span>
+        </summary>
+        <div class="mt-3 text-sm leading-6" x-html="g.html"></div>
+      </details>
+    </template>
   </section>
 
-  <!-- Filters -->
+  <!-- Filters / view controls -->
   <section class="panel mb-4">
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
       <label class="block">
         <span class="text-xs uppercase tracking-wide text-gray-500">Search</span>
         <input x-model.trim.debounce.250ms="search" type="search" placeholder="Title, subject, keyword…" class="w-full mt-1 rounded-xl border-gray-300 placeholder-[#7b8b7f]" />
       </label>
+
       <label class="block">
         <span class="text-xs uppercase tracking-wide text-gray-500">Subject</span>
         <select x-model="filters.subject" class="w-full mt-1 rounded-xl border-gray-300">
@@ -102,6 +77,7 @@
           <template x-for="s in subjectList" :key="s"><option :value="s" x-text="s"></option></template>
         </select>
       </label>
+
       <label class="block">
         <span class="text-xs uppercase tracking-wide text-gray-500">Grade</span>
         <select x-model="filters.levelTag" class="w-full mt-1 rounded-xl border-gray-300">
@@ -109,38 +85,76 @@
           <template x-for="lvl in levelList" :key="lvl"><option :value="lvl" x-text="lvl"></option></template>
         </select>
       </label>
+
+      <label class="block">
+        <span class="text-xs uppercase tracking-wide text-gray-500">Plan</span>
+        <select x-model="filters.planUse" class="w-full mt-1 rounded-xl border-gray-300">
+          <option value="">All</option>
+          <option value="Core">Core</option>
+          <option value="Family">Family</option>
+          <option value="High Interest">High-Interest</option>
+          <option value="Additional">Additional</option>
+          <option value="(none)">Undecided</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="mt-3 flex flex-wrap items-center gap-3">
+      <label class="inline-flex items-center gap-2 text-sm">
+        <input type="checkbox" x-model="onlyPlanned"> Show only planned
+      </label>
+      <label class="inline-flex items-center gap-2 text-sm">
+        <input type="checkbox" x-model="onlyChecked"> Show only checked
+      </label>
+      <div class="ml-auto tiny text-gray-500">
+        <strong x-text="selectedCount"></strong> selected
+      </div>
     </div>
   </section>
 
-  <!-- Actions -->
-  <div class="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-gray-200 flex justify-between items-center">
-    <div><strong x-text="selectedCount"></strong> selected</div>
+  <!-- Sticky actions -->
+  <div class="no-print sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-gray-200 flex justify-between items-center">
+    <div class="tiny"><strong x-text="selectedCount"></strong> selected</div>
     <div class="flex items-center gap-2">
       <button @click="clearAll()" class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">Clear</button>
       <button @click="printSelected()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print Selected</button>
     </div>
   </div>
 
-  <!-- Course list with planning controls -->
+  <!-- Course list -->
   <section>
     <template x-for="c in groupedFlat" :key="c.id">
-      <div class="mb-3 rounded-md overflow-hidden border border-gray-200 bg-white">
+      <div class="course-card mb-3">
         <!-- band -->
         <div class="course-band grid grid-cols-12">
-          <div class="col-span-5 px-3 py-2 border-white/10 flex items-center gap-2">
+          <div class="col-span-6 px-3 py-2 border-white/10 flex items-center gap-2">
             <input type="checkbox" class="size-5 rounded border-white/50" x-model="c.checked" @change="persistChecked()" />
-            <div class="band-title font-crimson" x-text="c.title"></div>
+            <div class="band-title flex items-center gap-1">
+              <span x-text="c.title"></span>
+              <!-- tiny plan badge -->
+              <template x-if="plan[c.id]?.use && iconFor(plan[c.id]?.use)">
+                <img class="badge" :src="iconFor(plan[c.id]?.use)" :alt="plan[c.id]?.use + ' icon'">
+              </template>
+            </div>
             <!-- info -->
             <button @click="openInfo(c)" class="ml-1 text-xs bg-white/15 hover:bg-white/25 px-2 py-1 rounded">i</button>
           </div>
-          <div class="col-span-7 px-3 py-2 border-white/10">
+
+          <!-- plan icon pills -->
+          <div class="col-span-6 px-3 py-2 border-white/10">
             <div class="flex flex-wrap items-center gap-2">
-              <span class="text-[11px] mr-2 opacity-90" x-text="c.levelDisplay"></span>
-              <template x-for="opt in useOptions">
-                <button class="pill" :class="{'active': plan[c.id]?.use===opt.value}"
-                        @click="setUse(c.id,opt.value)" x-text="opt.label"></button>
+              <template x-for="opt in useOptions" :key="opt.value">
+                <button class="pill"
+                        :class="{'active': plan[c.id]?.use===opt.value}"
+                        @click="setUse(c.id,opt.value)">
+                  <img class="icon" :src="opt.icon" :alt="opt.label + ' icon'">
+                  <span class="tiny" x-text="opt.short"></span>
+                </button>
               </template>
-              <button class="pill" @click="editNote(c.id)">Add note</button>
+              <button class="pill" @click="editNote(c.id)">
+                <span class="tiny">Note</span>
+                <span class="tiny opacity-75" x-show="plan[c.id]?.note">•</span>
+              </button>
             </div>
           </div>
         </div>
@@ -153,7 +167,7 @@
           </div>
         </div>
 
-        <!-- topics if any -->
+        <!-- topics -->
         <template x-if="c.topics && c.topics.length">
           <div class="px-3 pb-3">
             <div class="text-xs uppercase tracking-wide text-gray-500 mt-2 mb-1">Topics</div>
@@ -169,13 +183,13 @@
       </div>
     </template>
 
-    <template x-if="!filtered.length">
-      <p class="text-center text-gray-500 py-12">No courses match your filters.</p>
+    <template x-if="!groupedFlat.length">
+      <p class="text-center text-gray-500 py-12">No courses match your filters/view.</p>
     </template>
   </section>
 
   <!-- Info modal -->
-  <dialog x-ref="dlg" class="rounded-xl p-0 w-[min(800px,95vw)]">
+  <dialog x-ref="dlg" class="rounded-xl p-0 w-[min(860px,95vw)]">
     <div class="p-4 sm:p-6">
       <div class="flex items-start gap-3">
         <h3 class="text-lg font-semibold" x-text="modal.title"></h3>
@@ -194,7 +208,7 @@
     </div>
   </dialog>
 
-  <!-- Note prompt (very light) -->
+  <!-- Note prompt -->
   <dialog x-ref="noteDlg" class="rounded-xl p-0 w-[min(560px,95vw)]">
     <form @submit.prevent="saveNote()" class="p-4 sm:p-6">
       <div class="font-semibold mb-2">Planning note</div>
@@ -211,21 +225,37 @@
 <script>
 function planningApp(){
   return {
-    /* ---------- shared state ---------- */
-    search:'', filters:{subject:'', levelTag:''},
-    courses:[], courseIndex:{},
-    plan: {},                // { [courseId]: {use, note, ts} }
-    noteFor: null, noteDraft:'',
-    modal:{ title:'', description:'', combine:''},
-    useOptions:[
-      {label:'Core', value:'Core'},
-      {label:'Family', value:'Family'},
-      {label:'High-Interest', value:'High Interest'},
-      {label:'Additional', value:'Additional'},
-      {label:'Undecided', value:''},
+    /* ---------- UI state ---------- */
+    search:'', filters:{subject:'', levelTag:'', planUse:''},
+    onlyPlanned:false, onlyChecked:false,
+
+    /* ---------- data ---------- */
+    courses:[], courseIndex:{}, plan:{}, openGuidance:{},
+
+    noteFor:null, noteDraft:'',
+    modal:{title:'',description:'',combine:''},
+
+    // guidance blocks (uses your uploaded PNGs)
+    guidance:[
+      { key:'core', title:'Core Subjects', icon:'Core%20Subjects.png',
+        html:`Focus on your must-have requirements (Bible, History, Geography, English/Reading, Literature, Science, Math). Note stream changes or planned combinations (e.g., combine G2+G3 in Science).` },
+      { key:'family', title:'Family & High-Interest', icon:'Family%20Subjects.png',
+        html:`Choose spark subjects per child or for the family. Rotate by term (e.g., Shakespeare → Plutarch → Composer) or slow the pace across two terms.` },
+      { key:'additional', title:'Additional Subjects', icon:'Additional%20Subjects.png',
+        html:`Add a priority not yet covered—credits, family values, or future goals. Include non-Alveary resources (co-ops, ACT prep) or skills like cooking/car care.` },
+      { key:'plan', title:'Plan Your Year', icon:'Plan%20Your%20Year.png',
+        html:`Build your timetable with Alveary’s tools. Keep a short “maybe” list. See “Relational Education,” “Balancing the Feast,” and “Tips for Combining Students.”` },
     ],
 
-    /* ---------- sources & field maps (match your Course List page) ---------- */
+    useOptions:[
+      {label:'Core', value:'Core', short:'Core', icon:'Core%20Subjects.png'},
+      {label:'Family', value:'Family', short:'Family', icon:'Family%20Subjects.png'},
+      {label:'High Interest', value:'High Interest', short:'Interest', icon:'High%20Interest%20Subjects.png'},
+      {label:'Additional', value:'Additional', short:'Add', icon:'Additional%20Subjects.png'},
+      {label:'Undecided', value:'', short:'None', icon:'Plan%20Your%20Year.png'}
+    ],
+
+    /* ---------- sources (same as your list page) ---------- */
     dataSources:{
       courses:'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=0&single=true&output=csv',
       topics: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=1919021076&single=true&output=csv'
@@ -241,18 +271,29 @@ function planningApp(){
       schedule_text:'Scheduling_R3', grade_text:'Grade_Text', grade_filter:'Grade_Filter'
     },
 
-    /* ---------- derived ---------- */
+    /* ---------- computed ---------- */
     get filtered(){
       const q=this.search.toLowerCase();
       return this.courses.filter(c=>{
+        // text filters
         const matchesQ=!q || [c.title,c.subject,c.summary,c.levelDisplay].join(' ').toLowerCase().includes(q);
         const matchesS=!this.filters.subject || c.subject===this.filters.subject;
         const matchesL=!this.filters.levelTag || (c.levelTags||[]).includes(this.filters.levelTag);
-        return matchesQ && matchesS && matchesL;
+
+        // plan filter
+        let matchesPlan=true;
+        const use=this.plan[c.id]?.use ?? '';
+        if(this.filters.planUse==='(none)') matchesPlan = !use;
+        else if(this.filters.planUse) matchesPlan = use===this.filters.planUse;
+
+        // view toggles
+        const passPlanned = !this.onlyPlanned || !!use;
+        const passChecked = !this.onlyChecked || c.checked || (c.topics||[]).some(t=>t.checked);
+
+        return matchesQ && matchesS && matchesL && matchesPlan && passPlanned && passChecked;
       });
     },
     get groupedFlat(){
-      // same ordering as your list page, but flattened by subject
       const by = new Map();
       this.filtered.forEach(c=>{ const s=c.subject||'Other'; if(!by.has(s)) by.set(s,[]); by.get(s).push(c); });
       const special='Alt. Science Options';
@@ -271,7 +312,7 @@ function planningApp(){
       const na=+a.replace(/\D/g,''); const nb=+b.replace(/\D/g,''); return na-nb || a.localeCompare(b);
     }); },
 
-    /* ---------- helpers shared with list page ---------- */
+    /* ---------- helpers ---------- */
     _getCI(row,want){ const keys=Array.isArray(want)?want:[want]; for(const k of keys){ const hit=Object.keys(row).find(h=>h.trim().toLowerCase()===String(k).trim().toLowerCase()); if(hit) return row[hit]; } },
     computeGradeTags(gr){
       const tags=[]; const range=gr&&gr.match(/^(?:[Gg]?(\d+))\s*[–-]\s*[Gg]?(\d+)$/);
@@ -317,7 +358,38 @@ function planningApp(){
       return { topic_id, course_ids:rawCourseIds.split(',').map(s=>s.trim()).filter(Boolean), topic_title, summary:schedule_t, details, levelDisplay, levelTags, checked:false };
     },
 
-    /* ---------- load, persist, sync ---------- */
+    /* ---------- storage & sync ---------- */
+    persistChecked(){
+      const ids=[]; this.courses.forEach(c=>{ if(c.checked) ids.push('c:'+c.id); (c.topics||[]).forEach(t=>{ if(t.checked) ids.push('t:'+t.topic_id); }); });
+      localStorage.setItem('pf_courses', JSON.stringify(ids));
+    },
+    restoreChecked(){
+      try{
+        const saved=JSON.parse(localStorage.getItem('pf_courses')||'[]'); const set=new Set(saved);
+        this.courses.forEach(c=>{ c.checked=set.has('c:'+c.id); (c.topics||[]).forEach(t=>{ t.checked=set.has('t:'+t.topic_id); }); });
+      }catch{}
+    },
+    loadPlan(){ try{ this.plan=JSON.parse(localStorage.getItem('pf_plan_v1')||'{}'); }catch{ this.plan={}; } },
+    persistPlan(){ localStorage.setItem('pf_plan_v1', JSON.stringify(this.plan)); },
+    setUse(id,use){ this.plan[id]={ ...(this.plan[id]||{}), use, ts:Date.now() }; this.persistPlan(); },
+    editNote(id){ this.noteFor=id; this.noteDraft=(this.plan[id]?.note)||''; this.$refs.noteDlg.showModal(); },
+    saveNote(){ if(this.noteFor){ this.plan[this.noteFor]={ ...(this.plan[this.noteFor]||{}), note:this.noteDraft, ts:Date.now() }; this.persistPlan(); } this.$refs.noteDlg.close(); },
+
+    iconFor(use){
+      const map={
+        'Core':'Core%20Subjects.png',
+        'Family':'Family%20Subjects.png',
+        'High Interest':'High%20Interest%20Subjects.png',
+        'Additional':'Additional%20Subjects.png'
+      };
+      return map[use] || null;
+    },
+
+    /* ---------- guidance open/close memory ---------- */
+    isOpen(key){ return this.openGuidance[key] ?? (key==='core'); },
+    toggleOpen(key,val){ this.openGuidance[key]=!!val; localStorage.setItem('pf_guidance_open', JSON.stringify(this.openGuidance)); },
+
+    /* ---------- load ---------- */
     async loadDualCSVs(){
       const cacheKey='pf_csv_cache_v1', maxAgeMs=6*60*60*1000, now=Date.now();
       let cached; try{ cached=JSON.parse(localStorage.getItem(cacheKey)||'null'); }catch{}
@@ -342,29 +414,12 @@ function planningApp(){
       this.courses=Object.values(this.courseIndex);
     },
 
-    persistChecked(){
-      const ids=[]; this.courses.forEach(c=>{ if(c.checked) ids.push('c:'+c.id); (c.topics||[]).forEach(t=>{ if(t.checked) ids.push('t:'+t.topic_id); }); });
-      localStorage.setItem('pf_courses', JSON.stringify(ids));
-    },
-    restoreChecked(){
-      try{
-        const saved=JSON.parse(localStorage.getItem('pf_courses')||'[]'); const set=new Set(saved);
-        this.courses.forEach(c=>{ c.checked=set.has('c:'+c.id); (c.topics||[]).forEach(t=>{ t.checked=set.has('t:'+t.topic_id); }); });
-      }catch{}
-    },
-    loadPlan(){
-      try{ this.plan=JSON.parse(localStorage.getItem('pf_plan_v1')||'{}'); }catch{ this.plan={}; }
-    },
-    persistPlan(){ localStorage.setItem('pf_plan_v1', JSON.stringify(this.plan)); },
-    setUse(id,use){ this.plan[id]={ ...(this.plan[id]||{}), use, ts:Date.now() }; this.persistPlan(); },
-    editNote(id){ this.noteFor=id; this.noteDraft=(this.plan[id]?.note)||''; this.$refs.noteDlg.showModal(); },
-    saveNote(){ if(this.noteFor){ this.plan[this.noteFor]={ ...(this.plan[this.noteFor]||{}), note:this.noteDraft, ts:Date.now() }; this.persistPlan(); } this.$refs.noteDlg.close(); },
-
+    /* ---------- actions ---------- */
     clearAll(){
       this.courses.forEach(c=>{ c.checked=false; (c.topics||[]).forEach(t=>t.checked=false); });
       this.persistChecked();
+      this.plan={}; this.persistPlan();
     },
-
     openInfo(item, parent){
       const isTopic = !!item.topic_id;
       this.modal.title = isTopic ? `${item.topic_title}${parent? ' — '+parent.title : ''}` : item.title;
@@ -372,10 +427,12 @@ function planningApp(){
       this.modal.combine = (item.details.find(d=>d.label==='Combining & Placement')||{}).value || '';
       this.$refs.dlg.showModal();
     },
-
     printSelected(){ window.print(); },
 
     async init(){
+      // load guidance open state
+      try{ this.openGuidance = JSON.parse(localStorage.getItem('pf_guidance_open')||'{}'); }catch{ this.openGuidance={}; }
+
       await this.loadDualCSVs();
       this.restoreChecked();
       this.loadPlan();
