@@ -28,7 +28,7 @@
     /* Title + subject divider */
     .title-alveary { color: var(--green-dark); font-weight: 700; font-size: 28px; }
   
-    .subject-divider { color: var(--ink-dark); font-weight: 700; font-size: 15px; }
+    .subject-divider { color: var(--ink-dark); font-weight: 700; font-size: 18px; position: sticky; top: 64px; background: var(--brand-bg); z-index: 5; }
   
     /* Course band across the three columns */
     .course-band { background: var(--band-green); color: #fff; }
@@ -155,27 +155,25 @@
       
                   <div class="flex-1 p-3 sm:p-4">
                     <div class="flex items-start gap-3">
-                      <!-- TOGGLE ROW becomes the green band with checkbox and title -->
+                      <!-- GREEN BAND (STATIC, NON-COLLAPSIBLE) -->
                       <div class="flex-1">
-                        <button class="w-full text-left" @click="c.open = !c.open" :aria-expanded="c.open" :aria-controls="'panel-'+c.id">
-                          <div class="course-band rounded-md overflow-hidden">
-                            <div class="grid grid-cols-12">
-                              <div class="col-span-3 px-3 py-2 border-white/10 flex items-center gap-2">
-                                <input type="checkbox" class="size-5 rounded border-white/50 focus-ring" :id="'chk-'+c.id" x-model="c.checked" @change="persist()" />
-                                <div class="band-title font-crimson"><span x-text="c.title"></span></div>
-                              </div>
-                              <div class="col-span-5 px-3 py-2 border-white/10">
-                                <div class="band-title">Description</div>
-                              </div>
-                              <div class="col-span-4 px-3 py-2 border-white/10">
-                                <div class="band-title">Combining &amp; Placement <span x-text="c.levelDisplay"></span></div>
-                              </div>
+                        <div class="course-band rounded-md overflow-hidden">
+                          <div class="grid grid-cols-12">
+                            <div class="col-span-3 px-3 py-2 border-white/10 flex items-center gap-2">
+                              <input type="checkbox" class="size-5 rounded border-white/50 focus-ring" :id="'chk-'+c.id" x-model="c.checked" @change="persist()" />
+                              <div class="band-title font-crimson"><span x-text="c.title"></span></div>
+                            </div>
+                            <div class="col-span-5 px-3 py-2 border-white/10">
+                              <div class="band-title">Description</div>
+                            </div>
+                            <div class="col-span-4 px-3 py-2 border-white/10">
+                              <div class="band-title">Combining &amp; Placement<br><span class="text-[11px] opacity-90" x-text="c.levelDisplay"></span></div>
                             </div>
                           </div>
-                        </button>
+                        </div>
 
-                        <div x-show="c.open" x-collapse class="mt-0.5" :id="'panel-'+c.id">
-                          <!-- Content row -->
+                        <!-- ALWAYS VISIBLE CONTENT ROW -->
+                        <div class="mt-0.5">
                           <div class="grid grid-cols-12 gap-0 border border-gray-200 rounded-b-md overflow-hidden">
                             <!-- Schedule (left) -->
                             <div class="col-span-3 px-3 py-3 course-copy">
@@ -196,7 +194,7 @@
                               </template>
                             </div>
                           </div>
-                        </div> <!-- /accordion -->
+                        </div>
                       </div> <!-- /flex-1 (title/controls) -->
                     </div> <!-- /row with checkbox + content -->
                   </div> <!-- /content padding -->
@@ -219,9 +217,9 @@
 
     <!-- PRINT-ONLY VIEW (built from selected) -->
     <section class="print:show hidden mt-8">
-      <header class="mb-4">
-        <h2 class="text-2xl font-semibold">Selected Courses</h2>
-        <p class="text-gray-600">This section is automatically generated for printing/PDF and maintains color coding + branding.</p>
+      <header class="mb-4 flex items-center gap-3">
+        <img src="logo.png" alt="Alveary" class="h-8 w-8 object-contain" />
+        <h1 class="title-alveary m-0">Alveary Course List</h1>
       </header>
 
       <div class="space-y-3">
@@ -240,7 +238,7 @@
                       <div class="band-title">Description</div>
                     </div>
                     <div class="col-span-4 px-3 py-2 border-white/10">
-                      <div class="band-title">Combining &amp; Placement <span x-text="c.levelDisplay"></span></div>
+                      <div class="band-title">Combining &amp; Placement<br><span class="text-[11px] opacity-90" x-text="c.levelDisplay"></span></div>
                     </div>
                   </div>
                 </div>
