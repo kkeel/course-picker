@@ -1,0 +1,49 @@
+:root{
+  --brand-bg: #fbfbf9;
+  --brand-ink: #262b26;
+  --green-dark: #596e5e;   /* title + band */
+  --gray-soft: #f4f6fa;    /* description bg */
+  --band-green: #596e5e;   /* band */
+  --check-green: #9da89f;  /* checkbox accent */
+}
+
+/* Topic band (slightly lighter than course band) */
+.topic-band{ background:#adb58f; color:#fff; }
+.topic-band .band-title{ font-size:12px; line-height:1.2; }
+
+/* Keep colors when printing */
+* { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+body{
+  font-family: 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--brand-bg);
+  color: var(--brand-ink);
+}
+.font-crimson{ font-family: 'Crimson Text', Georgia, serif; }
+
+.title-alveary{ color: var(--green-dark); font-weight: 700; font-size: 34px; }
+.subject-divider{
+  color: var(--brand-ink); font-weight: 700; font-size: 26px;
+  margin-top: 3rem; margin-bottom: 1rem;
+  position: sticky; top: 64px; background: var(--brand-bg); z-index: 5;
+}
+
+.course-band{ background: var(--band-green); color:#fff; }
+.course-band .band-title{ font-size:12px; line-height:1.2; }
+.course-copy{ color: var(--brand-ink); font-size: 9pt; }
+.desc-bg{ background: var(--gray-soft); }
+
+input[type="checkbox"]{ accent-color: var(--check-green); }
+
+/* Print adjustments — keep the band + grey description */
+@media print{
+  body{ background:#fff !important; }
+  .print\:hidden{ display:none !important; }
+  .print\:block{ display:block !important; }
+
+  .course-band{ background: var(--band-green) !important; color:#fff !important; }
+  .topic-band{ background:#adb58f !important; color:#fff !important; }
+  .desc-bg{ background: var(--gray-soft) !important; }
+
+  .subject-divider{ position: static !important; background: transparent !important; }
+}
