@@ -13,37 +13,57 @@
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-  <style>
-    :root{
-      --brand-bg: #fbfbf9;
-      --brand-ink: #262b26;
-      --green-dark: #596e5e;   /* title + band */
-      --gray-soft: #f4f6fa;    /* description bg */
-      --band-green: #596e5e;   /* band */
-      --check-green: #9da89f;  /* checkbox accent */
-    }
-    body{ font-family: 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--brand-bg); color: var(--brand-ink); }
-    .font-crimson{ font-family: 'Crimson Text', Georgia, serif; }
+    <style>
+      :root{
+        --brand-bg: #fbfbf9;
+        --brand-ink: #262b26;
+        --green-dark: #596e5e;   /* title + band */
+        --gray-soft: #f4f6fa;    /* description bg */
+        --band-green: #596e5e;   /* band */
+        --check-green: #9da89f;  /* checkbox accent */
+      }
+    
+      /* Keep colors when printing */
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    
+      body{
+        font-family: 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        background: var(--brand-bg);
+        color: var(--brand-ink);
+      }
+      .font-crimson{ font-family: 'Crimson Text', Georgia, serif; }
+    
+      .title-alveary{ color: var(--green-dark); font-weight: 700; font-size: 34px; }
+      .subject-divider{
+        color: var(--brand-ink); font-weight: 700; font-size: 26px;
+        margin-top: 3rem; margin-bottom: 1rem;
+        position: sticky; top: 64px; background: var(--brand-bg); z-index: 5;
+      }
+    
+      .course-band{ background: var(--band-green); color:#fff; }
+      .course-band .band-title{ font-size:12px; line-height:1.2; }
+      .course-copy{ color: var(--brand-ink); font-size: 9pt; }
+      .desc-bg{ background: var(--gray-soft); }
+    
+      input[type="checkbox"]{ accent-color: var(--check-green); }
+    
+      /* Print adjustments — keep the band + grey description */
+      @media print{
+        body{ background:#fff !important; }
+        .print\:hidden{ display:none !important; }
+        .print\:block{ display:block !important; }
+    
+        /* force these colors to survive print */
+        .course-band{ background: var(--band-green) !important; color:#fff !important; }
+        .desc-bg{ background: var(--gray-soft) !important; }
+    
+        .subject-divider{ position: static !important; background: transparent !important; }
+      }
+    </style>
 
-    .title-alveary{ color: var(--green-dark); font-weight: 700; font-size: 34px; }
-    .subject-divider{ color: var(--brand-ink); font-weight: 700; font-size: 26px; margin-top: 3rem; margin-bottom: 1rem; position: sticky; top: 64px; background: var(--brand-bg); z-index: 5; }
-
-    .course-band{ background: var(--band-green); color:#fff; }
-    .course-band .band-title{ font-size:12px; line-height:1.2; }
-    .course-copy{ color: var(--brand-ink); font-size: 9pt; }
-    .desc-bg{ background: var(--gray-soft); }
-
-    input[type="checkbox"]{ accent-color: var(--check-green); }
-
-    /* Default print adjustments; preserve desc grey */
-    @media print{
-      body{ background:#fff !important; }
-      .print\:hidden{ display:none !important; }
-      .print\:block{ display:block !important; }
-      .desc-bg{ background: var(--gray-soft) !important; }
-      .subject-divider{ position: static !important; background: transparent !important; }
-    }
-  </style>
 </head>
 <body class="min-h-screen">
   <div x-data="courseApp()" x-init="init()" class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
@@ -87,7 +107,7 @@
       <div class="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-gray-200 flex justify-between items-center">
         <div><strong x-text="selected.length"></strong> selected</div>
         <div class="flex items-center gap-2">
-          <button @click="courses.forEach(c=>c.checked=false); persist()" class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">Clear selections</button>
+          <button @click="courses.forEach(c=>c.checked=false); persist()" class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">Clear</button>
           <button @click="printSelected()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print Selected</button>
         </div>
       </div>
