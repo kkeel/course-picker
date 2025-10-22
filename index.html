@@ -19,7 +19,6 @@
     *{-webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;}
     body{ background:var(--brand-bg); color:var(--brand-ink); font-family:'DM Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
     .title{ color:var(--green-dark); font-weight:700; font-size:34px; }
-    .panel{ border:1px solid #e5e7eb; background:#fff; border-radius:1rem; padding:1rem; }
     .course-card{ border:1px solid #e5e7eb; background:#fff; border-radius:.75rem; overflow:hidden; }
     .course-band{ background:var(--band-green); color:#fff; }
     .band-title{ font-size:12px; line-height:1.2; }
@@ -71,29 +70,34 @@
     </div>
   </header>
 
-  <!-- Welcome intro -->
-  <section class="panel mb-6 text-left max-w-3xl mx-auto">
-    <h2 class="text-2xl font-semibold text-[var(--green-dark)] mb-2">
-      Welcome to the Alveary Course Planner
-    </h2>
-    <p class="text-base leading-relaxed text-gray-700">
-      The guidance below is designed to help you plan your year with intention and grace.
-      A Charlotte Mason education should fit the child, not force the child to fit the curriculum.
-    </p>
-  </section>
-
-  <!-- Guidance (collapsible; remembers state) -->
-  <section class="grid md:grid-cols-2 gap-4 mb-6 no-print">
-    <template x-for="g in guidance" :key="g.key">
-      <details class="panel" :open="isOpen(g.key)" @toggle="toggleOpen(g.key,$event.target.open)">
-        <summary class="flex items-center gap-3 cursor-pointer select-none">
-          <img :src="g.icon" class="h-10 w-10" alt="">
-          <span class="font-semibold" x-text="g.title"></span>
-        </summary>
-        <div class="mt-3 text-sm leading-6" x-html="g.html"></div>
-      </details>
-    </template>
-  </section>
+  <!-- Streamlined Welcome + Guidance -->
+    <section class="max-w-3xl mx-auto mb-8">
+    
+      <!-- Welcome -->
+      <div class="text-center mb-8">
+        <h2 class="text-2xl font-semibold text-[var(--green-dark)] mb-2">
+          Welcome to the Alveary Course Planner
+        </h2>
+        <p class="text-base leading-relaxed text-gray-700">
+          The guidance below is designed to help you plan your year with intention and grace.
+          A Charlotte Mason education should fit the child, not force the child to fit the curriculum.
+        </p>
+      </div>
+    
+      <!-- Guidance list -->
+      <template x-for="(g, i) in guidance" :key="g.key">
+        <div class="mb-8">
+          <div class="flex items-center gap-3 mb-3">
+            <img :src="g.icon" class="h-9 w-9" alt="">
+            <h3 class="text-xl font-semibold text-[var(--green-dark)]" x-text="g.title"></h3>
+          </div>
+          <div class="text-sm leading-7 text-gray-800" x-html="g.html"></div>
+          <!-- divider except after last -->
+          <div x-show="i < guidance.length - 1" class="border-t border-gray-300 mt-6 pt-6"></div>
+        </div>
+      </template>
+    
+    </section>
 
   <!-- Filters / view controls -->
   <section class="panel mb-4">
