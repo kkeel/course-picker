@@ -63,6 +63,11 @@
     .guidance-copy{ font-size:0.96rem; line-height:1.55; color:#2f3a33; }
     .guidance-copy p{ margin:0 0 .6rem 0; }           /* tighter paragraph gap */
     .guidance-copy p:last-child{ margin-bottom:0; }
+
+    .guidance-copy ul li {
+      margin-left: 0.5rem;
+      padding-left: 0.25rem;
+    }
     
     .guidance-head{ margin-bottom:.35rem; }           /* pull text closer to heading/icon */
     .guidance-block{ margin-bottom:1.25rem; }         /* tighter block spacing */
@@ -297,31 +302,55 @@ function planningApp(){
 
     // guidance blocks (uses your uploaded PNGs)
     guidance:[
-      { key:'core', title:'Core Subjects', icon:'Core%20Subjects.png',
-        html:`Start by focusing on the core subjects required by your state or those you consider nonnegotiable, such as Bible, History, Geography, English/Reading, Literature, Science, and Math.
-
-If you plan to modify a subject—such as focusing on only one stream of History (e.g., World, Ancient, or US/Canadian for grades 4+)—make a note of it. Similarly, if you intend to combine students into a single grade level for a subject (e.g., 2nd and 3rd graders sharing a 3rd-grade Science course), make note of that too. Refer to our tips on combining students for additional guidance.` },
-      { key:'family', title:'Family & High-Interest', icon:'Family%20Subjects.png',
+      {
+        key:'core', title:'Core Subjects', icon:'Core%20Subjects.png',
         html:`
-Next, choose a few subjects that spark high interest for each child or that your whole family would enjoy together.
-
-You can focus on the same subject throughout the year or rotate topics to explore a variety. For example, you might dedicate one term each to Shakespeare, Plutarch, and Composer Study if you don't have room for a full year of each. If you prefer a slower pace, consider spreading a term's worth of lessons across two terms. This approach works well for subjects such as Art Instruction or Singing, giving you the flexibility to adjust to your students' needs.` },
-      { key:'additional', title:'Additional Subjects', icon:'Additional%20Subjects.png',
+          <p>Start by focusing on the core subjects required by your state or those you consider nonnegotiable, such as <strong>Bible, History, Geography, English/Reading, Literature, Science,</strong> and <strong>Math.</strong></p>
+    
+          <p>If you plan to modify a subject—such as focusing on only one stream of History (e.g., <em>World, Ancient,</em> or <em>US/Canadian for grades 4+</em>)—make a note of it. Similarly, if you intend to combine students into a single grade level for a subject (e.g., <em>2nd and 3rd graders sharing a 3rd-grade Science course</em>), make note of that too.</p>
+    
+          <p>Refer to our <a href="#" class="underline text-[var(--green-dark)] hover:opacity-80">tips on combining students</a> for additional guidance.</p>
+        `
+      },
+      {
+        key:'family', title:'Family & High-Interest', icon:'Family%20Subjects.png',
         html:`
-Review the remaining subjects and choose one or two that feel especially important to include, especially if they haven’t been covered yet. Consider options that:
-
-   •   Fulfill high school credit requirements.
-   •   Reflect your family’s priorities or interests.
-   •   Align with your child’s passions or future goals.
-
-These could also be subjects where Alveary offers resources without daily lesson plans (e.g., cooking or car maintenance) or areas where you can incorporate non-Alveary resources, such as co-op classes or ACT prep courses.` },
-      { key:'plan', title:'Plan Your Year', icon:'Plan%20Your%20Year.png',
+          <p>Next, choose a few subjects that spark high interest for each child or that your whole family would enjoy together.</p>
+    
+          <p>You can focus on the same subject throughout the year or rotate topics to explore a variety. For example, you might dedicate one term each to <em>Shakespeare, Plutarch,</em> and <em>Composer Study</em> if you don't have room for a full year of each. If you prefer a slower pace, consider spreading a term's worth of lessons across two terms.</p>
+    
+          <p>This approach works well for subjects such as <em>Art Instruction</em> or <em>Singing,</em> giving you the flexibility to adjust to your students' needs.</p>
+        `
+      },
+      {
+        key:'additional', title:'Additional Subjects', icon:'Additional%20Subjects.png',
         html:`
-Now that you’ve identified your subjects you are ready to create a schedule using Alveary's scheduling tools. This is a great starting point for your school year. 
-
-If you have room for additional subjects—or think you might later—make a list of what you’d like to include and why each is important. Consider adding these subjects when time allows. 
-.
-For guidance, refer to these Alveary resources:` },
+          <p>Review the remaining subjects and choose one or two that feel especially important to include, especially if they haven’t been covered yet. Consider options that:</p>
+    
+          <ul class="list-disc pl-6 mt-2 mb-3 space-y-1">
+            <li>Fulfill high school credit requirements.</li>
+            <li>Reflect your family’s priorities or interests.</li>
+            <li>Align with your child’s passions or future goals.</li>
+          </ul>
+    
+          <p>These could also be subjects where Alveary offers resources without daily lesson plans (e.g., <em>cooking</em> or <em>car maintenance</em>) or areas where you can incorporate non-Alveary resources, such as co-op classes or ACT prep courses.</p>
+        `
+      },
+      {
+        key:'plan', title:'Plan Your Year', icon:'Plan%20Your%20Year.png',
+        html:`
+          <p>Now that you’ve identified your subjects, you’re ready to create a schedule using Alveary’s scheduling tools. This is a great starting point for your school year.</p>
+    
+          <p>If you have room for additional subjects—or think you might later—make a list of what you’d like to include and why each is important. Consider adding these subjects when time allows.</p>
+    
+          <p>For guidance, refer to these Alveary resources:</p>
+          <ul class="list-disc pl-6 mt-2 mb-1 space-y-1">
+            <li><a href="#" class="underline text-[var(--green-dark)] hover:opacity-80">Relational Education (which subjects are intertwined)</a></li>
+            <li><a href="#" class="underline text-[var(--green-dark)] hover:opacity-80">Balancing the Feast (organizing subject variety)</a></li>
+            <li><a href="#" class="underline text-[var(--green-dark)] hover:opacity-80">Tips for Combining Students</a></li>
+          </ul>
+        `
+      }
     ],
 
     useOptions:[
