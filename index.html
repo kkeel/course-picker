@@ -254,8 +254,12 @@
             <div class="band-title flex items-center gap-1">
               <span x-text="c.title"></span>
             </div>
-            <!-- info -->
-            <button @click="openInfo(c)" class="ml-1 text-xs bg-white/15 hover:bg-white/25 px-2 py-1 rounded">i</button>
+            <!-- info button (only if description or combining exists) -->
+              <button x-show="c.hasInfo"
+                      @click="c.infoOpen = !c.infoOpen"
+                      class="ml-1 text-xs bg-white/15 hover:bg-white/25 px-2 py-1 rounded">
+                i
+              </button>
           </div>
 
           <!-- plan icon pills -->
@@ -277,23 +281,42 @@
           </div>
         </div>
 
-        <!-- row body -->
-          <div class="grid grid-cols-12">
-            <div class="col-span-4 px-3 py-3 text-sm" x-html="c.summary || '&nbsp;'"></div>
-          
+        <!-- body row -->
+        <div class="grid grid-cols-12">
+          <!-- LEFT: schedule intentionally blank -->
+          <div class="col-span-4 px-3 py-3 text-sm">&nbsp;</div>
+        
+          <!-- RIGHT: note + (accordion) details -->
+          <div class="col-span-8 px-4 py-4">
             <!-- inline planning note -->
-            <div class="col-span-8 px-4 py-4">
-              <div class="note-area">
-                <label class="text-xs uppercase tracking-wide text-gray-500 block mb-1">
-                  Planning note (optional)
-                </label>
-                <textarea
-                  :value="plan[c.id]?.note || ''"
-                  @input="plan[c.id]={ ...(plan[c.id]||{}), note:$event.target.value, ts:Date.now() }; persistPlan();"
-                  placeholder="Add any details for your plan (who it’s for, pacing, resources, etc.)"></textarea>
-              </div>
+            <div class="note-area">
+              <label class="text-xs uppercase tracking-wide text-gray-500 block mb-1">
+                Planning note (optional)
+              </label>
+              <textarea
+                :value="plan[c.id]?.note || ''"
+                @input="plan[c.id]={ ...(plan[c.id]||{}), note:$event.target.value, ts:Date.now() }; persistPlan();"
+                placeholder="Add any details for your plan (who it’s for, pacing, resources, etc.)"></textarea>
+            </div>
+        
+            <!-- accordion content (opens under note) -->
+            <div x-show="c.infoOpen && c.hasInfo" x-collapse class="mt-3 pt-3 border-t border-gray-200">
+              <template x-if="c.description">
+                <div class="mb-3">
+                  <div class="font-semibold mb-1">Description</div>
+                  <div class="text-sm leading-6" x-html="c.description"></div>
+                </div>
+              </template>
+        
+              <template x-if="c.combining">
+                <div>
+                  <div class="font-semibold mb-1">Combining &amp; Placement</div>
+                  <div class="text-sm leading-6" x-html="c.combining"></div>
+                </div>
+              </template>
             </div>
           </div>
+        </div>
 
         <!-- topics -->
         <template x-if="c.topics && c.topics.length">
@@ -315,41 +338,9 @@
       <p class="text-center text-gray-500 py-12">No courses match your filters/view.</p>
     </template>
   </section>
-
-  <!-- Info modal -->
-  <dialog x-ref="dlg" class="rounded-xl p-0 w-[min(860px,95vw)]">
-    <div class="p-4 sm:p-6">
-      <div class="flex items-start gap-3">
-        <h3 class="text-lg font-semibold" x-text="modal.title"></h3>
-        <button @click="$refs.dlg.close()" class="ml-auto text-sm underline">Close</button>
-      </div>
-      <div class="grid sm:grid-cols-2 gap-4 mt-4 text-sm leading-6">
-        <div>
-          <div class="font-semibold mb-1">Description</div>
-          <div x-html="modal.description || '<span class=opacity-60>No description.</span>'"></div>
-        </div>
-        <div>
-          <div class="font-semibold mb-1">Combining & Placement</div>
-          <div x-html="modal.combine || '<span class=opacity-60>No info.</span>'"></div>
-        </div>
-      </div>
-    </div>
-  </dialog>
-
-  <!-- Note prompt -->
-  <dialog x-ref="noteDlg" class="rounded-xl p-0 w-[min(560px,95vw)]">
-    <form @submit.prevent="saveNote()" class="p-4 sm:p-6">
-      <div class="font-semibold mb-2">Planning note</div>
-      <textarea x-model="noteDraft" rows="5" class="w-full rounded-xl border-gray-300"></textarea>
-      <div class="mt-3 flex justify-end gap-2">
-        <button type="button" @click="$refs.noteDlg.close()" class="px-3 py-2 rounded-xl border">Cancel</button>
-        <button type="submit" class="px-3 py-2 rounded-xl bg-[var(--green-dark)] text-white">Save</button>
-      </div>
-    </form>
-  </dialog>
-
+  
 </div>
-
+  
 <script>
 function planningApp(){
   return {
@@ -422,7 +413,6 @@ function planningApp(){
       {label:'Combine', value:'Combine', icon:'Combine%20Subjects.png'},
       {label:'High Interest', value:'High Interest', icon:'High%20Interest%20Subjects.png'},
       {label:'Additional', value:'Additional', icon:'Additional%20Subjects.png'},
-      {label:'Plan', value:'Plan', icon:'Plan%20Your%20Year.png'} // using Plan icon
     ],
 
     /* ---------- sources (same as your list page) ---------- */
@@ -497,18 +487,31 @@ function planningApp(){
       const id=(g('course_id')||'').toString().trim();
       const title=(g('course_title')||'').toString().trim();
       if(!id && !title) return null;
+    
       const subject=(g('subject')||'').toString().trim();
       const gradeText=(g('grade_text')||'').toString().trim();
       const gradeFilter=(g('grade_filter')||'').toString().trim();
-      const schedule=(g('schedule_text')||'').toString().trim();
+      const schedule=(g('schedule_text')||'').toString().trim();       // we’ll not show it, but keep it in case later
       const description=(g('description')||'').toString().trim();
       const combining=(g('combining_placement')||'').toString().trim();
+    
       const levelDisplay=gradeText||'';
       const levelTags=(gradeFilter && /G\s*\d+/i.test(gradeFilter))
         ? (gradeFilter.match(/G\s*\d+/gi)||[]).map(s=>'G'+s.replace(/[^0-9]/g,''))
         : this.computeGradeTags(gradeText);
-      const details=[]; if(description) details.push({label:'Description', value:description}); if(combining) details.push({label:'Combining & Placement', value:combining});
-      return { id:id||title, title:title||id, subject, summary:schedule, details, levelDisplay, levelTags, checked:false, topics:[] };
+    
+      const details=[];
+      if(description) details.push({label:'Description', value:description});
+      if(combining)   details.push({label:'Combining & Placement', value:combining});
+    
+      const hasInfo = !!(description || combining);
+    
+      return {
+        id:id||title, title:title||id, subject,
+        summary:schedule, details, description, combining, hasInfo,
+        levelDisplay, levelTags, checked:false, topics:[],
+        infoOpen:false               // NEW: accordion state per course
+      };
     },
     rowToTopic(row){
       const g=(k)=>this._getCI(row,this.topicFields[k]);
@@ -564,7 +567,6 @@ function planningApp(){
       'Combine':'Combine%20Subjects.png',
       'High Interest':'High%20Interest%20Subjects.png',
       'Additional':'Additional%20Subjects.png',
-      'Plan':'Plan%20Your%20Year.png'
     },
     iconsFor(use){
       const uses = Array.isArray(use) ? use : (use ? [use] : []);
@@ -607,13 +609,6 @@ function planningApp(){
       this.courses.forEach(c=>{ c.checked=false; (c.topics||[]).forEach(t=>t.checked=false); });
       this.persistChecked();
       this.plan={}; this.persistPlan();
-    },
-    openInfo(item, parent){
-      const isTopic = !!item.topic_id;
-      this.modal.title = isTopic ? `${item.topic_title}${parent? ' — '+parent.title : ''}` : item.title;
-      this.modal.description = (item.details.find(d=>d.label==='Description')||{}).value || '';
-      this.modal.combine = (item.details.find(d=>d.label==='Combining & Placement')||{}).value || '';
-      this.$refs.dlg.showModal();
     },
     printSelected(){ window.print(); },
 
