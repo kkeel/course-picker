@@ -21,7 +21,7 @@
       --green-dark: #596e5e;    /* dark green (titles, main buttons) */
       --green-medium: #7b8b7f;  /* medium green accent */
       --green-light: #adb58f;   /* light green (topic bands, highlights) */
-      --cream-soft: #f4eed9;    /* soft cream for panels */
+      --cream-soft: #fbfbf9;    /* soft white/cream for panels */
       --tan-light: #babac8;     /* optional subtle tan highlight */
       --gray-soft: #f4f6fa;
       --check-green: #9da89f;
@@ -72,7 +72,7 @@
     }
 
     .course-band{ background: var(--band-green); color:#fff; }
-    .course-band .band-title{ font-size:16px; line-height:1.2; }
+    .course-band .band-title{ font-size:14px; line-height:1.2; }
     .course-copy{ color: var(--brand-ink); font-size: 9pt; }
     .desc-bg{ background: var(--gray-soft); }
 
@@ -142,8 +142,8 @@
           </button>
             <button
               @click="localStorage.removeItem('pf_csv_cache_v1'); location.reload()"
-              class="btn-secondary rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-[#f4f6fa]">
-              Refresh data
+              class="rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-[#f4f6fa]">
+              🔄 Refresh
             </button>
           <button @click="printSelected()" class="btn-secondary
              rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print Selected</button>
@@ -172,20 +172,22 @@
                   </div>
                 </div>
 
-                <!-- Course row: Schedule | Description | Combining -->
-                <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
-                  <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'"></div></div>
-                  <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
-                    <template x-if="c.details.find(d => d.label === 'Description')">
-                      <div x-html="c.details.find(d => d.label === 'Description').value"></div>
-                    </template>
-                  </div>
-                  <div class="col-span-4 px-4 py-4 course-copy leading-relaxed">
-                    <template x-if="c.details.find(d => d.label === 'Combining & Placement')">
-                      <div x-html="c.details.find(d => d.label === 'Combining & Placement').value"></div>
-                    </template>
-                  </div>
-                </div>
+                <!-- Course row: Schedule | Description | Combining (only if any exist) -->
+                  <template x-if="hasCourseDetail(c)">
+                    <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
+                      <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'"></div></div>
+                      <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
+                        <template x-if="c.details.find(d => d.label === 'Description')">
+                          <div x-html="c.details.find(d => d.label === 'Description').value"></div>
+                        </template>
+                      </div>
+                      <div class="col-span-4 px-4 py-4 course-copy leading-relaxed">
+                        <template x-if="c.details.find(d => d.label === 'Combining & Placement')">
+                          <div x-html="c.details.find(d => d.label === 'Combining & Placement').value"></div>
+                        </template>
+                      </div>
+                    </div>
+                  </template>
 
                 <!-- TOPICS (if any) -->
                 <template x-if="c.topics && c.topics.length">
@@ -254,15 +256,18 @@
                     <div class="col-span-4 px-3 py-2 border-white/10"><div class="band-title">Combining &amp; Placement<br><span class="text-[11px] opacity-90" x-text="c.levelDisplay"></span></div></div>
                   </div>
                 </div>
-                <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
-                  <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'"></div></div>
-                  <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
-                    <template x-if="c.details.find(d => d.label === 'Description')"><div x-html="c.details.find(d => d.label === 'Description').value"></div></template>
-                  </div>
-                  <div class="col-span-4 px-4 py-4 course-copy leading-relaxed">
-                    <template x-if="c.details.find(d => d.label === 'Combining & Placement')"><div x-html="c.details.find(d => d.label === 'Combining & Placement').value"></div></template>
-                  </div>
-                </div>
+                <!-- Only print detail row if there is content -->
+                  <template x-if="hasCourseDetail(c)">
+                    <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
+                      <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'"></div></div>
+                      <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
+                        <template x-if="c.details.find(d => d.label === 'Description')"><div x-html="c.details.find(d => d.label === 'Description').value"></div></template>
+                      </div>
+                      <div class="col-span-4 px-4 py-4 course-copy leading-relaxed">
+                        <template x-if="c.details.find(d => d.label === 'Combining & Placement')"><div x-html="c.details.find(d => d.label === 'Combining & Placement').value"></div></template>
+                      </div>
+                    </div>
+                  </template>
               </div>
             </template>
 
@@ -537,6 +542,14 @@
                 (c.topics||[]).forEach(t => { t.checked = set.has('t:'+t.topic_id); });
               });
             }catch{}
+          },
+
+          hasCourseDetail(c){
+            if(!c) return false;
+            const hasSummary = !!(c.summary && String(c.summary).trim());
+            const hasDesc = !!(c.details && c.details.find(d => d.label === 'Description' && d.value && String(d.value).trim()));
+            const hasComb = !!(c.details && c.details.find(d => d.label === 'Combining & Placement' && d.value && String(d.value).trim()));
+            return hasSummary || hasDesc || hasComb;
           },
       
           printSelected(){ window.print(); },
