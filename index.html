@@ -39,7 +39,7 @@
     
     /* Optional: a soft connector line to emphasize nesting */
     .topic-connector {
-      border-left: 3px solid var(--green-light);
+      border-left: 3px solid var(--gray-soft);
       margin-left: calc(var(--topic-indent) - 3px);
       padding-left: calc(var(--topic-indent) - 3px);
       border-radius: 6px;
@@ -95,8 +95,32 @@
     .course-band .band-title{ font-size:14px; line-height:1.2; }
     .course-copy{ color: var(--brand-ink); font-size: 9pt; }
     .desc-bg{ background: var(--gray-soft); }
+    /* Indent the course-level schedule cell to match topics */
+    .course-schedule-indent { padding-left: var(--topic-indent); }
 
     input[type="checkbox"]{ accent-color: var(--check-green); }
+
+    /* ---------------------- */
+    /* BUTTON SIZE TWEAKS     */
+    /* ---------------------- */
+    button{
+      font-size: 0.85rem;          /* slightly smaller text */
+      padding: 0.3rem 0.7rem;      /* tighten height + width */
+      line-height: 1.2;
+    }
+    
+    button.rounded-xl{
+      border-radius: 0.6rem;       /* keep soft corners */
+    }
+    
+    button.shadow{
+      box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+    }
+    
+    /* Optional: make the top-bar buttons align visually */
+    .sticky button{
+      min-height: 32px;            /* consistent height */
+    }
 
     /* Print adjustments — keep the band + grey description */
     @media print{
@@ -162,7 +186,7 @@
           </button>
             <button
               @click="localStorage.removeItem('pf_csv_cache_v1'); location.reload()"
-              class="rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-[#f4f6fa]">
+              class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">
               🔄 Refresh
             </button>
           <button @click="printSelected()" class="btn-secondary
@@ -195,7 +219,9 @@
                 <!-- Course row: Schedule | Description | Combining (only if any exist) -->
                   <template x-if="hasCourseDetail(c)">
                     <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
-                      <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'"></div></div>
+                      <div class="col-span-3 px-3 py-3 course-copy course-schedule-indent">
+                        <div x-html="c.summary || '&nbsp;'"></div>
+                      </div>
                       <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
                         <template x-if="c.details.find(d => d.label === 'Description')">
                           <div x-html="c.details.find(d => d.label === 'Description').value"></div>
@@ -281,7 +307,9 @@
                 <!-- Only print detail row if there is content -->
                   <template x-if="hasCourseDetail(c)">
                     <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
-                      <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'"></div></div>
+                      <div class="col-span-3 px-3 py-3 course-copy course-schedule-indent">
+                        <div x-html="c.summary || '&nbsp;'"></div>
+                      </div>
                       <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
                         <template x-if="c.details.find(d => d.label === 'Description')"><div x-html="c.details.find(d => d.label === 'Description').value"></div></template>
                       </div>
