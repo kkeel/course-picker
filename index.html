@@ -166,23 +166,14 @@
                       <div>
                         <!-- Topic band (title + grades only) -->
                         <div class="topic-band rounded-md overflow-hidden">
-                          <div class="grid grid-cols-12">
-                            <!-- Title + checkbox -->
-                            <div class="col-span-8 px-3 py-2 border-white/10 flex items-center gap-2">
-                              <input type="checkbox"
-                                     class="size-5 rounded border-white/50"
-                                     :id="'chk-t-'+t.topic_id"
-                                     x-model="t.checked"
-                                     @change="persist()" />
-                              <div class="band-title font-crimson">
-                                <span x-text="t.topic_title"></span>
-                              </div>
-                            </div>
-                            <!-- Grades (right aligned) -->
-                            <div class="col-span-4 px-3 py-2 border-white/10 text-right">
-                              <div class="band-title">
-                                GRADE(S): <span class="opacity-90" x-text="t.levelDisplay"></span>
-                              </div>
+                          <div class="px-3 py-2 border-white/10 flex items-center gap-2">
+                            <input type="checkbox"
+                                   class="size-5 rounded border-white/50"
+                                   :id="'chk-t-'+t.topic_id"
+                                   x-model="t.checked"
+                                   @change="persist()" />
+                            <div class="band-title font-crimson">
+                              <span x-text="t.topic_title"></span>
                             </div>
                           </div>
                         </div>
@@ -258,15 +249,8 @@
                   <div>
                     <!-- Topic band (title + grades only) -->
                     <div class="topic-band rounded-md overflow-hidden">
-                      <div class="grid grid-cols-12">
-                        <div class="col-span-8 px-3 py-2 border-white/10">
-                          <div class="band-title font-crimson" x-text="t.topic_title"></div>
-                        </div>
-                        <div class="col-span-4 px-3 py-2 border-white/10 text-right">
-                          <div class="band-title">
-                            GRADE(S): <span class="opacity-90" x-text="t.levelDisplay"></span>
-                          </div>
-                        </div>
+                      <div class="px-3 py-2 border-white/10">
+                        <div class="band-title font-crimson" x-text="t.topic_title"></div>
                       </div>
                     </div>
                     <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
