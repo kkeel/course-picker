@@ -1,507 +1,507 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Alveary Course List</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Alveary Course List</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Crimson+Text:wght@700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Crimson+Text:wght@700&display=swap" rel="stylesheet" />
 
-  <!-- Tailwind + Alpine + PapaParse -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-  <style>
-    :root{
-      --brand-bg: #fbfbf9;
-      --brand-ink: #262b26;
-      --green-dark: #596e5e;   /* title + band */
-      --gray-soft: #f4f6fa;    /* description bg */
-      --band-green: #596e5e;   /* band */
-      --check-green: #9da89f;  /* checkbox accent */
-    }
+    <style>
+        :root{
+            --brand-bg: #fbfbf9;
+            --brand-ink: #262b26;
+            --green-dark: #596e5e;   /* title + band */
+            --gray-soft: #f4f6fa;    /* description bg */
+            --band-green: #596e5e;   /* band */
+            --check-green: #9da89f;  /* checkbox accent */
+        }
 
-    /* Topic band (slightly lighter than course band) */
-    .topic-band{ background:#adb58f; color:#fff; }
-    .topic-band .band-title{ font-size:12px; line-height:1.2; }
+        /* Topic band (slightly lighter than course band) */
+        .topic-band{ background:#adb58f; color:#fff; }
+        .topic-band .band-title{ font-size:12px; line-height:1.2; }
 
-    /* Keep colors when printing */
-    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        /* Keep colors when printing */
+        * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
-    body{
-      font-family: 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: var(--brand-bg);
-      color: var(--brand-ink);
-    }
-    .font-crimson{ font-family: 'Crimson Text', Georgia, serif; }
+        body{
+            font-family: 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: var(--brand-bg);
+            color: var(--brand-ink);
+        }
+        .font-crimson{ font-family: 'Crimson Text', Georgia, serif; }
 
-    .title-alveary{ color: var(--green-dark); font-weight: 700; font-size: 34px; }
-    .subject-divider{
-      color: var(--brand-ink); font-weight: 700; font-size: 26px;
-      margin-top: 3rem; margin-bottom: 1rem;
-      position: sticky; top: 64px; background: var(--brand-bg); z-index: 5;
-    }
+        .title-alveary{ color: var(--green-dark); font-weight: 700; font-size: 34px; }
+        .subject-divider{
+            color: var(--brand-ink); font-weight: 700; font-size: 26px;
+            margin-top: 3rem; margin-bottom: 1rem;
+            position: sticky; top: 64px; background: var(--brand-bg); z-index: 5;
+        }
 
-    .course-band{ background: var(--band-green); color:#fff; }
-    .course-band .band-title{ font-size:12px; line-height:1.2; }
-    .course-copy{ color: var(--brand-ink); font-size: 9pt; }
-    .desc-bg{ background: var(--gray-soft); }
+        .course-band{ background: var(--band-green); color:#fff; }
+        .course-band .band-title{ font-size:12px; line-height:1.2; }
+        .course-copy{ color: var(--brand-ink); font-size: 9pt; }
+        .desc-bg{ background: var(--gray-soft); }
 
-    input[type="checkbox"]{ accent-color: var(--check-green); }
+        input[type="checkbox"]{ accent-color: var(--check-green); }
 
-    /* Print adjustments — keep the band + grey description */
-    @media print{
-      body{ background:#fff !important; }
-      .print\:hidden{ display:none !important; }
-      .print\:block{ display:block !important; }
+        /* Print adjustments — keep the band + grey description */
+        @media print{
+            body{ background:#fff !important; }
+            .print\:hidden{ display:none !important; }
+            .print\:block{ display:block !important; }
 
-      .course-band{ background: var(--band-green) !important; color:#fff !important; }
-      .topic-band{ background:#adb58f !important; color:#fff !important; }
-      .desc-bg{ background: var(--gray-soft) !important; }
+            .course-band{ background: var(--band-green) !important; color:#fff !important; }
+            .topic-band{ background:#adb58f !important; color:#fff !important; }
+            .desc-bg{ background: var(--gray-soft) !important; }
 
-      .subject-divider{ position: static !important; background: transparent !important; }
-    }
-  </style>
+            .subject-divider{ position: static !important; background: transparent !important; }
+        }
+    </style>
 </head>
 <body class="min-h-screen">
-  <div x-data="courseApp()" x-init="init()" class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+    <div x-data="courseApp()" x-init="init()" class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
 
-    <!-- SCREEN UI (hidden when printing) -->
-    <div class="print:hidden">
-      <header class="flex items-center gap-3 mb-6">
-        <img src="Alveary%20Lt.%20Green.png" alt="Alveary" class="h-10 w-10 object-contain" />
-        <h1 class="title-alveary">Alveary Course List</h1>
-      </header>
+        <div class="print:hidden">
+            <header class="flex items-center gap-3 mb-6">
+                <img src="Alveary%20Lt.%20Green.png" alt="Alveary" class="h-10 w-10 object-contain" />
+                <h1 class="title-alveary">Alveary Course List</h1>
+            </header>
 
-      <!-- Filters -->
-      <section class="rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 mb-6">
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          <label class="block">
-            <span class="text-xs uppercase tracking-wide text-gray-500">Search</span>
-            <input x-model.trim.debounce.250ms="search" type="search" placeholder="Title, subject, keyword…" class="w-full mt-1 rounded-xl border-gray-300 placeholder-[#7b8b7f]" />
-          </label>
-          <label class="block">
-            <span class="text-xs uppercase tracking-wide text-gray-500">Subject</span>
-            <select x-model="filters.subject" class="w-full mt-1 rounded-xl border-gray-300">
-              <option value="">All</option>
-              <template x-for="s in subjectList" :key="s">
-                <option :value="s" x-text="s"></option>
-              </template>
-            </select>
-          </label>
-          <label class="block">
-            <span class="text-xs uppercase tracking-wide text-gray-500">Grade</span>
-            <select x-model="filters.levelTag" class="w-full mt-1 rounded-xl border-gray-300">
-              <option value="">All</option>
-              <template x-for="lvl in levelList" :key="lvl">
-                <option :value="lvl" x-text="lvl"></option>
-              </template>
-            </select>
-          </label>
-        </div>
-      </section>
-
-      <!-- Sticky actions -->
-      <div class="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-gray-200 flex justify-between items-center">
-        <div><strong x-text="selectedCount"></strong> selected</div>
-        <div class="flex items-center gap-2">
-          <!-- Clear courses + topics -->
-          <button
-            @click="courses.forEach(c=>{ c.checked=false; (c.topics||[]).forEach(t=>t.checked=false); }); persist()"
-            class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">
-            Clear
-          </button>
-          <button @click="printSelected()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print Selected</button>
-        </div>
-      </div>
-
-      <!-- Grouped course list -->
-      <section>
-        <template x-for="[subj, list] in grouped" :key="subj">
-          <div class="space-y-3">
-            <h2 class="subject-divider" x-text="subj"></h2>
-
-            <template x-for="c in list" :key="c.id">
-              <div>
-                <!-- Course band -->
-                <div class="course-band rounded-md overflow-hidden">
-                  <div class="grid grid-cols-12">
-                    <div class="col-span-3 px-3 py-2 border-white/10 flex items-center gap-2">
-                      <input type="checkbox" class="size-5 rounded border-white/50" :id="'chk-'+c.id" x-model="c.checked" @change="persist()" />
-                      <div class="band-title font-crimson"><span x-text="c.title"></span></div>
-                    </div>
-                    <div class="col-span-5 px-3 py-2 border-white/10"><div class="band-title">Description</div></div>
-                    <div class="col-span-4 px-3 py-2 border-white/10">
-                      <div class="band-title">Combining &amp; Placement<br><span class="text-[11px] opacity-90" x-text="c.levelDisplay"></span></div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Course row: Schedule | Description | Combining -->
-                <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
-                  <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'"></div></div>
-                  <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
-                    <template x-if="c.details.find(d => d.label === 'Description')">
-                      <div x-html="c.details.find(d => d.label === 'Description').value"></div>
-                    </template>
-                  </div>
-                  <div class="col-span-4 px-4 py-4 course-copy leading-relaxed">
-                    <template x-if="c.details.find(d => d.label === 'Combining & Placement')">
-                      <div x-html="c.details.find(d => d.label === 'Combining & Placement').value"></div>
-                    </template>
-                  </div>
-                </div>
-
-                <!-- TOPICS (if any) -->
-                <template x-if="c.topics && c.topics.length">
-                  <div class="mt-2 space-y-2">
-                    <template x-for="t in c.topics" :key="t.topic_id">
-                      <div>
-                        <!-- Topic band -->
-                        <div class="topic-band rounded-md overflow-hidden">
-                          <div class="grid grid-cols-12">
-                            <div class="col-span-3 px-3 py-2 border-white/10 flex items-center gap-2">
-                              <input type="checkbox" class="size-5 rounded border-white/50" :id="'chk-t-'+t.topic_id" x-model="t.checked" @change="persist()" />
-                              <div class="band-title font-crimson"><span x-text="t.topic_title"></span></div>
-                            </div>
-                            <div class="col-span-5 px-3 py-2 border-white/10"><div class="band-title">Description</div></div>
-                            <div class="col-span-4 px-3 py-2 border-white/10">
-                              <div class="band-title">Combining &amp; Placement<br><span class="text-[11px] opacity-90" x-text="t.levelDisplay"></span></div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- Topic row: Schedule | Description | Combining -->
-                        <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
-                          <div class="col-span-3 px-3 py-3 course-copy"><div x-html="t.summary || '&nbsp;'"></div></div>
-                          <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
-                            <template x-if="t.details.find(d => d.label === 'Description')">
-                              <div x-html="t.details.find(d => d.label === 'Description').value"></div>
+            <section class="rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 mb-6">
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                    <label class="block">
+                        <span class="text-xs uppercase tracking-wide text-gray-500">Search</span>
+                        <input x-model.trim.debounce.250ms="search" type="search" placeholder="Title, subject, keyword…" class="w-full mt-1 rounded-xl border-gray-300 placeholder-[#7b8b7f]" />
+                    </label>
+                    <label class="block">
+                        <span class="text-xs uppercase tracking-wide text-gray-500">Subject</span>
+                        <select x-model="filters.subject" class="w-full mt-1 rounded-xl border-gray-300">
+                            <option value="">All</option>
+                            <template x-for="s in subjectList" :key="s">
+                                <option :value="s" x-text="s"></option>
                             </template>
-                          </div>
-                          <div class="col-span-4 px-4 py-4 course-copy leading-relaxed">
-                            <template x-if="t.details.find(d => d.label === 'Combining & Placement')">
-                              <div x-html="t.details.find(d => d.label === 'Combining & Placement').value"></div>
+                        </select>
+                    </label>
+                    <label class="block">
+                        <span class="text-xs uppercase tracking-wide text-gray-500">Grade</span>
+                        <select x-model="filters.levelTag" class="w-full mt-1 rounded-xl border-gray-300">
+                            <option value="">All</option>
+                            <template x-for="lvl in levelList" :key="lvl">
+                                <option :value="lvl" x-text="lvl"></option>
                             </template>
-                          </div>
-                        </div>
-                      </div>
-                    </template>
-                  </div>
+                        </select>
+                    </label>
+                    
+                    <div class="flex items-end">
+                        <button 
+                            @click="resetFilters()"
+                            :disabled="!search && !filters.subject && !filters.levelTag"
+                            class="w-full mt-1 rounded-xl px-3 py-2 border border-gray-300 text-sm text-gray-700 bg-gray-50 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            Reset Filters
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <div class="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-gray-200 flex justify-between items-center">
+                <div><strong x-text="selectedCount"></strong> selected</div>
+                <div class="flex items-center gap-2">
+                    <button
+                        @click="courses.forEach(c=>{ c.checked=false; (c.topics||[]).forEach(t=>t.checked=false); }); persist()"
+                        class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">
+                        Clear
+                    </button>
+                    <button @click="printSelected()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print Selected</button>
+                </div>
+            </div>
+
+            <section>
+                <template x-for="[subj, list] in grouped" :key="subj">
+                    <div class="space-y-3">
+                        <h2 class="subject-divider" x-text="subj"></h2>
+
+                        <template x-for="c in list" :key="c.id">
+                            <div>
+                                <div class="course-band rounded-md overflow-hidden">
+                                    <div class="grid grid-cols-12">
+                                        <div class="col-span-3 px-3 py-2 border-white/10 flex items-center gap-2">
+                                            <input type="checkbox" class="size-5 rounded border-white/50" :id="'chk-'+c.id" x-model="c.checked" @change="persist()" />
+                                            <div class="band-title font-crimson"><span x-text="c.title"></span></div>
+                                        </div>
+                                        <div class="col-span-5 px-3 py-2 border-white/10"><div class="band-title">Description</div></div>
+                                        <div class="col-span-4 px-3 py-2 border-white/10">
+                                            <div class="band-title">Combining &amp; Placement<br><span class="text-[11px] opacity-90" x-text="c.levelDisplay"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
+                                    <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'"></div></div>
+                                    <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
+                                        <template x-if="c.details.find(d => d.label === 'Description')">
+                                            <div x-html="c.details.find(d => d.label === 'Description').value"></div>
+                                        </template>
+                                    </div>
+                                    <div class="col-span-4 px-4 py-4 course-copy leading-relaxed">
+                                        <template x-if="c.details.find(d => d.label === 'Combining & Placement')">
+                                            <div x-html="c.details.find(d => d.label === 'Combining & Placement').value"></div>
+                                        </template>
+                                    </div>
+                                </div>
+
+                                <template x-if="c.topics && c.topics.length">
+                                    <div class="mt-2 space-y-2">
+                                        <template x-for="t in c.topics" :key="t.topic_id">
+                                            <div>
+                                                <div class="topic-band rounded-md overflow-hidden">
+                                                    <div class="grid grid-cols-12">
+                                                        <div class="col-span-3 px-3 py-2 border-white/10 flex items-center gap-2">
+                                                            <input type="checkbox" class="size-5 rounded border-white/50" :id="'chk-t-'+t.topic_id" x-model="t.checked" @change="persist()" />
+                                                            <div class="band-title font-crimson"><span x-text="t.topic_title"></span></div>
+                                                        </div>
+                                                        <div class="col-span-5 px-3 py-2 border-white/10"><div class="band-title">Description</div></div>
+                                                        <div class="col-span-4 px-3 py-2 border-white/10">
+                                                            <div class="band-title">Combining &amp; Placement<br><span class="text-[11px] opacity-90" x-text="t.levelDisplay"></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
+                                                    <div class="col-span-3 px-3 py-3 course-copy"><div x-html="t.summary || '&nbsp;'"></div></div>
+                                                    <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
+                                                        <template x-if="t.details.find(d => d.label === 'Description')">
+                                                            <div x-html="t.details.find(d => d.label === 'Description').value"></div>
+                                                        </template>
+                                                    </div>
+                                                    <div class="col-span-4 px-4 py-4 course-copy leading-relaxed">
+                                                        <template x-if="t.details.find(d => d.label === 'Combining & Placement')">
+                                                            <div x-html="t.details.find(d => d.label === 'Combining & Placement').value"></div>
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div> </template>
+
+                <template x-if="!filtered.length">
+                    <p class="text-center text-gray-500 py-12">No courses match your filters.</p>
                 </template>
-              </div>
-            </template>
-          </div> <!-- closes subject group .space-y-3 -->
-        </template>
+            </section>
+        </div>
 
-        <template x-if="!filtered.length">
-          <p class="text-center text-gray-500 py-12">No courses match your filters.</p>
-        </template>
-      </section>
+        <section class="hidden print:block mt-8">
+            <header class="mb-4 flex items-center gap-3">
+                <img src="Alveary%20Lt.%20Green.png" alt="Alveary" class="h-10 w-10 object-contain" />
+                <h1 class="title-alveary m-0">Alveary Course List</h1>
+            </header>
+
+            <div class="space-y-3">
+                <template x-for="c in courses.filter(cc => cc.checked || (cc.topics||[]).some(tt=>tt.checked))" :key="c.id">
+                    <div>
+                        <template x-if="c.checked">
+                            <div>
+                                <div class="course-band rounded-md overflow-hidden">
+                                    <div class="grid grid-cols-12">
+                                        <div class="col-span-3 px-3 py-2 border-white/10"><div class="band-title font-crimson" x-text="c.title"></div></div>
+                                        <div class="col-span-5 px-3 py-2 border-white/10"><div class="band-title">Description</div></div>
+                                        <div class="col-span-4 px-3 py-2 border-white/10"><div class="band-title">Combining &amp; Placement<br><span class="text-[11px] opacity-90" x-text="c.levelDisplay"></span></div></div>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
+                                    <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'"></div></div>
+                                    <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
+                                        <template x-if="c.details.find(d => d.label === 'Description')"><div x-html="c.details.find(d => d.label === 'Description').value"></div></template>
+                                    </div>
+                                    <div class="col-span-4 px-4 py-4 course-copy leading-relaxed">
+                                        <template x-if="c.details.find(d => d.label === 'Combining & Placement')"><div x-html="c.details.find(d => d.label === 'Combining & Placement').value"></div></template>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <template x-if="(c.topics||[]).some(t => t.checked)">
+                            <div class="mt-2 space-y-2">
+                                <template x-if="!c.checked">
+                                    <div class="text-sm font-semibold text-[var(--green-dark)] mb-1" x-text="c.title"></div>
+                                </template>
+
+                                <template x-for="t in (c.topics||[]).filter(tt=>tt.checked)" :key="t.topic_id">
+                                    <div>
+                                        <div class="topic-band rounded-md overflow-hidden">
+                                            <div class="grid grid-cols-12">
+                                                <div class="col-span-3 px-3 py-2 border-white/10"><div class="band-title font-crimson" x-text="t.topic_title"></div></div>
+                                                <div class="col-span-5 px-3 py-2 border-white/10"><div class="band-title">Description</div></div>
+                                                <div class="col-span-4 px-3 py-2 border-white/10"><div class="band-title">Combining &amp; Placement<br><span class="text-[11px] opacity-90" x-text="t.levelDisplay"></span></div></div>
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
+                                            <div class="col-span-3 px-3 py-3 course-copy"><div x-html="t.summary || '&nbsp;'"></div></div>
+                                            <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
+                                                <template x-if="t.details.find(d => d.label === 'Description')"><div x-html="t.details.find(d => d.label === 'Description').value"></div></template>
+                                            </div>
+                                            <div class="col-span-4 px-4 py-4 course-copy leading-relaxed">
+                                                <template x-if="t.details.find(d => d.label === 'Combining & Placement')"><div x-html="t.details.find(d => d.label === 'Combining & Placement').value"></div></template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </section>
+
+        <script>
+            function courseApp(){
+                return {
+                    /* ---------- UI state ---------- */
+                    search: '',
+                    filters: { subject: '', levelTag: '' },
+                    courses: [],
+                    courseIndex: {},
+            
+                    /* ---------- Data sources (Google Sheets CSVs) ---------- */
+                    dataSources: {
+                        courses: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=0&single=true&output=csv',
+                        topics:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=1919021076&single=true&output=csv'
+                    },
+            
+                    /* ---------- CSV field maps (match your headers) ---------- */
+                    courseFields: {
+                        course_id: 'Course_ID',
+                        course_title: 'Course',
+                        subject: 'Subject',
+                        schedule_text: 'Scheduling_R3',
+                        grade_text: 'Grade_Text',
+                        grade_filter: 'Grade_Filter',
+                        description: 'Program_Description_R3',
+                        combining_placement: 'Combining&PlacementTips_R3'
+                    },
+                    topicFields: {
+                        topic_id: 'Topic_ID',
+                        course_id: 'Course_ID_R3',              // comma-separated list
+                        topic_title: 'Topic',
+                        topic_description: 'Program_Description_R3',
+                        combining_placement: 'Combining&PlacementTips_R3',
+                        schedule_text: 'Scheduling_R3',
+                        grade_text: 'Grade_Text',
+                        grade_filter: 'Grade_Filter'
+                    },
+            
+                    /* ---------- Derived lists ---------- */
+                    get selected(){ return this.courses.filter(c => c.checked); },
+                    get selectedCount(){
+                        return this.courses.reduce((n,c)=> n + (c.checked?1:0) + ((c.topics||[]).filter(t=>t.checked).length), 0);
+                    },
+            
+                    get filtered(){
+                        const q = this.search.toLowerCase();
+                        return this.courses.filter(c=>{
+                            const matchesQ = !q || [c.title, c.subject, c.summary, c.levelDisplay].join(' ').toLowerCase().includes(q);
+                            const matchesS = !this.filters.subject || c.subject === this.filters.subject;
+                            const matchesL = !this.filters.levelTag || (c.levelTags && c.levelTags.includes(this.filters.levelTag));
+                            return matchesQ && matchesS && matchesL;
+                        });
+                    },
+            
+                    get subjectList(){
+                        const arr = [...new Set(this.courses.map(c => c.subject).filter(Boolean))];
+                        arr.sort((a,b)=>{
+                            if(a==='Alt. Science Options') return 1;
+                            if(b==='Alt. Science Options') return -1;
+                            return a.localeCompare(b, undefined, {numeric:true});
+                        });
+                        return arr;
+                    },
+            
+                    get levelList(){
+                        return [...new Set(this.courses.flatMap(c => c.levelTags || []))]
+                            .sort((a,b)=>{
+                                const na = +a.replace(/\D/g,''); const nb = +b.replace(/\D/g,'');
+                                return na-nb || a.localeCompare(b);
+                            });
+                    },
+            
+                    // Group by subject; ensure Alt. Science Options is last
+                    get grouped(){
+                        const groups = new Map();
+                        this.filtered.forEach(c => {
+                            const s = c.subject || 'Other';
+                            if (!groups.has(s)) groups.set(s, []);
+                            groups.get(s).push(c);
+                        });
+                        const special = 'Alt. Science Options';
+                        return Array.from(groups.entries()).sort((a,b)=>{
+                            const A=a[0]||'', B=b[0]||'';
+                            if (A===special && B!==special) return 1;
+                            if (B===special && A!==special) return -1;
+                            return A.localeCompare(B, undefined, {numeric:true});
+                        });
+                    },
+            
+                    /* ---------- Helpers ---------- */
+                    _getCI(row, want){
+                        const keys = Array.isArray(want) ? want : [want];
+                        for(const k of keys){
+                            const hit = Object.keys(row).find(h => h.trim().toLowerCase() === String(k).trim().toLowerCase());
+                            if(hit) return row[hit];
+                        }
+                        return undefined;
+                    },
+                    computeGradeTags(gr){
+                        const tags=[];
+                        const range = gr && gr.match(/^(?:[Gg]?(\d+))\s*[–-]\s*[Gg]?(\d+)$/);
+                        if(range){ const a=+range[1], b=+range[2]; for(let i=Math.min(a,b); i<=Math.max(a,b); i++) tags.push(`G${i}`); return tags; }
+                        const single = gr && gr.match(/^[Gg]?(\d+)$/);
+                        if(single){ return [`G${+single[1]}`]; }
+                        if(gr && String(gr).includes(',')){
+                            String(gr).split(',').forEach(x=>{ const n=x.replace(/[^0-9]/g,''); if(n) tags.push(`G${+n}`); });
+                        }
+                        return tags;
+                    },
+            
+                    rowToCourse(row){
+                        if(!row) return null;
+                        const g = (k) => this._getCI(row, this.courseFields[k]);
+            
+                        const id = (g('course_id') || '').toString().trim();
+                        const title = (g('course_title') || '').toString().trim();
+                        if(!id && !title) return null;
+            
+                        const subject = (g('subject') || '').toString().trim();
+                        const gradeText = (g('grade_text') || '').toString().trim();
+                        const gradeFilter= (g('grade_filter') || '').toString().trim();
+                        const schedule = (g('schedule_text')|| '').toString().trim();
+                        const description= (g('description') || '').toString().trim();
+                        const combining = (g('combining_placement') || '').toString().trim();
+            
+                        const levelDisplay = gradeText || '';
+                        const levelTags = (gradeFilter && /G\s*\d+/i.test(gradeFilter))
+                            ? (gradeFilter.match(/G\s*\d+/gi) || []).map(s => 'G' + s.replace(/[^0-9]/g,''))
+                            : this.computeGradeTags(gradeText);
+            
+                        const details = [];
+                        if(description) details.push({ label:'Description', value: description });
+                        if(combining)   details.push({ label:'Combining & Placement', value: combining });
+            
+                        return { id: id||title, title: title||id, subject, summary: schedule, details, levelDisplay, levelTags, checked: false };
+                    },
+            
+                    rowToTopic(row){
+                        if(!row) return null;
+                        const g = (k) => this._getCI(row, this.topicFields[k]);
+            
+                        const rawCourseIds = (g('course_id') || '').toString().trim();
+                        const topic_title = (g('topic_title')|| '').toString().trim();
+                        if(!rawCourseIds || !topic_title) return null;
+            
+                        const topic_id = (g('topic_id') || '').toString().trim() || (rawCourseIds + '::' + topic_title);
+                        const topic_desc = (g('topic_description') || '').toString().trim();
+                        const combining = (g('combining_placement') || '').toString().trim();
+                        const schedule_t = (g('schedule_text') || '').toString().trim();
+                        const gradeText = (g('grade_text') || '').toString().trim();
+                        const gradeFilter = (g('grade_filter') || '').toString().trim();
+            
+                        const levelDisplay = gradeText || '';
+                        const levelTags = (gradeFilter && /G\s*\d+/i.test(gradeFilter))
+                            ? (gradeFilter.match(/G\s*\d+/gi) || []).map(s => 'G' + s.replace(/[^0-9]/g,''))
+                            : this.computeGradeTags(gradeText);
+            
+                        const details = [];
+                        if(topic_desc) details.push({ label:'Description', value: topic_desc });
+                        if(combining)  details.push({ label:'Combining & Placement', value: combining });
+            
+                        return {
+                            topic_id,
+                            course_ids: rawCourseIds.split(',').map(s=>s.trim()).filter(Boolean),
+                            topic_title,
+                            summary: schedule_t,
+                            details,
+                            levelDisplay,
+                            levelTags,
+                            checked: false
+                        };
+                    },
+            
+                    async loadDualCSVs(){
+                        const addCB = (u) => u + (u.includes('?') ? '&' : '?') + 'cb=' + Date.now();
+                        try{
+                            const [coursesCSV, topicsCSV] = await Promise.all([
+                                fetch(addCB(this.dataSources.courses), { mode:'cors' }).then(r=>r.text()),
+                                fetch(addCB(this.dataSources.topics),  { mode:'cors' }).then(r=>r.text())
+                            ]);
+                            const pc = Papa.parse(coursesCSV, { header:true, skipEmptyLines:true });
+                            const pt = Papa.parse(topicsCSV,  { header:true, skipEmptyLines:true });
+            
+                            this.courseIndex = {};
+                            pc.data.forEach(row => {
+                                const c = this.rowToCourse(row);
+                                if(c) this.courseIndex[c.id] = { ...c, topics: [] };
+                            });
+            
+                            pt.data.forEach(row => {
+                                const t = this.rowToTopic(row);
+                                if(!t) return;
+                                t.course_ids.forEach(cid => {
+                                    if(this.courseIndex[cid]) this.courseIndex[cid].topics.push(t);
+                                });
+                            });
+            
+                            this.courses = Object.values(this.courseIndex);
+                        }catch(err){
+                            console.error('CSV load failed:', err);
+                            alert('Could not load CSVs.');
+                            this.courses = [];
+                        }
+                    },
+            
+                    /* ---------- Persist course + topic selection ---------- */
+                    persist(){
+                        const ids = [];
+                        this.courses.forEach(c=>{
+                            if(c.checked) ids.push('c:'+c.id);
+                            (c.topics||[]).forEach(t=>{ if(t.checked) ids.push('t:'+t.topic_id); });
+                        });
+                        localStorage.setItem('pf_courses', JSON.stringify(ids));
+                    },
+                    restoreChecked(){
+                        try{
+                            const saved = JSON.parse(localStorage.getItem('pf_courses') || '[]');
+                            const set = new Set(saved);
+                            this.courses.forEach(c=>{
+                                c.checked = set.has('c:'+c.id);
+                                (c.topics||[]).forEach(t => { t.checked = set.has('t:'+t.topic_id); });
+                            });
+                        }catch{}
+                    },
+                    
+                    /* ---------- New function to reset filters ---------- */
+                    resetFilters(){
+                        this.search = '';
+                        this.filters.subject = '';
+                        this.filters.levelTag = '';
+                    },
+            
+                    printSelected(){ window.print(); },
+            
+                    async init(){
+                        await this.loadDualCSVs();
+                        this.restoreChecked();
+                    }
+                };
+            }
+        </script>
     </div>
-
-    <!-- PRINT-ONLY VIEW: Selected courses & topics -->
-    <section class="hidden print:block mt-8">
-      <header class="mb-4 flex items-center gap-3">
-        <img src="Alveary%20Lt.%20Green.png" alt="Alveary" class="h-10 w-10 object-contain" />
-        <h1 class="title-alveary m-0">Alveary Course List</h1>
-      </header>
-
-      <div class="space-y-3">
-        <template x-for="c in courses.filter(cc => cc.checked || (cc.topics||[]).some(tt=>tt.checked))" :key="c.id">
-          <div>
-            <!-- Course row if selected -->
-            <template x-if="c.checked">
-              <div>
-                <div class="course-band rounded-md overflow-hidden">
-                  <div class="grid grid-cols-12">
-                    <div class="col-span-3 px-3 py-2 border-white/10"><div class="band-title font-crimson" x-text="c.title"></div></div>
-                    <div class="col-span-5 px-3 py-2 border-white/10"><div class="band-title">Description</div></div>
-                    <div class="col-span-4 px-3 py-2 border-white/10"><div class="band-title">Combining &amp; Placement<br><span class="text-[11px] opacity-90" x-text="c.levelDisplay"></span></div></div>
-                  </div>
-                </div>
-                <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
-                  <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'"></div></div>
-                  <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
-                    <template x-if="c.details.find(d => d.label === 'Description')"><div x-html="c.details.find(d => d.label === 'Description').value"></div></template>
-                  </div>
-                  <div class="col-span-4 px-4 py-4 course-copy leading-relaxed">
-                    <template x-if="c.details.find(d => d.label === 'Combining & Placement')"><div x-html="c.details.find(d => d.label === 'Combining & Placement').value"></div></template>
-                  </div>
-                </div>
-              </div>
-            </template>
-
-            <!-- Selected topics under this course -->
-            <template x-if="(c.topics||[]).some(t => t.checked)">
-              <div class="mt-2 space-y-2">
-                <template x-if="!c.checked">
-                  <div class="text-sm font-semibold text-[var(--green-dark)] mb-1" x-text="c.title"></div>
-                </template>
-
-                <template x-for="t in (c.topics||[]).filter(tt=>tt.checked)" :key="t.topic_id">
-                  <div>
-                    <div class="topic-band rounded-md overflow-hidden">
-                      <div class="grid grid-cols-12">
-                        <div class="col-span-3 px-3 py-2 border-white/10"><div class="band-title font-crimson" x-text="t.topic_title"></div></div>
-                        <div class="col-span-5 px-3 py-2 border-white/10"><div class="band-title">Description</div></div>
-                        <div class="col-span-4 px-3 py-2 border-white/10"><div class="band-title">Combining &amp; Placement<br><span class="text-[11px] opacity-90" x-text="t.levelDisplay"></span></div></div>
-                      </div>
-                    </div>
-                    <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
-                      <div class="col-span-3 px-3 py-3 course-copy"><div x-html="t.summary || '&nbsp;'"></div></div>
-                      <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
-                        <template x-if="t.details.find(d => d.label === 'Description')"><div x-html="t.details.find(d => d.label === 'Description').value"></div></template>
-                      </div>
-                      <div class="col-span-4 px-4 py-4 course-copy leading-relaxed">
-                        <template x-if="t.details.find(d => d.label === 'Combining & Placement')"><div x-html="t.details.find(d => d.label === 'Combining & Placement').value"></div></template>
-                      </div>
-                    </div>
-                  </div>
-                </template>
-              </div>
-            </template>
-          </div>
-        </template>
-      </div>
-    </section>
-
-    <!-- App Script -->
-    <script>
-      function courseApp(){
-        return {
-          /* ---------- UI state ---------- */
-          search: '',
-          filters: { subject: '', levelTag: '' },
-          courses: [],
-          courseIndex: {},
-      
-          /* ---------- Data sources (Google Sheets CSVs) ---------- */
-          dataSources: {
-            courses: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=0&single=true&output=csv',
-            topics:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=1919021076&single=true&output=csv'
-          },
-      
-          /* ---------- CSV field maps (match your headers) ---------- */
-          courseFields: {
-            course_id: 'Course_ID',
-            course_title: 'Course',
-            subject: 'Subject',
-            schedule_text: 'Scheduling_R3',
-            grade_text: 'Grade_Text',
-            grade_filter: 'Grade_Filter',
-            description: 'Program_Description_R3',
-            combining_placement: 'Combining&PlacementTips_R3'
-          },
-          topicFields: {
-            topic_id: 'Topic_ID',
-            course_id: 'Course_ID_R3',              // comma-separated list
-            topic_title: 'Topic',
-            topic_description: 'Program_Description_R3',
-            combining_placement: 'Combining&PlacementTips_R3',
-            schedule_text: 'Scheduling_R3',
-            grade_text: 'Grade_Text',
-            grade_filter: 'Grade_Filter'
-          },
-      
-          /* ---------- Derived lists ---------- */
-          get selected(){ return this.courses.filter(c => c.checked); },
-          get selectedCount(){
-            return this.courses.reduce((n,c)=> n + (c.checked?1:0) + ((c.topics||[]).filter(t=>t.checked).length), 0);
-          },
-      
-          get filtered(){
-            const q = this.search.toLowerCase();
-            return this.courses.filter(c=>{
-              const matchesQ = !q || [c.title, c.subject, c.summary, c.levelDisplay].join(' ').toLowerCase().includes(q);
-              const matchesS = !this.filters.subject || c.subject === this.filters.subject;
-              const matchesL = !this.filters.levelTag || (c.levelTags && c.levelTags.includes(this.filters.levelTag));
-              return matchesQ && matchesS && matchesL;
-            });
-          },
-      
-          get subjectList(){
-            const arr = [...new Set(this.courses.map(c => c.subject).filter(Boolean))];
-            arr.sort((a,b)=>{
-              if(a==='Alt. Science Options') return 1;
-              if(b==='Alt. Science Options') return -1;
-              return a.localeCompare(b, undefined, {numeric:true});
-            });
-            return arr;
-          },
-      
-          get levelList(){
-            return [...new Set(this.courses.flatMap(c => c.levelTags || []))]
-              .sort((a,b)=>{
-                const na = +a.replace(/\D/g,''); const nb = +b.replace(/\D/g,'');
-                return na-nb || a.localeCompare(b);
-              });
-          },
-      
-          // Group by subject; ensure Alt. Science Options is last
-          get grouped(){
-            const groups = new Map();
-            this.filtered.forEach(c => {
-              const s = c.subject || 'Other';
-              if (!groups.has(s)) groups.set(s, []);
-              groups.get(s).push(c);
-            });
-            const special = 'Alt. Science Options';
-            return Array.from(groups.entries()).sort((a,b)=>{
-              const A=a[0]||'', B=b[0]||'';
-              if (A===special && B!==special) return 1;
-              if (B===special && A!==special) return -1;
-              return A.localeCompare(B, undefined, {numeric:true});
-            });
-          },
-      
-          /* ---------- Helpers ---------- */
-          _getCI(row, want){
-            const keys = Array.isArray(want) ? want : [want];
-            for(const k of keys){
-              const hit = Object.keys(row).find(h => h.trim().toLowerCase() === String(k).trim().toLowerCase());
-              if(hit) return row[hit];
-            }
-            return undefined;
-          },
-          computeGradeTags(gr){
-            const tags=[];
-            const range  = gr && gr.match(/^(?:[Gg]?(\d+))\s*[–-]\s*[Gg]?(\d+)$/);
-            if(range){ const a=+range[1], b=+range[2]; for(let i=Math.min(a,b); i<=Math.max(a,b); i++) tags.push(`G${i}`); return tags; }
-            const single = gr && gr.match(/^[Gg]?(\d+)$/);
-            if(single){ return [`G${+single[1]}`]; }
-            if(gr && String(gr).includes(',')){
-              String(gr).split(',').forEach(x=>{ const n=x.replace(/[^0-9]/g,''); if(n) tags.push(`G${+n}`); });
-            }
-            return tags;
-          },
-      
-          rowToCourse(row){
-            if(!row) return null;
-            const g = (k) => this._getCI(row, this.courseFields[k]);
-      
-            const id    = (g('course_id')    || '').toString().trim();
-            const title = (g('course_title') || '').toString().trim();
-            if(!id && !title) return null;
-      
-            const subject    = (g('subject') || '').toString().trim();
-            const gradeText  = (g('grade_text')   || '').toString().trim();
-            const gradeFilter= (g('grade_filter') || '').toString().trim();
-            const schedule   = (g('schedule_text')|| '').toString().trim();
-            const description= (g('description')  || '').toString().trim();
-            const combining  = (g('combining_placement') || '').toString().trim();
-      
-            const levelDisplay = gradeText || '';
-            const levelTags = (gradeFilter && /G\s*\d+/i.test(gradeFilter))
-              ? (gradeFilter.match(/G\s*\d+/gi) || []).map(s => 'G' + s.replace(/[^0-9]/g,''))
-              : this.computeGradeTags(gradeText);
-      
-            const details = [];
-            if(description) details.push({ label:'Description', value: description });
-            if(combining)   details.push({ label:'Combining & Placement', value: combining });
-      
-            return { id: id||title, title: title||id, subject, summary: schedule, details, levelDisplay, levelTags, checked: false };
-          },
-      
-          rowToTopic(row){
-            if(!row) return null;
-            const g = (k) => this._getCI(row, this.topicFields[k]);
-      
-            const rawCourseIds = (g('course_id') || '').toString().trim();
-            const topic_title  = (g('topic_title')|| '').toString().trim();
-            if(!rawCourseIds || !topic_title) return null;
-      
-            const topic_id     = (g('topic_id') || '').toString().trim() || (rawCourseIds + '::' + topic_title);
-            const topic_desc   = (g('topic_description') || '').toString().trim();
-            const combining    = (g('combining_placement') || '').toString().trim();
-            const schedule_t   = (g('schedule_text') || '').toString().trim();
-            const gradeText    = (g('grade_text') || '').toString().trim();
-            const gradeFilter  = (g('grade_filter') || '').toString().trim();
-      
-            const levelDisplay = gradeText || '';
-            const levelTags = (gradeFilter && /G\s*\d+/i.test(gradeFilter))
-              ? (gradeFilter.match(/G\s*\d+/gi) || []).map(s => 'G' + s.replace(/[^0-9]/g,''))
-              : this.computeGradeTags(gradeText);
-      
-            const details = [];
-            if(topic_desc) details.push({ label:'Description', value: topic_desc });
-            if(combining)  details.push({ label:'Combining & Placement', value: combining });
-      
-            return {
-              topic_id,
-              course_ids: rawCourseIds.split(',').map(s=>s.trim()).filter(Boolean),
-              topic_title,
-              summary: schedule_t,
-              details,
-              levelDisplay,
-              levelTags,
-              checked: false
-            };
-          },
-      
-          async loadDualCSVs(){
-            const addCB = (u) => u + (u.includes('?') ? '&' : '?') + 'cb=' + Date.now();
-            try{
-              const [coursesCSV, topicsCSV] = await Promise.all([
-                fetch(addCB(this.dataSources.courses), { mode:'cors' }).then(r=>r.text()),
-                fetch(addCB(this.dataSources.topics),  { mode:'cors' }).then(r=>r.text())
-              ]);
-              const pc = Papa.parse(coursesCSV, { header:true, skipEmptyLines:true });
-              const pt = Papa.parse(topicsCSV,  { header:true, skipEmptyLines:true });
-      
-              this.courseIndex = {};
-              pc.data.forEach(row => {
-                const c = this.rowToCourse(row);
-                if(c) this.courseIndex[c.id] = { ...c, topics: [] };
-              });
-      
-              pt.data.forEach(row => {
-                const t = this.rowToTopic(row);
-                if(!t) return;
-                t.course_ids.forEach(cid => {
-                  if(this.courseIndex[cid]) this.courseIndex[cid].topics.push(t);
-                });
-              });
-      
-              this.courses = Object.values(this.courseIndex);
-            }catch(err){
-              console.error('CSV load failed:', err);
-              alert('Could not load CSVs.');
-              this.courses = [];
-            }
-          },
-      
-          /* ---------- Persist course + topic selection ---------- */
-          persist(){
-            const ids = [];
-            this.courses.forEach(c=>{
-              if(c.checked) ids.push('c:'+c.id);
-              (c.topics||[]).forEach(t=>{ if(t.checked) ids.push('t:'+t.topic_id); });
-            });
-            localStorage.setItem('pf_courses', JSON.stringify(ids));
-          },
-          restoreChecked(){
-            try{
-              const saved = JSON.parse(localStorage.getItem('pf_courses') || '[]');
-              const set = new Set(saved);
-              this.courses.forEach(c=>{
-                c.checked = set.has('c:'+c.id);
-                (c.topics||[]).forEach(t => { t.checked = set.has('t:'+t.topic_id); });
-              });
-            }catch{}
-          },
-      
-          printSelected(){ window.print(); },
-      
-          async init(){
-            await this.loadDualCSVs();
-            this.restoreChecked();
-          }
-        };
-      }
-    </script>
-  </div>
 </body>
 </html>
