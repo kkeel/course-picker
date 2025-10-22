@@ -20,7 +20,7 @@
     body { font-family: 'DM Sans', sans-serif; background: var(--brand-bg); color: var(--brand-ink); }
     .font-crimson { font-family: 'Crimson Text', serif; }
 
-    .title-alveary { color: var(--green-dark); font-weight: 700; font-size: 28px; }
+    .title-alveary { color: var(--green-dark); font-weight: 700; font-size: 34px; }
 
     .subject-divider { color: var(--ink-dark); font-weight: 700; font-size: 26px; margin-top: 3rem; margin-bottom: 1rem; position: sticky; top: 64px; background: var(--brand-bg); z-index: 5; }
 
@@ -32,6 +32,13 @@
     .desc-bg { background: var(--gray-soft); }
 
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+    /* Print-only adjustments: show selected list, hide app chrome, lighten backgrounds */
+    @media print {
+      body { background: #ffffff !important; }
+      .desc-bg { background: #ffffff !important; }
+      .subject-divider { position: static !important; background: transparent !important; }
+    }
   </style>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -41,9 +48,9 @@
 <body class="min-h-screen">
   <div x-data="courseApp()" x-init="init()" class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
 
-    <div class="print:hide">
+    <div class="print:hidden">
       <header class="flex items-center gap-3 mb-6">
-        <img src="logo.png" alt="Alveary" class="h-8 w-8 object-contain" />
+        <img src="logo.png" alt="Alveary" class="h-10 w-10 object-contain" />
         <h1 class="title-alveary">Alveary Course List</h1>
       </header>
 
@@ -85,7 +92,7 @@
             <h2 class="subject-divider" x-text="subj"></h2>
 
             <template x-for="c in list" :key="c.id">
-              <div class="">
+              <div>
                 <div class="course-band rounded-md overflow-hidden">
                   <div class="grid grid-cols-12">
                     <div class="col-span-3 px-3 py-2 border-white/10 flex items-center gap-2">
@@ -102,7 +109,7 @@
                 </div>
 
                 <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
-                  <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'"></div></div>
+                  <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'" /></div>
                   <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
                     <template x-if="c.details.find(d => d.label === 'Description')">
                       <div x-html="c.details.find(d => d.label === 'Description').value"></div>
@@ -125,9 +132,9 @@
       </section>
     </div>
 
-    <section class="print:show hidden mt-8">
+    <section class="hidden print:block mt-8">
       <header class="mb-4 flex items-center gap-3">
-        <img src="logo.png" alt="Alveary" class="h-8 w-8 object-contain" />
+        <img src="logo.png" alt="Alveary" class="h-10 w-10 object-contain" />
         <h1 class="title-alveary m-0">Alveary Course List</h1>
       </header>
       <div class="space-y-3">
@@ -147,7 +154,7 @@
               </div>
             </div>
             <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
-              <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'"></div></div>
+              <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'" /></div>
               <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
                 <template x-if="c.details.find(d => d.label === 'Description')">
                   <div x-html="c.details.find(d => d.label === 'Description').value"></div>
@@ -164,204 +171,5 @@
       </div>
     </section>
   </div>
-<script>
-function courseApp(){
-  return {
-    /* ---------- UI state ---------- */
-    search: '',
-    filters: { subject: '', levelTag: '' },
-    courses: [],
-    courseIndex: {},
-
-    /* ---------- Data sources (CSV) ---------- */
-    dataSources: {
-      courses: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=0&single=true&output=csv',
-      topics:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=1919021076&single=true&output=csv'
-    },
-
-    /* ---------- CSV field maps (your headers) ---------- */
-    courseFields: {
-      course_id: 'Course_ID',
-      course_title: 'Course',
-      subject: 'Subject',
-      schedule_text: 'Scheduling_R3',
-      grade_text: 'Grade_Text',
-      grade_filter: 'Grade_Filter',
-      description: 'Program_Description_R3',
-      combining_placement: 'Combining&PlacementTips_R3'
-    },
-    topicFields: {
-      topic_id: 'Topic_ID',
-      course_id: 'Course_ID_R3',              // comma-separated list
-      topic_title: 'Topic',
-      topic_description: 'Program_Description_R3',
-      combining_placement: 'Combining&PlacementTips_R3',
-      schedule_text: 'Scheduling_R3',
-      grade_text: 'Grade_Text',
-      grade_filter: 'Grade_Filter'
-    },
-
-    /* ---------- Derived lists ---------- */
-    get selected(){
-      return this.courses.filter(c => c.checked);
-    },
-    get filtered(){
-      const q = this.search.toLowerCase();
-      return this.courses.filter(c=>{
-        const matchesQ = !q || [c.title, c.subject, c.summary, c.levelDisplay].join(' ').toLowerCase().includes(q);
-        const matchesS = !this.filters.subject || c.subject === this.filters.subject;
-        const matchesL = !this.filters.levelTag || (c.levelTags && c.levelTags.includes(this.filters.levelTag));
-        return matchesQ && matchesS && matchesL;
-      });
-    },
-    get subjectList(){
-      return [...new Set(this.courses.map(c => c.subject).filter(Boolean))].sort((a,b)=>a.localeCompare(b, undefined, {numeric:true}));
-    },
-    get levelList(){
-      return [...new Set(this.courses.flatMap(c => c.levelTags || []))].sort((a,b)=>{
-        const na = +a.replace(/\D/g,''); const nb = +b.replace(/\D/g,'');
-        return na-nb || a.localeCompare(b);
-      });
-    },
-    // Group by subject; push “Alt. Science Options” to the end
-    get grouped(){
-      const groups = new Map();
-      this.filtered.forEach(c => {
-        const s = c.subject || 'Other';
-        if (!groups.has(s)) groups.set(s, []);
-        groups.get(s).push(c);
-      });
-      const special = 'Alt. Science Options';
-      return Array.from(groups.entries()).sort((a,b)=>{
-        const A=a[0]||'', B=b[0]||'';
-        if (A===special && B!==special) return 1;
-        if (B===special && A!==special) return -1;
-        return A.localeCompare(B, undefined, {numeric:true});
-      });
-    },
-
-    /* ---------- Helpers ---------- */
-    _getCI(row, want){
-      // support string or array of candidate headers (case-insensitive)
-      const keys = Array.isArray(want) ? want : [want];
-      for(const k of keys){
-        const hit = Object.keys(row).find(h => h.trim().toLowerCase() === String(k).trim().toLowerCase());
-        if(hit) return row[hit];
-      }
-      return undefined;
-    },
-    computeGradeTags(gr){
-      const tags=[];
-      const range = gr && gr.match(/^(?:[Gg]?(\d+))\s*[–-]\s*[Gg]?(\d+)$/);
-      if(range){ const a=+range[1], b=+range[2]; for(let i=Math.min(a,b); i<=Math.max(a,b); i++) tags.push(`G${i}`); return tags; }
-      const single = gr && gr.match(/^[Gg]?(\d+)$/); if(single){ return [`G${+single[1]}`]; }
-      if(gr && String(gr).includes(',')){
-        String(gr).split(',').forEach(x=>{ const n=x.replace(/[^0-9]/g,''); if(n) tags.push(`G${+n}`); });
-      }
-      return tags;
-    },
-
-    rowToCourse(row){
-      if(!row) return null;
-      const g = (k) => this._getCI(row, this.courseFields[k]);
-
-      const id    = (g('course_id')    || '').toString().trim();
-      const title = (g('course_title') || '').toString().trim();
-      if(!id && !title) return null;
-
-      let subject = (g('subject') || '').toString().trim();
-      const gradeText   = (g('grade_text')   || '').toString().trim();   // e.g., "GRADES 1–4" or "GRADE 7"
-      const gradeFilter = (g('grade_filter') || '').toString().trim();   // e.g., "G1, G2, G3"
-      const schedule    = (g('schedule_text')|| '').toString().trim();
-      const description = (g('description')  || '').toString().trim();
-      const combining   = (g('combining_placement') || '').toString().trim();
-
-      const levelDisplay = gradeText || '';
-      const levelTags = (gradeFilter && /G\s*\d+/i.test(gradeFilter))
-        ? (gradeFilter.match(/G\s*\d+/gi) || []).map(s => 'G' + s.replace(/[^0-9]/g,''))
-        : this.computeGradeTags(gradeText);
-
-      const details = [];
-      if(description) details.push({ label:'Description', value: description });
-      if(combining)   details.push({ label:'Combining & Placement', value: combining });
-
-      return { id: id||title, title: title||id, subject, summary: schedule, details, levelDisplay, levelTags, checked: false };
-    },
-    rowToTopic(row){
-      // (topics attached for future nested UI; safe to leave as-is for now)
-      if(!row) return null;
-      const g = (k) => this._getCI(row, this.topicFields[k]);
-      const course_id   = (g('course_id')  || '').toString().trim();
-      const topic_title = (g('topic_title')|| '').toString().trim();
-      if(!course_id || !topic_title) return null;
-
-      const topic_id    = (g('topic_id')   || '').toString().trim() || undefined;
-      const topic_desc  = (g('topic_description') || '').toString().trim();
-      const combining   = (g('combining_placement') || '').toString().trim();
-      const schedule_t  = (g('schedule_text') || '').toString().trim();
-
-      const details = [];
-      if(topic_desc) details.push({ label:'Description', value: topic_desc });
-      if(combining)  details.push({ label:'Combining & Placement', value: combining });
-      if(schedule_t) details.unshift({ label:'Schedule', value: schedule_t });
-
-      return { topic_id, course_id, topic_title, details };
-    },
-
-    async loadDualCSVs(){
-      const addCB = (u) => u + (u.includes('?') ? '&' : '?') + 'cb=' + Date.now();
-      try{
-        const [coursesCSV, topicsCSV] = await Promise.all([
-          fetch(addCB(this.dataSources.courses), { mode:'cors' }).then(r=>r.text()),
-          fetch(addCB(this.dataSources.topics),  { mode:'cors' }).then(r=>r.text())
-        ]);
-        const pc = Papa.parse(coursesCSV, { header:true, skipEmptyLines:true });
-        const pt = Papa.parse(topicsCSV,  { header:true, skipEmptyLines:true });
-
-        this.courseIndex = {};
-        pc.data.forEach(row => {
-          const c = this.rowToCourse(row);
-          if(c) this.courseIndex[c.id] = { ...c, topics: [] };
-        });
-
-        pt.data.forEach(row => {
-          const t = this.rowToTopic(row);
-          if(!t) return;
-          const ids = t.course_id.split(',').map(s=>s.trim()).filter(Boolean);
-          ids.forEach(cid => { if(this.courseIndex[cid]) this.courseIndex[cid].topics.push(t); });
-        });
-
-        this.courses = Object.values(this.courseIndex);
-      }catch(err){
-        console.error('CSV load failed:', err);
-        alert('Could not load CSVs.');
-        this.courses = [];
-      }
-    },
-
-    persist(){
-      const ids = this.courses.filter(c=>c.checked).map(c=>c.id);
-      localStorage.setItem('pf_courses', JSON.stringify(ids));
-    },
-    restoreChecked(){
-      try{
-        const saved = JSON.parse(localStorage.getItem('pf_courses')||'[]');
-        const set = new Set(saved);
-        this.courses.forEach(c => c.checked = set.has(c.id));
-      }catch{}
-    },
-
-    printSelected(){
-      if(!this.selected.length){ alert('Select at least one course to print.'); return; }
-      window.print();
-    },
-
-    async init(){
-      await this.loadDualCSVs();
-      this.restoreChecked();
-    }
-  };
-}
-</script>
 </body>
 </html>
