@@ -238,14 +238,14 @@
                 <!-- TOPICS (if any) -->
                 <template x-if="c.topics && c.topics.length">
                   <div class="mt-2 space-y-2">
-                    <template x-for="t in c.topics" :key="t.topic_id">
+                    <template x-for="t in c.topics" :key="t.topic_uid || t.topic_id">
                       <div class="topic-connector">
                         <!-- Topic band (title + grades only) -->
                         <div class="topic-band rounded-md overflow-hidden topic-band-indent">
                           <div class="px-3 py-2 border-white/10 flex items-center gap-2">
                             <input type="checkbox"
                                    class="size-5 rounded border-white/50"
-                                   :id="'chk-t-'+t.topic_id"
+                                   :id="'chk-t-'+(t.topic_uid || t.topic_id)"
                                    x-model="t.checked"
                                    @change="persist()" />
                             <div class="band-title font-crimson">
@@ -328,7 +328,7 @@
                   <div class="text-sm font-semibold text-[var(--green-dark)] mb-1" x-text="c.title"></div>
                 </template>
 
-                <template x-for="t in (c.topics||[]).filter(tt=>tt.checked)" :key="t.topic_id">
+                <template x-for="t in (c.topics||[]).filter(tt=>tt.checked)" :key="t.topic_uid || t.topic_id">
                   <div class="topic-connector">
                     <!-- Topic band (title + grades only) -->
                     <div class="topic-band rounded-md overflow-hidden topic-band-indent">
@@ -569,7 +569,11 @@
               const t = this.rowToTopic(row);
               if(!t) return;
               t.course_ids.forEach(cid => {
-                if(this.courseIndex[cid]) this.courseIndex[cid].topics.push(t);
+                if(this.courseIndex[cid]) {
+                   // clone per course to avoid shared state + give a unique id per course
+                   const clone = { ...t, topic_uid: `${t.topic_id}::${cid}`, checked: false };
+                   this.courseIndex[cid].topics.push(clone);
+                 }
               });
             });
           
@@ -581,7 +585,9 @@
             const ids = [];
             this.courses.forEach(c=>{
               if(c.checked) ids.push('c:'+c.id);
-              (c.topics||[]).forEach(t=>{ if(t.checked) ids.push('t:'+t.topic_id); });
+              (c.topics||[]).forEach(t=>{
+                 if(t.checked) ids.push('t:' + (t.topic_uid || t.topic_id));
+               });
             });
             localStorage.setItem('pf_courses', JSON.stringify(ids));
           },
@@ -591,7 +597,10 @@
               const set = new Set(saved);
               this.courses.forEach(c=>{
                 c.checked = set.has('c:'+c.id);
-                (c.topics||[]).forEach(t => { t.checked = set.has('t:'+t.topic_id); });
+                (c.topics||[]).forEach(t => {
+                   const key = 't:' + (t.topic_uid || t.topic_id);
+                   t.checked = set.has(key);
+                 });
               });
             }catch{}
           },
