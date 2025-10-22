@@ -59,6 +59,27 @@
     @media (max-width: 480px){
       .welcome-inline p { margin-top: .25rem; }
     }
+    /* PDF-like paragraph rhythm */
+    .guidance-copy{ font-size:0.96rem; line-height:1.55; color:#2f3a33; }
+    .guidance-copy p{ margin:0 0 .6rem 0; }           /* tighter paragraph gap */
+    .guidance-copy p:last-child{ margin-bottom:0; }
+    
+    .guidance-head{ margin-bottom:.35rem; }           /* pull text closer to heading/icon */
+    .guidance-block{ margin-bottom:1.25rem; }         /* tighter block spacing */
+    
+    .divider-green{ border-top:1px solid var(--green-dark); margin-top:1rem; padding-top:1rem; }
+    
+    /* subtle highlight for the welcome info section */
+    .intro-card{
+      background:#fff;
+      border:1px solid #e7ebe8;                       /* very faint border */
+      box-shadow:0 2px 8px rgba(0,0,0,.05);           /* soft shadow */
+      border-radius:1rem;
+      padding:1rem 1.25rem;
+    }
+    @media (min-width: 640px){
+      .intro-card{ padding:1.25rem 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -74,34 +95,37 @@
   </header>
 
   <!-- Streamlined Welcome + Guidance -->
-  <!-- Top section: white background + italic intro + guidance list -->
-    <section class="bg-white rounded-2xl px-4 sm:px-6 py-5 mb-6">
+  <!-- Top section: white intro card + guidance blocks -->
+    <section class="mb-6">
     
-      <!-- italic intro (no 'Welcome' heading) -->
-      <p class="italic text-base leading-relaxed text-gray-700 mb-6">
-        The guidance below is designed to help you plan your year with intention and grace.
-        A Charlotte Mason education should fit the child, not force the child to fit the curriculum.
-      </p>
+      <!-- italic intro inside a subtle white card -->
+      <div class="intro-card mb-6">
+        <p class="italic text-base leading-relaxed text-gray-700 m-0">
+          The guidance below is designed to help you plan your year with intention and grace.
+          A Charlotte Mason education should fit the child, not force the child to fit the curriculum.
+        </p>
+      </div>
     
-      <!-- Guidance list (no boxes; dark-green dividers) -->
+      <!-- Guidance list (no boxes) -->
       <template x-for="(g, i) in guidance" :key="g.key">
-        <div class="mb-6">
-          <div class="flex items-center gap-3 mb-2">
+        <div class="guidance-block">
+          <div class="guidance-head flex items-center gap-3">
             <img :src="g.icon" class="h-9 w-9" alt="">
             <h3 class="text-xl font-semibold text-[var(--green-dark)]" x-text="g.title"></h3>
           </div>
-          <div class="text-sm leading-7 text-gray-800" x-html="g.html"></div>
     
-          <!-- divider except after last -->
-          <div x-show="i < guidance.length - 1"
-               class="border-t mt-5 pt-5"
-               style="border-color: var(--green-dark);"></div>
+          <!-- tighter, PDF-like paragraph formatting -->
+          <div class="guidance-copy" x-html="g.html"></div>
+    
+          <!-- thin dark-green divider except after last -->
+          <div x-show="i < guidance.length - 1" class="divider-green"></div>
         </div>
       </template>
+    
     </section>
 
   <!-- Filters / view controls -->
-  <section class="panel mb-4">
+  <section class="panel mb-4 border-t border-gray-200 pt-4">
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
       <label class="block">
         <span class="text-xs uppercase tracking-wide text-gray-500">Search</span>
