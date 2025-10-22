@@ -55,7 +55,7 @@
     :root {
       --brand-bg: #fbfbf9;
       --brand-ink: #262b26;
-      --brand-accent: #45818e;
+      --brand-accent: var(--green-dark);
       --brand-soft: #e5e8e5;
     }
 
@@ -85,7 +85,7 @@
         <div class="flex items-center gap-3">
           <div class="size-10 rounded-xl bg-[var(--green-dark)]/10 flex items-center justify-center overflow-hidden">
             <!-- your Drive-hosted logo -->
-            <img src="https://drive.google.com/uc?export=download&id=1KmhPHKWzMR2xZs-XWZJ7ffSXPX-rP52t" alt="Alveary" class="h-8 w-8 object-contain" />
+            <img src="logo.png" alt="Alveary" class="h-8 w-8 object-contain" />
           </div>
           <h1 class="title-alveary">Alveary Course List</h1>
         </div>
@@ -97,7 +97,7 @@
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <label class="block">
             <span class="text-xs uppercase tracking-wide text-gray-500">Search</span>
-            <input x-model.trim.debounce.250ms="search" type="search" placeholder="Title, subject, keyword…" class="focus-ring w-full mt-1 rounded-xl border-gray-300" />
+            <input x-model.trim.debounce.250ms="search" type="search" placeholder="Title, subject, keyword…" class="focus-ring w-full mt-1 rounded-xl border-gray-300 placeholder-[#7b8b7f]" />
           </label>
           <label class="block">
             <span class="text-xs uppercase tracking-wide text-gray-500">Subject</span>
@@ -132,7 +132,7 @@
             </template>
           </div>
           <div class="flex items-center gap-2">
-            <button @click="printSelected()" class="focus-ring rounded-xl px-3 py-2 bg-[var(--brand-accent)] text-white shadow hover:opacity-95">Print Selected</button>
+            <button @click="printSelected()" class="focus-ring rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print Selected</button>
             <button @click="resetSelections()" class="focus-ring rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-gray-50">Reset</button>
             <button @click="toggleCompact()" class="focus-ring rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-gray-50" x-text="compact ? 'Comfortable view' : 'Compact view'"></button>
           </div>
@@ -155,26 +155,13 @@
       
                   <div class="flex-1 p-3 sm:p-4">
                     <div class="flex items-start gap-3">
-                      <input type="checkbox" class="mt-1 size-5 rounded border-gray-300 focus-ring" :id="'chk-'+c.id" x-model="c.checked" @change="persist()" />
-      
+                      <!-- TOGGLE ROW becomes the green band with checkbox and title -->
                       <div class="flex-1">
                         <button class="w-full text-left" @click="c.open = !c.open" :aria-expanded="c.open" :aria-controls="'panel-'+c.id">
-                          <div class="flex items-center justify-between gap-3">
-                            <h3 class="font-semibold text-lg leading-tight" x-text="c.title"></h3>
-                            <div class="flex items-center gap-2 text-sm text-gray-500">
-                              <span class="px-2 py-0.5 rounded-full border" x-text="c.subject" :style="`border-color:${subjectColors[c.subject]}; color:${subjectColors[c.subject]}`"></span>
-                              <span class="px-2 py-0.5 rounded-full bg-gray-100" x-text="c.levelDisplay"></span>
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-5 transition-transform" :class="c.open ? 'rotate-180' : ''"><path fill="currentColor" d="m12 15l-5-5h10z"/></svg>
-                            </div>
-                          </div>
-                        </button>
-      
-                        <!-- ACCORDION PANEL -->
-                        <div x-show="c.open" x-collapse class="mt-3" :id="'panel-'+c.id">
-                          <!-- Green band row -->
                           <div class="course-band rounded-md overflow-hidden">
                             <div class="grid grid-cols-12">
-                              <div class="col-span-3 px-3 py-2 border-white/10">
+                              <div class="col-span-3 px-3 py-2 border-white/10 flex items-center gap-2">
+                                <input type="checkbox" class="size-5 rounded border-white/50 focus-ring" :id="'chk-'+c.id" x-model="c.checked" @change="persist()" />
                                 <div class="band-title font-crimson"><span x-text="c.title"></span></div>
                               </div>
                               <div class="col-span-5 px-3 py-2 border-white/10">
@@ -185,21 +172,23 @@
                               </div>
                             </div>
                           </div>
-      
+                        </button>
+
+                        <div x-show="c.open" x-collapse class="mt-0.5" :id="'panel-'+c.id">
                           <!-- Content row -->
                           <div class="grid grid-cols-12 gap-0 border border-gray-200 rounded-b-md overflow-hidden">
                             <!-- Schedule (left) -->
                             <div class="col-span-3 px-3 py-3 course-copy">
                               <div x-html="c.summary || '&nbsp;'"></div>
                             </div>
-      
+
                             <!-- Description (middle, grey background) -->
                             <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
                               <template x-if="c.details.find(d => d.label === 'Description')">
                                 <div x-html="c.details.find(d => d.label === 'Description').value"></div>
                               </template>
                             </div>
-      
+
                             <!-- Combining & Placement (right) -->
                             <div class="col-span-4 px-4 py-4 course-copy leading-relaxed">
                               <template x-if="c.details.find(d => d.label === 'Combining & Placement')">
@@ -342,16 +331,19 @@
       },
 
       get grouped(){
-        // Group filtered courses by subject (default to "Other")
         const groups = new Map();
         this.filtered.forEach(c => {
           const s = c.subject || 'Other';
           if (!groups.has(s)) groups.set(s, []);
           groups.get(s).push(c);
         });
-        // Sort subjects A→Z; keep course order within each group
-        return Array.from(groups.entries())
-          .sort((a,b)=> a[0].localeCompare(b[0], undefined, {numeric:true}));
+        const special = 'Alt. Science Options';
+        return Array.from(groups.entries()).sort((a,b)=>{
+          const A=a[0]||''; const B=b[0]||'';
+          if (A===special && B!==special) return 1;
+          if (B===special && A!==special) return -1;
+          return A.localeCompare(B, undefined, {numeric:true});
+        });
       },
       
       // ===== Filtering logic =====
