@@ -9,90 +9,44 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Crimson+Text:wght@700&display=swap" rel="stylesheet" />
 
   <style>
-    /* Base brand variables */
     :root{
       --brand-bg: #fbfbf9;
       --brand-ink: #262b26;
-  
-      /* Alveary palette you shared */
-      --green-dark: #596e5e; /* title */
-      --ink-dark:   #262b26; /* text */
-      --gray-soft:  #f4f6fa; /* description background */
-      --band-green: #596e5e; /* course band */
+      --green-dark: #596e5e;
+      --gray-soft: #f4f6fa;
+      --band-green: #596e5e;
     }
-  
-    /* Fonts */
-    body { font-family: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif; }
-    .font-crimson { font-family: "Crimson Text", Georgia, "Times New Roman", serif; }
-  
-    /* Title + subject divider */
+
+    body { font-family: 'DM Sans', sans-serif; background: var(--brand-bg); color: var(--brand-ink); }
+    .font-crimson { font-family: 'Crimson Text', serif; }
+
     .title-alveary { color: var(--green-dark); font-weight: 700; font-size: 28px; }
-  
-    .subject-divider { color: var(--ink-dark); font-weight: 700; font-size: 18px; position: sticky; top: 64px; background: var(--brand-bg); z-index: 5; }
-  
-    /* Course band across the three columns */
+
+    .subject-divider { color: var(--ink-dark); font-weight: 700; font-size: 26px; margin-top: 3rem; margin-bottom: 1rem; position: sticky; top: 64px; background: var(--brand-bg); z-index: 5; }
+
     .course-band { background: var(--band-green); color: #fff; }
     .course-band .band-title { font-size: 12px; line-height: 1.2; }
     .course-band .band-title.font-crimson { font-weight: 700; }
-  
-    /* Course content text (PDF spec) */
-    .course-copy { color: var(--ink-dark); font-size: 9pt; }  /* ~12px */
+
+    .course-copy { color: var(--ink-dark); font-size: 9pt; }
     .desc-bg { background: var(--gray-soft); }
-  
-    /* Print tweaks to keep colors */
+
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   </style>
 
-
-  <!-- TailwindCSS via CDN (free) -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Alpine.js (for lightweight interactivity) -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <!-- Optional: Alpine Collapse plugin for smooth accordion transitions -->
-  <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
-
-  <style>
-    :root {
-      --brand-bg: #fbfbf9;
-      --brand-ink: #262b26;
-      --brand-accent: var(--green-dark);
-      --brand-soft: #e5e8e5;
-    }
-
-    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-
-    @media print {
-      .print\:hide { display: none !important; }
-      .print\:show { display: block !important; }
-      html, body { background: white !important; }
-    }
-
-    .focus-ring:focus {
-      outline: 3px solid var(--brand-accent);
-      outline-offset: 2px;
-    }
-  </style>
-  <!-- Papa Parse for CSV parsing -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
-<body class="min-h-screen bg-[var(--brand-bg)] text-[var(--brand-ink)]">
+<body class="min-h-screen">
   <div x-data="courseApp()" x-init="init()" class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
 
-    <!-- SCREEN-ONLY UI (hidden in print) -->
     <div class="print:hide">
-      <!-- HEADER -->
-      <header class="flex items-center justify-between gap-4 mb-6">
-        <div class="flex items-center gap-3">
-          <div class="size-10 rounded-xl bg-[var(--green-dark)]/10 flex items-center justify-center overflow-hidden">
-            <!-- your Drive-hosted logo -->
-            <img src="logo.png" alt="Alveary" class="h-8 w-8 object-contain" />
-          </div>
-          <h1 class="title-alveary">Alveary Course List</h1>
-        </div>
-        <!-- top-right controls removed per request -->
+      <header class="flex items-center gap-3 mb-6">
+        <img src="logo.png" alt="Alveary" class="h-8 w-8 object-contain" />
+        <h1 class="title-alveary">Alveary Course List</h1>
       </header>
 
-      <!-- CONTROLS / FILTERS -->
       <section class="rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 mb-6">
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <label class="block">
@@ -117,121 +71,25 @@
               </template>
             </select>
           </label>
-          
         </div>
-
-        </section>
-
-      <!-- SELECTED SUMMARY BAR -->
-      <div class="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-[var(--brand-soft)]">
-        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
-          <div class="text-sm">
-            <strong x-text="selected.length"></strong> selected
-            <template x-if="selected.length">
-              <span>· <button @click="selectAllVisible()" class="underline">Select visible</button> · <button @click="clearAllVisible()" class="underline">Clear visible</button></span>
-            </template>
-          </div>
-          <div class="flex items-center gap-2">
-            <button @click="printSelected()" class="focus-ring rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print Selected</button>
-            <button @click="resetSelections()" class="focus-ring rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-gray-50">Reset</button>
-            <button @click="toggleCompact()" class="focus-ring rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-gray-50" x-text="compact ? 'Comfortable view' : 'Compact view'"></button>
-          </div>
-        </div>
-      </div>
-
-      <!-- COURSE LIST (grouped by subject with big headings) -->
-      <section :class="compact ? 'divide-y divide-gray-200' : ''">
-        <template x-for="[subj, list] in grouped" :key="subj">
-          <div class="space-y-3">
-            <!-- Big subject heading -->
-            <h2 class="subject-divider mt-8 mb-2" x-text="subj"></h2>
-      
-            <!-- Cards in this subject -->
-            <template x-for="c in list" :key="c.id">
-              <article class="group rounded-2xl border border-gray-200 bg-white overflow-hidden" :class="compact ? 'rounded-none border-0' : ''">
-                <div class="flex">
-                  <!-- color rail -->
-                  <div class="w-2 shrink-0" :style="`background:${subjectColors[c.subject] ?? '#666d66'}`"></div>
-      
-                  <div class="flex-1 p-3 sm:p-4">
-                    <div class="flex items-start gap-3">
-                      <!-- GREEN BAND (STATIC, NON-COLLAPSIBLE) -->
-                      <div class="flex-1">
-                        <div class="course-band rounded-md overflow-hidden">
-                          <div class="grid grid-cols-12">
-                            <div class="col-span-3 px-3 py-2 border-white/10 flex items-center gap-2">
-                              <input type="checkbox" class="size-5 rounded border-white/50 focus-ring" :id="'chk-'+c.id" x-model="c.checked" @change="persist()" />
-                              <div class="band-title font-crimson"><span x-text="c.title"></span></div>
-                            </div>
-                            <div class="col-span-5 px-3 py-2 border-white/10">
-                              <div class="band-title">Description</div>
-                            </div>
-                            <div class="col-span-4 px-3 py-2 border-white/10">
-                              <div class="band-title">Combining &amp; Placement<br><span class="text-[11px] opacity-90" x-text="c.levelDisplay"></span></div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- ALWAYS VISIBLE CONTENT ROW -->
-                        <div class="mt-0.5">
-                          <div class="grid grid-cols-12 gap-0 border border-gray-200 rounded-b-md overflow-hidden">
-                            <!-- Schedule (left) -->
-                            <div class="col-span-3 px-3 py-3 course-copy">
-                              <div x-html="c.summary || '&nbsp;'"></div>
-                            </div>
-
-                            <!-- Description (middle, grey background) -->
-                            <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
-                              <template x-if="c.details.find(d => d.label === 'Description')">
-                                <div x-html="c.details.find(d => d.label === 'Description').value"></div>
-                              </template>
-                            </div>
-
-                            <!-- Combining & Placement (right) -->
-                            <div class="col-span-4 px-4 py-4 course-copy leading-relaxed">
-                              <template x-if="c.details.find(d => d.label === 'Combining & Placement')">
-                                <div x-html="c.details.find(d => d.label === 'Combining & Placement').value"></div>
-                              </template>
-                            </div>
-                          </div>
-                        </div>
-                      </div> <!-- /flex-1 (title/controls) -->
-                    </div> <!-- /row with checkbox + content -->
-                  </div> <!-- /content padding -->
-                </div> <!-- /flex -->
-              </article>
-            </template>
-          </div>
-        </template>
-      
-        <template x-if="!filtered.length">
-          <p class="text-center text-gray-500 py-12">No courses match your filters.</p>
-        </template>
       </section>
 
-      <!-- FOOTER (screen only) -->
-      <footer class="mt-12 text-sm text-gray-500">
-        <p>Tip: Use your browser’s “Save as PDF” from the Print dialog to create a PDF that preserves brand colors.</p>
-      </footer>
-    </div>
+      <div class="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-gray-200 flex justify-between items-center">
+        <div><strong x-text="selected.length"></strong> selected</div>
+        <button @click="printSelected()" class="focus-ring rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print Selected</button>
+      </div>
 
-    <!-- PRINT-ONLY VIEW (built from selected) -->
-    <section class="print:show hidden mt-8">
-      <header class="mb-4 flex items-center gap-3">
-        <img src="logo.png" alt="Alveary" class="h-8 w-8 object-contain" />
-        <h1 class="title-alveary m-0">Alveary Course List</h1>
-      </header>
+      <section>
+        <template x-for="[subj, list] in grouped" :key="subj">
+          <div class="space-y-3">
+            <h2 class="subject-divider" x-text="subj"></h2>
 
-      <div class="space-y-3">
-        <template x-for="c in selected" :key="'p-'+c.id">
-          <article class="rounded-xl border border-gray-200 bg-white overflow-hidden">
-            <div class="flex">
-              <div class="w-2 shrink-0" :style="`background:${subjectColors[c.subject] ?? '#666d66'}`"></div>
-              <div class="flex-1 p-3">
-                <!-- Band -->
+            <template x-for="c in list" :key="c.id">
+              <div class="">
                 <div class="course-band rounded-md overflow-hidden">
                   <div class="grid grid-cols-12">
-                    <div class="col-span-3 px-3 py-2 border-white/10">
+                    <div class="col-span-3 px-3 py-2 border-white/10 flex items-center gap-2">
+                      <input type="checkbox" class="size-5 rounded border-white/50 focus-ring" :id="'chk-'+c.id" x-model="c.checked" @change="persist()" />
                       <div class="band-title font-crimson"><span x-text="c.title"></span></div>
                     </div>
                     <div class="col-span-5 px-3 py-2 border-white/10">
@@ -242,9 +100,8 @@
                     </div>
                   </div>
                 </div>
-          
-                <!-- 3 columns -->
-                <div class="grid grid-cols-12 gap-0 border border-gray-200 rounded-b-md overflow-hidden mt-0.5">
+
+                <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
                   <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'"></div></div>
                   <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
                     <template x-if="c.details.find(d => d.label === 'Description')">
@@ -258,330 +115,54 @@
                   </div>
                 </div>
               </div>
+            </template>
+          </div>
+        </template>
+
+        <template x-if="!filtered.length">
+          <p class="text-center text-gray-500 py-12">No courses match your filters.</p>
+        </template>
+      </section>
+    </div>
+
+    <section class="print:show hidden mt-8">
+      <header class="mb-4 flex items-center gap-3">
+        <img src="logo.png" alt="Alveary" class="h-8 w-8 object-contain" />
+        <h1 class="title-alveary m-0">Alveary Course List</h1>
+      </header>
+      <div class="space-y-3">
+        <template x-for="c in selected" :key="c.id">
+          <div>
+            <div class="course-band rounded-md overflow-hidden">
+              <div class="grid grid-cols-12">
+                <div class="col-span-3 px-3 py-2 border-white/10">
+                  <div class="band-title font-crimson"><span x-text="c.title"></span></div>
+                </div>
+                <div class="col-span-5 px-3 py-2 border-white/10">
+                  <div class="band-title">Description</div>
+                </div>
+                <div class="col-span-4 px-3 py-2 border-white/10">
+                  <div class="band-title">Combining &amp; Placement<br><span class="text-[11px] opacity-90" x-text="c.levelDisplay"></span></div>
+                </div>
+              </div>
             </div>
-          </article>
+            <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
+              <div class="col-span-3 px-3 py-3 course-copy"><div x-html="c.summary || '&nbsp;'"></div></div>
+              <div class="col-span-5 px-4 py-4 desc-bg course-copy leading-relaxed">
+                <template x-if="c.details.find(d => d.label === 'Description')">
+                  <div x-html="c.details.find(d => d.label === 'Description').value"></div>
+                </template>
+              </div>
+              <div class="col-span-4 px-4 py-4 course-copy leading-relaxed">
+                <template x-if="c.details.find(d => d.label === 'Combining & Placement')">
+                  <div x-html="c.details.find(d => d.label === 'Combining & Placement').value"></div>
+                </template>
+              </div>
+            </div>
+          </div>
         </template>
       </div>
     </section>
-
   </div>
-
-  <script>
-  function courseApp() {
-    return {
-      // ===== Data sources (two CSVs from one Google Sheet with two tabs) =====
-      dataSources: {
-        courses: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=0&single=true&output=csv',
-        topics:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=1919021076&single=true&output=csv'
-      },
-
-
-      // ===== Field maps (case-insensitive headers) =====
-      courseFields: {
-        course_id: 'Course_ID',
-        course_title: 'Course',
-        subject: 'Subject',
-        schedule_text: 'Scheduling_R3',
-        grade_text: 'Grade_Text',
-        grade_filter: 'Grade_Filter',
-        description: 'Program_Description_R3',
-        combining_placement: 'Combining&PlacementTips_R3'
-      },
-      topicFields: {
-        topic_id: 'Topic_ID',
-        course_id: 'Course_ID_R3', // comma-separated list of Course_IDs
-        topic_title: 'Topic',
-        topic_description: 'Program_Description_R3',
-        combining_placement: 'Combining&PlacementTips_R3',
-        schedule_text: 'Scheduling_R3',
-        grade_text: 'Grade_Text',
-        grade_filter: 'Grade_Filter'
-      },
-
-
-      // ===== UI state =====
-      compact: false,
-      search: '',
-      filters: { subject: '', levelTag: '' }, // levelTag = G1, G2, ...
-      printGate: false,
-
-      // Subject → color mapping
-      subjectColors: {
-        // Alveary brand palette examples
-        "Bible": "#596e5e",
-        "History": "#7b8b7f",
-        "Science": "#3b413b",
-        "Literature": "#666d66",
-        "Latin": "#d2d6d2",
-        "Art": "#e5e8e5"
-      },
-
-      // Data
-      courses: [],
-      courseIndex: {},
-
-      // ===== Derived lists for filters =====
-      get subjectList(){ return [...new Set(this.courses.map(c => c.subject).filter(Boolean))].sort(); },
-      get levelList(){
-        const tags = new Set();
-        this.courses.forEach(c => (c.levelTags||[]).forEach(t => tags.add(t)));
-        return [...tags].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));
-      },
-
-      get grouped(){
-        const groups = new Map();
-        this.filtered.forEach(c => {
-          const s = c.subject || 'Other';
-          if (!groups.has(s)) groups.set(s, []);
-          groups.get(s).push(c);
-        });
-        const special = 'Alt. Science Options';
-        return Array.from(groups.entries()).sort((a,b)=>{
-          const A=a[0]||''; const B=b[0]||'';
-          if (A===special && B!==special) return 1;
-          if (B===special && A!==special) return -1;
-          return A.localeCompare(B, undefined, {numeric:true});
-        });
-      },
-      
-      // ===== Filtering logic =====
-      get filtered(){
-        const q = this.search.toLowerCase();
-        return this.courses.filter(c => {
-          const hay = [c.title, c.subject, c.summary, c.levelDisplay].join(' ').toLowerCase();
-          const matchesQ = !q || hay.includes(q);
-          const matchesS = !this.filters.subject || c.subject === this.filters.subject;
-          const matchesL = !this.filters.levelTag || (c.levelTags||[]).includes(this.filters.levelTag);
-          return matchesQ && matchesS && matchesL;
-        });
-      },
-
-      // Selected
-      get selected(){ return this.courses.filter(c => c.checked); },
-
-      // ===== Lifecycle =====
-      async init(){
-        await this.loadDualCSVs();
-        const saved = JSON.parse(localStorage.getItem('pf_courses') || '[]');
-        this.courses.forEach(c => { if(saved.includes(c.id)) c.checked = true; });
-        window.addEventListener('afterprint', () => { this.printGate = false; });
-      },
-
-      // ===== CSV loading (two tabs) =====
-      async loadDualCSVs(){
-        const { courses, topics } = this.dataSources;
-      
-        // If URLs aren't set yet, show dummy so Preview works
-        if(!courses.includes('http') || !topics.includes('http')){
-          this.courses = this.buildDummy();
-          return;
-        }
-      
-        // Cache-buster to avoid stale CSVs on GitHub Pages / Google
-        const addCB = (u) => u + (u.includes('?') ? '&' : '?') + 'cb=' + Date.now();
-        const coursesUrl = addCB(courses);
-        const topicsUrl  = addCB(topics);
-      
-        try{
-          const [coursesCSV, topicsCSV] = await Promise.all([
-            fetch(coursesUrl, { mode: 'cors' }).then(r => r.text()),
-            fetch(topicsUrl,  { mode: 'cors' }).then(r => r.text())
-          ]);
-          const parsedCourses = Papa.parse(coursesCSV, { header: true, skipEmptyLines: true });
-          const parsedTopics  = Papa.parse(topicsCSV,  { header: true, skipEmptyLines: true });
-      
-          this.courseIndex = {};
-      
-          parsedCourses.data.forEach((row) => {
-            const c = this.rowToCourse(row);
-            if(!c) return;
-            this.courseIndex[c.id] = { ...c, topics: [], checked: false, open: true };
-          });
-      
-          parsedTopics.data.forEach((row) => {
-            const t = this.rowToTopic(row);
-            if (!t) return;
-            const courseIds = t.course_id.split(',').map(id => id.trim());
-            courseIds.forEach(cid => {
-              const parent = this.courseIndex[cid];
-              if (parent) parent.topics.push(t);
-            });
-          });
-      
-          this.courses = Object.values(this.courseIndex).map(c => this.decorateCourse(c));
-        }catch(err){
-          console.error('CSV load failed:', err);
-          alert('Could not load one or both CSVs. Showing dummy structure.\n' + err);
-          this.courses = this.buildDummy();
-        }
-      },
-
-      // ===== Row mappers =====
-      _getCI(row, want){
-        const wants = Array.isArray(want) ? want : [want];
-        const keys = Object.keys(row);
-        for (const w of wants) {
-          const key = keys.find(k => k && k.toLowerCase() === String(w).toLowerCase());
-          if (key) return row[key];
-        }
-        // fuzzy contains match as fallback
-        for (const w of wants) {
-          const key = keys.find(k => k && k.toLowerCase().includes(String(w).toLowerCase()));
-          if (key) return row[key];
-        }
-        return '';
-      },
-      rowToCourse(row){
-        if(!row) return null;
-        const g = (k) => this._getCI(row, this.courseFields[k]);
-      
-        const id    = (g('course_id')    || '').toString().trim();
-        const title = (g('course_title') || '').toString().trim();
-        if(!id && !title) return null;
-      
-        // Subject now comes from CSV; fallback to title prefix if missing.
-        let subject = (g('subject') || '').toString().trim();
-        if(!subject && title.includes(':')) subject = title.split(':')[0].trim();
-      
-        const gradeText   = (g('grade_text')   || '').toString().trim();   // e.g., "GRADE(S): 1-6"
-        const gradeFilter = (g('grade_filter') || '').toString().trim();   // e.g., "G1, G2, G3"
-      
-        const rotation      = ''; // no rotation column in your data
-        const schedule_text = (g('schedule_text')  || '').toString().trim(); // single text block
-        const description   = (g('description')    || '').toString().trim();
-        const combining     = (g('combining_placement') || '').toString().trim();
-      
-        const levelDisplay = gradeText || '';
-        const levelTags    = (gradeFilter && /G\s*\d+/i.test(gradeFilter))
-          ? (gradeFilter.match(/G\s*\d+/gi) || []).map(s => 'G' + s.replace(/[^0-9]/g,''))
-          : this.computeGradeTags(gradeText);
-      
-        const details = [];
-        if(description) details.push({ label:'Description', value: description });
-        if(combining)   details.push({ label:'Combining & Placement', value: combining });
-      
-        const summary = schedule_text || '';
-      
-        return { id: id||title, title: title||id, subject, levelDisplay, levelTags, rotation, summary, details };
-      },
-      rowToTopic(row){
-        if(!row) return null;
-        const g = (k) => this._getCI(row, this.topicFields[k]);
-      
-        const course_id   = (g('course_id')  || '').toString().trim();  // comma-separated Course_IDs
-        const topic_title = (g('topic_title')|| '').toString().trim();
-        if(!course_id || !topic_title) return null;
-      
-        const topic_id    = (g('topic_id')   || '').toString().trim() || undefined;
-        const topic_desc  = (g('topic_description') || '').toString().trim();
-        const combining   = (g('combining_placement') || '').toString().trim();
-        const schedule_t  = (g('schedule_text') || '').toString().trim();
-      
-        const details = [];
-        if(topic_desc) details.push({ label:'Description', value: topic_desc });
-        if(combining)  details.push({ label:'Combining & Placement', value: combining });
-        if(schedule_t) details.unshift({ label:'Schedule', value: schedule_t });
-      
-        return { topic_id, course_id, topic_title, details };
-      },
-
-      // ===== Helpers =====
-      formatGradesDisplay(gr){
-        if(!gr) return '';
-        const range = gr.match(/^(?:[Gg]?(\d+))\s*[–-]\s*[Gg]?(\d+)$/); // 1–4 / 1-4
-        if(range){ return `GRADES ${range[1]}–${range[2]}`; }
-        const single = gr.match(/^[Gg]?(\d+)$/);
-        if(single){ return `GRADE ${single[1]}`; }
-        return String(gr).toUpperCase();
-      },
-      computeGradeTags(gr){
-        const tags=[];
-        const range = gr && gr.match(/^(?:[Gg]?(\d+))\s*[–-]\s*[Gg]?(\d+)$/);
-        if(range){
-          const a=+range[1], b=+range[2];
-          for(let i=Math.min(a,b); i<=Math.max(a,b); i++) tags.push(`G${i}`);
-          return tags;
-        }
-        const single = gr && gr.match(/^[Gg]?(\d+)$/);
-        if(single){ return [`G${+single[1]}`]; }
-        if(gr && gr.includes(',')){
-          String(gr).split(',').forEach(x=>{
-            const n = x.replace(/[^0-9]/g,'');
-            if(n) tags.push(`G${+n}`);
-          });
-        }
-        return tags;
-      },
-      decorateCourse(c){
-        if(c.subject && !this.subjectColors[c.subject]) this.subjectColors[c.subject] = '#666d66';
-        c.open = true; // open accordions by default
-        return c;
-      },
-
-      // ===== Actions =====
-      persist(){ const ids = this.courses.filter(c => c.checked).map(c => c.id); localStorage.setItem('pf_courses', JSON.stringify(ids)); },
-      printSelected(){ if(!this.selected.length){ alert('Select at least one course to print.'); return; } this.printGate = true; setTimeout(()=>window.print(),50); },
-      resetSelections(){ this.courses.forEach(c => c.checked = false); this.persist(); },
-      selectAllVisible(){ this.filtered.forEach(c => c.checked = true); this.persist(); },
-      clearAllVisible(){ this.filtered.forEach(c => c.checked = false); this.persist(); },
-      toggleCompact(){
-        this.compact = !this.compact;
-      
-        // Close accordions when compact is ON, but keep any course open if a topic is selected.
-        if (this.compact) {
-          this.courses.forEach(c => {
-            const topicSelected = (c.topics || []).some(t => t.checked);
-            c.open = !!topicSelected; // stay open only if a topic is checked
-          });
-        } else {
-          // Comfortable view: open everything again
-          this.courses.forEach(c => c.open = true);
-        }
-      },
-
-      // ===== Dummy data (structure preview only) =====
-      buildDummy(){
-        if(!this.subjectColors['Citizenship']) this.subjectColors['Citizenship'] = '#4a6f6a';
-        return [
-          {
-            id:'CIT-07-US',
-            title:'Citizenship · Grade 7 (U.S.)',
-            subject:'Citizenship',
-            levelDisplay:'GRADES 7–8',
-            levelTags:['G7','G8'],
-            rotation:'',
-            summary:'2×/wk · 30 min · ✱ morning · ⬔ partial teacher',
-            details:[
-              { label:'Description', value:'Study of government foundations, civics, and responsibilities.' },
-              { label:'Combining & Placement', value:'Combine adjacent grades where appropriate.' }
-            ],
-            topics:[
-              { topic_id:'CIT-07-US-1', course_id:'CIT-07-US', topic_title:'Foundations of Government',
-                details:[ {label:'Description', value:'What is government? Forms and purposes.'},
-                          {label:'Combining & Placement', value:'Families may combine 7–8.'} ] }
-            ],
-            checked:false, open:true
-          },
-          {
-            id:'SCI-G1-BOT',
-            title:'Science · Nature Study — Botany',
-            subject:'Science',
-            levelDisplay:'GRADES 1–3',
-            levelTags:['G1','G2','G3'],
-            rotation:'R2',
-            summary:'2×/wk · 20 min · _ afternoon',
-            details:[
-              { label:'Description', value:'Hands-on nature study centered on plants.' },
-              { label:'Combining & Placement', value:'Light prep; combine siblings in 1–3.' }
-            ],
-            topics:[],
-            checked:false, open:true
-          }
-        ];
-      }
-    }
-  }
-</script>
-
 </body>
 </html>
