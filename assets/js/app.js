@@ -170,52 +170,85 @@ function courseApp(){
     },
 
     async loadDualCSVs(){
+      const alertBox = document.getElementById('alert');
+      const showErr = (msg) => {
+        if (!alertBox) return;
+        alertBox.textContent = msg;
+        alertBox.classList.remove('hidden');
+      };
+    
       const cacheKey = 'pf_csv_cache_v1';
-      const maxAgeMs = 6 * 60 * 60 * 1000; // 6 hours
+      const maxAgeMs = 6 * 60 * 60 * 1000;
       const now = Date.now();
-
-      // Try cache
-      let cached;
-      try { cached = JSON.parse(localStorage.getItem(cacheKey) || 'null'); } catch {}
-      if (cached && (now - cached.ts) < maxAgeMs) {
-        const pc = Papa.parse(cached.courses, { header:true, skipEmptyLines:true });
-        const pt = Papa.parse(cached.topics,  { header:true, skipEmptyLines:true });
-        this.applyParsed(pc, pt);
+    
+      try {
+        let cached;
+        try { cached = JSON.parse(localStorage.getItem(cacheKey) || 'null'); } catch {}
+        if (cached && (now - cached.ts) < maxAgeMs) {
+          const pc = Papa.parse(cached.courses, { header:true, skipEmptyLines:true });
+          const pt = Papa.parse(cached.topics,  { header:true, skipEmptyLines:true });
+          this.applyParsed(pc, pt, showErr);
+          return;
+        }
+    
+        const [coursesCSV, topicsCSV] = await Promise.all([
+          fetch(this.dataSources.courses, { mode:'cors' }).then(r=>{
+            if(!r.ok) throw new Error('Courses CSV HTTP '+r.status);
+            return r.text();
+          }),
+          fetch(this.dataSources.topics,  { mode:'cors' }).then(r=>{
+            if(!r.ok) throw new Error('Topics CSV HTTP '+r.status);
+            return r.text();
+          })
+        ]);
+    
+        localStorage.setItem(cacheKey, JSON.stringify({ ts: now, courses: coursesCSV, topics: topicsCSV }));
+    
+        const pc = Papa.parse(coursesCSV, { header:true, skipEmptyLines:true });
+        const pt = Papa.parse(topicsCSV,  { header:true, skipEmptyLines:true });
+        this.applyParsed(pc, pt, showErr);
+      } catch (err) {
+        console.error(err);
+        showErr('Could not load data. Check that both CSV links are published and accessible. See console for details.');
+      }
+    },
+    
+    applyParsed(pc, pt, showErr){
+      if (!pc || !pc.data || !Array.isArray(pc.data)) {
+        showErr?.('Courses CSV parsed empty. Check the publish link for the Courses sheet.');
         return;
       }
-
-      // Fetch fresh
-      const [coursesCSV, topicsCSV] = await Promise.all([
-        fetch(this.dataSources.courses, { mode:'cors' }).then(r=>r.text()),
-        fetch(this.dataSources.topics,  { mode:'cors' }).then(r=>r.text())
-      ]);
-
-      // Save to cache
-      localStorage.setItem(cacheKey, JSON.stringify({ ts: now, courses: coursesCSV, topics: topicsCSV }));
-
-      const pc = Papa.parse(coursesCSV, { header:true, skipEmptyLines:true });
-      const pt = Papa.parse(topicsCSV,  { header:true, skipEmptyLines:true });
-      this.applyParsed(pc, pt);
-    },
-
-    applyParsed(pc, pt){
+      if (!pt || !pt.data || !Array.isArray(pt.data)) {
+        showErr?.('Topics CSV parsed empty. Check the publish link for the Topics sheet.');
+        return;
+      }
+    
+      // Build index
       this.courseIndex = {};
+      let rowsAdded = 0;
       pc.data.forEach(row => {
         const c = this.rowToCourse(row);
-        if(c) this.courseIndex[c.id] = { ...c, topics: [] };
+        if(c) { this.courseIndex[c.id] = { ...c, topics: [] }; rowsAdded++; }
       });
-
+    
+      if (rowsAdded === 0) {
+        showErr?.('No courses built from CSV. Verify header names (Course_ID, Course, Subject, etc.).');
+      }
+    
+      let topicsLinked = 0;
       pt.data.forEach(row => {
         const t = this.rowToTopic(row);
         if(!t) return;
         t.course_ids.forEach(cid => {
-          if(this.courseIndex[cid]) this.courseIndex[cid].topics.push(t);
+          if(this.courseIndex[cid]) { this.courseIndex[cid].topics.push(t); topicsLinked++; }
         });
       });
-
+    
       this.courses = Object.values(this.courseIndex);
-    },
-
+    
+      // Optional: surface counts for quick sanity check
+      console.log('Courses:', this.courses.length, 'Topics linked:', topicsLinked);
+    }
     /* ---------- Persist course + topic selection ---------- */
     persist(){
       const ids = [];
