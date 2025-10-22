@@ -254,28 +254,57 @@
     <template x-for="c in groupedFlat" :key="c.id">
       <div class="course-card mb-3">
         <!-- band -->
-        <div class="course-band grid grid-cols-12">
-          <div class="col-span-6 px-3 py-2 border-white/10 flex items-center gap-2">
-            <input type="checkbox" class="size-5 rounded border-white/50" x-model="c.checked" @change="persistChecked()" />
-            <div class="band-title flex items-center gap-1">
-              <span x-text="c.title"></span>
+        <div class="course-band grid grid-cols-12 items-center">
+          <!-- LEFT SIDE: checkbox, course title, schedule, icons -->
+          <div class="col-span-6 px-3 py-2 border-white/10 flex flex-col">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <input type="checkbox"
+                       class="size-5 rounded border-white/50"
+                       x-model="c.checked"
+                       @change="persistChecked()" />
+                <div class="band-title font-crimson text-base font-semibold">
+                  <span x-text="c.title"></span>
+                </div>
+              </div>
+        
+              <!-- right-justified icons -->
+              <div class="flex items-center gap-1">
+                <!-- pencil (note accordion toggle) -->
+                <button
+                  @click="c.noteOpen = !c.noteOpen"
+                  :aria-expanded="c.noteOpen"
+                  class="text-xs bg-white/15 hover:bg-white/25 p-1.5 rounded"
+                  title="Add / View Note">
+                  ✏️
+                </button>
+        
+                <!-- info (description / combining accordion) -->
+                <button
+                  x-show="c.hasInfo"
+                  @click="c.infoOpen = !c.infoOpen"
+                  :aria-expanded="c.infoOpen"
+                  class="text-xs bg-white/15 hover:bg-white/25 p-1.5 rounded"
+                  title="Description &amp; Placement">
+                  <span x-show="!c.infoOpen">i</span>
+                  <span x-show="c.infoOpen">–</span>
+                </button>
+              </div>
             </div>
-            <!-- info button (only if description or combining exists) -->
-              <button x-show="c.hasInfo"
-                      @click="c.infoOpen = !c.infoOpen"
-                      :aria-expanded="c.infoOpen"
-                      class="ml-1 text-xs bg-white/15 hover:bg-white/25 px-2 py-1 rounded">
-                <span x-show="!c.infoOpen">i</span>
-                <span x-show="c.infoOpen">–</span>
-              </button>
+        
+            <!-- small scheduling info under course title -->
+            <div class="text-[0.8rem] opacity-90 leading-tight ml-7 mt-0.5"
+                 x-html="c.summary || '<span class=opacity-60>—</span>'"></div>
           </div>
-
-          <!-- plan icon pills -->
+        
+          <!-- RIGHT SIDE: plan pills (Core / Family / Combine / High Interest / Additional) -->
           <div class="col-span-6 px-3 py-2 border-white/10">
             <div class="flex flex-wrap items-center gap-2">
               <template x-for="opt in useOptions" :key="opt.value">
                 <button class="pill"
-                        :class="{'active': (Array.isArray(plan[c.id]?.use) ? plan[c.id]?.use.includes(opt.value) : plan[c.id]?.use === opt.value)}"
+                        :class="{'active': (Array.isArray(plan[c.id]?.use)
+                          ? plan[c.id].use.includes(opt.value)
+                          : plan[c.id]?.use === opt.value)}"
                         @click="setUse(c.id,opt.value)">
                   <img class="icon" :src="opt.icon" :alt="opt.label + ' icon'">
                   <span class="tiny" x-text="opt.short"></span>
@@ -418,7 +447,7 @@ function planningApp(){
       {label:'Family', value:'Family', icon:'Family%20Subjects.png'},
       {label:'Combine', value:'Combine', icon:'Combine%20Subjects.png'},
       {label:'High Interest', value:'High Interest', icon:'High%20Interest%20Subjects.png'},
-      {label:'Additional', value:'Additional', icon:'Additional%20Subjects.png'},
+      {label:'Additional', value:'Additional', icon:'Additional%20Subjects.png'}
     ],
 
     /* ---------- sources (same as your list page) ---------- */
@@ -572,7 +601,7 @@ function planningApp(){
       'Family':'Family%20Subjects.png',
       'Combine':'Combine%20Subjects.png',
       'High Interest':'High%20Interest%20Subjects.png',
-      'Additional':'Additional%20Subjects.png',
+      'Additional':'Additional%20Subjects.png'
     },
     iconsFor(use){
       const uses = Array.isArray(use) ? use : (use ? [use] : []);
