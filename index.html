@@ -75,6 +75,7 @@
       padding-top: .55rem;
       padding-bottom: .35rem;
       border-bottom: 6px solid var(--subject-color, #dfe4df); /* full-width underline */
+      margin-bottom: .75rem;
     }
     
     /* Inner row: big, elegant title */
@@ -94,9 +95,6 @@
       box-shadow: inset 0 0 0 2px rgba(0,0,0,.08);
     }
     
-    /* Extra space before the first card in each subject */
-    .group-block { margin-top: 5rem; }
-    
     /* Mobile sticky offset */
     @media (max-width:640px){ .subject-bar{ top:56px; } }
 
@@ -112,7 +110,7 @@
     
     /* Course Style */
     .course-card { flex: 1 1 auto; min-width: 0; border-radius: 1rem; overflow: visible; background: #fff; }
-    .course-band { background: var(--band-green); color: #fff; border-top-left-radius: 1rem; border-top-right-radius: 1rem; overflow: hidden; }
+    .course-band { background: var(--band-green); color: #fff; border-top-left-radius: 1rem; border-top-right-radius: 1rem; overflow: visible; }
     .band-title{ font-family: "Crimson Text", serif; font-size: 1.05rem; line-height: 1.15; }
     .band-title button {margin-left: 0.25rem; transition: background 0.15s ease, transform 0.1s ease; }
     .band-title button:hover {transform: translateY(-1px); }
@@ -276,6 +274,8 @@
     .course-plan-trigger[aria-expanded="true"] {
       background: #ffffff33 !important;
     }
+
+    .plan-anchor{ position: relative; }
     
     /* Popover menu */
     .plan-menu{
@@ -470,7 +470,7 @@
               </div>
   
               <!-- RIGHT: planning tags -->
-              <div class="col-span-4 px-3 py-2 border-white/10">
+              <div class="col-span-4 px-3 py-2 border-white/10 plan-anchor">
                 <div class="flex items-center justify-end gap-3" x-data="{open:false}">
                   <!-- selected tags preview (only chosen ones) -->
                   <div class="tag-row" x-show="getUses(c.id).length">
@@ -581,7 +581,7 @@
                   </div>
         
                   <!-- Right-side topic planning (selected chips + trigger) -->
-                  <div class="topic-icons" x-data="{open:false}">
+                  <div class="topic-icons plan-anchor" x-data="{open:false}">
                     <div class="flex items-center gap-3">
                       <!-- selected chips -->
                       <div class="tag-row" x-show="getUses(t.topic_id).length">
@@ -593,7 +593,7 @@
                       </div>
                   
                       <!-- trigger -->
-                      <button type="button" class="plan-trigger"
+                      <button type="button" class="plan-trigger course-plan-trigger"
                               @click="open=!open" :aria-expanded="open">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                           <path d="M20 6L9 17l-5-5"/>
