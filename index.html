@@ -95,25 +95,23 @@
     }
     
     /* Extra space before the first card in each subject */
-    .group-block .course-card:first-of-type{ margin-top: 1rem; }
+    .group-block .course-row:first-of-type{ margin-top: 1rem; }
     
     /* Mobile sticky offset */
     @media (max-width:640px){ .subject-bar{ top:56px; } }
 
     /* One row = color rail + card */
-    .course-row{
-      display:flex; align-items:stretch; gap:10px;   /* gap shows page bg */
-    }
+    .course-row{ display:flex; align-items:stretch; gap:12px; width:100%; }
     
     /* Thin subject rail, independent of the card */
     .subject-rail{
-      width:10px; border-radius:10px;
+      width:5px; border-radius:10px;
       background: var(--subject-color, #dfe4df);
       flex: none;
     }
     
     /* Course Style */
-    .course-card{ position:relative; border:1px solid #e5e7eb; background:#fff; border-radius:.75rem; overflow: visible; }
+    .course-card{ flex:1 1 auto; min-width:0; }
     .course-band{ background:var(--band-green); color:#fff; }
     .band-title{ font-family: "Crimson Text", serif; font-size: 1.05rem; line-height: 1.15; }
     .band-title button {margin-left: 0.25rem; transition: background 0.15s ease, transform 0.1s ease; }
@@ -249,17 +247,23 @@
       font-size:.8rem; line-height:1; color:#2a312b;
       border:0; display:inline-flex; align-items:center; gap:.35rem;
     }
-    .plan-trigger:hover,
+    .plan-trigger:hover{ background:#eef2ee; }
     .plan-trigger[aria-expanded="true"]{ background:#bec5a6; }
     /* keep the tiny check icon small */
     .plan-trigger svg{ width:14px; height:14px; }
     
-    /* course-level: match i/✏️ badges */
-    .course-plan-trigger{
-      background:#dee1d2; border:0; border-radius:.45rem; padding:.25rem .45rem; font-size:.8rem; line-height:1;
+    /* COURSE variant — force the same look as your i/✏️ badges */
+    .plan-trigger.course-plan-trigger{
+      border:0;
+      background:#dee1d2;
+      border-radius:.45rem;
+      padding:.25rem .45rem;
+      font-size:.8rem; line-height:1;
     }
-    .course-plan-trigger:hover,
-    .course-plan-trigger[aria-expanded="true"]{ background:#bec5a6; }
+    .plan-trigger.course-plan-trigger:hover,
+    .plan-trigger.course-plan-trigger[aria-expanded="true"]{
+      background:#bec5a6;
+    }
     
     /* Popover menu */
     .plan-menu{
