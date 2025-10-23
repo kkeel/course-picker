@@ -301,12 +301,31 @@
     .tag-row{ display:flex; gap:.5rem; flex-wrap:wrap; }
 
     /* ====== PRINT OPTIONS UI (screen only) ====== */
-.print-modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.3); display:flex; align-items:center; justify-content:center; z-index:1000; }
-.print-modal{ background:#fff; border:1px solid #e5e7eb; border-radius:12px; width:520px; max-width:95vw; padding:16px 18px; box-shadow:0 10px 30px rgba(0,0,0,.12); }
+/* Backdrop always above sticky headers */
+.print-modal-backdrop{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.35);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 5000;                 /* > any sticky headers */
+  padding: 24px;                 /* keeps dialog off the very edge */
+}
+/* Dialog stays centered and scrolls internally if needed */
+.print-modal{
+  background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
+  width: 520px; max-width: 95vw;
+  max-height: 80vh;              /* never hides behind top/bottom */
+  overflow: auto;                /* scroll inside, not page behind */
+  padding: 16px 18px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.18);
+  z-index: 5001;                 /* above the backdrop */
+}
 .print-modal h3{ font-weight:700; color:var(--green-dark); font-size:1.05rem; }
 .print-row{ display:flex; gap:16px; margin-top:10px; }
 .print-row .col{ flex:1; }
 .print-actions{ display:flex; justify-content:flex-end; gap:8px; margin-top:14px; }
+
+/* Ensure sticky bars don't float above dialogs */
+.no-print.sticky{ z-index: 20; } /* lower than 5000 */
 
 /* ====== PRINT VIEW (hidden on screen, visible in print) ====== */
 #print-view{ display:none; }
@@ -322,6 +341,10 @@
   .pv-tags{ display:flex; gap:6px; margin-left:auto; }
   .pv-tag{ border:1.5px solid #c7ccbc; border-radius:999px; padding:1px; }
   .pv-tag img{ width:18px; height:18px; display:block; border-radius:999px; }
+
+  .pv-info label{ font-weight:700; font-size:11px; }
+  .pv-note label{ font-weight:700; font-size:11px; }
+  .pv-copy.small, .pv-note p{ font-size:10.5px; line-height:1.45; color:#2b312c; }
 
   .pv-note, .pv-info{ margin-top:8px; border-top:1px solid #e6e8e5; padding-top:8px; }
   .pv-note label, .pv-info label{ font-weight:700; font-size:12px; color:#2b312c; display:block; margin-bottom:2px; }
@@ -770,71 +793,62 @@
             </div>
           </div>
 
-          <!-- Course NOTE (if option enabled and note exists) -->
-          <template x-if="printUI.includeNotes && (plan[c.id]?.note || '').trim().length">
+          <!-- Course NOTE: only when course is checked -->
+          <template x-if="printUI.includeNotes && c.checked && (plan[c.id]?.note || '').trim().length">
             <div class="pv-note">
               <label>Planning Note</label>
               <p x-text="plan[c.id].note"></p>
             </div>
           </template>
-
-          <!-- Course INFO (if option) -->
-          <template x-if="printUI.includeInfo && (c.description || c.combining)">
+          
+          <!-- Course INFO: only when course is checked -->
+          <template x-if="printUI.includeInfo && c.checked && (c.description || c.combining)">
             <div class="pv-info">
               <template x-if="c.description">
-                <div style="margin-bottom:6px;">
+                <div class="mb-1">
                   <label>Description</label>
-                  <div class="pv-copy" x-html="c.description"></div>
+                  <div class="pv-copy small" x-html="c.description"></div>
                 </div>
               </template>
               <template x-if="c.combining">
                 <div>
                   <label>Combining &amp; Placement</label>
-                  <div class="pv-copy" x-html="c.combining"></div>
+                  <div class="pv-copy small" x-html="c.combining"></div>
                 </div>
               </template>
             </div>
           </template>
 
-          <!-- Topics (filtered by scope as well) -->
-          <template x-for="t in (printUI.scope==='selected' ? (c.topics||[]).filter(tt=>tt.checked) : (c.topics||[]))" :key="t.topic_id">
-            <div class="pv-topic">
-              <div style="display:flex; align-items:flex-start; gap:10px;">
-                <div>
-                  <div class="pv-title" style="font-size:14px;" x-text="t.topic_title"></div>
-                  <div class="pv-schedule" x-html="t.summary || '&nbsp;'"></div>
-                </div>
-                <div class="pv-tags" x-show="getUses(t.topic_id).length">
-                  <template x-for="val in getUses(t.topic_id)" :key="val">
-                    <span class="pv-tag"><img :src="iconMap[val]" :alt="val"></span>
-                  </template>
-                </div>
+          <!-- Topics (selected scope => only checked topics) -->
+          <template
+            x-for="t in (printUI.scope==='selected' ? (c.topics||[]).filter(tt=>tt.checked) : (c.topics||[]))"
+            :key="t.topic_id">
+          
+            <!-- Topic NOTE: only when topic is checked -->
+            <template x-if="printUI.includeNotes && t.checked && (plan[t.topic_id]?.note || '').trim().length">
+              <div class="pv-note">
+                <label>Planning Note (topic)</label>
+                <p x-text="plan[t.topic_id].note"></p>
               </div>
-
-              <template x-if="printUI.includeNotes && (plan[t.topic_id]?.note || '').trim().length">
-                <div class="pv-note">
-                  <label>Planning Note (topic)</label>
-                  <p x-text="plan[t.topic_id].note"></p>
-                </div>
-              </template>
-
-              <template x-if="printUI.includeInfo && (t.description || t.combining)">
-                <div class="pv-info">
-                  <template x-if="t.description">
-                    <div style="margin-bottom:6px;">
-                      <label>Description</label>
-                      <div class="pv-copy" x-html="t.description"></div>
-                    </div>
-                  </template>
-                  <template x-if="t.combining">
-                    <div>
-                      <label>Combining &amp; Placement</label>
-                      <div class="pv-copy" x-html="t.combining"></div>
-                    </div>
-                  </template>
-                </div>
-              </template>
-            </div>
+            </template>
+          
+            <!-- Topic INFO: only when topic is checked -->
+            <template x-if="printUI.includeInfo && t.checked && (t.description || t.combining)">
+              <div class="pv-info">
+                <template x-if="t.description">
+                  <div class="mb-1">
+                    <label>Description</label>
+                    <div class="pv-copy small" x-html="t.description"></div>
+                  </div>
+                </template>
+                <template x-if="t.combining">
+                  <div>
+                    <label>Combining &amp; Placement</label>
+                    <div class="pv-copy small" x-html="t.combining"></div>
+                  </div>
+                </template>
+              </div>
+            </template>
           </template>
         </div>
       </template>
