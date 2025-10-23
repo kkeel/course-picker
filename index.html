@@ -472,14 +472,6 @@
       </button>
     </div>
   </div>
-<!-- Sticky actions (unchanged) -->
-<div class="no-print sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-gray-200 flex justify-between items-center">
-  <div class="tiny"><strong x-text="selectedCount"></strong> selected</div>
-  <div class="flex items-center gap-2">
-    <button @click="clearAll()" class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">Clear</button>
-    <button @click="printUI.open = true" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print…</button>
-  </div>
-</div>
 
 <!-- MOVED: Print Options Modal -->
 <template x-teleport="body">
@@ -496,13 +488,17 @@
       <div class="print-row">
         <div class="col">
           <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">Scope</div>
+          <label class="flex items-center gap-2 mt-1">
+            <input type="radio" name="scope" value="all_nofilter" x-model="printUI.scope">
+            <span>Whole list (Filters OFF)</span>
+          </label>
           <label class="flex items-center gap-2 mb-1">
             <input type="radio" name="scope" value="all" x-model="printUI.scope">
-            <span>Whole list (current filters applied)</span>
+            <span>Whole list (Filters ON)</span>
           </label>
           <label class="flex items-center gap-2">
             <input type="radio" name="scope" value="selected" x-model="printUI.scope">
-            <span>Selected only (checked courses/topics)</span>
+            <span>Selected only (Checked courses/topics)</span>
           </label>
         </div>
 
@@ -1314,24 +1310,33 @@ function planningApp(){
   
     // Build the data snapshot that the print view will render
     buildPrintGroups(){
-      const source = (this.printUI.scope === 'selected')
-        ? this.courses.filter(c => c.checked || (c.topics||[]).some(t=>t.checked))
-        : this.filtered; // whole list, but still respects current filters
-  
-      // Group by subject, include color (reuse helper)
-      const grouped = source.reduce((out, c) => {
-        const subj = c.subject || 'Other';
-        const last = out[out.length - 1];
-        if (!last || last.subject !== subj) {
-          out.push({ subject: subj, color: this.subjectColor(subj), items:[c] });
+        let source;
+      
+        if (this.printUI.scope === 'selected') {
+          // only courses that are checked or have at least one checked topic
+          source = this.courses.filter(c => c.checked || (c.topics||[]).some(t => t.checked));
+        } else if (this.printUI.scope === 'all_nofilter') {
+          // completely ignore on-screen filters
+          source = this.courses;
         } else {
-          last.items.push(c);
+          // 'all' = whole list but respect current filters (search, subject, grade, plan, Show only checked, etc.)
+          source = this.filtered;
         }
-        return out;
-      }, []);
-  
-      this.printData.groups = grouped;
-    },
+      
+        // Group by subject (unchanged)
+        const grouped = source.reduce((out, c) => {
+          const subj = c.subject || 'Other';
+          const last = out[out.length - 1];
+          if (!last || last.subject !== subj) {
+            out.push({ subject: subj, color: this.subjectColor(subj), items:[c] });
+          } else {
+            last.items.push(c);
+          }
+          return out;
+        }, []);
+      
+        this.printData.groups = grouped;
+      },
   
     // Called when user clicks "Preview & Print"
     doPrint(){
