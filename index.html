@@ -95,7 +95,7 @@
     }
     
     /* Extra space before the first card in each subject */
-    .group-block .course-row:first-of-type{ margin-top: 1rem; }
+    .group-block { margin-top: 5rem; }
     
     /* Mobile sticky offset */
     @media (max-width:640px){ .subject-bar{ top:56px; } }
@@ -111,8 +111,8 @@
     }
     
     /* Course Style */
-    .course-card{ flex:1 1 auto; min-width:0; }
-    .course-band{ border-top-left-radius: 1rem; border-top-right-radius: 1rem; overflow: hidden; }
+    .course-card { flex: 1 1 auto; min-width: 0; border-radius: 1rem; overflow: visible; background: #fff; }
+    .course-band { background: var(--band-green); color: #fff; border-top-left-radius: 1rem; border-top-right-radius: 1rem; overflow: hidden; }
     .band-title{ font-family: "Crimson Text", serif; font-size: 1.05rem; line-height: 1.15; }
     .band-title button {margin-left: 0.25rem; transition: background 0.15s ease, transform 0.1s ease; }
     .band-title button:hover {transform: translateY(-1px); }
@@ -229,6 +229,16 @@
       padding-left:.5rem; margin-left:.5rem;
       border-left:1px dashed #bec5a6;  /* subtle guide */
     }
+
+    /* --- Keep topic plan button using gray variant --- */
+    .topic-icons .plan-trigger {
+      background: #dee1d2;
+      color: #2a312b;
+    }
+    .topic-icons .plan-trigger[aria-expanded="true"],
+    .topic-icons .plan-trigger:hover {
+      background: #bec5a6;
+    }
     
     /* Topic accordions (full width within topics area) */
     .topic-acc-note{ background:#f4f6fa; border-top:1px solid #e5e7eb; padding:12px 12px; border-radius:.5rem; }
@@ -253,19 +263,23 @@
     .plan-trigger svg{ width:14px; height:14px; }
     
     /* COURSE-ONLY style — same palette/size as your i/✏️ badges */
-    .course-plan-trigger{
-      background:#dee1d2 !important;
-      border:0 !important;
-      border-radius:.45rem !important;
-      padding:.25rem .45rem !important;
-      font-size:.8rem !important; line-height:1 !important;
+    .course-plan-trigger {
+      background: #ffffff1f !important;   /* same translucent white as i/pencil */
+      border: none !important;
+      border-radius: .45rem !important;
+      padding: .25rem .45rem !important;
+      font-size: .8rem !important;
+      line-height: 1 !important;
+      color: #fff !important;
     }
     .course-plan-trigger:hover,
-    .course-plan-trigger[aria-expanded="true"]{ background:#bec5a6 !important; }
+    .course-plan-trigger[aria-expanded="true"] {
+      background: #ffffff33 !important;
+    }
     
     /* Popover menu */
     .plan-menu{
-      position:absolute; right:0; top:calc(100% + .35rem); z-index:50; /* higher */
+      position:absolute; right:0; top:calc(100% + .35rem); z-index:100; /* higher */
       background:#fff; border:1px solid #e5e7eb; border-radius:.6rem;
       box-shadow:0 8px 24px rgba(0,0,0,.08); padding:.4rem; width:240px;
       color:#2a312b;   /* ensure dark text */
