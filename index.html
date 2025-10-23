@@ -62,31 +62,54 @@
     .legend img{ width:18px; height:18px; border-radius:999px; }
     .legend li{ display:flex; align-items:center; gap:.4rem; }
 
-    /* Sticky subject header (pill) */
-    .subject-header{
+    /* Sticky subject header: big text, underline in subject color */
+    .subject-header--text {
       position: sticky;
-      top: 64px;                  /* adjust if your top nav height differs */
+      top: 64px;                 /* nudge if your top bar height changes */
       z-index: 20;
-      display: flex; align-items: center; gap:.5rem;
-      padding: .4rem .75rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,.07);
-      background: #fff;           /* keeps color subtle */
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .35rem .25rem .5rem;
+      margin: .5rem .25rem .25rem;
+      background: transparent;   /* sits right on page background */
       color: #262b26;
-      box-shadow: 0 1px 6px rgba(0,0,0,.05);
-      width: fit-content;
-      margin: .75rem .25rem .25rem; /* small breathing space above sections */
-    }
-    .subject-chip{
-      width: 14px; height: 14px; border-radius: 999px;
-      flex: none; box-shadow: inset 0 0 0 2px rgba(0,0,0,.08);
+      font-family: "Crimson Text", serif;
+      font-weight: 700;
+      font-size: 1.5rem;         /* larger than course titles */
+      line-height: 1.1;
+      border-bottom: 6px solid var(--subject-color, #dfe4df); /* underline color */
     }
     
-    /* Left accent on course card (uses inline color) */
-    .course-card{
-      border-left-width: 6px;
-      border-left-style: solid;
-      border-left-color: #e5e7eb; /* fallback */
+    @media (min-width: 768px){
+      .subject-header--text { font-size: 1.75rem; }
+    }
+    
+    /* Small color circle left of the subject text */
+    .subject-chip {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: var(--subject-color, #dfe4df);
+      box-shadow: inset 0 0 0 2px rgba(0,0,0,.08);
+    }
+    
+    /* Course card: thicker subject accent with a white spacer so it doesn't blend
+       with the dark green header band. Set --subject-color inline on the element. */
+    .course-card {
+      position: relative;
+      /* two inset shadows: white spacer (12px), then color stripe (24px total) */
+      box-shadow:
+        inset 12px 0 0 #fff,
+        inset 24px 0 0 var(--subject-color, #dfe4df);
+    }
+    
+    /* Slightly more rounded & spacing so the left accent reads clearly */
+    .course-card.rounded-2xl { border-radius: 1rem; }
+    .group-block { padding-top: .25rem; }  /* breathing room under sticky header */
+    
+    @media (max-width: 640px){
+      .subject-header--text { top: 56px; }
     }
     
     /* Small helper so the subject header doesn't stick under rounded cards */
@@ -346,16 +369,16 @@
     <!-- subject groups -->
     <template x-for="grp in groupedBySubject" :key="grp.subject || 'other'">
       <div class="group-block">
-        <!-- sticky subject header -->
-        <div class="subject-header">
-          <span class="subject-chip" :style="{ backgroundColor: grp.color }"></span>
-          <span class="text-sm font-semibold" x-text="grp.subject || 'Other'"></span>
+        <!-- sticky subject header: text + dot + underline in the subject color -->
+        <div class="subject-header--text" :style="{ '--subject-color': grp.color }">
+          <span class="subject-chip"></span>
+          <span x-text="grp.subject || 'Other'"></span>
         </div>
   
         <!-- courses in this subject -->
         <template x-for="c in grp.items" :key="c.id">
           <div class="course-card mb-3 rounded-2xl shadow-sm bg-white"
-               :style="{ borderLeftColor: grp.color }">
+             :style="{ '--subject-color': grp.color }">
   
             <!-- band -->
             <div class="course-band grid grid-cols-12 items-center">
