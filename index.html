@@ -99,38 +99,21 @@
     
     /* Mobile sticky offset */
     @media (max-width:640px){ .subject-bar{ top:56px; } }
-    
-    /* Course card container */
-    .course-card{
-      position: relative;
-      border:1px solid #e5e7eb;
-      background:#fff;
-      border-radius:.75rem;
-      overflow:hidden;
-    }
 
-    /* LEFT subject stripe with a small spacer that looks like the page bg */
-    .course-card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      border-radius:inherit;
-      pointer-events:none;
-      /* draw a 10px color stripe, then a 16px page-colored spacer inside it */
-      box-shadow:
-        inset 10px 0 0 var(--subject-color, #dfe4df),   /* stripe (thinner) */
-        inset 16px 0 0 var(--brand-bg);                 /* spacer (just a gap) */
+    /* One row = color rail + card */
+    .course-row{
+      display:flex; align-items:stretch; gap:10px;   /* gap shows page bg */
     }
     
-    /* Slightly more rounded & spacing so the left accent reads clearly */
-    .course-card.rounded-2xl { border-radius: 1rem; }
-    .group-block { padding-top: .25rem; }  /* breathing room under sticky header */
-    
-    /* Small helper so the subject header doesn't stick under rounded cards */
-    .group-block{ padding-top: .25rem; }
+    /* Thin subject rail, independent of the card */
+    .subject-rail{
+      width:10px; border-radius:10px;
+      background: var(--subject-color, #dfe4df);
+      flex: none;
+    }
     
     /* Course Style */
-    .course-card{ border:1px solid #e5e7eb; background:#fff; border-radius:.75rem; overflow: visible; }
+    .course-card{ position:relative; border:1px solid #e5e7eb; background:#fff; border-radius:.75rem; overflow: visible; }
     .course-band{ background:var(--band-green); color:#fff; }
     .band-title{ font-family: "Crimson Text", serif; font-size: 1.05rem; line-height: 1.15; }
     .band-title button {margin-left: 0.25rem; transition: background 0.15s ease, transform 0.1s ease; }
@@ -271,12 +254,21 @@
     /* keep the tiny check icon small */
     .plan-trigger svg{ width:14px; height:14px; }
     
+    /* course-level: match i/✏️ badges */
+    .course-plan-trigger{
+      background:#dee1d2; border:0; border-radius:.45rem; padding:.25rem .45rem; font-size:.8rem; line-height:1;
+    }
+    .course-plan-trigger:hover,
+    .course-plan-trigger[aria-expanded="true"]{ background:#bec5a6; }
+    
     /* Popover menu */
     .plan-menu{
-      position:absolute; right:0; top:calc(100% + .35rem); z-index:40;
+      position:absolute; right:0; top:calc(100% + .35rem); z-index:50; /* higher */
       background:#fff; border:1px solid #e5e7eb; border-radius:.6rem;
       box-shadow:0 8px 24px rgba(0,0,0,.08); padding:.4rem; width:240px;
+      color:#2a312b;   /* ensure dark text */
     }
+    .plan-opt span{ color:#2a312b; font-size:.9rem; }
     .plan-opt{
       display:flex; align-items:center; gap:.5rem;
       padding:.45rem .5rem; border-radius:.5rem; cursor:pointer;
@@ -420,8 +412,9 @@
   
         <!-- courses in this subject -->
         <template x-for="c in grp.items" :key="c.id">
-          <div class="course-card mb-3 rounded-2xl shadow-sm bg-white"
-             :style="{ '--subject-color': grp.color }">
+          <div class="course-row" :style="{ '--subject-color': grp.color }">
+            <div class="subject-rail"></div>
+            <div class="course-card mb-3 rounded-2xl shadow-sm bg-white">
   
             <!-- band -->
             <div class="course-band grid grid-cols-12 items-center">
@@ -472,10 +465,9 @@
                     </template>
                   </div>
               
-                  <!-- trigger -->
-                  <button type="button" class="plan-trigger"
+                  <!-- Course Plan Button -->
+                  <button type="button" class="plan-trigger course-plan-trigger"
                           @click="open=!open" :aria-expanded="open">
-                    <!-- tiny check mark -->
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M20 6L9 17l-5-5"/>
                     </svg>
@@ -646,6 +638,7 @@
           </div>
         </template>
       </div>
+    </div>  
       </template>
     </div>
   </template>
