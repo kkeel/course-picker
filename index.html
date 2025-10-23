@@ -70,9 +70,12 @@
       display: flex;
       align-items: center;
       gap: .5rem;
-      padding: .35rem .25rem .5rem;
-      margin: .5rem .25rem .25rem;
-      background: transparent;   /* sits right on page background */
+      padding: .45rem .5rem .6rem;
+      margin: .75rem .25rem .5rem;
+      background: rgba(250, 251, 250, .92);  /* subtle, looks like page bg */
+      -webkit-backdrop-filter: saturate(180%) blur(8px);
+      backdrop-filter: saturate(180%) blur(8px);
+      box-shadow: 0 1px 8px rgba(0,0,0,.05); /* gentle lift so text stays crisp */
       color: #262b26;
       font-family: "Crimson Text", serif;
       font-weight: 700;
@@ -102,6 +105,11 @@
       box-shadow:
         inset 12px 0 0 #fff,
         inset 24px 0 0 var(--subject-color, #dfe4df);
+    }
+    
+    /* If you want an extra gap before the first course card in each subject */
+    .group-block .course-card:first-of-type{
+      margin-top: .35rem;   /* nudge to separate header line from the card */
     }
     
     /* Slightly more rounded & spacing so the left accent reads clearly */
