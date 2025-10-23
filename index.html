@@ -71,24 +71,33 @@
     .desc-bg{ background:var(--gray-soft); }
     input[type="checkbox"]{ accent-color: var(--check-green); }
     
-      /* pill style */
-      .pill {
-        border: 1px solid #bdc5bf;
-        padding: .35rem .55rem;
+      /* COURSE pills: outline + large icon */
+      .pill{
+        /* outline look */
+        background: transparent;              /* no fill by default */
+        border: 2px solid #bfc4b4;            /* subtle outline */
         border-radius: 999px;
-        font-size: .8rem;
-        cursor: pointer;
-        display: inline-flex; gap:.35rem; align-items:center;
-        background: #7b8b7f;           /* unselected */
-        color:#262b26;                  /* readable */
-        transition: background-color 0.2s, transform 0.1s;
+        padding: 2px;                          /* just enough for the ring */
+        display: inline-flex; align-items: center; justify-content: center;
+        cursor: pointer; transition: transform .1s ease, background-color .15s ease, border-color .15s ease;
       }
-      .pill:hover { background:#b3bbb4; transform: translateY(-1px); }
-      .pill.active {
-        background:#bdc5bf;             /* selected */
-        border-color:#9da89f;
-        box-shadow:0 1px 3px rgba(0,0,0,.1);
+      .pill:hover{ transform: translateY(-1px); }
+      .pill.active{
+        background: #bec5a6;                  /* selected highlight */
+        border-color: #aeb49a;
       }
+      
+      /* big course pill image */
+      .pill .icon{
+        width: 28px;   /* ← bump this if you want even larger */
+        height: 28px;
+        border-radius: 999px;
+        display: block;
+      }
+      
+      /* hide any residual label span inside pills */
+      .pill .tiny{ display: none !important; }
+
       .icon { width:18px; height:18px; border-radius:999px; display:block; }
       .badge { width:18px; height:18px; border-radius:999px; display:block; margin-left:.35rem; }
       .tiny{ font-size:11px; opacity:.85; }
@@ -146,17 +155,28 @@
     .topic-icon:hover{ filter:brightness(.97); }
     
     /* Right-side topic planning pills */
-    .topic-pills{ display:flex; flex-wrap:wrap; gap:.35rem; justify-content:flex-end; align-items:center; }
-    .topic-pill{
-      background:#dee1d2;
-      border:1px solid #bfc4b4;
-      border-radius:999px;
-      padding:.25rem .45rem;
-      display:inline-flex; align-items:center; gap:.35rem;
-      font-size:.75rem;
+        .topic-pill{
+      background: transparent;
+      border: 2px solid #bfc4b4;
+      border-radius: 999px;
+      padding: 2px;
+      display: inline-flex; align-items:center; justify-content:center;
+      cursor: pointer; transition: transform .1s ease, background-color .15s ease, border-color .15s ease;
     }
-    .topic-pill.active{ background:#bec5a6; border-color:#aeb49a; }
-    .topic-pill img{ width:16px; height:16px; border-radius:999px; }
+    .topic-pill:hover{ transform: translateY(-1px); }
+    .topic-pill.active{
+      background:#bec5a6;
+      border-color:#aeb49a;
+    }
+    
+    /* big topic pill image */
+    .topic-pill img{ width: 28px; height: 28px; border-radius:999px; display:block; }
+    
+    /* remove topic pill text if any slipped through */
+    .topic-pill .tiny{ display:none !important; }
+    
+    /* keep dashed guide subtle but aligned with the larger pills */
+    .topic-icons{ border-left:1px dashed #bec5a6; padding-left:.6rem; margin-left:.6rem; }
     
     /* Visual helper connecting pills to their topic */
     .topic-icons{
@@ -354,8 +374,7 @@
                       : plan[c.id]?.use === opt.value)
                   }"
                   @click="setUse(c.id,opt.value)">
-                  <img class="icon" :src="opt.icon" :alt="opt.label + ' icon'">
-                  <span class="tiny" x-text="opt.short"></span>
+                  <img class="icon" :src="opt.icon" :alt="opt.label">
                 </button>
               </template>
             </div>
@@ -448,7 +467,6 @@
                                 :class="{'active': topicHasUse(t.topic_id, opt.value)}"
                                 @click="setTopicUse(t.topic_id, opt.value)">
                           <img :src="opt.icon" :alt="opt.label">
-                          <span class="tiny" x-text="opt.short || opt.label"></span>
                         </button>
                       </template>
                     </div>
