@@ -1247,11 +1247,33 @@ function planningApp(){
       this.applyParsed(pc,pt);
     },
     applyParsed(pc,pt){
-      this.courseIndex={};
-      pc.data.forEach(row=>{ const c=this.rowToCourse(row); if(c) this.courseIndex[c.id]=c; });
-      pt.data.forEach(row=>{ const t=this.rowToTopic(row); if(!t) return; t.course_ids.forEach(cid=>{ if(this.courseIndex[cid]) this.courseIndex[cid].topics.push(t); }); });
-      this.courses=Object.values(this.courseIndex);
-    },
+      this.courseIndex = {};
+        pc.data.forEach(row => {
+          const c = this.rowToCourse(row);
+          if (c) this.courseIndex[c.id] = c;
+        });
+        
+        // Clone each topic per course and make its id course-specific
+        pt.data.forEach(row => {
+          const t = this.rowToTopic(row);
+          if (!t) return;
+        
+          t.course_ids.forEach(cid => {
+            const course = this.courseIndex[cid];
+            if (!course) return;
+        
+            // make a unique id for the *topic as used in this course*
+            const tForCourse = {
+              ...t,
+              topic_id: `${t.topic_id}::${cid}`  // unique per course
+            };
+        
+            course.topics.push(tForCourse);
+          });
+        });
+        
+        this.courses = Object.values(this.courseIndex);
+      },
 
     /* ---------- actions ---------- */
     clearAll(){
