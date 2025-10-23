@@ -311,11 +311,8 @@
 /* ====== PRINT VIEW (hidden on screen, visible in print) ====== */
 #print-view{ display:none; }
 @media print{
-  /* Hide everything by default… */
-  body > *{ display:none !important; }
-  /* …except the print view */
+  .app-shell > *:not(#print-view){ display:none !important; }
   #print-view{ display:block !important; }
-  /* Neutral page background for printers */
   html,body{ background:#fff !important; }
   /* Keep light subject underline & readable text */
   .pv-subject{ font-family:"Crimson Text", serif; font-weight:700; font-size:22px; color:#262b26; margin:18px 0 8px; padding-bottom:4px; border-bottom:4px solid var(--subject-color, #dcded6); }
@@ -336,7 +333,8 @@
   </style>
 </head>
 <body>
-<div x-data="planningApp()" x-init="init()" class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+<div class="app-shell max-w-6xl mx-auto p-4 sm:p-6 lg:p-8"
+     x-data="planningApp()" x-init="init()">
 
   <!-- Header -->
   <header class="flex items-center gap-3 mb-6">
@@ -742,7 +740,7 @@
     <template x-if="!groupedFlat.length">
       <p class="text-center text-gray-500 py-12">No courses match your filters/view.</p>
     </template>
-</div>
+
   <!-- ===== PRINT-ONLY VIEW ===== -->
 <section id="print-view" aria-hidden="true">
   <!-- Simple header -->
@@ -843,6 +841,7 @@
     </div>
   </template>
 </section>
+</div>
   
 <script>
 function planningApp(){
@@ -1241,8 +1240,9 @@ function planningApp(){
       await this.loadDualCSVs();
       this.restoreChecked();
       this.loadPlan();
-    }
-    /**---------- PRINT STATE ------------/
+    },
+    
+    /* ---------- PRINT STATE ------------ */
     // ---- Print UI state + data for the print-only view ----
     printUI: { open:false, scope:'all', includeInfo:false, includeNotes:false },
     printData: { groups: [] },
@@ -1274,7 +1274,7 @@ function planningApp(){
       this.printUI.open = false;      // close dialog
       // Give the DOM a tick to render print view, then print
       this.$nextTick(() => window.print());
-    },
+    }
   }
 }
 </script>
