@@ -167,7 +167,7 @@
       }
     
     /* Topics */
-    .topics-list { font-size: 0.92rem; margin-left: 1.75rem;  /* slight indent from course }
+    .topics-list { font-size: 0.92rem; margin-left: 1.75rem;  /* slight indent from course */ }
     .topics-list .font-medium { font-family: "DM Sans", sans-serif; }
     .topics-list span { line-height: 1.3; }
     .topics-list label span { line-height:1.3; }
@@ -328,7 +328,6 @@
           <li><img src="Combine%20Subjects.png" alt=""> Combine</li>
           <li><img src="High%20Interest%20Subjects.png" alt=""> High Interest</li>
           <li><img src="Additional%20Subjects.png" alt=""> Additional</li>
-          <li><img src="Plan%20Your%20Year.png" alt=""> Plan</li>
         </ul>
       </div>
   </section>
@@ -465,18 +464,18 @@
                         <button x-show="t.hasInfo"
                                 @click="t.infoOpen = !t.infoOpen"
                                 :aria-expanded="t.infoOpen"
+                                :aria-controls="'t-acc-info-'+t.topic_id"
                                 class="topic-icon"
                                 title="Description &amp; Placement">
-                          <span x-show="!t.infoOpen">i</span>
-                          <span x-show="t.infoOpen">–</span>
+                          <span x-show="!t.infoOpen">i</span><span x-show="t.infoOpen">–</span>
                         </button>
         
                         <!-- ✏️ note -->
                         <button @click="t.noteOpen = !t.noteOpen"
                                 :aria-expanded="t.noteOpen"
+                                :aria-controls="'t-acc-note-'+t.topic_id"
                                 class="topic-icon"
-                                title="Add / View Note">
-                          ✏️
+                                title="Add / View Note">✏️
                         </button>
                       </div>
         
@@ -504,7 +503,7 @@
                 <!-- Topic accordions (full width under this topic) -->
                 <div x-show="t.noteOpen || (t.infoOpen && t.hasInfo)" x-collapse>
                   <!-- Note tray (gray) -->
-                  <section x-show="t.noteOpen" class="topic-acc-note">
+                  <section :id="'t-acc-note-'+t.topic_id" x-show="t.noteOpen" class="topic-acc-note">
                     <div class="topic-note-area">
                       <label class="text-xs uppercase tracking-wide text-gray-500 block mb-1">
                         Planning Note (topic)
@@ -517,7 +516,7 @@
                   </section>
         
                   <!-- Info tray (white) -->
-                  <section x-show="t.infoOpen && t.hasInfo" class="topic-acc-info">
+                  <section :id="'t-acc-info-'+t.topic_id" x-show="t.infoOpen && t.hasInfo" class="topic-acc-info">
                     <template x-if="t.description">
                       <div class="mb-2">
                         <div class="font-semibold mb-1">Description</div>
@@ -862,8 +861,6 @@ function planningApp(){
       const u = this.plan[tid]?.use || [];
       return Array.isArray(u) ? u.includes(val) : u===val;
     },
-    editNote(id){ this.noteFor=id; this.noteDraft=(this.plan[id]?.note)||''; this.$refs.noteDlg.showModal(); },
-    saveNote(){ if(this.noteFor){ this.plan[this.noteFor]={ ...(this.plan[this.noteFor]||{}), note:this.noteDraft, ts:Date.now() }; this.persistPlan(); } this.$refs.noteDlg.close(); },
 
     iconMap:{
       'Core':'Core%20Subjects.png',
