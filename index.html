@@ -299,6 +299,39 @@
     }
     .tag-chip img{ width:28px; height:28px; border-radius:999px; display:block; }
     .tag-row{ display:flex; gap:.5rem; flex-wrap:wrap; }
+
+    /* ====== PRINT OPTIONS UI (screen only) ====== */
+.print-modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.3); display:flex; align-items:center; justify-content:center; z-index:1000; }
+.print-modal{ background:#fff; border:1px solid #e5e7eb; border-radius:12px; width:520px; max-width:95vw; padding:16px 18px; box-shadow:0 10px 30px rgba(0,0,0,.12); }
+.print-modal h3{ font-weight:700; color:var(--green-dark); font-size:1.05rem; }
+.print-row{ display:flex; gap:16px; margin-top:10px; }
+.print-row .col{ flex:1; }
+.print-actions{ display:flex; justify-content:flex-end; gap:8px; margin-top:14px; }
+
+/* ====== PRINT VIEW (hidden on screen, visible in print) ====== */
+#print-view{ display:none; }
+@media print{
+  /* Hide everything by default… */
+  body > *{ display:none !important; }
+  /* …except the print view */
+  #print-view{ display:block !important; }
+  /* Neutral page background for printers */
+  html,body{ background:#fff !important; }
+  /* Keep light subject underline & readable text */
+  .pv-subject{ font-family:"Crimson Text", serif; font-weight:700; font-size:22px; color:#262b26; margin:18px 0 8px; padding-bottom:4px; border-bottom:4px solid var(--subject-color, #dcded6); }
+  .pv-card{ border:1px solid #e6e8e5; border-radius:10px; padding:10px 12px; margin-bottom:10px; }
+  .pv-title{ font-family:"Crimson Text", serif; font-size:16px; font-weight:700; color:#262b26; }
+  .pv-schedule{ font-size:11px; color:#485149; margin-top:2px; }
+  .pv-tags{ display:flex; gap:6px; margin-left:auto; }
+  .pv-tag{ border:1.5px solid #c7ccbc; border-radius:999px; padding:1px; }
+  .pv-tag img{ width:18px; height:18px; display:block; border-radius:999px; }
+
+  .pv-note, .pv-info{ margin-top:8px; border-top:1px solid #e6e8e5; padding-top:8px; }
+  .pv-note label, .pv-info label{ font-weight:700; font-size:12px; color:#2b312c; display:block; margin-bottom:2px; }
+  .pv-note p, .pv-info p{ margin:0; font-size:12px; line-height:1.5; color:#2b312c; }
+  .pv-topic{ margin-top:6px; padding-top:6px; border-top:1px dashed #e4e7e3; }
+  .no-print{ display:none !important; } /* belt & suspenders */
+}
     
   </style>
 </head>
@@ -407,9 +440,55 @@
   <div class="no-print sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-gray-200 flex justify-between items-center">
     <div class="tiny"><strong x-text="selectedCount"></strong> selected</div>
     <div class="flex items-center gap-2">
-      <button @click="clearAll()" class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">Clear</button>
-      <button @click="printSelected()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print Selected</button>
+      <button @click="clearAll()" class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">
+        Clear
+      </button>
+    
+      <!-- Open print options -->
+      <button @click="printUI.open = true"
+              class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">
+        Print…
+      </button>
     </div>
+      <!-- PRINT OPTIONS MODAL -->
+      <template x-if="printUI.open">
+        <div class="print-modal-backdrop no-print" @click.self="printUI.open=false">
+          <div class="print-modal" role="dialog" aria-modal="true">
+            <h3>Print Options</h3>
+      
+            <div class="print-row">
+              <div class="col">
+                <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">Scope</div>
+                <label class="flex items-center gap-2 mb-1">
+                  <input type="radio" name="scope" value="all" x-model="printUI.scope">
+                  <span>Whole list (current filters applied)</span>
+                </label>
+                <label class="flex items-center gap-2">
+                  <input type="radio" name="scope" value="selected" x-model="printUI.scope">
+                  <span>Selected only (checked courses/topics)</span>
+                </label>
+              </div>
+      
+              <div class="col">
+                <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">Include</div>
+                <label class="flex items-center gap-2 mb-1">
+                  <input type="checkbox" x-model="printUI.includeInfo">
+                  <span>Descriptions &amp; combining tips</span>
+                </label>
+                <label class="flex items-center gap-2">
+                  <input type="checkbox" x-model="printUI.includeNotes">
+                  <span>Planning notes</span>
+                </label>
+              </div>
+            </div>
+      
+            <div class="print-actions">
+              <button @click="printUI.open=false" class="rounded-xl px-3 py-2 border border-gray-300">Cancel</button>
+              <button @click="doPrint()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white">Preview &amp; Print</button>
+            </div>
+          </div>
+        </div>
+      </template>
   </div>
 
   <!-- Course list -->
@@ -663,8 +742,107 @@
     <template x-if="!groupedFlat.length">
       <p class="text-center text-gray-500 py-12">No courses match your filters/view.</p>
     </template>
-  
 </div>
+  <!-- ===== PRINT-ONLY VIEW ===== -->
+<section id="print-view" aria-hidden="true">
+  <!-- Simple header -->
+  <header class="mb-3" style="display:flex; align-items:center; gap:10px;">
+    <img src="Alveary%20Lt.%20Green.png" alt="" style="height:32px;width:32px;object-fit:contain;">
+    <h1 style="margin:0;color:#262b26;font:700 22px/1.1 'DM Sans',system-ui;">Alveary Course Planning</h1>
+  </header>
+
+  <!-- Subject groups (reuse groupedBySubject), filtered by scope -->
+  <template x-for="grp in printData.groups" :key="grp.subject || 'other'">
+    <div :style="{ '--subject-color': grp.color }">
+      <div class="pv-subject" x-text="grp.subject || 'Other'"></div>
+
+      <!-- Courses -->
+      <template x-for="c in grp.items" :key="c.id">
+        <div class="pv-card">
+          <div style="display:flex; align-items:flex-start; gap:10px;">
+            <div>
+              <div class="pv-title" x-text="c.title"></div>
+              <div class="pv-schedule" x-html="c.summary || '&nbsp;'"></div>
+            </div>
+            <!-- chosen planning tags (icon chips) -->
+            <div class="pv-tags" x-show="getUses(c.id).length">
+              <template x-for="val in getUses(c.id)" :key="val">
+                <span class="pv-tag"><img :src="iconMap[val]" :alt="val"></span>
+              </template>
+            </div>
+          </div>
+
+          <!-- Course NOTE (if option enabled and note exists) -->
+          <template x-if="printUI.includeNotes && (plan[c.id]?.note || '').trim().length">
+            <div class="pv-note">
+              <label>Planning Note</label>
+              <p x-text="plan[c.id].note"></p>
+            </div>
+          </template>
+
+          <!-- Course INFO (if option) -->
+          <template x-if="printUI.includeInfo && (c.description || c.combining)">
+            <div class="pv-info">
+              <template x-if="c.description">
+                <div style="margin-bottom:6px;">
+                  <label>Description</label>
+                  <div class="pv-copy" x-html="c.description"></div>
+                </div>
+              </template>
+              <template x-if="c.combining">
+                <div>
+                  <label>Combining &amp; Placement</label>
+                  <div class="pv-copy" x-html="c.combining"></div>
+                </div>
+              </template>
+            </div>
+          </template>
+
+          <!-- Topics (filtered by scope as well) -->
+          <template x-for="t in (printUI.scope==='selected' ? (c.topics||[]).filter(tt=>tt.checked) : (c.topics||[]))" :key="t.topic_id">
+            <div class="pv-topic">
+              <div style="display:flex; align-items:flex-start; gap:10px;">
+                <div>
+                  <div class="pv-title" style="font-size:14px;" x-text="t.topic_title"></div>
+                  <div class="pv-schedule" x-html="t.summary || '&nbsp;'"></div>
+                </div>
+                <div class="pv-tags" x-show="getUses(t.topic_id).length">
+                  <template x-for="val in getUses(t.topic_id)" :key="val">
+                    <span class="pv-tag"><img :src="iconMap[val]" :alt="val"></span>
+                  </template>
+                </div>
+              </div>
+
+              <template x-if="printUI.includeNotes && (plan[t.topic_id]?.note || '').trim().length">
+                <div class="pv-note">
+                  <label>Planning Note (topic)</label>
+                  <p x-text="plan[t.topic_id].note"></p>
+                </div>
+              </template>
+
+              <template x-if="printUI.includeInfo && (t.description || t.combining)">
+                <div class="pv-info">
+                  <template x-if="t.description">
+                    <div style="margin-bottom:6px;">
+                      <label>Description</label>
+                      <div class="pv-copy" x-html="t.description"></div>
+                    </div>
+                  </template>
+                  <template x-if="t.combining">
+                    <div>
+                      <label>Combining &amp; Placement</label>
+                      <div class="pv-copy" x-html="t.combining"></div>
+                    </div>
+                  </template>
+                </div>
+              </template>
+            </div>
+          </template>
+        </div>
+      </template>
+    </div>
+  </template>
+</section>
   
 <script>
 function planningApp(){
@@ -1064,6 +1242,39 @@ function planningApp(){
       this.restoreChecked();
       this.loadPlan();
     }
+    /**---------- PRINT STATE ------------/
+    // ---- Print UI state + data for the print-only view ----
+    printUI: { open:false, scope:'all', includeInfo:false, includeNotes:false },
+    printData: { groups: [] },
+  
+    // Build the data snapshot that the print view will render
+    buildPrintGroups(){
+      const source = (this.printUI.scope === 'selected')
+        ? this.courses.filter(c => c.checked || (c.topics||[]).some(t=>t.checked))
+        : this.filtered; // whole list, but still respects current filters
+  
+      // Group by subject, include color (reuse helper)
+      const grouped = source.reduce((out, c) => {
+        const subj = c.subject || 'Other';
+        const last = out[out.length - 1];
+        if (!last || last.subject !== subj) {
+          out.push({ subject: subj, color: this.subjectColor(subj), items:[c] });
+        } else {
+          last.items.push(c);
+        }
+        return out;
+      }, []);
+  
+      this.printData.groups = grouped;
+    },
+  
+    // Called when user clicks "Preview & Print"
+    doPrint(){
+      this.buildPrintGroups();
+      this.printUI.open = false;      // close dialog
+      // Give the DOM a tick to render print view, then print
+      this.$nextTick(() => window.print());
+    },
   }
 }
 </script>
