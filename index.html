@@ -306,7 +306,7 @@
   position: fixed; inset: 0;
   background: rgba(0,0,0,.35);
   display: flex; align-items: center; justify-content: center;
-  z-index: 5000;                 /* > any sticky headers */
+  z-index: 7000;                 /* > any sticky headers */
   padding: 24px;                 /* keeps dialog off the very edge */
 }
 /* Dialog stays centered and scrolls internally if needed */
@@ -317,7 +317,7 @@
   overflow: auto;                /* scroll inside, not page behind */
   padding: 16px 18px;
   box-shadow: 0 12px 32px rgba(0,0,0,.18);
-  z-index: 5001;                 /* above the backdrop */
+  z-index: 7001;                 /* above the backdrop */
 }
 .print-modal h3{ font-weight:700; color:var(--green-dark); font-size:1.05rem; }
 .print-row{ display:flex; gap:16px; margin-top:10px; }
@@ -833,36 +833,40 @@
             </div>
           </template>
 
-          <!-- Topics (selected scope => only checked topics) -->
-          <template
-            x-for="t in (printUI.scope==='selected' ? (c.topics||[]).filter(tt=>tt.checked) : (c.topics||[]))"
-            :key="t.topic_id">
-          
-            <!-- Topic NOTE: only when topic is checked -->
-            <template x-if="printUI.includeNotes && t.checked && (plan[t.topic_id]?.note || '').trim().length">
-              <div class="pv-note">
-                <label>Planning Note (topic)</label>
-                <p x-text="plan[t.topic_id].note"></p>
+          <!-- Topics -->
+          <template x-for="t in topicsForPrint(c)" :key="t.topic_id">
+            <div class="pv-topic">
+              <div style="display:flex; align-items:baseline; justify-content:space-between; gap:10px;">
+                <div class="pv-title" style="font-size:14px; font-weight:600;" x-text="t.topic_title"></div>
+                <div class="pv-schedule" x-html="t.summary || '&nbsp;'"></div>
               </div>
-            </template>
           
-            <!-- Topic INFO: only when topic is checked -->
-            <template x-if="printUI.includeInfo && t.checked && (t.description || t.combining)">
-              <div class="pv-info">
-                <template x-if="t.description">
-                  <div class="mb-1">
-                    <label>Description</label>
-                    <div class="pv-copy small" x-html="t.description"></div>
-                  </div>
-                </template>
-                <template x-if="t.combining">
-                  <div>
-                    <label>Combining &amp; Placement</label>
-                    <div class="pv-copy small" x-html="t.combining"></div>
-                  </div>
-                </template>
-              </div>
-            </template>
+              <!-- Topic NOTE (only if turned on and there is text) -->
+              <template x-if="printUI.includeNotes && (plan[t.topic_id]?.note || '').trim().length">
+                <div class="pv-note">
+                  <label>Planning Note (topic)</label>
+                  <p x-text="plan[t.topic_id].note"></p>
+                </div>
+              </template>
+          
+              <!-- Topic INFO (only if turned on and topic actually has info) -->
+              <template x-if="printUI.includeInfo && (t.description || t.combining)">
+                <div class="pv-info">
+                  <template x-if="t.description">
+                    <div class="mb-1">
+                      <label>Description</label>
+                      <div class="pv-copy small" x-html="t.description"></div>
+                    </div>
+                  </template>
+                  <template x-if="t.combining">
+                    <div>
+                      <label>Combining &amp; Placement</label>
+                      <div class="pv-copy small" x-html="t.combining"></div>
+                    </div>
+                  </template>
+                </div>
+              </template>
+            </div>
           </template>
         </div>
       </template>
