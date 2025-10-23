@@ -61,6 +61,41 @@
     /* legend + helper text under filters */
     .legend img{ width:18px; height:18px; border-radius:999px; }
     .legend li{ display:flex; align-items:center; gap:.4rem; }
+
+    /* Sticky subject header (pill) */
+    .subject-header{
+      position: sticky;
+      top: 64px;                  /* adjust if your top nav height differs */
+      z-index: 20;
+      display: flex; align-items: center; gap:.5rem;
+      padding: .4rem .75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.07);
+      background: #fff;           /* keeps color subtle */
+      color: #262b26;
+      box-shadow: 0 1px 6px rgba(0,0,0,.05);
+      width: fit-content;
+      margin: .75rem .25rem .25rem; /* small breathing space above sections */
+    }
+    .subject-chip{
+      width: 14px; height: 14px; border-radius: 999px;
+      flex: none; box-shadow: inset 0 0 0 2px rgba(0,0,0,.08);
+    }
+    
+    /* Left accent on course card (uses inline color) */
+    .course-card{
+      border-left-width: 6px;
+      border-left-style: solid;
+      border-left-color: #e5e7eb; /* fallback */
+    }
+    
+    /* Small helper so the subject header doesn't stick under rounded cards */
+    .group-block{ padding-top: .25rem; }
+    
+    /* Ensure sticky headers can sit above the cards while scrolling */
+    @media (max-width: 640px){
+      .subject-header{ top: 56px; }
+    }
     
     /* Course Style */
     .course-card{ border:1px solid #e5e7eb; background:#fff; border-radius:.75rem; overflow:hidden; }
@@ -309,113 +344,106 @@
 
   <!-- Course list -->
   <section>
-    <template x-for="c in groupedFlat" :key="c.id">
-      <div class="course-card mb-3">
-        <!-- band -->
-        <div class="course-band grid grid-cols-12 items-center">
-          <!-- LEFT: checkbox + title + icons + small schedule -->
-          <div class="col-span-8 px-3 py-2 border-white/10 flex flex-col">
-            <!-- top line: checkbox, title, icons -->
-            <div class="flex items-center gap-2">
-              <input
-                type="checkbox"
-                class="size-5 rounded border-white/50"
-                x-model="c.checked"
-                @change="persistChecked()" />
-        
-              <!-- title + inline action icons -->
-              <div class="band-title font-crimson text-base font-semibold flex items-center gap-1.5">
-                <span x-text="c.title"></span>
-        
-                <!-- ℹ️ info accordion toggle (only if there is info) -->
-                <button
-                  type="button"
-                  x-show="c.hasInfo"
-                  @click="c.infoOpen = !c.infoOpen"
-                  :aria-expanded="c.infoOpen"
-                  aria-controls="'acc-info-'+c.id"
-                  class="text-xs bg-white/15 hover:bg-white/25 p-1.5 rounded"
-                  title="Description &amp; Placement">
-                  <span x-show="!c.infoOpen">i</span>
-                  <span x-show="c.infoOpen">–</span>
-                </button>
-
-                <!-- ✏️ note accordion toggle -->
-                <button
-                  type="button"
-                  @click="c.noteOpen = !c.noteOpen"
-                  :aria-expanded="c.noteOpen"
-                  aria-controls="'acc-note-'+c.id"
-                  class="text-xs bg-white/15 hover:bg-white/25 p-1.5 rounded"
-                  title="Add / View Note">
-                  ✏️
-                </button>
-                
-              </div>
-            </div>
-        
-            <!-- small scheduling info directly under title -->
-            <div
-              class="text-[0.8rem] opacity-90 leading-tight ml-7 mt-0.5"
-              x-html="c.summary || '<span class=opacity-60>—</span>'">
-            </div>
-          </div>
-        
-          <!-- RIGHT: planning pills (Core / Family / Combine / High-Interest / Additional) -->
-          <div class="col-span-4 px-3 py-2 border-white/10">
-            <div class="flex flex-wrap justify-end items-center gap-2">
-              <template x-for="opt in useOptions" :key="opt.value">
-                <button
-                  type="button"
-                  class="pill"
-                  :class="{
-                    'active': (Array.isArray(plan[c.id]?.use)
-                      ? plan[c.id].use.includes(opt.value)
-                      : plan[c.id]?.use === opt.value)
-                  }"
-                  @click="setUse(c.id,opt.value)">
-                  <img class="icon" :src="opt.icon" :alt="opt.label">
-                </button>
-              </template>
-            </div>
-          </div>
+    <!-- subject groups -->
+    <template x-for="grp in groupedBySubject" :key="grp.subject || 'other'">
+      <div class="group-block">
+        <!-- sticky subject header -->
+        <div class="subject-header">
+          <span class="subject-chip" :style="{ backgroundColor: grp.color }"></span>
+          <span class="text-sm font-semibold" x-text="grp.subject || 'Other'"></span>
         </div>
-
-        <!-- body row -->
-        <!-- Accordion area: shows if either section is open -->
-        <div x-show="c.noteOpen || (c.infoOpen && c.hasInfo)" x-collapse>
-        
-          <!-- NOTE tray (gray, full width) -->
-          <section id="acc-note-{{c.id}}" x-show="c.noteOpen" class="accordion">
-            <div class="note-area">
-              <label class="text-xs uppercase tracking-wide text-gray-500 block mb-1">
-                Planning Note (optional)
-              </label>
-              <textarea
-                :value="plan[c.id]?.note || ''"
-                @input="plan[c.id]={ ...(plan[c.id]||{}), note:$event.target.value, ts:Date.now() }; persistPlan();"
-                placeholder="Add any details for your plan (who it’s for, pacing, resources, etc.)"></textarea>
+  
+        <!-- courses in this subject -->
+        <template x-for="c in grp.items" :key="c.id">
+          <div class="course-card mb-3 rounded-2xl shadow-sm bg-white"
+               :style="{ borderLeftColor: grp.color }">
+  
+            <!-- band -->
+            <div class="course-band grid grid-cols-12 items-center">
+              <!-- LEFT: checkbox + title + icons + small schedule -->
+              <div class="col-span-8 px-3 py-2 border-white/10 flex flex-col">
+                <div class="flex items-center gap-2">
+                  <input type="checkbox" class="size-5 rounded border-white/50"
+                         x-model="c.checked" @change="persistChecked()" />
+  
+                  <div class="band-title font-crimson text-base font-semibold flex items-center gap-1.5">
+                    <span x-text="c.title"></span>
+  
+                    <!-- ℹ️ info toggle -->
+                    <button type="button" x-show="c.hasInfo"
+                            @click="c.infoOpen = !c.infoOpen"
+                            :aria-expanded="c.infoOpen"
+                            :aria-controls="'acc-info-'+c.id"
+                            class="text-xs bg-white/15 hover:bg-white/25 p-1.5 rounded"
+                            title="Description &amp; Placement">
+                      <span x-show="!c.infoOpen">i</span>
+                      <span x-show="c.infoOpen">–</span>
+                    </button>
+  
+                    <!-- ✏️ note toggle -->
+                    <button type="button"
+                            @click="c.noteOpen = !c.noteOpen"
+                            :aria-expanded="c.noteOpen"
+                            :aria-controls="'acc-note-'+c.id"
+                            class="text-xs bg-white/15 hover:bg-white/25 p-1.5 rounded"
+                            title="Add / View Note">✏️</button>
+                  </div>
+                </div>
+  
+                <!-- schedule under title -->
+                <div class="text-[0.8rem] opacity-90 leading-tight ml-7 mt-0.5"
+                     x-html="c.summary || '<span class=opacity-60>—</span>'"></div>
+              </div>
+  
+              <!-- RIGHT: planning pills -->
+              <div class="col-span-4 px-3 py-2 border-white/10">
+                <div class="flex flex-wrap justify-end items-center gap-2">
+                  <template x-for="opt in useOptions" :key="opt.value">
+                    <button type="button" class="pill"
+                            :class="{
+                              'active': (Array.isArray(plan[c.id]?.use)
+                                ? plan[c.id].use.includes(opt.value)
+                                : plan[c.id]?.use === opt.value)
+                            }"
+                            @click="setUse(c.id,opt.value)">
+                      <img class="icon" :src="opt.icon" :alt="opt.label">
+                    </button>
+                  </template>
+                </div>
+              </div>
             </div>
-          </section>
-        
-          <!-- INFO tray (white, full width, under a separator line) -->
-          <section id="acc-info-{{c.id}}" x-show="c.infoOpen && c.hasInfo" class="acc-info">
-            <template x-if="c.description">
-              <div class="mb-3">
-                <div class="font-semibold mb-1">Description</div>
-                <div class="text-sm leading-6" x-html="c.description"></div>
-              </div>
-            </template>
-        
-            <template x-if="c.combining">
-              <div>
-                <div class="font-semibold mb-1">Combining &amp; Placement</div>
-                <div class="text-sm leading-6" x-html="c.combining"></div>
-              </div>
-            </template>
-          </section>
-        
-        </div>
+  
+            <!-- accordion area -->
+            <div x-show="c.noteOpen || (c.infoOpen && c.hasInfo)" x-collapse>
+              <!-- NOTE (gray, full width) -->
+              <section :id="'acc-note-'+c.id" x-show="c.noteOpen" class="accordion">
+                <div class="note-area">
+                  <label class="text-xs uppercase tracking-wide text-gray-500 block mb-1">
+                    Planning Note (optional)
+                  </label>
+                  <textarea
+                    :value="plan[c.id]?.note || ''"
+                    @input="plan[c.id]={ ...(plan[c.id]||{}), note:$event.target.value, ts:Date.now() }; persistPlan();"
+                    placeholder="Add any details for your plan (who it’s for, pacing, resources, etc.)"></textarea>
+                </div>
+              </section>
+  
+              <!-- INFO (white, full width) -->
+              <section :id="'acc-info-'+c.id" x-show="c.infoOpen && c.hasInfo" class="acc-info">
+                <template x-if="c.description">
+                  <div class="mb-3">
+                    <div class="font-semibold mb-1">Description</div>
+                    <div class="text-sm leading-6" x-html="c.description"></div>
+                  </div>
+                </template>
+                <template x-if="c.combining">
+                  <div>
+                    <div class="font-semibold mb-1">Combining &amp; Placement</div>
+                    <div class="text-sm leading-6" x-html="c.combining"></div>
+                  </div>
+                </template>
+              </section>
+            </div>
 
         <!-- topics -->
         <template x-if="c.topics && c.topics.length">
@@ -509,7 +537,10 @@
           </div>
         </template>
       </div>
-    </template>
+      </template>
+    </div>
+  </template>
+</section>
 
     <template x-if="!groupedFlat.length">
       <p class="text-center text-gray-500 py-12">No courses match your filters/view.</p>
@@ -608,6 +639,33 @@ function planningApp(){
       schedule_text:'Scheduling_R3', grade_text:'Grade_Text', grade_filter:'Grade_Filter'
     },
 
+    subjectColors:{
+        'Architecture': '#a0a6be',
+        'Art': '#907061',
+        'Bible': '#964945',
+        'Citizenship': '#62765c',
+        'English': '#9b5b7b',
+        'Geography': '#4d8da2',
+        'History': '#6b6bbf',
+        'Latin': '#5a5373',
+        'Life Skills': '#d1b358',
+        'Literature': '#c07669',
+        'Math': '#6d7eaa',
+        'Modern Language': '#6db4b2',
+        'Music': '#9e6bac',
+        'Physical Education': '#bd855e',
+        'Science': '#96a767',
+        'Science & Alt. Science': '#96a767'
+      },
+      subjectColor(name){
+        if(!name) return '#dfe4df';
+        // loose match so "Science & Alt. Science" etc. resolve
+        const key = Object.keys(this.subjectColors).find(k =>
+          k.toLowerCase() === name.toLowerCase()
+        );
+        return key ? this.subjectColors[key] : '#dfe4df';
+      },
+
     /* ---------- computed ---------- */
     get filtered(){
       const q=this.search.toLowerCase();
@@ -649,6 +707,21 @@ function planningApp(){
     ,get levelList(){ return [...new Set(this.courses.flatMap(c=>c.levelTags||[]))].sort((a,b)=> {
       const na=+a.replace(/\D/g,''); const nb=+b.replace(/\D/g,''); return na-nb || a.localeCompare(b);
     }); },
+
+    get groupedCourses(){
+        // assumes you already have coursesFiltered – use whatever your filtered array name is
+        const arr = this.coursesFiltered || this.courses; 
+        return arr.reduce((out, c) => {
+          const subj = c.subject || 'Other';
+          const last = out[out.length-1];
+          if(!last || last.subject !== subj){
+            out.push({ subject: subj, color: this.subjectColor(subj), items:[c] });
+          }else{
+            last.items.push(c);
+          }
+          return out;
+        }, []);
+      },
 
     /* ---------- helpers ---------- */
     _getCI(row,want){ const keys=Array.isArray(want)?want:[want]; for(const k of keys){ const hit=Object.keys(row).find(h=>h.trim().toLowerCase()===String(k).trim().toLowerCase()); if(hit) return row[hit]; } },
