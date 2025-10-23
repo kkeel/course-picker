@@ -79,8 +79,8 @@
         font-size: .8rem;
         cursor: pointer;
         display: inline-flex; gap:.35rem; align-items:center;
-        background: #596e5e;           /* unselected */
-        color:#ffffff;                  /* readable */
+        background: #7b8b7f;           /* unselected */
+        color:#262b26;                  /* readable */
         transition: background-color 0.2s, transform 0.1s;
       }
       .pill:hover { background:#b3bbb4; transform: translateY(-1px); }
@@ -127,6 +127,52 @@
     .topics-list .font-medium { font-family: "DM Sans", sans-serif; }
     .topics-list span { line-height: 1.3; }
     .topics-list label span { line-height:1.3; }
+
+    /* Topic row layout */
+    .topic-row{ display:flex; align-items:flex-start; justify-content:space-between; gap:.75rem; padding:.25rem .25rem; }
+    .topic-left{ display:flex; gap:.5rem; align-items:flex-start; }
+    .topic-title{ font-weight:600; font-size:.95rem; line-height:1.2; }
+    .topic-schedule{ font-size:.78rem; color:#647067; line-height:1.2; margin-top:.15rem; }
+    
+    /* Mini icon buttons beside topic title */
+    .topic-icon{
+      background:#dee1d2;          /* requested unclicked color */
+      padding:.25rem .4rem;
+      border-radius:.45rem;
+      font-size:.75rem;
+      line-height:1;
+    }
+    .topic-icon[aria-expanded="true"]{ background:#bec5a6; } /* active color */
+    .topic-icon:hover{ filter:brightness(.97); }
+    
+    /* Right-side topic planning pills */
+    .topic-pills{ display:flex; flex-wrap:wrap; gap:.35rem; justify-content:flex-end; align-items:center; }
+    .topic-pill{
+      background:#dee1d2;
+      border:1px solid #bfc4b4;
+      border-radius:999px;
+      padding:.25rem .45rem;
+      display:inline-flex; align-items:center; gap:.35rem;
+      font-size:.75rem;
+    }
+    .topic-pill.active{ background:#bec5a6; border-color:#aeb49a; }
+    .topic-pill img{ width:16px; height:16px; border-radius:999px; }
+    
+    /* Visual helper connecting pills to their topic */
+    .topic-icons{
+      display:flex; align-items:center; gap:.35rem;
+      padding-left:.5rem; margin-left:.5rem;
+      border-left:1px dashed #bec5a6;  /* subtle guide */
+    }
+    
+    /* Topic accordions (full width within topics area) */
+    .topic-acc-note{ background:#f4f6fa; border-top:1px solid #e5e7eb; padding:12px 12px; border-radius:.5rem; }
+    .topic-acc-info{ background:#fff;    border-top:1px solid #e5e7eb; padding:12px 12px; border-radius:.5rem; }
+    
+    .topic-note-area textarea{
+      width:100%; border:1px solid #d9ded9; border-radius:.5rem;
+      min-height:64px; padding:.45rem .55rem; font-size:.88rem; background:#fff;
+    }
     
   </style>
 </head>
@@ -357,21 +403,88 @@
           <div class="px-3 pb-3 topics-list">
             <div class="text-xs uppercase tracking-wide text-gray-500 mt-2 mb-1">Topics</div>
         
-            <!-- loop through topics -->
             <template x-for="t in c.topics" :key="t.topic_id">
-              <div class="py-1">
-                <div class="flex items-start gap-2">
-                  <input type="checkbox"
-                         class="size-4 mt-0.5"
-                         x-model="t.checked"
-                         @change="persistChecked()" />
+              <div class="mb-2">
+                <!-- Topic row -->
+                <div class="topic-row">
+                  <div class="topic-left">
+                    <input type="checkbox" class="size-4 mt-0.5"
+                           x-model="t.checked" @change="persistChecked()" />
+                    <div>
+                      <div class="flex items-center gap-1">
+                        <span class="topic-title" x-text="t.topic_title"></span>
         
-                  <!-- topic title + schedule -->
-                  <div class="flex flex-col">
-                    <span class="font-medium text-[0.95rem]" x-text="t.topic_title"></span>
-                    <span class="text-[0.78rem] text-gray-600 leading-tight"
-                          x-html="t.summary || '<span class=opacity-60>—</span>'"></span>
+                        <!-- ℹ️ info (only if info exists) -->
+                        <button x-show="t.hasInfo"
+                                @click="t.infoOpen = !t.infoOpen"
+                                :aria-expanded="t.infoOpen"
+                                class="topic-icon"
+                                title="Description &amp; Placement">
+                          <span x-show="!t.infoOpen">i</span>
+                          <span x-show="t.infoOpen">–</span>
+                        </button>
+        
+                        <!-- ✏️ note -->
+                        <button @click="t.noteOpen = !t.noteOpen"
+                                :aria-expanded="t.noteOpen"
+                                class="topic-icon"
+                                title="Add / View Note">
+                          ✏️
+                        </button>
+                      </div>
+        
+                      <!-- Topic schedule directly under title -->
+                      <div class="topic-schedule"
+                           x-html="t.summary || '<span class=opacity-60>—</span>'"></div>
+                    </div>
                   </div>
+        
+                  <!-- Right-side topic planning pills with dashed guide -->
+                  <div class="topic-icons">
+                    <div class="topic-pills">
+                      <template x-for="opt in useOptions" :key="opt.value">
+                        <button type="button"
+                                class="topic-pill"
+                                :class="{'active': topicHasUse(t.topic_id, opt.value)}"
+                                @click="setTopicUse(t.topic_id, opt.value)">
+                          <img :src="opt.icon" :alt="opt.label">
+                          <span class="tiny" x-text="opt.short || opt.label"></span>
+                        </button>
+                      </template>
+                    </div>
+                  </div>
+                </div>
+        
+                <!-- Topic accordions (full width under this topic) -->
+                <div x-show="t.noteOpen || (t.infoOpen && t.hasInfo)" x-collapse>
+                  <!-- Note tray (gray) -->
+                  <section x-show="t.noteOpen" class="topic-acc-note">
+                    <div class="topic-note-area">
+                      <label class="text-xs uppercase tracking-wide text-gray-500 block mb-1">
+                        Planning Note (topic)
+                      </label>
+                      <textarea
+                        :value="plan[t.topic_id]?.note || ''"
+                        @input="plan[t.topic_id]={ ...(plan[t.topic_id]||{}), note:$event.target.value, ts:Date.now() }; persistPlan();"
+                        placeholder="Add any topic-specific notes"></textarea>
+                    </div>
+                  </section>
+        
+                  <!-- Info tray (white) -->
+                  <section x-show="t.infoOpen && t.hasInfo" class="topic-acc-info">
+                    <template x-if="t.description">
+                      <div class="mb-2">
+                        <div class="font-semibold mb-1">Description</div>
+                        <div class="text-sm leading-6" x-html="t.description"></div>
+                      </div>
+                    </template>
+                    <template x-if="t.combining">
+                      <div>
+                        <div class="font-semibold mb-1">Combining &amp; Placement</div>
+                        <div class="text-sm leading-6" x-html="t.combining"></div>
+                      </div>
+                    </template>
+                  </section>
                 </div>
               </div>
             </template>
@@ -581,21 +694,44 @@ function planningApp(){
     },
     rowToTopic(row){
       const g=(k)=>this._getCI(row,this.topicFields[k]);
-      const rawCourseIds=(g('course_id')||'').toString().trim();
-      const topic_title=(g('topic_title')||'').toString().trim();
+    
+      const rawCourseIds = (g('course_id')||'').toString().trim();
+      const topic_title  = (g('topic_title')||'').toString().trim();
       if(!rawCourseIds || !topic_title) return null;
-      const topic_id=(g('topic_id')||'').toString().trim() || (rawCourseIds+'::'+topic_title);
-      const topic_desc=(g('topic_description')||'').toString().trim();
-      const combining=(g('combining_placement')||'').toString().trim();
-      const schedule_t=(g('schedule_text')||'').toString().trim();
-      const gradeText=(g('grade_text')||'').toString().trim();
-      const gradeFilter=(g('grade_filter')||'').toString().trim();
-      const levelDisplay=gradeText||'';
-      const levelTags=(gradeFilter && /G\s*\d+/i.test(gradeFilter))
+    
+      const topic_id     = (g('topic_id')||'').toString().trim() || (rawCourseIds+'::'+topic_title);
+      const topic_desc   = (g('topic_description')||'').toString().trim();
+      const combining    = (g('combining_placement')||'').toString().trim();
+      const schedule_t   = (g('schedule_text')||'').toString().trim();
+    
+      const gradeText    = (g('grade_text')||'').toString().trim();
+      const gradeFilter  = (g('grade_filter')||'').toString().trim();
+      const levelDisplay = gradeText || '';
+      const levelTags = (gradeFilter && /G\s*\d+/i.test(gradeFilter))
         ? (gradeFilter.match(/G\s*\d+/gi)||[]).map(s=>'G'+s.replace(/[^0-9]/g,''))
         : this.computeGradeTags(gradeText);
-      const details=[]; if(topic_desc) details.push({label:'Description', value:topic_desc}); if(combining) details.push({label:'Combining & Placement', value:combining});
-      return { topic_id, course_ids:rawCourseIds.split(',').map(s=>s.trim()).filter(Boolean), topic_title, summary:schedule_t, details, levelDisplay, levelTags, checked:false };
+    
+      const details=[]; if(topic_desc) details.push({label:'Description', value:topic_desc});
+      if(combining) details.push({label:'Combining & Placement', value:combining});
+    
+      const hasInfo = !!(topic_desc || combining);
+    
+      return {
+        topic_id,
+        course_ids: rawCourseIds.split(',').map(s=>s.trim()).filter(Boolean),
+        topic_title,
+        summary: schedule_t,
+        details,
+        description: topic_desc,
+        combining,
+        levelDisplay, levelTags,
+        checked:false,
+    
+        /* NEW: per-topic accordions */
+        hasInfo,
+        infoOpen:false,
+        noteOpen:false
+      };
     },
 
     /* ---------- storage & sync ---------- */
@@ -623,6 +759,17 @@ function planningApp(){
     
       this.plan[id] = { ...(this.plan[id] || {}), use: newUses, ts: Date.now() };
       this.persistPlan();
+    },
+    setTopicUse(tid, use){
+      const existing = this.plan[tid]?.use || [];
+      const uses = Array.isArray(existing) ? existing : (existing ? [existing] : []);
+      const newUses = uses.includes(use) ? uses.filter(u=>u!==use) : [...uses, use];
+      this.plan[tid] = { ...(this.plan[tid]||{}), use:newUses, ts:Date.now() };
+      this.persistPlan();
+    },
+    topicHasUse(tid, val){
+      const u = this.plan[tid]?.use || [];
+      return Array.isArray(u) ? u.includes(val) : u===val;
     },
     editNote(id){ this.noteFor=id; this.noteDraft=(this.plan[id]?.note)||''; this.$refs.noteDlg.showModal(); },
     saveNote(){ if(this.noteFor){ this.plan[this.noteFor]={ ...(this.plan[this.noteFor]||{}), note:this.noteDraft, ts:Date.now() }; this.persistPlan(); } this.$refs.noteDlg.close(); },
