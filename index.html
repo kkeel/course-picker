@@ -544,7 +544,6 @@
     <template x-if="!groupedFlat.length">
       <p class="text-center text-gray-500 py-12">No courses match your filters/view.</p>
     </template>
-  </section>
   
 </div>
   
@@ -721,6 +720,20 @@ function planningApp(){
           return out;
         }, []);
       },
+
+      get groupedBySubject(){
+          const arr = this.groupedFlat || [];  // ← filtered + subject-sorted flat list
+          return arr.reduce((out, c) => {
+            const subj = c.subject || 'Other';
+            const last = out[out.length - 1];
+            if (!last || last.subject !== subj) {
+              out.push({ subject: subj, color: this.subjectColor(subj), items: [c] });
+            } else {
+              last.items.push(c);
+            }
+            return out;
+          }, []);
+        },
 
     /* ---------- helpers ---------- */
     _getCI(row,want){ const keys=Array.isArray(want)?want:[want]; for(const k of keys){ const hit=Object.keys(row).find(h=>h.trim().toLowerCase()===String(k).trim().toLowerCase()); if(hit) return row[hit]; } },
