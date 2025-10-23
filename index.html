@@ -99,27 +99,27 @@
       }
     
       /* Accordion "tray" */
-      .accordion {
-        background: #f4f6fa;              /* gray background for whole section */
-        border-top: 1px solid #e5e7eb;    /* faint separator from the band */
-        padding: 12px 16px;
+      .accordion{
+        background: var(--gray-soft);      /* #f4f6fa */
+        border-top: 1px solid #e5e7eb;
+        padding: 14px 16px;
       }
       .acc-section + .acc-section {       /* divider between note and info when both are open */
         border-top: 1px solid #e5e7eb;
         margin-top: 12px;
         padding-top: 12px;
       }
+      .acc-info{
+        background:#fff;
+        border-top: 1px solid #e5e7eb;     /* separation line above */
+        padding: 16px;
+      }
       
       /* inline note area */
-      .note-area { padding: 0; background: transparent; border: 0; }
+      .note-area{ padding:0; background:transparent; border:0; }
       .note-area textarea{
-        width:100%;
-        border:1px solid #d9ded9;
-        border-radius:.5rem;
-        min-height:72px;
-        padding:.5rem .6rem;
-        font-size:.9rem;
-        background:#fff;
+        width:100%; border:1px solid #d9ded9; border-radius:.5rem;
+        min-height:72px; padding:.5rem .6rem; font-size:.9rem; background:#fff;
       }
     
     /* Topics */
@@ -317,43 +317,39 @@
         </div>
 
         <!-- body row -->
-        <div class="grid grid-cols-12">
-          <!-- LEFT: Scheduling (compact) -->
-          <div class="col-span-12 sm:col-span-3 px-3 py-3 schedule-col">
-            <span class="label">Schedule</span>
-            <div x-html="c.summary || '<span class=opacity-60>—</span>'"></div>
-          </div>
+        <!-- Accordion area: shows if either section is open -->
+        <div x-show="c.noteOpen || (c.infoOpen && c.hasInfo)" x-collapse>
         
-          <!-- RIGHT: notes + accordion details -->
-          <div class="col-span-12 sm:col-span-9 px-4 py-4">
-            <!-- inline planning note -->
+          <!-- NOTE tray (gray, full width) -->
+          <section id="acc-note-{{c.id}}" x-show="c.noteOpen" class="accordion">
             <div class="note-area">
               <label class="text-xs uppercase tracking-wide text-gray-500 block mb-1">
-                Planning note (optional)
+                Planning Note (optional)
               </label>
               <textarea
                 :value="plan[c.id]?.note || ''"
                 @input="plan[c.id]={ ...(plan[c.id]||{}), note:$event.target.value, ts:Date.now() }; persistPlan();"
                 placeholder="Add any details for your plan (who it’s for, pacing, resources, etc.)"></textarea>
             </div>
+          </section>
         
-            <!-- accordion: appears under the note -->
-            <div x-show="c.infoOpen && c.hasInfo" x-collapse class="mt-3 pt-3 border-t border-gray-200">
-              <template x-if="c.description">
-                <div class="mb-3">
-                  <div class="font-semibold mb-1">Description</div>
-                  <div class="text-sm leading-6" x-html="c.description"></div>
-                </div>
-              </template>
+          <!-- INFO tray (white, full width, under a separator line) -->
+          <section id="acc-info-{{c.id}}" x-show="c.infoOpen && c.hasInfo" class="acc-info">
+            <template x-if="c.description">
+              <div class="mb-3">
+                <div class="font-semibold mb-1">Description</div>
+                <div class="text-sm leading-6" x-html="c.description"></div>
+              </div>
+            </template>
         
-              <template x-if="c.combining">
-                <div>
-                  <div class="font-semibold mb-1">Combining &amp; Placement</div>
-                  <div class="text-sm leading-6" x-html="c.combining"></div>
-                </div>
-              </template>
-            </div>
-          </div>
+            <template x-if="c.combining">
+              <div>
+                <div class="font-semibold mb-1">Combining &amp; Placement</div>
+                <div class="text-sm leading-6" x-html="c.combining"></div>
+              </div>
+            </template>
+          </section>
+        
         </div>
 
         <!-- topics -->
