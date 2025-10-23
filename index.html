@@ -242,9 +242,6 @@
     /* remove topic pill text if any slipped through */
     .topic-pill .tiny{ display:none !important; }
     
-    /* keep dashed guide subtle but aligned with the larger pills */
-    .topic-icons{ border-left:1px dashed #bec5a6; padding-left:.6rem; margin-left:.6rem; }
-    
     /* Visual helper connecting pills to their topic */
     .topic-icons{
       display:flex; align-items:center; gap:.35rem;
@@ -260,6 +257,37 @@
       width:100%; border:1px solid #d9ded9; border-radius:.5rem;
       min-height:64px; padding:.45rem .55rem; font-size:.88rem; background:#fff;
     }
+
+    /* Trigger button (subtle, discoverable) */
+    .plan-trigger{
+      border:1px solid #cfd5cd; background:#f7f9f7;
+      border-radius:.6rem; padding:.35rem .6rem;
+      font-size:.85rem; display:inline-flex; align-items:center; gap:.35rem;
+      color:#2a312b;
+    }
+    .plan-trigger:hover{ background:#eef2ee; }
+    .plan-trigger svg{ width:14px; height:14px; }
+    
+    /* Popover menu */
+    .plan-menu{
+      position:absolute; right:0; top:calc(100% + .35rem); z-index:40;
+      background:#fff; border:1px solid #e5e7eb; border-radius:.6rem;
+      box-shadow:0 8px 24px rgba(0,0,0,.08); padding:.4rem; width:240px;
+    }
+    .plan-opt{
+      display:flex; align-items:center; gap:.5rem;
+      padding:.45rem .5rem; border-radius:.5rem; cursor:pointer;
+    }
+    .plan-opt:hover{ background:#f7f9f7; }
+    .plan-opt img{ width:18px; height:18px; border-radius:999px; }
+    
+    /* Selected preview chips (image-only with outline like you wanted) */
+    .tag-chip{
+      background:transparent; border:2px solid #bfc4b4; border-radius:999px;
+      padding:2px; display:inline-flex; align-items:center; justify-content:center;
+    }
+    .tag-chip img{ width:28px; height:28px; border-radius:999px; display:block; }
+    .tag-row{ display:flex; gap:.5rem; flex-wrap:wrap; }
     
   </style>
 </head>
@@ -429,20 +457,41 @@
                      x-html="c.summary || '<span class=opacity-60>—</span>'"></div>
               </div>
   
-              <!-- RIGHT: planning pills -->
+              <!-- RIGHT: planning tags -->
               <div class="col-span-4 px-3 py-2 border-white/10">
-                <div class="flex flex-wrap justify-end items-center gap-2">
-                  <template x-for="opt in useOptions" :key="opt.value">
-                    <button type="button" class="pill"
-                            :class="{
-                              'active': (Array.isArray(plan[c.id]?.use)
-                                ? plan[c.id].use.includes(opt.value)
-                                : plan[c.id]?.use === opt.value)
-                            }"
-                            @click="setUse(c.id,opt.value)">
-                      <img class="icon" :src="opt.icon" :alt="opt.label">
-                    </button>
-                  </template>
+                <div class="flex items-center justify-end gap-3" x-data="{open:false}">
+                  <!-- selected tags preview (only chosen ones) -->
+                  <div class="tag-row" x-show="getUses(c.id).length">
+                    <template x-for="val in getUses(c.id)" :key="val">
+                      <span class="tag-chip">
+                        <img :src="iconMap[val]" :alt="val">
+                      </span>
+                    </template>
+                  </div>
+              
+                  <!-- trigger -->
+                  <button type="button" class="plan-trigger"
+                          @click="open=!open" :aria-expanded="open">
+                    <!-- tiny check mark -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                    <span>Plan</span>
+                  </button>
+              
+                  <!-- menu -->
+                  <div class="plan-menu" x-show="open" x-transition @click.outside="open=false">
+                    <div class="text-xs uppercase tracking-wide text-gray-500 px-2 pb-1">Add tags</div>
+                    <template x-for="opt in useOptions" :key="opt.value">
+                      <label class="plan-opt">
+                        <input type="checkbox" class="mr-1"
+                               :checked="getUses(c.id).includes(opt.value)"
+                               @change="toggleUse(c.id,opt.value)">
+                        <img :src="opt.icon" :alt="opt.label">
+                        <span x-text="opt.label"></span>
+                      </label>
+                    </template>
+                  </div>
                 </div>
               </div>
             </div>
@@ -520,16 +569,39 @@
                     </div>
                   </div>
         
-                  <!-- Right-side topic planning pills with dashed guide -->
-                  <div class="topic-icons">
-                    <div class="topic-pills">
+                  <!-- Right-side topic planning (selected chips + trigger) -->
+                  <div class="topic-icons" x-data="{open:false}">
+                    <div class="flex items-center gap-3">
+                      <!-- selected chips -->
+                      <div class="tag-row" x-show="getUses(t.topic_id).length">
+                        <template x-for="val in getUses(t.topic_id)" :key="val">
+                          <span class="tag-chip">
+                            <img :src="iconMap[val]" :alt="val">
+                          </span>
+                        </template>
+                      </div>
+                  
+                      <!-- trigger -->
+                      <button type="button" class="plan-trigger"
+                              @click="open=!open" :aria-expanded="open">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        <span>Plan</span>
+                      </button>
+                    </div>
+                  
+                    <!-- menu -->
+                    <div class="plan-menu" x-show="open" x-transition @click.outside="open=false">
+                      <div class="text-xs uppercase tracking-wide text-gray-500 px-2 pb-1">Add tags</div>
                       <template x-for="opt in useOptions" :key="opt.value">
-                        <button type="button"
-                                class="topic-pill"
-                                :class="{'active': topicHasUse(t.topic_id, opt.value)}"
-                                @click="setTopicUse(t.topic_id, opt.value)">
+                        <label class="plan-opt">
+                          <input type="checkbox" class="mr-1"
+                                 :checked="getUses(t.topic_id).includes(opt.value)"
+                                 @change="toggleUse(t.topic_id,opt.value)">
                           <img :src="opt.icon" :alt="opt.label">
-                        </button>
+                          <span x-text="opt.label"></span>
+                        </label>
                       </template>
                     </div>
                   </div>
@@ -922,6 +994,17 @@ function planningApp(){
       return uses
         .map(u => this.iconMap[u])
         .filter(Boolean); // skip empty/unknown (e.g., Undecided)
+    },
+
+    getUses(id){
+      const u = this.plan[id]?.use ?? [];
+      return Array.isArray(u) ? u : (u ? [u] : []);
+    },
+    toggleUse(id, val){
+      const cur = this.getUses(id);
+      const next = cur.includes(val) ? cur.filter(v=>v!==val) : [...cur, val];
+      this.plan[id] = { ...(this.plan[id]||{}), use: next, ts: Date.now() };
+      this.persistPlan();
     },
 
     /* ---------- guidance open/close memory ---------- */
