@@ -21,7 +21,15 @@
     .title{ color:var(--green-dark); font-weight:700; font-size:34px; }
     .course-card{ border:1px solid #e5e7eb; background:#fff; border-radius:.75rem; overflow:hidden; }
     .course-band{ background:var(--band-green); color:#fff; }
+  
     .band-title{ font-family: "Crimson Text", serif; font-size: 1.05rem; line-height: 1.15; }
+    .band-title button {
+        margin-left: 0.25rem;
+        transition: background 0.15s ease, transform 0.1s ease;
+      }
+      .band-title button:hover {
+        transform: translateY(-1px);
+      }
     .desc-bg{ background:var(--gray-soft); }
     input[type="checkbox"]{ accent-color: var(--check-green); }
     /* pill style */
@@ -255,22 +263,20 @@
       <div class="course-card mb-3">
         <!-- band -->
         <div class="course-band grid grid-cols-12 items-center">
-          <!-- LEFT SIDE: checkbox, course title, schedule, icons -->
-          <div class="col-span-6 px-3 py-2 border-white/10 flex flex-col">
-            <div class="flex items-center justify-between gap-2">
-              <div class="flex items-center gap-2">
-                <input type="checkbox"
-                       class="size-5 rounded border-white/50"
-                       x-model="c.checked"
-                       @change="persistChecked()" />
-                <div class="band-title font-crimson text-base font-semibold">
-                  <span x-text="c.title"></span>
-                </div>
-              </div>
+          <!-- LEFT SIDE: checkbox + title + icons + small schedule -->
+          <div class="col-span-8 px-3 py-2 border-white/10 flex flex-col">
+            <!-- top line: checkbox, title, icons -->
+            <div class="flex items-center gap-2">
+              <input type="checkbox"
+                     class="size-5 rounded border-white/50"
+                     x-model="c.checked"
+                     @change="persistChecked()" />
         
-              <!-- right-justified icons -->
-              <div class="flex items-center gap-1">
-                <!-- pencil (note accordion toggle) -->
+              <!-- Course title -->
+              <div class="band-title font-crimson text-base font-semibold flex items-center gap-1">
+                <span x-text="c.title"></span>
+        
+                <!-- pencil + info icons directly beside title -->
                 <button
                   @click="c.noteOpen = !c.noteOpen"
                   :aria-expanded="c.noteOpen"
@@ -279,7 +285,6 @@
                   ✏️
                 </button>
         
-                <!-- info (description / combining accordion) -->
                 <button
                   x-show="c.hasInfo"
                   @click="c.infoOpen = !c.infoOpen"
@@ -292,14 +297,14 @@
               </div>
             </div>
         
-            <!-- small scheduling info under course title -->
+            <!-- scheduling info right under title -->
             <div class="text-[0.8rem] opacity-90 leading-tight ml-7 mt-0.5"
                  x-html="c.summary || '<span class=opacity-60>—</span>'"></div>
           </div>
         
-          <!-- RIGHT SIDE: plan pills (Core / Family / Combine / High Interest / Additional) -->
-          <div class="col-span-6 px-3 py-2 border-white/10">
-            <div class="flex flex-wrap items-center gap-2">
+          <!-- RIGHT SIDE: planning pills (Core / Family / Combine / High-Interest / Additional) -->
+          <div class="col-span-4 px-3 py-2 border-white/10">
+            <div class="flex flex-wrap justify-end items-center gap-2">
               <template x-for="opt in useOptions" :key="opt.value">
                 <button class="pill"
                         :class="{'active': (Array.isArray(plan[c.id]?.use)
