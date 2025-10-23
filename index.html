@@ -468,50 +468,64 @@
       <!-- Open print options -->
       <button @click="printUI.open = true"
               class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">
-        Print…
+        🖨 Print
       </button>
     </div>
-      <!-- PRINT OPTIONS MODAL -->
-      <template x-if="printUI.open">
-        <div class="print-modal-backdrop no-print" @click.self="printUI.open=false">
-          <div class="print-modal" role="dialog" aria-modal="true">
-            <h3>Print Options</h3>
-      
-            <div class="print-row">
-              <div class="col">
-                <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">Scope</div>
-                <label class="flex items-center gap-2 mb-1">
-                  <input type="radio" name="scope" value="all" x-model="printUI.scope">
-                  <span>Whole list (current filters applied)</span>
-                </label>
-                <label class="flex items-center gap-2">
-                  <input type="radio" name="scope" value="selected" x-model="printUI.scope">
-                  <span>Selected only (checked courses/topics)</span>
-                </label>
-              </div>
-      
-              <div class="col">
-                <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">Include</div>
-                <label class="flex items-center gap-2 mb-1">
-                  <input type="checkbox" x-model="printUI.includeInfo">
-                  <span>Descriptions &amp; combining tips</span>
-                </label>
-                <label class="flex items-center gap-2">
-                  <input type="checkbox" x-model="printUI.includeNotes">
-                  <span>Planning notes</span>
-                </label>
-              </div>
-            </div>
-      
-            <div class="print-actions">
-              <button @click="printUI.open=false" class="rounded-xl px-3 py-2 border border-gray-300">Cancel</button>
-              <button @click="doPrint()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white">Preview &amp; Print</button>
-            </div>
-          </div>
-        </div>
-      </template>
   </div>
+<!-- Sticky actions (unchanged) -->
+<div class="no-print sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-gray-200 flex justify-between items-center">
+  <div class="tiny"><strong x-text="selectedCount"></strong> selected</div>
+  <div class="flex items-center gap-2">
+    <button @click="clearAll()" class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">Clear</button>
+    <button @click="printUI.open = true" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print…</button>
+  </div>
+</div>
 
+<!-- MOVED: Print Options Modal -->
+<template x-teleport="body">
+  <div
+    x-show="printUI.open"
+    x-transition.opacity
+    class="print-modal-backdrop no-print"
+    @click.self="printUI.open=false"
+    x-trap.noscroll="printUI.open"
+  >
+    <div class="print-modal" role="dialog" aria-modal="true">
+      <h3>Print Options</h3>
+
+      <div class="print-row">
+        <div class="col">
+          <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">Scope</div>
+          <label class="flex items-center gap-2 mb-1">
+            <input type="radio" name="scope" value="all" x-model="printUI.scope">
+            <span>Whole list (current filters applied)</span>
+          </label>
+          <label class="flex items-center gap-2">
+            <input type="radio" name="scope" value="selected" x-model="printUI.scope">
+            <span>Selected only (checked courses/topics)</span>
+          </label>
+        </div>
+
+        <div class="col">
+          <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">Include</div>
+          <label class="flex items-center gap-2 mb-1">
+            <input type="checkbox" x-model="printUI.includeInfo">
+            <span>Descriptions &amp; combining tips</span>
+          </label>
+          <label class="flex items-center gap-2">
+            <input type="checkbox" x-model="printUI.includeNotes">
+            <span>Planning notes</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="print-actions">
+        <button @click="printUI.open=false" class="rounded-xl px-3 py-2 border border-gray-300">Cancel</button>
+        <button @click="doPrint()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white">Preview &amp; Print</button>
+      </div>
+    </div>
+  </div>
+</template>
   <!-- Course list -->
   <section>
     <!-- subject groups -->
