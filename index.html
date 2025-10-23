@@ -1296,6 +1296,17 @@ function planningApp(){
     // ---- Print UI state + data for the print-only view ----
     printUI: { open:false, scope:'all', includeInfo:false, includeNotes:false },
     printData: { groups: [] },
+
+    topicsForPrint(c){
+        // Whole list: all topics
+        if(this.printUI.scope === 'all') return c.topics || [];
+      
+        // Selected only:
+        // If the course is checked, include *all* its topics;
+        // otherwise, include only checked topics
+        if(c.checked) return c.topics || [];
+        return (c.topics || []).filter(t => t.checked);
+      },
   
     // Build the data snapshot that the print view will render
     buildPrintGroups(){
