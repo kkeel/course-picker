@@ -95,7 +95,7 @@
     }
     
     /* Extra space before the first card in each subject */
-    .group-block .course-card:first-of-type{ margin-top:.6rem; }
+    .group-block .course-card:first-of-type{ margin-top: 1rem; }
     
     /* Mobile sticky offset */
     @media (max-width:640px){ .subject-bar{ top:56px; } }
@@ -109,17 +109,17 @@
       overflow:hidden;
     }
 
-    /* LEFT subject stripe drawn on a pseudo-element so Tailwind's shadow doesn't override it */
+    /* LEFT subject stripe with a small spacer that looks like the page bg */
     .course-card::before{
       content:"";
       position:absolute;
-      inset:0;                       /* fill the card */
+      inset:0;
       border-radius:inherit;
       pointer-events:none;
-      /* white spacer + subject color stripe (thicker for visibility) */
+      /* draw a 10px color stripe, then a 16px page-colored spacer inside it */
       box-shadow:
-        inset 16px 0 0 #fff,         /* spacer so it doesn't blend with the green band */
-        inset 32px 0 0 var(--subject-color, #dfe4df);
+        inset 10px 0 0 var(--subject-color, #dfe4df),   /* stripe (thinner) */
+        inset 16px 0 0 var(--brand-bg);                 /* spacer (just a gap) */
     }
     
     /* Slightly more rounded & spacing so the left accent reads clearly */
@@ -130,7 +130,7 @@
     .group-block{ padding-top: .25rem; }
     
     /* Course Style */
-    .course-card{ border:1px solid #e5e7eb; background:#fff; border-radius:.75rem; overflow:hidden; }
+    .course-card{ border:1px solid #e5e7eb; background:#fff; border-radius:.75rem; overflow: visible; }
     .course-band{ background:var(--band-green); color:#fff; }
     .band-title{ font-family: "Crimson Text", serif; font-size: 1.05rem; line-height: 1.15; }
     .band-title button {margin-left: 0.25rem; transition: background 0.15s ease, transform 0.1s ease; }
@@ -258,14 +258,17 @@
       min-height:64px; padding:.45rem .55rem; font-size:.88rem; background:#fff;
     }
 
-    /* Trigger button (subtle, discoverable) */
+    /* Plan trigger – match topic-icon sizing/colors */
     .plan-trigger{
-      border:1px solid #cfd5cd; background:#f7f9f7;
-      border-radius:.6rem; padding:.35rem .6rem;
-      font-size:.85rem; display:inline-flex; align-items:center; gap:.35rem;
-      color:#2a312b;
+      background:#dee1d2;
+      padding:.25rem .45rem;
+      border-radius:.45rem;
+      font-size:.8rem; line-height:1; color:#2a312b;
+      border:0; display:inline-flex; align-items:center; gap:.35rem;
     }
-    .plan-trigger:hover{ background:#eef2ee; }
+    .plan-trigger:hover,
+    .plan-trigger[aria-expanded="true"]{ background:#bec5a6; }
+    /* keep the tiny check icon small */
     .plan-trigger svg{ width:14px; height:14px; }
     
     /* Popover menu */
@@ -485,8 +488,8 @@
                     <template x-for="opt in useOptions" :key="opt.value">
                       <label class="plan-opt">
                         <input type="checkbox" class="mr-1"
-                               :checked="getUses(c.id).includes(opt.value)"
-                               @change="toggleUse(c.id,opt.value)">
+                         :checked="getUses(c.id).includes(opt.value)"
+                         @change="toggleUse(c.id,opt.value); /* open=false */">
                         <img :src="opt.icon" :alt="opt.label">
                         <span x-text="opt.label"></span>
                       </label>
