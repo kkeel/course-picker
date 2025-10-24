@@ -21,6 +21,7 @@
       --gray-soft:#f4f6fa;
       --band-green:#596e5e; 
       --check-green:#9da89f;
+      --printbar-h: 46px;
       
       /* sticky heights for clean stacking */
       --mini-steps-h: 44px;       /* tiny sticky bar */
@@ -404,14 +405,32 @@
         background: var(--brand-bg);
         border-bottom: 0;
       }
-      .sticky-actions .btn{
-        font-size: .9rem;              /* smaller */
-        padding: .35rem .65rem;        /* smaller */
-        border-radius: .6rem;
-      }
+      .sticky-actions .btn{ font-size:.9rem; padding:.3rem .6rem; }
       .sticky-actions .btn-ghost{ border:1px solid #dcded9; background:#fff; }
       .sticky-actions .btn-primary{ background: var(--green-dark); color:#fff; }
+
+      /* ===== Compact filter strip inside the sticky print bar ===== */
+      .filter-strip{
+        display:flex; align-items:center; gap:.5rem; flex-wrap:wrap;
+        font-size:.9rem;            /* readable but compact */
+      }
       
+      .filter-strip .mini{
+        height: 30px;               /* short controls */
+        padding: .25rem .55rem;
+        border:1px solid #d9ded9;
+        border-radius:.6rem;
+        background:#fff;
+      }
+      
+      .filter-strip .mini::placeholder{ color:#7b8b7f; }
+      
+      /* tiny checkbox + label */
+      .filter-strip .chk{
+        display:inline-flex; align-items:center; gap:.35rem; white-space:nowrap;
+        font-size:.9rem;
+      }
+      .filter-strip .chk input{ width:16px; height:16px; }      
       /* Subject sticky headers — page bg */
       .subject-sticky{
         position: sticky;
@@ -557,9 +576,60 @@
 
     <!-- Sticky actions -->
     <div id="actionsBar" class="sticky-actions px-4 py-3 flex items-center gap-3 justify-end">
-      <button type="button" class="btn btn-ghost"  @click="clearAll()">Clear</button>
-      <button type="button" class="btn btn-primary" @click="openPrintDialog()">Print</button>
-      <button type="button" class="btn btn-ghost"  @click="printAllInline()">Print All</button>
+      <div class="flex items-center justify-between gap-3">
+        <!-- LEFT: compact filter strip (same x-models as the full panel) -->
+        <div class="filter-strip">
+          <!-- search -->
+          <input
+            class="mini"
+            type="search"
+            placeholder="Search…"
+            x-model.trim.debounce.250ms="search"
+            aria-label="Search"
+            style="min-width:180px; width:22ch;"
+          />
+      
+          <!-- subject -->
+          <select class="mini" x-model="filters.subject" aria-label="Subject">
+            <option value="">Subject: All</option>
+            <template x-for="s in subjectList" :key="s"><option :value="s" x-text="s"></option></template>
+          </select>
+      
+          <!-- grade -->
+          <select class="mini" x-model="filters.levelTag" aria-label="Grade">
+            <option value="">Grade: All</option>
+            <template x-for="lvl in levelList" :key="lvl"><option :value="lvl" x-text="lvl"></option></template>
+          </select>
+      
+          <!-- plan (single-select) -->
+          <select class="mini" x-model="filters.planUse" aria-label="Plan">
+            <option value="">Plan: All</option>
+            <option value="Core">Core</option>
+            <option value="Family">Family</option>
+            <option value="Combine">Combine</option>
+            <option value="High Interest">High Interest</option>
+            <option value="Additional">Additional</option>
+            <option value="(none)">Undecided</option>
+          </select>
+      
+          <!-- toggles -->
+          <label class="chk">
+            <input type="checkbox" x-model="onlyPlanned" />
+            <span>Only planned</span>
+          </label>
+          <label class="chk">
+            <input type="checkbox" x-model="onlyChecked" />
+            <span>Only checked</span>
+          </label>
+        </div>
+      
+        <!-- RIGHT: actions -->
+        <div class="flex items-center gap-3">
+          <button type="button" class="btn btn-ghost"  @click="clearAll()">Clear</button>
+          <button type="button" class="btn btn-primary" @click="openPrintDialog()">Print</button>
+          <button type="button" class="btn btn-ghost"  @click="printAllInline()">Print All</button>
+        </div>
+      </div>
     </div>
 
     <!-- MOVED: Print Options Modal -->
