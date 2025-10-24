@@ -402,7 +402,7 @@
         top: var(--mini-steps-h);
         z-index: 40;
         background: var(--brand-bg);
-        border-bottom: 1px solid #e3e7e3;
+        border-bottom: 0;
       }
       .sticky-actions .btn{
         font-size: .9rem;              /* smaller */
@@ -413,15 +413,15 @@
       .sticky-actions .btn-primary{ background: var(--green-dark); color:#fff; }
       
       /* Subject sticky headers — page bg */
-      .subject-sticky{ top: var(--mini-steps-h); }
-      .has-printbar .subject-sticky{ top: calc(var(--mini-steps-h) + var(--printbar-h)); }
       .subject-sticky{
         position: sticky;
-        top: calc(var(--mini-steps-h) + var(--printbar-h));
+        top: calc(var(--mini-steps-h) + var(--printbar-h) - 1px);
         z-index: 30;
         background: var(--brand-bg);
         border-bottom: 1px solid #cdb4a6; /* your band line tone; tweak if needed */
       }
+      .subject-sticky:first-child{ margin-top:0; }
+      .has-printbar .subject-sticky{ top: calc(var(--mini-steps-h) + var(--printbar-h) - 1px); }
       .step-tabs, .step-nav{ display:none !important; }
       /* Print: hide the sticky bar */
       @media print{
