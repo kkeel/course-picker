@@ -384,7 +384,12 @@
         background: var(--brand-bg);
         border-bottom: 1px solid #e3e7e3;
       }
-      .mini-steps .rail{ height: var(--mini-steps-h); display:flex; align-items:center; gap:.9rem; }
+      .mini-steps .rail{
+        height: var(--mini-steps-h);
+        display:flex; align-items:center; gap:.9rem;
+        padding-bottom: 0;      /* remove buffer under links */
+        margin-bottom:-2px;     /* pulls it flush with next bar */
+      }
       .mini-steps a{
         font-size: .95rem;
         color: var(--black-2);               /* default “black” variant */
@@ -413,22 +418,55 @@
       .filter-strip{ display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; font-size:.9rem; }
       .filter-strip .mini{ height:30px; padding:.25rem .55rem; border:1px solid #d9ded9; border-radius:.6rem; background:#fff; }
       .filter-strip .chk{ display:inline-flex; align-items:center; gap:.35rem; font-size:.9rem; white-space:nowrap; }
-      .filter-strip .chk input{ width:16px; height:16px; }      
+      .filter-strip .chk input{ width:16px; height:16px; } 
+      /* Filter control text + placeholder */
+      .filter-strip .mini,
+      .filter-strip .mini option,
+      .filter-strip .mini::placeholder{
+        color:#e5e8e5;
+        font-size:.9rem;
+        font-weight:500;
+      }
+      
+      /* “Only planned / Only checked” to match the selected-count style */
+      .filter-strip .chk span,
+      .mt-2 .chk span{
+        color:#505650;            /* same gray as “7 selected” */
+        font-size:.9rem;
+        font-weight:500;
+      }
+      
+      /* Adjust count color to match the same tone */
+      .text-gray-600 strong{
+        color:#505650;
+      }
       /* Subject sticky headers — page bg */
       .subject-sticky{
         position: sticky;
         top: calc(var(--mini-steps-h) + var(--printbar-h) - 1px);
-        z-index: 30;
+        z-index: 35;                           /* above course rows, below print bar */
         background: var(--brand-bg);
-        border-bottom: 1px solid #cdb4a6; /* your band line tone; tweak if needed */
+        padding-bottom: 6px;                   /* breathing space that won't get covered */
+        margin-bottom: 6px;
+        border-bottom: 0;                      /* we'll draw the line with ::after so it sits on top */
       }
-      .subject-sticky:first-child{ margin-top:0; }
-      .has-printbar .subject-sticky{ top: calc(var(--mini-steps-h) + var(--printbar-h) - 1px); }
+      .has-printbar .subject-sticky{
+        top: calc(var(--mini-steps-h) + var(--printbar-h) - 1px);
+      }
+      /* draw the divider on top of following content */
+      .subject-sticky::after{
+        content:"";
+        position:absolute; left:0; right:0; bottom:-1px;
+        height:2px; background:#cdb4a6;       /* your underline tone */
+      }
       .step-tabs, .step-nav{ display:none !important; }
       /* Print: hide the sticky bar */
       @media print{
         .no-print, .mini-steps, .sticky-actions { display:none !important; }
       }
+      .group-block{ position:relative; overflow:visible; }
+      .group-block .course-row:first-of-type{ margin-top:.25rem; }
+
   </style>
 </head>
 <body>
