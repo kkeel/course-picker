@@ -413,6 +413,8 @@
       .sticky-actions .btn-primary{ background: var(--green-dark); color:#fff; }
       
       /* Subject sticky headers — page bg */
+      .subject-sticky{ top: var(--mini-steps-h); }
+      .has-printbar .subject-sticky{ top: calc(var(--mini-steps-h) + var(--printbar-h)); }
       .subject-sticky{
         position: sticky;
         top: calc(var(--mini-steps-h) + var(--printbar-h));
@@ -429,6 +431,7 @@
 </head>
 <body>
 <div class="app-shell max-w-6xl mx-auto p-4 sm:p-6 lg:p-8"
+     :class="{'has-printbar': step===3}"
      x-data="planningApp()" x-init="init()">
 
   <!-- Header -->
@@ -553,7 +556,7 @@
     </section>
 
     <!-- Sticky actions -->
-    <div class="sticky-actions px-4 py-3 flex items-center gap-3 justify-end">
+    <div id="actionsBar" class="sticky-actions px-4 py-3 flex items-center gap-3 justify-end">
       <button class="btn btn-ghost">Clear</button>
       <button class="btn btn-primary">Print</button>
       <button class="btn btn-ghost">Print All</button>
@@ -1273,12 +1276,27 @@ function planningApp(){
       };
     },
 
+    measureBars(){
+      // read actual heights (accounts for padding, borders, responsive changes)
+      const mini = this.$root.querySelector('.mini-steps');
+      const actions = document.getElementById('actionsBar');
+    
+      const miniH = mini ? Math.ceil(mini.getBoundingClientRect().height) : 0;
+      // only count print bar on Step 3
+      const printH = (this.step === 3 && actions)
+        ? Math.ceil(actions.getBoundingClientRect().height)
+        : 0;
+    
+      document.documentElement.style.setProperty('--mini-steps-h', `${miniH}px`);
+      document.documentElement.style.setProperty('--printbar-h', `${printH}px`);
+    },
+
     /* ---------- storage & sync ---------- */
     persistStep(){ localStorage.setItem('pf_step', String(this.step)); },
     openStep(n){
       this.step = Math.min(3, Math.max(1, Number(n)||1));
       this.persistStep();
-      // scroll to top so the user sees the new section header
+      this.$nextTick(()=> this.measureBars());   // recalc offsets
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
     nextStep(){ if(this.step < 3) this.openStep(this.step + 1); },
@@ -1416,6 +1434,8 @@ function planningApp(){
       await this.loadDualCSVs();
       this.restoreChecked();
       this.loadPlan();
+      this.$nextTick(()=> this.measureBars());
+      window.addEventListener('resize', () => this.measureBars());
     },
     
     /* ---------- PRINT STATE ------------ */
