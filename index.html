@@ -834,16 +834,19 @@
           <!-- Topics -->
           <template x-for="t in topicsForPrint(c)" :key="t.topic_id">
             <div class="pv-topic">
-              <div>
-                <div class="pv-title" style="font-size:14px; font-weight:600;" x-text="t.topic_title"></div>
-                <div class="pv-schedule" style="margin-top:2px;" x-html="t.summary || '&nbsp;'"></div>
-              </div>
-
-              <!-- Topic planning tags (icon chips) -->
-              <div class="pv-tags" x-show="getUses(t.topic_id).length" style="margin-top:4px;">
-                <template x-for="val in getUses(t.topic_id)" :key="val">
-                  <span class="pv-tag"><img :src="iconMap[val]" :alt="val"></span>
-                </template>
+              <div class="pv-row" style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
+                <!-- LEFT: title + schedule stacked -->
+                <div>
+                  <div class="pv-title" style="font-size:14px; font-weight:600;" x-text="t.topic_title"></div>
+                  <div class="pv-schedule" style="margin-top:2px;" x-html="t.summary || '&nbsp;'"></div>
+                </div>
+            
+                <!-- RIGHT: topic planning tags (chips) -->
+                <div class="pv-tags" x-show="getUses(t.topic_id).length" style="white-space:nowrap;">
+                  <template x-for="val in getUses(t.topic_id)" :key="val">
+                    <span class="pv-tag"><img :src="iconMap[val]" :alt="val"></span>
+                  </template>
+                </div>
               </div>
           
               <!-- Topic NOTE (only if turned on and there is text) -->
@@ -1009,12 +1012,12 @@ function planningApp(){
         // plan filter
         let matchesPlan=true;
         const use = this.plan[c.id]?.use || [];
-        const uses = Array.isArray(use) ? use : [use];
+        const uses = Array.isArray(use) ? use : (use ? [use] : []);
         if(this.filters.planUse === '(none)') matchesPlan = uses.length === 0;
         else if(this.filters.planUse) matchesPlan = uses.includes(this.filters.planUse);
 
         // view toggles
-        const passPlanned = !this.onlyPlanned || !!use;
+        const passPlanned = !this.onlyPlanned || uses.length > 0;
         const passChecked = !this.onlyChecked || c.checked || (c.topics||[]).some(t=>t.checked);
 
         return matchesQ && matchesS && matchesL && matchesPlan && passPlanned && passChecked;
@@ -1320,33 +1323,41 @@ function planningApp(){
   
     // Build the data snapshot that the print view will render
     buildPrintGroups(){
-        let source;
-      
-        if (this.printUI.scope === 'selected') {
-          // only courses that are checked or have at least one checked topic
-          source = this.courses.filter(c => c.checked || (c.topics||[]).some(t => t.checked));
-        } else if (this.printUI.scope === 'all_nofilter') {
-          // completely ignore on-screen filters
-          source = this.courses;
+      // Consider these as "active filters" for printing
+      const hasFilters = !!(
+        (this.search && this.search.trim()) ||
+        this.filters.subject || this.filters.levelTag || this.filters.planUse ||
+        this.onlyPlanned || this.onlyChecked
+      );
+    
+      let source;
+    
+      if (this.printUI.scope === 'selected') {
+        // Only courses that are checked or have at least one checked topic
+        source = this.courses.filter(c => c.checked || (c.topics||[]).some(t => t.checked));
+      } else if (this.printUI.scope === 'all_nofilter') {
+        // Completely ignore on-screen filters
+        source = this.courses;
+      } else {
+        // 'all' = whole list but respect current filters (search, subject, grade, plan, Show only planned/checked)
+        // If no filters are active, fall back to all courses (prevents printing blank)
+        source = hasFilters ? (this.filtered || this.courses) : this.courses;
+      }
+    
+      // Group by subject (unchanged)
+      const grouped = source.reduce((out, c) => {
+        const subj = c.subject || 'Other';
+        const last = out[out.length - 1];
+        if (!last || last.subject !== subj) {
+          out.push({ subject: subj, color: this.subjectColor(subj), items:[c] });
         } else {
-          // 'all' = whole list but respect current filters (search, subject, grade, plan, Show only checked, etc.)
-          source = this.filtered;
+          last.items.push(c);
         }
-      
-        // Group by subject (unchanged)
-        const grouped = source.reduce((out, c) => {
-          const subj = c.subject || 'Other';
-          const last = out[out.length - 1];
-          if (!last || last.subject !== subj) {
-            out.push({ subject: subj, color: this.subjectColor(subj), items:[c] });
-          } else {
-            last.items.push(c);
-          }
-          return out;
-        }, []);
-      
-        this.printData.groups = grouped;
-      },
+        return out;
+      }, []);
+    
+      this.printData.groups = grouped;
+    },
   
     // Called when user clicks "Preview & Print"
     doPrint(){
