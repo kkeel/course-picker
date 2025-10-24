@@ -472,6 +472,12 @@
               class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">
         🖨 Print
       </button>
+      <!-- Print ALL -->
+      <button
+        @click="printWholeList()"
+        class="rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-[#f4f6fa]">
+        Print All
+      </button>
     </div>
   </div>
 
@@ -1392,51 +1398,114 @@ function planningApp(){
       this.printData.groups = grouped;
     },
 
-    // Print "Whole list (Filters OFF)" from a clean pop-up
-    printAllNoFilterPopup(){
-      // 1) Build a fresh, full snapshot
-      this.buildPrintGroupsAllNoFilter();
-    
-      // 2) Close the dialog
-      this.printUI.open = false;
-    
-      // 3) After DOM reflects printData.groups, clone just the print view
-      this.$nextTick(() => {
-        const pv = this.$root.querySelector('#print-view');
-        if(!pv){ window.print(); return; }
-    
-        // Grab existing <style> and stylesheet <link> tags
-        const styles = Array.from(document.querySelectorAll('style')).map(s=>s.outerHTML).join('\n');
-        const links  = Array.from(document.querySelectorAll('link[rel="stylesheet"]')).map(l=>l.outerHTML).join('\n');
-    
-        // Minimal extras so the pop-up shows the print layout immediately
-        const extraCSS = `
-          <style>
-            html,body{ background:#fff; color:#262b26; font-family:'DM Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
-            #print-view{ display:block !important; }
-            .no-print{ display:none !important; }
-            @page{ margin:12mm; }
-          </style>
+    printWholeList(){
+    // Group ALL courses by subject (ignores filters/checked)
+    const groups = new Map();
+    this.courses.forEach(c=>{
+      const s = c.subject || 'Other';
+      if(!groups.has(s)) groups.set(s, []);
+      groups.get(s).push(c);
+    });
+  
+    const esc = (s)=> (s==null?'':String(s));
+    // Build body HTML (no Alpine directives, just plain HTML)
+    let body = `
+      <section style="margin:24px auto; max-width:960px;">
+        <header style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <img src="Alveary%20Lt.%20Green.png" alt="Alveary" style="height:40px;width:40px;object-fit:contain"/>
+          <h1 style="margin:0;font:700 28px 'DM Sans',system-ui;">Alveary Course List</h1>
+        </header>
+    `;
+  
+    // Sort subjects like on screen
+    const special = 'Alt. Science Options';
+    const ordered = Array.from(groups.entries()).sort((a,b)=>{
+      const A=a[0]||'', B=b[0]||'';
+      if (A===special && B!==special) return 1;
+      if (B===special && A!==special) return -1;
+      return A.localeCompare(B, undefined, {numeric:true});
+    });
+  
+    for(const [subj,list] of ordered){
+      body += `<h2 style="font:700 22px 'DM Sans',system-ui;margin:36px 0 12px;color:#262b26;">${esc(subj)}</h2>`;
+      for(const c of list){
+        // Course band
+        body += `
+          <div style="border-radius:10px;overflow:hidden;background:#596e5e;color:#fff;">
+            <div style="display:grid;grid-template-columns:25% 41.7% 33.3%;">
+              <div style="padding:8px 12px;border-right:1px solid rgba(255,255,255,.1);">
+                <div style="font:700 12px 'Crimson Text',Georgia,serif;">${esc(c.title)}</div>
+              </div>
+              <div style="padding:8px 12px;border-right:1px solid rgba(255,255,255,.1);">
+                <div style="font:700 12px 'DM Sans',system-ui;">Description</div>
+              </div>
+              <div style="padding:8px 12px;">
+                <div style="font:700 12px 'DM Sans',system-ui;">Combining &amp; Placement<br>
+                  <span style="font-weight:400;opacity:.9">${esc(c.levelDisplay||'')}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:25% 41.7% 33.3%;gap:0;border-radius:0 0 10px 10px;overflow:hidden;margin-bottom:10px;">
+            <div style="padding:12px 12px;color:#262b26;font:400 10.5pt 'DM Sans',system-ui;"><div>${c.summary||'&nbsp;'}</div></div>
+            <div style="padding:14px 16px;background:#f4f6fa;color:#262b26;font:400 10.5pt 'DM Sans',system-ui;">
+              ${(c.details||[]).find(d=>d.label==='Description')?.value || ''}
+            </div>
+            <div style="padding:14px 16px;color:#262b26;font:400 10.5pt 'DM Sans',system-ui;">
+              ${(c.details||[]).find(d=>d.label==='Combining & Placement')?.value || ''}
+            </div>
+          </div>
         `;
-    
-        // Open a clean window and write only the print markup into it
-        const w = window.open('', '_blank', 'noopener,noreferrer');
-        w.document.write(
-          `<html><head>${links}${styles}${extraCSS}</head><body><section id="print-view">${pv.innerHTML}</section></body></html>`
-        );
-        w.document.close();
-    
-        // Wait for assets to load, then print that window
-        w.onload = () => {
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              w.print();
-              w.close();
-            });
-          });
-        };
-      });
-    },
+  
+        // Topics
+        if (c.topics && c.topics.length){
+          for(const t of c.topics){
+            body += `
+              <div style="border-radius:10px;overflow:hidden;background:#adb58f;color:#fff;">
+                <div style="display:grid;grid-template-columns:66.7% 33.3%;">
+                  <div style="padding:8px 12px;border-right:1px solid rgba(255,255,255,.1);">
+                    <div style="font:700 12px 'Crimson Text',Georgia,serif;">${esc(t.topic_title)}</div>
+                  </div>
+                  <div style="padding:8px 12px;text-align:right;">
+                    <div style="font:700 12px 'DM Sans',system-ui;">GRADE(S): <span style="opacity:.9">${esc(t.levelDisplay||'')}</span></div>
+                  </div>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:25% 41.7% 33.3%;gap:0;border-radius:0 0 10px 10px;overflow:hidden;margin-bottom:10px;">
+                <div style="padding:12px 12px;color:#262b26;font:400 10.5pt 'DM Sans',system-ui;"><div>${t.summary||'&nbsp;'}</div></div>
+                <div style="padding:14px 16px;background:#f4f6fa;color:#262b26;font:400 10.5pt 'DM Sans',system-ui;">
+                  ${(t.details||[]).find(d=>d.label==='Description')?.value || ''}
+                </div>
+                <div style="padding:14px 16px;color:#262b26;font:400 10.5pt 'DM Sans',system-ui;">
+                  ${(t.details||[]).find(d=>d.label==='Combining & Placement')?.value || ''}
+                </div>
+              </div>
+            `;
+          }
+        }
+      }
+    }
+    body += `</section>`;
+  
+    // Pop-up with minimal head + fonts and exact print colors
+    const head = `
+      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Crimson+Text:wght@700&display=swap" rel="stylesheet">
+      <style>
+        *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+        @page{ margin:12mm; }
+        html,body{ background:#fff; color:#262b26; }
+      </style>
+    `;
+  
+    const w = window.open('', '_blank', 'noopener,noreferrer');
+    w.document.write(`<html><head>${head}</head><body>${body}</body></html>`);
+    w.document.close();
+  
+    // Ensure images/fonts are ready, then print
+    w.onload = () => {
+      requestAnimationFrame(()=>{ requestAnimationFrame(()=>{ w.focus(); w.print(); /* w.close(); */ }); });
+    };
+  },
   
     // Called when user clicks "Preview & Print"
     doPrint(){
