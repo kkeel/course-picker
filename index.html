@@ -834,9 +834,16 @@
           <!-- Topics -->
           <template x-for="t in topicsForPrint(c)" :key="t.topic_id">
             <div class="pv-topic">
-              <div style="display:flex; align-items:baseline; justify-content:space-between; gap:10px;">
+              <div>
                 <div class="pv-title" style="font-size:14px; font-weight:600;" x-text="t.topic_title"></div>
-                <div class="pv-schedule" x-html="t.summary || '&nbsp;'"></div>
+                <div class="pv-schedule" style="margin-top:2px;" x-html="t.summary || '&nbsp;'"></div>
+              </div>
+
+              <!-- Topic planning tags (icon chips) -->
+              <div class="pv-tags" x-show="getUses(t.topic_id).length" style="margin-top:4px;">
+                <template x-for="val in getUses(t.topic_id)" :key="val">
+                  <span class="pv-tag"><img :src="iconMap[val]" :alt="val"></span>
+                </template>
               </div>
           
               <!-- Topic NOTE (only if turned on and there is text) -->
@@ -1299,13 +1306,15 @@ function planningApp(){
     printData: { groups: [] },
 
     topicsForPrint(c){
-        // Whole list: all topics
-        if(this.printUI.scope === 'all') return c.topics || [];
+        // Whole list (Filters ON): show all topics
+        if (this.printUI.scope === 'all') return c.topics || [];
+      
+        // Whole list (Filters OFF): also show all topics
+        if (this.printUI.scope === 'all_nofilter') return c.topics || [];
       
         // Selected only:
-        // If the course is checked, include *all* its topics;
-        // otherwise, include only checked topics
-        if(c.checked) return c.topics || [];
+        // If the course is checked, include all its topics; otherwise include only checked topics
+        if (c.checked) return c.topics || [];
         return (c.topics || []).filter(t => t.checked);
       },
   
