@@ -54,11 +54,11 @@
       .intro-card{ padding:1.25rem 1.5rem; }
     }
     /* compact schedule block on the left */
-      .schedule-col { font-size: 0.85rem; line-height: 1.35; color:#2f3a33; }
-      .schedule-col .label { font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:#6b7a71; margin-bottom:.25rem; display:block; }
-      @media (min-width: 640px){
-        .schedule-col { padding-right:.25rem; }
-      }
+    .schedule-col { font-size: 0.85rem; line-height: 1.35; color:#2f3a33; }
+    .schedule-col .label { font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:#6b7a71; margin-bottom:.25rem; display:block; }
+    @media (min-width: 640px){
+      .schedule-col { padding-right:.25rem; }
+    }
     
     /* legend + helper text under filters */
     .legend img{ width:18px; height:18px; border-radius:999px; }
@@ -119,18 +119,18 @@
     .desc-bg{ background:var(--gray-soft); }
     input[type="checkbox"]{ accent-color: var(--check-green); }
     
-      /* COURSE pills: outline + large icon */
-      .pill{
+    /* COURSE pills: outline + large icon */
+    .pill{
         /* outline look */
-        background: transparent;              /* no fill by default */
+        background: transparent;              /* no fill by default */        
         border: 2px solid #bfc4b4;            /* subtle outline */
         border-radius: 999px;
         padding: 2px;                          /* just enough for the ring */
         display: inline-flex; align-items: center; justify-content: center;
         cursor: pointer; transition: transform .1s ease, background-color .15s ease, border-color .15s ease;
-      }
-      .pill:hover{ transform: translateY(-1px); }
-      .pill.active{
+     }
+     .pill:hover{ transform: translateY(-1px); }
+     .pill.active{
         background: #bec5a6;                  /* selected highlight */
         border-color: #aeb49a;
       }
@@ -354,6 +354,25 @@
   .pv-topic{ margin-top:6px; padding-top:6px; border-top:1px dashed #e4e7e3; }
   .no-print{ display:none !important; } /* belt & suspenders */
 }
+      /* Step tabs */
+      .step-tabs button{
+        font-size:.9rem; line-height:1; padding:.4rem .5rem; border-radius:.375rem;
+        color:#485149;
+      }
+      .step-tabs button[aria-current="true"]{
+        color: var(--brand-ink);
+        box-shadow: inset 0 -2px 0 0 var(--brand-ink);
+        font-weight: 700;
+      }
+      .step-nav a{ font-size:.9rem; text-decoration: underline; color:#485149; }
+      .step-nav a[disabled]{ opacity:.4; pointer-events:none; text-decoration:none; }
+    
+      /* Step title: same scale as .title but brand-ink color */
+      .step-title{
+        color: var(--brand-ink); font-weight:700; font-size:34px; font-family:'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        margin: .5rem 0 .25rem;
+      }
+      .step-sub{ color: var(--brand-ink); font-size:1rem; margin:0 0 1rem; }
     
   </style>
 </head>
@@ -369,11 +388,27 @@
       <a href="./courses.html" class="underline">View / Print Course List</a>
     </div>
   </header>
+  <!-- Step tabs + prev/next -->
+  <nav class="no-print flex items-center gap-4 justify-between mb-4">
+    <div class="step-tabs flex items-center gap-2">
+      <button @click="openStep(1)" :aria-current="step===1" class="hover:opacity-90">Step 1 — Planning Guide</button>
+      <button @click="openStep(2)" :aria-current="step===2" class="hover:opacity-90">Step 2 — How To</button>
+      <button @click="openStep(3)" :aria-current="step===3" class="hover:opacity-90">Step 3 — Course List</button>
+    </div>
+    <div class="step-nav flex items-center gap-3">
+      <a href="#" @click.prevent="prevStep()" :disabled="step===1">Previous</a>
+      <span aria-hidden="true" class="text-gray-400">/</span>
+      <a href="#" @click.prevent="nextStep()" :disabled="step===3">Next</a>
+    </div>
+  </nav>
 
-  <!-- Streamlined Welcome + Guidance -->
-  <!-- Top info: one white card containing intro + all guidance -->
-    <section class="mb-6">
-      <div class="intro-card">
+    <!-- STEP 1: Planning Guide -->
+    <section x-show="step===1" x-cloak>
+      <h2 class="step-title">Step 1</h2>
+      <p class="step-sub">Read the course planning guide.</p>
+    
+      <!-- Guidance card -->
+      <div class="intro-card mb-6">
         <!-- italic intro -->
         <p class="italic text-base leading-relaxed text-gray-700 m-0 mb-4">
           The guidance below is designed to help you plan your year with intention and grace.
@@ -395,141 +430,157 @@
         </template>
       </div>
     </section>
-
-  <!-- Filters / view controls -->
-  <section class="panel mb-4 border-t border-gray-200 pt-4">
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-      <label class="block">
-        <span class="text-xs uppercase tracking-wide text-gray-500">Search</span>
-        <input x-model.trim.debounce.250ms="search" type="search" placeholder="Title, subject, keyword…" class="w-full mt-1 rounded-xl border-gray-300 placeholder-[#7b8b7f]" />
-      </label>
-
-      <label class="block">
-        <span class="text-xs uppercase tracking-wide text-gray-500">Subject</span>
-        <select x-model="filters.subject" class="w-full mt-1 rounded-xl border-gray-300">
-          <option value="">All</option>
-          <template x-for="s in subjectList" :key="s"><option :value="s" x-text="s"></option></template>
-        </select>
-      </label>
-
-      <label class="block">
-        <span class="text-xs uppercase tracking-wide text-gray-500">Grade</span>
-        <select x-model="filters.levelTag" class="w-full mt-1 rounded-xl border-gray-300">
-          <option value="">All</option>
-          <template x-for="lvl in levelList" :key="lvl"><option :value="lvl" x-text="lvl"></option></template>
-        </select>
-      </label>
-
-      <label class="block">
-        <span class="text-xs uppercase tracking-wide text-gray-500">Plan</span>
-        <select x-model="filters.planUse" class="w-full mt-1 rounded-xl border-gray-300">
-          <option value="">All</option>
-          <option value="Core">Core</option>
-          <option value="Family">Family</option>
-          <option value="High Interest">High Interest</option>
-          <option value="Additional">Additional</option>
-          <option value="(none)">Undecided</option>
-        </select>
-      </label>
-    </div>
-
-    <div class="mt-3 flex flex-wrap items-center gap-3">
-      <label class="inline-flex items-center gap-2 text-sm">
-        <input type="checkbox" x-model="onlyPlanned"> Show only planned
-      </label>
-      <label class="inline-flex items-center gap-2 text-sm">
-        <input type="checkbox" x-model="onlyChecked"> Show only checked
-      </label>
-      <div class="ml-auto tiny text-gray-500">
-        <strong x-text="selectedCount"></strong> selected
-      </div>
-    </div>
-    <!-- helper row: tip + legend -->
-      <div class="mt-3 text-sm text-gray-700 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
-        <ul class="legend flex flex-wrap items-center gap-3">
-          <li><img src="Core%20Subjects.png" alt=""> Core</li>
-          <li><img src="Family%20Subjects.png" alt=""> Family</li>
-          <li><img src="Combine%20Subjects.png" alt=""> Combine</li>
-          <li><img src="High%20Interest%20Subjects.png" alt=""> High Interest</li>
-          <li><img src="Additional%20Subjects.png" alt=""> Additional</li>
-        </ul>
-        <div>
-          <em>Tip:</em> Click <strong>“i”</strong> on any course or topic to view Description and Combining &amp; Placement guidance.
-        </div>
-      </div>
-  </section>
-
-  <!-- Sticky actions -->
-  <div class="no-print sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-gray-200 flex justify-between items-center">
-    <div class="tiny"><strong x-text="selectedCount"></strong> selected</div>
-    <div class="flex items-center gap-2">
-      <button @click="clearAll()" class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">
-        Clear
-      </button>
+    <!-- STEP 2: How To -->
+    <section x-show="step===2" x-cloak class="mb-6">
+      <h2 class="step-title">Step 2</h2>
+      <p class="step-sub">Become familiar with our course planning tools by reading the information below.</p>
     
-      <!-- Open print options -->
-      <button @click="printUI.open = true"
-              class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">
-        🖨 Print
-      </button>
-      <!-- Print ALL -->
-      <button
-        @click="printAllInline()"
-        class="rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-[#f4f6fa]">
-        Print All
-      </button>
-    </div>
-  </div>
-
-<!-- MOVED: Print Options Modal -->
-<template x-teleport="body">
-  <div
-    x-show="printUI.open"
-    x-transition.opacity
-    class="print-modal-backdrop no-print"
-    @click.self="printUI.open=false"
-    x-trap.noscroll="printUI.open"
-  >
-    <div class="print-modal" role="dialog" aria-modal="true">
-      <h3>Print Options</h3>
-
-      <div class="print-row">
-        <div class="col">
-          <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">Scope</div>
-          <label class="flex items-center gap-2 mt-1">
-            <input type="radio" name="scope" value="all_nofilter" x-model="printUI.scope">
-            <span>Whole list (Filters OFF)</span>
+      <!-- Placeholder container for now -->
+      <div class="rounded-2xl border border-gray-200 bg-white p-5">
+        <!-- Add instructions, graphics, and an embedded tutorial video here. -->
+        <p class="text-gray-700 m-0">Tutorial content coming soon.</p>
+      </div>
+    </section>
+    <!-- STEP 3: Course List -->
+    <section x-show="step===3" x-cloak>
+      <h2 class="step-title">Step 3</h2>
+      <p class="step-sub">Choose your courses.</p>
+    
+      <!-- Filters / view controls -->
+      <section class="panel mb-4 border-t border-gray-200 pt-4">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <label class="block">
+            <span class="text-xs uppercase tracking-wide text-gray-500">Search</span>
+            <input x-model.trim.debounce.250ms="search" type="search" placeholder="Title, subject, keyword…" class="w-full mt-1 rounded-xl border-gray-300 placeholder-[#7b8b7f]" />
           </label>
-          <label class="flex items-center gap-2 mb-1">
-            <input type="radio" name="scope" value="all" x-model="printUI.scope">
-            <span>Whole list (Filters ON)</span>
+    
+          <label class="block">
+            <span class="text-xs uppercase tracking-wide text-gray-500">Subject</span>
+            <select x-model="filters.subject" class="w-full mt-1 rounded-xl border-gray-300">
+              <option value="">All</option>
+              <template x-for="s in subjectList" :key="s"><option :value="s" x-text="s"></option></template>
+            </select>
           </label>
-          <label class="flex items-center gap-2">
-            <input type="radio" name="scope" value="selected" x-model="printUI.scope">
-            <span>Selected only (Checked courses/topics)</span>
+
+          <label class="block">
+            <span class="text-xs uppercase tracking-wide text-gray-500">Grade</span>
+            <select x-model="filters.levelTag" class="w-full mt-1 rounded-xl border-gray-300">
+              <option value="">All</option>
+              <template x-for="lvl in levelList" :key="lvl"><option :value="lvl" x-text="lvl"></option></template>
+            </select>
+          </label>
+
+          <label class="block">
+            <span class="text-xs uppercase tracking-wide text-gray-500">Plan</span>
+            <select x-model="filters.planUse" class="w-full mt-1 rounded-xl border-gray-300">
+              <option value="">All</option>
+              <option value="Core">Core</option>
+              <option value="Family">Family</option>
+              <option value="High Interest">High Interest</option>
+              <option value="Additional">Additional</option>
+              <option value="(none)">Undecided</option>
+            </select>
           </label>
         </div>
 
-        <div class="col">
-          <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">Include</div>
-          <label class="flex items-center gap-2 mb-1">
-            <input type="checkbox" x-model="printUI.includeInfo">
-            <span>Descriptions &amp; combining tips</span>
+        <div class="mt-3 flex flex-wrap items-center gap-3">
+          <label class="inline-flex items-center gap-2 text-sm">
+            <input type="checkbox" x-model="onlyPlanned"> Show only planned
           </label>
-          <label class="flex items-center gap-2">
-            <input type="checkbox" x-model="printUI.includeNotes">
-            <span>Planning notes</span>
+          <label class="inline-flex items-center gap-2 text-sm">
+            <input type="checkbox" x-model="onlyChecked"> Show only checked
           </label>
+          <div class="ml-auto tiny text-gray-500">
+            <strong x-text="selectedCount"></strong> selected
+          </div>
         </div>
-      </div>
+        <!-- helper row: tip + legend -->
+        <div class="mt-3 text-sm text-gray-700 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+          <ul class="legend flex flex-wrap items-center gap-3">
+            <li><img src="Core%20Subjects.png" alt=""> Core</li>
+            <li><img src="Family%20Subjects.png" alt=""> Family</li>
+            <li><img src="Combine%20Subjects.png" alt=""> Combine</li>
+            <li><img src="High%20Interest%20Subjects.png" alt=""> High Interest</li>
+            <li><img src="Additional%20Subjects.png" alt=""> Additional</li>
+          </ul>
+          <div>
+            <em>Tip:</em> Click <strong>“i”</strong> on any course or topic to view Description and Combining &amp; Placement guidance.
+          </div>
+        </div>
+    </section>
 
-      <div class="print-actions">
-        <button @click="printUI.open=false" class="rounded-xl px-3 py-2 border border-gray-300">Cancel</button>
-        <button @click="doPrint()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white">Preview &amp; Print</button>
+    <!-- Sticky actions -->
+    <div class="no-print sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-gray-200 flex justify-between items-center">
+      <div class="tiny"><strong x-text="selectedCount"></strong> selected</div>
+      <div class="flex items-center gap-2">
+        <button @click="clearAll()" class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">
+          Clear
+        </button>
+      
+        <!-- Open print options -->
+        <button @click="printUI.open = true"
+                class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">
+          🖨 Print
+        </button>
+        <!-- Print ALL -->
+        <button
+          @click="printAllInline()"
+          class="rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-[#f4f6fa]">
+          Print All
+        </button>
       </div>
     </div>
-  </div>
-</template>
+
+    <!-- MOVED: Print Options Modal -->
+    <template x-teleport="body">
+      <div
+        x-show="printUI.open"
+        x-transition.opacity
+        class="print-modal-backdrop no-print"
+        @click.self="printUI.open=false"
+        x-trap.noscroll="printUI.open"
+      >
+        <div class="print-modal" role="dialog" aria-modal="true">
+          <h3>Print Options</h3>
+    
+          <div class="print-row">
+            <div class="col">
+              <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">Scope</div>
+              <label class="flex items-center gap-2 mt-1">
+                <input type="radio" name="scope" value="all_nofilter" x-model="printUI.scope">
+                <span>Whole list (Filters OFF)</span>
+              </label>
+              <label class="flex items-center gap-2 mb-1">
+                <input type="radio" name="scope" value="all" x-model="printUI.scope">
+                <span>Whole list (Filters ON)</span>
+              </label>
+              <label class="flex items-center gap-2">
+                <input type="radio" name="scope" value="selected" x-model="printUI.scope">
+                <span>Selected only (Checked courses/topics)</span>
+              </label>
+            </div>
+    
+            <div class="col">
+              <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">Include</div>
+              <label class="flex items-center gap-2 mb-1">
+                <input type="checkbox" x-model="printUI.includeInfo">
+                <span>Descriptions &amp; combining tips</span>
+              </label>
+              <label class="flex items-center gap-2">
+                <input type="checkbox" x-model="printUI.includeNotes">
+                <span>Planning notes</span>
+              </label>
+            </div>
+          </div>
+    
+          <div class="print-actions">
+            <button @click="printUI.open=false" class="rounded-xl px-3 py-2 border border-gray-300">Cancel</button>
+            <button @click="doPrint()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white">Preview &amp; Print</button>
+          </div>
+          
+        </div>
+      </div>
+    </template>
   <!-- Course list -->
   <section>
     <!-- subject groups -->
@@ -781,8 +832,9 @@
     <template x-if="!groupedFlat.length">
       <p class="text-center text-gray-500 py-12">No courses match your filters/view.</p>
     </template>
+</section>
 
-  <!-- ===== PRINT-ONLY VIEW ===== -->
+<!-- ===== PRINT-ONLY VIEW ===== -->
 <section id="print-view" aria-hidden="true">
   <!-- Simple header -->
   <header class="mb-3" style="display:flex; align-items:center; gap:10px;">
@@ -895,6 +947,7 @@ function planningApp(){
     /* ---------- UI state ---------- */
     search:'', filters:{subject:'', levelTag:'', planUse:''},
     onlyPlanned:false, onlyChecked:false,
+    step: 1,
 
     /* ---------- data ---------- */
     courses:[], courseIndex:{}, plan:{}, openGuidance:{},
@@ -1193,6 +1246,16 @@ function planningApp(){
     },
 
     /* ---------- storage & sync ---------- */
+    persistStep(){ localStorage.setItem('pf_step', String(this.step)); },
+    openStep(n){
+      this.step = Math.min(3, Math.max(1, Number(n)||1));
+      this.persistStep();
+      // scroll to top so the user sees the new section header
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+    nextStep(){ if(this.step < 3) this.openStep(this.step + 1); },
+    prevStep(){ if(this.step > 1) this.openStep(this.step - 1); },
+    
     persistChecked(){
       const ids=[]; this.courses.forEach(c=>{ if(c.checked) ids.push('c:'+c.id); (c.topics||[]).forEach(t=>{ if(t.checked) ids.push('t:'+t.topic_id); }); });
       localStorage.setItem('pf_courses', JSON.stringify(ids));
@@ -1315,6 +1378,10 @@ function planningApp(){
     printSelected(){ window.print(); },
 
     async init(){
+      // restore last step (defaults to 1)
+      const savedStep = Number(localStorage.getItem('pf_step') || '1');
+      this.step = Math.min(3, Math.max(1, savedStep));
+      
       // load guidance open state
       try{ this.openGuidance = JSON.parse(localStorage.getItem('pf_guidance_open')||'{}'); }catch{ this.openGuidance={}; }
 
