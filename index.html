@@ -21,10 +21,14 @@
     *{-webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;}
     body{ background:var(--brand-bg); color:var(--brand-ink); font-family:'DM Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
     
-    /* Title Style */
-    .title{ color:var(--green-dark); font-weight:700; font-size:34px; }
-    @media (max-width: 480px){
-      .welcome-inline p { margin-top: .25rem; }
+    /* Page title */
+    .title{
+      font-family:'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight:700;
+      font-size:40px;           
+      line-height:1.1;
+      color:var(--brand-ink);   
+      margin:0;
     }
 
     /* Guide Headings + icons row */
@@ -353,27 +357,44 @@
   .pv-note p, .pv-info p{ margin:0; font-size:12px; line-height:1.5; color:#2b312c; }
   .pv-topic{ margin-top:6px; padding-top:6px; border-top:1px dashed #e4e7e3; }
   .no-print{ display:none !important; } /* belt & suspenders */
-}
-      /* Step tabs */
-      .step-tabs button{
-        font-size:.9rem; line-height:1; padding:.4rem .5rem; border-radius:.375rem;
-        color:#485149;
-      }
-      .step-tabs button[aria-current="true"]{
-        color: var(--brand-ink);
-        box-shadow: inset 0 -2px 0 0 var(--brand-ink);
-        font-weight: 700;
-      }
-      .step-nav a{ font-size:.9rem; text-decoration: underline; color:#485149; }
-      .step-nav a[disabled]{ opacity:.4; pointer-events:none; text-decoration:none; }
-    
-      /* Step title: same scale as .title but brand-ink color */
+}   
+      /* Step title */
       .step-title{
-        color: var(--brand-ink); font-weight:700; font-size:34px; font-family:'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-        margin: .5rem 0 .25rem;
+        font-family:'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        font-weight:700;
+        font-size:30px;          
+        line-height:1.2;
+        color:var(--green-dark);    
+        margin:.5rem 0 .25rem;
       }
-      .step-sub{ color: var(--brand-ink); font-size:1rem; margin:0 0 1rem; }
+      .step-sub{ color:#49564f; font-size:1rem; margin:0 0 1rem; }
     
+      /* Mini sticky tab bar */
+      .mini-steps{
+        position:sticky; top:0; z-index:30;
+        background:#666d66;                    /* updated brand color */
+        border-bottom:1px solid #5a615a;
+        backdrop-filter:saturate(120%) blur(2px);
+      }
+      
+      .mini-steps .tab{
+        font-size:.9rem; line-height:1; padding:.45rem .6rem;
+        border-radius:.5rem;
+        color:#fbfbf9;                         /* white text for contrast */
+        transition:opacity .2s ease;
+      }
+      .mini-steps .tab:hover{ opacity:.85; }
+      
+      .mini-steps .tab[aria-current="true"]{
+        background:#fbfbf9;                    /* highlight tab */
+        color:#262b26;
+        font-weight:700;
+      }
+      .step-tabs, .step-nav{ display:none !important; }
+      /* Print: hide the sticky bar */
+      @media print{
+        .no-print, .mini-steps{ display:none !important; }
+      }
   </style>
 </head>
 <body>
@@ -384,28 +405,32 @@
   <header class="flex items-center gap-3 mb-6">
     <img src="Alveary%20Lt.%20Green.png" alt="" class="h-10 w-10 object-contain">
     <h1 class="title">Alveary Course Planning</h1>
-    <div class="ml-auto text-sm no-print">
-      <a href="./courses.html" class="underline">View / Print Course List</a>
-    </div>
   </header>
-  <!-- Step tabs + prev/next -->
-  <nav class="no-print flex items-center gap-4 justify-between mb-4">
-    <div class="step-tabs flex items-center gap-2">
-      <button @click="openStep(1)" :aria-current="step===1" class="hover:opacity-90">Step 1 — Planning Guide</button>
-      <button @click="openStep(2)" :aria-current="step===2" class="hover:opacity-90">Step 2 — How To</button>
-      <button @click="openStep(3)" :aria-current="step===3" class="hover:opacity-90">Step 3 — Course List</button>
-    </div>
-    <div class="step-nav flex items-center gap-3">
-      <a href="#" @click.prevent="prevStep()" :disabled="step===1">Previous</a>
-      <span aria-hidden="true" class="text-gray-400">/</span>
-      <a href="#" @click.prevent="nextStep()" :disabled="step===3">Next</a>
+  <nav class="mini-steps no-print mb-4">
+    <div class="max-w-6xl mx-auto px-4 py-2 flex items-center gap-2">
+      <button class="tab hover:opacity-90"
+              @click="openStep(1)" :aria-current="step===1">How To</button>
+      <button class="tab hover:opacity-90"
+              @click="openStep(2)" :aria-current="step===2">Planning Guide</button>
+      <button class="tab hover:opacity-90"
+              @click="openStep(3)" :aria-current="step===3">Course List</button>
     </div>
   </nav>
-
-    <!-- STEP 1: Planning Guide -->
-    <section x-show="step===1" x-cloak>
-      <h2 class="step-title">Step 1</h2>
-      <p class="step-sub">Read the course planning guide.</p>
+  <!-- HOW TO (Step = 1) -->
+  <section x-show="step===1" x-cloak class="mb-6">
+    <h2 class="step-title">How To</h2>
+    <p class="step-sub">Become familiar with our course planning tools by reading the information below.</p>
+  
+    <div class="rounded-2xl border border-gray-200 bg-white p-5">
+      <!-- Add instructions, graphics, and an embedded tutorial video here. -->
+      <p class="text-gray-700 m-0">Tutorial content coming soon.</p>
+    </div>
+  </section>
+  
+  <!-- PLANNING GUIDE (Step = 2) -->
+  <section x-show="step===2" x-cloak>
+    <h2 class="step-title">Planning Guide</h2>
+    <p class="step-sub">Read the course planning guide.</p>
     
       <!-- Guidance card -->
       <div class="intro-card mb-6">
@@ -430,20 +455,10 @@
         </template>
       </div>
     </section>
-    <!-- STEP 2: How To -->
-    <section x-show="step===2" x-cloak class="mb-6">
-      <h2 class="step-title">Step 2</h2>
-      <p class="step-sub">Become familiar with our course planning tools by reading the information below.</p>
-    
-      <!-- Placeholder container for now -->
-      <div class="rounded-2xl border border-gray-200 bg-white p-5">
-        <!-- Add instructions, graphics, and an embedded tutorial video here. -->
-        <p class="text-gray-700 m-0">Tutorial content coming soon.</p>
-      </div>
-    </section>
-    <!-- STEP 3: Course List -->
+   
+    <!-- COURSE LIST (Step = 3) -->
     <section x-show="step===3" x-cloak>
-      <h2 class="step-title">Step 3</h2>
+      <h2 class="step-title">Course List</h2>
       <p class="step-sub">Choose your courses.</p>
     
       <!-- Filters / view controls -->
