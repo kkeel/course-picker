@@ -806,7 +806,7 @@
           </div>
 
           <!-- Course NOTE: only when course is checked -->
-          <template x-if="printUI.includeNotes && c.checked && (plan[c.id]?.note || '').trim().length">
+          <template x-if="printUI.includeNotes && (plan[c.id]?.note || '').trim().length">
             <div class="pv-note">
               <label>Planning Note</label>
               <p x-text="plan[c.id].note"></p>
@@ -814,7 +814,7 @@
           </template>
           
           <!-- Course INFO: only when course is checked -->
-          <template x-if="printUI.includeInfo && c.checked && (c.description || c.combining)">
+          <template x-if="printUI.includeInfo && (c.description || c.combining)">
             <div class="pv-info">
               <template x-if="c.description">
                 <div class="mb-1">
