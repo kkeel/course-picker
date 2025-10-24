@@ -14,9 +14,17 @@
 
   <style>
     :root{
-      --brand-bg:#fbfbf9; --brand-ink:#262b26;
-      --green-dark:#596e5e; --gray-soft:#f4f6fa;
-      --band-green:#596e5e; --check-green:#9da89f;
+      --brand-bg:#fbfbf9; 
+      --brand-ink:#262b26;
+      --black-2:#505650;
+      --green-dark:#596e5e; 
+      --gray-soft:#f4f6fa;
+      --band-green:#596e5e; 
+      --check-green:#9da89f;
+      
+      /* sticky heights for clean stacking */
+      --mini-steps-h: 44px;       /* tiny sticky bar */
+      --printbar-h:   50px;       /* print buttons row */
     }
     *{-webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;}
     body{ background:var(--brand-bg); color:var(--brand-ink); font-family:'DM Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
@@ -371,29 +379,51 @@
     
       /* Mini sticky tab bar */
       .mini-steps{
-        position:sticky; top:0; z-index:30;
-        background:#666d66;                    /* updated brand color */
-        border-bottom:1px solid #5a615a;
-        backdrop-filter:saturate(120%) blur(2px);
+        position: sticky; top: 0; z-index: 50;
+        background: var(--brand-bg);
+        border-bottom: 1px solid #e3e7e3;
       }
-      
-      .mini-steps .tab{
-        font-size:.9rem; line-height:1; padding:.45rem .6rem;
-        border-radius:.5rem;
-        color:#fbfbf9;                         /* white text for contrast */
-        transition:opacity .2s ease;
+      .mini-steps .rail{ height: var(--mini-steps-h); display:flex; align-items:center; gap:.9rem; }
+      .mini-steps a{
+        font-size: .95rem;
+        color: var(--black-2);               /* default “black” variant */
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-thickness: 1px;
+        padding: .2rem .1rem;
       }
-      .mini-steps .tab:hover{ opacity:.85; }
+      .mini-steps a[aria-current="true"]{
+        color: var(--brand-ink);             /* active is the darkest */
+        text-decoration-thickness: 2px;
+      }
+      /* Print/sticky actions bar */
+      .sticky-actions{
+        position: sticky;
+        top: var(--mini-steps-h);
+        z-index: 40;
+        background: var(--brand-bg);
+        border-bottom: 1px solid #e3e7e3;
+      }
+      .sticky-actions .btn{
+        font-size: .9rem;              /* smaller */
+        padding: .35rem .65rem;        /* smaller */
+        border-radius: .6rem;
+      }
+      .sticky-actions .btn-ghost{ border:1px solid #dcded9; background:#fff; }
+      .sticky-actions .btn-primary{ background: var(--green-dark); color:#fff; }
       
-      .mini-steps .tab[aria-current="true"]{
-        background:#fbfbf9;                    /* highlight tab */
-        color:#262b26;
-        font-weight:700;
+      /* Subject sticky headers — page bg */
+      .subject-sticky{
+        position: sticky;
+        top: calc(var(--mini-steps-h) + var(--printbar-h));
+        z-index: 30;
+        background: var(--brand-bg);
+        border-bottom: 1px solid #cdb4a6; /* your band line tone; tweak if needed */
       }
       .step-tabs, .step-nav{ display:none !important; }
       /* Print: hide the sticky bar */
       @media print{
-        .no-print, .mini-steps{ display:none !important; }
+        .no-print, .mini-steps, .sticky-actions { display:none !important; }
       }
   </style>
 </head>
@@ -406,16 +436,14 @@
     <img src="Alveary%20Lt.%20Green.png" alt="" class="h-10 w-10 object-contain">
     <h1 class="title">Alveary Course Planning</h1>
   </header>
-  <nav class="mini-steps no-print mb-4">
-    <div class="max-w-6xl mx-auto px-4 py-2 flex items-center gap-2">
-      <button class="tab hover:opacity-90"
-              @click="openStep(1)" :aria-current="step===1">How To</button>
-      <button class="tab hover:opacity-90"
-              @click="openStep(2)" :aria-current="step===2">Planning Guide</button>
-      <button class="tab hover:opacity-90"
-              @click="openStep(3)" :aria-current="step===3">Course List</button>
+  <nav class="mini-steps no-print mb-3">
+    <div class="rail max-w-6xl mx-auto px-4">
+      <a href="#" @click.prevent="openStep(1)" :aria-current="step===1">How To</a>
+      <a href="#" @click.prevent="openStep(2)" :aria-current="step===2">Planning Guide</a>
+      <a href="#" @click.prevent="openStep(3)" :aria-current="step===3">Course List</a>
     </div>
   </nav>
+  
   <!-- HOW TO (Step = 1) -->
   <section x-show="step===1" x-cloak class="mb-6">
     <h2 class="step-title">How To</h2>
@@ -525,25 +553,10 @@
     </section>
 
     <!-- Sticky actions -->
-    <div class="no-print sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-gray-200 flex justify-between items-center">
-      <div class="tiny"><strong x-text="selectedCount"></strong> selected</div>
-      <div class="flex items-center gap-2">
-        <button @click="clearAll()" class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">
-          Clear
-        </button>
-      
-        <!-- Open print options -->
-        <button @click="printUI.open = true"
-                class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">
-          🖨 Print
-        </button>
-        <!-- Print ALL -->
-        <button
-          @click="printAllInline()"
-          class="rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-[#f4f6fa]">
-          Print All
-        </button>
-      </div>
+    <div class="sticky-actions px-4 py-3 flex items-center gap-3 justify-end">
+      <button class="btn btn-ghost">Clear</button>
+      <button class="btn btn-primary">Print</button>
+      <button class="btn btn-ghost">Print All</button>
     </div>
 
     <!-- MOVED: Print Options Modal -->
@@ -602,7 +615,7 @@
     <template x-for="grp in groupedBySubject" :key="grp.subject || 'other'">
       <div class="group-block">
         <!-- full-width sticky subject bar (matches Clear/Print width trick) -->
-        <div class="subject-bar no-print -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8"
+        <div class="subject-sticky no-print -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8"
              :style="{ '--subject-color': grp.color }">
           <div class="subject-inner">
             <span class="subject-dot"></span>
