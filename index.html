@@ -806,7 +806,7 @@
           </div>
 
           <!-- Course NOTE: only when course is checked -->
-          <template x-if="printUI.includeNotes && (plan[c.id]?.note || '').trim().length">
+          <template x-if="printUI.includeNotes && c.checked && (plan[c.id]?.note || '').trim().length">
             <div class="pv-note">
               <label>Planning Note</label>
               <p x-text="plan[c.id].note"></p>
@@ -814,7 +814,7 @@
           </template>
           
           <!-- Course INFO: only when course is checked -->
-          <template x-if="printUI.includeInfo && (c.description || c.combining)">
+          <template x-if="printUI.includeInfo && c.checked && (c.description || c.combining)">
             <div class="pv-info">
               <template x-if="c.description">
                 <div class="mb-1">
@@ -1371,13 +1371,51 @@ function planningApp(){
     
       this.printData.groups = grouped;
     },
+
+    // Build groups for "Whole list (Filters OFF)" — always every course/topic
+    buildPrintGroupsAllNoFilter(){
+      // fresh copy (avoid stale references)
+      const source = this.courses.slice();
+    
+      // Group by subject (same logic as elsewhere)
+      const grouped = source.reduce((out, c) => {
+        const subj = c.subject || 'Other';
+        const last = out[out.length - 1];
+        if (!last || last.subject !== subj) {
+          out.push({ subject: subj, color: this.subjectColor(subj), items:[c] });
+        } else {
+          last.items.push(c);
+        }
+        return out;
+      }, []);
+    
+      this.printData.groups = grouped;
+    },
   
     // Called when user clicks "Preview & Print"
     doPrint(){
-      this.buildPrintGroups();
-      this.printUI.open = false;      // close dialog
-      // Give the DOM a tick to render print view, then print
-      this.$nextTick(() => window.print());
+      // Build the correct snapshot based on the radio choice
+      if (this.printUI.scope === 'all_nofilter') {
+        this.buildPrintGroupsAllNoFilter();
+      } else {
+        this.buildPrintGroups();
+      }
+    
+      // Close the dialog
+      this.printUI.open = false;
+    
+      // Ensure the print view has actually rendered before printing.
+      // We force a reflow, then wait two RAFs to be extra safe.
+      this.$nextTick(() => {
+        const pv = this.$root.querySelector('#print-view');
+        if (pv) { void pv.offsetHeight; } // force reflow
+    
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            window.print();
+          });
+        });
+      });
     }
   }
 }
