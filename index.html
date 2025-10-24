@@ -350,7 +350,103 @@
     .step-tabs,.step-nav{ display:none!important; }     /* old UI */
     .no-print.sticky{ z-index:20; }                     /* keep below modal */
     .group-block{ position:relative; overflow:visible; }
-  </style>
+  
+/* ===== PATCH START: subject headers, filter strip, label uniformity ===== */
+
+/* SUBJECT HEADERS (sticky #3) */
+.subject-sticky{
+  position: sticky;
+  top: calc(var(--mini-steps-h) + var(--printbar-h));
+  z-index: 35;
+  background: var(--brand-bg);
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 0;
+}
+.subject-sticky::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: #cdb4a6;
+}
+
+/* Subject heading typography */
+.subject-inner{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  color: #262b26;
+  font-family: "Crimson Text", serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.1;
+}
+@media (min-width: 768px){
+  .subject-inner{ font-size: 1.9rem; }
+}
+
+/* Ensure first course never shaves the underline */
+.group-block .course-row:first-of-type{ margin-top: .5rem; }
+
+/* Compact filter strip inside print bar */
+.filter-strip{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .5rem;
+  align-items: center;
+  font-size: .9rem;
+}
+.filter-strip > *{ min-width: 0; }
+
+/* Input + dropdowns */
+.filter-strip .mini{
+  width: 100%;
+  height: 30px;
+  padding: .25rem .55rem;
+  border: 1px solid #d9ded9;
+  border-radius: .6rem;
+  background: #fff;
+  color: #666d66;
+}
+.filter-strip .mini::placeholder,
+.filter-strip .mini option{ color:#666d66; }
+
+/* Pair: Subject + Plan always together and balanced */
+.filter-strip .pair{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .5rem;
+  grid-column: 1 / -1; /* span all 4 cols */
+}
+
+/* Responsive: two columns on narrow screens (2x2) */
+@media (max-width: 950px){
+  .filter-strip{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Checkbox text + selected count uniformity */
+.filter-strip .chk{
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .9rem;
+  color: #666d66;
+}
+.filter-strip .chk input{ width:16px; height:16px; }
+.filter-strip .chk span,
+.text-gray-600 strong{
+  color: #666d66;
+  font-size: .9rem;
+  font-weight: 500;
+}
+
+/* ===== PATCH END ===== */
+</style>
 
 </head>
 <body>
