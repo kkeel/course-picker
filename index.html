@@ -24,7 +24,7 @@
       --gray-soft:#f4f6fa;
       --band-green:#596e5e;
       --check-green:#9da89f;
-      --filter-label:#d2d6d2;
+      --filter-label:#666d66;
     
       /* sticky heights (measured/overridden by JS) */
       --mini-steps-h:44px;   /* tiny sticky tab bar */
@@ -110,6 +110,7 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: .5rem;
       font-size: .9rem;
+      color:#666d66
     }
     .filter-strip .mini{
       width: 100%;
@@ -118,10 +119,10 @@
       border: 1px solid #d9ded9;
       border-radius: .6rem;
       background: #fff;
-      color: #d2d6d2; /* control text */
+      color:#666d66 /* control text */
     }
     .filter-strip .mini::placeholder,
-    .filter-strip .mini option{ color:#d2d6d2; }
+    .filter-strip .mini option{ color:#666d66; }
     
     .filter-strip .chk{
       display: inline-flex;
@@ -129,6 +130,7 @@
       gap: .35rem;
       white-space: nowrap;
       font-size: .9rem;
+      color:#666d66
     }
     .filter-strip .chk input{ width:16px; height:16px; }
     .filter-strip .chk span{ color: var(--filter-label); font-weight: 500; }
@@ -141,9 +143,29 @@
       gap: .5rem;
     }
     
-    /* On narrower screens, drop to 2 columns so the pair moves down together */
-    @media (max-width: 900px){
-      .filter-strip{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    /* 4 equal columns */
+    .filter-strip{
+      display:grid; align-items:center;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+      gap:.5rem; font-size:.9rem;
+    }
+    
+    /* Search (first) and Grade (second) each take 2 columns */
+    .filter-strip > .mini:nth-child(1),
+    .filter-strip > .mini:nth-child(2){
+      grid-column: span 2;
+    }
+    
+    /* Subject+Plan pair spans entire row and contains 2 equal columns */
+    .filter-strip .pair{
+      grid-column: 1 / -1;             /* take all 4 columns */
+      display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:.5rem;
+    }
+    
+    /* On narrow screens, the grid becomes 2 columns; above still works */
+    @media (max-width:900px){
+      .filter-strip{ grid-template-columns:repeat(2, minmax(0,1fr)); }
     }
     
     /* =========================================================
@@ -162,7 +184,7 @@
       color:#262b26;
       font-family:"Crimson Text", serif;
       font-weight:700;
-      font-size:1.75rem;  /* bigger than body headings, smaller than page title */
+      font-size:1.75rem;
       line-height:1.1;
     }
     @media (min-width:768px){ .subject-inner{ font-size:1.9rem; } }
@@ -328,7 +350,6 @@
     .step-tabs,.step-nav{ display:none!important; }     /* old UI */
     .no-print.sticky{ z-index:20; }                     /* keep below modal */
     .group-block{ position:relative; overflow:visible; }
-    .group-block .course-row:first-of-type{ margin-top:.25rem; }
   </style>
 
 </head>
