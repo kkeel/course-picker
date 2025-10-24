@@ -1303,6 +1303,7 @@ function planningApp(){
         });
         
         this.courses = Object.values(this.courseIndex);
+        this.dataReady = true;
       },
 
     /* ---------- actions ---------- */
@@ -1326,6 +1327,20 @@ function planningApp(){
     // ---- Print UI state + data for the print-only view ----
     printUI: { open:false, scope:'all', includeInfo:false, includeNotes:false },
     printData: { groups: [] },
+    dataReady: false,
+    
+    // tiny helper: resolves when courses have loaded & are available
+    waitForData(){
+      return new Promise(resolve=>{
+        if (this.courses && this.courses.length) return resolve();
+        const iv = setInterval(()=>{
+          if (this.courses && this.courses.length){
+            clearInterval(iv);
+            resolve();
+          }
+        }, 30);
+      });
+    },
 
     topicsForPrint(c){
         // Whole list (Filters ON): show all topics
@@ -1398,137 +1413,32 @@ function planningApp(){
       this.printData.groups = grouped;
     },
     
-    printAllInline(){
-    // Force "Whole list (Filters OFF)" and build a fresh snapshot
-    this.printUI.scope = 'all_nofilter';
-    this.buildPrintGroupsAllNoFilter();
-  
-    // Close any open dialog just in case
-    this.printUI.open = false;
-  
-    // Ensure #print-view has rendered, then trigger the browser print
-    this.$nextTick(() => {
-      const pv = this.$root.querySelector('#print-view');
-      if (pv) { void pv.offsetHeight; } // force reflow
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          window.print();
-        });
-      });
-    });
-  },
+    async printAllInline(){
+      // Ensure data is present
+      await this.waitForData();
     
-    printWholeList(){
-    // Group ALL courses by subject (ignores filters/checked)
-    const groups = new Map();
-    this.courses.forEach(c=>{
-      const s = c.subject || 'Other';
-      if(!groups.has(s)) groups.set(s, []);
-      groups.get(s).push(c);
-    });
-  
-    const esc = (s)=> (s==null?'':String(s));
-    // Build body HTML (no Alpine directives, just plain HTML)
-    let body = `
-      <section style="margin:24px auto; max-width:960px;">
-        <header style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-          <img src="Alveary%20Lt.%20Green.png" alt="Alveary" style="height:40px;width:40px;object-fit:contain"/>
-          <h1 style="margin:0;font:700 28px 'DM Sans',system-ui;">Alveary Course List</h1>
-        </header>
-    `;
-  
-    // Sort subjects like on screen
-    const special = 'Alt. Science Options';
-    const ordered = Array.from(groups.entries()).sort((a,b)=>{
-      const A=a[0]||'', B=b[0]||'';
-      if (A===special && B!==special) return 1;
-      if (B===special && A!==special) return -1;
-      return A.localeCompare(B, undefined, {numeric:true});
-    });
-  
-    for(const [subj,list] of ordered){
-      body += `<h2 style="font:700 22px 'DM Sans',system-ui;margin:36px 0 12px;color:#262b26;">${esc(subj)}</h2>`;
-      for(const c of list){
-        // Course band
-        body += `
-          <div style="border-radius:10px;overflow:hidden;background:#596e5e;color:#fff;">
-            <div style="display:grid;grid-template-columns:25% 41.7% 33.3%;">
-              <div style="padding:8px 12px;border-right:1px solid rgba(255,255,255,.1);">
-                <div style="font:700 12px 'Crimson Text',Georgia,serif;">${esc(c.title)}</div>
-              </div>
-              <div style="padding:8px 12px;border-right:1px solid rgba(255,255,255,.1);">
-                <div style="font:700 12px 'DM Sans',system-ui;">Description</div>
-              </div>
-              <div style="padding:8px 12px;">
-                <div style="font:700 12px 'DM Sans',system-ui;">Combining &amp; Placement<br>
-                  <span style="font-weight:400;opacity:.9">${esc(c.levelDisplay||'')}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div style="display:grid;grid-template-columns:25% 41.7% 33.3%;gap:0;border-radius:0 0 10px 10px;overflow:hidden;margin-bottom:10px;">
-            <div style="padding:12px 12px;color:#262b26;font:400 10.5pt 'DM Sans',system-ui;"><div>${c.summary||'&nbsp;'}</div></div>
-            <div style="padding:14px 16px;background:#f4f6fa;color:#262b26;font:400 10.5pt 'DM Sans',system-ui;">
-              ${(c.details||[]).find(d=>d.label==='Description')?.value || ''}
-            </div>
-            <div style="padding:14px 16px;color:#262b26;font:400 10.5pt 'DM Sans',system-ui;">
-              ${(c.details||[]).find(d=>d.label==='Combining & Placement')?.value || ''}
-            </div>
-          </div>
-        `;
-  
-        // Topics
-        if (c.topics && c.topics.length){
-          for(const t of c.topics){
-            body += `
-              <div style="border-radius:10px;overflow:hidden;background:#adb58f;color:#fff;">
-                <div style="display:grid;grid-template-columns:66.7% 33.3%;">
-                  <div style="padding:8px 12px;border-right:1px solid rgba(255,255,255,.1);">
-                    <div style="font:700 12px 'Crimson Text',Georgia,serif;">${esc(t.topic_title)}</div>
-                  </div>
-                  <div style="padding:8px 12px;text-align:right;">
-                    <div style="font:700 12px 'DM Sans',system-ui;">GRADE(S): <span style="opacity:.9">${esc(t.levelDisplay||'')}</span></div>
-                  </div>
-                </div>
-              </div>
-              <div style="display:grid;grid-template-columns:25% 41.7% 33.3%;gap:0;border-radius:0 0 10px 10px;overflow:hidden;margin-bottom:10px;">
-                <div style="padding:12px 12px;color:#262b26;font:400 10.5pt 'DM Sans',system-ui;"><div>${t.summary||'&nbsp;'}</div></div>
-                <div style="padding:14px 16px;background:#f4f6fa;color:#262b26;font:400 10.5pt 'DM Sans',system-ui;">
-                  ${(t.details||[]).find(d=>d.label==='Description')?.value || ''}
-                </div>
-                <div style="padding:14px 16px;color:#262b26;font:400 10.5pt 'DM Sans',system-ui;">
-                  ${(t.details||[]).find(d=>d.label==='Combining & Placement')?.value || ''}
-                </div>
-              </div>
-            `;
-          }
-        }
-      }
-    }
-    body += `</section>`;
-  
-    // Pop-up with minimal head + fonts and exact print colors
-    const head = `
-      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Crimson+Text:wght@700&display=swap" rel="stylesheet">
-      <style>
-        *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
-        @page{ margin:12mm; }
-        html,body{ background:#fff; color:#262b26; }
-      </style>
-    `;
-  
-    const w = window.open('', '_blank', 'noopener,noreferrer');
-    w.document.write(`<html><head>${head}</head><body>${body}</body></html>`);
-    w.document.close();
-  
-    // Ensure images/fonts are ready, then print
-    w.onload = () => {
-      requestAnimationFrame(()=>{ requestAnimationFrame(()=>{ w.focus(); w.print(); /* w.close(); */ }); });
-    };
-  },
+      // Force "Whole list (Filters OFF)" and build a fresh snapshot
+      this.printUI.scope = 'all_nofilter';
+      this.buildPrintGroupsAllNoFilter();
+    
+      // Close any open dialog just in case
+      this.printUI.open = false;
+    
+      // Wait for Alpine to render the print DOM, then give the browser two RAFs
+      await this.$nextTick();
+      const pv = this.$root.querySelector('#print-view');
+      if (pv) { void pv.offsetHeight; }  // force reflow
+    
+      await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+      window.print();
+    },
   
     // Called when user clicks "Preview & Print"
-    doPrint(){
+    async doPrint(){
+      // Ensure data is present
+      await this.waitForData();
+    
+      // Build the correct snapshot
       if (this.printUI.scope === 'all_nofilter') {
         this.buildPrintGroupsAllNoFilter();
       } else {
@@ -1537,16 +1447,14 @@ function planningApp(){
     
       this.printUI.open = false;
     
-      this.$nextTick(() => {
-        const pv = this.$root.querySelector('#print-view');
-        if (pv) { void pv.offsetHeight; } // reflow to ensure it's painted
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            window.print();
-          });
-        });
-      });
-    }
+      // Wait for Alpine to flush updates, then ensure it's painted
+      await this.$nextTick();
+      const pv = this.$root.querySelector('#print-view');
+      if (pv) { void pv.offsetHeight; }  // force reflow
+    
+      await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+      window.print();
+    },
   }
 }
 </script>
