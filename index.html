@@ -1371,46 +1371,6 @@ function planningApp(){
     
       this.printData.groups = grouped;
     },
-
-        function printPlanned() {
-        // Store original display states
-        const originalStates = new Map();
-        
-        // Get all course and topic elements
-        const allItems = document.querySelectorAll('.course-item, .topic-item');
-        
-        // Store original states and hide all items initially
-        allItems.forEach(item => {
-            originalStates.set(item, item.style.display);
-            item.style.display = 'none';
-        });
-        
-        // Show planned courses
-        document.querySelectorAll('.course-item.planned, .course-item[data-status="planned"]').forEach(course => {
-            course.style.display = 'block';
-        });
-        
-        // Show planned topics AND their parent courses
-        document.querySelectorAll('.topic-item.planned, .topic-item[data-status="planned"]').forEach(topic => {
-            topic.style.display = 'block';
-            
-            // Also show the parent course container
-            const parentCourse = topic.closest('.course-item');
-            if (parentCourse) {
-                parentCourse.style.display = 'block';
-            }
-        });
-        
-        // Print
-        window.print();
-        
-        // Restore original states after printing
-        setTimeout(() => {
-            allItems.forEach(item => {
-                item.style.display = originalStates.get(item) || 'block';
-            });
-        }, 100);
-    }
   
     // Called when user clicks "Preview & Print"
     doPrint(){
