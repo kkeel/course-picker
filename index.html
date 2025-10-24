@@ -474,7 +474,7 @@
       </button>
       <!-- Print ALL -->
       <button
-        @click="printWholeList()"
+        @click="printAllInline()"
         class="rounded-xl px-3 py-2 border border-gray-300 bg-white hover:bg-[#f4f6fa]">
         Print All
       </button>
@@ -1397,7 +1397,27 @@ function planningApp(){
     
       this.printData.groups = grouped;
     },
-
+    
+    printAllInline(){
+    // Force "Whole list (Filters OFF)" and build a fresh snapshot
+    this.printUI.scope = 'all_nofilter';
+    this.buildPrintGroupsAllNoFilter();
+  
+    // Close any open dialog just in case
+    this.printUI.open = false;
+  
+    // Ensure #print-view has rendered, then trigger the browser print
+    this.$nextTick(() => {
+      const pv = this.$root.querySelector('#print-view');
+      if (pv) { void pv.offsetHeight; } // force reflow
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          window.print();
+        });
+      });
+    });
+  },
+    
     printWholeList(){
     // Group ALL courses by subject (ignores filters/checked)
     const groups = new Map();
@@ -1510,18 +1530,16 @@ function planningApp(){
     // Called when user clicks "Preview & Print"
     doPrint(){
       if (this.printUI.scope === 'all_nofilter') {
-        // Bullet-proof path for "Whole list (Filters OFF)"
-        return this.printAllNoFilterPopup();
+        this.buildPrintGroupsAllNoFilter();
+      } else {
+        this.buildPrintGroups();
       }
     
-      // Existing behavior for "Filters ON" / "Selected"
-      this.buildPrintGroups();
       this.printUI.open = false;
     
       this.$nextTick(() => {
         const pv = this.$root.querySelector('#print-view');
-        if (pv) { void pv.offsetHeight; } // reflow
-    
+        if (pv) { void pv.offsetHeight; } // reflow to ensure it's painted
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             window.print();
