@@ -1002,24 +1002,37 @@ function planningApp(){
 
     /* ---------- computed ---------- */
     get filtered(){
-      const q=this.search.toLowerCase();
+      const q = this.search.toLowerCase();
+    
+      // helper to normalize any 'use' value into an array
+      const norm = (v) => Array.isArray(v) ? v : (v ? [v] : []);
+    
       return this.courses.filter(c=>{
-        // text filters
-        const matchesQ=!q || [c.title,c.subject,c.summary,c.levelDisplay].join(' ').toLowerCase().includes(q);
-        const matchesS=!this.filters.subject || c.subject===this.filters.subject;
-        const matchesL=!this.filters.levelTag || (c.levelTags||[]).includes(this.filters.levelTag);
-
-        // plan filter
-        let matchesPlan=true;
-        const use = this.plan[c.id]?.use || [];
-        const uses = Array.isArray(use) ? use : (use ? [use] : []);
-        if(this.filters.planUse === '(none)') matchesPlan = uses.length === 0;
-        else if(this.filters.planUse) matchesPlan = uses.includes(this.filters.planUse);
-
-        // view toggles
-        const passPlanned = !this.onlyPlanned || uses.length > 0;
+        // text/subject/grade filters
+        const matchesQ = !q || [c.title,c.subject,c.summary,c.levelDisplay].join(' ').toLowerCase().includes(q);
+        const matchesS = !this.filters.subject || c.subject === this.filters.subject;
+        const matchesL = !this.filters.levelTag || (c.levelTags||[]).includes(this.filters.levelTag);
+    
+        // collect plan tags
+        const courseUses = norm(this.plan[c.id]?.use);
+        const topicUsesArr = (c.topics || []).map(t => norm(this.plan[t.topic_id]?.use));
+        const anyTopicHasUses = topicUsesArr.some(arr => arr.length > 0);
+    
+        // Plan dropdown logic
+        let matchesPlan = true;
+        if (this.filters.planUse === '(none)') {
+          // only items with no tags anywhere
+          matchesPlan = (courseUses.length === 0) && topicUsesArr.every(arr => arr.length === 0);
+        } else if (this.filters.planUse) {
+          // tag can be on course OR any topic
+          matchesPlan = courseUses.includes(this.filters.planUse) ||
+                        topicUsesArr.some(arr => arr.includes(this.filters.planUse));
+        }
+    
+        // toggles
+        const passPlanned = !this.onlyPlanned || courseUses.length > 0 || anyTopicHasUses;
         const passChecked = !this.onlyChecked || c.checked || (c.topics||[]).some(t=>t.checked);
-
+    
         return matchesQ && matchesS && matchesL && matchesPlan && passPlanned && passChecked;
       });
     },
@@ -1337,7 +1350,7 @@ function planningApp(){
         source = this.courses.filter(c => c.checked || (c.topics||[]).some(t => t.checked));
       } else if (this.printUI.scope === 'all_nofilter') {
         // Completely ignore on-screen filters
-        source = this.courses;
+        source = this.courses.slice();  // fresh array = no stale reference
       } else {
         // 'all' = whole list but respect current filters (search, subject, grade, plan, Show only planned/checked)
         // If no filters are active, fall back to all courses (prevents printing blank)
@@ -1358,6 +1371,46 @@ function planningApp(){
     
       this.printData.groups = grouped;
     },
+
+        function printPlanned() {
+        // Store original display states
+        const originalStates = new Map();
+        
+        // Get all course and topic elements
+        const allItems = document.querySelectorAll('.course-item, .topic-item');
+        
+        // Store original states and hide all items initially
+        allItems.forEach(item => {
+            originalStates.set(item, item.style.display);
+            item.style.display = 'none';
+        });
+        
+        // Show planned courses
+        document.querySelectorAll('.course-item.planned, .course-item[data-status="planned"]').forEach(course => {
+            course.style.display = 'block';
+        });
+        
+        // Show planned topics AND their parent courses
+        document.querySelectorAll('.topic-item.planned, .topic-item[data-status="planned"]').forEach(topic => {
+            topic.style.display = 'block';
+            
+            // Also show the parent course container
+            const parentCourse = topic.closest('.course-item');
+            if (parentCourse) {
+                parentCourse.style.display = 'block';
+            }
+        });
+        
+        // Print
+        window.print();
+        
+        // Restore original states after printing
+        setTimeout(() => {
+            allItems.forEach(item => {
+                item.style.display = originalStates.get(item) || 'block';
+            });
+        }, 100);
+    }
   
     // Called when user clicks "Preview & Print"
     doPrint(){
