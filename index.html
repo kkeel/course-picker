@@ -557,9 +557,9 @@
 
     <!-- Sticky actions -->
     <div id="actionsBar" class="sticky-actions px-4 py-3 flex items-center gap-3 justify-end">
-      <button class="btn btn-ghost">Clear</button>
-      <button class="btn btn-primary">Print</button>
-      <button class="btn btn-ghost">Print All</button>
+      <button type="button" class="btn btn-ghost"  @click="clearAll()">Clear</button>
+      <button type="button" class="btn btn-primary" @click="openPrintDialog()">Print</button>
+      <button type="button" class="btn btn-ghost"  @click="printAllInline()">Print All</button>
     </div>
 
     <!-- MOVED: Print Options Modal -->
@@ -1546,6 +1546,11 @@ function planningApp(){
     
       await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
       window.print();
+    },
+
+    openPrintDialog(){
+      this.printUI.open = true;     // shows your existing modal
+      this.$nextTick(()=> this.measureBars()); // keep sticky offsets sane
     },
   
     // Called when user clicks "Preview & Print"
