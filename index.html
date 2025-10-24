@@ -656,6 +656,29 @@
 .filter-strip .mini::placeholder,
 .filter-strip .mini option{ color:#666d66 !important; }
 /* ===================================================================== */
+
+/* === FINAL LAYOUT: Two-column filters (Row1) + actions row (Row2) === */
+.filter-strip{
+  display:grid !important;
+  grid-template-columns: 1fr !important;   /* narrow: one column (col2 drops below col1) */
+  grid-template-areas: none !important;    /* cancel previous area rules */
+  gap:.75rem 1rem !important;
+  align-items:start !important;
+}
+@media (min-width:1024px){
+  .filter-strip{ grid-template-columns: 1fr 1fr !important; }
+}
+.filter-col{ display:grid !important; grid-template-rows:auto auto !important; gap:.5rem !important; }
+.filter-col .mini{ width:100% !important; }
+
+/* Make labels exactly match selected count */
+:root{ --filter-label:#666d66; }
+.chk span,
+.selected-count, .selected-count strong{
+  color:var(--filter-label) !important;
+  font-size:.9rem !important;
+  font-weight:500 !important;
+}
 </style>
 
 </head>
