@@ -1391,24 +1391,67 @@ function planningApp(){
     
       this.printData.groups = grouped;
     },
+
+    // Print "Whole list (Filters OFF)" from a clean pop-up
+    printAllNoFilterPopup(){
+      // 1) Build a fresh, full snapshot
+      this.buildPrintGroupsAllNoFilter();
+    
+      // 2) Close the dialog
+      this.printUI.open = false;
+    
+      // 3) After DOM reflects printData.groups, clone just the print view
+      this.$nextTick(() => {
+        const pv = this.$root.querySelector('#print-view');
+        if(!pv){ window.print(); return; }
+    
+        // Grab existing <style> and stylesheet <link> tags
+        const styles = Array.from(document.querySelectorAll('style')).map(s=>s.outerHTML).join('\n');
+        const links  = Array.from(document.querySelectorAll('link[rel="stylesheet"]')).map(l=>l.outerHTML).join('\n');
+    
+        // Minimal extras so the pop-up shows the print layout immediately
+        const extraCSS = `
+          <style>
+            html,body{ background:#fff; color:#262b26; font-family:'DM Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
+            #print-view{ display:block !important; }
+            .no-print{ display:none !important; }
+            @page{ margin:12mm; }
+          </style>
+        `;
+    
+        // Open a clean window and write only the print markup into it
+        const w = window.open('', '_blank', 'noopener,noreferrer');
+        w.document.write(
+          `<html><head>${links}${styles}${extraCSS}</head><body><section id="print-view">${pv.innerHTML}</section></body></html>`
+        );
+        w.document.close();
+    
+        // Wait for assets to load, then print that window
+        w.onload = () => {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              w.print();
+              w.close();
+            });
+          });
+        };
+      });
+    },
   
     // Called when user clicks "Preview & Print"
     doPrint(){
-      // Build the correct snapshot based on the radio choice
       if (this.printUI.scope === 'all_nofilter') {
-        this.buildPrintGroupsAllNoFilter();
-      } else {
-        this.buildPrintGroups();
+        // Bullet-proof path for "Whole list (Filters OFF)"
+        return this.printAllNoFilterPopup();
       }
     
-      // Close the dialog
+      // Existing behavior for "Filters ON" / "Selected"
+      this.buildPrintGroups();
       this.printUI.open = false;
     
-      // Ensure the print view has actually rendered before printing.
-      // We force a reflow, then wait two RAFs to be extra safe.
       this.$nextTick(() => {
         const pv = this.$root.querySelector('#print-view');
-        if (pv) { void pv.offsetHeight; } // force reflow
+        if (pv) { void pv.offsetHeight; } // reflow
     
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
