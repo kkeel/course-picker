@@ -738,7 +738,7 @@
                       </label>
                       <textarea
                         :value="plan[t.topic_id]?.note || ''"
-                        @input="plan[t.topic_id]={ ...(plan[t.topic_id]||{}), note:$event.target.value, ts:Date.now() }; persistPlan();"
+                        @input="plan[t.topic_id]={ ...(plan[t.topic_id]||{}), note:$event.target.value, ts:Date.now() }; persistPlan()"
                         placeholder="Add any topic-specific notes"></textarea>
                     </div>
                   </section>
@@ -758,17 +758,17 @@
                           </div>
                         </template>
                       </section>
-                    </div>
-                  </div>
-                </template>
-              </div>
-            </template>
-          </div>
-        </div>  
-      </template>
-    </div>
-  </template>
-</section>
+                    </div> 
+                  </div> 
+                </template> 
+              </div> 
+            </template> 
+          </div> 
+        </div> 
+      </template> 
+    </div> 
+  </template> 
+</section> 
 
     <template x-if="!groupedFlat.length">
       <p class="text-center text-gray-500 py-12">No courses match your filters/view.</p>
@@ -1267,7 +1267,6 @@ function planningApp(){
               ...t,
               topic_id: `${t.topic_id}::${cid}`  // unique per course
             };
-        
             course.topics.push(tForCourse);
           });
         });
