@@ -1631,8 +1631,8 @@ function planningApp(){
         checked: false,
         topics: [],
     
-        // accordions (NEW/CONFIRMED)
-        infoOpen: false,   // ℹ️ toggles this
+        // course accordions
+        infoOpen: true,   // ℹ️ toggles this; default open
         noteOpen: false    // ✏️ toggles this
       };
     },
@@ -1671,10 +1671,10 @@ function planningApp(){
         levelDisplay, levelTags,
         checked:false,
     
-        /* NEW: per-topic accordions */
+        /* Per-topic accordions */
         hasInfo,
-        infoOpen:false,
-        noteOpen:false
+        infoOpen: true,   // ℹ️ toggles this; default open
+        noteOpen: false    // ✏️ toggles this
       };
     },
 
@@ -1818,23 +1818,29 @@ function planningApp(){
       },
 
     /* ---------- actions ---------- */
-    showAllTips: false,
+    showAllTips: true,
 
     toggleAllTips(open){
-      // We’ll toggle every button that controls a Description or C&P section.
-      // Mark those buttons once with data-toggle="desc" or data-toggle="cnp".
-      const selectors = ['[data-toggle="desc"]', '[data-toggle="cnp"]'];
+      const on = !!open;
     
+      // 1) Flip Alpine state directly (fast + reliable)
+      this.courses.forEach(c => {
+        c.infoOpen = on && c.hasInfo;
+        (c.topics || []).forEach(t => { t.infoOpen = on && t.hasInfo; });
+      });
+    
+      // 2) Back-compat: nudge any legacy DOM toggles that aren't bound to Alpine
+      // (keeps your previous click-driven behavior working where needed)
+      const selectors = ['[data-toggle="desc"]', '[data-toggle="cnp"]'];
       selectors.forEach(sel => {
         document.querySelectorAll(sel).forEach(btn => {
           const isOpen = btn.getAttribute('aria-expanded') === 'true';
-          // Click only if the current state doesn't match the target
-          if (open && !isOpen) btn.click();
-          if (!open && isOpen)  btn.click();
+          if (on && !isOpen)  btn.click();
+          if (!on && isOpen)  btn.click();
         });
       });
     
-      // If sticky offsets depend on open heights, re-measure afterwards:
+      // 3) Recompute sticky offsets after the layout expands/collapses
       this.$nextTick(() => this.measureBars && this.measureBars());
     },
     clearFilters(){
@@ -1863,6 +1869,11 @@ function planningApp(){
       await this.loadDualCSVs();
       this.restoreChecked();
       this.loadPlan();
+      this.$nextTick(()=> {
+        this.measureBars();
+        // ensure initial open/closed state matches the checkbox
+        this.toggleAllTips(this.showAllTips);
+      });
       this.$nextTick(()=> this.measureBars());
       window.addEventListener('resize', () => this.measureBars());
     },
