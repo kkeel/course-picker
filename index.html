@@ -823,6 +823,24 @@
   justify-content: flex-end;
   gap: 0.75rem;
 }
+/* === Keep topic info toggle light even when active === */
+.topic-icon {
+  background: #dee1d2 !important;    /* light green-gray base */
+  color: #262b26;
+  padding: .25rem .4rem;
+  border-radius: .45rem;
+  font-size: .75rem;
+  line-height: 1;
+  transition: background .15s ease;
+}
+.topic-icon:hover {
+  filter: brightness(.97);
+}
+/* prevent darker color on toggle */
+.topic-icon[aria-expanded="true"] {
+  background: #dee1d2 !important;
+  filter: none !important;
+}
 </style>
 
 </head>
