@@ -749,6 +749,35 @@
 
 /* Make sure any legacy Crimson styles on titles don’t win */
 .band-title, .pv-title { font-family: 'DM Sans', sans-serif !important; }
+/* === TYPE SCALE REDUCTION (slightly smaller overall) === */
+.course-band .band-title {
+  font-size: 1rem;     /* was 1.15rem */
+}
+@media (min-width:768px){
+  .course-band .band-title{ font-size: 1.1rem; }  /* was 1.25rem */
+}
+
+.topic-title{
+  font-size: .9rem;    /* was 1rem */
+}
+.text-[0.8rem], .topic-schedule {
+  font-size: .75rem;   /* was .8rem */
+}
+
+.info-col h4{
+  font: 700 .9rem/1.25 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+.info-col .copy{
+  font-size: .9rem;    /* was .95rem */
+  line-height: 1.5;
+}
+
+/* PRINT view adjustments for balance */
+@media print{
+  .pv-title{ font-size: 15px !important; }
+  .pv-subject{ font-size: 20px !important; }
+  .pv-copy.small, .pv-note p{ font-size: 10px !important; line-height: 1.4 !important; }
+}
 </style>
 
 </head>
