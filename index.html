@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -637,48 +635,6 @@
   height:4px !important; background:var(--subject-color,#dcded6) !important;
 }
 .group-block .course-row:first-of-type{ margin-top:.6rem !important; }
-
-/* === Two-column filter layout ======================================== */
-/* Container: two columns on wide, one column on narrow */
-.filter-strip{
-  display:grid !important;
-  grid-template-columns: 1fr;
-  gap: .5rem 1rem;
-  align-items: start;
-}
-@media (min-width: 1024px){
-  .filter-strip{ grid-template-columns: 1fr 1fr; }
-}
-.filter-col{ display:grid; grid-template-rows: auto auto; gap:.5rem; }
-.filter-col .mini{ width:100%; }
-/* Keep tone consistent */
-.filter-strip .mini,
-.filter-strip .mini::placeholder,
-.filter-strip .mini option{ color:#666d66 !important; }
-/* ===================================================================== */
-
-/* === FINAL LAYOUT: Two-column filters (Row1) + actions row (Row2) === */
-.filter-strip{
-  display:grid !important;
-  grid-template-columns: 1fr !important;   /* narrow: one column (col2 drops below col1) */
-  grid-template-areas: none !important;    /* cancel previous area rules */
-  gap:.75rem 1rem !important;
-  align-items:start !important;
-}
-@media (min-width:1024px){
-  .filter-strip{ grid-template-columns: 1fr 1fr !important; }
-}
-.filter-col{ display:grid !important; grid-template-rows:auto auto !important; gap:.5rem !important; }
-.filter-col .mini{ width:100% !important; }
-
-/* Make labels exactly match selected count */
-:root{ --filter-label:#666d66; }
-.chk span,
-.selected-count, .selected-count strong{
-  color:var(--filter-label) !important;
-  font-size:.9rem !important;
-  font-weight:500 !important;
-}
 </style>
 
 </head>
@@ -766,17 +722,25 @@
     <div id="actionsBar" class="sticky-actions -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-3 justify-end">
       <div class="w-full">
         <!-- TOP ROW -->
-        <div class="filter-strip"><div class="filter-col left"><input class="mini area-search" type="search" placeholder="Search…"
+        <div class="filter-strip">
+          <!-- search -->
+          <input class="mini area-search" type="search" placeholder="Search…"
                  x-model.trim.debounce.250ms="search" aria-label="Search" />
-<select class="mini" x-model="filters.levelTag" aria-label="Grade" class="mini area-grade">
+        
+          <!-- grade -->
+          <select class="mini" x-model="filters.levelTag" aria-label="Grade" class="mini area-grade">
             <option value="">Grade: All</option>
             <template x-for="lvl in levelList" :key="lvl"><option :value="lvl" x-text="lvl"></option></template>
-          </select></div>
-<div class="filter-col right"><select class="mini area-subject" x-model="filters.subject" aria-label="Subject">
+          </select>
+        
+          <!-- SUBJECT + PLAN stay together -->
+          <div class="pair">
+            <select class="mini area-subject" x-model="filters.subject" aria-label="Subject">
               <option value="">Subject: All</option>
               <template x-for="s in subjectList" :key="s"><option :value="s" x-text="s"></option></template>
             </select>
-<select class="mini area-plan" x-model="filters.planUse" aria-label="Plan">
+        
+            <select class="mini area-plan" x-model="filters.planUse" aria-label="Plan">
               <option value="">Plan: All</option>
               <option value="Core">Core</option>
               <option value="Family">Family</option>
@@ -784,7 +748,8 @@
               <option value="High Interest">High Interest</option>
               <option value="Additional">Additional</option>
               <option value="(none)">Undecided</option>
-            </select></div></div>
+            </select>
+          </div>
         </div>
       
         <!-- BOTTOM ROW -->
