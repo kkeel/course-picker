@@ -808,6 +808,21 @@
 .topic-acc-info{
   border-top: 2px solid #adb58f;   /* was 1px #e5e7eb */
 }
+.print-modal h3 {
+  font-weight: 700;
+  color: var(--green-dark);
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+.print-modal label {
+  font-size: 0.95rem;
+  color: #262b26;
+}
+.print-modal .print-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
 </style>
 
 </head>
@@ -966,40 +981,53 @@
       >
         <div class="print-modal" role="dialog" aria-modal="true">
           <h3>Print Options</h3>
-    
-          <div class="print-row">
-            <div class="col">
-              <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">Scope</div>
-              <label class="flex items-center gap-2 mt-1">
-                <input type="radio" name="scope" value="all_nofilter" x-model="printUI.scope">
-                <span>Whole list (Filters OFF)</span>
-              </label>
-              <label class="flex items-center gap-2 mb-1">
-                <input type="radio" name="scope" value="all" x-model="printUI.scope">
-                <span>Whole list (Filters ON)</span>
-              </label>
-              <label class="flex items-center gap-2">
-                <input type="radio" name="scope" value="selected" x-model="printUI.scope">
-                <span>Selected only (Checked courses/topics)</span>
-              </label>
-            </div>
-    
-            <div class="col">
-              <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">Include</div>
-              <label class="flex items-center gap-2 mb-1">
-                <input type="checkbox" x-model="printUI.includeInfo">
-                <span>Descriptions &amp; combining tips</span>
-              </label>
-              <label class="flex items-center gap-2">
-                <input type="checkbox" x-model="printUI.includeNotes">
-                <span>Planning notes</span>
-              </label>
-            </div>
+
+          <!-- === PRINT SECTION === -->
+          <div class="mt-2 pb-3 border-b border-gray-200">
+            <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">Print</div>
+          
+            <label class="flex items-center gap-2 mt-1">
+              <input type="checkbox" x-model="printUI.selectedOnly">
+              <span>Print Selected</span>
+            </label>
+          
+            <label class="flex items-center gap-2 mt-2">
+              <input type="checkbox" x-model="printUI.filtered">
+              <span>Print Filtered</span>
+            </label>
+          
+            <p class="text-[11px] text-gray-500 mt-2" x-show="printUI.filtered">
+              Uses your current search, subject, grade, plan, and other filters.
+            </p>
+          
+            <template x-if="printUI.warning">
+              <p class="text-sm text-red-600 mt-2" x-text="printUI.warning"></p>
+            </template>
           </div>
-    
-          <div class="print-actions">
-            <button @click="printUI.open=false" class="rounded-xl px-3 py-2 border border-gray-300">Cancel</button>
-            <button @click="doPrint()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white">Preview &amp; Print</button>
+          
+          <!-- === INCLUDE SECTION === -->
+          <div class="pt-3">
+            <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">Include</div>
+          
+            <label class="flex items-center gap-2 mt-1">
+              <input type="checkbox" x-model="printUI.includeInfo">
+              <span>Descriptions &amp; combining tips</span>
+            </label>
+          
+            <label class="flex items-center gap-2 mt-2">
+              <input type="checkbox" x-model="printUI.includeNotes">
+              <span>Planning notes</span>
+            </label>
+          </div>
+          
+          <!-- === ACTION BUTTONS === -->
+          <div class="print-actions mt-5 pt-3 border-t border-gray-200">
+            <button @click="printUI.open=false" class="rounded-xl px-3 py-2 border border-gray-300">
+              Cancel
+            </button>
+            <button @click="doPrint()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white">
+              Preview &amp; Print
+            </button>
           </div>
           
         </div>
