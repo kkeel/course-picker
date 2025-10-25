@@ -749,34 +749,54 @@
 
 /* Make sure any legacy Crimson styles on titles don’t win */
 .band-title, .pv-title { font-family: 'DM Sans', sans-serif !important; }
-/* === TYPE SCALE REDUCTION (slightly smaller overall) === */
-.course-band .band-title {
-  font-size: 1rem;     /* was 1.15rem */
+/* === UNIFIED SMALLER TYPE SCALE (screen + print) === */
+.course-band .band-title{
+  font-size: .9rem;      /* Courses — smaller */
+  line-height: 1.15;
 }
 @media (min-width:768px){
-  .course-band .band-title{ font-size: 1.1rem; }  /* was 1.25rem */
+  .course-band .band-title{ font-size: 1rem; }
 }
 
 .topic-title{
-  font-size: .9rem;    /* was 1rem */
+  font-size: .82rem;     /* Topics — slightly smaller again */
+  line-height: 1.2;
 }
-.text-[0.8rem], .topic-schedule {
-  font-size: .75rem;   /* was .8rem */
+
+.text-[0.8rem], .topic-schedule{
+  font-size: .7rem;      /* Schedules — condensed */
+  line-height: 1.25;
 }
 
 .info-col h4{
-  font: 700 .9rem/1.25 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font: 700 .82rem/1.2 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 .info-col .copy{
-  font-size: .9rem;    /* was .95rem */
-  line-height: 1.5;
+  font-size: .82rem;
+  line-height: 1.45;
 }
 
-/* PRINT view adjustments for balance */
+/* Print view sizing to match on-screen scale */
 @media print{
-  .pv-title{ font-size: 15px !important; }
-  .pv-subject{ font-size: 20px !important; }
-  .pv-copy.small, .pv-note p{ font-size: 10px !important; line-height: 1.4 !important; }
+  .pv-subject{
+    font-size: 18px !important;
+    line-height: 1.1 !important;
+  }
+  .pv-title{
+    font-size: 13px !important;
+    line-height: 1.25 !important;
+  }
+  .pv-schedule{
+    font-size: 9.5px !important;
+    line-height: 1.25 !important;
+  }
+  .pv-copy.small, .pv-note p{
+    font-size: 9.5px !important;
+    line-height: 1.4 !important;
+  }
+  label, .pv-info label, .pv-note label{
+    font-size: 9.5px !important;
+  }
 }
 </style>
 
