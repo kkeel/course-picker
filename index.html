@@ -635,6 +635,48 @@
   height:4px !important; background:var(--subject-color,#dcded6) !important;
 }
 .group-block .course-row:first-of-type{ margin-top:.6rem !important; }
+
+/* === FINAL LAYOUT + LABEL TONE (safe override) === */
+:root { --filter-label: #666d66; }
+
+/* Layout: 2 rows on narrow (Search|Grade / Subject|Plan), 4-across ≥1024px */
+.filter-strip{
+  display: grid !important;
+  gap: .5rem !important;
+  align-items: center !important;
+  grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  grid-template-areas:
+    "search grade"
+    "subject plan" !important;
+}
+@media (min-width: 1024px){
+  .filter-strip{
+    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+    grid-template-areas: "search grade subject plan" !important;
+  }
+}
+
+/* Place each control in its area; let the wrapper not interfere */
+.area-search  { grid-area: search  !important; }
+.area-grade   { grid-area: grade   !important; }
+.area-subject { grid-area: subject !important; }
+.area-plan    { grid-area: plan    !important; }
+.filter-strip .pair { display: contents !important; }
+
+/* Control text tone to #666d66 */
+.filter-strip .mini,
+.filter-strip .mini::placeholder,
+.filter-strip .mini option { color: #666d66 !important; }
+
+/* Checkbox labels + selected count unified */
+.chk { display: inline-flex; align-items: center; gap: .35rem; }
+.chk span,
+.selected-count,
+.selected-count strong {
+  color: var(--filter-label) !important;
+  font-size: .9rem !important;
+  font-weight: 500 !important;
+}
 </style>
 
 </head>
@@ -724,23 +766,23 @@
         <!-- TOP ROW -->
         <div class="filter-strip">
           <!-- search -->
-          <input class="mini area-search" type="search" placeholder="Search…"
+          <input class="mini area-search " type="search" placeholder="Search…"
                  x-model.trim.debounce.250ms="search" aria-label="Search" />
         
           <!-- grade -->
-          <select class="mini" x-model="filters.levelTag" aria-label="Grade" class="mini area-grade">
+          <select class="mini mini area-grade" x-model="filters.levelTag" aria-label="Grade">
             <option value="">Grade: All</option>
             <template x-for="lvl in levelList" :key="lvl"><option :value="lvl" x-text="lvl"></option></template>
           </select>
         
           <!-- SUBJECT + PLAN stay together -->
           <div class="pair">
-            <select class="mini area-subject" x-model="filters.subject" aria-label="Subject">
+            <select class="mini area-subject " x-model="filters.subject" aria-label="Subject">
               <option value="">Subject: All</option>
               <template x-for="s in subjectList" :key="s"><option :value="s" x-text="s"></option></template>
             </select>
         
-            <select class="mini area-plan" x-model="filters.planUse" aria-label="Plan">
+            <select class="mini area-plan " x-model="filters.planUse" aria-label="Plan">
               <option value="">Plan: All</option>
               <option value="Core">Core</option>
               <option value="Family">Family</option>
