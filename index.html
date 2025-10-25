@@ -805,7 +805,7 @@
       
           <label class="chk">
             <input type="checkbox" x-model="onlyChecked" />
-            <span>Only checked</span>
+            <span>Only selected</span>
           </label>
 
           <div class="selected-count">
@@ -1732,7 +1732,7 @@ function planningApp(){
         if (this.printUI.scope === 'all_nofilter') return c.topics || [];
       
         // Selected only:
-        // If the course is checked, include all its topics; otherwise include only checked topics
+        // If the course is checked, include all its topics; otherwise include only selected topics
         if (c.checked) return c.topics || [];
         return (c.topics || []).filter(t => t.checked);
       },
