@@ -798,6 +798,46 @@
     font-size: 9.5px !important;
   }
 }
+/* --- Topic title a bit larger (still < course) --- */
+.topic-title{
+  font-size: .98rem;        /* was .95rem */
+  line-height: 1.2;
+}
+
+/* --- Stronger topic info separator (only when topic info tray is open) --- */
+.topic-acc-info{
+  border-top: 2px solid #adb58f;   /* was 1px #e5e7eb */
+}
+
+/* --- Print view: make topic titles slightly bigger too (still < course) --- */
+@media print{
+  /* topic titles inside print rows */
+  .pv-topic .pv-title{ font-size: 15px !important; }   /* course = 16px */
+}
+/* === PRINT VIEW ENHANCEMENTS: Course & Topic visual structure === */
+@media print {
+  /* Dark green rule below each course card */
+  .pv-card {
+    border-bottom: 2px solid #596e5e !important;  /* Alveary dark green */
+    padding-bottom: 10px !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* Keep topic dividers lighter but visible */
+  .pv-topic {
+    border-top: 2px solid #adb58f !important;      /* light green */
+    padding-top: 8px !important;
+    margin-top: 8px !important;
+  }
+
+  /* Ensure visual balance between sections */
+  .pv-info,
+  .pv-note {
+    border-top: 1px solid #adb58f !important;
+    padding-top: 6px !important;
+    margin-top: 6px !important;
+  }
+}
 </style>
 
 </head>
