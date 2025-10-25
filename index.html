@@ -808,9 +808,12 @@
             <span>Only selected</span>
           </label>
 
-          <div class="selected-count">
-            <strong x-text="selectedCount"></strong> selected
-          </div>
+          <label class="chk mr-3">
+            <input type="checkbox"
+                   x-model="showAllTips"
+                   @change="toggleAllTips(showAllTips)">
+            <span>Show all descriptions &amp; tips</span>
+          </label>
       
           <div class="ml-auto flex items-center gap-2">
             <button type="button" class="btn btn-ghost rounded-xl" @click="clearAll()">Clear selected</button>
@@ -902,18 +905,21 @@
                   <div class="band-title font-crimson text-base font-semibold flex items-center gap-1.5">
                     <span x-text="c.title"></span>
   
-                    <!-- ℹ️ info toggle -->
-                    <button type="button" x-show="c.hasInfo"
-                            @click="c.infoOpen = !c.infoOpen"
-                            :aria-expanded="c.infoOpen"
-                            :aria-controls="'acc-info-'+c.id"
-                            class="text-xs bg-white/15 hover:bg-white/25 p-1.5 rounded"
-                            title="Description &amp; Placement">
+                    <!-- ℹ️ info toggle (COURSE) -->
+                    <button
+                      type="button"
+                      x-show="c.hasInfo"
+                      @click="c.infoOpen = !c.infoOpen"
+                      :aria-expanded="c.infoOpen"
+                      :aria-controls="'acc-info-'+c.id"
+                      data-toggle="desc"
+                      class="text-xs bg-white/15 hover:bg-white/25 p-1.5 rounded"
+                      title="Description &amp; Placement">
                       <span x-show="!c.infoOpen">i</span>
                       <span x-show="c.infoOpen">–</span>
                     </button>
   
-                    <!-- ✏️ note toggle -->
+                    <!-- ✏️ course note toggle -->
                     <button type="button"
                             @click="c.noteOpen = !c.noteOpen"
                             :aria-expanded="c.noteOpen"
@@ -928,7 +934,7 @@
                      x-html="c.summary || '<span class=opacity-60>—</span>'"></div>
               </div>
   
-              <!-- RIGHT: planning tags -->
+              <!-- RIGHT: course planning tags -->
               <div class="col-span-4 px-3 py-2 border-white/10 plan-anchor">
                 <div class="flex items-center justify-end gap-3" x-data="{open:false}">
                   <!-- selected tags preview (only chosen ones) -->
@@ -1014,17 +1020,19 @@
                       <div class="flex items-center gap-1">
                         <span class="topic-title" x-text="t.topic_title"></span>
         
-                        <!-- ℹ️ info (only if info exists) -->
-                        <button x-show="t.hasInfo"
-                                @click="t.infoOpen = !t.infoOpen"
-                                :aria-expanded="t.infoOpen"
-                                :aria-controls="'t-acc-info-'+t.topic_id"
-                                class="topic-icon"
-                                title="Description &amp; Placement">
+                        <!-- ℹ️ info toggle (TOPIC) -->
+                        <button
+                          x-show="t.hasInfo"
+                          @click="t.infoOpen = !t.infoOpen"
+                          :aria-expanded="t.infoOpen"
+                          :aria-controls="'t-acc-info-'+t.topic_id"
+                          data-toggle="desc"
+                          class="topic-icon"
+                          title="Description &amp; Placement">
                           <span x-show="!t.infoOpen">i</span><span x-show="t.infoOpen">–</span>
                         </button>
         
-                        <!-- ✏️ note -->
+                        <!-- ✏️ topic note -->
                         <button @click="t.noteOpen = !t.noteOpen"
                                 :aria-expanded="t.noteOpen"
                                 :aria-controls="'t-acc-note-'+t.topic_id"
@@ -1675,6 +1683,25 @@ function planningApp(){
       },
 
     /* ---------- actions ---------- */
+    showAllTips: false,
+
+    toggleAllTips(open){
+      // We’ll toggle every button that controls a Description or C&P section.
+      // Mark those buttons once with data-toggle="desc" or data-toggle="cnp".
+      const selectors = ['[data-toggle="desc"]', '[data-toggle="cnp"]'];
+    
+      selectors.forEach(sel => {
+        document.querySelectorAll(sel).forEach(btn => {
+          const isOpen = btn.getAttribute('aria-expanded') === 'true';
+          // Click only if the current state doesn't match the target
+          if (open && !isOpen) btn.click();
+          if (!open && isOpen)  btn.click();
+        });
+      });
+    
+      // If sticky offsets depend on open heights, re-measure afterwards:
+      this.$nextTick(() => this.measureBars && this.measureBars());
+    },
     clearFilters(){
       this.search = '';
       this.filters = { subject:'', levelTag:'', planUse:'' };
