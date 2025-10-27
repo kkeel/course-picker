@@ -984,8 +984,8 @@
           <label class="chk mr-3">
             <input type="checkbox"
                    x-model="showAllTips"
-                   @change="toggleAllTips(showAllTips)">
-            <span>Show all descriptions &amp; tips</span>
+                   @change="toggleAllTips(!showAllTips)">
+            <span>Close all descriptions &amp; tips</span>
           </label>
       
           <div class="ml-auto flex items-center gap-2">
@@ -1873,7 +1873,7 @@ function planningApp(){
       },
 
     /* ---------- actions ---------- */
-    showAllTips: true,
+    showAllTips: false,
 
     toggleAllTips(open){
       const on = !!open;
