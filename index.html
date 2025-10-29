@@ -991,6 +991,13 @@
           <div class="ml-auto flex items-center gap-2">
             <button type="button" class="btn btn-ghost rounded-xl" @click="clearAll()">Clear selected</button>
             <button type="button" class="btn btn-ghost rounded-xl" @click="clearFilters()">Clear filters</button>
+            <button type="button" class="btn btn-ghost rounded-xl" @click="refreshData()" title="Refesh data"
+              :disabled="isRefreshing"
+              :class="isRefreshing ? 'opacity-60 cursor-wait' : ''"
+            >
+              <span x-show="!isRefreshing">↻ Refresh Data</span>
+              <span x-show="isRefreshing">Refreshing…</span>
+            </button>
             <button type="button" class="btn btn-primary rounded-xl" @click="openPrintDialog()">Print</button>
           </div>
         </div>
@@ -1746,6 +1753,29 @@ function planningApp(){
     
       document.documentElement.style.setProperty('--mini-steps-h', `${miniH}px`);
       document.documentElement.style.setProperty('--printbar-h', `${printH}px`);
+    },
+    isRefreshing: false,
+
+    refreshData(){
+      try{
+        this.isRefreshing = true;
+    
+        // 🔑 remove cached CSV bundle so the app re-fetches fresh text
+        localStorage.removeItem('pf_csv_cache_v1');
+    
+        // Optional: if you also cache anything else, clear here too
+        // localStorage.removeItem('pf_csv_cache_v2');
+    
+        // Give the UI a tick to show the “Refreshing…” state, then reload
+        setTimeout(() => {
+          // Hard reload to ensure scripts re-run and CSVs are re-parsed
+          location.reload();
+        }, 150);
+      } catch(e){
+        console.error('Refresh failed:', e);
+        this.isRefreshing = false;
+        alert('Could not refresh. See console for details.');
+      }
     },
 
     /* ---------- storage & sync ---------- */
