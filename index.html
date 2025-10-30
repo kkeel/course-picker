@@ -168,6 +168,14 @@
       .filter-strip{ grid-template-columns:repeat(2, minmax(0,1fr)); }
     }
     
+    /* optional – keep the tiny Clear links tidy under selects */
+    .filter-strip button[role="clear"],
+    .filter-strip .area-search > button,
+    .filter-strip .area-grade > button,
+    .filter-strip .area-subject > button,
+    .filter-strip .area-plan > button{
+      font-weight: 500;
+    }
     /* =========================================================
        SUBJECT HEADERS (sticky #3)
     ========================================================= */
@@ -939,25 +947,60 @@
       <div class="w-full">
         <!-- TOP ROW -->
         <div class="filter-strip">
-          <!-- search -->
-          <input class="mini area-search " type="search" placeholder="Search…"
-                 x-model.trim.debounce.250ms="search" aria-label="Search" />
+          <!-- SEARCH -->
+          <div class="area-search">
+            <input
+              class="mini w-full"
+              type="search"
+              placeholder="Search…"
+              x-model.trim.debounce.250ms="search"
+              aria-label="Search"
+            />
+            <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="search=''">Clear</button>
+          </div>
         
-          <!-- grade -->
-          <select class="mini mini area-grade" x-model="filters.levelTag" aria-label="Grade">
-            <option value="">Grade: All</option>
-            <template x-for="lvl in levelList" :key="lvl"><option :value="lvl" x-text="lvl"></option></template>
-          </select>
-        
-          <!-- SUBJECT + PLAN stay together -->
-          <div class="pair">
-            <select class="mini area-subject " x-model="filters.subject" aria-label="Subject">
-              <option value="">Subject: All</option>
-              <template x-for="s in subjectList" :key="s"><option :value="s" x-text="s"></option></template>
+          <!-- GRADE (multi) -->
+          <div class="area-grade">
+            <select
+              class="mini w-full"
+              multiple
+              size="3"
+              x-model="filters.levelTags"
+              aria-label="Grade"
+              x-init="$nextTick(()=>normalizeLevelTags())"
+            >
+              <template x-for="opt in gradeOptions" :key="opt.value">
+                <option :value="opt.value" x-text="opt.label"></option>
+              </template>
             </select>
+            <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="filters.levelTags=[]">Clear</button>
+          </div>
         
-            <select class="mini area-plan " x-model="filters.planUse" aria-label="Plan">
-              <option value="">Plan: All</option>
+          <!-- SUBJECT (multi) -->
+          <div class="area-subject">
+            <select
+              class="mini w-full"
+              multiple
+              size="5"
+              x-model="filters.subjects"
+              aria-label="Subject"
+            >
+              <template x-for="s in subjectList" :key="s">
+                <option :value="s" x-text="s"></option>
+              </template>
+            </select>
+            <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="filters.subjects=[]">Clear</button>
+          </div>
+        
+          <!-- PLAN (multi) -->
+          <div class="area-plan">
+            <select
+              class="mini w-full"
+              multiple
+              size="6"
+              x-model="filters.planUses"
+              aria-label="Plan tags"
+            >
               <option value="Core">Core</option>
               <option value="Family">Family</option>
               <option value="Combine">Combine</option>
@@ -965,6 +1008,7 @@
               <option value="Additional">Additional</option>
               <option value="(none)">Undecided</option>
             </select>
+            <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="filters.planUses=[]">Clear</button>
           </div>
         </div>
       
@@ -1440,7 +1484,16 @@
 function planningApp(){
   return {
     /* ---------- UI state ---------- */
-    search:'', filters:{subject:'', levelTag:'', planUse:''},
+    // BEFORE
+    // search:'', filters:{subject:'', levelTag:'', planUse:''},
+    
+    // AFTER
+    search: '',
+    filters: {
+      subjects: [],     // multi subject values (strings)
+      levelTags: [],    // multi grade tags, e.g., ['G1','G2']
+      planUses: []      // multi plan tags, e.g., ['Core','(none)']
+},
     onlyPlanned:false, onlyChecked:false,
     step: 1,
 
@@ -1449,6 +1502,22 @@ function planningApp(){
 
     noteFor:null, noteDraft:'',
     modal:{title:'',description:'',combine:''},
+
+    gradeLabelMap: Object.freeze({
+      G1:'Grade 1', G2:'Grade 2', G3:'Grade 3', G4:'Grade 4', G5:'Grade 5',
+      G6:'Grade 6', G7:'Grade 7', G8:'Grade 8', G9:'Grade 9', G10:'Grade 10',
+      G11:'Grade 11', G12:'Grade 12'
+    }),
+    get gradeOptions(){
+      // Use your existing levelList but turn it into {value,label}
+      return this.levelList.map(v => ({ value: v, label: this.gradeLabelMap[v] || v }));
+    },
+    normalizeLevelTags(){
+      // If someone had a single-select saved earlier, make sure it’s an array now
+      if (!Array.isArray(this.filters.levelTags)) {
+        this.filters.levelTags = this.filters.levelTags ? [this.filters.levelTags] : [];
+      }
+    },
 
     // guidance blocks (uses your uploaded PNGs)
     guidance:[
@@ -1558,36 +1627,61 @@ function planningApp(){
     get filtered(){
       const q = this.search.toLowerCase();
     
-      // helper to normalize any 'use' value into an array
-      const norm = (v) => Array.isArray(v) ? v : (v ? [v] : []);
+      const arrOrEmpty = (v) => Array.isArray(v) ? v : (v ? [v] : []);
+      const isEmpty = (x) => !x || (Array.isArray(x) && x.length === 0);
+    
+      const anyIntersect = (a, b) => {
+        if (!Array.isArray(a) || !Array.isArray(b) || !a.length || !b.length) return false;
+        const set = new Set(a);
+        return b.some(x => set.has(x));
+      };
     
       return this.courses.filter(c=>{
-        // text/subject/grade filters
-        const matchesQ = !q || [c.title,c.subject,c.summary,c.levelDisplay].join(' ').toLowerCase().includes(q);
-        const matchesS = !this.filters.subject || c.subject === this.filters.subject;
-        const matchesL = !this.filters.levelTag || (c.levelTags||[]).includes(this.filters.levelTag);
+        // TEXT
+        const matchesQ =
+          !q ||
+          [c.title, c.subject, c.summary, c.levelDisplay].join(' ').toLowerCase().includes(q);
     
-        // collect plan tags
-        const courseUses = norm(this.plan[c.id]?.use);
-        const topicUsesArr = (c.topics || []).map(t => norm(this.plan[t.topic_id]?.use));
-        const anyTopicHasUses = topicUsesArr.some(arr => arr.length > 0);
+        // SUBJECT (multi OR)
+        const matchesSubject =
+          isEmpty(this.filters.subjects) || this.filters.subjects.includes(c.subject);
     
-        // Plan dropdown logic
+        // GRADE (multi OR; course can have many tags, we match if any overlap)
+        const matchesGrade =
+          isEmpty(this.filters.levelTags) || anyIntersect(this.filters.levelTags, c.levelTags || []);
+    
+        // PLAN (multi OR across course OR any topic)
+        // Special case: "(none)" means no tags anywhere on the course or its topics
+        const selectedPlans = arrOrEmpty(this.filters.planUses);
         let matchesPlan = true;
-        if (this.filters.planUse === '(none)') {
-          // only items with no tags anywhere
-          matchesPlan = (courseUses.length === 0) && topicUsesArr.every(arr => arr.length === 0);
-        } else if (this.filters.planUse) {
-          // tag can be on course OR any topic
-          matchesPlan = courseUses.includes(this.filters.planUse) ||
-                        topicUsesArr.some(arr => arr.includes(this.filters.planUse));
+        if (!isEmpty(selectedPlans)) {
+          const courseUses = arrOrEmpty(this.plan[c.id]?.use);
+          const topicUsesArr = (c.topics || []).map(t => arrOrEmpty(this.plan[t.topic_id]?.use));
+          const anyTopicTagged = topicUsesArr.some(u => u.length);
+    
+          const hasAnySelectedTag =
+            selectedPlans.some(tag =>
+              courseUses.includes(tag) || topicUsesArr.some(u => u.includes(tag))
+            );
+    
+          const wantsNone = selectedPlans.includes('(none)');
+          const isNone = courseUses.length === 0 && !anyTopicTagged;
+    
+          // If the user chose "(none)" alongside real tags, treat it as an OR:
+          // match items that either have no tags OR have one of the chosen tags.
+          matchesPlan = wantsNone ? (isNone || hasAnySelectedTag) : hasAnySelectedTag;
         }
     
-        // toggles
-        const passPlanned = !this.onlyPlanned || courseUses.length > 0 || anyTopicHasUses;
-        const passChecked = !this.onlyChecked || c.checked || (c.topics||[]).some(t=>t.checked);
+        // TOGGLES
+        const passPlanned =
+          !this.onlyPlanned ||
+          (this.plan[c.id]?.use?.length) ||
+          ((c.topics||[]).some(t => (this.plan[t.topic_id]?.use||[]).length));
     
-        return matchesQ && matchesS && matchesL && matchesPlan && passPlanned && passChecked;
+        const passChecked =
+          !this.onlyChecked || c.checked || (c.topics||[]).some(t=>t.checked);
+    
+        return matchesQ && matchesSubject && matchesGrade && matchesPlan && passPlanned && passChecked;
       });
     },
     get groupedFlat(){
