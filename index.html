@@ -176,6 +176,19 @@
     .filter-strip .area-plan > button{
       font-weight: 500;
     }
+    /* popover trigger styled like your .mini inputs */
+    .filter-trigger{
+      @apply w-full h-[30px] px-2 border border-[#d9ded9] rounded-lg bg-white text-[#666d66] flex items-center justify-between;
+    }
+    .filter-menu{
+      position:absolute; z-index:120; margin-top:.35rem; right:0; left:0;
+      background:#fff; border:1px solid #e5e7eb; border-radius:.6rem; box-shadow:0 8px 24px rgba(0,0,0,.08);
+      padding:.4rem; max-height:260px; overflow:auto;
+    }
+    .filter-menu .row{ display:flex; align-items:center; gap:.5rem; padding:.4rem .45rem; border-radius:.5rem; }
+    .filter-menu .row:hover{ background:#f7f9f7; }
+    .filter-menu img{ width:18px; height:18px; border-radius:999px; }
+    .filter-menu input[type="search"]{ width:100%; border:1px solid #d9ded9; border-radius:.5rem; padding:.35rem .5rem; color:#666d66; }
     /* =========================================================
        SUBJECT HEADERS (sticky #3)
     ========================================================= */
@@ -959,66 +972,89 @@
             <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="search=''">Clear</button>
           </div>
         
-          <!-- GRADE (multi) -->
-          <div class="area-grade">
-            <select
-              class="mini w-full"
-              multiple
-              size="3"
-              x-model="filters.levelTags"
-              aria-label="Grade"
-              x-init="$nextTick(()=>normalizeLevelTags())"
-            >
-              <template x-for="opt in gradeOptions" :key="opt.value">
-                <option :value="opt.value" x-text="opt.label"></option>
-              </template>
-            </select>
-            <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="filters.levelTags=[]">Clear</button>
+          <!-- GRADE (popover checklist) -->
+          <div class="area-grade" x-data="filterMenu({
+                label: 'Grade',
+                modelValue: filters.levelTags,
+                options: gradeOptions,          // [{value:'G1',label:'Grade 1'}, ...]
+                searchable:false
+              })"
+              x-model="filters.levelTags">
+            <div class="relative">
+              <button type="button" class="filter-trigger" @click="open=!open" :aria-expanded="open">
+                <span x-text="pickedCount ? `${pickedCount} selected` : 'Grade'"></span>
+                <span class="text-sm">▾</span>
+              </button>
+          
+              <div class="filter-menu" x-show="open" x-transition @click.outside="open=false">
+                <template x-for="opt in shown" :key="opt.value">
+                  <label class="row cursor-pointer">
+                    <input type="checkbox" class="mr-1" :checked="isOn(opt.value)" @change="toggle(opt.value)">
+                    <span x-text="opt.label"></span>
+                  </label>
+                </template>
+              </div>
+            </div>
+            <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="clear()">Clear</button>
           </div>
         
-          <!-- SUBJECT (multi) -->
-          <div class="area-subject">
-            <select
-              class="mini w-full"
-              multiple
-              size="5"
-              x-model="filters.subjects"
-              aria-label="Subject"
-            >
-              <template x-for="s in subjectList" :key="s">
-                <option :value="s" x-text="s"></option>
-              </template>
-            </select>
-            <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="filters.subjects=[]">Clear</button>
+          <!-- SUBJECT (popover checklist) -->
+          <div class="area-subject" x-data="filterMenu({
+                label:'Subject',
+                modelValue: filters.subjects,
+                options: subjectList.map(s => ({ value:s, label:s })),
+                searchable:true
+              })"
+              x-model="filters.subjects">
+            <div class="relative">
+              <button type="button" class="filter-trigger" @click="open=!open" :aria-expanded="open">
+                <span x-text="pickedCount ? `${pickedCount} selected` : 'Subject'"></span>
+                <span class="text-sm">▾</span>
+              </button>
+          
+              <div class="filter-menu" x-show="open" x-transition @click.outside="open=false">
+                <div class="px-1 pb-1" x-show="searchable"><input type="search" placeholder="Search subjects…" x-model="q"></div>
+                <template x-for="opt in shown" :key="opt.value">
+                  <label class="row cursor-pointer">
+                    <input type="checkbox" class="mr-1" :checked="isOn(opt.value)" @change="toggle(opt.value)">
+                    <span x-text="opt.label"></span>
+                  </label>
+                </template>
+              </div>
+            </div>
+            <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="clear()">Clear</button>
           </div>
         
-          <!-- PLAN (multi) -->
-          <div class="area-plan">
-            <select
-              class="mini w-full"
-              multiple
-              size="6"
-              x-model="filters.planUses"
-              aria-label="Plan tags"
-            >
-              <option value="Core">Core</option>
-              <option value="Family">Family</option>
-              <option value="Combine">Combine</option>
-              <option value="High Interest">High Interest</option>
-              <option value="Additional">Additional</option>
-              <option value="(none)">Undecided</option>
-            </select>
-            <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="filters.planUses=[]">Clear</button>
+          <!-- PLAN (popover checklist) -->
+          <div class="area-plan" x-data="filterMenu({
+                label:'Plan tags',
+                modelValue: filters.planUses,
+                options: [...useOptions.map(u => ({ value:u.value, label:u.label, icon:u.icon })), { value:'(none)', label:'Undecided' }],
+                searchable:false
+              })"
+              x-model="filters.planUses">
+            <div class="relative">
+              <button type="button" class="filter-trigger" @click="open=!open" :aria-expanded="open">
+                <span x-text="pickedCount ? `${pickedCount} selected` : 'Plan tags'"></span>
+                <span class="text-sm">▾</span>
+              </button>
+          
+              <div class="filter-menu" x-show="open" x-transition @click.outside="open=false">
+                <template x-for="opt in shown" :key="opt.value">
+                  <label class="row cursor-pointer">
+                    <input type="checkbox" class="mr-1" :checked="isOn(opt.value)" @change="toggle(opt.value)">
+                    <template x-if="opt.icon"><img :src="opt.icon" :alt="opt.label"></template>
+                    <span x-text="opt.label"></span>
+                  </label>
+                </template>
+              </div>
+            </div>
+            <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="clear()">Clear</button>
           </div>
         </div>
       
         <!-- BOTTOM ROW -->
         <div class="mt-2 flex flex-wrap items-center gap-3">
-      
-          <label class="chk">
-            <input type="checkbox" x-model="onlyPlanned" />
-            <span>Only planned</span>
-          </label>
       
           <label class="chk">
             <input type="checkbox" x-model="onlyChecked" />
@@ -1039,7 +1075,7 @@
               :disabled="isRefreshing"
               :class="isRefreshing ? 'opacity-60 cursor-wait' : ''"
             >
-              <span x-show="!isRefreshing">↻ Refresh Data</span>
+              <span x-show="!isRefreshing">↻ Refresh</span>
               <span x-show="isRefreshing">Refreshing…</span>
             </button>
             <button type="button" class="btn btn-primary rounded-xl" @click="openPrintDialog()">Print</button>
@@ -1479,6 +1515,38 @@
   </template>
 </section>
 </div>
+
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('filterMenu', (cfg = {}) => ({
+    // Two-way bindable value (array)
+    value: cfg.modelValue || [],
+    ['x-modelable'](){ return 'value' },
+
+    open: false,
+    label: cfg.label || 'Filter',
+    options: cfg.options || [],        // [{ value, label, icon? }]
+    searchable: cfg.searchable ?? false,
+    q: '',
+
+    get pickedCount(){ return Array.isArray(this.value) ? this.value.length : 0; },
+    isOn(v){ return (this.value||[]).includes(v); },
+    toggle(v){
+      const cur = Array.isArray(this.value) ? this.value.slice() : [];
+      const i = cur.indexOf(v);
+      if (i >= 0) cur.splice(i,1); else cur.push(v);
+      this.value = cur;
+    },
+    clear(){ this.value = []; },
+
+    get shown(){
+      if (!this.searchable || !this.q) return this.options;
+      const k = this.q.toLowerCase();
+      return this.options.filter(o => (o.label||'').toLowerCase().includes(k));
+    }
+  }));
+});
+</script>
   
 <script>
 function planningApp(){
