@@ -871,7 +871,31 @@
 .print-modal h3{ margin-bottom: .75rem !important; }
 .print-modal .border-b{ margin-top: .75rem !important; }
 .print-modal .print-actions{ margin-top: 1rem !important; padding-top: .75rem !important; }
-</style>
+/* trigger matches your mini input look */
+.ms-trigger{
+  display:flex; align-items:center; gap:.5rem; width:100%;
+  min-height:38px; padding:6px 10px; border:1px solid #d9ded9; border-radius:12px;
+  background:#fff; color:#666d66;
+}
+.ms-trigger .chips{ display:flex; gap:.35rem; flex-wrap:wrap; }
+.ms-chip{
+  display:inline-flex; align-items:center; padding:2px 8px; border-radius:999px;
+  background:#f3f5f3; font-size:12px; line-height:1.2; color:#4a524a;
+}
+.ms-caret{ margin-left:auto; font-size:12px; }
+
+/* dropdown panel sits right under trigger */
+.ms-panel{
+  position:absolute; left:0; right:0; margin-top:.3rem; z-index:120;
+  background:#fff; border:1px solid #e5e7eb; border-radius:12px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+  max-height:280px; overflow:auto; padding:.4rem;
+}
+.ms-row{ display:flex; align-items:center; gap:.5rem; padding:.45rem .5rem; border-radius:8px; }
+.ms-row:hover{ background:#f7f9f7; }
+.ms-icon{ width:18px; height:18px; border-radius:999px; }
+.ms-search{ width:100%; border:1px solid #d9ded9; border-radius:8px; padding:.4rem .6rem; color:#666d66; }
+  </style>
 
 </head>
 <body>
@@ -972,24 +996,22 @@
             <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="search=''">Clear</button>
           </div>
         
-          <!-- GRADE (popover checklist) -->
-          <div class="area-grade" x-data="filterMenu({
-                label: 'Grade',
-                modelValue: filters.levelTags,
-                options: gradeOptions,          // [{value:'G1',label:'Grade 1'}, ...]
-                searchable:false
-              })"
-              x-model="filters.levelTags">
+          <!-- GRADE (multi) -->
+          <div class="area-grade"
+               x-data="multiSelect({ placeholder:'Grade', modelValue: filters.levelTags, options: gradeOptions })"
+               x-model="filters.levelTags">
             <div class="relative">
-              <button type="button" class="filter-trigger" @click="open=!open" :aria-expanded="open">
-                <span x-text="pickedCount ? `${pickedCount} selected` : 'Grade'"></span>
-                <span class="text-sm">▾</span>
+              <button type="button" class="ms-trigger" @click="open = !open" :aria-expanded="open">
+                <div class="chips" x-show="value.length">
+                  <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
+                </div>
+                <span x-show="!value.length" x-text="placeholder"></span>
+                <span class="ms-caret">▾</span>
               </button>
-          
-              <div class="filter-menu" x-show="open" x-transition @click.outside="open=false">
+              <div class="ms-panel" x-show="open" x-transition @click.outside="open=false" @keydown.window="closeOnEscape($event)">
                 <template x-for="opt in shown" :key="opt.value">
-                  <label class="row cursor-pointer">
-                    <input type="checkbox" class="mr-1" :checked="isOn(opt.value)" @change="toggle(opt.value)">
+                  <label class="ms-row cursor-pointer">
+                    <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
                     <span x-text="opt.label"></span>
                   </label>
                 </template>
@@ -998,25 +1020,23 @@
             <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="clear()">Clear</button>
           </div>
         
-          <!-- SUBJECT (popover checklist) -->
-          <div class="area-subject" x-data="filterMenu({
-                label:'Subject',
-                modelValue: filters.subjects,
-                options: subjectList.map(s => ({ value:s, label:s })),
-                searchable:true
-              })"
-              x-model="filters.subjects">
+          <!-- SUBJECT (multi) -->
+          <div class="area-subject"
+               x-data="multiSelect({ placeholder:'Subject', modelValue: filters.subjects, options: subjectList.map(s=>({value:s,label:s})), searchable:true })"
+               x-model="filters.subjects">
             <div class="relative">
-              <button type="button" class="filter-trigger" @click="open=!open" :aria-expanded="open">
-                <span x-text="pickedCount ? `${pickedCount} selected` : 'Subject'"></span>
-                <span class="text-sm">▾</span>
+              <button type="button" class="ms-trigger" @click="open = !open" :aria-expanded="open">
+                <div class="chips" x-show="value.length">
+                  <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
+                </div>
+                <span x-show="!value.length" x-text="placeholder"></span>
+                <span class="ms-caret">▾</span>
               </button>
-          
-              <div class="filter-menu" x-show="open" x-transition @click.outside="open=false">
-                <div class="px-1 pb-1" x-show="searchable"><input type="search" placeholder="Search subjects…" x-model="q"></div>
+              <div class="ms-panel" x-show="open" x-transition @click.outside="open=false" @keydown.window="closeOnEscape($event)">
+                <div class="px-1 pb-1"><input class="ms-search" type="search" placeholder="Find a subject…" x-model="q"></div>
                 <template x-for="opt in shown" :key="opt.value">
-                  <label class="row cursor-pointer">
-                    <input type="checkbox" class="mr-1" :checked="isOn(opt.value)" @change="toggle(opt.value)">
+                  <label class="ms-row cursor-pointer">
+                    <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
                     <span x-text="opt.label"></span>
                   </label>
                 </template>
@@ -1025,25 +1045,27 @@
             <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="clear()">Clear</button>
           </div>
         
-          <!-- PLAN (popover checklist) -->
-          <div class="area-plan" x-data="filterMenu({
-                label:'Plan tags',
-                modelValue: filters.planUses,
-                options: [...useOptions.map(u => ({ value:u.value, label:u.label, icon:u.icon })), { value:'(none)', label:'Undecided' }],
-                searchable:false
-              })"
-              x-model="filters.planUses">
+          <!-- PLAN (multi) -->
+          <div class="area-plan"
+               x-data="multiSelect({
+                  placeholder:'Plan tags',
+                  modelValue: filters.planUses,
+                  options: [...useOptions.map(u => ({ value:u.value, label:u.label, icon:u.icon })), { value:'(none)', label:'Undecided' }]
+               })"
+               x-model="filters.planUses">
             <div class="relative">
-              <button type="button" class="filter-trigger" @click="open=!open" :aria-expanded="open">
-                <span x-text="pickedCount ? `${pickedCount} selected` : 'Plan tags'"></span>
-                <span class="text-sm">▾</span>
+              <button type="button" class="ms-trigger" @click="open = !open" :aria-expanded="open">
+                <div class="chips" x-show="value.length">
+                  <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
+                </div>
+                <span x-show="!value.length" x-text="placeholder"></span>
+                <span class="ms-caret">▾</span>
               </button>
-          
-              <div class="filter-menu" x-show="open" x-transition @click.outside="open=false">
+              <div class="ms-panel" x-show="open" x-transition @click.outside="open=false" @keydown.window="closeOnEscape($event)">
                 <template x-for="opt in shown" :key="opt.value">
-                  <label class="row cursor-pointer">
-                    <input type="checkbox" class="mr-1" :checked="isOn(opt.value)" @change="toggle(opt.value)">
-                    <template x-if="opt.icon"><img :src="opt.icon" :alt="opt.label"></template>
+                  <label class="ms-row cursor-pointer">
+                    <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
+                    <template x-if="opt.icon"><img class="ms-icon" :src="opt.icon" :alt="opt.label"></template>
                     <span x-text="opt.label"></span>
                   </label>
                 </template>
@@ -1518,32 +1540,36 @@
 
 <script>
 document.addEventListener('alpine:init', () => {
-  Alpine.data('filterMenu', (cfg = {}) => ({
-    // Two-way bindable value (array)
-    value: cfg.modelValue || [],
+  // Airtable-style multi-select with checkbox list and chips
+  Alpine.data('multiSelect', (cfg = {}) => ({
+    value: Array.isArray(cfg.modelValue) ? cfg.modelValue : [],
     ['x-modelable'](){ return 'value' },
 
     open: false,
-    label: cfg.label || 'Filter',
-    options: cfg.options || [],        // [{ value, label, icon? }]
+    placeholder: cfg.placeholder || 'Select…',
+    options: cfg.options || [],        // [{value, label, icon?}]
     searchable: cfg.searchable ?? false,
     q: '',
-
-    get pickedCount(){ return Array.isArray(this.value) ? this.value.length : 0; },
-    isOn(v){ return (this.value||[]).includes(v); },
-    toggle(v){
-      const cur = Array.isArray(this.value) ? this.value.slice() : [];
-      const i = cur.indexOf(v);
-      if (i >= 0) cur.splice(i,1); else cur.push(v);
-      this.value = cur;
-    },
-    clear(){ this.value = []; },
 
     get shown(){
       if (!this.searchable || !this.q) return this.options;
       const k = this.q.toLowerCase();
       return this.options.filter(o => (o.label||'').toLowerCase().includes(k));
-    }
+    },
+    get labelChips(){
+      // show up to 3 labels, then +n
+      const labels = this.options.filter(o => this.value.includes(o.value)).map(o => o.label);
+      if (labels.length <= 3) return labels;
+      return [...labels.slice(0,3), `+${labels.length-3}`];
+    },
+    toggle(v){
+      const set = new Set(this.value);
+      set.has(v) ? set.delete(v) : set.add(v);
+      this.value = Array.from(set);
+    },
+    clear(){ this.value = []; },
+    isOn(v){ return this.value.includes(v); },
+    closeOnEscape(e){ if (e.key === 'Escape') this.open = false; }
   }));
 });
 </script>
@@ -1577,8 +1603,8 @@ function planningApp(){
       G11:'Grade 11', G12:'Grade 12'
     }),
     get gradeOptions(){
-      // Use your existing levelList but turn it into {value,label}
-      return this.levelList.map(v => ({ value: v, label: this.gradeLabelMap[v] || v }));
+      // you already compute levelList (["G1","G2",...]); we just map it to labels
+      return this.levelList.map(v => ({ value:v, label: this.gradeLabelMap[v] || v }));
     },
     normalizeLevelTags(){
       // If someone had a single-select saved earlier, make sure it’s an array now
@@ -1693,61 +1719,46 @@ function planningApp(){
 
     /* ---------- computed ---------- */
     get filtered(){
-      const q = this.search.toLowerCase();
-    
-      const arrOrEmpty = (v) => Array.isArray(v) ? v : (v ? [v] : []);
-      const isEmpty = (x) => !x || (Array.isArray(x) && x.length === 0);
-    
-      const anyIntersect = (a, b) => {
+      const q = (this.search || '').toLowerCase();
+      const isEmpty = a => !a || (Array.isArray(a) && a.length === 0);
+      const anyIntersect = (a,b) => {
         if (!Array.isArray(a) || !Array.isArray(b) || !a.length || !b.length) return false;
-        const set = new Set(a);
-        return b.some(x => set.has(x));
+        const set = new Set(a); return b.some(x => set.has(x));
       };
     
+      const subjectsSel = this.filters.subjects || [];
+      const levelsSel   = this.filters.levelTags || [];
+      const plansSel    = this.filters.planUses  || [];
+    
       return this.courses.filter(c=>{
-        // TEXT
-        const matchesQ =
-          !q ||
-          [c.title, c.subject, c.summary, c.levelDisplay].join(' ').toLowerCase().includes(q);
+        // text
+        const matchesQ = !q || [c.title, c.subject, c.summary, c.levelDisplay].join(' ').toLowerCase().includes(q);
     
-        // SUBJECT (multi OR)
-        const matchesSubject =
-          isEmpty(this.filters.subjects) || this.filters.subjects.includes(c.subject);
+        // subject OR
+        const matchesSubject = isEmpty(subjectsSel) || subjectsSel.includes(c.subject);
     
-        // GRADE (multi OR; course can have many tags, we match if any overlap)
-        const matchesGrade =
-          isEmpty(this.filters.levelTags) || anyIntersect(this.filters.levelTags, c.levelTags || []);
+        // grade OR (course has c.levelTags)
+        const matchesGrade = isEmpty(levelsSel) || anyIntersect(levelsSel, c.levelTags || []);
     
-        // PLAN (multi OR across course OR any topic)
-        // Special case: "(none)" means no tags anywhere on the course or its topics
-        const selectedPlans = arrOrEmpty(this.filters.planUses);
+        // plan OR across course OR topics; "(none)" means no tags anywhere
         let matchesPlan = true;
-        if (!isEmpty(selectedPlans)) {
-          const courseUses = arrOrEmpty(this.plan[c.id]?.use);
-          const topicUsesArr = (c.topics || []).map(t => arrOrEmpty(this.plan[t.topic_id]?.use));
+        if (!isEmpty(plansSel)) {
+          const courseUses   = (this.plan[c.id]?.use) || [];
+          const topicUsesArr = (c.topics||[]).map(t => (this.plan[t.topic_id]?.use) || []);
           const anyTopicTagged = topicUsesArr.some(u => u.length);
-    
-          const hasAnySelectedTag =
-            selectedPlans.some(tag =>
-              courseUses.includes(tag) || topicUsesArr.some(u => u.includes(tag))
-            );
-    
-          const wantsNone = selectedPlans.includes('(none)');
+          const hasAnyChosen =
+            plansSel.some(tag => courseUses.includes(tag) || topicUsesArr.some(u => u.includes(tag)));
+          const wantsNone = plansSel.includes('(none)');
           const isNone = courseUses.length === 0 && !anyTopicTagged;
-    
-          // If the user chose "(none)" alongside real tags, treat it as an OR:
-          // match items that either have no tags OR have one of the chosen tags.
-          matchesPlan = wantsNone ? (isNone || hasAnySelectedTag) : hasAnySelectedTag;
+          matchesPlan = wantsNone ? (isNone || hasAnyChosen) : hasAnyChosen;
         }
     
-        // TOGGLES
-        const passPlanned =
-          !this.onlyPlanned ||
+        // your existing toggles
+        const passPlanned = !this.onlyPlanned ||
           (this.plan[c.id]?.use?.length) ||
           ((c.topics||[]).some(t => (this.plan[t.topic_id]?.use||[]).length));
     
-        const passChecked =
-          !this.onlyChecked || c.checked || (c.topics||[]).some(t=>t.checked);
+        const passChecked = !this.onlyChecked || c.checked || (c.topics||[]).some(t=>t.checked);
     
         return matchesQ && matchesSubject && matchesGrade && matchesPlan && passPlanned && passChecked;
       });
