@@ -1956,7 +1956,7 @@ function planningApp(){
       if (!Array.isArray(f.levelTags)) f.levelTags = [];
       if (!Array.isArray(f.planUses))  f.planUses  = [];
       this.filters = f;
-    }
+    },
 
     /* ---------- storage & sync ---------- */
     persistStep(){ localStorage.setItem('pf_step', String(this.step)); },
@@ -2117,7 +2117,7 @@ function planningApp(){
     
       // close any open multiSelect panels by broadcasting a click-outside
       this.$nextTick(() => this.measureBars && this.measureBars());
-    }
+    },
     clearAll(){
       this.courses.forEach(c=>{ c.checked=false; (c.topics||[]).forEach(t=>t.checked=false); });
       this.persistChecked();
@@ -2285,7 +2285,7 @@ function planningApp(){
         (Array.isArray(f.planUses)  && f.planUses.length) ||
         this.onlyPlanned || this.onlyChecked
       );
-    }
+    },
   
     // Called when user clicks "Preview & Print"
     async doPrint(){
