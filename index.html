@@ -1022,7 +1022,7 @@
         
           <!-- SUBJECT (multi) -->
           <div class="area-subject"
-               x-data="multiSelect({ placeholder:'Subject', modelValue: filters.subjects, options: subjectList.map(s=>({value:s,label:s})), searchable:true })"
+               x-data="multiSelect({ placeholder:'Subject', modelValue: filters.subjects, options: subjectList.map(s=>({value:s,label:s})) })"
                x-model="filters.subjects">
             <div class="relative">
               <button type="button" class="ms-trigger" @click="open = !open" :aria-expanded="open">
@@ -1950,6 +1950,13 @@ function planningApp(){
         alert('Could not refresh. See console for details.');
       }
     },
+    ensureArrayFilters(){
+      const f = this.filters || {};
+      if (!Array.isArray(f.subjects))  f.subjects  = [];
+      if (!Array.isArray(f.levelTags)) f.levelTags = [];
+      if (!Array.isArray(f.planUses))  f.planUses  = [];
+      this.filters = f;
+    }
 
     /* ---------- storage & sync ---------- */
     persistStep(){ localStorage.setItem('pf_step', String(this.step)); },
@@ -2103,12 +2110,14 @@ function planningApp(){
     },
     clearFilters(){
       this.search = '';
-      this.filters = { subject:'', levelTag:'', planUse:'' };
+      // reset the new multi-select model (arrays)
+      this.filters = { subjects: [], levelTags: [], planUses: [] };
       this.onlyPlanned = false;
       this.onlyChecked = false;
-      // keep sticky offsets precise after the layout shifts
-      this.$nextTick(() => this.measureBars());
-    },
+    
+      // close any open multiSelect panels by broadcasting a click-outside
+      this.$nextTick(() => this.measureBars && this.measureBars());
+    }
     clearAll(){
       this.courses.forEach(c=>{ c.checked=false; (c.topics||[]).forEach(t=>t.checked=false); });
       this.persistChecked();
@@ -2127,6 +2136,11 @@ function planningApp(){
       await this.loadDualCSVs();
       this.restoreChecked();
       this.loadPlan();
+      
+      if (!Array.isArray(this.filters?.subjects))  this.filters.subjects  = [];
+      if (!Array.isArray(this.filters?.levelTags)) this.filters.levelTags = [];
+      if (!Array.isArray(this.filters?.planUses))  this.filters.planUses  = [];
+      
       this.$nextTick(()=> {
         this.measureBars();
         // ensure initial open/closed state matches the checkbox
@@ -2179,9 +2193,12 @@ function planningApp(){
     // Build the data snapshot that the print view will render
     buildPrintGroups(){
       // Consider these as "active filters" for printing
+      const f = this.filters || {};
       const hasFilters = !!(
         (this.search && this.search.trim()) ||
-        this.filters.subject || this.filters.levelTag || this.filters.planUse ||
+        (Array.isArray(f.subjects)  && f.subjects.length) ||
+        (Array.isArray(f.levelTags) && f.levelTags.length) ||
+        (Array.isArray(f.planUses)  && f.planUses.length) ||
         this.onlyPlanned || this.onlyChecked
       );
     
@@ -2260,12 +2277,15 @@ function planningApp(){
       this.$nextTick(()=> this.measureBars());
     },
     hasActiveFilters(){
+      const f = this.filters || {};
       return !!(
         (this.search && this.search.trim()) ||
-        this.filters.subject || this.filters.levelTag || this.filters.planUse ||
+        (Array.isArray(f.subjects)  && f.subjects.length) ||
+        (Array.isArray(f.levelTags) && f.levelTags.length) ||
+        (Array.isArray(f.planUses)  && f.planUses.length) ||
         this.onlyPlanned || this.onlyChecked
       );
-    },
+    }
   
     // Called when user clicks "Preview & Print"
     async doPrint(){
