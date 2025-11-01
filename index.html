@@ -1544,6 +1544,7 @@ document.addEventListener('alpine:init', () => {
   Alpine.data('multiSelect', (cfg = {}) => ({
     value: Array.isArray(cfg.modelValue) ? cfg.modelValue : [],
     ['x-modelable'](){ return 'value' },
+    init(){ this.$dispatch('input', this.value); },
 
     open: false,
     placeholder: cfg.placeholder || 'Select…',
@@ -1566,8 +1567,12 @@ document.addEventListener('alpine:init', () => {
       const set = new Set(this.value);
       set.has(v) ? set.delete(v) : set.add(v);
       this.value = Array.from(set);
+      this.$dispatch('input', this.value);   // force two-way sync to parent x-model
     },
-    clear(){ this.value = []; },
+    clear(){
+      this.value = [];
+      this.$dispatch('input', this.value);   // force two-way sync to parent x-model
+    },
     isOn(v){ return this.value.includes(v); },
     closeOnEscape(e){ if (e.key === 'Escape') this.open = false; }
   }));
@@ -1719,6 +1724,7 @@ function planningApp(){
 
     /* ---------- computed ---------- */
     get filtered(){
+      this.ensureArrayFilters && this.ensureArrayFilters();
       const q = (this.search || '').toLowerCase();
       const isEmpty = a => !a || (Array.isArray(a) && a.length === 0);
       const anyIntersect = (a,b) => {
@@ -1737,8 +1743,11 @@ function planningApp(){
         // subject OR
         const matchesSubject = isEmpty(subjectsSel) || subjectsSel.includes(c.subject);
     
-        // grade OR (course has c.levelTags)
-        const matchesGrade = isEmpty(levelsSel) || anyIntersect(levelsSel, c.levelTags || []);
+        // grade OR — course OR ANY topic may carry grade tags
+        const courseTags = c.levelTags || [];
+        const topicTags  = (c.topics || []).flatMap(t => t.levelTags || []);
+        const allTags    = [...new Set([...courseTags, ...topicTags])];
+        const matchesGrade = isEmpty(levelsSel) || anyIntersect(levelsSel, allTags);
     
         // plan OR across course OR topics; "(none)" means no tags anywhere
         let matchesPlan = true;
