@@ -1743,11 +1743,8 @@ function planningApp(){
         // subject OR
         const matchesSubject = isEmpty(subjectsSel) || subjectsSel.includes(c.subject);
     
-        // grade OR — course OR ANY topic may carry grade tags
-        const courseTags = c.levelTags || [];
-        const topicTags  = (c.topics || []).flatMap(t => t.levelTags || []);
-        const allTags    = [...new Set([...courseTags, ...topicTags])];
-        const matchesGrade = isEmpty(levelsSel) || anyIntersect(levelsSel, allTags);
+        // grade filter should match the COURSE only (topics follow the course)
+        const matchesGrade = isEmpty(levelsSel) || anyIntersect(levelsSel, c.levelTags || []);
     
         // plan OR across course OR topics; "(none)" means no tags anywhere
         let matchesPlan = true;
