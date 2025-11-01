@@ -895,6 +895,18 @@
 .ms-row:hover{ background:#f7f9f7; }
 .ms-icon{ width:18px; height:18px; border-radius:999px; }
 .ms-search{ width:100%; border:1px solid #d9ded9; border-radius:8px; padding:.4rem .6rem; color:#666d66; }
+/* pill switch */
+.switch {
+  position: relative; display:inline-flex; align-items:center; cursor:pointer;
+  width: 44px; height: 24px; border-radius: 999px; background:#d9ded9;
+  transition: background .18s ease;
+}
+.switch.on { background:#596e5e; }         /* your green-dark */
+.switch .knob {
+  position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:999px;
+  background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.2); transition:left .18s ease;
+}
+.switch.on .knob { left: 23px; }
   </style>
 
 </head>
@@ -1078,17 +1090,33 @@
         <!-- BOTTOM ROW -->
         <div class="mt-2 flex flex-wrap items-center gap-3">
       
-          <label class="chk">
-            <input type="checkbox" x-model="onlyChecked" />
-            <span>Only selected</span>
-          </label>
+          <!-- Show descriptions & tips -->
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-[#666d66]">Descriptions &amp; tips</span>
+            <button type="button"
+                    class="switch"
+                    :class="showAllTips ? 'on' : ''"
+                    @click="toggleTips()"
+                    :aria-pressed="showAllTips"
+                    :aria-label="showAllTips ? 'Hide descriptions & tips' : 'Show descriptions & tips'">
+              <span class="knob"></span>
+            </button>
+            <span class="text-xs" x-text="showAllTips ? 'On' : 'Off'"></span>
+          </div>
 
-          <label class="chk mr-3">
-            <input type="checkbox"
-                   x-model="showAllTips"
-                   @change="toggleAllTips(!showAllTips)">
-            <span>Close all descriptions &amp; tips</span>
-          </label>
+          <!-- Show only selected -->
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-[#666d66]">Only selected</span>
+            <button type="button"
+                    class="switch"
+                    :class="onlyChecked ? 'on' : ''"
+                    @click="onlyChecked = !onlyChecked"
+                    :aria-pressed="onlyChecked"
+                    :aria-label="onlyChecked ? 'Show all' : 'Show only selected'">
+              <span class="knob"></span>
+            </button>
+            <span class="text-xs" x-text="onlyChecked ? 'On' : 'Off'"></span>
+          </div>
       
           <div class="ml-auto flex items-center gap-2">
             <button type="button" class="btn btn-ghost rounded-xl" @click="clearAll()">Clear selected</button>
@@ -2154,6 +2182,26 @@ function planningApp(){
       });
       this.$nextTick(()=> this.measureBars());
       window.addEventListener('resize', () => this.measureBars());
+
+      this.applyTipsState();
+    },
+    // --- NEW/ensure these exist in state ---
+    showAllTips: true,     // when true: descriptions & tips are OPEN
+    onlyChecked: false,    // your existing flag for "Show only selected"
+    
+    // --- Add or replace this helper ---
+    applyTipsState(){
+      const open = !!this.showAllTips;
+      (this.courses || []).forEach(c => {
+        c.infoOpen = open;
+        (c.topics || []).forEach(t => t.infoOpen = open);
+      });
+    },
+    
+    // --- OPTIONAL: keep a single toggle method for the switch ---
+    toggleTips(){
+      this.showAllTips = !this.showAllTips;
+      this.applyTipsState();
     },
     
     /* ---------- PRINT STATE ------------ */
