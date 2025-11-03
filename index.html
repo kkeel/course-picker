@@ -1622,7 +1622,17 @@ document.addEventListener('alpine:init', () => {
   Alpine.data('multiSelect', (cfg = {}) => ({
     value: Array.isArray(cfg.modelValue) ? cfg.modelValue : [],
     ['x-modelable'](){ return 'value' },
-    init(){ this.$dispatch('input', this.value); },
+    init(){
+      // keep two-way binding in sync on mount
+      this.$dispatch('input', this.value);
+    
+      // listen for a global "clear all filters" event
+      window.addEventListener('ms:clear', this._msClear = () => {
+        this.clear();          // empties selection/chips
+        this.open = false;     // closes the dropdown panel if it’s open
+        this.q = '';           // clears any search text inside the panel
+      });
+    },
 
     open: false,
     placeholder: cfg.placeholder || 'Select…',
@@ -2203,6 +2213,10 @@ function planningApp(){
     // "Clear filters" button – just resets filters (keeps selections/plan)
     clearFilters(){
       this.resetFilters();
+    
+      // tell all multiSelects + the subject search to visually clear & close
+      window.dispatchEvent(new CustomEvent('ms:clear'));
+    
       this.$nextTick(() => this.measureBars && this.measureBars());
     },
     
