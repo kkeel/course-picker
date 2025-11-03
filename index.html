@@ -372,543 +372,578 @@
     .no-print.sticky{ z-index:20; }                     /* keep below modal */
     .group-block{ position:relative; overflow:visible; }
   
-/* ===== PATCH START: subject headers, filter strip, label uniformity ===== */
-
-/* SUBJECT HEADERS (sticky #3) */
-.subject-sticky{
-  position: sticky;
-  top: calc(var(--mini-steps-h) + var(--printbar-h));
-  z-index: 35;
-  background: var(--brand-bg);
-  padding-bottom: 12px;
-  margin-bottom: 12px;
-  border-bottom: 0;
-}
-.subject-sticky::after{
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 3px;
-  background: #cdb4a6;
-}
-
-/* Subject heading typography */
-.subject-inner{
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  color: #262b26;
-  font-family: "Crimson Text", serif;
-  font-weight: 700;
-  font-size: 1.75rem;
-  line-height: 1.1;
-}
-@media (min-width: 768px){
-  .subject-inner{ font-size: 1.9rem; }
-}
-
-/* Ensure first course never shaves the underline */
-.group-block .course-row:first-of-type{ margin-top: .5rem; }
-
-/* Compact filter strip inside print bar */
-.filter-strip{
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: .5rem;
-  align-items: center;
-  font-size: .9rem;
-}
-.filter-strip > *{ min-width: 0; }
-
-/* Input + dropdowns */
-.filter-strip .mini{
-  width: 100%;
-  height: 30px;
-  padding: .25rem .55rem;
-  border: 1px solid #d9ded9;
-  border-radius: .6rem;
-  background: #fff;
-  color: #666d66;
-}
-.filter-strip .mini::placeholder,
-.filter-strip .mini option{ color:#666d66; }
-
-/* Pair: Subject + Plan always together and balanced */
-.filter-strip .pair{
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: .5rem;
-  grid-column: 1 / -1; /* span all 4 cols */
-}
-
-/* Responsive: two columns on narrow screens (2x2) */
-@media (max-width: 950px){
-  .filter-strip{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-/* Checkbox text + selected count uniformity */
-.filter-strip .chk{
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
-  font-size: .9rem;
-  color: #666d66;
-}
-.filter-strip .chk input{ width:16px; height:16px; }
-.filter-strip .chk span,
-.text-gray-600 strong{
-  color: #666d66;
-  font-size: .9rem;
-  font-weight: 500;
-}
-
-/* ===== PATCH END ===== */
-
-/* ==== OVERRIDES (added by assistant) =================================== */
-
-/* Filter layout: 4 across on wide; otherwise 2x2 with Search+Grade / Subject+Plan */
-.filter-strip{
-  display:grid;
-  gap:.5rem;
-  align-items:center;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  grid-template-areas:
-    "search grade"
-    "subject plan";
-  font-size:.9rem;
-}
-@media (min-width:1024px){
-  .filter-strip{
-    grid-template-columns: repeat(4, minmax(0,1fr));
-    grid-template-areas: "search grade subject plan";
-  }
-}
-.area-search{ grid-area: search; }
-.area-grade{  grid-area: grade; }
-.area-subject{grid-area: subject; }
-.area-plan{   grid-area: plan; }
-
-/* Let the .pair wrapper not interfere with grid placement */
-.filter-strip .pair{ display: contents; }
-
-/* Inputs / selects tone */
-.filter-strip .mini,
-.filter-strip .mini::placeholder,
-.filter-strip .mini option{ color:#666d66; }
-
-/* Uniform label + selected count */
-:root{ --filter-label:#666d66; }
-.filter-strip .chk{
-  display:inline-flex; align-items:center; gap:.35rem;
-  font-size:.9rem; color:var(--filter-label);
-}
-.filter-strip .chk span,
-.selected-count, .selected-count strong{
-  color:var(--filter-label);
-  font-size:.9rem; font-weight:500;
-}
-
-/* Subject header spacing + per-subject underline color */
-.subject-sticky{
-  position:sticky;
-  top:calc(var(--mini-steps-h) + var(--printbar-h));
-  z-index:35;
-  background:var(--brand-bg);
-  padding-bottom:4px;   /* tighter gap above the line */
-  margin-bottom:8px;    /* space below the line before cards */
-  border-bottom:0;
-}
-.subject-sticky::after{
-  content:"";
-  position:absolute; left:0; right:0; bottom:0;
-  height:2px;
-  background: var(--subject-color, #cdb4a6);
-}
-.group-block .course-row:first-of-type{ margin-top:.5rem; }  /* keep line visible */
-
-/* ======================================================================= */
-
-/* ==== FINAL OVERRIDES (enforce 2 tidy rows + uniform labels + subject header) ==== */
-
-/* Filter layout: always 2 rows on small screens (Search+Grade / Subject+Plan);
-   becomes 4 across on >= 1024px */
-.filter-strip{
-  display:grid !important;
-  gap:.5rem !important;
-  align-items:center !important;
-  grid-template-columns: repeat(2, minmax(0,1fr)) !important;
-  grid-template-areas:
-    "search grade"
-    "subject plan" !important;
-  font-size:.9rem !important;
-}
-@media (min-width:1024px){
-  .filter-strip{
-    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
-    grid-template-areas: "search grade subject plan" !important;
-  }
-}
-.area-search{ grid-area: search !important; }
-.area-grade{  grid-area: grade  !important; }
-.area-subject{grid-area: subject !important; }
-.area-plan{   grid-area: plan    !important; }
-.filter-strip .pair{ display: contents !important; }
-
-/* Controls text tone */
-.filter-strip .mini,
-.filter-strip .mini::placeholder,
-.filter-strip .mini option{ color:#666d66 !important; }
-
-/* Uniform labels + selected count */
-:root{ --filter-label:#666d66; }
-.filter-strip .chk{
-  display:inline-flex; align-items:center; gap:.35rem;
-  font-size:.9rem !important; color:var(--filter-label) !important;
-}
-.filter-strip .chk input{ width:16px; height:16px; }
-.filter-strip .chk span,
-.selected-count,
-.selected-count strong{
-  color:var(--filter-label) !important;
-  font-size:.9rem !important;
-  font-weight:500 !important;
-}
-
-/* Subject headers: mirror print view (spacing + underline weight + color) */
-.subject-sticky{
-  position:sticky;
-  top:calc(var(--mini-steps-h) + var(--printbar-h));
-  z-index:35;
-  background:var(--brand-bg);
-  padding-bottom:4px !important;
-  margin:18px 0 8px !important;
-  border-bottom:0;
-}
-.subject-sticky::after{
-  content:""; position:absolute; left:0; right:0; bottom:0;
-  height:4px !important;
-  background: var(--subject-color, #dcded6) !important;
-}
-.subject-inner{
-  font-family:"Crimson Text", serif !important;
-  font-weight:700 !important;
-  font-size:1.9rem !important;
-  line-height:1.1 !important;
-  color:#262b26 !important;
-  display:flex; align-items:center; gap:.5rem;
-}
-.group-block .course-row:first-of-type{ margin-top:.6rem !important; }
-
-/* ========================================================================= */
-
-/* === FINAL, SINGLE SOURCE OF TRUTH FOR FILTER STRIP + LABELS === */
-:root{ --filter-label:#666d66; }
-
-/* Layout: only 2x2 (search+grade / subject+plan) or 4-across on >=1024px */
-.filter-strip{ 
-  display:grid !important; gap:.5rem !important; align-items:center !important;
-  grid-template-columns:repeat(2, minmax(0,1fr)) !important;
-  grid-template-areas:
-    "search grade"
-    "subject plan" !important;
-}
-@media (min-width:1024px){
-  .filter-strip{
-    grid-template-columns:repeat(4, minmax(0,1fr)) !important;
-    grid-template-areas:"search grade subject plan" !important;
-  }
-}
-.area-search{ grid-area:search !important; }
-.area-grade{ grid-area:grade !important; }
-.area-subject{ grid-area:subject !important; }
-.area-plan{ grid-area:plan !important; }
-.filter-strip .pair{ display:contents !important; }
-
-/* Controls visual tone */
-.filter-strip .mini,
-.filter-strip .mini::placeholder,
-.filter-strip .mini option{ color:#666d66 !important; }
-
-/* Uniform labels (checkbox text) + selected count — works inside OR outside .filter-strip */
-.chk{ display:inline-flex; align-items:center; gap:.35rem; }
-.chk span, .selected-count, .selected-count strong{
-  color:var(--filter-label) !important;
-  font-size:.9rem !important;
-  font-weight:500 !important;
-}
-
-/* Subject headers — match print view */
-.subject-inner{
-  font-family:"Crimson Text",serif !important; font-weight:700 !important;
-  font-size:1.9rem !important; line-height:1.1 !important; color:#262b26 !important;
-}
-.subject-sticky{
-  position:sticky; top:calc(var(--mini-steps-h) + var(--printbar-h));
-  z-index:35; background:var(--brand-bg);
-  padding-bottom:4px !important; margin:18px 0 8px !important; border-bottom:0 !important;
-}
-.subject-sticky::after{
-  content:""; position:absolute; left:0; right:0; bottom:0;
-  height:4px !important; background:var(--subject-color,#dcded6) !important;
-}
-.group-block .course-row:first-of-type{ margin-top:.6rem !important; }
-
-/* === FINAL LAYOUT + LABEL TONE (safe override) === */
-:root { --filter-label: #666d66; }
-
-/* Layout: 2 rows on narrow (Search|Grade / Subject|Plan), 4-across ≥1024px */
-.filter-strip{
-  display: grid !important;
-  gap: .5rem !important;
-  align-items: center !important;
-  grid-template-columns: repeat(2, minmax(0,1fr)) !important;
-  grid-template-areas:
-    "search grade"
-    "subject plan" !important;
-}
-@media (min-width: 1024px){
-  .filter-strip{
-    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
-    grid-template-areas: "search grade subject plan" !important;
-  }
-}
-
-/* Place each control in its area; let the wrapper not interfere */
-.area-search  { grid-area: search  !important; }
-.area-grade   { grid-area: grade   !important; }
-.area-subject { grid-area: subject !important; }
-.area-plan    { grid-area: plan    !important; }
-.filter-strip .pair { display: contents !important; }
-
-/* Control text tone to #666d66 */
-.filter-strip .mini,
-.filter-strip .mini::placeholder,
-.filter-strip .mini option { color: #666d66 !important; }
-
-/* Checkbox labels + selected count unified */
-.chk { display: inline-flex; align-items: center; gap: .35rem; }
-.chk span,
-.selected-count,
-.selected-count strong {
-  color: var(--filter-label) !important;
-  font-size: .9rem !important;
-  font-weight: 500 !important;
-}
-/* === TYPE SYSTEM & COLORS (courses > topics > other) === */
-:root { --ink: #262b26; }
-
-.course-band .band-title{
-  font-family: 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
-  font-weight: 700;
-  font-size: 1.15rem;              /* Courses = largest */
-  line-height: 1.2;
-  color: #fff;                      /* Courses in white */
-}
-@media (min-width:768px){
-  .course-band .band-title{ font-size: 1.25rem; }
-}
-
-.topic-title{
-  font-family: 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 700;
-  font-size: 1rem;                  /* Topics = medium */
-  line-height: 1.2;
-  color: var(--ink);                /* All non-course text in #262b26 */
-}
-
-.text-[0.8rem], .topic-schedule,
-.acc-info, .topic-acc-info,
-.accordion, .note-area textarea{
-  color: var(--ink);
-}
-
-/* Slightly quieter schedules */
-.text-[0.8rem], .topic-schedule{ opacity:.9; }
-
-/* === TWO-COLUMN INFO LAYOUT (Course & Topic info trays) === */
-.acc-info, .topic-acc-info{
-  background: #fff;
-  border-top: 1px solid #e5e7eb;
-  padding: 16px;
-  border-radius: .5rem;
-}
-
-.info-grid{
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;   /* two columns */
-  gap: 1rem 1.25rem;
-}
-@media (max-width:820px){
-  .info-grid{ grid-template-columns: 1fr; }  /* stack on narrow */
-}
-
-/* faint vertical divider */
-.info-grid::before{
-  content:"";
-  position:absolute;
-  top:0; bottom:0;
-  left:50%; transform:translateX(-.5px);
-  width:1px; background:#e7ebe8; opacity:.6;
-}
-@media (max-width:820px){ .info-grid::before{ display:none; } }
-
-.info-col h4{
-  margin:0 0 .25rem;
-  font: 700 .95rem/1.25 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color: var(--ink);
-}
-.info-col .copy{
-  font-size: .95rem;                /* Other info = smallest */
-  line-height: 1.55;
-  color: var(--ink);
-}
-
-/* Make sure any legacy Crimson styles on titles don’t win */
-.band-title, .pv-title { font-family: 'DM Sans', sans-serif !important; }
-/* === UNIFIED SMALLER TYPE SCALE (screen + print) === */
-.course-band .band-title{
-  font-size: .9rem;      /* Courses — smaller */
-  line-height: 1.15;
-}
-@media (min-width:768px){
-  .course-band .band-title{ font-size: 1rem; }
-}
-
-.topic-title{
-  font-size: .82rem;     /* Topics — slightly smaller again */
-  line-height: 1.2;
-}
-
-.text-[0.8rem], .topic-schedule{
-  font-size: .7rem;      /* Schedules — condensed */
-  line-height: 1.25;
-}
-
-.info-col h4{
-  font: 700 .82rem/1.2 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-}
-.info-col .copy{
-  font-size: .82rem;
-  line-height: 1.45;
-}
-
-/* Print view sizing to match on-screen scale */
-@media print{
-  .pv-subject{
-    font-size: 18px !important;
-    line-height: 1.1 !important;
-  }
-  .pv-title{
-    font-size: 13px !important;
-    line-height: 1.25 !important;
-  }
-  .pv-schedule{
-    font-size: 9.5px !important;
-    line-height: 1.25 !important;
-  }
-  .pv-copy.small, .pv-note p{
-    font-size: 9.5px !important;
-    line-height: 1.4 !important;
-  }
-  label, .pv-info label, .pv-note label{
-    font-size: 9.5px !important;
-  }
-}
-/* --- Topic title a bit larger (still < course) --- */
-.topic-title{
-  font-size: .98rem;        /* was .95rem */
-  line-height: 1.2;
-}
-
-/* --- Stronger topic info separator (only when topic info tray is open) --- */
-.topic-acc-info{
-  border-top: 2px solid #adb58f;   /* was 1px #e5e7eb */
-}
-.print-modal h3 {
-  font-weight: 700;
-  color: var(--green-dark);
-  font-size: 1.05rem;
-  margin-bottom: 0.5rem;
-}
-.print-modal label {
-  font-size: 0.95rem;
-  color: #262b26;
-}
-.print-modal .print-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.75rem;
-}
-/* === Keep topic info toggle light even when active === */
-.topic-icon {
-  background: #dee1d2 !important;    /* light green-gray base */
-  color: #262b26;
-  padding: .25rem .4rem;
-  border-radius: .45rem;
-  font-size: .75rem;
-  line-height: 1;
-  transition: background .15s ease;
-}
-.topic-icon:hover {
-  filter: brightness(.97);
-}
-/* prevent darker color on toggle */
-.topic-icon[aria-expanded="true"] {
-  background: #dee1d2 !important;
-  filter: none !important;
-}
-/* More inner padding for the print dialog */
-.print-modal{
-  padding: 24px 28px !important;   /* was 16px 18px */
-}
-
-/* Nice section rhythm (optional but tidy) */
-.print-modal h3{ margin-bottom: .75rem !important; }
-.print-modal .border-b{ margin-top: .75rem !important; }
-.print-modal .print-actions{ margin-top: 1rem !important; padding-top: .75rem !important; }
-/* trigger matches your mini input look */
-.ms-trigger{
-  display:flex; align-items:center; gap:.5rem; width:100%;
-  min-height:38px; padding:6px 10px; border:1px solid #d9ded9; border-radius:12px;
-  background:#fff; color:#666d66;
-}
-.ms-trigger .chips{ display:flex; gap:.35rem; flex-wrap:wrap; }
-.ms-chip{
-  display:inline-flex; align-items:center; padding:2px 8px; border-radius:999px;
-  background:#f3f5f3; font-size:12px; line-height:1.2; color:#4a524a;
-}
-.ms-caret{ margin-left:auto; font-size:12px; }
-
-/* dropdown panel sits right under trigger */
-.ms-panel{
-  position:absolute; left:0; right:0; margin-top:.3rem; z-index:120;
-  background:#fff; border:1px solid #e5e7eb; border-radius:12px;
-  box-shadow:0 8px 24px rgba(0,0,0,.08);
-  max-height:280px; overflow:auto; padding:.4rem;
-}
-.ms-row{ display:flex; align-items:center; gap:.5rem; padding:.45rem .5rem; border-radius:8px; }
-.ms-row:hover{ background:#f7f9f7; }
-.ms-icon{ width:18px; height:18px; border-radius:999px; }
-.ms-search{ width:100%; border:1px solid #d9ded9; border-radius:8px; padding:.4rem .6rem; color:#666d66; }
-/* pill switch */
-.switch {
-  position: relative; display:inline-flex; align-items:center; cursor:pointer;
-  width: 44px; height: 24px; border-radius: 999px; background:#d9ded9;
-  transition: background .18s ease;
-}
-.switch.on { background:#596e5e; }         /* your green-dark */
-.switch .knob {
-  position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:999px;
-  background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.2); transition:left .18s ease;
-}
-.switch.on .knob { left: 23px; }
+    /* ===== PATCH START: subject headers, filter strip, label uniformity ===== */
+    
+    /* SUBJECT HEADERS (sticky #3) */
+    .subject-sticky{
+      position: sticky;
+      top: calc(var(--mini-steps-h) + var(--printbar-h));
+      z-index: 35;
+      background: var(--brand-bg);
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+      border-bottom: 0;
+    }
+    .subject-sticky::after{
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 3px;
+      background: #cdb4a6;
+    }
+    
+    /* Subject heading typography */
+    .subject-inner{
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      color: #262b26;
+      font-family: "Crimson Text", serif;
+      font-weight: 700;
+      font-size: 1.75rem;
+      line-height: 1.1;
+    }
+    @media (min-width: 768px){
+      .subject-inner{ font-size: 1.9rem; }
+    }
+    
+    /* Ensure first course never shaves the underline */
+    .group-block .course-row:first-of-type{ margin-top: .5rem; }
+    
+    /* Compact filter strip inside print bar */
+    .filter-strip{
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: .5rem;
+      align-items: center;
+      font-size: .9rem;
+    }
+    .filter-strip > *{ min-width: 0; }
+    
+    /* Input + dropdowns */
+    .filter-strip .mini{
+      width: 100%;
+      height: 30px;
+      padding: .25rem .55rem;
+      border: 1px solid #d9ded9;
+      border-radius: .6rem;
+      background: #fff;
+      color: #666d66;
+    }
+    .filter-strip .mini::placeholder,
+    .filter-strip .mini option{ color:#666d66; }
+    
+    /* Pair: Subject + Plan always together and balanced */
+    .filter-strip .pair{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .5rem;
+      grid-column: 1 / -1; /* span all 4 cols */
+    }
+    
+    /* Responsive: two columns on narrow screens (2x2) */
+    @media (max-width: 950px){
+      .filter-strip{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    
+    /* Checkbox text + selected count uniformity */
+    .filter-strip .chk{
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      font-size: .9rem;
+      color: #666d66;
+    }
+    .filter-strip .chk input{ width:16px; height:16px; }
+    .filter-strip .chk span,
+    .text-gray-600 strong{
+      color: #666d66;
+      font-size: .9rem;
+      font-weight: 500;
+    }
+    
+    /* ===== PATCH END ===== */
+    
+    /* ==== OVERRIDES (added by assistant) =================================== */
+    
+    /* Filter layout: 4 across on wide; otherwise 2x2 with Search+Grade / Subject+Plan */
+    .filter-strip{
+      display:grid;
+      gap:.5rem;
+      align-items:center;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      grid-template-areas:
+        "search grade"
+        "subject plan";
+      font-size:.9rem;
+    }
+    @media (min-width:1024px){
+      .filter-strip{
+        grid-template-columns: repeat(4, minmax(0,1fr));
+        grid-template-areas: "search grade subject plan";
+      }
+    }
+    .area-search{ grid-area: search; }
+    .area-grade{  grid-area: grade; }
+    .area-subject{grid-area: subject; }
+    .area-plan{   grid-area: plan; }
+    
+    /* Let the .pair wrapper not interfere with grid placement */
+    .filter-strip .pair{ display: contents; }
+    
+    /* Inputs / selects tone */
+    .filter-strip .mini,
+    .filter-strip .mini::placeholder,
+    .filter-strip .mini option{ color:#666d66; }
+    
+    /* Uniform label + selected count */
+    :root{ --filter-label:#666d66; }
+    .filter-strip .chk{
+      display:inline-flex; align-items:center; gap:.35rem;
+      font-size:.9rem; color:var(--filter-label);
+    }
+    .filter-strip .chk span,
+    .selected-count, .selected-count strong{
+      color:var(--filter-label);
+      font-size:.9rem; font-weight:500;
+    }
+    
+    /* Subject header spacing + per-subject underline color */
+    .subject-sticky{
+      position:sticky;
+      top:calc(var(--mini-steps-h) + var(--printbar-h));
+      z-index:35;
+      background:var(--brand-bg);
+      padding-bottom:4px;   /* tighter gap above the line */
+      margin-bottom:8px;    /* space below the line before cards */
+      border-bottom:0;
+    }
+    .subject-sticky::after{
+      content:"";
+      position:absolute; left:0; right:0; bottom:0;
+      height:2px;
+      background: var(--subject-color, #cdb4a6);
+    }
+    .group-block .course-row:first-of-type{ margin-top:.5rem; }  /* keep line visible */
+    
+    /* ======================================================================= */
+    
+    /* ==== FINAL OVERRIDES (enforce 2 tidy rows + uniform labels + subject header) ==== */
+    
+    /* Filter layout: always 2 rows on small screens (Search+Grade / Subject+Plan);
+       becomes 4 across on >= 1024px */
+    .filter-strip{
+      display:grid !important;
+      gap:.5rem !important;
+      align-items:center !important;
+      grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+      grid-template-areas:
+        "search grade"
+        "subject plan" !important;
+      font-size:.9rem !important;
+    }
+    @media (min-width:1024px){
+      .filter-strip{
+        grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+        grid-template-areas: "search grade subject plan" !important;
+      }
+    }
+    .area-search{ grid-area: search !important; }
+    .area-grade{  grid-area: grade  !important; }
+    .area-subject{grid-area: subject !important; }
+    .area-plan{   grid-area: plan    !important; }
+    .filter-strip .pair{ display: contents !important; }
+    
+    /* Controls text tone */
+    .filter-strip .mini,
+    .filter-strip .mini::placeholder,
+    .filter-strip .mini option{ color:#666d66 !important; }
+    
+    /* Uniform labels + selected count */
+    :root{ --filter-label:#666d66; }
+    .filter-strip .chk{
+      display:inline-flex; align-items:center; gap:.35rem;
+      font-size:.9rem !important; color:var(--filter-label) !important;
+    }
+    .filter-strip .chk input{ width:16px; height:16px; }
+    .filter-strip .chk span,
+    .selected-count,
+    .selected-count strong{
+      color:var(--filter-label) !important;
+      font-size:.9rem !important;
+      font-weight:500 !important;
+    }
+    
+    /* Subject headers: mirror print view (spacing + underline weight + color) */
+    .subject-sticky{
+      position:sticky;
+      top:calc(var(--mini-steps-h) + var(--printbar-h));
+      z-index:35;
+      background:var(--brand-bg);
+      padding-bottom:4px !important;
+      margin:18px 0 8px !important;
+      border-bottom:0;
+    }
+    .subject-sticky::after{
+      content:""; position:absolute; left:0; right:0; bottom:0;
+      height:4px !important;
+      background: var(--subject-color, #dcded6) !important;
+    }
+    .subject-inner{
+      font-family:"Crimson Text", serif !important;
+      font-weight:700 !important;
+      font-size:1.9rem !important;
+      line-height:1.1 !important;
+      color:#262b26 !important;
+      display:flex; align-items:center; gap:.5rem;
+    }
+    .group-block .course-row:first-of-type{ margin-top:.6rem !important; }
+    
+    /* ========================================================================= */
+    
+    /* === FINAL, SINGLE SOURCE OF TRUTH FOR FILTER STRIP + LABELS === */
+    :root{ --filter-label:#666d66; }
+    
+    /* Layout: only 2x2 (search+grade / subject+plan) or 4-across on >=1024px */
+    .filter-strip{ 
+      display:grid !important; gap:.5rem !important; align-items:center !important;
+      grid-template-columns:repeat(2, minmax(0,1fr)) !important;
+      grid-template-areas:
+        "search grade"
+        "subject plan" !important;
+    }
+    @media (min-width:1024px){
+      .filter-strip{
+        grid-template-columns:repeat(4, minmax(0,1fr)) !important;
+        grid-template-areas:"search grade subject plan" !important;
+      }
+    }
+    .area-search{ grid-area:search !important; }
+    .area-grade{ grid-area:grade !important; }
+    .area-subject{ grid-area:subject !important; }
+    .area-plan{ grid-area:plan !important; }
+    .filter-strip .pair{ display:contents !important; }
+    
+    /* Controls visual tone */
+    .filter-strip .mini,
+    .filter-strip .mini::placeholder,
+    .filter-strip .mini option{ color:#666d66 !important; }
+    
+    /* Uniform labels (checkbox text) + selected count — works inside OR outside .filter-strip */
+    .chk{ display:inline-flex; align-items:center; gap:.35rem; }
+    .chk span, .selected-count, .selected-count strong{
+      color:var(--filter-label) !important;
+      font-size:.9rem !important;
+      font-weight:500 !important;
+    }
+    
+    /* Subject headers — match print view */
+    .subject-inner{
+      font-family:"Crimson Text",serif !important; font-weight:700 !important;
+      font-size:1.9rem !important; line-height:1.1 !important; color:#262b26 !important;
+    }
+    .subject-sticky{
+      position:sticky; top:calc(var(--mini-steps-h) + var(--printbar-h));
+      z-index:35; background:var(--brand-bg);
+      padding-bottom:4px !important; margin:18px 0 8px !important; border-bottom:0 !important;
+    }
+    .subject-sticky::after{
+      content:""; position:absolute; left:0; right:0; bottom:0;
+      height:4px !important; background:var(--subject-color,#dcded6) !important;
+    }
+    .group-block .course-row:first-of-type{ margin-top:.6rem !important; }
+    
+    /* === FINAL LAYOUT + LABEL TONE (safe override) === */
+    :root { --filter-label: #666d66; }
+    
+    /* Layout: 2 rows on narrow (Search|Grade / Subject|Plan), 4-across ≥1024px */
+    .filter-strip{
+      display: grid !important;
+      gap: .5rem !important;
+      align-items: center !important;
+      grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+      grid-template-areas:
+        "search grade"
+        "subject plan" !important;
+    }
+    @media (min-width: 1024px){
+      .filter-strip{
+        grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+        grid-template-areas: "search grade subject plan" !important;
+      }
+    }
+    
+    /* Place each control in its area; let the wrapper not interfere */
+    .area-search  { grid-area: search  !important; }
+    .area-grade   { grid-area: grade   !important; }
+    .area-subject { grid-area: subject !important; }
+    .area-plan    { grid-area: plan    !important; }
+    .filter-strip .pair { display: contents !important; }
+    
+    /* Control text tone to #666d66 */
+    .filter-strip .mini,
+    .filter-strip .mini::placeholder,
+    .filter-strip .mini option { color: #666d66 !important; }
+    
+    /* Checkbox labels + selected count unified */
+    .chk { display: inline-flex; align-items: center; gap: .35rem; }
+    .chk span,
+    .selected-count,
+    .selected-count strong {
+      color: var(--filter-label) !important;
+      font-size: .9rem !important;
+      font-weight: 500 !important;
+    }
+    /* === TYPE SYSTEM & COLORS (courses > topics > other) === */
+    :root { --ink: #262b26; }
+    
+    .course-band .band-title{
+      font-family: 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+      font-weight: 700;
+      font-size: 1.15rem;              /* Courses = largest */
+      line-height: 1.2;
+      color: #fff;                      /* Courses in white */
+    }
+    @media (min-width:768px){
+      .course-band .band-title{ font-size: 1.25rem; }
+    }
+    
+    .topic-title{
+      font-family: 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 700;
+      font-size: 1rem;                  /* Topics = medium */
+      line-height: 1.2;
+      color: var(--ink);                /* All non-course text in #262b26 */
+    }
+    
+    .text-[0.8rem], .topic-schedule,
+    .acc-info, .topic-acc-info,
+    .accordion, .note-area textarea{
+      color: var(--ink);
+    }
+    
+    /* Slightly quieter schedules */
+    .text-[0.8rem], .topic-schedule{ opacity:.9; }
+    
+    /* === TWO-COLUMN INFO LAYOUT (Course & Topic info trays) === */
+    .acc-info, .topic-acc-info{
+      background: #fff;
+      border-top: 1px solid #e5e7eb;
+      padding: 16px;
+      border-radius: .5rem;
+    }
+    
+    .info-grid{
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;   /* two columns */
+      gap: 1rem 1.25rem;
+    }
+    @media (max-width:820px){
+      .info-grid{ grid-template-columns: 1fr; }  /* stack on narrow */
+    }
+    
+    /* faint vertical divider */
+    .info-grid::before{
+      content:"";
+      position:absolute;
+      top:0; bottom:0;
+      left:50%; transform:translateX(-.5px);
+      width:1px; background:#e7ebe8; opacity:.6;
+    }
+    @media (max-width:820px){ .info-grid::before{ display:none; } }
+    
+    .info-col h4{
+      margin:0 0 .25rem;
+      font: 700 .95rem/1.25 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+    }
+    .info-col .copy{
+      font-size: .95rem;                /* Other info = smallest */
+      line-height: 1.55;
+      color: var(--ink);
+    }
+    
+    /* Make sure any legacy Crimson styles on titles don’t win */
+    .band-title, .pv-title { font-family: 'DM Sans', sans-serif !important; }
+    /* === UNIFIED SMALLER TYPE SCALE (screen + print) === */
+    .course-band .band-title{
+      font-size: .9rem;      /* Courses — smaller */
+      line-height: 1.15;
+    }
+    @media (min-width:768px){
+      .course-band .band-title{ font-size: 1rem; }
+    }
+    
+    .topic-title{
+      font-size: .82rem;     /* Topics — slightly smaller again */
+      line-height: 1.2;
+    }
+    
+    .text-[0.8rem], .topic-schedule{
+      font-size: .7rem;      /* Schedules — condensed */
+      line-height: 1.25;
+    }
+    
+    .info-col h4{
+      font: 700 .82rem/1.2 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .info-col .copy{
+      font-size: .82rem;
+      line-height: 1.45;
+    }
+    
+    /* Print view sizing to match on-screen scale */
+    @media print{
+      .pv-subject{
+        font-size: 18px !important;
+        line-height: 1.1 !important;
+      }
+      .pv-title{
+        font-size: 13px !important;
+        line-height: 1.25 !important;
+      }
+      .pv-schedule{
+        font-size: 9.5px !important;
+        line-height: 1.25 !important;
+      }
+      .pv-copy.small, .pv-note p{
+        font-size: 9.5px !important;
+        line-height: 1.4 !important;
+      }
+      label, .pv-info label, .pv-note label{
+        font-size: 9.5px !important;
+      }
+    }
+    /* --- Topic title a bit larger (still < course) --- */
+    .topic-title{
+      font-size: .98rem;        /* was .95rem */
+      line-height: 1.2;
+    }
+    
+    /* --- Stronger topic info separator (only when topic info tray is open) --- */
+    .topic-acc-info{
+      border-top: 2px solid #adb58f;   /* was 1px #e5e7eb */
+    }
+    .print-modal h3 {
+      font-weight: 700;
+      color: var(--green-dark);
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+    .print-modal label {
+      font-size: 0.95rem;
+      color: #262b26;
+    }
+    .print-modal .print-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+    /* === Keep topic info toggle light even when active === */
+    .topic-icon {
+      background: #dee1d2 !important;    /* light green-gray base */
+      color: #262b26;
+      padding: .25rem .4rem;
+      border-radius: .45rem;
+      font-size: .75rem;
+      line-height: 1;
+      transition: background .15s ease;
+    }
+    .topic-icon:hover {
+      filter: brightness(.97);
+    }
+    /* prevent darker color on toggle */
+    .topic-icon[aria-expanded="true"] {
+      background: #dee1d2 !important;
+      filter: none !important;
+    }
+    /* More inner padding for the print dialog */
+    .print-modal{
+      padding: 24px 28px !important;   /* was 16px 18px */
+    }
+    
+    /* Nice section rhythm (optional but tidy) */
+    .print-modal h3{ margin-bottom: .75rem !important; }
+    .print-modal .border-b{ margin-top: .75rem !important; }
+    .print-modal .print-actions{ margin-top: 1rem !important; padding-top: .75rem !important; }
+    /* trigger matches your mini input look */
+    .ms-trigger{
+      display:flex; align-items:center; gap:.5rem; width:100%;
+      min-height:38px; padding:6px 10px; border:1px solid #d9ded9; border-radius:12px;
+      background:#fff; color:#666d66;
+    }
+    .ms-trigger .chips{ display:flex; gap:.35rem; flex-wrap:wrap; }
+    .ms-chip{
+      display:inline-flex; align-items:center; padding:2px 8px; border-radius:999px;
+      background:#f3f5f3; font-size:12px; line-height:1.2; color:#4a524a;
+    }
+    .ms-caret{ margin-left:auto; font-size:12px; }
+    
+    /* dropdown panel sits right under trigger */
+    .ms-panel{
+      position:absolute; left:0; right:0; margin-top:.3rem; z-index:120;
+      background:#fff; border:1px solid #e5e7eb; border-radius:12px;
+      box-shadow:0 8px 24px rgba(0,0,0,.08);
+      max-height:280px; overflow:auto; padding:.4rem;
+    }
+    .ms-row{ display:flex; align-items:center; gap:.5rem; padding:.45rem .5rem; border-radius:8px; }
+    .ms-row:hover{ background:#f7f9f7; }
+    .ms-icon{ width:18px; height:18px; border-radius:999px; }
+    .ms-search{ width:100%; border:1px solid #d9ded9; border-radius:8px; padding:.4rem .6rem; color:#666d66; }
+    /* pill switch */
+    .switch {
+      position: relative; display:inline-flex; align-items:center; cursor:pointer;
+      width: 44px; height: 24px; border-radius: 999px; background:#d9ded9;
+      transition: background .18s ease;
+    }
+    .switch.on { background:#596e5e; }         /* your green-dark */
+    .switch .knob {
+      position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:999px;
+      background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.2); transition:left .18s ease;
+    }
+    .switch.on .knob { left: 23px; }
+    /* smaller unified filter controls */
+    .filter-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #666d66;          /* same grey tone as other labels */
+      font-weight: 500;
+    }
+    
+    /* size-reduced switch */
+    .switch {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      width: 36px; height: 18px;
+      border-radius: 999px;
+      background: #d9ded9;
+      transition: background .18s ease;
+    }
+    .switch.on { background: #596e5e; }
+    .switch .knob {
+      position: absolute; top: 2px; left: 2px;
+      width: 14px; height: 14px;
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,.2);
+      transition: left .18s ease;
+    }
+    .switch.on .knob { left: 20px; }
+    
+    /* switch text next to it */
+    .switch-text {
+      font-size: 11px;
+      color: #666d66;
+    }
   </style>
-
 </head>
 <body>
 <div class="app-shell max-w-6xl mx-auto p-4 sm:p-6 lg:p-8"
@@ -1087,12 +1122,41 @@
           </div>
         </div>
       
-        <!-- BOTTOM ROW -->
-        <div class="mt-2 flex flex-wrap items-center gap-3">
-      
-          <!-- Show descriptions & tips -->
-          <div class="flex items-center gap-2">
-            <span class="text-xs text-[#666d66]">Descriptions &amp; tips</span>
+        <!-- BOTTOM ROW (compact, left-justified) -->
+        <div class="mt-2 flex flex-wrap items-center gap-3 text-[11px] text-[#666d66]">
+        
+          <!-- Buttons first -->
+          <button type="button"
+                  class="rounded-xl px-2 py-1 border border-[#cfd4cf] bg-white hover:bg-[#f4f6fa]"
+                  @click="clearAll()">
+            Clear selected
+          </button>
+        
+          <button type="button"
+                  class="rounded-xl px-2 py-1 border border-[#cfd4cf] bg-white hover:bg-[#f4f6fa]"
+                  @click="clearFilters()">
+            Clear filters
+          </button>
+        
+          <button type="button"
+                  class="rounded-xl px-2 py-1 border border-[#cfd4cf] bg-white hover:bg-[#f4f6fa]"
+                  @click="refreshData()"
+                  title="Refresh data"
+                  :disabled="isRefreshing"
+                  :class="isRefreshing ? 'opacity-60 cursor-wait' : ''">
+            <span x-show="!isRefreshing">↻ Refresh</span>
+            <span x-show="isRefreshing">Refreshing…</span>
+          </button>
+        
+          <button type="button"
+                  class="rounded-xl px-3 py-1 bg-[#596e5e] text-white hover:opacity-95 shadow"
+                  @click="openPrintDialog()">
+            Print
+          </button>
+        
+          <!-- Then the switches -->
+          <div class="flex items-center gap-1">
+            <span class="filter-label">Descriptions &amp; tips</span>
             <button type="button"
                     class="switch"
                     :class="showAllTips ? 'on' : ''"
@@ -1101,12 +1165,11 @@
                     :aria-label="showAllTips ? 'Hide descriptions & tips' : 'Show descriptions & tips'">
               <span class="knob"></span>
             </button>
-            <span class="text-xs" x-text="showAllTips ? 'On' : 'Off'"></span>
+            <span class="switch-text" x-text="showAllTips ? 'On' : 'Off'"></span>
           </div>
-
-          <!-- Show only selected -->
-          <div class="flex items-center gap-2">
-            <span class="text-xs text-[#666d66]">Only selected</span>
+        
+          <div class="flex items-center gap-1">
+            <span class="filter-label">Only selected</span>
             <button type="button"
                     class="switch"
                     :class="onlyChecked ? 'on' : ''"
@@ -1115,20 +1178,7 @@
                     :aria-label="onlyChecked ? 'Show all' : 'Show only selected'">
               <span class="knob"></span>
             </button>
-            <span class="text-xs" x-text="onlyChecked ? 'On' : 'Off'"></span>
-          </div>
-      
-          <div class="ml-auto flex items-center gap-2">
-            <button type="button" class="btn btn-ghost rounded-xl" @click="clearAll()">Clear selected</button>
-            <button type="button" class="btn btn-ghost rounded-xl" @click="clearFilters()">Clear filters</button>
-            <button type="button" class="btn btn-ghost rounded-xl" @click="refreshData()" title="Refesh data"
-              :disabled="isRefreshing"
-              :class="isRefreshing ? 'opacity-60 cursor-wait' : ''"
-            >
-              <span x-show="!isRefreshing">↻ Refresh</span>
-              <span x-show="isRefreshing">Refreshing…</span>
-            </button>
-            <button type="button" class="btn btn-primary rounded-xl" @click="openPrintDialog()">Print</button>
+            <span class="switch-text" x-text="onlyChecked ? 'On' : 'Off'"></span>
           </div>
         </div>
       </div>
@@ -2142,20 +2192,40 @@ function planningApp(){
       // 3) Recompute sticky offsets after the layout expands/collapses
       this.$nextTick(() => this.measureBars && this.measureBars());
     },
-    clearFilters(){
+    // Single place to reset every filter control
+    resetFilters(){
       this.search = '';
-      // reset the new multi-select model (arrays)
       this.filters = { subjects: [], levelTags: [], planUses: [] };
       this.onlyPlanned = false;
       this.onlyChecked = false;
+    },
     
-      // close any open multiSelect panels by broadcasting a click-outside
+    // "Clear filters" button – just resets filters (keeps selections/plan)
+    clearFilters(){
+      this.resetFilters();
       this.$nextTick(() => this.measureBars && this.measureBars());
     },
+    
+    // "Clear selected" (Clear All) button – clears checks, plan, AND filters
     clearAll(){
-      this.courses.forEach(c=>{ c.checked=false; (c.topics||[]).forEach(t=>t.checked=false); });
+      // uncheck every course/topic
+      (this.courses || []).forEach(c => {
+        c.checked = false;
+        (c.topics || []).forEach(t => t.checked = false);
+      });
       this.persistChecked();
-      this.plan={}; this.persistPlan();
+    
+      // wipe plan tags everywhere
+      this.plan = {};
+      this.persistPlan();
+    
+      // and also reset all filters
+      this.resetFilters();
+    
+      // optional: if you want to force descriptions & tips back ON when clearing all:
+      // this.showAllTips = true; this.applyTipsState();
+    
+      this.$nextTick(() => this.measureBars && this.measureBars());
     },
     printSelected(){ window.print(); },
 
