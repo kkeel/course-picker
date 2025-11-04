@@ -1060,6 +1060,30 @@
       opacity: 0.6;
       cursor: not-allowed;
     }
+    /* --- Seam seal for sticky bars (prevents green line showing through) --- */
+    .sticky-actions { margin-top: 0 !important; }            /* stop the -1px kiss */
+    .mini-steps .rail { margin-bottom: 0 !important; }
+    
+    /* paint a small background strip past the bottom edge */
+    .mini-steps,
+    .sticky-actions,
+    .subject-sticky { position: sticky; background: var(--brand-bg); }
+    
+    .mini-steps::after,
+    .sticky-actions::after{
+      content:"";
+      position:absolute; left:0; right:0; bottom:-2px; height:4px;
+      background:var(--brand-bg);
+      pointer-events:none;
+    }
+    
+    /* also seal the top edge of each subject header */
+    .subject-sticky::before{
+      content:"";
+      position:absolute; left:0; right:0; top:-2px; height:4px;
+      background:var(--brand-bg);
+      pointer-events:none;
+    }
   </style>
   
 </head>
