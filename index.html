@@ -943,6 +943,27 @@
       font-size: 11px;
       color: #666d66;
     }
+    .toolbar-card{
+      background:#f7f9f7;              /* very light tint */
+      border:1px solid #e1e6e1;
+      border-radius:12px;
+      padding:8px 10px;
+    }
+    .toolbar-title{
+      font-size:11px; text-transform:uppercase; letter-spacing:.04em;
+      color:#666d66; font-weight:600; margin-bottom:6px;
+    }
+    .btn-mini{
+      padding:.25rem .5rem; border-radius:.75rem; font-size:11px;
+      border:1px solid #cfd4cf; background:#fff;
+    }
+    .btn-mini:hover{ background:#f1f4f1; }
+    .btn-primary-mini{
+      padding:.25rem .6rem; border-radius:.75rem; font-size:11px;
+      background:#596e5e; color:#fff; box-shadow:0 1px 2px rgba(0,0,0,.08);
+    }
+    .switch-wrap{ display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+    .switch-label{ font-size:11px; color:#666d66; }
   </style>
 </head>
 <body>
@@ -1122,63 +1143,57 @@
           </div>
         </div>
       
-        <!-- BOTTOM ROW (compact, left-justified) -->
-        <div class="mt-2 flex flex-wrap items-center gap-3 text-[11px] text-[#666d66]">
+        <!-- BOTTOM ROW: aligned under the two columns of filters -->
+        <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3 items-start">
         
-          <!-- Buttons first -->
-          <button type="button"
-                  class="rounded-xl px-2 py-1 border border-[#cfd4cf] bg-white hover:bg-[#f4f6fa]"
-                  @click="clearAll()">
-            Clear selected
-          </button>
+          <!-- Left: Actions -->
+          <div class="toolbar-card">
+            <div class="toolbar-title">Actions</div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button type="button" class="btn-mini" @click="clearSelected()">Clear selected</button>
+              <button type="button" class="btn-mini" @click="clearFilters()">Clear filters</button>
         
-          <button type="button"
-                  class="rounded-xl px-2 py-1 border border-[#cfd4cf] bg-white hover:bg-[#f4f6fa]"
-                  @click="clearFilters()">
-            Clear filters
-          </button>
+              <button type="button" class="btn-mini"
+                      @click="refreshData()" title="Refresh data"
+                      :disabled="isRefreshing"
+                      :class="isRefreshing ? 'opacity-60 cursor-wait' : ''">
+                <span x-show="!isRefreshing">↻ Refresh</span>
+                <span x-show="isRefreshing">Refreshing…</span>
+              </button>
         
-          <button type="button"
-                  class="rounded-xl px-2 py-1 border border-[#cfd4cf] bg-white hover:bg-[#f4f6fa]"
-                  @click="refreshData()"
-                  title="Refresh data"
-                  :disabled="isRefreshing"
-                  :class="isRefreshing ? 'opacity-60 cursor-wait' : ''">
-            <span x-show="!isRefreshing">↻ Refresh</span>
-            <span x-show="isRefreshing">Refreshing…</span>
-          </button>
-        
-          <button type="button"
-                  class="rounded-xl px-3 py-1 bg-[#596e5e] text-white hover:opacity-95 shadow"
-                  @click="openPrintDialog()">
-            Print
-          </button>
-        
-          <!-- Then the switches -->
-          <div class="flex items-center gap-1">
-            <span class="filter-label">Descriptions &amp; tips</span>
-            <button type="button"
-                    class="switch"
-                    :class="showAllTips ? 'on' : ''"
-                    @click="toggleTips()"
-                    :aria-pressed="showAllTips"
-                    :aria-label="showAllTips ? 'Hide descriptions & tips' : 'Show descriptions & tips'">
-              <span class="knob"></span>
-            </button>
-            <span class="switch-text" x-text="showAllTips ? 'On' : 'Off'"></span>
+              <button type="button" class="btn-primary-mini" @click="openPrintDialog()">Print</button>
+            </div>
           </div>
         
-          <div class="flex items-center gap-1">
-            <span class="filter-label">Only selected</span>
-            <button type="button"
-                    class="switch"
-                    :class="onlyChecked ? 'on' : ''"
-                    @click="onlyChecked = !onlyChecked"
-                    :aria-pressed="onlyChecked"
-                    :aria-label="onlyChecked ? 'Show all' : 'Show only selected'">
-              <span class="knob"></span>
-            </button>
-            <span class="switch-text" x-text="onlyChecked ? 'On' : 'Off'"></span>
+          <!-- Right: View options (switches) -->
+          <div class="toolbar-card md:border-l-0">
+            <div class="toolbar-title">View options</div>
+        
+            <div class="switch-wrap">
+              <!-- Descriptions & tips -->
+              <span class="switch-label">Descriptions &amp; tips</span>
+              <button type="button"
+                      class="switch"
+                      :class="showAllTips ? 'on' : ''"
+                      @click="toggleTips()"
+                      :aria-pressed="showAllTips"
+                      :aria-label="showAllTips ? 'Hide descriptions & tips' : 'Show descriptions & tips'">
+                <span class="knob"></span>
+              </button>
+              <span class="switch-text" x-text="showAllTips ? 'On' : 'Off'"></span>
+        
+              <!-- Only selected -->
+              <span class="switch-label md:ml-4">Only selected</span>
+              <button type="button"
+                      class="switch"
+                      :class="onlyChecked ? 'on' : ''"
+                      @click="onlyChecked = !onlyChecked"
+                      :aria-pressed="onlyChecked"
+                      :aria-label="onlyChecked ? 'Show all' : 'Show only selected'">
+                <span class="knob"></span>
+              </button>
+              <span class="switch-text" x-text="onlyChecked ? 'On' : 'Off'"></span>
+            </div>
           </div>
         </div>
       </div>
