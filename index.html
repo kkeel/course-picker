@@ -1039,6 +1039,8 @@
     
     /* Optional: give a breath of space above the bottom row */
     #actionsBar .bottom-controls{ margin-top: .15rem; }
+    /* keep teleported panel on top & viewport-anchored */
+    .ms-panel{ position:fixed !important; z-index:7000 !important; }
   </style>
   
 </head>
@@ -1147,8 +1149,17 @@
                x-ref="msRoot">
             <div class="relative">
               <button type="button" class="ms-trigger"
-                      @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))"
-                      :aria-expanded="open">
+                @click="
+                  open = !open;
+                  if (open) {
+                    $nextTick(() => {
+                      updatePanelPos($refs.msRoot);
+                      requestAnimationFrame(() => updatePanelPos($refs.msRoot));
+                      setTimeout(() => updatePanelPos($refs.msRoot), 60);
+                    });
+                  }
+                "
+                :aria-expanded="open">
                 <div class="chips" x-show="value.length">
                   <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
                 </div>
@@ -1187,8 +1198,17 @@
                x-ref="msRoot">
             <div class="relative">
               <button type="button" class="ms-trigger"
-                      @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))"
-                      :aria-expanded="open">
+                @click="
+                  open = !open;
+                  if (open) {
+                    $nextTick(() => {
+                      updatePanelPos($refs.msRoot);
+                      requestAnimationFrame(() => updatePanelPos($refs.msRoot));
+                      setTimeout(() => updatePanelPos($refs.msRoot), 60);
+                    });
+                  }
+                "
+                :aria-expanded="open">
                 <div class="chips" x-show="value.length">
                   <template x-for="t in labelChips" :key="t">
                     <span class="ms-chip" x-text="t"></span>
