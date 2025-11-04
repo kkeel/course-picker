@@ -964,6 +964,74 @@
     }
     .switch-wrap{ display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
     .switch-label{ font-size:11px; color:#666d66; }
+    
+    /* === Filter action/switch trays: remove chrome + unify sizing === */
+    /* Remove visible box + padding; keep the layout space */
+    .toolbar-card{
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+    }
+    
+    /* Hide “Actions” / “View options” titles */
+    .toolbar-title{ display: none !important; }
+    
+    /* Make all controls in the bottom row use the same small type
+       as the “Clear” links under the filters (≈12px) */
+    .bottom-controls,
+    .bottom-controls .btn-mini,
+    .bottom-controls .btn-primary-mini,
+    .bottom-controls .switch-label,
+    .bottom-controls .switch-text{
+      font-size: 12px !important;
+      line-height: 1.25 !important;
+      color: #666d66;       /* same tone as the Clear links */
+      font-weight: 500;
+    }
+    
+    /* Tighten buttons a bit so the row feels compact */
+    .bottom-controls .btn-mini{
+      padding: .22rem .5rem !important;
+      border-radius: .7rem !important;
+      border: 1px solid #cfd4cf;
+      background: #fff;
+    }
+    .bottom-controls .btn-mini:hover{ background:#f1f4f1; }
+    
+    .bottom-controls .btn-primary-mini{
+      padding: .22rem .6rem !important;
+      border-radius: .7rem !important;
+      background:#596e5e; color:#fff;
+    }
+    
+    /* Keep the switches visually in the same vertical rhythm as buttons */
+    .bottom-controls .switch-wrap{
+      display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+    }
+    
+    /* Match switch size to the 12px label text */
+    .bottom-controls .switch{
+      width: 34px; height: 18px;            /* a hair smaller than before */
+      background:#d9ded9;
+      border-radius:999px;
+    }
+    .bottom-controls .switch.on{ background:#596e5e; }
+    .bottom-controls .switch .knob{
+      width: 14px; height: 14px; top: 2px; left: 2px;
+    }
+    .bottom-controls .switch.on .knob{ left: 18px; }
+    
+    /* Small labels flanking the switches */
+    .bottom-controls .switch-label,
+    .bottom-controls .switch-text{
+      color:#666d66;
+    }
+    
+    /* Ensure both columns vertically center to the same height */
+    .bottom-controls{ align-items: center; }
+    
+    /* Optional: give a breath of space above the bottom row */
+    #actionsBar .bottom-controls{ margin-top: .15rem; }
   </style>
 </head>
 <body>
@@ -1144,7 +1212,7 @@
         </div>
       
         <!-- BOTTOM ROW: aligned under the two columns of filters -->
-        <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3 items-start">
+        <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3 items-center bottom-controls">
         
           <!-- Left: Actions -->
           <div class="toolbar-card">
