@@ -1036,9 +1036,18 @@
     
     /* Ensure both columns vertically center to the same height */
     .bottom-controls{ align-items: center; }
+    /* add space below each Clear link under filters */
+    .filter-strip button[role="clear"],
+    .filter-strip .area-search > button,
+    .filter-strip .area-grade > button,
+    .filter-strip .area-subject > button,
+    .filter-strip .area-plan > button {
+      margin-bottom: 0.4rem;   /* adjust for preferred spacing */
+      display: inline-block;
+    }
     
     /* Optional: give a breath of space above the bottom row */
-    #actionsBar .bottom-controls{ margin-top: .15rem; }
+    #actionsBar .bottom-controls{ margin-top: .3rem; }
     /* keep teleported panel on top & viewport-anchored */
     .ms-panel{ position:fixed !important; z-index:7000 !important; }
     /* dropdowns should never be clipped by the sticky bars */
