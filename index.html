@@ -1288,8 +1288,8 @@
           <div class="toolbar-card">
             <div class="toolbar-title">Actions</div>
             <div class="flex flex-wrap items-center gap-2">
-              <button type="button" class="btn-mini" @click="clearSelected()">Clear selected</button>
-              <button type="button" class="btn-mini" @click="clearFilters()">Clear filters</button>
+              <button type="button" class="btn btn-ghost flex items-center gap-2" @click="clearSelected()">Clear selected</button>
+              <button type="button" class="btn btn-ghost flex items-center gap-2" @click="clearFilters()">Clear filters</button>
 
               <button 
                 @click="refreshData()" 
@@ -1311,7 +1311,7 @@
                 <span x-text="isRefreshing ? 'Refreshing…' : '↻ Refresh'"></span>
               </button>
         
-              <button type="button" class="btn-primary-mini" @click="openPrintDialog()">Print</button>
+              <button type="button" class="btn-primary" @click="openPrintDialog()">Print</button>
             </div>
           </div>
         
