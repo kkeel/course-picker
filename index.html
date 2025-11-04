@@ -1780,83 +1780,92 @@
 <script>
 document.addEventListener('alpine:init', () => {
   Alpine.data('multiSelect', (cfg = {}) => ({
-    // ---- model/state ----
+    /* --- state --- */
     value: Array.isArray(cfg.modelValue) ? cfg.modelValue : [],
     ['x-modelable'](){ return 'value' },
     searchable: !!cfg.searchable,
     open: false,
     placeholder: cfg.placeholder || 'Select…',
-    options: cfg.options || [],        // [{value, label, icon?}]
+    options: cfg.options || [],        // [{value,label,icon?}]
     q: '',
 
-    // styles for the teleported panel
-    panelStyle: 'position:fixed;left:0;top:0;width:auto;z-index:7000;',
+    /* panel style lives inline so we can override any CSS defaults */
+    panelStyle: 'position:fixed;left:0;top:0;width:auto;z-index:7000;max-height:50vh;overflow:auto;',
 
-    // ---- lifecycle ----
+    /* --- lifecycle --- */
     init(){
-      // keep two-way binding in sync on mount
       this.$dispatch('input', this.value);
 
-      // global "clear all filters"
+      // clear-all event from the toolbar
       window.addEventListener('ms:clear', this._msClear = () => {
-        this.clear();
-        this.open = false;
-        this.q = '';
+        this.clear(); this.open = false; this.q = '';
       });
 
-      // keep the panel aligned while open
+      // keep aligned while open
       this._onScroll = () => { if (this.open) this.updatePanelPos(this.$refs.msRoot); };
       this._onResize = () => { if (this.open) this.updatePanelPos(this.$refs.msRoot); };
       window.addEventListener('scroll', this._onScroll, true);
       window.addEventListener('resize', this._onResize);
     },
 
-    // ---- computed ----
+    /* --- computed --- */
     get shown(){
       if (!this.searchable || !this.q) return this.options;
       const k = this.q.toLowerCase();
       return this.options.filter(o => (o.label||'').toLowerCase().includes(k));
     },
     get labelChips(){
-      const labels = this.options
-        .filter(o => this.value.includes(o.value))
-        .map(o => o.label);
-      if (labels.length <= 3) return labels;
-      return [...labels.slice(0,3), `+${labels.length-3}`];
+      const labels = this.options.filter(o => this.value.includes(o.value)).map(o => o.label);
+      return (labels.length <= 3) ? labels : [...labels.slice(0,3), `+${labels.length-3}`];
     },
 
-    // ---- actions ----
+    /* --- actions --- */
     toggle(v){
       const set = new Set(this.value);
       set.has(v) ? set.delete(v) : set.add(v);
       this.value = Array.from(set);
       this.$dispatch('input', this.value);
     },
-    clear(){
-      this.value = [];
-      this.$dispatch('input', this.value);
-    },
+    clear(){ this.value = []; this.$dispatch('input', this.value); },
     isOn(v){ return this.value.includes(v); },
     closeOnEscape(e){ if (e.key === 'Escape') this.open = false; },
 
-    // Position the teleported panel directly under the trigger button
+    /* Position panel under trigger, respecting sticky bars + viewport */
     updatePanelPos(rootEl){
       try{
         const trigger = rootEl.querySelector('.ms-trigger');
         if (!trigger) return;
-        const r = trigger.getBoundingClientRect();   // viewport coords (for position:fixed)
-        const left   = Math.round(Math.max(8, Math.min(r.left, window.innerWidth - r.width - 8)));
-        const top    = Math.round(r.bottom + 6);      // just below the trigger
-        const width  = Math.round(r.width);
-    
+
+        // where the trigger sits in the viewport
+        const r = trigger.getBoundingClientRect();
+
+        // read sticky heights that push content down
+        const cs = getComputedStyle(document.documentElement);
+        const mini = parseInt(cs.getPropertyValue('--mini-steps-h')) || 0;
+        const print= parseInt(cs.getPropertyValue('--printbar-h'))   || 0;
+        const stickyTop = mini + print;               // pixels from top of viewport
+
+        // left/width bounded to viewport
+        const left  = Math.round(Math.max(8, Math.min(r.left, window.innerWidth - r.width - 8)));
+        const width = Math.round(r.width);
+
+        // ensure panel top is below both the trigger and sticky bars
+        const desiredTop = Math.round(r.bottom + 6);
+        const top = Math.max(desiredTop, stickyTop + 6);
+
+        // never let the panel extend past the bottom of the viewport
+        const maxH = Math.max(160, window.innerHeight - top - 12);
+
         this.panelStyle = `
           position:fixed;
           left:${left}px;
           top:${top}px;
           width:${width}px;
+          max-height:${maxH}px;
+          overflow:auto;
           z-index:7000;
         `;
-      }catch{}
+      }catch{/* no-op */}
     }
   }));
 });
