@@ -1147,7 +1147,7 @@
                x-ref="msRoot">
             <div class="relative">
               <button type="button" class="ms-trigger"
-                      @click="open = !open; if(open) updatePanelPos($refs.msRoot)"
+                      @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))"
                       :aria-expanded="open">
                 <div class="chips" x-show="value.length">
                   <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
@@ -1187,7 +1187,7 @@
                x-ref="msRoot">
             <div class="relative">
               <button type="button" class="ms-trigger"
-                      @click="open = !open; if(open) updatePanelPos($refs.msRoot)"
+                      @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))"
                       :aria-expanded="open">
                 <div class="chips" x-show="value.length">
                   <template x-for="t in labelChips" :key="t">
@@ -1233,7 +1233,7 @@
                x-ref="msRoot">
             <div class="relative">
               <button type="button" class="ms-trigger"
-                      @click="open = !open; if(open) updatePanelPos($refs.msRoot)"
+                      @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))"
                       :aria-expanded="open">
                 <div class="chips" x-show="value.length">
                   <template x-for="t in labelChips" :key="t">
@@ -1770,7 +1770,7 @@ document.addEventListener('alpine:init', () => {
     q: '',
 
     // styles for the teleported panel
-    panelStyle: 'position:absolute;left:0;top:0;width:auto;z-index:120;',
+    panelStyle: 'position:fixed;left:0;top:0;width:auto;z-index:7000;',
 
     // ---- lifecycle ----
     init(){
@@ -1824,20 +1824,17 @@ document.addEventListener('alpine:init', () => {
       try{
         const trigger = rootEl.querySelector('.ms-trigger');
         if (!trigger) return;
-        const r = trigger.getBoundingClientRect();
-        const docLeft = r.left + window.scrollX;
-        const docTop  = r.bottom + window.scrollY;  // under the trigger
-        const width   = r.width;
-
-        // Keep panel inside viewport horizontally
-        const maxLeft = Math.max(8, Math.min(docLeft, window.scrollX + document.documentElement.clientWidth - width - 8));
-
+        const r = trigger.getBoundingClientRect();   // viewport coords (for position:fixed)
+        const left   = Math.round(Math.max(8, Math.min(r.left, window.innerWidth - r.width - 8)));
+        const top    = Math.round(r.bottom + 6);      // just below the trigger
+        const width  = Math.round(r.width);
+    
         this.panelStyle = `
-          position:absolute;
-          left:${Math.round(maxLeft)}px;
-          top:${Math.round(docTop + 6)}px;
-          width:${Math.round(width)}px;
-          z-index:120;
+          position:fixed;
+          left:${left}px;
+          top:${top}px;
+          width:${width}px;
+          z-index:7000;
         `;
       }catch{}
     }
