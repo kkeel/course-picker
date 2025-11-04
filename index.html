@@ -886,7 +886,7 @@
     
     /* dropdown panel sits right under trigger */
     .ms-panel{
-      position:absolute; left:0; right:0; margin-top:.3rem; z-index:120;
+      position:fixed !important; left:0; top: 0; width: 280px; margin-top: 0 !important; z-index:1200 !important;
       background:#fff; border:1px solid #e5e7eb; border-radius:12px;
       box-shadow:0 8px 24px rgba(0,0,0,.08);
       max-height:280px; overflow:auto; padding:.4rem;
@@ -1136,83 +1136,129 @@
           <!-- GRADE (multi) -->
           <div class="area-grade"
                x-data="multiSelect({ placeholder:'Grade', modelValue: filters.levelTags, options: gradeOptions })"
-               x-model="filters.levelTags">
+               x-model="filters.levelTags"
+               x-ref="msRoot">
             <div class="relative">
-              <button type="button" class="ms-trigger" @click="open = !open" :aria-expanded="open">
+              <button type="button" class="ms-trigger"
+                      @click="open = !open; if(open) updatePanelPos($refs.msRoot)"
+                      :aria-expanded="open">
                 <div class="chips" x-show="value.length">
                   <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
                 </div>
                 <span x-show="!value.length" x-text="placeholder"></span>
                 <span class="ms-caret">▾</span>
               </button>
-              <div class="ms-panel" x-show="open" x-transition @click.outside="open=false" @keydown.window="closeOnEscape($event)">
-                <template x-for="opt in shown" :key="opt.value">
-                  <label class="ms-row cursor-pointer">
-                    <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
-                    <span x-text="opt.label"></span>
-                  </label>
-                </template>
-              </div>
+          
+              <!-- Teleport the panel to <body> so it can't be clipped -->
+              <template x-teleport="body">
+                <div class="ms-panel"
+                     x-show="open"
+                     x-transition
+                     :style="panelStyle"
+                     @click.outside="open=false"
+                     @keydown.window="closeOnEscape($event)">
+                  <template x-for="opt in shown" :key="opt.value">
+                    <label class="ms-row cursor-pointer">
+                      <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
+                      <span x-text="opt.label"></span>
+                    </label>
+                  </template>
+                </div>
+              </template>
             </div>
             <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="clear()">Clear</button>
           </div>
         
           <!-- SUBJECT (multi) -->
           <div class="area-subject"
-               x-data="multiSelect({ placeholder:'Subject', modelValue: filters.subjects, options: subjectList.map(s=>({value:s,label:s})) })"
-               x-model="filters.subjects">
+               x-data="multiSelect({
+                 placeholder: 'Subject',
+                 modelValue: filters.subjects,
+                 options: subjectList.map(s => ({ value: s, label: s }))   /* no search */
+               })"
+               x-model="filters.subjects"
+               x-ref="msRoot">
             <div class="relative">
-              <button type="button" class="ms-trigger" @click="open = !open" :aria-expanded="open">
+              <button type="button" class="ms-trigger"
+                      @click="open = !open; if(open) updatePanelPos($refs.msRoot)"
+                      :aria-expanded="open">
                 <div class="chips" x-show="value.length">
-                  <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
+                  <template x-for="t in labelChips" :key="t">
+                    <span class="ms-chip" x-text="t"></span>
+                  </template>
                 </div>
                 <span x-show="!value.length" x-text="placeholder"></span>
                 <span class="ms-caret">▾</span>
               </button>
-              <div class="ms-panel" x-show="open" x-transition @click.outside="open=false" @keydown.window="closeOnEscape($event)">
-                <template x-if="searchable">
-                  <div class="px-1 pb-1">
-                    <input class="ms-search" type="search" placeholder="Find…" x-model="q">
-                  </div>
-                </template>
-                <template x-for="opt in shown" :key="opt.value">
-                  <label class="ms-row cursor-pointer">
-                    <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
-                    <span x-text="opt.label"></span>
-                  </label>
-                </template>
-              </div>
+          
+              <!-- Teleport to body -->
+              <template x-teleport="body">
+                <div class="ms-panel"
+                     x-show="open"
+                     x-transition
+                     :style="panelStyle"
+                     @click.outside="open=false"
+                     @keydown.window="closeOnEscape($event)">
+                  <template x-for="opt in shown" :key="opt.value">
+                    <label class="ms-row cursor-pointer">
+                      <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
+                      <span x-text="opt.label"></span>
+                    </label>
+                  </template>
+                </div>
+              </template>
             </div>
-            <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="clear()">Clear</button>
+            <button type="button"
+                    class="block mt-1 text-[12px] underline text-[#666d66]"
+                    @click="clear()">Clear</button>
           </div>
         
-          <!-- PLAN (multi) -->
+          <!-- PLAN TAGS (multi) -->
           <div class="area-plan"
                x-data="multiSelect({
-                  placeholder:'Plan tags',
-                  modelValue: filters.planUses,
-                  options: [...useOptions.map(u => ({ value:u.value, label:u.label, icon:u.icon })), { value:'(none)', label:'Undecided' }]
+                 placeholder: 'Plan tags',
+                 modelValue: filters.planUses,
+                 /* include a (none) option + your icon-capable useOptions */
+                 options: [{ value: '(none)', label: '(none)' }]
+                          .concat(useOptions.map(u => ({ value: u.value, label: u.label, icon: u.icon })))
                })"
-               x-model="filters.planUses">
+               x-model="filters.planUses"
+               x-ref="msRoot">
             <div class="relative">
-              <button type="button" class="ms-trigger" @click="open = !open" :aria-expanded="open">
+              <button type="button" class="ms-trigger"
+                      @click="open = !open; if(open) updatePanelPos($refs.msRoot)"
+                      :aria-expanded="open">
                 <div class="chips" x-show="value.length">
-                  <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
+                  <template x-for="t in labelChips" :key="t">
+                    <span class="ms-chip" x-text="t"></span>
+                  </template>
                 </div>
                 <span x-show="!value.length" x-text="placeholder"></span>
                 <span class="ms-caret">▾</span>
               </button>
-              <div class="ms-panel" x-show="open" x-transition @click.outside="open=false" @keydown.window="closeOnEscape($event)">
-                <template x-for="opt in shown" :key="opt.value">
-                  <label class="ms-row cursor-pointer">
-                    <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
-                    <template x-if="opt.icon"><img class="ms-icon" :src="opt.icon" :alt="opt.label"></template>
-                    <span x-text="opt.label"></span>
-                  </label>
-                </template>
-              </div>
+          
+              <!-- Teleport to body -->
+              <template x-teleport="body">
+                <div class="ms-panel"
+                     x-show="open"
+                     x-transition
+                     :style="panelStyle"
+                     @click.outside="open=false"
+                     @keydown.window="closeOnEscape($event)">
+                  <template x-for="opt in shown" :key="opt.value">
+                    <label class="ms-row cursor-pointer">
+                      <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
+                      <!-- optional icon if present -->
+                      <img class="ms-icon" x-show="opt.icon" :src="opt.icon" alt="" />
+                      <span x-text="opt.label"></span>
+                    </label>
+                  </template>
+                </div>
+              </template>
             </div>
-            <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="clear()">Clear</button>
+            <button type="button"
+                    class="block mt-1 text-[12px] underline text-[#666d66]"
+                    @click="clear()">Clear</button>
           </div>
         </div>
       
@@ -1707,49 +1753,87 @@
 <script>
 document.addEventListener('alpine:init', () => {
   Alpine.data('multiSelect', (cfg = {}) => ({
+    // ---- model/state ----
     value: Array.isArray(cfg.modelValue) ? cfg.modelValue : [],
     ['x-modelable'](){ return 'value' },
-    searchable: !!cfg.searchable,   
-    init(){
-      // keep two-way binding in sync on mount
-      this.$dispatch('input', this.value);
-
-      // listen for a global "clear all filters" event
-      window.addEventListener('ms:clear', this._msClear = () => {
-        this.clear();
-        this.open = false;
-        this.q = '';
-      });
-    },
-
+    searchable: !!cfg.searchable,
     open: false,
     placeholder: cfg.placeholder || 'Select…',
     options: cfg.options || [],        // [{value, label, icon?}]
     q: '',
 
+    // styles for the teleported panel
+    panelStyle: 'position:absolute;left:0;top:0;width:auto;z-index:120;',
+
+    // ---- lifecycle ----
+    init(){
+      // keep two-way binding in sync on mount
+      this.$dispatch('input', this.value);
+
+      // global "clear all filters"
+      window.addEventListener('ms:clear', this._msClear = () => {
+        this.clear();
+        this.open = false;
+        this.q = '';
+      });
+
+      // keep the panel aligned while open
+      this._onScroll = () => { if (this.open) this.updatePanelPos(this.$refs.msRoot); };
+      this._onResize = () => { if (this.open) this.updatePanelPos(this.$refs.msRoot); };
+      window.addEventListener('scroll', this._onScroll, true);
+      window.addEventListener('resize', this._onResize);
+    },
+
+    // ---- computed ----
     get shown(){
       if (!this.searchable || !this.q) return this.options;
       const k = this.q.toLowerCase();
       return this.options.filter(o => (o.label||'').toLowerCase().includes(k));
     },
     get labelChips(){
-      // show up to 3 labels, then +n
-      const labels = this.options.filter(o => this.value.includes(o.value)).map(o => o.label);
+      const labels = this.options
+        .filter(o => this.value.includes(o.value))
+        .map(o => o.label);
       if (labels.length <= 3) return labels;
       return [...labels.slice(0,3), `+${labels.length-3}`];
     },
+
+    // ---- actions ----
     toggle(v){
       const set = new Set(this.value);
       set.has(v) ? set.delete(v) : set.add(v);
       this.value = Array.from(set);
-      this.$dispatch('input', this.value);   // force two-way sync to parent x-model
+      this.$dispatch('input', this.value);
     },
     clear(){
       this.value = [];
-      this.$dispatch('input', this.value);   // force two-way sync to parent x-model
+      this.$dispatch('input', this.value);
     },
     isOn(v){ return this.value.includes(v); },
-    closeOnEscape(e){ if (e.key === 'Escape') this.open = false; }
+    closeOnEscape(e){ if (e.key === 'Escape') this.open = false; },
+
+    // Position the teleported panel directly under the trigger button
+    updatePanelPos(rootEl){
+      try{
+        const trigger = rootEl.querySelector('.ms-trigger');
+        if (!trigger) return;
+        const r = trigger.getBoundingClientRect();
+        const docLeft = r.left + window.scrollX;
+        const docTop  = r.bottom + window.scrollY;  // under the trigger
+        const width   = r.width;
+
+        // Keep panel inside viewport horizontally
+        const maxLeft = Math.max(8, Math.min(docLeft, window.scrollX + document.documentElement.clientWidth - width - 8));
+
+        this.panelStyle = `
+          position:absolute;
+          left:${Math.round(maxLeft)}px;
+          top:${Math.round(docTop + 6)}px;
+          width:${Math.round(width)}px;
+          z-index:120;
+        `;
+      }catch{}
+    }
   }));
 });
 </script>
