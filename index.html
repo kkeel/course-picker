@@ -1794,6 +1794,9 @@ document.addEventListener('alpine:init', () => {
       this._onResize = () => { if (this.open) this.updatePanelPos(this.$refs.msRoot); };
       window.addEventListener('scroll', this._onScroll, true);
       window.addEventListener('resize', this._onResize);
+      window.addEventListener('ms:reposition', () => {
+        if (this.open) this.updatePanelPos(this.$refs.msRoot);
+      });
     },
 
     /* computed */
@@ -2248,7 +2251,7 @@ function planningApp(){
       this.step = Math.min(3, Math.max(1, Number(n)||1));
       this.persistStep();
       this.$nextTick(()=> this.measureBars());   // recalc offsets
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.dispatchEvent(new CustomEvent('ms:reposition'));
     },
     nextStep(){ if(this.step < 3) this.openStep(this.step + 1); },
     prevStep(){ if(this.step > 1) this.openStep(this.step - 1); },
@@ -2391,6 +2394,7 @@ function planningApp(){
     
       // 3) Recompute sticky offsets after the layout expands/collapses
       this.$nextTick(() => this.measureBars && this.measureBars());
+      window.dispatchEvent(new CustomEvent('ms:reposition'));
     },
     // Single place to reset every filter control
     resetFilters(){
@@ -2408,6 +2412,7 @@ function planningApp(){
       window.dispatchEvent(new CustomEvent('ms:clear'));
     
       this.$nextTick(() => this.measureBars && this.measureBars());
+      window.dispatchEvent(new CustomEvent('ms:reposition'));
     },
     
     // "Clear selected" (Clear All) button – clears checks, plan, AND filters
@@ -2430,6 +2435,7 @@ function planningApp(){
       // this.showAllTips = true; this.applyTipsState();
     
       this.$nextTick(() => this.measureBars && this.measureBars());
+      window.dispatchEvent(new CustomEvent('ms:reposition'));
     },
     printSelected(){ window.print(); },
 
@@ -2452,15 +2458,18 @@ function planningApp(){
       this.$nextTick(() => {
       // 1) first paint: measure once
       this.measureBars && this.measureBars();
+        window.dispatchEvent(new CustomEvent('ms:reposition'));
     
       // 2) ensure initial open/closed state matches the switch
       this.toggleAllTips(this.showAllTips);
     
       // 3) after layout settles (fonts, sticky, etc.), measure again
       setTimeout(() => this.measureBars && this.measureBars(), 60);
+        window.dispatchEvent(new CustomEvent('ms:reposition'));
     });
     
     window.addEventListener('resize', () => this.measureBars());
+      window.dispatchEvent(new CustomEvent('ms:reposition'));
     
     // keep this (ensures course/topic accordions match showAllTips)
     this.applyTipsState();
@@ -2609,6 +2618,7 @@ function planningApp(){
       this.printUI.warning = '';
       this.printUI.open = true;
       this.$nextTick(()=> this.measureBars());
+      window.dispatchEvent(new CustomEvent('ms:reposition'));
     },
     hasActiveFilters(){
       const f = this.filters || {};
