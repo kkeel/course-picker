@@ -1169,7 +1169,11 @@
                 <span class="ms-caret">▾</span>
               </button>
               <div class="ms-panel" x-show="open" x-transition @click.outside="open=false" @keydown.window="closeOnEscape($event)">
-                <div class="px-1 pb-1"><input class="ms-search" type="search" placeholder="Find a subject…" x-model="q"></div>
+                <template x-if="searchable">
+                  <div class="px-1 pb-1">
+                    <input class="ms-search" type="search" placeholder="Find…" x-model="q">
+                  </div>
+                </template>
                 <template x-for="opt in shown" :key="opt.value">
                   <label class="ms-row cursor-pointer">
                     <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
@@ -1701,19 +1705,19 @@
 
 <script>
 document.addEventListener('alpine:init', () => {
-  // Airtable-style multi-select with checkbox list and chips
   Alpine.data('multiSelect', (cfg = {}) => ({
     value: Array.isArray(cfg.modelValue) ? cfg.modelValue : [],
     ['x-modelable'](){ return 'value' },
+    searchable: !!cfg.searchable,   
     init(){
       // keep two-way binding in sync on mount
       this.$dispatch('input', this.value);
-    
+
       // listen for a global "clear all filters" event
       window.addEventListener('ms:clear', this._msClear = () => {
-        this.clear();          // empties selection/chips
-        this.open = false;     // closes the dropdown panel if it’s open
-        this.q = '';           // clears any search text inside the panel
+        this.clear();
+        this.open = false;
+        this.q = '';
       });
     },
 
