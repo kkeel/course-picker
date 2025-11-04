@@ -884,12 +884,19 @@
     }
     .ms-caret{ margin-left:auto; font-size:12px; }
     
-    /* dropdown panel sits right under trigger */
+    /* Multi-select dropdown panel — anchored to trigger via inline style */
     .ms-panel{
-      position:fixed !important; left:0; top: 0; width: 280px; margin-top: 0 !important; z-index:1200 !important;
-      background:#fff; border:1px solid #e5e7eb; border-radius:12px;
-      box-shadow:0 8px 24px rgba(0,0,0,.08);
-      max-height:280px; overflow:auto; padding:.4rem;
+      position: absolute;                /* let JS set left/top inline */
+      z-index: 1200;                     /* above the toolbar */
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+      max-height: 280px;                 /* prevent super tall lists */
+      overflow: auto;
+      padding: .4rem;
+      margin-top: 0;                     /* no extra offset */
+      width: auto;                       /* JS will match trigger width */
     }
     .ms-row{ display:flex; align-items:center; gap:.5rem; padding:.45rem .5rem; border-radius:8px; }
     .ms-row:hover{ background:#f7f9f7; }
