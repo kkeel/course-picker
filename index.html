@@ -1032,19 +1032,6 @@
     
     /* Optional: give a breath of space above the bottom row */
     #actionsBar .bottom-controls{ margin-top: .15rem; }
-    /* Teleported multi-select panel should always float on top */
-    .ms-panel{
-      position: fixed !important;      /* teleported → fixed */
-      z-index: 1200 !important;        /* above sticky bars/subject headers */
-      left: 0; top: 0; width: 280px;   /* will be overridden by inline style */
-      margin-top: 0 !important;        /* no margin when fixed */
-    }
-    
-    /* Keep parents from clipping, just in case (already present, safe to keep) */
-    .sticky-actions,
-    .sticky-actions > *,
-    .filter-strip,
-    .filter-strip > * { overflow: visible !important; }
   </style>
   
 </head>
@@ -1149,34 +1136,23 @@
           <!-- GRADE (multi) -->
           <div class="area-grade"
                x-data="multiSelect({ placeholder:'Grade', modelValue: filters.levelTags, options: gradeOptions })"
-               x-model="filters.levelTags"
-               x-ref="msRoot">
+               x-model="filters.levelTags">
             <div class="relative">
-              <button type="button" class="ms-trigger" 
-                  @click="open = !open; if(open) updatePanelPos($el)"  
-                  :aria-expanded="open">
+              <button type="button" class="ms-trigger" @click="open = !open" :aria-expanded="open">
                 <div class="chips" x-show="value.length">
                   <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
                 </div>
                 <span x-show="!value.length" x-text="placeholder"></span>
                 <span class="ms-caret">▾</span>
               </button>
-              <!-- ⬇️ TELEPORT THE PANEL TO BODY -->
-              <template x-teleport="body">
-                <div class="ms-panel"
-                     x-show="open"
-                     x-transition
-                     :style="panelStyle"
-                     @click.outside="open=false"
-                     @keydown.window="closeOnEscape($event)">
-                  <template x-for="opt in shown" :key="opt.value">
-                    <label class="ms-row cursor-pointer">
-                      <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
-                      <span x-text="opt.label"></span>
-                    </label>
-                  </template>
-                </div>
-              </template>
+              <div class="ms-panel" x-show="open" x-transition @click.outside="open=false" @keydown.window="closeOnEscape($event)">
+                <template x-for="opt in shown" :key="opt.value">
+                  <label class="ms-row cursor-pointer">
+                    <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
+                    <span x-text="opt.label"></span>
+                  </label>
+                </template>
+              </div>
             </div>
             <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="clear()">Clear</button>
           </div>
@@ -1184,34 +1160,28 @@
           <!-- SUBJECT (multi) -->
           <div class="area-subject"
                x-data="multiSelect({ placeholder:'Subject', modelValue: filters.subjects, options: subjectList.map(s=>({value:s,label:s})) })"
-               x-model="filters.subjects"
-               x-ref="msRoot">
+               x-model="filters.subjects">
             <div class="relative">
-              <button type="button" class="ms-trigger" 
-                @click="open = !open; if(open) updatePanelPos($el)" 
-                :aria-expanded="open">
+              <button type="button" class="ms-trigger" @click="open = !open" :aria-expanded="open">
                 <div class="chips" x-show="value.length">
                   <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
                 </div>
                 <span x-show="!value.length" x-text="placeholder"></span>
                 <span class="ms-caret">▾</span>
               </button>
-              <!-- ⬇️ TELEPORT THE PANEL TO BODY -->
-              <template x-teleport="body">
-                <div class="ms-panel"
-                     x-show="open"
-                     x-transition
-                     :style="panelStyle"
-                     @click.outside="open=false"
-                     @keydown.window="closeOnEscape($event)">
-                  <template x-for="opt in shown" :key="opt.value">
-                    <label class="ms-row cursor-pointer">
-                      <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
-                      <span x-text="opt.label"></span>
-                    </label>
-                  </template>
-                </div>
-              </template>
+              <div class="ms-panel" x-show="open" x-transition @click.outside="open=false" @keydown.window="closeOnEscape($event)">
+                <template x-if="searchable">
+                  <div class="px-1 pb-1">
+                    <input class="ms-search" type="search" placeholder="Find…" x-model="q">
+                  </div>
+                </template>
+                <template x-for="opt in shown" :key="opt.value">
+                  <label class="ms-row cursor-pointer">
+                    <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
+                    <span x-text="opt.label"></span>
+                  </label>
+                </template>
+              </div>
             </div>
             <button type="button" class="block mt-1 text-[12px] underline text-[#666d66]" @click="clear()">Clear</button>
           </div>
@@ -1739,50 +1709,46 @@ document.addEventListener('alpine:init', () => {
   Alpine.data('multiSelect', (cfg = {}) => ({
     value: Array.isArray(cfg.modelValue) ? cfg.modelValue : [],
     ['x-modelable'](){ return 'value' },
-    searchable: !!cfg.searchable,
-  
-    // ⬇️ NEW: style object for teleported panel
-    panelStyle: { position:'fixed', left:'0px', top:'0px', width:'280px', zIndex: 1200 },
-  
-    // ⬇️ NEW: compute position from the trigger button
-    updatePanelPos(btn){
-      if(!btn) return;
-      const r = btn.getBoundingClientRect();
-      this.panelStyle = {
-        position: 'fixed',
-        left: `${Math.round(r.left)}px`,
-        top:  `${Math.round(r.bottom + 6)}px`, // small gap under trigger
-        width:`${Math.round(r.width)}px`,
-        zIndex: 1200
-      };
-    },
-  
+    searchable: !!cfg.searchable,   
     init(){
+      // keep two-way binding in sync on mount
       this.$dispatch('input', this.value);
+
+      // listen for a global "clear all filters" event
       window.addEventListener('ms:clear', this._msClear = () => {
-        this.clear(); this.open = false; this.q = '';
+        this.clear();
+        this.open = false;
+        this.q = '';
       });
-  
-      // ⬇️ Reposition if window resizes/scrolls while open
-      this._reposer = () => {
-        if(!this.open) return;
-        const btn = this.$root.querySelector('.ms-trigger');
-        this.updatePanelPos(btn);
-      };
-      window.addEventListener('resize', this._reposer);
-      window.addEventListener('scroll', this._reposer, true);
     },
-  
+
     open: false,
     placeholder: cfg.placeholder || 'Select…',
-    options: cfg.options || [],
+    options: cfg.options || [],        // [{value, label, icon?}]
     q: '',
-  
-    get shown(){ /* (unchanged) */ },
-    get labelChips(){ /* (unchanged) */ },
-    toggle(v){ /* (unchanged) */ },
-    clear(){ /* (unchanged) */ },
-    isOn(v){ /* (unchanged) */ },
+
+    get shown(){
+      if (!this.searchable || !this.q) return this.options;
+      const k = this.q.toLowerCase();
+      return this.options.filter(o => (o.label||'').toLowerCase().includes(k));
+    },
+    get labelChips(){
+      // show up to 3 labels, then +n
+      const labels = this.options.filter(o => this.value.includes(o.value)).map(o => o.label);
+      if (labels.length <= 3) return labels;
+      return [...labels.slice(0,3), `+${labels.length-3}`];
+    },
+    toggle(v){
+      const set = new Set(this.value);
+      set.has(v) ? set.delete(v) : set.add(v);
+      this.value = Array.from(set);
+      this.$dispatch('input', this.value);   // force two-way sync to parent x-model
+    },
+    clear(){
+      this.value = [];
+      this.$dispatch('input', this.value);   // force two-way sync to parent x-model
+    },
+    isOn(v){ return this.value.includes(v); },
     closeOnEscape(e){ if (e.key === 'Escape') this.open = false; }
   }));
 });
