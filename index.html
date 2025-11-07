@@ -1480,7 +1480,7 @@
   
                   <div class="band-title font-crimson text-base font-semibold flex items-center gap-1.5">
                     <span x-text="c.title"></span>
-  
+                  
                     <!-- ℹ️ info toggle (COURSE) -->
                     <button
                       type="button"
@@ -1494,14 +1494,41 @@
                       <span x-show="!c.infoOpen">i</span>
                       <span x-show="c.infoOpen">–</span>
                     </button>
-  
+                  
                     <!-- ✏️ course note toggle -->
-                    <button type="button"
-                            @click="c.noteOpen = !c.noteOpen"
-                            :aria-expanded="c.noteOpen"
-                            :aria-controls="'acc-note-'+c.id"
-                            class="text-xs bg-white/15 hover:bg-white/25 p-1.5 rounded"
-                            title="Add / View Note">✏️</button>
+                    <button
+                      type="button"
+                      @click="c.noteOpen = !c.noteOpen"
+                      :aria-expanded="c.noteOpen"
+                      :aria-controls="'acc-note-'+c.id"
+                      class="text-xs bg-white/15 hover:bg-white/25 p-1.5 rounded"
+                      title="Add / View Note">✏️</button>
+                  
+                    <!-- ✔️ Plan (COURSE) — now next to the other buttons -->
+                    <span class="relative inline-block" x-data="{open:false}">
+                      <button
+                        type="button"
+                        class="text-xs bg-white/15 hover:bg-white/25 p-1.5 rounded"
+                        @click="open = !open"
+                        :aria-expanded="open"
+                        title="Add planning tags">
+                        ✔️ Plan
+                      </button>
+                  
+                      <!-- menu -->
+                      <div class="plan-menu" x-show="open" x-transition @click.outside="open=false">
+                        <div class="text-xs uppercase tracking-wide text-gray-500 px-2 pb-1">Add tags</div>
+                        <template x-for="opt in useOptions" :key="opt.value">
+                          <label class="plan-opt">
+                            <input type="checkbox" class="mr-1"
+                                   :checked="getUses(c.id).includes(opt.value)"
+                                   @change="toggleUse(c.id,opt.value)">
+                            <img :src="opt.icon" :alt="opt.label">
+                            <span x-text="opt.label"></span>
+                          </label>
+                        </template>
+                      </div>
+                    </span>
                   </div>
                 </div>
   
@@ -1510,38 +1537,14 @@
                      x-html="c.summary || '<span class=opacity-60>—</span>'"></div>
               </div>
   
-              <!-- RIGHT: course planning tags -->
-              <div class="col-span-4 px-3 py-2 border-white/10 plan-anchor">
-                <div class="flex items-center justify-end gap-3" x-data="{open:false}">
-                  <!-- selected tags preview (only chosen ones) -->
+              <!-- RIGHT: course planning tags (chips only now) -->
+              <div class="col-span-4 px-3 py-2 border-white/10">
+                <div class="flex items-center justify-end gap-3">
                   <div class="tag-row" x-show="getUses(c.id).length">
                     <template x-for="val in getUses(c.id)" :key="val">
                       <span class="tag-chip">
                         <img :src="iconMap[val]" :alt="val">
                       </span>
-                    </template>
-                  </div>
-              
-                  <!-- Course Plan Button -->
-                  <button type="button" class="plan-trigger course-plan-trigger"
-                          @click="open=!open" :aria-expanded="open">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M20 6L9 17l-5-5"/>
-                    </svg>
-                    <span>Plan</span>
-                  </button>
-              
-                  <!-- menu -->
-                  <div class="plan-menu" x-show="open" x-transition @click.outside="open=false">
-                    <div class="text-xs uppercase tracking-wide text-gray-500 px-2 pb-1">Add tags</div>
-                    <template x-for="opt in useOptions" :key="opt.value">
-                      <label class="plan-opt">
-                        <input type="checkbox" class="mr-1"
-                         :checked="getUses(c.id).includes(opt.value)"
-                         @change="toggleUse(c.id,opt.value); /* open=false */">
-                        <img :src="opt.icon" :alt="opt.label">
-                        <span x-text="opt.label"></span>
-                      </label>
                     </template>
                   </div>
                 </div>
@@ -1609,14 +1612,41 @@
                           title="Description &amp; Placement">
                           <span x-show="!t.infoOpen">i</span><span x-show="t.infoOpen">–</span>
                         </button>
-        
+                        
                         <!-- ✏️ topic note -->
-                        <button @click="t.noteOpen = !t.noteOpen"
-                                :aria-expanded="t.noteOpen"
-                                :aria-controls="'t-acc-note-'+t.topic_id"
-                                class="topic-icon"
-                                title="Add / View Note">✏️
+                        <button
+                          @click="t.noteOpen = !t.noteOpen"
+                          :aria-expanded="t.noteOpen"
+                          :aria-controls="'t-acc-note-'+t.topic_id"
+                          class="topic-icon"
+                          title="Add / View Note">✏️
                         </button>
+                        
+                        <!-- ✔️ Plan (TOPIC) — now next to the other buttons -->
+                        <span class="relative inline-block" x-data="{open:false}">
+                          <button
+                            type="button"
+                            class="topic-icon"
+                            @click="open=!open"
+                            :aria-expanded="open"
+                            title="Add planning tags">
+                            ✔️ Plan
+                          </button>
+                        
+                          <!-- menu -->
+                          <div class="plan-menu" x-show="open" x-transition @click.outside="open=false">
+                            <div class="text-xs uppercase tracking-wide text-gray-500 px-2 pb-1">Add tags</div>
+                            <template x-for="opt in useOptions" :key="opt.value">
+                              <label class="plan-opt">
+                                <input type="checkbox" class="mr-1"
+                                       :checked="getUses(t.topic_id).includes(opt.value)"
+                                       @change="toggleUse(t.topic_id,opt.value)">
+                                <img :src="opt.icon" :alt="opt.label">
+                                <span x-text="opt.label"></span>
+                              </label>
+                            </template>
+                          </div>
+                        </span>
                       </div>
         
                       <!-- Topic schedule directly under title -->
@@ -1625,39 +1655,13 @@
                     </div>
                   </div>
         
-                  <!-- Right-side topic planning (selected chips + trigger) -->
-                  <div class="topic-icons plan-anchor" x-data="{open:false}">
-                    <div class="flex items-center gap-3">
-                      <!-- selected chips -->
-                      <div class="tag-row" x-show="getUses(t.topic_id).length">
-                        <template x-for="val in getUses(t.topic_id)" :key="val">
-                          <span class="tag-chip">
-                            <img :src="iconMap[val]" :alt="val">
-                          </span>
-                        </template>
-                      </div>
-                  
-                      <!-- Topic Plan Button -->
-                      <button type="button" class="plan-trigger"
-                              @click="open=!open" :aria-expanded="open">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M20 6L9 17l-5-5"/>
-                        </svg>
-                        <span>Plan</span>
-                      </button>
-                    </div>
-                  
-                    <!-- menu -->
-                    <div class="plan-menu" x-show="open" x-transition @click.outside="open=false">
-                      <div class="text-xs uppercase tracking-wide text-gray-500 px-2 pb-1">Add tags</div>
-                      <template x-for="opt in useOptions" :key="opt.value">
-                        <label class="plan-opt">
-                          <input type="checkbox" class="mr-1"
-                                 :checked="getUses(t.topic_id).includes(opt.value)"
-                                 @change="toggleUse(t.topic_id,opt.value)">
-                          <img :src="opt.icon" :alt="opt.label">
-                          <span x-text="opt.label"></span>
-                        </label>
+                  <!-- Right-side topic planning (chips only now) -->
+                  <div class="topic-icons">
+                    <div class="tag-row" x-show="getUses(t.topic_id).length">
+                      <template x-for="val in getUses(t.topic_id)" :key="val">
+                        <span class="tag-chip">
+                          <img :src="iconMap[val]" :alt="val">
+                        </span>
                       </template>
                     </div>
                   </div>
