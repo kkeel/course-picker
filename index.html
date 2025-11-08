@@ -1684,14 +1684,20 @@
                     </div>
                   </div>
         
-                  <!-- Right-side topic planning (chips only now) -->
+                  <!-- Right-side topic planning (chips + Grades) -->
                   <div class="topic-icons">
+                    <!-- chips first (to the left) -->
                     <div class="tag-row" x-show="getUses(t.topic_id).length">
                       <template x-for="val in getUses(t.topic_id)" :key="val">
                         <span class="tag-chip">
                           <img :src="iconMap[val]" :alt="val">
                         </span>
                       </template>
+                    </div>
+                  
+                    <!-- Grades label (to the right) -->
+                    <div class="text-xs text-[#647067] whitespace-nowrap">
+                      <span x-text="labelForTags(t.levelTags)"></span>
                     </div>
                   </div>
                 </div>
