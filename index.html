@@ -1557,15 +1557,21 @@
                      x-html="c.summary || '<span class=opacity-60>—</span>'"></div>
               </div>
   
-              <!-- RIGHT: course planning tags (chips only now) -->
+              <!-- RIGHT: course planning tags + Grades -->
               <div class="col-span-4 px-3 py-2 border-white/10">
                 <div class="flex items-center justify-end gap-3">
+                  <!-- chips first (to the left) -->
                   <div class="tag-row" x-show="getUses(c.id).length">
                     <template x-for="val in getUses(c.id)" :key="val">
                       <span class="tag-chip">
                         <img :src="iconMap[val]" :alt="val">
                       </span>
                     </template>
+                  </div>
+              
+                  <!-- Grades label (to the right) -->
+                  <div class="text-xs text-white/80 whitespace-nowrap">
+                    <span x-text="labelForTags(c.levelTags)"></span>
                   </div>
                 </div>
               </div>
@@ -1804,11 +1810,21 @@
                   <div class="pv-schedule" style="margin-top:2px;" x-html="t.summary || '&nbsp;'"></div>
                 </div>
             
-                <!-- RIGHT: topic planning tags (chips) -->
-                <div class="pv-tags" x-show="getUses(t.topic_id).length" style="white-space:nowrap;">
-                  <template x-for="val in getUses(t.topic_id)" :key="val">
-                    <span class="pv-tag"><img :src="iconMap[val]" :alt="val"></span>
-                  </template>
+                <!-- Right-side topic planning (chips + Grades) -->
+                <div class="topic-icons">
+                  <!-- chips first -->
+                  <div class="tag-row" x-show="getUses(t.topic_id).length">
+                    <template x-for="val in getUses(t.topic_id)" :key="val">
+                      <span class="tag-chip">
+                        <img :src="iconMap[val]" :alt="val">
+                      </span>
+                    </template>
+                  </div>
+                
+                  <!-- Grades label (to the right) -->
+                  <div class="text-xs text-[#647067] whitespace-nowrap">
+                    <span x-text="labelForTags(t.levelTags)"></span>
+                  </div>
                 </div>
               </div>
           
@@ -2327,6 +2343,18 @@ function planningApp(){
       if (!Array.isArray(f.levelTags)) f.levelTags = [];
       if (!Array.isArray(f.planUses))  f.planUses  = [];
       this.filters = f;
+    },
+
+    labelForTags(tags){
+      const arr = Array.isArray(tags) ? tags : [];
+      const nums = arr
+        .map(g => Number(String(g).replace(/[^0-9]/g, '')))
+        .filter(n => !Number.isNaN(n))
+        .sort((a,b)=>a-b);
+    
+      if (!nums.length) return 'Grades —';
+      const min = nums[0], max = nums[nums.length - 1];
+      return (min === max) ? `Grade ${min}` : `Grades ${min}–${max}`;
     },
 
     /* ---------- storage & sync ---------- */
