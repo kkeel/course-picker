@@ -1504,17 +1504,18 @@
                       class="text-xs bg-white/15 hover:bg-white/25 p-1.5 rounded"
                       title="Add / View Note">✏️</button>
                   
-                    <!-- ✔️ Plan (COURSE) — now next to the other buttons -->
+                    <!-- ✔️ Plan (COURSE) — quiet text+icon, same size as the tiny title buttons -->
                     <span class="relative inline-block" x-data="{open:false}">
                       <button
                         type="button"
-                        class="text-xs bg-white/15 hover:bg-white/25 p-1.5 rounded"
+                        class="inline-flex items-center gap-1 text-xs font-normal text-white/90 bg-white/15 hover:bg-white/25 p-1.5 rounded"
                         @click="open = !open"
                         :aria-expanded="open"
                         title="Add planning tags">
-                        ✔️ Plan
+                        <span aria-hidden="true">✔️</span>
+                        <span class="lbl">Plan</span>
                       </button>
-                  
+                    
                       <!-- menu -->
                       <div class="plan-menu" x-show="open" x-transition @click.outside="open=false">
                         <div class="text-xs uppercase tracking-wide text-gray-500 px-2 pb-1">Add tags</div>
@@ -1622,15 +1623,16 @@
                           title="Add / View Note">✏️
                         </button>
                         
-                        <!-- ✔️ Plan (TOPIC) — now next to the other buttons -->
+                        <!-- ✔️ Plan (TOPIC) — quiet text+icon, same size as the tiny topic buttons -->
                         <span class="relative inline-block" x-data="{open:false}">
                           <button
                             type="button"
-                            class="topic-icon"
+                            class="inline-flex items-center gap-1 topic-icon font-normal text-white/90"
                             @click="open=!open"
                             :aria-expanded="open"
                             title="Add planning tags">
-                            ✔️ Plan
+                            <span aria-hidden="true">✔️</span>
+                            <span class="lbl">Plan</span>
                           </button>
                         
                           <!-- menu -->
