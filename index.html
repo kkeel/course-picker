@@ -1089,6 +1089,9 @@
     #actionsBar{ padding-top:.5rem !important; padding-bottom:.5rem !important; }
     .panel .mt-3{ margin-top:.25rem !important; }             /* helper row */
     .panel .w-full.border-t{ margin-top:.25rem !important; padding-top:.25rem !important; }
+    /* Keep the check SVG neat inside tiny buttons */
+    button.text-xs svg,
+    .topic-icon svg{ width:14px; height:14px; }
   </style>
   
 </head>
@@ -1504,19 +1507,22 @@
                       class="text-xs bg-white/15 hover:bg-white/25 p-1.5 rounded"
                       title="Add / View Note">✏️</button>
                   
-                    <!-- ✔️ Plan (COURSE) — quiet text+icon, same size as the tiny title buttons -->
+                    <!-- ✔️ Plan (COURSE) — quiet style from the old right side, tiny like the title buttons -->
                     <span class="relative inline-block" x-data="{open:false}">
                       <button
                         type="button"
-                        class="inline-flex items-center gap-1 text-xs font-normal text-white/90 bg-white/15 hover:bg-white/25 p-1.5 rounded"
+                        class="inline-flex items-center gap-1 text-xs font-normal p-1.5 rounded bg-white/15 hover:bg-white/25"
                         @click="open = !open"
                         :aria-expanded="open"
                         title="Add planning tags">
-                        <span aria-hidden="true">✔️</span>
-                        <span class="lbl">Plan</span>
+                        <!-- same SVG check as before, just scaled to the tiny button -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-[14px] h-[14px]">
+                          <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                        <span>Plan</span>
                       </button>
                     
-                      <!-- menu -->
+                      <!-- menu (unchanged) -->
                       <div class="plan-menu" x-show="open" x-transition @click.outside="open=false">
                         <div class="text-xs uppercase tracking-wide text-gray-500 px-2 pb-1">Add tags</div>
                         <template x-for="opt in useOptions" :key="opt.value">
@@ -1623,19 +1629,21 @@
                           title="Add / View Note">✏️
                         </button>
                         
-                        <!-- ✔️ Plan (TOPIC) — quiet text+icon, same size as the tiny topic buttons -->
+                        <!-- ✔️ Plan (TOPIC) — quiet style from the old right side, sized like topic-icon -->
                         <span class="relative inline-block" x-data="{open:false}">
                           <button
                             type="button"
-                            class="inline-flex items-center gap-1 topic-icon font-normal text-white/90"
+                            class="inline-flex items-center gap-1 topic-icon font-normal"
                             @click="open=!open"
                             :aria-expanded="open"
                             title="Add planning tags">
-                            <span aria-hidden="true">✔️</span>
-                            <span class="lbl">Plan</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-[14px] h-[14px]">
+                              <path d="M20 6L9 17l-5-5"/>
+                            </svg>
+                            <span>Plan</span>
                           </button>
                         
-                          <!-- menu -->
+                          <!-- menu (unchanged) -->
                           <div class="plan-menu" x-show="open" x-transition @click.outside="open=false">
                             <div class="text-xs uppercase tracking-wide text-gray-500 px-2 pb-1">Add tags</div>
                             <template x-for="opt in useOptions" :key="opt.value">
