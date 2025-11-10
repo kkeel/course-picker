@@ -1174,6 +1174,46 @@
       width: 13px;
       height: 13px;
     }
+    /* === FINAL OVERRIDE — Plan menu tone/size (course + topic) === */
+    .plan-menu{
+      font-family:'DM Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+      color:#666d66 !important;
+      border:1px solid #e5e7eb !important;
+      border-radius:.6rem !important;
+      box-shadow:0 8px 24px rgba(0,0,0,.08) !important;
+      padding:.4rem .4rem .5rem !important;
+      width:240px !important;
+      z-index:7000 !important;            /* keep above sticky bars */
+    }
+    .plan-menu .text-xs{                   /* “ADD TAGS” label */
+      color:#666d66 !important;
+      font-weight:600 !important;
+      letter-spacing:.04em !important;
+      text-transform:uppercase !important;
+      font-size:.75rem !important;         /* small label, not big header */
+    }
+    .plan-menu .plan-opt{
+      display:flex; align-items:center; gap:.5rem;
+      padding:.4rem .5rem; border-radius:.5rem; cursor:pointer;
+      font-size:.9rem !important;          /* match filter dropdown rows */
+      color:#666d66 !important;
+      transition:background .15s ease, color .15s ease;
+    }
+    .plan-menu .plan-opt:hover{
+      background:#f7f9f7 !important;
+      color:#262b26 !important;
+    }
+    .plan-menu .plan-opt img{              /* keep planning tag images */
+      width:18px; height:18px; border-radius:999px; flex-shrink:0;
+    }
+    .plan-menu .plan-opt input{            /* subtle checkbox */
+      width:16px; height:16px; accent-color:#9da89f;
+    }
+    /* ensure all text inside respects the lighter tone even if nested
+       in the course band (which is white-on-green) */
+    .plan-menu, .plan-menu *{
+      color:#666d66 !important;
+    }
   </style>
   
 </head>
