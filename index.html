@@ -2140,7 +2140,8 @@ function planningApp(){
             plansSel.some(tag => courseUses.includes(tag) || topicUsesArr.some(u => u.includes(tag)));
           const wantsNone = plansSel.includes('(none)');
           const isNone = courseUses.length === 0 && !anyTopicTagged;
-          matchesPlan = wantsNone ? (isNone || hasAnyChosen) : hasAnyChosen;
+          // If “(none)” is selected, only show courses with NO tags anywhere.
+          matchesPlan = wantsNone ? isNone : hasAnyChosen;
         }
     
         // your existing toggles
