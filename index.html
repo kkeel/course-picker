@@ -884,19 +884,12 @@
     }
     .ms-caret{ margin-left:auto; font-size:12px; }
     
-    /* Multi-select dropdown panel — anchored to trigger via inline style */
+    /* dropdown panel sits right under trigger */
     .ms-panel{
-      position: absolute;                /* let JS set left/top inline */
-      z-index: 1200;                     /* above the toolbar */
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,.08);
-      max-height: 280px;                 /* prevent super tall lists */
-      overflow: auto;
-      padding: .4rem;
-      margin-top: 0;                     /* no extra offset */
-      width: auto;                       /* JS will match trigger width */
+      position:fixed !important; left:0; top: 0; width: 280px; margin-top: 0 !important; z-index:1200 !important;
+      background:#fff; border:1px solid #e5e7eb; border-radius:12px;
+      box-shadow:0 8px 24px rgba(0,0,0,.08);
+      max-height:280px; overflow:auto; padding:.4rem;
     }
     .ms-row{ display:flex; align-items:center; gap:.5rem; padding:.45rem .5rem; border-radius:8px; }
     .ms-row:hover{ background:#f7f9f7; }
@@ -1039,18 +1032,6 @@
     
     /* Optional: give a breath of space above the bottom row */
     #actionsBar .bottom-controls{ margin-top: .15rem; }
-    /* keep teleported panel on top & viewport-anchored */
-    .ms-panel{ position:fixed !important; z-index:7000 !important; }
-    /* dropdowns should never be clipped by the sticky bars */
-    .mini-steps,
-    .sticky-actions { overflow: visible !important; }
-    
-    /* keep the panel on top of everything */
-    .ms-panel { position: fixed !important; z-index: 7000 !important; }
-    .btn[disabled] {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
   </style>
   
 </head>
@@ -1159,8 +1140,8 @@
                x-ref="msRoot">
             <div class="relative">
               <button type="button" class="ms-trigger"
-                @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))"
-                :aria-expanded="open">
+                      @click="open = !open; if(open) updatePanelPos($refs.msRoot)"
+                      :aria-expanded="open">
                 <div class="chips" x-show="value.length">
                   <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
                 </div>
@@ -1199,8 +1180,8 @@
                x-ref="msRoot">
             <div class="relative">
               <button type="button" class="ms-trigger"
-                @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))"
-                :aria-expanded="open">
+                      @click="open = !open; if(open) updatePanelPos($refs.msRoot)"
+                      :aria-expanded="open">
                 <div class="chips" x-show="value.length">
                   <template x-for="t in labelChips" :key="t">
                     <span class="ms-chip" x-text="t"></span>
@@ -1245,7 +1226,7 @@
                x-ref="msRoot">
             <div class="relative">
               <button type="button" class="ms-trigger"
-                      @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))"
+                      @click="open = !open; if(open) updatePanelPos($refs.msRoot)"
                       :aria-expanded="open">
                 <div class="chips" x-show="value.length">
                   <template x-for="t in labelChips" :key="t">
@@ -1288,30 +1269,18 @@
           <div class="toolbar-card">
             <div class="toolbar-title">Actions</div>
             <div class="flex flex-wrap items-center gap-2">
-              <button type="button" class="btn btn-ghost flex items-center gap-2" @click="clearSelected()">Clear selected</button>
-              <button type="button" class="btn btn-ghost flex items-center gap-2" @click="clearFilters()">Clear filters</button>
-
-              <button 
-                @click="refreshData()" 
-                class="btn btn-ghost flex items-center gap-2"
-                :disabled="isRefreshing"
-              >
-                <!-- Spinner -->
-                <svg 
-                  x-show="isRefreshing" 
-                  class="animate-spin h-4 w-4 text-[var(--green-dark)]"
-                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                >
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-                  <path class="opacity-75" fill="currentColor"
-                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/>
-                </svg>
-              
-                <!-- Text changes based on state -->
-                <span x-text="isRefreshing ? 'Refreshing…' : '↻ Refresh'"></span>
+              <button type="button" class="btn-mini" @click="clearSelected()">Clear selected</button>
+              <button type="button" class="btn-mini" @click="clearFilters()">Clear filters</button>
+        
+              <button type="button" class="btn-mini"
+                      @click="refreshData()" title="Refresh data"
+                      :disabled="isRefreshing"
+                      :class="isRefreshing ? 'opacity-60 cursor-wait' : ''">
+                <span x-show="!isRefreshing">↻ Refresh</span>
+                <span x-show="isRefreshing">Refreshing…</span>
               </button>
         
-              <button type="button" class="btn btn-primary flex items-center gap-2" @click="openPrintDialog()">Print</button>
+              <button type="button" class="btn-primary-mini" @click="openPrintDialog()">Print</button>
             </div>
           </div>
         
@@ -1784,94 +1753,87 @@
 <script>
 document.addEventListener('alpine:init', () => {
   Alpine.data('multiSelect', (cfg = {}) => ({
-    /* state */
+    // ---- model/state ----
     value: Array.isArray(cfg.modelValue) ? cfg.modelValue : [],
     ['x-modelable'](){ return 'value' },
     searchable: !!cfg.searchable,
     open: false,
     placeholder: cfg.placeholder || 'Select…',
-    options: cfg.options || [],  // [{value,label,icon?}]
+    options: cfg.options || [],        // [{value, label, icon?}]
     q: '',
 
-    /* inline style so we can update position live */
-    panelStyle: 'position:fixed;left:0;top:0;width:auto;z-index:7000;max-height:50vh;overflow:auto;',
+    // styles for the teleported panel
+    panelStyle: 'position:absolute;left:0;top:0;width:auto;z-index:120;',
 
-    /* lifecycle */
+    // ---- lifecycle ----
     init(){
+      // keep two-way binding in sync on mount
       this.$dispatch('input', this.value);
 
-      // global clear
+      // global "clear all filters"
       window.addEventListener('ms:clear', this._msClear = () => {
-        this.clear(); this.open = false; this.q = '';
+        this.clear();
+        this.open = false;
+        this.q = '';
       });
 
-      // keep aligned while open
+      // keep the panel aligned while open
       this._onScroll = () => { if (this.open) this.updatePanelPos(this.$refs.msRoot); };
       this._onResize = () => { if (this.open) this.updatePanelPos(this.$refs.msRoot); };
       window.addEventListener('scroll', this._onScroll, true);
       window.addEventListener('resize', this._onResize);
-      window.addEventListener('ms:reposition', () => {
-        if (this.open) this.updatePanelPos(this.$refs.msRoot);
-      });
     },
 
-    /* computed */
+    // ---- computed ----
     get shown(){
       if (!this.searchable || !this.q) return this.options;
       const k = this.q.toLowerCase();
       return this.options.filter(o => (o.label||'').toLowerCase().includes(k));
     },
     get labelChips(){
-      const labels = this.options.filter(o => this.value.includes(o.value)).map(o => o.label);
-      return (labels.length <= 3) ? labels : [...labels.slice(0,3), `+${labels.length-3}`];
+      const labels = this.options
+        .filter(o => this.value.includes(o.value))
+        .map(o => o.label);
+      if (labels.length <= 3) return labels;
+      return [...labels.slice(0,3), `+${labels.length-3}`];
     },
 
-    /* actions */
+    // ---- actions ----
     toggle(v){
       const set = new Set(this.value);
       set.has(v) ? set.delete(v) : set.add(v);
       this.value = Array.from(set);
       this.$dispatch('input', this.value);
     },
-    clear(){ this.value = []; this.$dispatch('input', this.value); },
+    clear(){
+      this.value = [];
+      this.$dispatch('input', this.value);
+    },
     isOn(v){ return this.value.includes(v); },
     closeOnEscape(e){ if (e.key === 'Escape') this.open = false; },
 
-    /* position panel directly under its trigger, clamped to viewport only */
+    // Position the teleported panel directly under the trigger button
     updatePanelPos(rootEl){
       try{
         const trigger = rootEl.querySelector('.ms-trigger');
         if (!trigger) return;
-
         const r = trigger.getBoundingClientRect();
-        const margin = 8;
+        const docLeft = r.left + window.scrollX;
+        const docTop  = r.bottom + window.scrollY;  // under the trigger
+        const width   = r.width;
 
-        // desired left/width
-        const width = Math.round(r.width);
-        let left   = Math.round(r.left);
-
-        // keep inside viewport horizontally
-        left = Math.max(margin, Math.min(left, window.innerWidth - width - margin));
-
-        // sit right under the trigger
-        const desiredTop = Math.round(r.bottom + 6);
-
-        // keep inside viewport vertically; if it would run past the bottom,
-        // we just shrink the max-height (no upward “sticky floor” clamp)
-        const maxH = Math.max(160, window.innerHeight - desiredTop - 12);
-        const top  = Math.max(6, desiredTop); // don’t go off the very top
+        // Keep panel inside viewport horizontally
+        const maxLeft = Math.max(8, Math.min(docLeft, window.scrollX + document.documentElement.clientWidth - width - 8));
 
         this.panelStyle = `
-          position:fixed;
-          left:${left}px;
-          top:${top}px;
-          width:${width}px;
-          max-height:${maxH}px;
-          overflow:auto;
-          z-index:7000;
+          position:absolute;
+          left:${Math.round(maxLeft)}px;
+          top:${Math.round(docTop + 6)}px;
+          width:${Math.round(width)}px;
+          z-index:120;
         `;
       }catch{}
-    },
+    }
   }));
 });
 </script>
@@ -2232,30 +2194,27 @@ function planningApp(){
     },
     isRefreshing: false,
 
-    refreshData: async function (){
+    refreshData(){
       try{
         this.isRefreshing = true;
     
-        // clear our local cache so we fetch again
+        // 🔑 remove cached CSV bundle so the app re-fetches fresh text
         localStorage.removeItem('pf_csv_cache_v1');
     
-        // re-load CSVs in-place (force fresh) and rebuild courses
-        await this.loadDualCSVs({ forceFresh: true });
+        // Optional: if you also cache anything else, clear here too
+        // localStorage.removeItem('pf_csv_cache_v2');
     
-        // keep all current UI state (filters, selections, plan)
-        this.restoreChecked();
-        this.loadPlan();
-    
-        // settle layout + reposition any open menus
-        this.$nextTick(() => {
-          this.measureBars && this.measureBars();
-          window.dispatchEvent(new CustomEvent('ms:reposition'));
-        });
-      }finally{
+        // Give the UI a tick to show the “Refreshing…” state, then reload
+        setTimeout(() => {
+          // Hard reload to ensure scripts re-run and CSVs are re-parsed
+          location.reload();
+        }, 150);
+      } catch(e){
+        console.error('Refresh failed:', e);
         this.isRefreshing = false;
+        alert('Could not refresh. See console for details.');
       }
     },
-
     ensureArrayFilters(){
       const f = this.filters || {};
       if (!Array.isArray(f.subjects))  f.subjects  = [];
@@ -2270,7 +2229,7 @@ function planningApp(){
       this.step = Math.min(3, Math.max(1, Number(n)||1));
       this.persistStep();
       this.$nextTick(()=> this.measureBars());   // recalc offsets
-      window.dispatchEvent(new CustomEvent('ms:reposition'));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
     nextStep(){ if(this.step < 3) this.openStep(this.step + 1); },
     prevStep(){ if(this.step > 1) this.openStep(this.step - 1); },
@@ -2342,38 +2301,22 @@ function planningApp(){
     toggleOpen(key,val){ this.openGuidance[key]=!!val; localStorage.setItem('pf_guidance_open', JSON.stringify(this.openGuidance)); },
 
     /* ---------- load ---------- */
-    async loadDualCSVs(opts = {}){
-      const forceFresh = !!opts.forceFresh;
-      const cacheKey = 'pf_csv_cache_v1';
-      const maxAgeMs = 6*60*60*1000;
-      const now = Date.now();
-    
-      // helper to add a cache-buster
-      const bust = (url) => url + (url.includes('?') ? '&' : '?') + 't=' + now;
-    
-      // 1) use cache when allowed and fresh
-      if (!forceFresh){
-        let cached;
-        try { cached = JSON.parse(localStorage.getItem(cacheKey) || 'null'); } catch{}
-        if (cached && (now - cached.ts) < maxAgeMs){
-          const pc = Papa.parse(cached.courses, { header:true, skipEmptyLines:true });
-          const pt = Papa.parse(cached.topics,  { header:true, skipEmptyLines:true });
-          return this.applyParsed(pc, pt);
-        }
+    async loadDualCSVs(){
+      const cacheKey='pf_csv_cache_v1', maxAgeMs=6*60*60*1000, now=Date.now();
+      let cached; try{ cached=JSON.parse(localStorage.getItem(cacheKey)||'null'); }catch{}
+      if(cached && (now - cached.ts) < maxAgeMs){
+        const pc=Papa.parse(cached.courses,{header:true,skipEmptyLines:true});
+        const pt=Papa.parse(cached.topics,{header:true,skipEmptyLines:true});
+        return this.applyParsed(pc,pt);
       }
-    
-      // 2) fetch fresh (no-store) with a cache-busting query
-      const [cCSV, tCSV] = await Promise.all([
-        fetch(bust(this.dataSources.courses), { cache:'no-store' }).then(r=>r.text()),
-        fetch(bust(this.dataSources.topics),  { cache:'no-store' }).then(r=>r.text()),
+      const [cCSV,tCSV]=await Promise.all([
+        fetch(this.dataSources.courses).then(r=>r.text()),
+        fetch(this.dataSources.topics).then(r=>r.text())
       ]);
-    
-      // 3) update cache for normal loads
-      localStorage.setItem(cacheKey, JSON.stringify({ ts: now, courses: cCSV, topics: tCSV }));
-    
-      const pc = Papa.parse(cCSV, { header:true, skipEmptyLines:true });
-      const pt = Papa.parse(tCSV, { header:true, skipEmptyLines:true });
-      this.applyParsed(pc, pt);
+      localStorage.setItem(cacheKey, JSON.stringify({ts:now, courses:cCSV, topics:tCSV}));
+      const pc=Papa.parse(cCSV,{header:true,skipEmptyLines:true});
+      const pt=Papa.parse(tCSV,{header:true,skipEmptyLines:true});
+      this.applyParsed(pc,pt);
     },
     applyParsed(pc,pt){
       this.courseIndex = {};
@@ -2429,7 +2372,6 @@ function planningApp(){
     
       // 3) Recompute sticky offsets after the layout expands/collapses
       this.$nextTick(() => this.measureBars && this.measureBars());
-      window.dispatchEvent(new CustomEvent('ms:reposition'));
     },
     // Single place to reset every filter control
     resetFilters(){
@@ -2447,7 +2389,6 @@ function planningApp(){
       window.dispatchEvent(new CustomEvent('ms:clear'));
     
       this.$nextTick(() => this.measureBars && this.measureBars());
-      window.dispatchEvent(new CustomEvent('ms:reposition'));
     },
     
     // "Clear selected" (Clear All) button – clears checks, plan, AND filters
@@ -2470,7 +2411,6 @@ function planningApp(){
       // this.showAllTips = true; this.applyTipsState();
     
       this.$nextTick(() => this.measureBars && this.measureBars());
-      window.dispatchEvent(new CustomEvent('ms:reposition'));
     },
     printSelected(){ window.print(); },
 
@@ -2493,18 +2433,15 @@ function planningApp(){
       this.$nextTick(() => {
       // 1) first paint: measure once
       this.measureBars && this.measureBars();
-        window.dispatchEvent(new CustomEvent('ms:reposition'));
     
       // 2) ensure initial open/closed state matches the switch
       this.toggleAllTips(this.showAllTips);
     
       // 3) after layout settles (fonts, sticky, etc.), measure again
       setTimeout(() => this.measureBars && this.measureBars(), 60);
-        window.dispatchEvent(new CustomEvent('ms:reposition'));
     });
     
     window.addEventListener('resize', () => this.measureBars());
-      window.dispatchEvent(new CustomEvent('ms:reposition'));
     
     // keep this (ensures course/topic accordions match showAllTips)
     this.applyTipsState();
@@ -2653,7 +2590,6 @@ function planningApp(){
       this.printUI.warning = '';
       this.printUI.open = true;
       this.$nextTick(()=> this.measureBars());
-      window.dispatchEvent(new CustomEvent('ms:reposition'));
     },
     hasActiveFilters(){
       const f = this.filters || {};
