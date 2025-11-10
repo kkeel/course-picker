@@ -1211,7 +1211,8 @@
           <div class="area-grade"
                x-data="multiSelect({ placeholder:'Grade', modelValue: filters.levelTags, options: gradeOptions })"
                x-model="filters.levelTags"
-               x-ref="msRoot">
+               x-ref="msRoot"
+               @input="filters.levelTags = $event.detail">
             <div class="relative">
               <button type="button" class="ms-trigger"
                 @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))"
@@ -1251,7 +1252,8 @@
                  options: subjectList.map(s => ({ value: s, label: s }))   /* no search */
                })"
                x-model="filters.subjects"
-               x-ref="msRoot">
+               x-ref="msRoot"
+               @input="filters.subjects = $event.detail">
             <div class="relative">
               <button type="button" class="ms-trigger"
                 @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))"
@@ -1297,7 +1299,8 @@
                           .concat(useOptions.map(u => ({ value: u.value, label: u.label, icon: u.icon })))
                })"
                x-model="filters.planUses"
-               x-ref="msRoot">
+               x-ref="msRoot"
+               @input="filters.planUses = $event.detail">
             <div class="relative">
               <button type="button" class="ms-trigger"
                       @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))"
@@ -1874,7 +1877,7 @@ document.addEventListener('alpine:init', () => {
   Alpine.data('multiSelect', (cfg = {}) => ({
     /* state */
     value: Array.isArray(cfg.modelValue) ? cfg.modelValue : [],
-    ['x-modelable'](){ return 'value' },
+    ['x-modelable']: 'value',
     searchable: !!cfg.searchable,
     open: false,
     placeholder: cfg.placeholder || 'Select…',
