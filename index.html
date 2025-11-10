@@ -2109,52 +2109,77 @@ function planningApp(){
 
     /* ---------- computed ---------- */
     get filtered(){
+      // make sure our arrays exist
       this.ensureArrayFilters && this.ensureArrayFilters();
-      const q = (this.search || '').toLowerCase();
-      const isEmpty = a => !a || (Array.isArray(a) && a.length === 0);
-      const anyIntersect = (a,b) => {
+    
+      const q = (this.search || '').toLowerCase().trim();
+      const subjSel  = Array.isArray(this.filters?.subjects)  ? this.filters.subjects  : [];
+      const gradeSel = Array.isArray(this.filters?.levelTags) ? this.filters.levelTags : [];
+      const planSel  = Array.isArray(this.filters?.planUses)  ? this.filters.planUses  : [];
+    
+      const hasQ      = q.length > 0;
+      const hasSubj   = subjSel.length  > 0;
+      const hasGrade  = gradeSel.length > 0;
+      const hasPlan   = planSel.length  > 0;
+    
+      const subjSet   = new Set(subjSel.map(s => String(s).trim().toLowerCase()));
+      const gradeSet  = new Set(gradeSel);
+      const planSet   = new Set(planSel);
+    
+      // helper: any overlap
+      const anyIntersect = (a, b) => {
         if (!Array.isArray(a) || !Array.isArray(b) || !a.length || !b.length) return false;
-        const set = new Set(a); return b.some(x => set.has(x));
+        const A = new Set(a);
+        for (const x of b) if (A.has(x)) return true;
+        return false;
       };
     
-      const subjectsSel = this.filters.subjects || [];
-      const levelsSel   = this.filters.levelTags || [];
-      const plansSel    = this.filters.planUses  || [];
+      return (this.courses || []).filter(c => {
+        // ----- text query across course + topics
+        const blob = [
+          c.title, c.subject, c.summary, c.levelDisplay,
+          ...(c.topics || []).map(t => t.topic_title)
+        ].join(' ').toLowerCase();
+        const matchesQ = !hasQ || blob.includes(q);
     
-      return this.courses.filter(c=>{
-        // text
-        const matchesQ = !q || [c.title, c.subject, c.summary, c.levelDisplay].join(' ').toLowerCase().includes(q);
+        // ----- subjects (normalize case/whitespace)
+        const subj = String(c.subject || '').trim().toLowerCase();
+        const matchesSubject = !hasSubj || subjSet.has(subj);
     
-        // subject OR
-        const matchesSubject = isEmpty(subjectsSel) || subjectsSel.includes(c.subject);
+        // ----- grades: match if course OR ANY topic intersects
+        const courseGrades = c.levelTags || [];
+        const topicGrades  = (c.topics || []).flatMap(t => t.levelTags || []);
+        const matchesGrade = !hasGrade || anyIntersect(gradeSel, courseGrades) || anyIntersect(gradeSel, topicGrades);
     
-        // grade filter should match the COURSE only (topics follow the course)
-        const matchesGrade = isEmpty(levelsSel) || anyIntersect(levelsSel, c.levelTags || []);
-    
-        // plan OR across course OR topics; "(none)" means no tags anywhere
+        // ----- plan uses: course uses OR any topic uses; “(none)” = nothing tagged anywhere
         let matchesPlan = true;
-        if (!isEmpty(plansSel)) {
-          const courseUses   = (this.plan[c.id]?.use) || [];
-          const topicUsesArr = (c.topics||[]).map(t => (this.plan[t.topic_id]?.use) || []);
-          const anyTopicTagged = topicUsesArr.some(u => u.length);
+        if (hasPlan) {
+          const courseUses = (this.plan?.[c.id]?.uses) || []; // uses[] (plural)
+          const topicUsesArr = (c.topics || []).map(t => (this.plan?.[t.topic_id]?.uses) || []);
+          const anyTopicTagged = topicUsesArr.some(u => Array.isArray(u) && u.length > 0);
+    
+          const wantsNone = planSet.has('(none)');
           const hasAnyChosen =
-            plansSel.some(tag => courseUses.includes(tag) || topicUsesArr.some(u => u.includes(tag)));
-          const wantsNone = plansSel.includes('(none)');
-          const isNone = courseUses.length === 0 && !anyTopicTagged;
-          // If “(none)” is selected, only show courses with NO tags anywhere.
+            courseUses.some(u => planSet.has(u)) ||
+            topicUsesArr.some(uArr => uArr.some(u => planSet.has(u)));
+    
+          const isNone = (courseUses.length === 0) && !anyTopicTagged;
           matchesPlan = wantsNone ? isNone : hasAnyChosen;
         }
     
-        // your existing toggles
-        const passPlanned = !this.onlyPlanned ||
-          (this.plan[c.id]?.use?.length) ||
-          ((c.topics||[]).some(t => (this.plan[t.topic_id]?.use||[]).length));
+        // ----- toggles: only planned / only checked
+        const passesOnlyPlanned = !this.onlyPlanned ||
+          ((this.plan?.[c.id]?.uses || []).length > 0) ||
+          ((c.topics || []).some(t => ((this.plan?.[t.topic_id]?.uses) || []).length > 0));
     
-        const passChecked = !this.onlyChecked || c.checked || (c.topics||[]).some(t=>t.checked);
+        const passesOnlyChecked = !this.onlyChecked ||
+          !!c.checked ||
+          ((c.topics || []).some(t => !!t.checked));
     
-        return matchesQ && matchesSubject && matchesGrade && matchesPlan && passPlanned && passChecked;
+        return matchesQ && matchesSubject && matchesGrade && matchesPlan && passesOnlyPlanned && passesOnlyChecked;
       });
     },
+
     get groupedFlat(){
       const by = new Map();
       this.filtered.forEach(c=>{ const s=c.subject||'Other'; if(!by.has(s)) by.set(s,[]); by.get(s).push(c); });
@@ -2542,13 +2567,19 @@ function planningApp(){
     
     // "Clear filters" button – just resets filters (keeps selections/plan)
     clearFilters(){
-      this.resetFilters();
+      this.search = '';
+      this.filters.subjects  = [];
+      this.filters.levelTags = [];
+      this.filters.planUses  = [];
+      this.onlyPlanned = false;
+      this.onlyChecked = false;
     
-      // tell all multiSelects + the subject search to visually clear & close
+      // if you’re using the 83 multiSelect component with global events:
       window.dispatchEvent(new CustomEvent('ms:clear'));
-    
-      this.$nextTick(() => this.measureBars && this.measureBars());
-      window.dispatchEvent(new CustomEvent('ms:reposition'));
+      this.$nextTick(() => {
+        this.measureBars && this.measureBars();
+        window.dispatchEvent(new CustomEvent('ms:reposition'));
+      });
     },
     
     // "Clear selected" (Clear All) button – clears checks, plan, AND filters
