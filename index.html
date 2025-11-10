@@ -1009,10 +1009,11 @@
           </div>
         
           <!-- GRADE (multi) -->
-          <div class="area-grade" x-ref="msRoot" x-data="multiSelect({ placeholder:'Grade', modelValue: filters.levelTags, options: gradeOptions })"
-               x-model="filters.levelTags">
+          <div class="area-grade"
+               x-data="multiSelect({ placeholder:'Grade', modelValue: filters.levelTags, options: gradeOptions })"
+               x-model="filters.levelTags" x-ref="msRoot">
             <div class="relative">
-              <button type="button" class="ms-trigger" @click="open = !open" :aria-expanded="open">
+              <button type="button" class="ms-trigger" @click="open = !open" :aria-expanded="open" @click="open = !open; if(open) $nextTick(() = @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))"> updatePanelPos($refs.msRoot))">
                 <div class="chips" x-show="value.length">
                   <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
                 </div>
@@ -1032,10 +1033,11 @@
           </div>
         
           <!-- SUBJECT (multi) -->
-          <div class="area-subject" x-ref="msRoot" x-data="multiSelect({ placeholder:'Subject', modelValue: filters.subjects, options: subjectList.map(s=>({value:s,label:s})) })"
+          <div class="area-subject"
+               x-data="multiSelect({ placeholder:'Subject', modelValue: filters.subjects, options: subjectList.map(s=>({value:s,label:s})) })"
                x-model="filters.subjects">
             <div class="relative">
-              <button type="button" class="ms-trigger" @click="open = !open" :aria-expanded="open">
+              <button type="button" class="ms-trigger" @click="open = !open" :aria-expanded="open" @click="open = !open; if(open) $nextTick(() = @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))"> updatePanelPos($refs.msRoot))">
                 <div class="chips" x-show="value.length">
                   <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
                 </div>
@@ -1064,7 +1066,7 @@
                })"
                x-model="filters.planUses">
             <div class="relative">
-              <button type="button" class="ms-trigger" @click="open = !open" :aria-expanded="open">
+              <button type="button" class="ms-trigger" @click="open = !open" :aria-expanded="open" @click="open = !open; if(open) $nextTick(() = @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))"> updatePanelPos($refs.msRoot))">
                 <div class="chips" x-show="value.length">
                   <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
                 </div>
@@ -1116,23 +1118,17 @@
             <span class="text-xs" x-text="onlyChecked ? 'On' : 'Off'"></span>
           </div>
       
-          <div class="ml-auto w-full sm:w-auto flex flex-wrap justify-end items-center gap-2 sm:gap-3">
-            <button type="button" class="btn btn-ghost rounded-xl px-3 py-2 text-sm sm:text-base min-w-[9rem]" @click="clearAll()">Clear selected</button>
-            <button type="button" class="btn btn-ghost rounded-xl px-3 py-2 text-sm sm:text-base min-w-[9rem]" @click="clearFilters()">Clear filters</button>
-            <button type="button"
-              class="btn btn-ghost rounded-xl px-3 py-2 text-sm sm:text-base min-w-[9rem] inline-flex items-center justify-center gap-2"
-              @click="refreshData()"
+          <div class="ml-auto flex items-center gap-2">
+            <button type="button" class="btn btn-ghost rounded-xl" @click="clearAll()">Clear selected</button>
+            <button type="button" class="btn btn-ghost rounded-xl" @click="clearFilters()">Clear filters</button>
+            <button type="button" class="btn btn-ghost rounded-xl" @click="refreshData()" title="Refesh data"
               :disabled="isRefreshing"
               :class="isRefreshing ? 'opacity-60 cursor-wait' : ''"
             >
-              <svg x-show="isRefreshing" class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4A4 4 0 008 12H4z"></path>
-              </svg>
               <span x-show="!isRefreshing">↻ Refresh</span>
               <span x-show="isRefreshing">Refreshing…</span>
             </button>
-            <button type="button" class="btn btn-primary rounded-xl px-3 py-2 text-sm sm:text-base min-w-[9rem]" @click="openPrintDialog()">Print</button>
+            <button type="button" class="btn btn-primary rounded-xl" @click="openPrintDialog()">Print</button>
           </div>
         </div>
       </div>
@@ -1574,75 +1570,95 @@
 document.addEventListener('alpine:init', () => {
   // Airtable-style multi-select with checkbox list and chips
   Alpine.data('multiSelect', (cfg = {}) => ({
-    value: Array.isArray(cfg.modelValue) ? cfg.modelValue : [],
-    ['x-modelable'](){ return 'value' },
+  value: Array.isArray(cfg.modelValue) ? cfg.modelValue : [],
+  ['x-modelable'](){ return 'value' },
 
-    open: false,
-    placeholder: cfg.placeholder || 'Select…',
-    options: cfg.options || [],        // [{value, label, icon?}]
-    searchable: cfg.searchable ?? false,
-    q: '',
+  open: false,
+  placeholder: cfg.placeholder || 'Select…',
+  options: cfg.options || [],        // [{value, label, icon?}]
+  searchable: cfg.searchable ?? false,
+  q: '',
 
-    init(){
-      // keep parent x-model in sync on init
+  init(){
+    this.$dispatch('input', this.value);
+
+    // global clear: visually clear & close
+    window.addEventListener('ms:clear', this._msClear = () => {
+      this.value = [];
+      this.q = '';
+      this.open = false;
       this.$dispatch('input', this.value);
+    });
 
-      // allow the app to globally clear every multiSelect
-      window.addEventListener('ms:clear', () => {
-        this.value = [];
-        this.q = '';
-        this.open = false;
-        this.$dispatch('input', this.value);
-      });
+    // keep panel aligned while open
+    this._onScroll = () => { if (this.open) this.updatePanelPos(this.$refs.msRoot); };
+    this._onResize = () => { if (this.open) this.updatePanelPos(this.$refs.msRoot); };
+    window.addEventListener('scroll', this._onScroll, true);
+    window.addEventListener('resize', this._onResize);
 
-      // when sticky bars re-measure, gently close/reopen if needed
-      window.addEventListener('ms:reposition', () => {
-        if (!this.open) return;
-        this.open = false;
-        this.$nextTick(() => { this.open = true; });
-      });
+    window.addEventListener('ms:reposition', () => {
+      if (this.open) this.updatePanelPos(this.$refs.msRoot);
+    });
+  },
+
+  get shown(){
+    if (!this.searchable || !this.q) return this.options;
+    const k = this.q.toLowerCase();
+    return this.options.filter(o => (o.label||'').toLowerCase().includes(k));
+  },
+
+  get labelChips(){
+    const labels = this.options.filter(o => this.value.includes(o.value)).map(o => o.label);
+    return (labels.length <= 3) ? labels : [...labels.slice(0,3), `+${labels.length-3}`];
+  },
+
+  toggle(v){
+    const set = new Set(this.value);
+    set.has(v) ? set.delete(v) : set.add(v);
+    this.value = Array.from(set);
+    this.$dispatch('input', this.value);
+  },
+  clear(){
+    this.value = [];
+    this.$dispatch('input', this.value);
+  },
+  isOn(v){ return this.value.includes(v); },
+  closeOnEscape(e){ if (e.key === 'Escape') this.open = false; },
+
+  updatePanelPos(root){
+    if (!root) return;
+    const trigger = root.querySelector('.ms-trigger');
+    const panel   = root.querySelector('.ms-panel');
+    if(!trigger || !panel) return;
+    const r = trigger.getBoundingClientRect();
+    panel.style.position = 'fixed';
+    panel.style.top = (r.bottom + 4) + 'px';
+    panel.style.left = r.left + 'px';
+    panel.style.width = r.width + 'px';
+    panel.style.zIndex = 9999;
+  }
+}));
     },
-
-    get shown(){
-      if (!this.searchable || !this.q) return this.options;
-      const k = this.q.toLowerCase();
-      return this.options.filter(o => (o.label||'').toLowerCase().includes(k));
-    },
-
     get labelChips(){
+      // show up to 3 labels, then +n
       const labels = this.options.filter(o => this.value.includes(o.value)).map(o => o.label);
       if (labels.length <= 3) return labels;
       return [...labels.slice(0,3), `+${labels.length-3}`];
     },
-
     toggle(v){
       const set = new Set(this.value);
       set.has(v) ? set.delete(v) : set.add(v);
       this.value = Array.from(set);
-      this.$dispatch('input', this.value);
+      this.$dispatch('input', this.value);   // force two-way sync to parent x-model
     },
-
     clear(){
       this.value = [];
-      this.$dispatch('input', this.value);
+      this.$dispatch('input', this.value);   // force two-way sync to parent x-model
     },
-
     isOn(v){ return this.value.includes(v); },
-    closeOnEscape(e){ if (e.key === 'Escape') this.open = false; },
-
-    // panel teleport/positioning (expects x-ref="msRoot" and .ms-trigger/.ms-panel in markup)
-    updatePanelPos(root){
-      const trigger = root.querySelector('.ms-trigger');
-      const panel   = root.querySelector('.ms-panel');
-      if(!trigger || !panel) return;
-      const r = trigger.getBoundingClientRect();
-      panel.style.position = 'fixed';
-      panel.style.top = (r.bottom + 4) + 'px';
-      panel.style.left = r.left + 'px';
-      panel.style.width = r.width + 'px';
-      panel.style.zIndex = 9999;
-    }
-  })););
+    closeOnEscape(e){ if (e.key === 'Escape') this.open = false; }
+  }));
+});
 </script>
   
 <script>
@@ -2001,30 +2017,27 @@ function planningApp(){
     },
     isRefreshing: false,
 
-    isRefreshing: false,
-refreshData: async function (){
+    refreshData(){
       try{
         this.isRefreshing = true;
-
-        // clear cached CSV so we fetch fresh
+    
+        // 🔑 remove cached CSV bundle so the app re-fetches fresh text
         localStorage.removeItem('pf_csv_cache_v1');
-
-        // re-load CSVs in-place and rebuild courses/topics
-        await this.loadDualCSVs();
-
-        // restore checks & plan tags
-        this.restoreChecked && this.restoreChecked();
-        this.loadPlan && this.loadPlan();
-
-        // re-measure layout & fix any open panels
-        this.$nextTick(() => {
-          this.measureBars && this.measureBars();
-          window.dispatchEvent(new CustomEvent('ms:reposition'));
-        });
-      } finally {
+    
+        // Optional: if you also cache anything else, clear here too
+        // localStorage.removeItem('pf_csv_cache_v2');
+    
+        // Give the UI a tick to show the “Refreshing…” state, then reload
+        setTimeout(() => {
+          // Hard reload to ensure scripts re-run and CSVs are re-parsed
+          location.reload();
+        }, 150);
+      } catch(e){
+        console.error('Refresh failed:', e);
         this.isRefreshing = false;
+        alert('Could not refresh. See console for details.');
       }
-    },,
+    },
     ensureArrayFilters(){
       const f = this.filters || {};
       if (!Array.isArray(f.subjects))  f.subjects  = [];
@@ -2183,29 +2196,31 @@ refreshData: async function (){
       // 3) Recompute sticky offsets after the layout expands/collapses
       this.$nextTick(() => this.measureBars && this.measureBars());
     },
-    resetFilters(){
+    clearFilters(){
+      // visually clear/close all multiselects & remeasure
+      window.dispatchEvent(new CustomEvent('ms:clear'));
+      this.$nextTick(() => this.measureBars && this.measureBars());
+      window.dispatchEvent(new CustomEvent('ms:reposition'));
+
       this.search = '';
+      // reset the new multi-select model (arrays)
       this.filters = { subjects: [], levelTags: [], planUses: [] };
       this.onlyPlanned = false;
       this.onlyChecked = false;
-
-      // visually clear & close all multiselects
+    
+      // close any open multiSelect panels by broadcasting a click-outside
+      this.$nextTick(() => this.measureBars && this.measureBars());
+    },
+    clearAll(){
+      // visually clear/close all multiselects & remeasure
       window.dispatchEvent(new CustomEvent('ms:clear'));
-
-      // re-measure sticky bars and reposition any open panels
       this.$nextTick(() => this.measureBars && this.measureBars());
       window.dispatchEvent(new CustomEvent('ms:reposition'));
+
+      this.courses.forEach(c=>{ c.checked=false; (c.topics||[]).forEach(t=>t.checked=false); });
+      this.persistChecked();
+      this.plan={}; this.persistPlan();
     },
-    clearFilters(){
-      this.resetFilters();
-    },,
-    clearAll(){
-      (this.courses || []).forEach(c=>{ c.checked=false; (c.topics||[]).forEach(t=>t.checked=false); });
-      this.persistChecked && this.persistChecked();
-      this.plan = {};
-      this.persistPlan && this.persistPlan();
-      this.resetFilters();
-    },,
     printSelected(){ window.print(); },
 
     async init(){
