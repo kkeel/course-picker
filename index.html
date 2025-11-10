@@ -899,10 +899,38 @@
       margin-top: 0;                     /* no extra offset */
       width: auto;                       /* JS will match trigger width */
     }
-    .ms-row{ display:flex; align-items:center; gap:.5rem; padding:.45rem .5rem; border-radius:8px; }
-    .ms-row:hover{ background:#f7f9f7; }
-    .ms-icon{ width:18px; height:18px; border-radius:999px; }
-    .ms-search{ width:100%; border:1px solid #d9ded9; border-radius:8px; padding:.4rem .6rem; color:#666d66; }
+    /* --- dropdown row text unified with filter controls --- */
+    .ms-row{
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+      padding:.4rem .5rem;
+      border-radius:8px;
+      font-family:'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:.9rem;            /* match .mini controls */
+      color:#666d66;              /* unified tone */
+      background:transparent;
+      transition:background .15s ease;
+    }
+    .ms-row:hover{
+      background:#f7f9f7;
+      color:#262b26;              /* slightly darker on hover */
+    }
+    .ms-icon{
+      width:18px;
+      height:18px;
+      border-radius:999px;
+      flex-shrink:0;
+    }
+    .ms-search{
+      width:100%;
+      border:1px solid #d9ded9;
+      border-radius:8px;
+      padding:.35rem .6rem;
+      font-size:.9rem;
+      color:#666d66;
+      background:#fff;
+    }
     /* pill switch */
     .switch {
       position: relative; display:inline-flex; align-items:center; cursor:pointer;
