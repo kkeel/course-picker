@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alveary Book List</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Crimson+Text:wght@700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind + Alpine + PapaParse -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <style>
+    :root{
+      --brand-bg: #fbfbf9;
+      --brand-ink: #262b26;
+      --green-dark: #596e5e;   /* title + band */
+      --gray-soft: #f4f6fa;    /* description bg */
+      --band-green: #596e5e;   /* band */
+      --check-green: #9da89f;  /* checkbox accent */
+    }
+
+    .topic-band{ background:#adb58f; color:#fff; }
+    .topic-band .band-title{ font-size:12px; line-height:1.2; }
+
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+    body{
+      font-family: 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--brand-bg);
+      color: var(--brand-ink);
+    }
+    .font-crimson{ font-family: 'Crimson Text', Georgia, serif; }
+
+    .title-alveary{ color: var(--green-dark); font-weight: 700; font-size: 34px; }
+    .subject-divider{
+      color: var(--brand-ink); font-weight: 700; font-size: 26px;
+      margin-top: 3rem; margin-bottom: 1rem;
+      position: sticky; top: 64px; background: var(--brand-bg); z-index: 5;
+    }
+
+    .course-band{ background: var(--band-green); color:#fff; }
+    .course-band .band-title{ font-size:12px; line-height:1.2; }
+    .desc-bg{ background: var(--gray-soft); }
+
+    input[type="checkbox"]{ accent-color: var(--check-green); }
+
+    @media print{
+      body{ background:#fff !important; }
+      .print\:hidden{ display:none !important; }
+      .print\:block{ display:block !important; }
+      .course-band{ background: var(--band-green) !important; color:#fff !important; }
+      .topic-band{ background:#adb58f !important; color:#fff !important; }
+      .desc-bg{ background: var(--gray-soft) !important; }
+      .subject-divider{ position: static !important; background: transparent !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div x-data="booksApp()" x-init="init()" class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+
+    <!-- HEADER -->
+    <header class="flex items-center gap-3 mb-6">
+      <img src="Alveary%20Lt.%20Green.png" alt="Alveary" class="h-10 w-10 object-contain" />
+      <h1 class="title-alveary">Alveary Book List</h1>
+      <!-- Upper-right prev/next text navigation -->
+      <nav class="ml-auto text-sm flex items-center gap-4">
+        <a href="index.html" class="text-[var(--green-dark)] hover:underline">&larr; Course List</a>
+        <!-- No next yet -->
+      </nav>
+    </header>
+
+    <!-- TABS: How To / Books At‑A‑Glance (placeholder content for now) -->
+    <section class="mb-4 print:hidden" x-data="{ tab: 'howto' }">
+      <div class="flex gap-2">
+        <button @click="tab='howto'" :class="tab==='howto' ? 'bg-[var(--green-dark)] text-white' : 'bg-white text-[var(--green-dark)]'" class="px-3 py-1.5 rounded-xl border border-[var(--green-dark)]">How To</button>
+        <button @click="tab='glance'" :class="tab==='glance' ? 'bg-[var(--green-dark)] text-white' : 'bg-white text-[var(--green-dark)]'" class="px-3 py-1.5 rounded-xl border border-[var(--green-dark)]">Books At‑A‑Glance</button>
+      </div>
+      <div class="mt-3 rounded-2xl border border-gray-200 bg-white p-4" x-show="tab==='howto'">
+        <p class="text-sm text-gray-700">Placeholder: brief tips on using the Book List (we'll replace with real content later).</p>
+      </div>
+      <div class="mt-3 rounded-2xl border border-gray-200 bg-white p-4" x-show="tab==='glance'">
+        <p class="text-sm text-gray-700">Placeholder: compact summary of assigned books by term/grade (coming soon).</p>
+      </div>
+    </section>
+
+    <!-- FILTERS (reuse Subject + Grade + Search) -->
+    <section class="rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 mb-6 print:hidden">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <label class="block">
+          <span class="text-xs uppercase tracking-wide text-gray-500">Search</span>
+          <input x-model.trim.debounce.250ms="search" type="search" placeholder="Title, subject, keyword…" class="w-full mt-1 rounded-xl border-gray-300 placeholder-[#7b8b7f]" />
+        </label>
+        <label class="block">
+          <span class="text-xs uppercase tracking-wide text-gray-500">Subject</span>
+          <select x-model="filters.subject" class="w-full mt-1 rounded-xl border-gray-300">
+            <option value="">All</option>
+            <template x-for="s in subjectList" :key="s">
+              <option :value="s" x-text="s"></option>
+            </template>
+          </select>
+        </label>
+        <label class="block">
+          <span class="text-xs uppercase tracking-wide text-gray-500">Grade</span>
+          <select x-model="filters.levelTag" class="w-full mt-1 rounded-xl border-gray-300">
+            <option value="">All</option>
+            <template x-for="lvl in levelList" :key="lvl">
+              <option :value="lvl" x-text="lvl"></option>
+            </template>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <!-- Sticky actions (optional selection + print) -->
+    <div class="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-gray-200 flex justify-between items-center print:hidden">
+      <div><strong x-text="selectedCount"></strong> selected</div>
+      <div class="flex items-center gap-2">
+        <button @click="items.forEach(i=>i.checked=false); persist()" class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">Clear</button>
+        <button @click="printSelected()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print Selected</button>
+      </div>
+    </div>
+
+    <!-- GROUPED BOOK LIST (mirrors Course List grouping) -->
+    <section>
+      <template x-for="[subj, list] in grouped" :key="subj">
+        <div class="space-y-3">
+          <h2 class="subject-divider" x-text="subj"></h2>
+
+          <template x-for="c in list" :key="c.id">
+            <div>
+              <!-- Course band (title + grades) -->
+              <div class="course-band rounded-md overflow-hidden">
+                <div class="grid grid-cols-12">
+                  <div class="col-span-4 px-3 py-2 border-white/10 flex items-center gap-2">
+                    <input type="checkbox" class="size-5 rounded border-white/50" :id="'chk-'+c.id" x-model="c.checked" @change="persist()" />
+                    <div class="band-title font-crimson"><span x-text="c.title"></span></div>
+                  </div>
+                  <div class="col-span-4 px-3 py-2 border-white/10">
+                    <div class="band-title">Assigned Books</div>
+                  </div>
+                  <div class="col-span-4 px-3 py-2 border-white/10">
+                    <div class="band-title">At‑A‑Glance<br><span class="text-[11px] opacity-90" x-text="c.levelDisplay"></span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Row: Summary | Book list | Quick notes -->
+              <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
+                <div class="col-span-4 px-3 py-3 text-sm">
+                  <div class="opacity-80" x-html="c.summary || '&nbsp;'"></div>
+                </div>
+                <div class="col-span-4 px-4 py-4 desc-bg text-sm leading-relaxed">
+                  <!-- Assigned books -->
+                  <template x-if="c.books && c.books.length">
+                    <ul class="space-y-2 list-disc pl-5">
+                      <template x-for="b in c.books" :key="b.key">
+                        <li>
+                          <div class="font-semibold" x-text="b.title"></div>
+                          <div class="text-[12px] opacity-80" x-text="b.author"></div>
+                          <div class="text-[12px]" x-text="b.meta"></div>
+                          <template x-if="b.link">
+                            <div class="text-[12px]"><a :href="b.link" target="_blank" class="underline">More</a></div>
+                          </template>
+                        </li>
+                      </template>
+                    </ul>
+                  </template>
+                  <template x-if="!c.books || !c.books.length">
+                    <p class="text-gray-500">No books assigned yet.</p>
+                  </template>
+                </div>
+                <div class="col-span-4 px-4 py-4 text-sm leading-relaxed">
+                  <template x-if="c.glance && c.glance.length">
+                    <ul class="space-y-1">
+                      <template x-for="g in c.glance" :key="g">
+                        <li class="text-[12px]" x-text="g"></li>
+                      </template>
+                    </ul>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </template>
+
+      <template x-if="!filtered.length">
+        <p class="text-center text-gray-500 py-12">No items match your filters.</p>
+      </template>
+    </section>
+
+    <!-- PRINT: selected only -->
+    <section class="hidden print:block mt-8">
+      <header class="mb-4 flex items-center gap-3">
+        <img src="Alveary%20Lt.%20Green.png" alt="Alveary" class="h-10 w-10 object-contain" />
+        <h1 class="title-alveary m-0">Alveary Book List</h1>
+      </header>
+
+      <div class="space-y-3">
+        <template x-for="c in items.filter(i => i.checked)" :key="c.id">
+          <div>
+            <div class="course-band rounded-md overflow-hidden">
+              <div class="grid grid-cols-12">
+                <div class="col-span-4 px-3 py-2 border-white/10"><div class="band-title font-crimson" x-text="c.title"></div></div>
+                <div class="col-span-4 px-3 py-2 border-white/10"><div class="band-title">Assigned Books</div></div>
+                <div class="col-span-4 px-3 py-2 border-white/10"><div class="band-title">At‑A‑Glance<br><span class="text-[11px] opacity-90" x-text="c.levelDisplay"></span></div></div>
+              </div>
+            </div>
+            <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
+              <div class="col-span-4 px-3 py-3 text-sm"><div x-html="c.summary || '&nbsp;'"></div></div>
+              <div class="col-span-4 px-4 py-4 desc-bg text-sm leading-relaxed">
+                <template x-if="c.books && c.books.length">
+                  <ul class="space-y-1 list-disc pl-5">
+                    <template x-for="b in c.books" :key="b.key">
+                      <li><span x-text="b.title"></span><span x-text="b.author ? ' — ' + b.author : ''"></span></li>
+                    </template>
+                  </ul>
+                </template>
+              </div>
+              <div class="col-span-4 px-4 py-4 text-sm leading-relaxed">
+                <template x-if="c.glance && c.glance.length">
+                  <ul class="space-y-1">
+                    <template x-for="g in c.glance" :key="g"><li class="text-[12px]" x-text="g"></li></template>
+                  </ul>
+                </template>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+
+    <!-- APP SCRIPT -->
+    <script>
+      function booksApp(){
+        return {
+          /* UI */
+          search: '',
+          filters: { subject: '', levelTag: '' },
+
+          /* Data */
+          items: [], // each represents a course with its assigned books
+
+          /* Data sources — placeholder: update to your Books/Assignments CSVs */
+          dataSources: {
+            // Reuse courses CSV to get subject/grade/title, then join to a books CSV
+            courses: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=0&single=true&output=csv',
+            // TODO: replace with your MA_Assignments export for books (one row per book)
+            // Expected fields mapped below
+            books:   'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=182625034&single=true&output=csv'
+          },
+
+          /* Field maps (case-insensitive) */
+          courseFields: {
+            course_id: 'Course_ID',
+            course_title: 'Course',
+            subject: 'Subject',
+            schedule_text: 'Scheduling_R3',
+            grade_text: 'Grade_Text',
+            grade_filter: 'Grade_Filter'
+          },
+          bookFields: {
+            // You can adjust these to whatever your MA_Assignments/Book export uses
+            course_id: ['Course_ID','Course_ID_R3','Resource_Key'],
+            title: ['Book_Title','Title','Assigned_Book'],
+            author: ['Author','By'],
+            terms: ['Term','Terms','Assignments_Terms'],
+            pages: ['Pages','Page_Range'],
+            notes: ['Notes','Resource_Information_Text'],
+            link: ['Link 1 url','Link','URL']
+          },
+
+          /* Derived */
+          get filtered(){
+            const q = this.search.toLowerCase();
+            return this.items.filter(c => {
+              const matchesQ = !q || [c.title, c.subject, c.summary, c.levelDisplay].join(' ').toLowerCase().includes(q);
+              const matchesS = !this.filters.subject || c.subject === this.filters.subject;
+              const matchesL = !this.filters.levelTag || (c.levelTags && c.levelTags.includes(this.filters.levelTag));
+              return matchesQ && matchesS && matchesL;
+            });
+          },
+          get subjectList(){
+            const arr = [...new Set(this.items.map(c => c.subject).filter(Boolean))];
+            arr.sort((a,b)=>a.localeCompare(b, undefined, {numeric:true}));
+            return arr;
+          },
+          get levelList(){
+            return [...new Set(this.items.flatMap(c => c.levelTags || []))]
+              .sort((a,b)=>{ const na=+a.replace(/\D/g,''); const nb=+b.replace(/\D/g,''); return na-nb || a.localeCompare(b); });
+          },
+          get grouped(){
+            const groups = new Map();
+            this.filtered.forEach(c => { const s = c.subject || 'Other'; if(!groups.has(s)) groups.set(s, []); groups.get(s).push(c); });
+            return Array.from(groups.entries()).sort((a,b)=>a[0].localeCompare(b[0], undefined, {numeric:true}));
+          },
+          get selectedCount(){ return this.items.reduce((n,c)=> n + (c.checked?1:0), 0); },
+
+          /* Helpers */
+          _getCI(row, want){
+            const keys = Array.isArray(want) ? want : [want];
+            for(const k of keys){ const hit = Object.keys(row).find(h => h.trim().toLowerCase() === String(k).trim().toLowerCase()); if(hit) return row[hit]; }
+            return undefined;
+          },
+          computeGradeTags(gr){
+            const tags=[]; const range  = gr && gr.match(/^(?:[Gg]?(\d+))\s*[–-]\s*[Gg]?(\d+)$/);
+            if(range){ const a=+range[1], b=+range[2]; for(let i=Math.min(a,b); i<=Math.max(a,b); i++) tags.push(`G${i}`); return tags; }
+            const single = gr && gr.match(/^[Gg]?(\d+)$/);
+            if(single){ return [`G${+single[1]}`]; }
+            if(gr && String(gr).includes(',')){
+              String(gr).split(',').forEach(x=>{ const n=x.replace(/[^0-9]/g,''); if(n) tags.push(`G${+n}`); });
+            }
+            return tags;
+          },
+          rowToCourse(row){
+            if(!row) return null; const g = (k) => this._getCI(row, this.courseFields[k]);
+            const id    = (g('course_id')    || '').toString().trim();
+            const title = (g('course_title') || '').toString().trim(); if(!id && !title) return null;
+            const subject    = (g('subject') || '').toString().trim();
+            const gradeText  = (g('grade_text')   || '').toString().trim();
+            const gradeFilter= (g('grade_filter') || '').toString().trim();
+            const schedule   = (g('schedule_text')|| '').toString().trim();
+            const levelDisplay = gradeText || '';
+            const levelTags = (gradeFilter && /G\s*\d+/i.test(gradeFilter))
+              ? (gradeFilter.match(/G\s*\d+/gi) || []).map(s => 'G' + s.replace(/[^0-9]/g,''))
+              : this.computeGradeTags(gradeText);
+            return { id: id||title, title: title||id, subject, summary: schedule, levelDisplay, levelTags, checked:false, books:[], glance:[] };
+          },
+          rowToBook(row){
+            if(!row) return null; const g = (k) => this._getCI(row, this.bookFields[k]);
+            const rawCourseId = (g('course_id') || '').toString().trim(); if(!rawCourseId) return null;
+            const title  = (g('title')  || '').toString().trim(); if(!title) return null;
+            const author = (g('author') || '').toString().trim();
+            const terms  = (g('terms')  || '').toString().trim();
+            const pages  = (g('pages')  || '').toString().trim();
+            const notes  = (g('notes')  || '').toString().trim();
+            const link   = (g('link')   || '').toString().trim();
+            const meta = [terms, pages, notes].filter(Boolean).join(' • ');
+            return { key: `${rawCourseId}::${title}`, course_id: rawCourseId, title, author, meta, link };
+          },
+
+          async load(){
+            // Fetch both CSVs (books may be 404 until you set it); fail soft.
+            const [coursesCSV, booksCSV] = await Promise.all([
+              fetch(this.dataSources.courses, { mode:'cors' }).then(r=>r.text()),
+              fetch(this.dataSources.books,   { mode:'cors' }).then(r=>r.ok?r.text():'' ).catch(()=> '')
+            ]);
+
+            const pc = Papa.parse(coursesCSV, { header:true, skipEmptyLines:true });
+            const courseIndex = {};
+            pc.data.forEach(row => { const c = this.rowToCourse(row); if(c) courseIndex[c.id] = c; });
+
+            if(booksCSV){
+              const pb = Papa.parse(booksCSV, { header:true, skipEmptyLines:true });
+              pb.data.forEach(row => { const b = this.rowToBook(row); if(!b) return; const cid = b.course_id; if(courseIndex[cid]){ courseIndex[cid].books.push(b); }});
+              // Simple at-a-glance sample: list terms present
+              Object.values(courseIndex).forEach(c => {
+                const terms = new Set();
+                (c.books||[]).forEach(b => { const m = b.meta.match(/(?:Term|T)\s*([1-3])/i); if(m) terms.add('Term ' + m[1]); });
+                c.glance = Array.from(terms);
+              });
+            }
+
+            this.items = Object.values(courseIndex);
+          },
+
+          persist(){
+            try{ localStorage.setItem('pf_books_sel', JSON.stringify(this.items.filter(i=>i.checked).map(i=>i.id))); }catch{}
+          },
+          restore(){
+            try{ const set = new Set(JSON.parse(localStorage.getItem('pf_books_sel')||'[]')); this.items.forEach(i=> i.checked = set.has(i.id)); }catch{}
+          },
+
+          printSelected(){ window.print(); },
+
+          async init(){ await this.load(); this.restore(); }
+        };
+      }
+    </script>
+  </div>
+</body>
+</html>
