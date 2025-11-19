@@ -2664,7 +2664,7 @@ function planningApp(){
     },
     // --- NEW/ensure these exist in state ---
     showAllTips: true,     // when true: descriptions & tips are OPEN
-    onlyChecked: false,    // your existing flag for "Show only selected"
+    onlyChecked: true,    // your existing flag for "Show only selected"
     
     // --- Add or replace this helper ---
     applyTipsState(){
@@ -2688,7 +2688,7 @@ function planningApp(){
       scope:'all',          
       includeInfo:false,
       includeNotes:false,
-      selectedOnly:false,    
+      selectedOnly:true,    
       filtered:false,      
       warning:''             
     },
