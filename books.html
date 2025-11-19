@@ -13,260 +13,1164 @@
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-  <style>
+      /* =========================================================
+       ROOT & BASE
+    ========================================================= */
     :root{
       --brand-bg:#fbfbf9;
       --brand-ink:#262b26;
       --green-dark:#596e5e;
+      --black-2:#505650;
       --gray-soft:#f4f6fa;
       --band-green:#596e5e;
       --check-green:#9da89f;
       --filter-label:#666d66;
-      --mini-steps-h:44px;
-      --printbar-h:92px;
+    
+      /* sticky heights (measured/overridden by JS) */
+      --mini-steps-h:44px;   /* tiny sticky tab bar */
+      --printbar-h:46px;     /* compact filter/print bar */
     }
     *{-webkit-print-color-adjust:exact!important; print-color-adjust:exact!important;}
-    [x-cloak]{display:none!important;}
     body{
-      font-family:'DM Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       background:var(--brand-bg);
       color:var(--brand-ink);
-    }
-
-    .page-shell{max-width:1100px;margin:0 auto;padding:1.5rem 1rem 4rem;}
-    @media(min-width:640px){.page-shell{padding:2rem 1.5rem 4rem;}}
-
-    header img{display:block;}
-    .title-alveary{color:var(--green-dark);font-weight:700;font-size:34px;margin:0;}
-
-    .panel{background:#fff;border:1px solid #e7ebe8;border-radius:1.5rem;padding:1.25rem 1.5rem;margin-bottom:1.5rem;box-shadow:0 6px 18px rgba(0,0,0,.04);}    
-    .panel p{margin:0;line-height:1.6;}
-
-    .mini-steps{position:sticky;top:0;z-index:60;background:var(--brand-bg);border-bottom:1px solid #e3e7e3;margin:0 -1rem 1.5rem;padding:0 1rem;}
-    @media(min-width:640px){.mini-steps{margin:0 -1.5rem 1.5rem;padding:0 1.5rem;}}
-    .mini-steps .rail{height:var(--mini-steps-h);display:flex;align-items:center;gap:.9rem;}
-    .mini-steps a{font-size:.95rem;color:#505650;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;padding:.25rem .2rem;}
-    .mini-steps a[aria-current="true"]{color:var(--brand-ink);text-decoration-thickness:2px;}
-
-    
-    .sticky-actions{position:sticky;top:var(--mini-steps-h);z-index:50;background:var(--brand-bg);border-bottom:1px solid #e4e8e4;padding:1rem 0;margin-bottom:1rem;}
-    .filter-strip{display:grid;align-items:center;grid-template-columns:repeat(4,minmax(0,1fr));gap:.5rem;font-size:.9rem;color:#666d66;}
-    .filter-strip> *{min-width:0;}
-    .filter-strip .mini{width:100%;height:30px;padding:.25rem .55rem;border:1px solid #d9ded9;border-radius:.6rem;background:#fff;color:#666d66;font-size:.9rem;}
-    .filter-strip .mini::placeholder,.filter-strip .mini option{color:#666d66;}
-    .filter-strip button[role="clear"]{font-size:.75rem;text-decoration:underline;color:#666d66;margin-top:.15rem;display:inline-block;}
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      font-size:12px;
-      font-weight:500;
-      border-radius:.75rem;
-      padding:.2rem .6rem;
-      border:1px solid transparent;
-    }
-    .btn-ghost{
-      background:#fff;
-      border-color:#d9ded9;
-      color:#666d66;
+      font-family:'DM Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
     }
     
-    .btn-ghost:hover{background:#f4f6fa;}
-    .btn-primary{
-      background:var(--green-dark);
-      color:#fff;
-      padding:.2rem .8rem; /* ensures print button readable */
+    /* =========================================================
+       TITLES & TYPO
+    ========================================================= */
+    .title{
+      font-weight:700; font-size:40px; line-height:1.1; color:var(--brand-ink); margin:0;
+    }
+    .step-title{
+      font-weight:700; font-size:30px; line-height:1.2; color:var(--green-dark); margin:.5rem 0 .25rem;
+    }
+    .step-sub{ color:#49564f; font-size:1rem; margin:0 0 1rem; }
+    
+    /* =========================================================
+       GUIDANCE (Step: Planning Guide)
+    ========================================================= */
+    .guidance-head{ display:flex; align-items:center; gap:.75rem; margin-bottom:.5rem; }
+    .guidance-head img{ height:3.25rem; width:3.25rem; }
+    .guidance-head h3{ font-size:1.35rem; font-weight:700; color:var(--green-dark); }
+    
+    .guidance-copy{ font-size:.96rem; line-height:1.55; color:#2f3a33; margin-left:2.9rem; }
+    .guidance-copy p{ margin:0 0 .6rem 0; }
+    .guidance-copy ul{ margin:.25rem 0 .75rem 1.25rem; }
+    .guidance-copy ul li{ margin-bottom:.25rem; padding-left:.25rem; }
+    
+    .divider-green{ border-top:1.5px solid var(--green-dark); margin-top:1.1rem; padding-top:1.1rem; }
+    
+    .intro-card{
+      background:#fff; border:1px solid #e7ebe8; box-shadow:0 2px 8px rgba(0,0,0,.05);
+      border-radius:1rem; padding:1rem 1.25rem;
+    }
+    @media (min-width:640px){ .intro-card{ padding:1.25rem 1.5rem; } }
+    
+    .schedule-col{ font-size:.85rem; line-height:1.35; color:#2f3a33; }
+    .schedule-col .label{ font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:#6b7a71; margin-bottom:.25rem; display:block; }
+    @media (min-width:640px){ .schedule-col{ padding-right:.25rem; } }
+    
+    .legend img{ width:18px; height:18px; border-radius:999px; }
+    .legend li{ display:flex; align-items:center; gap:.4rem; }
+    
+    /* =========================================================
+       MINI TABS (sticky #1)
+    ========================================================= */
+    .mini-steps{
+      position:sticky; top:0; z-index:50; background:var(--brand-bg); border-bottom:1px solid #e3e7e3;
+    }
+    .mini-steps .rail{
+      height:var(--mini-steps-h); display:flex; align-items:center; gap:.9rem;
+      padding-bottom:0; margin-bottom:-1px; /* kiss print bar */
+    }
+    .mini-steps a{
+      font-size:.95rem; color:var(--black-2);
+      text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px;
+      padding:.2rem .1rem;
+    }
+    .mini-steps a[aria-current="true"]{ color:var(--brand-ink); text-decoration-thickness:2px; }
+    
+    /* =========================================================
+       PRINT / FILTER BAR (sticky #2)
+    ========================================================= */
+    .sticky-actions{
+      position:sticky; top:var(--mini-steps-h); z-index:40;
+      background:var(--brand-bg); border-bottom:0; margin-top:-1px;  /* seamless to tabs */
+    }
+    .sticky-actions .btn{ font-size:.9rem; padding:.3rem .65rem; border-radius:.9rem; }
+    .sticky-actions .btn-ghost { color: #666d66 !important; border: 1px solid #d9ded9; background: #fff; font-size: .9rem !important; font-weight: 500; }
+    .sticky-actions .btn-primary{ background:var(--green-dark); color:#fff; }
+    
+    /* Compact filter strip inside print bar */
+    .filter-strip{
+      display: grid;
+      align-items: center;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: .5rem;
+      font-size: .9rem;
+      color:#666d66
+    }
+    .filter-strip .mini{
+      width: 100%;
+      height: 30px;
+      padding: .25rem .55rem;
+      border: 1px solid #d9ded9;
+      border-radius: .6rem;
+      background: #fff;
+      color:#666d66 /* control text */
+    }
+    .filter-strip .mini::placeholder,
+    .filter-strip .mini option{ color:#666d66; }
+    
+    .filter-strip .chk{
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      white-space: nowrap;
+      font-size: .9rem;
+      color:#666d66
+    }
+    .filter-strip .chk input{ width:16px; height:16px; }
+    .filter-strip .chk span{ color: var(--filter-label); font-weight: 500; }
+    .text-gray-600 strong{ color: var(--filter-label); }
+    
+    /* Keep Subject + Plan together when wrapping */
+    .filter-strip .pair{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .5rem;
     }
     
-    .btn-primary:hover{filter:brightness(.95);}
-    .btn[disabled]{opacity:.6;cursor:not-allowed;}
-
-    @media(max-width:900px){.filter-strip{grid-template-columns:repeat(2,minmax(0,1fr));}}
-
-    /* multi-select controls */
-    .ms-trigger{
-      width:100%; height:30px;
-      padding:0 .6rem; border:1px solid #d9ded9; border-radius:.6rem;
-      background:#fff; color:#666d66; font-size:.9rem; font-weight:500;
-      display:flex; align-items:center; gap:.4rem;
+    /* 4 equal columns */
+    .filter-strip{
+      display:grid; align-items:center;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+      gap:.5rem; font-size:.9rem;
     }
-    .ms-trigger .chips{ display:flex; gap:.35rem; flex-wrap:wrap; }
-    .ms-chip{ background:#eef2ed; color:#4d574d; padding:0 .45rem; border-radius:.5rem; font-size:.75rem; }
-    .ms-caret{ margin-left:auto; font-size:12px; color:#666d66; }
-    .ms-panel{
-      position:fixed; z-index:7000; margin-top:.35rem;
-      background:#fff; border:1px solid #e5e7eb; border-radius:.75rem;
-      box-shadow:0 10px 30px rgba(0,0,0,.12); padding:.4rem; max-height:260px; overflow:auto;
+    
+    /* Search (first) and Grade (second) each take 2 columns */
+    .filter-strip > .mini:nth-child(1),
+    .filter-strip > .mini:nth-child(2){
+      grid-column: span 2;
     }
-    .ms-row{ display:flex; align-items:center; gap:.5rem; padding:.35rem .45rem; border-radius:.5rem; font-size:.9rem; color:#2b332b; }
-    .ms-row:hover{ background:#f5f7f4; }
-    .ms-row input{ width:16px; height:16px; accent-color:var(--check-green); }
-    .ms-icon{ width:16px; height:16px; border-radius:999px; }
-    .ms-search{ width:100%; border:1px solid #d9ded9; border-radius:.45rem; padding:.3rem .5rem; margin-bottom:.35rem; font-size:.85rem; color:#4d574d; }
-
-    .toolbar-card{background:transparent;border:none;padding:0;}
-    .toolbar-title{display:none;}
-    .bottom-controls{align-items:center;}
-    .bottom-controls,.bottom-controls .btn,.bottom-controls .switch-label,.bottom-controls .switch-text{
-      font-size:12px;line-height:1.25;color:#666d66;font-weight:500;
+    
+    /* Subject+Plan pair spans entire row and contains 2 equal columns */
+    .filter-strip .pair{
+      grid-column: 1 / -1;             /* take all 4 columns */
+      display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:.5rem;
     }
-    .bottom-controls .btn{padding:.2rem .55rem;border-radius:.7rem;}
-    .bottom-controls .btn-primary{padding:.2rem .8rem;}
-    .switch-wrap{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
-    .switch-label{font-size:12px;color:#666d66;}
-    .switch-text{font-size:12px;color:#666d66;}
-    .switch{
-      position:relative; width:34px; height:18px;
-      background:#d9ded9; border-radius:999px; border:none;
+    
+    /* On narrow screens, the grid becomes 2 columns; above still works */
+    @media (max-width:900px){
+      .filter-strip{ grid-template-columns:repeat(2, minmax(0,1fr)); }
     }
-    .switch.on{background:#596e5e;}
-    .switch .knob{
-      position:absolute; top:2px; left:2px; width:14px; height:14px;
-      border-radius:999px; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.2);
-      transition:left .18s ease;
+    
+    /* optional – keep the tiny Clear links tidy under selects */
+    .filter-strip button[role="clear"],
+    .filter-strip .area-search > button,
+    .filter-strip .area-grade > button,
+    .filter-strip .area-subject > button,
+    .filter-strip .area-plan > button{
+      font-weight: 500;
     }
-    .switch.on .knob{left:18px;}
-
+    /* popover trigger styled like your .mini inputs */
+    .filter-trigger{
+      @apply w-full h-[30px] px-2 border border-[#d9ded9] rounded-lg bg-white text-[#666d66] flex items-center justify-between;
+    }
+    .filter-menu{
+      position:absolute; z-index:120; margin-top:.35rem; right:0; left:0;
+      background:#fff; border:1px solid #e5e7eb; border-radius:.6rem; box-shadow:0 8px 24px rgba(0,0,0,.08);
+      padding:.4rem; max-height:260px; overflow:auto;
+    }
+    .filter-menu .row{ display:flex; align-items:center; gap:.5rem; padding:.4rem .45rem; border-radius:.5rem; }
+    .filter-menu .row:hover{ background:#f7f9f7; }
+    .filter-menu img{ width:18px; height:18px; border-radius:999px; }
+    .filter-menu input[type="search"]{ width:100%; border:1px solid #d9ded9; border-radius:.5rem; padding:.35rem .5rem; color:#666d66; }
+    /* =========================================================
+       SUBJECT HEADERS (sticky #3)
+    ========================================================= */
+    .subject-sticky{
+      position:sticky; top:calc(var(--mini-steps-h) + var(--printbar-h)); z-index:35;
+      background:var(--brand-bg); padding-bottom:8px; margin-bottom:8px; border-bottom:0;
+    }
+    .subject-sticky::after{
+      content:""; position:absolute; left:0; right:0; bottom:0; height:2px; background:#cdb4a6;
+    }
+    /* Subject heading typography (was removed in cleanup) */
+    .subject-inner{
+      display:flex; align-items:center; gap:.5rem;
+      color:#262b26;
+      font-family:"Crimson Text", serif;
+      font-weight:700;
+      font-size:1.75rem;
+      line-height:1.1;
+    }
+    @media (min-width:768px){ .subject-inner{ font-size:1.9rem; } }
+    
+    /* small color dot next to subject */
+    .subject-dot{
+      width:14px; height:14px; border-radius:999px;
+      background:var(--subject-color, #dfe4df);
+      box-shadow: inset 0 0 0 2px rgba(0,0,0,.08);
+    }
+    
+    /* keep the underline fully visible while sticky */
     .subject-sticky{
       position:sticky;
-      top:calc(var(--mini-steps-h)+var(--printbar-h));
+      top:calc(var(--mini-steps-h) + var(--printbar-h));
       z-index:35;
       background:var(--brand-bg);
-      padding:12px 1rem 10px;
-      margin:0 -1rem 1rem;
+      padding-bottom:10px;   /* breathing space */
+      margin-bottom:10px;
+      border-bottom:0;
     }
     .subject-sticky::after{
       content:"";
-      position:absolute;
-      left:0; right:0; bottom:0;
-      height:3px;
-      background:#cdb4a6;
+      position:absolute; left:0; right:0; bottom:0;
+      height:2px; background:#cdb4a6;
     }
-    @media(min-width:640px){
-      .subject-sticky{padding-left:1.5rem;padding-right:1.5rem;margin:0 -1.5rem 1rem;}
+    /* give the first course a bit more room so it never “shaves” the line */
+    .group-block .course-row:first-of-type{ margin-top:.5rem; }
+    
+    /* =========================================================
+       COURSE & TOPIC CARDS
+    ========================================================= */
+    .course-row{ display:flex; align-items:stretch; gap:12px; width:100%; }
+    .subject-rail{ width:5px; border-radius:10px; background:var(--subject-color, #dfe4df); flex:none; }
+    
+    .course-card{ flex:1 1 auto; min-width:0; border-radius:1rem; overflow:visible; background:#fff; }
+    .course-band{ background:var(--band-green); color:#fff; border-top-left-radius:1rem; border-top-right-radius:1rem; overflow:visible; }
+    .band-title{ font-family:"Crimson Text", serif; font-size:1.05rem; line-height:1.15; }
+    .band-title button{ margin-left:.25rem; transition:background .15s ease, transform .1s ease; }
+    .band-title button:hover{ transform:translateY(-1px); }
+    .desc-bg{ background:var(--gray-soft); }
+    input[type="checkbox"]{ accent-color:var(--check-green); }
+    
+    /* Pills (course + topic) */
+    .pill,.topic-pill{
+      background:transparent; border:2px solid #bfc4b4; border-radius:999px; padding:2px;
+      display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+      transition:transform .1s ease, background-color .15s ease, border-color .15s ease;
+    }
+    .pill:hover,.topic-pill:hover{ transform:translateY(-1px); }
+    .pill.active,.topic-pill.active{ background:#bec5a6; border-color:#aeb49a; }
+    .pill .icon,.topic-pill img{ width:28px; height:28px; border-radius:999px; display:block; }
+    .pill .tiny,.topic-pill .tiny{ display:none!important; }
+    
+    .icon,.badge{ width:18px; height:18px; border-radius:999px; display:block; }
+    .badge{ margin-left:.35rem; }
+    .tiny{ font-size:11px; opacity:.85; }
+    
+    .accordion{ background:var(--gray-soft); border-top:1px solid #e5e7eb; padding:14px 16px; }
+    .acc-section + .acc-section{ border-top:1px solid #e5e7eb; margin-top:12px; padding-top:12px; }
+    .acc-info{ background:#fff; border-top:1px solid #e5e7eb; padding:16px; }
+    
+    .note-area{ padding:0; background:transparent; border:0; }
+    .note-area textarea{
+      width:100%; border:1px solid #d9ded9; border-radius:.5rem; min-height:72px; padding:.5rem .6rem; font-size:.9rem; background:#fff;
+    }
+    
+    /* Topics */
+    .topics-list{ font-size:.92rem; margin-left:1.75rem; }
+    .topics-list .font-medium{ font-family:"DM Sans",sans-serif; }
+    .topics-list span, .topics-list label span{ line-height:1.3; }
+    
+    .topic-row{ display:flex; align-items:flex-start; justify-content:space-between; gap:.75rem; padding:.25rem .25rem; }
+    .topic-left{ display:flex; gap:.5rem; align-items:flex-start; }
+    .topic-title{ font-weight:600; font-size:.95rem; line-height:1.2; }
+    .topic-schedule{ font-size:.78rem; color:#647067; line-height:1.2; margin-top:.15rem; }
+    
+    .topic-icon{ background:#dee1d2; padding:.25rem .4rem; border-radius:.45rem; font-size:.75rem; line-height:1; }
+    .topic-icon[aria-expanded="true"]{ background:#bec5a6; }
+    .topic-icon:hover{ filter:brightness(.97); }
+    
+    .topic-icons{ display:flex; align-items:center; gap:.35rem; padding-left:.5rem; margin-left:.5rem; border-left:1px dashed #bec5a6; }
+    .topic-icons .plan-trigger{ background:#dee1d2; color:#2a312b; }
+    .topic-icons .plan-trigger[aria-expanded="true"], .topic-icons .plan-trigger:hover{ background:#bec5a6; }
+    
+    .topic-acc-note{ background:#f4f6fa; border-top:1px solid #e5e7eb; padding:12px; border-radius:.5rem; }
+    .topic-acc-info{ background:#fff;    border-top:1px solid #e5e7eb; padding:12px; border-radius:.5rem; }
+    
+    .topic-note-area textarea{
+      width:100%; border:1px solid #d9ded9; border-radius:.5rem; min-height:64px; padding:.45rem .55rem; font-size:.88rem; background:#fff;
+    }
+    
+    /* Plan trigger buttons */
+    .plan-trigger{
+      background:#dee1d2; padding:.25rem .45rem; border-radius:.45rem;
+      font-size:.8rem; line-height:1; color:#2a312b; border:0;
+      display:inline-flex; align-items:center; gap:.35rem;
+    }
+    .plan-trigger:hover{ background:#eef2ee; }
+    .plan-trigger[aria-expanded="true"]{ background:#bec5a6; }
+    .plan-trigger svg{ width:14px; height:14px; }
+    
+    .course-plan-trigger{
+      background:#ffffff1f!important; border:none!important; border-radius:.45rem!important;
+      padding:.25rem .45rem!important; font-size:.8rem!important; line-height:1!important; color:#fff!important;
+    }
+    .course-plan-trigger:hover, .course-plan-trigger[aria-expanded="true"]{ background:#ffffff33!important; }
+    
+    .plan-anchor{ position:relative; }
+    .plan-menu{
+      position:absolute; right:0; top:calc(100% + .35rem); z-index:100;
+      background:#fff; border:1px solid #e5e7eb; border-radius:.6rem;
+      box-shadow:0 8px 24px rgba(0,0,0,.08); padding:.4rem; width:240px; color:#2a312b;
+    }
+    .plan-opt{ display:flex; align-items:center; gap:.5rem; padding:.45rem .5rem; border-radius:.5rem; cursor:pointer; }
+    .plan-opt:hover{ background:#f7f9f7; }
+    .plan-opt img{ width:18px; height:18px; border-radius:999px; }
+    .plan-opt span{ color:#2a312b; font-size:.9rem; }
+    
+    .tag-chip{ background:transparent; border:2px solid #bfc4b4; border-radius:999px; padding:2px; display:inline-flex; align-items:center; justify-content:center; }
+    .tag-chip img{ width:28px; height:28px; border-radius:999px; display:block; }
+    .tag-row{ display:flex; gap:.5rem; flex-wrap:wrap; }
+    
+    /* =========================================================
+       PRINT MODAL & PRINT VIEW
+    ========================================================= */
+    .print-modal-backdrop{
+      position:fixed; inset:0; background:rgba(0,0,0,.35);
+      display:flex; align-items:center; justify-content:center; z-index:7000; padding:24px;
+    }
+    .print-modal{
+      background:#fff; border:1px solid #e5e7eb; border-radius:12px;
+      width:520px; max-width:95vw; max-height:80vh; overflow:auto; padding:16px 18px;
+      box-shadow:0 12px 32px rgba(0,0,0,.18); z-index:7001;
+    }
+    .print-modal h3{ font-weight:700; color:var(--green-dark); font-size:1.05rem; }
+    .print-row{ display:flex; gap:16px; margin-top:10px; }
+    .print-row .col{ flex:1; }
+    .print-actions{ display:flex; justify-content:flex-end; gap:8px; margin-top:14px; }
+    
+    #print-view{ display:none; }
+    @media print{
+      .app-shell > *:not(#print-view){ display:none!important; }
+      #print-view{ display:block!important; }
+      html,body{ background:#fff!important; }
+    
+      .pv-subject{ font-family:"Crimson Text",serif; font-weight:700; font-size:22px; color:#262b26; margin:18px 0 8px; padding-bottom:4px; border-bottom:4px solid var(--subject-color,#dcded6); }
+      .pv-card{ border:1px solid #e6e8e5; border-radius:10px; padding:10px 12px; margin-bottom:10px; }
+      .pv-title{ font-family:"Crimson Text",serif; font-size:16px; font-weight:700; color:#262b26; }
+      .pv-schedule{ font-size:11px; color:#485149; margin-top:2px; }
+      .pv-tags{ display:flex; gap:6px; margin-left:auto; }
+      .pv-tag{ border:1.5px solid #c7ccbc; border-radius:999px; padding:1px; }
+      .pv-tag img{ width:18px; height:18px; display:block; border-radius:999px; }
+    
+      .pv-info label, .pv-note label{ font-weight:700; font-size:11px; }
+      .pv-copy.small, .pv-note p{ font-size:10.5px; line-height:1.45; color:#2b312c; }
+      .pv-note, .pv-info{ margin-top:8px; border-top:1px solid #e6e8e5; padding-top:8px; }
+    }
+    
+    /* =========================================================
+       UTILITIES / FIXES
+    ========================================================= */
+    .step-tabs,.step-nav{ display:none!important; }     /* old UI */
+    .no-print.sticky{ z-index:20; }                     /* keep below modal */
+    .group-block{ position:relative; overflow:visible; }
+  
+    /* ===== PATCH START: subject headers, filter strip, label uniformity ===== */
+    
+    /* SUBJECT HEADERS (sticky #3) */
+    .subject-sticky{
+      position: sticky;
+      top: calc(var(--mini-steps-h) + var(--printbar-h));
+      z-index: 35;
+      background: var(--brand-bg);
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+      border-bottom: 0;
+    }
+    .subject-sticky::after{
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 3px;
+      background: #cdb4a6;
+    }
+    
+    /* Subject heading typography */
+    .subject-inner{
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      color: #262b26;
+      font-family: "Crimson Text", serif;
+      font-weight: 700;
+      font-size: 1.75rem;
+      line-height: 1.1;
+    }
+    @media (min-width: 768px){
+      .subject-inner{ font-size: 1.9rem; }
+    }
+    
+    /* Ensure first course never shaves the underline */
+    .group-block .course-row:first-of-type{ margin-top: .5rem; }
+    
+    /* Compact filter strip inside print bar */
+    .filter-strip{
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: .5rem;
+      align-items: center;
+      font-size: .9rem;
+    }
+    .filter-strip > *{ min-width: 0; }
+    
+    /* Input + dropdowns */
+    .filter-strip .mini{
+      width: 100%;
+      height: 30px;
+      padding: .25rem .55rem;
+      border: 1px solid #d9ded9;
+      border-radius: .6rem;
+      background: #fff;
+      color: #666d66;
+    }
+    .filter-strip .mini::placeholder,
+    .filter-strip .mini option{ color:#666d66; }
+    
+    /* Pair: Subject + Plan always together and balanced */
+    .filter-strip .pair{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .5rem;
+      grid-column: 1 / -1; /* span all 4 cols */
+    }
+    
+    /* Responsive: two columns on narrow screens (2x2) */
+    @media (max-width: 950px){
+      .filter-strip{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    
+    /* Checkbox text + selected count uniformity */
+    .filter-strip .chk{
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      font-size: .9rem;
+      color: #666d66;
+    }
+    .filter-strip .chk input{ width:16px; height:16px; }
+    .filter-strip .chk span,
+    .text-gray-600 strong{
+      color: #666d66;
+      font-size: .9rem;
+      font-weight: 500;
+    }
+    
+    /* ==== OVERRIDES (added by assistant) =================================== */
+    
+    /* Filter layout: 4 across on wide; otherwise 2x2 with Search+Grade / Subject+Plan */
+    .filter-strip{
+      display:grid;
+      gap:.5rem;
+      align-items:center;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      grid-template-areas:
+        "search grade"
+        "subject plan";
+      font-size:.9rem;
+    }
+    @media (min-width:1024px){
+      .filter-strip{
+        grid-template-columns: repeat(4, minmax(0,1fr));
+        grid-template-areas: "search grade subject plan";
+      }
+    }
+    .area-search{ grid-area: search; }
+    .area-grade{  grid-area: grade; }
+    .area-subject{grid-area: subject; }
+    .area-plan{   grid-area: plan; }
+    
+    /* Let the .pair wrapper not interfere with grid placement */
+    .filter-strip .pair{ display: contents; }
+    
+    /* Inputs / selects tone */
+    .filter-strip .mini,
+    .filter-strip .mini::placeholder,
+    .filter-strip .mini option{ color:#666d66; }
+    
+    /* Uniform label + selected count */
+    :root{ --filter-label:#666d66; }
+    .filter-strip .chk{
+      display:inline-flex; align-items:center; gap:.35rem;
+      font-size:.9rem; color:var(--filter-label);
+    }
+    .filter-strip .chk span,
+    .selected-count, .selected-count strong{
+      color:var(--filter-label);
+      font-size:.9rem; font-weight:500;
+    }
+    
+    /* Subject header spacing + per-subject underline color */
+    .subject-sticky{
+      position:sticky;
+      top:calc(var(--mini-steps-h) + var(--printbar-h));
+      z-index:35;
+      background:var(--brand-bg);
+      padding-bottom:4px;   /* tighter gap above the line */
+      margin-bottom:8px;    /* space below the line before cards */
+      border-bottom:0;
+    }
+    .subject-sticky::after{
+      content:"";
+      position:absolute; left:0; right:0; bottom:0;
+      height:2px;
+      background: var(--subject-color, #cdb4a6);
+    }
+    .group-block .course-row:first-of-type{ margin-top:.5rem; }  /* keep line visible */
+    
+    /* ======================================================================= */
+    
+    /* ==== FINAL OVERRIDES (enforce 2 tidy rows + uniform labels + subject header) ==== */
+    
+    /* Filter layout: always 2 rows on small screens (Search+Grade / Subject+Plan);
+       becomes 4 across on >= 1024px */
+    .filter-strip{
+      display:grid !important;
+      gap:.5rem !important;
+      align-items:center !important;
+      grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+      grid-template-areas:
+        "search grade"
+        "subject plan" !important;
+      font-size:.9rem !important;
+    }
+    @media (min-width:1024px){
+      .filter-strip{
+        grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+        grid-template-areas: "search grade subject plan" !important;
+      }
+    }
+    .area-search{ grid-area: search !important; }
+    .area-grade{  grid-area: grade  !important; }
+    .area-subject{grid-area: subject !important; }
+    .area-plan{   grid-area: plan    !important; }
+    .filter-strip .pair{ display: contents !important; }
+    
+    /* Controls text tone */
+    .filter-strip .mini,
+    .filter-strip .mini::placeholder,
+    .filter-strip .mini option{ color:#666d66 !important; }
+    
+    /* Uniform labels + selected count */
+    :root{ --filter-label:#666d66; }
+    .filter-strip .chk{
+      display:inline-flex; align-items:center; gap:.35rem;
+      font-size:.9rem !important; color:var(--filter-label) !important;
+    }
+    .filter-strip .chk input{ width:16px; height:16px; }
+    .filter-strip .chk span,
+    .selected-count,
+    .selected-count strong{
+      color:var(--filter-label) !important;
+      font-size:.9rem !important;
+      font-weight:500 !important;
+    }
+    
+    /* Subject headers: mirror print view (spacing + underline weight + color) */
+    .subject-sticky{
+      position:sticky;
+      top:calc(var(--mini-steps-h) + var(--printbar-h));
+      z-index:35;
+      background:var(--brand-bg);
+      padding-bottom:4px !important;
+      margin:18px 0 8px !important;
+      border-bottom:0;
+    }
+    .subject-sticky::after{
+      content:""; position:absolute; left:0; right:0; bottom:0;
+      height:4px !important;
+      background: var(--subject-color, #dcded6) !important;
     }
     .subject-inner{
+      font-family:"Crimson Text", serif !important;
+      font-weight:700 !important;
+      font-size:1.9rem !important;
+      line-height:1.1 !important;
+      color:#262b26 !important;
+      display:flex; align-items:center; gap:.5rem;
+    }
+    .group-block .course-row:first-of-type{ margin-top:.6rem !important; }
+    
+    /* ========================================================================= */
+    
+    /* === FINAL, SINGLE SOURCE OF TRUTH FOR FILTER STRIP + LABELS === */
+    :root{ --filter-label:#666d66; }
+    
+    /* Layout: only 2x2 (search+grade / subject+plan) or 4-across on >=1024px */
+    .filter-strip{ 
+      display:grid !important; gap:.5rem !important; align-items:center !important;
+      grid-template-columns:repeat(2, minmax(0,1fr)) !important;
+      grid-template-areas:
+        "search grade"
+        "subject plan" !important;
+    }
+    @media (min-width:1024px){
+      .filter-strip{
+        grid-template-columns:repeat(4, minmax(0,1fr)) !important;
+        grid-template-areas:"search grade subject plan" !important;
+      }
+    }
+    .area-search{ grid-area:search !important; }
+    .area-grade{ grid-area:grade !important; }
+    .area-subject{ grid-area:subject !important; }
+    .area-plan{ grid-area:plan !important; }
+    .filter-strip .pair{ display:contents !important; }
+    
+    /* Controls visual tone */
+    .filter-strip .mini,
+    .filter-strip .mini::placeholder,
+    .filter-strip .mini option{ color:#666d66 !important; }
+    
+    /* Uniform labels (checkbox text) + selected count — works inside OR outside .filter-strip */
+    .chk{ display:inline-flex; align-items:center; gap:.35rem; }
+    .chk span, .selected-count, .selected-count strong{
+      color:var(--filter-label) !important;
+      font-size:.9rem !important;
+      font-weight:500 !important;
+    }
+    
+    /* Subject headers — match print view */
+    .subject-inner{
+      font-family:"Crimson Text",serif !important; font-weight:700 !important;
+      font-size:1.9rem !important; line-height:1.1 !important; color:#262b26 !important;
+    }
+    .subject-sticky{
+      position:sticky; top:calc(var(--mini-steps-h) + var(--printbar-h));
+      z-index:35; background:var(--brand-bg);
+      padding-bottom:4px !important; margin:18px 0 8px !important; border-bottom:0 !important;
+    }
+    .subject-sticky::after{
+      content:""; position:absolute; left:0; right:0; bottom:0;
+      height:4px !important; background:var(--subject-color,#dcded6) !important;
+    }
+    .group-block .course-row:first-of-type{ margin-top:.6rem !important; }
+    
+    /* === FINAL LAYOUT + LABEL TONE (safe override) === */
+    :root { --filter-label: #666d66; }
+    
+    /* Layout: 2 rows on narrow (Search|Grade / Subject|Plan), 4-across ≥1024px */
+    .filter-strip{
+      display: grid !important;
+      gap: .5rem !important;
+      align-items: center !important;
+      grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+      grid-template-areas:
+        "search grade"
+        "subject plan" !important;
+    }
+    @media (min-width: 1024px){
+      .filter-strip{
+        grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+        grid-template-areas: "search grade subject plan" !important;
+      }
+    }
+    
+    /* Place each control in its area; let the wrapper not interfere */
+    .area-search  { grid-area: search  !important; }
+    .area-grade   { grid-area: grade   !important; }
+    .area-subject { grid-area: subject !important; }
+    .area-plan    { grid-area: plan    !important; }
+    .filter-strip .pair { display: contents !important; }
+    
+    /* Control text tone to #666d66 */
+    .filter-strip .mini,
+    .filter-strip .mini::placeholder,
+    .filter-strip .mini option { color: #666d66 !important; }
+    
+    /* Checkbox labels + selected count unified */
+    .chk { display: inline-flex; align-items: center; gap: .35rem; }
+    .chk span,
+    .selected-count,
+    .selected-count strong {
+      color: var(--filter-label) !important;
+      font-size: .9rem !important;
+      font-weight: 500 !important;
+    }
+    /* === TYPE SYSTEM & COLORS (courses > topics > other) === */
+    :root { --ink: #262b26; }
+    
+    .course-band .band-title{
+      font-family: 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+      font-weight: 700;
+      font-size: 1.15rem;              /* Courses = largest */
+      line-height: 1.2;
+      color: #fff;                      /* Courses in white */
+    }
+    @media (min-width:768px){
+      .course-band .band-title{ font-size: 1.25rem; }
+    }
+    
+    .topic-title{
+      font-family: 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 700;
+      font-size: 1rem;                  /* Topics = medium */
+      line-height: 1.2;
+      color: var(--ink);                /* All non-course text in #262b26 */
+    }
+    
+    .text-[0.8rem], .topic-schedule,
+    .acc-info, .topic-acc-info,
+    .accordion, .note-area textarea{
+      color: var(--ink);
+    }
+    
+    /* Slightly quieter schedules */
+    .text-[0.8rem], .topic-schedule{ opacity:.9; }
+    
+    /* === TWO-COLUMN INFO LAYOUT (Course & Topic info trays) === */
+    .acc-info, .topic-acc-info{
+      background: #fff;
+      border-top: 1px solid #e5e7eb;
+      padding: 16px;
+      border-radius: .5rem;
+    }
+    
+    .info-grid{
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;   /* two columns */
+      gap: 1rem 1.25rem;
+    }
+    @media (max-width:820px){
+      .info-grid{ grid-template-columns: 1fr; }  /* stack on narrow */
+    }
+    
+    /* faint vertical divider */
+    .info-grid::before{
+      content:"";
+      position:absolute;
+      top:0; bottom:0;
+      left:50%; transform:translateX(-.5px);
+      width:1px; background:#e7ebe8; opacity:.6;
+    }
+    @media (max-width:820px){ .info-grid::before{ display:none; } }
+    
+    .info-col h4{
+      margin:0 0 .25rem;
+      font: 700 .95rem/1.25 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+    }
+    .info-col .copy{
+      font-size: .95rem;                /* Other info = smallest */
+      line-height: 1.55;
+      color: var(--ink);
+    }
+    
+    /* Make sure any legacy Crimson styles on titles don’t win */
+    .band-title, .pv-title { font-family: 'DM Sans', sans-serif !important; }
+    /* === UNIFIED SMALLER TYPE SCALE (screen + print) === */
+    .course-band .band-title{
+      font-size: .9rem;      /* Courses — smaller */
+      line-height: 1.15;
+    }
+    @media (min-width:768px){
+      .course-band .band-title{ font-size: 1rem; }
+    }
+    
+    .topic-title{
+      font-size: .82rem;     /* Topics — slightly smaller again */
+      line-height: 1.2;
+    }
+    
+    .text-[0.8rem], .topic-schedule{
+      font-size: .7rem;      /* Schedules — condensed */
+      line-height: 1.25;
+    }
+    
+    .info-col h4{
+      font: 700 .82rem/1.2 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .info-col .copy{
+      font-size: .82rem;
+      line-height: 1.45;
+    }
+    
+    /* Print view sizing to match on-screen scale */
+    @media print{
+      .pv-subject{
+        font-size: 18px !important;
+        line-height: 1.1 !important;
+      }
+      .pv-title{
+        font-size: 13px !important;
+        line-height: 1.25 !important;
+      }
+      .pv-schedule{
+        font-size: 9.5px !important;
+        line-height: 1.25 !important;
+      }
+      .pv-copy.small, .pv-note p{
+        font-size: 9.5px !important;
+        line-height: 1.4 !important;
+      }
+      label, .pv-info label, .pv-note label{
+        font-size: 9.5px !important;
+      }
+    }
+    /* --- Topic title a bit larger (still < course) --- */
+    .topic-title{
+      font-size: .98rem;        /* was .95rem */
+      line-height: 1.2;
+    }
+    
+    /* --- Stronger topic info separator (only when topic info tray is open) --- */
+    .topic-acc-info{
+      border-top: 2px solid #adb58f;   /* was 1px #e5e7eb */
+    }
+    .print-modal h3 {
+      font-weight: 700;
+      color: var(--green-dark);
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+    .print-modal label {
+      font-size: 0.95rem;
+      color: #262b26;
+    }
+    .print-modal .print-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+    /* === Keep topic info toggle light even when active === */
+    .topic-icon {
+      background: #dee1d2 !important;    /* light green-gray base */
+      color: #262b26;
+      padding: .25rem .4rem;
+      border-radius: .45rem;
+      font-size: .75rem;
+      line-height: 1;
+      transition: background .15s ease;
+    }
+    .topic-icon:hover {
+      filter: brightness(.97);
+    }
+    /* prevent darker color on toggle */
+    .topic-icon[aria-expanded="true"] {
+      background: #dee1d2 !important;
+      filter: none !important;
+    }
+    /* More inner padding for the print dialog */
+    .print-modal{
+      padding: 24px 28px !important;   /* was 16px 18px */
+    }
+    
+    /* Nice section rhythm (optional but tidy) */
+    .print-modal h3{ margin-bottom: .75rem !important; }
+    .print-modal .border-b{ margin-top: .75rem !important; }
+    .print-modal .print-actions{ margin-top: 1rem !important; padding-top: .75rem !important; }
+    /* trigger matches your mini input look */
+    .ms-trigger{
+      display:flex; align-items:center; gap:.5rem; width:100%;
+      min-height:38px; padding:6px 10px; border:1px solid #d9ded9; border-radius:12px;
+      background:#fff; color:#666d66;
+    }
+    .ms-trigger .chips{ display:flex; gap:.35rem; flex-wrap:wrap; }
+    .ms-chip{
+      display:inline-flex; align-items:center; padding:2px 8px; border-radius:999px;
+      background:#f3f5f3; font-size:12px; line-height:1.2; color:#4a524a;
+    }
+    .ms-caret{ margin-left:auto; font-size:12px; }
+    
+    /* Multi-select dropdown panel — anchored to trigger via inline style */
+    .ms-panel{
+      position: absolute;                /* let JS set left/top inline */
+      z-index: 1200;                     /* above the toolbar */
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+      max-height: 280px;                 /* prevent super tall lists */
+      overflow: auto;
+      padding: .4rem;
+      margin-top: 0;                     /* no extra offset */
+      width: auto;                       /* JS will match trigger width */
+    }
+    /* --- dropdown row text unified with filter controls --- */
+    .ms-row{
       display:flex;
       align-items:center;
       gap:.5rem;
-      font-family:'Crimson Text',serif;
-      font-weight:700;
-      font-size:1.65rem;
-      color:var(--brand-ink);
+      padding:.4rem .5rem;
+      border-radius:8px;
+      font-family:'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:.9rem;            /* match .mini controls */
+      color:#666d66;              /* unified tone */
+      background:transparent;
+      transition:background .15s ease;
     }
-    .subject-dot{
-      width:14px;height:14px;border-radius:999px;
-      background:var(--subject-color,#dfe4df);
-      box-shadow:inset 0 0 0 2px rgba(0,0,0,.08);
+    .ms-row:hover{
+      background:#f7f9f7;
+      color:#262b26;              /* slightly darker on hover */
     }
-
-    .course-row{display:flex;align-items:stretch;gap:12px;margin-bottom:1.5rem;}
-    .subject-rail{width:5px;border-radius:10px;background:var(--subject-color,#dfe4df);flex:none;}
-    .course-card{flex:1;border-radius:1.25rem;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.05);border:1px solid #eef1ec;overflow:hidden;}
-    .course-band{background:var(--green-dark);color:#fff;}
-    .course-band .band-title{font-family:'Crimson Text',serif;font-size:1.05rem;line-height:1.2;display:flex;flex-direction:column;gap:.1rem;}
-    .course-band .band-sub{font-size:.8rem;color:#e6ede6;}
-    .band-meta{font-size:.8rem;opacity:.9;line-height:1.2;}
-    .select-check{width:18px;height:18px;border-radius:4px;border:1px solid rgba(255,255,255,.7);}
-
-    .info-grid{display:grid;gap:1rem;padding:1.25rem;background:#fff;}
-    @media(min-width:768px){.info-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
-    .info-col{background:#f7f8f6;border:1px solid #e2e7e2;border-radius:.85rem;padding:1rem;}
-    .info-col h4,.info-col h5{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#6c756c;margin-bottom:.4rem;font-weight:700;}
-    .info-copy{font-size:.92rem;line-height:1.5;color:#2a312b;}
-    .book-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.9rem;}
-    .book-list li{border-bottom:1px solid #dfe4d9;padding-bottom:.6rem;}
-    .book-list li:last-child{border-bottom:0;padding-bottom:0;}
-    .book-title{font-weight:600;color:#2a312b;}
-    .book-meta{font-size:.78rem;color:#5c645c;margin-top:.2rem;}
-    .info-empty{color:#7a857a;font-size:.9rem;}
-
-    .topics-panel{padding:0 1.25rem 1.25rem;}
-    .topics-label{text-transform:uppercase;font-size:.75rem;letter-spacing:.08em;color:#6c756c;margin-bottom:.5rem;font-weight:600;}
-    .topic-card{background:#eef2ed;border:1px solid #d8dfd6;border-radius:1rem;padding:1rem;}
-    .topic-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75rem;margin-bottom:.75rem;}
-    .topic-title{font-family:'Crimson Text',serif;font-size:1.05rem;font-weight:700;color:#2a312b;}
-    .topic-schedule{font-size:.85rem;color:#4f5a4f;}
-    .topic-grades{font-size:.8rem;color:#4b564b;text-transform:uppercase;letter-spacing:.06em;}
-    .topic-card .info-grid{padding:0;background:transparent;}
-    .topic-card .info-col{background:#fff;}
-    .empty{text-align:center;color:#7a857a;padding:3rem 0;font-size:1rem;}
-
-    input[type="checkbox"]{accent-color:var(--check-green);}
-
-    @media print{
-      body{background:#fff!important;}
-      .print:hidden{display:none!important;}
-      .print:block{display:block!important;}
-      .mini-steps,.sticky-actions,.subject-sticky{position:static;box-shadow:none;border:none;margin:0;padding:0;}
-      .subject-rail{display:none;}
-      .course-card{box-shadow:none;border:1px solid #dcded8;}
-      .info-col{background:#f7f8f6!important;-webkit-print-color-adjust:exact;}
-      .topic-card{background:#f3f6f0!important;}
+    .ms-icon{
+      width:18px;
+      height:18px;
+      border-radius:999px;
+      flex-shrink:0;
     }
-    /* ================================
-       MATCH INDEX BUTTON SIZING
-       ================================ */
-    .btn {
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      font-size:12px;
-      font-weight:500;
-      padding:.3rem .65rem;
-      border-radius:.9rem;
-      border:1px solid transparent;
-    }
-    
-    .btn-ghost{
-      background:#fff;
-      border-color:#d9ded9;
-      color:#666d66 !important;
-    }
-    
-    .btn-ghost:hover{
-      background:#f4f6fa;
-    }
-    
-    .btn-primary{
-      background:var(--green-dark);
-      color:#fff;
-      padding:.3rem .75rem;
-      border-radius:.9rem;
-      font-weight:600;
-    }
-    
-    /* print button disabled appearance */
-    .btn[disabled]{
-      opacity:.55;
-      cursor:not-allowed;
-    }
-    
-    /* bottom controls (Clear selected, Clear filters, Refresh, Print) */
-    .bottom-controls .btn,
-    .bottom-controls .btn-ghost,
-    .bottom-controls .btn-primary {
-      font-size:12px !important;
-      padding:.22rem .6rem !important;
-      border-radius:.7rem !important;
-    }
-    
-    /* multi-select inputs (match index) */
-    .ms-trigger{
-      min-height:38px;
-      padding:6px 10px;
+    .ms-search{
+      width:100%;
       border:1px solid #d9ded9;
-      border-radius:12px;
-      background:#fff;
+      border-radius:8px;
+      padding:.35rem .6rem;
       font-size:.9rem;
+      color:#666d66;
+      background:#fff;
+    }
+    /* pill switch */
+    .switch {
+      position: relative; display:inline-flex; align-items:center; cursor:pointer;
+      width: 44px; height: 24px; border-radius: 999px; background:#d9ded9;
+      transition: background .18s ease;
+    }
+    .switch.on { background:#596e5e; }         /* your green-dark */
+    .switch .knob {
+      position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:999px;
+      background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.2); transition:left .18s ease;
+    }
+    .switch.on .knob { left: 23px; }
+    /* smaller unified filter controls */
+    .filter-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #666d66;          /* same grey tone as other labels */
+      font-weight: 500;
+    }
+    
+    /* size-reduced switch */
+    .switch {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      width: 36px; height: 18px;
+      border-radius: 999px;
+      background: #d9ded9;
+      transition: background .18s ease;
+    }
+    .switch.on { background: #596e5e; }
+    .switch .knob {
+      position: absolute; top: 2px; left: 2px;
+      width: 14px; height: 14px;
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,.2);
+      transition: left .18s ease;
+    }
+    .switch.on .knob { left: 20px; }
+    
+    /* switch text next to it */
+    .switch-text {
+      font-size: 11px;
+      color: #666d66;
+    }
+    .toolbar-card{
+      background:#f7f9f7;              /* very light tint */
+      border:1px solid #e1e6e1;
+      border-radius:12px;
+      padding:8px 10px;
+    }
+    .toolbar-title{
+      font-size:11px; text-transform:uppercase; letter-spacing:.04em;
+      color:#666d66; font-weight:600; margin-bottom:6px;
+    }
+    .btn-mini{
+      padding:.25rem .5rem; border-radius:.75rem; font-size:11px;
+      border:1px solid #cfd4cf; background:#fff;
+    }
+    .btn-mini:hover{ background:#f1f4f1; }
+    .btn-primary-mini{
+      padding:.25rem .6rem; border-radius:.75rem; font-size:11px;
+      background:#596e5e; color:#fff; box-shadow:0 1px 2px rgba(0,0,0,.08);
+    }
+    .switch-wrap{ display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+    .switch-label{ font-size:11px; color:#666d66; }
+    
+    /* === Filter action/switch trays: remove chrome + unify sizing === */
+    /* Remove visible box + padding; keep the layout space */
+    .toolbar-card{
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+    }
+    
+    /* Hide “Actions” / “View options” titles */
+    .toolbar-title{ display: none !important; }
+    
+    /* Make all controls in the bottom row use the same small type
+       as the “Clear” links under the filters (≈12px) */
+    .bottom-controls,
+    .bottom-controls .btn-mini,
+    .bottom-controls .btn-primary-mini,
+    .bottom-controls .switch-label,
+    .bottom-controls .switch-text{
+      font-size: 12px !important;
+      line-height: 1.25 !important;
+      color: #666d66;       /* same tone as the Clear links */
+      font-weight: 500;
+    }
+    
+    /* Tighten buttons a bit so the row feels compact */
+    .bottom-controls .btn-mini{
+      padding: .22rem .5rem !important;
+      border-radius: .7rem !important;
+      border: 1px solid #cfd4cf;
+      background: #fff;
+    }
+    .bottom-controls .btn-mini:hover{ background:#f1f4f1; }
+    
+    .bottom-controls .btn-primary-mini{
+      padding: .22rem .6rem !important;
+      border-radius: .7rem !important;
+      background:#596e5e; color:#fff;
+    }
+    
+    /* Keep the switches visually in the same vertical rhythm as buttons */
+    .bottom-controls .switch-wrap{
+      display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+    }
+    
+    /* Match switch size to the 12px label text */
+    .bottom-controls .switch{
+      width: 34px; height: 18px;            /* a hair smaller than before */
+      background:#d9ded9;
+      border-radius:999px;
+    }
+    .bottom-controls .switch.on{ background:#596e5e; }
+    .bottom-controls .switch .knob{
+      width: 14px; height: 14px; top: 2px; left: 2px;
+    }
+    .bottom-controls .switch.on .knob{ left: 18px; }
+    
+    /* Small labels flanking the switches */
+    .bottom-controls .switch-label,
+    .bottom-controls .switch-text{
       color:#666d66;
     }
     
-    .ms-chip{
-      padding:2px 8px;
-      border-radius:999px;
-      background:#f3f5f3;
-      font-size:12px;
+    /* Ensure both columns vertically center to the same height */
+    .bottom-controls{ align-items: center; }
+    /* add space below each Clear link under filters */
+    .filter-strip button[role="clear"],
+    .filter-strip .area-search > button,
+    .filter-strip .area-grade > button,
+    .filter-strip .area-subject > button,
+    .filter-strip .area-plan > button {
+      margin-bottom: 0.4rem;   /* adjust for preferred spacing */
+      display: inline-block;
+    }
+    
+    /* Optional: give a breath of space above the bottom row */
+    #actionsBar .bottom-controls{ margin-top: .3rem; }
+    /* keep teleported panel on top & viewport-anchored */
+    .ms-panel{ position:fixed !important; z-index:7000 !important; }
+    /* dropdowns should never be clipped by the sticky bars */
+    .mini-steps,
+    .sticky-actions { overflow: visible !important; }
+    
+    /* keep the panel on top of everything */
+    .ms-panel { position: fixed !important; z-index: 7000 !important; }
+    .btn[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    /* --- Seam seal for sticky bars (prevents green line showing through) --- */
+    .sticky-actions { margin-top: 0 !important; }            /* stop the -1px kiss */
+    .mini-steps .rail { margin-bottom: 0 !important; }
+    
+    /* paint a small background strip past the bottom edge */
+    .mini-steps,
+    .sticky-actions,
+    .subject-sticky { position: sticky; background: var(--brand-bg); }
+    
+    .mini-steps::after,
+    .sticky-actions::after{
+      content:"";
+      position:absolute; left:0; right:0; bottom:-2px; height:4px;
+      background:var(--brand-bg);
+      pointer-events:none;
+    }
+    
+    /* also seal the top edge of each subject header */
+    .subject-sticky::before{
+      content:"";
+      position:absolute; left:0; right:0; top:-2px; height:4px;
+      background:var(--brand-bg);
+      pointer-events:none;
+    }
+    .app-shell > header{ margin-bottom:.75rem !important; }   /* header gap */
+    .mini-steps{ margin-bottom:.25rem !important; }           /* tabs gap   */
+    #actionsBar{ padding-top:.5rem !important; padding-bottom:.5rem !important; }
+    .panel .mt-3{ margin-top:.25rem !important; }             /* helper row */
+    .panel .w-full.border-t{ margin-top:.25rem !important; padding-top:.25rem !important; }
+    /* Keep the check SVG neat inside tiny buttons */
+    button.text-xs svg,
+    .topic-icon svg{ width:14px; height:14px; }
+    /* --- Make the topic-level Plan button match the size of the info/note buttons --- */
+    .topic-icon.plan-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;              /* tighter than gap-1 */
+      font-size: .72rem;        /* match text height to icons */
+      padding: .22rem .35rem;   /* slightly smaller padding */
+      line-height: 1;
+    }
+    .topic-icon.plan-btn svg {
+      width: 13px;
+      height: 13px;
+    }
+    /* === FINAL OVERRIDE — Plan menu tone/size (course + topic) === */
+    .plan-menu{
+      font-family:'DM Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+      color:#666d66 !important;
+      border:1px solid #e5e7eb !important;
+      border-radius:.6rem !important;
+      box-shadow:0 8px 24px rgba(0,0,0,.08) !important;
+      padding:.4rem .4rem .5rem !important;
+      width:240px !important;
+      z-index:7000 !important;            /* keep above sticky bars */
+    }
+    .plan-menu .plan-opt img{              /* keep planning tag images */
+      width:18px; height:18px; border-radius:999px; flex-shrink:0;
+    }
+    .plan-menu .plan-opt input{            /* subtle checkbox */
+      width:16px; height:16px; accent-color:#9da89f;
+    }
+    /* ensure all text inside respects the lighter tone even if nested
+       in the course band (which is white-on-green) */
+    .plan-menu, .plan-menu *{
+      color:#666d66 !important;
+    }
+    /* --- fine-tune weight and tone inside Plan dropdowns --- */
+    .plan-menu .plan-opt {
+      font-weight: 400 !important;      /* normal weight instead of semibold */
+      letter-spacing: 0 !important;
+      color: #6b716b !important;        /* slightly lighter gray-green tone */
+    }
+    .plan-menu .plan-opt:hover {
+      color: #262b26 !important;
+    }
+    .plan-menu .text-xs {
+      font-weight: 600 !important;      /* keep ADD TAGS label bolder */
+      font-size: .75rem !important;
+      color: #666d66 !important;
+      opacity: .9;
+    }
+    /* optional: smooth hover feedback */
+    .plan-menu .plan-opt:hover img {
+      filter: brightness(0.95);
     }
   </style>
 </head>
