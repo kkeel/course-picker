@@ -55,10 +55,29 @@
     .filter-strip .mini{width:100%;height:30px;padding:.25rem .55rem;border:1px solid #d9ded9;border-radius:.6rem;background:#fff;color:#666d66;font-size:.9rem;}
     .filter-strip .mini::placeholder,.filter-strip .mini option{color:#666d66;}
     .filter-strip button[role="clear"]{font-size:.75rem;text-decoration:underline;color:#666d66;margin-top:.15rem;display:inline-block;}
-    .btn{display:inline-flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:600;border-radius:.85rem;padding:.35rem .75rem;border:1px solid transparent;}
-    .btn-ghost{background:#fff;border-color:#d9ded9;color:#666d66;}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      font-weight:500;
+      border-radius:.75rem;
+      padding:.2rem .6rem;
+      border:1px solid transparent;
+    }
+    .btn-ghost{
+      background:#fff;
+      border-color:#d9ded9;
+      color:#666d66;
+    }
+    
     .btn-ghost:hover{background:#f4f6fa;}
-    .btn-primary{background:var(--green-dark);color:#fff;}
+    .btn-primary{
+      background:var(--green-dark);
+      color:#fff;
+      padding:.2rem .8rem; /* ensures print button readable */
+    }
+    
     .btn-primary:hover{filter:brightness(.95);}
     .btn[disabled]{opacity:.6;cursor:not-allowed;}
 
@@ -297,7 +316,6 @@
           <div class="toolbar-card">
             <div class="toolbar-title">Actions</div>
             <div class="flex flex-wrap items-center gap-2">
-              <span class="text-[12px] text-[#666d66]">Selected: <strong class="text-[var(--green-dark)]" x-text="selectedCount"></strong></span>
               <button type="button" class="btn btn-ghost" @click="clearSelected()">Clear selected</button>
               <button type="button" class="btn btn-ghost" @click="clearFilters()">Clear filters</button>
               <button type="button" class="btn btn-ghost flex items-center gap-2" @click="refreshData()" :disabled="isRefreshing">
