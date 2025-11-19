@@ -1408,20 +1408,9 @@
             <div class="toolbar-title">View options</div>
         
             <div class="switch-wrap">
-              <!-- Descriptions & tips -->
-              <span class="switch-label">Descriptions &amp; tips</span>
-              <button type="button"
-                      class="switch"
-                      :class="showAllTips ? 'on' : ''"
-                      @click="toggleTips()"
-                      :aria-pressed="showAllTips"
-                      :aria-label="showAllTips ? 'Hide descriptions & tips' : 'Show descriptions & tips'">
-                <span class="knob"></span>
-              </button>
-              <span class="switch-text" x-text="showAllTips ? 'On' : 'Off'"></span>
         
               <!-- Only selected -->
-              <span class="switch-label md:ml-4">Only selected</span>
+              <span class="switch-label md:ml-4">My Courses</span>
               <button type="button"
                       class="switch"
                       :class="onlyChecked ? 'on' : ''"
