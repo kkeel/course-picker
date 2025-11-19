@@ -107,8 +107,14 @@
     .toolbar-card{background:transparent;border:none;padding:0;}
     .toolbar-title{display:none;}
     .bottom-controls{align-items:center;}
-    .bottom-controls,.bottom-controls .btn,.bottom-controls .switch-label,.bottom-controls .switch-text{
-      font-size:12px;line-height:1.25;color:#666d66;font-weight:500;
+    .bottom-controls,
+    .bottom-controls .btn,
+    .bottom-controls .switch-label,
+    .bottom-controls .switch-text{
+      font-size:12px;
+      line-height:1.25;
+      color:#666d66;
+      font-weight:500;
     }
     .bottom-controls .btn{padding:.2rem .55rem;border-radius:.7rem;}
     .bottom-controls .btn-primary{padding:.2rem .8rem;}
@@ -441,30 +447,68 @@
         </div>
 
         <div class="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-3 items-center bottom-controls">
+          <!-- Left: Actions -->
           <div class="toolbar-card">
             <div class="toolbar-title">Actions</div>
             <div class="flex flex-wrap items-center gap-2">
-              <button type="button" class="btn btn-ghost" @click="clearSelected()">Clear selected</button>
-              <button type="button" class="btn btn-ghost" @click="clearFilters()">Clear filters</button>
-              <button type="button" class="btn btn-ghost flex items-center gap-2" @click="refreshData()" :disabled="isRefreshing">
-                <svg x-show="isRefreshing" class="animate-spin h-4 w-4 text-[var(--green-dark)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+              <button type="button"
+                      class="btn btn-ghost flex items-center gap-2"
+                      @click="clearSelected()">
+                Clear selected
+              </button>
+        
+              <button type="button"
+                      class="btn btn-ghost flex items-center gap-2"
+                      @click="clearFilters()">
+                Clear filters
+              </button>
+        
+              <button type="button"
+                      class="btn btn-ghost flex items-center gap-2"
+                      @click="refreshData()"
+                      :disabled="isRefreshing">
+                <!-- Spinner -->
+                <svg x-show="isRefreshing"
+                     class="animate-spin h-4 w-4 text-[var(--green-dark)]"
+                     xmlns="http://www.w3.org/2000/svg"
+                     fill="none"
+                     viewBox="0 0 24 24">
+                  <circle class="opacity-25"
+                          cx="12" cy="12" r="10"
+                          stroke="currentColor"
+                          stroke-width="4" />
+                  <path class="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
                 </svg>
+        
+                <!-- Text changes based on state -->
                 <span x-text="isRefreshing ? 'Refreshing…' : '↻ Refresh'"></span>
               </button>
-              <button type="button" class="btn btn-primary" @click="printSelected()">Print</button>
+        
+              <button type="button"
+                      class="btn btn-primary flex items-center gap-2"
+                      @click="printSelected()">
+                Print
+              </button>
             </div>
           </div>
-
+        
+          <!-- Right: View options -->
           <div class="toolbar-card md:border-l-0">
             <div class="toolbar-title">View options</div>
             <div class="switch-wrap">
               <span class="switch-label">Only selected</span>
-              <button type="button" class="switch" :class="onlySelected ? 'on' : ''" @click="onlySelected = !onlySelected" :aria-pressed="onlySelected" :aria-label="onlySelected ? 'Show all items' : 'Show only selected items'">
+              <button type="button"
+                      class="switch"
+                      :class="onlySelected ? 'on' : ''"
+                      @click="onlySelected = !onlySelected"
+                      :aria-pressed="onlySelected"
+                      :aria-label="onlySelected ? 'Show all items' : 'Show only selected items'">
                 <span class="knob"></span>
               </button>
-              <span class="switch-text" x-text="onlySelected ? 'On' : 'Off'"></span>
+              <span class="switch-text"
+                    x-text="onlySelected ? 'On' : 'Off'"></span>
             </div>
           </div>
         </div>
