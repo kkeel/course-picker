@@ -48,6 +48,7 @@
     .mini-steps a{font-size:.95rem;color:#505650;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;padding:.25rem .2rem;}
     .mini-steps a[aria-current="true"]{color:var(--brand-ink);text-decoration-thickness:2px;}
 
+    
     .sticky-actions{position:sticky;top:var(--mini-steps-h);z-index:50;background:var(--brand-bg);border-bottom:1px solid #e4e8e4;padding:1rem 0;margin-bottom:1rem;}
     .filter-strip{display:grid;align-items:center;grid-template-columns:repeat(4,minmax(0,1fr));gap:.5rem;font-size:.9rem;color:#666d66;}
     .filter-strip> *{min-width:0;}
@@ -88,15 +89,10 @@
     .toolbar-title{display:none;}
     .bottom-controls{align-items:center;}
     .bottom-controls,.bottom-controls .btn,.bottom-controls .switch-label,.bottom-controls .switch-text{
-      font-size:12px;line-height:1.25;font-weight:500;
+      font-size:12px;line-height:1.25;color:#666d66;font-weight:500;
     }
-    .bottom-controls,.bottom-controls .switch-label,.bottom-controls .switch-text,.bottom-controls .btn-ghost{
-      color:#666d66;
-    }
-    .bottom-controls .btn{padding:.22rem .5rem;border-radius:.7rem;font-weight:600;}
-    .bottom-controls .btn-ghost{border:1px solid #d9ded9;background:#fff;}
-    .bottom-controls .btn-ghost:hover{background:#f4f6fa;}
-    .bottom-controls .btn-primary{padding:.22rem .6rem;border-radius:.7rem;color:#fff;}
+    .bottom-controls .btn{padding:.2rem .55rem;border-radius:.7rem;}
+    .bottom-controls .btn-primary{padding:.2rem .8rem;}
     .switch-wrap{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
     .switch-label{font-size:12px;color:#666d66;}
     .switch-text{font-size:12px;color:#666d66;}
@@ -301,6 +297,7 @@
           <div class="toolbar-card">
             <div class="toolbar-title">Actions</div>
             <div class="flex flex-wrap items-center gap-2">
+              <span class="text-[12px] text-[#666d66]">Selected: <strong class="text-[var(--green-dark)]" x-text="selectedCount"></strong></span>
               <button type="button" class="btn btn-ghost" @click="clearSelected()">Clear selected</button>
               <button type="button" class="btn btn-ghost" @click="clearFilters()">Clear filters</button>
               <button type="button" class="btn btn-ghost flex items-center gap-2" @click="refreshData()" :disabled="isRefreshing">
