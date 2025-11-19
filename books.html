@@ -1186,9 +1186,7 @@
     <h1 class="title">Alveary Book List</h1>
     <nav class="ml-auto text-sm flex items-center gap-4">
       <!-- Quick links to alternate resources -->
-      <a href="index.html" class="text-[var(--green-dark)] hover:underline">
-        Course List &rarr;
-      </a>
+      <a href="index.html" class="text-[var(--green-dark)] hover:underline">&larr; Course List</a>
     </nav>
   </header>
   <nav class="mini-steps no-print mb-2">
@@ -1211,12 +1209,12 @@
   </section>
   
   <!-- Books At-A-Glance (Step = 2) -->
-  <section x-show="step===2" x-cloak>
-    <h2 class="step-title">Books At-A-Glance</h2>
-    <p class="step-sub"> </p>
+    <section id="books-glance" class="panel" x-show="tab==='glance'" x-cloak>
+      <h2 class="text-xl font-semibold text-[var(--green-dark)] mb-2">Books At-A-Glance</h2>
+      <p class="text-sm text-gray-700">Placeholder: compact summary of assigned books by term/grade (coming soon).</p>
     </section>
    
-    <!-- COURSE LIST (Step = 3) -->
+    <!-- BOOK LIST (Step = 3) -->
     <section x-show="step===3" x-cloak>
       <h2 class="step-title">Book List</h2>
       <p class="step-sub"> </p>
