@@ -204,6 +204,70 @@
       .info-col{background:#f7f8f6!important;-webkit-print-color-adjust:exact;}
       .topic-card{background:#f3f6f0!important;}
     }
+    /* ================================
+       MATCH INDEX BUTTON SIZING
+       ================================ */
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      font-weight:500;
+      padding:.3rem .65rem;
+      border-radius:.9rem;
+      border:1px solid transparent;
+    }
+    
+    .btn-ghost{
+      background:#fff;
+      border-color:#d9ded9;
+      color:#666d66 !important;
+    }
+    
+    .btn-ghost:hover{
+      background:#f4f6fa;
+    }
+    
+    .btn-primary{
+      background:var(--green-dark);
+      color:#fff;
+      padding:.3rem .75rem;
+      border-radius:.9rem;
+      font-weight:600;
+    }
+    
+    /* print button disabled appearance */
+    .btn[disabled]{
+      opacity:.55;
+      cursor:not-allowed;
+    }
+    
+    /* bottom controls (Clear selected, Clear filters, Refresh, Print) */
+    .bottom-controls .btn,
+    .bottom-controls .btn-ghost,
+    .bottom-controls .btn-primary {
+      font-size:12px !important;
+      padding:.22rem .6rem !important;
+      border-radius:.7rem !important;
+    }
+    
+    /* multi-select inputs (match index) */
+    .ms-trigger{
+      min-height:38px;
+      padding:6px 10px;
+      border:1px solid #d9ded9;
+      border-radius:12px;
+      background:#fff;
+      font-size:.9rem;
+      color:#666d66;
+    }
+    
+    .ms-chip{
+      padding:2px 8px;
+      border-radius:999px;
+      background:#f3f5f3;
+      font-size:12px;
+    }
   </style>
 </head>
 <body class="min-h-screen">
