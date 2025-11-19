@@ -15,182 +15,331 @@
 
   <style>
     :root{
-      --brand-bg: #fbfbf9;
-      --brand-ink: #262b26;
-      --green-dark: #596e5e;   /* title + band */
-      --gray-soft: #f4f6fa;    /* description bg */
-      --band-green: #596e5e;   /* band */
-      --check-green: #9da89f;  /* checkbox accent */
+      --brand-bg:#fbfbf9;
+      --brand-ink:#262b26;
+      --green-dark:#596e5e;
+      --gray-soft:#f4f6fa;
+      --band-green:#596e5e;
+      --check-green:#9da89f;
+      --filter-label:#666d66;
+      --mini-steps-h:44px;
+      --printbar-h:92px;
     }
 
-    .topic-band{ background:#adb58f; color:#fff; }
-    .topic-band .band-title{ font-size:12px; line-height:1.2; }
-
-    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-
+    *{-webkit-print-color-adjust:exact!important; print-color-adjust:exact!important;}
+    [x-cloak]{display:none!important;}
     body{
-      font-family: 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: var(--brand-bg);
-      color: var(--brand-ink);
-    }
-    .font-crimson{ font-family: 'Crimson Text', Georgia, serif; }
-
-    .title-alveary{ color: var(--green-dark); font-weight: 700; font-size: 34px; }
-    .subject-divider{
-      color: var(--brand-ink); font-weight: 700; font-size: 26px;
-      margin-top: 3rem; margin-bottom: 1rem;
-      position: sticky; top: 64px; background: var(--brand-bg); z-index: 5;
+      font-family:'DM Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--brand-bg);
+      color:var(--brand-ink);
     }
 
-    .course-band{ background: var(--band-green); color:#fff; }
-    .course-band .band-title{ font-size:12px; line-height:1.2; }
-    .desc-bg{ background: var(--gray-soft); }
+    .page-shell{max-width:1100px;margin:0 auto;padding:1.5rem 1rem 4rem;}
+    @media(min-width:640px){.page-shell{padding:2rem 1.5rem 4rem;}}
 
-    input[type="checkbox"]{ accent-color: var(--check-green); }
+    header img{display:block;}
+    .title-alveary{color:var(--green-dark);font-weight:700;font-size:34px;margin:0;}
+
+    .panel{background:#fff;border:1px solid #e7ebe8;border-radius:1.5rem;padding:1.25rem 1.5rem;margin-bottom:1.5rem;box-shadow:0 6px 18px rgba(0,0,0,.04);}    
+    .panel p{margin:0;line-height:1.6;}
+
+    .mini-steps{position:sticky;top:0;z-index:60;background:var(--brand-bg);border-bottom:1px solid #e3e7e3;margin:0 -1rem 1.5rem;padding:0 1rem;}
+    @media(min-width:640px){.mini-steps{margin:0 -1.5rem 1.5rem;padding:0 1.5rem;}}
+    .mini-steps .rail{height:var(--mini-steps-h);display:flex;align-items:center;gap:.9rem;}
+    .mini-steps a{font-size:.95rem;color:#505650;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;padding:.25rem .2rem;}
+    .mini-steps a[aria-current="true"]{color:var(--brand-ink);text-decoration-thickness:2px;}
+
+    .sticky-actions{position:sticky;top:var(--mini-steps-h);z-index:50;background:var(--brand-bg);border-bottom:1px solid #e4e8e4;padding:1rem 0;margin-bottom:1rem;}
+    .filter-strip{display:grid;align-items:center;grid-template-columns:repeat(4,minmax(0,1fr));gap:.5rem;font-size:.9rem;color:#666d66;}
+    .filter-strip> *{min-width:0;}
+    .filter-strip .mini{width:100%;height:38px;padding:.35rem .65rem;border:1px solid #d9ded9;border-radius:.75rem;background:#fff;color:#666d66;font-size:.95rem;}
+    .filter-strip .mini::placeholder,.filter-strip .mini option{color:#666d66;}
+    .filter-strip button[role="clear"]{font-size:.75rem;text-decoration:underline;color:#666d66;margin-top:.15rem;}
+    .selection-row{margin-top:.75rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;font-size:.95rem;color:#4a524a;}
+    .btn{display:inline-flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:600;border-radius:.85rem;padding:.45rem .95rem;border:1px solid transparent;}
+    .btn-ghost{background:#fff;border-color:#d9ded9;color:#666d66;}
+    .btn-ghost:hover{background:#f4f6fa;}
+    .btn-primary{background:var(--green-dark);color:#fff;}
+    .btn-primary:hover{filter:brightness(.95);}
+
+    @media(max-width:900px){.filter-strip{grid-template-columns:repeat(2,minmax(0,1fr));}}
+
+    .subject-sticky{
+      position:sticky;
+      top:calc(var(--mini-steps-h)+var(--printbar-h));
+      z-index:35;
+      background:var(--brand-bg);
+      padding:12px 1rem 10px;
+      margin:0 -1rem 1rem;
+    }
+    .subject-sticky::after{
+      content:"";
+      position:absolute;
+      left:0; right:0; bottom:0;
+      height:3px;
+      background:#cdb4a6;
+    }
+    @media(min-width:640px){
+      .subject-sticky{padding-left:1.5rem;padding-right:1.5rem;margin:0 -1.5rem 1rem;}
+    }
+    .subject-inner{
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+      font-family:'Crimson Text',serif;
+      font-weight:700;
+      font-size:1.65rem;
+      color:var(--brand-ink);
+    }
+    .subject-dot{
+      width:14px;height:14px;border-radius:999px;
+      background:var(--subject-color,#dfe4df);
+      box-shadow:inset 0 0 0 2px rgba(0,0,0,.08);
+    }
+
+    .course-row{display:flex;align-items:stretch;gap:12px;margin-bottom:1.5rem;}
+    .subject-rail{width:5px;border-radius:10px;background:var(--subject-color,#dfe4df);flex:none;}
+    .course-card{flex:1;border-radius:1.25rem;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.05);border:1px solid #eef1ec;overflow:hidden;}
+    .course-band{background:var(--green-dark);color:#fff;}
+    .course-band .band-title{font-family:'Crimson Text',serif;font-size:1.05rem;line-height:1.2;display:flex;flex-direction:column;gap:.1rem;}
+    .course-band .band-sub{font-size:.8rem;color:#e6ede6;}
+    .band-meta{font-size:.8rem;opacity:.9;line-height:1.2;}
+    .select-check{width:18px;height:18px;border-radius:4px;border:1px solid rgba(255,255,255,.7);}
+
+    .info-grid{display:grid;gap:1rem;padding:1.25rem;background:#fff;}
+    @media(min-width:768px){.info-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+    .info-col{background:#f7f8f6;border:1px solid #e2e7e2;border-radius:.85rem;padding:1rem;}
+    .info-col h4,.info-col h5{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#6c756c;margin-bottom:.4rem;font-weight:700;}
+    .info-copy{font-size:.92rem;line-height:1.5;color:#2a312b;}
+    .book-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.9rem;}
+    .book-list li{border-bottom:1px solid #dfe4d9;padding-bottom:.6rem;}
+    .book-list li:last-child{border-bottom:0;padding-bottom:0;}
+    .book-title{font-weight:600;color:#2a312b;}
+    .book-meta{font-size:.78rem;color:#5c645c;margin-top:.2rem;}
+    .info-empty{color:#7a857a;font-size:.9rem;}
+
+    .topics-panel{padding:0 1.25rem 1.25rem;}
+    .topics-label{text-transform:uppercase;font-size:.75rem;letter-spacing:.08em;color:#6c756c;margin-bottom:.5rem;font-weight:600;}
+    .topic-card{background:#eef2ed;border:1px solid #d8dfd6;border-radius:1rem;padding:1rem;}
+    .topic-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75rem;margin-bottom:.75rem;}
+    .topic-title{font-family:'Crimson Text',serif;font-size:1.05rem;font-weight:700;color:#2a312b;}
+    .topic-schedule{font-size:.85rem;color:#4f5a4f;}
+    .topic-grades{font-size:.8rem;color:#4b564b;text-transform:uppercase;letter-spacing:.06em;}
+    .topic-card .info-grid{padding:0;background:transparent;}
+    .topic-card .info-col{background:#fff;}
+    .empty{text-align:center;color:#7a857a;padding:3rem 0;font-size:1rem;}
+
+    input[type="checkbox"]{accent-color:var(--check-green);}
 
     @media print{
-      body{ background:#fff !important; }
-      .print\:hidden{ display:none !important; }
-      .print\:block{ display:block !important; }
-      .course-band{ background: var(--band-green) !important; color:#fff !important; }
-      .topic-band{ background:#adb58f !important; color:#fff !important; }
-      .desc-bg{ background: var(--gray-soft) !important; }
-      .subject-divider{ position: static !important; background: transparent !important; }
+      body{background:#fff!important;}
+      .print:hidden{display:none!important;}
+      .print:block{display:block!important;}
+      .mini-steps,.sticky-actions,.subject-sticky{position:static;box-shadow:none;border:none;margin:0;padding:0;}
+      .subject-rail{display:none;}
+      .course-card{box-shadow:none;border:1px solid #dcded8;}
+      .info-col{background:#f7f8f6!important;-webkit-print-color-adjust:exact;}
+      .topic-card{background:#f3f6f0!important;}
     }
   </style>
 </head>
 <body class="min-h-screen">
-  <div x-data="booksApp()" x-init="init()" class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+  <div x-data="booksApp()" x-init="init()" class="page-shell">
 
     <!-- HEADER -->
-    <header class="flex items-center gap-3 mb-6">
+    <header class="flex items-center gap-3 mb-4">
       <img src="Alveary%20Lt.%20Green.png" alt="Alveary" class="h-10 w-10 object-contain" />
       <h1 class="title-alveary">Alveary Book List</h1>
-      <!-- Upper-right prev/next text navigation -->
       <nav class="ml-auto text-sm flex items-center gap-4">
         <a href="index.html" class="text-[var(--green-dark)] hover:underline">&larr; Course List</a>
-        <!-- No next yet -->
       </nav>
     </header>
 
-    <!-- TABS: How To / Books At‑A‑Glance (placeholder content for now) -->
-    <section class="mb-4 print:hidden" x-data="{ tab: 'howto' }">
-      <div class="flex gap-2">
-        <button @click="tab='howto'" :class="tab==='howto' ? 'bg-[var(--green-dark)] text-white' : 'bg-white text-[var(--green-dark)]'" class="px-3 py-1.5 rounded-xl border border-[var(--green-dark)]">How To</button>
-        <button @click="tab='glance'" :class="tab==='glance' ? 'bg-[var(--green-dark)] text-white' : 'bg-white text-[var(--green-dark)]'" class="px-3 py-1.5 rounded-xl border border-[var(--green-dark)]">Books At‑A‑Glance</button>
-      </div>
-      <div class="mt-3 rounded-2xl border border-gray-200 bg-white p-4" x-show="tab==='howto'">
-        <p class="text-sm text-gray-700">Placeholder: brief tips on using the Book List (we'll replace with real content later).</p>
-      </div>
-      <div class="mt-3 rounded-2xl border border-gray-200 bg-white p-4" x-show="tab==='glance'">
-        <p class="text-sm text-gray-700">Placeholder: compact summary of assigned books by term/grade (coming soon).</p>
-      </div>
-    </section>
-
-    <!-- FILTERS (reuse Subject + Grade + Search) -->
-    <section class="rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 mb-6 print:hidden">
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <label class="block">
-          <span class="text-xs uppercase tracking-wide text-gray-500">Search</span>
-          <input x-model.trim.debounce.250ms="search" type="search" placeholder="Title, subject, keyword…" class="w-full mt-1 rounded-xl border-gray-300 placeholder-[#7b8b7f]" />
-        </label>
-        <label class="block">
-          <span class="text-xs uppercase tracking-wide text-gray-500">Subject</span>
-          <select x-model="filters.subject" class="w-full mt-1 rounded-xl border-gray-300">
-            <option value="">All</option>
-            <template x-for="s in subjectList" :key="s">
-              <option :value="s" x-text="s"></option>
-            </template>
-          </select>
-        </label>
-        <label class="block">
-          <span class="text-xs uppercase tracking-wide text-gray-500">Grade</span>
-          <select x-model="filters.levelTag" class="w-full mt-1 rounded-xl border-gray-300">
-            <option value="">All</option>
-            <template x-for="lvl in levelList" :key="lvl">
-              <option :value="lvl" x-text="lvl"></option>
-            </template>
-          </select>
-        </label>
-      </div>
-    </section>
-
-    <!-- Sticky actions (optional selection + print) -->
-    <div class="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 bg-[var(--brand-bg)]/95 backdrop-blur border-y border-gray-200 flex justify-between items-center print:hidden">
-      <div><strong x-text="selectedCount"></strong> selected</div>
-      <div class="flex items-center gap-2">
-        <button @click="items.forEach(i=>i.checked=false); persist()" class="rounded-xl px-3 py-2 border border-[var(--green-dark)] text-[var(--green-dark)] bg-white hover:bg-[#f4f6fa]">Clear</button>
-        <button @click="printSelected()" class="rounded-xl px-3 py-2 bg-[var(--green-dark)] text-white shadow hover:opacity-95">Print Selected</button>
+    <div class="mini-steps print:hidden">
+      <div class="rail max-w-6xl mx-auto">
+        <a href="#" @click.prevent="tab='howto'" :aria-current="tab==='howto'">How To</a>
+        <a href="#" @click.prevent="tab='glance'" :aria-current="tab==='glance'">Books At-A-Glance</a>
+        <a href="#" @click.prevent="tab='list'" :aria-current="tab==='list'">Book List</a>
       </div>
     </div>
 
-    <!-- GROUPED BOOK LIST (mirrors Course List grouping) -->
-    <section>
-      <template x-for="[subj, list] in grouped" :key="subj">
-        <div class="space-y-3">
-          <h2 class="subject-divider" x-text="subj"></h2>
+    <!-- HOW TO -->
+    <section id="how-to" class="panel" x-show="tab==='howto'" x-cloak>
+      <h2 class="text-xl font-semibold text-[var(--green-dark)] mb-2">How To</h2>
+      <p class="text-sm text-gray-700">Placeholder: brief tips on using the Book List (we'll replace with real content later).</p>
+    </section>
 
-          <template x-for="c in list" :key="c.id">
-            <div>
-              <!-- Course band (title + grades) -->
-              <div class="course-band rounded-md overflow-hidden">
-                <div class="grid grid-cols-12">
-                  <div class="col-span-4 px-3 py-2 border-white/10 flex items-center gap-2">
-                    <input type="checkbox" class="size-5 rounded border-white/50" :id="'chk-'+c.id" x-model="c.checked" @change="persist()" />
-                    <div class="band-title font-crimson"><span x-text="c.title"></span></div>
-                  </div>
-                  <div class="col-span-4 px-3 py-2 border-white/10">
-                    <div class="band-title">Assigned Books</div>
-                  </div>
-                  <div class="col-span-4 px-3 py-2 border-white/10">
-                    <div class="band-title">At‑A‑Glance<br><span class="text-[11px] opacity-90" x-text="c.levelDisplay"></span></div>
-                  </div>
-                </div>
-              </div>
+    <!-- BOOKS AT-A-GLANCE -->
+    <section id="books-glance" class="panel" x-show="tab==='glance'" x-cloak>
+      <h2 class="text-xl font-semibold text-[var(--green-dark)] mb-2">Books At-A-Glance</h2>
+      <p class="text-sm text-gray-700">Placeholder: compact summary of assigned books by term/grade (coming soon).</p>
+    </section>
 
-              <!-- Row: Summary | Book list | Quick notes -->
-              <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
-                <div class="col-span-4 px-3 py-3 text-sm">
-                  <div class="opacity-80" x-html="c.summary || '&nbsp;'"></div>
-                </div>
-                <div class="col-span-4 px-4 py-4 desc-bg text-sm leading-relaxed">
-                  <!-- Assigned books -->
-                  <template x-if="c.books && c.books.length">
-                    <ul class="space-y-2 list-disc pl-5">
-                      <template x-for="b in c.books" :key="b.key">
-                        <li>
-                          <div class="font-semibold" x-text="b.title"></div>
-                          <div class="text-[12px] opacity-80" x-text="b.author"></div>
-                          <div class="text-[12px]" x-text="b.meta"></div>
-                          <template x-if="b.link">
-                            <div class="text-[12px]"><a :href="b.link" target="_blank" class="underline">More</a></div>
-                          </template>
-                        </li>
-                      </template>
-                    </ul>
-                  </template>
-                  <template x-if="!c.books || !c.books.length">
-                    <p class="text-gray-500">No books assigned yet.</p>
-                  </template>
-                </div>
-                <div class="col-span-4 px-4 py-4 text-sm leading-relaxed">
-                  <template x-if="c.glance && c.glance.length">
-                    <ul class="space-y-1">
-                      <template x-for="g in c.glance" :key="g">
-                        <li class="text-[12px]" x-text="g"></li>
-                      </template>
-                    </ul>
-                  </template>
-                </div>
+    <!-- BOOK LIST -->
+    <section id="book-list" x-show="tab==='list'" x-cloak>
+      <div class="sticky-actions print:hidden">
+        <div class="filter-strip">
+          <div class="area-search">
+            <input x-model.trim.debounce.250ms="search" type="search" placeholder="Search title, subject, keyword…" class="mini" />
+            <button type="button" role="clear" @click="search=''">Clear</button>
+          </div>
+          <div class="area-grade">
+            <select x-model="filters.levelTag" class="mini">
+              <option value="">Grade</option>
+              <template x-for="lvl in levelList" :key="lvl">
+                <option :value="lvl" x-text="lvl"></option>
+              </template>
+            </select>
+            <button type="button" role="clear" @click="filters.levelTag=''">Clear</button>
+          </div>
+          <div class="area-subject">
+            <select x-model="filters.subject" class="mini">
+              <option value="">Subject</option>
+              <template x-for="s in subjectList" :key="s">
+                <option :value="s" x-text="s"></option>
+              </template>
+            </select>
+            <button type="button" role="clear" @click="filters.subject=''">Clear</button>
+          </div>
+        </div>
+        <div class="selection-row">
+          <div><strong x-text="selectedCount"></strong> selected</div>
+          <div class="flex items-center gap-2">
+            <button type="button" class="btn btn-ghost" @click="clearSelections()">Clear</button>
+            <button type="button" class="btn btn-primary" @click="printSelected()">Print Selected</button>
+          </div>
+        </div>
+      </div>
+
+      <section class="mt-6">
+        <template x-for="grp in grouped" :key="grp.subject">
+          <div class="group-block">
+            <div class="subject-sticky" :style="{ '--subject-color': subjectColor(grp.subject) }">
+              <div class="subject-inner">
+                <span class="subject-dot"></span>
+                <span x-text="grp.subject"></span>
               </div>
             </div>
-          </template>
-        </div>
-      </template>
 
-      <template x-if="!filtered.length">
-        <p class="text-center text-gray-500 py-12">No items match your filters.</p>
-      </template>
+            <template x-for="c in grp.items" :key="c.id">
+              <div class="course-row" :style="{ '--subject-color': subjectColor(grp.subject) }">
+                <div class="subject-rail"></div>
+                <div class="course-card">
+                  <div class="course-band grid grid-cols-1 md:grid-cols-12 gap-0">
+                    <div class="md:col-span-8 px-3 py-3 border-white/10 flex items-start gap-3">
+                      <input type="checkbox" class="select-check mt-1" :id="'chk-'+c.id" x-model="c.checked" @change="persist()" />
+                      <div class="band-title">
+                        <label :for="'chk-'+c.id" x-text="c.title"></label>
+                        <span class="band-meta" x-html="c.summary || '<span class=opacity-80>Scheduling details coming soon.</span>'"></span>
+                      </div>
+                    </div>
+                    <div class="md:col-span-4 px-3 py-3 border-white/10 text-right">
+                      <div class="band-sub tracking-wide">Grades</div>
+                      <div class="text-sm font-semibold" x-text="c.levelDisplay || '—'"></div>
+                    </div>
+                  </div>
+
+                  <div class="info-grid">
+                    <div class="info-col">
+                      <h4>Assigned Books</h4>
+                      <template x-if="c.books && c.books.length">
+                        <ul class="book-list">
+                          <template x-for="b in c.books" :key="b.key">
+                            <li>
+                              <div class="book-title" x-text="b.title"></div>
+                              <div class="book-meta" x-text="b.author"></div>
+                              <div class="book-meta" x-text="b.meta"></div>
+                              <template x-if="b.link">
+                                <a class="text-[0.8rem] underline" :href="b.link" target="_blank" rel="noopener">More</a>
+                              </template>
+                            </li>
+                          </template>
+                        </ul>
+                      </template>
+                      <p class="info-empty" x-show="!c.books || !c.books.length">No books assigned yet.</p>
+                    </div>
+                    <div class="info-col">
+                      <h4>At a Glance</h4>
+                      <div class="info-copy space-y-2">
+                        <template x-if="c.summary">
+                          <p x-html="c.summary"></p>
+                        </template>
+                        <template x-if="c.glance && c.glance.length">
+                          <ul class="list-disc pl-5 text-sm text-[#4a524a]">
+                            <template x-for="g in c.glance" :key="g">
+                              <li x-text="g"></li>
+                            </template>
+                          </ul>
+                        </template>
+                      </div>
+                      <p class="info-empty" x-show="!c.summary && (!c.glance || !c.glance.length)">Details coming soon.</p>
+                    </div>
+                  </div>
+
+                  <template x-if="c.topics && c.topics.length">
+                    <div class="topics-panel">
+                      <div class="topics-label">Topics</div>
+                      <div class="space-y-3">
+                        <template x-for="t in c.topics" :key="t.topic_id">
+                          <div class="topic-card">
+                            <div class="topic-head">
+                              <div>
+                                <div class="topic-title" x-text="t.topic_title"></div>
+                                <div class="topic-schedule" x-html="t.summary || '<span class=opacity-60>—</span>'"></div>
+                              </div>
+                              <div class="topic-grades" x-text="t.levelDisplay"></div>
+                            </div>
+                            <div class="info-grid">
+                              <div class="info-col">
+                                <h5>Assigned Books</h5>
+                                <template x-if="t.books && t.books.length">
+                                  <ul class="book-list">
+                                    <template x-for="b in t.books" :key="b.key">
+                                      <li>
+                                        <div class="book-title" x-text="b.title"></div>
+                                        <div class="book-meta" x-text="b.author"></div>
+                                        <div class="book-meta" x-text="b.meta"></div>
+                                        <template x-if="b.link">
+                                          <a class="text-[0.8rem] underline" :href="b.link" target="_blank" rel="noopener">More</a>
+                                        </template>
+                                      </li>
+                                    </template>
+                                  </ul>
+                                </template>
+                                <p class="info-empty" x-show="!t.books || !t.books.length">No books assigned yet.</p>
+                              </div>
+                              <div class="info-col">
+                                <h5>At a Glance</h5>
+                                <div class="info-copy space-y-2">
+                                  <template x-if="t.summary">
+                                    <p x-html="t.summary"></p>
+                                  </template>
+                                  <template x-if="t.glance && t.glance.length">
+                                    <ul class="list-disc pl-5 text-sm text-[#4a524a]">
+                                      <template x-for="g in t.glance" :key="g">
+                                        <li x-text="g"></li>
+                                      </template>
+                                    </ul>
+                                  </template>
+                                </div>
+                                <p class="info-empty" x-show="!t.summary && (!t.glance || !t.glance.length)">Details coming soon.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </template>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
+
+        <template x-if="!filtered.length">
+          <p class="empty">No items match your filters.</p>
+        </template>
+      </section>
     </section>
 
     <!-- PRINT: selected only -->
@@ -200,61 +349,127 @@
         <h1 class="title-alveary m-0">Alveary Book List</h1>
       </header>
 
-      <div class="space-y-3">
+      <div class="space-y-4">
         <template x-for="c in items.filter(i => i.checked)" :key="c.id">
-          <div>
-            <div class="course-band rounded-md overflow-hidden">
-              <div class="grid grid-cols-12">
-                <div class="col-span-4 px-3 py-2 border-white/10"><div class="band-title font-crimson" x-text="c.title"></div></div>
-                <div class="col-span-4 px-3 py-2 border-white/10"><div class="band-title">Assigned Books</div></div>
-                <div class="col-span-4 px-3 py-2 border-white/10"><div class="band-title">At‑A‑Glance<br><span class="text-[11px] opacity-90" x-text="c.levelDisplay"></span></div></div>
+          <div class="course-card">
+            <div class="course-band grid grid-cols-1 md:grid-cols-12 gap-0">
+              <div class="md:col-span-8 px-3 py-3 border-white/10">
+                <div class="band-title">
+                  <span x-text="c.title"></span>
+                  <span class="band-meta" x-html="c.summary || '<span class=opacity-80>Scheduling details coming soon.</span>'"></span>
+                </div>
+              </div>
+              <div class="md:col-span-4 px-3 py-3 border-white/10 text-right">
+                <div class="band-sub tracking-wide">Grades</div>
+                <div class="text-sm font-semibold" x-text="c.levelDisplay || '—'"></div>
               </div>
             </div>
-            <div class="grid grid-cols-12 gap-0 rounded-b-md overflow-hidden">
-              <div class="col-span-4 px-3 py-3 text-sm"><div x-html="c.summary || '&nbsp;'"></div></div>
-              <div class="col-span-4 px-4 py-4 desc-bg text-sm leading-relaxed">
+            <div class="info-grid">
+              <div class="info-col">
+                <h4>Assigned Books</h4>
                 <template x-if="c.books && c.books.length">
-                  <ul class="space-y-1 list-disc pl-5">
+                  <ul class="book-list">
                     <template x-for="b in c.books" :key="b.key">
-                      <li><span x-text="b.title"></span><span x-text="b.author ? ' — ' + b.author : ''"></span></li>
+                      <li>
+                        <div class="book-title" x-text="b.title"></div>
+                        <div class="book-meta" x-text="b.author"></div>
+                        <div class="book-meta" x-text="b.meta"></div>
+                      </li>
                     </template>
                   </ul>
                 </template>
+                <p class="info-empty" x-show="!c.books || !c.books.length">No books assigned yet.</p>
               </div>
-              <div class="col-span-4 px-4 py-4 text-sm leading-relaxed">
-                <template x-if="c.glance && c.glance.length">
-                  <ul class="space-y-1">
-                    <template x-for="g in c.glance" :key="g"><li class="text-[12px]" x-text="g"></li></template>
-                  </ul>
-                </template>
+              <div class="info-col">
+                <h4>At a Glance</h4>
+                <div class="info-copy space-y-2">
+                  <template x-if="c.summary">
+                    <p x-html="c.summary"></p>
+                  </template>
+                  <template x-if="c.glance && c.glance.length">
+                    <ul class="list-disc pl-5 text-sm text-[#4a524a]">
+                      <template x-for="g in c.glance" :key="g">
+                        <li x-text="g"></li>
+                      </template>
+                    </ul>
+                  </template>
+                </div>
+                <p class="info-empty" x-show="!c.summary && (!c.glance || !c.glance.length)">Details coming soon.</p>
               </div>
             </div>
+
+            <template x-if="c.topics && c.topics.length">
+              <div class="topics-panel">
+                <div class="topics-label">Topics</div>
+                <div class="space-y-3">
+                  <template x-for="t in c.topics" :key="t.topic_id">
+                    <div class="topic-card">
+                      <div class="topic-head">
+                        <div>
+                          <div class="topic-title" x-text="t.topic_title"></div>
+                          <div class="topic-schedule" x-html="t.summary || '<span class=opacity-60>—</span>'"></div>
+                        </div>
+                        <div class="topic-grades" x-text="t.levelDisplay"></div>
+                      </div>
+                      <div class="info-grid">
+                        <div class="info-col">
+                          <h5>Assigned Books</h5>
+                          <template x-if="t.books && t.books.length">
+                            <ul class="book-list">
+                              <template x-for="b in t.books" :key="b.key">
+                                <li>
+                                  <div class="book-title" x-text="b.title"></div>
+                                  <div class="book-meta" x-text="b.author"></div>
+                                  <div class="book-meta" x-text="b.meta"></div>
+                                </li>
+                              </template>
+                            </ul>
+                          </template>
+                          <p class="info-empty" x-show="!t.books || !t.books.length">No books assigned yet.</p>
+                        </div>
+                        <div class="info-col">
+                          <h5>At a Glance</h5>
+                          <div class="info-copy space-y-2">
+                            <template x-if="t.summary">
+                              <p x-html="t.summary"></p>
+                            </template>
+                            <template x-if="t.glance && t.glance.length">
+                              <ul class="list-disc pl-5 text-sm text-[#4a524a]">
+                                <template x-for="g in t.glance" :key="g">
+                                  <li x-text="g"></li>
+                                </template>
+                              </ul>
+                            </template>
+                          </div>
+                          <p class="info-empty" x-show="!t.summary && (!t.glance || !t.glance.length)">Details coming soon.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </template>
           </div>
         </template>
       </div>
     </section>
 
-    <!-- APP SCRIPT -->
     <script>
       function booksApp(){
         return {
-          /* UI */
+          tab: 'list',
+
           search: '',
           filters: { subject: '', levelTag: '' },
 
-          /* Data */
-          items: [], // each represents a course with its assigned books
+          items: [],
 
-          /* Data sources — placeholder: update to your Books/Assignments CSVs */
           dataSources: {
-            // Reuse courses CSV to get subject/grade/title, then join to a books CSV
             courses: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=0&single=true&output=csv',
-            // TODO: replace with your MA_Assignments export for books (one row per book)
-            // Expected fields mapped below
-            books:   'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=182625034&single=true&output=csv'
+            books:   'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=182625034&single=true&output=csv',
+            topics:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=1919021076&single=true&output=csv'
           },
 
-          /* Field maps (case-insensitive) */
           courseFields: {
             course_id: 'Course_ID',
             course_title: 'Course',
@@ -263,20 +478,53 @@
             grade_text: 'Grade_Text',
             grade_filter: 'Grade_Filter'
           },
+          topicFields: {
+            topic_id:'Topic_ID',
+            course_id:'Course_ID_R3',
+            topic_title:'Topic',
+            topic_description:'Program_Description_R3',
+            combining_placement:'Combining&PlacementTips_R3',
+            schedule_text:'Scheduling_R3',
+            grade_text:'Grade_Text',
+            grade_filter:'Grade_Filter'
+          },
           bookFields: {
-            // You can adjust these to whatever your MA_Assignments/Book export uses
             course_id: ['Course_ID','Course_ID_R3','Resource_Key'],
             title: ['Book_Title','Title','Assigned_Book'],
             author: ['Author','By'],
             terms: ['Term','Terms','Assignments_Terms'],
             pages: ['Pages','Page_Range'],
             notes: ['Notes','Resource_Information_Text'],
-            link: ['Link 1 url','Link','URL']
+            link: ['Link 1 url','Link','URL'],
+            topic_id: ['Topic_ID','TopicID','Topic_ID_R3'],
+            topic_title: ['Topic','Topic_Title']
           },
 
-          /* Derived */
+          subjectColors:{
+            'Architecture': '#a0a6be',
+            'Art': '#907061',
+            'Bible': '#964945',
+            'Citizenship': '#62765c',
+            'English': '#9b5b7b',
+            'Geography': '#4d8da2',
+            'History': '#6b6bbf',
+            'Latin': '#5a5373',
+            'Life Skills': '#d1b358',
+            'Literature': '#c07669',
+            'Math': '#6d7eaa',
+            'Modern Language': '#6db4b2',
+            'Music': '#9e6bac',
+            'Physical Education': '#bd855e',
+            'Science': '#96a767',
+            'Science & Alt. Science': '#96a767'
+          },
+          subjectColor(name){
+            const key = Object.keys(this.subjectColors).find(k => k.toLowerCase() === String(name||'').toLowerCase());
+            return (key ? this.subjectColors[key] : '#dfe4df');
+          },
+
           get filtered(){
-            const q = this.search.toLowerCase();
+            const q = (this.search || '').toLowerCase();
             return this.items.filter(c => {
               const matchesQ = !q || [c.title, c.subject, c.summary, c.levelDisplay].join(' ').toLowerCase().includes(q);
               const matchesS = !this.filters.subject || c.subject === this.filters.subject;
@@ -295,19 +543,29 @@
           },
           get grouped(){
             const groups = new Map();
-            this.filtered.forEach(c => { const s = c.subject || 'Other'; if(!groups.has(s)) groups.set(s, []); groups.get(s).push(c); });
-            return Array.from(groups.entries()).sort((a,b)=>a[0].localeCompare(b[0], undefined, {numeric:true}));
+            this.filtered.forEach(c => {
+              const subject = c.subject || 'Other';
+              if(!groups.has(subject)) groups.set(subject, []);
+              groups.get(subject).push(c);
+            });
+            return Array.from(groups.entries())
+              .sort((a,b)=>a[0].localeCompare(b[0], undefined, {numeric:true}))
+              .map(([subject, items]) => ({ subject, items }));
           },
-          get selectedCount(){ return this.items.reduce((n,c)=> n + (c.checked?1:0), 0); },
+          get selectedCount(){
+            return this.items.reduce((n,c)=>n+(c.checked?1:0),0);
+          },
 
-          /* Helpers */
           _getCI(row, want){
             const keys = Array.isArray(want) ? want : [want];
-            for(const k of keys){ const hit = Object.keys(row).find(h => h.trim().toLowerCase() === String(k).trim().toLowerCase()); if(hit) return row[hit]; }
+            for(const k of keys){
+              const hit = Object.keys(row).find(h => h.trim().toLowerCase() === String(k).trim().toLowerCase());
+              if(hit) return row[hit];
+            }
             return undefined;
           },
           computeGradeTags(gr){
-            const tags=[]; const range  = gr && gr.match(/^(?:[Gg]?(\d+))\s*[–-]\s*[Gg]?(\d+)$/);
+            const tags=[]; const range = gr && gr.match(/^(?:[Gg]?(\d+))\s*[–-]\s*[Gg]?(\d+)$/);
             if(range){ const a=+range[1], b=+range[2]; for(let i=Math.min(a,b); i<=Math.max(a,b); i++) tags.push(`G${i}`); return tags; }
             const single = gr && gr.match(/^[Gg]?(\d+)$/);
             if(single){ return [`G${+single[1]}`]; }
@@ -328,7 +586,29 @@
             const levelTags = (gradeFilter && /G\s*\d+/i.test(gradeFilter))
               ? (gradeFilter.match(/G\s*\d+/gi) || []).map(s => 'G' + s.replace(/[^0-9]/g,''))
               : this.computeGradeTags(gradeText);
-            return { id: id||title, title: title||id, subject, summary: schedule, levelDisplay, levelTags, checked:false, books:[], glance:[] };
+            return { id: id||title, title: title||id, subject, summary: schedule, levelDisplay, levelTags, checked:false, books:[], glance:[], topics:[] };
+          },
+          rowToTopic(row){
+            if(!row) return null; const g = (k) => this._getCI(row, this.topicFields[k]);
+            const rawCourseIds = (g('course_id')||'').toString().trim();
+            const topic_title = (g('topic_title')||'').toString().trim();
+            if(!rawCourseIds || !topic_title) return null;
+            const topic_id = (g('topic_id')||'').toString().trim() || `${rawCourseIds}::${topic_title}`;
+            const gradeText  = (g('grade_text')   || '').toString().trim();
+            const gradeFilter= (g('grade_filter') || '').toString().trim();
+            const levelDisplay = gradeText || '';
+            const levelTags = (gradeFilter && /G\s*\d+/i.test(gradeFilter))
+              ? (gradeFilter.match(/G\s*\d+/gi) || []).map(s => 'G' + s.replace(/[^0-9]/g,''))
+              : this.computeGradeTags(gradeText);
+            const schedule = (g('schedule_text') || '').toString().trim();
+            return {
+              topic_id,
+              course_ids: rawCourseIds.split(',').map(s=>s.trim()).filter(Boolean),
+              topic_title,
+              summary: schedule,
+              levelDisplay,
+              levelTags
+            };
           },
           rowToBook(row){
             if(!row) return null; const g = (k) => this._getCI(row, this.bookFields[k]);
@@ -339,33 +619,86 @@
             const pages  = (g('pages')  || '').toString().trim();
             const notes  = (g('notes')  || '').toString().trim();
             const link   = (g('link')   || '').toString().trim();
+            const topicRef = (g('topic_id') || '').toString().trim();
+            const topicTitle = (g('topic_title') || '').toString().trim();
             const meta = [terms, pages, notes].filter(Boolean).join(' • ');
-            return { key: `${rawCourseId}::${title}`, course_id: rawCourseId, title, author, meta, link };
+            return { key: `${rawCourseId}::${title}`, course_id: rawCourseId, title, author, meta, link, terms, topicRef, topicTitle };
+          },
+
+          glanceFromBooks(list){
+            const terms = new Set();
+            (list||[]).forEach(b => {
+              const raw = b.terms || b.meta || '';
+              raw.split(/[,/]/).forEach(part => {
+                const chunk = part.trim(); if(!chunk) return;
+                const m = chunk.match(/(?:Term|T)\s*(\d)/i);
+                if(m){ terms.add(`Term ${m[1]}`); return; }
+                terms.add(chunk);
+              });
+            });
+            return Array.from(terms);
           },
 
           async load(){
-            // Fetch both CSVs (books may be 404 until you set it); fail soft.
-            const [coursesCSV, booksCSV] = await Promise.all([
+            const [coursesCSV, booksCSV, topicsCSV] = await Promise.all([
               fetch(this.dataSources.courses, { mode:'cors' }).then(r=>r.text()),
-              fetch(this.dataSources.books,   { mode:'cors' }).then(r=>r.ok?r.text():'' ).catch(()=> '')
+              fetch(this.dataSources.books,   { mode:'cors' }).then(r=>r.ok?r.text():'' ).catch(()=> ''),
+              fetch(this.dataSources.topics,  { mode:'cors' }).then(r=>r.ok?r.text():'' ).catch(()=> '')
             ]);
 
             const pc = Papa.parse(coursesCSV, { header:true, skipEmptyLines:true });
             const courseIndex = {};
             pc.data.forEach(row => { const c = this.rowToCourse(row); if(c) courseIndex[c.id] = c; });
 
+            if(topicsCSV){
+              const pt = Papa.parse(topicsCSV, { header:true, skipEmptyLines:true });
+              pt.data.forEach(row => {
+                const topic = this.rowToTopic(row);
+                if(!topic) return;
+                topic.course_ids.forEach(cid => {
+                  const course = courseIndex[cid];
+                  if(!course) return;
+                  const clone = {
+                    ...topic,
+                    topic_id: `${topic.topic_id}::${cid}`,
+                    source_id: topic.topic_id,
+                    books: [],
+                    glance: []
+                  };
+                  course.topics.push(clone);
+                });
+              });
+              Object.values(courseIndex).forEach(c => c.topics.sort((a,b)=>a.topic_title.localeCompare(b.topic_title)));
+            }
+
             if(booksCSV){
               const pb = Papa.parse(booksCSV, { header:true, skipEmptyLines:true });
-              pb.data.forEach(row => { const b = this.rowToBook(row); if(!b) return; const cid = b.course_id; if(courseIndex[cid]){ courseIndex[cid].books.push(b); }});
-              // Simple at-a-glance sample: list terms present
+              pb.data.forEach(row => {
+                const b = this.rowToBook(row);
+                if(!b) return;
+                const cid = b.course_id;
+                const course = courseIndex[cid];
+                if(!course) return;
+                const topicMatch = (course.topics || []).find(t => {
+                  if(b.topicRef && t.source_id && b.topicRef.toLowerCase() === t.source_id.toLowerCase()) return true;
+                  if(b.topicTitle && t.topic_title && b.topicTitle.toLowerCase() === t.topic_title.toLowerCase()) return true;
+                  return false;
+                });
+                if(topicMatch){ topicMatch.books.push(b); }
+                else{ course.books.push(b); }
+              });
               Object.values(courseIndex).forEach(c => {
-                const terms = new Set();
-                (c.books||[]).forEach(b => { const m = b.meta.match(/(?:Term|T)\s*([1-3])/i); if(m) terms.add('Term ' + m[1]); });
-                c.glance = Array.from(terms);
+                c.glance = this.glanceFromBooks(c.books);
+                (c.topics||[]).forEach(t => { t.glance = this.glanceFromBooks(t.books); });
               });
             }
 
             this.items = Object.values(courseIndex);
+          },
+
+          clearSelections(){
+            this.items.forEach(i => i.checked = false);
+            this.persist();
           },
 
           persist(){
