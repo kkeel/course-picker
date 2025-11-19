@@ -51,17 +51,61 @@
     .sticky-actions{position:sticky;top:var(--mini-steps-h);z-index:50;background:var(--brand-bg);border-bottom:1px solid #e4e8e4;padding:1rem 0;margin-bottom:1rem;}
     .filter-strip{display:grid;align-items:center;grid-template-columns:repeat(4,minmax(0,1fr));gap:.5rem;font-size:.9rem;color:#666d66;}
     .filter-strip> *{min-width:0;}
-    .filter-strip .mini{width:100%;height:38px;padding:.35rem .65rem;border:1px solid #d9ded9;border-radius:.75rem;background:#fff;color:#666d66;font-size:.95rem;}
+    .filter-strip .mini{width:100%;height:30px;padding:.25rem .55rem;border:1px solid #d9ded9;border-radius:.6rem;background:#fff;color:#666d66;font-size:.9rem;}
     .filter-strip .mini::placeholder,.filter-strip .mini option{color:#666d66;}
-    .filter-strip button[role="clear"]{font-size:.75rem;text-decoration:underline;color:#666d66;margin-top:.15rem;}
-    .selection-row{margin-top:.75rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;font-size:.95rem;color:#4a524a;}
-    .btn{display:inline-flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:600;border-radius:.85rem;padding:.45rem .95rem;border:1px solid transparent;}
+    .filter-strip button[role="clear"]{font-size:.75rem;text-decoration:underline;color:#666d66;margin-top:.15rem;display:inline-block;}
+    .btn{display:inline-flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:600;border-radius:.85rem;padding:.35rem .75rem;border:1px solid transparent;}
     .btn-ghost{background:#fff;border-color:#d9ded9;color:#666d66;}
     .btn-ghost:hover{background:#f4f6fa;}
     .btn-primary{background:var(--green-dark);color:#fff;}
     .btn-primary:hover{filter:brightness(.95);}
+    .btn[disabled]{opacity:.6;cursor:not-allowed;}
 
     @media(max-width:900px){.filter-strip{grid-template-columns:repeat(2,minmax(0,1fr));}}
+
+    /* multi-select controls */
+    .ms-trigger{
+      width:100%; height:30px;
+      padding:0 .6rem; border:1px solid #d9ded9; border-radius:.6rem;
+      background:#fff; color:#666d66; font-size:.9rem; font-weight:500;
+      display:flex; align-items:center; gap:.4rem;
+    }
+    .ms-trigger .chips{ display:flex; gap:.35rem; flex-wrap:wrap; }
+    .ms-chip{ background:#eef2ed; color:#4d574d; padding:0 .45rem; border-radius:.5rem; font-size:.75rem; }
+    .ms-caret{ margin-left:auto; font-size:12px; color:#666d66; }
+    .ms-panel{
+      position:fixed; z-index:7000; margin-top:.35rem;
+      background:#fff; border:1px solid #e5e7eb; border-radius:.75rem;
+      box-shadow:0 10px 30px rgba(0,0,0,.12); padding:.4rem; max-height:260px; overflow:auto;
+    }
+    .ms-row{ display:flex; align-items:center; gap:.5rem; padding:.35rem .45rem; border-radius:.5rem; font-size:.9rem; color:#2b332b; }
+    .ms-row:hover{ background:#f5f7f4; }
+    .ms-row input{ width:16px; height:16px; accent-color:var(--check-green); }
+    .ms-icon{ width:16px; height:16px; border-radius:999px; }
+    .ms-search{ width:100%; border:1px solid #d9ded9; border-radius:.45rem; padding:.3rem .5rem; margin-bottom:.35rem; font-size:.85rem; color:#4d574d; }
+
+    .toolbar-card{background:transparent;border:none;padding:0;}
+    .toolbar-title{display:none;}
+    .bottom-controls{align-items:center;}
+    .bottom-controls,.bottom-controls .btn,.bottom-controls .switch-label,.bottom-controls .switch-text{
+      font-size:12px;line-height:1.25;color:#666d66;font-weight:500;
+    }
+    .bottom-controls .btn{padding:.2rem .55rem;border-radius:.7rem;}
+    .bottom-controls .btn-primary{padding:.2rem .8rem;}
+    .switch-wrap{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
+    .switch-label{font-size:12px;color:#666d66;}
+    .switch-text{font-size:12px;color:#666d66;}
+    .switch{
+      position:relative; width:34px; height:18px;
+      background:#d9ded9; border-radius:999px; border:none;
+    }
+    .switch.on{background:#596e5e;}
+    .switch .knob{
+      position:absolute; top:2px; left:2px; width:14px; height:14px;
+      border-radius:999px; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.2);
+      transition:left .18s ease;
+    }
+    .switch.on .knob{left:18px;}
 
     .subject-sticky{
       position:sticky;
@@ -182,30 +226,99 @@
             <input x-model.trim.debounce.250ms="search" type="search" placeholder="Search title, subject, keyword…" class="mini" />
             <button type="button" role="clear" @click="search=''">Clear</button>
           </div>
-          <div class="area-grade">
-            <select x-model="filters.levelTag" class="mini">
-              <option value="">Grade</option>
-              <template x-for="lvl in levelList" :key="lvl">
-                <option :value="lvl" x-text="lvl"></option>
+
+          <div class="area-grade"
+               x-data="multiSelect({ placeholder:'Grade', modelValue: filters.levelTags, options: () => gradeOptions })"
+               x-ref="msRoot"
+               @input="filters.levelTags = $event.detail">
+            <div class="relative">
+              <button type="button" class="ms-trigger" @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))" :aria-expanded="open">
+                <div class="chips" x-show="value.length">
+                  <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
+                </div>
+                <span x-show="!value.length" x-text="placeholder"></span>
+                <span class="ms-caret">▾</span>
+              </button>
+
+              <template x-teleport="body">
+                <div class="ms-panel"
+                     x-show="open"
+                     x-transition
+                     :style="panelStyle"
+                     @click.outside="open=false"
+                     @keydown.window="closeOnEscape($event)">
+                  <template x-for="opt in shown" :key="opt.value">
+                    <label class="ms-row cursor-pointer">
+                      <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
+                      <span x-text="opt.label"></span>
+                    </label>
+                  </template>
+                </div>
               </template>
-            </select>
-            <button type="button" role="clear" @click="filters.levelTag=''">Clear</button>
+            </div>
+            <button type="button" role="clear" @click="clear()">Clear</button>
           </div>
-          <div class="area-subject">
-            <select x-model="filters.subject" class="mini">
-              <option value="">Subject</option>
-              <template x-for="s in subjectList" :key="s">
-                <option :value="s" x-text="s"></option>
+
+          <div class="area-subject"
+               x-data="multiSelect({ placeholder:'Subject', modelValue: filters.subjects, options: () => subjectList.map(s => ({ value:s, label:s })) })"
+               x-ref="msRoot"
+               @input="filters.subjects = $event.detail">
+            <div class="relative">
+              <button type="button" class="ms-trigger" @click="open = !open; if(open) $nextTick(() => updatePanelPos($refs.msRoot))" :aria-expanded="open">
+                <div class="chips" x-show="value.length">
+                  <template x-for="t in labelChips" :key="t"><span class="ms-chip" x-text="t"></span></template>
+                </div>
+                <span x-show="!value.length" x-text="placeholder"></span>
+                <span class="ms-caret">▾</span>
+              </button>
+
+              <template x-teleport="body">
+                <div class="ms-panel"
+                     x-show="open"
+                     x-transition
+                     :style="panelStyle"
+                     @click.outside="open=false"
+                     @keydown.window="closeOnEscape($event)">
+                  <template x-for="opt in shown" :key="opt.value">
+                    <label class="ms-row cursor-pointer">
+                      <input type="checkbox" :checked="isOn(opt.value)" @change="toggle(opt.value)">
+                      <span x-text="opt.label"></span>
+                    </label>
+                  </template>
+                </div>
               </template>
-            </select>
-            <button type="button" role="clear" @click="filters.subject=''">Clear</button>
+            </div>
+            <button type="button" role="clear" @click="clear()">Clear</button>
           </div>
         </div>
-        <div class="selection-row">
-          <div><strong x-text="selectedCount"></strong> selected</div>
-          <div class="flex items-center gap-2">
-            <button type="button" class="btn btn-ghost" @click="clearSelections()">Clear</button>
-            <button type="button" class="btn btn-primary" @click="printSelected()">Print Selected</button>
+
+        <div class="mt-2 grid grid-cols-1 lg:grid-cols-2 gap-3 items-center bottom-controls">
+          <div class="toolbar-card">
+            <div class="toolbar-title">Actions</div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-[12px] text-[#666d66]">Selected: <strong class="text-[var(--green-dark)]" x-text="selectedCount"></strong></span>
+              <button type="button" class="btn btn-ghost" @click="clearSelected()">Clear selected</button>
+              <button type="button" class="btn btn-ghost" @click="clearFilters()">Clear filters</button>
+              <button type="button" class="btn btn-ghost flex items-center gap-2" @click="refreshData()" :disabled="isRefreshing">
+                <svg x-show="isRefreshing" class="animate-spin h-4 w-4 text-[var(--green-dark)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                </svg>
+                <span x-text="isRefreshing ? 'Refreshing…' : '↻ Refresh'"></span>
+              </button>
+              <button type="button" class="btn btn-primary" @click="printSelected()">Print</button>
+            </div>
+          </div>
+
+          <div class="toolbar-card md:border-l-0">
+            <div class="toolbar-title">View options</div>
+            <div class="switch-wrap">
+              <span class="switch-label">Only selected</span>
+              <button type="button" class="switch" :class="onlySelected ? 'on' : ''" @click="onlySelected = !onlySelected" :aria-pressed="onlySelected" :aria-label="onlySelected ? 'Show all items' : 'Show only selected items'">
+                <span class="knob"></span>
+              </button>
+              <span class="switch-text" x-text="onlySelected ? 'On' : 'Off'"></span>
+            </div>
           </div>
         </div>
       </div>
@@ -335,7 +448,7 @@
           </div>
         </template>
 
-        <template x-if="!filtered.length">
+        <template x-if="!visibleItems.length">
           <p class="empty">No items match your filters.</p>
         </template>
       </section>
@@ -454,12 +567,83 @@
     </section>
 
     <script>
+      document.addEventListener('alpine:init', () => {
+        Alpine.data('multiSelect', (cfg = {}) => ({
+          value: Array.isArray(cfg.modelValue) ? cfg.modelValue : [],
+          ['x-modelable']: 'value',
+          searchable: !!cfg.searchable,
+          open: false,
+          placeholder: cfg.placeholder || 'Select…',
+          options: cfg.options || [],
+          q: '',
+          panelStyle: 'position:fixed;left:0;top:0;width:auto;z-index:7000;max-height:50vh;overflow:auto;',
+          init(){
+            this.$dispatch('input', this.value);
+            window.addEventListener('ms:clear', this._msClear = () => {
+              this.clear(); this.open = false; this.q = '';
+            });
+            this._onScroll = () => { if(this.open) this.updatePanelPos(this.$refs.msRoot); };
+            this._onResize = () => { if(this.open) this.updatePanelPos(this.$refs.msRoot); };
+            window.addEventListener('scroll', this._onScroll, true);
+            window.addEventListener('resize', this._onResize);
+            window.addEventListener('ms:reposition', () => { if(this.open) this.updatePanelPos(this.$refs.msRoot); });
+            this.$watch('value', v => this.$dispatch('input', v));
+          },
+          get optionList(){
+            return typeof this.options === 'function' ? this.options() : this.options;
+          },
+          get shown(){
+            const list = this.optionList || [];
+            if(!this.searchable || !this.q) return list;
+            const k = this.q.toLowerCase();
+            return list.filter(o => (o.label||'').toLowerCase().includes(k));
+          },
+          get labelChips(){
+            const labels = (this.optionList || []).filter(o => this.value.includes(o.value)).map(o => o.label);
+            return labels.length <= 3 ? labels : [...labels.slice(0,3), `+${labels.length-3}`];
+          },
+          toggle(v){
+            const set = new Set(this.value);
+            set.has(v) ? set.delete(v) : set.add(v);
+            this.value = Array.from(set);
+            this.$dispatch('input', this.value);
+          },
+          clear(){ this.value = []; this.$dispatch('input', this.value); },
+          isOn(v){ return this.value.includes(v); },
+          closeOnEscape(e){ if(e.key === 'Escape') this.open = false; },
+          updatePanelPos(rootEl){
+            try{
+              const trigger = rootEl.querySelector('.ms-trigger');
+              if(!trigger) return;
+              const r = trigger.getBoundingClientRect();
+              const margin = 8;
+              const width = Math.round(r.width);
+              let left = Math.round(r.left);
+              left = Math.max(margin, Math.min(left, window.innerWidth - width - margin));
+              const desiredTop = Math.round(r.bottom + 6);
+              const maxH = Math.max(160, window.innerHeight - desiredTop - 12);
+              const top = Math.max(6, desiredTop);
+              this.panelStyle = `position:fixed;left:${left}px;top:${top}px;width:${width}px;max-height:${maxH}px;overflow:auto;z-index:7000;`;
+            }catch{}
+          },
+          destroy(){
+            window.removeEventListener('scroll', this._onScroll, true);
+            window.removeEventListener('resize', this._onResize);
+            window.removeEventListener('ms:clear', this._msClear);
+          }
+        }));
+      });
+    </script>
+
+    <script>
       function booksApp(){
         return {
           tab: 'list',
 
           search: '',
-          filters: { subject: '', levelTag: '' },
+          filters: { subjects: [], levelTags: [] },
+          onlySelected: false,
+          isRefreshing: false,
 
           items: [],
 
@@ -517,6 +701,11 @@
             'Science': '#96a767',
             'Science & Alt. Science': '#96a767'
           },
+          gradeLabelMap: Object.freeze({
+            G1:'Grade 1', G2:'Grade 2', G3:'Grade 3', G4:'Grade 4',
+            G5:'Grade 5', G6:'Grade 6', G7:'Grade 7', G8:'Grade 8',
+            G9:'Grade 9', G10:'Grade 10', G11:'Grade 11', G12:'Grade 12'
+          }),
           subjectColor(name){
             const key = Object.keys(this.subjectColors).find(k => k.toLowerCase() === String(name||'').toLowerCase());
             return (key ? this.subjectColors[key] : '#dfe4df');
@@ -524,12 +713,19 @@
 
           get filtered(){
             const q = (this.search || '').toLowerCase();
+            const subjects = Array.isArray(this.filters.subjects) ? this.filters.subjects : [];
+            const levels = Array.isArray(this.filters.levelTags) ? this.filters.levelTags : [];
             return this.items.filter(c => {
-              const matchesQ = !q || [c.title, c.subject, c.summary, c.levelDisplay].join(' ').toLowerCase().includes(q);
-              const matchesS = !this.filters.subject || c.subject === this.filters.subject;
-              const matchesL = !this.filters.levelTag || (c.levelTags && c.levelTags.includes(this.filters.levelTag));
+              const haystack = [c.title, c.subject, c.summary, c.levelDisplay].join(' ').toLowerCase();
+              const matchesQ = !q || haystack.includes(q);
+              const matchesS = !subjects.length || (subjects.includes(c.subject));
+              const matchesL = !levels.length || (c.levelTags || []).some(tag => levels.includes(tag));
               return matchesQ && matchesS && matchesL;
             });
+          },
+          get visibleItems(){
+            const list = this.filtered;
+            return this.onlySelected ? list.filter(c => c.checked) : list;
           },
           get subjectList(){
             const arr = [...new Set(this.items.map(c => c.subject).filter(Boolean))];
@@ -540,9 +736,12 @@
             return [...new Set(this.items.flatMap(c => c.levelTags || []))]
               .sort((a,b)=>{ const na=+a.replace(/\D/g,''); const nb=+b.replace(/\D/g,''); return na-nb || a.localeCompare(b); });
           },
+          get gradeOptions(){
+            return this.levelList.map(v => ({ value:v, label:this.gradeLabelMap[v] || v }));
+          },
           get grouped(){
             const groups = new Map();
-            this.filtered.forEach(c => {
+            this.visibleItems.forEach(c => {
               const subject = c.subject || 'Other';
               if(!groups.has(subject)) groups.set(subject, []);
               groups.get(subject).push(c);
@@ -695,9 +894,29 @@
             this.items = Object.values(courseIndex);
           },
 
-          clearSelections(){
+          clearSelected(){
             this.items.forEach(i => i.checked = false);
             this.persist();
+          },
+          clearSelections(){ this.clearSelected(); },
+          clearFilters(){
+            this.search = '';
+            this.filters.subjects = [];
+            this.filters.levelTags = [];
+            this.onlySelected = false;
+            window.dispatchEvent(new CustomEvent('ms:clear'));
+            this.$nextTick(() => window.dispatchEvent(new CustomEvent('ms:reposition')));
+          },
+          async refreshData(){
+            if(this.isRefreshing) return;
+            this.isRefreshing = true;
+            try{
+              await this.load();
+              this.restore();
+              this.$nextTick(() => window.dispatchEvent(new CustomEvent('ms:reposition')));
+            }finally{
+              this.isRefreshing = false;
+            }
           },
 
           persist(){
@@ -709,7 +928,11 @@
 
           printSelected(){ window.print(); },
 
-          async init(){ await this.load(); this.restore(); }
+          async init(){
+            await this.load();
+            this.restore();
+            this.$nextTick(() => window.dispatchEvent(new CustomEvent('ms:reposition')));
+          }
         };
       }
     </script>
