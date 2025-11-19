@@ -2305,7 +2305,7 @@ function planningApp(){
         topics: [],
     
         // course accordions
-        infoOpen: true,   // ℹ️ toggles this; default open
+        infoOpen: false,   // ℹ️ toggles this; default open
         noteOpen: false    // ✏️ toggles this
       };
     },
@@ -2346,7 +2346,7 @@ function planningApp(){
     
         /* Per-topic accordions */
         hasInfo,
-        infoOpen: true,   // ℹ️ toggles this; default open
+        infoOpen: false,   // ℹ️ toggles this; default open
         noteOpen: false    // ✏️ toggles this
       };
     },
@@ -2620,7 +2620,7 @@ function planningApp(){
       this.resetFilters();
     
       // optional: if you want to force descriptions & tips back ON when clearing all:
-      // this.showAllTips = true; this.applyTipsState();
+      // this.showAllTips = false; this.applyTipsState();
     
       this.$nextTick(() => this.measureBars && this.measureBars());
       window.dispatchEvent(new CustomEvent('ms:reposition'));
@@ -2649,7 +2649,9 @@ function planningApp(){
         window.dispatchEvent(new CustomEvent('ms:reposition'));
     
       // 2) ensure initial open/closed state matches the switch
-      this.toggleAllTips(this.showAllTips);
+      // Descriptions should be closed by default on Book List page
+      // (do NOT call toggleAllTips here)
+      this.applyTipsState();
     
       // 3) after layout settles (fonts, sticky, etc.), measure again
       setTimeout(() => this.measureBars && this.measureBars(), 60);
@@ -2663,7 +2665,7 @@ function planningApp(){
     this.applyTipsState();
     },
     // --- NEW/ensure these exist in state ---
-    showAllTips: true,     // when true: descriptions & tips are OPEN
+    showAllTips: false,     // when true: descriptions & tips are OPEN
     onlyChecked: true,    // your existing flag for "Show only selected"
     
     // --- Add or replace this helper ---
