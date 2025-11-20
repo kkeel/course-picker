@@ -741,6 +741,67 @@
       grid-template-columns: 1fr 1fr;   /* two columns */
       gap: 1rem 1.25rem;
     }
+        /* === Assigned Resources table (course + topic) === */
+        .resource-table{
+          display:flex;
+          flex-direction:column;
+          gap:.35rem;
+          margin-top:.35rem;
+        }
+        .resource-row{
+          display:grid;
+          grid-template-columns:auto 2.2fr 1.4fr 1.2fr 1.4fr;
+          gap:.75rem;
+          align-items:flex-start;
+          padding:.35rem .25rem;
+          border-top:1px solid #e5e7eb;
+        }
+        .resource-row:first-child{
+          border-top:none;
+        }
+        .resource-img img{
+          width:60px;
+          height:auto;
+          border-radius:.25rem;
+          object-fit:contain;
+          background:#f4f6f0;
+          box-shadow:0 1px 2px rgba(0,0,0,.05);
+        }
+        .resource-info{
+          font-size:.8rem;
+          line-height:1.4;
+          color:var(--ink);
+        }
+        .resource-shared,
+        .resource-scope,
+        .resource-links{
+          font-size:.78rem;
+          line-height:1.35;
+          color:#4b544c;
+        }
+        .resource-links a{
+          text-decoration:underline;
+          text-underline-offset:2px;
+          margin-right:.25rem;
+          white-space:nowrap;
+        }
+    
+        @media (max-width:900px){
+          .resource-row{
+            grid-template-columns:auto 1fr;
+            grid-template-areas:
+              "img info"
+              ".   shared"
+              ".   scope"
+              ".   links";
+            row-gap:.2rem;
+          }
+          .resource-img{ grid-area:img; }
+          .resource-info{ grid-area:info; }
+          .resource-shared{ grid-area:shared; }
+          .resource-scope{ grid-area:scope; }
+          .resource-links{ grid-area:links; }
+        }
     @media (max-width:820px){
       .info-grid{ grid-template-columns: 1fr; }  /* stack on narrow */
     }
@@ -1601,7 +1662,10 @@
             </div>
   
             <!-- accordion area -->
-            <div x-show="c.noteOpen || (c.infoOpen && c.hasInfo)" x-collapse>
+            <div
+              x-show="c.noteOpen || (c.infoOpen && (c.hasInfo || (c.resources && c.resources.length)))"
+              x-collapse
+            >
               <!-- NOTE (gray, full width) -->
               <section :id="'acc-note-'+c.id" x-show="c.noteOpen" class="accordion">
                 <div class="note-area">
@@ -1628,6 +1692,52 @@
                     <div class="info-col">
                       <h4>Combining &amp; Placement</h4>
                       <div class="copy" x-html="c.combining"></div>
+                    </div>
+                  </template>
+                </div>
+              </section>
+
+              <!-- ASSIGNED RESOURCES (white, full width, stacked under info) -->
+              <section
+                x-show="c.infoOpen && c.resources && c.resources.length"
+                class="acc-info mt-2"
+              >
+                <h4 class="mb-1 text-[0.82rem] font-semibold">Assigned Resources</h4>
+                <div class="resource-table">
+                  <template x-for="r in c.resources" :key="r.key">
+                    <div class="resource-row">
+                      <!-- Column 1: small image -->
+                      <div class="resource-img">
+                        <template x-if="extractImage(r.img)">
+                          <img :src="extractImage(r.img)" alt="">
+                        </template>
+                      </div>
+
+                      <!-- Column 2: information text -->
+                      <div class="resource-info">
+                        <div x-html="formatInfo(r.info)"></div>
+                      </div>
+
+                      <!-- Column 3: Shared roll-up -->
+                      <div class="resource-shared" x-text="r.shared"></div>
+
+                      <!-- Column 4: Scope -->
+                      <div class="resource-scope" x-text="r.scope"></div>
+
+                      <!-- Column 5: Links -->
+                      <div class="resource-links">
+                        <template x-if="r.link1 && r.link1.url">
+                          <a :href="r.link1.url" target="_blank" rel="noopener"
+                             x-text="r.link1.text || 'Link 1'"></a>
+                        </template>
+                        <template x-if="r.link1 && r.link1.url && r.link2 && r.link2.url">
+                          <span class="mx-1">|</span>
+                        </template>
+                        <template x-if="r.link2 && r.link2.url">
+                          <a :href="r.link2.url" target="_blank" rel="noopener"
+                             x-text="r.link2.text || 'Link 2'"></a>
+                        </template>
+                      </div>
                     </div>
                   </template>
                 </div>
@@ -1725,8 +1835,11 @@
                   </div>
                 </div>
         
-                <!-- Topic accordions (full width under this topic) -->
-                <div x-show="t.noteOpen || (t.infoOpen && t.hasInfo)" x-collapse>
+                                <!-- Topic accordions (full width under this topic) -->
+                <div
+                  x-show="t.noteOpen || (t.infoOpen && (t.hasInfo || (t.resources && t.resources.length)))"
+                  x-collapse
+                >
                   <!-- Note tray (gray) -->
                   <section :id="'t-acc-note-'+t.topic_id" x-show="t.noteOpen" class="topic-acc-note">
                     <div class="topic-note-area">
@@ -1757,6 +1870,54 @@
                       </template>
                     </div>
                   </section>
+
+                  <!-- Assigned Resources (topic-level) -->
+                  <section
+                    x-show="t.infoOpen && t.resources && t.resources.length"
+                    class="topic-acc-info mt-2"
+                  >
+                    <h4 class="mb-1 text-[0.82rem] font-semibold">Assigned Resources</h4>
+                    <div class="resource-table">
+                      <template x-for="r in t.resources" :key="r.key">
+                        <div class="resource-row">
+                          <!-- Column 1: small image -->
+                          <div class="resource-img">
+                            <template x-if="extractImage(r.img)">
+                              <img :src="extractImage(r.img)" alt="">
+                            </template>
+                          </div>
+
+                          <!-- Column 2: information text -->
+                          <div class="resource-info">
+                            <div x-html="formatInfo(r.info)"></div>
+                          </div>
+
+                          <!-- Column 3: Shared roll-up -->
+                          <div class="resource-shared" x-text="r.shared"></div>
+
+                          <!-- Column 4: Scope -->
+                          <div class="resource-scope" x-text="r.scope"></div>
+
+                          <!-- Column 5: Links -->
+                          <div class="resource-links">
+                            <template x-if="r.link1 && r.link1.url">
+                              <a :href="r.link1.url" target="_blank" rel="noopener"
+                                 x-text="r.link1.text || 'Link 1'"></a>
+                            </template>
+                            <template x-if="r.link1 && r.link1.url && r.link2 && r.link2.url">
+                              <span class="mx-1">|</span>
+                            </template>
+                            <template x-if="r.link2 && r.link2.url">
+                              <a :href="r.link2.url" target="_blank" rel="noopener"
+                                 x-text="r.link2.text || 'Link 2'"></a>
+                            </template>
+                          </div>
+                        </div>
+                      </template>
+                    </div>
+                  </section>
+                </div>
+
                     </div> 
                   </div> 
                 </template> 
@@ -2088,17 +2249,20 @@ function planningApp(){
     /* ---------- sources (same as your list page) ---------- */
     dataSources:{
       courses:'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=0&single=true&output=csv',
-      topics: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=1919021076&single=true&output=csv'
+      topics: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=1919021076&single=true&output=csv',
+      assignments:'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsihZUzspkkv62sv-KxQOjiXIApm8W8fOO1f_y9sfhyLLTeJhGsq6l5k1BhONtEtw7q197VqdZqDN3/pub?gid=182625034&single=true&output=csv'
     },
     courseFields:{
       course_id:'Course_ID', course_title:'Course', subject:'Subject',
       schedule_text:'Scheduling_R3', grade_text:'Grade_Text', grade_filter:'Grade_Filter',
-      description:'Program_Description_R3', combining_placement:'Combining&PlacementTips_R3'
+      description:'Program_Description_R3', combining_placement:'Combining&PlacementTips_R3',
+      resource_assignments:'Resource_Assignments'
     },
     topicFields:{
       topic_id:'Topic_ID', course_id:'Course_ID_R3', topic_title:'Topic',
       topic_description:'Program_Description_R3', combining_placement:'Combining&PlacementTips_R3',
-      schedule_text:'Scheduling_R3', grade_text:'Grade_Text', grade_filter:'Grade_Filter'
+      schedule_text:'Scheduling_R3', grade_text:'Grade_Text', grade_filter:'Grade_Filter',
+      resource_assignments:'Resource_Assignments'
     },
 
     subjectColors:{
@@ -2258,6 +2422,19 @@ function planningApp(){
       if(gr && String(gr).includes(',')){ String(gr).split(',').forEach(x=>{ const n=x.replace(/[^0-9]/g,''); if(n) tags.push(`G${+n}`); }); }
       return tags;
     },
+    extractImage(formula){
+      if(!formula) return '';
+      const s = String(formula).trim();
+      // Already a URL?
+      if(/^https?:\/\//i.test(s)) return s;
+      // Try to pull URL out of =IMAGE("...")
+      const m = s.match(/"(https?:\/\/[^"]+)"/i);
+      return m ? m[1] : '';
+    },
+    formatInfo(txt){
+      if(!txt) return '';
+      return String(txt).replace(/\r?\n/g, '<br>');
+    },
     rowToCourse(row){
       const g = (k) => this._getCI(row, this.courseFields[k]);
     
@@ -2274,6 +2451,12 @@ function planningApp(){
     
       const description = (g('description') || '').toString().trim();
       const combining   = (g('combining_placement') || '').toString().trim();
+
+      // Resource assignments → keys like RES123|RES456
+      const raRaw = (g('resource_assignments') || '').toString().trim();
+      const resourceKeys = raRaw
+        ? raRaw.split('|').map(s => s.trim()).filter(Boolean)
+        : [];
     
       const levelDisplay = gradeText || '';
       const levelTags = (gradeFilter && /G\s*\d+/i.test(gradeFilter))
@@ -2300,12 +2483,16 @@ function planningApp(){
         // filters
         levelDisplay, levelTags,
     
+        // resources
+        resourceKeys,
+        resources: [],     // will be populated after we load MA_Assignments
+    
         // selection + topics
         checked: false,
         topics: [],
     
         // course accordions
-        infoOpen: false,   // ℹ️ toggles this; default open
+        infoOpen: false,   // ℹ️ toggles this
         noteOpen: false    // ✏️ toggles this
       };
     },
@@ -2327,6 +2514,11 @@ function planningApp(){
       const levelTags = (gradeFilter && /G\s*\d+/i.test(gradeFilter))
         ? (gradeFilter.match(/G\s*\d+/gi)||[]).map(s=>'G'+s.replace(/[^0-9]/g,''))
         : this.computeGradeTags(gradeText);
+
+      const raRaw = (g('resource_assignments') || '').toString().trim();
+      const resourceKeys = raRaw
+        ? raRaw.split('|').map(s => s.trim()).filter(Boolean)
+        : [];
     
       const details=[]; if(topic_desc) details.push({label:'Description', value:topic_desc});
       if(combining) details.push({label:'Combining & Placement', value:combining});
@@ -2342,11 +2534,16 @@ function planningApp(){
         description: topic_desc,
         combining,
         levelDisplay, levelTags,
+
+        // resources
+        resourceKeys,
+        resources: [],      // filled later
+
         checked:false,
     
         /* Per-topic accordions */
         hasInfo,
-        infoOpen: false,   // ℹ️ toggles this; default open
+        infoOpen: false,   // ℹ️ toggles this
         noteOpen: false    // ✏️ toggles this
       };
     },
@@ -2491,7 +2688,7 @@ function planningApp(){
     /* ---------- load ---------- */
     async loadDualCSVs(opts = {}){
       const forceFresh = !!opts.forceFresh;
-      const cacheKey = 'pf_csv_cache_v1';
+      const cacheKey = 'pf_csv_cache_v2';   // bump version to include assignments
       const maxAgeMs = 6*60*60*1000;
       const now = Date.now();
     
@@ -2502,54 +2699,99 @@ function planningApp(){
       if (!forceFresh){
         let cached;
         try { cached = JSON.parse(localStorage.getItem(cacheKey) || 'null'); } catch{}
-        if (cached && (now - cached.ts) < maxAgeMs){
-          const pc = Papa.parse(cached.courses, { header:true, skipEmptyLines:true });
-          const pt = Papa.parse(cached.topics,  { header:true, skipEmptyLines:true });
-          return this.applyParsed(pc, pt);
+        if (cached && cached.courses && cached.topics && cached.assignments && (now - cached.ts) < maxAgeMs){
+          const pc = Papa.parse(cached.courses,     { header:true, skipEmptyLines:true });
+          const pt = Papa.parse(cached.topics,      { header:true, skipEmptyLines:true });
+          const pa = Papa.parse(cached.assignments, { header:true, skipEmptyLines:true });
+          return this.applyParsed(pc, pt, pa);
         }
       }
     
       // 2) fetch fresh (no-store) with a cache-busting query
-      const [cCSV, tCSV] = await Promise.all([
-        fetch(bust(this.dataSources.courses), { cache:'no-store' }).then(r=>r.text()),
-        fetch(bust(this.dataSources.topics),  { cache:'no-store' }).then(r=>r.text()),
+      const [cCSV, tCSV, aCSV] = await Promise.all([
+        fetch(bust(this.dataSources.courses),     { cache:'no-store' }).then(r=>r.text()),
+        fetch(bust(this.dataSources.topics),      { cache:'no-store' }).then(r=>r.text()),
+        fetch(bust(this.dataSources.assignments), { cache:'no-store' }).then(r=>r.text()),
       ]);
     
       // 3) update cache for normal loads
-      localStorage.setItem(cacheKey, JSON.stringify({ ts: now, courses: cCSV, topics: tCSV }));
+      localStorage.setItem(cacheKey, JSON.stringify({
+        ts: now,
+        courses:     cCSV,
+        topics:      tCSV,
+        assignments: aCSV
+      }));
     
       const pc = Papa.parse(cCSV, { header:true, skipEmptyLines:true });
       const pt = Papa.parse(tCSV, { header:true, skipEmptyLines:true });
-      this.applyParsed(pc, pt);
+      const pa = Papa.parse(aCSV, { header:true, skipEmptyLines:true });
+      this.applyParsed(pc, pt, pa);
     },
-    applyParsed(pc,pt){
+    applyParsed(pc,pt,pa){
+      // 1) Build courses
       this.courseIndex = {};
-        pc.data.forEach(row => {
-          const c = this.rowToCourse(row);
-          if (c) this.courseIndex[c.id] = c;
+      pc.data.forEach(row => {
+        const c = this.rowToCourse(row);
+        if (c) this.courseIndex[c.id] = c;
+      });
+      
+      // 2) Attach topics (cloned per course)
+      pt.data.forEach(row => {
+        const t = this.rowToTopic(row);
+        if (!t) return;
+      
+        t.course_ids.forEach(cid => {
+          const course = this.courseIndex[cid];
+          if (!course) return;
+      
+          const tForCourse = {
+            ...t,
+            topic_id: `${t.topic_id}::${cid}`  // unique per course
+          };
+          course.topics.push(tForCourse);
         });
-        
-        // Clone each topic per course and make its id course-specific
-        pt.data.forEach(row => {
-          const t = this.rowToTopic(row);
-          if (!t) return;
-        
-          t.course_ids.forEach(cid => {
-            const course = this.courseIndex[cid];
-            if (!course) return;
-        
-            // make a unique id for the *topic as used in this course*
-            const tForCourse = {
-              ...t,
-              topic_id: `${t.topic_id}::${cid}`  // unique per course
-            };
-            course.topics.push(tForCourse);
-          });
+      });
+
+      const coursesArr = Object.values(this.courseIndex);
+
+      // 3) Build assignment index from MA_Assignments
+      const assignmentIndex = {};
+      if (pa && Array.isArray(pa.data)){
+        pa.data.forEach(row => {
+          const key = (row['Resource Assignment'] || '').toString().trim();
+          if (!key) return;
+          assignmentIndex[key] = {
+            key,
+            img:    row['ImageFORMULA'] || '',
+            info:   row['Resource_Information_Text'] || '',
+            shared: row['Shared_RollUp_Rotation 3'] || '',
+            scope:  row['Scope'] || '',
+            link1: {
+              text: row['Link 1 text'] || '',
+              url:  row['Link 1 url']  || ''
+            },
+            link2: {
+              text: row['Link 2 text'] || '',
+              url:  row['Link 2 url']  || ''
+            }
+          };
         });
-        
-        this.courses = Object.values(this.courseIndex);
-        this.dataReady = true;
-      },
+      }
+
+      // 4) Attach resources to courses + topics based on Resource_Assignments keys
+      coursesArr.forEach(c => {
+        const keys = Array.isArray(c.resourceKeys) ? c.resourceKeys : [];
+        c.resources = keys.map(k => assignmentIndex[k]).filter(Boolean);
+
+        (c.topics || []).forEach(t => {
+          const tKeys = Array.isArray(t.resourceKeys) ? t.resourceKeys : [];
+          t.resources = tKeys.map(k => assignmentIndex[k]).filter(Boolean);
+        });
+      });
+      
+      this.courses = coursesArr;
+      this.dataReady = true;
+    },
 
     /* ---------- actions ---------- */
     showAllTips: false,
