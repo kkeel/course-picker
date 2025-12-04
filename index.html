@@ -1,97 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Alveary – Planner</title>
-
-  <!-- Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Crimson+Text:wght@700&display=swap"
-    rel="stylesheet"
-  />
-
-  <!-- Tailwind via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Alpine.js for simple interactivity -->
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-  <style>
-    :root {
-      --brand-bg: #faf7ed;
-      --brand-dark: #596e5e;
-      --brand-text: #262b26;
-      --brand-muted: #7f8479;
-    }
-
-    body {
-      margin: 0;
-      background: var(--brand-bg);
-      color: var(--brand-text);
-      font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-    }
-
-    .logo-title {
-      font-family: "Crimson Text", "Times New Roman", serif;
-      font-weight: 700;
-      font-size: 40px;
-      line-height: 1;
-      color: var(--brand-dark);
-    }
-
-    .nav-tab {
-      border: none;
-      background: transparent;
-      padding-bottom: 4px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--brand-muted);
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: color 0.15s ease, border-color 0.15s ease;
-      white-space: nowrap;
-    }
-
-    .nav-tab-active {
-      color: var(--brand-dark);
-      border-color: var(--brand-dark);
-    }
-
-    .section-title {
-      font-family: "Crimson Text", "Times New Roman", serif;
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: var(--brand-dark);
-    }
-
-    .section-subtitle {
-      font-size: 0.95rem;
-      color: var(--brand-muted);
-      max-width: 40rem;
-    }
-
-    /* Hide Alpine sections until ready */
-    [x-cloak] {
-      display: none !important;
-    }
-  </style>
-</head>
-
-<body
-  x-data="{
-    step: 3,
-    openStep(n) {
-      this.step = n;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }"
->
   <!-- Header -->
-  <!-- Padding: 24px top/bottom (py-6) and 64px left/right (px-16) -->
-  <header class="flex items-center gap-4 mb-8 px-16 py-6">
+  <!-- Mobile: stack logo + tabs; MD+ : row with tabs on the right -->
+  <header
+    class="mb-8 px-6 md:px-16 py-4 md:py-6 flex flex-col md:flex-row md:items-center gap-4"
+  >
     <!-- Logo + wordmark -->
     <div class="flex items-center gap-3">
       <!-- Replace src with new dark green logo file when ready -->
@@ -105,7 +16,9 @@
     </div>
 
     <!-- Top-right navigation tabs -->
-    <nav class="ml-auto flex items-center gap-6 text-sm">
+    <nav
+      class="mt-3 md:mt-0 md:ml-auto flex flex-wrap items-center gap-x-6 gap-y-2 text-sm"
+    >
       <button
         type="button"
         class="nav-tab"
@@ -143,104 +56,3 @@
       </button>
     </nav>
   </header>
-
-  <!-- Main content -->
-  <main class="max-w-6xl mx-auto px-6 lg:px-16 pb-16 space-y-10">
-    <!-- STEP 1: How to -->
-    <section x-show="step === 1" x-cloak>
-      <h2 class="section-title">How to use this planner</h2>
-      <p class="section-subtitle">
-        This is a placeholder for your “How To” instructions. We’ll bring over
-        the refined content and visuals from the legacy planner once the new
-        layout is settled.
-      </p>
-
-      <div class="mt-6 rounded-2xl bg-white shadow-sm border border-gray-200 p-6">
-        <p class="text-sm text-gray-700 mb-2">
-          • Step 1: Browse the course list and book list using the tabs above.
-        </p>
-        <p class="text-sm text-gray-700 mb-2">
-          • Step 2: Apply filters to narrow down options by grade, subject, and
-          tags.
-        </p>
-        <p class="text-sm text-gray-700">
-          • Step 3: Save or print your selections for a personalized learning
-          plan.
-        </p>
-      </div>
-    </section>
-
-    <!-- STEP 2: Planning guide -->
-    <section x-show="step === 2" x-cloak>
-      <h2 class="section-title">Planning guide</h2>
-      <p class="section-subtitle">
-        This section will eventually hold your full planning guide content. For
-        now, it’s just a clean placeholder while we rebuild the structure.
-      </p>
-
-      <div class="mt-6 grid gap-4 md:grid-cols-2">
-        <div class="rounded-2xl bg-white shadow-sm border border-gray-200 p-6">
-          <h3 class="font-semibold text-sm mb-2 text-[var(--brand-dark)]">
-            Big-picture planning
-          </h3>
-          <p class="text-sm text-gray-700">
-            Use this space to outline rotation goals, term focus, and any school
-            year themes you want families to keep in mind.
-          </p>
-        </div>
-
-        <div class="rounded-2xl bg-white shadow-sm border border-gray-200 p-6">
-          <h3 class="font-semibold text-sm mb-2 text-[var(--brand-dark)]">
-            Weekly rhythm
-          </h3>
-          <p class="text-sm text-gray-700">
-            Later we can embed guidance on how frequently to schedule each
-            course and how books support those choices.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- STEP 3: Course list -->
-    <section x-show="step === 3" x-cloak>
-      <h2 class="section-title">Course list</h2>
-      <p class="section-subtitle">
-        This is a placeholder area for the rebuilt course planner: filters,
-        course cards, planning tags, and print options will be brought over here
-        from the legacy planner in the next phase.
-      </p>
-
-      <div class="mt-6 rounded-2xl bg-white shadow-sm border border-dashed border-gray-300 p-6">
-        <p class="text-sm text-gray-700 mb-3">
-          Course list UI coming soon.
-        </p>
-        <p class="text-xs text-gray-500">
-          We’ll migrate the existing filters, course groupings, and plan buttons
-          from <code>index-legacy.html</code> into this section step by step.
-        </p>
-      </div>
-    </section>
-
-    <!-- STEP 4: Book list -->
-    <section x-show="step === 4" x-cloak>
-      <h2 class="section-title">Book list</h2>
-      <p class="section-subtitle">
-        This tab will contain the integrated book list experience. We’ll reuse
-        the logic and layout from your current book list page and adapt it to
-        match the new branding.
-      </p>
-
-      <div class="mt-6 rounded-2xl bg-white shadow-sm border border-dashed border-gray-300 p-6">
-        <p class="text-sm text-gray-700 mb-3">
-          Book list UI coming soon.
-        </p>
-        <p class="text-xs text-gray-500">
-          For now, you can continue to reference <code>books (6).html</code>
-          while we migrate the filters, assigned resources, and tags into this
-          step.
-        </p>
-      </div>
-    </section>
-  </main>
-</body>
-</html>
