@@ -399,6 +399,11 @@
       color: var(--brand-muted);
     }
 
+    .meta-divider {
+      color: #d2d6d2;
+      padding: 0 0.5em;
+    }
+
     /* Hide Alpine sections until ready */
     [x-cloak] {
       display: none !important;
@@ -853,7 +858,9 @@
             const parts = [];
             if (gradeText) parts.push(gradeText);
             if (schedText) parts.push(schedText);
-            const metaLine = parts.join(" | ");
+            const metaLine = parts
+            .map((p, i) => i === 0 ? p : `<span class='meta-divider'>|</span> ${p}`)
+            .join(" ");
       
             topicById[id] = {
               ...t,
