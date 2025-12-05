@@ -397,11 +397,13 @@
       line-height: 1.5;
       font-weight: 400;
       color: var(--brand-muted);
+      white-space: pre-line;
     }
 
     .meta-divider {
+      display: inline-block;
       color: #d2d6d2;
-      padding: 0 0.5em;
+      padding: 0 0.8em;
     }
 
     /* Hide Alpine sections until ready */
@@ -721,10 +723,20 @@
                       <h4 class="course-title" x-text="course.title"></h4>
                       <!-- grade + schedule line -->
                       <p
-                        x-show="course.metaLine"
                         class="course-meta"
-                        x-text="course.metaLine"
-                      ></p>
+                        x-show="course.gradeText || course.schedText">
+                        <template x-if="course.gradeText">
+                          <span x-text="course.gradeText"></span>
+                        </template>
+                      
+                        <template x-if="course.gradeText && course.schedText">
+                          <span class="meta-divider">|</span>
+                        </template>
+                      
+                        <template x-if="course.schedText">
+                          <span x-text="course.schedText"></span>
+                        </template>
+                      </p>
       
                       <!-- Nested topics (titles only for now) -->
                       <div class="topic-list" x-show="course.topics.length">
@@ -732,10 +744,21 @@
                           <article class="topic-card">
                             <h5 class="topic-title" x-text="topic.Topic"></h5>
                             <p
-                              x-show="topic.metaLine"
-                              class="course-meta"
-                              x-text="topic.metaLine"
-                            ></p>
+                              class="course-meta topic-meta"
+                              x-show="topic.gradeText || topic.schedText">
+                              <template x-if="topic.gradeText">
+                                <span x-text="topic.gradeText"></span>
+                              </template>
+                            
+                              <template x-if="topic.gradeText && topic.schedText">
+                                <span class="meta-divider">|</span>
+                              </template>
+                            
+                              <template x-if="topic.schedText">
+                                <span x-text="topic.schedText"></span>
+                              </template>
+                            </p>
+
                           </article>
                         </template>
                       </div>
@@ -849,24 +872,19 @@
       
           // Build a lookup table for topics by Topic_ID
           const topicById = {};
-          topicsRaw.forEach(t => {
-            const id = (t.Topic_ID || "").trim();
-            if (!id) return;
-      
-            const gradeText = (t.Grade_Text || "").trim();
-            const schedText = (t.Scheduling_R3 || "").trim();
-            const parts = [];
-            if (gradeText) parts.push(gradeText);
-            if (schedText) parts.push(schedText);
-            const metaLine = parts
-            .map((p, i) => i === 0 ? p : `<span class='meta-divider'>|</span> ${p}`)
-            .join(" ");
-      
-            topicById[id] = {
-              ...t,
-              metaLine
-            };
-          });
+            topicsRaw.forEach(t => {
+              const id = (t.Topic_ID || "").trim();
+              if (!id) return;
+            
+              const gradeText = (t.Grade_Text || "").trim();
+              const schedText = (t.Scheduling_R3 || "").trim();
+            
+              topicById[id] = {
+                ...t,
+                gradeText,
+                schedText
+              };
+            });
       
           // Group courses by Subject, attach topics via Topic_ID_App
           const grouped = {};
