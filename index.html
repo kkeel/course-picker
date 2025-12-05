@@ -371,14 +371,6 @@
     .course-card {
       border: 1px solid var(--divider-subtle);
     }
-    
-    /* subject overrides */
-    .subject--architecture .course-card {
-      border-color: rgba(89, 110, 94, 0.45);
-    }
-    .subject--art .course-card {
-      border-color: rgba(173, 181, 143, 0.7);
-    }
 
     .topic-list {
       margin-top: 12px;
@@ -711,7 +703,7 @@
       
                 <div class="subject-course-list">
                   <template x-for="course in courseGroup" :key="course.id">
-                    <article class="course-card">
+                    <article class="course-card":style="`border-color: ${subjectColor(course.subject)}`">
                       <h4 class="course-title" x-text="course.title"></h4>
       
                       <!-- Nested topics (titles only for now) -->
@@ -787,6 +779,33 @@
       isLoadingCourses: true,
       loadError: "",
       coursesBySubject: {},   // { "Architecture": [ {title, topics: [...]}, ... ] }
+
+      subjectColors: {
+      'Architecture': '#a0a6be',
+      'Art': '#907061',
+      'Bible': '#964945',
+      'Citizenship': '#62765c',
+      'English': '#9b5b7b',
+      'Geography': '#4d8da2',
+      'History': '#6b6bbf',
+      'Latin': '#5a5373',
+      'Life Skills': '#d1b358',
+      'Literature': '#c07669',
+      'Math': '#6d7eaa',
+      'Modern Language': '#6db4b2',
+      'Music': '#9e6bac',
+      'Physical Education': '#bd855e',
+      'Science': '#96a767',
+      'Science & Alt. Science': '#96a767'
+    },
+    
+    subjectColor(name) {
+      if (!name) return '#dde2d5';
+      const key = Object.keys(this.subjectColors).find(k =>
+        k.toLowerCase() === name.toLowerCase()
+      );
+      return key ? this.subjectColors[key] : '#dde2d5';
+    },
 
       async init() {
         await this.loadCourses();
