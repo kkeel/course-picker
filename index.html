@@ -397,13 +397,17 @@
       line-height: 1.5;
       font-weight: 400;
       color: var(--brand-muted);
+      white-space: normal;
+    }
+
+    .meta-schedule {
       white-space: pre-line;
     }
 
     .meta-divider {
       display: inline-block;
-      color: #d2d6d2;
-      padding: 0 0.8em;
+      color: #e5e8e5;
+      padding: 0 1em;
     }
 
     /* Hide Alpine sections until ready */
@@ -733,9 +737,9 @@
                           <span class="meta-divider">|</span>
                         </template>
                       
-                        <template x-if="course.schedText">
-                          <span x-text="course.schedText"></span>
-                        </template>
+                          <template x-if="course.schedText">
+                            <span class="meta-schedule" x-text="course.schedText"></span>
+                          </template>
                       </p>
       
                       <!-- Nested topics (titles only for now) -->
@@ -754,9 +758,9 @@
                                 <span class="meta-divider">|</span>
                               </template>
                             
-                              <template x-if="topic.schedText">
-                                <span x-text="topic.schedText"></span>
-                              </template>
+                                <template x-if="topic.schedText">
+                                  <span class="meta-schedule" x-text="topic.schedText"></span>
+                                </template>
                             </p>
 
                           </article>
