@@ -161,16 +161,6 @@
       }
     }
 
-    /* legacy label style kept in case we need it, but currently unused */
-    .filter-label {
-      display: block;
-      font-size: 12px;
-      margin-bottom: 4px;
-      color: var(--brand-muted);
-      font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-      font-weight: 400;
-    }
-
     .filter-control {
       position: relative;
       display: flex;
@@ -200,11 +190,16 @@
       height: 24px;
       color: var(--brand-muted);
     }
-    
+
     .filter-chevron svg {
       width: 24px;
       height: 24px;
       stroke: var(--brand-text);
+      transition: transform 0.15s ease;
+    }
+
+    .filter-chevron-open svg {
+      transform: rotate(180deg);
     }
 
     .filter-control input {
@@ -235,6 +230,74 @@
         align-items: center;
         justify-content: space-between;
       }
+    }
+
+    .filter-control-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      row-gap: 4px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background-color: #f4f6fa;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--brand-text);
+    }
+
+    .filter-chip-remove {
+      border: none;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      font-size: 11px;
+      line-height: 1;
+      color: var(--brand-muted);
+    }
+
+    .filter-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 4px;
+      width: 100%;
+      max-height: 260px;
+      overflow-y: auto;
+      background-color: #ffffff;
+      border-radius: 4px;
+      border: 1px solid #dde2d5;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+      z-index: 20;
+    }
+
+    .filter-dropdown-item {
+      width: 100%;
+      padding: 6px 10px;
+      text-align: left;
+      font-size: 14px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .filter-dropdown-item:hover {
+      background-color: #f4f6fa;
+    }
+
+    .filter-dropdown-check {
+      font-size: 14px;
+      color: var(--brand-dark);
     }
 
     .btn-pill {
@@ -637,15 +700,43 @@
 
           <div class="filter-grid">
             <!-- Grade -->
-            <div>
+            <div class="relative" @click.outside="gradeDropdownOpen = false">
               <button
                 type="button"
                 id="filter-grade"
                 class="filter-control"
                 aria-label="Filter by grade"
+                @click="gradeDropdownOpen = !gradeDropdownOpen"
               >
-                <span class="filter-placeholder">Grade</span>
-                <span class="filter-chevron" aria-hidden="true">
+                <!-- placeholder when nothing selected -->
+                <template x-if="selectedGrades.length === 0">
+                  <span class="filter-placeholder">Grade</span>
+                </template>
+
+                <!-- chips when grades are selected -->
+                <template x-if="selectedGrades.length > 0">
+                  <div class="filter-control-chips">
+                    <template x-for="code in selectedGrades" :key="code">
+                      <span class="filter-chip">
+                        <span x-text="gradeLabelFromCode(code)"></span>
+                        <button
+                          type="button"
+                          class="filter-chip-remove"
+                          @click.stop="removeGrade(code)"
+                          aria-label="Remove grade"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    </template>
+                  </div>
+                </template>
+
+                <span
+                  class="filter-chevron"
+                  :class="gradeDropdownOpen ? 'filter-chevron-open' : ''"
+                  aria-hidden="true"
+                >
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M6 9l6 6 6-6"
@@ -658,6 +749,29 @@
                   </svg>
                 </span>
               </button>
+
+              <!-- dropdown menu -->
+              <div
+                class="filter-dropdown"
+                x-show="gradeDropdownOpen"
+                x-transition
+              >
+                <template x-for="opt in gradeOptions" :key="opt.code">
+                  <button
+                    type="button"
+                    class="filter-dropdown-item"
+                    @click="toggleGrade(opt.code)"
+                  >
+                    <span x-text="opt.label"></span>
+                    <span
+                      class="filter-dropdown-check"
+                      x-show="selectedGrades.includes(opt.code)"
+                    >
+                      ✓
+                    </span>
+                  </button>
+                </template>
+              </div>
             </div>
 
             <!-- Subject -->
@@ -745,7 +859,7 @@
           <div class="filter-actions">
             <!-- Left: clear + print buttons -->
             <div class="flex gap-2">
-              <button type="button" class="btn-pill">
+              <button type="button" class="btn-pill" @click="clearAllFilters()">
                 <span class="btn-pill-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <line x1="6" y1="6" x2="18" y2="18"
@@ -1069,14 +1183,119 @@
       // new global detail toggle
       showAllDetails: true,
 
+      // --- FILTER STATE (grade) ---
+      selectedGrades: [],          // e.g. ["G1", "G3"]
+      gradeDropdownOpen: false,
+      gradeOptions: [
+        { code: "G1",  label: "Grade 1"  },
+        { code: "G2",  label: "Grade 2"  },
+        { code: "G3",  label: "Grade 3"  },
+        { code: "G4",  label: "Grade 4"  },
+        { code: "G5",  label: "Grade 5"  },
+        { code: "G6",  label: "Grade 6"  },
+        { code: "G7",  label: "Grade 7"  },
+        { code: "G8",  label: "Grade 8"  },
+        { code: "G9",  label: "Grade 9"  },
+        { code: "G10", label: "Grade 10" },
+        { code: "G11", label: "Grade 11" },
+        { code: "G12", label: "Grade 12" },
+      ],
+
       toggleAllDetails() {
         this.showAllDetails = !this.showAllDetails;
+      },
+
+      // label helper for chips
+      gradeLabelFromCode(code) {
+        const found = this.gradeOptions.find(o => o.code === code);
+        return found ? found.label : code;
+      },
+
+      // toggle a grade in/out of the selection
+      toggleGrade(code) {
+        const idx = this.selectedGrades.indexOf(code);
+        if (idx === -1) {
+          this.selectedGrades.push(code);
+        } else {
+          this.selectedGrades.splice(idx, 1);
+        }
+        this.applyFilters();
+      },
+
+      // remove a single grade (chip ×)
+      removeGrade(code) {
+        this.selectedGrades = this.selectedGrades.filter(c => c !== code);
+        this.applyFilters();
+      },
+
+      // clear everything (used by Clear selected button)
+      clearAllFilters() {
+        this.selectedGrades = [];
+        this.gradeDropdownOpen = false;
+        this.applyFilters();
+      },
+
+      // helper: does this item match the grade filter?
+      gradeMatches(tags) {
+        if (!this.selectedGrades.length) return true;  // no filter => match all
+        if (!tags || !tags.length) return false;
+        return this.selectedGrades.some(code => tags.includes(code));
+      },
+
+      // rebuild coursesBySubject from allCoursesBySubject + filter
+      applyFilters() {
+        const hasGrade = this.selectedGrades.length > 0;
+
+        // no grade filter => show full dataset
+        if (!hasGrade) {
+          this.coursesBySubject = this.allCoursesBySubject;
+          return;
+        }
+
+        const filtered = {};
+        const subjects = Object.keys(this.allCoursesBySubject);
+
+        subjects.forEach(subject => {
+          const courses = this.allCoursesBySubject[subject];
+          const subjectCourses = [];
+
+          courses.forEach(course => {
+            const courseSelfMatches = this.gradeMatches(course.gradeTags);
+
+            // filter topics if any
+            let topicsFiltered = course.topics || [];
+            if (hasGrade) {
+              topicsFiltered = topicsFiltered.filter(t =>
+                this.gradeMatches(t.gradeTags)
+              );
+            }
+
+            const courseMatches = courseSelfMatches || topicsFiltered.length > 0;
+            if (!courseMatches) return;
+
+            // shallow copy course; keep only the topics that passed
+            const courseCopy = {
+              ...course,
+              topics: topicsFiltered,
+            };
+
+            subjectCourses.push(courseCopy);
+          });
+
+          // only include subject if it has at least one visible course
+          if (subjectCourses.length) {
+            filtered[subject] = subjectCourses;
+          }
+        });
+
+        this.coursesBySubject = filtered;
       },
 
       // new state for courses
       isLoadingCourses: true,
       loadError: "",
-      coursesBySubject: {},   // { "Architecture": [ {title, topics: [...]}, ... ] }
+      allCoursesBySubject: {}, // full dataset
+      coursesBySubject: {},    // filtered view
 
       subjectColors: {
       'Architecture': '#a0a6be',
@@ -1127,7 +1346,11 @@
               const gradeText = (t.Grade_Text || "").trim();
               const schedText = (t.Scheduling_R3 || "").trim();
               const description = (t.Program_Description_R3 || "").trim();
-              const tips = (t["Combining&PlacementTips_R3"] || "").trim(); 
+              const tips = (t["Combining&PlacementTips_R3"] || "").trim();
+              const gradeTags = (t.Grade_Filter || "")
+                .split(",")
+                .map(s => s.trim())
+                .filter(Boolean);
             
               topicById[id] = {
                 ...t,
@@ -1135,6 +1358,7 @@
                 schedText,
                 description,
                 tips,
+                gradeTags,
                 detailsOpen: true
               };
             });
@@ -1152,6 +1376,10 @@
             const schedText = (c.Scheduling_R3 || "").trim();
             const description = (c.Program_Description_R3 || "").trim();
             const tips = (c["Combining&PlacementTips_R3"] || "").trim();
+            const gradeTags = (c.Grade_Filter || "")
+              .split(",")
+              .map(s => s.trim())
+              .filter(Boolean);
             const parts = [];
             if (gradeText) parts.push(gradeText);
             if (schedText) parts.push(schedText);
@@ -1180,6 +1408,7 @@
               schedText,
               description,
               tips,
+              gradeTags,
               metaLine,
               detailsOpen: true,
               topics: topicsForCourse,
@@ -1233,7 +1462,8 @@
             sorted[subject] = courses;
           });
       
-          this.coursesBySubject = sorted;
+          this.allCoursesBySubject = sorted;
+          this.applyFilters();
         } catch (err) {
           console.error("Error loading course data", err);
           this.loadError =
