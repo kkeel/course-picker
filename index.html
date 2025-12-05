@@ -506,16 +506,17 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 4px 10px;
+      padding: 2px 8px;
       border-radius: 4px;
       border: 1px solid #e5e8e5; 
       background-color: #ffffff; 
       font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
       font-size: 12px;
       font-weight: 400;
-      color: var(--brand-text);
+      color: var(--brand-muted);
       cursor: pointer;
       white-space: nowrap;
+      line-height: 1.2;
     }
 
     .planning-tag-label {
@@ -529,8 +530,8 @@
     }
 
     .planning-tag-icon svg {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       stroke: currentColor;
       transition: transform 0.15s ease;
     }
@@ -1092,27 +1093,29 @@
                       
                         <!-- spacer pushes planning tag to far right -->
                         <span class="meta-flex-spacer"></span>
-                      
-                        <!-- right: planning tag button -->
-                        <button
-                          type="button"
-                          class="planning-tag-button"
-                          aria-label="Add planning tag to course"
-                        >
-                          <span class="planning-tag-label">+ Planning tag</span>
-                          <span class="planning-tag-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M6 9l6 6 6-6"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="1.6"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                        
+                        <!-- right: planning tag button (courses *without* topics only) -->
+                        <template x-if="!course.topics || course.topics.length === 0">
+                          <button
+                            type="button"
+                            class="planning-tag-button"
+                            aria-label="Add planning tag to course"
+                          >
+                            <span class="planning-tag-label">+ Planning tag</span>
+                            <span class="planning-tag-icon" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M6 9l6 6 6-6"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="1.6"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </span>
+                          </button>
+                        </template>
                       </p>
                     
                       <!-- Description + combining tips -->
