@@ -491,6 +491,50 @@
       padding-left: 0;
     }
 
+    .meta-flex-spacer {
+      margin-left: auto;
+    }
+
+    /* Planning tag button */
+    .planning-tag-row {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    .planning-tag-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid #e5e8e5; 
+      background-color: #ffffff; 
+      font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--brand-text);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .planning-tag-label {
+      white-space: nowrap;
+    }
+
+    .planning-tag-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .planning-tag-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      transition: transform 0.15s ease;
+    }
+
     /* Description + tips rows */
     .course-detail-row {
       margin-top: 12px;
@@ -1038,13 +1082,37 @@
                           ></span>
                         </template>
                       
-                        <!-- right: grade (if any) -->
+                        <!-- middle: grade (if any) -->
                         <template x-if="course.gradeText">
                           <span
                             :class="course.schedText ? 'meta-grade meta-grade--with-sched' : 'meta-grade meta-grade--solo'"
                             x-text="course.gradeText"
                           ></span>
                         </template>
+                      
+                        <!-- spacer pushes planning tag to far right -->
+                        <span class="meta-flex-spacer"></span>
+                      
+                        <!-- right: planning tag button -->
+                        <button
+                          type="button"
+                          class="planning-tag-button"
+                          aria-label="Add planning tag to course"
+                        >
+                          <span class="planning-tag-label">+ Planning tag</span>
+                          <span class="planning-tag-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M6 9l6 6 6-6"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.6"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>
+                          </span>
+                        </button>
                       </p>
                     
                       <!-- Description + combining tips -->
@@ -1132,13 +1200,37 @@
                                   ></span>
                                 </template>
                               
-                                <!-- right: grade -->
+                                <!-- middle: grade -->
                                 <template x-if="topic.gradeText">
                                   <span
                                     :class="topic.schedText ? 'meta-grade meta-grade--with-sched' : 'meta-grade meta-grade--solo'"
                                     x-text="topic.gradeText"
                                   ></span>
                                 </template>
+                              
+                                <!-- spacer -->
+                                <span class="meta-flex-spacer"></span>
+                              
+                                <!-- right: planning tag button -->
+                                <button
+                                  type="button"
+                                  class="planning-tag-button"
+                                  aria-label="Add planning tag to topic"
+                                >
+                                  <span class="planning-tag-label">+ Planning tag</span>
+                                  <span class="planning-tag-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                      <path
+                                        d="M6 9l6 6 6-6"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.6"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      />
+                                    </svg>
+                                  </span>
+                                </button>
                               </p>
                           
                             <div
