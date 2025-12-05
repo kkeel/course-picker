@@ -49,7 +49,7 @@
       --brand-dark: #596e5e;
       --brand-text: #262b26;
       --brand-muted: #1C1B1F4D;
-      --brand-accent: #596e5e;
+      --brand-accent: #adb58f;
       --brand-surface: #ffffff;
       --divider-subtle: #dde2d5;
     }
@@ -421,6 +421,85 @@
       border-left: none;
     }
 
+    /* Description + tips rows */
+    .course-detail-row {
+      margin-top: 12px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--brand-text);
+    }
+
+    @media (max-width: 768px) {
+      .course-detail-row {
+        flex-direction: column;
+      }
+    }
+
+    .course-detail-description {
+      flex: 2;
+    }
+
+    .course-detail-tips {
+      flex: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      background-color: #f4f6fa;
+      padding: 8px 12px;
+      border-radius: 4px;
+      color: var(--brand-muted);
+    }
+
+    .course-detail-tips-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .course-detail-tips-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Card headers with chevrons */
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-toggle {
+      border: none;
+      background: transparent;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      color: var(--brand-muted);
+    }
+
+    .card-toggle svg {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.15s ease;
+    }
+
+    .card-toggle--closed svg {
+      transform: rotate(-90deg);
+    }
+
     /* Hide Alpine sections until ready */
     [x-cloak] {
       display: none !important;
@@ -697,7 +776,11 @@
 
             <!-- Right: toggles -->
             <div class="flex gap-4 justify-start md:justify-end flex-wrap">
-              <div class="toggle">
+              <div
+                class="toggle"
+                :class="showAllDetails ? 'toggle--on' : ''"
+                @click="toggleAllDetails()"
+              >
                 <div class="toggle-switch">
                   <div class="toggle-switch-knob"></div>
                 </div>
@@ -735,52 +818,170 @@
                 <div class="subject-courses">
                   <template x-for="course in courseGroup" :key="course.id">
                     <article class="course-card" :style="`border-color: ${subjectColor(course.subject)}`">
-                      <h4 class="course-title" x-text="course.title"></h4>
-                      <!-- grade + schedule row -->
+                      <!-- Title row with chevron -->
+                      <div class="card-header">
+                        <button
+                          type="button"
+                          class="card-toggle"
+                          :class="course.detailsOpen ? '' : 'card-toggle--closed'"
+                          @click="course.detailsOpen = !course.detailsOpen"
+                          aria-label="Toggle course details"
+                        >
+                          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M6 9l6 6 6-6"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1.8"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </button>
+                        <h4 class="course-title" x-text="course.title"></h4>
+                      </div>
+                    
+                      <!-- grade + schedule line -->
                       <p
                         class="course-meta"
-                        x-show="course.gradeText || course.schedText"
-                      >
-                        <!-- Grade container (left) -->
+                        x-show="course.gradeText || course.schedText">
                         <template x-if="course.gradeText">
-                          <span class="meta-grade" x-text="course.gradeText"></span>
+                          <span x-text="course.gradeText"></span>
                         </template>
-                      
-                        <!-- Schedule container (right) -->
+                    
+                        <template x-if="course.gradeText && course.schedText">
+                          <span class="meta-divider">|</span>
+                        </template>
+                    
                         <template x-if="course.schedText">
-                          <span
-                            class="meta-schedule"
-                            :class="course.gradeText ? 'meta-schedule--with-grade' : 'meta-schedule--solo'"
-                            x-text="course.schedText"
-                          ></span>
+                          <span class="meta-schedule" x-text="course.schedText"></span>
                         </template>
                       </p>
+                    
+                      <!-- Description + combining tips -->
+                      <div
+                        class="course-detail-row"
+                        x-show="showAllDetails && course.detailsOpen && (course.description || course.tips)"
+                        x-transition
+                      >
+                        <div
+                          class="course-detail-description"
+                          x-show="course.description"
+                          x-text="course.description"
+                        ></div>
+                    
+                        <div
+                          class="course-detail-tips"
+                          x-show="course.tips"
+                        >
+                          <span class="course-detail-tips-icon" aria-hidden="true">
+                            <!-- “join” icon -->
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <circle
+                                cx="9"
+                                cy="12"
+                                r="4"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                              />
+                              <circle
+                                cx="15"
+                                cy="12"
+                                r="4"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                              />
+                            </svg>
+                          </span>
+                          <span x-text="course.tips"></span>
+                        </div>
+                      </div>
       
                       <!-- Nested topics (titles only for now) -->
                       <div class="topic-list" x-show="course.topics.length">
                         <template x-for="topic in course.topics" :key="topic.recordID">
                           <article class="topic-card">
-                            <h5 class="topic-title" x-text="topic.Topic"></h5>
+                            <!-- Title row with chevron -->
+                            <div class="card-header">
+                              <button
+                                type="button"
+                                class="card-toggle"
+                                :class="topic.detailsOpen ? '' : 'card-toggle--closed'"
+                                @click="topic.detailsOpen = !topic.detailsOpen"
+                                aria-label="Toggle topic details"
+                              >
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M6 9l6 6 6-6"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                  />
+                                </svg>
+                              </button>
+                              <h5 class="topic-title" x-text="topic.Topic"></h5>
+                            </div>
+                          
                             <p
                               class="course-meta topic-meta"
-                              x-show="topic.gradeText || topic.schedText"
-                            >
-                              <!-- Grade container (left) -->
+                              x-show="topic.gradeText || topic.schedText">
                               <template x-if="topic.gradeText">
-                                <span class="meta-grade" x-text="topic.gradeText"></span>
+                                <span x-text="topic.gradeText"></span>
                               </template>
-                            
-                              <!-- Schedule container (right) -->
+                          
+                              <template x-if="topic.gradeText && topic.schedText">
+                                <span class="meta-divider">|</span>
+                              </template>
+                          
                               <template x-if="topic.schedText">
-                                <span
-                                  class="meta-schedule"
-                                  :class="topic.gradeText ? 'meta-schedule--with-grade' : 'meta-schedule--solo'"
-                                  x-text="topic.schedText"
-                                ></span>
+                                <span class="meta-schedule" x-text="topic.schedText"></span>
                               </template>
                             </p>
-
+                          
+                            <div
+                              class="course-detail-row"
+                              x-show="showAllDetails && topic.detailsOpen && (topic.description || topic.tips)"
+                              x-transition
+                            >
+                              <div
+                                class="course-detail-description"
+                                x-show="topic.description"
+                                x-text="topic.description"
+                              ></div>
+                          
+                              <div
+                                class="course-detail-tips"
+                                x-show="topic.tips"
+                              >
+                                <span class="course-detail-tips-icon" aria-hidden="true">
+                                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <circle
+                                      cx="9"
+                                      cy="12"
+                                      r="4"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="1.7"
+                                    />
+                                    <circle
+                                      cx="15"
+                                      cy="12"
+                                      r="4"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="1.7"
+                                    />
+                                  </svg>
+                                </span>
+                                <span x-text="topic.tips"></span>
+                              </div>
+                            </div>
                           </article>
+
                         </template>
                       </div>
                       
@@ -846,6 +1047,13 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
       },
 
+      // new global detail toggle
+      showAllDetails: true,
+
+      toggleAllDetails() {
+        this.showAllDetails = !this.showAllDetails;
+      },
+
       // new state for courses
       isLoadingCourses: true,
       loadError: "",
@@ -899,11 +1107,16 @@
             
               const gradeText = (t.Grade_Text || "").trim();
               const schedText = (t.Scheduling_R3 || "").trim();
+              const description = (t.Program_Description_R3 || "").trim();
+              const tips = (t["Combining&PlacementTips_R3"] || "").trim(); 
             
               topicById[id] = {
                 ...t,
                 gradeText,
-                schedText
+                schedText,
+                description,
+                tips,
+                detailsOpen: true
               };
             });
       
@@ -918,6 +1131,8 @@
       
             const gradeText = (c.Grade_Text || "").trim();
             const schedText = (c.Scheduling_R3 || "").trim();
+            const description = (c.Program_Description_R3 || "").trim();
+            const tips = (c["Combining&PlacementTips_R3"] || "").trim();
             const parts = [];
             if (gradeText) parts.push(gradeText);
             if (schedText) parts.push(schedText);
@@ -944,7 +1159,10 @@
               courseId,
               gradeText,
               schedText,
+              description,
+              tips,
               metaLine,
+              detailsOpen: true,
               topics: topicsForCourse,
             };
       
