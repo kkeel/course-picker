@@ -529,6 +529,18 @@
       height: 20px;
     }
 
+    /* Preserve line breaks from CSV for descriptions & tips text */
+    .course-detail-description {
+      white-space: pre-line;
+    }
+    
+    /* Tips text should also respect line breaks */
+    .course-detail-tips span[x-text],
+    .course-detail-tips span[ x-text ],
+    .course-detail-tips span {
+      white-space: pre-line;
+    }
+
     /* Card headers with chevrons */
     .card-header {
       display: flex;
