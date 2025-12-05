@@ -40,6 +40,7 @@
       font-style: normal;
       font-display: swap;
     }
+
     :root {
       --brand-bg: #faf7ed;
       --brand-dark: #596e5e;
@@ -106,6 +107,7 @@
       line-height: 1.5;
       margin-left: 0;
     }
+
     /* Font helpers for branding */
     .font-plantin {
       font-family: 'Plantin MT Pro', 'Times New Roman', serif;
@@ -130,10 +132,8 @@
     .filter-panel-title {
       font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-weight: 500;
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--brand-muted);
+      font-size: 18px;
+      color: var(--brand-text);
       margin: 0 0 16px;
     }
 
@@ -156,6 +156,7 @@
       }
     }
 
+    /* legacy label style kept in case we need it, but currently unused */
     .filter-label {
       display: block;
       font-size: 12px;
@@ -170,7 +171,7 @@
       display: flex;
       align-items: center;
       width: 100%;
-      border-radius: 8px;
+      border-radius: 4px;
       border: 1px solid rgba(38, 43, 38, 0.22);
       padding: 8px 12px;
       font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -182,6 +183,7 @@
     .filter-placeholder {
       color: var(--brand-muted);
       font-weight: 500;
+      font-size: 14px;
     }
 
     .filter-chevron {
@@ -197,11 +199,13 @@
       font: inherit;
       background: transparent;
       color: var(--brand-text);
+      font-size: 14px;
     }
 
     .filter-control input::placeholder {
       color: var(--brand-muted);
       font-weight: 500; /* DM Sans medium */
+      font-size: 14px;
     }
 
     .filter-actions {
@@ -223,13 +227,14 @@
       align-items: center;
       gap: 8px;
       border-radius: 999px;
-      padding: 6px 14px;
-      font-size: 13px;
+      padding: 6px 16px;
+      font-size: 14px;
       font-weight: 500;
       font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-      border: 1px solid rgba(38, 43, 38, 0.12);
-      background-color: #ffffff;
+      border: 1px solid rgba(38, 43, 38, 0.2);
+      background-color: transparent;
       color: var(--brand-text);
+      cursor: pointer;
     }
 
     .btn-pill-icon {
@@ -240,16 +245,18 @@
     }
 
     .btn-secondary {
-      border-color: transparent;
-      background-color: var(--brand-text);
-      color: #ffffff;
+      /* print button keeps same transparent style, but we may
+         enhance later if you want emphasis */
+      background-color: transparent;
+      border-color: rgba(38, 43, 38, 0.2);
+      color: var(--brand-text);
     }
 
     .toggle {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 13px;
+      font-size: 14px;
       font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
       color: var(--brand-muted);
       white-space: nowrap;
@@ -306,60 +313,60 @@
   <!-- Header -->
   <!-- Padding: 24px top/bottom (py-6) and 64px left/right (px-16) -->
   <!-- Mobile: stack logo + tabs; MD+ : row with tabs on the right -->
-    <header class="app-header mb-8 px-6 md:px-16 py-4 md:py-6 flex flex-col md:flex-row md:items-center gap-4">
-      <!-- Logo + wordmark -->
-      <div class="flex items-center gap-3">
-        <!-- Replace src with new dark green logo file when ready -->
-        <img
-          src="Alveary%20Lt.%20Green.png"
-          alt="Alveary logo"
-          class="object-contain"
-          style="height: 40px; width: 40px;"
-        />
-        <span class="logo-title">Alveary</span>
-      </div>
-  
-      <!-- Top-right navigation tabs -->
-      <nav
-        class="mt-3 md:mt-0 md:ml-auto flex flex-wrap items-center gap-x-6 gap-y-2 text-sm"
+  <header class="app-header mb-8 px-6 md:px-16 py-4 md:py-6 flex flex-col md:flex-row md:items-center gap-4">
+    <!-- Logo + wordmark -->
+    <div class="flex items-center gap-3">
+      <!-- Replace src with new dark green logo file when ready -->
+      <img
+        src="Alveary%20Lt.%20Green.png"
+        alt="Alveary logo"
+        class="object-contain"
+        style="height: 40px; width: 40px;"
+      />
+      <span class="logo-title">Alveary</span>
+    </div>
+
+    <!-- Top-right navigation tabs -->
+    <nav
+      class="mt-3 md:mt-0 md:ml-auto flex flex-wrap items-center gap-x-6 gap-y-2 text-sm"
+    >
+      <button
+        type="button"
+        class="nav-tab"
+        :class="step === 1 ? 'nav-tab-active' : ''"
+        @click="openStep(1)"
       >
-        <button
-          type="button"
-          class="nav-tab"
-          :class="step === 1 ? 'nav-tab-active' : ''"
-          @click="openStep(1)"
-        >
-          How to
-        </button>
-  
-        <button
-          type="button"
-          class="nav-tab"
-          :class="step === 2 ? 'nav-tab-active' : ''"
-          @click="openStep(2)"
-        >
-          Planning guide
-        </button>
-  
-        <button
-          type="button"
-          class="nav-tab"
-          :class="step === 3 ? 'nav-tab-active' : ''"
-          @click="openStep(3)"
-        >
-          Course list
-        </button>
-  
-        <button
-          type="button"
-          class="nav-tab"
-          :class="step === 4 ? 'nav-tab-active' : ''"
-          @click="openStep(4)"
-        >
-          Book list
-        </button>
-      </nav>
-    </header>
+        How to
+      </button>
+
+      <button
+        type="button"
+        class="nav-tab"
+        :class="step === 2 ? 'nav-tab-active' : ''"
+        @click="openStep(2)"
+      >
+        Planning guide
+      </button>
+
+      <button
+        type="button"
+        class="nav-tab"
+        :class="step === 3 ? 'nav-tab-active' : ''"
+        @click="openStep(3)"
+      >
+        Course list
+      </button>
+
+      <button
+        type="button"
+        class="nav-tab"
+        :class="step === 4 ? 'nav-tab-active' : ''"
+        @click="openStep(4)"
+      >
+        Book list
+      </button>
+    </nav>
+  </header>
 
   <!-- Main content -->
   <main class="max-w-6xl mx-auto px-6 lg:px-16 pb-16 space-y-10">
@@ -435,39 +442,50 @@
           <div class="filter-grid">
             <!-- Grade -->
             <div>
-              <label class="filter-label" for="filter-grade">Grade</label>
-              <button type="button" id="filter-grade" class="filter-control">
-                <span class="filter-placeholder">All grades</span>
+              <button
+                type="button"
+                id="filter-grade"
+                class="filter-control"
+                aria-label="Filter by grade"
+              >
+                <span class="filter-placeholder">Grade</span>
                 <span class="filter-chevron" aria-hidden="true">▾</span>
               </button>
             </div>
 
             <!-- Subject -->
             <div>
-              <label class="filter-label" for="filter-subject">Subject</label>
-              <button type="button" id="filter-subject" class="filter-control">
-                <span class="filter-placeholder">All subjects</span>
+              <button
+                type="button"
+                id="filter-subject"
+                class="filter-control"
+                aria-label="Filter by subject"
+              >
+                <span class="filter-placeholder">Subject</span>
                 <span class="filter-chevron" aria-hidden="true">▾</span>
               </button>
             </div>
 
             <!-- Tags -->
             <div>
-              <label class="filter-label" for="filter-tags">Tag</label>
-              <button type="button" id="filter-tags" class="filter-control">
-                <span class="filter-placeholder">All tags</span>
+              <button
+                type="button"
+                id="filter-tags"
+                class="filter-control"
+                aria-label="Filter by tag"
+              >
+                <span class="filter-placeholder">Tag</span>
                 <span class="filter-chevron" aria-hidden="true">▾</span>
               </button>
             </div>
 
             <!-- Search -->
             <div>
-              <label class="filter-label" for="filter-search">Search</label>
-              <div class="filter-control">
+              <div class="filter-control" aria-label="Search courses or topics">
                 <input
                   id="filter-search"
                   type="search"
-                  placeholder="Search courses or topics…"
+                  placeholder="Search"
                   autocomplete="off"
                 />
                 <span class="search-icon" aria-hidden="true">
@@ -485,8 +503,16 @@
             <!-- Left: clear + print buttons -->
             <div class="flex gap-2">
               <button type="button" class="btn-pill">
-                Clear selected
+                <span class="btn-pill-icon" aria-hidden="true">
+                  <!-- simple X icon -->
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="6" y1="6" x2="18" y2="18" stroke="#262B26" stroke-width="1.8" stroke-linecap="round" />
+                    <line x1="18" y1="6" x2="6" y2="18" stroke="#262B26" stroke-width="1.8" stroke-linecap="round" />
+                  </svg>
+                </span>
+                <span>Clear selected</span>
               </button>
+
               <button type="button" class="btn-pill btn-secondary">
                 <span class="btn-pill-icon" aria-hidden="true">
                   <!-- 24×24 print icon -->
@@ -497,7 +523,7 @@
                     <circle cx="17" cy="12" r="0.9" fill="#262B26" />
                   </svg>
                 </span>
-                <span>Print options</span>
+                <span>Print</span>
               </button>
             </div>
 
@@ -554,23 +580,24 @@
       </div>
     </section>
   </main>
-<script>
-  function plannerApp() {
-    return {
-      // ----- tab navigation (what you already had) -----
-      step: 3,
-      openStep(n) {
-        this.step = n;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      },
 
-      // Alpine will call this because of x-init="init()"
-      init() {
-        // For now this is empty.
-        // Next step we’ll add loading of courses, filters, etc. here.
-      }
-    };
-  }
-</script>
+  <script>
+    function plannerApp() {
+      return {
+        // ----- tab navigation (what you already had) -----
+        step: 3,
+        openStep(n) {
+          this.step = n;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+
+        // Alpine will call this because of x-init="init()"
+        init() {
+          // For now this is empty.
+          // Next step we’ll add loading of courses, filters, etc. here.
+        }
+      };
+    }
+  </script>
 </body>
 </html>
