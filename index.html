@@ -110,15 +110,8 @@
   </style>
 </head>
 
-<body
-  x-data="{
-    step: 3,
-    openStep(n) {
-      this.step = n;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }"
->
+<body x-data="plannerApp()" x-init="init()">
+
   <!-- Header -->
   <!-- Padding: 24px top/bottom (py-6) and 64px left/right (px-16) -->
   <!-- Mobile: stack logo + tabs; MD+ : row with tabs on the right -->
@@ -275,5 +268,23 @@
       </div>
     </section>
   </main>
+<script>
+  function plannerApp() {
+    return {
+      // ----- tab navigation (what you already had) -----
+      step: 3,
+      openStep(n) {
+        this.step = n;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+
+      // Alpine will call this because of x-init="init()"
+      init() {
+        // For now this is empty.
+        // Next step we’ll add loading of courses, filters, etc. here.
+      }
+    };
+  }
+</script>
 </body>
 </html>
