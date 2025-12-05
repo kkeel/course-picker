@@ -395,31 +395,37 @@
       display: flex;
       align-items: flex-start;
       font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-      font-size: 14px;
+      font-size: 12px;
       line-height: 1.5;
       font-weight: 400;
       color: var(--brand-muted);
       white-space: normal;
     }
 
-    /* left container = schedule text */
     .meta-schedule {
       white-space: pre-line;
     }
 
     .meta-schedule--with-grade {
-      margin-right: 20px;
+      padding-right: 20px;
+      border-right: 1px solid #e5e8e5;
     }
 
     .meta-schedule--solo {
-      margin-right: 0;
+      padding-right: 0;
+      border-right: none;
     }
 
-    /* right container = grade text */
     .meta-grade {
-      border-left: 1px solid #e5e8e5;
+      white-space: normal;
+    }
+
+    .meta-grade--with-sched {
       padding-left: 20px;
-      flex-shrink: 0;
+    }
+   
+    .meta-grade--solo {
+      padding-left: 0;
     }
 
     /* Description + tips rows */
@@ -842,14 +848,18 @@
                         <!-- left: schedule (if any) -->
                         <template x-if="course.schedText">
                           <span
-                            :class="course.gradeText ? 'meta-schedule meta-schedule--with-grade' : 'meta-schedule meta-schedule--solo'"
+                            class="meta-schedule"
+                            :class="course.gradeText ? 'meta-schedule--with-grade' : 'meta-schedule--solo'"
                             x-text="course.schedText"
                           ></span>
                         </template>
-
+                      
                         <!-- right: grade (if any) -->
                         <template x-if="course.gradeText">
-                          <span class="meta-grade" x-text="course.gradeText"></span>
+                          <span
+                            :class="course.schedText ? 'meta-grade meta-grade--with-sched' : 'meta-grade meta-grade--solo'"
+                            x-text="course.gradeText"
+                          ></span>
                         </template>
                       </p>
                     
@@ -928,14 +938,18 @@
                                 <!-- left: schedule -->
                                 <template x-if="topic.schedText">
                                   <span
-                                    :class="topic.gradeText ? 'meta-schedule meta-schedule--with-grade' : 'meta-schedule meta-schedule--solo'"
+                                    class="meta-schedule"
+                                    :class="topic.gradeText ? 'meta-schedule--with-grade' : 'meta-schedule--solo'"
                                     x-text="topic.schedText"
                                   ></span>
                                 </template>
-  
+                              
                                 <!-- right: grade -->
                                 <template x-if="topic.gradeText">
-                                  <span class="meta-grade" x-text="topic.gradeText"></span>
+                                  <span
+                                    :class="topic.schedText ? 'meta-grade meta-grade--with-sched' : 'meta-grade meta-grade--solo'"
+                                    x-text="topic.gradeText"
+                                  ></span>
                                 </template>
                               </p>
                           
