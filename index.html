@@ -798,7 +798,7 @@
       'Music': '#9e6bac',
       'Physical Education': '#bd855e',
       'Science': '#96a767',
-      'Science & Alt. Science': '#96a767'
+      'Alt. Science Options': '#96a767'
     },
     
     subjectColor(name) {
@@ -875,12 +875,10 @@
         
             // The science pair
             const sci        = "science";
-            const altSci     = "science & alt. science";
+            const altSci     = "alt. science options";
         
-            // If A is Alt Science, force it AFTER Science
+            // Force "Alt. Science Options" to come *after* "Science"
             if (A === altSci && B === sci) return 1;
-        
-            // If B is Alt Science, force it AFTER Science
             if (B === altSci && A === sci) return -1;
         
             // Otherwise normal alphabetical
