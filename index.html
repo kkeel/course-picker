@@ -47,6 +47,8 @@
       --brand-text: #262b26;
       --brand-muted: #1C1B1F;
       --brand-accent: #596e5e;
+      --brand-surface: #ffffff;
+      --divider-subtle: #dde2d5;
     }
 
     body {
@@ -353,17 +355,33 @@
 
     .course-card,
     .topic-card {
-      border-radius: 4px;        /* radius = 4px */
-      padding: 20px;             /* padding = 20px */
+      border-radius: 4px;
+      padding: 20px;
       background-color: var(--brand-surface);
-      border: 1px solid var(--divider-subtle); /* default (topic) border */
+    }
+    
+    .topic-card {
+      border: 1px solid var(--divider-subtle);
+    }
+    
+    /* course cards: default border before subject override */
+    .course-card {
+      border: 1px solid var(--divider-subtle);
+    }
+    
+    /* subject overrides */
+    .subject--architecture .course-card {
+      border-color: rgba(89, 110, 94, 0.45);
+    }
+    .subject--art .course-card {
+      border-color: rgba(173, 181, 143, 0.7);
     }
 
     .topic-list {
-      margin-top: 12px;          /* space between course and first topic card */
+      margin-top: 12px;
       display: flex;
       flex-direction: column;
-      gap: 12px;                 /* space between topic cards */
+      gap: 12px;
     }
 
     .course-title,
@@ -371,20 +389,10 @@
       margin: 0;
       font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
-      font-size: 18px;           /* course/topic title size */
+      font-size: 18px;
       line-height: 1.4;
-      font-weight: 500;          /* Circular Pro medium */
+      font-weight: 500;
       color: var(--brand-text);
-    }
-
-    /* Subject-specific border accents for course cards
-       (you can swap these colors later for your exact subject palette) */
-    .subject--architecture .course-card {
-      border-color: rgba(89, 110, 94, 0.45); /* placeholder accent */
-    }
-
-    .subject--art .course-card {
-      border-color: rgba(173, 181, 143, 0.7); /* placeholder accent */
     }
 
     /* Hide Alpine sections until ready */
