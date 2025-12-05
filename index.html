@@ -45,7 +45,7 @@
       --brand-bg: #faf7ed;
       --brand-dark: #596e5e;
       --brand-text: #262b26;
-      --brand-muted: #1C1B1F99;
+      --brand-muted: #dde2d5;
       --brand-accent: #596e5e;
     }
 
@@ -125,7 +125,7 @@
       width: 100%;
       padding: 24px;
       border-radius: 4px;
-      border: 1px solid rgba(38, 43, 38, 0.2); /* #262B26 at 20% */
+      border: 1px solid #dde2d5;
       background-color: transparent;
     }
 
@@ -188,8 +188,17 @@
 
     .filter-chevron {
       margin-left: auto;
-      font-size: 11px;
-      color: var(--brand-muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+    }
+    
+    .filter-chevron svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--brand-text);
     }
 
     .filter-control input {
@@ -231,7 +240,7 @@
       font-size: 14px;
       font-weight: 500;
       font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-      border: 1px solid rgba(38, 43, 38, 0.2);
+      border: 1px solid #dde2d5;
       background-color: transparent;
       color: var(--brand-text);
       cursor: pointer;
@@ -248,7 +257,7 @@
       /* print button keeps same transparent style, but we may
          enhance later if you want emphasis */
       background-color: transparent;
-      border-color: rgba(38, 43, 38, 0.2);
+      border-color: #dde2d5;
       color: var(--brand-text);
     }
 
@@ -449,7 +458,11 @@
                 aria-label="Filter by grade"
               >
                 <span class="filter-placeholder">Grade</span>
-                <span class="filter-chevron" aria-hidden="true">▾</span>
+                <span class="filter-chevron" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9l6 6 6-6" fill="none" stroke="#dde2d5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
               </button>
             </div>
 
@@ -462,7 +475,11 @@
                 aria-label="Filter by subject"
               >
                 <span class="filter-placeholder">Subject</span>
-                <span class="filter-chevron" aria-hidden="true">▾</span>
+                <span class="filter-chevron" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9l6 6 6-6" fill="none" stroke="#dde2d5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
               </button>
             </div>
 
@@ -475,7 +492,11 @@
                 aria-label="Filter by tag"
               >
                 <span class="filter-placeholder">Tag</span>
-                <span class="filter-chevron" aria-hidden="true">▾</span>
+                <span class="filter-chevron" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9l6 6 6-6" fill="none" stroke="#dde2d5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
               </button>
             </div>
 
