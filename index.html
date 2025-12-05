@@ -820,24 +820,28 @@
                       <!-- Title row with chevron -->
                       <div class="card-header">
                         <h4 class="course-title" x-text="course.title"></h4>
-                        <button
-                          type="button"
-                          class="card-toggle"
-                          :class="course.detailsOpen ? '' : 'card-toggle--closed'"
-                          @click="course.detailsOpen = !course.detailsOpen"
-                          aria-label="Toggle course details"
-                        >
-                          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                              d="M6 9l6 6 6-6"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="1.8"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </svg>
-                        </button>
+
+                          <!-- Chevron only if description or tips exist -->
+                          <template x-if="course.description || course.tips">
+                            <button
+                              type="button"
+                              class="card-toggle"
+                              :class="course.detailsOpen ? '' : 'card-toggle--closed'"
+                              @click="course.detailsOpen = !course.detailsOpen"
+                              aria-label="Toggle course details"
+                            >
+                              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M6 9l6 6 6-6"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="1.8"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </button>
+                          </template>
                       </div>
                     
                       <!-- grade + schedule line -->
@@ -911,24 +915,28 @@
                             <!-- Title row with chevron -->
                             <div class="card-header">
                               <h5 class="topic-title" x-text="topic.Topic"></h5>
-                              <button
-                                type="button"
-                                class="card-toggle"
-                                :class="topic.detailsOpen ? '' : 'card-toggle--closed'"
-                                @click="topic.detailsOpen = !topic.detailsOpen"
-                                aria-label="Toggle topic details"
-                              >
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                  <path
-                                    d="M6 9l6 6 6-6"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="1.8"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                  />
-                                </svg>
-                              </button>
+
+                                <!-- Chevron only if description or tips exist -->
+                                <template x-if="topic.description || topic.tips">
+                                  <button
+                                    type="button"
+                                    class="card-toggle"
+                                    :class="topic.detailsOpen ? '' : 'card-toggle--closed'"
+                                    @click="topic.detailsOpen = !topic.detailsOpen"
+                                    aria-label="Toggle topic details"
+                                  >
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                      <path
+                                        d="M6 9l6 6 6-6"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      />
+                                    </svg>
+                                  </button>
+                                </template>
                             </div>
                           
                               <p
