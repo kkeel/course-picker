@@ -787,15 +787,46 @@
             </div>
 
             <!-- Subject -->
-            <div>
+            <div class="relative" @click.outside="subjectDropdownOpen = false">
               <button
                 type="button"
                 id="filter-subject"
                 class="filter-control"
                 aria-label="Filter by subject"
+                @click="subjectDropdownOpen = !subjectDropdownOpen"
               >
-                <span class="filter-placeholder">Subject</span>
-                <span class="filter-chevron" aria-hidden="true">
+                <!-- placeholder when nothing selected -->
+                <template x-if="selectedSubjects.length === 0">
+                  <span class="filter-placeholder">Subject</span>
+                </template>
+            
+                <!-- chips when subjects are selected -->
+                <template x-if="selectedSubjects.length > 0">
+                  <div class="filter-control-chips">
+                    <template x-for="subj in selectedSubjects" :key="subj">
+                      <span
+                        class="filter-chip"
+                        :style="`background-color: ${subjectColor(subj)}4D;`"
+                      >
+                        <span x-text="subj"></span>
+                        <button
+                          type="button"
+                          class="filter-chip-remove"
+                          @click.stop="removeSubject(subj)"
+                          aria-label="Remove subject"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    </template>
+                  </div>
+                </template>
+            
+                <span
+                  class="filter-chevron"
+                  :class="subjectDropdownOpen ? 'filter-chevron-open' : ''"
+                  aria-hidden="true"
+                >
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M6 9l6 6 6-6"
@@ -808,6 +839,29 @@
                   </svg>
                 </span>
               </button>
+            
+              <!-- dropdown menu -->
+              <div
+                class="filter-dropdown"
+                x-show="subjectDropdownOpen"
+                x-transition
+              >
+                <template x-for="opt in subjectOptions" :key="opt">
+                  <button
+                    type="button"
+                    class="filter-dropdown-item"
+                    @click="toggleSubject(opt)"
+                  >
+                    <span x-text="opt"></span>
+                    <span
+                      class="filter-dropdown-check"
+                      x-show="selectedSubjects.includes(opt)"
+                    >
+                      ✓
+                    </span>
+                  </button>
+                </template>
+              </div>
             </div>
 
             <!-- Tags -->
@@ -1213,6 +1267,29 @@
         { code: "G12", label: "Grade 12" },
       ],
 
+      // --- FILTER STATE (subject) ---
+      selectedSubjects: [],       // e.g. ["Science", "Art"]
+      subjectDropdownOpen: false,
+      // Order matches subject display (Science, then Alt. Science Options directly after)
+      subjectOptions: [
+        "Architecture",
+        "Art",
+        "Bible",
+        "Citizenship",
+        "English",
+        "Geography",
+        "History",
+        "Latin",
+        "Life Skills",
+        "Literature",
+        "Math",
+        "Modern Language",
+        "Music",
+        "Physical Education",
+        "Science",
+        "Alt. Science Options",
+      ],
+
       toggleAllDetails() {
         this.showAllDetails = !this.showAllDetails;
       },
@@ -1240,10 +1317,37 @@
         this.applyFilters();
       },
 
+      // --- SUBJECT FILTER HELPERS ---
+      toggleSubject(name) {
+        const idx = this.selectedSubjects.indexOf(name);
+        if (idx === -1) {
+          this.selectedSubjects.push(name);
+        } else {
+          this.selectedSubjects.splice(idx, 1);
+        }
+        this.applyFilters();
+      },
+
+      removeSubject(name) {
+        this.selectedSubjects = this.selectedSubjects.filter(s => s !== name);
+        this.applyFilters();
+      },
+
+      subjectMatches(courseSubject) {
+        if (!this.selectedSubjects.length) return true; // no subject filter
+        if (!courseSubject) return false;
+        const subj = courseSubject.trim();
+        return this.selectedSubjects.includes(subj);
+      },
+
       // clear everything (used by Clear selected button)
       clearAllFilters() {
         this.selectedGrades = [];
         this.gradeDropdownOpen = false;
+
+        this.selectedSubjects = [];
+        this.subjectDropdownOpen = false;
+
         this.applyFilters();
       },
 
@@ -1254,12 +1358,13 @@
         return this.selectedGrades.some(code => tags.includes(code));
       },
 
-      // rebuild coursesBySubject from allCoursesBySubject + filter
+      // rebuild coursesBySubject from allCoursesBySubject + filters
       applyFilters() {
-        const hasGrade = this.selectedGrades.length > 0;
+        const hasGrade   = this.selectedGrades.length > 0;
+        const hasSubject = this.selectedSubjects.length > 0;
 
-        // No grade filter => show full dataset
-        if (!hasGrade) {
+        // No filters => show full dataset
+        if (!hasGrade && !hasSubject) {
           this.coursesBySubject = this.allCoursesBySubject;
           return;
         }
@@ -1272,12 +1377,17 @@
           const subjectCourses = [];
 
           courses.forEach(course => {
-            // ▶️ Only check the COURSE grade tags
-            const courseMatches = this.gradeMatches(course.gradeTags);
+            // grade check (course-level only)
+            const matchesGrade =
+              !hasGrade || this.gradeMatches(course.gradeTags);
 
-            if (!courseMatches) return;
+            // subject check (course.subject must match one of selectedSubjects)
+            const matchesSubject =
+              !hasSubject || this.subjectMatches(course.subject);
 
-            // If course matches, bring ALL its topics (no topic-level grade filter)
+            if (!(matchesGrade && matchesSubject)) return;
+
+            // If course passes filters, include it with all its topics
             const courseCopy = {
               ...course,
               topics: course.topics || [],
