@@ -1246,7 +1246,7 @@
       applyFilters() {
         const hasGrade = this.selectedGrades.length > 0;
 
-        // no grade filter => show full dataset
+        // No grade filter => show full dataset
         if (!hasGrade) {
           this.coursesBySubject = this.allCoursesBySubject;
           return;
@@ -1260,29 +1260,21 @@
           const subjectCourses = [];
 
           courses.forEach(course => {
-            const courseSelfMatches = this.gradeMatches(course.gradeTags);
+            // ▶️ Only check the COURSE grade tags
+            const courseMatches = this.gradeMatches(course.gradeTags);
 
-            // filter topics if any
-            let topicsFiltered = course.topics || [];
-            if (hasGrade) {
-              topicsFiltered = topicsFiltered.filter(t =>
-                this.gradeMatches(t.gradeTags)
-              );
-            }
-
-            const courseMatches = courseSelfMatches || topicsFiltered.length > 0;
             if (!courseMatches) return;
 
-            // shallow copy course; keep only the topics that passed
+            // If course matches, bring ALL its topics (no topic-level grade filter)
             const courseCopy = {
               ...course,
-              topics: topicsFiltered,
+              topics: course.topics || [],
             };
 
             subjectCourses.push(courseCopy);
           });
 
-          // only include subject if it has at least one visible course
+          // Only include subject if it has at least one visible course
           if (subjectCourses.length) {
             filtered[subject] = subjectCourses;
           }
