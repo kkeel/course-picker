@@ -868,9 +868,26 @@
           // Sort subjects alphabetically, courses by Course_ID, topics by Topic_ID
           const sorted = {};
           Object.keys(grouped)
-            .sort((a, b) => a.localeCompare(b))
-            .forEach(subject => {
-              const courses = grouped[subject];
+            .sort((a, b) => {
+            // Normalize for matching
+            const A = a.toLowerCase();
+            const B = b.toLowerCase();
+        
+            // The science pair
+            const sci        = "science";
+            const altSci     = "science & alt. science";
+        
+            // If A is Alt Science, force it AFTER Science
+            if (A === altSci && B === sci) return 1;
+        
+            // If B is Alt Science, force it AFTER Science
+            if (B === altSci && A === sci) return -1;
+        
+            // Otherwise normal alphabetical
+            return a.localeCompare(b);
+          })
+          .forEach(subject => {
+            const courses = grouped[subject];
 
               courses.sort((a, b) => {
                 const aId = a.courseId || "";
