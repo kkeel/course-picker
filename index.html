@@ -392,6 +392,8 @@
 
     .course-meta {
       margin-top: 4px;
+      display: flex;
+      align-items: flex-start;
       font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
       font-size: 14px;
       line-height: 1.5;
@@ -400,14 +402,23 @@
       white-space: normal;
     }
 
+    .meta-grade {
+      padding-right: 20px;   /* space between grade and divider */
+      flex-shrink: 0;
+    }
+
     .meta-schedule {
       white-space: pre-line;
     }
 
-    .meta-divider {
-      display: inline-block;
-      color: #e5e8e5;
-      padding: 0 1em;
+    .meta-schedule--with-grade {
+      padding-left: 20px;              /* space between divider and text */
+      border-left: 1px solid #e5e8e5;  /* light grey divider */
+    }
+
+    .meta-schedule--solo {
+      padding-left: 0;
+      border-left: none;
     }
 
     /* Hide Alpine sections until ready */
@@ -725,21 +736,24 @@
                   <template x-for="course in courseGroup" :key="course.id">
                     <article class="course-card" :style="`border-color: ${subjectColor(course.subject)}`">
                       <h4 class="course-title" x-text="course.title"></h4>
-                      <!-- grade + schedule line -->
+                      <!-- grade + schedule row -->
                       <p
                         class="course-meta"
-                        x-show="course.gradeText || course.schedText">
+                        x-show="course.gradeText || course.schedText"
+                      >
+                        <!-- Grade container (left) -->
                         <template x-if="course.gradeText">
-                          <span x-text="course.gradeText"></span>
+                          <span class="meta-grade" x-text="course.gradeText"></span>
                         </template>
                       
-                        <template x-if="course.gradeText && course.schedText">
-                          <span class="meta-divider">|</span>
+                        <!-- Schedule container (right) -->
+                        <template x-if="course.schedText">
+                          <span
+                            class="meta-schedule"
+                            :class="course.gradeText ? 'meta-schedule--with-grade' : 'meta-schedule--solo'"
+                            x-text="course.schedText"
+                          ></span>
                         </template>
-                      
-                          <template x-if="course.schedText">
-                            <span class="meta-schedule" x-text="course.schedText"></span>
-                          </template>
                       </p>
       
                       <!-- Nested topics (titles only for now) -->
@@ -749,18 +763,21 @@
                             <h5 class="topic-title" x-text="topic.Topic"></h5>
                             <p
                               class="course-meta topic-meta"
-                              x-show="topic.gradeText || topic.schedText">
+                              x-show="topic.gradeText || topic.schedText"
+                            >
+                              <!-- Grade container (left) -->
                               <template x-if="topic.gradeText">
-                                <span x-text="topic.gradeText"></span>
+                                <span class="meta-grade" x-text="topic.gradeText"></span>
                               </template>
                             
-                              <template x-if="topic.gradeText && topic.schedText">
-                                <span class="meta-divider">|</span>
+                              <!-- Schedule container (right) -->
+                              <template x-if="topic.schedText">
+                                <span
+                                  class="meta-schedule"
+                                  :class="topic.gradeText ? 'meta-schedule--with-grade' : 'meta-schedule--solo'"
+                                  x-text="topic.schedText"
+                                ></span>
                               </template>
-                            
-                                <template x-if="topic.schedText">
-                                  <span class="meta-schedule" x-text="topic.schedText"></span>
-                                </template>
                             </p>
 
                           </article>
