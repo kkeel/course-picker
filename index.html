@@ -699,9 +699,9 @@
                 class="subject-block"
                 :class="'subject--' + subjectName.toLowerCase().replace(/[^a-z0-9]+/g, '-')"
               >
-                <h3 class="subject-heading" x-text="subjectName"></h3>
+                <h3 class="subject-title" x-text="subjectName"></h3>
       
-                <div class="subject-course-list">
+                <div class="subject-courses">
                   <template x-for="course in courseGroup" :key="course.id">
                     <article class="course-card":style="`border-color: ${subjectColor(course.subject)}`">
                       <h4 class="course-title" x-text="course.title"></h4>
@@ -714,10 +714,12 @@
                           </article>
                         </template>
                       </div>
+                      
                     </article>
                   </template>
                 </div>
               </section>
+              
             </template>
           </div>
         </template>
