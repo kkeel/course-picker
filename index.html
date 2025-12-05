@@ -402,45 +402,37 @@
       white-space: normal;
     }
 
-    .meta-grade {
-      padding-right: 20px;   /* space between grade and divider */
-      flex-shrink: 0;
-    }
-
+    /* left container = schedule text */
     .meta-schedule {
       white-space: pre-line;
     }
 
     .meta-schedule--with-grade {
-      padding-left: 20px;              /* space between divider and text */
-      border-left: 1px solid #e5e8e5;  /* light grey divider */
+      margin-right: 20px;
     }
 
     .meta-schedule--solo {
-      padding-left: 0;
-      border-left: none;
+      margin-right: 0;
+    }
+
+    /* right container = grade text */
+    .meta-grade {
+      border-left: 1px solid #e5e8e5;
+      padding-left: 20px;
+      flex-shrink: 0;
     }
 
     /* Description + tips rows */
     .course-detail-row {
       margin-top: 12px;
       display: flex;
-      gap: 24px;
-      align-items: flex-start;
+      flex-direction: column;
+      gap: 12px;
+      align-items: stretch;
       font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
       font-size: 16px;
       line-height: 1.5;
       color: var(--brand-text);
-    }
-
-    @media (max-width: 768px) {
-      .course-detail-row {
-        flex-direction: column;
-      }
-    }
-
-    .course-detail-description {
-      flex: 2;
     }
 
     .course-detail-tips {
@@ -472,6 +464,7 @@
     .card-header {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 8px;
     }
 
@@ -820,6 +813,7 @@
                     <article class="course-card" :style="`border-color: ${subjectColor(course.subject)}`">
                       <!-- Title row with chevron -->
                       <div class="card-header">
+                        <h4 class="course-title" x-text="course.title"></h4>
                         <button
                           type="button"
                           class="card-toggle"
@@ -838,23 +832,24 @@
                             />
                           </svg>
                         </button>
-                        <h4 class="course-title" x-text="course.title"></h4>
                       </div>
                     
                       <!-- grade + schedule line -->
                       <p
                         class="course-meta"
-                        x-show="course.gradeText || course.schedText">
-                        <template x-if="course.gradeText">
-                          <span x-text="course.gradeText"></span>
-                        </template>
-                    
-                        <template x-if="course.gradeText && course.schedText">
-                          <span class="meta-divider">|</span>
-                        </template>
-                    
+                        x-show="course.gradeText || course.schedText"
+                      >
+                        <!-- left: schedule (if any) -->
                         <template x-if="course.schedText">
-                          <span class="meta-schedule" x-text="course.schedText"></span>
+                          <span
+                            :class="course.gradeText ? 'meta-schedule meta-schedule--with-grade' : 'meta-schedule meta-schedule--solo'"
+                            x-text="course.schedText"
+                          ></span>
+                        </template>
+
+                        <!-- right: grade (if any) -->
+                        <template x-if="course.gradeText">
+                          <span class="meta-grade" x-text="course.gradeText"></span>
                         </template>
                       </p>
                     
@@ -905,6 +900,7 @@
                           <article class="topic-card">
                             <!-- Title row with chevron -->
                             <div class="card-header">
+                              <h5 class="topic-title" x-text="topic.Topic"></h5>
                               <button
                                 type="button"
                                 class="card-toggle"
@@ -923,24 +919,25 @@
                                   />
                                 </svg>
                               </button>
-                              <h5 class="topic-title" x-text="topic.Topic"></h5>
                             </div>
                           
-                            <p
-                              class="course-meta topic-meta"
-                              x-show="topic.gradeText || topic.schedText">
-                              <template x-if="topic.gradeText">
-                                <span x-text="topic.gradeText"></span>
-                              </template>
-                          
-                              <template x-if="topic.gradeText && topic.schedText">
-                                <span class="meta-divider">|</span>
-                              </template>
-                          
-                              <template x-if="topic.schedText">
-                                <span class="meta-schedule" x-text="topic.schedText"></span>
-                              </template>
-                            </p>
+                              <p
+                                class="course-meta topic-meta"
+                                x-show="topic.gradeText || topic.schedText"
+                              >
+                                <!-- left: schedule -->
+                                <template x-if="topic.schedText">
+                                  <span
+                                    :class="topic.gradeText ? 'meta-schedule meta-schedule--with-grade' : 'meta-schedule meta-schedule--solo'"
+                                    x-text="topic.schedText"
+                                  ></span>
+                                </template>
+  
+                                <!-- right: grade -->
+                                <template x-if="topic.gradeText">
+                                  <span class="meta-grade" x-text="topic.gradeText"></span>
+                                </template>
+                              </p>
                           
                             <div
                               class="course-detail-row"
