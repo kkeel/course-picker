@@ -193,6 +193,7 @@
       justify-content: center;
       width: 24px;
       height: 24px;
+      color: var(--brand-muted);
     }
     
     .filter-chevron svg {
@@ -252,6 +253,11 @@
       align-items: center;
       justify-content: center;
     }
+    
+    .btn-pill-icon svg {
+      width: 16px;
+      height: 16px;
+    }
 
     .btn-secondary {
       /* print button keeps same transparent style, but we may
@@ -306,8 +312,14 @@
       position: absolute;
       right: 10px;
       width: 20px;
-      height: 20px; /* matches your 20×20 reference */
+      height: 20px; 
       pointer-events: none;
+      color: var(--brand-muted);
+    }
+
+    .search-icon svg {
+      width: 20px;
+      height: 20px;
     }
 
     /* Hide Alpine sections until ready */
@@ -460,7 +472,14 @@
                 <span class="filter-placeholder">Grade</span>
                 <span class="filter-chevron" aria-hidden="true">
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 9l6 6 6-6" fill="none" stroke="#1C1B1F99" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                      d="M6 9l6 6 6-6"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                   </svg>
                 </span>
               </button>
@@ -477,7 +496,14 @@
                 <span class="filter-placeholder">Subject</span>
                 <span class="filter-chevron" aria-hidden="true">
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 9l6 6 6-6" fill="none" stroke="#1C1B1F99" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                      d="M6 9l6 6 6-6"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                   </svg>
                 </span>
               </button>
@@ -494,7 +520,14 @@
                 <span class="filter-placeholder">Tag</span>
                 <span class="filter-chevron" aria-hidden="true">
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 9l6 6 6-6" fill="none" stroke="#1C1B1F99" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                      d="M6 9l6 6 6-6"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                   </svg>
                 </span>
               </button>
@@ -510,10 +543,24 @@
                   autocomplete="off"
                 />
                 <span class="search-icon" aria-hidden="true">
-                  <!-- 20×20 search icon -->
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="11" cy="11" r="6.5" stroke="#1C1B1F99" stroke-width="1.8" fill="none" />
-                    <line x1="15" y1="15" x2="20" y2="20" stroke="#1C1B1F99" stroke-width="1.8" stroke-linecap="round" />
+                    <circle
+                      cx="11"
+                      cy="11"
+                      r="6.5"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      fill="none"
+                    />
+                    <line
+                      x1="15"
+                      y1="15"
+                      x2="20"
+                      y2="20"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                    />
                   </svg>
                 </span>
               </div>
@@ -525,10 +572,11 @@
             <div class="flex gap-2">
               <button type="button" class="btn-pill">
                 <span class="btn-pill-icon" aria-hidden="true">
-                  <!-- simple X icon -->
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <line x1="6" y1="6" x2="18" y2="18" stroke="#262B26" stroke-width="1.8" stroke-linecap="round" />
-                    <line x1="18" y1="6" x2="6" y2="18" stroke="#262B26" stroke-width="1.8" stroke-linecap="round" />
+                    <line x1="6" y1="6" x2="18" y2="18"
+                          stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <line x1="18" y1="6" x2="6" y2="18"
+                          stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
                   </svg>
                 </span>
                 <span>Clear selected</span>
@@ -536,12 +584,14 @@
 
               <button type="button" class="btn-pill btn-secondary">
                 <span class="btn-pill-icon" aria-hidden="true">
-                  <!-- 24×24 print icon -->
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="5" y="9" width="14" height="9" rx="1.5" ry="1.5" fill="none" stroke="#262B26" stroke-width="1.8" />
-                    <path d="M8 9V5h8v4" fill="none" stroke="#262B26" stroke-width="1.8" />
-                    <rect x="9" y="13" width="6" height="4" fill="none" stroke="#262B26" stroke-width="1.5" />
-                    <circle cx="17" cy="12" r="0.9" fill="#262B26" />
+                    <rect x="5" y="9" width="14" height="9" rx="1.5" ry="1.5"
+                          fill="none" stroke="currentColor" stroke-width="1.8" />
+                    <path d="M8 9V5h8v4"
+                          fill="none" stroke="currentColor" stroke-width="1.8" />
+                    <rect x="9" y="13" width="6" height="4"
+                          fill="none" stroke="currentColor" stroke-width="1.5" />
+                    <circle cx="17" cy="12" r="0.9" fill="currentColor" />
                   </svg>
                 </span>
                 <span>Print</span>
