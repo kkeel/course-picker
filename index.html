@@ -390,6 +390,15 @@
       color: var(--brand-text);
     }
 
+    .course-meta {
+      margin-top: 4px;
+      font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 400;
+      color: var(--brand-muted);
+    }
+
     /* Hide Alpine sections until ready */
     [x-cloak] {
       display: none !important;
@@ -703,14 +712,25 @@
       
                 <div class="subject-courses">
                   <template x-for="course in courseGroup" :key="course.id">
-                    <article class="course-card":style="`border-color: ${subjectColor(course.subject)}`">
+                    <article class="course-card" :style="`border-color: ${subjectColor(course.subject)}`">
                       <h4 class="course-title" x-text="course.title"></h4>
+                      <!-- grade + schedule line -->
+                      <p
+                        x-show="course.metaLine"
+                        class="course-meta"
+                        x-text="course.metaLine"
+                      ></p>
       
                       <!-- Nested topics (titles only for now) -->
                       <div class="topic-list" x-show="course.topics.length">
                         <template x-for="topic in course.topics" :key="topic.recordID">
                           <article class="topic-card">
                             <h5 class="topic-title" x-text="topic.Topic"></h5>
+                            <p
+                              x-show="topic.metaLine"
+                              class="course-meta"
+                              x-text="topic.metaLine"
+                            ></p>
                           </article>
                         </template>
                       </div>
@@ -821,24 +841,42 @@
             fetchAndParseCSV(MA_COURSES_URL),
             fetchAndParseCSV(MA_TOPICS_URL),
           ]);
-
+      
           // Build a lookup table for topics by Topic_ID
           const topicById = {};
           topicsRaw.forEach(t => {
             const id = (t.Topic_ID || "").trim();
             if (!id) return;
-            topicById[id] = t;
+      
+            const gradeText = (t.Grade_Text || "").trim();
+            const schedText = (t.Scheduling_R3 || "").trim();
+            const parts = [];
+            if (gradeText) parts.push(gradeText);
+            if (schedText) parts.push(schedText);
+            const metaLine = parts.join(" | ");
+      
+            topicById[id] = {
+              ...t,
+              metaLine
+            };
           });
-
+      
           // Group courses by Subject, attach topics via Topic_ID_App
           const grouped = {};
-
+      
           coursesRaw.forEach(c => {
-            const subject = (c.Subject || "Other").trim();
+            const subject  = (c.Subject || "Other").trim();
             const courseId = (c.Course_ID || "").trim();
-            const title = (c.Course || "").trim();
+            const title    = (c.Course || "").trim();
             if (!title) return;
-
+      
+            const gradeText = (c.Grade_Text || "").trim();
+            const schedText = (c.Scheduling_R3 || "").trim();
+            const parts = [];
+            if (gradeText) parts.push(gradeText);
+            if (schedText) parts.push(schedText);
+            const metaLine = parts.join(" | ");
+      
             // Collect topics for this course using Topic_ID_App
             let topicsForCourse = [];
             const topicIdList = (c.Topic_ID_App || "").trim();
@@ -847,71 +885,76 @@
                 .split(",")
                 .map(s => s.trim())
                 .filter(Boolean);
-
+      
               topicsForCourse = ids
                 .map(id => topicById[id])
                 .filter(Boolean);
             }
-
+      
             const courseObj = {
               id: c.recordID || courseId || title,
               title,
               subject,
               courseId,
+              gradeText,
+              schedText,
+              metaLine,
               topics: topicsForCourse,
             };
-
+      
             if (!grouped[subject]) grouped[subject] = [];
             grouped[subject].push(courseObj);
           });
-
-          // Sort subjects alphabetically, courses by Course_ID, topics by Topic_ID
+      
+          // --- SPECIAL SUBJECT ORDERING ---
+          const ALT_LABEL = "Alt. Science Options";
+      
+          // Start with normal alphabetical order
+          let subjects = Object.keys(grouped).sort((a, b) => a.localeCompare(b));
+      
+          // If we have both Science and Alt. Science Options, move Alt. right after Science
+          const sciIdx = subjects.indexOf("Science");
+          const altIdx = subjects.indexOf(ALT_LABEL);
+      
+          if (sciIdx !== -1 && altIdx !== -1) {
+            // Remove Alt. Science from wherever it is…
+            subjects.splice(altIdx, 1);
+            // …and insert it immediately after Science
+            subjects.splice(sciIdx + 1, 0, ALT_LABEL);
+          }
+      
           const sorted = {};
-          Object.keys(grouped)
-            .sort((a, b) => {
-            // Normalize for matching
-            const A = a.toLowerCase();
-            const B = b.toLowerCase();
-        
-            // The science pair
-            const sci        = "science";
-            const altSci     = "alt. science options";
-        
-            // Force "Alt. Science Options" to come *after* "Science"
-            if (A === altSci && B === sci) return 1;
-            if (B === altSci && A === sci) return -1;
-        
-            // Otherwise normal alphabetical
-            return a.localeCompare(b);
-          })
-          .forEach(subject => {
+          subjects.forEach(subject => {
             const courses = grouped[subject];
-
-              courses.sort((a, b) => {
-                const aId = a.courseId || "";
-                const bId = b.courseId || "";
+      
+            // Sort courses by Course_ID then title
+            courses.sort((a, b) => {
+              const aId = a.courseId || "";
+              const bId = b.courseId || "";
+              if (aId < bId) return -1;
+              if (aId > bId) return 1;
+              return a.title.localeCompare(b.title);
+            });
+      
+            // Sort topics within each course by Topic_ID then Topic
+            courses.forEach(course => {
+              course.topics.sort((ta, tb) => {
+                const aId = (ta.Topic_ID || "").trim();
+                const bId = (tb.Topic_ID || "").trim();
                 if (aId < bId) return -1;
                 if (aId > bId) return 1;
-                return a.title.localeCompare(b.title);
+                return (ta.Topic || "").localeCompare(tb.Topic || "");
               });
-
-              courses.forEach(course => {
-                course.topics.sort((ta, tb) => {
-                  const aId = (ta.Topic_ID || "").trim();
-                  const bId = (tb.Topic_ID || "").trim();
-                  if (aId < bId) return -1;
-                  if (aId > bId) return 1;
-                  return (ta.Topic || "").localeCompare(tb.Topic || "");
-                });
-              });
-
-              sorted[subject] = courses;
             });
-
+      
+            sorted[subject] = courses;
+          });
+      
           this.coursesBySubject = sorted;
         } catch (err) {
           console.error("Error loading course data", err);
-          this.loadError = "We couldn’t load the course data. Please try refreshing the page.";
+          this.loadError =
+            "We couldn’t load the course data. Please try refreshing the page.";
         } finally {
           this.isLoadingCourses = false;
         }
