@@ -117,6 +117,183 @@
       font-weight: 500;
     }
 
+    /* Filter panel (Course list) */
+    .filter-panel {
+      max-width: 1601px;
+      width: 100%;
+      padding: 24px;
+      border-radius: 4px;
+      border: 1px solid rgba(38, 43, 38, 0.2); /* #262B26 at 20% */
+      background-color: transparent;
+    }
+
+    .filter-panel-title {
+      font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brand-muted);
+      margin: 0 0 16px;
+    }
+
+    .filter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 1024px) {
+      .filter-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .filter-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .filter-label {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 4px;
+      color: var(--brand-muted);
+      font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-weight: 400;
+    }
+
+    .filter-control {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid rgba(38, 43, 38, 0.22);
+      padding: 8px 12px;
+      font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-weight: 500; /* DM Sans medium look */
+      font-size: 14px;
+      background-color: #ffffff;
+    }
+
+    .filter-placeholder {
+      color: var(--brand-muted);
+      font-weight: 500;
+    }
+
+    .filter-chevron {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--brand-muted);
+    }
+
+    .filter-control input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font: inherit;
+      background: transparent;
+      color: var(--brand-text);
+    }
+
+    .filter-control input::placeholder {
+      color: var(--brand-muted);
+      font-weight: 500; /* DM Sans medium */
+    }
+
+    .filter-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .filter-actions {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      border: 1px solid rgba(38, 43, 38, 0.12);
+      background-color: #ffffff;
+      color: var(--brand-text);
+    }
+
+    .btn-pill-icon {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-secondary {
+      border-color: transparent;
+      background-color: var(--brand-text);
+      color: #ffffff;
+    }
+
+    .toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: var(--brand-muted);
+      white-space: nowrap;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 34px;
+      height: 18px;
+      border-radius: 999px;
+      background-color: rgba(38, 43, 38, 0.16);
+      padding: 2px;
+      transition: background-color 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch-knob {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+      transition: transform 0.15s ease;
+    }
+
+    .toggle--on .toggle-switch {
+      background-color: var(--brand-accent);
+    }
+
+    .toggle--on .toggle-switch-knob {
+      transform: translateX(14px);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 10px;
+      width: 20px;
+      height: 20px; /* matches your 20×20 reference */
+      pointer-events: none;
+    }
+
     /* Hide Alpine sections until ready */
     [x-cloak] {
       display: none !important;
@@ -241,197 +418,119 @@
       </div>
     </section>
 
-    <!-- STEP 3: Course list / Course planner -->
+    <!-- STEP 3: Course list -->
     <section x-show="step === 3" x-cloak>
-      <h2 class="section-title">Course planner</h2>
+      <h2 class="section-title">Course list</h2>
       <p class="section-subtitle">
         This is an intuitive course planner that helps organize your school year.
-        Browse courses by category, view descriptions and recommendations, and
-        easily tag, note, or save your selections for a personalized learning plan.
+        Browse courses by subject, view descriptions and placement tips, and easily tag, note,
+        or save your selections for a personalized learning plan.
       </p>
-    
-      <!-- FILTER BAR (matches “Filter by” mock) -->
-      <section
-        class="mt-8 rounded-2xl border border-[#e2e5d8] bg-[#f5efe1] px-6 py-5"
-      >
-        <div class="flex flex-col gap-4">
-          <!-- Top row: “Filter by” + controls -->
-          <div
-            class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between"
-          >
-            <p
-              class="text-xs uppercase tracking-[0.08em] text-[var(--brand-muted)] mb-1 lg:mb-0"
-            >
-              Filter by
-            </p>
-    
-            <div
-              class="flex flex-1 flex-wrap items-center gap-3 lg:justify-end"
-            >
-              <!-- Grade dropdown -->
-              <div>
-                <label class="sr-only">Grade</label>
-                <div class="relative">
-                  <select
-                    class="h-10 min-w-[140px] rounded-full border border-[#d0d5c5] bg-white px-4 pr-10 text-sm text-[var(--brand-text)] focus:outline-none focus:ring-1 focus:ring-[var(--brand-accent)]"
-                  >
-                    <option>Grade</option>
-                  </select>
-                  <span
-                    class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-[var(--brand-muted)]"
-                    aria-hidden="true"
-                  >
-                    ▾
-                  </span>
-                </div>
-              </div>
-    
-              <!-- Subject “chips” placeholder -->
-              <div class="flex flex-wrap items-center gap-2">
-                <button
-                  type="button"
-                  class="h-10 inline-flex items-center rounded-full border border-[#d0d5c5] bg-white px-3 text-xs text-[var(--brand-muted)]"
-                >
-                  Subject ▾
-                </button>
-    
-                <!-- Example selected subjects to mimic mock -->
-                <span
-                  class="inline-flex items-center rounded-full bg-[#e8e1cf] px-3 h-8 text-xs text-[var(--brand-text)]"
-                >
-                  Architecture
+
+      <!-- Filter bar -->
+      <div class="mt-8 flex justify-center">
+        <div class="filter-panel">
+          <p class="filter-panel-title">Filter by</p>
+
+          <div class="filter-grid">
+            <!-- Grade -->
+            <div>
+              <label class="filter-label" for="filter-grade">Grade</label>
+              <button type="button" id="filter-grade" class="filter-control">
+                <span class="filter-placeholder">All grades</span>
+                <span class="filter-chevron" aria-hidden="true">▾</span>
+              </button>
+            </div>
+
+            <!-- Subject -->
+            <div>
+              <label class="filter-label" for="filter-subject">Subject</label>
+              <button type="button" id="filter-subject" class="filter-control">
+                <span class="filter-placeholder">All subjects</span>
+                <span class="filter-chevron" aria-hidden="true">▾</span>
+              </button>
+            </div>
+
+            <!-- Tags -->
+            <div>
+              <label class="filter-label" for="filter-tags">Tag</label>
+              <button type="button" id="filter-tags" class="filter-control">
+                <span class="filter-placeholder">All tags</span>
+                <span class="filter-chevron" aria-hidden="true">▾</span>
+              </button>
+            </div>
+
+            <!-- Search -->
+            <div>
+              <label class="filter-label" for="filter-search">Search</label>
+              <div class="filter-control">
+                <input
+                  id="filter-search"
+                  type="search"
+                  placeholder="Search courses or topics…"
+                  autocomplete="off"
+                />
+                <span class="search-icon" aria-hidden="true">
+                  <!-- 20×20 search icon -->
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11" cy="11" r="6.5" stroke="#262B26" stroke-width="1.8" fill="none" />
+                    <line x1="15" y1="15" x2="20" y2="20" stroke="#262B26" stroke-width="1.8" stroke-linecap="round" />
+                  </svg>
                 </span>
-                <span
-                  class="inline-flex items-center rounded-full bg-[#e8e1cf] px-3 h-8 text-xs text-[var(--brand-text)]"
-                >
-                  Art
-                </span>
-              </div>
-    
-              <!-- Tags dropdown -->
-              <div>
-                <label class="sr-only">Tags</label>
-                <div class="relative">
-                  <select
-                    class="h-10 min-w-[140px] rounded-full border border-[#d0d5c5] bg-white px-4 pr-10 text-sm text-[var(--brand-text)] focus:outline-none focus:ring-1 focus:ring-[var(--brand-accent)]"
-                  >
-                    <option>Tags</option>
-                  </select>
-                  <span
-                    class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-[var(--brand-muted)]"
-                    aria-hidden="true"
-                  >
-                    ▾
-                  </span>
-                </div>
-              </div>
-    
-              <!-- Search -->
-              <div class="flex-1 min-w-[180px] max-w-xs">
-                <label class="sr-only">Search</label>
-                <div class="relative">
-                  <input
-                    type="search"
-                    class="w-full h-10 rounded-full border border-[#d0d5c5] bg-white pl-9 pr-3 text-sm text-[var(--brand-text)] placeholder-[var(--brand-muted)] focus:outline-none focus:ring-1 focus:ring-[var(--brand-accent)]"
-                    placeholder="Search"
-                  />
-                  <span
-                    class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-xs text-[var(--brand-muted)]"
-                    aria-hidden="true"
-                  >
-                    🔍
-                  </span>
-                </div>
               </div>
             </div>
           </div>
-    
-          <!-- Bottom row: buttons + toggle -->
-          <div
-            class="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between"
-          >
-            <div class="flex items-center gap-2">
-              <button
-                type="button"
-                class="inline-flex items-center gap-2 rounded-full border border-[#d0d5c5] bg-transparent px-3 py-1.5 text-xs text-[var(--brand-text)]"
-              >
-                <span>✕</span>
-                <span>Clear selected</span>
+
+          <div class="filter-actions">
+            <!-- Left: clear + print buttons -->
+            <div class="flex gap-2">
+              <button type="button" class="btn-pill">
+                Clear selected
               </button>
-    
-              <button
-                type="button"
-                class="inline-flex items-center gap-2 rounded-full border border-[#d0d5c5] bg-white px-3 py-1.5 text-xs text-[var(--brand-text)]"
-              >
-                🖨
+              <button type="button" class="btn-pill btn-secondary">
+                <span class="btn-pill-icon" aria-hidden="true">
+                  <!-- 24×24 print icon -->
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="9" width="14" height="9" rx="1.5" ry="1.5" fill="none" stroke="#262B26" stroke-width="1.8" />
+                    <path d="M8 9V5h8v4" fill="none" stroke="#262B26" stroke-width="1.8" />
+                    <rect x="9" y="13" width="6" height="4" fill="none" stroke="#262B26" stroke-width="1.5" />
+                    <circle cx="17" cy="12" r="0.9" fill="#262B26" />
+                  </svg>
+                </span>
                 <span>Print options</span>
               </button>
             </div>
-    
-            <!-- Toggle: Show my courses only -->
-            <label
-              class="inline-flex items-center gap-2 text-xs text-[var(--brand-muted)]"
-            >
-              <span
-                class="relative inline-flex h-5 w-9 items-center rounded-full bg-[#d0d5c5]"
-              >
-                <!-- knob (static for now) -->
-                <span
-                  class="inline-block h-4 w-4 rounded-full bg-white shadow translate-x-1"
-                ></span>
-              </span>
-              <span>Show my courses only</span>
-            </label>
-          </div>
-        </div>
-      </section>
-    
-      <!-- COURSE LIST AREA (just a styled placeholder for now) -->
-      <section class="mt-10 space-y-6">
-        <!-- Subject heading -->
-        <h3 class="font-circular text-lg text-[var(--brand-text)]">
-          Architecture
-        </h3>
-    
-        <!-- Example course card to match mock’s look/feel -->
-        <article
-          class="rounded-2xl border border-[#e2e5d8] bg-white px-6 py-4 text-sm text-gray-800"
-        >
-          <header
-            class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between"
-          >
-            <div>
-              <h4 class="font-circular text-[15px] text-[var(--brand-text)]">
-                Architecture: Grades 7–8
-              </h4>
-              <p class="mt-1 text-[11px] text-[var(--brand-muted)]">
-                Grades 7–8 &nbsp;|&nbsp; 1 time / week &nbsp;|&nbsp; 30 min
-              </p>
-            </div>
-    
-            <!-- Right side: placeholder for icons / plan button -->
-            <div class="flex items-center gap-2 self-start">
-              <button
-                type="button"
-                class="inline-flex items-center rounded-full border border-[#d0d5c5] bg-white px-3 py-1 text-[11px] text-[var(--brand-text)]"
-              >
-                Plan
-              </button>
-              <div
-                class="h-8 w-8 rounded-full bg-[#e8e1cf] flex items-center justify-center text-[10px] text-[var(--brand-text)]"
-              >
-                ☆
+
+            <!-- Right: toggles -->
+            <div class="flex gap-4 justify-start md:justify-end flex-wrap">
+              <div class="toggle">
+                <div class="toggle-switch">
+                  <div class="toggle-switch-knob"></div>
+                </div>
+                <span>Show descriptions &amp; tips</span>
+              </div>
+
+              <div class="toggle">
+                <div class="toggle-switch">
+                  <div class="toggle-switch-knob"></div>
+                </div>
+                <span>Show my courses only</span>
               </div>
             </div>
-          </header>
-    
-          <p class="mt-3 text-xs text-gray-700">
-            Course descriptions, placement recommendations, and planning notes from
-            your dataset will live here. We’ll wire this card to real CSV / Airtable
-            data once the layout is finalized.
-          </p>
-        </article>
-      </section>
+          </div>
+        </div>
+      </div>
+
+      <!-- Temporary placeholder for the course cards until we wire data back in -->
+      <div class="mt-8 rounded-2xl bg-white shadow-sm border border-dashed border-gray-300 p-6">
+        <p class="text-sm text-gray-700 mb-3">
+          Course list UI coming soon.
+        </p>
+        <p class="text-xs text-gray-500">
+          We’ll migrate the existing filters, course groupings, and plan buttons
+          from the legacy planner into this section step by step.
+        </p>
+      </div>
     </section>
 
     <!-- STEP 4: Book list -->
