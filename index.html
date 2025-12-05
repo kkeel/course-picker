@@ -45,6 +45,7 @@
       --brand-dark: #596e5e;
       --brand-text: #262b26;
       --brand-muted: #1C1B1F99;
+      --brand-accent: #596e5e;
     }
 
     body {
@@ -53,7 +54,10 @@
       color: var(--brand-text);
       font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
       font-weight: 400;
-      .app-header {border-bottom: 1px solid #dde2d5;}
+    }
+    
+    .app-header {
+      border-bottom: 1px solid #dde2d5;
     }
 
     .logo-title {
@@ -237,135 +241,197 @@
       </div>
     </section>
 
-    <!-- STEP 3: Course list -->
+    <!-- STEP 3: Course list / Course planner -->
     <section x-show="step === 3" x-cloak>
-      <h2 class="section-title">Course list</h2>
+      <h2 class="section-title">Course planner</h2>
       <p class="section-subtitle">
-        This is an intuitive course list planner that helps organize your school year. 
-        Browse courses by subject, view descriptions and placement tips, and easily tag, note, 
-        or save your selections for a personalized learning plan.
+        This is an intuitive course planner that helps organize your school year.
+        Browse courses by category, view descriptions and recommendations, and
+        easily tag, note, or save your selections for a personalized learning plan.
       </p>
     
-      <!-- Layout: filters on the left, course list on the right -->
-      <div class="mt-8 grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
-        <!-- LEFT: Filter column (structure only for now) -->
-        <aside class="space-y-4">
-          <!-- Filter card -->
-          <div class="rounded-2xl bg-white shadow-sm border border-gray-200 p-4">
-            <p class="text-[0.7rem] uppercase tracking-[0.08em] mb-3 text-[var(--brand-muted)]">
-              Filters
+      <!-- FILTER BAR (matches “Filter by” mock) -->
+      <section
+        class="mt-8 rounded-2xl border border-[#e2e5d8] bg-[#f5efe1] px-6 py-5"
+      >
+        <div class="flex flex-col gap-4">
+          <!-- Top row: “Filter by” + controls -->
+          <div
+            class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between"
+          >
+            <p
+              class="text-xs uppercase tracking-[0.08em] text-[var(--brand-muted)] mb-1 lg:mb-0"
+            >
+              Filter by
             </p>
     
-            <div class="space-y-4">
+            <div
+              class="flex flex-1 flex-wrap items-center gap-3 lg:justify-end"
+            >
+              <!-- Grade dropdown -->
+              <div>
+                <label class="sr-only">Grade</label>
+                <div class="relative">
+                  <select
+                    class="h-10 min-w-[140px] rounded-full border border-[#d0d5c5] bg-white px-4 pr-10 text-sm text-[var(--brand-text)] focus:outline-none focus:ring-1 focus:ring-[var(--brand-accent)]"
+                  >
+                    <option>Grade</option>
+                  </select>
+                  <span
+                    class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-[var(--brand-muted)]"
+                    aria-hidden="true"
+                  >
+                    ▾
+                  </span>
+                </div>
+              </div>
+    
+              <!-- Subject “chips” placeholder -->
+              <div class="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  class="h-10 inline-flex items-center rounded-full border border-[#d0d5c5] bg-white px-3 text-xs text-[var(--brand-muted)]"
+                >
+                  Subject ▾
+                </button>
+    
+                <!-- Example selected subjects to mimic mock -->
+                <span
+                  class="inline-flex items-center rounded-full bg-[#e8e1cf] px-3 h-8 text-xs text-[var(--brand-text)]"
+                >
+                  Architecture
+                </span>
+                <span
+                  class="inline-flex items-center rounded-full bg-[#e8e1cf] px-3 h-8 text-xs text-[var(--brand-text)]"
+                >
+                  Art
+                </span>
+              </div>
+    
+              <!-- Tags dropdown -->
+              <div>
+                <label class="sr-only">Tags</label>
+                <div class="relative">
+                  <select
+                    class="h-10 min-w-[140px] rounded-full border border-[#d0d5c5] bg-white px-4 pr-10 text-sm text-[var(--brand-text)] focus:outline-none focus:ring-1 focus:ring-[var(--brand-accent)]"
+                  >
+                    <option>Tags</option>
+                  </select>
+                  <span
+                    class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-[var(--brand-muted)]"
+                    aria-hidden="true"
+                  >
+                    ▾
+                  </span>
+                </div>
+              </div>
+    
               <!-- Search -->
-              <div>
-                <label class="block text-xs mb-1 text-[var(--brand-muted)]">
-                  Search
-                </label>
-                <input
-                  type="search"
-                  class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[var(--brand-accent)] focus:border-[var(--brand-accent)] bg-white"
-                  placeholder="Search courses or topics…"
-                />
-              </div>
-    
-              <!-- Grade (future: multi-select) -->
-              <div>
-                <label class="block text-xs mb-1 text-[var(--brand-muted)]">
-                  Grade
-                </label>
-                <button
-                  type="button"
-                  class="w-full flex items-center justify-between rounded-lg border border-gray-300 px-3 py-2 text-sm bg-white"
-                >
-                  <span class="opacity-70">All grades</span>
-                  <span aria-hidden="true">▾</span>
-                </button>
-              </div>
-    
-              <!-- Subject (future: multi-select) -->
-              <div>
-                <label class="block text-xs mb-1 text-[var(--brand-muted)]">
-                  Subject
-                </label>
-                <button
-                  type="button"
-                  class="w-full flex items-center justify-between rounded-lg border border-gray-300 px-3 py-2 text-sm bg-white"
-                >
-                  <span class="opacity-70">All subjects</span>
-                  <span aria-hidden="true">▾</span>
-                </button>
-              </div>
-    
-              <!-- Plan tags (future: multi-select) -->
-              <div>
-                <label class="block text-xs mb-1 text-[var(--brand-muted)]">
-                  Planning tags
-                </label>
-                <button
-                  type="button"
-                  class="w-full flex items-center justify-between rounded-lg border border-gray-300 px-3 py-2 text-sm bg-white"
-                >
-                  <span class="opacity-70">All tags</span>
-                  <span aria-hidden="true">▾</span>
-                </button>
+              <div class="flex-1 min-w-[180px] max-w-xs">
+                <label class="sr-only">Search</label>
+                <div class="relative">
+                  <input
+                    type="search"
+                    class="w-full h-10 rounded-full border border-[#d0d5c5] bg-white pl-9 pr-3 text-sm text-[var(--brand-text)] placeholder-[var(--brand-muted)] focus:outline-none focus:ring-1 focus:ring-[var(--brand-accent)]"
+                    placeholder="Search"
+                  />
+                  <span
+                    class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-xs text-[var(--brand-muted)]"
+                    aria-hidden="true"
+                  >
+                    🔍
+                  </span>
+                </div>
               </div>
             </div>
           </div>
     
-          <!-- Legend card placeholder (for Core / Family / Combine, etc.) -->
-          <div class="rounded-2xl bg-white shadow-sm border border-gray-200 p-4">
-            <p class="text-[0.7rem] uppercase tracking-[0.08em] mb-2 text-[var(--brand-muted)]">
-              Legend
-            </p>
-            <p class="text-xs text-gray-700">
-              This is a placeholder for your Core / Family / Combine / High interest icons and
-              short explanations.
-            </p>
-          </div>
-        </aside>
-    
-        <!-- RIGHT: Course list column (structure only for now) -->
-        <div class="space-y-4">
-          <!-- Summary / actions strip -->
-          <div class="rounded-2xl bg-white shadow-sm border border-gray-200 px-4 py-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p class="text-[0.7rem] uppercase tracking-[0.08em] text-[var(--brand-muted)] mb-1">
-                Course overview
-              </p>
-              <p class="text-sm text-gray-700">
-                Course groups and topics will appear here as we reconnect your data.
-              </p>
-            </div>
-            <div class="flex gap-2 justify-end">
+          <!-- Bottom row: buttons + toggle -->
+          <div
+            class="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <div class="flex items-center gap-2">
               <button
                 type="button"
-                class="inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 text-xs font-medium text-[var(--brand-dark)] bg-white"
+                class="inline-flex items-center gap-2 rounded-full border border-[#d0d5c5] bg-transparent px-3 py-1.5 text-xs text-[var(--brand-text)]"
               >
-                Clear filters
+                <span>✕</span>
+                <span>Clear selected</span>
               </button>
+    
               <button
                 type="button"
-                class="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold text-white"
-                style="background-color: var(--brand-accent);"
+                class="inline-flex items-center gap-2 rounded-full border border-[#d0d5c5] bg-white px-3 py-1.5 text-xs text-[var(--brand-text)]"
               >
-                Print (coming soon)
+                🖨
+                <span>Print options</span>
               </button>
             </div>
-          </div>
     
-          <!-- Main course list shell -->
-          <div class="rounded-2xl bg-white shadow-sm border border-dashed border-gray-300 p-8 text-center">
-            <p class="text-sm text-gray-700 mb-2">
-              Course list layout is ready. Next, we’ll plug in your live data and filters.
-            </p>
-            <p class="text-xs text-gray-500">
-              We’ll reuse the existing grouping, course/ topic cards, and planning controls from
-              the legacy planner, but mapped to this cleaner structure.
-            </p>
+            <!-- Toggle: Show my courses only -->
+            <label
+              class="inline-flex items-center gap-2 text-xs text-[var(--brand-muted)]"
+            >
+              <span
+                class="relative inline-flex h-5 w-9 items-center rounded-full bg-[#d0d5c5]"
+              >
+                <!-- knob (static for now) -->
+                <span
+                  class="inline-block h-4 w-4 rounded-full bg-white shadow translate-x-1"
+                ></span>
+              </span>
+              <span>Show my courses only</span>
+            </label>
           </div>
         </div>
-      </div>
+      </section>
+    
+      <!-- COURSE LIST AREA (just a styled placeholder for now) -->
+      <section class="mt-10 space-y-6">
+        <!-- Subject heading -->
+        <h3 class="font-circular text-lg text-[var(--brand-text)]">
+          Architecture
+        </h3>
+    
+        <!-- Example course card to match mock’s look/feel -->
+        <article
+          class="rounded-2xl border border-[#e2e5d8] bg-white px-6 py-4 text-sm text-gray-800"
+        >
+          <header
+            class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between"
+          >
+            <div>
+              <h4 class="font-circular text-[15px] text-[var(--brand-text)]">
+                Architecture: Grades 7–8
+              </h4>
+              <p class="mt-1 text-[11px] text-[var(--brand-muted)]">
+                Grades 7–8 &nbsp;|&nbsp; 1 time / week &nbsp;|&nbsp; 30 min
+              </p>
+            </div>
+    
+            <!-- Right side: placeholder for icons / plan button -->
+            <div class="flex items-center gap-2 self-start">
+              <button
+                type="button"
+                class="inline-flex items-center rounded-full border border-[#d0d5c5] bg-white px-3 py-1 text-[11px] text-[var(--brand-text)]"
+              >
+                Plan
+              </button>
+              <div
+                class="h-8 w-8 rounded-full bg-[#e8e1cf] flex items-center justify-center text-[10px] text-[var(--brand-text)]"
+              >
+                ☆
+              </div>
+            </div>
+          </header>
+    
+          <p class="mt-3 text-xs text-gray-700">
+            Course descriptions, placement recommendations, and planning notes from
+            your dataset will live here. We’ll wire this card to real CSV / Airtable
+            data once the layout is finalized.
+          </p>
+        </article>
+      </section>
     </section>
 
     <!-- STEP 4: Book list -->
