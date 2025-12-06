@@ -554,6 +554,29 @@ body {
   line-height: 1;
 }
 
+   /* Ghost version of planning tags (global memory) */
+   .planning-tag-img-ghost {
+     opacity: 0.45;
+   }
+
+   /* Tiny "+" button to apply a previous tag here */
+   .planning-tag-apply {
+     position: absolute;
+     bottom: -4px;
+     right: -4px;
+     border: none;
+     background-color: #ffffff;
+     border-radius: 999px;
+     width: 14px;
+     height: 14px;
+     font-size: 11px;
+     line-height: 1;
+     padding: 0;
+     cursor: pointer;
+     color: var(--brand-muted);
+     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
+   }
+
 /* Dropdown-like menu for planning tag selections */
 .planning-tag-menu {
   margin-top: 4px;
