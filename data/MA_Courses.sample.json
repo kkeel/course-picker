@@ -1,0 +1,58 @@
+{
+  "Art": [
+    {
+      "id": "ART101",
+      "title": "Picture Study",
+      "subject": "Art",
+      "courseId": "ART101",
+      "gradeText": "Grade 1–3",
+      "schedText": "1x per week",
+      "description": "Short description of the course…",
+      "tips": "Combining & placement tips…",
+      "gradeTags": ["G1", "G2", "G3"],
+      "metaLine": "Grade 1–3 | 1x per week",
+      "detailsOpen": true,
+      "planningTags": [],
+      "planningTagMenuOpen": false,
+      "topics": [
+        {
+          "Topic_ID": "T001",
+          "Topic": "Term 1 – Monet",
+          "Grade_Text": "Grade 1–3",
+          "Scheduling_R3": "1x per week",
+          "Program_Description_R3": "Description of the topic…",
+          "Combining&PlacementTips_R3": "Tips for this topic…",
+          "Grade_Filter": "G1,G2,G3",
+
+          "gradeText": "Grade 1–3",
+          "schedText": "1x per week",
+          "description": "Description of the topic…",
+          "tips": "Tips for this topic…",
+          "gradeTags": ["G1", "G2", "G3"],
+          "detailsOpen": true,
+          "planningTags": [],
+          "planningTagMenuOpen": false
+        }
+      ]
+    }
+  ],
+
+  "Bible": [
+    {
+      "id": "BIB101",
+      "title": "Old Testament Survey",
+      "subject": "Bible",
+      "courseId": "BIB101",
+      "gradeText": "Grade 4–6",
+      "schedText": "4x per week",
+      "description": "Description here…",
+      "tips": "",
+      "gradeTags": ["G4", "G5", "G6"],
+      "metaLine": "Grade 4–6 | 4x per week",
+      "detailsOpen": true,
+      "planningTags": [],
+      "planningTagMenuOpen": false,
+      "topics": []
+    }
+  ]
+}
