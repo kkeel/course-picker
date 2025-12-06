@@ -231,15 +231,43 @@
             </div>
 
             <!-- Tags -->
-            <div>
+            <div class="relative" @click.outside="tagDropdownOpen = false">
               <button
                 type="button"
                 id="filter-tags"
                 class="filter-control"
-                aria-label="Filter by tag"
+                aria-label="Filter by planning tag"
+                @click="tagDropdownOpen = !tagDropdownOpen"
               >
-                <span class="filter-placeholder">Tag</span>
-                <span class="filter-chevron" aria-hidden="true">
+                <!-- placeholder when nothing selected -->
+                <template x-if="selectedTags.length === 0">
+                  <span class="filter-placeholder">Planning tag</span>
+                </template>
+            
+                <!-- chips when tags are selected -->
+                <template x-if="selectedTags.length > 0">
+                  <div class="filter-control-chips">
+                    <template x-for="tagId in selectedTags" :key="tagId">
+                      <span class="filter-chip">
+                        <span x-text="planningTagLabel(tagId)"></span>
+                        <button
+                          type="button"
+                          class="filter-chip-remove"
+                          @click.stop="removeSelectedTag(tagId)"
+                          aria-label="Remove tag"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    </template>
+                  </div>
+                </template>
+            
+                <span
+                  class="filter-chevron"
+                  :class="tagDropdownOpen ? 'filter-chevron-open' : ''"
+                  aria-hidden="true"
+                >
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M6 9l6 6 6-6"
@@ -252,6 +280,29 @@
                   </svg>
                 </span>
               </button>
+            
+              <!-- dropdown menu -->
+              <div
+                class="filter-dropdown"
+                x-show="tagDropdownOpen"
+                x-transition
+              >
+                <template x-for="opt in planningTagOptions" :key="opt.id">
+                  <button
+                    type="button"
+                    class="filter-dropdown-item"
+                    @click="toggleSelectedTag(opt.id)"
+                  >
+                    <span x-text="opt.label"></span>
+                    <span
+                      class="filter-dropdown-check"
+                      x-show="selectedTags.includes(opt.id)"
+                    >
+                      ✓
+                    </span>
+                  </button>
+                </template>
+              </div>
             </div>
 
             <!-- Search -->
