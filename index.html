@@ -1312,178 +1312,178 @@
                       <!-- Nested topics -->
                       <div class="topic-list" x-show="course.topics.length">
                         <template x-for="topic in course.topics" :key="topic.recordID">
-                          <article class="topic-card">
-                            <!-- Title row with chevron -->
-                            <div class="card-header">
-                              <h5 class="topic-title" x-text="topic.Topic"></h5>
-                      
-                              <!-- Chevron only if description or tips exist -->
-                              <template x-if="topic.description || topic.tips">
-                                <button
-                                  type="button"
-                                  class="card-toggle"
-                                  :class="topic.detailsOpen ? '' : 'card-toggle--closed'"
-                                  @click="topic.detailsOpen = !topic.detailsOpen"
-                                  aria-label="Toggle topic details"
-                                >
-                                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                      d="M6 9l6 6 6-6"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      stroke-width="1.8"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                    />
-                                  </svg>
-                                </button>
-                              </template>
-                            </div>
-                      
-                            <!-- schedule + grade + planning tag row -->
-                            <p
-                              class="course-meta topic-meta"
-                              x-show="topic.gradeText || topic.schedText"
-                            >
-                              <!-- left: schedule -->
-                              <template x-if="topic.schedText">
-                                <span
-                                  class="meta-schedule"
-                                  :class="topic.gradeText ? 'meta-schedule--with-grade' : 'meta-schedule--solo'"
-                                  x-text="topic.schedText"
-                                ></span>
-                              </template>
-                      
-                              <!-- middle: grade -->
-                              <template x-if="topic.gradeText">
-                                <span
-                                  :class="topic.schedText ? 'meta-grade meta-grade--with-sched' : 'meta-grade meta-grade--solo'"
-                                  x-text="topic.gradeText"
-                                ></span>
-                              </template>
-                      
-                              <!-- spacer -->
-                              <span class="meta-flex-spacer"></span>
-                      
-                              <!-- right: planning tag UI (topics always can have tags) -->
-                              <span
-                                class="planning-tag-wrapper"
-                                @click.outside="topic.planningTagMenuOpen = false"
+                              <article class="topic-card">
+                              <!-- Title row with chevron -->
+                              <div class="card-header">
+                                <h5 class="topic-title" x-text="topic.Topic"></h5>
+                        
+                                <!-- Chevron only if description or tips exist -->
+                                <template x-if="topic.description || topic.tips">
+                                  <button
+                                    type="button"
+                                    class="card-toggle"
+                                    :class="topic.detailsOpen ? '' : 'card-toggle--closed'"
+                                    @click="topic.detailsOpen = !topic.detailsOpen"
+                                    aria-label="Toggle topic details"
+                                  >
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                      <path
+                                        d="M6 9l6 6 6-6"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      />
+                                    </svg>
+                                  </button>
+                                </template>
+                              </div>
+                        
+                              <!-- schedule + grade + planning tag row -->
+                              <p
+                                class="course-meta topic-meta"
+                                x-show="topic.gradeText || topic.schedText"
                               >
-                                <span class="planning-tag-region">
-                                  <!-- No tags yet -->
-                                  <template x-if="!topic.planningTags || topic.planningTags.length === 0">
-                                    <button
-                                      type="button"
-                                      class="planning-tag-button"
-                                      aria-label="Add planning tag to topic"
-                                      @click.stop="topic.planningTagMenuOpen = !topic.planningTagMenuOpen"
-                                    >
-                                      <span class="planning-tag-label">+ Planning tag</span>
-                                    </button>
-                                  </template>
-                      
-                                  <!-- Tags selected -->
-                                  <template x-if="topic.planningTags && topic.planningTags.length > 0">
-                                    <div class="planning-tag-selected-row">
-                                      <template x-for="tag in topic.planningTags" :key="tag.id">
-                                        <div class="planning-tag-pill">
-                                          <img
-                                            class="planning-tag-img"
-                                            :src="tag.img"
-                                            :alt="tag.label"
-                                          />
-                                          <button
-                                            type="button"
-                                            class="planning-tag-remove"
-                                            @click.stop="removePlanningTag(topic, tag.id)"
-                                            aria-label="Remove planning tag"
-                                          >
-                                            ×
-                                          </button>
-                                        </div>
-                                      </template>
-                      
+                                <!-- left: schedule -->
+                                <template x-if="topic.schedText">
+                                  <span
+                                    class="meta-schedule"
+                                    :class="topic.gradeText ? 'meta-schedule--with-grade' : 'meta-schedule--solo'"
+                                    x-text="topic.schedText"
+                                  ></span>
+                                </template>
+                        
+                                <!-- middle: grade -->
+                                <template x-if="topic.gradeText">
+                                  <span
+                                    :class="topic.schedText ? 'meta-grade meta-grade--with-sched' : 'meta-grade meta-grade--solo'"
+                                    x-text="topic.gradeText"
+                                  ></span>
+                                </template>
+                        
+                                <!-- spacer to push tags to far right -->
+                                <span class="meta-flex-spacer"></span>
+                        
+                                <!-- right: planning tag UI (topics always can have tags) -->
+                                <span
+                                  class="planning-tag-wrapper"
+                                  @click.outside="topic.planningTagMenuOpen = false"
+                                >
+                                  <span class="planning-tag-region">
+                                    <!-- No tags yet -->
+                                    <template x-if="!topic.planningTags || topic.planningTags.length === 0">
                                       <button
                                         type="button"
-                                        class="planning-tag-add"
-                                        aria-label="Add more planning tags"
+                                        class="planning-tag-button"
+                                        aria-label="Add planning tag to topic"
                                         @click.stop="topic.planningTagMenuOpen = !topic.planningTagMenuOpen"
                                       >
-                                        +
+                                        <span class="planning-tag-label">+ Planning tag</span>
                                       </button>
-                                    </div>
-                                  </template>
-                                </span>
-                      
-                                <!-- anchored dropdown for topic planning tags -->
-                                <div
-                                  class="planning-tag-menu"
-                                  x-show="topic.planningTagMenuOpen"
-                                  x-transition
-                                >
-                                  <template x-for="opt in planningTagOptions" :key="opt.id">
-                                    <button
-                                      type="button"
-                                      class="planning-tag-option"
-                                      @click="togglePlanningTag(topic, opt)"
-                                    >
-                                      <span class="planning-tag-option-main">
-                                        <img :src="opt.img" :alt="opt.label" />
-                                        <span x-text="opt.label"></span>
-                                      </span>
-                                      <span
-                                        class="filter-dropdown-check"
-                                        x-show="topic.planningTags && topic.planningTags.some(t => t.id === opt.id)"
+                                    </template>
+                        
+                                    <!-- Tags selected -->
+                                    <template x-if="topic.planningTags && topic.planningTags.length > 0">
+                                      <div class="planning-tag-selected-row">
+                                        <template x-for="tag in topic.planningTags" :key="tag.id">
+                                          <div class="planning-tag-pill">
+                                            <img
+                                              class="planning-tag-img"
+                                              :src="tag.img"
+                                              :alt="tag.label"
+                                            />
+                                            <button
+                                              type="button"
+                                              class="planning-tag-remove"
+                                              @click.stop="removePlanningTag(topic, tag.id)"
+                                              aria-label="Remove planning tag"
+                                            >
+                                              ×
+                                            </button>
+                                          </div>
+                                        </template>
+                        
+                                        <button
+                                          type="button"
+                                          class="planning-tag-add"
+                                          aria-label="Add more planning tags"
+                                          @click.stop="topic.planningTagMenuOpen = !topic.planningTagMenuOpen"
+                                        >
+                                          +
+                                        </button>
+                                      </div>
+                                    </template>
+                                  </span>
+                        
+                                  <!-- anchored dropdown for topic planning tags -->
+                                  <div
+                                    class="planning-tag-menu"
+                                    x-show="topic.planningTagMenuOpen"
+                                    x-transition
+                                  >
+                                    <template x-for="opt in planningTagOptions" :key="opt.id">
+                                      <button
+                                        type="button"
+                                        class="planning-tag-option"
+                                        @click="togglePlanningTag(topic, opt)"
                                       >
-                                        ✓
-                                      </span>
-                                    </button>
-                                  </template>
-                                </div>
-                              </span>
-                            </p>
-                      
-                            <!-- Description + combining tips -->
-                            <div
-                              class="course-detail-row"
-                              x-show="showAllDetails && topic.detailsOpen && (topic.description || topic.tips)"
-                              x-transition
-                            >
-                              <div
-                                class="course-detail-description"
-                                x-show="topic.description"
-                                x-text="topic.description"
-                              ></div>
-                      
-                              <div
-                                class="course-detail-tips"
-                                x-show="topic.tips"
-                              >
-                                <span class="course-detail-tips-icon" aria-hidden="true">
-                                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <circle
-                                      cx="9"
-                                      cy="12"
-                                      r="4"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      stroke-width="1.7"
-                                    />
-                                    <circle
-                                      cx="15"
-                                      cy="12"
-                                      r="4"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      stroke-width="1.7"
-                                    />
-                                  </svg>
+                                        <span class="planning-tag-option-main">
+                                          <img :src="opt.img" :alt="opt.label" />
+                                          <span x-text="opt.label"></span>
+                                        </span>
+                                        <span
+                                          class="filter-dropdown-check"
+                                          x-show="topic.planningTags && topic.planningTags.some(t => t.id === opt.id)"
+                                        >
+                                          ✓
+                                        </span>
+                                      </button>
+                                    </template>
+                                  </div>
                                 </span>
-                                <span x-text="topic.tips"></span>
+                              </p>
+                        
+                              <!-- Description + combining tips -->
+                              <div
+                                class="course-detail-row"
+                                x-show="showAllDetails && topic.detailsOpen && (topic.description || topic.tips)"
+                                x-transition
+                              >
+                                <div
+                                  class="course-detail-description"
+                                  x-show="topic.description"
+                                  x-text="topic.description"
+                                ></div>
+                        
+                                <div
+                                  class="course-detail-tips"
+                                  x-show="topic.tips"
+                                >
+                                  <span class="course-detail-tips-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                      <circle
+                                        cx="9"
+                                        cy="12"
+                                        r="4"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.7"
+                                      />
+                                      <circle
+                                        cx="15"
+                                        cy="12"
+                                        r="4"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.7"
+                                      />
+                                    </svg>
+                                  </span>
+                                  <span x-text="topic.tips"></span>
+                                </div>
                               </div>
-                            </div>
-                          </article>
+                            </article>
                         </template>
                       </div>
                       
