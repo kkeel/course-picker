@@ -595,7 +595,8 @@
     .planning-tag-wrapper {
       position: relative;
       display: inline-flex;
-      align-items: flex-start;
+      flex-direction: column;
+      align-items: flex-end;
     }
 
     .planning-tag-img {
@@ -610,9 +611,11 @@
       border-radius: 4px;
       border: 1px solid #dde2d5;
       background-color: #ffffff;
+      width: 260px;
       max-width: 260px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
       z-index: 10;
+      align-self: flex-end;
     }
 
     .planning-tag-menu,
