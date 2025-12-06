@@ -605,10 +605,7 @@
     }
 
     .planning-tag-menu {
-      position: absolute;
-      top: calc(100% + 4px);
-      right: 0;
-      margin-top: 0;
+      margin-top: 4px;
       padding: 6px 8px;
       border-radius: 4px;
       border: 1px solid #dde2d5;
@@ -616,6 +613,12 @@
       max-width: 260px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
       z-index: 10;
+    }
+
+    .planning-tag-menu,
+    .planning-tag-menu * {
+      font-size: 14px;
+      color: var(--brand-text);
     }
 
     .planning-tag-option {
