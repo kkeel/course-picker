@@ -1340,7 +1340,7 @@
                               </template>
                             </div>
                           
-                            <!-- schedule + grade + planning tag row -->
+                            <!-- schedule + grade + planning tag row (TOPIC LEVEL) -->
                             <p
                               class="course-meta topic-meta"
                               x-show="topic.gradeText || topic.schedText"
@@ -1353,7 +1353,7 @@
                                   x-text="topic.schedText"
                                 ></span>
                               </template>
-                          
+                            
                               <!-- middle: grade -->
                               <template x-if="topic.gradeText">
                                 <span
@@ -1361,10 +1361,10 @@
                                   x-text="topic.gradeText"
                                 ></span>
                               </template>
-                          
+                            
                               <!-- spacer to push tags to far right -->
                               <span class="meta-flex-spacer"></span>
-                          
+                            
                               <!-- right: planning tag UI (topics always can have tags) -->
                               <span
                                 class="planning-tag-wrapper"
@@ -1382,7 +1382,7 @@
                                       <span class="planning-tag-label">+ Planning tag</span>
                                     </button>
                                   </template>
-                          
+                            
                                   <!-- Tags selected -->
                                   <template x-if="topic.planningTags && topic.planningTags.length > 0">
                                     <div class="planning-tag-selected-row">
@@ -1403,7 +1403,7 @@
                                           </button>
                                         </div>
                                       </template>
-                          
+                            
                                       <button
                                         type="button"
                                         class="planning-tag-add"
@@ -1415,7 +1415,7 @@
                                     </div>
                                   </template>
                                 </span>
-                          
+                            
                                 <!-- anchored dropdown for topic planning tags -->
                                 <div
                                   class="planning-tag-menu"
