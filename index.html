@@ -1369,10 +1369,26 @@
                                 class="course-meta topic-meta"
                                 x-show="topic.gradeText || topic.schedText"
                               >
-                                ...
+                                <!-- left: schedule (if any) -->
+                                <template x-if="topic.schedText">
+                                  <span
+                                    class="meta-schedule"
+                                    :class="topic.gradeText ? 'meta-schedule--with-grade' : 'meta-schedule--solo'"
+                                    x-text="topic.schedText"
+                                  ></span>
+                                </template>
+                              
+                                <!-- middle: grade (if any) -->
+                                <template x-if="topic.gradeText">
+                                  <span
+                                    :class="topic.schedText ? 'meta-grade meta-grade--with-sched' : 'meta-grade meta-grade--solo'"
+                                    x-text="topic.gradeText"
+                                  ></span>
+                                </template>
+                              
                                 <!-- spacer -->
                                 <span class="meta-flex-spacer"></span>
-
+                              
                                 <!-- right: planning tag UI (topics always can have tags) -->
                                 <span
                                   class="planning-tag-wrapper"
@@ -1390,7 +1406,7 @@
                                         <span class="planning-tag-label">+ Planning tag</span>
                                       </button>
                                     </template>
-
+                              
                                     <!-- Tags selected -->
                                     <template x-if="topic.planningTags && topic.planningTags.length > 0">
                                       <div class="planning-tag-selected-row">
@@ -1411,7 +1427,7 @@
                                             </button>
                                           </div>
                                         </template>
-
+                              
                                         <button
                                           type="button"
                                           class="planning-tag-add"
@@ -1423,7 +1439,7 @@
                                       </div>
                                     </template>
                                   </span>
-
+                              
                                   <!-- Topic-level planning tag selection menu -->
                                   <div
                                     class="planning-tag-menu"
