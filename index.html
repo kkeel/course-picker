@@ -657,6 +657,34 @@
                                       </button>
                                     </div>
                                   </template>
+
+                                  <!-- Ghost tags from previous use of this topic elsewhere -->
+                                  <template x-if="missingGlobalTagsForTopic(topic).length > 0">
+                                    <div class="planning-tag-selected-row">
+                                      <template
+                                        x-for="tagId in missingGlobalTagsForTopic(topic)"
+                                        :key="'ghost-' + tagId"
+                                      >
+                                        <div class="planning-tag-pill">
+                                          <img
+                                            class="planning-tag-img planning-tag-img-ghost"
+                                            :src="planningTagImage(tagId)"
+                                            :alt="planningTagLabel(tagId)"
+                                          />
+                                          <button
+                                            type="button"
+                                            class="planning-tag-apply"
+                                            @click.stop="applyGlobalTagToTopic(topic, tagId)"
+                                            :aria-label="`Apply ${planningTagLabel(tagId)} here`"
+                                            title="Add previous tag"
+                                          >
+                                            +
+                                          </button>
+                                        </div>
+                                      </template>
+                                    </div>
+                                  </template>
+                                  
                                 </span>
                               </p>
 
