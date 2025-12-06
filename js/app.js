@@ -94,27 +94,27 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
         {
           id: "core",
           label: "Core",
-          img: "Core%20Subjects.png",
+          img: "img/Core%20Subjects.png",
         },
         {
           id: "family",
           label: "Family",
-          img: "Family%20Subjects.png",
+          img: "img/Family%20Subjects.png",
         },
         {
           id: "combine",
           label: "Combine",
-          img: "Combine%20Subjects.png",
+          img: "img/Combine%20Subjects.png",
         },
         {
           id: "high-interest",
           label: "High interest",
-          img: "High%20Interest%20Subjects.png",
+          img: "img/High%20Interest%20Subjects.png",
         },
         {
           id: "additional",
           label: "Additional",
-          img: "Additional%20Subjects.png",
+          img: "img/Additional%20Subjects.png",
         },
       ],
 
