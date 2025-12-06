@@ -495,21 +495,22 @@
       margin-left: auto;
     }
 
-    /* Planning tag button */
-    .planning-tag-row {
-      margin-top: 8px;
-      display: flex;
+    /* Planning tags */
+    .planning-tag-region {
+      display: inline-flex;
       align-items: center;
+      gap: 6px;
     }
 
+    /* The initial "+ Planning tag" button */
     .planning-tag-button {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       padding: 2px 8px;
       border-radius: 4px;
-      border: 1px solid #e5e8e5; 
-      background-color: #ffffff; 
+      border: 1px solid #e5e8e5;
+      background-color: #ffffff;
       font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
       font-size: 12px;
       font-weight: 400;
@@ -523,17 +524,99 @@
       white-space: nowrap;
     }
 
-    .planning-tag-icon {
+    /* When tags are selected: row of images + small "+" button */
+    .planning-tag-selected-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .planning-tag-pill {
+      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
     }
 
-    .planning-tag-icon svg {
+    .planning-tag-img {
+      display: block;
+      height: 28px;
+      width: auto;
+    }
+
+    .planning-tag-remove {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      border: none;
+      background-color: #ffffff;
+      border-radius: 999px;
       width: 14px;
       height: 14px;
-      stroke: currentColor;
-      transition: transform 0.15s ease;
+      font-size: 11px;
+      line-height: 1;
+      padding: 0;
+      cursor: pointer;
+      color: var(--brand-muted);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
+    }
+
+    .planning-tag-add {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
+      border: 1px solid #e5e8e5;
+      background-color: #ffffff;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--brand-muted);
+      line-height: 1;
+    }
+
+    /* Dropdown-like menu for planning tag selections */
+    .planning-tag-menu {
+      margin-top: 4px;
+      padding: 6px 8px;
+      border-radius: 4px;
+      border: 1px solid #dde2d5;
+      background-color: #ffffff;
+      max-width: 260px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+      z-index: 10;
+    }
+
+    .planning-tag-option {
+      width: 100%;
+      border: none;
+      background: transparent;
+      padding: 4px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    .planning-tag-option:hover {
+      background-color: #f4f6fa;
+    }
+
+    .planning-tag-option-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .planning-tag-option-main img {
+      height: 24px;
+      width: auto;
+      display: block;
     }
 
     /* Description + tips rows */
@@ -1091,32 +1174,87 @@
                           ></span>
                         </template>
                       
-                        <!-- spacer pushes planning tag to far right -->
+                        <!-- spacer pushes planning tag area to far right -->
                         <span class="meta-flex-spacer"></span>
-                        
-                        <!-- right: planning tag button (courses *without* topics only) -->
+
+                        <!-- right: planning tag UI (courses *without* topics only) -->
                         <template x-if="!course.topics || course.topics.length === 0">
-                          <button
-                            type="button"
-                            class="planning-tag-button"
-                            aria-label="Add planning tag to course"
-                          >
-                            <span class="planning-tag-label">+ Planning tag</span>
-                            <span class="planning-tag-icon" aria-hidden="true">
-                              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                  d="M6 9l6 6 6-6"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  stroke-width="1.6"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                />
-                              </svg>
-                            </span>
-                          </button>
+                          <span class="planning-tag-region">
+                            <!-- If no tags yet: show "+ Planning tag" button -->
+                            <template x-if="!course.planningTags || course.planningTags.length === 0">
+                              <button
+                                type="button"
+                                class="planning-tag-button"
+                                aria-label="Add planning tag to course"
+                                @click.stop="course.planningTagMenuOpen = !course.planningTagMenuOpen"
+                              >
+                                <span class="planning-tag-label">+ Planning tag</span>
+                              </button>
+                            </template>
+
+                            <!-- If tags exist: show images + small "+" square -->
+                            <template x-if="course.planningTags && course.planningTags.length > 0">
+                              <div class="planning-tag-selected-row">
+                                <template x-for="tag in course.planningTags" :key="tag.id">
+                                  <div class="planning-tag-pill">
+                                    <img
+                                      class="planning-tag-img"
+                                      :src="tag.img"
+                                      :alt="tag.label"
+                                    />
+                                    <button
+                                      type="button"
+                                      class="planning-tag-remove"
+                                      @click.stop="removePlanningTag(course, tag.id)"
+                                      aria-label="Remove planning tag"
+                                    >
+                                      ×
+                                    </button>
+                                  </div>
+                                </template>
+
+                                <button
+                                  type="button"
+                                  class="planning-tag-add"
+                                  aria-label="Add more planning tags"
+                                  @click.stop="course.planningTagMenuOpen = !course.planningTagMenuOpen"
+                                >
+                                  +
+                                </button>
+                              </div>
+                            </template>
+                          </span>
                         </template>
                       </p>
+
+                      <!-- Course-level planning tag selection menu -->
+                      <template x-if="!course.topics || course.topics.length === 0">
+                        <div
+                          class="planning-tag-menu"
+                          x-show="course.planningTagMenuOpen"
+                          x-transition
+                          @click.outside="course.planningTagMenuOpen = false"
+                        >
+                          <template x-for="opt in planningTagOptions" :key="opt.id">
+                            <button
+                              type="button"
+                              class="planning-tag-option"
+                              @click="togglePlanningTag(course, opt)"
+                            >
+                              <span class="planning-tag-option-main">
+                                <img :src="opt.img" :alt="opt.label" />
+                                <span x-text="opt.label"></span>
+                              </span>
+                              <span
+                                class="filter-dropdown-check"
+                                x-show="course.planningTags && course.planningTags.some(t => t.id === opt.id)"
+                              >
+                                ✓
+                              </span>
+                            </button>
+                          </template>
+                        </div>
+                      </template>
                     
                       <!-- Description + combining tips -->
                       <div
@@ -1213,29 +1351,82 @@
                               
                                 <!-- spacer -->
                                 <span class="meta-flex-spacer"></span>
-                              
-                                <!-- right: planning tag button -->
+
+                                <!-- right: planning tag UI (topics always can have tags) -->
+                                <span class="planning-tag-region">
+                                  <!-- No tags yet -->
+                                  <template x-if="!topic.planningTags || topic.planningTags.length === 0">
+                                    <button
+                                      type="button"
+                                      class="planning-tag-button"
+                                      aria-label="Add planning tag to topic"
+                                      @click.stop="topic.planningTagMenuOpen = !topic.planningTagMenuOpen"
+                                    >
+                                      <span class="planning-tag-label">+ Planning tag</span>
+                                    </button>
+                                  </template>
+
+                                  <!-- Tags selected -->
+                                  <template x-if="topic.planningTags && topic.planningTags.length > 0">
+                                    <div class="planning-tag-selected-row">
+                                      <template x-for="tag in topic.planningTags" :key="tag.id">
+                                        <div class="planning-tag-pill">
+                                          <img
+                                            class="planning-tag-img"
+                                            :src="tag.img"
+                                            :alt="tag.label"
+                                          />
+                                          <button
+                                            type="button"
+                                            class="planning-tag-remove"
+                                            @click.stop="removePlanningTag(topic, tag.id)"
+                                            aria-label="Remove planning tag"
+                                          >
+                                            ×
+                                          </button>
+                                        </div>
+                                      </template>
+
+                                      <button
+                                        type="button"
+                                        class="planning-tag-add"
+                                        aria-label="Add more planning tags"
+                                        @click.stop="topic.planningTagMenuOpen = !topic.planningTagMenuOpen"
+                                      >
+                                        +
+                                      </button>
+                                    </div>
+                                  </template>
+                                </span>
+                              </p>
+
+                            <!-- Topic-level planning tag selection menu -->
+                            <div
+                              class="planning-tag-menu"
+                              x-show="topic.planningTagMenuOpen"
+                              x-transition
+                              @click.outside="topic.planningTagMenuOpen = false"
+                            >
+                              <template x-for="opt in planningTagOptions" :key="opt.id">
                                 <button
                                   type="button"
-                                  class="planning-tag-button"
-                                  aria-label="Add planning tag to topic"
+                                  class="planning-tag-option"
+                                  @click="togglePlanningTag(topic, opt)"
                                 >
-                                  <span class="planning-tag-label">+ Planning tag</span>
-                                  <span class="planning-tag-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M6 9l6 6 6-6"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1.6"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                      />
-                                    </svg>
+                                  <span class="planning-tag-option-main">
+                                    <img :src="opt.img" :alt="opt.label" />
+                                    <span x-text="opt.label"></span>
+                                  </span>
+                                  <span
+                                    class="filter-dropdown-check"
+                                    x-show="topic.planningTags && topic.planningTags.some(t => t.id === opt.id)"
+                                  >
+                                    ✓
                                   </span>
                                 </button>
-                              </p>
-                          
+                              </template>
+                            </div>
+
                             <div
                               class="course-detail-row"
                               x-show="showAllDetails && topic.detailsOpen && (topic.description || topic.tips)"
@@ -1385,6 +1576,36 @@
         "Alt. Science Options",
       ],
 
+      // --- PLANNING TAG OPTIONS ---
+      // Adjust image filenames/paths as needed so they match your repo
+      planningTagOptions: [
+        {
+          id: "core",
+          label: "Core",
+          img: "Core%20Subjects.png",
+        },
+        {
+          id: "family",
+          label: "Family",
+          img: "Family%20Subjects.png",
+        },
+        {
+          id: "combine",
+          label: "Combine",
+          img: "Combine%20Subjects.png",
+        },
+        {
+          id: "high-interest",
+          label: "High interest",
+          img: "High%20Interest%20Subjects.png",
+        },
+        {
+          id: "additional",
+          label: "Additional",
+          img: "Additional%20Subjects.png",
+        },
+      ],
+
       toggleAllDetails() {
         this.showAllDetails = !this.showAllDetails;
       },
@@ -1433,6 +1654,29 @@
         if (!courseSubject) return false;
         const subj = courseSubject.trim();
         return this.selectedSubjects.includes(subj);
+      },
+
+            // --- PLANNING TAG HELPERS ---
+      togglePlanningTag(item, opt) {
+        if (!item.planningTags) item.planningTags = [];
+
+        const existingIndex = item.planningTags.findIndex(t => t.id === opt.id);
+        if (existingIndex === -1) {
+          // add
+          item.planningTags.push({
+            id: opt.id,
+            label: opt.label,
+            img: opt.img,
+          });
+        } else {
+          // remove
+          item.planningTags.splice(existingIndex, 1);
+        }
+      },
+
+      removePlanningTag(item, tagId) {
+        if (!item.planningTags) return;
+        item.planningTags = item.planningTags.filter(t => t.id !== tagId);
       },
 
       // clear everything (used by Clear selected button)
@@ -1569,6 +1813,8 @@
                 tips,
                 gradeTags,
                 detailsOpen: true
+                planningTags: [],
+                planningTagMenuOpen: false,
               };
             });
       
@@ -1620,6 +1866,8 @@
               gradeTags,
               metaLine,
               detailsOpen: true,
+              planningTags: [],
+              planningTagMenuOpen: false,
               topics: topicsForCourse,
             };
       
