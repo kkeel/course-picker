@@ -629,6 +629,61 @@
       display: block;
     }
 
+    /* Topic-only planning tag dropdown (same look as course, isolated classes) */
+    .topic-planning-tag-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: flex-start;
+    }
+    
+    .topic-planning-tag-region {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .topic-planning-tag-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      margin-top: 4px;
+      padding: 6px 8px;
+      border-radius: 4px;
+      border: 1px solid #dde2d5;
+      background-color: #ffffff;
+      min-width: 260px;
+      max-width: 300px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+      z-index: 10;
+    }
+    
+    /* Reuse the same option styling */
+    .topic-planning-tag-option {
+      width: 100%;
+      border: none;
+      background: transparent;
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      text-align: left;
+    }
+    
+    .topic-planning-tag-option img {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+    }
+    
+    .topic-planning-tag-option .planning-tag-option-main {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     /* Description + tips rows */
     .course-detail-row {
       margin-top: 12px;
@@ -1367,10 +1422,10 @@
                             
                               <!-- right: planning tag UI (topics always can have tags) -->
                               <span
-                                class="planning-tag-wrapper"
+                                class="topic-planning-tag-wrapper"
                                 @click.outside="topic.planningTagMenuOpen = false"
                               >
-                                <span class="planning-tag-region">
+                                <span class="topic-planning-tag-region">
                                   <!-- No tags yet -->
                                   <template x-if="!topic.planningTags || topic.planningTags.length === 0">
                                     <button
@@ -1418,7 +1473,7 @@
                             
                                 <!-- anchored dropdown for topic planning tags -->
                                 <div
-                                  class="planning-tag-menu"
+                                  class="topic-planning-tag-menu"
                                   x-show="topic.planningTagMenuOpen"
                                   x-transition
                                 >
@@ -1437,7 +1492,7 @@
                                   <template x-for="opt in planningTagOptions" :key="opt.id">
                                     <button
                                       type="button"
-                                      class="planning-tag-option"
+                                      class="topic-planning-tag-option"
                                       @click="togglePlanningTag(topic, opt)"
                                     >
                                       <span class="planning-tag-option-main">
