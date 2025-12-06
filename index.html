@@ -20,9 +20,6 @@
   <!-- Alpine.js for simple interactivity -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-  <!-- Helper to get live CSV Data -->
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-
 </head>
 
 <body x-data="coursePlanner()" x-init="init()">
@@ -806,24 +803,7 @@
   </main>
 
   <script>
-  const MA_COURSES_URL = "data/MA_Courses.csv";
-  const MA_TOPICS_URL  = "data/MA_Topics.csv";
   const MA_COURSES_JSON_URL = "data/MA_Courses.json";
-
-  async function fetchAndParseCSV(url) {
-    const response = await fetch(url);
-    const text = await response.text();
-
-    const parsed = Papa.parse(text, {
-      header: true,
-      skipEmptyLines: true
-    });
-
-    // Filter out completely empty rows, just in case
-    return parsed.data.filter(row =>
-      Object.values(row).some(v => v !== null && String(v).trim() !== "")
-    );
-  }
 
   function coursePlanner() {
     return {
