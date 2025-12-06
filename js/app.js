@@ -88,6 +88,10 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
         "Alt. Science Options",
       ],
 
+      // --- FILTER STATE (planning tags) ---
+      selectedTags: [],
+      tagDropdownOpen: false,
+
       // --- PLANNING TAG OPTIONS ---
       // Adjust image filenames/paths as needed so they match your repo
       planningTagOptions: [
@@ -161,11 +165,59 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
         this.applyFilters();
       },
 
+      // --- TAG FILTER HELPERS ---
+
+      // label helper for planning-tag chips
+      planningTagLabel(id) {
+        const found = this.planningTagOptions.find(o => o.id === id);
+        return found ? found.label : id;
+      },
+
+      // toggle a planning tag in/out of the filter selection
+      toggleSelectedTag(id) {
+        const idx = this.selectedTags.indexOf(id);
+        if (idx === -1) {
+          this.selectedTags.push(id);
+        } else {
+          this.selectedTags.splice(idx, 1);
+        }
+        this.applyFilters();
+      },
+
+      // remove a single tag (chip × in the filter bar)
+      removeSelectedTag(id) {
+        this.selectedTags = this.selectedTags.filter(t => t !== id);
+        this.applyFilters();
+      },
+
       subjectMatches(courseSubject) {
         if (!this.selectedSubjects.length) return true; // no subject filter
         if (!courseSubject) return false;
         const subj = courseSubject.trim();
         return this.selectedSubjects.includes(subj);
+      },
+
+      // Does this course match the current tag filter?
+      // For now, this checks tags on the course itself AND on any of its topics.
+      tagMatchesCourse(course) {
+        if (!this.selectedTags.length) return true; // no tag filter => match all
+
+        const tagIds = new Set();
+
+        if (Array.isArray(course.planningTags)) {
+          course.planningTags.forEach(t => tagIds.add(t.id));
+        }
+
+        if (Array.isArray(course.topics)) {
+          course.topics.forEach(topic => {
+            if (topic && Array.isArray(topic.planningTags)) {
+              topic.planningTags.forEach(t => tagIds.add(t.id));
+            }
+          });
+        }
+
+        // course matches if any selected tag is present
+        return this.selectedTags.some(id => tagIds.has(id));
       },
 
       // --- PLANNING TAG HELPERS ---
@@ -196,6 +248,9 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
         this.selectedSubjects = [];
         this.subjectDropdownOpen = false;
 
+        this.selectedTags = [];
+        this.tagDropdownOpen = false;
+
         this.applyFilters();
       },
 
@@ -210,9 +265,10 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
       applyFilters() {
         const hasGrade   = this.selectedGrades.length > 0;
         const hasSubject = this.selectedSubjects.length > 0;
+        const hasTag     = this.selectedTags.length > 0;
 
         // No filters => show full dataset
-        if (!hasGrade && !hasSubject) {
+        if (!hasGrade && !hasSubject && !hasTag) {
           this.coursesBySubject = this.allCoursesBySubject;
           return;
         }
@@ -225,26 +281,22 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
           const subjectCourses = [];
 
           courses.forEach(course => {
-            // grade check (course-level only)
             const matchesGrade =
               !hasGrade || this.gradeMatches(course.gradeTags);
 
-            // subject check (course.subject must match one of selectedSubjects)
             const matchesSubject =
               !hasSubject || this.subjectMatches(course.subject);
 
-            if (!(matchesGrade && matchesSubject)) return;
+            const matchesTag =
+              !hasTag || this.tagMatchesCourse(course);
 
-            // If course passes filters, include it with all its topics
-            const courseCopy = {
-              ...course,
-              topics: course.topics || [],
-            };
+            if (!(matchesGrade && matchesSubject && matchesTag)) return;
 
-            subjectCourses.push(courseCopy);
+            // IMPORTANT: we now keep the original course object
+            // so planning tags and other state persist.
+            subjectCourses.push(course);
           });
 
-          // Only include subject if it has at least one visible course
           if (subjectCourses.length) {
             filtered[subject] = subjectCourses;
           }
