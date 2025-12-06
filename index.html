@@ -1422,6 +1422,18 @@
                                   x-show="topic.planningTagMenuOpen"
                                   x-transition
                                 >
+                                  <!-- DEBUG: show which topic this menu belongs to -->
+                                  <div
+                                    style="
+                                      font-size: 11px;
+                                      font-weight: 500;
+                                      color: #999;
+                                      margin-bottom: 4px;
+                                      text-transform: uppercase;
+                                    "
+                                    x-text="'Topic menu: ' + (topic.Topic || '')"
+                                  ></div>
+                                
                                   <template x-for="opt in planningTagOptions" :key="opt.id">
                                     <button
                                       type="button"
