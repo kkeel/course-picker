@@ -281,6 +281,49 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
         }
       },
 
+      // After removing a plan tag from a topic, make sure the global memory
+      // stays accurate. If no topic with this Topic_ID still has this tag,
+      // remove it from globalTopicTags.
+      cleanupGlobalTopicTag(topicId, tagId) {
+        if (!topicId || !tagId) return;
+
+        let stillUsed = false;
+        const subjects = Object.keys(this.allCoursesBySubject || {});
+
+        for (const subject of subjects) {
+          const courses = this.allCoursesBySubject[subject] || [];
+          for (const course of courses) {
+            if (!Array.isArray(course.topics)) continue;
+
+            for (const topic of course.topics) {
+              if (!topic) continue;
+              const tid = (topic.Topic_ID || "").trim();
+              if (tid !== topicId) continue;
+
+              if (
+                Array.isArray(topic.planningTags) &&
+                topic.planningTags.some(t => t.id === tagId)
+              ) {
+                stillUsed = true;
+                break;
+              }
+            }
+
+            if (stillUsed) break;
+          }
+
+          if (stillUsed) break;
+        }
+
+        if (!stillUsed && this.globalTopicTags[topicId]) {
+          this.globalTopicTags[topicId] =
+            this.globalTopicTags[topicId].filter(id => id !== tagId);
+          if (this.globalTopicTags[topicId].length === 0) {
+            delete this.globalTopicTags[topicId];
+          }
+        }
+      },
+
       // --- PLANNING TAG HELPERS ---
       togglePlanningTag(item, opt) {
         if (!item || !opt) return;
@@ -313,8 +356,11 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
         } else {
           // REMOVE tag at the plan layer
           item.planningTags.splice(existingIndex, 1);
-          // For now we *do not* remove it from globalTopicTags –
-          // global memory is "this topic has been tagged before somewhere".
+
+          // If it's a topic, re-check whether this tag is still used anywhere
+          if (topicId) {
+            this.cleanupGlobalTopicTag(topicId, opt.id);
+          }
         }
 
         // close after click
@@ -322,8 +368,16 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
       },
 
       removePlanningTag(item, tagId) {
-        if (!item.planningTags) return;
+        if (!item || !item.planningTags) return;
+
         item.planningTags = item.planningTags.filter(t => t.id !== tagId);
+
+        // If this is a topic (has Topic_ID), update globalTopicTags as needed
+        const topicId =
+          item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
+        if (topicId) {
+          this.cleanupGlobalTopicTag(topicId, tagId);
+        }
       },
 
       // clear everything (used by Clear selected button)
