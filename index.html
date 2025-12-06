@@ -496,6 +496,12 @@
     }
 
     /* Planning tags */
+    .planning-tag-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: flex-start;
+    }
+
     .planning-tag-region {
       display: inline-flex;
       align-items: center;
@@ -546,19 +552,19 @@
 
     .planning-tag-remove {
       position: absolute;
-      top: -4px;
-      right: -4px;
+      top: -6px;
+      right: -6px;
       border: none;
-      background-color: #ffffff;
-      border-radius: 999px;
-      width: 14px;
-      height: 14px;
-      font-size: 11px;
+      background: transparent;
+      border-radius: 0;
+      width: auto;
+      height: auto;
+      font-size: 12px;
       line-height: 1;
       padding: 0;
       cursor: pointer;
       color: var(--brand-muted);
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
+      box-shadow: none;
     }
 
     .planning-tag-add {
@@ -579,6 +585,9 @@
 
     /* Dropdown-like menu for planning tag selections */
     .planning-tag-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
       margin-top: 4px;
       padding: 6px 8px;
       border-radius: 4px;
@@ -1179,82 +1188,84 @@
 
                         <!-- right: planning tag UI (courses *without* topics only) -->
                         <template x-if="!course.topics || course.topics.length === 0">
-                          <span class="planning-tag-region">
-                            <!-- If no tags yet: show "+ Planning tag" button -->
-                            <template x-if="!course.planningTags || course.planningTags.length === 0">
-                              <button
-                                type="button"
-                                class="planning-tag-button"
-                                aria-label="Add planning tag to course"
-                                @click.stop="course.planningTagMenuOpen = !course.planningTagMenuOpen"
-                              >
-                                <span class="planning-tag-label">+ Planning tag</span>
-                              </button>
-                            </template>
-
-                            <!-- If tags exist: show images + small "+" square -->
-                            <template x-if="course.planningTags && course.planningTags.length > 0">
-                              <div class="planning-tag-selected-row">
-                                <template x-for="tag in course.planningTags" :key="tag.id">
-                                  <div class="planning-tag-pill">
-                                    <img
-                                      class="planning-tag-img"
-                                      :src="tag.img"
-                                      :alt="tag.label"
-                                    />
-                                    <button
-                                      type="button"
-                                      class="planning-tag-remove"
-                                      @click.stop="removePlanningTag(course, tag.id)"
-                                      aria-label="Remove planning tag"
-                                    >
-                                      ×
-                                    </button>
-                                  </div>
-                                </template>
-
+                          <span
+                            class="planning-tag-wrapper"
+                            @click.outside="course.planningTagMenuOpen = false"
+                          >
+                            <span class="planning-tag-region">
+                              <!-- If no tags yet: show "+ Planning tag" button -->
+                              <template x-if="!course.planningTags || course.planningTags.length === 0">
                                 <button
                                   type="button"
-                                  class="planning-tag-add"
-                                  aria-label="Add more planning tags"
+                                  class="planning-tag-button"
+                                  aria-label="Add planning tag to course"
                                   @click.stop="course.planningTagMenuOpen = !course.planningTagMenuOpen"
                                 >
-                                  +
+                                  <span class="planning-tag-label">+ Planning tag</span>
                                 </button>
-                              </div>
-                            </template>
+                              </template>
+
+                              <!-- If tags exist: show images + small "+" square -->
+                              <template x-if="course.planningTags && course.planningTags.length > 0">
+                                <div class="planning-tag-selected-row">
+                                  <template x-for="tag in course.planningTags" :key="tag.id">
+                                    <div class="planning-tag-pill">
+                                      <img
+                                        class="planning-tag-img"
+                                        :src="tag.img"
+                                        :alt="tag.label"
+                                      />
+                                      <button
+                                        type="button"
+                                        class="planning-tag-remove"
+                                        @click.stop="removePlanningTag(course, tag.id)"
+                                        aria-label="Remove planning tag"
+                                      >
+                                        ×
+                                      </button>
+                                    </div>
+                                  </template>
+
+                                  <button
+                                    type="button"
+                                    class="planning-tag-add"
+                                    aria-label="Add more planning tags"
+                                    @click.stop="course.planningTagMenuOpen = !course.planningTagMenuOpen"
+                                  >
+                                    +
+                                  </button>
+                                </div>
+                              </template>
+                            </span>
+
+                            <!-- anchored dropdown for planning tags -->
+                            <div
+                              class="planning-tag-menu"
+                              x-show="course.planningTagMenuOpen"
+                              x-transition
+                            >
+                              <template x-for="opt in planningTagOptions" :key="opt.id">
+                                <button
+                                  type="button"
+                                  class="planning-tag-option"
+                                  @click="togglePlanningTag(course, opt)"
+                                >
+                                  <span class="planning-tag-option-main">
+                                    <img :src="opt.img" :alt="opt.label" />
+                                    <span x-text="opt.label"></span>
+                                  </span>
+                                  <span
+                                    class="filter-dropdown-check"
+                                    x-show="course.planningTags && course.planningTags.some(t => t.id === opt.id)"
+                                  >
+                                    ✓
+                                  </span>
+                                </button>
+                              </template>
+                            </div>
                           </span>
                         </template>
                       </p>
-
-                      <!-- Course-level planning tag selection menu -->
-                      <template x-if="!course.topics || course.topics.length === 0">
-                        <div
-                          class="planning-tag-menu"
-                          x-show="course.planningTagMenuOpen"
-                          x-transition
-                          @click.outside="course.planningTagMenuOpen = false"
-                        >
-                          <template x-for="opt in planningTagOptions" :key="opt.id">
-                            <button
-                              type="button"
-                              class="planning-tag-option"
-                              @click="togglePlanningTag(course, opt)"
-                            >
-                              <span class="planning-tag-option-main">
-                                <img :src="opt.img" :alt="opt.label" />
-                                <span x-text="opt.label"></span>
-                              </span>
-                              <span
-                                class="filter-dropdown-check"
-                                x-show="course.planningTags && course.planningTags.some(t => t.id === opt.id)"
-                              >
-                                ✓
-                              </span>
-                            </button>
-                          </template>
-                        </div>
-                      </template>
                     
                       <!-- Description + combining tips -->
                       <div
@@ -1353,79 +1364,83 @@
                                 <span class="meta-flex-spacer"></span>
 
                                 <!-- right: planning tag UI (topics always can have tags) -->
-                                <span class="planning-tag-region">
-                                  <!-- No tags yet -->
-                                  <template x-if="!topic.planningTags || topic.planningTags.length === 0">
-                                    <button
-                                      type="button"
-                                      class="planning-tag-button"
-                                      aria-label="Add planning tag to topic"
-                                      @click.stop="topic.planningTagMenuOpen = !topic.planningTagMenuOpen"
-                                    >
-                                      <span class="planning-tag-label">+ Planning tag</span>
-                                    </button>
-                                  </template>
-
-                                  <!-- Tags selected -->
-                                  <template x-if="topic.planningTags && topic.planningTags.length > 0">
-                                    <div class="planning-tag-selected-row">
-                                      <template x-for="tag in topic.planningTags" :key="tag.id">
-                                        <div class="planning-tag-pill">
-                                          <img
-                                            class="planning-tag-img"
-                                            :src="tag.img"
-                                            :alt="tag.label"
-                                          />
-                                          <button
-                                            type="button"
-                                            class="planning-tag-remove"
-                                            @click.stop="removePlanningTag(topic, tag.id)"
-                                            aria-label="Remove planning tag"
-                                          >
-                                            ×
-                                          </button>
-                                        </div>
-                                      </template>
-
+                                <span
+                                  class="planning-tag-wrapper"
+                                  @click.outside="topic.planningTagMenuOpen = false"
+                                >
+                                  <span class="planning-tag-region">
+                                    <!-- No tags yet -->
+                                    <template x-if="!topic.planningTags || topic.planningTags.length === 0">
                                       <button
                                         type="button"
-                                        class="planning-tag-add"
-                                        aria-label="Add more planning tags"
+                                        class="planning-tag-button"
+                                        aria-label="Add planning tag to topic"
                                         @click.stop="topic.planningTagMenuOpen = !topic.planningTagMenuOpen"
                                       >
-                                        +
+                                        <span class="planning-tag-label">+ Planning tag</span>
                                       </button>
-                                    </div>
-                                  </template>
+                                    </template>
+
+                                    <!-- Tags selected -->
+                                    <template x-if="topic.planningTags && topic.planningTags.length > 0">
+                                      <div class="planning-tag-selected-row">
+                                        <template x-for="tag in topic.planningTags" :key="tag.id">
+                                          <div class="planning-tag-pill">
+                                            <img
+                                              class="planning-tag-img"
+                                              :src="tag.img"
+                                              :alt="tag.label"
+                                            />
+                                            <button
+                                              type="button"
+                                              class="planning-tag-remove"
+                                              @click.stop="removePlanningTag(topic, tag.id)"
+                                              aria-label="Remove planning tag"
+                                            >
+                                              ×
+                                            </button>
+                                          </div>
+                                        </template>
+
+                                        <button
+                                          type="button"
+                                          class="planning-tag-add"
+                                          aria-label="Add more planning tags"
+                                          @click.stop="topic.planningTagMenuOpen = !topic.planningTagMenuOpen"
+                                        >
+                                          +
+                                        </button>
+                                      </div>
+                                    </template>
+                                  </span>
+
+                                  <!-- anchored dropdown -->
+                                  <div
+                                    class="planning-tag-menu"
+                                    x-show="topic.planningTagMenuOpen"
+                                    x-transition
+                                  >
+                                    <template x-for="opt in planningTagOptions" :key="opt.id">
+                                      <button
+                                        type="button"
+                                        class="planning-tag-option"
+                                        @click="togglePlanningTag(topic, opt)"
+                                      >
+                                        <span class="planning-tag-option-main">
+                                          <img :src="opt.img" :alt="opt.label" />
+                                          <span x-text="opt.label"></span>
+                                        </span>
+                                        <span
+                                          class="filter-dropdown-check"
+                                          x-show="topic.planningTags && topic.planningTags.some(t => t.id === opt.id)"
+                                        >
+                                          ✓
+                                        </span>
+                                      </button>
+                                    </template>
+                                  </div>
                                 </span>
                               </p>
-
-                            <!-- Topic-level planning tag selection menu -->
-                            <div
-                              class="planning-tag-menu"
-                              x-show="topic.planningTagMenuOpen"
-                              x-transition
-                              @click.outside="topic.planningTagMenuOpen = false"
-                            >
-                              <template x-for="opt in planningTagOptions" :key="opt.id">
-                                <button
-                                  type="button"
-                                  class="planning-tag-option"
-                                  @click="togglePlanningTag(topic, opt)"
-                                >
-                                  <span class="planning-tag-option-main">
-                                    <img :src="opt.img" :alt="opt.label" />
-                                    <span x-text="opt.label"></span>
-                                  </span>
-                                  <span
-                                    class="filter-dropdown-check"
-                                    x-show="topic.planningTags && topic.planningTags.some(t => t.id === opt.id)"
-                                  >
-                                    ✓
-                                  </span>
-                                </button>
-                              </template>
-                            </div>
 
                             <div
                               class="course-detail-row"
