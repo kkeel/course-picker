@@ -122,6 +122,10 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
         },
       ],
 
+      // Global "memory" of which Topic_IDs have ever been tagged
+      // Example shape: { "CHURCH_HISTORY_1_3": ["core", "family"] }
+      globalTopicTags: {},
+
       toggleAllDetails() {
         this.showAllDetails = !this.showAllDetails;
       },
@@ -173,6 +177,12 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
         return found ? found.label : id;
       },
 
+      // image helper for planning-tag icons
+      planningTagImage(id) {
+        const found = this.planningTagOptions.find(o => o.id === id);
+        return found ? found.img : "";
+      },
+
       // toggle a planning tag in/out of the filter selection
       toggleSelectedTag(id) {
         const idx = this.selectedTags.indexOf(id);
@@ -216,21 +226,97 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
           });
         }
 
-        // course matches if any selected tag is present
-        return this.selectedTags.some(id => tagIds.has(id));
+      // course matches if any selected tag is present
+      return this.selectedTags.some(id => tagIds.has(id));
+      },
+
+      // For a given topic, which globally-known tags have NOT yet been applied here?
+      missingGlobalTagsForTopic(topic) {
+        if (!topic) return [];
+
+        const topicId = (topic.Topic_ID || "").trim();
+        if (!topicId) return [];
+
+        const global = this.globalTopicTags[topicId] || [];
+        if (!global.length) return [];
+
+        const localIds = new Set(
+          (topic.planningTags || []).map(t => t.id)
+        );
+
+      // Only show tags that are global but not yet applied locally
+      return global.filter(id => !localIds.has(id));
+      },
+
+      // Apply a previously used ("global") tag to this specific topic instance
+      applyGlobalTagToTopic(topic, tagId) {
+        if (!topic) return;
+
+        const topicId = (topic.Topic_ID || "").trim();
+        const opt = this.planningTagOptions.find(o => o.id === tagId);
+        if (!opt) return;
+
+        if (!topic.planningTags) topic.planningTags = [];
+
+        // If it already has this tag locally, do nothing
+        if (topic.planningTags.some(t => t.id === tagId)) {
+          return;
+        }
+
+        // Add to the plan layer for this topic instance
+        topic.planningTags.push({
+          id: opt.id,
+          label: opt.label,
+          img: opt.img,
+        });
+
+       // Also make sure the global memory knows about it (for safety)
+       if (topicId) {
+          if (!this.globalTopicTags[topicId]) {
+            this.globalTopicTags[topicId] = [];
+          }
+          if (!this.globalTopicTags[topicId].includes(tagId)) {
+            this.globalTopicTags[topicId].push(tagId);
+          }
+        }
       },
 
       // --- PLANNING TAG HELPERS ---
       togglePlanningTag(item, opt) {
+        if (!item || !opt) return;
+
         if (!item.planningTags) item.planningTags = [];
-      
+
         const existingIndex = item.planningTags.findIndex(t => t.id === opt.id);
+
+        // Detect if this item is a Topic (has Topic_ID)
+        const topicId =
+          item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
+
         if (existingIndex === -1) {
-          item.planningTags.push({ id: opt.id, label: opt.label, img: opt.img });
+          // ADD tag at the plan layer
+          item.planningTags.push({
+            id: opt.id,
+            label: opt.label,
+            img: opt.img,
+          });
+
+          // If it's a topic, also remember this tag at the global layer
+          if (topicId) {
+            if (!this.globalTopicTags[topicId]) {
+              this.globalTopicTags[topicId] = [];
+            }
+            if (!this.globalTopicTags[topicId].includes(opt.id)) {
+              this.globalTopicTags[topicId].push(opt.id);
+            }
+          }
         } else {
+          // REMOVE tag at the plan layer
           item.planningTags.splice(existingIndex, 1);
+          // For now we *do not* remove it from globalTopicTags –
+          // global memory is "this topic has been tagged before somewhere".
         }
-      
+
         // close after click
         this.closePlanningMenu();
       },
