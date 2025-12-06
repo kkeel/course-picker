@@ -42,103 +42,28 @@
     <nav
       class="mt-3 md:mt-0 md:ml-auto flex flex-wrap items-center gap-x-6 gap-y-2 text-sm"
     >
-      <button
-        type="button"
-        class="nav-tab"
-        :class="step === 1 ? 'nav-tab-active' : ''"
-        @click="openStep(1)"
-      >
-        How to
-      </button>
-
-      <button
-        type="button"
-        class="nav-tab"
-        :class="step === 2 ? 'nav-tab-active' : ''"
-        @click="openStep(2)"
-      >
-        Planning guide
-      </button>
-
-      <button
-        type="button"
-        class="nav-tab"
-        :class="step === 3 ? 'nav-tab-active' : ''"
-        @click="openStep(3)"
+      <a
+        href="index.html"
+        class="nav-tab nav-tab-active"
       >
         Course list
-      </button>
-
-      <button
-        type="button"
+      </a>
+    
+      <a
+        href="books.html"
         class="nav-tab"
-        :class="step === 4 ? 'nav-tab-active' : ''"
-        @click="openStep(4)"
       >
         Book list
-      </button>
+      </a>
     </nav>
+    
   </header>
 
   <!-- Main content -->
   <main class="max-w-6xl mx-auto px-6 lg:px-16 pb-16 space-y-10">
-    <!-- STEP 1: How to -->
-    <section x-show="step === 1" x-cloak>
-      <h2 class="section-title">How to use this planner</h2>
-      <p class="section-subtitle">
-        This is a placeholder for your “How To” instructions. We’ll bring over
-        the refined content and visuals from the legacy planner once the new
-        layout is settled.
-      </p>
 
-      <div class="mt-6 rounded-2xl bg-white shadow-sm border border-gray-200 p-6">
-        <p class="text-sm text-gray-700 mb-2">
-          • Step 1: Browse the course list and book list using the tabs above.
-        </p>
-        <p class="text-sm text-gray-700 mb-2">
-          • Step 2: Apply filters to narrow down options by grade, subject, and
-          tags.
-        </p>
-        <p class="text-sm text-gray-700">
-          • Step 3: Save or print your selections for a personalized learning
-          plan.
-        </p>
-      </div>
-    </section>
-
-    <!-- STEP 2: Planning guide -->
-    <section x-show="step === 2" x-cloak>
-      <h2 class="section-title">Planning guide</h2>
-      <p class="section-subtitle">
-        This section will eventually hold your full planning guide content. For
-        now, it’s just a clean placeholder while we rebuild the structure.
-      </p>
-
-      <div class="mt-6 grid gap-4 md:grid-cols-2">
-        <div class="rounded-2xl bg-white shadow-sm border border-gray-200 p-6">
-          <h3 class="font-semibold text-sm mb-2 text-[var(--brand-dark)]">
-            Big-picture planning
-          </h3>
-          <p class="text-sm text-gray-700">
-            Use this space to outline rotation goals, term focus, and any school
-            year themes you want families to keep in mind.
-          </p>
-        </div>
-
-        <div class="rounded-2xl bg-white shadow-sm border border-gray-200 p-6">
-          <h3 class="font-semibold text-sm mb-2 text-[var(--brand-dark)]">
-            Weekly rhythm
-          </h3>
-          <p class="text-sm text-gray-700">
-            Later we can embed guidance on how frequently to schedule each
-            course and how books support those choices.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- STEP 3: Course list -->
-    <section x-show="step === 3" x-cloak>
+    <!-- Course list -->
+    <section>
       <h2 class="section-title">Course list</h2>
       <p class="section-subtitle">
         This is an intuitive course planner that helps organize your school year.
@@ -780,26 +705,6 @@
       
     </section>
 
-    <!-- STEP 4: Book list -->
-    <section x-show="step === 4" x-cloak>
-      <h2 class="section-title">Book list</h2>
-      <p class="section-subtitle">
-        This tab will contain the integrated book list experience. We’ll reuse
-        the logic and layout from your current book list page and adapt it to
-        match the new branding.
-      </p>
-
-      <div class="mt-6 rounded-2xl bg-white shadow-sm border border-dashed border-gray-300 p-6">
-        <p class="text-sm text-gray-700 mb-3">
-          Book list UI coming soon.
-        </p>
-        <p class="text-xs text-gray-500">
-          For now, you can continue to reference <code>books (6).html</code>
-          while we migrate the filters, assigned resources, and tags into this
-          step.
-        </p>
-      </div>
-    </section>
   </main>
 
   <script src="js/app.js"></script>
