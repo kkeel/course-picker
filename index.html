@@ -1186,7 +1186,7 @@
                                 type="button"
                                 class="planning-tag-button"
                                 aria-label="Add planning tag to course"
-                                @click.stop="course.planningTagMenuOpen = !course.planningTagMenuOpen"
+                                @click.stop=@click.stop="openPlanningMenu($event, course)"
                               >
                                 <span class="planning-tag-label">+ Planning tag</span>
                               </button>
@@ -1217,7 +1217,7 @@
                                   type="button"
                                   class="planning-tag-add"
                                   aria-label="Add more planning tags"
-                                  @click.stop="course.planningTagMenuOpen = !course.planningTagMenuOpen"
+                                  @click.stop="openPlanningMenu($event, course)"
                                 >
                                   +
                                 </button>
@@ -1226,35 +1226,6 @@
                           </span>
                         </template>
                       </p>
-
-                      <!-- Course-level planning tag selection menu -->
-                      <template x-if="!course.topics || course.topics.length === 0">
-                        <div
-                          class="planning-tag-menu"
-                          x-show="course.planningTagMenuOpen"
-                          x-transition
-                          @click.outside="course.planningTagMenuOpen = false"
-                        >
-                          <template x-for="opt in planningTagOptions" :key="opt.id">
-                            <button
-                              type="button"
-                              class="planning-tag-option"
-                              @click="togglePlanningTag(course, opt)"
-                            >
-                              <span class="planning-tag-option-main">
-                                <img :src="opt.img" :alt="opt.label" />
-                                <span x-text="opt.label"></span>
-                              </span>
-                              <span
-                                class="filter-dropdown-check"
-                                x-show="course.planningTags && course.planningTags.some(t => t.id === opt.id)"
-                              >
-                                ✓
-                              </span>
-                            </button>
-                          </template>
-                        </div>
-                      </template>
                     
                       <!-- Description + combining tips -->
                       <div
@@ -1360,7 +1331,7 @@
                                       type="button"
                                       class="planning-tag-button"
                                       aria-label="Add planning tag to topic"
-                                      @click.stop="topic.planningTagMenuOpen = !topic.planningTagMenuOpen"
+                                      @click.stop="openPlanningMenu($event, topic)"
                                     >
                                       <span class="planning-tag-label">+ Planning tag</span>
                                     </button>
@@ -1391,7 +1362,7 @@
                                         type="button"
                                         class="planning-tag-add"
                                         aria-label="Add more planning tags"
-                                        @click.stop="topic.planningTagMenuOpen = !topic.planningTagMenuOpen"
+                                        @click.stop="openPlanningMenu($event, topic)"
                                       >
                                         +
                                       </button>
@@ -1399,33 +1370,6 @@
                                   </template>
                                 </span>
                               </p>
-
-                            <!-- Topic-level planning tag selection menu -->
-                            <div
-                              class="planning-tag-menu"
-                              x-show="topic.planningTagMenuOpen"
-                              x-transition
-                              @click.outside="topic.planningTagMenuOpen = false"
-                            >
-                              <template x-for="opt in planningTagOptions" :key="opt.id">
-                                <button
-                                  type="button"
-                                  class="planning-tag-option"
-                                  @click="togglePlanningTag(topic, opt)"
-                                >
-                                  <span class="planning-tag-option-main">
-                                    <img :src="opt.img" :alt="opt.label" />
-                                    <span x-text="opt.label"></span>
-                                  </span>
-                                  <span
-                                    class="filter-dropdown-check"
-                                    x-show="topic.planningTags && topic.planningTags.some(t => t.id === opt.id)"
-                                  >
-                                    ✓
-                                  </span>
-                                </button>
-                              </template>
-                            </div>
 
                             <div
                               class="course-detail-row"
@@ -1479,6 +1423,47 @@
           </div>
         </template>
       </div>
+
+      <!-- Global planning-tag menu (modal-style, for both courses & topics) -->
+      <div
+        x-show="planningMenuOpen"
+        x-transition
+        x-cloak
+        class="fixed inset-0 z-50"
+      >
+        <!-- click-away backdrop -->
+        <div class="absolute inset-0" @click="closePlanningMenu()"></div>
+
+        <!-- floating menu positioned near the clicked button -->
+        <div
+          class="planning-tag-menu fixed"
+          :style="`top:${planningMenuY}px; left:${planningMenuX}px;`"
+          @click.stop
+        >
+          <template x-for="opt in planningTagOptions" :key="opt.id">
+            <button
+              type="button"
+              class="planning-tag-option"
+              @click="togglePlanningTag(planningMenuItem, opt)"
+            >
+              <span class="planning-tag-option-main">
+                <img :src="opt.img" :alt="opt.label" />
+                <span x-text="opt.label"></span>
+              </span>
+              <span
+                class="filter-dropdown-check"
+                x-show="
+                  planningMenuItem &&
+                  planningMenuItem.planningTags &&
+                  planningMenuItem.planningTags.some(t => t.id === opt.id)
+                "
+              >
+                ✓
+              </span>
+            </button>
+          </template>
+        </div>
+      </div>
       
     </section>
 
@@ -1530,6 +1515,41 @@
       openStep(n) {
         this.step = n;
         window.scrollTo({ top: 0, behavior: "smooth" });
+      },
+
+      // Global planning-tag menu (modal-style)
+      planningMenuOpen: false,
+      planningMenuItem: null,   // the course OR topic currently being edited
+      planningMenuX: 0,
+      planningMenuY: 0,
+
+      openPlanningMenu(evt, item) {
+        const rect = evt.currentTarget.getBoundingClientRect();
+        const menuWidth = 260; // keep in sync with CSS / markup
+
+        // Position horizontally so the menu's right edge lines up with the button,
+        // but keep it inside the viewport with a small margin.
+        let x = rect.right - menuWidth;
+        const margin = 16;
+        if (x < margin) x = margin;
+        if (x + menuWidth > window.innerWidth - margin) {
+          x = window.innerWidth - margin - menuWidth;
+        }
+
+        // Position below the button, but don't let it run off the bottom of the screen.
+        let y = rect.bottom + 8;
+        const maxY = window.innerHeight - margin - 260; // approx max menu height
+        if (y > maxY) y = maxY;
+
+        this.planningMenuX = x;
+        this.planningMenuY = y;
+        this.planningMenuItem = item;
+        this.planningMenuOpen = true;
+      },
+
+      closePlanningMenu() {
+        this.planningMenuOpen = false;
+        this.planningMenuItem = null;
       },
 
       // new global detail toggle
