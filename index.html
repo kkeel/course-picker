@@ -552,14 +552,14 @@
 
     .planning-tag-remove {
       position: absolute;
-      top: -6px;
-      right: -6px;
+      right: -4px;
+      bottom: -4px;
       border: none;
       background: transparent;
       border-radius: 0;
       width: auto;
       height: auto;
-      font-size: 12px;
+      font-size: 11px;
       line-height: 1;
       padding: 0;
       cursor: pointer;
@@ -586,14 +586,15 @@
     /* Dropdown-like menu for planning tag selections */
     .planning-tag-menu {
       position: absolute;
-      top: 100%;
+      top: calc(100% + 8px);
       right: 0;
       margin-top: 4px;
       padding: 6px 8px;
       border-radius: 4px;
       border: 1px solid #dde2d5;
       background-color: #ffffff;
-      max-width: 260px;
+      min-width: 260px;
+      max-width: 300px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
       z-index: 10;
     }
@@ -1009,7 +1010,7 @@
                 class="filter-control"
                 aria-label="Filter by tag"
               >
-                <span class="filter-placeholder">Tag</span>
+                <span class="filter-placeholder">Planning tag</span>
                 <span class="filter-chevron" aria-hidden="true">
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path
