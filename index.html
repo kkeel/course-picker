@@ -293,7 +293,13 @@
                     class="filter-dropdown-item"
                     @click="toggleSelectedTag(opt.id)"
                   >
-                    <span x-text="opt.label"></span>
+                    <div class="planning-tag-option-main">
+                      <img
+                        :src="opt.img"
+                        :alt="opt.label"
+                      />
+                      <span x-text="opt.label"></span>
+                    </div>
                     <span
                       class="filter-dropdown-check"
                       x-show="selectedTags.includes(opt.id)"
