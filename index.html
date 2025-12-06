@@ -1186,7 +1186,7 @@
                                 type="button"
                                 class="planning-tag-button"
                                 aria-label="Add planning tag to course"
-                                @click.stop=@click.stop="openPlanningMenu($event, course)"
+                                @click.stop="openPlanningMenu($event, course)"
                               >
                                 <span class="planning-tag-label">+ Planning tag</span>
                               </button>
@@ -1676,22 +1676,19 @@
         return this.selectedSubjects.includes(subj);
       },
 
-            // --- PLANNING TAG HELPERS ---
+      // --- PLANNING TAG HELPERS ---
       togglePlanningTag(item, opt) {
         if (!item.planningTags) item.planningTags = [];
-
+      
         const existingIndex = item.planningTags.findIndex(t => t.id === opt.id);
         if (existingIndex === -1) {
-          // add
-          item.planningTags.push({
-            id: opt.id,
-            label: opt.label,
-            img: opt.img,
-          });
+          item.planningTags.push({ id: opt.id, label: opt.label, img: opt.img });
         } else {
-          // remove
           item.planningTags.splice(existingIndex, 1);
         }
+      
+        // close after click
+        this.closePlanningMenu();
       },
 
       removePlanningTag(item, tagId) {
