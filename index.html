@@ -1428,14 +1428,14 @@
                                 <span class="topic-planning-tag-region">
                                   <!-- No tags yet -->
                                   <template x-if="!topic.planningTags || topic.planningTags.length === 0">
-                                    <button
-                                      type="button"
-                                      class="planning-tag-button"
-                                      aria-label="Add planning tag to topic"
-                                      @click.stop="topic.planningTagMenuOpen = !topic.planningTagMenuOpen"
-                                    >
-                                      <span class="planning-tag-label">+ Planning tag</span>
-                                    </button>
+                                          <button
+                                            type="button"
+                                            class="planning-tag-button"
+                                            aria-label="Add planning tag to topic"
+                                            @click.stop="openTopicPlanningMenu(topic, $event)"
+                                          >
+                                            <span class="planning-tag-label">+ Planning tag</span>
+                                          </button>
                                   </template>
                             
                                   <!-- Tags selected -->
@@ -1463,7 +1463,7 @@
                                         type="button"
                                         class="planning-tag-add"
                                         aria-label="Add more planning tags"
-                                        @click.stop="topic.planningTagMenuOpen = !topic.planningTagMenuOpen"
+                                        @click.stop="openTopicPlanningMenu(topic, $event)"
                                       >
                                         +
                                       </button>
@@ -1476,6 +1476,7 @@
                                   class="topic-planning-tag-menu"
                                   x-show="topic.planningTagMenuOpen"
                                   x-transition
+                                  :style="'position: fixed; top: ' + topic.planningMenuPos.top + 'px; left: ' + topic.planningMenuPos.left + 'px;'"
                                 >
                                   <!-- DEBUG: show which topic this menu belongs to -->
                                   <div
@@ -1741,6 +1742,34 @@
       },
 
       // --- PLANNING TAG HELPERS ---
+      // For TOPICS: open the menu next to the button that was clicked
+      openTopicPlanningMenu(topic, event) {
+        const rect = event.currentTarget.getBoundingClientRect();
+        // Place the menu just under the button, aligned on the left
+        topic.planningMenuPos = {
+          top: rect.bottom + 8,
+          left: rect.left
+        };
+        topic.planningTagMenuOpen = !topic.planningTagMenuOpen;
+      },
+
+      togglePlanningTag(item, opt) {
+        if (!item.planningTags) item.planningTags = [];
+        const existingIndex = item.planningTags.findIndex(t => t.id === opt.id);
+        if (existingIndex === -1) {
+          item.planningTags.push({
+            id: opt.id,
+            label: opt.label,
+            img: opt.img,
+          });
+        } else {
+          item.planningTags.splice(existingIndex, 1);
+        }
+
+        // close the menu for this course or topic
+        item.planningTagMenuOpen = false;
+      },
+      
       togglePlanningTag(item, opt) {
         if (!item.planningTags) item.planningTags = [];
       
@@ -1900,6 +1929,7 @@
                 detailsOpen: true,
                 planningTags: [],
                 planningTagMenuOpen: false,
+                planningMenuPos: { top: 0, left: 0 },
               };
             });
       
