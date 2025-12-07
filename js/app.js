@@ -127,6 +127,10 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
       // Example shape: { "CHURCH_HISTORY_1_3": ["core", "family"] }
       globalTopicTags: {},
 
+      // Global notes for topics (shared across all instances of the same Topic_ID)
+      // Example shape: { "CHURCH_HISTORY_1_3": "My running note text..." }
+      globalTopicNotes: {},
+
       toggleAllDetails() {
         this.showAllDetails = !this.showAllDetails;
       },
@@ -329,6 +333,35 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
         }
       },
 
+      // ==== TOPIC NOTES (shared by Topic_ID) =====================
+
+      // Read the shared note text for this topic (all instances share by Topic_ID)
+      topicNoteText(topic) {
+        if (!topic || !topic.Topic_ID) return "";
+        const id = String(topic.Topic_ID).trim();
+        if (!id) return "";
+        return this.globalTopicNotes[id] || "";
+      },
+
+      // Update the shared note text for this topic
+      updateTopicNoteText(topic, text) {
+        if (!topic || !topic.Topic_ID) return;
+        const id = String(topic.Topic_ID).trim();
+        if (!id) return;
+        this.globalTopicNotes[id] = text;
+      },
+
+      // Does this topic have any note text?
+      hasTopicNote(topic) {
+        return this.topicNoteText(topic).trim().length > 0;
+      },
+
+      // Open/close the note accordion for a particular topic card
+      toggleTopicNoteOpen(topic) {
+        if (!topic) return;
+        topic.noteOpen = !topic.noteOpen;
+      },
+
       // After removing a plan tag from a topic, make sure the global memory
       // stays accurate. If no topic with this Topic_ID still has this tag,
       // remove it from globalTopicTags.
@@ -439,6 +472,28 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
       toggleCourseBookmark(course) {
         if (!course) return;
         course.isBookmarked = !course.isBookmarked;
+      },
+
+      // ==== COURSE NOTES (only for courses with NO topics) =======
+
+      courseNoteText(course) {
+        if (!course) return "";
+        return course.noteText || "";
+      },
+
+      updateCourseNoteText(course, text) {
+        if (!course) return;
+        course.noteText = text;
+      },
+
+      hasCourseNote(course) {
+        if (!course) return false;
+        return (course.noteText || "").trim().length > 0;
+      },
+
+      toggleCourseNoteOpen(course) {
+        if (!course) return;
+        course.noteOpen = !course.noteOpen;
       },
 
       // Is this topic bookmarked *here* in this course?
