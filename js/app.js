@@ -47,6 +47,7 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
       // new global detail toggle
       showAllDetails: true,
       myCoursesOnly: false,
+      myNotesOpen: false,
 
       // --- FILTER STATE (grade) ---
       selectedGrades: [],          // e.g. ["G1", "G3"]
@@ -137,6 +138,44 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
 
       toggleMyCoursesOnly() {
         this.myCoursesOnly = !this.myCoursesOnly;
+      },
+
+      // Open/close all notes for items that are bookmarked AND have notes
+      toggleMyNotes() {
+        this.myNotesOpen = !this.myNotesOpen;
+        const shouldOpen = this.myNotesOpen;
+      
+        const groups = this.coursesBySubject || {};
+      
+        Object.values(groups).forEach(courses => {
+          (courses || []).forEach(course => {
+            const hasTopics = Array.isArray(course.topics) && course.topics.length > 0;
+      
+            // Course-level notes (only for topic-less courses)
+            if (!hasTopics) {
+              const openCourseNote =
+                shouldOpen &&
+                this.isCourseBookmarked &&
+                this.hasCourseNote &&
+                this.isCourseBookmarked(course) &&
+                this.hasCourseNote(course);
+      
+              course.noteOpen = !!openCourseNote;
+            }
+      
+            // Topic-level notes
+            if (hasTopics && this.hasTopicNote && this.isTopicBookmarked) {
+              course.topics.forEach(topic => {
+                const openTopicNote =
+                  shouldOpen &&
+                  this.isTopicBookmarked(topic) &&
+                  this.hasTopicNote(topic);
+      
+                topic.noteOpen = !!openTopicNote;
+              });
+            }
+          });
+        });
       },
       
       // Subject → courses map used by the template.
