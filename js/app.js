@@ -46,6 +46,7 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
 
       // new global detail toggle
       showAllDetails: true,
+      myCoursesOnly: false,
 
       // --- FILTER STATE (grade) ---
       selectedGrades: [],          // e.g. ["G1", "G3"]
@@ -128,6 +129,53 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
 
       toggleAllDetails() {
         this.showAllDetails = !this.showAllDetails;
+      },
+
+      toggleMyCoursesOnly() {
+        this.myCoursesOnly = !this.myCoursesOnly;
+      },
+      
+      // Subject → courses map used by the template.
+      // When myCoursesOnly is off, just return the normal filtered view.
+      // When it's on, keep only courses with bookmarks.
+      visibleCourseGroups() {
+        // No special filtering when toggle is off
+        if (!this.myCoursesOnly) return this.coursesBySubject;
+      
+        const result = {};
+        const entries = Object.entries(this.coursesBySubject || {});
+      
+        entries.forEach(([subject, courses]) => {
+          const filteredCourses = (courses || []).filter(course => {
+            const hasTopics = Array.isArray(course.topics) && course.topics.length > 0;
+      
+            // Any bookmarked topic *in this course*?
+            const anyTopicBookmarked =
+              hasTopics && course.topics.some(t => this.isTopicBookmarked(t));
+      
+            // Course-level bookmark for topic-less courses
+            const courseBookmarked =
+              !hasTopics && this.isCourseBookmarked(course);
+      
+            // Visible if there is either a course bookmark or
+            // at least one topic bookmark in THIS course
+            return anyTopicBookmarked || courseBookmarked;
+          });
+      
+          if (filteredCourses.length > 0) {
+            result[subject] = filteredCourses;
+          }
+        });
+      
+        return result;
+      },
+      
+      // Topic list used by the template for each course.
+      // When My Courses is on, show only bookmarked topics in that course.
+      visibleTopicsForCourse(course) {
+        const topics = Array.isArray(course.topics) ? course.topics : [];
+        if (!this.myCoursesOnly) return topics;
+        return topics.filter(t => this.isTopicBookmarked(t));
       },
 
       // label helper for chips
