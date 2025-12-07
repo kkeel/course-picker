@@ -386,14 +386,18 @@
                 <div class="toggle-switch">
                   <div class="toggle-switch-knob"></div>
                 </div>
-                <span>Show descriptions &amp; tips</span>
+                <span>Descriptions &amp; Tips</span>
               </div>
 
-              <div class="toggle">
+              <div
+                class="toggle"
+                :class="myCoursesOnly ? 'toggle--on' : ''"
+                @click="toggleMyCoursesOnly()"
+              >
                 <div class="toggle-switch">
                   <div class="toggle-switch-knob"></div>
                 </div>
-                <span>Show my courses only</span>
+                <span>My Courses</span>
               </div>
             </div>
           </div>
@@ -410,7 +414,7 @@
         <!-- Subjects, courses, and topics -->
         <template x-if="!isLoadingCourses && !loadError">
           <div>
-            <template x-for="(courseGroup, subjectName) in coursesBySubject" :key="subjectName">
+            <template x-for="(courseGroup, subjectName) in visibleCourseGroups()" :key="subjectName">
               <section
                 class="subject-block"
                 :class="'subject--' + subjectName.toLowerCase().replace(/[^a-z0-9]+/g, '-')"
@@ -619,8 +623,8 @@
                       </div>
       
                       <!-- Nested topics (titles only for now) -->
-                      <div class="topic-list" x-show="course.topics.length">
-                        <template x-for="topic in course.topics" :key="topic.recordID">
+                      <div class="topic-list" x-show="visibleTopicsForCourse(course).length">
+                        <template x-for="topic in visibleTopicsForCourse(course)" :key="topic.recordID">
                           <article class="topic-card">
                             <!-- Title row with chevron -->
                             <div class="card-header">
