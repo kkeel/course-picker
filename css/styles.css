@@ -490,9 +490,9 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 4px;          /* square with gentle corners */
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;          
   border: 1px solid #d9d3c7;
   background-color: #ffffff;
   padding: 0;
@@ -516,14 +516,14 @@ body {
 }
 
 .bookmark-icon {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 }
 
 /* tiny circular "+" badge for ghost bookmark (like planning-tag-apply) */
 .bookmark-apply {
   position: absolute;
-  bottom: -4px;
+  top: -4px;          /* move to top-right */
   right: -4px;
   width: 16px;
   height: 16px;
@@ -532,7 +532,7 @@ body {
   font-size: 11px;
   line-height: 16px;
   text-align: center;
-  color: var(--brand-muted);
+  color: #7a6f63;     /* slightly darker than var(--brand-muted) */
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 
@@ -587,19 +587,19 @@ body {
 
 .planning-tag-remove {
   position: absolute;
-  top: -4px;
+  bottom: -4px;           
   right: -4px;
   border: none;
-  background-color: #ffffff;
-  border-radius: 999px;
-  width: 14px;
-  height: 14px;
+  background: transparent;
+  border-radius: 0;
+  width: auto;
+  height: auto;
   font-size: 11px;
   line-height: 1;
   padding: 0;
   cursor: pointer;
   color: var(--brand-muted);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
+  box-shadow: none;
 }
 
 .planning-tag-add {
