@@ -474,11 +474,16 @@ body {
 
 /* --- My courses: topic bookmark controls --- */
 
+.card-header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+
 .bookmark-region {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  margin-right: 0.25rem;
 }
 
 .bookmark-btn {
@@ -487,7 +492,7 @@ body {
   justify-content: center;
   width: 28px;
   height: 28px;
-  border-radius: 999px;
+  border-radius: 4px;          /* square with gentle corners */
   border: 1px solid #d9d3c7;
   background-color: #ffffff;
   padding: 0;
@@ -500,13 +505,14 @@ body {
 
 .bookmark-btn--solid {
   border-color: transparent;
-  color: #ffffff;            /* bookmark icon is white on subject color */
+  color: #ffffff;              /* icon white */
 }
 
 .bookmark-btn--ghost {
   border-color: transparent;
   color: #ffffff;
-  opacity: 0.4;              /* faded ghost look */
+  opacity: 0.4;                /* faded ghost look */
+  position: relative;
 }
 
 .bookmark-icon {
@@ -514,17 +520,21 @@ body {
   height: 18px;
 }
 
-.bookmark-ghost-wrapper {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.bookmark-ghost-label {
-  font-size: 0.65rem;
+/* tiny chip across the bottom for ghost state */
+.bookmark-chip {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  bottom: 2px;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  font-size: 0.6rem;
+  line-height: 1.2;
+  text-align: center;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: #9a9183;
+  letter-spacing: 0.05em;
+  color: #7a6f63;
+  padding: 1px 2px;
 }
 
 /* Planning tags */
