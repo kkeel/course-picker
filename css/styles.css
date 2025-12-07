@@ -472,6 +472,49 @@ body {
   margin-left: auto;
 }
 
+/* --- Notes button (pencil) --- */
+
+.note-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  border: 1px solid var(--soft-border, #e2dfd7);
+  background-color: #ffffff;
+  padding: 0;
+  cursor: pointer;
+  color: var(--brand-muted);
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.note-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* no note yet */
+.note-btn--empty:hover {
+  border-color: var(--brand-muted);
+}
+
+/* note exists but this instance is NOT bookmarked yet (subtle signal) */
+.note-btn--soft {
+  color: #666d66;
+  border-color: #666d66;
+}
+
+/* note exists AND this course/topic is bookmarked (louder signal);
+   color/border get overridden inline with subjectColor(...) */
+.note-btn--strong {
+  font-weight: 500;
+}
+
+
 /* --- My courses: topic bookmark controls --- */
 
 .card-header-actions {
@@ -703,6 +746,44 @@ body {
   font-size: 16px;
   line-height: 1.5;
   color: var(--brand-text);
+}
+
+/* --- Notes accordion section --- */
+
+.note-panel {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  background-color: #666d66; /* as requested */
+  color: #fbfbf9;
+}
+
+.note-label {
+  display: block;
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+  opacity: 0.9;
+}
+
+.note-textarea {
+  width: 100%;
+  min-height: 72px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 6px 8px;
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  background-color: rgba(250, 247, 237, 0.12);
+  color: #fbfbf9;
+  resize: vertical;
+}
+
+.note-textarea::placeholder {
+  color: rgba(251, 251, 249, 0.65);
 }
 
 .course-detail-tips {
