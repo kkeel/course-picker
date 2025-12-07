@@ -380,6 +380,51 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
         }
       },
 
+      // --- BOOKMARK HELPERS (My courses) ---
+
+      // Is this topic bookmarked *here* in this course?
+      isTopicBookmarked(topic) {
+        return !!(topic && topic.isBookmarked);
+      },
+
+      // Toggle bookmark on this specific topic instance
+      toggleTopicBookmark(topic) {
+        if (!topic) return;
+        topic.isBookmarked = !topic.isBookmarked;
+      },
+
+      // Is this same Topic_ID bookmarked in any *other* course?
+      topicBookmarkedElsewhere(topic) {
+        if (!topic || !topic.Topic_ID) return false;
+
+        const topicId = String(topic.Topic_ID).trim();
+        if (!topicId) return false;
+
+        const all = this.allCoursesBySubject || {};
+        const subjects = Object.keys(all);
+
+        for (const subject of subjects) {
+          const courses = all[subject] || [];
+          for (const course of courses) {
+            if (!Array.isArray(course.topics)) continue;
+
+            for (const t of course.topics) {
+              if (!t) continue;
+              if (t === topic) continue; // skip this exact instance
+              if (String(t.Topic_ID || "").trim() !== topicId) continue;
+              if (t.isBookmarked) return true;
+            }
+          }
+        }
+        return false;
+      },
+
+      // Turn a ghost bookmark into a real bookmark on this topic
+      applyBookmarkFromElsewhere(topic) {
+        if (!topic) return;
+        topic.isBookmarked = true;
+      },
+
       // clear everything (used by Clear selected button)
       clearAllFilters() {
         this.selectedGrades = [];
