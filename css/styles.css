@@ -502,14 +502,14 @@ body {
   border-color: var(--brand-muted);
 }
 
-/* note exists but this instance is NOT bookmarked yet (subtle signal) */
+/* note exists but NOT bookmarked */
 .note-btn--soft {
-  color: #666d66;
-  border-color: #666d66;
+  background-color: #f4f6fa;         /* same light grey as tips box */
+  color: var(--brand-muted);         /* same muted text color */
+  border-color: var(--brand-muted);  /* subtle but clear outline */
 }
 
-/* note exists AND this course/topic is bookmarked (louder signal);
-   color/border get overridden inline with subjectColor(...) */
+/* note exists AND bookmarked */
 .note-btn--strong {
   font-weight: 500;
 }
@@ -754,7 +754,7 @@ body {
   margin-top: 12px;
   padding: 10px 12px;
   border-radius: 4px;
-  background-color: #666d66; /* as requested */
+  /* background color is set per-subject inline via :style */
   color: #fbfbf9;
 }
 
@@ -777,13 +777,14 @@ body {
   font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   font-size: 13px;
   line-height: 1.4;
+  /* background color is overridden inline with a lighter subject tint */
   background-color: rgba(250, 247, 237, 0.12);
   color: #fbfbf9;
   resize: vertical;
 }
 
 .note-textarea::placeholder {
-  color: rgba(251, 251, 249, 0.65);
+  color: rgba(251, 251, 249, 0.75);
 }
 
 .course-detail-tips {
