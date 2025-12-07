@@ -486,21 +486,31 @@ body {
   align-items: center;
 }
 
+/* Base bookmark button */
 .bookmark-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 30px;
   height: 30px;
-  border-radius: 4px;          
-  border: 1px solid #d9d3c7;
+  border-radius: 4px;
+  border: 1px solid var(--soft-border, #d9d3c7); /* matches planning-tag border */
   background-color: #ffffff;
   padding: 0;
   cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
 
+/* Empty (unselected) bookmark */
 .bookmark-btn--empty {
-  color: #5b5b55;
+  color: var(--brand-muted, #7a6f63);   /* same muted text color as planning tag */
+  border-color: var(--soft-border, #d9d3c7);
+}
+
+/* Hover state for subtle affordance (optional but nice) */
+.bookmark-btn--empty:hover {
+  border-color: var(--brand-muted, #7a6f63);
+  color: var(--brand-muted, #7a6f63);
 }
 
 .bookmark-btn--solid {
