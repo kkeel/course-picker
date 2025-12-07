@@ -570,54 +570,8 @@
                             <!-- Title row with chevron -->
                             <div class="card-header">
                               <h5 class="topic-title" x-text="topic.Topic"></h5>
-
-                                <!-- Chevron only if description or tips exist -->
-                                <template x-if="topic.description || topic.tips">
-                                  <button
-                                    type="button"
-                                    class="card-toggle"
-                                    :class="topic.detailsOpen ? '' : 'card-toggle--closed'"
-                                    @click="topic.detailsOpen = !topic.detailsOpen"
-                                    aria-label="Toggle topic details"
-                                  >
-                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M6 9l6 6 6-6"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                      />
-                                    </svg>
-                                  </button>
-                                </template>
-                            </div>
-                          
-                              <p
-                                class="course-meta topic-meta"
-                                x-show="topic.gradeText || topic.schedText"
-                              >
-                                <!-- left: schedule -->
-                                <template x-if="topic.schedText">
-                                  <span
-                                    class="meta-schedule"
-                                    :class="topic.gradeText ? 'meta-schedule--with-grade' : 'meta-schedule--solo'"
-                                    x-text="topic.schedText"
-                                  ></span>
-                                </template>
-                              
-                                <!-- middle: grade -->
-                                <template x-if="topic.gradeText">
-                                  <span
-                                    :class="topic.schedText ? 'meta-grade meta-grade--with-sched' : 'meta-grade meta-grade--solo'"
-                                    x-text="topic.gradeText"
-                                  ></span>
-                                </template>
-                              
-                                <!-- spacer pushes controls to the right -->
-                                <span class="meta-flex-spacer"></span>
-                              
+                            
+                              <div class="card-header-actions">
                                 <!-- topic bookmark (My courses) -->
                                 <span class="bookmark-region">
                                   <!-- Bookmarked here (solid, subject-colored) -->
@@ -630,29 +584,39 @@
                                       aria-label="Remove from My courses"
                                     >
                                       <svg viewBox="0 0 24 24" aria-hidden="true" class="bookmark-icon">
-                                        <path d="M7 4h10a1 1 0 0 1 1 1v15l-6-3-6 3V5a1 1 0 0 1 1-1z" />
+                                        <path
+                                          d="M8 5h8a1 1 0 0 1 1 1v13l-5-2.5L7 19V6a1 1 0 0 1 1-1z"
+                                          fill="currentColor"
+                                          stroke="currentColor"
+                                          stroke-width="1.4"
+                                          stroke-linejoin="round"
+                                        />
                                       </svg>
                                     </button>
                                   </template>
-                              
+                            
                                   <!-- Ghost bookmark (bookmarked in another course, not here) -->
                                   <template x-if="!isTopicBookmarked(topic) && topicBookmarkedElsewhere(topic)">
-                                    <div class="bookmark-ghost-wrapper">
-                                      <button
-                                        type="button"
-                                        class="bookmark-btn bookmark-btn--ghost"
-                                        :style="{ backgroundColor: subjectColor(course.subject) }"
-                                        @click.stop="applyBookmarkFromElsewhere(topic)"
-                                        aria-label="Add this topic to My courses here"
-                                      >
-                                        <svg viewBox="0 0 24 24" aria-hidden="true" class="bookmark-icon">
-                                          <path d="M7 4h10a1 1 0 0 1 1 1v15l-6-3-6 3V5a1 1 0 0 1 1-1z" />
-                                        </svg>
-                                      </button>
-                                      <span class="bookmark-ghost-label">Already bookmarked</span>
-                                    </div>
+                                    <button
+                                      type="button"
+                                      class="bookmark-btn bookmark-btn--ghost"
+                                      :style="{ backgroundColor: subjectColor(course.subject) }"
+                                      @click.stop="applyBookmarkFromElsewhere(topic)"
+                                      aria-label="Add this topic to My courses here"
+                                    >
+                                      <svg viewBox="0 0 24 24" aria-hidden="true" class="bookmark-icon">
+                                        <path
+                                          d="M8 5h8a1 1 0 0 1 1 1v13l-5-2.5L7 19V6a1 1 0 0 1 1-1z"
+                                          fill="currentColor"
+                                          stroke="currentColor"
+                                          stroke-width="1.4"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                      <span class="bookmark-chip">Saved</span>
+                                    </button>
                                   </template>
-                              
+                            
                                   <!-- Empty bookmark (nowhere yet) -->
                                   <template x-if="!isTopicBookmarked(topic) && !topicBookmarkedElsewhere(topic)">
                                     <button
@@ -680,6 +644,54 @@
                                     </button>
                                   </template>
                                 </span>
+                            
+                                <!-- Chevron only if description or tips exist -->
+                                <template x-if="topic.description || topic.tips">
+                                  <button
+                                    type="button"
+                                    class="card-toggle"
+                                    :class="topic.detailsOpen ? '' : 'card-toggle--closed'"
+                                    @click="topic.detailsOpen = !topic.detailsOpen"
+                                    aria-label="Toggle topic details"
+                                  >
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                      <path
+                                        d="M6 9l6 6 6-6"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      />
+                                    </svg>
+                                  </button>
+                                </template>
+                              </div>
+                            </div>
+                          
+                              <p
+                                class="course-meta topic-meta"
+                                x-show="topic.gradeText || topic.schedText"
+                              >
+                                <!-- left: schedule -->
+                                <template x-if="topic.schedText">
+                                  <span
+                                    class="meta-schedule"
+                                    :class="topic.gradeText ? 'meta-schedule--with-grade' : 'meta-schedule--solo'"
+                                    x-text="topic.schedText"
+                                  ></span>
+                                </template>
+                              
+                                <!-- middle: grade -->
+                                <template x-if="topic.gradeText">
+                                  <span
+                                    :class="topic.schedText ? 'meta-grade meta-grade--with-sched' : 'meta-grade meta-grade--solo'"
+                                    x-text="topic.gradeText"
+                                  ></span>
+                                </template>
+                              
+                                <!-- spacer pushes controls to the right -->
+                                <span class="meta-flex-spacer"></span>
                               
                                 <!-- right: planning tag UI (topics always can have tags) -->
                                 <span class="planning-tag-region">
