@@ -546,6 +546,24 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
         topic.isBookmarked = !topic.isBookmarked;
       },
 
+      // Are *all* topics in this course bookmarked?
+      allTopicsBookmarked(course) {
+        if (!course || !Array.isArray(course.topics) || !course.topics.length) return false;
+        return course.topics.every(t => t && t.isBookmarked);
+      },
+      
+      // Quickmark: bookmark or un-bookmark *all* topics in this course
+      toggleAllTopicsBookmark(course) {
+        if (!course || !Array.isArray(course.topics) || !course.topics.length) return;
+      
+        const markAll = !this.allTopicsBookmarked(course); // if not all → bookmark all; if all → clear all
+      
+        course.topics.forEach(topic => {
+          if (!topic) return;
+          topic.isBookmarked = markAll;
+        });
+      },
+
       // Is this same Topic_ID bookmarked in any *other* course?
       topicBookmarkedElsewhere(topic) {
         if (!topic || !topic.Topic_ID) return false;
