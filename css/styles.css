@@ -472,6 +472,61 @@ body {
   margin-left: auto;
 }
 
+/* --- My courses: topic bookmark controls --- */
+
+.bookmark-region {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.bookmark-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid #d9d3c7;
+  background-color: #ffffff;
+  padding: 0;
+  cursor: pointer;
+}
+
+.bookmark-btn--empty {
+  color: #5b5b55;
+}
+
+.bookmark-btn--solid {
+  border-color: transparent;
+  color: #ffffff;            /* bookmark icon is white on subject color */
+}
+
+.bookmark-btn--ghost {
+  border-color: transparent;
+  color: #ffffff;
+  opacity: 0.4;              /* faded ghost look */
+}
+
+.bookmark-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.bookmark-ghost-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.bookmark-ghost-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #9a9183;
+}
+
 /* Planning tags */
 .planning-tag-region {
   display: inline-flex;
