@@ -765,7 +765,8 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 4px;
-  opacity: 0.9;
+  color: inherit;
+  opacity: 0.7;
 }
 
 .note-textarea {
@@ -779,12 +780,12 @@ body {
   line-height: 1.4;
   /* background color is overridden inline with a lighter subject tint */
   background-color: rgba(250, 247, 237, 0.12);
-  color: #fbfbf9;
+  color: #505650;
   resize: vertical;
 }
 
 .note-textarea::placeholder {
-  color: rgba(251, 251, 249, 0.75);
+  color: rgba(80, 86, 80, 0.55);
 }
 
 .course-detail-tips {
