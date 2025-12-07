@@ -440,7 +440,11 @@
                                 'note-btn--strong': hasCourseNote(course) && isCourseBookmarked(course),
                               }"
                               :style="hasCourseNote(course) && isCourseBookmarked(course)
-                                ? { borderColor: subjectColor(course.subject), color: subjectColor(course.subject) }
+                                ? {
+                                    backgroundColor: subjectColor(course.subject) + '80',
+                                    borderColor: subjectColor(course.subject),
+                                    color: subjectColor(course.subject),
+                                  }
                                 : {}"
                               @click.stop="toggleCourseNoteOpen(course)"
                               aria-label="Toggle course notes"
@@ -678,7 +682,11 @@
                                     'note-btn--strong': hasTopicNote(topic) && isTopicBookmarked(topic),
                                   }"
                                   :style="hasTopicNote(topic) && isTopicBookmarked(topic)
-                                    ? { borderColor: subjectColor(course.subject), color: subjectColor(course.subject) }
+                                    ? {
+                                        backgroundColor: subjectColor(course.subject) + '80',
+                                        borderColor: subjectColor(course.subject),
+                                        color: subjectColor(course.subject),
+                                      }
                                     : {}"
                                   @click.stop="toggleTopicNoteOpen(topic)"
                                   aria-label="Toggle topic notes"
@@ -941,13 +949,15 @@
                               class="note-panel"
                               x-show="topic.noteOpen"
                               x-transition
+                              :style="{ backgroundColor: subjectColor(course.subject) + '80' }"
                             >
-                              <label class="note-label">Topic notes</label>
+                              <label class="note-label">Notes</label>
                               <textarea
                                 class="note-textarea"
-                                placeholder="Add notes for this topic…"
+                                placeholder="Add notes for this topic..."
                                 :value="topicNoteText(topic)"
                                 @input="updateTopicNoteText(topic, $event.target.value)"
+                                :style="{ backgroundColor: subjectColor(course.subject) + '20' }"
                               ></textarea>
                             </div>
                           </article>
@@ -961,13 +971,15 @@
                           class="note-panel"
                           x-show="course.noteOpen"
                           x-transition
+                          :style="{ backgroundColor: subjectColor(course.subject) + '80' }"
                         >
-                          <label class="note-label">Course notes</label>
+                          <label class="note-label">Notes</label>
                           <textarea
                             class="note-textarea"
-                            placeholder="Add any planning notes for this course…"
+                            placeholder="Add notes for this course..."
                             :value="courseNoteText(course)"
                             @input="updateCourseNoteText(course, $event.target.value)"
+                            :style="{ backgroundColor: subjectColor(course.subject) + '20' }"
                           ></textarea>
                         </div>
                       </template>
