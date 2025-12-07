@@ -516,25 +516,24 @@ body {
 }
 
 .bookmark-icon {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 
-/* tiny chip across the bottom for ghost state */
-.bookmark-chip {
+/* tiny circular "+" badge for ghost bookmark (like planning-tag-apply) */
+.bookmark-apply {
   position: absolute;
-  left: 3px;
-  right: 3px;
-  bottom: 2px;
-  background-color: rgba(255, 255, 255, 0.85);
+  bottom: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
   border-radius: 999px;
-  font-size: 0.6rem;
-  line-height: 1.2;
+  background-color: #ffffff;
+  font-size: 11px;
+  line-height: 16px;
   text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #7a6f63;
-  padding: 1px 2px;
+  color: var(--brand-muted);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 
 /* Planning tags */
