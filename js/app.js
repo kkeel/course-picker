@@ -382,6 +382,17 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
 
       // --- BOOKMARK HELPERS (My courses) ---
 
+      // Is this course bookmarked (for courses without topics)?
+      isCourseBookmarked(course) {
+        return !!(course && course.isBookmarked);
+      },
+
+      // Toggle bookmark on this specific course
+      toggleCourseBookmark(course) {
+        if (!course) return;
+        course.isBookmarked = !course.isBookmarked;
+      },
+
       // Is this topic bookmarked *here* in this course?
       isTopicBookmarked(topic) {
         return !!(topic && topic.isBookmarked);
