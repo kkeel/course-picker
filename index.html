@@ -613,10 +613,72 @@
                                     :class="topic.schedText ? 'meta-grade meta-grade--with-sched' : 'meta-grade meta-grade--solo'"
                                     x-text="topic.gradeText"
                                   ></span>
-                                </template>
-                              
-                                <!-- spacer -->
-                                <span class="meta-flex-spacer"></span>
+                                  
+                                  <!-- spacer -->
+                                  <span class="meta-flex-spacer"></span>
+                                  
+                                  <!-- topic bookmark (My courses) -->
+                                  <span class="bookmark-region">
+                                    <!-- Bookmarked here (solid, subject-colored) -->
+                                    <template x-if="isTopicBookmarked(topic)">
+                                      <button
+                                        type="button"
+                                        class="bookmark-btn bookmark-btn--solid"
+                                        :style="{ backgroundColor: subjectColor(course.subject) }"
+                                        @click.stop="toggleTopicBookmark(topic)"
+                                        aria-label="Remove from My courses"
+                                      >
+                                        <svg viewBox="0 0 24 24" aria-hidden="true" class="bookmark-icon">
+                                          <path d="M7 4h10a1 1 0 0 1 1 1v15l-6-3-6 3V5a1 1 0 0 1 1-1z" />
+                                        </svg>
+                                      </button>
+                                    </template>
+                                  
+                                    <!-- Ghost bookmark (bookmarked in another course, not here) -->
+                                    <template x-if="!isTopicBookmarked(topic) && topicBookmarkedElsewhere(topic)">
+                                      <div class="bookmark-ghost-wrapper">
+                                        <button
+                                          type="button"
+                                          class="bookmark-btn bookmark-btn--ghost"
+                                          :style="{ backgroundColor: subjectColor(course.subject) }"
+                                          @click.stop="applyBookmarkFromElsewhere(topic)"
+                                          aria-label="Add this topic to My courses here"
+                                        >
+                                          <svg viewBox="0 0 24 24" aria-hidden="true" class="bookmark-icon">
+                                            <path d="M7 4h10a1 1 0 0 1 1 1v15l-6-3-6 3V5a1 1 0 0 1 1-1z" />
+                                          </svg>
+                                        </button>
+                                        <span class="bookmark-ghost-label">Already bookmarked</span>
+                                      </div>
+                                    </template>
+                                  
+                                    <!-- Empty bookmark (nowhere yet) -->
+                                    <template x-if="!isTopicBookmarked(topic) && !topicBookmarkedElsewhere(topic)">
+                                      <button
+                                        type="button"
+                                        class="bookmark-btn bookmark-btn--empty"
+                                        @click.stop="toggleTopicBookmark(topic)"
+                                        aria-label="Add to My courses"
+                                      >
+                                        <svg viewBox="0 0 24 24" aria-hidden="true" class="bookmark-icon">
+                                          <path
+                                            d="M8 5h8a1 1 0 0 1 1 1v11.5l-5-2.5-5 2.5V6a1 1 0 0 1 1-1z"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="1.6"
+                                            stroke-linejoin="round"
+                                          />
+                                          <path
+                                            d="M12 7v4m-2-2h4"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="1.6"
+                                            stroke-linecap="round"
+                                          />
+                                        </svg>
+                                      </button>
+                                    </template>
+                                  </span>
 
                                 <!-- right: planning tag UI (topics always can have tags) -->
                                 <span class="planning-tag-region">
