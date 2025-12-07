@@ -429,6 +429,43 @@
                         <h4 class="course-title" x-text="course.title"></h4>
                       
                         <div class="card-header-actions">
+                          <!-- Course notes (only for courses with NO topics) -->
+                          <template x-if="!course.topics || course.topics.length === 0">
+                            <button
+                              type="button"
+                              class="note-btn"
+                              :class="{
+                                'note-btn--empty': !hasCourseNote(course),
+                                'note-btn--soft':  hasCourseNote(course) && !isCourseBookmarked(course),
+                                'note-btn--strong': hasCourseNote(course) && isCourseBookmarked(course),
+                              }"
+                              :style="hasCourseNote(course) && isCourseBookmarked(course)
+                                ? { borderColor: subjectColor(course.subject), color: subjectColor(course.subject) }
+                                : {}"
+                              @click.stop="toggleCourseNoteOpen(course)"
+                              aria-label="Toggle course notes"
+                            >
+                              <!-- pencil icon -->
+                              <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                  d="M4 17.5V20h2.5L17 9.5 14.5 7 4 17.5z"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="1.6"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M15.5 5.5L18 8"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="1.6"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </button>
+                          </template>
                           <!-- Course bookmark only when there are NO topics -->
                           <template x-if="!course.topics || course.topics.length === 0">
                             <span class="bookmark-region">
@@ -631,6 +668,40 @@
                               <h5 class="topic-title" x-text="topic.Topic"></h5>
                             
                               <div class="card-header-actions">
+                                <!-- Topic notes button -->
+                                <button
+                                  type="button"
+                                  class="note-btn"
+                                  :class="{
+                                    'note-btn--empty': !hasTopicNote(topic),
+                                    'note-btn--soft':  hasTopicNote(topic) && !isTopicBookmarked(topic),
+                                    'note-btn--strong': hasTopicNote(topic) && isTopicBookmarked(topic),
+                                  }"
+                                  :style="hasTopicNote(topic) && isTopicBookmarked(topic)
+                                    ? { borderColor: subjectColor(course.subject), color: subjectColor(course.subject) }
+                                    : {}"
+                                  @click.stop="toggleTopicNoteOpen(topic)"
+                                  aria-label="Toggle topic notes"
+                                >
+                                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                      d="M4 17.5V20h2.5L17 9.5 14.5 7 4 17.5z"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="1.6"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                    />
+                                    <path
+                                      d="M15.5 5.5L18 8"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="1.6"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                    />
+                                  </svg>
+                                </button>
                                 <!-- topic bookmark (My courses) -->
                                 <span class="bookmark-region">
                                   <!-- Bookmarked here (solid, subject-colored) -->
@@ -865,10 +936,41 @@
                                 <span x-text="topic.tips"></span>
                               </div>
                             </div>
+                            <!-- Topic notes panel -->
+                            <div
+                              class="note-panel"
+                              x-show="topic.noteOpen"
+                              x-transition
+                            >
+                              <label class="note-label">Topic notes</label>
+                              <textarea
+                                class="note-textarea"
+                                placeholder="Add notes for this topic…"
+                                :value="topicNoteText(topic)"
+                                @input="updateTopicNoteText(topic, $event.target.value)"
+                              ></textarea>
+                            </div>
                           </article>
 
                         </template>
                       </div>
+
+                      <!-- Course notes panel (topic-less courses only) -->
+                      <template x-if="!course.topics || course.topics.length === 0">
+                        <div
+                          class="note-panel"
+                          x-show="course.noteOpen"
+                          x-transition
+                        >
+                          <label class="note-label">Course notes</label>
+                          <textarea
+                            class="note-textarea"
+                            placeholder="Add any planning notes for this course…"
+                            :value="courseNoteText(course)"
+                            @input="updateCourseNoteText(course, $event.target.value)"
+                          ></textarea>
+                        </div>
+                      </template>
                       
                     </article>
                   </template>
