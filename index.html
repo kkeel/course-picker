@@ -431,24 +431,24 @@
                         <div class="card-header-actions">
                           <!-- Course notes (only for courses with NO topics) -->
                           <template x-if="!course.topics || course.topics.length === 0">
-                            <button
-                              type="button"
-                              class="note-btn"
-                              :class="{
-                                'note-btn--empty': !hasCourseNote(course),
-                                'note-btn--soft':  hasCourseNote(course) && !isCourseBookmarked(course),
-                                'note-btn--strong': hasCourseNote(course) && isCourseBookmarked(course),
-                              }"
-                              :style="hasCourseNote(course) && isCourseBookmarked(course)
-                                ? {
-                                    backgroundColor: subjectColor(course.subject) + '80',
-                                    borderColor: subjectColor(course.subject),
-                                    color: subjectColor(course.subject),
-                                  }
-                                : {}"
-                              @click.stop="toggleCourseNoteOpen(course)"
-                              aria-label="Toggle course notes"
-                            >
+                              <button
+                                type="button"
+                                class="note-btn"
+                                :class="{
+                                  'note-btn--empty': !hasCourseNote(course),
+                                  'note-btn--soft':  hasCourseNote(course) && !isCourseBookmarked(course),
+                                  'note-btn--strong': hasCourseNote(course) && isCourseBookmarked(course),
+                                }"
+                                :style="hasCourseNote(course) && isCourseBookmarked(course)
+                                  ? {
+                                      backgroundColor: subjectColor(course.subject) + '4D',
+                                      borderColor: subjectColor(course.subject),
+                                      color: subjectColor(course.subject),
+                                    }
+                                  : {}"
+                                @click.stop="toggleCourseNoteOpen(course)"
+                                aria-label="Toggle course notes"
+                              >
                               <!-- pencil icon -->
                               <svg viewBox="0 0 24 24" aria-hidden="true">
                                 <path
@@ -674,23 +674,23 @@
                               <div class="card-header-actions">
                                 <!-- Topic notes button -->
                                 <button
-                                  type="button"
-                                  class="note-btn"
-                                  :class="{
-                                    'note-btn--empty': !hasTopicNote(topic),
-                                    'note-btn--soft':  hasTopicNote(topic) && !isTopicBookmarked(topic),
-                                    'note-btn--strong': hasTopicNote(topic) && isTopicBookmarked(topic),
-                                  }"
-                                  :style="hasTopicNote(topic) && isTopicBookmarked(topic)
-                                    ? {
-                                        backgroundColor: subjectColor(course.subject) + '80',
-                                        borderColor: subjectColor(course.subject),
-                                        color: subjectColor(course.subject),
-                                      }
-                                    : {}"
-                                  @click.stop="toggleTopicNoteOpen(topic)"
-                                  aria-label="Toggle topic notes"
-                                >
+                                    type="button"
+                                    class="note-btn"
+                                    :class="{
+                                      'note-btn--empty': !hasTopicNote(topic),
+                                      'note-btn--soft':  hasTopicNote(topic) && !isTopicBookmarked(topic),
+                                      'note-btn--strong': hasTopicNote(topic) && isTopicBookmarked(topic),
+                                    }"
+                                    :style="hasTopicNote(topic) && isTopicBookmarked(topic)
+                                      ? {
+                                          backgroundColor: subjectColor(course.subject) + '4D',
+                                          borderColor: subjectColor(course.subject),
+                                          color: subjectColor(course.subject),
+                                        }
+                                      : {}"
+                                    @click.stop="toggleTopicNoteOpen(topic)"
+                                    aria-label="Toggle topic notes"
+                                  >
                                   <svg viewBox="0 0 24 24" aria-hidden="true">
                                     <path
                                       d="M4 17.5V20h2.5L17 9.5 14.5 7 4 17.5z"
@@ -949,7 +949,7 @@
                               class="note-panel"
                               x-show="topic.noteOpen"
                               x-transition
-                              :style="{ backgroundColor: subjectColor(course.subject) + '80' }"
+                              :style="{ backgroundColor: subjectColor(course.subject) + '4D' }"
                             >
                               <label class="note-label">Notes</label>
                               <textarea
@@ -957,7 +957,7 @@
                                 placeholder="Add notes for this topic..."
                                 :value="topicNoteText(topic)"
                                 @input="updateTopicNoteText(topic, $event.target.value)"
-                                :style="{ backgroundColor: subjectColor(course.subject) + '20' }"
+                                :style="{ backgroundColor: subjectColor(course.subject) + '1A' }"
                               ></textarea>
                             </div>
                           </article>
@@ -971,7 +971,7 @@
                           class="note-panel"
                           x-show="course.noteOpen"
                           x-transition
-                          :style="{ backgroundColor: subjectColor(course.subject) + '80' }"
+                          :style="{ backgroundColor: subjectColor(course.subject) + '4D' }"
                         >
                           <label class="note-label">Notes</label>
                           <textarea
@@ -979,7 +979,7 @@
                             placeholder="Add notes for this course..."
                             :value="courseNoteText(course)"
                             @input="updateCourseNoteText(course, $event.target.value)"
-                            :style="{ backgroundColor: subjectColor(course.subject) + '20' }"
+                            :style="{ backgroundColor: subjectColor(course.subject) + '1A' }"
                           ></textarea>
                         </div>
                       </template>
