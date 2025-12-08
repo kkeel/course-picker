@@ -327,7 +327,8 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
       courseMatchesSearch(course, searchLower) {
         const q = (searchLower || "").trim();
         if (!q) return true;
-
+      
+        // 1. Collect all searchable text
         const pieces = [
           course.title,
           course.subject,
@@ -337,10 +338,15 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
           course.schedText,
           course.metaLine,
         ];
-
+      
+        // course-level notes
+        const courseNote = this.plan?.[course.id]?.note;
+        if (courseNote) pieces.push(courseNote);
+      
         if (Array.isArray(course.topics)) {
           course.topics.forEach(topic => {
             if (!topic) return;
+      
             pieces.push(
               topic.Topic || topic.title,
               topic.description,
@@ -348,16 +354,24 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
               topic.Grade_Text || topic.gradeText,
               topic.Scheduling_R3 || topic.schedText
             );
+      
+            // topic-level notes (support topic.topic_id or topic.id)
+            const topicNote = this.plan?.[topic.topic_id]?.note || this.plan?.[topic.id]?.note;
+            if (topicNote) pieces.push(topicNote);
           });
         }
-
+      
+        // 2. Normalize to lowercase and split into "words"
         const haystack = pieces
           .filter(Boolean)
           .join(" ")
           .toLowerCase();
-
-        return haystack.includes(q);
-      },
+      
+        const words = haystack.split(/[^a-z0-9]+/); // split on spaces & punctuation
+      
+        // 3. Match whole word or word prefix (so "natu" still finds "nature")
+        return words.some(w => w && (w === q || w.startsWith(q)));
+      }
 
       // For a given topic, which globally-known tags have NOT yet been applied here?
       missingGlobalTagsForTopic(topic) {
