@@ -305,14 +305,14 @@ body {
 }
 
 .btn-pill.print-btn .btn-pill-icon svg {
-  width: 24px;
-  height: 24px;
+  width: 21px;
+  height: 21px;
 }
 
 /* Slightly enlarge the bookmark reset icon for visual balance */
 .btn-pill-icon.bookmark-reset svg {
-  width: 23px;
-  height: 23px;
+  width: 21px;
+  height: 21px;
 }
 
 .btn-secondary {
