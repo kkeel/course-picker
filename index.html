@@ -319,6 +319,8 @@
                   type="search"
                   placeholder="Search"
                   autocomplete="off"
+                  x-model="searchQuery"
+                  @input="applyFilters()"
                 />
                 <span class="search-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
