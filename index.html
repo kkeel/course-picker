@@ -546,8 +546,12 @@
                               </button>
                           
                               <!-- LABEL BELOW BUTTON -->
-                              <div class="quick-enroll-label"
+                              <div
+                                class="quick-enroll-label"
                                 :class="allTopicsBookmarked(course) ? 'quick-enroll-label--active' : ''"
+                                :style="allTopicsBookmarked(course)
+                                  ? { backgroundColor: subjectColor(course.subject) }
+                                  : {}"
                               >
                                 <span x-text="allTopicsBookmarked(course) ? 'All' : '+All'"></span>
                               </div>
