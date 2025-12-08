@@ -94,6 +94,9 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
       selectedTags: [],
       tagDropdownOpen: false,
 
+      // --- FILTER STATE (search) ---
+      searchQuery: "",
+
       // --- PLANNING TAG OPTIONS ---
       // Adjust image filenames/paths as needed so they match your repo
       planningTagOptions: [
