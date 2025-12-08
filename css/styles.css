@@ -576,7 +576,7 @@ body {
 }
 
 .quick-enroll-label--active {
-  background-color: var(--subjectColor, #000); /* replaced dynamically */
+  /* background-color is now set inline via Alpine */
   color: #ffffff !important;
   padding: 2px 8px;
   border-radius: 999px;
