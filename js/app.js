@@ -371,7 +371,7 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
       
         // 3. Match whole word or word prefix (so "natu" still finds "nature")
         return words.some(w => w && (w === q || w.startsWith(q)));
-      }
+      },
 
       // For a given topic, which globally-known tags have NOT yet been applied here?
       missingGlobalTagsForTopic(topic) {
