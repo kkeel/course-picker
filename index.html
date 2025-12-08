@@ -348,16 +348,31 @@
           <div class="filter-actions">
             <!-- Left: clear + print buttons -->
             <div class="flex gap-2">
-              <button type="button" class="btn-pill" @click="clearAllFilters()">
+              <button
+                type="button"
+                class="btn-pill"
+                @click="clearAllBookmarks()"
+              >
                 <span class="btn-pill-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <line x1="6" y1="6" x2="18" y2="18"
-                          stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
-                    <line x1="18" y1="6" x2="6" y2="18"
-                          stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <!-- bookmark outline -->
+                    <path d="M7 5h10v14l-5-3-5 3V5z"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.8"
+                          stroke-linejoin="round" />
+                    <!-- X inside bookmark -->
+                    <line x1="9" y1="9" x2="15" y2="15"
+                          stroke="currentColor"
+                          stroke-width="1.8"
+                          stroke-linecap="round" />
+                    <line x1="15" y1="9" x2="9" y2="15"
+                          stroke="currentColor"
+                          stroke-width="1.8"
+                          stroke-linecap="round" />
                   </svg>
                 </span>
-                <span>Clear selected</span>
+                <span>Clear bookmarks</span>
               </button>
 
               <button type="button" class="btn-pill btn-secondary print-btn">
