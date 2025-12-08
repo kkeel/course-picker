@@ -324,6 +324,41 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
       return this.selectedTags.some(id => tagIds.has(id));
       },
 
+      courseMatchesSearch(course, searchLower) {
+        const q = (searchLower || "").trim();
+        if (!q) return true;
+
+        const pieces = [
+          course.title,
+          course.subject,
+          course.description,
+          course.tips,
+          course.gradeText,
+          course.schedText,
+          course.metaLine,
+        ];
+
+        if (Array.isArray(course.topics)) {
+          course.topics.forEach(topic => {
+            if (!topic) return;
+            pieces.push(
+              topic.Topic || topic.title,
+              topic.description,
+              topic.tips,
+              topic.Grade_Text || topic.gradeText,
+              topic.Scheduling_R3 || topic.schedText
+            );
+          });
+        }
+
+        const haystack = pieces
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+
+        return haystack.includes(q);
+      },
+
       // For a given topic, which globally-known tags have NOT yet been applied here?
       missingGlobalTagsForTopic(topic) {
         if (!topic) return [];
@@ -650,8 +685,11 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
         const hasSubject = this.selectedSubjects.length > 0;
         const hasTag     = this.selectedTags.length > 0;
 
-        // No filters => show full dataset
-        if (!hasGrade && !hasSubject && !hasTag) {
+        const search = (this.searchQuery || "").trim().toLowerCase();
+        const hasSearch = !!search;
+
+        // No filters and no search => show full dataset
+        if (!hasGrade && !hasSubject && !hasTag && !hasSearch) {
           this.coursesBySubject = this.allCoursesBySubject;
           return;
         }
@@ -664,19 +702,14 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
           const subjectCourses = [];
 
           courses.forEach(course => {
-            const matchesGrade =
-              !hasGrade || this.gradeMatches(course.gradeTags);
+            const matchesGrade   = !hasGrade   || this.gradeMatches(course.gradeTags);
+            const matchesSubject = !hasSubject || this.subjectMatches(course.subject);
+            const matchesTag     = !hasTag     || this.tagMatchesCourse(course);
+            const matchesSearch  = !hasSearch  || this.courseMatchesSearch(course, search);
 
-            const matchesSubject =
-              !hasSubject || this.subjectMatches(course.subject);
+            if (!(matchesGrade && matchesSubject && matchesTag && matchesSearch)) return;
 
-            const matchesTag =
-              !hasTag || this.tagMatchesCourse(course);
-
-            if (!(matchesGrade && matchesSubject && matchesTag)) return;
-
-            // IMPORTANT: we now keep the original course object
-            // so planning tags and other state persist.
+            // keep original course object so planning/tag state persists
             subjectCourses.push(course);
           });
 
