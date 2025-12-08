@@ -505,6 +505,7 @@
                                   aria-label="Add course to My courses"
                                 >
                                   <img src="img/icons/bookmark-muted.svg" alt="" class="bookmark-icon" />
+                                  <span class="bookmark-apply">+</span>
                                 </button>
                               </template>
                             </span>
@@ -536,12 +537,11 @@
                                   class="bookmark-icon"
                                 />
                               </span>
-                              <span
-                                class="quick-enroll-chip"
-                                :class="allTopicsBookmarked(course) ? 'quick-enroll-chip--active' : ''"
-                              >
-                                All
-                              </span>
+                                  <span
+                                    class="quick-enroll-chip"
+                                    :class="allTopicsBookmarked(course) ? 'quick-enroll-chip--active' : ''"
+                                    x-text="allTopicsBookmarked(course) ? 'All' : '+All'"
+                                  ></span>
                             </button>
                           </template>
                         
@@ -778,6 +778,7 @@
                                       aria-label="Add to My courses"
                                     >
                                       <img src="img/icons/bookmark-muted.svg" alt="" class="bookmark-icon" />
+                                       <span class="bookmark-apply">+</span>
                                     </button>
                                   </template>
                                 </span>
