@@ -309,6 +309,12 @@ body {
   height: 24px;
 }
 
+/* Slightly enlarge the bookmark reset icon for visual balance */
+.btn-pill-icon.bookmark-reset svg {
+  width: 23px;
+  height: 23px;
+}
+
 .btn-secondary {
   /* print button keeps same transparent style, but we may
      enhance later if you want emphasis */
