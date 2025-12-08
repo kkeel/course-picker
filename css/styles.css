@@ -366,7 +366,8 @@ body {
 
 .search-icon {
   position: absolute;
-  right: 10px;
+  left: 10px;
+  right: auto;
   width: 20px;
   height: 20px; 
   pointer-events: none;
@@ -376,6 +377,10 @@ body {
 .search-icon svg {
   width: 20px;
   height: 20px;
+}
+
+.filter-control input[type="search"] {
+  padding-left: 32px;  /* adjust if you want more/less spacing */
 }
 
 /* Subject, course, and topic shells */
