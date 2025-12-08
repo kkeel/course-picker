@@ -514,34 +514,45 @@
                           <!-- Quickmark: bookmark all topics in this course -->
                           <template x-if="course.topics && course.topics.length">
                             <button
-                                type="button"
-                                class="quick-enroll-btn"
-                                :class="allTopicsBookmarked(course) ? 'quick-enroll-btn--active' : ''"
-                                :style="allTopicsBookmarked(course)
-                                  ? {
-                                      backgroundColor: subjectColor(course.subject) + '4D',
-                                      borderColor: subjectColor(course.subject),
-                                      color: subjectColor(course.subject),
-                                    }
-                                  : {}"
-                                @click.stop="toggleAllTopicsBookmark(course)"
-                                aria-label="Toggle bookmarks for all topics in this course"
-                              >
+                              type="button"
+                              class="quick-enroll-btn"
+                              :class="allTopicsBookmarked(course) ? 'quick-enroll-btn--active' : ''"
+                              :style="allTopicsBookmarked(course)
+                                ? {
+                                    // light subject tint + strong outline when active
+                                    backgroundColor: subjectColor(course.subject) + '4D',
+                                    borderColor: subjectColor(course.subject),
+                                    color: subjectColor(course.subject),
+                                  }
+                                : {}"
+                              @click.stop="toggleAllTopicsBookmark(course)"
+                              aria-label="Toggle bookmarks for all topics in this course"
+                            >
+                              <!-- use the SAME single bookmark icon as other buttons -->
                               <span class="quick-enroll-icon" aria-hidden="true">
-                                <!-- stacked bookmark icon -->
                                 <img
                                   :src="allTopicsBookmarked(course)
-                                    ? 'img/icons/bookmark-stacked-active.svg'
-                                    : 'img/icons/bookmark-stacked-muted.svg'"
+                                    ? 'img/icons/bookmark-active.svg'
+                                    : 'img/icons/bookmark-muted.svg'"
                                   alt=""
                                   class="bookmark-icon"
                                 />
                               </span>
-                                  <span
-                                    class="quick-enroll-chip"
-                                    :class="allTopicsBookmarked(course) ? 'quick-enroll-chip--active' : ''"
-                                    x-text="allTopicsBookmarked(course) ? 'All' : '+All'"
-                                  ></span>
+                          
+                              <!-- corner chip: +All (off) / All (on) -->
+                              <span
+                                class="quick-enroll-chip"
+                                :class="allTopicsBookmarked(course) ? 'quick-enroll-chip--active' : ''"
+                                :style="allTopicsBookmarked(course)
+                                  ? {
+                                      backgroundColor: subjectColor(course.subject),
+                                      color: '#ffffff',
+                                      border: 'none',
+                                      boxShadow: 'none',
+                                    }
+                                  : {}"
+                                x-text="allTopicsBookmarked(course) ? 'All' : '+All'"
+                              ></span>
                             </button>
                           </template>
                         
