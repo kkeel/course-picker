@@ -544,8 +544,8 @@ body {
 
 .quick-enroll-icon svg,
 .quick-enroll-icon img {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 
 /* "+All / All" chip overlapping top-right */
@@ -566,14 +566,8 @@ body {
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 
-/* Button background when all topics are bookmarked (subject tint) */
-.quick-enroll-btn--active {
-  border-color: transparent; /* actual color comes from inline subjectColor style */
-}
-
 /* Chip text turns subject color when active */
 .quick-enroll-chip--active {
-  color: inherit;  /* inherits subjectColor from button */
   font-weight: 500;
 }
 
