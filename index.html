@@ -513,23 +513,24 @@
 
                           <!-- Quickmark: bookmark all topics in this course -->
                           <template x-if="course.topics && course.topics.length">
-                            <button
-                              type="button"
-                              class="quick-enroll-btn"
-                              :class="allTopicsBookmarked(course) ? 'quick-enroll-btn--active' : ''"
-                              :style="allTopicsBookmarked(course)
-                                ? {
-                                    // light subject tint + strong outline when active
-                                    backgroundColor: subjectColor(course.subject) + '4D',
-                                    borderColor: subjectColor(course.subject),
-                                    color: subjectColor(course.subject),
-                                  }
-                                : {}"
-                              @click.stop="toggleAllTopicsBookmark(course)"
-                              aria-label="Toggle bookmarks for all topics in this course"
-                            >
-                              <!-- use the SAME single bookmark icon as other buttons -->
-                              <span class="quick-enroll-icon" aria-hidden="true">
+                            <div class="quick-enroll-wrapper">
+                              
+                              <!-- BUTTON -->
+                              <button
+                                type="button"
+                                class="quick-enroll-btn"
+                                :class="allTopicsBookmarked(course) ? 'quick-enroll-btn--active' : ''"
+                                :style="allTopicsBookmarked(course)
+                                  ? {
+                                      backgroundColor: subjectColor(course.subject) + '4D',
+                                      borderColor: subjectColor(course.subject),
+                                      color: subjectColor(course.subject),
+                                    }
+                                  : {}"
+                                @click.stop="toggleAllTopicsBookmark(course)"
+                                aria-label="Enroll all topics in this course"
+                              >
+                                <!-- bookmark icon -->
                                 <img
                                   :src="allTopicsBookmarked(course)
                                     ? 'img/icons/bookmark-active.svg'
@@ -537,23 +538,21 @@
                                   alt=""
                                   class="bookmark-icon"
                                 />
-                              </span>
                           
-                              <!-- corner chip: +All (off) / All (on) -->
-                              <span
-                                class="quick-enroll-chip"
-                                :class="allTopicsBookmarked(course) ? 'quick-enroll-chip--active' : ''"
-                                :style="allTopicsBookmarked(course)
-                                  ? {
-                                      backgroundColor: subjectColor(course.subject),
-                                      color: '#ffffff',
-                                      border: 'none',
-                                      boxShadow: 'none',
-                                    }
-                                  : {}"
-                                x-text="allTopicsBookmarked(course) ? 'All' : '+All'"
-                              ></span>
-                            </button>
+                                <!-- unselected chip -->
+                                <template x-if="!allTopicsBookmarked(course)">
+                                  <span class="quick-chip">++</span>
+                                </template>
+                              </button>
+                          
+                              <!-- LABEL BELOW BUTTON -->
+                              <div class="quick-enroll-label"
+                                :class="allTopicsBookmarked(course) ? 'quick-enroll-label--active' : ''"
+                              >
+                                <span x-text="allTopicsBookmarked(course) ? 'All' : '+All'"></span>
+                              </div>
+                          
+                            </div>
                           </template>
                         
                           <!-- Chevron only if description or tips exist -->
