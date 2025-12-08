@@ -522,7 +522,7 @@ body {
   justify-content: center;
   width: 30px;
   height: 30px;
-  border-radius: 4px;                         
+  border-radius: 4px; /* match regular bookmark button */
   border: 1px solid var(--soft-border, #e2dfd7);
   background-color: #ffffff;
   padding: 0;
@@ -542,40 +542,38 @@ body {
   justify-content: center;
 }
 
-/* stacked icon size */
 .quick-enroll-icon svg,
 .quick-enroll-icon img {
   width: 18px;
   height: 18px;
 }
 
-/* Little "All" chip overlapping bottom-center */
+/* "+All / All" chip overlapping top-right */
 .quick-enroll-chip {
   position: absolute;
-  bottom: -4px;                                 
-  left: 50%;
-  transform: translateX(-50%);
+  top: -4px;
+  right: -4px;
   min-width: 22px;
   height: 16px;
-  padding: 0 6px;
+  padding: 0 4px;
   border-radius: 999px;
-  background-color: #ffffff;                  
+  background-color: #ffffff;
   border: 1px solid var(--soft-border, #e2dfd7);
   font-size: 11px;
   line-height: 16px;
-  color: var(--brand-muted);                  
   text-align: center;
+  color: var(--brand-muted);     /* muted when not all topics are bookmarked */
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 
-/* When all topics are bookmarked in this course */
+/* Button background when all topics are bookmarked (subject tint) */
 .quick-enroll-btn--active {
-  border-color: transparent;   
+  border-color: transparent; /* actual color comes from inline subjectColor style */
 }
 
-/* Chip becomes white with subject color text when selected */
+/* Chip text turns subject color when active */
 .quick-enroll-chip--active {
-  background-color: #ffffff;
-  color: inherit;             
+  color: inherit;  /* inherits subjectColor from button */
   font-weight: 500;
 }
 
