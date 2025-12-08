@@ -610,6 +610,30 @@ const MA_COURSES_JSON_URL = "data/MA_Courses.json";
         this.applyFilters();
       },
 
+      clearAllBookmarks() {
+        const groups = this.allCoursesBySubject || {};
+      
+        Object.values(groups).forEach(courses => {
+          (courses || []).forEach(course => {
+            if (!course) return;
+      
+            // clear course-level bookmark (for courses without topics)
+            course.isBookmarked = false;
+      
+            // clear topic-level bookmarks (for courses with topics)
+            if (Array.isArray(course.topics)) {
+              course.topics.forEach(topic => {
+                if (!topic) return;
+                topic.isBookmarked = false;
+              });
+            }
+          });
+        });
+      
+        // Rebuild visibleCourseGroups / filters view after changes
+        this.applyFilters();
+      },
+
       // helper: does this item match the grade filter?
       gradeMatches(tags) {
         if (!this.selectedGrades.length) return true;  // no filter => match all
