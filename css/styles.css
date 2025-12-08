@@ -595,6 +595,7 @@ body {
 
 /* Base bookmark button */
 .bookmark-btn {
+  position: relative;   /* NEW: so chips can be absolutely positioned */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -636,10 +637,9 @@ body {
   height: 26px;
 }
 
-/* tiny circular "+" badge for ghost bookmark (like planning-tag-apply) */
 .bookmark-apply {
   position: absolute;
-  top: -4px;          /* move to top-right */
+  top: -4px;          /* top-right, like ghost button */
   right: -4px;
   width: 16px;
   height: 16px;
@@ -648,8 +648,13 @@ body {
   font-size: 11px;
   line-height: 16px;
   text-align: center;
-  color: #7a6f63;     /* slightly darker than var(--brand-muted) */
+  color: var(--brand-muted);   /* muted text color */
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+/* variant: let chip take on the current text color (subject color, etc.) */
+.bookmark-apply--subject {
+  color: inherit;
 }
 
 /* Planning tags */
