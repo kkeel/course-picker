@@ -1070,6 +1070,44 @@
 
   </main>
 
+  <!-- Authentication Bootstrapping -->
+  <script type="module">
+    import { getCurrentUser } from "./js/auth.js";
+  
+    document.addEventListener("alpine:init", () => {
+      // Patch the existing Alpine component
+      Alpine.data("coursePlanner", (oldFn => {
+        return function () {
+          // Get the original component object
+          const original = oldFn();
+  
+          return {
+            // Add our auth data
+            user: { role: "anonymous" },
+  
+            // Wrap the original init() with user loading
+            async init() {
+              // Load user (dev mode = staff)
+              this.user = await getCurrentUser();
+  
+              // Call original init()
+              if (typeof original.init === "function") {
+                original.init.call(this);
+              }
+            },
+  
+            // Role helpers
+            get isStaff()  { return this.user.role === "staff"; },
+            get isMember() { return this.user.role === "member"; },
+            get isAnon()   { return this.user.role === "anonymous"; },
+  
+            // Merge all original properties/methods
+            ...original
+          };
+        };
+      })(Alpine.data("coursePlanner")));
+    });
+  </script>
   <script src="js/app.js"></script>
   
 </body>
