@@ -58,6 +58,9 @@ function coursePlanner() {
       myCoursesOnly: false,
       myNotesOpen: false,
 
+      // debounce handle for saving UI state
+      uiPersistDebounce: null,
+
       // --- FILTER STATE (grade) ---
       selectedGrades: [],          // e.g. ["G1", "G3"]
       gradeDropdownOpen: false,
@@ -714,6 +717,7 @@ function coursePlanner() {
         // No filters and no search => show full dataset
         if (!hasGrade && !hasSubject && !hasTag && !hasSearch) {
           this.coursesBySubject = this.allCoursesBySubject;
+          this.persistUiStateDebounced();
           return;
         }
 
@@ -742,6 +746,7 @@ function coursePlanner() {
         });
 
         this.coursesBySubject = filtered;
+        this.persistUiStateDebounced();
       },
 
       // new state for courses
@@ -769,7 +774,7 @@ function coursePlanner() {
       'Alt. Science Options': '#96a767'
     },
     
-    subjectColor(name) {
+        subjectColor(name) {
       if (!name) return '#dde2d5';
       const key = Object.keys(this.subjectColors).find(k =>
         k.toLowerCase() === name.toLowerCase()
@@ -777,33 +782,140 @@ function coursePlanner() {
       return key ? this.subjectColors[key] : '#dde2d5';
     },
 
-      async init() {
-        await this.loadCoursesFromJson();
-      },
+    // ---------- UI STATE PERSISTENCE (filters, toggles, search) ----------
 
-      // Future loader: use pre-built JSON instead of CSV
-      async loadCoursesFromJson() {
-        this.isLoadingCourses = true;
-        this.loadError = "";
+    loadUiState() {
+      if (typeof window === "undefined" || !window.localStorage) return;
+
+      try {
+        const raw = localStorage.getItem(UI_STATE_KEY);
+        if (!raw) return;
+
+        const saved = JSON.parse(raw) || {};
+
+        if (Array.isArray(saved.selectedSubjects)) {
+          this.selectedSubjects = saved.selectedSubjects;
+        }
+        if (Array.isArray(saved.selectedGrades)) {
+          this.selectedGrades = saved.selectedGrades;
+        }
+        if (Array.isArray(saved.selectedTags)) {
+          this.selectedTags = saved.selectedTags;
+        }
+        if (typeof saved.searchQuery === "string") {
+          this.searchQuery = saved.searchQuery;
+        }
+        if (typeof saved.myCoursesOnly === "boolean") {
+          this.myCoursesOnly = saved.myCoursesOnly;
+        }
+        if (typeof saved.showAllDetails === "boolean") {
+          this.showAllDetails = saved.showAllDetails;
+        }
+        if (typeof saved.myNotesOpen === "boolean") {
+          this.myNotesOpen = saved.myNotesOpen;
+        }
+      } catch (err) {
+        console.warn("Could not load UI state from localStorage", err);
+      }
+    },
+
+    persistUiState() {
+      if (typeof window === "undefined" || !window.localStorage) return;
+
+      const payload = {
+        selectedSubjects: this.selectedSubjects,
+        selectedGrades:   this.selectedGrades,
+        selectedTags:     this.selectedTags,
+        searchQuery:      this.searchQuery,
+        myCoursesOnly:    this.myCoursesOnly,
+        showAllDetails:   this.showAllDetails,
+        myNotesOpen:      this.myNotesOpen,
+      };
+
+      try {
+        localStorage.setItem(UI_STATE_KEY, JSON.stringify(payload));
+      } catch (err) {
+        console.warn("Could not persist UI state to localStorage", err);
+      }
+    },
+
+    persistUiStateDebounced() {
+      if (this.uiPersistDebounce) {
+        clearTimeout(this.uiPersistDebounce);
+      }
+      this.uiPersistDebounce = setTimeout(() => {
+        this.persistUiState();
+      }, 150);
+    },
+
+    // ---------- INIT & COURSE DATA LOADING (with cache) ----------
+
+    async init() {
+      // 1) Restore filters/search/toggles from previous visit
+      this.loadUiState();
+
+      // 2) Load course data (from cache if available, then refresh from network)
+      await this.loadCoursesFromJson();
+    },
+
+    // Load courses with a "stale-while-revalidate" strategy:
+    // - First try localStorage (fast).
+    // - Then fetch from network and refresh both state + cache.
+    async loadCoursesFromJson() {
+      this.isLoadingCourses = true;
+      this.loadError = "";
+
+      let hadCached = false;
+
+      // Step 1: try cached JSON
+      if (typeof window !== "undefined" && window.localStorage) {
         try {
-          const res = await fetch(MA_COURSES_JSON_URL);
-          if (!res.ok) {
-            throw new Error(`HTTP ${res.status}`);
+          const cachedRaw = localStorage.getItem(COURSES_CACHE_KEY);
+          if (cachedRaw) {
+            const cachedData = JSON.parse(cachedRaw);
+            if (cachedData && typeof cachedData === "object") {
+              this.allCoursesBySubject = cachedData;
+              this.applyFilters();      // respects restored filters
+              hadCached = true;
+            }
           }
-
-          const data = await res.json();
-
-          // We expect data to already be in the shape:
-          // { "Art": [courses...], "Bible": [courses...], ... }
-          this.allCoursesBySubject = data;
-          this.applyFilters();
         } catch (err) {
-          console.error("Error loading course JSON", err);
+          console.warn("Could not read cached courses from localStorage", err);
+        }
+      }
+
+      // Step 2: always try to fetch fresh data
+      try {
+        const res = await fetch(MA_COURSES_JSON_URL, { cache: "no-cache" });
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+
+        const data = await res.json();
+
+        // Expect: { "Art": [...], "Bible": [...], ... }
+        this.allCoursesBySubject = data;
+        this.applyFilters();
+
+        // Step 3: update cache
+        if (typeof window !== "undefined" && window.localStorage) {
+          try {
+            localStorage.setItem(COURSES_CACHE_KEY, JSON.stringify(data));
+          } catch (err) {
+            console.warn("Could not write courses cache to localStorage", err);
+          }
+        }
+      } catch (err) {
+        console.error("Error loading course JSON", err);
+
+        // Only show a blocking error if we had no cached data to fall back on
+        if (!hadCached) {
           this.loadError =
             "We couldn’t load the course data. Please try refreshing the page.";
-        } finally {
-          this.isLoadingCourses = false;
         }
-      },
+      } finally {
+        this.isLoadingCourses = false;
+      }
+    },
     };
   }
