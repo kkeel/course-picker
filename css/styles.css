@@ -43,9 +43,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: var(--page-bg, #f7f8f5);
   border-bottom: 1px solid #dde2d5;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03); /* subtle depth */
 }
 
 .logo-title {
