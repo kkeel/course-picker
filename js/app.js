@@ -759,7 +759,6 @@ function coursePlanner() {
 
             if (!(matchesGrade && matchesSubject && matchesTag && matchesSearch)) return;
 
-            // keep original course object so planning/tag state persists
             subjectCourses.push(course);
           });
 
@@ -772,78 +771,78 @@ function coursePlanner() {
         this.persistUiStateDebounced();
       },
 
+      // 🔹 NEW: summary text for the state bar
       filterSummary() {
-          const parts = [];
-    
-          if (this.selectedGrades?.length) {
-            parts.push(
-              this.selectedGrades
-                .map(code => this.gradeLabelFromCode(code))
-                .join(', ')
-            );
-          }
-    
-          if (this.selectedSubjects?.length) {
-            parts.push(this.selectedSubjects.join(', '));
-          }
-    
-          if (this.selectedTags?.length) {
-            parts.push(
-              this.selectedTags.length === 1
-                ? this.planningTagLabel(this.selectedTags[0])
-                : `${this.selectedTags.length} tags`
-            );
-          }
-    
-          if (this.searchQuery) {
-            parts.push(`Search: “${this.searchQuery}”`);
-          }
-    
-          return parts.length ? parts.join(' • ') : 'None';
-        },
+        const parts = [];
 
-        openFiltersFromBar() {
-          const el = document.getElementById('course-filters');
-          if (!el) return;
-          const rect = el.getBoundingClientRect();
-          const offset = window.scrollY + rect.top - 80;
-          window.scrollTo({ top: offset, behavior: 'smooth' });
-        },
-      }
-    },
+        if (this.selectedGrades?.length) {
+          parts.push(
+            this.selectedGrades
+              .map(code => this.gradeLabelFromCode(code))
+              .join(", ")
+          );
+        }
 
-      // new state for courses
+        if (this.selectedSubjects?.length) {
+          parts.push(this.selectedSubjects.join(", "));
+        }
+
+        if (this.selectedTags?.length) {
+          parts.push(
+            this.selectedTags.length === 1
+              ? this.planningTagLabel(this.selectedTags[0])
+              : `${this.selectedTags.length} tags`
+          );
+        }
+
+        if (this.searchQuery) {
+          parts.push(`Search: “${this.searchQuery}”`);
+        }
+
+        return parts.length ? parts.join(" • ") : "None";
+      },
+
+      // 🔹 NEW: scroll back to the full filter panel
+      openFiltersFromBar() {
+        const el = document.getElementById("course-filters");
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const offset = window.scrollY + rect.top - 80; // tweak if needed
+        window.scrollTo({ top: offset, behavior: "smooth" });
+      },
+
+      // ---------------- NEW STATE FOR COURSES (still inside the object!) ---------------
       isLoadingCourses: true,
       loadError: "",
       allCoursesBySubject: {}, // full dataset
       coursesBySubject: {},    // filtered view
 
       subjectColors: {
-      'Architecture': '#a0a6be',
-      'Art': '#907061',
-      'Bible': '#964945',
-      'Citizenship': '#62765c',
-      'English': '#9b5b7b',
-      'Geography': '#4d8da2',
-      'History': '#6b6bbf',
-      'Latin': '#5a5373',
-      'Life Skills': '#d1b358',
-      'Literature': '#c07669',
-      'Math': '#6d7eaa',
-      'Modern Language': '#6db4b2',
-      'Music': '#9e6bac',
-      'Physical Education': '#bd855e',
-      'Science': '#96a767',
-      'Alt. Science Options': '#96a767'
-    },
-    
-        subjectColor(name) {
-      if (!name) return '#dde2d5';
-      const key = Object.keys(this.subjectColors).find(k =>
-        k.toLowerCase() === name.toLowerCase()
-      );
-      return key ? this.subjectColors[key] : '#dde2d5';
-    },
+        "Architecture": "#a0a6be",
+        "Art": "#907061",
+        "Bible": "#964945",
+        "Citizenship": "#62765c",
+        "English": "#9b5b7b",
+        "Geography": "#4d8da2",
+        "History": "#6b6bbf",
+        "Latin": "#5a5373",
+        "Life Skills": "#d1b358",
+        "Literature": "#c07669",
+        "Math": "#6d7eaa",
+        "Modern Language": "#6db4b2",
+        "Music": "#9e6bac",
+        "Physical Education": "#bd855e",
+        "Science": "#96a767",
+        "Alt. Science Options": "#96a767",
+      },
+
+      subjectColor(name) {
+        if (!name) return "#dde2d5";
+        const key = Object.keys(this.subjectColors).find(k =>
+          k.toLowerCase() === name.toLowerCase()
+        );
+        return key ? this.subjectColors[key] : "#dde2d5";
+      },
 
     // ---------- UI STATE PERSISTENCE (filters, toggles, search) ----------
 
@@ -1153,6 +1152,6 @@ function coursePlanner() {
       } finally {
         this.isLoadingCourses = false;
       }
-    },
+    }
     };
   }
