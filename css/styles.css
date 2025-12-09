@@ -390,9 +390,9 @@ body {
 /* Outer shell sticks under the header */
 .filter-state-bar {
   position: sticky;
-  top: 72px; /* adjust to your actual header height */
-  z-index: 30;
-  background: var(--page-bg, #f7f8f5);
+  top: 72px;
+  z-index: 5;
+  background: var(--brand-bg);
   border: 1px solid #dde2d5;
   border-top: none;           /* so it can visually merge with filter-panel */
   border-radius: 0 0 12px 12px;
