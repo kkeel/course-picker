@@ -805,15 +805,6 @@ function coursePlanner() {
       return parts.length ? parts.join(" • ") : "None";
     },
 
-      // 🔹 NEW: scroll back to the full filter panel
-      openFiltersFromBar() {
-        const el = document.getElementById("course-filters");
-        if (!el) return;
-        const rect = el.getBoundingClientRect();
-        const offset = window.scrollY + rect.top - 80; // tweak if needed
-        window.scrollTo({ top: offset, behavior: "smooth" });
-      },
-
       // ---------------- NEW STATE FOR COURSES (still inside the object!) ---------------
       isLoadingCourses: true,
       loadError: "",
