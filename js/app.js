@@ -776,34 +776,34 @@ function coursePlanner() {
 
       // 🔹 NEW: summary text for the state bar
       get filterSummary() {
-      const parts = [];
-    
-      if (this.selectedGrades?.length) {
-        parts.push(
-          this.selectedGrades
-            .map(code => this.gradeLabelFromCode(code))
-            .join(", ")
-        );
-      }
-    
-      if (this.selectedSubjects?.length) {
-        parts.push(this.selectedSubjects.join(", "));
-      }
-    
-      if (this.selectedTags?.length) {
-        parts.push(
-          this.selectedTags.length === 1
-            ? this.planningTagLabel(this.selectedTags[0])
-            : `${this.selectedTags.length} tags`
-        );
-      }
-    
-      if (this.searchQuery) {
-        parts.push(`Search: “${this.searchQuery}”`);
-      }
-    
-      return parts.length ? parts.join(" • ") : "None";
-    },
+        const parts = [];
+      
+        if (this.selectedGrades?.length) {
+          parts.push(
+            this.selectedGrades
+              .map(code => this.gradeLabelFromCode(code))
+              .join(", ")
+          );
+        }
+      
+        if (this.selectedSubjects?.length) {
+          parts.push(this.selectedSubjects.join(", "));
+        }
+      
+        if (this.selectedTags?.length) {
+          parts.push(
+            this.selectedTags.length === 1
+              ? this.planningTagLabel(this.selectedTags[0])
+              : `${this.selectedTags.length} tags`
+          );
+        }
+      
+        if (this.searchQuery) {
+          parts.push(`Search: “${this.searchQuery}”`);
+        }
+      
+        return parts.length ? parts.join(" • ") : "None";
+      },
 
       // ---------------- NEW STATE FOR COURSES (still inside the object!) ---------------
       isLoadingCourses: true,
