@@ -1,7 +1,16 @@
+// Data URL for pre-built course JSON
 const MA_COURSES_JSON_URL = "data/MA_Courses.json";
 
-  function coursePlanner() {
-    return {
+// Bump this version string whenever you change the JSON shape
+// or the UI state we store in localStorage.
+const APP_CACHE_VERSION = "2025-12-09-v1";
+
+// Keys for localStorage
+const COURSES_CACHE_KEY = `alveary_courses_${APP_CACHE_VERSION}`;
+const UI_STATE_KEY      = `alveary_ui_${APP_CACHE_VERSION}`;
+
+function coursePlanner() {
+  return {
       // existing state
       step: 3,
       openStep(n) {
