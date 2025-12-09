@@ -8,6 +8,7 @@ const APP_CACHE_VERSION = "2025-12-09-v1";
 // Keys for localStorage
 const COURSES_CACHE_KEY = `alveary_courses_${APP_CACHE_VERSION}`;
 const UI_STATE_KEY      = `alveary_ui_${APP_CACHE_VERSION}`;
+const PLANNER_STATE_KEY = `alveary_planner_${APP_CACHE_VERSION}`;
 
 function coursePlanner() {
   return {
@@ -60,6 +61,9 @@ function coursePlanner() {
 
       // debounce handle for saving UI state
       uiPersistDebounce: null,
+    
+      // debounce handle for saving planner state
+      plannerPersistDebounce: null,
 
       // --- FILTER STATE (grade) ---
       selectedGrades: [],          // e.g. ["G1", "G3"]
@@ -434,6 +438,8 @@ function coursePlanner() {
             this.globalTopicTags[topicId].push(tagId);
           }
         }
+
+        this.persistPlannerStateDebounced();
       },
 
       // ==== TOPIC NOTES (shared by Topic_ID) =====================
@@ -452,6 +458,7 @@ function coursePlanner() {
         const id = String(topic.Topic_ID).trim();
         if (!id) return;
         this.globalTopicNotes[id] = text;
+        this.persistPlannerStateDebounced();
       },
 
       // Does this topic have any note text?
@@ -506,6 +513,8 @@ function coursePlanner() {
             delete this.globalTopicTags[topicId];
           }
         }
+
+        this.persistPlannerStateDebounced();
       },
 
       // --- PLANNING TAG HELPERS ---
@@ -549,6 +558,7 @@ function coursePlanner() {
 
         // close after click
         this.closePlanningMenu();
+        this.persistPlannerStateDebounced();
       },
 
       removePlanningTag(item, tagId) {
@@ -562,6 +572,8 @@ function coursePlanner() {
         if (topicId) {
           this.cleanupGlobalTopicTag(topicId, tagId);
         }
+
+        this.persistPlannerStateDebounced();
       },
 
       // --- BOOKMARK HELPERS (My courses) ---
@@ -575,6 +587,7 @@ function coursePlanner() {
       toggleCourseBookmark(course) {
         if (!course) return;
         course.isBookmarked = !course.isBookmarked;
+        this.persistPlannerStateDebounced();
       },
 
       // ==== COURSE NOTES (only for courses with NO topics) =======
@@ -587,6 +600,7 @@ function coursePlanner() {
       updateCourseNoteText(course, text) {
         if (!course) return;
         course.noteText = text;
+        this.persistPlannerStateDebounced();
       },
 
       hasCourseNote(course) {
@@ -608,6 +622,7 @@ function coursePlanner() {
       toggleTopicBookmark(topic) {
         if (!topic) return;
         topic.isBookmarked = !topic.isBookmarked;
+        this.persistPlannerStateDebounced();
       },
 
       // Are *all* topics in this course bookmarked?
@@ -626,6 +641,8 @@ function coursePlanner() {
           if (!topic) return;
           topic.isBookmarked = markAll;
         });
+
+        this.persistPlannerStateDebounced();
       },
 
       // Is this same Topic_ID bookmarked in any *other* course?
@@ -658,6 +675,7 @@ function coursePlanner() {
       applyBookmarkFromElsewhere(topic) {
         if (!topic) return;
         topic.isBookmarked = true;
+        this.persistPlannerStateDebounced();
       },
 
       // clear everything (used by Clear selected button)
@@ -696,6 +714,7 @@ function coursePlanner() {
       
         // Rebuild visibleCourseGroups / filters view after changes
         this.applyFilters();
+        this.persistPlannerStateDebounced();
       },
 
       // helper: does this item match the grade filter?
@@ -848,6 +867,178 @@ function coursePlanner() {
       }, 150);
     },
 
+    // ---------- PLANNER STATE (bookmarks, tags, notes) ----------
+
+    loadPlannerStateFromStorage() {
+      if (typeof window === "undefined" || !window.localStorage) return;
+
+      let raw;
+      try {
+        raw = localStorage.getItem(PLANNER_STATE_KEY);
+      } catch (err) {
+        console.warn("Could not read planner state from localStorage", err);
+        return;
+      }
+      if (!raw) return;
+
+      let state;
+      try {
+        state = JSON.parse(raw);
+      } catch (err) {
+        console.warn("Invalid planner state JSON", err);
+        return;
+      }
+      if (!state || state.version !== APP_CACHE_VERSION) return;
+
+      // Restore global topic-level notes and tags
+      this.globalTopicTags  = state.globalTopicTags  || {};
+      this.globalTopicNotes = state.globalTopicNotes || {};
+
+      const coursesState = state.courses || {};
+      const topicsState  = state.topics  || {};
+
+      const makeTagObjects = (ids) => {
+        if (!Array.isArray(ids)) return [];
+        return ids
+          .map(id => {
+            const opt = this.planningTagOptions.find(o => o.id === id);
+            return opt
+              ? { id: opt.id, label: opt.label, img: opt.img }
+              : null;
+          })
+          .filter(Boolean);
+      };
+
+      const subjects = Object.keys(this.allCoursesBySubject || {});
+      for (const subject of subjects) {
+        const courses = this.allCoursesBySubject[subject] || [];
+        for (const course of courses) {
+          if (!course) continue;
+
+          const courseKey = course.courseId || course.id;
+          const cState = courseKey && coursesState[courseKey];
+          if (cState) {
+            if (typeof cState.isBookmarked === "boolean") {
+              course.isBookmarked = cState.isBookmarked;
+            }
+            if (typeof cState.noteText === "string") {
+              course.noteText = cState.noteText;
+            }
+            if (Array.isArray(cState.tags)) {
+              course.planningTags = makeTagObjects(cState.tags);
+            }
+          }
+
+          if (Array.isArray(course.topics)) {
+            for (const topic of course.topics) {
+              if (!topic) continue;
+
+              const topicId = String(
+                topic.Topic_ID || topic.topic_id || topic.id || ""
+              ).trim();
+              if (!topicId) continue;
+              if (!courseKey) continue;
+
+              const instanceKey = `${courseKey}::${topicId}`;
+              const tState = topicsState[instanceKey];
+              if (!tState) continue;
+
+              if (typeof tState.isBookmarked === "boolean") {
+                topic.isBookmarked = tState.isBookmarked;
+              }
+              if (Array.isArray(tState.tags)) {
+                topic.planningTags = makeTagObjects(tState.tags);
+              }
+              // Topic notes are global per Topic_ID (this.globalTopicNotes),
+              // so we don't restore them here; topicNoteText() reads from that map.
+            }
+          }
+        }
+      }
+    },
+
+    persistPlannerState() {
+      if (typeof window === "undefined" || !window.localStorage) return;
+
+      const state = {
+        version: APP_CACHE_VERSION,
+        globalTopicTags:  this.globalTopicTags  || {},
+        globalTopicNotes: this.globalTopicNotes || {},
+        courses: {},
+        topics: {},
+      };
+
+      const subjects = Object.keys(this.allCoursesBySubject || {});
+
+      const tagIdsFromObjs = (tags) =>
+        Array.isArray(tags) ? tags.map(t => t.id).filter(Boolean) : [];
+
+      for (const subject of subjects) {
+        const courses = this.allCoursesBySubject[subject] || [];
+        for (const course of courses) {
+          if (!course) continue;
+
+          const courseKey = course.courseId || course.id;
+          if (!courseKey) continue;
+
+          const isBookmarked = !!course.isBookmarked;
+          const noteText     = typeof course.noteText === "string"
+            ? course.noteText
+            : "";
+          const tagIds       = tagIdsFromObjs(course.planningTags);
+
+          if (
+            isBookmarked ||
+            noteText.trim().length > 0 ||
+            tagIds.length > 0
+          ) {
+            state.courses[courseKey] = {
+              isBookmarked,
+              noteText,
+              tags: tagIds,
+            };
+          }
+
+          if (Array.isArray(course.topics)) {
+            for (const topic of course.topics) {
+              if (!topic) continue;
+
+              const topicId = String(
+                topic.Topic_ID || topic.topic_id || topic.id || ""
+              ).trim();
+              if (!topicId) continue;
+
+              const instanceKey = `${courseKey}::${topicId}`;
+              const tBookmarked = !!topic.isBookmarked;
+              const tTagIds     = tagIdsFromObjs(topic.planningTags);
+
+              if (tBookmarked || tTagIds.length > 0) {
+                state.topics[instanceKey] = {
+                  isBookmarked: tBookmarked,
+                  tags: tTagIds,
+                };
+              }
+            }
+          }
+        }
+      }
+
+      try {
+        localStorage.setItem(PLANNER_STATE_KEY, JSON.stringify(state));
+      } catch (err) {
+        console.warn("Could not persist planner state to localStorage", err);
+      }
+    },
+
+    persistPlannerStateDebounced() {
+      if (this.plannerPersistDebounce) {
+        clearTimeout(this.plannerPersistDebounce);
+      }
+      this.plannerPersistDebounce = setTimeout(() => {
+        this.persistPlannerState();
+      }, 200);
+    },
+
     // ---------- INIT & COURSE DATA LOADING (with cache) ----------
 
     async init() {
@@ -875,6 +1066,7 @@ function coursePlanner() {
             const cachedData = JSON.parse(cachedRaw);
             if (cachedData && typeof cachedData === "object") {
               this.allCoursesBySubject = cachedData;
+              this.loadPlannerStateFromStorage();
               this.applyFilters();      // respects restored filters
               hadCached = true;
             }
@@ -895,6 +1087,7 @@ function coursePlanner() {
 
         // Expect: { "Art": [...], "Bible": [...], ... }
         this.allCoursesBySubject = data;
+        this.loadPlannerStateFromStorage();
         this.applyFilters();
 
         // Step 3: update cache
