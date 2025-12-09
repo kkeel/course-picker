@@ -388,6 +388,77 @@ body {
   padding-left: 32px;  /* adjust if you want more/less spacing */
 }
 
+/* Outer shell sticks under the header */
+.filter-state-bar {
+  position: sticky;
+  top: 72px; /* adjust to your actual header height */
+  z-index: 30;
+  background: var(--page-bg, #f7f8f5);
+  border: 1px solid #dde2d5;
+  border-top: none;           /* so it can visually merge with filter-panel */
+  border-radius: 0 0 12px 12px;
+  padding: 4px 10px;
+  max-width: 72rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  margin-top: -1px;           /* pulls it flush with the filter-panel border */
+}
+
+/* Left area: main button that opens filters */
+.filter-state-main {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+/* "Filters" label text */
+.filter-state-label {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+/* Summary text: truncated pill */
+.filter-state-summary {
+  color: #6b7280;
+  max-width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Right area: quick toggles */
+.filter-state-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.filter-state-toggle {
+  border-radius: 999px;
+  border: 1px solid #cfd4c6;
+  padding: 3px 9px;
+  font-size: 0.8rem;
+  background: white;
+  cursor: pointer;
+}
+
+.filter-state-toggle--on {
+  border-color: #596e5e;
+  background: #596e5e;
+  color: #f7f8f5;
+}
+
 /* Subject, course, and topic shells */
 .course-shell {
   margin-top: 40px;
