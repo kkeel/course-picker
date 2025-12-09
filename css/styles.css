@@ -110,8 +110,9 @@ body {
   max-width: 1601px;
   width: 100%;
   padding: 24px;
-  border-radius: 4px;
+  border-radius: 0 0 4px 4px;  
   border: 1px solid #dde2d5;
+  border-top: none;            
   background-color: transparent;
 }
 
@@ -390,22 +391,19 @@ body {
 /* Outer shell sticks under the header */
 .filter-state-bar {
   position: sticky;
-  top: 72px;
-  z-index: 5;
+  top: 72px;              
+  z-index: 5;            
   background: var(--brand-bg);
   border: 1px solid #dde2d5;
-  border-top: none;           /* so it can visually merge with filter-panel */
-  border-radius: 0 0 12px 12px;
-  padding: 4px 10px;
-  max-width: 72rem;
+  border-radius: 4px 4px 0 0;  
+  padding: 6px 12px;
+  max-width: 1601px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
   font-size: 0.85rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-  margin-top: -1px;           /* pulls it flush with the filter-panel border */
 }
 
 /* Left area: main button that opens filters */
