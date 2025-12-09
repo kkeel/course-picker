@@ -65,6 +65,9 @@ function coursePlanner() {
       // debounce handle for saving planner state
       plannerPersistDebounce: null,
 
+      // --- FILTER PANEL ---
+      filtersOpen: true,
+
       // --- FILTER STATE (grade) ---
       selectedGrades: [],          // e.g. ["G1", "G3"]
       gradeDropdownOpen: false,
