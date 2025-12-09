@@ -153,10 +153,12 @@ function coursePlanner() {
 
       toggleAllDetails() {
         this.showAllDetails = !this.showAllDetails;
+        this.persistUiStateDebounced();
       },
 
       toggleMyCoursesOnly() {
         this.myCoursesOnly = !this.myCoursesOnly;
+        this.persistUiStateDebounced();
       },
 
       // Open/close all notes for items that are bookmarked AND have notes
@@ -195,6 +197,8 @@ function coursePlanner() {
             }
           });
         });
+
+        this.persistUiStateDebounced();
       },
       
       // Subject → courses map used by the template.
