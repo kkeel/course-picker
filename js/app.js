@@ -772,6 +772,46 @@ function coursePlanner() {
         this.persistUiStateDebounced();
       },
 
+      filterSummary() {
+          const parts = [];
+    
+          if (this.selectedGrades?.length) {
+            parts.push(
+              this.selectedGrades
+                .map(code => this.gradeLabelFromCode(code))
+                .join(', ')
+            );
+          }
+    
+          if (this.selectedSubjects?.length) {
+            parts.push(this.selectedSubjects.join(', '));
+          }
+    
+          if (this.selectedTags?.length) {
+            parts.push(
+              this.selectedTags.length === 1
+                ? this.planningTagLabel(this.selectedTags[0])
+                : `${this.selectedTags.length} tags`
+            );
+          }
+    
+          if (this.searchQuery) {
+            parts.push(`Search: “${this.searchQuery}”`);
+          }
+    
+          return parts.length ? parts.join(' • ') : 'None';
+        },
+
+        openFiltersFromBar() {
+          const el = document.getElementById('course-filters');
+          if (!el) return;
+          const rect = el.getBoundingClientRect();
+          const offset = window.scrollY + rect.top - 80;
+          window.scrollTo({ top: offset, behavior: 'smooth' });
+        },
+      }
+    },
+
       // new state for courses
       isLoadingCourses: true,
       loadError: "",
