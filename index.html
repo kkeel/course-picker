@@ -72,7 +72,7 @@
       </p>
 
       <!-- Filter bar -->
-      <div class="mt-8 flex justify-center">
+      <div class="mt-8 flex justify-center" id="course-filters">
         <div class="filter-panel">
           <p class="filter-panel-title">Filter by</p>
 
@@ -427,6 +427,46 @@
                 <span>My Notes</span>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter state bar (sticks under header, shows current state) -->
+      <div class="mt-0 flex justify-center">
+        <div
+          class="filter-state-bar"
+          x-show="!isLoadingCourses && !loadError"
+          x-cloak
+        >
+          <!-- Left: Filter summary -->
+          <button
+            type="button"
+            class="filter-state-main"
+            @click="openFiltersFromBar()"
+          >
+            <span class="filter-state-label">Filters</span>
+            <span class="filter-state-summary" x-text="filterSummary"></span>
+          </button>
+      
+          <!-- Right: quick toggles (reuse existing state) -->
+          <div class="filter-state-actions">
+            <button
+              type="button"
+              class="filter-state-toggle"
+              :class="myCoursesOnly ? 'filter-state-toggle--on' : ''"
+              @click="toggleMyCoursesOnly()"
+            >
+              My courses
+            </button>
+      
+            <button
+              type="button"
+              class="filter-state-toggle"
+              :class="myNotesOpen ? 'filter-state-toggle--on' : ''"
+              @click="toggleMyNotes()"
+            >
+              My notes
+            </button>
           </div>
         </div>
       </div>
