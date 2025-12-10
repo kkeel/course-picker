@@ -1084,197 +1084,175 @@ body {
 /* -----------------------------
    Print layout for Course list
    ----------------------------- */
-/* Hide print-only elements on screen */
+/* Hide print-only bits on screen */
 .print-year-left,
-.print-header-title-block {
-  display: none !important;
-}
-
-/* Print footer: hidden on screen */
+.print-header-title-block,
 .print-footer {
   display: none;
 }
 
-/* ===============================
-   PRINT LAYOUT — CLEAN + CORRECT
-   =============================== */
+/* --- Media Print —-- */
 @media print {
+  /* Basic page margin so header + footer have room */
+  @page {
+    margin: 20mm 15mm 20mm 15mm;
+  }
 
+  /* Give the body bottom padding so content doesn't run under footer */
   body {
     background: #ffffff !important;
+    margin: 0;
+    padding-bottom: 40pt;
   }
 
-  /* --- HEADER --- */
+  /* HEADER --------------------------------------------------- */
+
   header.app-header {
     position: relative !important;
+    top: auto !important;
     box-shadow: none !important;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 12pt 15mm 6pt;
+    margin: 0 0 8pt;
     border-bottom: 1px solid #dde3d2;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    padding: 20px 40px 12px;
   }
 
-  /* hide all navigation tabs on print */
+  /* Hide nav tabs in print */
   header.app-header nav {
     display: none !important;
   }
 
-  /* LOGO + ALVEARY — keep Circular Pro, only adjust size */
-  header.app-header img {
-    height: 40px !important;
-    width: 40px !important;
-  }
-
-  .logo-title {
-    font-family: "Circular Pro", system-ui, sans-serif !important;
+  /* “Alveary” text – keep Circular Pro but set 28pt in print */
+  header.app-header .brand-name {
     font-size: 28pt !important;
-    font-weight: 700 !important;
     line-height: 1.1;
-    margin: 0;
-    padding: 0;
   }
 
-  /* YEAR under Alveary — Plantin 16pt */
+  /* Year under Alveary on left */
   .print-year-left {
     display: block !important;
-    font-family: "Plantin MT Pro", "Times New Roman", serif !important;
-    font-size: 16pt !important;
-    font-weight: 400 !important;
     margin-top: 2px;
-    color: var(--brand-accent) !important;
+    font-family: "Plantin MT Pro", "Times New Roman", serif;
+    font-size: 16pt !important;
+    font-weight: 400;
+    color: #adb58f !important; /* exact light green */
   }
 
-  /* RIGHT SIDE: Course list and Grade label */
+  /* Right-side Course list + grade/My Courses block */
   .print-header-title-block {
     display: flex !important;
     flex-direction: column;
-    align-items: flex-end;
     margin-left: auto;
-    padding-right: 40px;
+    align-items: flex-end;
+    padding-right: 15mm;
   }
 
   .print-header-title {
-    font-family: "Circular Pro", system-ui, sans-serif !important;
-    font-size: 28pt !important;
-    font-weight: 700 !important;
+    font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+    font-size: 28pt !important;   /* match Alveary */
+    font-weight: 700;
     line-height: 1.1;
     color: var(--brand-dark);
   }
 
   .print-header-grade {
     margin-top: 2px;
-    font-family: "Plantin MT Pro", "Times New Roman", serif !important;
+    font-family: "Plantin MT Pro", "Times New Roman", serif;
     font-size: 16pt !important;
-    font-weight: 400 !important;
-    color: var(--brand-accent) !important;
+    font-weight: 400;
+    color: #adb58f !important;    /* force light green */
   }
 
-  /* --- REMOVE the big screen titles/paragraph under header --- */
+  /* Remove big on-screen section title + paragraph */
   .section-title,
   .section-subtitle {
     display: none !important;
   }
 
-  /* --- HIDE ALL FILTERS + BUTTONS + UI CONTROLS --- */
+  /* Hide filter UI + interactive controls */
+  .filter-state-wrapper,
   .filter-panel,
   .filter-actions,
-  .filter-state-wrapper,
   .btn-pill,
   .toggle,
   .card-toggle,
-  .planning-tag-wrapper,
-  #filter-grade,
-  #filter-subject,
-  #filter-tags,
-  #filter-search {
+  .planning-tag-wrapper {
     display: none !important;
   }
 
-  /* --- COURSE LIST SPACING --- */
+  /* Start course list closer to header */
   .course-list-shell {
     margin-top: 16px !important;
   }
 
-  /* --- SUBJECT TITLES (Plantin 16pt) --- */
+  /* CARD + TEXT SIZING --------------------------------------- */
+
+  /* Subject headings */
   .subject-title {
-    font-family: "Plantin MT Pro", "Times New Roman", serif !important;
     font-size: 18pt !important;
-    font-weight: 600 !important;
   }
 
-  /* --- COURSE TITLES (Circular Pro 14pt) --- */
-  .course-title,
-  .course-header h3 {
-    font-family: "Circular Pro", system-ui, sans-serif !important;
+  /* Course + topic titles */
+  .course-title {
     font-size: 13pt !important;
-    font-weight: 500 !important;
   }
 
-  /* --- TOPIC TITLES (Circular Pro 12pt) --- */
   .topic-title {
-    font-family: "Circular Pro", system-ui, sans-serif !important;
     font-size: 11pt !important;
-    font-weight: 500 !important;
   }
 
-  /* --- ALL BODY TEXT (DM Sans 9pt) --- */
-  .course-card,
-  .course-card p,
-  .course-detail,
+  /* Everything else in the card text area: 9pt */
+  .course-meta,
+  .topic-meta,
   .course-detail-description,
   .course-detail-tips,
-  .topic-card,
-  .topic-card p,
-  .topic-meta,
-  .course-meta,
+  .topic-schedule,
+  .topic-grades,
   .meta-schedule,
   .meta-grade,
-  .course-detail-row {
-    font-family: "DM Sans", system-ui, sans-serif !important;
+  .course-card p,
+  .topic-card p {
     font-size: 9pt !important;
-    line-height: 1.3 !important;
   }
 
-  /* --- CARD STYLING FOR PRINT --- */
+  /* Card borders: clean for print */
   .course-card,
   .topic-card {
     box-shadow: none !important;
     border: 1px solid #dcded8 !important;
-    page-break-inside: avoid;
     break-inside: avoid;
+    page-break-inside: avoid;
+    background-color: #ffffff !important;
   }
 
   main {
-    padding-bottom: 60px !important; /* space for footer */
+    padding-bottom: 0 !important;
   }
 
-  /* Print footer layout */
+  /* FOOTER --------------------------------------------------- */
+
+  /* Show footer only in print */
   .print-footer {
     display: flex !important;
     position: fixed;
-    bottom: 12px;
-    left: 40px;
-    right: 40px;
-    font-family: "DM Sans", system-ui, sans-serif !important;
-    font-size: 9pt !important;
-    align-items: center;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 4pt 15mm 2pt;
+    border-top: 1px solid #dde3d2;
+    font-size: 8pt;
+    color: #4b544b;
+    background: #ffffff;
     justify-content: space-between;
+    align-items: center;
   }
 
   .print-footer-left,
   .print-footer-center,
   .print-footer-right {
     white-space: nowrap;
-  }
-
-  /* Grade / Master / My Courses label in footer = light green */
-  .print-footer-grade {
-    color: var(--brand-muted) !important;
-  }
-
-  /* " p.X" after the grade label */
-  .print-page-number::before {
-    content: " p." counter(page);
   }
 }
