@@ -1064,18 +1064,22 @@ body {
     display: none !important;
   }
 
-  /* Print-only page title in the header, using PLANTIN */
-  header.app-header::after {
-    content: "Course list";
-    position: absolute;
-    right: 0;
-    bottom: 0.2rem;
-    font-family: "Plantin MT Pro", "Times New Roman", serif;
-    font-weight: 200;
-    font-size: 28px; /* sized to fit in the nav footprint */
-    line-height: 1;
-    color: var(--brand-text);
-  }
+  /* Print-only page title in the header, using PLANTIN and matching subject size */
+   header.app-header::after {
+       content: "Course list 26/27";
+   
+       /* Layout */
+       position: absolute;
+       right: 40px; /* Matches the left padding of the logo (visually balanced) */
+       bottom: 0.4rem; /* Aligns vertically closer to subject headers */
+   
+       /* Typography */
+       font-family: "Plantin MT Pro", "Times New Roman", serif;
+       font-weight: 400;
+       font-size: 30px;   /* Matches your subject title size */
+       line-height: 1.2;
+       color: var(--brand-dark);  /* Same tone as subject headers */
+   }
 
   /* Remove the big section title + descriptive paragraph from the body */
   .section-title,
