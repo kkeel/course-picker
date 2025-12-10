@@ -36,15 +36,13 @@
       />
       <div class="logo-text-block">
         <span class="logo-title">Alveary</span>
-        <!-- PRINT-ONLY grade / Master label -->
-        <span
-          class="print-grade-label"
-          x-text="gradePrintLabel()"
-        ></span>
+
+        <!-- PRINT-ONLY: year under Alveary (left) -->
+        <span class="print-year-left">2026–2027</span>
       </div>
     </div>
 
-    <!-- Top-right navigation tabs -->
+    <!-- Top-right navigation tabs (screen only) -->
     <nav
       class="mt-3 md:mt-0 md:ml-auto flex flex-wrap items-center gap-x-6 gap-y-2 text-sm"
     >
@@ -63,10 +61,10 @@
       </a>
     </nav>
 
-    <!-- Print-only right header title -->
+    <!-- PRINT-ONLY: Course list + grade/master label on the right -->
     <div class="print-header-title-block">
       <div class="print-header-title">Course list</div>
-      <div class="print-header-year">2026–2027</div>
+      <div class="print-header-grade" x-text="gradePrintLabel()"></div>
     </div>
     
   </header>
