@@ -71,390 +71,393 @@
         or save your selections for a personalized learning plan.
       </p>
 
-      <!-- Filter state bar (sticks under header, shows current state) -->
-      <div class="filter-state-wrapper flex justify-center">
+      <!-- Filter state + panel (both stick under header) -->
+      <div class="filter-state-wrapper">
+        <!-- Sticky bar -->
+        <div class="flex justify-center">
+          <div
+            class="filter-state-bar"
+            x-show="!isLoadingCourses && !loadError"
+            x-cloak
+            @click="filtersOpen = !filtersOpen"
+          >
+            <div class="filter-state-main">
+              <span class="filter-state-label">Filter by</span>
+              <span class="filter-state-summary" x-text="filterSummary"></span>
+            </div>
+        
+            <div class="filter-state-actions">
+              <span
+                class="filter-state-toggle-text"
+                x-text="filtersOpen ? 'Hide' : 'Show'"
+              ></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sticky panel (only shown when filtersOpen === true) -->
         <div
-          class="filter-state-bar"
-          x-show="!isLoadingCourses && !loadError"
-          x-cloak
-          @click="filtersOpen = !filtersOpen"
+          class="mt-0 flex justify-center"
+          id="course-filters"
+          x-show="filtersOpen"
+          x-transition
         >
-          <div class="filter-state-main">
-            <span class="filter-state-label">Filter by</span>
-            <span class="filter-state-summary" x-text="filterSummary"></span>
-          </div>
-      
-          <div class="filter-state-actions">
-            <span
-              class="filter-state-toggle-text"
-              x-text="filtersOpen ? 'Hide filters' : 'Show filters'"
-            ></span>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Filter bar -->
-      <div
-        class="mt-0 flex justify-center"
-        id="course-filters"
-        x-show="filtersOpen"
-        x-transition
-      >
-        <div class="filter-panel">
-          <div class="filter-grid">
-            <!-- Grade -->
-            <div class="relative" @click.outside="gradeDropdownOpen = false">
-              <button
-                type="button"
-                id="filter-grade"
-                class="filter-control"
-                aria-label="Filter by grade"
-                @click="gradeDropdownOpen = !gradeDropdownOpen"
-              >
-                <!-- placeholder when nothing selected -->
-                <template x-if="selectedGrades.length === 0">
-                  <span class="filter-placeholder">Grade</span>
-                </template>
-
-                <!-- chips when grades are selected -->
-                <template x-if="selectedGrades.length > 0">
-                  <div class="filter-control-chips">
-                    <template x-for="code in selectedGrades" :key="code">
-                      <span class="filter-chip">
-                        <span x-text="gradeLabelFromCode(code)"></span>
-                        <button
-                          type="button"
-                          class="filter-chip-remove"
-                          @click.stop="removeGrade(code)"
-                          aria-label="Remove grade"
-                        >
-                          ×
-                        </button>
-                      </span>
-                    </template>
-                  </div>
-                </template>
-
-                <span
-                  class="filter-chevron"
-                  :class="gradeDropdownOpen ? 'filter-chevron-open' : ''"
-                  aria-hidden="true"
+          <div class="filter-panel">
+            <div class="filter-grid">
+              <!-- Grade -->
+              <div class="relative" @click.outside="gradeDropdownOpen = false">
+                <button
+                  type="button"
+                  id="filter-grade"
+                  class="filter-control"
+                  aria-label="Filter by grade"
+                  @click="gradeDropdownOpen = !gradeDropdownOpen"
                 >
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M6 9l6 6 6-6"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
-              </button>
+                  <!-- placeholder when nothing selected -->
+                  <template x-if="selectedGrades.length === 0">
+                    <span class="filter-placeholder">Grade</span>
+                  </template>
 
-              <!-- dropdown menu -->
-              <div
-                class="filter-dropdown"
-                x-show="gradeDropdownOpen"
-                x-transition
-              >
-                <template x-for="opt in gradeOptions" :key="opt.code">
-                  <button
-                    type="button"
-                    class="filter-dropdown-item"
-                    @click="toggleGrade(opt.code)"
-                  >
-                    <span x-text="opt.label"></span>
-                    <span
-                      class="filter-dropdown-check"
-                      x-show="selectedGrades.includes(opt.code)"
-                    >
-                      ✓
-                    </span>
-                  </button>
-                </template>
-              </div>
-            </div>
-
-            <!-- Subject -->
-            <div class="relative" @click.outside="subjectDropdownOpen = false">
-              <button
-                type="button"
-                id="filter-subject"
-                class="filter-control"
-                aria-label="Filter by subject"
-                @click="subjectDropdownOpen = !subjectDropdownOpen"
-              >
-                <!-- placeholder when nothing selected -->
-                <template x-if="selectedSubjects.length === 0">
-                  <span class="filter-placeholder">Subject</span>
-                </template>
-            
-                <!-- chips when subjects are selected -->
-                <template x-if="selectedSubjects.length > 0">
-                  <div class="filter-control-chips">
-                    <template x-for="subj in selectedSubjects" :key="subj">
-                      <span
-                        class="filter-chip"
-                        :style="`background-color: ${subjectColor(subj)}4D;`"
-                      >
-                        <span x-text="subj"></span>
-                        <button
-                          type="button"
-                          class="filter-chip-remove"
-                          @click.stop="removeSubject(subj)"
-                          aria-label="Remove subject"
-                        >
-                          ×
-                        </button>
-                      </span>
-                    </template>
-                  </div>
-                </template>
-            
-                <span
-                  class="filter-chevron"
-                  :class="subjectDropdownOpen ? 'filter-chevron-open' : ''"
-                  aria-hidden="true"
-                >
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M6 9l6 6 6-6"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
-              </button>
-            
-              <!-- dropdown menu -->
-              <div
-                class="filter-dropdown"
-                x-show="subjectDropdownOpen"
-                x-transition
-              >
-                <template x-for="opt in subjectOptions" :key="opt">
-                  <button
-                    type="button"
-                    class="filter-dropdown-item"
-                    @click="toggleSubject(opt)"
-                  >
-                    <span x-text="opt"></span>
-                    <span
-                      class="filter-dropdown-check"
-                      x-show="selectedSubjects.includes(opt)"
-                    >
-                      ✓
-                    </span>
-                  </button>
-                </template>
-              </div>
-            </div>
-
-            <!-- Tags -->
-            <div class="relative" @click.outside="tagDropdownOpen = false">
-              <button
-                type="button"
-                id="filter-tags"
-                class="filter-control"
-                aria-label="Filter by planning tag"
-                @click="tagDropdownOpen = !tagDropdownOpen"
-              >
-                <!-- placeholder when nothing selected -->
-                <template x-if="selectedTags.length === 0">
-                  <span class="filter-placeholder">Planning tag</span>
-                </template>
-            
-                <!-- chips when tags are selected -->
-                <template x-if="selectedTags.length > 0">
-                  <div class="filter-control-chips">
-                    <template x-for="tagId in selectedTags" :key="tagId">
-                      <span class="filter-chip">
-                        <span x-text="planningTagLabel(tagId)"></span>
-                        <button
-                          type="button"
-                          class="filter-chip-remove"
-                          @click.stop="removeSelectedTag(tagId)"
-                          aria-label="Remove tag"
-                        >
-                          ×
-                        </button>
-                      </span>
-                    </template>
-                  </div>
-                </template>
-            
-                <span
-                  class="filter-chevron"
-                  :class="tagDropdownOpen ? 'filter-chevron-open' : ''"
-                  aria-hidden="true"
-                >
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M6 9l6 6 6-6"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
-              </button>
-            
-              <!-- dropdown menu -->
-              <div
-                class="filter-dropdown"
-                x-show="tagDropdownOpen"
-                x-transition
-              >
-                <template x-for="opt in planningTagOptions" :key="opt.id">
-                  <button
-                    type="button"
-                    class="filter-dropdown-item"
-                    @click="toggleSelectedTag(opt.id)"
-                  >
-                    <div class="planning-tag-option-main">
-                      <img
-                        :src="opt.img"
-                        :alt="opt.label"
-                      />
-                      <span x-text="opt.label"></span>
+                  <!-- chips when grades are selected -->
+                  <template x-if="selectedGrades.length > 0">
+                    <div class="filter-control-chips">
+                      <template x-for="code in selectedGrades" :key="code">
+                        <span class="filter-chip">
+                          <span x-text="gradeLabelFromCode(code)"></span>
+                          <button
+                            type="button"
+                            class="filter-chip-remove"
+                            @click.stop="removeGrade(code)"
+                            aria-label="Remove grade"
+                          >
+                            ×
+                          </button>
+                        </span>
+                      </template>
                     </div>
-                    <span
-                      class="filter-dropdown-check"
-                      x-show="selectedTags.includes(opt.id)"
+                  </template>
+
+                  <span
+                    class="filter-chevron"
+                    :class="gradeDropdownOpen ? 'filter-chevron-open' : ''"
+                    aria-hidden="true"
+                  >
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M6 9l6 6 6-6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </button>
+
+                <!-- dropdown menu -->
+                <div
+                  class="filter-dropdown"
+                  x-show="gradeDropdownOpen"
+                  x-transition
+                >
+                  <template x-for="opt in gradeOptions" :key="opt.code">
+                    <button
+                      type="button"
+                      class="filter-dropdown-item"
+                      @click="toggleGrade(opt.code)"
                     >
-                      ✓
-                    </span>
-                  </button>
-                </template>
-              </div>
-            </div>
-
-            <!-- Search -->
-            <div>
-              <div class="filter-control" aria-label="Search courses or topics">
-                <input
-                  id="filter-search"
-                  type="search"
-                  placeholder="Search"
-                  autocomplete="off"
-                  x-model="searchQuery"
-                  @input="applyFilters()"
-                />
-                <span class="search-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="6.5"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      fill="none"
-                    />
-                    <line
-                      x1="15"
-                      y1="15"
-                      x2="20"
-                      y2="20"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="filter-actions">
-            <!-- Left: clear + print buttons -->
-            <div class="flex gap-2">
-              <button
-                type="button"
-                class="btn-pill"
-                @click="clearAllBookmarks()"
-              >
-                <span class="btn-pill-icon bookmark-reset" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <!-- bookmark outline -->
-                    <path d="M7 5h10v14l-5-3-5 3V5z"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="1.8"
-                          stroke-linejoin="round" />
-                    <!-- X inside bookmark -->
-                    <line x1="9" y1="9" x2="15" y2="15"
-                          stroke="currentColor"
-                          stroke-width="1.8"
-                          stroke-linecap="round" />
-                    <line x1="15" y1="9" x2="9" y2="15"
-                          stroke="currentColor"
-                          stroke-width="1.8"
-                          stroke-linecap="round" />
-                  </svg>
-                </span>
-                <span>Clear bookmarks</span>
-              </button>
-
-              <button type="button" class="btn-pill btn-secondary print-btn">
-                <span class="btn-pill-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="5" y="9" width="14" height="9" rx="1.5" ry="1.5"
-                          fill="none" stroke="currentColor" stroke-width="1.8" />
-                    <path d="M8 9V5h8v4"
-                          fill="none" stroke="currentColor" stroke-width="1.8" />
-                    <rect x="9" y="13" width="6" height="4"
-                          fill="none" stroke="currentColor" stroke-width="1.5" />
-                    <circle cx="17" cy="12" r="0.9" fill="currentColor" />
-                  </svg>
-                </span>
-                <span>Print</span>
-              </button>
-            </div>
-
-            <!-- Right: toggles -->
-            <div class="flex gap-4 justify-start md:justify-end flex-wrap">
-              <div
-                class="toggle"
-                :class="showAllDetails ? 'toggle--on' : ''"
-                @click="toggleAllDetails()"
-              >
-                <div class="toggle-switch">
-                  <div class="toggle-switch-knob"></div>
+                      <span x-text="opt.label"></span>
+                      <span
+                        class="filter-dropdown-check"
+                        x-show="selectedGrades.includes(opt.code)"
+                      >
+                        ✓
+                      </span>
+                    </button>
+                  </template>
                 </div>
-                <span>Descriptions &amp; Tips</span>
               </div>
 
-              <div
-                class="toggle"
-                :class="myCoursesOnly ? 'toggle--on' : ''"
-                @click="toggleMyCoursesOnly()"
-              >
-                <div class="toggle-switch">
-                  <div class="toggle-switch-knob"></div>
+              <!-- Subject -->
+              <div class="relative" @click.outside="subjectDropdownOpen = false">
+                <button
+                  type="button"
+                  id="filter-subject"
+                  class="filter-control"
+                  aria-label="Filter by subject"
+                  @click="subjectDropdownOpen = !subjectDropdownOpen"
+                >
+                  <!-- placeholder when nothing selected -->
+                  <template x-if="selectedSubjects.length === 0">
+                    <span class="filter-placeholder">Subject</span>
+                  </template>
+              
+                  <!-- chips when subjects are selected -->
+                  <template x-if="selectedSubjects.length > 0">
+                    <div class="filter-control-chips">
+                      <template x-for="subj in selectedSubjects" :key="subj">
+                        <span
+                          class="filter-chip"
+                          :style="`background-color: ${subjectColor(subj)}4D;`"
+                        >
+                          <span x-text="subj"></span>
+                          <button
+                            type="button"
+                            class="filter-chip-remove"
+                            @click.stop="removeSubject(subj)"
+                            aria-label="Remove subject"
+                          >
+                            ×
+                          </button>
+                        </span>
+                      </template>
+                    </div>
+                  </template>
+              
+                  <span
+                    class="filter-chevron"
+                    :class="subjectDropdownOpen ? 'filter-chevron-open' : ''"
+                    aria-hidden="true"
+                  >
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M6 9l6 6 6-6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              
+                <!-- dropdown menu -->
+                <div
+                  class="filter-dropdown"
+                  x-show="subjectDropdownOpen"
+                  x-transition
+                >
+                  <template x-for="opt in subjectOptions" :key="opt">
+                    <button
+                      type="button"
+                      class="filter-dropdown-item"
+                      @click="toggleSubject(opt)"
+                    >
+                      <span x-text="opt"></span>
+                      <span
+                        class="filter-dropdown-check"
+                        x-show="selectedSubjects.includes(opt)"
+                      >
+                        ✓
+                      </span>
+                    </button>
+                  </template>
                 </div>
-                <span>My Courses</span>
               </div>
-              <div
-                class="toggle"
-                :class="myNotesOpen ? 'toggle--on' : ''"
-                @click="toggleMyNotes()"
-              >
-                <div class="toggle-switch">
-                  <div class="toggle-switch-knob"></div>
+
+              <!-- Tags -->
+              <div class="relative" @click.outside="tagDropdownOpen = false">
+                <button
+                  type="button"
+                  id="filter-tags"
+                  class="filter-control"
+                  aria-label="Filter by planning tag"
+                  @click="tagDropdownOpen = !tagDropdownOpen"
+                >
+                  <!-- placeholder when nothing selected -->
+                  <template x-if="selectedTags.length === 0">
+                    <span class="filter-placeholder">Planning tag</span>
+                  </template>
+              
+                  <!-- chips when tags are selected -->
+                  <template x-if="selectedTags.length > 0">
+                    <div class="filter-control-chips">
+                      <template x-for="tagId in selectedTags" :key="tagId">
+                        <span class="filter-chip">
+                          <span x-text="planningTagLabel(tagId)"></span>
+                          <button
+                            type="button"
+                            class="filter-chip-remove"
+                            @click.stop="removeSelectedTag(tagId)"
+                            aria-label="Remove tag"
+                          >
+                            ×
+                          </button>
+                        </span>
+                      </template>
+                    </div>
+                  </template>
+              
+                  <span
+                    class="filter-chevron"
+                    :class="tagDropdownOpen ? 'filter-chevron-open' : ''"
+                    aria-hidden="true"
+                  >
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M6 9l6 6 6-6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              
+                <!-- dropdown menu -->
+                <div
+                  class="filter-dropdown"
+                  x-show="tagDropdownOpen"
+                  x-transition
+                >
+                  <template x-for="opt in planningTagOptions" :key="opt.id">
+                    <button
+                      type="button"
+                      class="filter-dropdown-item"
+                      @click="toggleSelectedTag(opt.id)"
+                    >
+                      <div class="planning-tag-option-main">
+                        <img
+                          :src="opt.img"
+                          :alt="opt.label"
+                        />
+                        <span x-text="opt.label"></span>
+                      </div>
+                      <span
+                        class="filter-dropdown-check"
+                        x-show="selectedTags.includes(opt.id)"
+                      >
+                        ✓
+                      </span>
+                    </button>
+                  </template>
                 </div>
-                <span>My Notes</span>
+              </div>
+
+              <!-- Search -->
+              <div>
+                <div class="filter-control" aria-label="Search courses or topics">
+                  <input
+                    id="filter-search"
+                    type="search"
+                    placeholder="Search"
+                    autocomplete="off"
+                    x-model="searchQuery"
+                    @input="applyFilters()"
+                  />
+                  <span class="search-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <circle
+                        cx="11"
+                        cy="11"
+                        r="6.5"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        fill="none"
+                      />
+                      <line
+                        x1="15"
+                        y1="15"
+                        x2="20"
+                        y2="20"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+
+            <div class="filter-actions">
+              <!-- Left: clear + print buttons -->
+              <div class="flex gap-2">
+                <button
+                  type="button"
+                  class="btn-pill"
+                  @click="clearAllBookmarks()"
+                >
+                  <span class="btn-pill-icon bookmark-reset" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <!-- bookmark outline -->
+                      <path d="M7 5h10v14l-5-3-5 3V5z"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linejoin="round" />
+                      <!-- X inside bookmark -->
+                      <line x1="9" y1="9" x2="15" y2="15"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round" />
+                      <line x1="15" y1="9" x2="9" y2="15"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round" />
+                    </svg>
+                  </span>
+                  <span>Clear bookmarks</span>
+                </button>
+
+                <button type="button" class="btn-pill btn-secondary print-btn">
+                  <span class="btn-pill-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="5" y="9" width="14" height="9" rx="1.5" ry="1.5"
+                            fill="none" stroke="currentColor" stroke-width="1.8" />
+                      <path d="M8 9V5h8v4"
+                            fill="none" stroke="currentColor" stroke-width="1.8" />
+                      <rect x="9" y="13" width="6" height="4"
+                            fill="none" stroke="currentColor" stroke-width="1.5" />
+                      <circle cx="17" cy="12" r="0.9" fill="currentColor" />
+                    </svg>
+                  </span>
+                  <span>Print</span>
+                </button>
+              </div>
+
+              <!-- Right: toggles -->
+              <div class="flex gap-4 justify-start md:justify-end flex-wrap">
+                <div
+                  class="toggle"
+                  :class="showAllDetails ? 'toggle--on' : ''"
+                  @click="toggleAllDetails()"
+                >
+                  <div class="toggle-switch">
+                    <div class="toggle-switch-knob"></div>
+                  </div>
+                  <span>Descriptions &amp; Tips</span>
+                </div>
+
+                <div
+                  class="toggle"
+                  :class="myCoursesOnly ? 'toggle--on' : ''"
+                  @click="toggleMyCoursesOnly()"
+                >
+                  <div class="toggle-switch">
+                    <div class="toggle-switch-knob"></div>
+                  </div>
+                  <span>My Courses</span>
+                </div>
+                <div
+                  class="toggle"
+                  :class="myNotesOpen ? 'toggle--on' : ''"
+                  @click="toggleMyNotes()"
+                >
+                  <div class="toggle-switch">
+                    <div class="toggle-switch-knob"></div>
+                  </div>
+                  <span>My Notes</span>
+                </div>
+              </div>
+            </div>
+          </div> <!-- .filter-panel -->
+        </div>   <!-- #course-filters -->
+      </div>     <!-- .filter-state-wrapper -->
 
       <!-- Dynamic course list -->
       <div class="course-list-shell mt-10">
