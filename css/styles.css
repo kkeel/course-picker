@@ -1084,16 +1084,28 @@ body {
 /* -----------------------------
    Print layout for Course list
    ----------------------------- */
+/* Hide print-only elements on screen */
+.print-year-left,
+.print-header-title-block {
+  display: none !important;
+}
+
 @media print {
   /* Clean, white background */
   body {
     background: #ffffff !important;
   }
 
-  /* Header: no sticky, no shadow, but still acts as a flex container */
+  /* Header: no sticky, no shadow, flex row, with border under it */
   header.app-header {
     position: relative !important;
     box-shadow: none !important;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 16px 40px 8px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #dde3d2;
   }
 
   /* Hide the top-right navigation tabs when printing */
@@ -1101,18 +1113,40 @@ body {
     display: none !important;
   }
 
-  /* Show the grade/Master label under "Alveary" when printing */
-  .print-grade-label {
-    display: block;
+  /* Year under Alveary on the left (print-only) */
+  .print-year-left {
+    display: block !important;
+    margin-top: 2px;
+    font-family: "Plantin MT Pro", "Times New Roman", serif;
+    font-size: 10pt;
+    font-weight: 400;
+    color: var(--brand-accent); /* same light green as toggles */
   }
 
-  /* Show the new right-side Course list + year block in print */
+  /* Right-side Course list + grade/Master block (print-only) */
   .print-header-title-block {
     display: flex !important;
     flex-direction: column;
     margin-left: auto;      /* push to the right in the header flex row */
-    padding-right: 40px;    /* match left padding of logo for symmetry */
     align-items: flex-end;
+    padding-right: 40px;    /* roughly match left padding of the logo */
+  }
+
+  .print-header-title {
+    font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+    font-size: 18pt;        /* match Alveary size/feel */
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--brand-dark);
+  }
+
+  .print-header-grade {
+    margin-top: 2px;
+    font-family: "Plantin MT Pro", "Times New Roman", serif;
+    font-size: 10pt;
+    font-weight: 400;
+    color: var(--brand-accent); /* light green Master / Grades text */
   }
 
   /* Remove the big section title + descriptive paragraph from the body */
