@@ -1096,13 +1096,13 @@ body {
     background: #ffffff !important;
   }
 
-  /* Header: no sticky, no shadow, flex row, with border under it */
+  /* Header: no sticky, border under, laid out as row */
   header.app-header {
     position: relative !important;
     box-shadow: none !important;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: flex-start;          /* top-align header children */
     padding: 16px 40px 8px;
     margin-bottom: 12px;
     border-bottom: 1px solid #dde3d2;
@@ -1113,40 +1113,61 @@ body {
     display: none !important;
   }
 
-  /* Year under Alveary on the left (print-only) */
+  /* Logo row: make logo inline with “Alveary” text */
+  header.app-header > .flex.items-center {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;   /* aligns logo + Alveary baseline */
+    gap: 8px;
+  }
+
+  /* “Alveary” — 28pt Plantin */
+  .logo-title {
+    font-family: "Plantin MT Pro", "Times New Roman", serif;
+    font-size: 28pt !important;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Year under Alveary on the left — 16pt Plantin */
   .print-year-left {
     display: block !important;
     margin-top: 2px;
     font-family: "Plantin MT Pro", "Times New Roman", serif;
-    font-size: 10pt;
+    font-size: 16pt !important;
     font-weight: 400;
-    color: var(--brand-accent); /* same light green as toggles */
+    color: var(--brand-accent); /* light green */
+    line-height: 1.1;
   }
 
   /* Right-side Course list + grade/Master block (print-only) */
   .print-header-title-block {
     display: flex !important;
     flex-direction: column;
-    margin-left: auto;      /* push to the right in the header flex row */
+    margin-left: auto;                /* push to the right in the header flex row */
     align-items: flex-end;
-    padding-right: 40px;    /* roughly match left padding of the logo */
+    padding-right: 40px;              /* roughly match left padding of the logo */
   }
 
+  /* “Course list” — 28pt Plantin */
   .print-header-title {
-    font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
-    font-size: 18pt;        /* match Alveary size/feel */
+    font-family: "Plantin MT Pro", "Times New Roman", serif;
+    font-size: 28pt !important;
     font-weight: 700;
     line-height: 1.1;
     color: var(--brand-dark);
   }
 
+  /* Master / Grade X — 16pt Plantin */
   .print-header-grade {
     margin-top: 2px;
     font-family: "Plantin MT Pro", "Times New Roman", serif;
-    font-size: 10pt;
+    font-size: 16pt !important;
     font-weight: 400;
-    color: var(--brand-accent); /* light green Master / Grades text */
+    color: var(--brand-accent); /* light green */
+    line-height: 1.1;
   }
 
   /* Remove the big section title + descriptive paragraph from the body */
@@ -1169,6 +1190,57 @@ body {
   /* Start the courses closer to the header now that title/paragraph are hidden */
   .course-list-shell {
     margin-top: 16px !important;
+  }
+
+  /* Subject titles — 16pt Plantin */
+  .subject-title,
+  .subject-heading,
+  .course-group h2,
+  .course-group-title {
+    font-family: "Plantin MT Pro", "Times New Roman", serif !important;
+    font-size: 16pt !important;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  /* Course titles — 14pt Plantin */
+  .course-title,
+  .course-card-title,
+  .course-header h3 {
+    font-family: "Plantin MT Pro", "Times New Roman", serif !important;
+    font-size: 14pt !important;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  /* Topic titles — 12pt Plantin */
+  .topic-title,
+  .topic-header h4 {
+    font-family: "Plantin MT Pro", "Times New Roman", serif !important;
+    font-size: 12pt !important;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  /* All other descriptive text — 9pt DM Sans */
+  .course-card,
+  .topic-card,
+  .course-card p,
+  .topic-card p,
+  .course-detail-row,
+  .course-detail-description,
+  .course-detail-tips,
+  .course-meta,
+  .topic-meta,
+  .meta-schedule,
+  .meta-grade,
+  .course-detail,
+  .topic-detail {
+    font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif !important;
+    font-size: 9pt !important;
+    line-height: 1.3;
   }
 
   /* Clean, print-friendly course + topic cards */
