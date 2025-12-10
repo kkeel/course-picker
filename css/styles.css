@@ -1053,10 +1053,34 @@ body {
     background: #ffffff !important;
   }
 
-  /* Don’t keep the header sticky when printing */
-  header {
-    position: static !important;
+  /* Header: no sticky, no shadow, but positioned so we can place a title */
+  header.app-header {
+    position: relative !important;  /* no sticky, but acts as container */
     box-shadow: none !important;
+  }
+
+  /* Hide the top-right navigation tabs when printing */
+  header.app-header nav {
+    display: none !important;
+  }
+
+  /* Print-only page title in the header, where the nav would be */
+  header.app-header::after {
+    content: "Course list";
+    position: absolute;
+    right: 0;
+    bottom: 0.2rem;
+    font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+    font-weight: 500;
+    font-size: 22px; /* roughly in the same visual family as the logo text */
+    color: var(--brand-dark);
+  }
+
+  /* Remove the big section title + descriptive paragraph from the body */
+  .section-title,
+  .section-subtitle {
+    display: none !important;
   }
 
   /* Hide interactive controls that don’t make sense on paper */
@@ -1070,11 +1094,12 @@ body {
     display: none !important;
   }
 
-  /* Keep the main course content clean and printable */
-  .course-shell {
-    margin-top: 16px;
+  /* Start the courses closer to the header now that the title/paragraph are hidden */
+  .course-list-shell {
+    margin-top: 16px !important;
   }
 
+  /* Clean, print-friendly course + topic cards */
   .course-card,
   .topic-card {
     box-shadow: none !important;
