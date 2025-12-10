@@ -784,6 +784,18 @@ function coursePlanner() {
         this.persistUiStateDebounced();
       },
 
+      printView() {
+        // Close any open dropdowns so they don’t overlay the printout
+        this.gradeDropdownOpen = false;
+        this.subjectDropdownOpen = false;
+        this.tagDropdownOpen = false;
+      
+        // Let Alpine finish any DOM updates, then trigger the browser’s print dialog
+        this.$nextTick(() => {
+          window.print();
+        });
+      },
+
       // 🔹 NEW: summary text for the state bar
       get filterSummary() {
         const parts = [];
