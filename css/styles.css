@@ -1162,7 +1162,7 @@ body {
     font-family: "Plantin MT Pro", "Times New Roman", serif !important;
     font-size: 16pt !important;
     font-weight: 400 !important;
-    color: var(--brand-accent);
+    color: var(--brand-accent) !important;
   }
 
   /* --- REMOVE the big screen titles/paragraph under header --- */
