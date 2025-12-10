@@ -798,6 +798,11 @@ function coursePlanner() {
           );
         }
       
+        // NEW: show My Courses when that toggle is on
+        if (this.myCoursesOnly) {
+          parts.push("My courses");
+        }
+      
         if (this.searchQuery) {
           parts.push(`Search: “${this.searchQuery}”`);
         }
