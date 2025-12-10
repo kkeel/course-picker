@@ -154,6 +154,11 @@ function coursePlanner() {
       // Example shape: { "CHURCH_HISTORY_1_3": "My running note text..." }
       globalTopicNotes: {},
 
+      toggleFiltersOpen() {
+        this.filtersOpen = !this.filtersOpen;
+        this.persistUiStateDebounced();
+      },
+
       toggleAllDetails() {
         this.showAllDetails = !this.showAllDetails;
         this.persistUiStateDebounced();
