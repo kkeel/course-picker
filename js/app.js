@@ -802,7 +802,7 @@ function coursePlanner() {
           parts.push(`Search: “${this.searchQuery}”`);
         }
       
-        return parts.length ? parts.join(" • ") : "None";
+        return parts.length ? parts.join(" • ") : "";
       },
 
       // ---------------- NEW STATE FOR COURSES (still inside the object!) ---------------
