@@ -876,8 +876,8 @@ function coursePlanner() {
           this.myNotesOpen = saved.myNotesOpen;
         }
 
-        if (typeof ui.filtersOpen === "boolean") {
-          this.filtersOpen = ui.filtersOpen;
+        if (typeof saved.filtersOpen === "boolean") {
+          this.filtersOpen = saved.filtersOpen;
         }
 
       } catch (err) {
