@@ -391,7 +391,7 @@ body {
 /* Sticky container that sits right below the app header */
 .filter-state-wrapper {
   position: sticky;
-  top: 92px;            /* sits just below the header; tweak if needed */
+  top: 87px;            /* sits just below the header; tweak if needed */
   z-index: 30;
   background: var(--brand-bg);
   margin-top: 24px;     /* breathing room below the paragraph */
