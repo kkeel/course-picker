@@ -1043,3 +1043,47 @@ body {
 [x-cloak] {
   display: none !important;
 }
+
+/* -----------------------------
+   Print layout for Course list
+   ----------------------------- */
+@media print {
+  /* Clean, white background */
+  body {
+    background: #ffffff !important;
+  }
+
+  /* Don’t keep the header sticky when printing */
+  header {
+    position: static !important;
+    box-shadow: none !important;
+  }
+
+  /* Hide interactive controls that don’t make sense on paper */
+  .filter-state-wrapper,
+  .filter-panel,
+  .filter-actions,
+  .btn-pill,
+  .toggle,
+  .card-toggle,
+  .planning-tag-wrapper {
+    display: none !important;
+  }
+
+  /* Keep the main course content clean and printable */
+  .course-shell {
+    margin-top: 16px;
+  }
+
+  .course-card,
+  .topic-card {
+    box-shadow: none !important;
+    border: 1px solid #dcded8 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  main {
+    padding-bottom: 0 !important;
+  }
+}
