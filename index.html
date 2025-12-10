@@ -404,7 +404,11 @@
                   <span>Clear bookmarks</span>
                 </button>
 
-                <button type="button" class="btn-pill btn-secondary print-btn">
+                <button
+                  type="button"
+                  class="btn-pill btn-secondary print-btn"
+                  @click="printView()"
+                >
                   <span class="btn-pill-icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <rect x="5" y="9" width="14" height="9" rx="1.5" ry="1.5"
