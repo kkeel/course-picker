@@ -79,7 +79,7 @@
             class="filter-state-bar"
             x-show="!isLoadingCourses && !loadError"
             x-cloak
-            @click="filtersOpen = !filtersOpen"
+            @click="toggleFiltersOpen()"
           >
             <div class="filter-state-main">
               <span class="filter-state-label">Filter by</span>
