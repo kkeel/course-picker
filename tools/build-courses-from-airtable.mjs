@@ -67,7 +67,10 @@ async function fetchAllRecords(tableName, viewName) {
   return records;
 }
 
-// Turn Airtable field values (string, number, array, etc.) into a clean string
+// ─────────────────────────────────────────────
+// 3) Helper: normalize Airtable field values
+// ─────────────────────────────────────────────
+
 function toText(value) {
   if (value == null) return "";
   if (Array.isArray(value)) return value.join(", ");
@@ -75,21 +78,20 @@ function toText(value) {
 }
 
 // ─────────────────────────────────────────────
-// 3) Normalizers – map Airtable fields → planner fields
-//    Adjust field names here if you rename columns in Airtable.
+// 4) Normalizers – map Airtable fields → planner fields
 // ─────────────────────────────────────────────
 
 function normalizeCourseRecord(rec) {
   const f = rec.fields || {};
 
-  // NOTE: field names here are Airtable column names from your screenshot
-  const courseId   = f["C/T_ID"] || rec.id;
-  const subject    = f["Subject"] || "Unsorted";
+  // Field names here are Airtable column names from your mapping
+  const courseId    = toText(f["C/T_ID"]) || rec.id;
+  const subject     = toText(f["Subject"]) || "Unsorted";
   const gradeText   = toText(f["Grade_Text"]).trim();
   const schedText   = toText(f["Scheduling_Info_Text"]).trim();
-  const title      = f["ProgramLIST"] || "(Untitled course)";
-  const desc       = f["Course/Topic Description"] || "";
-  const tips       = f["Combining & Placement Tips"] || "";
+  const title       = toText(f["ProgramLIST"]) || "(Untitled course)";
+  const desc        = toText(f["Course/Topic Description"]);
+  const tips        = toText(f["Combining & Placement Tips"]);
   const gradeFilter = toText(f["Grade_Filter"]).trim();
 
   const gradeTags =
@@ -119,23 +121,23 @@ function normalizeCourseRecord(rec) {
     topics: [],                 // filled in later
 
     // extra fields for staff view / future use
-    Topic_List_App:   f["Topic_List_App"] || "",
-    Topic_ID_App:     f["Topic_ID_App"] || "",
-    Resource_Assignments: f["Resource_Assignments"] || "",
-    Edit_CourseListURL:        f["Edit_CourseListURL"] || "",
-    Edit_ResourceAssignmentsURL: f["Edit_ResourceAssignmentsURL"] || "",
+    Topic_List_App:   toText(f["Topic_List_App"]),
+    Topic_ID_App:     toText(f["Topic_ID_App"]),
+    Resource_Assignments: toText(f["Resource_Assignments"]),
+    Edit_CourseListURL:        toText(f["Edit_CourseListURL"]),
+    Edit_ResourceAssignmentsURL: toText(f["Edit_ResourceAssignmentsURL"]),
   };
 }
 
 function normalizeTopicRecord(rec) {
   const f = rec.fields || {};
 
-  const topicId   = f["C/T_ID"] || rec.id;
-  const courseId  = f["Course_ID_App"] || "";     // joins to course.courseId
-  const gradeText   = toText(f["Grade_Text"]).trim();
-  const schedText   = toText(f["Scheduling_Info_Text"]).trim();
-  const desc      = f["Course/Topic Description"] || "";
-  const tips      = f["Combining & Placement Tips"] || "";
+  const topicId    = toText(f["C/T_ID"]) || rec.id;
+  const courseId   = toText(f["Course_ID_App"]);
+  const gradeText  = toText(f["Grade_Text"]).trim();
+  const schedText  = toText(f["Scheduling_Info_Text"]).trim();
+  const desc       = toText(f["Course/Topic Description"]);
+  const tips       = toText(f["Combining & Placement Tips"]);
   const gradeFilter = toText(f["Grade_Filter"]).trim();
 
   const gradeTags =
@@ -147,7 +149,7 @@ function normalizeTopicRecord(rec) {
   return {
     recordID: f["recordID"] || rec.id,
 
-    Topic: f["ProgramLIST"] || "(Untitled topic)",
+    Topic: toText(f["ProgramLIST"]) || "(Untitled topic)",
 
     Topic_ID: topicId,
     courseId,
@@ -161,16 +163,16 @@ function normalizeTopicRecord(rec) {
     gradeTags,
 
     // book/course linkage + staff URLs
-    Course_List_R3:  f["Course_List_App"] || "",
-    Subject:         f["Subject"] || "",
-    Resource_Assignments: f["Resource_Assignments"] || "",
-    Edit_CourseListURL:        f["Edit_CourseListURL"] || "",
-    Edit_ResourceAssignmentsURL: f["Edit_ResourceAssignmentsURL"] || "",
+    Course_List_R3:  toText(f["Course_List_App"]),
+    Subject:         toText(f["Subject"]),
+    Resource_Assignments: toText(f["Resource_Assignments"]),
+    Edit_CourseListURL:        toText(f["Edit_CourseListURL"]),
+    Edit_ResourceAssignmentsURL: toText(f["Edit_ResourceAssignmentsURL"]),
   };
 }
 
 // ─────────────────────────────────────────────
-// 4) Main builder
+// 5) Main builder
 // ─────────────────────────────────────────────
 
 async function buildCoursesJson() {
