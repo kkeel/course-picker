@@ -1090,166 +1090,154 @@ body {
   display: none !important;
 }
 
+/* ===============================
+   PRINT LAYOUT — CLEAN + CORRECT
+   =============================== */
 @media print {
-  /* Clean, white background */
+
   body {
     background: #ffffff !important;
   }
 
-  /* Header: no sticky, border under, laid out as row */
+  /* --- HEADER --- */
   header.app-header {
     position: relative !important;
     box-shadow: none !important;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;          /* top-align header children */
-    padding: 16px 40px 8px;
-    margin-bottom: 12px;
     border-bottom: 1px solid #dde3d2;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 20px 40px 12px;
   }
 
-  /* Hide the top-right navigation tabs when printing */
+  /* hide all navigation tabs on print */
   header.app-header nav {
     display: none !important;
   }
 
-  /* Logo row: make logo inline with “Alveary” text */
-  header.app-header > .flex.items-center {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;   /* aligns logo + Alveary baseline */
-    gap: 8px;
+  /* LOGO + ALVEARY — keep Circular Pro, only adjust size */
+  header.app-header img {
+    height: 40px !important;
+    width: 40px !important;
   }
 
-  /* “Alveary” — 28pt Plantin */
   .logo-title {
-    font-family: "Plantin MT Pro", "Times New Roman", serif;
+    font-family: "Circular Pro", system-ui, sans-serif !important;
     font-size: 28pt !important;
-    font-weight: 700;
+    font-weight: 700 !important;
     line-height: 1.1;
     margin: 0;
     padding: 0;
   }
 
-  /* Year under Alveary on the left — 16pt Plantin */
+  /* YEAR under Alveary — Plantin 16pt */
   .print-year-left {
     display: block !important;
-    margin-top: 2px;
-    font-family: "Plantin MT Pro", "Times New Roman", serif;
+    font-family: "Plantin MT Pro", "Times New Roman", serif !important;
     font-size: 16pt !important;
-    font-weight: 400;
-    color: var(--brand-accent); /* light green */
-    line-height: 1.1;
+    font-weight: 400 !important;
+    margin-top: 2px;
+    color: var(--brand-accent);
   }
 
-  /* Right-side Course list + grade/Master block (print-only) */
+  /* RIGHT SIDE: Course list and Grade label */
   .print-header-title-block {
     display: flex !important;
     flex-direction: column;
-    margin-left: auto;                /* push to the right in the header flex row */
     align-items: flex-end;
-    padding-right: 40px;              /* roughly match left padding of the logo */
+    margin-left: auto;
+    padding-right: 40px;
   }
 
-  /* “Course list” — 28pt Plantin */
   .print-header-title {
-    font-family: "Plantin MT Pro", "Times New Roman", serif;
+    font-family: "Circular Pro", system-ui, sans-serif !important;
     font-size: 28pt !important;
-    font-weight: 700;
+    font-weight: 700 !important;
     line-height: 1.1;
     color: var(--brand-dark);
   }
 
-  /* Master / Grade X — 16pt Plantin */
   .print-header-grade {
     margin-top: 2px;
-    font-family: "Plantin MT Pro", "Times New Roman", serif;
+    font-family: "Plantin MT Pro", "Times New Roman", serif !important;
     font-size: 16pt !important;
-    font-weight: 400;
-    color: var(--brand-accent); /* light green */
-    line-height: 1.1;
+    font-weight: 400 !important;
+    color: var(--brand-accent);
   }
 
-  /* Remove the big section title + descriptive paragraph from the body */
+  /* --- REMOVE the big screen titles/paragraph under header --- */
   .section-title,
   .section-subtitle {
     display: none !important;
   }
 
-  /* Hide interactive controls that don’t make sense on paper */
-  .filter-state-wrapper,
+  /* --- HIDE ALL FILTERS + BUTTONS + UI CONTROLS --- */
   .filter-panel,
   .filter-actions,
+  .filter-state-wrapper,
   .btn-pill,
   .toggle,
   .card-toggle,
-  .planning-tag-wrapper {
+  .planning-tag-wrapper,
+  #filter-grade,
+  #filter-subject,
+  #filter-tags,
+  #filter-search {
     display: none !important;
   }
 
-  /* Start the courses closer to the header now that title/paragraph are hidden */
+  /* --- COURSE LIST SPACING --- */
   .course-list-shell {
     margin-top: 16px !important;
   }
 
-  /* Subject titles — 16pt Plantin */
-  .subject-title,
-  .subject-heading,
-  .course-group h2,
-  .course-group-title {
+  /* --- SUBJECT TITLES (Plantin 16pt) --- */
+  .subject-title {
     font-family: "Plantin MT Pro", "Times New Roman", serif !important;
     font-size: 16pt !important;
-    font-weight: 700;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    font-weight: 600 !important;
   }
 
-  /* Course titles — 14pt Plantin */
+  /* --- COURSE TITLES (Circular Pro 14pt) --- */
   .course-title,
-  .course-card-title,
   .course-header h3 {
-    font-family: "Plantin MT Pro", "Times New Roman", serif !important;
+    font-family: "Circular Pro", system-ui, sans-serif !important;
     font-size: 14pt !important;
-    font-weight: 600;
-    line-height: 1.25;
+    font-weight: 500 !important;
   }
 
-  /* Topic titles — 12pt Plantin */
-  .topic-title,
-  .topic-header h4 {
-    font-family: "Plantin MT Pro", "Times New Roman", serif !important;
+  /* --- TOPIC TITLES (Circular Pro 12pt) --- */
+  .topic-title {
+    font-family: "Circular Pro", system-ui, sans-serif !important;
     font-size: 12pt !important;
-    font-weight: 600;
-    line-height: 1.2;
+    font-weight: 500 !important;
   }
 
-  /* All other descriptive text — 9pt DM Sans */
+  /* --- ALL BODY TEXT (DM Sans 9pt) --- */
   .course-card,
-  .topic-card,
   .course-card p,
-  .topic-card p,
-  .course-detail-row,
+  .course-detail,
   .course-detail-description,
   .course-detail-tips,
-  .course-meta,
+  .topic-card,
+  .topic-card p,
   .topic-meta,
+  .course-meta,
   .meta-schedule,
   .meta-grade,
-  .course-detail,
-  .topic-detail {
-    font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif !important;
+  .course-detail-row {
+    font-family: "DM Sans", system-ui, sans-serif !important;
     font-size: 9pt !important;
-    line-height: 1.3;
+    line-height: 1.3 !important;
   }
 
-  /* Clean, print-friendly course + topic cards */
+  /* --- CARD STYLING FOR PRINT --- */
   .course-card,
   .topic-card {
     box-shadow: none !important;
     border: 1px solid #dcded8 !important;
-    break-inside: avoid;
     page-break-inside: avoid;
+    break-inside: avoid;
   }
 
   main {
