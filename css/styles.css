@@ -1246,11 +1246,7 @@ body {
   }
 
   main {
-    padding-bottom: 0 !important;
-  }
-
-   body {
-    counter-reset: page;
+    padding-bottom: 60px !important; /* space for footer */
   }
 
   /* Print footer layout */
@@ -1274,7 +1270,7 @@ body {
 
   /* Grade / Master / My Courses label in footer = light green */
   .print-footer-grade {
-    color: var(--brand-accent) !important;
+    color: var(--brand-muted) !important;
   }
 
   /* " p.X" after the grade label */
