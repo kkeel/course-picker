@@ -56,6 +56,43 @@ body {
   color: var(--brand-dark);
 }
 
+.logo-text-block {
+  display: flex;
+  flex-direction: column;
+}
+
+/* hidden by default, shown in print */
+.print-grade-label {
+  display: none;
+  font-family: "Plantin MT Pro", "Times New Roman", serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--brand-accent); /* your light green */
+  margin-top: 4px;
+}
+
+/* hidden by default, shown in print */
+.print-header-title-block {
+  display: none;
+}
+
+.print-header-title {
+  font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  font-weight: 700;
+  font-size: 40px;           /* same as .logo-title */
+  line-height: 1;
+  color: var(--brand-dark);
+}
+
+.print-header-year {
+  font-family: "Plantin MT Pro", "Times New Roman", serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--brand-accent); /* light green year */
+  margin-top: 2px;
+}
+
 .nav-tab {
   border: none;
   background: transparent;
@@ -1053,7 +1090,7 @@ body {
     background: #ffffff !important;
   }
 
-  /* Header: no sticky, no shadow, but still acts as a container */
+  /* Header: no sticky, no shadow, but still acts as a flex container */
   header.app-header {
     position: relative !important;
     box-shadow: none !important;
@@ -1064,22 +1101,19 @@ body {
     display: none !important;
   }
 
-  /* Print-only page title in the header, using PLANTIN and matching subject size */
-   header.app-header::after {
-       content: "Course list 26/27";
-   
-       /* Layout */
-       position: absolute;
-       right: 40px; /* Matches the left padding of the logo (visually balanced) */
-       bottom: 0.4rem; /* Aligns vertically closer to subject headers */
-   
-       /* Typography */
-       font-family: "Plantin MT Pro", "Times New Roman", serif;
-       font-weight: 400;
-       font-size: 30px;   /* Matches your subject title size */
-       line-height: 1.2;
-       color: var(--brand-dark);  /* Same tone as subject headers */
-   }
+  /* Show the grade/Master label under "Alveary" when printing */
+  .print-grade-label {
+    display: block;
+  }
+
+  /* Show the new right-side Course list + year block in print */
+  .print-header-title-block {
+    display: flex !important;
+    flex-direction: column;
+    margin-left: auto;      /* push to the right in the header flex row */
+    padding-right: 40px;    /* match left padding of logo for symmetry */
+    align-items: flex-end;
+  }
 
   /* Remove the big section title + descriptive paragraph from the body */
   .section-title,
