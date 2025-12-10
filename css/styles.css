@@ -388,14 +388,23 @@ body {
   padding-left: 32px;  /* adjust if you want more/less spacing */
 }
 
+/* Sticky container that sits right below the app header */
+.filter-state-wrapper {
+  position: sticky;
+  top: 80px;            /* sits just below the header; tweak if needed */
+  z-index: 30;
+  background: var(--brand-bg);
+  margin-top: 24px;     /* breathing room below the paragraph */
+}
+
 /* Outer shell sticks under the header */
 .filter-state-bar {
-  position: sticky;
-  top: 72px;              
-  z-index: 5;            
+  position: relative;          
+  top: 0;                     
+  z-index: 1;                 
   background: var(--brand-bg);
   border: 1px solid #dde2d5;
-  border-radius: 4px 4px 0 0;  
+  border-radius: 4px 4px 0 0;
   padding: 6px 12px;
   max-width: 1601px;
   width: 100%;
