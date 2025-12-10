@@ -1090,6 +1090,11 @@ body {
   display: none !important;
 }
 
+/* Print footer: hidden on screen */
+.print-footer {
+  display: none;
+}
+
 /* ===============================
    PRINT LAYOUT — CLEAN + CORRECT
    =============================== */
@@ -1242,5 +1247,38 @@ body {
 
   main {
     padding-bottom: 0 !important;
+  }
+
+   body {
+    counter-reset: page;
+  }
+
+  /* Print footer layout */
+  .print-footer {
+    display: flex !important;
+    position: fixed;
+    bottom: 12px;
+    left: 40px;
+    right: 40px;
+    font-family: "DM Sans", system-ui, sans-serif !important;
+    font-size: 9pt !important;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .print-footer-left,
+  .print-footer-center,
+  .print-footer-right {
+    white-space: nowrap;
+  }
+
+  /* Grade / Master / My Courses label in footer = light green */
+  .print-footer-grade {
+    color: var(--brand-accent) !important;
+  }
+
+  /* " p.X" after the grade label */
+  .print-page-number::before {
+    content: " p." counter(page);
   }
 }
