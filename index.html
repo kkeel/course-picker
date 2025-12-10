@@ -72,7 +72,7 @@
       </p>
 
       <!-- Filter state bar (sticks under header, shows current state) -->
-      <div class="mt-0 flex justify-center">
+      <div class="filter-state-wrapper flex justify-center">
         <div
           class="filter-state-bar"
           x-show="!isLoadingCourses && !loadError"
@@ -85,14 +85,17 @@
           </div>
       
           <div class="filter-state-actions">
-            <span class="filter-state-toggle-text" x-text="filtersOpen ? 'Hide filters' : 'Show filters'"></span>
+            <span
+              class="filter-state-toggle-text"
+              x-text="filtersOpen ? 'Hide filters' : 'Show filters'"
+            ></span>
           </div>
         </div>
       </div>
       
       <!-- Filter bar -->
       <div
-        class="mt-8 flex justify-center"
+        class="mt-0 flex justify-center"
         id="course-filters"
         x-show="filtersOpen"
         x-transition
