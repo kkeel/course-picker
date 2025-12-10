@@ -875,6 +875,11 @@ function coursePlanner() {
         if (typeof saved.myNotesOpen === "boolean") {
           this.myNotesOpen = saved.myNotesOpen;
         }
+
+        if (typeof ui.filtersOpen === "boolean") {
+          this.filtersOpen = ui.filtersOpen;
+        }
+
       } catch (err) {
         console.warn("Could not load UI state from localStorage", err);
       }
@@ -891,6 +896,7 @@ function coursePlanner() {
         myCoursesOnly:    this.myCoursesOnly,
         showAllDetails:   this.showAllDetails,
         myNotesOpen:      this.myNotesOpen,
+        filtersOpen: this.filtersOpen,
       };
 
       try {
