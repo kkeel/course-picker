@@ -28,14 +28,20 @@
   <header class="app-header mb-8 px-6 md:px-16 py-4 md:py-6 flex flex-col md:flex-row md:items-center gap-4">
     <!-- Logo + wordmark -->
     <div class="flex items-center gap-3">
-      <!-- Replace src with new dark green logo file when ready -->
       <img
         src="img/Alveary%20Lt.%20Green.png"
         alt="Alveary logo"
         class="object-contain"
         style="height: 40px; width: 40px;"
       />
-      <span class="logo-title">Alveary</span>
+      <div class="logo-text-block">
+        <span class="logo-title">Alveary</span>
+        <!-- PRINT-ONLY grade / Master label -->
+        <span
+          class="print-grade-label"
+          x-text="gradePrintLabel()"
+        ></span>
+      </div>
     </div>
 
     <!-- Top-right navigation tabs -->
@@ -56,6 +62,12 @@
         Book list
       </a>
     </nav>
+
+    <!-- Print-only right header title -->
+    <div class="print-header-title-block">
+      <div class="print-header-title">Course list</div>
+      <div class="print-header-year">2026–2027</div>
+    </div>
     
   </header>
 
