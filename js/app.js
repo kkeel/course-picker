@@ -208,6 +208,11 @@ function coursePlanner() {
 
         this.persistUiStateDebounced();
       },
+
+      toggleFiltersOpen() {
+        this.filtersOpen = !this.filtersOpen;
+        this.persistUiStateDebounced();
+      },
       
       // Subject → courses map used by the template.
       // When myCoursesOnly is off, just return the normal filtered view.
@@ -852,13 +857,13 @@ function coursePlanner() {
 
     loadUiState() {
       if (typeof window === "undefined" || !window.localStorage) return;
-
+    
       try {
         const raw = localStorage.getItem(UI_STATE_KEY);
         if (!raw) return;
-
+    
         const saved = JSON.parse(raw) || {};
-
+    
         if (Array.isArray(saved.selectedSubjects)) {
           this.selectedSubjects = saved.selectedSubjects;
         }
@@ -880,11 +885,11 @@ function coursePlanner() {
         if (typeof saved.myNotesOpen === "boolean") {
           this.myNotesOpen = saved.myNotesOpen;
         }
-
+    
         if (typeof saved.filtersOpen === "boolean") {
           this.filtersOpen = saved.filtersOpen;
         }
-
+    
       } catch (err) {
         console.warn("Could not load UI state from localStorage", err);
       }
