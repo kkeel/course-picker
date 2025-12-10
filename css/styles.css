@@ -1137,7 +1137,7 @@ body {
     font-size: 16pt !important;
     font-weight: 400 !important;
     margin-top: 2px;
-    color: var(--brand-accent);
+    color: var(--brand-accent) !important;
   }
 
   /* RIGHT SIDE: Course list and Grade label */
@@ -1194,7 +1194,7 @@ body {
   /* --- SUBJECT TITLES (Plantin 16pt) --- */
   .subject-title {
     font-family: "Plantin MT Pro", "Times New Roman", serif !important;
-    font-size: 16pt !important;
+    font-size: 18pt !important;
     font-weight: 600 !important;
   }
 
@@ -1202,14 +1202,14 @@ body {
   .course-title,
   .course-header h3 {
     font-family: "Circular Pro", system-ui, sans-serif !important;
-    font-size: 14pt !important;
+    font-size: 13pt !important;
     font-weight: 500 !important;
   }
 
   /* --- TOPIC TITLES (Circular Pro 12pt) --- */
   .topic-title {
     font-family: "Circular Pro", system-ui, sans-serif !important;
-    font-size: 12pt !important;
+    font-size: 11pt !important;
     font-weight: 500 !important;
   }
 
