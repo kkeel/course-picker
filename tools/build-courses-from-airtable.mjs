@@ -67,6 +67,13 @@ async function fetchAllRecords(tableName, viewName) {
   return records;
 }
 
+// Turn Airtable field values (string, number, array, etc.) into a clean string
+function toText(value) {
+  if (value == null) return "";
+  if (Array.isArray(value)) return value.join(", ");
+  return String(value);
+}
+
 // ─────────────────────────────────────────────
 // 3) Normalizers – map Airtable fields → planner fields
 //    Adjust field names here if you rename columns in Airtable.
@@ -78,12 +85,12 @@ function normalizeCourseRecord(rec) {
   // NOTE: field names here are Airtable column names from your screenshot
   const courseId   = f["C/T_ID"] || rec.id;
   const subject    = f["Subject"] || "Unsorted";
-  const gradeText  = (f["Grade_Text"] || "").trim();
-  const schedText  = (f["Scheduling_Info_Text"] || "").trim();
+  const gradeText   = toText(f["Grade_Text"]).trim();
+  const schedText   = toText(f["Scheduling_Info_Text"]).trim();
   const title      = f["ProgramLIST"] || "(Untitled course)";
   const desc       = f["Course/Topic Description"] || "";
   const tips       = f["Combining & Placement Tips"] || "";
-  const gradeFilter = (f["Grade_Filter"] || "").trim();
+  const gradeFilter = toText(f["Grade_Filter"]).trim();
 
   const gradeTags =
     gradeFilter
@@ -125,11 +132,11 @@ function normalizeTopicRecord(rec) {
 
   const topicId   = f["C/T_ID"] || rec.id;
   const courseId  = f["Course_ID_App"] || "";     // joins to course.courseId
-  const gradeText = (f["Grade_Text"] || "").trim();
-  const schedText = (f["Scheduling_Info_Text"] || "").trim();
+  const gradeText   = toText(f["Grade_Text"]).trim();
+  const schedText   = toText(f["Scheduling_Info_Text"]).trim();
   const desc      = f["Course/Topic Description"] || "";
   const tips      = f["Combining & Placement Tips"] || "";
-  const gradeFilter = (f["Grade_Filter"] || "").trim();
+  const gradeFilter = toText(f["Grade_Filter"]).trim();
 
   const gradeTags =
     gradeFilter
