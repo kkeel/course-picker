@@ -263,6 +263,36 @@ function coursePlanner() {
         return found ? found.label : code;
       },
 
+      // Label for print header under "Alveary"
+      gradePrintLabel() {
+        // Default when no grade filters are applied
+        if (!this.selectedGrades || this.selectedGrades.length === 0) {
+          return "Master";
+        }
+      
+        // Map selected grade codes to labels like "Grade 1", "Grade 3"
+        const labels = this.selectedGrades
+          .map(code => this.gradeLabelFromCode(code))
+          .filter(Boolean);
+      
+        if (labels.length === 0) return "Master";
+      
+        // Remove duplicates
+        const unique = [...new Set(labels)];
+      
+        // Single grade: just return "Grade 1", "Kindergarten", etc.
+        if (unique.length === 1) {
+          return unique[0];
+        }
+      
+        // Multiple grades: "Grades 3, 4" style
+        const stripped = unique.map(label =>
+          label.replace(/^Grade[s]?\s*/i, "").trim()
+        );
+      
+        return `Grades ${stripped.join(", ")}`;
+      },
+
       // toggle a grade in/out of the selection
       toggleGrade(code) {
         const idx = this.selectedGrades.indexOf(code);
