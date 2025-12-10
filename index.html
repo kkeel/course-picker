@@ -50,20 +50,20 @@
         href="index.html"
         class="nav-tab nav-tab-active"
       >
-        Course list
+        Course List
       </a>
     
       <a
         href="books.html"
         class="nav-tab"
       >
-        Book list
+        Book List
       </a>
     </nav>
 
-    <!-- PRINT-ONLY: Course list + grade/master label on the right -->
+    <!-- PRINT-ONLY: Course List + grade/master label on the right -->
     <div class="print-header-title-block">
-      <div class="print-header-title">Course list</div>
+      <div class="print-header-title">Course List</div>
       <div class="print-header-grade" x-text="gradePrintLabel()"></div>
     </div>
     
@@ -72,9 +72,9 @@
   <!-- Main content -->
   <main class="max-w-6xl mx-auto px-6 lg:px-16 pb-16 space-y-10">
 
-    <!-- Course list -->
+    <!-- Course List -->
     <section>
-      <h2 class="section-title">Course list</h2>
+      <h2 class="section-title">Course List</h2>
       <p class="section-subtitle">
         This is an intuitive course planner that helps organize your school year.
         Browse courses by subject, view descriptions and placement tips, and easily tag, note,
@@ -1151,6 +1151,22 @@
     });
   </script>
   <script src="js/app.js"></script>
+
+  <!-- PRINT-ONLY FOOTER -->
+  <footer class="print-footer" aria-hidden="true">
+    <div class="print-footer-left">
+      Alveary Course List
+    </div>
+
+    <div class="print-footer-center">
+      ©2026 Charlotte Mason Institute® All rights reserved.
+    </div>
+
+    <div class="print-footer-right">
+      <span class="print-footer-grade" x-text="gradePrintLabel()"></span>
+      <span class="print-page-number"></span>
+    </div>
+  </footer>
   
 </body>
 </html>
