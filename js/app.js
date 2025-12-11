@@ -1187,20 +1187,34 @@ function coursePlanner() {
 
         // Expect: { "Art": [...], "Bible": [...], ... }
         this.allCoursesBySubject = data;
-        // Ensure course + topic details default to OPEN
+
+        // Helper: does this course/topic actually have any details text?
+        const hasCourseDetails = (course) => {
+          const d = (course.description || "").trim();
+          const t = (course.tips || "").trim();
+          return !!(d || t);
+        };
+
+        const hasTopicDetails = (topic) => {
+          const d = (topic.description || "").trim();
+          const t = (topic.tips || "").trim();
+          return !!(d || t);
+        };
+
+        // Only default-open items that really have details
         for (const subject of Object.keys(this.allCoursesBySubject)) {
-          for (const course of this.allCoursesBySubject[subject]) {
-            // open course details by default
-            course.detailsOpen = true;
-        
-            // topics too
+          const courses = this.allCoursesBySubject[subject] || [];
+          for (const course of courses) {
+            course.detailsOpen = hasCourseDetails(course);
+
             if (Array.isArray(course.topics)) {
               for (const topic of course.topics) {
-                topic.detailsOpen = true;
+                topic.detailsOpen = hasTopicDetails(topic);
               }
             }
           }
         }
+
         this.loadPlannerStateFromStorage();
         this.applyFilters();
 
