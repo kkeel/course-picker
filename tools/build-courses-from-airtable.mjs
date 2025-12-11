@@ -207,37 +207,57 @@ async function buildCoursesJson() {
     }
   }
 
-  // --- 2) Attach topics to each course ---
+  // --- 2) Attach topics to courses ----------------------------------------
 
-  for (const c of courses) {
-    // Start with any topics that match by courseId
-    const list = topicsByCourseId.has(c.courseId)
-      ? [...topicsByCourseId.get(c.courseId)]
-      : [];
+  // Index topics by Course_ID_R3 so we can attach them to the right course
+  const topicsByCourseId = {};
+  for (const t of topicsRaw) {
+    const courseId = (t.Course_ID_R3 || "").trim();
+    if (!courseId) continue;
+    if (!topicsByCourseId[courseId]) topicsByCourseId[courseId] = [];
+    topicsByCourseId[courseId].push(t);
+  }
 
-    // Also attach topics listed in Topic_ID_App (shared topics etc.)
-    const idList = (c.Topic_ID_App || "")
+  // Build normalized course objects, each with a sorted topics[] array
+  const coursesWithTopics = coursesRaw.map((c) => {
+    const courseId = (c.Course_ID || "").trim();
+
+    // 1) Build the raw topics for this course
+    const rawTopics = topicsByCourseId[courseId] || [];
+    const topics = rawTopics.map((t) => normalizeTopicRecord(t, c));
+
+    // 2) OPTION C: sort topics to match Topic_ID_App order first
+    const topicIdList = (c.Topic_ID_App || "")
       .split(",")
-      .map(s => s.trim())
+      .map((s) => s.trim())
       .filter(Boolean);
 
-    for (const topicId of idList) {
-      // Skip if already present from the direct courseId join
-      if (list.some(t => t.Topic_ID === topicId)) continue;
+    if (topicIdList.length) {
+      const orderMap = new Map();
+      topicIdList.forEach((id, index) => {
+        if (!orderMap.has(id)) orderMap.set(id, index);
+      });
 
-      const baseTopic = topicsById.get(topicId);
-      if (!baseTopic) continue; // Topic not found in topics view
+      topics.sort((a, b) => {
+        const aPos = orderMap.has(a.topicId)
+          ? orderMap.get(a.topicId)
+          : Number.POSITIVE_INFINITY;
+        const bPos = orderMap.has(b.topicId)
+          ? orderMap.get(b.topicId)
+          : Number.POSITIVE_INFINITY;
 
-      // Clone so we don't mutate the original
-      const cloned = { ...baseTopic, courseId: c.courseId };
-      list.push(cloned);
+        if (aPos !== bPos) return aPos - bPos;
+
+        // tie-breaker: alphabetical by title so “extra” topics still have
+        // a stable order
+        return (a.title || "").localeCompare(b.title || "");
+      });
     }
 
-    // Sort topics alphabetically by topic title
-    list.sort((a, b) => (a.Topic || "").localeCompare(b.Topic || ""));
-
-    c.topics = list;
-  }
+    // 3) Normalize the full course record (this keeps Topic_List_App,
+    //    Topic_ID_App, Edit URLs, etc., exactly as before)
+    return normalizeCourseRecord(c, topics);
+  });
 
   // --- 3) Group courses by subject for the planner ---
 
