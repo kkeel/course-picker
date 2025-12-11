@@ -1,7 +1,10 @@
 name: Build MA_Courses.json from Airtable
 
+permissions:
+  contents: write   # <-- REQUIRED so GitHub Actions can push changes
+
 on:
-  workflow_dispatch:   # Allows running manually from GitHub UI
+  workflow_dispatch:
   push:
     paths:
       - "tools/build-courses-from-airtable.mjs"
