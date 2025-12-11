@@ -728,37 +728,23 @@
                       >
                         <div
                           class="course-detail-description"
-                          x-show="course.description"
+                          x-show="course.description && course.description.trim().length > 0"
                           x-text="course.description"
                         ></div>
-                    
+                        
                         <div
                           class="course-detail-tips"
-                          x-show="course.tips"
+                          x-show="course.tips && course.tips.trim().length > 0"
                         >
                           <span class="course-detail-tips-icon" aria-hidden="true">
-                            <!-- “join” icon -->
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <circle
-                                cx="9"
-                                cy="12"
-                                r="4"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="1.7"
-                              />
-                              <circle
-                                cx="15"
-                                cy="12"
-                                r="4"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="1.7"
-                              />
+                            <svg viewBox="0 0 24 24">
+                              <circle cx="9" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/>
+                              <circle cx="15" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/>
                             </svg>
                           </span>
                           <span x-text="course.tips"></span>
                         </div>
+
                       </div>
       
                       <!-- Nested topics (titles only for now) -->
@@ -993,13 +979,13 @@
                             >
                               <div
                                 class="course-detail-description"
-                                x-show="topic.description"
+                                x-show="topic.description && topic.description.trim()"
                                 x-text="topic.description"
                               ></div>
                           
                               <div
                                 class="course-detail-tips"
-                                x-show="topic.tips"
+                                x-show="topic.tips && topic.tips.trim()"
                               >
                                 <span class="course-detail-tips-icon" aria-hidden="true">
                                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
