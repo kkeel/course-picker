@@ -1,10 +1,10 @@
 // tools/build-courses-from-airtable.mjs
 //
-// Build data/MA_Courses.json directly from Airtable for a given rotation.
-// Usage (Rotation 3):
-//   AIRTABLE_PAT=xxx AIRTABLE_BASE_ID=xxx ROTATION=3 node tools/build-courses-from-airtable.mjs
+// Build MA_Courses.json directly from Airtable.
+// Uses Option C: topics sorted according to Topic_ID_App order.
 //
-// Requires Node 18+ (for global fetch).
+// Usage:
+// AIRTABLE_PAT=xxx AIRTABLE_BASE_ID=xxx ROTATION=3 node tools/build-courses-from-airtable.mjs
 
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -13,279 +13,212 @@ import url from "node:url";
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 // ─────────────────────────────────────────────
-// 1) CONFIG – set env vars when you run it
+// CONFIG
 // ─────────────────────────────────────────────
 
-const AIRTABLE_PAT     = process.env.AIRTABLE_PAT;      // Personal Access Token
-const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;  // Your base ID
-const ROTATION         = process.env.ROTATION || "3";   // "3" this year, "4" next, etc.
-
-// Single rotation table that contains both courses + topics
-const ROTATION_TABLE = `Rotation_${ROTATION}`;
-
-// Views you’ll create in Airtable:
-const VIEW_COURSES = `R${ROTATION} – Courses JSON`;
-const VIEW_TOPICS  = `R${ROTATION} – Topics JSON`;
+const AIRTABLE_PAT     = process.env.AIRTABLE_PAT;
+const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
+const ROTATION         = process.env.ROTATION || "3";
 
 if (!AIRTABLE_PAT || !AIRTABLE_BASE_ID) {
-  console.error("ERROR: You must set AIRTABLE_PAT and AIRTABLE_BASE_ID env vars.");
+  console.error("ERROR: Missing AIRTABLE_PAT or AIRTABLE_BASE_ID.");
   process.exit(1);
 }
 
-const AIRTABLE_API_URL = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}`;
+const API = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}`;
+const TABLE = `Rotation_${ROTATION}`;
+const VIEW_COURSES = `R${ROTATION} – Courses JSON`;
+const VIEW_TOPICS  = `R${ROTATION} – Topics JSON`;
 
 // ─────────────────────────────────────────────
-// 2) Fetch ALL records from a table + view
+// Fetch helper
 // ─────────────────────────────────────────────
 
-async function fetchAllRecords(tableName, viewName) {
-  const records = [];
-  let offset = undefined;
+async function fetchAll(table, view) {
+  const out = [];
+  let offset;
 
   do {
     const params = new URLSearchParams();
-    if (viewName) params.set("view", viewName);
-    if (offset)   params.set("offset", offset);
+    if (view) params.set("view", view);
+    if (offset) params.set("offset", offset);
 
-    const url = `${AIRTABLE_API_URL}/${encodeURIComponent(tableName)}?${params}`;
-    const res = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${AIRTABLE_PAT}`,
-      },
+    const res = await fetch(`${API}/${table}?${params}`, {
+      headers: { Authorization: `Bearer ${AIRTABLE_PAT}` }
     });
 
     if (!res.ok) {
-      const text = await res.text();
-      throw new Error(`Airtable error for ${tableName}/${viewName}: ${res.status} ${text}`);
+      throw new Error(`Airtable error: ${res.status} ${await res.text()}`);
     }
 
     const json = await res.json();
-    records.push(...json.records);
+    out.push(...json.records);
     offset = json.offset;
+
   } while (offset);
 
-  return records;
+  return out;
+}
+
+// Simple text normalizer
+function txt(v) {
+  if (v == null) return "";
+  if (Array.isArray(v)) return v.join(", ");
+  return String(v);
 }
 
 // ─────────────────────────────────────────────
-// 3) Helper: normalize Airtable field values
+// Record normalizers
 // ─────────────────────────────────────────────
 
-function toText(value) {
-  if (value == null) return "";
-  if (Array.isArray(value)) return value.join(", ");
-  return String(value);
-}
+function normalizeCourse(rec) {
+  const f = rec.fields ?? {};
 
-// ─────────────────────────────────────────────
-// 4) Normalizers – map Airtable fields → planner fields
-// ─────────────────────────────────────────────
+  const courseId = txt(f["C/T_ID"]) || rec.id;
+  const subject  = txt(f["Subject"]) || "Unsorted";
 
-function normalizeCourseRecord(rec) {
-  const f = rec.fields || {};
-
-  // Field names here are Airtable column names from your mapping
-  const courseId    = toText(f["C/T_ID"]) || rec.id;
-  const subject     = toText(f["Subject"]) || "Unsorted";
-  const gradeText   = toText(f["Grade_Text"]).trim();
-  const schedText   = toText(f["Scheduling_Info_Text"]).trim();
-  const title       = toText(f["ProgramLIST"]) || "(Untitled course)";
-  const desc        = toText(f["Course/Topic Description"]);
-  const tips        = toText(f["Combining & Placement Tips"]);
-  const gradeFilter = toText(f["Grade_Filter"]).trim();
-
-  const gradeTags =
-    gradeFilter
-      .split(",")
-      .map(s => s.trim())
-      .filter(Boolean);   // ["G3", "G4", ...]
+  const gradeFilter = txt(f["Grade_Filter"]).trim();
+  const gradeTags = gradeFilter
+    .split(",")
+    .map(s => s.trim())
+    .filter(Boolean);
 
   return {
-    // core planner fields
-    id:       courseId,
-    courseId: courseId,
+    id: courseId,
+    courseId,
     recordID: f["recordID"] || rec.id,
 
-    title,
+    title: txt(f["ProgramLIST"]) || "(Untitled)",
     subject,
 
     gradeTags,
-    gradeText,
-    schedText,
+    gradeText: txt(f["Grade_Text"]).trim(),
+    schedText: txt(f["Scheduling_Info_Text"]).trim(),
 
-    description: desc,
-    tips,
+    description: txt(f["Course/Topic Description"]),
+    tips: txt(f["Combining & Placement Tips"]),
 
-    metaLine: [gradeText, schedText].filter(Boolean).join(" | "),
+    metaLine: [
+      txt(f["Grade_Text"]).trim(),
+      txt(f["Scheduling_Info_Text"]).trim()
+    ].filter(Boolean).join(" | "),
 
-    topics: [],                 // filled in later
+    topics: [],
 
-    // extra fields for staff view / future use
-    Topic_List_App:   toText(f["Topic_List_App"]),
-    Topic_ID_App:     toText(f["Topic_ID_App"]),
-    Resource_Assignments: toText(f["Resource_Assignments"]),
-    Edit_CourseListURL:        toText(f["Edit_CourseListURL"]),
-    Edit_ResourceAssignmentsURL: toText(f["Edit_ResourceAssignmentsURL"]),
+    Topic_List_App:   txt(f["Topic_List_App"]),
+    Topic_ID_App:     txt(f["Topic_ID_App"]),
+    Resource_Assignments: txt(f["Resource_Assignments"]),
+    Edit_CourseListURL: txt(f["Edit_CourseListURL"]),
+    Edit_ResourceAssignmentsURL: txt(f["Edit_ResourceAssignmentsURL"]),
   };
 }
 
-function normalizeTopicRecord(rec) {
-  const f = rec.fields || {};
+function normalizeTopic(rec) {
+  const f = rec.fields ?? {};
 
-  const topicId    = toText(f["C/T_ID"]) || rec.id;
-  const courseId   = toText(f["Course_ID_App"]);
-  const gradeText  = toText(f["Grade_Text"]).trim();
-  const schedText  = toText(f["Scheduling_Info_Text"]).trim();
-  const desc       = toText(f["Course/Topic Description"]);
-  const tips       = toText(f["Combining & Placement Tips"]);
-  const gradeFilter = toText(f["Grade_Filter"]).trim();
+  const topicId = txt(f["C/T_ID"]) || rec.id;
+  const courseId = txt(f["Course_ID_App"]).trim();
 
-  const gradeTags =
-    gradeFilter
-      .split(",")
-      .map(s => s.trim())
-      .filter(Boolean);
+  const gradeFilter = txt(f["Grade_Filter"]).trim();
+  const gradeTags = gradeFilter
+    .split(",")
+    .map(s => s.trim())
+    .filter(Boolean);
 
   return {
     recordID: f["recordID"] || rec.id,
 
-    Topic: toText(f["ProgramLIST"]) || "(Untitled topic)",
-
+    title: txt(f["ProgramLIST"]) || "(Untitled topic)",
     Topic_ID: topicId,
     courseId,
 
-    gradeText,
-    schedText,
+    description: txt(f["Course/Topic Description"]),
+    tips: txt(f["Combining & Placement Tips"]),
 
-    description: desc,
-    tips,
-
+    gradeText: txt(f["Grade_Text"]).trim(),
+    schedText: txt(f["Scheduling_Info_Text"]).trim(),
     gradeTags,
 
-    // book/course linkage + staff URLs
-    Course_List_R3:  toText(f["Course_List_App"]),
-    Subject:         toText(f["Subject"]),
-    Resource_Assignments: toText(f["Resource_Assignments"]),
-    Edit_CourseListURL:        toText(f["Edit_CourseListURL"]),
-    Edit_ResourceAssignmentsURL: toText(f["Edit_ResourceAssignmentsURL"]),
+    Subject: txt(f["Subject"]),
+    Resource_Assignments: txt(f["Resource_Assignments"]),
+    Edit_CourseListURL: txt(f["Edit_CourseListURL"]),
+    Edit_ResourceAssignmentsURL: txt(f["Edit_ResourceAssignmentsURL"]),
   };
 }
 
 // ─────────────────────────────────────────────
-// 5) Main builder
+// MAIN BUILDER
 // ─────────────────────────────────────────────
 
-async function buildCoursesJson() {
-  console.log(`Building MA_Courses.json for Rotation ${ROTATION}…`);
+async function build() {
+  console.log(`Building MA_Courses.json (Rotation ${ROTATION})…`);
 
-  console.log("Fetching course rows…");
-  const courseRecords = await fetchAllRecords(ROTATION_TABLE, VIEW_COURSES);
+  console.log("Fetching courses…");
+  const courseRecs = await fetchAll(TABLE, VIEW_COURSES);
 
-  console.log("Fetching topic rows…");
-  const topicRecords  = await fetchAllRecords(ROTATION_TABLE, VIEW_TOPICS);
+  console.log("Fetching topics…");
+  const topicRecs = await fetchAll(TABLE, VIEW_TOPICS);
 
-  const courses = courseRecords.map(normalizeCourseRecord);
-  const topics  = topicRecords.map(normalizeTopicRecord);
+  const courses = courseRecs.map(normalizeCourse);
+  const topics  = topicRecs.map(normalizeTopic);
 
-  // --- 1) Index topics by courseId AND by Topic_ID ---
-
-  const topicsByCourseId = new Map();  // courseId -> [topics]
-  const topicsById       = new Map();  // Topic_ID -> topic
-
+  // Index topics by courseId
+  const byCourse = new Map();
   for (const t of topics) {
-    // a) lookup by courseId (direct connection)
-    if (t.courseId) {
-      if (!topicsByCourseId.has(t.courseId)) {
-        topicsByCourseId.set(t.courseId, []);
-      }
-      topicsByCourseId.get(t.courseId).push(t);
-    }
-
-    // b) lookup by Topic_ID (for shared topics)
-    if (t.Topic_ID) {
-      topicsById.set(t.Topic_ID, t);
-    }
+    if (!t.courseId) continue;
+    if (!byCourse.has(t.courseId)) byCourse.set(t.courseId, []);
+    byCourse.get(t.courseId).push(t);
   }
 
-  // --- 2) Attach topics to courses ----------------------------------------
+  // Attach + sort topics (Option C)
+  for (const c of courses) {
 
-  // Index topics by Course_ID_R3 so we can attach them to the right course
-  const topicsByCourseId = {};
-  for (const t of topicsRaw) {
-    const courseId = (t.Course_ID_R3 || "").trim();
-    if (!courseId) continue;
-    if (!topicsByCourseId[courseId]) topicsByCourseId[courseId] = [];
-    topicsByCourseId[courseId].push(t);
-  }
+    const raw = byCourse.get(c.courseId) ?? [];
 
-  // Build normalized course objects, each with a sorted topics[] array
-  const coursesWithTopics = coursesRaw.map((c) => {
-    const courseId = (c.Course_ID || "").trim();
+    const sorted = [...raw];
 
-    // 1) Build the raw topics for this course
-    const rawTopics = topicsByCourseId[courseId] || [];
-    const topics = rawTopics.map((t) => normalizeTopicRecord(t, c));
-
-    // 2) OPTION C: sort topics to match Topic_ID_App order first
-    const topicIdList = (c.Topic_ID_App || "")
+    const idList = (c.Topic_ID_App || "")
       .split(",")
-      .map((s) => s.trim())
+      .map(s => s.trim())
       .filter(Boolean);
 
-    if (topicIdList.length) {
+    if (idList.length > 0) {
       const orderMap = new Map();
-      topicIdList.forEach((id, index) => {
-        if (!orderMap.has(id)) orderMap.set(id, index);
-      });
+      idList.forEach((id, idx) => orderMap.set(id, idx));
 
-      topics.sort((a, b) => {
-        const aPos = orderMap.has(a.topicId)
-          ? orderMap.get(a.topicId)
-          : Number.POSITIVE_INFINITY;
-        const bPos = orderMap.has(b.topicId)
-          ? orderMap.get(b.topicId)
-          : Number.POSITIVE_INFINITY;
-
+      sorted.sort((a, b) => {
+        const aPos = orderMap.has(a.Topic_ID) ? orderMap.get(a.Topic_ID) : 9999;
+        const bPos = orderMap.has(b.Topic_ID) ? orderMap.get(b.Topic_ID) : 9999;
         if (aPos !== bPos) return aPos - bPos;
-
-        // tie-breaker: alphabetical by title so “extra” topics still have
-        // a stable order
-        return (a.title || "").localeCompare(b.title || "");
+        return a.title.localeCompare(b.title);
       });
     }
 
-    // 3) Normalize the full course record (this keeps Topic_List_App,
-    //    Topic_ID_App, Edit URLs, etc., exactly as before)
-    return normalizeCourseRecord(c, topics);
-  });
+    c.topics = sorted;
+  }
 
-  // --- 3) Group courses by subject for the planner ---
-
-  const bySubject = {};
+  // Group by subject
+  const grouped = {};
   for (const c of courses) {
-    const subject = c.subject || "Unsorted";
-    if (!bySubject[subject]) bySubject[subject] = [];
-    bySubject[subject].push(c);
+    const s = c.subject || "Unsorted";
+    if (!grouped[s]) grouped[s] = [];
+    grouped[s].push(c);
   }
 
-  for (const subject of Object.keys(bySubject)) {
-    bySubject[subject].sort((a, b) => {
-      const aId = a.courseId || "";
-      const bId = b.courseId || "";
-      if (aId < bId) return -1;
-      if (aId > bId) return 1;
-      return (a.title || "").localeCompare(b.title || "");
-    });
+  // Sort courses inside each subject
+  for (const s of Object.keys(grouped)) {
+    grouped[s].sort((a, b) => a.courseId.localeCompare(b.courseId));
   }
 
+  // Write file
   const outPath = path.join(__dirname, "..", "data", "MA_Courses.json");
-  await fs.writeFile(outPath, JSON.stringify(bySubject, null, 2), "utf8");
-  console.log(`✓ Wrote ${outPath}`);
+  await fs.writeFile(outPath, JSON.stringify(grouped, null, 2), "utf8");
+
+  console.log("✓ Done!");
+  console.log("Written:", outPath);
 }
 
-// ─────────────────────────────────────────────
-
-buildCoursesJson().catch(err => {
+build().catch(err => {
   console.error("Build failed:", err);
   process.exit(1);
 });
