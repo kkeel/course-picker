@@ -187,24 +187,60 @@ async function buildCoursesJson() {
   const courses = courseRecords.map(normalizeCourseRecord);
   const topics  = topicRecords.map(normalizeTopicRecord);
 
-  // Index topics by Course_ID_App (joining to course.courseId)
-  const topicsByCourseId = new Map();
+  // --- 1) Index topics by courseId AND by Topic_ID ---
+
+  const topicsByCourseId = new Map();  // courseId -> [topics]
+  const topicsById       = new Map();  // Topic_ID -> topic
+
   for (const t of topics) {
-    if (!t.courseId) continue;
-    if (!topicsByCourseId.has(t.courseId)) {
-      topicsByCourseId.set(t.courseId, []);
+    // a) lookup by courseId (direct connection)
+    if (t.courseId) {
+      if (!topicsByCourseId.has(t.courseId)) {
+        topicsByCourseId.set(t.courseId, []);
+      }
+      topicsByCourseId.get(t.courseId).push(t);
     }
-    topicsByCourseId.get(t.courseId).push(t);
+
+    // b) lookup by Topic_ID (for shared topics)
+    if (t.Topic_ID) {
+      topicsById.set(t.Topic_ID, t);
+    }
   }
 
-  // Attach topics to their courses
+  // --- 2) Attach topics to each course ---
+
   for (const c of courses) {
-    const list = topicsByCourseId.get(c.courseId) || [];
+    // Start with any topics that match by courseId
+    const list = topicsByCourseId.has(c.courseId)
+      ? [...topicsByCourseId.get(c.courseId)]
+      : [];
+
+    // Also attach topics listed in Topic_ID_App (shared topics etc.)
+    const idList = (c.Topic_ID_App || "")
+      .split(",")
+      .map(s => s.trim())
+      .filter(Boolean);
+
+    for (const topicId of idList) {
+      // Skip if already present from the direct courseId join
+      if (list.some(t => t.Topic_ID === topicId)) continue;
+
+      const baseTopic = topicsById.get(topicId);
+      if (!baseTopic) continue; // Topic not found in topics view
+
+      // Clone so we don't mutate the original
+      const cloned = { ...baseTopic, courseId: c.courseId };
+      list.push(cloned);
+    }
+
+    // Sort topics alphabetically by topic title
     list.sort((a, b) => (a.Topic || "").localeCompare(b.Topic || ""));
+
     c.topics = list;
   }
 
-  // Group by subject for the planner
+  // --- 3) Group courses by subject for the planner ---
+
   const bySubject = {};
   for (const c of courses) {
     const subject = c.subject || "Unsorted";
@@ -212,7 +248,6 @@ async function buildCoursesJson() {
     bySubject[subject].push(c);
   }
 
-  // Sort courses in each subject by Course_ID then title
   for (const subject of Object.keys(bySubject)) {
     bySubject[subject].sort((a, b) => {
       const aId = a.courseId || "";
