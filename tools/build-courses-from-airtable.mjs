@@ -128,7 +128,7 @@ function normalizeTopic(rec) {
   return {
     recordID: f["recordID"] || rec.id,
 
-    title: txt(f["ProgramLIST"]) || "(Untitled topic)",
+    Topic: txt(f["ProgramLIST"]) || "(Untitled topic)",
     Topic_ID: topicId,
     courseId,
 
@@ -161,6 +161,13 @@ async function build() {
 
   const courses = courseRecs.map(normalizeCourse);
   const topics  = topicRecs.map(normalizeTopic);
+  
+  // Index topics by Topic_ID for lookup from Topic_ID_App
+  const topicsById = new Map();
+  for (const t of topics) {
+    if (!t.Topic_ID) continue;
+    topicsById.set(t.Topic_ID, t);
+  }
 
   // Index topics by courseId
   const byCourse = new Map();
@@ -170,31 +177,35 @@ async function build() {
     byCourse.get(t.courseId).push(t);
   }
 
-  // Attach + sort topics (Option C)
+  // Attach topics to each course using Topic_ID_App order
   for (const c of courses) {
-
-    const raw = byCourse.get(c.courseId) ?? [];
-
-    const sorted = [...raw];
-
     const idList = (c.Topic_ID_App || "")
       .split(",")
-      .map(s => s.trim())
+      .map((s) => s.trim())
       .filter(Boolean);
 
-    if (idList.length > 0) {
-      const orderMap = new Map();
-      idList.forEach((id, idx) => orderMap.set(id, idx));
+    const topicsForCourse = [];
 
-      sorted.sort((a, b) => {
-        const aPos = orderMap.has(a.Topic_ID) ? orderMap.get(a.Topic_ID) : 9999;
-        const bPos = orderMap.has(b.Topic_ID) ? orderMap.get(b.Topic_ID) : 9999;
-        if (aPos !== bPos) return aPos - bPos;
-        return a.title.localeCompare(b.title);
-      });
+    // 1) If Topic_ID_App is filled, use that order exactly
+    for (const topicId of idList) {
+      const baseTopic = topicsById.get(topicId);
+      if (!baseTopic) continue;
+
+      // Clone so we can safely override courseId if needed
+      const cloned = { ...baseTopic, courseId: c.courseId };
+      topicsForCourse.push(cloned);
     }
 
-    c.topics = sorted;
+    // 2) Fallback: if no Topic_ID_App, attach any topics whose courseId matches
+    if (idList.length === 0) {
+      const direct = byCourse.get(c.courseId) ?? [];
+      for (const t of direct) {
+        topicsForCourse.push(t);
+      }
+    }
+
+    // No extra sort: Topic_ID_App already defines the order
+    c.topics = topicsForCourse;
   }
 
   // Group by subject
