@@ -1,0 +1,38 @@
+name: Build MA_Courses.json from Airtable
+
+on:
+  workflow_dispatch:   # Allows running manually from GitHub UI
+  push:
+    paths:
+      - "tools/build-courses-from-airtable.mjs"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Install dependencies (if any)
+      run: |
+        npm install || true
+
+    - name: Run Airtable → JSON builder
+      env:
+        AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
+        AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+        ROTATION: ${{ secrets.ROTATION }}
+      run: |
+        node tools/build-courses-from-airtable.mjs
+
+    - name: Commit and push updated MA_Courses.json
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "Auto-build: updated MA_Courses.json from Airtable"
+        file_pattern: data/MA_Courses.json
