@@ -619,7 +619,7 @@
                           </template>
                         
                           <!-- Chevron only if description or tips exist -->
-                          <template x-if="course.description || course.tips">
+                          <template x-if="(course.description && course.description.trim()) || (course.tips && course.tips.trim())">
                             <button
                               type="button"
                               class="card-toggle"
@@ -720,7 +720,10 @@
                       <!-- Description + combining tips -->
                       <div
                         class="course-detail-row"
-                        x-show="showAllDetails && course.detailsOpen && (course.description || course.tips)"
+                        x-show="showAllDetails
+                                && course.detailsOpen
+                                && ((course.description && course.description.trim())
+                                    || (course.tips && course.tips.trim()))"
                         x-transition
                       >
                         <div
@@ -857,7 +860,7 @@
                                 </span>
                             
                                 <!-- Chevron only if description or tips exist -->
-                                <template x-if="topic.description || topic.tips">
+                                <template x-if="(topic.description && topic.description.trim()) || (topic.tips && topic.tips.trim())">
                                   <button
                                     type="button"
                                     class="card-toggle"
@@ -981,7 +984,11 @@
 
                             <div
                               class="course-detail-row"
-                              x-show="showAllDetails && topic.detailsOpen && (topic.description || topic.tips)"
+                              x-show="showAllDetails
+                                  && topic.detailsOpen
+                                  && ((topic.description && topic.description.trim())
+                                  || (topic.tips && topic.tips.trim()))"
+
                               x-transition
                             >
                               <div
