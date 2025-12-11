@@ -1187,6 +1187,20 @@ function coursePlanner() {
 
         // Expect: { "Art": [...], "Bible": [...], ... }
         this.allCoursesBySubject = data;
+        // Ensure course + topic details default to OPEN
+        for (const subject of Object.keys(this.allCoursesBySubject)) {
+          for (const course of this.allCoursesBySubject[subject]) {
+            // open course details by default
+            course.detailsOpen = true;
+        
+            // topics too
+            if (Array.isArray(course.topics)) {
+              for (const topic of course.topics) {
+                topic.detailsOpen = true;
+              }
+            }
+          }
+        }
         this.loadPlannerStateFromStorage();
         this.applyFilters();
 
