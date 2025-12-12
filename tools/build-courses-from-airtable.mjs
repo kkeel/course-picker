@@ -19,7 +19,6 @@ const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const AIRTABLE_PAT     = process.env.AIRTABLE_PAT;
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
 const ROTATION         = process.env.ROTATION || "3";
-const REFRESH_MINUTES = 1440; // daily for now
 
 if (!AIRTABLE_PAT || !AIRTABLE_BASE_ID) {
   console.error("ERROR: Missing AIRTABLE_PAT or AIRTABLE_BASE_ID.");
@@ -222,19 +221,9 @@ async function build() {
     grouped[s].sort((a, b) => a.courseId.localeCompare(b.courseId));
   }
 
-  // Add build metadata (so the UI can show "last updated / next update")
-  const output = {
-    __meta: {
-      generatedAt: new Date().toISOString(),
-      rotation: String(ROTATION || ""),
-      refreshMinutes: REFRESH_MINUTES,
-    },
-    ...grouped,
-  };
-  
   // Write file
   const outPath = path.join(__dirname, "..", "data", "MA_Courses.json");
-  await fs.writeFile(outPath, JSON.stringify(output, null, 2), "utf8");
+  await fs.writeFile(outPath, JSON.stringify(grouped, null, 2), "utf8");
 
   console.log("✓ Done!");
   console.log("Written:", outPath);
