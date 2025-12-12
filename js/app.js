@@ -1185,8 +1185,18 @@ function coursePlanner() {
 
         const data = await res.json();
 
-        // Expect: { "Art": [...], "Bible": [...], ... }
-        this.allCoursesBySubject = data;
+        // Normalize JSON so the app works with BOTH shapes:
+        // - { "Bible": [ ... ] }
+        // - { "Bible": { courses:[...], lastUpdated:"..." } }
+        // - OR wrapper shapes like { coursesBySubject:{...}, lastUpdated:"..." }
+        const bySubject =
+          data?.coursesBySubject ||
+          data?.bySubject ||
+          data?.subjects ||
+          data ||
+          {};
+        
+        this.allCoursesBySubject = bySubject;
 
         // Helper: does this course/topic actually have any details text?
         const hasCourseDetails = (course) => {
@@ -1202,18 +1212,26 @@ function coursePlanner() {
         };
 
         // Only default-open items that really have details
-        for (const subject of Object.keys(this.allCoursesBySubject)) {
-          const courses = this.allCoursesBySubject[subject] || [];
-          for (const course of courses) {
-            course.detailsOpen = hasCourseDetails(course);
-
-            if (Array.isArray(course.topics)) {
-              for (const topic of course.topics) {
-                topic.detailsOpen = hasTopicDetails(topic);
-              }
+        for (const subject of Object.keys(this.allCoursesBySubject || {})) {
+        const bucket = this.allCoursesBySubject?.[subject];
+        const courses =
+          Array.isArray(bucket) ? bucket :
+          Array.isArray(bucket?.courses) ? bucket.courses :
+          [];
+      
+        for (const course of courses) {
+          if (!course || typeof course !== "object") continue;
+      
+          course.detailsOpen = hasCourseDetails(course);
+      
+          if (Array.isArray(course.topics)) {
+            for (const topic of course.topics) {
+              if (!topic || typeof topic !== "object") continue;
+              topic.detailsOpen = hasTopicDetails(topic);
             }
           }
         }
+      }
 
         this.loadPlannerStateFromStorage();
         this.applyFilters();
