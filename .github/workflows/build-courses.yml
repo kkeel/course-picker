@@ -2,6 +2,8 @@ name: Build MA_Courses.json from Airtable
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * *"
 
 permissions:
   contents: write   # allow this workflow to push commits
