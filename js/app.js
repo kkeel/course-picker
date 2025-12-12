@@ -1,13 +1,5 @@
-// Data URL for pre-built course JSON (works on GitHub Pages + local dev)
-function getCoursesJsonUrl() {
-  // If hosted at https://<user>.github.io/<repo>/...
-  // we must include "/<repo>/" prefix for absolute paths.
-  const path = window.location.pathname || "/";
-  const repoMatch = path.match(/^\/([^/]+)\//); // first folder after domain
-  const repoPrefix = repoMatch ? `/${repoMatch[1]}/` : "/";
-
-  return new URL(`${repoPrefix}data/MA_Courses.json`, window.location.origin).toString();
-}
+// Data URL for pre-built course JSON
+const MA_COURSES_JSON_URL = "data/MA_Courses.json";
 
 // Bump this version string whenever you change the JSON shape
 // or the UI state we store in localStorage.
@@ -66,60 +58,6 @@ function coursePlanner() {
       showAllDetails: true,
       myCoursesOnly: false,
       myNotesOpen: false,
-
-      // --- STAFF EDIT MODE + BUILD META (Last updated / Next update) ---
-      editMode: false,     // staff toggle (UI)
-      buildMeta: null,     // { generatedAt, refreshMinutes, rotation }
-      metaLastLabel: "",
-      metaCountdownLabel: "",
-      _metaTicker: null,
-      
-      extractCoursesPayload(obj) {
-        if (!obj || typeof obj !== "object") return { subjects: {}, meta: null };
-        const meta = obj.__meta || null;
-      
-        // copy and remove __meta so it isn't treated as a subject group
-        const subjects = { ...obj };
-        if ("__meta" in subjects) delete subjects.__meta;
-      
-        return { subjects, meta };
-      },
-      
-      setBuildMeta(meta) {
-        this.buildMeta = meta || null;
-        this.updateMetaLabels();
-        this.startMetaTicker();
-      },
-      
-      startMetaTicker() {
-        if (this._metaTicker) clearInterval(this._metaTicker);
-        this._metaTicker = setInterval(() => this.updateMetaLabels(), 1000);
-      },
-      
-      updateMetaLabels() {
-        if (!this.buildMeta?.generatedAt) {
-          this.metaLastLabel = "";
-          this.metaCountdownLabel = "";
-          return;
-        }
-      
-        const lastMs = Date.parse(this.buildMeta.generatedAt);
-        const refreshMin = Number(this.buildMeta.refreshMinutes || 1440);
-        const nextMs = lastMs + refreshMin * 60 * 1000;
-      
-        const fmt = (ms) =>
-          new Date(ms).toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
-      
-        this.metaLastLabel = fmt(lastMs);
-      
-        const diff = Math.max(0, nextMs - Date.now());
-        const s = Math.floor(diff / 1000);
-        const h = Math.floor(s / 3600);
-        const m = Math.floor((s % 3600) / 60);
-        const sec = s % 60;
-      
-        this.metaCountdownLabel = (h > 0 ? `${h}h ` : "") + `${m}m ${sec}s`;
-      },
 
       // debounce handle for saving UI state
       uiPersistDebounce: null,
@@ -993,10 +931,6 @@ function coursePlanner() {
         if (typeof saved.filtersOpen === "boolean") {
           this.filtersOpen = saved.filtersOpen;
         }
-
-        if (typeof saved.editMode === "boolean") {
-          this.editMode = saved.editMode;
-        }
     
       } catch (err) {
         console.warn("Could not load UI state from localStorage", err);
@@ -1014,8 +948,7 @@ function coursePlanner() {
         myCoursesOnly:    this.myCoursesOnly,
         showAllDetails:   this.showAllDetails,
         myNotesOpen:      this.myNotesOpen,
-        filtersOpen:      this.filtersOpen,
-        editMode:         this.editMode,
+        filtersOpen: this.filtersOpen,
       };
 
       try {
@@ -1245,14 +1178,10 @@ function coursePlanner() {
 
       // Step 2: always try to fetch fresh data
       try {
-      const url = new URL(MA_COURSES_JSON_URL, window.location.href);
-      // Bust browser + GitHub Pages cache
-      url.searchParams.set("v", Date.now());
-    
-      const res = await fetch(url.toString(), { cache: "no-store" });
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
-      }
+        const res = await fetch(MA_COURSES_JSON_URL, { cache: "no-cache" });
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
 
         const data = await res.json();
 
