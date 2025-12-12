@@ -59,6 +59,60 @@ function coursePlanner() {
       myCoursesOnly: false,
       myNotesOpen: false,
 
+      // --- STAFF EDIT MODE + BUILD META (Last updated / Next update) ---
+      editMode: false,     // staff toggle (UI)
+      buildMeta: null,     // { generatedAt, refreshMinutes, rotation }
+      metaLastLabel: "",
+      metaCountdownLabel: "",
+      _metaTicker: null,
+      
+      extractCoursesPayload(obj) {
+        if (!obj || typeof obj !== "object") return { subjects: {}, meta: null };
+        const meta = obj.__meta || null;
+      
+        // copy and remove __meta so it isn't treated as a subject group
+        const subjects = { ...obj };
+        if ("__meta" in subjects) delete subjects.__meta;
+      
+        return { subjects, meta };
+      },
+      
+      setBuildMeta(meta) {
+        this.buildMeta = meta || null;
+        this.updateMetaLabels();
+        this.startMetaTicker();
+      },
+      
+      startMetaTicker() {
+        if (this._metaTicker) clearInterval(this._metaTicker);
+        this._metaTicker = setInterval(() => this.updateMetaLabels(), 1000);
+      },
+      
+      updateMetaLabels() {
+        if (!this.buildMeta?.generatedAt) {
+          this.metaLastLabel = "";
+          this.metaCountdownLabel = "";
+          return;
+        }
+      
+        const lastMs = Date.parse(this.buildMeta.generatedAt);
+        const refreshMin = Number(this.buildMeta.refreshMinutes || 1440);
+        const nextMs = lastMs + refreshMin * 60 * 1000;
+      
+        const fmt = (ms) =>
+          new Date(ms).toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+      
+        this.metaLastLabel = fmt(lastMs);
+      
+        const diff = Math.max(0, nextMs - Date.now());
+        const s = Math.floor(diff / 1000);
+        const h = Math.floor(s / 3600);
+        const m = Math.floor((s % 3600) / 60);
+        const sec = s % 60;
+      
+        this.metaCountdownLabel = (h > 0 ? `${h}h ` : "") + `${m}m ${sec}s`;
+      },
+
       // debounce handle for saving UI state
       uiPersistDebounce: null,
     
@@ -931,6 +985,10 @@ function coursePlanner() {
         if (typeof saved.filtersOpen === "boolean") {
           this.filtersOpen = saved.filtersOpen;
         }
+
+        if (typeof saved.editMode === "boolean") {
+          this.editMode = saved.editMode;
+        }
     
       } catch (err) {
         console.warn("Could not load UI state from localStorage", err);
@@ -948,7 +1006,8 @@ function coursePlanner() {
         myCoursesOnly:    this.myCoursesOnly,
         showAllDetails:   this.showAllDetails,
         myNotesOpen:      this.myNotesOpen,
-        filtersOpen: this.filtersOpen,
+        filtersOpen:      this.filtersOpen,
+        editMode:         this.editMode,
       };
 
       try {
