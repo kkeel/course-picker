@@ -1,5 +1,13 @@
-// Data URL for pre-built course JSON
-const MA_COURSES_JSON_URL = "data/MA_Courses.json";
+// Data URL for pre-built course JSON (works on GitHub Pages + local dev)
+function getCoursesJsonUrl() {
+  // If hosted at https://<user>.github.io/<repo>/...
+  // we must include "/<repo>/" prefix for absolute paths.
+  const path = window.location.pathname || "/";
+  const repoMatch = path.match(/^\/([^/]+)\//); // first folder after domain
+  const repoPrefix = repoMatch ? `/${repoMatch[1]}/` : "/";
+
+  return new URL(`${repoPrefix}data/MA_Courses.json`, window.location.origin).toString();
+}
 
 // Bump this version string whenever you change the JSON shape
 // or the UI state we store in localStorage.
@@ -1237,10 +1245,14 @@ function coursePlanner() {
 
       // Step 2: always try to fetch fresh data
       try {
-        const res = await fetch(MA_COURSES_JSON_URL, { cache: "no-cache" });
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status}`);
-        }
+      const url = new URL(MA_COURSES_JSON_URL, window.location.href);
+      // Bust browser + GitHub Pages cache
+      url.searchParams.set("v", Date.now());
+    
+      const res = await fetch(url.toString(), { cache: "no-store" });
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
 
         const data = await res.json();
 
