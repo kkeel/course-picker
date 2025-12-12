@@ -1,4 +1,9 @@
 {
+  "__meta": {
+    "generatedAt": "2025-12-12T16:27:13.103Z",
+    "rotation": "3",
+    "refreshMinutes": 1440
+  },
   "Architecture": [
     {
       "id": "002.007.001",
@@ -396,7 +401,7 @@
       "gradeText": "GRADE(S): 2",
       "schedText": "",
       "description": "\n",
-      "tips": "Test Tip Only\n",
+      "tips": "\n",
       "metaLine": "GRADE(S): 2",
       "topics": [
         {
@@ -5334,7 +5339,7 @@
             "G4"
           ],
           "Subject": "Literature",
-          "Resource_Assignments": "001.003.000*In the Days of Giants->Mythology/Hist. Fiction: Grade 4",
+          "Resource_Assignments": "001.003.000*In the Days of Giants->Mythology/Hist. Fiction: Grade 4|002.003.000*Russian Fairy Tales->Mythology/Hist. Fiction: Grade 4|002.003.000*South American Jungle Tales->Mythology/Hist. Fiction: Grade 4",
           "Edit_CourseListURL": "https://airtable.com/app1aju9e3YhfQTXd/pagn2AfNGoJI0TnR2/recyJEQ4vVSOi8L6a?home=pag6ndjOpmaumpEW8",
           "Edit_ResourceAssignmentsURL": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recyJEQ4vVSOi8L6a?home=pag8nmiUVfXJRZFLW"
         },
