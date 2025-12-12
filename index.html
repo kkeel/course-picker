@@ -1105,45 +1105,36 @@
 
   </main>
 
-  <!-- Authentication Bootstrapping -->
+  <script src="js/app.js"></script>
+  
+  <!-- Authentication Bootstrapping (wrap the global coursePlanner() function) -->
   <script type="module">
     import { getCurrentUser } from "./js/auth.js";
   
-    document.addEventListener("alpine:init", () => {
-      // Patch the existing Alpine component
-      Alpine.data("coursePlanner", (oldFn => {
-        return function () {
-          // Get the original component object
-          const original = oldFn();
+    const originalCoursePlanner = window.coursePlanner;
   
-          return {
-            // FIRST: bring in the original component
-            ...original,
-          
-            // THEN: add/override with auth-aware fields
-            user: { role: "anonymous" },
-          
-            // Wrap the original init() with user loading
-            async init() {
-              // Load user (dev mode = staff)
-              this.user = await getCurrentUser();
-          
-              // Call original init() AFTER user is ready
-              if (typeof original.init === "function") {
-                await original.init.call(this);
-              }
-            },
-          
-            // Role helpers
-            get isStaff()  { return this.user.role === "staff"; },
-            get isMember() { return this.user.role === "member"; },
-            get isAnon()   { return this.user.role === "anonymous"; },
-          };
-        };
-      })(Alpine.data("coursePlanner")));
-    });
+    window.coursePlanner = function () {
+      const original = originalCoursePlanner();
+      const originalInit = original.init;
+  
+      return {
+        ...original,
+  
+        user: { role: "anonymous" },
+  
+        get isStaff()  { return this.user?.role === "staff"; },
+        get isMember() { return this.user?.role === "member"; },
+        get isAnon()   { return !this.user?.role || this.user.role === "anonymous"; },
+  
+        async init() {
+          this.user = await getCurrentUser();
+          if (typeof originalInit === "function") {
+            await originalInit.call(this);
+          }
+        },
+      };
+    };
   </script>
-  <script src="js/app.js"></script>
 
   <!-- PRINT-ONLY FOOTER -->
   <footer class="print-footer" aria-hidden="true">
