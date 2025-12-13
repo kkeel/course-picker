@@ -1143,6 +1143,13 @@
   
         async init() {
           this.user = await getCurrentUser();
+        
+          // ✅ DEV OVERRIDE (temporary): force staff when a local flag is set
+          try {
+            const devStaff = localStorage.getItem("ALVEARY_DEV_STAFF") === "1";
+            if (devStaff) this.user = { role: "staff" };
+          } catch (e) {}
+        
           if (typeof originalInit === "function") {
             await originalInit.call(this);
           }
