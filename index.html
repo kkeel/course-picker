@@ -60,6 +60,22 @@
       </a>
     </nav>
 
+    <!-- Staff-only: Edit mode (under nav) -->
+    <div class="md:ml-auto flex justify-end -mt-2">
+      <div
+        class="toggle"
+        x-show="isStaff"
+        style="display:none"
+        :class="editMode ? 'toggle--on' : ''"
+        @click="toggleEditMode()"
+      >
+        <div class="toggle-switch">
+          <div class="toggle-switch-knob"></div>
+        </div>
+        <span x-text="editMode ? 'Edit Mode' : 'Published'"></span>
+      </div>
+    </div>
+
     <!-- PRINT-ONLY: Course List + grade/master label on the right -->
     <div class="print-header-title-block">
       <div class="print-header-title">Course List</div>
@@ -465,19 +481,6 @@
                     <div class="toggle-switch-knob"></div>
                   </div>
                   <span>My Notes</span>
-                </div>
-                <!-- Staff-only: Edit mode -->
-                <div
-                  class="toggle"
-                  x-show="isStaff"
-                  style="display:none"
-                  :class="editMode ? 'toggle--on' : ''"
-                  @click="toggleEditMode()"
-                >
-                  <div class="toggle-switch">
-                    <div class="toggle-switch-knob"></div>
-                  </div>
-                  <span x-text="editMode ? 'Edit Mode' : 'Published'"></span>
                 </div>
               </div>
             </div>
