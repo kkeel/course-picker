@@ -1179,7 +1179,8 @@ body {
   .btn-pill,
   .toggle,
   .card-toggle,
-  .planning-tag-wrapper {
+  .planning-tag-wrapper,
+  .edit-pill {
     display: none !important;
   }
 
@@ -1203,6 +1204,35 @@ body {
   .topic-title {
     font-size: 11pt !important;
   }
+
+  .title-with-edit{
+     display: inline-flex;
+     align-items: baseline;
+     gap: 10px;
+   }
+   
+   .edit-pill{
+     display: inline-flex;
+     align-items: center;
+     border-radius: 999px;
+     padding: 2px 8px;
+     font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+     font-size: 12px;
+     font-weight: 300;
+     line-height: 1.4;
+   
+     /* muted “Alveary lt green” vibe */
+     background: rgba(173, 181, 143, 0.18);
+     border: 1px solid rgba(173, 181, 143, 0.55);
+     color: #596e5e;
+   
+     text-decoration: none;
+   }
+   
+   .edit-pill:hover{
+     background: rgba(173, 181, 143, 0.26);
+     border-color: rgba(173, 181, 143, 0.8);
+   }
 
   /* Everything else in the card text area: 9pt */
   .course-meta,
