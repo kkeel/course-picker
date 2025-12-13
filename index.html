@@ -1180,8 +1180,37 @@
     };
   </script>
 
-  <!-- ✅ Alpine goes HERE (after wrapper, before footer) -->
+  <!-- ✅ Alpine -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Print-only page numbers (Paged.js loads only when printing) -->
+  <script>
+    // Tell Paged.js: do NOT auto-run on page load
+    window.PagedConfig = { auto: false };
+  
+    function loadPagedJsOnce() {
+      return new Promise((resolve, reject) => {
+        if (window.PagedPolyfill) return resolve();
+        const s = document.createElement("script");
+        s.src = "https://unpkg.com/pagedjs/dist/paged.polyfill.js";
+        s.onload = () => resolve();
+        s.onerror = () => reject(new Error("Failed to load Paged.js"));
+        document.head.appendChild(s);
+      });
+    }
+  
+    // This is what we’ll call instead of window.print()
+    window.alvearyPrintWithPaged = async function () {
+      try {
+        await loadPagedJsOnce();
+        await window.PagedPolyfill.preview(); // paginate + apply @page rules
+        window.print();
+      } catch (e) {
+        console.warn(e);
+        window.print(); // fallback
+      }
+    };
+  </script>
 
   <!-- PRINT-ONLY FOOTER -->
   <footer class="print-footer" aria-hidden="true">
