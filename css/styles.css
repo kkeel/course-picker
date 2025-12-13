@@ -1295,4 +1295,11 @@ body {
   .print-footer-right {
     white-space: nowrap;
   }
+   
+  .print-page-number::after {
+    content: "  ·  p." counter(page);
+    font-size: 10px;
+    color: #555;
+    white-space: nowrap;
+  }
 }
