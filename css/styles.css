@@ -1277,12 +1277,11 @@ body {
   /* Show footer only in print */
   .print-footer {
     display: flex !important;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: running(printFooter);
+    left: auto;
+    right: auto;
+    bottom: auto;
     padding: 4pt 15mm 2pt;
-    border-top: 1px solid #dde3d2;
     font-size: 8pt;
     color: #4b544b;
     background: #ffffff;
@@ -1295,11 +1294,16 @@ body {
   .print-footer-right {
     white-space: nowrap;
   }
+
+   /* Place the running footer at the bottom of each page */
+  @page {
+    @bottom-center {
+      content: element(printFooter);
+    }
+  }
    
   .print-page-number::after {
     content: "  ·  p." counter(page);
-    font-size: 10px;
-    color: #555;
     white-space: nowrap;
   }
 }
