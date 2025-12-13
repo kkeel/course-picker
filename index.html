@@ -499,7 +499,7 @@
                       <!-- Title row with bookmark (for topic-less courses) + chevron -->
                       <div class="card-header">
                         <div class="title-with-edit">
-                          <h4 class="course-title" x-text="course.course_title"></h4>
+                          <h4 class="course-title" x-text="course.course_title || course.title || course.Course || 'Untitled course'"></h4>
                         
                           <a
                             class="edit-pill"
