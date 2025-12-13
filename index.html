@@ -498,7 +498,19 @@
                     <article class="course-card" :style="`border-color: ${subjectColor(course.subject)}`">
                       <!-- Title row with bookmark (for topic-less courses) + chevron -->
                       <div class="card-header">
-                        <h4 class="course-title" x-text="course.title"></h4>
+                        <div class="title-with-edit">
+                          <h4 class="course-title" x-text="course.course_title"></h4>
+                        
+                          <a
+                            class="edit-pill"
+                            x-show="isStaff && editMode && course.Edit_CourseListURL"
+                            x-cloak
+                            :href="course.Edit_CourseListURL"
+                            target="_blank"
+                            rel="noopener"
+                            @click.stop
+                          >Edit ↗</a>
+                        </div>
                       
                         <div class="card-header-actions">
                           <!-- Course notes (only for courses with NO topics) -->
@@ -756,7 +768,19 @@
                           <article class="topic-card">
                             <!-- Title row with chevron -->
                             <div class="card-header">
-                              <h5 class="topic-title" x-text="topic.Topic"></h5>
+                              <div class="title-with-edit">
+                                <h5 class="topic-title" x-text="topic.Topic"></h5>
+                              
+                                <a
+                                  class="edit-pill"
+                                  x-show="isStaff && editMode && topic.Edit_CourseListURL"
+                                  x-cloak
+                                  :href="topic.Edit_CourseListURL"
+                                  target="_blank"
+                                  rel="noopener"
+                                  @click.stop
+                                >Edit ↗</a>
+                              </div>
                             
                               <div class="card-header-actions">
                                 <!-- Topic notes button -->
