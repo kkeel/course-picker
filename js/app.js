@@ -58,6 +58,7 @@ function coursePlanner() {
       showAllDetails: true,
       myCoursesOnly: false,
       myNotesOpen: false,
+      editMode: false, // staff-only
 
       // debounce handle for saving UI state
       uiPersistDebounce: null,
@@ -207,6 +208,15 @@ function coursePlanner() {
         });
 
         this.persistUiStateDebounced();
+      },
+
+      toggleEditMode() {
+        if (!this.isStaff) {
+          this.editMode = false;
+          return;
+        }
+        this.editMode = !this.editMode;
+        this.persistUiStateDebounced?.();
       },
 
       toggleFiltersOpen() {
@@ -931,6 +941,10 @@ function coursePlanner() {
         if (typeof saved.filtersOpen === "boolean") {
           this.filtersOpen = saved.filtersOpen;
         }
+
+        if (typeof saved.editMode === "boolean") {
+          this.editMode = saved.editMode;
+        }
     
       } catch (err) {
         console.warn("Could not load UI state from localStorage", err);
@@ -948,7 +962,8 @@ function coursePlanner() {
         myCoursesOnly:    this.myCoursesOnly,
         showAllDetails:   this.showAllDetails,
         myNotesOpen:      this.myNotesOpen,
-        filtersOpen: this.filtersOpen,
+        filtersOpen:      this.filtersOpen,
+        editMode:         this.editMode,
       };
 
       try {
@@ -1144,6 +1159,7 @@ function coursePlanner() {
     async init() {
       // 1) Restore filters/search/toggles from previous visit
       this.loadUiState();
+      if (!this.isStaff) this.editMode = false;
 
       // 2) Load course data (from cache if available, then refresh from network)
       await this.loadCoursesFromJson();
