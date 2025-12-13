@@ -1,0 +1,36 @@
+{
+  "name": "Alveary Yearly Planning App",
+  "short_name": "Alveary",
+  "description": "Course List & Book List planning app",
+  "start_url": "/course-picker/index.html",
+  "scope": "/course-picker/",
+  "display": "standalone",
+  "background_color": "#e5e8e5",
+  "theme_color": "#596e5e",
+  "icons": [
+    {
+      "src": "/course-picker/img/icon/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/course-picker/img/icon/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/course-picker/img/icon/icon-192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/course-picker/img/icon/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
