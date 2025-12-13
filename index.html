@@ -41,15 +41,9 @@
       </div>
     </div>
 
-    <!-- Top-right: nav + staff toggle (screen only) -->
-    <div class="mt-3 md:mt-0 md:ml-auto flex flex-col items-end gap-2 text-sm">
-      <!-- navigation tabs -->
-      <nav class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-        <a href="index.html" class="nav-tab nav-tab-active">Course List</a>
-        <a href="books.html" class="nav-tab">Book List</a>
-      </nav>
-    
-      <!-- Staff-only: Edit mode (under nav) -->
+    <!-- Top-right: staff toggle + nav (screen only) -->
+    <div class="mt-3 md:mt-0 md:ml-auto flex items-center justify-end gap-6 text-sm">
+      <!-- Staff-only: Edit mode (inline, before nav) -->
       <div
         class="toggle"
         x-show="isStaff"
@@ -62,6 +56,12 @@
         </div>
         <span x-text="editMode ? 'Edit Mode' : 'Published'"></span>
       </div>
+    
+      <!-- navigation tabs -->
+      <nav class="flex items-center gap-x-6 text-sm">
+        <a href="index.html" class="nav-tab nav-tab-active">Course List</a>
+        <a href="books.html" class="nav-tab">Book List</a>
+      </nav>
     </div>
 
     <!-- PRINT-ONLY: Course List + grade/master label on the right -->
