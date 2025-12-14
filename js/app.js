@@ -830,8 +830,15 @@ function coursePlanner() {
         this.subjectDropdownOpen = false;
         this.tagDropdownOpen = false;
       
-        // Let Alpine finish any DOM updates, then trigger the browser’s print dialog
-        this.$nextTick(() => {
+        // Let Alpine finish any DOM updates, then print
+        this.$nextTick(async () => {
+          // ✅ If our print-only Paged.js helper exists, use it (gives real p.#)
+          if (window.alvearyPrintWithPaged) {
+            await window.alvearyPrintWithPaged();
+            return;
+          }
+      
+          // Fallback (no page numbering)
           window.print();
         });
       },
