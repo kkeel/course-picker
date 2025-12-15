@@ -1239,7 +1239,7 @@ body {
   }
 
   .course-list-shell {
-    margin-top: 16px !important;
+    margin-top: 40px !important;
   }
 
   /* CARD + TEXT SIZING --------------------------------------- */
@@ -1272,6 +1272,7 @@ body {
 
   main {
     padding-bottom: 0 !important;
+    padding-top: 40px
   }
 
   /* FOOTER --------------------------------------------------- */
@@ -1296,11 +1297,6 @@ body {
   .print-footer-left,
   .print-footer-center,
   .print-footer-right {
-    white-space: nowrap;
-  }
-
-  .print-page-number::after {
-    content: "p." counter(page);
     white-space: nowrap;
   }
 }
