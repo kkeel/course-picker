@@ -1301,9 +1301,26 @@ body {
     white-space: nowrap;
   }
 
-  /* ✅ Don’t try to generate the page number inside the footer (that’s what causes p.0) */
+    /* Page number: top-right, safely inset, repeats each page */
+  .print-page-number {
+    display: block !important;
+    position: fixed !important;
+    top: 10mm;
+    right: 12mm;
+
+    z-index: 9999;
+    font-size: 8pt;
+    color: #4b544b;
+
+    /* little white backing so it never visually “fights” the header */
+    background: #ffffff;
+    padding: 0.5mm 1mm;
+    border-radius: 2mm;
+  }
+
   .print-page-number::after {
-    content: "";
+    content: "p." counter(page);
+    white-space: nowrap;
   }
 }
 
