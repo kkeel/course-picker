@@ -1281,3 +1281,50 @@ function coursePlanner() {
     }
     };
   }
+// ---------------- PRINT HELPER MODAL ----------------
+(function () {
+  const tip = document.getElementById("printTip");
+  if (!tip) return; // safety: only run if modal exists
+
+  const btnCancel = document.getElementById("printTipCancel");
+  const btnGo = document.getElementById("printTipGo");
+
+  function openTip() {
+    tip.hidden = false;
+    setTimeout(() => btnGo?.focus(), 0);
+  }
+
+  function closeTip() {
+    tip.hidden = true;
+  }
+
+  function doPrint() {
+    closeTip();
+    // small delay so modal closes before print dialog
+    setTimeout(() => window.print(), 150);
+  }
+
+  // 🔗 Hook your existing Print button
+  // If your print button uses @click="printView()",
+  // just give it id="printBtn"
+  const printBtn = document.getElementById("printBtn");
+  if (printBtn) {
+    printBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      openTip();
+    });
+  }
+
+  btnCancel?.addEventListener("click", closeTip);
+  btnGo?.addEventListener("click", doPrint);
+
+  // Click backdrop to close
+  tip.addEventListener("click", (e) => {
+    if (e.target === tip) closeTip();
+  });
+
+  // Escape key closes
+  window.addEventListener("keydown", (e) => {
+    if (!tip.hidden && e.key === "Escape") closeTip();
+  });
+})();
