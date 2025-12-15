@@ -1135,6 +1135,10 @@ body {
   /* Basic page margin so header + footer have room */
   @page {
     margin: 20mm 15mm 20mm 15mm;
+
+    @bottom-center {
+      content: element(printFooter);
+    }
   }
 
   /* Give the body bottom padding so content doesn't run under footer */
@@ -1293,13 +1297,6 @@ body {
   .print-footer-center,
   .print-footer-right {
     white-space: nowrap;
-  }
-
-   /* Place the running footer at the bottom of each page */
-  @page {
-    @bottom-center {
-      content: element(printFooter);
-    }
   }
    
   .print-page-number::after {
