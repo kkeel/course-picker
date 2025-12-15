@@ -1132,8 +1132,6 @@ body {
 
 /* --- Media Print â€”-- */
 @media print {
-  .print-tip-backdrop{ display:none !important; }
-}
 
   /* Give header/footer room + keep page number safely away from edge */
   @page {
