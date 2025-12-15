@@ -1147,7 +1147,7 @@ body {
         font-size: 8pt;
         color: #4b544b;
         white-space: nowrap;
-        margin-top: 6mm;   /* push down from top edge */
+        margin-bottom: 6mm;   /* push down from top edge */
         margin-right: 6mm; /* pull in from right edge */
       }
   }
