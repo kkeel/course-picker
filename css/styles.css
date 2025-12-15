@@ -1261,31 +1261,37 @@ body {
 
   /* FOOTER --------------------------------------------------- */
 
-  .print-footer {
-    display: flex !important;
-
-    /* This makes it a running element for Paged.js */
-    position: running(printFooter);
-
-    /* Make sure it fills the footer area and has safe insets */
-    width: 100%;
-    padding: 4pt 15mm 2pt;
-    padding-right: 18mm;
-
-    font-size: 8pt;
-    color: #4b544b;
-    background: #ffffff;
-
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-  }
-
-  .print-footer-left,
-  .print-footer-center,
-  .print-footer-right {
-    white-space: nowrap;
-  }
+   /* Default: hide it (prevents the “footer under header” problem if Paged.js fails) */
+   .print-footer {
+     display: none !important;
+   }
+   
+   /* Only show + run it when the print window is “paged-ready” */
+   html.paged-ready .print-footer {
+     display: flex !important;
+   
+     /* This makes it a running element for Paged.js */
+     position: running(printFooter);
+   
+     /* Make sure it fills the footer area and has safe insets */
+     width: 100%;
+     padding: 4pt 15mm 2pt;
+     padding-right: 18mm;
+   
+     font-size: 8pt;
+     color: #4b544b;
+     background: #ffffff;
+   
+     justify-content: space-between;
+     align-items: center;
+     box-sizing: border-box;
+   }
+   
+   .print-footer-left,
+   .print-footer-center,
+   .print-footer-right {
+     white-space: nowrap;
+   }
 
   .print-page-number::after {
     content: "  ·  p." counter(page);
