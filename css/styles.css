@@ -1,4 +1,4 @@
-   BRAND FONTS (self-hosted)
+BRAND FONTS (self-hosted)
 ========================================= */
 @font-face {
   font-family: "Plantin MT Pro";
@@ -1130,14 +1130,14 @@ body {
   display: none;
 }
 
-/* --- Media Print —-- */
+/* --- Media Print â€”-- */
 @media print {
 
   /* Give header/footer room + keep page number safely away from edge */
   @page {
-    margin: 38mm 24mm 22mm 15mm;
+    margin: 32mm 22mm 20mm 15mm;
 
-    /* ✅ Repeat your existing footer element on every page (Paged.js) */
+    /* âœ… Repeat your existing footer element on every page (Paged.js) */
     @bottom-center {
       content: element(printFooter);
     }
@@ -1147,7 +1147,7 @@ body {
         font-size: 8pt;
         color: #4b544b;
         white-space: nowrap;
-        margin-top: 4mm;   /* push down from top edge */
+        margin-top: 6mm;   /* push down from top edge */
         margin-right: 6mm; /* pull in from right edge */
       }
   }
@@ -1156,7 +1156,6 @@ body {
     background: #ffffff !important;
     margin: 0;
     padding-bottom: 40pt; /* keep content out of footer area */
-    padding-top: 40pt;
   }
 
   /* HEADER --------------------------------------------------- */
@@ -1232,14 +1231,14 @@ body {
     display: none !important;
   }
 
-  /* ✅ Prevent the planning menu overlay from printing */
+  /* âœ… Prevent the planning menu overlay from printing */
   .planning-tag-menu,
   [x-show="planningMenuOpen"] {
     display: none !important;
   }
 
   .course-list-shell {
-    margin-top: 40px !important;
+    margin-top: 16px !important;
   }
 
   /* CARD + TEXT SIZING --------------------------------------- */
@@ -1272,7 +1271,6 @@ body {
 
   main {
     padding-bottom: 0 !important;
-    padding-top: 40px
   }
 
   /* FOOTER --------------------------------------------------- */
@@ -1299,5 +1297,9 @@ body {
   .print-footer-right {
     white-space: nowrap;
   }
-}
 
+  .print-page-number::after {
+    content: "p." counter(page);
+    white-space: nowrap;
+  }
+}
