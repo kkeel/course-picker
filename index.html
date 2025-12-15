@@ -82,6 +82,16 @@
     
   </header>
 
+  <!-- PRINT-ONLY FOOTER -->
+  <footer class="print-footer" aria-hidden="true">
+    <div class="print-footer-left">Alveary Course List</div>
+    <div class="print-footer-center">©2026 Charlotte Mason Institute® All rights reserved.</div>
+    <div class="print-footer-right">
+      <span class="print-footer-grade" x-text="gradePrintLabel()"></span>
+      <span class="print-page-number"></span>
+    </div>
+  </footer>
+
   <!-- Main content -->
   <main class="max-w-6xl mx-auto px-6 lg:px-16 pb-16 space-y-10">
 
@@ -1183,126 +1193,108 @@
   <!-- ✅ Alpine -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-  <!-- Print with real page numbers WITHOUT breaking the live app (NO popup window) -->
+  <!-- Print-only page numbers (Paged.js loads only when printing) -->
   <script>
-    function stripScripts(docEl) {
-      docEl.querySelectorAll("script").forEach(s => s.remove());
-    }
+    // Tell Paged.js: do NOT auto-run on page load
+    window.PagedConfig = { auto: false };
   
-    function closeOpenUi(alpineRoot) {
-      try {
-        const data = window.Alpine && window.Alpine.$data ? window.Alpine.$data(alpineRoot) : null;
-        if (data) {
-          data.gradeDropdownOpen = false;
-          data.subjectDropdownOpen = false;
-          data.tagDropdownOpen = false;
-          data.planningMenuOpen = false;
-        }
-      } catch (e) {}
-    }
-  
-    async function loadPagedInto(win) {
+    function loadPagedJsOnce() {
       return new Promise((resolve, reject) => {
-        if (win.PagedPolyfill) return resolve();
-  
-        // Prevent auto-run
-        win.PagedConfig = { auto: false };
-  
-        const s = win.document.createElement("script");
+        if (window.PagedPolyfill) return resolve();
+        const s = document.createElement("script");
         s.src = "https://unpkg.com/pagedjs/dist/paged.polyfill.js";
-        s.onload = resolve;
+        s.onload = () => resolve();
         s.onerror = () => reject(new Error("Failed to load Paged.js"));
-        win.document.head.appendChild(s);
+        document.head.appendChild(s);
       });
     }
   
-    window.alvearyPrintWithPaged = async function () {
-      // 1) Close dropdowns/menus in the LIVE UI before snapshot
-      const root = document.querySelector("[x-data]");
-      if (root) closeOpenUi(root);
-  
-      // Let Alpine finish DOM updates
-      await new Promise(r => setTimeout(r, 50));
-  
-      // 2) Clone the current, already-rendered DOM
-      const cloned = document.documentElement.cloneNode(true);
-  
-      // 3) Remove scripts so the print context doesn’t re-run the whole app
-      stripScripts(cloned);
-  
-      // 4) IMPORTANT: add a <base> so relative CSS/img paths resolve inside the iframe
-      const head = cloned.querySelector("head");
-      if (head && !head.querySelector("base")) {
-        const base = document.createElement("base");
-        base.href = window.location.href;
-        head.prepend(base);
+    <!-- Print with real page numbers WITHOUT breaking the live app -->
+    <script>
+      function stripScripts(docEl) {
+        docEl.querySelectorAll("script").forEach(s => s.remove());
       }
-  
-      // 5) Create a hidden iframe (no popup window)
-      const iframe = document.createElement("iframe");
-      iframe.style.position = "fixed";
-      iframe.style.right = "0";
-      iframe.style.bottom = "0";
-      iframe.style.width = "0";
-      iframe.style.height = "0";
-      iframe.style.border = "0";
-      iframe.style.opacity = "0";
-      iframe.setAttribute("aria-hidden", "true");
-      document.body.appendChild(iframe);
-  
-      const win = iframe.contentWindow;
-      const doc = iframe.contentDocument;
-  
-      // Write the snapshot HTML into the iframe
-      doc.open();
-      doc.write("<!doctype html>" + cloned.outerHTML);
-      doc.close();
-  
-      try {
-        // Load Paged.js into the iframe and paginate
-        await loadPagedInto(win);
-  
-        // Wait a beat for CSS/fonts to apply
-        await new Promise(r => setTimeout(r, 120));
-  
-        await win.PagedPolyfill.preview();
-  
-        // Print from the iframe
-        win.focus();
-        win.print();
-      } catch (e) {
-        console.warn(e);
-        win.focus();
-        win.print();
-      } finally {
-        // Cleanup after print
-        win.addEventListener("afterprint", () => {
-          try { iframe.remove(); } catch (e) {}
-        }, { once: true });
-  
-        // Fallback cleanup (some browsers don’t fire afterprint reliably)
-        setTimeout(() => {
-          try { iframe.remove(); } catch (e) {}
-        }, 30000);
+    
+      function closeOpenUi(alpineRoot) {
+        // optional: close the left Planning Tag menu if it’s open
+        // (only runs if Alpine variables exist)
+        try {
+          const data = window.Alpine && window.Alpine.$data ? window.Alpine.$data(alpineRoot) : null;
+          if (data) {
+            data.gradeDropdownOpen = false;
+            data.subjectDropdownOpen = false;
+            data.tagDropdownOpen = false;
+            data.planningMenuOpen = false;
+          }
+        } catch (e) {}
       }
-    };
+    
+      async function loadPagedInto(win) {
+        return new Promise((resolve, reject) => {
+          const s = win.document.createElement("script");
+          s.src = "https://unpkg.com/pagedjs/dist/paged.polyfill.js";
+          s.onload = resolve;
+          s.onerror = () => reject(new Error("Failed to load Paged.js"));
+          win.document.head.appendChild(s);
+        });
+      }
+    
+      window.alvearyPrintWithPaged = async function () {
+        // 1) Ensure dropdowns/menus close in the LIVE UI before snapshot
+        const root = document.querySelector("[x-data]");
+        if (root) closeOpenUi(root);
+    
+        // Let Alpine finish DOM updates
+        await new Promise(r => setTimeout(r, 50));
+    
+        // 2) Clone the current, already-rendered DOM
+        const cloned = document.documentElement.cloneNode(true);
+    
+        // 3) Remove scripts so the print window doesn’t re-run the whole app
+        stripScripts(cloned);
+    
+        // 4) Open a dedicated print window with the snapshot HTML
+        const w = window.open("", "_blank", "noopener,noreferrer");
+        if (!w) {
+          // popup blocked → fall back
+          window.print();
+          return;
+        }
+    
+        w.document.open();
+        w.document.write("<!doctype html>" + cloned.outerHTML);
+        w.document.close();
+    
+        // 5) In the print window, load Paged.js and print
+        try {
+          // Prevent auto-run
+          w.PagedConfig = { auto: false };
+    
+          await loadPagedInto(w);
+    
+          // Wait a beat for styles/fonts
+          await new Promise(r => setTimeout(r, 100));
+    
+          await w.PagedPolyfill.preview();
+          w.focus();
+          w.print();
+    
+          // Close the print window after printing
+          w.addEventListener("afterprint", () => {
+            try { w.close(); } catch (e) {}
+          });
+        } catch (e) {
+          console.warn(e);
+          w.focus();
+          w.print();
+          w.addEventListener("afterprint", () => {
+            try { w.close(); } catch (e) {}
+          });
+        }
+      };
+    </script>
+  
   </script>
-
-  <!-- PRINT-ONLY FOOTER -->
-  <footer class="print-footer" aria-hidden="true">
-    <div class="print-footer-left">
-      Alveary Course List
-    </div>
-
-    <div class="print-footer-center">
-      ©2026 Charlotte Mason Institute® All rights reserved.
-    </div>
-
-    <div class="print-footer-right">
-      <span class="print-footer-grade" x-text="gradePrintLabel()"></span>
-      <span class="print-page-number"></span>
-    </div>
-  </footer>
   
 </body>
 </html>
