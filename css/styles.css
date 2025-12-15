@@ -1371,7 +1371,4 @@ body {
   .print-footer-right {
     white-space: nowrap;
   }
-  .print-footer {
-    display: none !important;
-  }
 }
