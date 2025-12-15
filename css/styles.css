@@ -1132,25 +1132,19 @@ body {
 
 /* --- Media Print —-- */
 @media print {
-  /* Basic page margin so header + footer have room */
-  @page {
-    margin: 20mm 15mm 20mm 15mm;
+  /* IMPORTANT:
+     Ensure you only have ONE @page block in the entire CSS.
+     If a second @page exists later, it can override margins and cause the p.# to sit on the edge. */
 
-    /* ✅ Repeat your existing footer element */
+  @page {
+    /* give footer/header room */
+    margin: 20mm 18mm 20mm 15mm;
+
     @bottom-center {
       content: element(printFooter);
     }
-
-    /* ✅ Reliable page number (Paged.js) */
-    @bottom-right {
-      content: "p." counter(page);
-      font-size: 10px;
-      color: #555;
-      white-space: nowrap;
-    }
   }
 
-  /* Give the body bottom padding so content doesn't run under footer */
   body {
     background: #ffffff !important;
     margin: 0;
@@ -1171,28 +1165,24 @@ body {
     border-bottom: 1px solid #dde3d2;
   }
 
-  /* Hide nav tabs in print */
   header.app-header nav {
     display: none !important;
   }
 
-  /* “Alveary” text – keep Circular Pro but set 28pt in print */
   header.app-header .brand-name {
     font-size: 28pt !important;
     line-height: 1.1;
   }
 
-  /* Year under Alveary on left */
   .print-year-left {
     display: block !important;
     margin-top: 2px;
     font-family: "Plantin MT Pro", "Times New Roman", serif;
     font-size: 16pt !important;
     font-weight: 400;
-    color: #adb58f !important; /* exact light green */
+    color: #adb58f !important;
   }
 
-  /* Right-side Course list + grade/My Courses block */
   .print-header-title-block {
     display: flex !important;
     flex-direction: column;
@@ -1202,9 +1192,8 @@ body {
   }
 
   .print-header-title {
-    font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
-    font-size: 28pt !important;   /* match Alveary */
+    font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 28pt !important;
     font-weight: 700;
     line-height: 1.1;
     color: var(--brand-dark);
@@ -1215,16 +1204,14 @@ body {
     font-family: "Plantin MT Pro", "Times New Roman", serif;
     font-size: 16pt !important;
     font-weight: 400;
-    color: #adb58f !important;    /* force light green */
+    color: #adb58f !important;
   }
 
-  /* Remove big on-screen section title + paragraph */
   .section-title,
   .section-subtitle {
     display: none !important;
   }
 
-  /* Hide filter UI + interactive controls */
   .filter-state-wrapper,
   .filter-panel,
   .filter-actions,
@@ -1236,34 +1223,16 @@ body {
     display: none !important;
   }
 
-  /* ✅ Prevent planning menu overlay from printing */
-  .planning-tag-menu,
-  [x-show="planningMenuOpen"] {
-    display: none !important;
-  }
-
-  /* Start course list closer to header */
   .course-list-shell {
     margin-top: 16px !important;
   }
 
   /* CARD + TEXT SIZING --------------------------------------- */
 
-  /* Subject headings */
-  .subject-title {
-    font-size: 18pt !important;
-  }
+  .subject-title { font-size: 18pt !important; }
+  .course-title  { font-size: 13pt !important; }
+  .topic-title   { font-size: 11pt !important; }
 
-  /* Course + topic titles */
-  .course-title {
-    font-size: 13pt !important;
-  }
-
-  .topic-title {
-    font-size: 11pt !important;
-  }
-
-  /* Everything else in the card text area: 9pt */
   .course-meta,
   .topic-meta,
   .course-detail-description,
@@ -1277,7 +1246,6 @@ body {
     font-size: 9pt !important;
   }
 
-  /* Card borders: clean for print */
   .course-card,
   .topic-card {
     box-shadow: none !important;
@@ -1293,19 +1261,24 @@ body {
 
   /* FOOTER --------------------------------------------------- */
 
-  /* Show footer only in print */
   .print-footer {
     display: flex !important;
+
+    /* This makes it a running element for Paged.js */
     position: running(printFooter);
-    left: auto;
-    right: auto;
-    bottom: auto;
+
+    /* Make sure it fills the footer area and has safe insets */
+    width: 100%;
     padding: 4pt 15mm 2pt;
+    padding-right: 18mm;
+
     font-size: 8pt;
     color: #4b544b;
     background: #ffffff;
+
     justify-content: space-between;
     align-items: center;
+    box-sizing: border-box;
   }
 
   .print-footer-left,
@@ -1314,8 +1287,8 @@ body {
     white-space: nowrap;
   }
 
-  /* ✅ Turn off the old counter-in-footer (it causes p.0) */
   .print-page-number::after {
-    content: "";
+    content: "  ·  p." counter(page);
+    white-space: nowrap;
   }
 }
