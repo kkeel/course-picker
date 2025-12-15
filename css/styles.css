@@ -1302,10 +1302,5 @@ body {
   .print-page-number::after {
     content: "";
   }
-
-  /* Also hide the empty span if it’s taking space */
-  .print-page-number {
-    display: none !important;
-  }
 }
 
