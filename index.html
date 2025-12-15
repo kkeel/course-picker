@@ -1229,13 +1229,31 @@
     window.alvearyPrintWithPaged = async function () {
       // Close menus in live UI so they don’t get captured
       closeOpenUi();
-      await new Promise(r => setTimeout(r, 60));
+      await new Promise(r => setTimeout(r, 80));
+  
+      // ✅ Get the current grade label from Alpine BEFORE we clone
+      let gradeLabel = "";
+      try {
+        const root = document.querySelector("[x-data]");
+        const data = window.Alpine && window.Alpine.$data ? window.Alpine.$data(root) : null;
+        if (data && typeof data.gradePrintLabel === "function") {
+          gradeLabel = data.gradePrintLabel() || "";
+        }
+      } catch (e) {}
   
       // Clone current rendered DOM (courses already loaded)
       const cloned = document.documentElement.cloneNode(true);
   
       // Remove scripts so Alpine/app.js don’t re-run in print window
       stripScripts(cloned);
+  
+      // ✅ Inject dynamic text that used to be Alpine x-text (Alpine won't run in print window)
+      try {
+        cloned.querySelectorAll('[x-text="gradePrintLabel()"]').forEach(el => {
+          el.textContent = gradeLabel;
+          el.removeAttribute("x-text");
+        });
+      } catch (e) {}
   
       const w = window.open("", "_blank", "noopener,noreferrer");
       if (!w) {
@@ -1252,7 +1270,9 @@
         w.document.documentElement.classList.add("paged-ready");
   
         await loadPagedInto(w);
-        await new Promise(r => setTimeout(r, 120));
+  
+        // ✅ Give the new window a moment to apply CSS + layout before paginating
+        await new Promise(r => setTimeout(r, 200));
   
         await w.PagedPolyfill.preview();
       } catch (e) {
@@ -1267,7 +1287,7 @@
       });
     };
   })();
-  </script> 
+  </script>
   
 </body>
 </html>
