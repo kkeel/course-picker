@@ -1123,6 +1123,7 @@ body {
 /* -----------------------------
    Print layout for Course list
    ----------------------------- */
+
 /* Hide print-only bits on screen */
 .print-year-left,
 .print-header-title-block,
@@ -1130,29 +1131,49 @@ body {
   display: none;
 }
 
-/* --- Media Print —-- */
-@media print {
-  /* IMPORTANT:
-     Ensure you only have ONE @page block in the entire CSS.
-     If a second @page exists later, it can override margins and cause the p.# to sit on the edge. */
+/* ---------- Paged.js + Print footer strategy ----------
+   We DO NOT render the footer element itself.
+   Instead we read its text using string-set, then print it in @page margin boxes.
+*/
 
-  @page {
-    /* give footer/header room */
-    margin: 20mm 18mm 20mm 15mm;
+/* These need to exist OUTSIDE @media print so Paged.js preview sees them too */
+@page {
+  /* Give footer room + keep right side away from edge */
+  margin: 20mm 18mm 20mm 15mm;
 
-    @bottom-center {
-      content: element(printFooter);
-    }
+  /* Left footer */
+  @bottom-left {
+    content: string(footerLeft);
+    font-size: 8pt;
+    color: #4b544b;
+    white-space: nowrap;
   }
 
+  /* Center footer */
+  @bottom-center {
+    content: string(footerCenter);
+    font-size: 8pt;
+    color: #4b544b;
+    white-space: nowrap;
+  }
+
+  /* Right footer: Grade + page number */
+  @bottom-right {
+    content: string(footerGrade) "  ·  p." counter(page);
+    font-size: 8pt;
+    color: #4b544b;
+    white-space: nowrap;
+  }
+}
+
+/* --- Media Print —-- */
+@media print {
   body {
     background: #ffffff !important;
     margin: 0;
-    padding-bottom: 40pt;
   }
 
   /* HEADER --------------------------------------------------- */
-
   header.app-header {
     position: relative !important;
     top: auto !important;
@@ -1165,15 +1186,19 @@ body {
     border-bottom: 1px solid #dde3d2;
   }
 
+  /* Hide nav tabs in print */
   header.app-header nav {
     display: none !important;
   }
 
-  header.app-header .brand-name {
+  /* “Alveary” text */
+  header.app-header .brand-name,
+  header.app-header .logo-title {
     font-size: 28pt !important;
     line-height: 1.1;
   }
 
+  /* Year under Alveary on left */
   .print-year-left {
     display: block !important;
     margin-top: 2px;
@@ -1183,6 +1208,7 @@ body {
     color: #adb58f !important;
   }
 
+  /* Right-side Course list + grade label */
   .print-header-title-block {
     display: flex !important;
     flex-direction: column;
@@ -1192,7 +1218,8 @@ body {
   }
 
   .print-header-title {
-    font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
     font-size: 28pt !important;
     font-weight: 700;
     line-height: 1.1;
@@ -1207,11 +1234,13 @@ body {
     color: #adb58f !important;
   }
 
+  /* Remove big on-screen section title + paragraph */
   .section-title,
   .section-subtitle {
     display: none !important;
   }
 
+  /* Hide filter UI + interactive controls */
   .filter-state-wrapper,
   .filter-panel,
   .filter-actions,
@@ -1223,12 +1252,12 @@ body {
     display: none !important;
   }
 
+  /* Start course list closer to header */
   .course-list-shell {
     margin-top: 16px !important;
   }
 
   /* CARD + TEXT SIZING --------------------------------------- */
-
   .subject-title { font-size: 18pt !important; }
   .course-title  { font-size: 13pt !important; }
   .topic-title   { font-size: 11pt !important; }
@@ -1259,42 +1288,24 @@ body {
     padding-bottom: 0 !important;
   }
 
-  /* FOOTER --------------------------------------------------- */
+  /* FOOTER “SOURCE” (hidden, but used for string-set) -------- */
+  .print-footer {
+    display: none !important;
+  }
 
-   /* Default: hide it (prevents the “footer under header” problem if Paged.js fails) */
-   .print-footer {
-     display: none !important;
-   }
-   
-   /* Only show + run it when the print window is “paged-ready” */
-   html.paged-ready .print-footer {
-     display: flex !important;
-   
-     /* This makes it a running element for Paged.js */
-     position: running(printFooter);
-   
-     /* Make sure it fills the footer area and has safe insets */
-     width: 100%;
-     padding: 4pt 15mm 2pt;
-     padding-right: 18mm;
-   
-     font-size: 8pt;
-     color: #4b544b;
-     background: #ffffff;
-   
-     justify-content: space-between;
-     align-items: center;
-     box-sizing: border-box;
-   }
-   
-   .print-footer-left,
-   .print-footer-center,
-   .print-footer-right {
-     white-space: nowrap;
-   }
-
-  .print-page-number::after {
-    content: "  ·  p." counter(page);
-    white-space: nowrap;
+  /* Capture the footer strings for @page margin boxes */
+  .print-footer-left {
+    string-set: footerLeft content(text);
+  }
+  .print-footer-center {
+    string-set: footerCenter content(text);
+  }
+  .print-footer-grade {
+    string-set: footerGrade content(text);
   }
 }
+
+/* ALSO capture strings during Paged.js preview (screen rendering) */
+.pagedjs_pages .print-footer-left   { string-set: footerLeft content(text); }
+.pagedjs_pages .print-footer-center { string-set: footerCenter content(text); }
+.pagedjs_pages .print-footer-grade  { string-set: footerGrade content(text); }
