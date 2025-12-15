@@ -11,7 +11,7 @@
   <meta name="theme-color" content="#596e5e">
 
   <!-- iOS support -->
-  <link rel="apple-touch-icon" href="./img/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./img/icon/icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
@@ -81,15 +81,6 @@
     </div>
     
   </header>
-
-  <!-- PRINT-ONLY FOOTER -->
-  <footer class="print-footer" aria-hidden="true">
-    <div class="print-footer-left">Alveary Course List</div>
-    <div class="print-footer-center">©2026 Charlotte Mason Institute® All rights reserved.</div>
-    <div class="print-footer-right">
-      <span class="print-footer-grade" x-text="gradePrintLabel()"></span>
-    </div>
-  </footer>
 
   <!-- Main content -->
   <main class="max-w-6xl mx-auto px-6 lg:px-16 pb-16 space-y-10">
@@ -1191,10 +1182,10 @@
 
   <!-- ✅ Alpine -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  
-  <!-- ✅ Print with real page numbers using Paged.js (in the same tab) -->
+
+  <!-- Print-only page numbers (Paged.js loads only when printing) -->
   <script>
-  (function () {
+    // Tell Paged.js: do NOT auto-run on page load
     window.PagedConfig = { auto: false };
   
     function loadPagedJsOnce() {
@@ -1208,29 +1199,34 @@
       });
     }
   
-    function onceAfterPrint(fn) {
-      const handler = () => {
-        window.removeEventListener("afterprint", handler);
-        fn();
-      };
-      window.addEventListener("afterprint", handler);
-    }
-  
+    // This is what we’ll call instead of window.print()
     window.alvearyPrintWithPaged = async function () {
-      // After print, restore the real app DOM (Paged preview mutates it)
-      onceAfterPrint(() => setTimeout(() => window.location.reload(), 50));
-  
       try {
         await loadPagedJsOnce();
-        await window.PagedPolyfill.preview(); // paginate + enable @page counters
+        await window.PagedPolyfill.preview(); // paginate + apply @page rules
         window.print();
       } catch (e) {
         console.warn(e);
         window.print(); // fallback
       }
     };
-  })();
   </script>
+
+  <!-- PRINT-ONLY FOOTER -->
+  <footer class="print-footer" aria-hidden="true">
+    <div class="print-footer-left">
+      Alveary Course List
+    </div>
+
+    <div class="print-footer-center">
+      ©2026 Charlotte Mason Institute® All rights reserved.
+    </div>
+
+    <div class="print-footer-right">
+      <span class="print-footer-grade" x-text="gradePrintLabel()"></span>
+      <span class="print-page-number"></span>
+    </div>
+  </footer>
   
 </body>
 </html>
