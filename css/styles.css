@@ -1139,7 +1139,7 @@ body {
 /* These need to exist OUTSIDE @media print so Paged.js preview sees them too */
 @page {
   /* Give footer room + keep right side away from edge */
-  margin: 20mm 18mm 20mm 15mm;
+  margin: 20mm 22mm 20mm 15mm; /* ⬅️ right margin bumped from 18mm → 22mm */
 
   /* Left footer */
   @bottom-left {
@@ -1288,8 +1288,22 @@ body {
     padding-bottom: 0 !important;
   }
 
-  /* FOOTER “SOURCE” (hidden, but used for string-set) -------- */
+  /* FOOTER “SOURCE” (hidden, but used for string-set) --------
+     IMPORTANT: do NOT use display:none here or string-set won’t capture the text. */
   .print-footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* We are printing page numbers via @page now */
+  .print-page-number {
     display: none !important;
   }
 
@@ -1309,3 +1323,4 @@ body {
 .pagedjs_pages .print-footer-left   { string-set: footerLeft content(text); }
 .pagedjs_pages .print-footer-center { string-set: footerCenter content(text); }
 .pagedjs_pages .print-footer-grade  { string-set: footerGrade content(text); }
+
