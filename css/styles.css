@@ -1137,13 +1137,24 @@ body {
   @page {
     margin: 32mm 22mm 20mm 15mm;
 
-    /* âœ… Repeat your existing footer element on every page (Paged.js) */
+    /* Left footer */
+    @bottom-left {
+      content: "Alveary Course List";
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+
+    /* Center footer */
     @bottom-center {
-      content: element(printFooter);
+      content: "©2026 Charlotte Mason Institute® All rights reserved.";
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
     }
 
       @bottom-right {
-        content: "p." counter(page);
+        content: string(printGrade) " p." counter(page);
         font-size: 8pt;
         color: #4b544b;
         white-space: nowrap;
@@ -1167,9 +1178,11 @@ body {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    padding: 12pt 15mm 6pt;
+    padding: 12pt 15mm 6pt 15mm;
     margin: 0 0 8pt;
     border-bottom: 1px solid #dde3d2;
+    box-sizing: border-box;
+    width: 100%;
   }
 
   header.app-header nav {
@@ -1196,7 +1209,7 @@ body {
     flex-direction: column;
     margin-left: auto;
     align-items: flex-end;
-    padding-right: 15mm;
+    padding-right: 0;
   }
 
   .print-header-title {
@@ -1213,6 +1226,11 @@ body {
     font-size: 16pt !important;
     font-weight: 400;
     color: #adb58f !important;
+  }
+
+  /* Capture the grade text so we can reuse it in the @page footer */
+  .print-header-grade {
+    string-set: printGrade content(text);
   }
 
   .section-title,
@@ -1296,5 +1314,8 @@ body {
   .print-footer-center,
   .print-footer-right {
     white-space: nowrap;
+  }
+  .print-footer {
+    display: none !important;
   }
 }
