@@ -1131,46 +1131,32 @@ body {
   display: none;
 }
 
-/* ---------- Paged.js + Print footer strategy ----------
-   We DO NOT render the footer element itself.
-   Instead we read its text using string-set, then print it in @page margin boxes.
-*/
-
-/* These need to exist OUTSIDE @media print so Paged.js preview sees them too */
-@page {
-  /* Give footer room + keep right side away from edge */
-  margin: 20mm 22mm 20mm 15mm; /* ⬅️ right margin bumped from 18mm → 22mm */
-
-  /* Left footer */
-  @bottom-left {
-    content: string(footerLeft);
-    font-size: 8pt;
-    color: #4b544b;
-    white-space: nowrap;
-  }
-
-  /* Center footer */
-  @bottom-center {
-    content: string(footerCenter);
-    font-size: 8pt;
-    color: #4b544b;
-    white-space: nowrap;
-  }
-
-  /* Right footer: Grade + page number */
-  @bottom-right {
-    content: string(footerGrade) "  ·  p." counter(page);
-    font-size: 8pt;
-    color: #4b544b;
-    white-space: nowrap;
-  }
-}
-
 /* --- Media Print —-- */
 @media print {
+
+  /* ✅ One @page block (Paged.js will honor this) */
+  @page {
+    /* give footer room + keep right side away from edge */
+    margin: 20mm 22mm 20mm 15mm;
+
+    /* ✅ Repeat your footer across pages */
+    @bottom-center {
+      content: element(printFooter);
+    }
+
+    /* ✅ Page number (reliable in @page with Paged.js) */
+    @bottom-right {
+      content: "p." counter(page);
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+  }
+
   body {
     background: #ffffff !important;
     margin: 0;
+    padding-bottom: 40pt;
   }
 
   /* HEADER --------------------------------------------------- */
@@ -1288,39 +1274,33 @@ body {
     padding-bottom: 0 !important;
   }
 
-  /* FOOTER “SOURCE” (hidden, but used for string-set) --------
-     IMPORTANT: do NOT use display:none here or string-set won’t capture the text. */
+  /* FOOTER --------------------------------------------------- */
   .print-footer {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    display: flex !important;
 
-    height: 0;
-    overflow: hidden;
-    visibility: hidden;
-    pointer-events: none;
+    /* ✅ This makes it a running element for Paged.js */
+    position: running(printFooter);
+
+    width: 100%;
+    padding: 4pt 15mm 2pt;
+    font-size: 8pt;
+    color: #4b544b;
+    background: #ffffff;
+
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
   }
 
-  /* We are printing page numbers via @page now */
-  .print-page-number {
-    display: none !important;
+  .print-footer-left,
+  .print-footer-center,
+  .print-footer-right {
+    white-space: nowrap;
   }
 
-  /* Capture the footer strings for @page margin boxes */
-  .print-footer-left {
-    string-set: footerLeft content(text);
-  }
-  .print-footer-center {
-    string-set: footerCenter content(text);
-  }
-  .print-footer-grade {
-    string-set: footerGrade content(text);
+  /* ✅ IMPORTANT: don’t try to calculate page number inside the footer */
+  .print-page-number::after {
+    content: "";
   }
 }
-
-/* ALSO capture strings during Paged.js preview (screen rendering) */
-.pagedjs_pages .print-footer-left   { string-set: footerLeft content(text); }
-.pagedjs_pages .print-footer-center { string-set: footerCenter content(text); }
-.pagedjs_pages .print-footer-grade  { string-set: footerGrade content(text); }
 
