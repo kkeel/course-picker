@@ -1135,7 +1135,7 @@ body {
 
   /* Give header/footer room + keep page number safely away from edge */
   @page {
-    margin: 32mm 22mm 20mm 15mm;
+    margin: 32mm 28mm 24mm 15mm;
 
     /* Left footer */
     @bottom-left {
@@ -1158,8 +1158,6 @@ body {
         font-size: 8pt;
         color: #4b544b;
         white-space: nowrap;
-        margin-bottom: 6mm;   /* push down from top edge */
-        margin-right: 6mm; /* pull in from right edge */
       }
   }
 
