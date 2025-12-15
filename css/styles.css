@@ -1134,17 +1134,16 @@ body {
 /* --- Media Print —-- */
 @media print {
 
-  /* ✅ One @page block (Paged.js will honor this) */
+  /* Give header/footer room + keep page number safely away from edge */
   @page {
-    /* give footer room + keep right side away from edge */
     margin: 20mm 22mm 20mm 15mm;
 
-    /* ✅ Repeat your footer across pages */
+    /* ✅ Repeat your existing footer element on every page (Paged.js) */
     @bottom-center {
       content: element(printFooter);
     }
 
-    /* ✅ Page number (reliable in @page with Paged.js) */
+    /* ✅ Real page numbers (Paged.js) */
     @bottom-right {
       content: "p." counter(page);
       font-size: 8pt;
@@ -1156,10 +1155,11 @@ body {
   body {
     background: #ffffff !important;
     margin: 0;
-    padding-bottom: 40pt;
+    padding-bottom: 40pt; /* keep content out of footer area */
   }
 
   /* HEADER --------------------------------------------------- */
+
   header.app-header {
     position: relative !important;
     top: auto !important;
@@ -1172,19 +1172,16 @@ body {
     border-bottom: 1px solid #dde3d2;
   }
 
-  /* Hide nav tabs in print */
   header.app-header nav {
     display: none !important;
   }
 
-  /* “Alveary” text */
   header.app-header .brand-name,
   header.app-header .logo-title {
     font-size: 28pt !important;
     line-height: 1.1;
   }
 
-  /* Year under Alveary on left */
   .print-year-left {
     display: block !important;
     margin-top: 2px;
@@ -1194,7 +1191,6 @@ body {
     color: #adb58f !important;
   }
 
-  /* Right-side Course list + grade label */
   .print-header-title-block {
     display: flex !important;
     flex-direction: column;
@@ -1204,8 +1200,7 @@ body {
   }
 
   .print-header-title {
-    font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
+    font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 28pt !important;
     font-weight: 700;
     line-height: 1.1;
@@ -1220,13 +1215,11 @@ body {
     color: #adb58f !important;
   }
 
-  /* Remove big on-screen section title + paragraph */
   .section-title,
   .section-subtitle {
     display: none !important;
   }
 
-  /* Hide filter UI + interactive controls */
   .filter-state-wrapper,
   .filter-panel,
   .filter-actions,
@@ -1238,12 +1231,18 @@ body {
     display: none !important;
   }
 
-  /* Start course list closer to header */
+  /* ✅ Prevent the planning menu overlay from printing */
+  .planning-tag-menu,
+  [x-show="planningMenuOpen"] {
+    display: none !important;
+  }
+
   .course-list-shell {
     margin-top: 16px !important;
   }
 
   /* CARD + TEXT SIZING --------------------------------------- */
+
   .subject-title { font-size: 18pt !important; }
   .course-title  { font-size: 13pt !important; }
   .topic-title   { font-size: 11pt !important; }
@@ -1275,14 +1274,15 @@ body {
   }
 
   /* FOOTER --------------------------------------------------- */
+
+  /* Show footer only in print, and make it a running element for Paged.js */
   .print-footer {
     display: flex !important;
-
-    /* ✅ This makes it a running element for Paged.js */
     position: running(printFooter);
 
     width: 100%;
     padding: 4pt 15mm 2pt;
+
     font-size: 8pt;
     color: #4b544b;
     background: #ffffff;
@@ -1298,9 +1298,14 @@ body {
     white-space: nowrap;
   }
 
-  /* ✅ IMPORTANT: don’t try to calculate page number inside the footer */
+  /* ✅ Don’t try to generate the page number inside the footer (that’s what causes p.0) */
   .print-page-number::after {
     content: "";
+  }
+
+  /* Also hide the empty span if it’s taking space */
+  .print-page-number {
+    display: none !important;
   }
 }
 
