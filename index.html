@@ -1183,15 +1183,13 @@
   <!-- ✅ Alpine -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-  <!-- Print with real page numbers WITHOUT breaking the live app -->
+  <!-- Print with real page numbers WITHOUT breaking the live app (NO popup window) -->
   <script>
     function stripScripts(docEl) {
       docEl.querySelectorAll("script").forEach(s => s.remove());
     }
   
     function closeOpenUi(alpineRoot) {
-      // optional: close the left Planning Tag menu if it’s open
-      // (only runs if Alpine variables exist)
       try {
         const data = window.Alpine && window.Alpine.$data ? window.Alpine.$data(alpineRoot) : null;
         if (data) {
@@ -1205,6 +1203,11 @@
   
     async function loadPagedInto(win) {
       return new Promise((resolve, reject) => {
+        if (win.PagedPolyfill) return resolve();
+  
+        // Prevent auto-run
+        win.PagedConfig = { auto: false };
+  
         const s = win.document.createElement("script");
         s.src = "https://unpkg.com/pagedjs/dist/paged.polyfill.js";
         s.onload = resolve;
@@ -1214,7 +1217,7 @@
     }
   
     window.alvearyPrintWithPaged = async function () {
-      // 1) Ensure dropdowns/menus close in the LIVE UI before snapshot
+      // 1) Close dropdowns/menus in the LIVE UI before snapshot
       const root = document.querySelector("[x-data]");
       if (root) closeOpenUi(root);
   
@@ -1224,46 +1227,63 @@
       // 2) Clone the current, already-rendered DOM
       const cloned = document.documentElement.cloneNode(true);
   
-      // 3) Remove scripts so the print window doesn’t re-run the whole app
+      // 3) Remove scripts so the print context doesn’t re-run the whole app
       stripScripts(cloned);
   
-      // 4) Open a dedicated print window with the snapshot HTML
-      const w = window.open("", "_blank", "noopener,noreferrer");
-      if (!w) {
-        // popup blocked → fall back
-        window.print();
-        return;
+      // 4) IMPORTANT: add a <base> so relative CSS/img paths resolve inside the iframe
+      const head = cloned.querySelector("head");
+      if (head && !head.querySelector("base")) {
+        const base = document.createElement("base");
+        base.href = window.location.href;
+        head.prepend(base);
       }
   
-      w.document.open();
-      w.document.write("<!doctype html>" + cloned.outerHTML);
-      w.document.close();
+      // 5) Create a hidden iframe (no popup window)
+      const iframe = document.createElement("iframe");
+      iframe.style.position = "fixed";
+      iframe.style.right = "0";
+      iframe.style.bottom = "0";
+      iframe.style.width = "0";
+      iframe.style.height = "0";
+      iframe.style.border = "0";
+      iframe.style.opacity = "0";
+      iframe.setAttribute("aria-hidden", "true");
+      document.body.appendChild(iframe);
   
-      // 5) In the print window, load Paged.js and print
+      const win = iframe.contentWindow;
+      const doc = iframe.contentDocument;
+  
+      // Write the snapshot HTML into the iframe
+      doc.open();
+      doc.write("<!doctype html>" + cloned.outerHTML);
+      doc.close();
+  
       try {
-        // Prevent auto-run
-        w.PagedConfig = { auto: false };
+        // Load Paged.js into the iframe and paginate
+        await loadPagedInto(win);
   
-        await loadPagedInto(w);
+        // Wait a beat for CSS/fonts to apply
+        await new Promise(r => setTimeout(r, 120));
   
-        // Wait a beat for styles/fonts
-        await new Promise(r => setTimeout(r, 100));
+        await win.PagedPolyfill.preview();
   
-        await w.PagedPolyfill.preview();
-        w.focus();
-        w.print();
-  
-        // Close the print window after printing
-        w.addEventListener("afterprint", () => {
-          try { w.close(); } catch (e) {}
-        });
+        // Print from the iframe
+        win.focus();
+        win.print();
       } catch (e) {
         console.warn(e);
-        w.focus();
-        w.print();
-        w.addEventListener("afterprint", () => {
-          try { w.close(); } catch (e) {}
-        });
+        win.focus();
+        win.print();
+      } finally {
+        // Cleanup after print
+        win.addEventListener("afterprint", () => {
+          try { iframe.remove(); } catch (e) {}
+        }, { once: true });
+  
+        // Fallback cleanup (some browsers don’t fire afterprint reliably)
+        setTimeout(() => {
+          try { iframe.remove(); } catch (e) {}
+        }, 30000);
       }
     };
   </script>
