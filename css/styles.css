@@ -1135,7 +1135,7 @@ body {
 
   /* Give header/footer room + keep page number safely away from edge */
   @page {
-    margin: 32mm 22mm 20mm 15mm;
+    margin: 40mm 22mm 20mm 15mm;
 
     /* ✅ Repeat your existing footer element on every page (Paged.js) */
     @bottom-center {
