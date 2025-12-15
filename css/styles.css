@@ -1154,7 +1154,7 @@ body {
     }
 
       @bottom-right {
-        content: string(printGrade) " p." counter(page);
+        content: "p." counter(page);
         font-size: 8pt;
         color: #4b544b;
         white-space: nowrap;
