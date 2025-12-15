@@ -1144,12 +1144,14 @@ body {
     }
 
     /* ✅ Real page numbers (Paged.js) */
-    @bottom-right {
-      content: "p." counter(page);
-      font-size: 8pt;
-      color: #4b544b;
-      white-space: nowrap;
-    }
+    @top-right {
+     content: "p." counter(page);
+     font-size: 8pt;
+     color: #4b544b;
+     white-space: nowrap;
+     margin-top: 6mm;   /* push down from top edge */
+     margin-right: 6mm; /* pull in from right edge */
+   }
   }
 
   body {
