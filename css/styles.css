@@ -1293,9 +1293,6 @@ body {
 
   /* Show footer only in print, and make it a running element for Paged.js */
   .print-footer {
-    display: flex !important;
-    position: running(printFooter);
-
     width: 100%;
     padding: 4pt 15mm 2pt;
 
