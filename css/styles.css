@@ -1141,6 +1141,15 @@ body {
     @bottom-center {
       content: element(printFooter);
     }
+
+      @top-right {
+        content: "p." counter(page);
+        font-size: 8pt;
+        color: #4b544b;
+        white-space: nowrap;
+        margin-top: 6mm;   /* push down from top edge */
+        margin-right: 6mm; /* pull in from right edge */
+      }
   }
 
   body {
@@ -1287,23 +1296,6 @@ body {
   .print-footer-center,
   .print-footer-right {
     white-space: nowrap;
-  }
-
-    /* Page number: top-right, safely inset, repeats each page */
-  .print-page-number {
-    display: block !important;
-    position: fixed !important;
-    top: 10mm;
-    right: 12mm;
-
-    z-index: 9999;
-    font-size: 8pt;
-    color: #4b544b;
-
-    /* little white backing so it never visually “fights” the header */
-    background: #ffffff;
-    padding: 0.5mm 1mm;
-    border-radius: 2mm;
   }
 
   .print-page-number::after {
