@@ -825,21 +825,17 @@ function coursePlanner() {
       },
 
       printView() {
-        // Close any open dropdowns so they don’t overlay the printout
         this.gradeDropdownOpen = false;
         this.subjectDropdownOpen = false;
         this.tagDropdownOpen = false;
       
-        // Let Alpine finish any DOM updates, then print
         this.$nextTick(async () => {
-          // ✅ If our print-only Paged.js helper exists, use it (gives real p.#)
-          if (window.alvearyPrintWithPaged) {
+          // If our Paged.js helper exists, use it; otherwise fallback.
+          if (typeof window.alvearyPrintWithPaged === "function") {
             await window.alvearyPrintWithPaged();
-            return;
+          } else {
+            window.print();
           }
-      
-          // Fallback (no page numbering)
-          window.print();
         });
       },
 
