@@ -1238,6 +1238,14 @@ body {
     text-align: right;
   }
 
+  textarea {
+    resize: none !important;
+  }
+  
+  textarea::-webkit-resizer {
+    display: none;
+  }
+
   /* Give header/footer room + keep page number safely away from edge */
   @page {
     margin: 32mm 28mm 24mm 15mm;
@@ -1334,11 +1342,6 @@ body {
     font-size: 16pt !important;
     font-weight: 400;
     color: #adb58f !important;
-  }
-
-  /* Capture the grade text so we can reuse it in the @page footer */
-  .print-header-grade {
-    string-set: printGrade content(text);
   }
 
   .section-title,
@@ -1459,4 +1462,23 @@ body {
   .print-footer-right {
     white-space: nowrap;
   }
+
+  /* PRINT: hide planning/action controls, keep selected tags visible */
+.card-header-actions,
+.planning-tag-button,     /* “+ Planning tag” button */
+.planning-tag-add,        /* small + square */
+.planning-tag-remove,     /* × on selected tags */
+.planning-tag-apply,      /* + on ghost tags */
+.edit-pill {              /* Edit ↗ */
+  display: none !important;
+}
+
+/* But still show the selected planning tag icons (pills) */
+.planning-tag-region,
+.planning-tag-selected-row,
+.planning-tag-pill,
+.planning-tag-img {
+  display: inline-flex !important;
+}
+  
 }
