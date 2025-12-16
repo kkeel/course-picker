@@ -253,10 +253,10 @@ body {
 
 /* --- Students (Manage + filter) ---------------------------------- */
 .student-tools-row{
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  gap:16px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  align-items: center;
   margin: 6px 0 14px;
 }
 
