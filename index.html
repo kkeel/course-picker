@@ -410,23 +410,65 @@
 
             <!-- Students: manage + filter -->
             <div class="student-tools-row" @click.stop>
-              <div class="filter-control student-filter-control" aria-label="Filter by student">
-                <select
-                  x-model="selectedStudentFilter"
-                  @change="applyFilters()"
-                  :class="selectedStudentFilter ? '' : 'is-placeholder'"
+              <!-- Student (matches Grade/Subject/Planning tag dropdown behavior) -->
+              <div class="relative" @click.outside="studentDropdownOpen = false">
+                <button
+                  type="button"
+                  id="filter-student"
+                  class="filter-control"
+                  aria-label="Filter by student"
+                  @click="studentDropdownOpen = !studentDropdownOpen"
                 >
-                  <option value="">All Students</option>
-                  <template x-for="s in students" :key="s.id">
-                    <option :value="s.id" x-text="s.name || 'Unnamed'"></option>
+                  <!-- placeholder when nothing selected -->
+                  <template x-if="!selectedStudentFilter">
+                    <span class="filter-placeholder">All Students</span>
                   </template>
-                </select>
-
-                <span class="filter-chevron" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </span>
+              
+                  <!-- selected value -->
+                  <template x-if="selectedStudentFilter">
+                    <span x-text="studentNameFromId(selectedStudentFilter)"></span>
+                  </template>
+              
+                  <span
+                    class="filter-chevron"
+                    :class="studentDropdownOpen ? 'filter-chevron-open' : ''"
+                    aria-hidden="true"
+                  >
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M6 9l6 6 6-6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              
+                <!-- dropdown menu -->
+                <div class="filter-dropdown" x-show="studentDropdownOpen" x-transition>
+                  <button
+                    type="button"
+                    class="filter-dropdown-item"
+                    @click="setStudentFilter('')"
+                  >
+                    <span>All Students</span>
+                    <span class="filter-dropdown-check" x-show="!selectedStudentFilter">✓</span>
+                  </button>
+              
+                  <template x-for="s in students" :key="s.id">
+                    <button
+                      type="button"
+                      class="filter-dropdown-item"
+                      @click="setStudentFilter(s.id)"
+                    >
+                      <span x-text="s.name || 'Unnamed'"></span>
+                      <span class="filter-dropdown-check" x-show="selectedStudentFilter === s.id">✓</span>
+                    </button>
+                  </template>
+                </div>
               </div>
 
               <button
