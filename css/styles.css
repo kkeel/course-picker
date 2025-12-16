@@ -81,7 +81,7 @@ body {
   font-weight: 700;
   font-size: 40px;           /* same as .logo-title */
   line-height: 1;
-  color: var(--brand-dark);
+  color: var(--brand-dark) !important;
 }
 
 .print-header-year {
@@ -1211,6 +1211,11 @@ body {
 /* --- Media Print â€”-- */
 @media print {
 
+  html, body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
   /* Force all text to true black for print */
   body {
     color: #000 !important;
@@ -1305,7 +1310,7 @@ body {
     font-size: 28pt !important;
     font-weight: 700;
     line-height: 1.1;
-    color: var(--brand-dark);
+    color: var(--brand-dark) !important;
   }
 
   .print-header-grade {
@@ -1357,6 +1362,8 @@ body {
     background: #f2f2f2 !important;
     color: #000 !important;
     border: none !important;
+    border-radius: 0 !important;
+    border-left: 4px solid #dde2d5 !important;
     border-radius: 0 !important;
   }
 
