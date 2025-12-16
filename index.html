@@ -1243,7 +1243,7 @@
 
                             <!-- Student rail (Topic) -->
                             <div class="student-rail"
-                                 @click.outside="closeStudentAssignDropdown()"
+                                 @click.outside="closeStudentMenu()"
                                  :style="`--student-accent: var(--subject-color, var(--brand-accent, #596e5e));`">
                             
                               <!-- People icon: toggles collapse/expand -->
@@ -1327,7 +1327,7 @@
                       <!-- Student rail (Course with no topics only) -->
                       <template x-if="!course.topics || course.topics.length === 0">
                         <div class="student-rail"
-                             @click.outside="closeStudentAssignDropdown()"
+                             @click.outside="closeStudentMenu()"
                              :style="`--student-accent: var(--subject-color, var(--brand-accent, #596e5e));`">
                       
                           <button type="button"
