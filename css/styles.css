@@ -436,6 +436,14 @@ body {
   color: var(--brand-text);
 }
 
+/* Student filter chips: force white text on colored backgrounds */
+.filter-chip--student{
+  color: #fff;
+}
+.filter-chip--student .filter-chip-remove{
+  color: #fff;
+}
+
 .filter-chip-remove {
   border: none;
   background: transparent;
