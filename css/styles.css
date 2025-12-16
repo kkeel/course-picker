@@ -1211,6 +1211,19 @@ body {
 /* --- Media Print â€”-- */
 @media print {
 
+  a.edit-pill {
+    display: inline !important;
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin-left: 6pt !important;
+
+    color: #000 !important;
+    text-decoration: underline !important;
+    font-size: 9pt !important;
+    font-weight: 400 !important;
+  }
+
   html, body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
@@ -1355,8 +1368,7 @@ body {
   .btn-pill,
   .toggle,
   .card-toggle,
-  .planning-tag-wrapper,
-  .edit-pill {
+  .planning-tag-wrapper {
     display: none !important;
   }
 
