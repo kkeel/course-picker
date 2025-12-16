@@ -69,6 +69,104 @@ function coursePlanner() {
       // --- FILTER PANEL ---
       filtersOpen: true,
 
+      // --- STUDENTS (local, user-defined) ---
+      studentsOpen: false,
+      colorPickerFor: null,
+      newStudentName: "",
+      students: [],               // [{ id, name, color }]
+      selectedStudentFilter: "",  // single-student filter (future)
+
+      // color palette follows SUBJECT order (unique colors only)
+      studentColorPalette: [],
+      studentColorCursor: 0,
+
+      get canAddStudent() {
+        return (
+          (this.newStudentName || "").trim().length > 0 &&
+          (this.students || []).length < 15
+        );
+      },
+
+      toggleStudentsOpen() {
+        this.studentsOpen = !this.studentsOpen;
+        // keep UI stable; no need to persist open/close state
+      },
+
+      buildStudentColorPalette() {
+        const uniq = [];
+        const seen = new Set();
+
+        (this.subjectOptions || []).forEach(subj => {
+          const c = this.subjectColor(subj);
+          if (!c) return;
+          const key = String(c).toLowerCase();
+          if (seen.has(key)) return;
+          seen.add(key);
+          uniq.push(c);
+        });
+
+        return uniq;
+      },
+
+      nextDefaultStudentColor() {
+        const pal = this.studentColorPalette || [];
+        if (!pal.length) return "#dde2d5";
+        const idx = (this.studentColorCursor || 0) % pal.length;
+        this.studentColorCursor = (this.studentColorCursor || 0) + 1;
+        return pal[idx];
+      },
+
+      addStudent() {
+        const name = (this.newStudentName || "").trim();
+        if (!name) return;
+        if ((this.students || []).length >= 15) return;
+
+        const id = `s_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+        const color = this.nextDefaultStudentColor();
+
+        this.students = [
+          ...(this.students || []),
+          { id, name, color }
+        ];
+
+        this.newStudentName = "";
+        this.colorPickerFor = null;
+
+        this.persistPlannerStateDebounced();
+      },
+
+      removeStudent(id) {
+        if (!id) return;
+        this.students = (this.students || []).filter(s => s.id !== id);
+        if (this.selectedStudentFilter === id) {
+          this.selectedStudentFilter = "";
+        }
+        if (this.colorPickerFor === id) {
+          this.colorPickerFor = null;
+        }
+        this.persistPlannerStateDebounced();
+        this.applyFilters();
+      },
+
+      updateStudentName(id, name) {
+        this.students = (this.students || []).map(s =>
+          s.id === id ? { ...s, name } : s
+        );
+        this.persistPlannerStateDebounced();
+      },
+
+      toggleStudentColorPicker(id) {
+        this.colorPickerFor = (this.colorPickerFor === id) ? null : id;
+      },
+
+      setStudentColor(id, color) {
+        if (!id || !color) return;
+        this.students = (this.students || []).map(s =>
+          s.id === id ? { ...s, color } : s
+        );
+        this.persistPlannerStateDebounced();
+      },
+
       // --- PRINT TIP MODAL ---
      printTipOpen: false,
      printTipDontShowAgain: false,
@@ -1053,6 +1151,35 @@ function coursePlanner() {
       this.globalTopicTags  = state.globalTopicTags  || {};
       this.globalTopicNotes = state.globalTopicNotes || {};
 
+      // Restore students (and cursor)
+      if (Array.isArray(state.students)) {
+        this.students = state.students
+          .filter(s => s && s.id)
+          .map(s => ({
+            id: String(s.id),
+            name: typeof s.name === "string" ? s.name : "",
+            color: typeof s.color === "string" && s.color ? s.color : "",
+          }));
+      }
+
+      // Palette may not be built yet if subject options change; rebuild if needed
+      if (!Array.isArray(this.studentColorPalette) || !this.studentColorPalette.length) {
+        this.studentColorPalette = this.buildStudentColorPalette();
+      }
+
+      // Backfill missing colors using the default assignment order
+      this.students = (this.students || []).map(s => {
+        if (s.color) return s;
+        return { ...s, color: this.nextDefaultStudentColor() };
+      });
+
+      // Restore cursor (or continue after existing students)
+      if (typeof state.studentColorCursor === "number") {
+        this.studentColorCursor = state.studentColorCursor;
+      } else {
+        this.studentColorCursor = (this.students || []).length;
+      }
+
       const coursesState = state.courses || {};
       const topicsState  = state.topics  || {};
 
@@ -1123,6 +1250,10 @@ function coursePlanner() {
         version: APP_CACHE_VERSION,
         globalTopicTags:  this.globalTopicTags  || {},
         globalTopicNotes: this.globalTopicNotes || {},
+
+        students: (this.students || []).slice(0, 15),
+        studentColorCursor: this.studentColorCursor || 0,
+
         courses: {},
         topics: {},
       };
@@ -1204,6 +1335,9 @@ function coursePlanner() {
       // 1) Restore filters/search/toggles from previous visit
       this.loadUiState();
       if (!this.isStaff) this.editMode = false;
+
+      // Students: build palette (follows subject color order)
+      this.studentColorPalette = this.buildStudentColorPalette();
 
       // 2) Load course data (from cache if available, then refresh from network)
       await this.loadCoursesFromJson();
