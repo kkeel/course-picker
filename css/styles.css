@@ -1114,6 +1114,84 @@ body {
   transform: rotate(-90deg);
 }
 
+/* Print Tip Modal (screen-only) */
+.print-tip-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+.print-tip-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+}
+
+.print-tip-modal {
+  position: relative;
+  max-width: 520px;
+  margin: 12vh auto 0;
+  background: #fff;
+  border: 1px solid #dde3d2;
+  border-radius: 14px;
+  padding: 18px 18px 16px;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.18);
+  font-family: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.print-tip-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #262b26;
+  margin-bottom: 10px;
+}
+
+.print-tip-body {
+  font-size: 14px;
+  color: #262b26;
+}
+
+.print-tip-body ul {
+  margin: 8px 0 0 18px;
+}
+
+.print-tip-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #4b544b;
+}
+
+.print-tip-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.print-tip-btn {
+  border: 1px solid #cfd6c6;
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.print-tip-btn-primary {
+  background: #596e5e;
+  border-color: #596e5e;
+  color: #fff;
+}
+
+/* Never show the modal in print */
+@media print {
+  .print-tip-overlay {
+    display: none !important;
+  }
+}
+
 /* Hide Alpine sections until ready */
 [x-cloak] {
   display: none !important;
