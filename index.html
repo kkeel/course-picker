@@ -918,6 +918,49 @@
                           </span>
                         </template>
                       </p>
+
+                      <!-- Student assignment (Course with no topics) -->
+                      <template x-if="!course.topics || course.topics.length === 0">
+                        <div class="student-assign-wrap"
+                             x-data="{ key: `c:${courseKey(course)}` }"
+                             @click.outside="openStudentAssignFor = null">
+                      
+                          <button type="button"
+                                  class="student-assign-add"
+                                  @click.stop="toggleStudentAssign(key)">
+                            + Assign
+                          </button>
+                      
+                          <div class="student-assign-chips" x-show="assignedStudentIds(course).length">
+                            <template x-for="sid in assignedStudentIds(course)" :key="sid">
+                              <span class="student-chip"
+                                    :style="`background-color:${studentColorFromId(sid)};`">
+                                <span x-text="studentNameFromId(sid)"></span>
+                                <button type="button" class="student-chip-x"
+                                        @click.stop="removeAssignedStudent(course, sid)">×</button>
+                              </span>
+                            </template>
+                          </div>
+                      
+                          <div class="filter-dropdown student-assign-dropdown"
+                               x-show="isStudentAssignOpen(key)"
+                               x-transition>
+                            <template x-for="s in students" :key="s.id">
+                              <button type="button"
+                                      class="filter-dropdown-item"
+                                      @click="toggleAssignedStudent(course, s.id)">
+                                <span class="student-dd-row">
+                                  <span class="student-dd-swatch"
+                                        :style="`background-color:${s.color || '#596e5e'}`"></span>
+                                  <span x-text="s.name || 'Unnamed'"></span>
+                                </span>
+                                <span class="filter-dropdown-check"
+                                      x-show="assignedStudentIds(course).includes(s.id)">✓</span>
+                              </button>
+                            </template>
+                          </div>
+                        </div>
+                      </template>
                     
                       <!-- Description + combining tips -->
                       <div
@@ -1181,6 +1224,47 @@
                                   </template>
                                 </span>
                               </p>
+
+                            <!-- Student assignment (Topic) -->
+                            <div class="student-assign-wrap"
+                                 x-data="{ key: `t:${topicKey(topic)}` }"
+                                 @click.outside="openStudentAssignFor = null">
+                            
+                              <button type="button"
+                                      class="student-assign-add"
+                                      @click.stop="toggleStudentAssign(key)">
+                                + Assign
+                              </button>
+                            
+                              <div class="student-assign-chips" x-show="assignedStudentIds(topic).length">
+                                <template x-for="sid in assignedStudentIds(topic)" :key="sid">
+                                  <span class="student-chip"
+                                        :style="`background-color:${studentColorFromId(sid)};`">
+                                    <span x-text="studentNameFromId(sid)"></span>
+                                    <button type="button" class="student-chip-x"
+                                            @click.stop="removeAssignedStudent(topic, sid)">×</button>
+                                  </span>
+                                </template>
+                              </div>
+                            
+                              <div class="filter-dropdown student-assign-dropdown"
+                                   x-show="isStudentAssignOpen(key)"
+                                   x-transition>
+                                <template x-for="s in students" :key="s.id">
+                                  <button type="button"
+                                          class="filter-dropdown-item"
+                                          @click="toggleAssignedStudent(topic, s.id)">
+                                    <span class="student-dd-row">
+                                      <span class="student-dd-swatch"
+                                            :style="`background-color:${s.color || '#596e5e'}`"></span>
+                                      <span x-text="s.name || 'Unnamed'"></span>
+                                    </span>
+                                    <span class="filter-dropdown-check"
+                                          x-show="assignedStudentIds(topic).includes(s.id)">✓</span>
+                                  </button>
+                                </template>
+                              </div>
+                            </div>
 
                             <div
                               class="course-detail-row"
