@@ -653,10 +653,10 @@ body {
 /* Sticky container that sits right below the app header */
 .filter-state-wrapper {
   position: sticky;
-  top: 85px;            /* sits just below the header; tweak if needed */
+  top: var(--app-header-h, 85px); /* dynamic header height */
   z-index: 30;
   background: var(--brand-bg);
-  margin-top: 24px;     /* breathing room below the paragraph */
+  margin-top: 24px;
 }
 
 /* Outer shell sticks under the header */
@@ -675,21 +675,6 @@ body {
   justify-content: space-between;
   gap: 0.75rem;
   font-size: 0.85rem;
-}
-
-/* Mobile sticky: keep the Hide/Show bar available while scrolling */
-@media (max-width: 768px){
-  .filter-state-wrapper{
-    position: static;   /* disable wrapper sticky on mobile */
-    top: auto;
-  }
-
-  .filter-state-bar{
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 60;
-  }
 }
 
 /* Left area: main button that opens filters */
