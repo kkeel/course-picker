@@ -1211,6 +1211,17 @@ body {
 /* --- Media Print â€”-- */
 @media print {
 
+  /* Force all text to true black for print */
+  body {
+    color: #000 !important;
+  }
+
+  /* Ensure common text elements stay black */
+  h1, h2, h3, h4, h5, h6,
+  p, span, li, div {
+    color: #000 !important;
+  }
+
   /* Give header/footer room + keep page number safely away from edge */
   @page {
     margin: 32mm 28mm 24mm 15mm;
