@@ -1227,6 +1227,17 @@ body {
     color: #000 !important;
   }
 
+  header.app-header .logo-text-block {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  .print-header-title-block {
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+    text-align: right;
+  }
+
   /* Give header/footer room + keep page number safely away from edge */
   @page {
     margin: 32mm 28mm 24mm 15mm;
@@ -1270,9 +1281,9 @@ body {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    padding: 12pt 15mm 6pt 15mm;
+    padding: 12pt 0 6pt 0 !important;
     margin: 0 0 8pt;
-    border-bottom: 1px solid #dde3d2;
+    background: #ffffff !important;
     box-sizing: border-box;
     width: 100%;
   }
@@ -1362,8 +1373,6 @@ body {
     background: #f2f2f2 !important;
     color: #000 !important;
     border: none !important;
-    border-radius: 0 !important;
-    border-left: 4px solid #dde2d5 !important;
     border-radius: 0 !important;
   }
 
