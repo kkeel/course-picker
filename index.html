@@ -504,8 +504,16 @@
                 <template x-for="s in students" :key="s.id">
                   <div>
                     <div class="student-row">
-                      <span class="student-color-dot" :style="{ backgroundColor: s.color }" aria-hidden="true"></span>
-
+                      <!-- Color square (click to open swatches) -->
+                      <button
+                        type="button"
+                        class="student-color-btn"
+                        :style="{ backgroundColor: s.color }"
+                        @click.stop="toggleStudentColorPicker(s.id)"
+                        aria-label="Choose student color"
+                        title="Choose color"
+                      ></button>
+                    
                       <input
                         class="student-name-input"
                         type="text"
@@ -513,20 +521,15 @@
                         :value="s.name"
                         @input="updateStudentName(s.id, $event.target.value)"
                       />
-
+                    
+                      <!-- Subtle X remove -->
                       <button
                         type="button"
-                        class="student-row-btn"
-                        @click="removeStudent(s.id)"
+                        class="student-remove-x"
+                        @click.stop="removeStudent(s.id)"
                         aria-label="Remove student"
-                      >Remove</button>
-
-                      <button
-                        type="button"
-                        class="student-row-btn"
-                        @click="toggleStudentColorPicker(s.id)"
-                        aria-label="Choose student color"
-                      >Color</button>
+                        title="Remove"
+                      >×</button>
                     </div>
 
                     <div class="student-swatches" x-show="colorPickerFor === s.id" x-transition>
