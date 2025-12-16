@@ -1358,9 +1358,24 @@ body {
   .topic-card {
     box-shadow: none !important;
     border: 1px solid #dcded8 !important;
+    break-inside: auto;
+    page-break-inside: auto;
+    background-color: #ffffff !important;
+  }
+
+  /* Prevent titles and headers from being orphaned at page breaks */
+  .subject-title,
+  .course-title,
+  .topic-title {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  
+  /* Keep title rows with their meta info */
+  .card-header,
+  .course-meta {
     break-inside: avoid;
     page-break-inside: avoid;
-    background-color: #ffffff !important;
   }
 
   main {
