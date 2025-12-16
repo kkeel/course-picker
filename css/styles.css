@@ -1325,7 +1325,7 @@ body {
     display: none !important;
   }
 
-  /* âœ… Prevent the planning menu overlay from printing */
+  /* Prevent the planning menu overlay from printing */
   .planning-tag-menu,
   [x-show="planningMenuOpen"] {
     display: none !important;
@@ -1354,13 +1354,30 @@ body {
     font-size: 9pt !important;
   }
 
-  .course-card,
-  .topic-card {
+  /* PRINT: Course cards — top border only */
+  .course-card {
     box-shadow: none !important;
-    border: 1px solid #dcded8 !important;
+    background-color: #ffffff !important;
+  
+    border: none !important;
+    border-top: 3px solid #596e5e !important; /* Dk. Green */
+    border-radius: 0 !important;
+  
     break-inside: auto;
     page-break-inside: auto;
+  }
+  
+  /* PRINT: Topic cards — top border only */
+  .topic-card {
+    box-shadow: none !important;
     background-color: #ffffff !important;
+  
+    border: none !important;
+    border-top: 2px solid #adb58f !important; /* Lt. Green */
+    border-radius: 0 !important;
+  
+    break-inside: auto;
+    page-break-inside: auto;
   }
 
   /* Prevent titles and headers from being orphaned at page breaks */
