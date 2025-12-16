@@ -38,6 +38,13 @@ function coursePlanner() {
       planningMenuX: 0,
       planningMenuY: 0,
 
+      // Student assign menu (anchored like planning tags)
+      studentMenuOpen: false,
+      studentMenuItem: null,     // course OR topic being edited
+      studentMenuItemKey: null,  // "c:..." or "t:..."
+      studentMenuX: 0,
+      studentMenuY: 0,
+
       openPlanningMenu(evt, item) {
         const rect = evt.currentTarget.getBoundingClientRect();
         const menuWidth = 260; // keep in sync with CSS / markup
@@ -67,13 +74,36 @@ function coursePlanner() {
         this.planningMenuItem = null;
       },
 
+      openStudentMenu(evt, item, itemKey) {
+        const rect = evt.currentTarget.getBoundingClientRect();
+        const menuWidth = 240; // keep in sync with CSS
+      
+        // right-align to the + button, keep inside viewport
+        const margin = 10;
+        let x = rect.right - menuWidth;
+        x = Math.max(margin, Math.min(x, window.innerWidth - menuWidth - margin));
+      
+        // below the button
+        let y = rect.bottom + 8;
+      
+        this.studentMenuItem = item;
+        this.studentMenuItemKey = itemKey;
+        this.studentMenuX = x;
+        this.studentMenuY = y;
+        this.studentMenuOpen = true;
+      },
+      
+      closeStudentMenu() {
+        this.studentMenuOpen = false;
+        this.studentMenuItem = null;
+        this.studentMenuItemKey = null;
+      },
+
       // new global detail toggle
       showAllDetails: true,
       myCoursesOnly: false,
       myNotesOpen: false,
       editMode: false, // staff-only
-      studentDropdownOpen: false,
-      openStudentAssignFor: null, // which card’s assign dropdown is open
 
 
       // debounce handle for saving UI state
@@ -848,10 +878,11 @@ function coursePlanner() {
         return `t:${topic.recordID}`;
       },
       
-      // Collapsed state is stored in plan[itemKey].studentsCollapsed
+      // Default = collapsed unless explicitly set to false
       isStudentsCollapsed(itemKey) {
-        return !!(this.plan?.[itemKey]?.studentsCollapsed);
+        return this.plan?.[itemKey]?.studentsCollapsed !== false;
       },
+    
       setStudentsCollapsed(itemKey, val) {
         if (!this.plan[itemKey]) this.plan[itemKey] = {};
         this.plan[itemKey].studentsCollapsed = !!val;
@@ -863,17 +894,6 @@ function coursePlanner() {
         this.setStudentsCollapsed(itemKey, next);
         // also close the assign dropdown when collapsing
         if (next) this.openStudentAssignFor = null;
-      },
-      
-      // Dropdown open/close for the "+" button
-      toggleStudentAssignDropdown(itemKey) {
-        this.openStudentAssignFor = (this.openStudentAssignFor === itemKey) ? null : itemKey;
-      },
-      isStudentAssignOpen(itemKey) {
-        return this.openStudentAssignFor === itemKey;
-      },
-      closeStudentAssignDropdown() {
-        this.openStudentAssignFor = null;
       },
 
       // --- BOOKMARK HELPERS (My courses) ---
