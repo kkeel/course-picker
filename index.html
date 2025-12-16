@@ -472,7 +472,15 @@
                       class="filter-dropdown-item"
                       @click="toggleStudentFilter(s.id)"
                     >
-                      <span x-text="s.name || 'Unnamed'"></span>
+                      <span class="student-dd-row">
+                        <span
+                          class="student-dd-swatch"
+                          :style="`background-color:${s.color || '#596e5e'}`"
+                          aria-hidden="true"
+                        ></span>
+                        <span x-text="s.name || 'Unnamed'"></span>
+                      </span>
+                  
                       <span class="filter-dropdown-check" x-show="selectedStudents.includes(s.id)">✓</span>
                     </button>
                   </template>
