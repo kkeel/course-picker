@@ -260,6 +260,11 @@ body {
   margin: 6px 0 14px;
 }
 
+.student-tools-row .manage-students-toggle{
+  grid-column: 2;
+  justify-self: start;
+}
+
 .manage-students-toggle{
   display:inline-flex;
   align-items:center;
@@ -288,8 +293,9 @@ body {
 }
 
 .student-filter-control{
-  max-width: 280px;
   width: 100%;
+  max-width: none;
+  cursor: pointer;
 }
 
 .student-filter-control select{
@@ -301,6 +307,7 @@ body {
   color: var(--brand-text);
   font-size: 14px;
   appearance: none;
+  cursor: pointer;
 }
 
 .student-filter-control select.is-placeholder{
@@ -401,11 +408,10 @@ body {
 
 @media (max-width: 640px){
   .student-tools-row{
-    flex-direction: column;
-    align-items: stretch;
+    grid-template-columns: 1fr;
   }
-  .student-filter-control{
-    max-width: none;
+  .student-tools-row .manage-students-toggle{
+    grid-column: auto;
   }
 }
 
