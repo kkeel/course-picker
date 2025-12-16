@@ -1127,7 +1127,6 @@ function coursePlanner() {
         this.gradeDropdownOpen = false;
         this.subjectDropdownOpen = false;
         this.tagDropdownOpen = false;
-        this.openStudentAssignFor = null;
       
         // Let Alpine finish any DOM updates, then print
         this.$nextTick(async () => {
