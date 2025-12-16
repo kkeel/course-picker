@@ -10,6 +10,19 @@ const COURSES_CACHE_KEY = `alveary_courses_${APP_CACHE_VERSION}`;
 const UI_STATE_KEY      = `alveary_ui_${APP_CACHE_VERSION}`;
 const PLANNER_STATE_KEY = `alveary_planner_${APP_CACHE_VERSION}`;
 
+function setAppHeaderHeightVar() {
+  const header = document.querySelector(".app-header");
+  if (!header) return;
+
+  const h = header.offsetHeight || 0;
+  document.documentElement.style.setProperty("--app-header-h", `${h}px`);
+}
+
+// Set once on load, and keep updated for rotation / resize
+window.addEventListener("load", setAppHeaderHeightVar, { passive: true });
+window.addEventListener("resize", setAppHeaderHeightVar, { passive: true });
+window.addEventListener("orientationchange", setAppHeaderHeightVar, { passive: true });
+
 function coursePlanner() {
   return {
       // existing state
