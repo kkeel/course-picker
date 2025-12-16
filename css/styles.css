@@ -677,6 +677,21 @@ body {
   font-size: 0.85rem;
 }
 
+/* Mobile sticky: keep the Hide/Show bar available while scrolling */
+@media (max-width: 768px){
+  .filter-state-wrapper{
+    position: static;   /* disable wrapper sticky on mobile */
+    top: auto;
+  }
+
+  .filter-state-bar{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 60;
+  }
+}
+
 /* Left area: main button that opens filters */
 .filter-state-main {
   display: flex;
