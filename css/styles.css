@@ -250,33 +250,84 @@ body {
   }
 }
 
-/* Temporary student assignment UI (bottom-left) */
-.student-assign-wrap{
+/* === Student rail on cards (final UI) === */
+.student-rail{
   position: relative;
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
   align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 6px;
 }
 
-.student-assign-add{
-  border: 1px solid #dde2d5;
-  background: transparent;
-  border-radius: 999px;
-  padding: 4px 10px;
-  font-size: 13px;
+.student-people-btn{
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.18);
   color: var(--brand-muted);
   cursor: pointer;
 }
 
-.student-assign-add:hover{
-  color: var(--brand-text);
+/* Tint background without affecting icon color */
+.student-people-btn.is-assigned{
+  border-color: color-mix(in srgb, var(--student-accent) 55%, rgba(0,0,0,0.18));
+  color: var(--student-accent);
+}
+.student-people-btn.is-assigned::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: 8px;
+  background: var(--student-accent);
+  opacity: 0.18; /* muted subject tint */
 }
 
-.student-assign-chips{
+.student-people-btn.is-empty{
+  background:#fff;
+  border-color: rgba(0,0,0,0.18);
+  color: var(--brand-muted);
+}
+
+.student-people-icon{
+  width: 18px;
+  height: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.student-people-wedge{
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 8px;
+  height: 8px;
+  opacity: 0.9;
+  z-index: 2;
+}
+
+/* Count only shows in collapsed + assigned */
+.student-count{
+  font-size: 12px;
+  color: var(--brand-muted);
+  line-height: 1;
+}
+
+/* Chips rail (single line, horizontal scroll if needed) */
+.student-chip-rail{
   display: inline-flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 6px;
+  overflow-x: auto;
+  white-space: nowrap;
+  max-width: 100%;
+  padding-bottom: 2px;
 }
 
 .student-chip{
@@ -287,6 +338,7 @@ body {
   border-radius: 999px;
   color: #fff;
   font-size: 12px;
+  white-space: nowrap;
 }
 
 .student-chip-x{
@@ -299,12 +351,44 @@ body {
   padding: 0;
 }
 
+.student-plus-btn{
+  border: 1px solid #dde2d5;
+  background: transparent;
+  border-radius: 999px;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-muted);
+  cursor: pointer;
+}
+
+.student-plus-btn:hover{
+  color: var(--brand-text);
+}
+
+/* Dropdown placement */
 .student-assign-dropdown{
   position: absolute;
   left: 0;
   bottom: calc(100% + 6px);
-  z-index: 50;
+  z-index: 80;
   min-width: 220px;
+}
+
+.student-dd-row{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.student-dd-swatch{
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.14);
+  flex: 0 0 auto;
 }
 
 
