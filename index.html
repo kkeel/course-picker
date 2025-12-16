@@ -1293,29 +1293,10 @@
                               <button type="button"
                                       class="student-plus-btn"
                                       x-show="!isStudentsCollapsed(studentRailKeyTopic(topic))"
-                                      @click.stop="toggleStudentAssignDropdown(studentRailKeyTopic(topic))"
+                                      @click.stop="openStudentMenu($event, topic, studentRailKeyTopic(topic))"
                                       aria-label="Assign students">
                                 +
                               </button>
-                            
-                              <!-- Dropdown (same styling class family as your filters) -->
-                              <div class="filter-dropdown student-assign-dropdown"
-                                   x-show="isStudentAssignOpen(studentRailKeyTopic(topic))"
-                                   x-transition>
-                                <template x-for="s in students" :key="s.id">
-                                  <button type="button"
-                                          class="filter-dropdown-item"
-                                          @click="toggleAssignedStudent(topic, s.id)">
-                                    <span class="student-dd-row">
-                                      <span class="student-dd-swatch"
-                                            :style="`background-color:${s.color || '#596e5e'}`"></span>
-                                      <span x-text="s.name || 'Unnamed'"></span>
-                                    </span>
-                                    <span class="filter-dropdown-check"
-                                          x-show="assignedStudentIds(topic).includes(s.id)">✓</span>
-                                  </button>
-                                </template>
-                              </div>
                             
                             </div>
                             
@@ -1389,29 +1370,11 @@
                       
                           <button type="button"
                                   class="student-plus-btn"
-                                  x-show="!isStudentsCollapsed(studentRailKeyCourse(course))"
-                                  @click.stop="toggleStudentAssignDropdown(studentRailKeyCourse(course))"
+                                  x-show="!isStudentsCollapsed(studentRailKeyTopic(topic))"
+                                  @click.stop="openStudentMenu($event, topic, studentRailKeyTopic(topic))"
                                   aria-label="Assign students">
                             +
                           </button>
-                      
-                          <div class="filter-dropdown student-assign-dropdown"
-                               x-show="isStudentAssignOpen(studentRailKeyCourse(course))"
-                               x-transition>
-                            <template x-for="s in students" :key="s.id">
-                              <button type="button"
-                                      class="filter-dropdown-item"
-                                      @click="toggleAssignedStudent(course, s.id)">
-                                <span class="student-dd-row">
-                                  <span class="student-dd-swatch"
-                                        :style="`background-color:${s.color || '#596e5e'}`"></span>
-                                  <span x-text="s.name || 'Unnamed'"></span>
-                                </span>
-                                <span class="filter-dropdown-check"
-                                      x-show="assignedStudentIds(course).includes(s.id)">✓</span>
-                              </button>
-                            </template>
-                          </div>
                       
                         </div>
                       </template>
@@ -1461,6 +1424,33 @@
                 "
               >
                 ✓
+              </span>
+            </button>
+          </template>
+        </div>
+      </div>
+
+      <!-- Global student-assign menu (anchored, like planning tags) -->
+      <div
+        x-show="studentMenuOpen"
+        x-transition
+        x-cloak
+        class="fixed inset-0 z-50"
+        @click="closeStudentMenu()"
+      >
+        <div
+          class="student-menu filter-dropdown"
+          @click.stop
+          :style="`left:${studentMenuX}px; top:${studentMenuY}px; position:fixed;`"
+        >
+          <template x-for="s in students" :key="s.id">
+            <button type="button"
+                    class="filter-dropdown-item"
+                    @click="toggleAssignedStudent(studentMenuItem, s.id)">
+              <span class="student-dd-row">
+                <span class="student-dd-swatch"
+                      :style="`background-color:${s.color || '#596e5e'}`"></span>
+                <span x-text="s.name || 'Unnamed'"></span>
               </span>
             </button>
           </template>
