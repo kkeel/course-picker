@@ -410,7 +410,7 @@
 
             <!-- Students: manage + filter -->
             <div class="student-tools-row" @click.stop>
-              <!-- Student (matches Grade/Subject/Planning tag dropdown behavior) -->
+              <!-- Student (multi-select, chip-style like other filters) -->
               <div class="relative" @click.outside="studentDropdownOpen = false">
                 <button
                   type="button"
@@ -420,13 +420,30 @@
                   @click="studentDropdownOpen = !studentDropdownOpen"
                 >
                   <!-- placeholder when nothing selected -->
-                  <template x-if="!selectedStudentFilter">
+                  <template x-if="!selectedStudents || selectedStudents.length === 0">
                     <span class="filter-placeholder">All Students</span>
                   </template>
               
-                  <!-- selected value -->
-                  <template x-if="selectedStudentFilter">
-                    <span x-text="studentNameFromId(selectedStudentFilter)"></span>
+                  <!-- chips when students are selected -->
+                  <template x-if="selectedStudents && selectedStudents.length > 0">
+                    <div class="filter-control-chips">
+                      <template x-for="sid in selectedStudents" :key="sid">
+                        <span
+                          class="filter-chip filter-chip--student"
+                          :style="`background-color:${studentColorFromId(sid)};`"
+                        >
+                          <span x-text="studentNameFromId(sid)"></span>
+                          <button
+                            type="button"
+                            class="filter-chip-remove"
+                            @click.stop="removeStudentFilter(sid)"
+                            aria-label="Remove student"
+                          >
+                            ×
+                          </button>
+                        </span>
+                      </template>
+                    </div>
                   </template>
               
                   <span
@@ -449,23 +466,14 @@
               
                 <!-- dropdown menu -->
                 <div class="filter-dropdown" x-show="studentDropdownOpen" x-transition>
-                  <button
-                    type="button"
-                    class="filter-dropdown-item"
-                    @click="setStudentFilter('')"
-                  >
-                    <span>All Students</span>
-                    <span class="filter-dropdown-check" x-show="!selectedStudentFilter">✓</span>
-                  </button>
-              
                   <template x-for="s in students" :key="s.id">
                     <button
                       type="button"
                       class="filter-dropdown-item"
-                      @click="setStudentFilter(s.id)"
+                      @click="toggleStudentFilter(s.id)"
                     >
                       <span x-text="s.name || 'Unnamed'"></span>
-                      <span class="filter-dropdown-check" x-show="selectedStudentFilter === s.id">✓</span>
+                      <span class="filter-dropdown-check" x-show="selectedStudents.includes(s.id)">✓</span>
                     </button>
                   </template>
                 </div>
