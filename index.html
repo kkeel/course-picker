@@ -410,21 +410,15 @@
 
             <!-- Students: manage + filter -->
             <div class="student-tools-row" @click.stop>
-              <button
-                type="button"
-                class="manage-students-toggle"
-                @click.stop="toggleStudentsOpen()"
-                :aria-expanded="studentsOpen ? 'true' : 'false'"
-              >
-                <span class="chev" aria-hidden="true">›</span>
-                <span>Manage Students</span>
-              </button>
-
               <div class="filter-control student-filter-control" aria-label="Filter by student">
-                <select x-model="selectedStudentFilter" @change="applyFilters()">
-                  <option value="">Student: All</option>
+                <select
+                  x-model="selectedStudentFilter"
+                  @change="applyFilters()"
+                  :class="selectedStudentFilter ? '' : 'is-placeholder'"
+                >
+                  <option value="">All Students</option>
                   <template x-for="s in students" :key="s.id">
-                    <option :value="s.id" x-text="`Student: ${s.name || 'Unnamed'}`"></option>
+                    <option :value="s.id" x-text="s.name || 'Unnamed'"></option>
                   </template>
                 </select>
 
@@ -434,6 +428,16 @@
                   </svg>
                 </span>
               </div>
+
+              <button
+                type="button"
+                class="manage-students-toggle"
+                @click.stop="toggleStudentsOpen()"
+                :aria-expanded="studentsOpen ? 'true' : 'false'"
+              >
+                <span class="chev" aria-hidden="true">›</span>
+                <span>Manage Students</span>
+              </button>
             </div>
 
             <div
