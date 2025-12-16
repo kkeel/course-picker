@@ -1299,6 +1299,10 @@ body {
     color: #596e5e !important;
   }
 
+  header.app-header .flex.items-center {
+    align-items: flex-start !important;
+  }
+
   .print-year-left {
     display: block !important;
     margin-top: 2px;
