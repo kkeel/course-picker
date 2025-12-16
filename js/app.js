@@ -74,8 +74,8 @@ function coursePlanner() {
       studentsOpen: false,
       colorPickerFor: null,
       newStudentName: "",
-      students: [],               // [{ id, name, color }]
-      selectedStudentFilter: "",  // single-student filter (future)
+      students: [],             
+      selectedStudents: [],
 
       // color palette follows SUBJECT order (unique colors only)
       studentColorPalette: [],
@@ -737,15 +737,53 @@ function coursePlanner() {
       },
 
       // --- STUDENT OPTION HELPERS ---
-      studentNameFromId(id) {
-        const s = (this.students || []).find(x => x.id === id);
-        return s ? (s.name || "Unnamed") : "All Students";
+      studentById(id) {
+        return (this.students || []).find(s => s.id === id) || null;
       },
       
-      setStudentFilter(id) {
-        this.selectedStudentFilter = id || "";
-        this.studentDropdownOpen = false;
+      studentNameFromId(id) {
+        const s = this.studentById(id);
+        return s ? (s.name || "Unnamed") : "";
+      },
+      
+      studentColorFromId(id) {
+        const s = this.studentById(id);
+        return s?.color || "#596e5e";
+      },
+      
+      toggleStudentFilter(id) {
+        if (!id) return;
+        if (!Array.isArray(this.selectedStudents)) this.selectedStudents = [];
+      
+        const idx = this.selectedStudents.indexOf(id);
+        if (idx === -1) this.selectedStudents.push(id);
+        else this.selectedStudents.splice(idx, 1);
+      
         this.applyFilters();
+      },
+      
+      removeStudentFilter(id) {
+        this.selectedStudents = (this.selectedStudents || []).filter(x => x !== id);
+        this.applyFilters();
+      },
+
+      studentMatchesCourse(course) {
+        if (!this.selectedStudents?.length) return true;
+      
+        // Future-proof: if we later store assigned student IDs on courses/topics
+        const ids = new Set();
+      
+        if (Array.isArray(course.studentIds)) course.studentIds.forEach(x => ids.add(x));
+        if (Array.isArray(course.topics)) {
+          course.topics.forEach(t => {
+            if (Array.isArray(t.studentIds)) t.studentIds.forEach(x => ids.add(x));
+          });
+        }
+      
+        // If nothing is tagged yet, don't filter anything out
+        if (ids.size === 0) return true;
+      
+        return this.selectedStudents.some(id => ids.has(id));
       },
 
       // --- BOOKMARK HELPERS (My courses) ---
@@ -901,12 +939,13 @@ function coursePlanner() {
         const hasGrade   = this.selectedGrades.length > 0;
         const hasSubject = this.selectedSubjects.length > 0;
         const hasTag     = this.selectedTags.length > 0;
+        const hasStudent = this.selectedStudents.length > 0;
 
         const search = (this.searchQuery || "").trim().toLowerCase();
         const hasSearch = !!search;
 
         // No filters and no search => show full dataset
-        if (!hasGrade && !hasSubject && !hasTag && !hasSearch) {
+        if (!hasGrade && !hasSubject && !hasTag && !hasStudent && !hasSearch) {
           this.coursesBySubject = this.allCoursesBySubject;
           this.persistUiStateDebounced();
           return;
@@ -924,8 +963,9 @@ function coursePlanner() {
             const matchesSubject = !hasSubject || this.subjectMatches(course.subject);
             const matchesTag     = !hasTag     || this.tagMatchesCourse(course);
             const matchesSearch  = !hasSearch  || this.courseMatchesSearch(course, search);
+            const matchesStudent = !hasStudent || this.studentMatchesCourse(course);
 
-            if (!(matchesGrade && matchesSubject && matchesTag && matchesSearch)) return;
+            if (!(matchesGrade && matchesSubject && matchesTag && matchesStudent && matchesSearch)) return;
 
             subjectCourses.push(course);
           });
@@ -1014,6 +1054,14 @@ function coursePlanner() {
               : `${this.selectedTags.length} tags`
           );
         }
+
+        if (this.selectedStudents?.length) {
+          parts.push(
+            this.selectedStudents.length === 1
+              ? this.studentNameFromId(this.selectedStudents[0])
+              : `${this.selectedStudents.length} students`
+          );
+        }
       
         // NEW: show My Courses when that toggle is on
         if (this.myCoursesOnly) {
@@ -1100,6 +1148,10 @@ function coursePlanner() {
         if (typeof saved.editMode === "boolean") {
           this.editMode = saved.editMode;
         }
+
+        if (Array.isArray(saved.selectedStudents)) {
+          this.selectedStudents = saved.selectedStudents;
+        }
     
       } catch (err) {
         console.warn("Could not load UI state from localStorage", err);
@@ -1119,6 +1171,7 @@ function coursePlanner() {
         myNotesOpen:      this.myNotesOpen,
         filtersOpen:      this.filtersOpen,
         editMode:         this.editMode,
+        selectedStudents: this.selectedStudents,
       };
 
       try {
