@@ -1280,6 +1280,7 @@ body {
   header.app-header .logo-title {
     font-size: 28pt !important;
     line-height: 1.1;
+    color: #596e5e !important;
   }
 
   .print-year-left {
@@ -1351,6 +1352,13 @@ body {
   .subject-title { font-size: 18pt !important; }
   .course-title  { font-size: 13pt !important; }
   .topic-title   { font-size: 11pt !important; }
+
+  .course-detail-tips {
+    background: #f2f2f2 !important;
+    color: #000 !important;
+    border: none !important;
+    border-radius: 0 !important;
+  }
 
   .course-meta,
   .topic-meta,
