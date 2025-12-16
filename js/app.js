@@ -165,6 +165,10 @@ function coursePlanner() {
         this.students = (this.students || []).map(s =>
           s.id === id ? { ...s, color } : s
         );
+      
+        // ✅ auto-close swatches after pick
+        this.colorPickerFor = null;
+      
         this.persistPlannerStateDebounced();
       },
 
