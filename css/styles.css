@@ -280,17 +280,8 @@ body {
   font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
-.manage-students-toggle .chev{
-  width: 16px;
-  height: 16px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  transition: transform 0.15s ease;
-}
-
-.manage-students-toggle[aria-expanded="true"] .chev{
-  transform: rotate(90deg);
+.manage-students-toggle:hover{
+  text-decoration: underline;
 }
 
 .student-filter-control{
