@@ -250,6 +250,63 @@ body {
   }
 }
 
+/* Temporary student assignment UI (bottom-left) */
+.student-assign-wrap{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.student-assign-add{
+  border: 1px solid #dde2d5;
+  background: transparent;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 13px;
+  color: var(--brand-muted);
+  cursor: pointer;
+}
+
+.student-assign-add:hover{
+  color: var(--brand-text);
+}
+
+.student-assign-chips{
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.student-chip{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 12px;
+}
+
+.student-chip-x{
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  line-height: 1;
+  font-size: 14px;
+  padding: 0;
+}
+
+.student-assign-dropdown{
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 6px);
+  z-index: 50;
+  min-width: 220px;
+}
+
 
 /* --- Students (Manage + filter) ---------------------------------- */
 .student-tools-row{
