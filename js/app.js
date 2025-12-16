@@ -185,6 +185,25 @@ function coursePlanner() {
         this.persistPlannerStateDebounced();
       },
 
+      openStudentAssignFor: null, // holds a unique key for the open dropdown (one at a time)
+
+      studentAssignKeyForCourse(course) {
+        return `c:${course.course_id || course.Course_ID || course.id}`;
+      },
+      
+      studentAssignKeyForTopic(topic) {
+        // topic instance key should match your planning-tags logic (use the same unique instance key you already use)
+        return `t:${topic.instanceKey || topic.topic_instance_key || topic.topic_id || topic.Topic_ID}`;
+      },
+      
+      isStudentAssignOpen(key) {
+        return this.openStudentAssignFor === key;
+      },
+      
+      toggleStudentAssign(key) {
+        this.openStudentAssignFor = (this.openStudentAssignFor === key) ? null : key;
+      },
+
       // --- PRINT TIP MODAL ---
      printTipOpen: false,
      printTipDontShowAgain: false,
