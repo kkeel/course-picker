@@ -69,6 +69,10 @@ function coursePlanner() {
       // --- FILTER PANEL ---
       filtersOpen: true,
 
+      // --- PRINT TIP MODAL ---
+     printTipOpen: false,
+     printTipDontShowAgain: false,
+
       // --- FILTER STATE (grade) ---
       selectedGrades: [],          // e.g. ["G1", "G3"]
       gradeDropdownOpen: false,
@@ -823,6 +827,39 @@ function coursePlanner() {
         this.coursesBySubject = filtered;
         this.persistUiStateDebounced();
       },
+
+    openPrintTip() {
+      // If user chose "don't show again", go straight to printing
+      try {
+        const hidden = localStorage.getItem("ALVEARY_HIDE_PRINT_TIP") === "1";
+        if (hidden) {
+          this.printView();
+          return;
+        }
+      } catch (e) {}
+    
+      // Otherwise show the modal
+      this.printTipDontShowAgain = false;
+      this.printTipOpen = true;
+    },
+    
+    confirmPrintTipAndPrint() {
+      // Save preference
+      try {
+        if (this.printTipDontShowAgain) {
+          localStorage.setItem("ALVEARY_HIDE_PRINT_TIP", "1");
+        }
+      } catch (e) {}
+    
+      this.printTipOpen = false;
+    
+      // Proceed with your existing print flow (Paged.js + page numbers)
+      this.printView();
+    },
+    
+    closePrintTip() {
+      this.printTipOpen = false;
+    },
 
       printView() {
         // Close any open dropdowns so they don’t overlay the printout
