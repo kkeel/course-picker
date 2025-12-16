@@ -768,39 +768,54 @@ function coursePlanner() {
         return s?.color || "#596e5e";
       },
       
-      toggleStudentFilter(id) {
-        if (!id) return;
-        if (!Array.isArray(this.selectedStudents)) this.selectedStudents = [];
+      // ===== NEW: STUDENT ASSIGNMENTS (course/topic) =====
       
-        const idx = this.selectedStudents.indexOf(id);
-        if (idx === -1) this.selectedStudents.push(id);
-        else this.selectedStudents.splice(idx, 1);
-      
-        this.applyFilters();
+      // Only allow assigning students to:
+      // - Topics (always)
+      // - Courses ONLY if they have no topics
+      canAssignStudentsToItem(item) {
+        if (!item) return false;
+        const hasTopics = Array.isArray(item.topics) && item.topics.length > 0;
+        const isTopic = !!(item.Topic_ID || item.topic_id); // topic objects have Topic_ID
+        return isTopic || !hasTopics;
       },
       
-      removeStudentFilter(id) {
-        this.selectedStudents = (this.selectedStudents || []).filter(x => x !== id);
-        this.applyFilters();
+      assignedStudentIds(item) {
+        if (!item) return [];
+        if (!Array.isArray(item.studentIds)) item.studentIds = [];
+        return item.studentIds;
       },
-
-      studentMatchesCourse(course) {
-        if (!this.selectedStudents?.length) return true;
       
-        // Future-proof: if we later store assigned student IDs on courses/topics
-        const ids = new Set();
+      hasAssignedStudents(item) {
+        return this.assignedStudentIds(item).length > 0;
+      },
       
-        if (Array.isArray(course.studentIds)) course.studentIds.forEach(x => ids.add(x));
-        if (Array.isArray(course.topics)) {
-          course.topics.forEach(t => {
-            if (Array.isArray(t.studentIds)) t.studentIds.forEach(x => ids.add(x));
-          });
-        }
+      assignedStudentCount(item) {
+        return this.assignedStudentIds(item).length;
+      },
       
-        // If nothing is tagged yet, don't filter anything out
-        if (ids.size === 0) return true;
+      toggleAssignedStudent(item, sid) {
+        if (!item || !sid) return;
+        if (!this.canAssignStudentsToItem(item)) return;
       
-        return this.selectedStudents.some(id => ids.has(id));
+        const ids = this.assignedStudentIds(item);
+        const idx = ids.indexOf(sid);
+      
+        if (idx === -1) ids.push(sid);
+        else ids.splice(idx, 1);
+      
+        item.studentIds = ids;
+        this.persistPlannerStateDebounced();
+        this.applyFilters(); // so student filter updates immediately
+      },
+      
+      removeAssignedStudent(item, sid) {
+        if (!item || !sid) return;
+        if (!Array.isArray(item.studentIds)) item.studentIds = [];
+        item.studentIds = item.studentIds.filter(x => x !== sid);
+      
+        this.persistPlannerStateDebounced();
+        this.applyFilters();
       },
 
       // --- BOOKMARK HELPERS (My courses) ---
@@ -1296,6 +1311,9 @@ function coursePlanner() {
             if (Array.isArray(cState.tags)) {
               course.planningTags = makeTagObjects(cState.tags);
             }
+            if (Array.isArray(cState.studentIds)) {
+              course.studentIds = cState.studentIds.filter(Boolean);
+            }
           }
 
           if (Array.isArray(course.topics)) {
@@ -1318,6 +1336,9 @@ function coursePlanner() {
               if (Array.isArray(tState.tags)) {
                 topic.planningTags = makeTagObjects(tState.tags);
               }
+              if (Array.isArray(tState.studentIds)) {
+                  topic.studentIds = tState.studentIds.filter(Boolean);
+                }
               // Topic notes are global per Topic_ID (this.globalTopicNotes),
               // so we don't restore them here; topicNoteText() reads from that map.
             }
@@ -1360,17 +1381,21 @@ function coursePlanner() {
             : "";
           const tagIds       = tagIdsFromObjs(course.planningTags);
 
-          if (
-            isBookmarked ||
-            noteText.trim().length > 0 ||
-            tagIds.length > 0
-          ) {
-            state.courses[courseKey] = {
-              isBookmarked,
-              noteText,
-              tags: tagIds,
-            };
-          }
+          const studentIds = Array.isArray(course.studentIds) ? course.studentIds.filter(Boolean) : [];
+
+            if (
+              isBookmarked ||
+              noteText.trim().length > 0 ||
+              tagIds.length > 0 ||
+              studentIds.length > 0
+            ) {
+              state.courses[courseKey] = {
+                isBookmarked,
+                noteText,
+                tags: tagIds,
+                studentIds,
+              };
+            }
 
           if (Array.isArray(course.topics)) {
             for (const topic of course.topics) {
@@ -1385,12 +1410,16 @@ function coursePlanner() {
               const tBookmarked = !!topic.isBookmarked;
               const tTagIds     = tagIdsFromObjs(topic.planningTags);
 
-              if (tBookmarked || tTagIds.length > 0) {
-                state.topics[instanceKey] = {
-                  isBookmarked: tBookmarked,
-                  tags: tTagIds,
-                };
-              }
+              const tStudentIds = Array.isArray(topic.studentIds) ? topic.studentIds.filter(Boolean) : [];
+
+                if (tBookmarked || tTagIds.length > 0 || tStudentIds.length > 0) {
+                  state.topics[instanceKey] = {
+                    isBookmarked: tBookmarked,
+                    tags: tTagIds,
+                    studentIds: tStudentIds,
+                  };
+                }
+
             }
           }
         }
