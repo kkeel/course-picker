@@ -59,6 +59,7 @@ function coursePlanner() {
       myCoursesOnly: false,
       myNotesOpen: false,
       editMode: false, // staff-only
+      studentDropdownOpen: false,
 
       // debounce handle for saving UI state
       uiPersistDebounce: null,
@@ -733,6 +734,18 @@ function coursePlanner() {
         }
 
         this.persistPlannerStateDebounced();
+      },
+
+      // --- STUDENT OPTION HELPERS ---
+      studentNameFromId(id) {
+        const s = (this.students || []).find(x => x.id === id);
+        return s ? (s.name || "Unnamed") : "All Students";
+      },
+      
+      setStudentFilter(id) {
+        this.selectedStudentFilter = id || "";
+        this.studentDropdownOpen = false;
+        this.applyFilters();
       },
 
       // --- BOOKMARK HELPERS (My courses) ---
