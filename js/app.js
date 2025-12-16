@@ -73,6 +73,8 @@ function coursePlanner() {
       myNotesOpen: false,
       editMode: false, // staff-only
       studentDropdownOpen: false,
+      openStudentAssignFor: null, // which card’s assign dropdown is open
+
 
       // debounce handle for saving UI state
       uiPersistDebounce: null,
@@ -837,6 +839,43 @@ function coursePlanner() {
         this.applyFilters();
       },
 
+      // Unique keys for rails/dropdowns
+      studentRailKeyCourse(course) {
+        return `c:${this.courseKey(course)}`;
+      },
+      studentRailKeyTopic(topic) {
+        // topic.recordID exists (your x-for uses it as the key)
+        return `t:${topic.recordID}`;
+      },
+      
+      // Collapsed state is stored in plan[itemKey].studentsCollapsed
+      isStudentsCollapsed(itemKey) {
+        return !!(this.plan?.[itemKey]?.studentsCollapsed);
+      },
+      setStudentsCollapsed(itemKey, val) {
+        if (!this.plan[itemKey]) this.plan[itemKey] = {};
+        this.plan[itemKey].studentsCollapsed = !!val;
+        this.persistPlan?.(); // you already have persistPlan() in your app
+      },
+      
+      toggleStudentsCollapsed(itemKey) {
+        const next = !this.isStudentsCollapsed(itemKey);
+        this.setStudentsCollapsed(itemKey, next);
+        // also close the assign dropdown when collapsing
+        if (next) this.openStudentAssignFor = null;
+      },
+      
+      // Dropdown open/close for the "+" button
+      toggleStudentAssignDropdown(itemKey) {
+        this.openStudentAssignFor = (this.openStudentAssignFor === itemKey) ? null : itemKey;
+      },
+      isStudentAssignOpen(itemKey) {
+        return this.openStudentAssignFor === itemKey;
+      },
+      closeStudentAssignDropdown() {
+        this.openStudentAssignFor = null;
+      },
+
       // --- BOOKMARK HELPERS (My courses) ---
 
       // Is this course bookmarked (for courses without topics)?
@@ -1068,6 +1107,7 @@ function coursePlanner() {
         this.gradeDropdownOpen = false;
         this.subjectDropdownOpen = false;
         this.tagDropdownOpen = false;
+        this.openStudentAssignFor = null;
       
         // Let Alpine finish any DOM updates, then print
         this.$nextTick(async () => {
