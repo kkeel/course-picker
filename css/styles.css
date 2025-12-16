@@ -255,7 +255,8 @@ body {
 .student-tools-row{
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  column-gap: 16px;
+  row-gap: 8px;
   align-items: center;
   margin: 6px 0 14px;
 }
@@ -489,6 +490,33 @@ body {
 .filter-dropdown-check {
   font-size: 14px;
   color: var(--brand-dark);
+}
+
+/* Keep it in Subject column (you already have this) */
+.student-tools-row .manage-students-toggle{
+  grid-column: 2;
+  justify-self: start;
+}
+
+/* Make the chevron overlay instead of shifting the text */
+.manage-students-toggle{
+  position: relative;
+  gap: 0;                 /* remove the spacing that indents the label */
+  padding-left: 0;        /* keep label flush */
+}
+
+.manage-students-toggle .chev{
+  position: absolute;
+  left: -18px;            /* pull chevron into the gutter */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+}
+
+/* Keep your rotate behavior */
+.manage-students-toggle[aria-expanded="true"] .chev{
+  transform: translateY(-50%) rotate(90deg);
 }
 
 .btn-pill {
