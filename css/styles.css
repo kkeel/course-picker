@@ -255,7 +255,7 @@ body {
 .student-tools-row{
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  justify-content:flex-start;
   gap:16px;
   margin: 6px 0 14px;
 }
@@ -301,6 +301,10 @@ body {
   color: var(--brand-text);
   font-size: 14px;
   appearance: none;
+}
+
+.student-filter-control select.is-placeholder{
+  color: var(--brand-muted);
 }
 
 .student-manager{
