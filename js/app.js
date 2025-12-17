@@ -67,6 +67,47 @@ function coursePlanner() {
         this.planningMenuItem = null;
       },
 
+      closePlanningMenu() {
+        this.planningMenuOpen = false;
+        this.planningMenuItem = null;
+      },
+
+      // Global student-assign menu (planning-tag style)
+      studentAssignMenuOpen: false,
+      studentAssignMenuItem: null, // the course OR topic currently being edited
+      studentAssignMenuX: 0,
+      studentAssignMenuY: 0,
+
+      openStudentAssignMenu(evt, item) {
+        const rect = evt.currentTarget.getBoundingClientRect();
+        const menuWidth = 260; // match planning menu width for consistent UI
+        const margin = 16;
+
+        // Position menu aligned to the button's left edge (since this + sits on the left side of the card)
+        let x = rect.left;
+
+        // Keep inside viewport
+        if (x < margin) x = margin;
+        if (x + menuWidth > window.innerWidth - margin) {
+          x = window.innerWidth - margin - menuWidth;
+        }
+
+        // Position below the button, but don't let it run off screen
+        let y = rect.bottom + 8;
+        const maxY = window.innerHeight - margin - 260; // approx max menu height
+        if (y > maxY) y = maxY;
+
+        this.studentAssignMenuX = x;
+        this.studentAssignMenuY = y;
+        this.studentAssignMenuItem = item;
+        this.studentAssignMenuOpen = true;
+      },
+
+      closeStudentAssignMenu() {
+        this.studentAssignMenuOpen = false;
+        this.studentAssignMenuItem = null;
+      },
+
       // new global detail toggle
       showAllDetails: true,
       myCoursesOnly: false,
