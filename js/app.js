@@ -1293,6 +1293,9 @@ function coursePlanner() {
       this.globalTopicTags  = state.globalTopicTags  || {};
       this.globalTopicNotes = state.globalTopicNotes || {};
 
+      // Restore global topic-level student memory (for "ghost" chips)
+      this.globalTopicStudents = state.globalTopicStudents || {};
+
       // Restore students (and cursor)
       if (Array.isArray(state.students)) {
         this.students = state.students
@@ -1359,6 +1362,13 @@ function coursePlanner() {
             if (Array.isArray(cState.tags)) {
               course.planningTags = makeTagObjects(cState.tags);
             }
+            // Restore assigned students for this specific course card
+            if (Array.isArray(cState.students)) {
+              course.studentIds = cState.students
+                .map(String)
+                .map(s => s.trim())
+                .filter(Boolean);
+            }
           }
 
           if (Array.isArray(course.topics)) {
@@ -1381,6 +1391,13 @@ function coursePlanner() {
               if (Array.isArray(tState.tags)) {
                 topic.planningTags = makeTagObjects(tState.tags);
               }
+              // Restore assigned students for this specific topic *instance*
+              if (Array.isArray(tState.students)) {
+                topic.studentIds = tState.students
+                  .map(String)
+                  .map(s => s.trim())
+                  .filter(Boolean);
+              }
               // Topic notes are global per Topic_ID (this.globalTopicNotes),
               // so we don't restore them here; topicNoteText() reads from that map.
             }
@@ -1396,6 +1413,7 @@ function coursePlanner() {
         version: APP_CACHE_VERSION,
         globalTopicTags:  this.globalTopicTags  || {},
         globalTopicNotes: this.globalTopicNotes || {},
+        globalTopicStudents: this.globalTopicStudents || {},
 
         students: (this.students || []).slice(0, 15),
         studentColorCursor: this.studentColorCursor || 0,
@@ -1423,16 +1441,21 @@ function coursePlanner() {
             ? course.noteText
             : "";
           const tagIds       = tagIdsFromObjs(course.planningTags);
+          const studentIds   = Array.isArray(course.studentIds)
+            ? course.studentIds.map(String).map(s => s.trim()).filter(Boolean)
+            : [];
 
           if (
             isBookmarked ||
             noteText.trim().length > 0 ||
-            tagIds.length > 0
+            tagIds.length > 0 ||
+            studentIds.length > 0
           ) {
             state.courses[courseKey] = {
               isBookmarked,
               noteText,
               tags: tagIds,
+              students: studentIds,
             };
           }
 
@@ -1448,11 +1471,15 @@ function coursePlanner() {
               const instanceKey = `${courseKey}::${topicId}`;
               const tBookmarked = !!topic.isBookmarked;
               const tTagIds     = tagIdsFromObjs(topic.planningTags);
+              const tStudentIds = Array.isArray(topic.studentIds)
+                ? topic.studentIds.map(String).map(s => s.trim()).filter(Boolean)
+                : [];
 
-              if (tBookmarked || tTagIds.length > 0) {
+              if (tBookmarked || tTagIds.length > 0 || tStudentIds.length > 0) {
                 state.topics[instanceKey] = {
                   isBookmarked: tBookmarked,
                   tags: tTagIds,
+                  students: tStudentIds,
                 };
               }
             }
