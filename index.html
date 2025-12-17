@@ -1272,12 +1272,12 @@
                               </button>
                             
                               <!-- Add-students "+" (shows only when rail is OPEN) -->
-                              <template x-if="!isStudentRailCollapsed(studentRailKeyForTopic(topic))">
+                              <template x-if="!isStudentRailCollapsed(studentRailKeyForCourse(course))">
                                 <button
                                   type="button"
                                   class="planning-tag-add"
                                   aria-label="Assign students"
-                                  @click.stop="void 0"
+                                  @click.stop="openStudentAssignMenu($event, course)"
                                 >+</button>
                               </template>
                             </div>
@@ -1338,12 +1338,12 @@
                         </button>
                     
                         <!-- Add-students "+" (shows only when rail is OPEN) -->
-                        <template x-if="!isStudentRailCollapsed(studentRailKeyForCourse(course))">
+                        <template x-if="!isStudentRailCollapsed(studentRailKeyForTopic(topic))">
                           <button
                             type="button"
                             class="planning-tag-add"
                             aria-label="Assign students"
-                            @click.stop="void 0"
+                            @click.stop="openStudentAssignMenu($event, topic)"
                           >+</button>
                         </template>
                       </div>
@@ -1399,7 +1399,42 @@
           </template>
         </div>
       </div>
+
+      <!-- Global student-assign menu (modal-style, for both courses & topics) -->
+      <div
+        x-show="studentAssignMenuOpen"
+        x-transition
+        x-cloak
+        class="fixed inset-0 z-50"
+      >
+        <!-- click-away backdrop -->
+        <div class="absolute inset-0" @click="closeStudentAssignMenu()"></div>
       
+        <!-- floating menu positioned near the clicked button -->
+        <div
+          class="planning-tag-menu fixed"
+          :style="`top:${studentMenuY}px; left:${studentMenuX}px;`"
+          @click.stop
+        >
+          <template x-for="s in students" :key="s.id">
+            <button
+              type="button"
+              class="planning-tag-option"
+              @click="closeStudentAssignMenu()"
+            >
+              <span class="planning-tag-option-main">
+                <span
+                  aria-hidden="true"
+                  style="width:12px;height:12px;border-radius:999px;display:inline-block;"
+                  :style="`background-color: ${s.color};`"
+                ></span>
+                <span x-text="s.name"></span>
+              </span>
+            </button>
+          </template>
+        </div>
+      </div>
+  
     </section>
 
   </main>
