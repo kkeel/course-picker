@@ -67,12 +67,7 @@ function coursePlanner() {
         this.planningMenuItem = null;
       },
 
-      closePlanningMenu() {
-        this.planningMenuOpen = false;
-        this.planningMenuItem = null;
-      },
-
-      // Global student-assign menu (planning-tag style)
+      // Global student-assign menu (modal-style)
       studentAssignMenuOpen: false,
       studentAssignMenuItem: null, // the course OR topic currently being edited
       studentAssignMenuX: 0,
@@ -80,22 +75,21 @@ function coursePlanner() {
 
       openStudentAssignMenu(evt, item) {
         const rect = evt.currentTarget.getBoundingClientRect();
-        const menuWidth = 260; // match planning menu width for consistent UI
-        const margin = 16;
+        const menuWidth = 260; // keep consistent with planning menu width + CSS
 
-        // Position menu aligned to the button's left edge (since this + sits on the left side of the card)
+        // Left-align to the button (since your + button is on the left)
         let x = rect.left;
-
-        // Keep inside viewport
+        const margin = 16;
         if (x < margin) x = margin;
         if (x + menuWidth > window.innerWidth - margin) {
           x = window.innerWidth - margin - menuWidth;
         }
 
-        // Position below the button, but don't let it run off screen
+        // Prefer below the button, but clamp to viewport
         let y = rect.bottom + 8;
         const maxY = window.innerHeight - margin - 260; // approx max menu height
         if (y > maxY) y = maxY;
+        if (y < margin) y = margin;
 
         this.studentAssignMenuX = x;
         this.studentAssignMenuY = y;
