@@ -1240,66 +1240,6 @@
                                 :style="{ backgroundColor: subjectColor(course.subject) + '1A' }"
                               ></textarea>
                             </div>
-
-                            <!-- Student rail (Topic) -->
-                            <div class="student-rail"
-                                 @click.outside="closeStudentMenu()"
-                                 :style="`--student-accent: var(--subject-color, var(--brand-accent, #596e5e));`">
-                            
-                              <!-- People icon: toggles collapse/expand -->
-                              <button type="button"
-                                      class="student-people-btn"
-                                      :class="hasAssignedStudents(topic) ? 'is-assigned' : 'is-empty'"
-                                      @click.stop="toggleStudentsCollapsed(studentRailKeyTopic(topic))"
-                                      aria-label="Show or hide student tags">
-                            
-                                <!-- Person icon (inline SVG so we can style it) -->
-                                <svg class="student-people-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                  <path d="M12 12.2a4 4 0 1 0-4-4a4 4 0 0 0 4 4Z"
-                                        stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                                  <path d="M4.8 21.2c1.7-4.1 5-6.2 7.2-6.2s5.5 2.1 7.2 6.2"
-                                        stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            
-                                <!-- Micro wedge (your preferred style) -->
-                                <svg class="student-people-wedge" viewBox="0 0 10 10" aria-hidden="true">
-                                  <path x-show="isStudentsCollapsed(studentRailKeyTopic(topic))"
-                                        d="M3 2.2 L8 5 L3 7.8 Z" fill="currentColor"/>
-                                  <path x-show="!isStudentsCollapsed(studentRailKeyTopic(topic))"
-                                        d="M2.2 3 L5 8 L7.8 3 Z" fill="currentColor"/>
-                                </svg>
-                              </button>
-                            
-                              <!-- Count ONLY when collapsed AND count > 0 -->
-                              <span class="student-count"
-                                    x-show="isStudentsCollapsed(studentRailKeyTopic(topic)) && assignedStudentCount(topic) > 0"
-                                    x-text="assignedStudentCount(topic)">
-                              </span>
-                            
-                              <!-- Chips rail (ONLY when expanded) -->
-                              <div class="student-chip-rail"
-                                   x-show="!isStudentsCollapsed(studentRailKeyTopic(topic)) && assignedStudentIds(topic).length">
-                                <template x-for="sid in assignedStudentIds(topic)" :key="sid">
-                                  <span class="student-chip"
-                                        :style="`background-color:${studentColorFromId(sid)};`">
-                                    <span x-text="studentNameFromId(sid)"></span>
-                                    <button type="button" class="student-chip-x"
-                                            @click.stop="removeAssignedStudent(topic, sid)">×</button>
-                                  </span>
-                                </template>
-                              </div>
-                            
-                              <!-- Plus button (ONLY when expanded) -->
-                              <button type="button"
-                                      class="student-plus-btn"
-                                      x-show="!isStudentsCollapsed(studentRailKeyTopic(topic))"
-                                      @click.stop="openStudentMenu($event, topic, studentRailKeyTopic(topic))"
-                                      aria-label="Assign students">
-                                +
-                              </button>
-                            
-                            </div>
-                            
                           </article>
 
                         </template>
@@ -1321,61 +1261,6 @@
                             @input="updateCourseNoteText(course, $event.target.value)"
                             :style="{ backgroundColor: subjectColor(course.subject) + '1A' }"
                           ></textarea>
-                        </div>
-                      </template>
-
-                      <!-- Student rail (Course with no topics only) -->
-                      <template x-if="!course.topics || course.topics.length === 0">
-                        <div class="student-rail"
-                             @click.outside="closeStudentMenu()"
-                             :style="`--student-accent: var(--subject-color, var(--brand-accent, #596e5e));`">
-                      
-                          <button type="button"
-                                  class="student-people-btn"
-                                  :class="hasAssignedStudents(course) ? 'is-assigned' : 'is-empty'"
-                                  @click.stop="toggleStudentsCollapsed(studentRailKeyCourse(course))"
-                                  aria-label="Show or hide student tags">
-                      
-                            <svg class="student-people-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                              <path d="M12 12.2a4 4 0 1 0-4-4a4 4 0 0 0 4 4Z"
-                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                              <path d="M4.8 21.2c1.7-4.1 5-6.2 7.2-6.2s5.5 2.1 7.2 6.2"
-                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                      
-                            <svg class="student-people-wedge" viewBox="0 0 10 10" aria-hidden="true">
-                              <path x-show="isStudentsCollapsed(studentRailKeyCourse(course))"
-                                    d="M3 2.2 L8 5 L3 7.8 Z" fill="currentColor"/>
-                              <path x-show="!isStudentsCollapsed(studentRailKeyCourse(course))"
-                                    d="M2.2 3 L5 8 L7.8 3 Z" fill="currentColor"/>
-                            </svg>
-                          </button>
-                      
-                          <span class="student-count"
-                                x-show="isStudentsCollapsed(studentRailKeyCourse(course)) && assignedStudentCount(course) > 0"
-                                x-text="assignedStudentCount(course)">
-                          </span>
-                      
-                          <div class="student-chip-rail"
-                               x-show="!isStudentsCollapsed(studentRailKeyCourse(course)) && assignedStudentIds(course).length">
-                            <template x-for="sid in assignedStudentIds(course)" :key="sid">
-                              <span class="student-chip"
-                                    :style="`background-color:${studentColorFromId(sid)};`">
-                                <span x-text="studentNameFromId(sid)"></span>
-                                <button type="button" class="student-chip-x"
-                                        @click.stop="removeAssignedStudent(course, sid)">×</button>
-                              </span>
-                            </template>
-                          </div>
-                      
-                          <button type="button"
-                                  class="student-plus-btn"
-                                  x-show="!isStudentsCollapsed(studentRailKeyTopic(topic))"
-                                  @click.stop="openStudentMenu($event, topic, studentRailKeyTopic(topic))"
-                                  aria-label="Assign students">
-                            +
-                          </button>
-                      
                         </div>
                       </template>
                       
@@ -1424,33 +1309,6 @@
                 "
               >
                 ✓
-              </span>
-            </button>
-          </template>
-        </div>
-      </div>
-
-      <!-- Global student-assign menu (anchored, like planning tags) -->
-      <div
-        x-show="studentMenuOpen"
-        x-transition
-        x-cloak
-        class="fixed inset-0 z-50"
-        @click="closeStudentMenu()"
-      >
-        <div
-          class="student-menu filter-dropdown"
-          @click.stop
-          :style="`left:${studentMenuX}px; top:${studentMenuY}px; position:fixed;`"
-        >
-          <template x-for="s in students" :key="s.id">
-            <button type="button"
-                    class="filter-dropdown-item"
-                    @click="toggleAssignedStudent(studentMenuItem, s.id)">
-              <span class="student-dd-row">
-                <span class="student-dd-swatch"
-                      :style="`background-color:${s.color || '#596e5e'}`"></span>
-                <span x-text="s.name || 'Unnamed'"></span>
               </span>
             </button>
           </template>
