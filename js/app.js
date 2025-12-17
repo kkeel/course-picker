@@ -142,10 +142,11 @@ function coursePlanner() {
         return (course && (course.Sort_ID || course.id || course.courseId)) || null;
       },
 
-      _topicInstanceKey(topic) {
-        // Topic cards may repeat; we use the topic record/id for the instance key.
-        return (topic && (topic.recordID || topic.id || topic.Topic_ID || topic.Sort_ID)) || null;
-      },
+        _topicInstanceKey(topic) {
+          // Topic cards may repeat; we need a per-card instance key.
+          // Prefer Sort_ID (instance-specific) before Topic_ID (global/shared).
+          return (topic && (topic.recordID || topic.id || topic.Sort_ID || topic.Topic_ID)) || null;
+        },
 
       _topicGlobalKey(topic) {
         // Shared topic identity for "ghost" students across repeated topic cards.
