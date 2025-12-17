@@ -447,7 +447,7 @@ body {
 
 .student-rail-toggle-row {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding: 6px 10px 8px;
 }
 
@@ -460,13 +460,13 @@ body {
   background: transparent;
   border: none;
 
-  color: #bdc5bf; /* muted light grey */
+  color: var(--brand-muted);
   cursor: pointer;
   line-height: 1;
 }
 
 .student-rail-toggle:hover {
-  color: #adb58f; /* slightly stronger muted green-grey (optional hover) */
+  color: #9eaa99;
 }
 
 .student-rail-toggle:focus {
@@ -479,6 +479,17 @@ body {
   display: block;
 }
 
+/* ✅ make the person read more clearly without changing size */
+.student-rail-icon circle {
+  fill: currentColor;              /* fills the head */
+  stroke: none;
+  opacity: 0.65;
+}
+
+.student-rail-icon path {
+  stroke-width: 2.2;               /* slightly thicker body outline */
+}
+
 .student-rail-wedge {
   width: 16px;
   height: 16px;
@@ -486,9 +497,9 @@ body {
   transition: transform 120ms ease;
 }
 
-/* When aria-expanded=true, rotate wedge */
+/* ✅ CLOSED = down (default). OPEN = right. */
 .student-rail-toggle[aria-expanded="true"] .student-rail-wedge {
-  transform: rotate(180deg);
+  transform: rotate(-90deg);
 }
 
 .filter-control-chips {
