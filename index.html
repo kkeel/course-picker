@@ -1426,11 +1426,8 @@
               class="planning-tag-option"
               @click="/* assignment coming next */ closeStudentAssignMenu()"
             >
-              <span class="planning-tag-option-main">
-                <span
-                  style="width:12px;height:12px;border-radius:9999px;display:inline-block;"
-                  :style="`background:${st.color || '#999'}`"
-                ></span>
+              <span class="student-dd-row">
+                <span class="student-dd-swatch" :style="{ backgroundColor: (st.color || '#999') }"></span>
                 <span x-text="st.name"></span>
               </span>
             </button>
