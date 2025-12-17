@@ -126,6 +126,8 @@ function coursePlanner() {
       studentColorPalette: [],
       studentColorCursor: 0,
 
+      studentRailCollapsed: {},
+
       get canAddStudent() {
         return (
           (this.newStudentName || "").trim().length > 0 &&
@@ -878,22 +880,27 @@ function coursePlanner() {
         return `t:${topic.recordID}`;
       },
       
-      // Default = collapsed unless explicitly set to false
+      // Default = collapsed unless explicitly stored as false
       isStudentsCollapsed(itemKey) {
-        return this.plan?.[itemKey]?.studentsCollapsed !== false;
+        const map = this.studentRailCollapsed || {};
+        return (map[itemKey] !== false); // default true (collapsed)
       },
-    
-      setStudentsCollapsed(itemKey, val) {
-        if (!this.plan[itemKey]) this.plan[itemKey] = {};
-        this.plan[itemKey].studentsCollapsed = !!val;
-        this.persistPlan?.(); // you already have persistPlan() in your app
+      
+      setStudentsCollapsed(itemKey, collapsed) {
+        if (!itemKey) return;
+        if (!this.studentRailCollapsed) this.studentRailCollapsed = {};
+        this.studentRailCollapsed[itemKey] = !!collapsed;
+      
+        // keep it consistent with how you persist bookmarks/tags/notes
+        this.persistPlannerStateDebounced();
       },
       
       toggleStudentsCollapsed(itemKey) {
-        const next = !this.isStudentsCollapsed(itemKey);
-        this.setStudentsCollapsed(itemKey, next);
-        // also close the assign dropdown when collapsing
-        if (next) this.openStudentAssignFor = null;
+        const nextCollapsed = !this.isStudentsCollapsed(itemKey);
+        this.setStudentsCollapsed(itemKey, nextCollapsed);
+      
+        // also close the assign menu when collapsing
+        if (nextCollapsed) this.closeStudentMenu();
       },
 
       // --- BOOKMARK HELPERS (My courses) ---
@@ -1356,6 +1363,9 @@ function coursePlanner() {
         this.studentColorCursor = (this.students || []).length;
       }
 
+      // Restore student rail collapsed/expanded state
+      this.studentRailCollapsed = state.studentRailCollapsed || {};
+
       const coursesState = state.courses || {};
       const topicsState  = state.topics  || {};
 
@@ -1435,6 +1445,7 @@ function coursePlanner() {
 
         students: (this.students || []).slice(0, 15),
         studentColorCursor: this.studentColorCursor || 0,
+        studentRailCollapsed: this.studentRailCollapsed || {},
 
         courses: {},
         topics: {},
