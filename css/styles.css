@@ -448,14 +448,22 @@ body {
 .student-rail-toggle-row {
   display: flex;
   justify-content: flex-start;
-  padding: 6px 10px 8px;
+
+  /* remove the “extra bar” spacing so it lines up with card text */
+  padding: 0;
+  margin-top: 8px;  /* keep a tiny separation from whatever is above it */
 }
 
 .student-rail-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 6px;
+
+  /* keep a little space between the person + chevron */
+  gap: 8px;
+
+  /* remove extra clickable padding so it doesn’t waste vertical space */
+  padding: 0;
+  margin: 0;
 
   background: transparent;
   border: none;
@@ -477,17 +485,7 @@ body {
   width: 18px;
   height: 18px;
   display: block;
-}
-
-/* ✅ make the person read more clearly without changing size */
-.student-rail-icon circle {
-  fill: currentColor;              /* fills the head */
-  stroke: none;
-  opacity: 0.65;
-}
-
-.student-rail-icon path {
-  stroke-width: 2.2;               /* slightly thicker body outline */
+  opacity: 0.75; /* makes filled icon a touch more visible without getting “heavy” */
 }
 
 .student-rail-wedge {
