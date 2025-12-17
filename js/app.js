@@ -139,7 +139,10 @@ function coursePlanner() {
       },
 
       _courseKey(course) {
-        return (course && (course.Sort_ID || course.id || course.courseId)) || null;
+        // Must match how we identify courses elsewhere (ex: decorateTopicInstances)
+        // Some courses (especially topic-less ones) may only have recordID.
+        const key = course && (course.Sort_ID || course.recordID || course.id || course.courseId);
+        return key ? String(key) : null;
       },
 
         _topicInstanceKey(topic) {
