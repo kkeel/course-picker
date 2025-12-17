@@ -191,38 +191,59 @@ function coursePlanner() {
       },
 
       _getAssignedStudentIds(item) {
+        if (!item) return [];
+      
+        // ✅ Prefer the "real" per-card storage used elsewhere in the app
+        if (Array.isArray(item.studentIds)) {
+          return item.studentIds.map(String).map(s => s.trim()).filter(Boolean);
+        }
+      
+        // Fallback to plannerState storage (internal)
         if (this._isCourseItem(item)) {
           const st = this._ensurePlannerCourseState(item);
-          return st ? st.students : [];
+          return st ? (st.students || []) : [];
         } else {
           const st = this._ensurePlannerTopicState(item);
-          return st ? st.students : [];
+          return st ? (st.students || []) : [];
         }
       },
-
+      
       _setAssignedStudentIds(item, studentIds) {
-        const safe = Array.isArray(studentIds) ? studentIds : [];
-
+        // Normalize once
+        const safe = Array.isArray(studentIds)
+          ? studentIds.map(String).map(s => s.trim()).filter(Boolean)
+          : [];
+      
         if (this._isCourseItem(item)) {
           const st = this._ensurePlannerCourseState(item);
           if (!st) return;
+      
+          // Internal storage
           st.students = safe;
-
-          // Optional: keep a mirrored array on the item for immediate UI use if needed later
+      
+          // ✅ This is what persist/restore + other logic expects for course cards
+          item.studentIds = safe;
+      
+          // Optional mirror (ok to keep)
           item.students = safe;
         } else {
           const st = this._ensurePlannerTopicState(item);
           if (!st) return;
+      
+          // Internal storage
           st.students = safe;
-
+      
+          // ✅ This is what persist/restore + other logic expects for topic cards
+          item.studentIds = safe;
+      
           // Optional mirror
           item.students = safe;
-
+      
           // Update globalTopicStudents for "ghost student" rendering (union across all instances)
           const gk = this._topicGlobalKey(item);
           if (gk) {
             if (!this.plannerState.globalTopicStudents) this.plannerState.globalTopicStudents = {};
-          
+      
             // Recompute union of students across ALL topic instances that share this Topic_ID
             const union = new Set();
             const topicsState = this.plannerState.topics || {};
@@ -233,9 +254,9 @@ function coursePlanner() {
               if (!Array.isArray(t.students)) continue;
               for (const sid of t.students) union.add(String(sid));
             }
-          
+      
             this.plannerState.globalTopicStudents[gk] = Array.from(union);
-          
+      
             // (Optional mirror for older code paths)
             this.globalTopicStudents = this.plannerState.globalTopicStudents;
           }
@@ -1011,7 +1032,9 @@ function coursePlanner() {
       },
 
       studentRailKeyForCourse(course) {
-        const id = course?.recordID || course?.id || "";
+        // IMPORTANT: some courses (especially topic-less ones) are keyed by courseId or Sort_ID
+        const id =
+          (course && (course.courseId || course.recordID || course.id || course.Sort_ID)) || "";
         return `course:${String(id)}`;
       },
 
