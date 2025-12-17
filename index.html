@@ -1424,11 +1424,21 @@
             <button
               type="button"
               class="planning-tag-option"
-              @click="/* assignment coming next */ closeStudentAssignMenu()"
+              @click="
+                toggleStudentAssignment(studentAssignMenuItem, st);
+                closeStudentAssignMenu();
+              "
             >
               <span class="student-dd-row">
                 <span class="student-dd-swatch" :style="{ backgroundColor: (st.color || '#999') }"></span>
                 <span x-text="st.name"></span>
+              </span>
+          
+              <span
+                class="filter-dropdown-check"
+                x-show="isStudentAssigned(studentAssignMenuItem, st.id)"
+              >
+                ✓
               </span>
             </button>
           </template>
