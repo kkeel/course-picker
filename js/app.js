@@ -152,9 +152,9 @@ function coursePlanner() {
       removeStudent(id) {
         if (!id) return;
         this.students = (this.students || []).filter(s => s.id !== id);
-        if (this.selectedStudentFilter === id) {
-          this.selectedStudentFilter = "";
-        }
+        
+        this.selectedStudents = (this.selectedStudents || []).filter(sid => sid !== id);
+        
         if (this.colorPickerFor === id) {
           this.colorPickerFor = null;
         }
