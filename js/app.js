@@ -168,13 +168,18 @@ function coursePlanner() {
       _ensurePlannerTopicState(topic) {
         const key = this._topicInstanceKey(topic);
         if (!key) return null;
-
+      
         if (!this.plannerState) this.plannerState = {};
         if (!this.plannerState.topics) this.plannerState.topics = {};
         if (!this.plannerState.topics[key]) this.plannerState.topics[key] = {};
-
+      
         const st = this.plannerState.topics[key];
         if (!Array.isArray(st.students)) st.students = [];
+      
+        // ✅ Track the shared Topic identity so we can build "ghost" students later
+        const gk = this._topicGlobalKey(topic);
+        if (gk) st.globalKey = gk;
+      
         return st;
       },
 
@@ -206,13 +211,66 @@ function coursePlanner() {
           // Optional mirror
           item.students = safe;
 
-          // Update globalTopicStudents for future "ghost student" rendering
+          // Update globalTopicStudents for "ghost student" rendering (union across all instances)
           const gk = this._topicGlobalKey(item);
           if (gk) {
             if (!this.plannerState.globalTopicStudents) this.plannerState.globalTopicStudents = {};
-            this.plannerState.globalTopicStudents[gk] = safe;
+          
+            // Recompute union of students across ALL topic instances that share this Topic_ID
+            const union = new Set();
+            const topicsState = this.plannerState.topics || {};
+            for (const k of Object.keys(topicsState)) {
+              const t = topicsState[k];
+              if (!t) continue;
+              if (t.globalKey !== gk) continue;
+              if (!Array.isArray(t.students)) continue;
+              for (const sid of t.students) union.add(String(sid));
+            }
+          
+            this.plannerState.globalTopicStudents[gk] = Array.from(union);
+          
+            // (Optional mirror for older code paths)
+            this.globalTopicStudents = this.plannerState.globalTopicStudents;
           }
         }
+      },
+
+      studentChipsForItem(item) {
+        if (!item) return [];
+      
+        const all = Array.isArray(this.students) ? this.students : [];
+        const byId = new Map(all.map(s => [s.id, s]));
+      
+        const fullIds = (this._getAssignedStudentIds(item) || []).map(String);
+        const fullSet = new Set(fullIds);
+      
+        // Courses: only show fully assigned
+        if (this._isCourseItem(item)) {
+          return fullIds
+            .map(id => byId.get(id))
+            .filter(Boolean)
+            .map(s => ({ ...s, ghost: false }));
+        }
+      
+        // Topics: show fully assigned + ghosts from other instances of same Topic_ID
+        const gk = this._topicGlobalKey(item);
+        const globalIds = gk && this.plannerState && this.plannerState.globalTopicStudents
+          ? (this.plannerState.globalTopicStudents[gk] || []).map(String)
+          : [];
+      
+        const ghosts = globalIds.filter(id => !fullSet.has(id));
+      
+        const full = fullIds
+          .map(id => byId.get(id))
+          .filter(Boolean)
+          .map(s => ({ ...s, ghost: false }));
+      
+        const ghostObjs = ghosts
+          .map(id => byId.get(id))
+          .filter(Boolean)
+          .map(s => ({ ...s, ghost: true }));
+      
+        return [...full, ...ghostObjs];
       },
 
       // new global detail toggle
