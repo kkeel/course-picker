@@ -1270,6 +1270,16 @@
                                   </path>
                                 </svg>
                               </button>
+                            
+                              <!-- Add-students "+" (shows only when rail is OPEN) -->
+                              <template x-if="!isStudentRailCollapsed(studentRailKeyForTopic(topic))">
+                                <button
+                                  type="button"
+                                  class="planning-tag-add"
+                                  aria-label="Assign students"
+                                  @click.stop="void 0"
+                                >+</button>
+                              </template>
                             </div>
                           </article>
 
@@ -1326,6 +1336,16 @@
                             </path>
                           </svg>
                         </button>
+                    
+                        <!-- Add-students "+" (shows only when rail is OPEN) -->
+                        <template x-if="!isStudentRailCollapsed(studentRailKeyForCourse(course))">
+                          <button
+                            type="button"
+                            class="planning-tag-add"
+                            aria-label="Assign students"
+                            @click.stop="void 0"
+                          >+</button>
+                        </template>
                       </div>
                     </template>
                       
