@@ -441,6 +441,56 @@ body {
   }
 }
 
+/* =========================
+   Student rail toggle (bottom of cards)
+   ========================= */
+
+.student-rail-toggle-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 6px 10px 8px;
+}
+
+.student-rail-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+
+  background: transparent;
+  border: none;
+
+  color: #bdc5bf; /* muted light grey */
+  cursor: pointer;
+  line-height: 1;
+}
+
+.student-rail-toggle:hover {
+  color: #adb58f; /* slightly stronger muted green-grey (optional hover) */
+}
+
+.student-rail-toggle:focus {
+  outline: none;
+}
+
+.student-rail-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.student-rail-wedge {
+  width: 16px;
+  height: 16px;
+  display: block;
+  transition: transform 120ms ease;
+}
+
+/* When aria-expanded=true, rotate wedge */
+.student-rail-toggle[aria-expanded="true"] .student-rail-wedge {
+  transform: rotate(180deg);
+}
+
 .filter-control-chips {
   display: flex;
   flex-wrap: wrap;
