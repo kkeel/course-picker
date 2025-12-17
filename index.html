@@ -1277,7 +1277,7 @@
                                   type="button"
                                   class="planning-tag-add"
                                   aria-label="Assign students"
-                                  @click.stop="void 0"
+                                  @click.stop="openStudentAssignMenu($event, topic)"
                                 >+</button>
                               </template>
                             </div>
@@ -1343,7 +1343,7 @@
                             type="button"
                             class="planning-tag-add"
                             aria-label="Assign students"
-                            @click.stop="void 0"
+                            @click.stop="openStudentAssignMenu($event, course)"
                           >+</button>
                         </template>
                       </div>
@@ -1399,7 +1399,45 @@
           </template>
         </div>
       </div>
-      
+
+      <!-- Global student-assign menu (modal-style, for both courses & topics) -->
+      <div
+        x-show="studentAssignMenuOpen"
+        x-transition
+        x-cloak
+        class="fixed inset-0 z-50"
+      >
+        <!-- click-away backdrop -->
+        <div class="absolute inset-0" @click="closeStudentAssignMenu()"></div>
+
+        <!-- floating menu positioned near the clicked "+" -->
+        <div
+          class="planning-tag-menu fixed"
+          :style="`top:${studentAssignMenuY}px; left:${studentAssignMenuX}px;`"
+          @click.stop
+        >
+          <template x-if="!students || students.length === 0">
+            <div class="p-3 text-sm opacity-70">No students yet.</div>
+          </template>
+
+          <template x-for="st in (students || [])" :key="st.id">
+            <button
+              type="button"
+              class="planning-tag-option"
+              @click="/* assignment coming next */ closeStudentAssignMenu()"
+            >
+              <span class="planning-tag-option-main">
+                <span
+                  style="width:12px;height:12px;border-radius:9999px;display:inline-block;"
+                  :style="`background:${st.color || '#999'}`"
+                ></span>
+                <span x-text="st.name"></span>
+              </span>
+            </button>
+          </template>
+        </div>
+      </div>
+
     </section>
 
   </main>
