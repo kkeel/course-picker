@@ -38,13 +38,6 @@ function coursePlanner() {
       planningMenuX: 0,
       planningMenuY: 0,
 
-      // Student assign menu (anchored like planning tags)
-      studentMenuOpen: false,
-      studentMenuItem: null,     // course OR topic being edited
-      studentMenuItemKey: null,  // "c:..." or "t:..."
-      studentMenuX: 0,
-      studentMenuY: 0,
-
       openPlanningMenu(evt, item) {
         const rect = evt.currentTarget.getBoundingClientRect();
         const menuWidth = 260; // keep in sync with CSS / markup
@@ -74,37 +67,12 @@ function coursePlanner() {
         this.planningMenuItem = null;
       },
 
-      openStudentMenu(evt, item, itemKey) {
-        const rect = evt.currentTarget.getBoundingClientRect();
-        const menuWidth = 240; // keep in sync with CSS
-      
-        // right-align to the + button, keep inside viewport
-        const margin = 10;
-        let x = rect.right - menuWidth;
-        x = Math.max(margin, Math.min(x, window.innerWidth - menuWidth - margin));
-      
-        // below the button
-        let y = rect.bottom + 8;
-      
-        this.studentMenuItem = item;
-        this.studentMenuItemKey = itemKey;
-        this.studentMenuX = x;
-        this.studentMenuY = y;
-        this.studentMenuOpen = true;
-      },
-      
-      closeStudentMenu() {
-        this.studentMenuOpen = false;
-        this.studentMenuItem = null;
-        this.studentMenuItemKey = null;
-      },
-
       // new global detail toggle
       showAllDetails: true,
       myCoursesOnly: false,
       myNotesOpen: false,
       editMode: false, // staff-only
-
+      studentDropdownOpen: false,
 
       // debounce handle for saving UI state
       uiPersistDebounce: null,
@@ -125,8 +93,6 @@ function coursePlanner() {
       // color palette follows SUBJECT order (unique colors only)
       studentColorPalette: [],
       studentColorCursor: 0,
-
-      studentRailCollapsed: {},
 
       get canAddStudent() {
         return (
@@ -217,25 +183,6 @@ function coursePlanner() {
         this.colorPickerFor = null;
       
         this.persistPlannerStateDebounced();
-      },
-
-      openStudentAssignFor: null, // holds a unique key for the open dropdown (one at a time)
-
-      studentAssignKeyForCourse(course) {
-        return `c:${course.course_id || course.Course_ID || course.id}`;
-      },
-      
-      studentAssignKeyForTopic(topic) {
-        // topic instance key should match your planning-tags logic (use the same unique instance key you already use)
-        return `t:${topic.instanceKey || topic.topic_instance_key || topic.topic_id || topic.Topic_ID}`;
-      },
-      
-      isStudentAssignOpen(key) {
-        return this.openStudentAssignFor === key;
-      },
-      
-      toggleStudentAssign(key) {
-        this.openStudentAssignFor = (this.openStudentAssignFor === key) ? null : key;
       },
 
       // --- PRINT TIP MODAL ---
@@ -821,86 +768,39 @@ function coursePlanner() {
         return s?.color || "#596e5e";
       },
       
-      // ===== NEW: STUDENT ASSIGNMENTS (course/topic) =====
+      toggleStudentFilter(id) {
+        if (!id) return;
+        if (!Array.isArray(this.selectedStudents)) this.selectedStudents = [];
       
-      // Only allow assigning students to:
-      // - Topics (always)
-      // - Courses ONLY if they have no topics
-      canAssignStudentsToItem(item) {
-        if (!item) return false;
-        const hasTopics = Array.isArray(item.topics) && item.topics.length > 0;
-        const isTopic = !!(item.Topic_ID || item.topic_id); // topic objects have Topic_ID
-        return isTopic || !hasTopics;
+        const idx = this.selectedStudents.indexOf(id);
+        if (idx === -1) this.selectedStudents.push(id);
+        else this.selectedStudents.splice(idx, 1);
+      
+        this.applyFilters();
       },
       
-      assignedStudentIds(item) {
-        if (!item) return [];
-        if (!Array.isArray(item.studentIds)) item.studentIds = [];
-        return item.studentIds;
-      },
-      
-      hasAssignedStudents(item) {
-        return this.assignedStudentIds(item).length > 0;
-      },
-      
-      assignedStudentCount(item) {
-        return this.assignedStudentIds(item).length;
-      },
-      
-      toggleAssignedStudent(item, sid) {
-        if (!item || !sid) return;
-        if (!this.canAssignStudentsToItem(item)) return;
-      
-        const ids = this.assignedStudentIds(item);
-        const idx = ids.indexOf(sid);
-      
-        if (idx === -1) ids.push(sid);
-        else ids.splice(idx, 1);
-      
-        item.studentIds = ids;
-        this.persistPlannerStateDebounced();
-        this.applyFilters(); // so student filter updates immediately
-      },
-      
-      removeAssignedStudent(item, sid) {
-        if (!item || !sid) return;
-        if (!Array.isArray(item.studentIds)) item.studentIds = [];
-        item.studentIds = item.studentIds.filter(x => x !== sid);
-      
-        this.persistPlannerStateDebounced();
+      removeStudentFilter(id) {
+        this.selectedStudents = (this.selectedStudents || []).filter(x => x !== id);
         this.applyFilters();
       },
 
-      // Unique keys for rails/dropdowns
-      studentRailKeyCourse(course) {
-        return `c:${this.courseKey(course)}`;
-      },
-      studentRailKeyTopic(topic) {
-        // topic.recordID exists (your x-for uses it as the key)
-        return `t:${topic.recordID}`;
-      },
+      studentMatchesCourse(course) {
+        if (!this.selectedStudents?.length) return true;
       
-      // Default = collapsed unless explicitly stored as false
-      isStudentsCollapsed(itemKey) {
-        const map = this.studentRailCollapsed || {};
-        return (map[itemKey] !== false); // default true (collapsed)
-      },
+        // Future-proof: if we later store assigned student IDs on courses/topics
+        const ids = new Set();
       
-      setStudentsCollapsed(itemKey, collapsed) {
-        if (!itemKey) return;
-        if (!this.studentRailCollapsed) this.studentRailCollapsed = {};
-        this.studentRailCollapsed[itemKey] = !!collapsed;
+        if (Array.isArray(course.studentIds)) course.studentIds.forEach(x => ids.add(x));
+        if (Array.isArray(course.topics)) {
+          course.topics.forEach(t => {
+            if (Array.isArray(t.studentIds)) t.studentIds.forEach(x => ids.add(x));
+          });
+        }
       
-        // keep it consistent with how you persist bookmarks/tags/notes
-        this.persistPlannerStateDebounced();
-      },
+        // If nothing is tagged yet, don't filter anything out
+        if (ids.size === 0) return true;
       
-      toggleStudentsCollapsed(itemKey) {
-        const nextCollapsed = !this.isStudentsCollapsed(itemKey);
-        this.setStudentsCollapsed(itemKey, nextCollapsed);
-      
-        // also close the assign menu when collapsing
-        if (nextCollapsed) this.closeStudentMenu();
+        return this.selectedStudents.some(id => ids.has(id));
       },
 
       // --- BOOKMARK HELPERS (My courses) ---
@@ -1363,9 +1263,6 @@ function coursePlanner() {
         this.studentColorCursor = (this.students || []).length;
       }
 
-      // Restore student rail collapsed/expanded state
-      this.studentRailCollapsed = state.studentRailCollapsed || {};
-
       const coursesState = state.courses || {};
       const topicsState  = state.topics  || {};
 
@@ -1399,9 +1296,6 @@ function coursePlanner() {
             if (Array.isArray(cState.tags)) {
               course.planningTags = makeTagObjects(cState.tags);
             }
-            if (Array.isArray(cState.studentIds)) {
-              course.studentIds = cState.studentIds.filter(Boolean);
-            }
           }
 
           if (Array.isArray(course.topics)) {
@@ -1424,9 +1318,6 @@ function coursePlanner() {
               if (Array.isArray(tState.tags)) {
                 topic.planningTags = makeTagObjects(tState.tags);
               }
-              if (Array.isArray(tState.studentIds)) {
-                  topic.studentIds = tState.studentIds.filter(Boolean);
-                }
               // Topic notes are global per Topic_ID (this.globalTopicNotes),
               // so we don't restore them here; topicNoteText() reads from that map.
             }
@@ -1445,7 +1336,6 @@ function coursePlanner() {
 
         students: (this.students || []).slice(0, 15),
         studentColorCursor: this.studentColorCursor || 0,
-        studentRailCollapsed: this.studentRailCollapsed || {},
 
         courses: {},
         topics: {},
@@ -1470,21 +1360,17 @@ function coursePlanner() {
             : "";
           const tagIds       = tagIdsFromObjs(course.planningTags);
 
-          const studentIds = Array.isArray(course.studentIds) ? course.studentIds.filter(Boolean) : [];
-
-            if (
-              isBookmarked ||
-              noteText.trim().length > 0 ||
-              tagIds.length > 0 ||
-              studentIds.length > 0
-            ) {
-              state.courses[courseKey] = {
-                isBookmarked,
-                noteText,
-                tags: tagIds,
-                studentIds,
-              };
-            }
+          if (
+            isBookmarked ||
+            noteText.trim().length > 0 ||
+            tagIds.length > 0
+          ) {
+            state.courses[courseKey] = {
+              isBookmarked,
+              noteText,
+              tags: tagIds,
+            };
+          }
 
           if (Array.isArray(course.topics)) {
             for (const topic of course.topics) {
@@ -1499,16 +1385,12 @@ function coursePlanner() {
               const tBookmarked = !!topic.isBookmarked;
               const tTagIds     = tagIdsFromObjs(topic.planningTags);
 
-              const tStudentIds = Array.isArray(topic.studentIds) ? topic.studentIds.filter(Boolean) : [];
-
-                if (tBookmarked || tTagIds.length > 0 || tStudentIds.length > 0) {
-                  state.topics[instanceKey] = {
-                    isBookmarked: tBookmarked,
-                    tags: tTagIds,
-                    studentIds: tStudentIds,
-                  };
-                }
-
+              if (tBookmarked || tTagIds.length > 0) {
+                state.topics[instanceKey] = {
+                  isBookmarked: tBookmarked,
+                  tags: tTagIds,
+                };
+              }
             }
           }
         }
