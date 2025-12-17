@@ -102,6 +102,119 @@ function coursePlanner() {
         this.studentAssignMenuItem = null;
       },
 
+      // ------------------------------------------------------------
+      // Student assignments (courses + topics)
+      // - Courses: stored on plannerState.courses[courseKey].students (array of studentIds)
+      // - Topics:  stored on plannerState.topics[topicKey].students  (array of studentIds)
+      // - Topics also update globalTopicStudents[globalTopicKey] (for "ghost" display later)
+      // ------------------------------------------------------------
+
+      isStudentAssigned(item, studentId) {
+        if (!item || !studentId) return false;
+        const ids = this._getAssignedStudentIds(item);
+        return Array.isArray(ids) && ids.includes(studentId);
+      },
+
+      toggleStudentAssignment(item, student) {
+        if (!item || !student || !student.id) return;
+
+        const studentId = student.id;
+        const ids = this._getAssignedStudentIds(item);
+        const next = Array.isArray(ids) ? [...ids] : [];
+
+        const idx = next.indexOf(studentId);
+        if (idx >= 0) next.splice(idx, 1);
+        else next.push(studentId);
+
+        this._setAssignedStudentIds(item, next);
+
+        // Persist + refresh filtered view if student filters are active
+        this.persistPlannerStateDebounced();
+        this.applyFilters();
+      },
+
+      _isCourseItem(item) {
+        // Courses in this app consistently have a Sort_ID (like "003.002.003") and/or a subject.
+        return !!(item && (item.Sort_ID || item.subject || item.grade));
+      },
+
+      _courseKey(course) {
+        return (course && (course.Sort_ID || course.id || course.courseId)) || null;
+      },
+
+      _topicInstanceKey(topic) {
+        // Topic cards may repeat; we use the topic record/id for the instance key.
+        return (topic && (topic.recordID || topic.id || topic.Topic_ID || topic.Sort_ID)) || null;
+      },
+
+      _topicGlobalKey(topic) {
+        // Shared topic identity for "ghost" students across repeated topic cards.
+        return (topic && (topic.Topic_ID || topic.id || topic.recordID)) || null;
+      },
+
+      _ensurePlannerCourseState(course) {
+        const key = this._courseKey(course);
+        if (!key) return null;
+
+        if (!this.plannerState) this.plannerState = {};
+        if (!this.plannerState.courses) this.plannerState.courses = {};
+        if (!this.plannerState.courses[key]) this.plannerState.courses[key] = {};
+
+        const st = this.plannerState.courses[key];
+        if (!Array.isArray(st.students)) st.students = [];
+        return st;
+      },
+
+      _ensurePlannerTopicState(topic) {
+        const key = this._topicInstanceKey(topic);
+        if (!key) return null;
+
+        if (!this.plannerState) this.plannerState = {};
+        if (!this.plannerState.topics) this.plannerState.topics = {};
+        if (!this.plannerState.topics[key]) this.plannerState.topics[key] = {};
+
+        const st = this.plannerState.topics[key];
+        if (!Array.isArray(st.students)) st.students = [];
+        return st;
+      },
+
+      _getAssignedStudentIds(item) {
+        if (this._isCourseItem(item)) {
+          const st = this._ensurePlannerCourseState(item);
+          return st ? st.students : [];
+        } else {
+          const st = this._ensurePlannerTopicState(item);
+          return st ? st.students : [];
+        }
+      },
+
+      _setAssignedStudentIds(item, studentIds) {
+        const safe = Array.isArray(studentIds) ? studentIds : [];
+
+        if (this._isCourseItem(item)) {
+          const st = this._ensurePlannerCourseState(item);
+          if (!st) return;
+          st.students = safe;
+
+          // Optional: keep a mirrored array on the item for immediate UI use if needed later
+          item.students = safe;
+        } else {
+          const st = this._ensurePlannerTopicState(item);
+          if (!st) return;
+          st.students = safe;
+
+          // Optional mirror
+          item.students = safe;
+
+          // Update globalTopicStudents for future "ghost student" rendering
+          const gk = this._topicGlobalKey(item);
+          if (gk) {
+            if (!this.plannerState.globalTopicStudents) this.plannerState.globalTopicStudents = {};
+            this.plannerState.globalTopicStudents[gk] = safe;
+          }
+        }
+      },
+
       // new global detail toggle
       showAllDetails: true,
       myCoursesOnly: false,
