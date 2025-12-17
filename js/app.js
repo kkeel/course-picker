@@ -1581,7 +1581,9 @@ function coursePlanner() {
         for (const course of courses) {
           if (!course) continue;
 
-          const courseKey = course.courseId || course.id;
+          const courseKey = String(
+            course.courseId || course.id || course.Sort_ID || course.recordID || ""
+          ).trim();
           const cState = courseKey && coursesState[courseKey];
           if (cState) {
             if (typeof cState.isBookmarked === "boolean") {
@@ -1664,7 +1666,9 @@ function coursePlanner() {
         for (const course of courses) {
           if (!course) continue;
 
-          const courseKey = course.courseId || course.id;
+          const courseKey = String(
+            course.courseId || course.id || course.Sort_ID || course.recordID || ""
+          ).trim();
           if (!courseKey) continue;
 
           const isBookmarked = !!course.isBookmarked;
