@@ -143,8 +143,11 @@ function coursePlanner() {
       },
 
         _topicInstanceKey(topic) {
-          // Topic cards may repeat; we need a per-card instance key.
-          // Prefer Sort_ID (instance-specific) before Topic_ID (global/shared).
+          // Topic cards may repeat under multiple courses.
+          // If we stamped a composite key during load (course + topic), use it.
+          if (topic && topic.__instanceKey) return topic.__instanceKey;
+
+          // Fallback (older behavior)
           return (topic && (topic.recordID || topic.id || topic.Sort_ID || topic.Topic_ID)) || null;
         },
 
@@ -591,6 +594,36 @@ function coursePlanner() {
         const topics = Array.isArray(course.topics) ? course.topics : [];
         if (!this.myCoursesOnly) return topics;
         return topics.filter(t => this.isTopicBookmarked(t));
+      },
+
+      decorateTopicInstances() {
+        const groups = this.allCoursesBySubject || {};
+
+        for (const subject of Object.keys(groups)) {
+          const bucket = groups?.[subject];
+          const courses =
+            Array.isArray(bucket) ? bucket :
+            Array.isArray(bucket?.courses) ? bucket.courses :
+            [];
+
+          for (const course of courses) {
+            if (!course || typeof course !== "object") continue;
+
+            const courseKey = String(course.Sort_ID || course.recordID || course.id || "");
+
+            if (Array.isArray(course.topics)) {
+              for (const topic of course.topics) {
+                if (!topic || typeof topic !== "object") continue;
+
+                const topicKey = String(topic.Sort_ID || topic.recordID || topic.id || topic.Topic_ID || "");
+
+                // Stamp a per-card identity so assignments are per *instance* (course+topic)
+                topic.__courseKey = courseKey;
+                topic.__instanceKey = `topic:${courseKey}::${topicKey}`;
+              }
+            }
+          }
+        }
       },
 
       // label helper for chips
@@ -1706,6 +1739,7 @@ function coursePlanner() {
             const cachedData = JSON.parse(cachedRaw);
             if (cachedData && typeof cachedData === "object") {
               this.allCoursesBySubject = cachedData;
+              this.decorateTopicInstances();
               this.loadPlannerStateFromStorage();
               this.applyFilters();      // respects restored filters
               hadCached = true;
@@ -1737,6 +1771,7 @@ function coursePlanner() {
           {};
         
         this.allCoursesBySubject = bySubject;
+        this.decorateTopicInstances();
 
         // Helper: does this course/topic actually have any details text?
         const hasCourseDetails = (course) => {
