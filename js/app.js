@@ -90,6 +90,10 @@ function coursePlanner() {
       students: [],             
       selectedStudents: [],
 
+      // Student rail open/close per item (default collapsed)
+      // Keys like "course:<id>" and "topic:<id>"
+      studentRailCollapsed: {},
+
       // color palette follows SUBJECT order (unique colors only)
       studentColorPalette: [],
       studentColorCursor: 0,
@@ -762,6 +766,31 @@ function coursePlanner() {
         const s = this.studentById(id);
         return s?.color || "#596e5e";
       },
+
+      studentRailKeyForCourse(course) {
+        const id = course?.recordID || course?.id || "";
+        return `course:${String(id)}`;
+      },
+
+      studentRailKeyForTopic(topic) {
+        const id = topic?.recordID || topic?.id || "";
+        return `topic:${String(id)}`;
+      },
+
+      isStudentRailCollapsed(itemKey) {
+        const map = this.studentRailCollapsed || {};
+        return (map[itemKey] !== false); // default true (collapsed)
+      },
+
+      toggleStudentRailCollapsed(itemKey) {
+        if (!itemKey) return;
+        if (!this.studentRailCollapsed) this.studentRailCollapsed = {};
+        const nextCollapsed = !this.isStudentRailCollapsed(itemKey);
+        this.studentRailCollapsed[itemKey] = nextCollapsed;
+
+        // persist with planner state (same pattern as bookmarks/tags/notes)
+        this.persistPlannerStateDebounced();
+      },
       
       toggleStudentFilter(id) {
         if (!id) return;
@@ -1258,6 +1287,10 @@ function coursePlanner() {
         this.studentColorCursor = (this.students || []).length;
       }
 
+      if (state && typeof state.studentRailCollapsed === "object" && state.studentRailCollapsed) {
+        this.studentRailCollapsed = state.studentRailCollapsed;
+      }
+
       const coursesState = state.courses || {};
       const topicsState  = state.topics  || {};
 
@@ -1331,6 +1364,7 @@ function coursePlanner() {
 
         students: (this.students || []).slice(0, 15),
         studentColorCursor: this.studentColorCursor || 0,
+        studentRailCollapsed: this.studentRailCollapsed || {},
 
         courses: {},
         topics: {},
