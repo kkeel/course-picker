@@ -338,11 +338,6 @@ function coursePlanner() {
         this.editMode = !this.editMode;
         this.persistUiStateDebounced?.();
       },
-
-      toggleFiltersOpen() {
-        this.filtersOpen = !this.filtersOpen;
-        this.persistUiStateDebounced();
-      },
       
       // Subject → courses map used by the template.
       // When myCoursesOnly is off, just return the normal filtered view.
