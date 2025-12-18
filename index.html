@@ -1311,6 +1311,32 @@
                                     </template>
                                   </template>
                                 </div>
+
+                                <!-- Ghost-students chips (topic suggestions based on Topic_ID) -->
+                                <template x-if="missingGlobalStudentsForTopic(topic).length">
+                                  <div class="student-chip-row" aria-label="Suggested students">
+                                    <template x-for="sid in missingGlobalStudentsForTopic(topic)" :key="'ghost-stu-' + sid">
+                                      <template x-if="getStudentById(sid)">
+                                        <span
+                                          class="student-chip student-chip--ghost"
+                                          :title="'Used on another instance of this topic'"
+                                          :aria-label="'Suggested: ' + getStudentById(sid).name"
+                                          :style="{ '--stu': (getStudentById(sid).color || '#9eaa99') }"
+                                        >
+                                          <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
+                                
+                                          <button
+                                            type="button"
+                                            class="student-chip-apply"
+                                            title="Add student to this topic"
+                                            aria-label="Add student"
+                                            @click.stop="applyGlobalStudentToTopic(topic, sid)"
+                                          >+</button>
+                                        </span>
+                                      </template>
+                                    </template>
+                                  </div>
+                                </template>
                                 
                                 <!-- TODO(cleanup): If we remove “ghost students”, delete student-chip--ghost and ghost logic in studentChipsForItem -->
 
