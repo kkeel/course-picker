@@ -134,92 +134,35 @@ function coursePlanner() {
       },
 
       _isCourseItem(item) {
-        if (!item) return false;
-
-        // If it looks like a topic card, treat it as a topic.
-        // (Topics repeat; courses are unique.)
-        if (item.Topic_ID || item.Topic_Instance_Key) return false;
-
-        // Otherwise treat it as a course if it has *any* course-ish identifier.
-        // This makes course student-chips behave like bookmarks: stable + forgiving.
-        return !!(
-          item.Sort_ID ||
-          item.subject ||
-          item.grade ||
-          item.courseId ||
-          item.recordID
-        );
-      },
-
-      _courseKeyCandidates(course) {
-        // Stable keys first (matches bookmark-style behavior):
-        // Prefer Sort_ID or recordID. Avoid relying on `id` as primary.
-        const raw = [
-          course?.Sort_ID,
-          course?.recordID,
-          course?.courseId,
-          course?.id,
-
-          // Legacy order (older saves may have used these first)
-          course?.courseId,
-          course?.id,
-          course?.Sort_ID,
-          course?.recordID,
-        ];
-
-        const out = [];
-        for (const v of raw) {
-          const s = String(v || "").trim();
-          if (!s) continue;
-          if (!out.includes(s)) out.push(s);
-        }
-        return out;
+        // Courses in this app consistently have a Sort_ID (like "003.002.003") and/or a subject.
+        return !!(item && (item.Sort_ID || item.subject || item.grade));
       },
 
       _courseKey(course) {
-        const keys = this._courseKeyCandidates(course);
-        return keys.length ? keys[0] : null;
+        return (course && (course.Sort_ID || course.id || course.courseId)) || null;
       },
 
-      _ensurePlannerCourseState(course) {
-        const keys = this._courseKeyCandidates(course);
-        if (!keys.length) return null;
-
-        const primary = keys[0];
-
-        if (!this.plannerState) this.plannerState = {};
-        if (!this.plannerState.courses) this.plannerState.courses = {};
-
-        // If we don't already have primary, try to migrate from any legacy key.
-        if (!this.plannerState.courses[primary]) {
-          for (const k of keys.slice(1)) {
-            if (this.plannerState.courses[k]) {
-              this.plannerState.courses[primary] = this.plannerState.courses[k];
-              delete this.plannerState.courses[k];
-              break;
-            }
-          }
-        }
-
-        if (!this.plannerState.courses[primary]) this.plannerState.courses[primary] = {};
-
-        const st = this.plannerState.courses[primary];
-        if (!Array.isArray(st.students)) st.students = [];
-        return st;
+      _topicInstanceKey(topic) {
+        // Topic cards may repeat; we use the topic record/id for the instance key.
+        return (topic && (topic.recordID || topic.id || topic.Topic_ID || topic.Sort_ID)) || null;
       },
-
-        _topicInstanceKey(topic) {
-          // Topic cards may repeat under multiple courses.
-          // If we stamped a composite key during load (course + topic), use it.
-          if (topic && topic.__instanceKey) return topic.__instanceKey;
-
-          // Fallback (older behavior)
-          return (topic && (topic.recordID || topic.id || topic.Sort_ID || topic.Topic_ID)) || null;
-        },
 
       _topicGlobalKey(topic) {
         // Shared topic identity for "ghost" students across repeated topic cards.
         return (topic && (topic.Topic_ID || topic.id || topic.recordID)) || null;
+      },
+
+      _ensurePlannerCourseState(course) {
+        const key = this._courseKey(course);
+        if (!key) return null;
+
+        if (!this.plannerState) this.plannerState = {};
+        if (!this.plannerState.courses) this.plannerState.courses = {};
+        if (!this.plannerState.courses[key]) this.plannerState.courses[key] = {};
+
+        const st = this.plannerState.courses[key];
+        if (!Array.isArray(st.students)) st.students = [];
+        return st;
       },
 
       _ensurePlannerTopicState(topic) {
@@ -241,59 +184,38 @@ function coursePlanner() {
       },
 
       _getAssignedStudentIds(item) {
-        if (!item) return [];
-      
-        // ✅ Prefer the "real" per-card storage used elsewhere in the app
-        if (Array.isArray(item.studentIds)) {
-          return item.studentIds.map(String).map(s => s.trim()).filter(Boolean);
-        }
-      
-        // Fallback to plannerState storage (internal)
         if (this._isCourseItem(item)) {
           const st = this._ensurePlannerCourseState(item);
-          return st ? (st.students || []) : [];
+          return st ? st.students : [];
         } else {
           const st = this._ensurePlannerTopicState(item);
-          return st ? (st.students || []) : [];
+          return st ? st.students : [];
         }
       },
-      
+
       _setAssignedStudentIds(item, studentIds) {
-        // Normalize once
-        const safe = Array.isArray(studentIds)
-          ? studentIds.map(String).map(s => s.trim()).filter(Boolean)
-          : [];
-      
+        const safe = Array.isArray(studentIds) ? studentIds : [];
+
         if (this._isCourseItem(item)) {
           const st = this._ensurePlannerCourseState(item);
           if (!st) return;
-      
-          // Internal storage
           st.students = safe;
-      
-          // ✅ This is what persist/restore + other logic expects for course cards
-          item.studentIds = safe;
-      
-          // Optional mirror (ok to keep)
+
+          // Optional: keep a mirrored array on the item for immediate UI use if needed later
           item.students = safe;
         } else {
           const st = this._ensurePlannerTopicState(item);
           if (!st) return;
-      
-          // Internal storage
           st.students = safe;
-      
-          // ✅ This is what persist/restore + other logic expects for topic cards
-          item.studentIds = safe;
-      
+
           // Optional mirror
           item.students = safe;
-      
+
           // Update globalTopicStudents for "ghost student" rendering (union across all instances)
           const gk = this._topicGlobalKey(item);
           if (gk) {
             if (!this.plannerState.globalTopicStudents) this.plannerState.globalTopicStudents = {};
-      
+          
             // Recompute union of students across ALL topic instances that share this Topic_ID
             const union = new Set();
             const topicsState = this.plannerState.topics || {};
@@ -304,9 +226,9 @@ function coursePlanner() {
               if (!Array.isArray(t.students)) continue;
               for (const sid of t.students) union.add(String(sid));
             }
-      
+          
             this.plannerState.globalTopicStudents[gk] = Array.from(union);
-      
+          
             // (Optional mirror for older code paths)
             this.globalTopicStudents = this.plannerState.globalTopicStudents;
           }
@@ -317,56 +239,38 @@ function coursePlanner() {
         if (!item) return [];
       
         const all = Array.isArray(this.students) ? this.students : [];
-        const byId = new Map(all.map(s => [String(s.id), s]));
+        const byId = new Map(all.map(s => [s.id, s]));
       
-        // ✅ Helper: always return something renderable (bookmark-style reliability)
-        const toChip = (id, ghost) => {
-          const key = String(id || "").trim();
-          if (!key) return null;
-      
-          const s = byId.get(key);
-      
-          // If lookup fails, still render the chip using the id as the label
-          // (so courses will show *something* instead of nothing).
-          if (!s) {
-            return {
-              id: key,
-              name: key,
-              color: "#999",
-              ghost: !!ghost
-            };
-          }
-      
-          return { ...s, ghost: !!ghost };
-        };
-      
-        const fullIds = (this._getAssignedStudentIds(item) || []).map(x => String(x).trim()).filter(Boolean);
+        const fullIds = (this._getAssignedStudentIds(item) || []).map(String);
         const fullSet = new Set(fullIds);
       
-        // Courses: only show fully assigned (no ghosts)
+        // Courses: only show fully assigned
         if (this._isCourseItem(item)) {
           return fullIds
-            .map(id => toChip(id, false))
-            .filter(Boolean);
+            .map(id => byId.get(id))
+            .filter(Boolean)
+            .map(s => ({ ...s, ghost: false }));
         }
       
-        // Topics: fully assigned + ghosts from other instances of same Topic_ID
+        // Topics: show fully assigned + ghosts from other instances of same Topic_ID
         const gk = this._topicGlobalKey(item);
         const globalIds = gk && this.plannerState && this.plannerState.globalTopicStudents
-          ? (this.plannerState.globalTopicStudents[gk] || []).map(x => String(x).trim()).filter(Boolean)
+          ? (this.plannerState.globalTopicStudents[gk] || []).map(String)
           : [];
       
-        const ghostIds = globalIds.filter(id => !fullSet.has(id));
+        const ghosts = globalIds.filter(id => !fullSet.has(id));
       
         const full = fullIds
-          .map(id => toChip(id, false))
-          .filter(Boolean);
+          .map(id => byId.get(id))
+          .filter(Boolean)
+          .map(s => ({ ...s, ghost: false }));
       
-        const ghosts = ghostIds
-          .map(id => toChip(id, true))
-          .filter(Boolean);
+        const ghostObjs = ghosts
+          .map(id => byId.get(id))
+          .filter(Boolean)
+          .map(s => ({ ...s, ghost: true }));
       
-        return [...full, ...ghosts];
+        return [...full, ...ghostObjs];
       },
 
       // new global detail toggle
@@ -686,36 +590,6 @@ function coursePlanner() {
         const topics = Array.isArray(course.topics) ? course.topics : [];
         if (!this.myCoursesOnly) return topics;
         return topics.filter(t => this.isTopicBookmarked(t));
-      },
-
-      decorateTopicInstances() {
-        const groups = this.allCoursesBySubject || {};
-
-        for (const subject of Object.keys(groups)) {
-          const bucket = groups?.[subject];
-          const courses =
-            Array.isArray(bucket) ? bucket :
-            Array.isArray(bucket?.courses) ? bucket.courses :
-            [];
-
-          for (const course of courses) {
-            if (!course || typeof course !== "object") continue;
-
-            const courseKey = String(course.Sort_ID || course.recordID || course.id || "");
-
-            if (Array.isArray(course.topics)) {
-              for (const topic of course.topics) {
-                if (!topic || typeof topic !== "object") continue;
-
-                const topicKey = String(topic.Sort_ID || topic.recordID || topic.id || topic.Topic_ID || "");
-
-                // Stamp a per-card identity so assignments are per *instance* (course+topic)
-                topic.__courseKey = courseKey;
-                topic.__instanceKey = `topic:${courseKey}::${topicKey}`;
-              }
-            }
-          }
-        }
       },
 
       // label helper for chips
@@ -1100,10 +974,8 @@ function coursePlanner() {
       },
 
       studentRailKeyForCourse(course) {
-        // Use the SAME course identity helper used by plannerState + other course logic,
-        // so topic-less courses don’t “save” under one key but “render” under another.
-        const key = this._courseKey(course) || "";
-        return `course:${String(key)}`;
+        const id = course?.recordID || course?.id || "";
+        return `course:${String(id)}`;
       },
 
       studentRailKeyForTopic(topic) {
@@ -1649,23 +1521,8 @@ function coursePlanner() {
         for (const course of courses) {
           if (!course) continue;
 
-          const courseKey = this._courseKey(course);
-
-          // Back-compat: if saved under an older/alternate key, find + migrate it.
-          let cState = (courseKey && coursesState[courseKey]) ? coursesState[courseKey] : null;
-          if (!cState) {
-            const candidates = this._courseKeyCandidates(course);
-            for (const k of candidates) {
-              if (coursesState[k]) {
-                cState = coursesState[k];
-                if (courseKey && k !== courseKey) {
-                  coursesState[courseKey] = cState;
-                  delete coursesState[k];
-                }
-                break;
-              }
-            }
-          }
+          const courseKey = course.courseId || course.id;
+          const cState = courseKey && coursesState[courseKey];
           if (cState) {
             if (typeof cState.isBookmarked === "boolean") {
               course.isBookmarked = cState.isBookmarked;
@@ -1747,7 +1604,7 @@ function coursePlanner() {
         for (const course of courses) {
           if (!course) continue;
 
-          const courseKey = this._courseKey(course);
+          const courseKey = course.courseId || course.id;
           if (!courseKey) continue;
 
           const isBookmarked = !!course.isBookmarked;
@@ -1848,7 +1705,6 @@ function coursePlanner() {
             const cachedData = JSON.parse(cachedRaw);
             if (cachedData && typeof cachedData === "object") {
               this.allCoursesBySubject = cachedData;
-              this.decorateTopicInstances();
               this.loadPlannerStateFromStorage();
               this.applyFilters();      // respects restored filters
               hadCached = true;
@@ -1880,7 +1736,6 @@ function coursePlanner() {
           {};
         
         this.allCoursesBySubject = bySubject;
-        this.decorateTopicInstances();
 
         // Helper: does this course/topic actually have any details text?
         const hasCourseDetails = (course) => {
