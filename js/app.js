@@ -122,7 +122,6 @@ function coursePlanner() {
       if (!Array.isArray(item.studentIds)) item.studentIds = [];
     
       const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
-    
       const has = item.studentIds.includes(sid);
     
       if (!has) {
@@ -138,6 +137,9 @@ function coursePlanner() {
           if (!this.globalTopicStudents[topicId].includes(sid)) {
             this.globalTopicStudents[topicId].push(sid);
           }
+    
+          // ✅ Nudge reactivity for nested object updates
+          this.globalTopicStudents = { ...this.globalTopicStudents };
         }
       } else {
         // REMOVE
@@ -146,11 +148,18 @@ function coursePlanner() {
         // ✅ If it's a topic, clean up global memory if this student is no longer used anywhere for that Topic_ID
         if (topicId) {
           this.cleanupGlobalTopicStudent(topicId, sid);
+    
+          // ✅ Nudge reactivity after cleanup edits
+          this.globalTopicStudents = { ...(this.globalTopicStudents || {}) };
         }
       }
     
-      this.closeStudentMenu();
+      // ✅ correct function name (fixes your console error)
+      this.closeStudentAssignMenu();
+    
+      // ✅ persist + update UI immediately (matches “planning tags feel”)
       this.persistPlannerStateDebounced();
+      this.applyFilters();
     },
 
     getStudentById(id) {
