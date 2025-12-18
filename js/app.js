@@ -267,7 +267,7 @@ function coursePlanner() {
         if (!item) return [];
       
         const all = Array.isArray(this.students) ? this.students : [];
-        const byId = new Map(all.map(s => [s.id, s]));
+        const byId = new Map(all.map(s => [String(s.id), s]));
       
         const fullIds = (this._getAssignedStudentIds(item) || []).map(String);
         const fullSet = new Set(fullIds);
