@@ -102,36 +102,39 @@ function coursePlanner() {
         this.studentAssignMenuItem = null;
       },
 
-      // ------------------------------------------------------------
-      // Student assignments (courses + topics)
-      // - Courses: stored on plannerState.courses[courseKey].students (array of studentIds)
-      // - Topics:  stored on plannerState.topics[topicKey].students  (array of studentIds)
-      // - Topics also update globalTopicStudents[globalTopicKey] (for "ghost" display later)
-      // ------------------------------------------------------------
+    // ✅ NEW SOURCE OF TRUTH (to match Planning Tags):
+    // Store assigned students directly on the clicked item object as `item.studentIds`.
+    // TODO(cleanup): Once verified, remove legacy plannerState-based student helpers
+    // (_getAssignedStudentIds / _setAssignedStudentIds) and globalTopicStudents union logic.
+    
+    isStudentAssigned(item, studentId) {
+      if (!item || !studentId) return false;
+      const ids = Array.isArray(item.studentIds) ? item.studentIds : [];
+      return ids.map(String).includes(String(studentId));
+    },
+    
+    toggleStudentAssignment(item, student) {
+      if (!item || !student || !student.id) return;
+    
+      // Ensure array exists on the clicked object (course OR topic instance)
+      if (!Array.isArray(item.studentIds)) item.studentIds = [];
+    
+      const sid = String(student.id);
+      const next = item.studentIds.map(String);
+    
+      const idx = next.indexOf(sid);
+      if (idx >= 0) next.splice(idx, 1);
+      else next.push(sid);
+    
+      // Write back to the clicked object (this matches planning tags flow)
+      item.studentIds = next;
+    
+      // Persist + refresh filtered view if student filters are active
+      this.persistPlannerStateDebounced();
+      this.applyFilters();
+    },
 
-      isStudentAssigned(item, studentId) {
-        if (!item || !studentId) return false;
-        const ids = this._getAssignedStudentIds(item);
-        return Array.isArray(ids) && ids.includes(studentId);
-      },
-
-      toggleStudentAssignment(item, student) {
-        if (!item || !student || !student.id) return;
-
-        const studentId = student.id;
-        const ids = this._getAssignedStudentIds(item);
-        const next = Array.isArray(ids) ? [...ids] : [];
-
-        const idx = next.indexOf(studentId);
-        if (idx >= 0) next.splice(idx, 1);
-        else next.push(studentId);
-
-        this._setAssignedStudentIds(item, next);
-
-        // Persist + refresh filtered view if student filters are active
-        this.persistPlannerStateDebounced();
-        this.applyFilters();
-      },
+      //OLD CODE BELOW
 
       _isCourseItem(item) {
         // Courses in this app consistently have a Sort_ID (like "003.002.003") and/or a subject.
@@ -183,6 +186,14 @@ function coursePlanner() {
         return st;
       },
 
+      // TODO(cleanup): LEGACY student assignment storage (plannerState-based).
+      // We are transitioning to `item.studentIds` as the single source of truth,
+      // matching how Planning Tags store on `item.planningTags`.
+      // Once student chips + persistence are verified, delete:
+      // - _getAssignedStudentIds
+      // - _setAssignedStudentIds
+      // - _ensurePlannerCourseState / _ensurePlannerTopicState (if only used for students)
+      // - plannerState.globalTopicStudents union logic (unless we re-add as "ghost suggestions")
       _getAssignedStudentIds(item) {
         if (this._isCourseItem(item)) {
           const st = this._ensurePlannerCourseState(item);
@@ -241,7 +252,8 @@ function coursePlanner() {
         const all = Array.isArray(this.students) ? this.students : [];
         const byId = new Map(all.map(s => [s.id, s]));
       
-        const fullIds = (this._getAssignedStudentIds(item) || []).map(String);
+        // ✅ Use new source of truth (matches Planning Tags approach)
+        const fullIds = (Array.isArray(item.studentIds) ? item.studentIds : []).map(String);
         const fullSet = new Set(fullIds);
       
         // Courses: only show fully assigned
