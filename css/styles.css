@@ -495,7 +495,36 @@ body {
   transition: transform 120ms ease;
 }
 
-/* âœ… CLOSED = down (default). OPEN = right. */
+/* =========================
+   Student chips (on cards)
+   ========================= */
+
+/* sits in the same row as the toggle button and + button */
+.student-chip-row{
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-left: 10px;
+  flex: 1;
+}
+
+.student-chip{
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  display: inline-block;
+  border: 1px solid rgba(0,0,0,0.10);
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.80);
+}
+
+.student-chip--ghost{
+  opacity: 0.35;
+}
+
+/* TODO(cleanup): If ghost students are removed, delete .student-chip--ghost */
+
+/* CLOSED = down (default). OPEN = right. */
 .student-rail-toggle[aria-expanded="true"] .student-rail-wedge {
   transform: rotate(-90deg);
 }
