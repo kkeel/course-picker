@@ -378,15 +378,40 @@ function coursePlanner() {
 
       removeStudent(id) {
         if (!id) return;
-        this.students = (this.students || []).filter(s => s.id !== id);
-        
-        this.selectedStudents = (this.selectedStudents || []).filter(sid => sid !== id);
-        
+      
+        const sid = String(id);
+      
+        // 1) Remove from roster
+        this.students = (this.students || []).filter(s => String(s.id) !== sid);
+      
+        // 2) Remove from student filter selection
+        this.selectedStudents = (this.selectedStudents || []).filter(x => String(x) !== sid);
+      
+        // 3) Remove from ALL assignments (courses + topics)
+        //    This prevents “orphan” studentIds from lingering on cards.
+        (this.courses || []).forEach(c => {
+          if (!Array.isArray(c.studentIds)) return;
+          c.studentIds = c.studentIds.map(String).filter(x => x !== sid);
+        });
+      
+        Object.values(this.topicsByCourse || {}).forEach(list => {
+          (list || []).forEach(t => {
+            if (!Array.isArray(t.studentIds)) return;
+            t.studentIds = t.studentIds.map(String).filter(x => x !== sid);
+          });
+        });
+      
+        // 4) Close color picker if it was open for this student
         if (this.colorPickerFor === id) {
           this.colorPickerFor = null;
         }
+      
+        // 5) Persist + refresh UI
         this.persistPlannerStateDebounced();
         this.applyFilters();
+      
+        // TODO(cleanup): once legacy student assignment code is fully removed,
+        // confirm there are no other places that store student ids.
       },
 
       updateStudentName(id, name) {
