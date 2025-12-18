@@ -449,7 +449,7 @@ body {
   display: flex;
   justify-content: flex-start;
 
-  /* remove the “extra bar” spacing so it lines up with card text */
+  /* remove the â€œextra barâ€ spacing so it lines up with card text */
   padding: 0;
   margin-top: 8px;  /* keep a tiny separation from whatever is above it */
 }
@@ -461,7 +461,7 @@ body {
   /* keep a little space between the person + chevron */
   gap: 8px;
 
-  /* remove extra clickable padding so it doesn’t waste vertical space */
+  /* remove extra clickable padding so it doesnâ€™t waste vertical space */
   padding: 0;
   margin: 0;
 
@@ -485,7 +485,7 @@ body {
   width: 18px;
   height: 18px;
   display: block;
-  opacity: 0.75; /* makes filled icon a touch more visible without getting “heavy” */
+  opacity: 0.75; /* makes filled icon a touch more visible without getting â€œheavyâ€ */
 }
 
 .student-rail-wedge {
@@ -495,7 +495,7 @@ body {
   transition: transform 120ms ease;
 }
 
-/* ✅ CLOSED = down (default). OPEN = right. */
+/* âœ… CLOSED = down (default). OPEN = right. */
 .student-rail-toggle[aria-expanded="true"] .student-rail-wedge {
   transform: rotate(-90deg);
 }
@@ -1493,7 +1493,7 @@ body {
   display: none;
 }
 
-/* --- Media Print ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â-- */
+/* --- Media Print ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â-- */
 @media print {
 
   html, body {
@@ -1545,7 +1545,7 @@ body {
 
     /* Center footer */
     @bottom-center {
-      content: "Ã‚Â©2026 Charlotte Mason InstituteÃ‚Â® All rights reserved.";
+      content: "Ãƒâ€šÃ‚Â©2026 Charlotte Mason InstituteÃƒâ€šÃ‚Â® All rights reserved.";
       font-size: 8pt;
       color: #4b544b;
       white-space: nowrap;
@@ -1681,7 +1681,7 @@ body {
     font-size: 9pt !important;
   }
 
-  /* PRINT: Course cards Ã¢â‚¬â€ top border only */
+  /* PRINT: Course cards ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â top border only */
   .course-card {
     box-shadow: none !important;
     background-color: #ffffff !important;
@@ -1694,7 +1694,7 @@ body {
     page-break-inside: auto;
   }
   
-  /* PRINT: Topic cards Ã¢â‚¬â€ top border only */
+  /* PRINT: Topic cards ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â top border only */
   .topic-card {
     box-shadow: none !important;
     background-color: #ffffff !important;
@@ -1750,11 +1750,11 @@ body {
 
   /* PRINT: hide planning/action controls, keep selected tags visible */
 .card-header-actions,
-.planning-tag-button,     /* Ã¢â‚¬Å“+ Planning tagÃ¢â‚¬Â button */
+.planning-tag-button,     /* ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ+ Planning tagÃƒÂ¢Ã¢â€šÂ¬Ã‚Â button */
 .planning-tag-add,        /* small + square */
-.planning-tag-remove,     /* Ãƒâ€” on selected tags */
+.planning-tag-remove,     /* ÃƒÆ’Ã¢â‚¬â€ on selected tags */
 .planning-tag-apply,      /* + on ghost tags */
-.edit-pill {              /* Edit Ã¢â€ â€” */
+.edit-pill {              /* Edit ÃƒÂ¢Ã¢â‚¬ Ã¢â‚¬â€ */
   display: none !important;
 }
 
