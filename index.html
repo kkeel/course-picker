@@ -1280,6 +1280,21 @@
                                   @click.stop="openStudentAssignMenu($event, topic)"
                                 >+</button>
                               </template>
+
+                                <!-- Assigned-students chips (topic instance) -->
+                                <div class="student-chip-row" aria-label="Assigned students">
+                                  <template x-for="st in studentChipsForItem(topic)" :key="'topic-stu-' + st.id">
+                                    <span
+                                      :class="st.ghost ? 'student-chip student-chip--ghost' : 'student-chip'"
+                                      :title="st.name"
+                                      :aria-label="st.name"
+                                      :style="{ backgroundColor: st.color || '#9eaa99' }"
+                                    ></span>
+                                  </template>
+                                </div>
+                                
+                                <!-- TODO(cleanup): If we remove “ghost students”, delete student-chip--ghost and ghost logic in studentChipsForItem -->
+
                             </div>
                           </article>
 
@@ -1346,6 +1361,21 @@
                             @click.stop="openStudentAssignMenu($event, course)"
                           >+</button>
                         </template>
+
+                          <!-- Assigned-students chips (course) -->
+                          <div class="student-chip-row" aria-label="Assigned students">
+                            <template x-for="st in studentChipsForItem(course)" :key="'course-stu-' + st.id">
+                              <span
+                                :class="st.ghost ? 'student-chip student-chip--ghost' : 'student-chip'"
+                                :title="st.name"
+                                :aria-label="st.name"
+                                :style="{ backgroundColor: st.color || '#9eaa99' }"
+                              ></span>
+                            </template>
+                          </div>
+                          
+                          <!-- TODO(cleanup): If we remove “ghost students”, delete student-chip--ghost and ghost logic in studentChipsForItem -->
+                        
                       </div>
                     </template>
                       
