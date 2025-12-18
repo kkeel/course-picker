@@ -139,10 +139,18 @@ function coursePlanner() {
       },
 
       _courseKey(course) {
-        // Must match how we identify courses elsewhere (ex: decorateTopicInstances)
-        // Some courses (especially topic-less ones) may only have recordID.
-        const key = course && (course.Sort_ID || course.recordID || course.id || course.courseId);
-        return key ? String(key) : null;
+        // IMPORTANT: Must match the same identity order used in persistPlannerState()
+        // so we don’t “save” under one key but “render” under another.
+        const key = course && (
+          course.courseId ||
+          course.id ||
+          course.Sort_ID ||
+          course.recordID ||
+          ""
+        );
+      
+        const out = String(key || "").trim();
+        return out ? out : null;
       },
 
         _topicInstanceKey(topic) {
