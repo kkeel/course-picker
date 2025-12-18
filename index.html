@@ -1281,24 +1281,6 @@
                                 >+</button>
                               </template>
                             </div>
-                            
-                              <!-- Assigned students (topic) -->
-                              <template x-if="!isStudentRailCollapsed(studentRailKeyForTopic(topic))">
-                                <div class="filter-control-chips" style="margin-top:6px;">
-                                  <template x-for="st in studentChipsForItem(topic)" :key="st.id + (st.ghost ? '-g' : '-r')">
-                                    <span
-                                      class="filter-chip"
-                                      :style="{
-                                        backgroundColor: (st.color || '#999'),
-                                        color: '#fbfbf9',
-                                        opacity: st.ghost ? 0.55 : 1
-                                      }"
-                                      x-text="st.name"
-                                    ></span>
-                                  </template>
-                                </div>
-                              </template>
-                            
                           </article>
 
                         </template>
@@ -1365,23 +1347,6 @@
                           >+</button>
                         </template>
                       </div>
-
-                        <!-- Assigned students (course) -->
-                        <template x-if="!isStudentRailCollapsed(studentRailKeyForCourse(course))">
-                          <div class="filter-control-chips" style="margin-top:6px;">
-                            <template x-for="st in studentChipsForItem(course)" :key="st.id">
-                              <span
-                                class="filter-chip"
-                                :style="{
-                                  backgroundColor: (st.color || '#999'),
-                                  color: '#fbfbf9'
-                                }"
-                                x-text="st.name"
-                              ></span>
-                            </template>
-                          </div>
-                        </template>
-                        
                     </template>
                       
                     </article>
