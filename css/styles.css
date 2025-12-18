@@ -550,6 +550,36 @@ body {
   opacity: 0.35;
 }
 
+.student-chip{
+  position: relative;
+}
+
+/* small remove "x" */
+.student-chip-remove{
+  position: absolute;
+  top: -6px;
+  right: -6px;
+
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  border: none;
+
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+
+  cursor: pointer;
+  padding: 0;
+}
+
+.student-chip-remove:hover{
+  background: rgba(0,0,0,0.7);
+}
+
 /* TODO(cleanup): If ghost students are removed, delete .student-chip--ghost */
 
 /* CLOSED = down (default). OPEN = right. */
