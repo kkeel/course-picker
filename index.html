@@ -1283,13 +1283,18 @@
 
                                 <!-- Assigned-students chips (topic instance) -->
                                 <div class="student-chip-row" aria-label="Assigned students">
-                                  <template x-for="st in studentChipsForItem(topic)" :key="'topic-stu-' + st.id">
-                                    <span
-                                      :class="st.ghost ? 'student-chip student-chip--ghost' : 'student-chip'"
-                                      :title="st.name"
-                                      :aria-label="st.name"
-                                      :style="{ backgroundColor: st.color || '#9eaa99' }"
-                                    ></span>
+                                  <template x-for="sid in (topic.studentIds || [])" :key="'topic-stu-' + sid">
+                                    <template x-if="getStudentById(sid)">
+                                      <span
+                                        class="student-chip"
+                                        :title="getStudentById(sid).name"
+                                        :aria-label="getStudentById(sid).name"
+                                        :style="{ '--stu': (getStudentById(sid).color || '#9eaa99') }"
+                                      >
+                                        <span class="student-chip-dot" aria-hidden="true"></span>
+                                        <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
+                                      </span>
+                                    </template>
                                   </template>
                                 </div>
                                 
@@ -1364,13 +1369,18 @@
 
                           <!-- Assigned-students chips (course) -->
                           <div class="student-chip-row" aria-label="Assigned students">
-                            <template x-for="st in studentChipsForItem(course)" :key="'course-stu-' + st.id">
-                              <span
-                                :class="st.ghost ? 'student-chip student-chip--ghost' : 'student-chip'"
-                                :title="st.name"
-                                :aria-label="st.name"
-                                :style="{ backgroundColor: st.color || '#9eaa99' }"
-                              ></span>
+                            <template x-for="sid in (course.studentIds || [])" :key="'course-stu-' + sid">
+                              <template x-if="getStudentById(sid)">
+                                <span
+                                  class="student-chip"
+                                  :title="getStudentById(sid).name"
+                                  :aria-label="getStudentById(sid).name"
+                                  :style="{ '--stu': (getStudentById(sid).color || '#9eaa99') }"
+                                >
+                                  <span class="student-chip-dot" aria-hidden="true"></span>
+                                  <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
+                                </span>
+                              </template>
                             </template>
                           </div>
                           
