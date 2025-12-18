@@ -449,7 +449,7 @@ body {
   display: flex;
   justify-content: flex-start;
 
-  /* remove the â€œextra barâ€ spacing so it lines up with card text */
+  /* remove the Ã¢â‚¬Å“extra barÃ¢â‚¬Â spacing so it lines up with card text */
   padding: 0;
   margin-top: 8px;  /* keep a tiny separation from whatever is above it */
 }
@@ -461,7 +461,7 @@ body {
   /* keep a little space between the person + chevron */
   gap: 8px;
 
-  /* remove extra clickable padding so it doesnâ€™t waste vertical space */
+  /* remove extra clickable padding so it doesnÃ¢â‚¬â„¢t waste vertical space */
   padding: 0;
   margin: 0;
 
@@ -485,7 +485,7 @@ body {
   width: 18px;
   height: 18px;
   display: block;
-  opacity: 0.75; /* makes filled icon a touch more visible without getting â€œheavyâ€ */
+  opacity: 0.75; /* makes filled icon a touch more visible without getting Ã¢â‚¬Å“heavyÃ¢â‚¬Â */
 }
 
 .student-rail-wedge {
@@ -509,20 +509,14 @@ body {
   flex: 1;
 }
 
-/* Keep ghost row from stretching/pushing layout */
-.student-chip-row--ghost{
-  flex: 0 0 auto;
-  margin-left: 6px;
-}
-
 .student-chip{
   /* make it a real chip */
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 
   height: 22px;
-  padding: 0 8px;
+  padding: 0 10px;
   border-radius: 999px;
 
   /* filled with student color */
@@ -552,59 +546,39 @@ body {
   text-overflow: ellipsis;
 }
 
-/* Ghost student chip: muted light grey bg + white text */
 .student-chip--ghost{
-  opacity: 1;
-  background: #9eaa99 !important;   /* muted light grey */
-  border-color: rgba(0,0,0,0.08);
-  color: #ffffff !important;
+  opacity: 0.35;
 }
-
 
 .student-chip{
   position: relative;
 }
 
-/* Student chip remove — match filter chip X style */
+/* small remove "x" */
 .student-chip-remove{
-  position: static;           /* inline, not floating */
-  margin-left: 6px;
+  position: absolute;
+  top: -6px;
+  right: -6px;
 
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+
+  background: rgba(0,0,0,0.45);
+  color: #fff;
   border: none;
-  background: transparent;
 
   font-size: 12px;
-  line-height: 1;
-  padding: 0;
+  line-height: 14px;
+  text-align: center;
 
   cursor: pointer;
-  color: rgba(255,255,255,0.75); /* subtle on colored chip */
+  padding: 0;
 }
 
 .student-chip-remove:hover{
-  color: #ffffff;
+  background: rgba(0,0,0,0.7);
 }
-
-.student-chip-apply{
-  position:absolute;
-  right:-6px;
-  bottom:-6px;
-  width:16px;
-  height:16px;
-  border-radius:999px;
-  border:none;
-  background: rgba(255,255,255,0.9);
-  color: rgba(0,0,0,0.65);
-  font-size:13px;
-  line-height:16px;
-  padding:0;
-  cursor:pointer;
-}
-.student-chip-apply:hover{
-  background:#fff;
-  color: rgba(0,0,0,0.85);
-}
-
 
 /* TODO(cleanup): If ghost students are removed, delete .student-chip--ghost */
 
@@ -1606,7 +1580,7 @@ body {
   display: none;
 }
 
-/* --- Media Print ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â-- */
+/* --- Media Print ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â-- */
 @media print {
 
   html, body {
@@ -1658,7 +1632,7 @@ body {
 
     /* Center footer */
     @bottom-center {
-      content: "Ãƒâ€šÃ‚Â©2026 Charlotte Mason InstituteÃƒâ€šÃ‚Â® All rights reserved.";
+      content: "ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©2026 Charlotte Mason InstituteÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â® All rights reserved.";
       font-size: 8pt;
       color: #4b544b;
       white-space: nowrap;
@@ -1794,7 +1768,7 @@ body {
     font-size: 9pt !important;
   }
 
-  /* PRINT: Course cards ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â top border only */
+  /* PRINT: Course cards ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â top border only */
   .course-card {
     box-shadow: none !important;
     background-color: #ffffff !important;
@@ -1807,7 +1781,7 @@ body {
     page-break-inside: auto;
   }
   
-  /* PRINT: Topic cards ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â top border only */
+  /* PRINT: Topic cards ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â top border only */
   .topic-card {
     box-shadow: none !important;
     background-color: #ffffff !important;
@@ -1863,11 +1837,11 @@ body {
 
   /* PRINT: hide planning/action controls, keep selected tags visible */
 .card-header-actions,
-.planning-tag-button,     /* ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ+ Planning tagÃƒÂ¢Ã¢â€šÂ¬Ã‚Â button */
+.planning-tag-button,     /* ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“+ Planning tagÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â button */
 .planning-tag-add,        /* small + square */
-.planning-tag-remove,     /* ÃƒÆ’Ã¢â‚¬â€ on selected tags */
+.planning-tag-remove,     /* ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â on selected tags */
 .planning-tag-apply,      /* + on ghost tags */
-.edit-pill {              /* Edit ÃƒÂ¢Ã¢â‚¬ Ã¢â‚¬â€ */
+.edit-pill {              /* Edit ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬ ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â */
   display: none !important;
 }
 
