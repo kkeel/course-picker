@@ -113,51 +113,23 @@ function coursePlanner() {
       return ids.map(String).includes(String(studentId));
     },
     
-    toggleStudentAssignment(item, studentId) {
-      if (!item || !studentId) return;
+    toggleStudentAssignment(item, student) {
+      if (!item || !student || !student.id) return;
     
-      const sid = String(studentId).trim();
-      if (!sid) return;
-    
+      // Ensure array exists on the clicked object (course OR topic instance)
       if (!Array.isArray(item.studentIds)) item.studentIds = [];
     
-      const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
-      const has = item.studentIds.includes(sid);
+      const sid = String(student.id);
+      const next = item.studentIds.map(String);
     
-      if (!has) {
-        // ADD
-        item.studentIds.push(sid);
+      const idx = next.indexOf(sid);
+      if (idx >= 0) next.splice(idx, 1);
+      else next.push(sid);
     
-        // ✅ If it's a topic, remember at the global layer (like globalTopicTags)
-        if (topicId) {
-          if (!this.globalTopicStudents) this.globalTopicStudents = {};
-          if (!Array.isArray(this.globalTopicStudents[topicId])) {
-            this.globalTopicStudents[topicId] = [];
-          }
-          if (!this.globalTopicStudents[topicId].includes(sid)) {
-            this.globalTopicStudents[topicId].push(sid);
-          }
+      // Write back to the clicked object (this matches planning tags flow)
+      item.studentIds = next;
     
-          // ✅ Nudge reactivity for nested object updates
-          this.globalTopicStudents = { ...this.globalTopicStudents };
-        }
-      } else {
-        // REMOVE
-        item.studentIds = item.studentIds.filter(x => x !== sid);
-    
-        // ✅ If it's a topic, clean up global memory if this student is no longer used anywhere for that Topic_ID
-        if (topicId) {
-          this.cleanupGlobalTopicStudent(topicId, sid);
-    
-          // ✅ Nudge reactivity after cleanup edits
-          this.globalTopicStudents = { ...(this.globalTopicStudents || {}) };
-        }
-      }
-    
-      // ✅ correct function name (fixes your console error)
-      this.closeStudentAssignMenu();
-    
-      // ✅ persist + update UI immediately (matches “planning tags feel”)
+      // Persist + refresh filtered view if student filters are active
       this.persistPlannerStateDebounced();
       this.applyFilters();
     },
@@ -891,85 +863,6 @@ function coursePlanner() {
           }
         }
 
-        this.persistPlannerStateDebounced();
-      },
-
-      // ================== GHOST STUDENTS (shared by Topic_ID) ==================
-
-      // For a given topic, which globally-known students have NOT yet been applied here?
-      missingGlobalStudentsForTopic(topic) {
-        if (!topic) return [];
-      
-        const topicId = (topic.Topic_ID || "").trim();
-        if (!topicId) return [];
-      
-        const global = (this.globalTopicStudents && this.globalTopicStudents[topicId]) || [];
-        if (!global.length) return [];
-      
-        const localIds = new Set((topic.studentIds || []).map(s => String(s).trim()).filter(Boolean));
-      
-        // Only show students that still exist in the roster AND aren’t already assigned here
-        const roster = new Set((this.students || []).map(s => String(s.id).trim()));
-      
-        return global
-          .map(String)
-          .map(s => s.trim())
-          .filter(Boolean)
-          .filter(id => roster.has(id) && !localIds.has(id));
-      },
-      
-      // Apply a previously used ("global") student to THIS specific topic instance
-      applyGlobalStudentToTopic(topic, studentId) {
-        if (!topic || !studentId) return;
-      
-        const sid = String(studentId).trim();
-        if (!sid) return;
-      
-        if (!Array.isArray(topic.studentIds)) topic.studentIds = [];
-        if (topic.studentIds.includes(sid)) return;
-      
-        // Use the same path as normal assigning so persistence + global memory stay consistent
-        this.toggleStudentAssignment(topic, sid);
-      },
-      
-      // After removing a student from a topic instance, keep globalTopicStudents accurate
-      cleanupGlobalTopicStudent(topicId, studentId) {
-        if (!topicId || !studentId) return;
-      
-        const sid = String(studentId).trim();
-        if (!sid) return;
-      
-        let stillUsed = false;
-        const subjects = Object.keys(this.allCoursesBySubject || {});
-      
-        for (const subject of subjects) {
-          const courses = this.allCoursesBySubject[subject] || [];
-          for (const course of courses) {
-            if (!Array.isArray(course.topics)) continue;
-      
-            for (const topic of course.topics) {
-              if (!topic) continue;
-              const tid = (topic.Topic_ID || "").trim();
-              if (tid !== topicId) continue;
-      
-              if (Array.isArray(topic.studentIds) && topic.studentIds.includes(sid)) {
-                stillUsed = true;
-                break;
-              }
-            }
-      
-            if (stillUsed) break;
-          }
-          if (stillUsed) break;
-        }
-      
-        if (!stillUsed && this.globalTopicStudents && Array.isArray(this.globalTopicStudents[topicId])) {
-          this.globalTopicStudents[topicId] = this.globalTopicStudents[topicId].filter(id => id !== sid);
-          if (this.globalTopicStudents[topicId].length === 0) {
-            delete this.globalTopicStudents[topicId];
-          }
-        }
-      
         this.persistPlannerStateDebounced();
       },
 
