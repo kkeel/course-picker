@@ -306,36 +306,54 @@ function coursePlanner() {
         const all = Array.isArray(this.students) ? this.students : [];
         const byId = new Map(all.map(s => [String(s.id), s]));
       
-        const fullIds = (this._getAssignedStudentIds(item) || []).map(String);
+        // ✅ Helper: always return something renderable (bookmark-style reliability)
+        const toChip = (id, ghost) => {
+          const key = String(id || "").trim();
+          if (!key) return null;
+      
+          const s = byId.get(key);
+      
+          // If lookup fails, still render the chip using the id as the label
+          // (so courses will show *something* instead of nothing).
+          if (!s) {
+            return {
+              id: key,
+              name: key,
+              color: "#999",
+              ghost: !!ghost
+            };
+          }
+      
+          return { ...s, ghost: !!ghost };
+        };
+      
+        const fullIds = (this._getAssignedStudentIds(item) || []).map(x => String(x).trim()).filter(Boolean);
         const fullSet = new Set(fullIds);
       
-        // Courses: only show fully assigned
+        // Courses: only show fully assigned (no ghosts)
         if (this._isCourseItem(item)) {
           return fullIds
-            .map(id => byId.get(id))
-            .filter(Boolean)
-            .map(s => ({ ...s, ghost: false }));
+            .map(id => toChip(id, false))
+            .filter(Boolean);
         }
       
-        // Topics: show fully assigned + ghosts from other instances of same Topic_ID
+        // Topics: fully assigned + ghosts from other instances of same Topic_ID
         const gk = this._topicGlobalKey(item);
         const globalIds = gk && this.plannerState && this.plannerState.globalTopicStudents
-          ? (this.plannerState.globalTopicStudents[gk] || []).map(String)
+          ? (this.plannerState.globalTopicStudents[gk] || []).map(x => String(x).trim()).filter(Boolean)
           : [];
       
-        const ghosts = globalIds.filter(id => !fullSet.has(id));
+        const ghostIds = globalIds.filter(id => !fullSet.has(id));
       
         const full = fullIds
-          .map(id => byId.get(id))
-          .filter(Boolean)
-          .map(s => ({ ...s, ghost: false }));
+          .map(id => toChip(id, false))
+          .filter(Boolean);
       
-        const ghostObjs = ghosts
-          .map(id => byId.get(id))
-          .filter(Boolean)
-          .map(s => ({ ...s, ghost: true }));
+        const ghosts = ghostIds
+          .map(id => toChip(id, true))
+          .filter(Boolean);
       
-        return [...full, ...ghostObjs];
+        return [...full, ...ghosts];
       },
 
       // new global detail toggle
