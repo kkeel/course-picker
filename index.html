@@ -1291,7 +1291,22 @@
                                         :aria-label="getStudentById(sid).name"
                                         :style="{ '--stu': (getStudentById(sid).color || '#9eaa99') }"
                                       >
-                                        <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
+                                        <span
+                                          class="student-chip-text"
+                                          x-text="getStudentById(sid).name"
+                                        ></span>
+                                
+                                        <button
+                                          type="button"
+                                          class="student-chip-remove"
+                                          aria-label="Remove student"
+                                          title="Remove student"
+                                          @click.stop="
+                                            topic.studentIds = (topic.studentIds || []).map(String).filter(x => x !== String(sid));
+                                            persistPlannerStateDebounced();
+                                            applyFilters();
+                                          "
+                                        >×</button>
                                       </span>
                                     </template>
                                   </template>
@@ -1376,7 +1391,22 @@
                                   :aria-label="getStudentById(sid).name"
                                   :style="{ '--stu': (getStudentById(sid).color || '#9eaa99') }"
                                 >
-                                  <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
+                                  <span
+                                    class="student-chip-text"
+                                    x-text="getStudentById(sid).name"
+                                  ></span>
+                          
+                                  <button
+                                    type="button"
+                                    class="student-chip-remove"
+                                    aria-label="Remove student"
+                                    title="Remove student"
+                                    @click.stop="
+                                      course.studentIds = (course.studentIds || []).map(String).filter(x => x !== String(sid));
+                                      persistPlannerStateDebounced();
+                                      applyFilters();
+                                    "
+                                  >×</button>
                                 </span>
                               </template>
                             </template>
