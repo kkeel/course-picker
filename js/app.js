@@ -134,8 +134,21 @@ function coursePlanner() {
       },
 
       _isCourseItem(item) {
-        // Courses in this app consistently have a Sort_ID (like "003.002.003") and/or a subject.
-        return !!(item && (item.Sort_ID || item.subject || item.grade));
+        if (!item) return false;
+
+        // If it looks like a topic card, treat it as a topic.
+        // (Topics repeat; courses are unique.)
+        if (item.Topic_ID || item.Topic_Instance_Key) return false;
+
+        // Otherwise treat it as a course if it has *any* course-ish identifier.
+        // This makes course student-chips behave like bookmarks: stable + forgiving.
+        return !!(
+          item.Sort_ID ||
+          item.subject ||
+          item.grade ||
+          item.courseId ||
+          item.recordID
+        );
       },
 
       _courseKeyCandidates(course) {
