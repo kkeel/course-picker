@@ -134,6 +134,11 @@ function coursePlanner() {
       this.applyFilters();
     },
 
+    getStudentById(id) {
+      const sid = String(id);
+      return (this.students || []).find(s => String(s.id) === sid) || null;
+    },
+
       //OLD CODE BELOW
 
       _isCourseItem(item) {
