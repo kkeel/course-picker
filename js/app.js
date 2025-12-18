@@ -138,19 +138,61 @@ function coursePlanner() {
         return !!(item && (item.Sort_ID || item.subject || item.grade));
       },
 
+      _courseKeyCandidates(course) {
+        // Stable keys first (matches bookmark-style behavior):
+        // Prefer Sort_ID or recordID. Avoid relying on `id` as primary.
+        const raw = [
+          course?.Sort_ID,
+          course?.recordID,
+          course?.courseId,
+          course?.id,
+
+          // Legacy order (older saves may have used these first)
+          course?.courseId,
+          course?.id,
+          course?.Sort_ID,
+          course?.recordID,
+        ];
+
+        const out = [];
+        for (const v of raw) {
+          const s = String(v || "").trim();
+          if (!s) continue;
+          if (!out.includes(s)) out.push(s);
+        }
+        return out;
+      },
+
       _courseKey(course) {
-        // IMPORTANT: Must match the same identity order used in persistPlannerState()
-        // so we don’t “save” under one key but “render” under another.
-        const key = course && (
-          course.courseId ||
-          course.id ||
-          course.Sort_ID ||
-          course.recordID ||
-          ""
-        );
-      
-        const out = String(key || "").trim();
-        return out ? out : null;
+        const keys = this._courseKeyCandidates(course);
+        return keys.length ? keys[0] : null;
+      },
+
+      _ensurePlannerCourseState(course) {
+        const keys = this._courseKeyCandidates(course);
+        if (!keys.length) return null;
+
+        const primary = keys[0];
+
+        if (!this.plannerState) this.plannerState = {};
+        if (!this.plannerState.courses) this.plannerState.courses = {};
+
+        // If we don't already have primary, try to migrate from any legacy key.
+        if (!this.plannerState.courses[primary]) {
+          for (const k of keys.slice(1)) {
+            if (this.plannerState.courses[k]) {
+              this.plannerState.courses[primary] = this.plannerState.courses[k];
+              delete this.plannerState.courses[k];
+              break;
+            }
+          }
+        }
+
+        if (!this.plannerState.courses[primary]) this.plannerState.courses[primary] = {};
+
+        const st = this.plannerState.courses[primary];
+        if (!Array.isArray(st.students)) st.students = [];
+        return st;
       },
 
         _topicInstanceKey(topic) {
@@ -165,19 +207,6 @@ function coursePlanner() {
       _topicGlobalKey(topic) {
         // Shared topic identity for "ghost" students across repeated topic cards.
         return (topic && (topic.Topic_ID || topic.id || topic.recordID)) || null;
-      },
-
-      _ensurePlannerCourseState(course) {
-        const key = this._courseKey(course);
-        if (!key) return null;
-
-        if (!this.plannerState) this.plannerState = {};
-        if (!this.plannerState.courses) this.plannerState.courses = {};
-        if (!this.plannerState.courses[key]) this.plannerState.courses[key] = {};
-
-        const st = this.plannerState.courses[key];
-        if (!Array.isArray(st.students)) st.students = [];
-        return st;
       },
 
       _ensurePlannerTopicState(topic) {
@@ -1589,10 +1618,23 @@ function coursePlanner() {
         for (const course of courses) {
           if (!course) continue;
 
-          const courseKey = String(
-            course.courseId || course.id || course.Sort_ID || course.recordID || ""
-          ).trim();
-          const cState = courseKey && coursesState[courseKey];
+          const courseKey = this._courseKey(course);
+
+          // Back-compat: if saved under an older/alternate key, find + migrate it.
+          let cState = (courseKey && coursesState[courseKey]) ? coursesState[courseKey] : null;
+          if (!cState) {
+            const candidates = this._courseKeyCandidates(course);
+            for (const k of candidates) {
+              if (coursesState[k]) {
+                cState = coursesState[k];
+                if (courseKey && k !== courseKey) {
+                  coursesState[courseKey] = cState;
+                  delete coursesState[k];
+                }
+                break;
+              }
+            }
+          }
           if (cState) {
             if (typeof cState.isBookmarked === "boolean") {
               course.isBookmarked = cState.isBookmarked;
@@ -1674,9 +1716,7 @@ function coursePlanner() {
         for (const course of courses) {
           if (!course) continue;
 
-          const courseKey = String(
-            course.courseId || course.id || course.Sort_ID || course.recordID || ""
-          ).trim();
+          const courseKey = this._courseKey(course);
           if (!courseKey) continue;
 
           const isBookmarked = !!course.isBookmarked;
