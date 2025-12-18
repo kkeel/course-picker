@@ -1282,7 +1282,7 @@
                               </template>
 
                                 <!-- Assigned-students chips (topic instance) -->
-                                <div class="student-chip-row" aria-label="Assigned students">
+                                <div class="student-chip-row student-chip-row--ghost" aria-label="Suggested students">
                                   <template x-for="sid in (topic.studentIds || [])" :key="'topic-stu-' + sid">
                                     <template x-if="getStudentById(sid)">
                                       <span
