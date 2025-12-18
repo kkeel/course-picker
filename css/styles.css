@@ -510,12 +510,40 @@ body {
 }
 
 .student-chip{
-  width: 12px;
-  height: 12px;
+  /* make it a real chip */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  height: 22px;
+  padding: 0 10px;
   border-radius: 999px;
+
+  /* filled with student color */
+  background: var(--stu, #9eaa99);
+  border: 1px solid rgba(0,0,0,0.08);
+
+  /* readable label */
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.student-chip-dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.85);
+  flex-shrink: 0;
+}
+
+.student-chip-text{
   display: inline-block;
-  border: 1px solid rgba(0,0,0,0.10);
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.80);
+  max-width: 160px;      /* prevents super long names blowing out the row */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .student-chip--ghost{
