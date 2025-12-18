@@ -509,6 +509,12 @@ body {
   flex: 1;
 }
 
+/* Keep ghost row from stretching/pushing layout */
+.student-chip-row--ghost{
+  flex: 0 0 auto;
+  margin-left: 6px;
+}
+
 .student-chip{
   /* make it a real chip */
   display: inline-flex;
@@ -546,7 +552,13 @@ body {
   text-overflow: ellipsis;
 }
 
-.student-chip--ghost { opacity: 1; }
+/* Ghost student chip: muted light grey bg + white text */
+.student-chip--ghost{
+  opacity: 1;
+  background: #9eaa99 !important;   /* muted light grey */
+  border-color: rgba(0,0,0,0.08);
+  color: #ffffff !important;
+}
 
 
 .student-chip{
