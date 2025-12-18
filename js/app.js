@@ -1032,10 +1032,10 @@ function coursePlanner() {
       },
 
       studentRailKeyForCourse(course) {
-        // IMPORTANT: some courses (especially topic-less ones) are keyed by courseId or Sort_ID
-        const id =
-          (course && (course.courseId || course.recordID || course.id || course.Sort_ID)) || "";
-        return `course:${String(id)}`;
+        // Use the SAME course identity helper used by plannerState + other course logic,
+        // so topic-less courses don’t “save” under one key but “render” under another.
+        const key = this._courseKey(course) || "";
+        return `course:${String(key)}`;
       },
 
       studentRailKeyForTopic(topic) {
