@@ -513,10 +513,10 @@ body {
   /* make it a real chip */
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 
   height: 22px;
-  padding: 0 10px;
+  padding: 0 8px;
   border-radius: 999px;
 
   /* filled with student color */
@@ -554,30 +554,24 @@ body {
   position: relative;
 }
 
-/* small remove "x" */
+/* Student chip remove — match filter chip X style */
 .student-chip-remove{
-  position: absolute;
-  top: -6px;
-  right: -6px;
+  position: static;           /* inline, not floating */
+  margin-left: 6px;
 
-  width: 14px;
-  height: 14px;
-  border-radius: 999px;
-
-  background: rgba(0,0,0,0.45);
-  color: #fff;
   border: none;
+  background: transparent;
 
   font-size: 12px;
-  line-height: 14px;
-  text-align: center;
+  line-height: 1;
+  padding: 0;
 
   cursor: pointer;
-  padding: 0;
+  color: rgba(255,255,255,0.75); /* subtle on colored chip */
 }
 
 .student-chip-remove:hover{
-  background: rgba(0,0,0,0.7);
+  color: #ffffff;
 }
 
 /* TODO(cleanup): If ghost students are removed, delete .student-chip--ghost */
