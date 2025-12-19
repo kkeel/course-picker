@@ -1274,9 +1274,8 @@
                               <!-- Collapsed summary: "(# Assigned)" -->
                                 <span
                                   class="student-rail-summary"
-                                  x-effect="topic._assignedCount = assignedStudentCount(topic)"
-                                  x-show="isStudentRailCollapsed(studentRailKeyForTopic(topic)) && (topic._assignedCount || 0) > 0"
-                                  x-text="'(' + topic._assignedCount + ' Assigned)'"
+                                  x-show="isStudentRailCollapsed(studentRailKeyForTopic(topic)) && assignedStudentCount(topic) > 0"
+                                  x-text="'(' + assignedStudentCount(topic) + ' Assigned)'"
                                 ></span>
                             
                               <!-- Add-students "+" (shows only when rail is OPEN) -->
@@ -1402,9 +1401,8 @@
                         <!-- Collapsed summary: "(# Assigned)" -->
                         <span
                           class="student-rail-summary"
-                          x-effect="course._assignedCount = assignedStudentCount(course)"
-                          x-show="isStudentRailCollapsed(studentRailKeyForCourse(course)) && (course._assignedCount || 0) > 0"
-                          x-text="'(' + course._assignedCount + ' Assigned)'"
+                          x-show="isStudentRailCollapsed(studentRailKeyForCourse(course)) && assignedStudentCount(course) > 0"
+                          x-text="'(' + assignedStudentCount(course) + ' Assigned)'"
                         ></span>
                     
                         <!-- Add-students "+" (shows only when rail is OPEN) -->
