@@ -594,6 +594,31 @@ body {
   line-height: 1;
 }
 
+/* Tiny "+" button on ghost student chips (match existing light-grey + button look) */
+.student-chip-apply{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+
+  border-radius: 999px;
+  border: 1px solid #e5e8e5;     /* same border as .planning-tag-add */
+  background-color: #ffffff;     /* same as + buttons */
+  color: var(--brand-muted);
+
+  font-size: 12px;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+}
+
+.student-chip-apply:hover{
+  opacity: 0.9;
+}
+
 /* TODO(cleanup): If ghost students are removed, delete .student-chip--ghost */
 
 /* CLOSED = down (default). OPEN = right. */
