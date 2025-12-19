@@ -571,6 +571,29 @@ body {
   opacity: 1;
 }
 
+/* Ghost student chips: match the light-grey "+ button" look */
+.student-chip--ghost {
+  background-color: #ffffff;
+  border: 1px solid #e5e8e5;
+  color: var(--brand-muted);
+  opacity: 0.75;          /* tweak lighter/darker if desired */
+}
+
+/* Ghost chips should not show the color dot (if you have one) */
+.student-chip--ghost .student-chip-dot {
+  display: none;
+}
+
+/* Tiny marker before ghost list */
+.student-ghost-marker {
+  margin-left: 6px;
+  margin-right: 2px;
+  color: var(--brand-muted);
+  opacity: 0.6;
+  font-size: 12px;
+  line-height: 1;
+}
+
 /* TODO(cleanup): If ghost students are removed, delete .student-chip--ghost */
 
 /* CLOSED = down (default). OPEN = right. */
