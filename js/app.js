@@ -114,24 +114,28 @@ function coursePlanner() {
     },
     
     toggleStudentAssignment(item, student) {
-      if (!item || !student || !student.id) return;
+      if (!item) return;
     
-      // Ensure array exists on the clicked object (course OR topic instance)
-      if (!Array.isArray(item.studentIds)) item.studentIds = [];
+      if (!item.studentIds) item.studentIds = [];
     
-      const sid = String(student.id);
       const next = item.studentIds.map(String);
     
+      const sid = String(student.id);
       const idx = next.indexOf(sid);
-      if (idx >= 0) next.splice(idx, 1);
-      else next.push(sid);
     
-      // Write back to the clicked object (this matches planning tags flow)
+      if (idx >= 0) {
+        next.splice(idx, 1);
+      } else {
+        next.push(sid);
+      }
+    
       item.studentIds = next;
     
-      // Persist + refresh filtered view if student filters are active
+      // ✅ NEW — keep global ghost memory in sync (planning-tag equivalent)
+      const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
+      if (topicId) this.recomputeGlobalTopicStudents(topicId);
+    
       this.persistPlannerStateDebounced();
-      this.applyFilters();
     },
 
     getStudentById(id) {
@@ -140,10 +144,19 @@ function coursePlanner() {
     },
 
     removeStudentAssignment(item, studentId) {
-      if (!item || !item.studentIds) return;
+      if (!item) return;
     
-      item.studentIds = item.studentIds.filter(id => id !== studentId);
+      const sid = String(studentId);
     
+      // 1) remove locally (this card instance only)
+      const cur = Array.isArray(item.studentIds) ? item.studentIds.map(String) : [];
+      item.studentIds = cur.filter(id => id !== sid);
+    
+      // 2) if this is a TOPIC instance, keep global ghost memory in sync
+      const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
+      if (topicId) this.recomputeGlobalTopicStudents(topicId);
+    
+      // 3) persist
       this.persistPlannerStateDebounced();
     },
 
@@ -279,8 +292,8 @@ function coursePlanner() {
       
         // Topics: show fully assigned + ghosts from other instances of same Topic_ID
         const gk = this._topicGlobalKey(item);
-        const globalIds = gk && this.plannerState && this.plannerState.globalTopicStudents
-          ? (this.plannerState.globalTopicStudents[gk] || []).map(String)
+        const globalIds = gk && this.globalTopicStudents
+          ? (this.globalTopicStudents[gk] || []).map(String)
           : [];
       
         const ghosts = globalIds.filter(id => !fullSet.has(id));
@@ -962,6 +975,37 @@ function coursePlanner() {
         }
 
         this.persistPlannerStateDebounced();
+      },
+
+      // --- STUDENT GHOST MEMORY (shared by Topic_ID) -----------------
+
+      recomputeGlobalTopicStudents(topicId) {
+        if (!topicId) return;
+      
+        const union = new Set();
+        const subjects = Object.keys(this.allCoursesBySubject || {});
+      
+        for (const subject of subjects) {
+          const courses = this.allCoursesBySubject[subject] || [];
+          for (const course of courses) {
+            if (!Array.isArray(course.topics)) continue;
+      
+            for (const t of course.topics) {
+              if (!t) continue;
+              const tid = String(t.Topic_ID || "").trim();
+              if (tid !== topicId) continue;
+      
+              const ids = Array.isArray(t.studentIds) ? t.studentIds : [];
+              ids.map(String).forEach(sid => union.add(sid));
+            }
+          }
+        }
+      
+        if (!this.globalTopicStudents) this.globalTopicStudents = {};
+      
+        const arr = Array.from(union);
+        if (arr.length) this.globalTopicStudents[topicId] = arr;
+        else delete this.globalTopicStudents[topicId];
       },
 
       // --- PLANNING TAG HELPERS ---
