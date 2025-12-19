@@ -1305,11 +1305,11 @@
                                   </template>
                                 </div>
                                 
-                                <template x-if="missingGlobalStudentsForItem(course).length > 0">
+                                <template x-if="missingGlobalStudentsForItem(topic).length > 0">
                                   <span class="student-ghost-marker" title="Assigned elsewhere">↪</span>
                                 </template>
                                 
-                                <template x-for="sid in missingGlobalStudentsForItem(course)" :key="'course-stu-ghost-' + sid">
+                                <template x-for="sid in missingGlobalStudentsForItem(topic)" :key="'topic-stu-ghost-' + sid">
                                   <template x-if="getStudentById(sid)">
                                     <span
                                       class="student-chip student-chip--ghost"
