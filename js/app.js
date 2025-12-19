@@ -129,7 +129,7 @@ function coursePlanner() {
         next.push(sid);
       }
     
-      item.studentIds = next;
+      item.studentIds = this._normalizeStudentIds(next);
     
       // ✅ NEW — keep global ghost memory in sync (planning-tag equivalent)
       const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
@@ -143,6 +143,32 @@ function coursePlanner() {
       return (this.students || []).find(s => String(s.id) === sid) || null;
     },
 
+    // Keep student id arrays consistent across the app (and prevent duplicate-count bugs)
+    _normalizeStudentIds(ids) {
+      const arr = Array.isArray(ids) ? ids : [];
+      const seen = new Set();
+      const out = [];
+      for (const raw of arr) {
+        const v = String(raw).trim();
+        if (!v) continue;
+        if (seen.has(v)) continue;
+        seen.add(v);
+        out.push(v);
+      }
+      return out;
+    },
+    
+    // Count ACTIVE assigned students on an item (ignores ghosts; de-duped; ignores unknown ids)
+    assignedStudentCount(item) {
+      if (!item) return 0;
+      const ids = this._normalizeStudentIds(item.studentIds);
+      let n = 0;
+      for (const id of ids) {
+        if (this.getStudentById(id)) n++;
+      }
+      return n;
+    },
+
     removeStudentAssignment(item, studentId) {
       if (!item) return;
     
@@ -150,7 +176,7 @@ function coursePlanner() {
     
       // 1) remove locally (this card instance only)
       const cur = Array.isArray(item.studentIds) ? item.studentIds.map(String) : [];
-      item.studentIds = cur.filter(id => id !== sid);
+      item.studentIds = this._normalizeStudentIds(cur.filter(id => id !== sid));
     
       // 2) if this is a TOPIC instance, keep global ghost memory in sync
       const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
@@ -925,7 +951,7 @@ function coursePlanner() {
       
         // Add locally (this instance)
         cur.push(sid);
-        item.studentIds = cur;
+        item.studentIds = this._normalizeStudentIds(cur);
       
         // Keep global ghost memory in sync
         const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
