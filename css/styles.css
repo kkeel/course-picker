@@ -546,10 +546,6 @@ body {
   text-overflow: ellipsis;
 }
 
-.student-chip--ghost{
-  opacity: 0.35;
-}
-
 .student-chip-remove{
   position: static;          /* inline, not floating */
   width: auto;
@@ -571,15 +567,6 @@ body {
   opacity: 1;
 }
 
-/* Ghost student chips: match the light-grey "+ button" look */
-.student-chip--ghost{
-  position: relative;              
-  background-color: #e5e8e5;    
-  border: 1px solid #e5e8e5;
-  color: #ffffff;              
-  opacity: 0.9;   
-}
-
 .student-chip--ghost .student-chip-dot{
   display: none;
 }
@@ -594,13 +581,13 @@ body {
   line-height: 1;
 }
 
-/* Ghost student chips: use the SAME light grey as the + button border */
+/* Ghost student chips — match combining & placement tips styling */
 .student-chip--ghost{
-  position: relative;              /* needed for overlapping + */
-  background-color: #e5e8e5;       /* EXACT same grey used on + button borders */
-  border: 1px solid #e5e8e5;
-  color: #ffffff;                  /* inverted: white text */
-  opacity: 0.9;                    /* optional: soften it slightly */
+  position: relative;          
+  background-color: #f4f6fa;  
+  border: 1px solid #dde2d5;   
+  color: var(--brand-muted);  
+  opacity: 0.75;          
 }
 
 /* Ghost chips should not show the color dot */
