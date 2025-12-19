@@ -907,6 +907,33 @@ function coursePlanner() {
         return global.filter(sid => !localSet.has(sid));
       },
 
+      // Apply a previously-assigned ("ghost") student to this specific topic instance.
+      // Mirrors applyGlobalTagToTopic() behavior for Planning Tags.
+      applyGlobalStudentToItem(item, studentId) {
+        if (!item || !studentId) return;
+      
+        // Courses don't have ghost students; applying is topic-only
+        if (this._isCourseItem(item)) return;
+      
+        const sid = String(studentId);
+      
+        if (!Array.isArray(item.studentIds)) item.studentIds = [];
+      
+        // If already locally assigned, do nothing
+        const cur = item.studentIds.map(String);
+        if (cur.includes(sid)) return;
+      
+        // Add locally (this instance)
+        cur.push(sid);
+        item.studentIds = cur;
+      
+        // Keep global ghost memory in sync
+        const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
+        if (topicId) this.recomputeGlobalTopicStudents(topicId);
+      
+        this.persistPlannerStateDebounced();
+      },
+
       // ==== TOPIC NOTES (shared by Topic_ID) =====================
 
       // Read the shared note text for this topic (all instances share by Topic_ID)
