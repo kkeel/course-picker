@@ -139,6 +139,14 @@ function coursePlanner() {
       return (this.students || []).find(s => String(s.id) === sid) || null;
     },
 
+    removeStudentAssignment(item, studentId) {
+      if (!item || !item.studentIds) return;
+    
+      item.studentIds = item.studentIds.filter(id => id !== studentId);
+    
+      this.persistPlannerStateDebounced();
+    },
+
       //OLD CODE BELOW
 
       _isCourseItem(item) {
