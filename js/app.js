@@ -130,6 +130,8 @@ function coursePlanner() {
       }
     
       item.studentIds = this._normalizeStudentIds(next);
+      // keep collapsed summary count in sync
+      this._syncAssignedStudentCount(item);
     
       // ✅ NEW — keep global ghost memory in sync (planning-tag equivalent)
       const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
@@ -169,6 +171,16 @@ function coursePlanner() {
       return n;
     },
 
+    // Keep a reactive, per-card count so the collapsed "(# Assigned)" summary
+    // always updates immediately (even if it was hidden while the rail was open).
+    // We update this whenever studentIds changes.
+    _syncAssignedStudentCount(item) {
+      if (!item) return 0;
+      const n = this.assignedStudentCount(item);
+      item.assignedStudentCount = n;
+      return n;
+    },
+
     removeStudentAssignment(item, studentId) {
       if (!item) return;
     
@@ -177,6 +189,8 @@ function coursePlanner() {
       // 1) remove locally (this card instance only)
       const cur = Array.isArray(item.studentIds) ? item.studentIds.map(String) : [];
       item.studentIds = this._normalizeStudentIds(cur.filter(id => id !== sid));
+      // keep collapsed summary count in sync
+      this._syncAssignedStudentCount(item);
     
       // 2) if this is a TOPIC instance, keep global ghost memory in sync
       const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
@@ -952,6 +966,8 @@ function coursePlanner() {
         // Add locally (this instance)
         cur.push(sid);
         item.studentIds = this._normalizeStudentIds(cur);
+        // keep collapsed summary count in sync
+        this._syncAssignedStudentCount(item);
       
         // Keep global ghost memory in sync
         const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
@@ -1702,10 +1718,16 @@ function coursePlanner() {
             }
             // Restore assigned students for this specific course card
             if (Array.isArray(cState.students)) {
-              course.studentIds = cState.students
-                .map(String)
-                .map(s => s.trim())
-                .filter(Boolean);
+              course.studentIds = this._normalizeStudentIds(
+                cState.students.map(String).map(s => s.trim()).filter(Boolean)
+              );
+            
+              // 🔁 keep collapsed "(# Assigned)" summary in sync immediately
+              this._syncAssignedStudentCount(course);
+            } else {
+              // Ensure a consistent shape even if nothing stored
+              course.studentIds = this._normalizeStudentIds(course.studentIds);
+              this._syncAssignedStudentCount(course);
             }
           }
 
@@ -1731,10 +1753,15 @@ function coursePlanner() {
               }
               // Restore assigned students for this specific topic *instance*
               if (Array.isArray(tState.students)) {
-                topic.studentIds = tState.students
-                  .map(String)
-                  .map(s => s.trim())
-                  .filter(Boolean);
+                topic.studentIds = this._normalizeStudentIds(
+                  tState.students.map(String).map(s => s.trim()).filter(Boolean)
+                );
+              
+                // 🔁 keep collapsed "(# Assigned)" summary in sync immediately
+                this._syncAssignedStudentCount(topic);
+              } else {
+                topic.studentIds = this._normalizeStudentIds(topic.studentIds);
+                this._syncAssignedStudentCount(topic);
               }
               // Topic notes are global per Topic_ID (this.globalTopicNotes),
               // so we don't restore them here; topicNoteText() reads from that map.
