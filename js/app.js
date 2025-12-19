@@ -888,19 +888,24 @@ function coursePlanner() {
       },
 
       missingGlobalStudentsForItem(item) {
-  if (!item) return [];
-
-  const key =
-    item.Topic_ID ||
-    item.topicID ||
-    item.recordID ||
-    item.id;
-
-  const global = this.plannerState?.globalTopicStudents?.[key] || [];
-  const local  = item.studentIds || [];
-
-  return global.filter(sid => !local.includes(sid));
-},
+        if (!item) return [];
+      
+        // Courses do NOT have ghost students (ghosts are topic-repeats only)
+        if (this._isCourseItem(item)) return [];
+      
+        const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
+        if (!topicId) return [];
+      
+        // ✅ Match planning-tag logic: read from the LIVE global map
+        const global = (this.globalTopicStudents?.[topicId] || []).map(String);
+      
+        // local assignments for THIS topic instance
+        const local = (Array.isArray(item.studentIds) ? item.studentIds : []).map(String);
+        const localSet = new Set(local);
+      
+        // return only ghosts (in global, not local)
+        return global.filter(sid => !localSet.has(sid));
+      }
 
       // ==== TOPIC NOTES (shared by Topic_ID) =====================
 
