@@ -1306,7 +1306,7 @@
                                   </template>
                                 
                                   <!-- Ghosts (assigned on other instances of same Topic_ID) -->
-                                  <template x-if="missingGlobalStudentsForItem(topic).length > 0">
+                                  <template x-if="missingGlobalStudentsForItem(topic).some(sid => getStudentById(sid))">
                                     <span class="student-ghost-marker" title="Assigned elsewhere">↪</span>
                                   </template>
                                 
