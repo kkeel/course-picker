@@ -1318,6 +1318,15 @@
                                         :aria-label="getStudentById(sid).name + ' (assigned elsewhere)'"
                                       >
                                         <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
+                                  
+                                        <!-- tiny "+" to apply this ghost student here -->
+                                        <button
+                                          type="button"
+                                          class="student-chip-apply"
+                                          @click.stop="applyGlobalStudentToItem(topic, sid)"
+                                          aria-label="Assign student here"
+                                          title="Assign here"
+                                        >+</button>
                                       </span>
                                     </template>
                                   </template>
