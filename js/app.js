@@ -171,16 +171,6 @@ function coursePlanner() {
       return n;
     },
 
-    // Keep a reactive, per-card count so the collapsed "(# Assigned)" summary
-    // always updates immediately (even if it was hidden while the rail was open).
-    // We update this whenever studentIds changes.
-    _syncAssignedStudentCount(item) {
-      if (!item) return 0;
-      const n = this.assignedStudentCount(item);
-      item.assignedStudentCount = n;
-      return n;
-    },
-
     removeStudentAssignment(item, studentId) {
       if (!item) return;
     
