@@ -1274,8 +1274,8 @@
                               <!-- Collapsed summary: "(# Assigned)" -->
                                 <span
                                   class="student-rail-summary"
-                                  x-show="isStudentRailCollapsed(studentRailKeyForTopic(topic))"
-                                  x-text="'(' + ((topic.studentIds || []).filter(sid => getStudentById(sid)).length) + ' Assigned)'"
+                                  x-show="isStudentRailCollapsed(studentRailKeyForTopic(topic)) && assignedStudentCount(topic) > 0"
+                                  x-text="'(' + assignedStudentCount(topic) + ' Assigned)'"
                                 ></span>
                             
                               <!-- Add-students "+" (shows only when rail is OPEN) -->
@@ -1401,8 +1401,8 @@
                         <!-- Collapsed summary: "(# Assigned)" -->
                         <span
                           class="student-rail-summary"
-                          x-show="isStudentRailCollapsed(studentRailKeyForCourse(course))"
-                          x-text="'(' + ((course.studentIds || []).filter(sid => getStudentById(sid)).length) + ' Assigned)'"
+                          x-show="isStudentRailCollapsed(studentRailKeyForCourse(course)) && assignedStudentCount(course) > 0"
+                          x-text="'(' + assignedStudentCount(course) + ' Assigned)'"
                         ></span>
                     
                         <!-- Add-students "+" (shows only when rail is OPEN) -->
