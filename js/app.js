@@ -874,6 +874,21 @@ function coursePlanner() {
         this.persistPlannerStateDebounced();
       },
 
+      missingGlobalStudentsForItem(item) {
+  if (!item) return [];
+
+  const key =
+    item.Topic_ID ||
+    item.topicID ||
+    item.recordID ||
+    item.id;
+
+  const global = this.plannerState?.globalTopicStudents?.[key] || [];
+  const local  = item.studentIds || [];
+
+  return global.filter(sid => !local.includes(sid));
+},
+
       // ==== TOPIC NOTES (shared by Topic_ID) =====================
 
       // Read the shared note text for this topic (all instances share by Topic_ID)
