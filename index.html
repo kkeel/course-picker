@@ -1305,7 +1305,21 @@
                                   </template>
                                 </div>
                                 
-                                <!-- TODO(cleanup): If we remove “ghost students”, delete student-chip--ghost and ghost logic in studentChipsForItem -->
+                                <template x-if="missingGlobalStudentsForItem(course).length > 0">
+                                  <span class="student-ghost-marker" title="Assigned elsewhere">↪</span>
+                                </template>
+                                
+                                <template x-for="sid in missingGlobalStudentsForItem(course)" :key="'course-stu-ghost-' + sid">
+                                  <template x-if="getStudentById(sid)">
+                                    <span
+                                      class="student-chip student-chip--ghost"
+                                      :title="getStudentById(sid).name + ' (assigned elsewhere)'"
+                                      :aria-label="getStudentById(sid).name + ' (assigned elsewhere)'"
+                                    >
+                                      <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
+                                    </span>
+                                  </template>
+                                </template>
 
                             </div>
                           </article>
