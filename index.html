@@ -1270,13 +1270,6 @@
                                   </path>
                                 </svg>
                               </button>
-
-                              <!-- Collapsed summary: "(# Assigned)" -->
-                                <span
-                                  class="student-rail-summary"
-                                  x-show="isStudentRailCollapsed(studentRailKeyForTopic(topic)) && assignedStudentCount(topic) > 0"
-                                  x-text="'(' + assignedStudentCount(topic) + ' Assigned)'"
-                                ></span>
                             
                               <!-- Add-students "+" (shows only when rail is OPEN) -->
                               <template x-if="!isStudentRailCollapsed(studentRailKeyForTopic(topic))">
@@ -1397,13 +1390,6 @@
                             </path>
                           </svg>
                         </button>
-
-                        <!-- Collapsed summary: "(# Assigned)" -->
-                        <span
-                          class="student-rail-summary"
-                          x-show="isStudentRailCollapsed(studentRailKeyForCourse(course)) && assignedStudentCount(course) > 0"
-                          x-text="'(' + assignedStudentCount(course) + ' Assigned)'"
-                        ></span>
                     
                         <!-- Add-students "+" (shows only when rail is OPEN) -->
                         <template x-if="!isStudentRailCollapsed(studentRailKeyForCourse(course))">
