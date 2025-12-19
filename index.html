@@ -1292,6 +1292,14 @@
                                         :style="{ '--stu': (getStudentById(sid).color || '#9eaa99') }"
                                       >
                                         <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
+                                
+                                        <!-- tiny remove X -->
+                                        <button
+                                          type="button"
+                                          class="student-chip-remove"
+                                          aria-label="Remove student"
+                                          @click.stop="removeStudentAssignment(topic, sid)"
+                                        >×</button>
                                       </span>
                                     </template>
                                   </template>
@@ -1377,6 +1385,14 @@
                                   :style="{ '--stu': (getStudentById(sid).color || '#9eaa99') }"
                                 >
                                   <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
+                          
+                                  <!-- tiny remove X -->
+                                  <button
+                                    type="button"
+                                    class="student-chip-remove"
+                                    aria-label="Remove student"
+                                    @click.stop="removeStudentAssignment(course, sid)"
+                                  >×</button>
                                 </span>
                               </template>
                             </template>
