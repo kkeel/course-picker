@@ -905,7 +905,7 @@ function coursePlanner() {
       
         // return only ghosts (in global, not local)
         return global.filter(sid => !localSet.has(sid));
-      }
+      },
 
       // ==== TOPIC NOTES (shared by Topic_ID) =====================
 
