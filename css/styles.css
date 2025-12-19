@@ -572,15 +572,15 @@ body {
 }
 
 /* Ghost student chips: match the light-grey "+ button" look */
-.student-chip--ghost {
-  background-color: #ffffff;
+.student-chip--ghost{
+  position: relative;              
+  background-color: #e5e8e5;    
   border: 1px solid #e5e8e5;
-  color: var(--brand-muted);
-  opacity: 0.75;          /* tweak lighter/darker if desired */
+  color: #ffffff;              
+  opacity: 0.9;   
 }
 
-/* Ghost chips should not show the color dot (if you have one) */
-.student-chip--ghost .student-chip-dot {
+.student-chip--ghost .student-chip-dot{
   display: none;
 }
 
@@ -594,25 +594,40 @@ body {
   line-height: 1;
 }
 
-/* Tiny "+" button on ghost student chips (match existing light-grey + button look) */
+/* Ghost student chips: use the SAME light grey as the + button border */
+.student-chip--ghost{
+  position: relative;              /* needed for overlapping + */
+  background-color: #e5e8e5;       /* EXACT same grey used on + button borders */
+  border: 1px solid #e5e8e5;
+  color: #ffffff;                  /* inverted: white text */
+  opacity: 0.9;                    /* optional: soften it slightly */
+}
+
+/* Ghost chips should not show the color dot */
+.student-chip--ghost .student-chip-dot{
+  display: none;
+}
+
+/* Tiny "+" button on ghost student chips (overlaps like planning tags) */
 .student-chip-apply{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
 
-  width: 16px;
-  height: 16px;
-  margin-left: 6px;
-
+  border: none;
+  background-color: #ffffff; 
   border-radius: 999px;
-  border: 1px solid #e5e8e5;     /* same border as .planning-tag-add */
-  background-color: #ffffff;     /* same as + buttons */
-  color: var(--brand-muted);
 
-  font-size: 12px;
+  width: 14px;
+  height: 14px;
+
+  font-size: 11px;
   line-height: 1;
   padding: 0;
+
   cursor: pointer;
+  color: var(--brand-muted);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
 }
 
 .student-chip-apply:hover{
