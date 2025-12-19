@@ -1283,6 +1283,7 @@
 
                                 <!-- Assigned-students chips (topic instance) -->
                                 <div class="student-chip-row" aria-label="Assigned students">
+                                  <!-- Active (this instance) -->
                                   <template x-for="sid in (topic.studentIds || [])" :key="'topic-stu-' + sid">
                                     <template x-if="getStudentById(sid)">
                                       <span
@@ -1303,23 +1304,24 @@
                                       </span>
                                     </template>
                                   </template>
-                                </div>
                                 
-                                <template x-if="missingGlobalStudentsForItem(topic).length > 0">
-                                  <span class="student-ghost-marker" title="Assigned elsewhere">↪</span>
-                                </template>
-                                
-                                <template x-for="sid in missingGlobalStudentsForItem(topic)" :key="'topic-stu-ghost-' + sid">
-                                  <template x-if="getStudentById(sid)">
-                                    <span
-                                      class="student-chip student-chip--ghost"
-                                      :title="getStudentById(sid).name + ' (assigned elsewhere)'"
-                                      :aria-label="getStudentById(sid).name + ' (assigned elsewhere)'"
-                                    >
-                                      <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
-                                    </span>
+                                  <!-- Ghosts (assigned on other instances of same Topic_ID) -->
+                                  <template x-if="missingGlobalStudentsForItem(topic).length > 0">
+                                    <span class="student-ghost-marker" title="Assigned elsewhere">↪</span>
                                   </template>
-                                </template>
+                                
+                                  <template x-for="sid in missingGlobalStudentsForItem(topic)" :key="'topic-stu-ghost-' + sid">
+                                    <template x-if="getStudentById(sid)">
+                                      <span
+                                        class="student-chip student-chip--ghost"
+                                        :title="getStudentById(sid).name + ' (assigned elsewhere)'"
+                                        :aria-label="getStudentById(sid).name + ' (assigned elsewhere)'"
+                                      >
+                                        <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
+                                      </span>
+                                    </template>
+                                  </template>
+                                </div>
 
                             </div>
                           </article>
