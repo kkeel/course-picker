@@ -1234,21 +1234,19 @@ function coursePlanner() {
       
         const ids = new Set();
       
+        const addIds = (arr) => {
+          this._normalizeStudentIds(arr).forEach(id => ids.add(id));
+        };
+      
         // Course-level studentIds
-        if (Array.isArray(course.studentIds)) {
-          course.studentIds.forEach(x => ids.add(String(x)));
-        }
+        addIds(course?.studentIds);
       
         // Topic-level studentIds (any topic in this course)
-        if (Array.isArray(course.topics)) {
-          course.topics.forEach(t => {
-            if (Array.isArray(t.studentIds)) {
-              t.studentIds.forEach(x => ids.add(String(x)));
-            }
-          });
+        if (Array.isArray(course?.topics)) {
+          course.topics.forEach(t => addIds(t?.studentIds));
         }
       
-        // If "Any student tag" is selected, match if ANY student exists here
+        // If "Any student tag" is selected, match if ANY REAL student exists here
         if (selected.includes(ANY)) {
           return ids.size > 0;
         }
@@ -1267,12 +1265,9 @@ function coursePlanner() {
         const selected = (this.selectedStudents || []).map(String);
       
         const ids = new Set();
+        this._normalizeStudentIds(topic?.studentIds).forEach(id => ids.add(id));
       
-        if (Array.isArray(topic?.studentIds)) {
-          topic.studentIds.forEach(x => ids.add(String(x)));
-        }
-      
-        // If "Any student tag" is selected, match if ANY student exists on this topic instance
+        // If "Any student tag" is selected, match if ANY REAL student exists on this topic instance
         if (selected.includes(ANY)) {
           return ids.size > 0;
         }
