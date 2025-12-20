@@ -471,6 +471,7 @@ body {
   color: var(--brand-muted);
   cursor: pointer;
   line-height: 1;
+  position: relative;
 }
 
 .student-rail-toggle:hover {
@@ -493,6 +494,34 @@ body {
   height: 16px;
   display: block;
   transition: transform 120ms ease;
+}
+
+/* Student assigned-count badge (on person icon) */
+.student-count-badge{
+  position: absolute;
+
+  /* bottom-right overlap */
+  right: -6px;
+  bottom: -6px;
+
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--brand-muted);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 600;
+
+  border: 1px solid rgba(0,0,0,0.10);
+  pointer-events: none; /* don’t steal clicks from the icon */
 }
 
 /* =========================
