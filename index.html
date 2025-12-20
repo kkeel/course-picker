@@ -1264,9 +1264,9 @@
                                   <span
                                     class="student-count-badge"
                                     style="position:absolute; right:-6px; bottom:-6px;"
-                                    x-show="(topic.studentCount || 0) > 0"
-                                    x-text="topic.studentCount">
-                                  </span>
+                                    x-show="assignedStudentCount(topic) > 0"
+                                    x-text="assignedStudentCount(topic)"
+                                  ></span>
                                 </span>
                                 
                                 <!-- CHEVRON -->
