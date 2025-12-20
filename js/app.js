@@ -102,6 +102,10 @@ function coursePlanner() {
         this.studentAssignMenuItem = null;
       },
 
+      // ✅ Reactive tick to force Alpine to re-evaluate assigned-student counts
+      // when deep nested arrays change (e.g., `item.studentIds`).
+      studentCountTick: 0,
+
     // ✅ NEW SOURCE OF TRUTH (to match Planning Tags):
     // Store assigned students directly on the clicked item object as `item.studentIds`.
     // TODO(cleanup): Once verified, remove legacy plannerState-based student helpers
@@ -136,6 +140,8 @@ function coursePlanner() {
       if (topicId) this.recomputeGlobalTopicStudents(topicId);
     
       this.persistPlannerStateDebounced();
+      // force any badge/count UI to update immediately
+      this.studentCountTick++;
     },
 
     getStudentById(id) {
@@ -161,6 +167,11 @@ function coursePlanner() {
     // Count ACTIVE assigned students on an item (ignores ghosts; de-duped; ignores unknown ids)
     assignedStudentCount(item) {
       if (!item) return 0;
+
+      // Touch the reactive tick so Alpine knows this depends on assignment changes.
+      // (We increment `studentCountTick` whenever students are added/removed.)
+      const _tick = this.studentCountTick;
+
       const ids = this._normalizeStudentIds(item.studentIds);
       let n = 0;
       for (const id of ids) {
@@ -184,6 +195,8 @@ function coursePlanner() {
     
       // 3) persist
       this.persistPlannerStateDebounced();
+      // force any badge/count UI to update immediately
+      this.studentCountTick++;
     },
 
       //OLD CODE BELOW
@@ -456,9 +469,8 @@ function coursePlanner() {
         // 5) Persist + refresh UI
         this.persistPlannerStateDebounced();
         this.applyFilters();
-      
-        // TODO(cleanup): once legacy student assignment code is fully removed,
-        // confirm there are no other places that store student ids.
+        // force any badge/count UI to update immediately
+        this.studentCountTick++;
       },
 
       updateStudentName(id, name) {
@@ -958,6 +970,8 @@ function coursePlanner() {
         if (topicId) this.recomputeGlobalTopicStudents(topicId);
       
         this.persistPlannerStateDebounced();
+        // force any badge/count UI to update immediately
+        this.studentCountTick++;
       },
 
       // ==== TOPIC NOTES (shared by Topic_ID) =====================
