@@ -421,7 +421,7 @@
                 >
                   <!-- placeholder when nothing selected -->
                   <template x-if="!selectedStudents || selectedStudents.length === 0">
-                    <span class="filter-placeholder">All Students</span>
+                    <span class="filter-placeholder">Students</span>
                   </template>
               
                   <!-- chips when students are selected -->
@@ -466,6 +466,18 @@
               
                 <!-- dropdown menu -->
                 <div class="filter-dropdown" x-show="studentDropdownOpen" x-transition>
+                  <button
+                    type="button"
+                    class="filter-dropdown-item"
+                    @click="toggleStudentFilter('__any__')"
+                  >
+                    <span class="student-dd-row">
+                      <span class="student-dd-swatch" style="background-color:#9eaa99" aria-hidden="true"></span>
+                      <span>Any student tag</span>
+                    </span>
+                  
+                    <span class="filter-dropdown-check" x-show="selectedStudents.includes('__any__')">✓</span>
+                  </button>
                   <template x-for="s in students" :key="s.id">
                     <button
                       type="button"
