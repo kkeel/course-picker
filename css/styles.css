@@ -696,6 +696,19 @@ body {
   color: var(--brand-muted);
 }
 
+/* Student filter: "All Students" chip should look like tips box */
+.filter-chip--any-student{
+  background-color: #f4f6fa;
+  border: 1px solid #dde2d5;
+  color: var(--brand-muted);
+  opacity: 0.8;
+}
+
+.filter-chip--any-student .filter-chip-remove{
+  color: var(--brand-muted);
+  opacity: 0.8;
+}
+
 .filter-dropdown {
   position: absolute;
   top: 100%;
