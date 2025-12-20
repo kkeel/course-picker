@@ -1154,7 +1154,7 @@ function coursePlanner() {
       },
       
       studentNameFromId(id) {
-        if (String(id) === "__any__") return "Any student tag";
+        if (String(id) === "__any__") return "All Students";
         const s = this.studentById(id);
         return s ? (s.name || "Unnamed") : "";
       },
