@@ -1663,7 +1663,7 @@ body {
   display: none;
 }
 
-/* --- Media Print ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â-- */
+/* --- Media Print --- */
 @media print {
 
   html, body {
@@ -1701,33 +1701,7 @@ body {
     display: none;
   }
 
-  /* Give header/footer room + keep page number safely away from edge */
-  @page {
-    margin: 32mm 28mm 24mm 15mm;
-
-    /* Left footer */
-    @bottom-left {
-      content: "Alveary Course List";
-      font-size: 8pt;
-      color: #4b544b;
-      white-space: nowrap;
-    }
-
-    /* Center footer */
-    @bottom-center {
-      content: "ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©2026 Charlotte Mason InstituteÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â® All rights reserved.";
-      font-size: 8pt;
-      color: #4b544b;
-      white-space: nowrap;
-    }
-
-      @bottom-right {
-        content: "p." counter(page);
-        font-size: 8pt;
-        color: #4b544b;
-        white-space: nowrap;
-      }
-  }
+  /* @page WAS HERE - changed to custom footers */
 
   body {
     background: #ffffff !important;
