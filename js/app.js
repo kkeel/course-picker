@@ -1141,7 +1141,8 @@ function coursePlanner() {
 
       // --- STUDENT OPTION HELPERS ---
       studentById(id) {
-        return (this.students || []).find(s => s.id === id) || null;
+        const needle = String(id);
+        return (this.students || []).find(s => String(s.id) === needle) || null;
       },
       
       studentNameFromId(id) {
@@ -1180,38 +1181,43 @@ function coursePlanner() {
       },
       
       toggleStudentFilter(id) {
-        if (!id) return;
-        if (!Array.isArray(this.selectedStudents)) this.selectedStudents = [];
+        if (id === undefined || id === null) return;
+        const sid = String(id);
       
-        const idx = this.selectedStudents.indexOf(id);
-        if (idx === -1) this.selectedStudents.push(id);
+        if (!Array.isArray(this.selectedStudents)) this.selectedStudents = [];
+        // ensure stored as strings only
+        this.selectedStudents = this.selectedStudents.map(String);
+      
+        const idx = this.selectedStudents.indexOf(sid);
+        if (idx === -1) this.selectedStudents.push(sid);
         else this.selectedStudents.splice(idx, 1);
       
         this.applyFilters();
       },
       
       removeStudentFilter(id) {
-        this.selectedStudents = (this.selectedStudents || []).filter(x => x !== id);
+        const sid = String(id);
+        this.selectedStudents = (this.selectedStudents || []).map(String).filter(x => x !== sid);
         this.applyFilters();
       },
 
       studentMatchesCourse(course) {
         if (!this.selectedStudents?.length) return true;
       
-        // Future-proof: if we later store assigned student IDs on courses/topics
         const ids = new Set();
       
-        if (Array.isArray(course.studentIds)) course.studentIds.forEach(x => ids.add(x));
+        if (Array.isArray(course.studentIds)) course.studentIds.forEach(x => ids.add(String(x)));
         if (Array.isArray(course.topics)) {
           course.topics.forEach(t => {
-            if (Array.isArray(t.studentIds)) t.studentIds.forEach(x => ids.add(x));
+            if (Array.isArray(t.studentIds)) t.studentIds.forEach(x => ids.add(String(x)));
           });
         }
       
-        // If nothing is tagged yet, don't filter anything out
+        // keep your current behavior (same as now): if nothing is tagged, don't filter anything out
         if (ids.size === 0) return true;
       
-        return this.selectedStudents.some(id => ids.has(id));
+        const selected = (this.selectedStudents || []).map(String);
+        return selected.some(id => ids.has(id));
       },
 
       // --- BOOKMARK HELPERS (My courses) ---
