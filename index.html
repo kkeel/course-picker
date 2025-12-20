@@ -1269,6 +1269,11 @@
                                     stroke-linejoin="round">
                                   </path>
                                 </svg>
+                                <span
+                                  class="student-count-badge"
+                                  x-show="assignedStudentCount(topic) > 0"
+                                  x-text="assignedStudentCount(topic)"
+                                ></span>
                               </button>
                             
                               <!-- Add-students "+" (shows only when rail is OPEN) -->
@@ -1389,6 +1394,11 @@
                               stroke-linejoin="round">
                             </path>
                           </svg>
+                          <span
+                            class="student-count-badge"
+                            x-show="assignedStudentCount(course) > 0"
+                            x-text="assignedStudentCount(course)"
+                          ></span>
                         </button>
                     
                         <!-- Add-students "+" (shows only when rail is OPEN) -->
