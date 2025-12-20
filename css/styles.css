@@ -501,7 +501,7 @@ body {
   position: absolute;
 
   /* bottom-right overlap */
-  right: 6px;
+  right: 10px;
   bottom: -6px;
 
   min-width: 16px;
