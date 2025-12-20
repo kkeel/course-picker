@@ -1249,16 +1249,27 @@
                                 @click.stop="toggleStudentRailCollapsed(studentRailKeyForTopic(topic))"
                                 aria-label="Toggle student assignments"
                               >
-                                <!-- solid filled person icon -->
-                                <svg class="student-rail-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                  <circle cx="12" cy="8" r="3.2" fill="currentColor"></circle>
-                                  <path
-                                    d="M4.5 20c0-3.9 3.7-6.8 7.5-6.8s7.5 2.9 7.5 6.8"
-                                    fill="currentColor">
-                                  </path>
-                                </svg>
-                            
-                                <!-- chevron / wedge -->
+                                <!-- PERSON ICON + BADGE (anchored together) -->
+                                <span style="position:relative; display:inline-flex; align-items:center; justify-content:center;">
+                                  <!-- person icon -->
+                                  <svg class="student-rail-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="8" r="3.2" fill="currentColor"></circle>
+                                    <path
+                                      d="M4.5 20c0-3.9 3.7-6.8 7.5-6.8s7.5 2.9 7.5 6.8"
+                                      fill="currentColor">
+                                    </path>
+                                  </svg>
+                                
+                                  <!-- count badge -->
+                                  <span
+                                    class="student-count-badge"
+                                    style="position:absolute; right:-6px; bottom:-6px;"
+                                    x-show="(topic.studentCount || 0) > 0"
+                                    x-text="topic.studentCount">
+                                  </span>
+                                </span>
+                                
+                                <!-- CHEVRON -->
                                 <svg class="student-rail-wedge" viewBox="0 0 24 24" aria-hidden="true">
                                   <path
                                     d="M7 10l5 5 5-5"
@@ -1269,11 +1280,6 @@
                                     stroke-linejoin="round">
                                   </path>
                                 </svg>
-                                <span
-                                  class="student-count-badge"
-                                  x-show="assignedStudentCount(topic) > 0"
-                                  x-text="assignedStudentCount(topic)"
-                                ></span>
                               </button>
                             
                               <!-- Add-students "+" (shows only when rail is OPEN) -->
@@ -1374,15 +1380,26 @@
                           @click.stop="toggleStudentRailCollapsed(studentRailKeyForCourse(course))"
                           aria-label="Toggle student assignments"
                         >
-                          <!-- solid filled person icon -->
-                          <svg class="student-rail-icon" viewBox="0 0 24 24" aria-hidden="true">
-                            <circle cx="12" cy="8" r="3.2" fill="currentColor"></circle>
-                            <path
-                              d="M4.5 20c0-3.9 3.7-6.8 7.5-6.8s7.5 2.9 7.5 6.8"
-                              fill="currentColor">
-                            </path>
-                          </svg>
-                    
+                          <!-- PERSON ICON + BADGE (badge anchored to icon, not chevron) -->
+                          <span style="position:relative; display:inline-flex; align-items:center; justify-content:center;">
+                            <!-- solid filled person icon -->
+                            <svg class="student-rail-icon" viewBox="0 0 24 24" aria-hidden="true">
+                              <circle cx="12" cy="8" r="3.2" fill="currentColor"></circle>
+                              <path
+                                d="M4.5 20c0-3.9 3.7-6.8 7.5-6.8s7.5 2.9 7.5 6.8"
+                                fill="currentColor">
+                              </path>
+                            </svg>
+                          
+                            <!-- badge anchored to the person icon -->
+                            <span
+                              class="student-count-badge"
+                              style="position:absolute; right:-6px; bottom:-6px;"
+                              x-show="((course.studentCount != null ? course.studentCount : assignedStudentCount(course)) > 0)"
+                              x-text="(course.studentCount != null ? course.studentCount : assignedStudentCount(course))"
+                            ></span>
+                          </span>
+                          
                           <!-- chevron / wedge -->
                           <svg class="student-rail-wedge" viewBox="0 0 24 24" aria-hidden="true">
                             <path
@@ -1394,11 +1411,6 @@
                               stroke-linejoin="round">
                             </path>
                           </svg>
-                          <span
-                            class="student-count-badge"
-                            x-show="assignedStudentCount(course) > 0"
-                            x-text="assignedStudentCount(course)"
-                          ></span>
                         </button>
                     
                         <!-- Add-students "+" (shows only when rail is OPEN) -->
