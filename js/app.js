@@ -1166,7 +1166,7 @@ function coursePlanner() {
 
       isStudentRailCollapsed(itemKey) {
         const map = this.studentRailCollapsed || {};
-        return (map[itemKey] !== false); // default true (collapsed)
+        return (map[itemKey] === true); // default true (collapsed)
       },
 
       toggleStudentRailCollapsed(itemKey) {
