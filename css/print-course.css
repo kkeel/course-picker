@@ -1,0 +1,26 @@
+@media print {
+  @page {
+    margin: 32mm 28mm 24mm 15mm;
+
+    @bottom-left {
+      content: "Alveary Course List";
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+
+    @bottom-center {
+      content: "©2026 Charlotte Mason Institute® All rights reserved.";
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+
+    @bottom-right {
+      content: "p." counter(page);
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+  }
+}
