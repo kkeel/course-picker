@@ -429,9 +429,10 @@
                     <div class="filter-control-chips">
                       <template x-for="sid in selectedStudents" :key="sid">
                         <span
-                          class="filter-chip filter-chip--student"
-                          :style="`background-color:${studentColorFromId(sid)};`"
-                        >
+                            class="filter-chip"
+                            :class="sid === '__any__' ? 'filter-chip--any-student' : 'filter-chip--student'"
+                            :style="sid === '__any__' ? '' : `background-color:${studentColorFromId(sid)};`"
+                          >
                           <span x-text="studentNameFromId(sid)"></span>
                           <button
                             type="button"
