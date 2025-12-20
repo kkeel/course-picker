@@ -685,12 +685,20 @@ function coursePlanner() {
         return result;
       },
       
-      // Topic list used by the template for each course.
-      // When My Courses is on, show only bookmarked topics in that course.
       visibleTopicsForCourse(course) {
-        const topics = Array.isArray(course.topics) ? course.topics : [];
-        if (!this.myCoursesOnly) return topics;
-        return topics.filter(t => this.isTopicBookmarked(t));
+        let topics = Array.isArray(course.topics) ? course.topics : [];
+      
+        // Student filter: only show the topics that match the selected student(s)
+        if (this.selectedStudents?.length) {
+          topics = topics.filter(t => this.studentMatchesTopic(t));
+        }
+      
+        // My Courses toggle: only show bookmarked topics (applies after student filtering too)
+        if (this.myCoursesOnly) {
+          topics = topics.filter(t => this.isTopicBookmarked(t));
+        }
+      
+        return topics;
       },
 
       // label helper for chips
@@ -1224,6 +1232,23 @@ function coursePlanner() {
         // ✅ Key change:
         // If the student filter is active and NOTHING is assigned here,
         // this course should NOT match (this is how planning-tag filtering behaves).
+        if (ids.size === 0) return false;
+      
+        const selected = (this.selectedStudents || []).map(String);
+        return selected.some(id => ids.has(id));
+      },
+
+      studentMatchesTopic(topic) {
+        // Match-all when the student filter is not active
+        if (!this.selectedStudents?.length) return true;
+      
+        const ids = new Set();
+      
+        if (Array.isArray(topic?.studentIds)) {
+          topic.studentIds.forEach(x => ids.add(String(x)));
+        }
+      
+        // If filter is active and topic has no students assigned, it should NOT match
         if (ids.size === 0) return false;
       
         const selected = (this.selectedStudents || []).map(String);
