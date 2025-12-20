@@ -1154,11 +1154,13 @@ function coursePlanner() {
       },
       
       studentNameFromId(id) {
+        if (String(id) === "__any__") return "Any student tag";
         const s = this.studentById(id);
         return s ? (s.name || "Unnamed") : "";
       },
       
       studentColorFromId(id) {
+        if (String(id) === "__any__") return "#9eaa99";
         const s = this.studentById(id);
         return s?.color || "#596e5e";
       },
@@ -1191,10 +1193,24 @@ function coursePlanner() {
       toggleStudentFilter(id) {
         if (id === undefined || id === null) return;
         const sid = String(id);
+        const ANY = "__any__";
       
         if (!Array.isArray(this.selectedStudents)) this.selectedStudents = [];
-        // ensure stored as strings only
         this.selectedStudents = this.selectedStudents.map(String);
+      
+        // "Any student tag" is mutually exclusive with specific students
+        if (sid === ANY) {
+          if (this.selectedStudents.includes(ANY)) {
+            this.selectedStudents = [];
+          } else {
+            this.selectedStudents = [ANY];
+          }
+          this.applyFilters();
+          return;
+        }
+      
+        // If ANY is selected and user picks a specific student, remove ANY first
+        this.selectedStudents = this.selectedStudents.filter(x => x !== ANY);
       
         const idx = this.selectedStudents.indexOf(sid);
         if (idx === -1) this.selectedStudents.push(sid);
@@ -1213,6 +1229,9 @@ function coursePlanner() {
         // Match-all when the student filter is not active (same as planning tags)
         if (!this.selectedStudents?.length) return true;
       
+        const ANY = "__any__";
+        const selected = (this.selectedStudents || []).map(String);
+      
         const ids = new Set();
       
         // Course-level studentIds
@@ -1229,12 +1248,14 @@ function coursePlanner() {
           });
         }
       
-        // ✅ Key change:
-        // If the student filter is active and NOTHING is assigned here,
-        // this course should NOT match (this is how planning-tag filtering behaves).
+        // If "Any student tag" is selected, match if ANY student exists here
+        if (selected.includes(ANY)) {
+          return ids.size > 0;
+        }
+      
+        // If the student filter is active and NOTHING is assigned here, do not match
         if (ids.size === 0) return false;
       
-        const selected = (this.selectedStudents || []).map(String);
         return selected.some(id => ids.has(id));
       },
 
@@ -1242,16 +1263,23 @@ function coursePlanner() {
         // Match-all when the student filter is not active
         if (!this.selectedStudents?.length) return true;
       
+        const ANY = "__any__";
+        const selected = (this.selectedStudents || []).map(String);
+      
         const ids = new Set();
       
         if (Array.isArray(topic?.studentIds)) {
           topic.studentIds.forEach(x => ids.add(String(x)));
         }
       
+        // If "Any student tag" is selected, match if ANY student exists on this topic instance
+        if (selected.includes(ANY)) {
+          return ids.size > 0;
+        }
+      
         // If filter is active and topic has no students assigned, it should NOT match
         if (ids.size === 0) return false;
       
-        const selected = (this.selectedStudents || []).map(String);
         return selected.some(id => ids.has(id));
       },
 
