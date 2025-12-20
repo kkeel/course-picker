@@ -1246,9 +1246,12 @@ function coursePlanner() {
           course.topics.forEach(t => addIds(t?.studentIds));
         }
       
-        // If "Any student tag" is selected, match if ANY REAL student exists here
+        // If "All Students" is selected, match ONLY if at least one REAL student exists here
         if (selected.includes(ANY)) {
-          return ids.size > 0;
+          for (const id of ids) {
+            if (this.studentById(id)) return true;
+          }
+          return false;
         }
       
         // If the student filter is active and NOTHING is assigned here, do not match
@@ -1267,9 +1270,12 @@ function coursePlanner() {
         const ids = new Set();
         this._normalizeStudentIds(topic?.studentIds).forEach(id => ids.add(id));
       
-        // If "Any student tag" is selected, match if ANY REAL student exists on this topic instance
+        // If "All Students" is selected, match ONLY if at least one REAL student exists on this topic instance
         if (selected.includes(ANY)) {
-          return ids.size > 0;
+          for (const id of ids) {
+            if (this.studentById(id)) return true;
+          }
+          return false;
         }
       
         // If filter is active and topic has no students assigned, it should NOT match
