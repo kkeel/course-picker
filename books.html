@@ -4,7 +4,7 @@
   <!-- 1. Required basics -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Alveary – Planner</title>
+  <title>Alveary – Book List</title>
 
   <!-- 2. PWA / App metadata -->
   <link rel="manifest" href="./manifest.webmanifest">
@@ -69,14 +69,14 @@
     
       <!-- navigation tabs -->
       <nav class="flex items-center gap-x-6 text-sm">
-        <a href="index.html" class="nav-tab nav-tab-active">Course List</a>
-        <a href="books.html" class="nav-tab">Book List</a>
+        <a href="index.html" class="nav-tab">Course List</a>
+        <a href="books.html" class="nav-tab nav-tab-active">Book List</a>
       </nav>
     </div>
 
     <!-- PRINT-ONLY: Course List + grade/master label on the right -->
     <div class="print-header-title-block">
-      <div class="print-header-title">Course List</div>
+      <div class="print-header-title">Book List</div>
       <div class="print-header-grade" x-text="gradePrintLabel()"></div>
     </div>
     
@@ -84,7 +84,7 @@
 
   <!-- PRINT-ONLY FOOTER -->
   <footer class="print-footer" aria-hidden="true">
-    <div class="print-footer-left">Alveary Course List</div>
+    <div class="print-footer-left">Alveary Book List</div>
     <div class="print-footer-center">©2026 Charlotte Mason Institute® All rights reserved.</div>
     <div class="print-footer-right">
       <span class="print-footer-grade" x-text="gradePrintLabel()"></span>
@@ -95,13 +95,13 @@
   <!-- Main content -->
   <main class="max-w-6xl mx-auto px-6 lg:px-16 pb-16 space-y-10">
 
-    <!-- Course List -->
+    <!-- Book List -->
     <section>
-      <h2 class="section-title">Course List</h2>
+      <h2 class="section-title">Book List</h2>
       <p class="section-subtitle">
-        This is an intuitive course planner that helps organize your school year.
-        Browse courses by subject, view descriptions and placement tips, and easily tag, note,
-        or save your selections for a personalized learning plan.
+        This is the Alveary Book List for Rotation 3.
+        Browse books and resources by subject, view rationales for why they were chosen by curriculum experts, and easily tag, note,
+        or save your selections for a personalized book list.
       </p>
 
       <!-- Filter state + panel (both stick under header) -->
