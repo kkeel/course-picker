@@ -1202,19 +1202,29 @@ function coursePlanner() {
       },
 
       studentMatchesCourse(course) {
+        // Match-all when the student filter is not active (same as planning tags)
         if (!this.selectedStudents?.length) return true;
       
         const ids = new Set();
       
-        if (Array.isArray(course.studentIds)) course.studentIds.forEach(x => ids.add(String(x)));
+        // Course-level studentIds
+        if (Array.isArray(course.studentIds)) {
+          course.studentIds.forEach(x => ids.add(String(x)));
+        }
+      
+        // Topic-level studentIds (any topic in this course)
         if (Array.isArray(course.topics)) {
           course.topics.forEach(t => {
-            if (Array.isArray(t.studentIds)) t.studentIds.forEach(x => ids.add(String(x)));
+            if (Array.isArray(t.studentIds)) {
+              t.studentIds.forEach(x => ids.add(String(x)));
+            }
           });
         }
       
-        // keep your current behavior (same as now): if nothing is tagged, don't filter anything out
-        if (ids.size === 0) return true;
+        // ✅ Key change:
+        // If the student filter is active and NOTHING is assigned here,
+        // this course should NOT match (this is how planning-tag filtering behaves).
+        if (ids.size === 0) return false;
       
         const selected = (this.selectedStudents || []).map(String);
         return selected.some(id => ids.has(id));
