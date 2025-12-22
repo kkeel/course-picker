@@ -1909,5 +1909,22 @@ body {
 .planning-tag-img {
   display: inline-flex !important;
 }
+
+.student-rail-toggle-row {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .student-chip-row {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    display: inline-block !important;
+    width: 100% !important;
+  }
+
+  .student-chip {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
   
 }
