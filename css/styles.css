@@ -1936,5 +1936,37 @@ body {
   .student-chip-text {
     color: #ffffff !important;
   }
+
+  /* Hide the toggle UI (person icon + count badge + chevron) */
+  .student-rail-toggle {
+    display: none !important;
+  }
+
+  /* Extra safety: if any of these still render, hide them too */
+  .student-rail-icon,
+  .student-count-badge,
+  .student-rail-wedge {
+    display: none !important;
+  }
+
+  /* Hide the ghost marker symbol (↪) */
+  .student-ghost-marker {
+    display: none !important;
+  }
+
+  /* Hide ghost chips entirely (outlined “assigned elsewhere” ones) */
+  .student-chip--ghost {
+    display: none !important;
+  }
+
+  /* Remove tiny X on real chips */
+  .student-chip-remove {
+    display: none !important;
+  }
+
+  /* Hide any ghost “apply +” button (just in case a ghost chip sneaks through) */
+  .student-chip-apply {
+    display: none !important;
+  }
   
 }
