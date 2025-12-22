@@ -1926,5 +1926,15 @@ body {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
   }
+
+  /* --- PRINT: restore student chip colors --- */
+  .student-chip {
+    background-color: var(--stu) !important;
+    color: #ffffff !important;
+  }
+  
+  .student-chip-text {
+    color: #ffffff !important;
+  }
   
 }
