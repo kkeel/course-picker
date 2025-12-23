@@ -933,7 +933,7 @@
                             <div class="resource-img-wrap">
                               <img
                                 class="resource-img"
-                                :src="resourcesById[a.resourceId]?.image_ViewLink || ''"
+                                :src="resourcesById[a.resourceId]?.imageViewLink || ''"
                                 :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
                                 loading="lazy"
                                 @error="$event.target.style.display='none'"
@@ -956,8 +956,8 @@
                           
                                 <span
                                   class="resource-isbn"
-                                  x-show="resourcesById[a.resourceId]?.isbn_ASIN"
-                                  x-text="resourcesById[a.resourceId]?.isbn_ASIN || ''"
+                                  x-show="resourcesById[a.resourceId]?.isbnAsin"
+                                  x-text="resourcesById[a.resourceId]?.isbnAsin || ''"
                                 ></span>
                               </div>
                             </div>
@@ -1178,7 +1178,7 @@
                                   <div class="resource-img-wrap">
                                     <img
                                       class="resource-img"
-                                      :src="resourcesById[a.resourceId]?.image_ViewLink || ''"
+                                      :src="resourcesById[a.resourceId]?.imageViewLink || ''"
                                       :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
                                       loading="lazy"
                                       @error="$event.target.style.display='none'"
@@ -1201,8 +1201,8 @@
                                 
                                       <span
                                         class="resource-isbn"
-                                        x-show="resourcesById[a.resourceId]?.isbn_ASIN"
-                                        x-text="resourcesById[a.resourceId]?.isbn_ASIN || ''"
+                                        x-show="resourcesById[a.resourceId]?.isbnAsin"
+                                        x-text="resourcesById[a.resourceId]?.isbnAsin || ''"
                                       ></span>
                                     </div>
                                   </div>
