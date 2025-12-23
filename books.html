@@ -929,13 +929,40 @@
                           :key="'rc-' + a.assignmentId"
                         >
                           <div class="resource-card">
-                            <div
-                              class="resource-title"
-                              x-text="(resourcesById[a.resourceId] && resourcesById[a.resourceId].title)
-                                ? resourcesById[a.resourceId].title
-                                : 'Untitled resource'"
-                            ></div>
+                            <!-- left: image -->
+                            <div class="resource-img-wrap">
+                              <img
+                                class="resource-img"
+                                :src="resourcesById[a.resourceId]?.image_ViewLink || ''"
+                                :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
+                                loading="lazy"
+                                @error="$event.target.style.display='none'"
+                              />
+                            </div>
+                          
+                            <!-- right: text -->
+                            <div class="resource-body">
+                              <div
+                                class="resource-title"
+                                x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
+                              ></div>
+                          
+                              <div class="resource-subline">
+                                <span
+                                  class="resource-author"
+                                  x-show="resourcesById[a.resourceId]?.author"
+                                  x-text="resourcesById[a.resourceId]?.author ? ('by ' + resourcesById[a.resourceId].author) : ''"
+                                ></span>
+                          
+                                <span
+                                  class="resource-isbn"
+                                  x-show="resourcesById[a.resourceId]?.isbn_ASIN"
+                                  x-text="resourcesById[a.resourceId]?.isbn_ASIN || ''"
+                                ></span>
+                              </div>
+                            </div>
                           </div>
+                          
                         </template>
                       </div>
       
@@ -1147,13 +1174,40 @@
                                 :key="'rt-' + a.assignmentId"
                               >
                                 <div class="resource-card">
-                                  <div
-                                    class="resource-title"
-                                    x-text="(resourcesById[a.resourceId] && resourcesById[a.resourceId].title)
-                                      ? resourcesById[a.resourceId].title
-                                      : 'Untitled resource'"
-                                  ></div>
+                                  <!-- left: image -->
+                                  <div class="resource-img-wrap">
+                                    <img
+                                      class="resource-img"
+                                      :src="resourcesById[a.resourceId]?.image_ViewLink || ''"
+                                      :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
+                                      loading="lazy"
+                                      @error="$event.target.style.display='none'"
+                                    />
+                                  </div>
+                                
+                                  <!-- right: text -->
+                                  <div class="resource-body">
+                                    <div
+                                      class="resource-title"
+                                      x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
+                                    ></div>
+                                
+                                    <div class="resource-subline">
+                                      <span
+                                        class="resource-author"
+                                        x-show="resourcesById[a.resourceId]?.author"
+                                        x-text="resourcesById[a.resourceId]?.author ? ('by ' + resourcesById[a.resourceId].author) : ''"
+                                      ></span>
+                                
+                                      <span
+                                        class="resource-isbn"
+                                        x-show="resourcesById[a.resourceId]?.isbn_ASIN"
+                                        x-text="resourcesById[a.resourceId]?.isbn_ASIN || ''"
+                                      ></span>
+                                    </div>
+                                  </div>
                                 </div>
+
                               </template>
                             </div>
                             <!-- Topic notes panel -->
