@@ -1,0 +1,44 @@
+name: Build Resource Cover Thumbnails (R3)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "35 8 * * *"  # daily (adjust)
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install ImageMagick
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+
+      - name: Build cover thumbnails from Airtable attachments
+        env:
+          AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+          ROTATION: "3"
+        run: |
+          node tools/build-resource-thumbs-from-airtable.mjs
+
+      - name: Commit and push images (if changed)
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add img/resources
+          if git diff --cached --quiet; then
+            echo "No image changes to commit"
+          else
+            git commit -m "Update resource cover thumbnails (Automated)"
+            git push
+          fi
