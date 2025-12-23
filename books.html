@@ -933,10 +933,19 @@
                             <div class="resource-img-wrap">
                               <img
                                 class="resource-img"
-                                :src="resourcesById[a.resourceId]?.imageViewLink || ''"
+                                :src="localCoverPath(a.resourceId)"
                                 :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
                                 loading="lazy"
-                                @error="$event.target.style.display='none'"
+                                @error="
+                                  // fallback to Drive link if local thumbnail missing
+                                  const drive = resourcesById[a.resourceId]?.imageViewLink || '';
+                                  if (drive && !$event.target.dataset.fallback) {
+                                    $event.target.dataset.fallback = '1';
+                                    $event.target.src = drive; // your drive-normalized URL
+                                  } else {
+                                    $event.target.style.display='none';
+                                  }
+                                "
                               />
                             </div>
                           
@@ -1178,10 +1187,19 @@
                                   <div class="resource-img-wrap">
                                     <img
                                       class="resource-img"
-                                      :src="resourcesById[a.resourceId]?.imageViewLink || ''"
+                                      :src="localCoverPath(a.resourceId)"
                                       :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
                                       loading="lazy"
-                                      @error="$event.target.style.display='none'"
+                                      @error="
+                                        // fallback to Drive link if local thumbnail missing
+                                        const drive = resourcesById[a.resourceId]?.imageViewLink || '';
+                                        if (drive && !$event.target.dataset.fallback) {
+                                          $event.target.dataset.fallback = '1';
+                                          $event.target.src = drive; // your drive-normalized URL
+                                        } else {
+                                          $event.target.style.display='none';
+                                        }
+                                      "
                                     />
                                   </div>
                                 
