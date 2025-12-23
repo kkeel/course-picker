@@ -903,7 +903,7 @@
                             <template x-if="course.planningTags && course.planningTags.length > 0">
                               <div class="planning-tag-selected-row">
                                 <template x-for="tag in course.planningTags" :key="tag.id">
-                                  <div class="planning-tag-pill">
+                                  <div class="planning-tag-pill planning-tag-pill--ghost">
                                     <img
                                       class="planning-tag-img"
                                       :src="tag.img"
@@ -1130,7 +1130,7 @@
                                   <template x-if="topic.planningTags && topic.planningTags.length > 0">
                                     <div class="planning-tag-selected-row">
                                       <template x-for="tag in topic.planningTags" :key="tag.id">
-                                        <div class="planning-tag-pill">
+                                        <div class="planning-tag-pill planning-tag-pill--ghost">
                                           <img
                                             class="planning-tag-img"
                                             :src="tag.img"
