@@ -14,6 +14,33 @@
     return await res.json();
   }
 
+    function normalizeDriveImageUrl(url) {
+    if (!url) return "";
+
+    const s = String(url);
+
+    // Common Drive patterns:
+    // 1) https://drive.google.com/uc?id=FILEID
+    // 2) https://drive.google.com/open?id=FILEID
+    // 3) https://drive.google.com/file/d/FILEID/view?...
+    let id = "";
+
+    // uc?id= or open?id=
+    const m1 = s.match(/[?&]id=([^&]+)/);
+    if (m1 && m1[1]) id = m1[1];
+
+    // /file/d/FILEID/
+    if (!id) {
+      const m2 = s.match(/\/file\/d\/([^/]+)/);
+      if (m2 && m2[1]) id = m2[1];
+    }
+
+    if (!id) return s; // not a drive link we recognize—leave it alone
+
+    // Thumbnail URL returns actual image bytes (best for <img>)
+    return `https://drive.google.com/thumbnail?id=${id}&sz=w400`;
+  }
+
   window.coursePlanner = function () {
     const original = originalCoursePlanner();
     const originalInit = original.init;
@@ -59,7 +86,11 @@
           // Build resourcesById
           const resById = {};
           for (const r of (resourcesJson?.resources || [])) {
-            if (r && r.resourceId) resById[r.resourceId] = r;
+            if (r && r.resourceId) {
+              // normalize image URL so <img> gets real image bytes
+              r.imageViewLink = normalizeDriveImageUrl(r.imageViewLink);
+              resById[r.resourceId] = r;
+            }
           }
           this.resourcesById = resById;
 
