@@ -88,3 +88,8 @@
 
 /* Optional: if you want student rails always visible and not “toggleable” */
 /* .books-page .student-rail-toggle { pointer-events:none !important; } */
+
+/* Hide ghost planning tags completely on Book List */
+.books-page .planning-tag-pill--ghost {
+  display: none !important;
+}
