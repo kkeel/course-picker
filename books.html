@@ -1080,7 +1080,7 @@
                                   <template x-if="topic.planningTags && topic.planningTags.length > 0">
                                     <div class="planning-tag-selected-row">
                                       <template x-for="tag in topic.planningTags" :key="tag.id">
-                                        <div class="planning-tag-pill planning-tag-pill--ghost">
+                                        <div class="planning-tag-pill">
                                           <img
                                             class="planning-tag-img"
                                             :src="tag.img"
@@ -1115,7 +1115,7 @@
                                         x-for="tagId in missingGlobalTagsForTopic(topic)"
                                         :key="'ghost-' + tagId"
                                       >
-                                        <div class="planning-tag-pill">
+                                        <div class="planning-tag-pill planning-tag-pill--ghost">
                                           <img
                                             class="planning-tag-img planning-tag-img-ghost"
                                             :src="planningTagImage(tagId)"
