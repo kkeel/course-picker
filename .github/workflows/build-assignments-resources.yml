@@ -1,0 +1,44 @@
+name: Build MA_Assignments.json + MA_Resources.json from Airtable (R3)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "10 8 * * *"   # 8:10am UTC (adjust if you want)
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build JSON from Airtable
+        env:
+          AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+          ROTATION: "3"
+        run: |
+          node tools/build-assignments-from-airtable.mjs
+          node tools/build-resources-from-airtable.mjs
+
+      - name: Commit and push updated JSON files
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          git add data/MA_Assignments.json data/MA_Resources.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update assignments/resources JSON (Automated)"
+            git push
+          fi
