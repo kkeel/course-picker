@@ -19,6 +19,57 @@
   font-weight: 600;
 }
 
+/* Resource card layout: image left, content right (top aligned) */
+.resource-card{
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 12px;
+  align-items: start; /* top align */
+}
+
+/* Image container keeps all images same size */
+.resource-img-wrap{
+  width: 64px;
+  height: 84px;          /* book-ish aspect */
+  border-radius: 10px;
+  overflow: hidden;
+  background: #e5e8e5;   /* subtle placeholder */
+  flex: none;
+}
+
+/* Image fills box, anchored at top */
+.resource-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+/* Text area */
+.resource-body{
+  min-width: 0; /* prevents overflow in grid */
+}
+
+.resource-title{
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/* Author + ISBN on one line with spacing */
+.resource-subline{
+  margin-top: 4px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap; /* wraps nicely on small screens */
+  align-items: baseline;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.resource-author{ white-space: nowrap; }
+.resource-isbn{ white-space: nowrap; opacity: 0.9; }
+
 /* =========================================================
    Book List – Read-only mode (screen only)
    Keeps visibility, removes edit affordances.
