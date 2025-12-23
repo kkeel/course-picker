@@ -18,3 +18,73 @@
 .resource-title {
   font-weight: 600;
 }
+
+/* =========================================================
+   Book List – Read-only mode (screen only)
+   Keeps visibility, removes edit affordances.
+   Scoped to .books-page so course list is untouched.
+   ========================================================= */
+
+/* Hide the “Descriptions & Tips” toggle in filter actions */
+.books-page .filter-actions .toggle:has(span:contains("Descriptions")) { display: none !important; }
+/* If :has / :contains isn’t supported, use the safer selectors below (recommended): */
+.books-page .filter-actions .toggle:nth-child(1) { display: none !important; } /* (Descriptions & Tips is currently first) */
+
+/* Hide card detail chevrons entirely (course/topic) */
+.books-page .card-toggle { display: none !important; }
+
+/* --- BOOKMARKS: show state but make non-interactive --- */
+.books-page .bookmark-btn,
+.books-page .quick-enroll-btn {
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+/* Hide the little “+” overlay on bookmark buttons */
+.books-page .bookmark-apply { display: none !important; }
+
+/* Hide “Clear bookmarks” button (it *changes* state) */
+.books-page .filter-actions .btn-pill:has(.bookmark-reset) { display: none !important; }
+/* Safer fallback if :has unsupported: hide the first pill button in that left group */
+.books-page .filter-actions .flex.gap-2 > button:first-child { display: none !important; }
+
+/* --- PLANNING TAGS: keep showing selected tag images, remove edit controls --- */
+
+/* Remove the “+ Planning tag” button when no tags exist */
+.books-page .planning-tag-button { display: none !important; }
+
+/* Hide remove “x” and add “+” controls on tag pills */
+.books-page .planning-tag-remove,
+.books-page .planning-tag-add,
+.books-page .planning-tag-apply {
+  display: none !important;
+}
+
+/* Keep tag images visible (the pill itself stays) */
+.books-page .planning-tag-pill { pointer-events: none !important; }
+
+/* Also hide the global planning tag menu entirely (can’t edit from books) */
+.books-page [x-show="planningMenuOpen"] { display: none !important; }
+
+/* --- STUDENTS: keep viewing chips, disable all editing --- */
+
+/* Hide “Manage Students” and the entire student manager panel */
+.books-page .manage-students-toggle,
+.books-page .student-manager {
+  display: none !important;
+}
+
+/* Hide the “Assign students +” buttons */
+.books-page .student-rail-toggle-row .planning-tag-add { display: none !important; }
+
+/* Hide chip remove and ghost-apply buttons */
+.books-page .student-chip-remove,
+.books-page .student-chip-apply {
+  display: none !important;
+}
+
+/* Optional: hide ghost marker arrow if you don’t want “assigned elsewhere” indicators */
+.books-page .student-ghost-marker { display: none !important; }
+
+/* Optional: if you want student rails always visible and not “toggleable” */
+/* .books-page .student-rail-toggle { pointer-events:none !important; } */
