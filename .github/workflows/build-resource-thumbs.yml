@@ -23,6 +23,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y imagemagick
 
+      - name: Verify ImageMagick
+        run: |
+          which convert
+          convert -version
+          which magick || true
+
       - name: Build cover thumbnails from Airtable attachments
         env:
           AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
