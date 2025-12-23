@@ -62,13 +62,11 @@ async function downloadTo(urlStr, destPath) {
 }
 
 async function convertToWebp(srcPath, outPath) {
-  // Uses ImageMagick "magick" (available on ubuntu-latest; we install in workflow to be safe)
-  // Resize to a small, consistent display size; keep aspect ratio.
-  await execFileAsync("magick", [
+  await execFileAsync("convert", [
     srcPath,
-    "-resize", "220x320>",     // fit within box, only shrink
-    "-strip",                  // remove metadata
-    "-quality", "82",          // good balance
+    "-resize", "220x320>",
+    "-strip",
+    "-quality", "82",
     outPath
   ]);
 }
