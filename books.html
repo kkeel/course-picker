@@ -933,34 +933,24 @@
                         </template>
                       </p>
                     
-                      <!-- Description + combining tips -->
+                      <!-- Resource cards (course-level) -->
                       <div
-                        class="course-detail-row"
-                        x-show="showAllDetails
-                                && course.detailsOpen
-                                && ((course.description && course.description.trim())
-                                    || (course.tips && course.tips.trim()))"
-                        x-transition
+                        class="resource-list"
+                        x-show="(assignmentsByTargetId[(course.recordID || course.id)] || []).length"
                       >
-                        <div
-                          class="course-detail-description"
-                          x-show="course.description && course.description.trim().length > 0"
-                          x-text="course.description"
-                        ></div>
-                        
-                        <div
-                          class="course-detail-tips"
-                          x-show="course.tips && course.tips.trim().length > 0"
+                        <template
+                          x-for="a in (assignmentsByTargetId[(course.recordID || course.id)] || [])"
+                          :key="'rc-' + a.assignmentId"
                         >
-                          <span class="course-detail-tips-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24">
-                              <circle cx="9" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/>
-                              <circle cx="15" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/>
-                            </svg>
-                          </span>
-                          <span x-text="course.tips"></span>
-                        </div>
-
+                          <div class="resource-card">
+                            <div
+                              class="resource-title"
+                              x-text="(resourcesById[a.resourceId] && resourcesById[a.resourceId].title)
+                                ? resourcesById[a.resourceId].title
+                                : 'Untitled resource'"
+                            ></div>
+                          </div>
+                        </template>
                       </div>
       
                       <!-- Nested topics (titles only for now) -->
@@ -1196,47 +1186,24 @@
                                 </span>
                               </p>
 
+                            <!-- Resource cards (topic-level) -->
                             <div
-                              class="course-detail-row"
-                              x-show="showAllDetails
-                                  && topic.detailsOpen
-                                  && ((topic.description && topic.description.trim())
-                                  || (topic.tips && topic.tips.trim()))"
-
-                              x-transition
+                              class="resource-list"
+                              x-show="(assignmentsByTargetId[(topic.recordID || topic.id)] || []).length"
                             >
-                              <div
-                                class="course-detail-description"
-                                x-show="topic.description && topic.description.trim()"
-                                x-text="topic.description"
-                              ></div>
-                          
-                              <div
-                                class="course-detail-tips"
-                                x-show="topic.tips && topic.tips.trim()"
+                              <template
+                                x-for="a in (assignmentsByTargetId[(topic.recordID || topic.id)] || [])"
+                                :key="'rt-' + a.assignmentId"
                               >
-                                <span class="course-detail-tips-icon" aria-hidden="true">
-                                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <circle
-                                      cx="9"
-                                      cy="12"
-                                      r="4"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      stroke-width="1.7"
-                                    />
-                                    <circle
-                                      cx="15"
-                                      cy="12"
-                                      r="4"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      stroke-width="1.7"
-                                    />
-                                  </svg>
-                                </span>
-                                <span x-text="topic.tips"></span>
-                              </div>
+                                <div class="resource-card">
+                                  <div
+                                    class="resource-title"
+                                    x-text="(resourcesById[a.resourceId] && resourcesById[a.resourceId].title)
+                                      ? resourcesById[a.resourceId].title
+                                      : 'Untitled resource'"
+                                  ></div>
+                                </div>
+                              </template>
                             </div>
                             <!-- Topic notes panel -->
                             <div
