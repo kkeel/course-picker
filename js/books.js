@@ -14,6 +14,10 @@
     return await res.json();
   }
 
+  function localCoverPath(resourceId) {
+    return resourceId ? `img/resources/${resourceId}.webp` : "";
+  }
+
     function normalizeDriveImageUrl(url) {
     if (!url) return "";
 
