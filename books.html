@@ -704,9 +704,9 @@
                           <h4 class="course-title" x-text="course.course_title || course.title || course.Course || 'Untitled course'"></h4>
                             <a
                               class="edit-pill"
-                              x-show="isStaff && editMode && _editUrlForTargetId(course.recordID || course.id)"
+                              x-show="isStaff && editMode && (course.Edit_ResourceAssignmentsURL || _editUrlForTargetId(course.recordID || course.id))"
                               x-cloak
-                              :href="_editUrlForTargetId(course.recordID || course.id)"
+                              :href="course.Edit_ResourceAssignmentsURL || _editUrlForTargetId(course.recordID || course.id)"
                               target="_blank"
                               rel="noopener"
                               @click.stop
@@ -993,9 +993,9 @@
                                 <h5 class="topic-title" x-text="topic.Topic"></h5>
                                  <a
                                   class="edit-pill"
-                                  x-show="isStaff && editMode && _editUrlForTargetId(topic.recordID || topic.id)"
+                                  x-show="isStaff && editMode && (topic.Edit_ResourceAssignmentsURL || _editUrlForTargetId(topic.recordID || topic.id))"
                                   x-cloak
-                                  :href="_editUrlForTargetId(topic.recordID || topic.id)"
+                                  :href="topic.Edit_ResourceAssignmentsURL || _editUrlForTargetId(topic.recordID || topic.id)"
                                   target="_blank"
                                   rel="noopener"
                                   @click.stop
