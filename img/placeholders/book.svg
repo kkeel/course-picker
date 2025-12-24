@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140">
+  <defs>
+    <!-- soft background -->
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4f3ee"/>
+      <stop offset="1" stop-color="#eceae3"/>
+    </linearGradient>
+
+    <!-- cover -->
+    <linearGradient id="cover" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fdfcf8"/>
+      <stop offset="1" stop-color="#f2f0ea"/>
+    </linearGradient>
+
+    <!-- spine -->
+    <linearGradient id="spine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d9d6cd"/>
+      <stop offset="1" stop-color="#cfcbbf"/>
+    </linearGradient>
+
+    <!-- subtle shadow -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- background tile -->
+  <rect x="0" y="0" width="140" height="140" rx="16" fill="url(#bg)"/>
+
+  <!-- book group -->
+  <g filter="url(#shadow)">
+    <!-- back shadow edge -->
+    <path d="M40 28h54c7 0 12 5 12 12v68c0 7-5 12-12 12H40c-7 0-12-5-12-12V40c0-7 5-12 12-12z"
+          fill="#e7e4db"/>
+
+    <!-- cover -->
+    <path d="M42 26h52c7 0 12 5 12 12v72c0 7-5 12-12 12H42c-7 0-12-5-12-12V38c0-7 5-12 12-12z"
+          fill="url(#cover)" stroke="#cfcbbf" stroke-width="2"/>
+
+    <!-- spine -->
+    <path d="M30 38c0-7 5-12 12-12h8v96h-8c-7 0-12-5-12-12V38z"
+          fill="url(#spine)" stroke="#cfcbbf" stroke-width="2"/>
+
+    <!-- spine highlight -->
+    <rect x="38" y="28" width="2" height="92" rx="1" fill="#ffffff" opacity="0.55"/>
+
+    <!-- simple cover badge (no “paper lines”) -->
+    <rect x="58" y="52" width="34" height="24" rx="6" fill="#dedad0"/>
+    <rect x="62" y="58" width="26" height="4" rx="2" fill="#c7c2b6"/>
+    <rect x="62" y="66" width="18" height="4" rx="2" fill="#c7c2b6"/>
+
+    <!-- tiny “bookmark” notch for book vibe -->
+    <path d="M94 26h10v20l-5-4-5 4V26z" fill="#d9d6cd" stroke="#cfcbbf" stroke-width="1"/>
+  </g>
+</svg>
