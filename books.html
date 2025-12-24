@@ -705,9 +705,9 @@
                         
                           <a
                             class="edit-pill"
-                            x-show="isStaff && editMode && course.Edit_CourseListURL"
+                            x-show="isStaff && editMode && (assignmentsByTargetId[(course.recordID || course.id)] || [])[0]?.editUrl"
                             x-cloak
-                            :href="course.Edit_CourseListURL"
+                            :href="(assignmentsByTargetId[(course.recordID || course.id)] || [])[0].editUrl"
                             target="_blank"
                             rel="noopener"
                             @click.stop
@@ -982,9 +982,9 @@
                               
                                 <a
                                   class="edit-pill"
-                                  x-show="isStaff && editMode && topic.Edit_CourseListURL"
+                                  x-show="isStaff && editMode && (assignmentsByTargetId[(topic.recordID || topic.id)] || [])[0]?.editUrl"
                                   x-cloak
-                                  :href="topic.Edit_CourseListURL"
+                                  :href="(assignmentsByTargetId[(topic.recordID || topic.id)] || [])[0].editUrl"
                                   target="_blank"
                                   rel="noopener"
                                   @click.stop
