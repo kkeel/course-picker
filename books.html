@@ -936,13 +936,13 @@
                                :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
                                loading="lazy"
                                @error="
-                                 (function(img){
-                                   var rid = a.resourceId || '';
-                                   var drive = (resourcesById[rid] && resourcesById[rid].imageViewLink) ? resourcesById[rid].imageViewLink : '';
-                                   if (drive && !img.dataset.fallback) { img.dataset.fallback='1'; img.src = drive; }
-                                   else { img.style.display='none'; }
-                                 })($event.target)
-                               ">
+                                if ($event.target.dataset.fallback !== 'placeholder') {
+                                  $event.target.dataset.fallback = 'placeholder';
+                                  $event.target.src = 'img/placeholders/book.svg';
+                                } else {
+                                  $event.target.style.display='none';
+                                }
+                              ">
                             </div>
                           
                             <!-- right: text -->
@@ -1186,13 +1186,13 @@
                                      :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
                                      loading="lazy"
                                      @error="
-                                       (function(img){
-                                         var rid = a.resourceId || '';
-                                         var drive = (resourcesById[rid] && resourcesById[rid].imageViewLink) ? resourcesById[rid].imageViewLink : '';
-                                         if (drive && !img.dataset.fallback) { img.dataset.fallback='1'; img.src = drive; }
-                                         else { img.style.display='none'; }
-                                       })($event.target)
-                                     ">
+                                      if ($event.target.dataset.fallback !== 'placeholder') {
+                                        $event.target.dataset.fallback = 'placeholder';
+                                        $event.target.src = 'img/placeholders/book.svg';
+                                      } else {
+                                        $event.target.style.display='none';
+                                      }
+                                    ">
                                   </div>
                                 
                                   <!-- right: text -->
