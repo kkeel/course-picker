@@ -152,29 +152,10 @@
       },
 
       isOptionalAssignment(a) {
-        if (!a) return false;
+        const rid = String(a?.resourceId || "").trim();
+        if (!rid) return false;
       
-        // Common boolean flags
-        if (a.isOptional === true || a.optional === true) return true;
-      
-        // Sometimes a Yes/No string field exists
-        const yn = String(a.optionalYN || a.optionalFlag || a.optionalQ || "").trim().toLowerCase();
-        if (["yes", "y", "true", "1"].includes(yn)) return true;
-      
-        // Common “Requirement” style fields (string)
-        const s = String(
-          a.requirement ??
-          a.required ??
-          a.requiredness ??
-          a.resourceRequirement ??
-          a.assignmentType ??
-          ""
-        ).trim().toLowerCase();
-      
-        // If the word optional appears anywhere, treat it as optional
-        if (s.includes("optional")) return true;
-      
-        return false;
+        return this.resourcesById?.[rid]?.flags?.optional === true;
       },
 
       // -----------------------------
