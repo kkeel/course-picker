@@ -702,16 +702,16 @@
                       <div class="card-header">
                         <div class="title-with-edit">
                           <h4 class="course-title" x-text="course.course_title || course.title || course.Course || 'Untitled course'"></h4>
-                        
-                          <a
-                            class="edit-pill"
-                            x-show="isStaff && editMode && (assignmentsByTargetId[(course.recordID || course.id)] || [])[0]?.editUrl"
-                            x-cloak
-                            :href="(assignmentsByTargetId[(course.recordID || course.id)] || [])[0].editUrl"
-                            target="_blank"
-                            rel="noopener"
-                            @click.stop
-                          >Edit ↗</a>
+                            <a
+                              class="edit-pill"
+                              x-show="isStaff && editMode && _editUrlForTargetId(course.recordID || course.id)"
+                              x-cloak
+                              :href="_editUrlForTargetId(course.recordID || course.id)"
+                              target="_blank"
+                              rel="noopener"
+                              @click.stop
+                            >Edit ↗</a>
+                      
                         </div>
                       
                         <div class="card-header-actions">
@@ -991,16 +991,16 @@
                             <div class="card-header">
                               <div class="title-with-edit">
                                 <h5 class="topic-title" x-text="topic.Topic"></h5>
-                              
-                                <a
+                                 <a
                                   class="edit-pill"
-                                  x-show="isStaff && editMode && (assignmentsByTargetId[(topic.recordID || topic.id)] || [])[0]?.editUrl"
+                                  x-show="isStaff && editMode && _editUrlForTargetId(topic.recordID || topic.id)"
                                   x-cloak
-                                  :href="(assignmentsByTargetId[(topic.recordID || topic.id)] || [])[0].editUrl"
+                                  :href="_editUrlForTargetId(topic.recordID || topic.id)"
                                   target="_blank"
                                   rel="noopener"
                                   @click.stop
                                 >Edit ↗</a>
+ 
                               </div>
                             
                               <div class="card-header-actions">
