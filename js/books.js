@@ -162,7 +162,17 @@
       _hasAssignmentsForTargetId(targetId) {
         if (!targetId) return false;
         const arr = this.assignmentsByTargetId?.[targetId] || [];
-        return Array.isArray(arr) && arr.length > 0;
+        if (!Array.isArray(arr) || arr.length === 0) return false;
+      
+        // ✅ "Has assignments" for published view means: at least one row with a resourceId
+        return arr.some(a => String(a?.resourceId || "").trim());
+      },
+
+      _editUrlForTargetId(targetId) {
+        if (!targetId) return "";
+        const arr = this.assignmentsByTargetId?.[targetId] || [];
+        const first = Array.isArray(arr) && arr.length ? arr[0] : null;
+        return String(first?.editUrl || "").trim();
       },
 
       _bookHasAssignments(item) {
