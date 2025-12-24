@@ -124,7 +124,8 @@ async function main() {
       note:      asString(f["NOTE:"]).trim(),
 
       assignmentIdsR3: asIdArray(f["assignmentID_R3"]),
-      imageViewLink:   asString(f["Image_ViewLink"]).trim()
+      imageViewLink:   asString(f["Image_ViewLink"]).trim(),
+      bookEditUrl:     asString(f["Edit_BookListURL"])
     };
   });
 
