@@ -150,6 +150,81 @@
       placeholderCover() {
         return "img/placeholders/book.svg";
       },
+
+      // -----------------------------
+      // ✅ Book List: hide empty items in published view
+      // -----------------------------
+      _bookTargetId(item) {
+        if (!item) return "";
+        return String(item.recordID || item.id || "").trim();
+      },
+
+      _hasAssignmentsForTargetId(targetId) {
+        if (!targetId) return false;
+        const arr = this.assignmentsByTargetId?.[targetId] || [];
+        return Array.isArray(arr) && arr.length > 0;
+      },
+
+      _bookHasAssignments(item) {
+        const tid = this._bookTargetId(item);
+        return this._hasAssignmentsForTargetId(tid);
+      },
+
+      // Override: topics shown under a course
+      visibleTopicsForCourse(course) {
+        // Start with whatever app.js would normally show (student filter, My Courses, etc.)
+        let topics =
+          typeof original.visibleTopicsForCourse === "function"
+            ? original.visibleTopicsForCourse.call(this, course)
+            : (Array.isArray(course?.topics) ? course.topics : []);
+
+        // Edit view (staff-only) shows everything
+        if (this.editMode) return topics;
+
+        // If assignments aren't loaded yet, don't hide anything (avoid blank screen during load)
+        if (this.isLoadingBookData || !this.assignmentsData) return topics;
+
+        // Published view: keep only topics with at least one assignment
+        return topics.filter(t => this._bookHasAssignments(t));
+      },
+
+      // Override: subject -> courses map used by the Book List template
+      visibleCourseGroups() {
+        const groups =
+          typeof original.visibleCourseGroups === "function"
+            ? original.visibleCourseGroups.call(this)
+            : (this.coursesBySubject || {});
+
+        // Edit view (staff-only) shows everything
+        if (this.editMode) return groups;
+
+        // If assignments aren't loaded yet, don't hide anything
+        if (this.isLoadingBookData || !this.assignmentsData) return groups;
+
+        const result = {};
+
+        for (const [subject, courses] of Object.entries(groups || {})) {
+          const kept = (courses || []).filter(course => {
+            const hasTopics = Array.isArray(course?.topics) && course.topics.length > 0;
+
+            // Course-level assignments (course itself as target)
+            const courseHas = this._bookHasAssignments(course);
+
+            // Topic-level assignments (any visible topic has an assignment)
+            const topicsVisible = hasTopics ? this.visibleTopicsForCourse(course) : [];
+
+            // Keep the course if:
+            // - it has course-level assignments, OR
+            // - it has at least one topic that has assignments
+            return courseHas || (topicsVisible.length > 0);
+          });
+
+          if (kept.length) result[subject] = kept;
+        }
+
+        return result;
+      },
+      
     };
   };
 })();
