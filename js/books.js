@@ -141,6 +141,9 @@
           this.isLoadingBookData = false;
         }
       },
+      localCoverPath(resourceId) {
+        return resourceId ? `img/resources/${resourceId}.webp` : "";
+      },
     };
   };
 })();
