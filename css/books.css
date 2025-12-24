@@ -70,6 +70,18 @@
 .resource-author{ white-space: nowrap; }
 .resource-isbn{ white-space: nowrap; opacity: 0.9; }
 
+.resource-title-row{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.resource-edit-pill{
+  flex: none;
+  white-space: nowrap;
+}
+
 /* =========================================================
    Book List – Read-only mode (screen only)
    Keeps visibility, removes edit affordances.
