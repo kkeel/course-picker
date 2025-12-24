@@ -947,10 +947,22 @@
                           
                             <!-- right: text -->
                             <div class="resource-body">
-                              <div
-                                class="resource-title"
-                                x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
-                              ></div>
+                              <div class="resource-title-row">
+                                <div
+                                  class="resource-title"
+                                  x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
+                                ></div>
+                              
+                                <a
+                                  class="edit-pill resource-edit-pill"
+                                  x-show="isStaff && editMode && resourcesById[a.resourceId]?.bookEditUrl"
+                                  x-cloak
+                                  :href="resourcesById[a.resourceId]?.bookEditUrl"
+                                  target="_blank"
+                                  rel="noopener"
+                                  @click.stop
+                                >Edit ↗</a>
+                              </div>
                           
                               <div class="resource-subline">
                                 <span
@@ -1197,10 +1209,22 @@
                                 
                                   <!-- right: text -->
                                   <div class="resource-body">
-                                    <div
-                                      class="resource-title"
-                                      x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
-                                    ></div>
+                                    <div class="resource-title-row">
+                                      <div
+                                        class="resource-title"
+                                        x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
+                                      ></div>
+                                    
+                                      <a
+                                        class="edit-pill resource-edit-pill"
+                                        x-show="isStaff && editMode && resourcesById[a.resourceId]?.bookEditUrl"
+                                        x-cloak
+                                        :href="resourcesById[a.resourceId]?.bookEditUrl"
+                                        target="_blank"
+                                        rel="noopener"
+                                        @click.stop
+                                      >Edit ↗</a>
+                                    </div>
                                 
                                     <div class="resource-subline">
                                       <span
