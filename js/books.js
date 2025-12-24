@@ -14,10 +14,6 @@
     return await res.json();
   }
 
-  function localCoverPath(resourceId) {
-    return resourceId ? `img/resources/${resourceId}.webp` : "";
-  }
-
     function normalizeDriveImageUrl(url) {
     if (!url) return "";
 
@@ -142,7 +138,17 @@
         }
       },
       localCoverPath(resourceId) {
-        return resourceId ? `img/resources/${resourceId}.webp` : "";
+        if (!resourceId) return "img/placeholders/book.svg";
+      
+        const v = this.resourcesData?.lastUpdated
+          ? `?v=${encodeURIComponent(this.resourcesData.lastUpdated)}`
+          : "";
+      
+        return `img/resources/${resourceId}.webp${v}`;
+      },
+      
+      placeholderCover() {
+        return "img/placeholders/book.svg";
       },
     };
   };
