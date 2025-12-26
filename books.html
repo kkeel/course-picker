@@ -929,6 +929,13 @@
                           :key="'rc-' + a.assignmentId"
                         >
                           <div class="resource-card">
+                            <div class="resource-card-badges">
+                              <span class="resource-badge resource-badge--optional"
+                                    x-show="isOptionalAssignment(a)" x-cloak>Optional</span>
+                            
+                              <span class="resource-badge resource-badge--choose-one"
+                                    x-show="isChooseOneAssignment(a)" x-cloak>Choose one</span>
+                            </div>
                             <!-- left: image -->
                             <div class="resource-img-wrap">
                               <img class="resource-img"
@@ -948,19 +955,6 @@
                             <!-- right: text -->
                             <div class="resource-body">
                               <div class="resource-title-row">
-                                <div class="resource-title-badges">
-                                  <span
-                                    class="resource-badge resource-badge--optional"
-                                    x-show="isOptionalAssignment(a)"
-                                    x-cloak
-                                  >Optional</span>
-                              
-                                  <span
-                                    class="resource-badge resource-badge--choose-one"
-                                    x-show="isChooseOneAssignment(a)"
-                                    x-cloak
-                                  >Choose one</span>
-                                </div>
                               
                                 <div
                                   class="resource-title"
@@ -1224,19 +1218,6 @@
                                   <!-- right: text -->
                                   <div class="resource-body">
                                     <div class="resource-title-row">
-                                      <div class="resource-title-badges">
-                                        <span
-                                          class="resource-badge resource-badge--optional"
-                                          x-show="isOptionalAssignment(a)"
-                                          x-cloak
-                                        >Optional</span>
-                                    
-                                        <span
-                                          class="resource-badge resource-badge--choose-one"
-                                          x-show="isChooseOneAssignment(a)"
-                                          x-cloak
-                                        >Choose one</span>
-                                      </div>
                                     
                                       <div
                                         class="resource-title"
