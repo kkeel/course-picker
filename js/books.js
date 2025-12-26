@@ -99,8 +99,14 @@
           const byResource = {};
 
           for (const a of (assignmentsJson?.assignments || [])) {
-            if (!a || !a.targetId || !a.resourceId) continue;
-
+            if (!a) continue;
+          
+            // ✅ Normalize IDs once so lookups always match
+            a.targetId   = String(a.targetId || "").trim();
+            a.resourceId = String(a.resourceId || "").trim();
+          
+            if (!a.targetId || !a.resourceId) continue;
+          
             (byTarget[a.targetId] ||= []).push(a);
             (byResource[a.resourceId] ||= []).push(a);
           }
@@ -149,6 +155,13 @@
       
       placeholderCover() {
         return "img/placeholders/book.svg";
+      },
+
+      isOptionalAssignment(a) {
+        const rid = String(a?.resourceId || "").trim();
+        if (!rid) return false;
+      
+        return this.resourcesById?.[rid]?.flags?.optional === true;
       },
 
       // -----------------------------
