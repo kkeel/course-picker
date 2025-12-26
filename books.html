@@ -930,6 +930,12 @@
                         >
                           <div class="resource-card">
                             <div class="resource-card-badges">
+                              <span
+                                class="resource-badge resource-badge--grade"
+                                x-show="a.gradeLevelTag"
+                                x-text="a.gradeLevelTag"
+                                x-cloak
+                              ></span>
                               <span class="resource-badge resource-badge--optional"
                                     x-show="isOptionalAssignment(a)" x-cloak>Optional</span>
                             
@@ -1200,6 +1206,12 @@
                               >
                                 <div class="resource-card">
                                   <div class="resource-card-badges">
+                                    <span
+                                      class="resource-badge resource-badge--grade"
+                                      x-show="a.gradeLevelTag"
+                                      x-text="a.gradeLevelTag"
+                                      x-cloak
+                                    ></span>
                                     <span class="resource-badge resource-badge--optional"
                                           x-show="isOptionalAssignment(a)" x-cloak>Optional</span>
                                   
