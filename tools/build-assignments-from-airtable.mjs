@@ -139,6 +139,8 @@ function toAssignmentRows(rec) {
     gradeText,
     grades: parseGrades(gradeText),
 
+    gradeLevelTag: asString(f["Grade Level Tag"]).trim(),
+
     sharedTextR3: sharedText,
     sharedLinesR3: splitLines(sharedText),
 
