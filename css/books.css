@@ -141,6 +141,20 @@
   letter-spacing: 0;   
 }
 
+/* Rationale block under author / ISBN */
+.resource-rationale {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #262b26;
+}
+
+.resource-rationale-label {
+  font-weight: 600;
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
 /* =========================================================
    Book List Read-only mode (screen only)
    Keeps visibility, removes edit affordances.
