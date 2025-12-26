@@ -135,6 +135,12 @@
   background: #596e5e;
 }
 
+.resource-badge--grade{
+  background: #262b26; 
+  text-transform: none;  
+  letter-spacing: 0;   
+}
+
 /* =========================================================
    Book List Read-only mode (screen only)
    Keeps visibility, removes edit affordances.
