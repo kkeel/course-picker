@@ -111,7 +111,8 @@ async function main() {
         save:      asBool(f["SAVE"]),
         print:     asBool(f["PRINT"]),
         reference: asBool(f["REFERENCE"]),
-        optional:  asBool(f["OPTIONAL"])
+        optional:  asBool(f["OPTIONAL"]),
+        chooseOne: asBool(f["CHOOSE ONE"])
       },
 
       discount: {
