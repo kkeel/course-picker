@@ -931,11 +931,6 @@
                           <div class="resource-card">
                             <!-- left: image -->
                             <div class="resource-img-wrap">
-                              <span
-                                class="resource-badge resource-badge--optional"
-                                x-show="isOptionalAssignment(a)"
-                                x-cloak
-                              >Optional</span>
                               <img class="resource-img"
                                :src="localCoverPath(a.resourceId)"
                                :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
@@ -953,10 +948,15 @@
                             <!-- right: text -->
                             <div class="resource-body">
                               <div class="resource-title-row">
-                                <div
-                                  class="resource-title"
-                                  x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
-                                ></div>
+                                <div class="resource-title">
+                                  <span
+                                    class="resource-badge resource-badge--optional resource-badge--inline"
+                                    x-show="isOptionalAssignment(a)"
+                                    x-cloak
+                                  >Optional</span>
+                                
+                                  <span x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"></span>
+                                </div>
                               
                                 <a
                                   class="edit-pill resource-edit-pill"
@@ -1198,11 +1198,6 @@
                                 <div class="resource-card">
                                   <!-- left: image -->
                                   <div class="resource-img-wrap">
-                                    <span
-                                      class="resource-badge resource-badge--optional"
-                                      x-show="isOptionalAssignment(a)"
-                                      x-cloak
-                                    >Optional</span>
                                     <img class="resource-img"
                                      :src="localCoverPath(a.resourceId)"
                                      :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
@@ -1220,10 +1215,15 @@
                                   <!-- right: text -->
                                   <div class="resource-body">
                                     <div class="resource-title-row">
-                                      <div
-                                        class="resource-title"
-                                        x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
-                                      ></div>
+                                      <div class="resource-title">
+                                        <span
+                                          class="resource-badge resource-badge--optional resource-badge--inline"
+                                          x-show="isOptionalAssignment(a)"
+                                          x-cloak
+                                        >Optional</span>
+                                      
+                                        <span x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"></span>
+                                      </div>
                                     
                                       <a
                                         class="edit-pill resource-edit-pill"
