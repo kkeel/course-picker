@@ -55,6 +55,14 @@ function asIdArray(v) {
     .filter(Boolean);
 }
 
+function pickField(fields, keys) {
+  for (const k of keys) {
+    const v = fields?.[k];
+    if (v != null && String(v).trim() !== "") return v;
+  }
+  return "";
+}
+
 async function fetchAll(table, view) {
   const out = [];
   let offset;
@@ -120,8 +128,8 @@ async function main() {
         code: asString(f["with code"]).trim()
       },
 
-      maySub:    asString(f["→ May sub"]).trim(),
-      rationale: asString(f["→ RATIONALE"]).trim(),
+      maySub: asString(pickField(f, ["➜ May sub", "→ May sub", "May sub"])).trim(),
+      rationale: asString(pickField(f, ["➜ RATIONALE", "→ RATIONALE", "RATIONALE"])).trim(),
       note:      asString(f["NOTE:"]).trim(),
 
       assignmentIdsR3: asIdArray(f["assignmentID_R3"]),
