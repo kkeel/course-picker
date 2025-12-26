@@ -948,15 +948,24 @@
                             <!-- right: text -->
                             <div class="resource-body">
                               <div class="resource-title-row">
-                                <div class="resource-title">
+                                <div class="resource-title-badges">
                                   <span
-                                    class="resource-badge resource-badge--optional resource-badge--inline"
+                                    class="resource-badge resource-badge--optional"
                                     x-show="isOptionalAssignment(a)"
                                     x-cloak
                                   >Optional</span>
-                                
-                                  <span x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"></span>
+                              
+                                  <span
+                                    class="resource-badge resource-badge--choose-one"
+                                    x-show="isChooseOneAssignment(a)"
+                                    x-cloak
+                                  >Choose one</span>
                                 </div>
+                              
+                                <div
+                                  class="resource-title"
+                                  x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
+                                ></div
                               
                                 <a
                                   class="edit-pill resource-edit-pill"
@@ -1215,15 +1224,24 @@
                                   <!-- right: text -->
                                   <div class="resource-body">
                                     <div class="resource-title-row">
-                                      <div class="resource-title">
+                                      <div class="resource-title-badges">
                                         <span
-                                          class="resource-badge resource-badge--optional resource-badge--inline"
+                                          class="resource-badge resource-badge--optional"
                                           x-show="isOptionalAssignment(a)"
                                           x-cloak
                                         >Optional</span>
-                                      
-                                        <span x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"></span>
+                                    
+                                        <span
+                                          class="resource-badge resource-badge--choose-one"
+                                          x-show="isChooseOneAssignment(a)"
+                                          x-cloak
+                                        >Choose one</span>
                                       </div>
+                                    
+                                      <div
+                                        class="resource-title"
+                                        x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
+                                      ></div
                                     
                                       <a
                                         class="edit-pill resource-edit-pill"
