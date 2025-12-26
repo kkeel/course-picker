@@ -1290,7 +1290,11 @@
                               ></textarea>
                             </div>
                             <!-- Student rail toggle (topic) -->
-                            <div class="student-rail-toggle-row">
+                            <div
+                                class="student-rail-toggle-row"
+                                x-show="(course.studentCount != null ? course.studentCount : assignedStudentCount(course)) > 0"
+                                x-cloak
+                              >
                               <button
                                 type="button"
                                 class="student-rail-toggle"
@@ -1421,7 +1425,11 @@
 
                       <template x-if="!course.topics || course.topics.length === 0">
                       <!-- Student rail toggle (course - only when no topics) -->
-                      <div class="student-rail-toggle-row">
+                      <div
+                          class="student-rail-toggle-row"
+                          x-show="(course.studentCount != null ? course.studentCount : assignedStudentCount(course)) > 0"
+                          x-cloak
+                        >
                         <button
                           type="button"
                           class="student-rail-toggle"
