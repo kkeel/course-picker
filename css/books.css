@@ -23,12 +23,24 @@
 .resource-card{
   display: grid;
   grid-template-columns: 64px 1fr;
+  grid-template-rows: auto auto; /* row 1 badges, row 2 content */
   gap: 12px;
-  align-items: start; /* top align */
+  align-items: start;
+}
+
+.resource-card-badges{
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: -4px; /* slightly tighten space before content */
 }
 
 /* Image container keeps all images same size */
 .resource-img-wrap{
+  grid-row: 2;
   position: relative;
   width: 64px;
   height: 84px;
@@ -49,6 +61,7 @@
 
 /* Text area */
 .resource-body{
+  grid-row: 2;
   min-width: 0; /* prevents overflow in grid */
 }
 
