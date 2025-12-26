@@ -991,6 +991,21 @@
                                   x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
                                 ></span>
                               </div>
+                              <div
+                                class="resource-rationale"
+                                x-show="resourcesById[a.resourceId]?.rationale || resourcesById[a.resourceId]?.RATIONALE"
+                                x-cloak
+                              >
+                                <span class="resource-rationale-label">➜ RATIONALE:</span>
+                                <span
+                                  class="resource-rationale-text"
+                                  x-text="
+                                    resourcesById[a.resourceId]?.rationale ||
+                                    resourcesById[a.resourceId]?.RATIONALE
+                                  "
+                                ></span>
+                              </div>
+
                             </div>
                           </div>
                           
@@ -1268,6 +1283,21 @@
                                         x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
                                       ></span>
                                     </div>
+                                    <div
+                                      class="resource-rationale"
+                                      x-show="resourcesById[a.resourceId]?.rationale || resourcesById[a.resourceId]?.RATIONALE"
+                                      x-cloak
+                                    >
+                                      <span class="resource-rationale-label">➜ RATIONALE:</span>
+                                      <span
+                                        class="resource-rationale-text"
+                                        x-text="
+                                          resourcesById[a.resourceId]?.rationale ||
+                                          resourcesById[a.resourceId]?.RATIONALE
+                                        "
+                                      ></span>
+                                    </div>
+
                                   </div>
                                 </div>
 
