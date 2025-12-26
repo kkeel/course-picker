@@ -181,6 +181,13 @@
         return this.resourcesById?.[rid]?.flags?.optional === true;
       },
 
+      isChooseOneAssignment(a) {
+        const rid = String(a?.resourceId || "").trim();
+        if (!rid) return false;
+      
+        return this.resourcesById?.[rid]?.flags?.chooseOne === true;
+      },
+
       // -----------------------------
       // ✅ Book List: hide empty items in published view
       // -----------------------------
