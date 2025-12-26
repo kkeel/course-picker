@@ -1,5 +1,5 @@
 /* =========================================================
-   Book List – Resource Cards (screen only)
+   Book List â€“ Resource Cards (screen only)
    ========================================================= */
 
 .resource-list {
@@ -29,12 +29,11 @@
 
 /* Image container keeps all images same size */
 .resource-img-wrap{
-  position: relative;
   width: 64px;
-  height: 84px;
+  height: 84px;          /* book-ish aspect */
   border-radius: 10px;
-  overflow: visible;
-  background: #e5e8e5;
+  overflow: hidden;
+  background: #e5e8e5;   /* subtle placeholder */
   flex: none;
 }
 
@@ -83,48 +82,15 @@
   white-space: nowrap;
 }
 
-/* Allow badge positioning inside the image frame */
-.resource-img-wrap{
-  position: relative;
-}
-
-/* Badge */
-.resource-badge{
-  position: absolute;
-  left: 50%;
-  bottom: -8px; /* pushes it slightly outside the image */
-  transform: translateX(-50%);
-  z-index: 3;
-
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  line-height: 1;
-
-  padding: 4px 10px;
-  border-radius: 999px;
-
-  background: #adb58f; /* Alveary light green */
-  color: #ffffff;
-  border: 1px solid #ffffff;
-
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.resource-badge--optional{
-  text-transform: uppercase;
-}
-
 /* =========================================================
-   Book List – Read-only mode (screen only)
+   Book List â€“ Read-only mode (screen only)
    Keeps visibility, removes edit affordances.
    Scoped to .books-page so course list is untouched.
    ========================================================= */
 
-/* Hide the “Descriptions & Tips” toggle in filter actions */
+/* Hide the â€œDescriptions & Tipsâ€ toggle in filter actions */
 .books-page .filter-actions .toggle:has(span:contains("Descriptions")) { display: none !important; }
-/* If :has / :contains isn’t supported, use the safer selectors below (recommended): */
+/* If :has / :contains isnâ€™t supported, use the safer selectors below (recommended): */
 .books-page .filter-actions .toggle:nth-child(1) { display: none !important; } /* (Descriptions & Tips is currently first) */
 
 /* Hide card detail chevrons entirely (course/topic) */
@@ -137,20 +103,20 @@
   cursor: default !important;
 }
 
-/* Hide the little “+” overlay on bookmark buttons */
+/* Hide the little â€œ+â€ overlay on bookmark buttons */
 .books-page .bookmark-apply { display: none !important; }
 
-/* Hide “Clear bookmarks” button (it *changes* state) */
+/* Hide â€œClear bookmarksâ€ button (it *changes* state) */
 .books-page .filter-actions .btn-pill:has(.bookmark-reset) { display: none !important; }
 /* Safer fallback if :has unsupported: hide the first pill button in that left group */
 .books-page .filter-actions .flex.gap-2 > button:first-child { display: none !important; }
 
 /* --- PLANNING TAGS: keep showing selected tag images, remove edit controls --- */
 
-/* Remove the “+ Planning tag” button when no tags exist */
+/* Remove the â€œ+ Planning tagâ€ button when no tags exist */
 .books-page .planning-tag-button { display: none !important; }
 
-/* Hide remove “x” and add “+” controls on tag pills */
+/* Hide remove â€œxâ€ and add â€œ+â€ controls on tag pills */
 .books-page .planning-tag-remove,
 .books-page .planning-tag-add,
 .books-page .planning-tag-apply {
@@ -160,18 +126,18 @@
 /* Keep tag images visible (the pill itself stays) */
 .books-page .planning-tag-pill { pointer-events: none !important; }
 
-/* Also hide the global planning tag menu entirely (can’t edit from books) */
+/* Also hide the global planning tag menu entirely (canâ€™t edit from books) */
 .books-page [x-show="planningMenuOpen"] { display: none !important; }
 
 /* --- STUDENTS: keep viewing chips, disable all editing --- */
 
-/* Hide “Manage Students” and the entire student manager panel */
+/* Hide â€œManage Studentsâ€ and the entire student manager panel */
 .books-page .manage-students-toggle,
 .books-page .student-manager {
   display: none !important;
 }
 
-/* Hide the “Assign students +” buttons */
+/* Hide the â€œAssign students +â€ buttons */
 .books-page .student-rail-toggle-row .planning-tag-add { display: none !important; }
 
 /* Hide chip remove and ghost-apply buttons */
@@ -180,10 +146,10 @@
   display: none !important;
 }
 
-/* Optional: hide ghost marker arrow if you don’t want “assigned elsewhere” indicators */
+/* Optional: hide ghost marker arrow if you donâ€™t want â€œassigned elsewhereâ€ indicators */
 .books-page .student-ghost-marker { display: none !important; }
 
-/* Optional: if you want student rails always visible and not “toggleable” */
+/* Optional: if you want student rails always visible and not â€œtoggleableâ€ */
 /* .books-page .student-rail-toggle { pointer-events:none !important; } */
 
 /* Hide ghost planning tags completely on Book List */
