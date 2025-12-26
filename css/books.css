@@ -89,22 +89,21 @@
 }
 
 /* Badge */
+/* Badge – base pill style */
 .resource-badge{
-  position: absolute;
-  left: 50%;
-  bottom: -8px; /* pushes it slightly outside the image */
-  transform: translateX(-50%);
-  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-  font-size: 11px;
+  font-size: 10px;          /* slightly smaller for title row */
   font-weight: 700;
   letter-spacing: 0.04em;
   line-height: 1;
 
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: 999px;
 
-  background: #adb58f; /* Alveary light green */
+  background: #adb58f;      /* Alveary light green */
   color: #ffffff;
   border: 1px solid #ffffff;
 
@@ -112,9 +111,16 @@
   white-space: nowrap;
 }
 
-.resource-badge--optional{
-  text-transform: uppercase;
+/* Optional badge shown inline before the title */
+.resource-badge--inline{
+  margin-right: 8px;
+  position: relative;
+  top: -1px; /* tiny optical alignment with title baseline */
 }
+
+/*.resource-badge--optional{
+/*  text-transform: uppercase;
+/*}*/
 
 /* =========================================================
    Book List â€“ Read-only mode (screen only)
