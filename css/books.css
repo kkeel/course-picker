@@ -29,11 +29,12 @@
 
 /* Image container keeps all images same size */
 .resource-img-wrap{
+  position: relative;
   width: 64px;
-  height: 84px;          /* book-ish aspect */
+  height: 84px;
   border-radius: 10px;
-  overflow: hidden;
-  background: #e5e8e5;   /* subtle placeholder */
+  overflow: visible;
+  background: #e5e8e5;
   flex: none;
 }
 
@@ -90,22 +91,25 @@
 /* Badge */
 .resource-badge{
   position: absolute;
-  top: 6px;
-  left: 6px;
-  z-index: 2;
+  left: 50%;
+  bottom: -8px; /* pushes it slightly outside the image */
+  transform: translateX(-50%);
+  z-index: 3;
 
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.04em;
   line-height: 1;
 
-  padding: 4px 8px;
+  padding: 4px 10px;
   border-radius: 999px;
 
-  background: rgba(38, 43, 38, 0.85); /* deep charcoal w/ transparency */
-  color: #fbfbf9; /* off-white */
-  border: 1px solid rgba(251, 251, 249, 0.35);
-  backdrop-filter: blur(2px);
+  background: #adb58f; /* Alveary light green */
+  color: #ffffff;
+  border: 1px solid #ffffff;
+
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .resource-badge--optional{
