@@ -88,22 +88,29 @@
   position: relative;
 }
 
+/* Badge row (left of the title) */
+.resource-title-badges{
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  flex: none;
+}
+
 /* Badge */
-/* Badge – base pill style */
 .resource-badge{
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  font-size: 10px;          /* slightly smaller for title row */
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.04em;
   line-height: 1;
 
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 999px;
 
-  background: #adb58f;      /* Alveary light green */
+  background: #adb58f; /* OPTIONAL default */
   color: #ffffff;
   border: 1px solid #ffffff;
 
@@ -111,26 +118,19 @@
   white-space: nowrap;
 }
 
-/* Optional badge shown inline before the title */
-.resource-badge--inline{
-  margin-right: 8px;
-  position: relative;
-  top: -1px; /* tiny optical alignment with title baseline */
+.resource-badge--choose-one{
+  background: #596e5e;
 }
 
-/*.resource-badge--optional{
-/*  text-transform: uppercase;
-/*}*/
-
 /* =========================================================
-   Book List â€“ Read-only mode (screen only)
+   Book List Read-only mode (screen only)
    Keeps visibility, removes edit affordances.
    Scoped to .books-page so course list is untouched.
    ========================================================= */
 
-/* Hide the â€œDescriptions & Tipsâ€ toggle in filter actions */
+/* Hide the Descriptions & Tips toggle in filter actions */
 .books-page .filter-actions .toggle:has(span:contains("Descriptions")) { display: none !important; }
-/* If :has / :contains isnâ€™t supported, use the safer selectors below (recommended): */
+/* If :has / :contains isn't supported, use the safer selectors below (recommended): */
 .books-page .filter-actions .toggle:nth-child(1) { display: none !important; } /* (Descriptions & Tips is currently first) */
 
 /* Hide card detail chevrons entirely (course/topic) */
@@ -143,20 +143,20 @@
   cursor: default !important;
 }
 
-/* Hide the little â€œ+â€ overlay on bookmark buttons */
+/* Hide the little overlay on bookmark buttons */
 .books-page .bookmark-apply { display: none !important; }
 
-/* Hide â€œClear bookmarksâ€ button (it *changes* state) */
+/* Hide Clear bookmarks button (it *changes* state) */
 .books-page .filter-actions .btn-pill:has(.bookmark-reset) { display: none !important; }
 /* Safer fallback if :has unsupported: hide the first pill button in that left group */
 .books-page .filter-actions .flex.gap-2 > button:first-child { display: none !important; }
 
 /* --- PLANNING TAGS: keep showing selected tag images, remove edit controls --- */
 
-/* Remove the â€œ+ Planning tagâ€ button when no tags exist */
+/* Remove the + Planning tag button when no tags exist */
 .books-page .planning-tag-button { display: none !important; }
 
-/* Hide remove â€œxâ€ and add â€œ+â€ controls on tag pills */
+/* Hide remove x and add + controls on tag pills */
 .books-page .planning-tag-remove,
 .books-page .planning-tag-add,
 .books-page .planning-tag-apply {
@@ -171,13 +171,13 @@
 
 /* --- STUDENTS: keep viewing chips, disable all editing --- */
 
-/* Hide â€œManage Studentsâ€ and the entire student manager panel */
+/* Hide Manage Students and the entire student manager panel */
 .books-page .manage-students-toggle,
 .books-page .student-manager {
   display: none !important;
 }
 
-/* Hide the â€œAssign students +â€ buttons */
+/* Hide the Assign students + buttons */
 .books-page .student-rail-toggle-row .planning-tag-add { display: none !important; }
 
 /* Hide chip remove and ghost-apply buttons */
@@ -186,10 +186,10 @@
   display: none !important;
 }
 
-/* Optional: hide ghost marker arrow if you donâ€™t want â€œassigned elsewhereâ€ indicators */
+/* Optional: hide ghost marker arrow if you don't want assigned elsewhere indicators */
 .books-page .student-ghost-marker { display: none !important; }
 
-/* Optional: if you want student rails always visible and not â€œtoggleableâ€ */
+/* Optional: if you want student rails always visible and not toggleable */
 /* .books-page .student-rail-toggle { pointer-events:none !important; } */
 
 /* Hide ghost planning tags completely on Book List */
