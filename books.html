@@ -990,6 +990,15 @@
                                   x-show="resourcesById[a.resourceId]?.isbnAsin"
                                   x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
                                 ></span>
+
+                                <span
+                                  class="resource-reference"
+                                  x-show="resourcesById[a.resourceId]?.flags?.reference"
+                                  x-cloak
+                                >
+                                  ✓REFERENCE
+                                </span>
+
                               </div>
                               <div
                                 class="resource-rationale"
@@ -1282,6 +1291,15 @@
                                         x-show="resourcesById[a.resourceId]?.isbnAsin"
                                         x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
                                       ></span>
+
+                                      <span
+                                        class="resource-reference"
+                                        x-show="resourcesById[a.resourceId]?.flags?.reference"
+                                        x-cloak
+                                      >
+                                        ✓REFERENCE
+                                      </span>
+
                                     </div>
                                     <div
                                       class="resource-rationale"
