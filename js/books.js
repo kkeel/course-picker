@@ -94,6 +94,23 @@
           }
           this.resourcesById = resById;
 
+          // TEMP DEBUG — remove after
+          const assignmentsArr = (assignmentsJson?.assignments || []);
+          const missing = assignmentsArr.filter(a => {
+            const rid = String(a?.resourceId || "").trim();
+            return rid && !resById[rid];
+          });
+          
+          console.log("[Debug] assignments missing resource lookup:", missing.length);
+          console.table(
+            missing.slice(0, 20).map(a => ({
+              assignmentId: a.assignmentId,
+              resourceId: a.resourceId,
+              resourceId_trim: String(a?.resourceId || "").trim(),
+              targetId: a.targetId,
+            }))
+          );
+
           // Build assignments indexes
           const byTarget = {};
           const byResource = {};
