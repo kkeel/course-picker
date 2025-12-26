@@ -191,6 +191,20 @@
       // -----------------------------
       // ✅ Book List: hide empty items in published view
       // -----------------------------
+
+      hasStudentsAssigned(a) {
+        if (!a) return false;
+      
+        // Adjust the field name if yours is different
+        const list =
+          a.studentIds ||
+          a.students ||
+          a.assignedStudents ||
+          [];
+      
+        return Array.isArray(list) && list.length > 0;
+      },
+      
       _bookTargetId(item) {
         if (!item) return "";
         return String(item.recordID || item.id || "").trim();
