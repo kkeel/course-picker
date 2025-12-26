@@ -99,11 +99,17 @@
           const byResource = {};
 
           for (const a of (assignmentsJson?.assignments || [])) {
-            if (!a || !a.targetId || !a.resourceId) continue;
-
-            (byTarget[a.targetId] ||= []).push(a);
-            (byResource[a.resourceId] ||= []).push(a);
-          }
+          if (!a) continue;
+        
+          // ✅ Normalize IDs once so lookups always match
+          a.targetId   = String(a.targetId || "").trim();
+          a.resourceId = String(a.resourceId || "").trim();
+        
+          if (!a.targetId || !a.resourceId) continue;
+        
+          (byTarget[a.targetId] ||= []).push(a);
+          (byResource[a.resourceId] ||= []).push(a);
+        }
 
           // Stable sort within each target by resourceKey then title
           for (const tid of Object.keys(byTarget)) {
