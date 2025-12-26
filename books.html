@@ -931,11 +931,6 @@
                           <div class="resource-card">
                             <!-- left: image -->
                             <div class="resource-img-wrap">
-                              <span
-                                class="resource-badge resource-badge--optional"
-                                x-show="isOptionalAssignment(a)"
-                                x-cloak
-                              >Optional</span>
                               <img class="resource-img"
                                :src="localCoverPath(a.resourceId)"
                                :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
@@ -979,7 +974,7 @@
                                 <span
                                   class="resource-isbn"
                                   x-show="resourcesById[a.resourceId]?.isbnAsin"
-                                  x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
+                                  x-text="'ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin"
                                 ></span>
                               </div>
                             </div>
@@ -1198,11 +1193,6 @@
                                 <div class="resource-card">
                                   <!-- left: image -->
                                   <div class="resource-img-wrap">
-                                    <span
-                                      class="resource-badge resource-badge--optional"
-                                      x-show="isOptionalAssignment(a)"
-                                      x-cloak
-                                    >Optional</span>
                                     <img class="resource-img"
                                      :src="localCoverPath(a.resourceId)"
                                      :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
@@ -1246,7 +1236,7 @@
                                       <span
                                         class="resource-isbn"
                                         x-show="resourcesById[a.resourceId]?.isbnAsin"
-                                        x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
+                                        x-text="'ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin"
                                       ></span>
                                     </div>
                                   </div>
