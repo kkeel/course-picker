@@ -235,9 +235,12 @@
 
 .resource-info-right{
   padding-top: 2px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  column-gap: 18px;
+  row-gap: 0; 
+  align-items: start;
 }
 
 .resource-meta-label{
@@ -266,6 +269,10 @@
   }
   .resource-info-divider{
     display: none;
+  }
+    .resource-info-right{
+    grid-template-columns: 1fr; /* stack Shared then Scope on small screens */
+    row-gap: 14px;
   }
 }
 
