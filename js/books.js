@@ -209,7 +209,11 @@
         const out = [];
         for (const key of order) {
           if (set.has(key)) {
-            out.push(key.charAt(0).toUpperCase() + key.slice(1));
+            if (key === "audiobook") {
+              out.push("Audio");
+            } else {
+              out.push(key.charAt(0).toUpperCase() + key.slice(1));
+            }
           }
         }
         return out;
