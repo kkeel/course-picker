@@ -1,5 +1,5 @@
 /* =========================================================
-   Book List â€“ Resource Cards (screen only)
+   Book List Resource Cards (screen only)
    ========================================================= */
 
 .resource-list {
@@ -169,7 +169,7 @@
   line-height: 1.45;
 
   /* muted like the REFERENCE tag */
-  color: #596e5e;
+  color: #d2d6d2;
 }
 
 .resource-tipbox-item + .resource-tipbox-item{
@@ -181,7 +181,7 @@
   margin-right: 8px;
 
   /* slightly stronger than body but still muted */
-  color: #262b26;
+  color: #d2d6d2;
   opacity: 0.85;
 }
 
