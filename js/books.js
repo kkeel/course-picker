@@ -210,7 +210,7 @@
         for (const key of order) {
           if (set.has(key)) {
             if (key === "audiobook") {
-              out.push("Audiobook");
+              out.push("Audio");
             } else {
               out.push(key.charAt(0).toUpperCase() + key.slice(1));
             }
