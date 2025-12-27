@@ -188,6 +188,33 @@
         return this.resourcesById?.[rid]?.flags?.chooseOne === true;
       },
 
+      altFormatsForAssignment(a) {
+        const rid = String(a?.resourceId || "").trim();
+        if (!rid) return [];
+      
+        const txt = this.resourcesById?.[rid]?.resourceTagText;
+        if (!txt) return [];
+      
+        // resourceTagText examples: "Ebook", "Ebook, Audiobook", "Video"
+        const parts = String(txt)
+          .split(/[,;\n]/)
+          .map(s => s.trim())
+          .filter(Boolean);
+      
+        const set = new Set(parts.map(p => p.toLowerCase()));
+      
+        // Always show in this order if present:
+        const order = ["ebook", "audiobook", "video"];
+      
+        const out = [];
+        for (const key of order) {
+          if (set.has(key)) {
+            out.push(key.charAt(0).toUpperCase() + key.slice(1));
+          }
+        }
+        return out;
+      },
+
       assignmentSharedR3Text(a) {
         if (!a) return "";
       
