@@ -253,17 +253,17 @@
 }
 
 .resource-meta-label{
-  font-size: 0.75rem;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #666d66;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .resource-meta-text{
-  font-size: 0.9rem;
-  line-height: 1.4;
+  font-size: 13px;
+  line-height: 1.35;
   color: #666d66;
 
   /* ✅ keep Airtable line breaks */
