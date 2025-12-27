@@ -188,6 +188,16 @@
         return this.resourcesById?.[rid]?.flags?.chooseOne === true;
       },
 
+      assignmentSharedR3Text(a) {
+        // Use raw Airtable field from assignments JSON so formatting is intact
+        return String(a?.fields?.["Shared_RollUp_Rotation 3"] || "").trim();
+      },
+      
+      assignmentScopeText(a) {
+        // Use raw Airtable field from assignments JSON so formatting is intact
+        return String(a?.fields?.["Scope"] || "").trim();
+      },
+
       // -----------------------------
       // ✅ Book List: hide empty items in published view
       // -----------------------------
