@@ -175,10 +175,10 @@
       },
 
       isOptionalAssignment(a) {
-        const rid = String(a?.resourceId || "").trim();
-        if (!rid) return false;
-      
-        return this.resourcesById?.[rid]?.flags?.optional === true;
+        const rid = a?.resourceId;
+        const resourceOptional = !!(this.resourcesById?.[rid]?.flags?.optional);
+        const assignmentOptional = !!(a?.optional);
+        return assignmentOptional || resourceOptional;
       },
 
       isChooseOneAssignment(a) {
