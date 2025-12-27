@@ -190,6 +190,12 @@
   color: inherit;
 }
 
+/* Preserve Airtable line breaks for rationale + notes */
+.resource-rationale-text,
+.resource-tipbox-text{
+  white-space: pre-line;
+}
+
 .resource-reference {
   font-size: 0.75rem;
   font-weight: 600;
