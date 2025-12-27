@@ -189,12 +189,31 @@
       },
 
       assignmentSharedR3Text(a) {
-        // Use raw Airtable field from assignments JSON so formatting is intact
+        if (!a) return "";
+      
+        // Preferred: preserve explicit lines from JSON
+        if (Array.isArray(a.sharedLinesR3) && a.sharedLinesR3.length) {
+          return a.sharedLinesR3.map(x => String(x || "").trim()).filter(Boolean).join("\n");
+        }
+      
+        // Fallback: plain shared text
+        if (a.sharedTextR3 != null) {
+          return String(a.sharedTextR3 || "").trim();
+        }
+      
+        // Last fallback (older shapes you experimented with)
         return String(a?.fields?.["Shared_RollUp_Rotation 3"] || "").trim();
       },
       
       assignmentScopeText(a) {
-        // Use raw Airtable field from assignments JSON so formatting is intact
+        if (!a) return "";
+      
+        // Preferred: scopeText already includes Airtable line breaks
+        if (a.scopeText != null) {
+          return String(a.scopeText || "").trim();
+        }
+      
+        // Last fallback (older shapes)
         return String(a?.fields?.["Scope"] || "").trim();
       },
 
