@@ -253,21 +253,29 @@
 }
 
 .resource-meta-label{
-  font-size: 11px;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #666d66;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .resource-meta-text{
-  font-size: 13px;
-  line-height: 1.35;
+  font-size: 0.9rem;
+  line-height: 1.4;
   color: #666d66;
 
   /* ✅ keep Airtable line breaks */
   white-space: pre-line;
+}
+
+.resource-info-row {
+  display: grid;
+  grid-template-columns: 1.9fr 1px 1.1fr;
+  gap: 20px;
+  align-items: start;
+  margin-top: 10px;
 }
 
 /* Mobile: stack columns */
