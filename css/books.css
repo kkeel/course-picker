@@ -174,7 +174,7 @@
 
   display: flex;
   flex-direction: column;
-  gap: 16px; /* adjust this to taste */
+  gap: 12px; /* adjust this to taste */
 }
 
 .resource-tipbox-label{
