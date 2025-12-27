@@ -1015,14 +1015,26 @@
                                 ></span>
                               </div>
 
-                              <div class="resource-tipbox" x-show="resourcesById[a.resourceId]?.maySub" x-cloak>
-                                <span class="resource-tipbox-label">➜ May sub:</span>
-                                <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub"></span>
-                              </div>
+                              <div
+                                class="resource-tipbox"
+                                x-show="resourcesById[a.resourceId]?.note || resourcesById[a.resourceId]?.maySub"
+                                x-cloak
+                              >
+                                <!-- NOTE first -->
+                                <template x-if="resourcesById[a.resourceId]?.note">
+                                  <div class="resource-tipbox-item">
+                                    <span class="resource-tipbox-label">NOTE:</span>
+                                    <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.note"></span>
+                                  </div>
+                                </template>
                               
-                              <div class="resource-tipbox" x-show="resourcesById[a.resourceId]?.note" x-cloak>
-                                <span class="resource-tipbox-label">NOTE:</span>
-                                <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.note"></span>
+                                <!-- May sub second -->
+                                <template x-if="resourcesById[a.resourceId]?.maySub">
+                                  <div class="resource-tipbox-item">
+                                    <span class="resource-tipbox-label">➜ May sub:</span>
+                                    <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub"></span>
+                                  </div>
+                                </template>
                               </div>
 
                             </div>
@@ -1325,14 +1337,26 @@
                                         "
                                       ></span>
                                     </div>
-                                    <div class="resource-tipbox" x-show="resourcesById[a.resourceId]?.maySub" x-cloak>
-                                      <span class="resource-tipbox-label">➜ May sub:</span>
-                                      <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub"></span>
-                                    </div>
+                                    <div
+                                      class="resource-tipbox"
+                                      x-show="resourcesById[a.resourceId]?.note || resourcesById[a.resourceId]?.maySub"
+                                      x-cloak
+                                    >
+                                      <!-- NOTE first -->
+                                      <template x-if="resourcesById[a.resourceId]?.note">
+                                        <div class="resource-tipbox-item">
+                                          <span class="resource-tipbox-label">NOTE:</span>
+                                          <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.note"></span>
+                                        </div>
+                                      </template>
                                     
-                                    <div class="resource-tipbox" x-show="resourcesById[a.resourceId]?.note" x-cloak>
-                                      <span class="resource-tipbox-label">NOTE:</span>
-                                      <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.note"></span>
+                                      <!-- May sub second -->
+                                      <template x-if="resourcesById[a.resourceId]?.maySub">
+                                        <div class="resource-tipbox-item">
+                                          <span class="resource-tipbox-label">➜ May sub:</span>
+                                          <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub"></span>
+                                        </div>
+                                      </template>
                                     </div>
 
                                   </div>
