@@ -178,7 +178,7 @@
 }
 
 .resource-tipbox-label{
-  font-weight: 700;
+  font-weight: 200;
   margin-right: 8px;
 
   /* slightly stronger than body but still muted */
@@ -194,7 +194,7 @@
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: #596e5e;        /* calm, authoritative */
+  color: #666d66;       
   white-space: nowrap;
 }
 
