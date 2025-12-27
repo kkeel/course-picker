@@ -124,7 +124,6 @@
 /* Left column wrapper so Alt Formats can expand card height */
 .resource-media {
   grid-row: 2;
-  width: 64px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -132,7 +131,6 @@
 
 /* Image box stays fixed; content below should NOT overflow */
 .resource-media .resource-img-wrap{
-  width: 64px;
   height: 84px;
   overflow: hidden;   /* IMPORTANT: prevents spill */
   border-radius: 10px;
@@ -142,7 +140,6 @@
 /* Tight, single-line label that stays within image width */
 .alt-formats {
   margin-top: 6px;
-  max-width: 64px;
 }
 
 .alt-formats-title {
@@ -160,7 +157,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  max-width: 64px;
 }
 
 .alt-format-pill {
@@ -171,9 +167,6 @@
   color: #ffffff;
   border: 1px solid #ffffff;
   white-space: nowrap;
-  max-width: 64px;
-  overflow: hidden;
-  text-overflow: ellipsis;
   box-sizing: border-box;
 }
 
@@ -359,6 +352,38 @@
 .resource-rationale-text,
 .resource-tipbox-text{
   white-space: pre-line;
+}
+
+.resource-tipbox-formats{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap; /* pills wrap nicely if needed */
+}
+
+.resource-tipbox-formats .alt-formats-title{
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #666d66; /* same muted label tone */
+}
+
+.resource-tipbox-formats .alt-formats-pills{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.resource-tipbox-formats .alt-format-pill{
+  font-size: 12px;     /* slightly larger than before */
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: #fff;
+  border: 1px solid #fff;
+  white-space: nowrap;
 }
 
 /* =========================================================
