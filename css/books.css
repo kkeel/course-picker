@@ -169,7 +169,8 @@
   line-height: 1.45;
 
   /* muted like the REFERENCE tag */
-  color: #d2d6d2;
+  color: #666d66;
+  font-weight: 100
 }
 
 .resource-tipbox-item + .resource-tipbox-item{
@@ -181,7 +182,7 @@
   margin-right: 8px;
 
   /* slightly stronger than body but still muted */
-  color: #d2d6d2;
+  color: #666d66;
   opacity: 0.85;
 }
 
