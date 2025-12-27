@@ -943,22 +943,25 @@
                                     x-show="isChooseOneAssignment(a)" x-cloak>Choose one</span>
                             </div>
                             <!-- left: image -->
-                            <div class="resource-img-wrap">
-                              <img class="resource-img"
-                               :src="localCoverPath(a.resourceId)"
-                               :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
-                               loading="lazy"
-                               @error="
-                                if ($event.target.dataset.fallback !== 'placeholder') {
-                                  $event.target.dataset.fallback = 'placeholder';
-                                  $event.target.src = 'img/placeholders/book.svg';
-                                } else {
-                                  $event.target.style.display='none';
-                                }
-                              ">
+                            <div class="resource-media">
+                              <div class="resource-img-wrap">
+                                <img class="resource-img"
+                                  :src="localCoverPath(a.resourceId)"
+                                  :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
+                                  loading="lazy"
+                                  @error="
+                                    if ($event.target.dataset.fallback !== 'placeholder') {
+                                      $event.target.dataset.fallback = 'placeholder';
+                                      $event.target.src = 'img/placeholders/book.svg';
+                                    } else {
+                                      $event.target.style.display='none';
+                                    }
+                                  ">
+                              </div>
+                            
                               <template x-if="altFormatsForAssignment(a).length">
                                 <div class="alt-formats" x-cloak>
-                                  <div class="alt-formats-title">Alternate Formats:</div>
+                                  <div class="alt-formats-title">Alt. Formats:</div>
                                   <div class="alt-formats-pills">
                                     <template x-for="fmt in altFormatsForAssignment(a)" :key="fmt">
                                       <span class="alt-format-pill"
@@ -1334,22 +1337,25 @@
                                   </div>
 
                                   <!-- left: image -->
-                                  <div class="resource-img-wrap">
-                                    <img class="resource-img"
-                                     :src="localCoverPath(a.resourceId)"
-                                     :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
-                                     loading="lazy"
-                                     @error="
-                                      if ($event.target.dataset.fallback !== 'placeholder') {
-                                        $event.target.dataset.fallback = 'placeholder';
-                                        $event.target.src = 'img/placeholders/book.svg';
-                                      } else {
-                                        $event.target.style.display='none';
-                                      }
-                                    ">
+                                  <div class="resource-media">
+                                    <div class="resource-img-wrap">
+                                      <img class="resource-img"
+                                        :src="localCoverPath(a.resourceId)"
+                                        :alt="resourcesById[a.resourceId]?.title || 'Resource image'"
+                                        loading="lazy"
+                                        @error="
+                                          if ($event.target.dataset.fallback !== 'placeholder') {
+                                            $event.target.dataset.fallback = 'placeholder';
+                                            $event.target.src = 'img/placeholders/book.svg';
+                                          } else {
+                                            $event.target.style.display='none';
+                                          }
+                                        ">
+                                    </div>
+                                  
                                     <template x-if="altFormatsForAssignment(a).length">
                                       <div class="alt-formats" x-cloak>
-                                        <div class="alt-formats-title">Alternate Formats:</div>
+                                        <div class="alt-formats-title">Alt. Formats:</div>
                                         <div class="alt-formats-pills">
                                           <template x-for="fmt in altFormatsForAssignment(a)" :key="fmt">
                                             <span class="alt-format-pill"
