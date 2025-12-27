@@ -171,10 +171,10 @@
   /* muted like the REFERENCE tag */
   color: #666d66;
   font-weight: 100
-}
 
-.resource-tipbox-item + .resource-tipbox-item{
-  margin-top: 16px; /* little space between NOTE and May sub */
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* adjust this to taste */
 }
 
 .resource-tipbox-label{
