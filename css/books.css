@@ -118,7 +118,7 @@
 }
 
 .alt-format-pill--video {
-  background: #96a767;
+  background: #6d7eaa;
 }
 
 /* Left column wrapper so Alt Formats can expand card height */
@@ -151,8 +151,6 @@
   letter-spacing: 0.02em;
   text-transform: uppercase;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   margin-bottom: 4px;
   color: #666d66;
 }
