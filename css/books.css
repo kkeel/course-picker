@@ -100,6 +100,52 @@
   display: block;
 }
 
+/* -----------------------------
+   Alternate Formats (under cover)
+----------------------------- */
+
+.alt-formats {
+  margin-top: 8px;
+}
+
+.alt-formats-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7a7a7a;
+  margin-bottom: 4px;
+}
+
+.alt-formats-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.alt-format-pill {
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  white-space: nowrap;
+}
+
+/* Colors per format */
+.alt-format-pill--ebook {
+  background: #6db4b2;
+}
+
+.alt-format-pill--audiobook {
+  background: #9e6bac;
+}
+
+.alt-format-pill--video {
+  background: #96a767;
+}
+
 /* =========================================================
    Text area
    ========================================================= */
