@@ -104,80 +104,39 @@
    Alternate Formats (under cover)
 ----------------------------- */
 
-.alt-formats {
-  margin-top: 8px;
-}
-
-/* Colors per format */
-.alt-format-pill--ebook {
-  background: #6db4b2;
-}
-
-.alt-format-pill--audiobook {
-  background: #9e6bac;
-}
-
-.alt-format-pill--video {
-  background: #6d7eaa;
-}
-
-/* Left column wrapper so Alt Formats can expand card height */
-.resource-media {
-  grid-row: 2;
-  width: 64px;
+/* --- Tipbox formats row (Alt. Formats) --- */
+.resource-tipbox-item--formats{
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
-
-/* Image box stays fixed; content below should NOT overflow */
-.resource-media .resource-img-wrap{
-  width: 64px;
-  height: 84px;
-  overflow: hidden;   /* IMPORTANT: prevents spill */
-  border-radius: 10px;
-  background: #e5e8e5;
-}
-
-/* Tight, single-line label that stays within image width */
-.alt-formats {
-  margin-top: 6px;
-  max-width: 64px;
-}
-
-.alt-formats-title {
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  margin-bottom: 4px;
-  color: #666d66;
-}
-
-/* Pills must not exceed image width */
-.alt-formats-pills {
-  display: flex;
+  align-items: center;
+  gap: 8px;
   flex-wrap: wrap;
-  gap: 4px;
-  max-width: 64px;
 }
 
-.alt-format-pill {
-  font-size: 11px;
+.resource-tipbox-item--formats .resource-tipbox-label{
+  white-space: nowrap;  /* keeps “Alt. Formats:” together */
+}
+
+.alt-formats-pills--in-tipbox{
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Pills (now not constrained to 64px image width) */
+.alt-format-pill{
+  font-size: 12px;      /* tweak to taste */
   line-height: 1;
-  padding: 3px 6px;
+  padding: 4px 10px;
   border-radius: 999px;
   color: #ffffff;
   border: 1px solid #ffffff;
   white-space: nowrap;
-  max-width: 64px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  box-sizing: border-box;
 }
 
-.resource-media .resource-img-wrap{ overflow: hidden !important; }
+/* Colors per format */
+.alt-format-pill--ebook { background: #6db4b2; }
+.alt-format-pill--audiobook { background: #9e6bac; }
+.alt-format-pill--video { background: #96a767; }
 
 /* =========================================================
    Text area
