@@ -15,6 +15,51 @@
   background: #fbfbf9;
 }
 
+/* =========================================================
+   Resource card: TOP row layout (matches resource-info-row)
+   ========================================================= */
+
+.resource-top-row{
+  display: grid;
+  grid-template-columns: 1.9fr 1px 1.1fr; /* match your bottom row */
+  gap: 20px;
+  align-items: start;
+}
+
+/* invisible divider – keeps spacing identical */
+.resource-top-divider{
+  width: 1px;
+  align-self: stretch;
+  background: transparent; /* invisible */
+}
+
+/* left side just flows normally */
+.resource-top-left{}
+
+/* right side has two columns (Scope | Shared) */
+.resource-top-right{
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr; /* Scope smaller, Shared bigger */
+  column-gap: 18px;
+  align-items: start;
+}
+
+/* tiny labels above the empty button areas (optional, helps visualize) */
+.resource-top-actions-label{
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #666d66;
+  margin-bottom: 6px;
+}
+
+/* placeholders so the spacing holds even before we add buttons */
+.resource-buy-row,
+.resource-plan-row{
+  min-height: 26px; /* keeps the top row height stable */
+}
+
 .resource-title {
   font-weight: 600;
 }
@@ -273,6 +318,17 @@
 
 /* Mobile: stack columns */
 @media (max-width: 640px){
+   .resource-top-row{
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+  .resource-top-divider{
+    display: none;
+  }
+  .resource-top-right{
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
   .resource-info-row{
     grid-template-columns: 1fr;
     row-gap: 12px;
