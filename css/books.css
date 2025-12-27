@@ -133,15 +133,23 @@
 .resource-subline{
   margin-top: 4px;
   display: flex;
-  gap: 14px;
-  flex-wrap: wrap; /* wraps nicely on small screens */
+  flex-wrap: wrap;
   align-items: baseline;
   font-size: 0.9rem;
   opacity: 0.85;
+  line-height: 1.35;
 }
 
-.resource-author{ white-space: nowrap; }
-.resource-isbn{ white-space: nowrap; opacity: 0.9; }
+/* horizontal spacing only */
+.resource-author{
+  margin-right: 14px;
+  white-space: nowrap;
+}
+
+.resource-isbn{
+  white-space: nowrap;
+  opacity: 0.9;
+}
 
 .resource-reference {
   font-size: 0.75rem;
