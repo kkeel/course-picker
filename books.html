@@ -1015,6 +1015,16 @@
                                 ></span>
                               </div>
 
+                              <div class="resource-tipbox" x-show="resourcesById[a.resourceId]?.maySub" x-cloak>
+                                <span class="resource-tipbox-label">➜ May sub:</span>
+                                <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub"></span>
+                              </div>
+                              
+                              <div class="resource-tipbox" x-show="resourcesById[a.resourceId]?.note" x-cloak>
+                                <span class="resource-tipbox-label">NOTE:</span>
+                                <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.note"></span>
+                              </div>
+
                             </div>
                           </div>
                           
@@ -1314,6 +1324,15 @@
                                           resourcesById[a.resourceId]?.RATIONALE
                                         "
                                       ></span>
+                                    </div>
+                                    <div class="resource-tipbox" x-show="resourcesById[a.resourceId]?.maySub" x-cloak>
+                                      <span class="resource-tipbox-label">➜ May sub:</span>
+                                      <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub"></span>
+                                    </div>
+                                    
+                                    <div class="resource-tipbox" x-show="resourcesById[a.resourceId]?.note" x-cloak>
+                                      <span class="resource-tipbox-label">NOTE:</span>
+                                      <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.note"></span>
                                     </div>
 
                                   </div>
