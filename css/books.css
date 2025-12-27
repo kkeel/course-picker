@@ -54,6 +54,18 @@
   margin-bottom: 6px;
 }
 
+/* Align BUY / PLAN labels exactly with Scope / Shared below */
+.resource-top-scope,
+.resource-top-shared {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* ⬅️ key fix */
+}
+
+.resource-top-actions-label {
+  text-align: left;
+}
+
 /* placeholders so the spacing holds even before we add buttons */
 .resource-buy-row,
 .resource-plan-row{
