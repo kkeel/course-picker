@@ -33,6 +33,14 @@ function asString(v) {
   return String(v);
 }
 
+function asBool(v) {
+  // Airtable checkbox usually returns true/false
+  if (v === true) return true;
+  if (v === false) return false;
+  const s = asString(v).trim();
+  return s === "✔" || s === "✔️" || s.toLowerCase() === "true";
+}
+
 function asIdArray(v) {
   // Handles:
   // - Airtable linked record arrays: [{id,name},...]
@@ -140,6 +148,8 @@ function toAssignmentRows(rec) {
     grades: parseGrades(gradeText),
 
     gradeLevelTag: asString(f["Grade Level Tag"]).trim(),
+
+    optional: asBool(f["OPTIONAL"]),
 
     sharedTextR3: sharedText,
     sharedLinesR3: splitLines(sharedText),
