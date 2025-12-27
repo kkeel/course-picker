@@ -204,6 +204,10 @@
   white-space: nowrap;
 }
 
+.resource-tipbox-item{
+  display: block;
+}
+
 /* =========================================================
    Book List Read-only mode (screen only)
    Keeps visibility, removes edit affordances.
