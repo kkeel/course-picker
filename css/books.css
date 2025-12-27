@@ -209,6 +209,67 @@
 }
 
 /* =========================================================
+   Resource card: 2-column info row (Left | divider | Right)
+   ========================================================= */
+
+.resource-info-row{
+  margin-top: 6px;
+  display: grid;
+
+  /* Left is wider than right */
+  grid-template-columns: 1.7fr 1px 0.9fr;
+  column-gap: 14px;
+  align-items: start;
+}
+
+.resource-info-left .resource-rationale{
+  margin-top: 0;
+}
+
+.resource-info-divider{
+  width: 1px;
+  align-self: stretch;
+  background: #e5e8e5;
+  border-radius: 1px;
+}
+
+.resource-info-right{
+  padding-top: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.resource-meta-label{
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #666d66;
+  margin-bottom: 4px;
+}
+
+.resource-meta-text{
+  font-size: 13px;
+  line-height: 1.35;
+  color: #666d66;
+
+  /* ✅ keep Airtable line breaks */
+  white-space: pre-line;
+}
+
+/* Mobile: stack columns */
+@media (max-width: 640px){
+  .resource-info-row{
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+  .resource-info-divider{
+    display: none;
+  }
+}
+
+/* =========================================================
    Book List Read-only mode (screen only)
    Keeps visibility, removes edit affordances.
    Scoped to .books-page so course list is untouched.
