@@ -243,6 +243,15 @@
   align-items: start;
 }
 
+/* Swap visual order: Scope (left) | Shared (right) */
+.resource-info-right .resource-meta-block:nth-child(1){
+  order: 2; /* Shared → right */
+}
+
+.resource-info-right .resource-meta-block:nth-child(2){
+  order: 1; /* Scope → left */
+}
+
 .resource-meta-label{
   font-size: 11px;
   font-weight: 600;
