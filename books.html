@@ -960,46 +960,85 @@
                           
                             <!-- right: text -->
                             <div class="resource-body">
-                              <div class="resource-title-row">
-                              
+                              <div class="resource-top-row">
+
+                              <!-- LEFT (wide): title + author/isbn/reference + section -->
+                              <div class="resource-top-left">
+                            
+                                <div class="resource-title-row">
+                                  <div
+                                    class="resource-title"
+                                    x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
+                                  ></div>
+                            
+                                  <a
+                                    class="edit-pill resource-edit-pill"
+                                    x-show="isStaff && editMode && resourcesById[a.resourceId]?.bookEditUrl"
+                                    x-cloak
+                                    :href="resourcesById[a.resourceId]?.bookEditUrl"
+                                    target="_blank"
+                                    rel="noopener"
+                                    @click.stop
+                                  >Edit ↗</a>
+                                </div>
+                            
+                                <div class="resource-subline">
+                                  <span
+                                    class="resource-author"
+                                    x-show="resourcesById[a.resourceId]?.author"
+                                    x-text="resourcesById[a.resourceId]?.author ? ('by ' + resourcesById[a.resourceId].author) : ''"
+                                  ></span>
+                            
+                                  <span
+                                    class="resource-isbn"
+                                    x-show="resourcesById[a.resourceId]?.isbnAsin"
+                                    x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
+                                  ></span>
+                            
+                                  <span
+                                    class="resource-reference"
+                                    x-show="resourcesById[a.resourceId]?.flags?.reference"
+                                    x-cloak
+                                  >✓REFERENCE</span>
+                                </div>
+                            
+                                <!-- “Section” line (use resourceTagText for now) -->
                                 <div
-                                  class="resource-title"
-                                  x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
+                                  class="resource-sectionline"
+                                  x-show="resourcesById[a.resourceId]?.resourceTagText"
+                                  x-cloak
+                                  x-text="resourcesById[a.resourceId]?.resourceTagText"
                                 ></div>
+                            
+                              </div>
+                            
+                              <!-- invisible divider (keeps spacing aligned with bottom section) -->
+                              <div class="resource-top-divider" aria-hidden="true"></div>
+                            
+                              <!-- RIGHT: purchase buttons (scope col) + planning buttons (shared col) -->
+                              <div class="resource-top-right">
+                            
+                                <!-- Purchase buttons area (aligns above SCOPE column) -->
+                                <div class="resource-top-scope">
+                                  <!-- Placeholder for now -->
+                                  <div class="resource-top-actions-label">Buy</div>
+                                  <div class="resource-buy-row">
+                                    <!-- buttons will go here later -->
+                                  </div>
+                                </div>
+                            
+                                <!-- Planning buttons area (aligns above SHARED column) -->
+                                <div class="resource-top-shared">
+                                  <!-- Placeholder for now -->
+                                  <div class="resource-top-actions-label">Plan</div>
+                                  <div class="resource-plan-row">
+                                    <!-- buttons will go here later -->
+                                  </div>
+                                </div>
+                            
+                              </div>
+                            </div>
                               
-                                <a
-                                  class="edit-pill resource-edit-pill"
-                                  x-show="isStaff && editMode && resourcesById[a.resourceId]?.bookEditUrl"
-                                  x-cloak
-                                  :href="resourcesById[a.resourceId]?.bookEditUrl"
-                                  target="_blank"
-                                  rel="noopener"
-                                  @click.stop
-                                >Edit ↗</a>
-                              </div>
-                          
-                              <div class="resource-subline">
-                                <span
-                                  class="resource-author"
-                                  x-show="resourcesById[a.resourceId]?.author"
-                                  x-text="resourcesById[a.resourceId]?.author ? ('by ' + resourcesById[a.resourceId].author) : ''"
-                                ></span>
-                          
-                                <span
-                                  class="resource-isbn"
-                                  x-show="resourcesById[a.resourceId]?.isbnAsin"
-                                  x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
-                                ></span>
-
-                                <span
-                                  class="resource-reference"
-                                  x-show="resourcesById[a.resourceId]?.flags?.reference"
-                                  x-cloak
-                                >
-                                  ✓REFERENCE
-                                </span>
-
-                              </div>
                               <div class="resource-info-row">
                               <!-- LEFT (wide): rationale + note/may sub -->
                               <div class="resource-info-left">
@@ -1308,46 +1347,85 @@
                                 
                                   <!-- right: text -->
                                   <div class="resource-body">
-                                    <div class="resource-title-row">
-                                    
+                                    <div class="resource-top-row">
+
+                                    <!-- LEFT (wide): title + author/isbn/reference + section -->
+                                    <div class="resource-top-left">
+                                  
+                                      <div class="resource-title-row">
+                                        <div
+                                          class="resource-title"
+                                          x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
+                                        ></div>
+                                  
+                                        <a
+                                          class="edit-pill resource-edit-pill"
+                                          x-show="isStaff && editMode && resourcesById[a.resourceId]?.bookEditUrl"
+                                          x-cloak
+                                          :href="resourcesById[a.resourceId]?.bookEditUrl"
+                                          target="_blank"
+                                          rel="noopener"
+                                          @click.stop
+                                        >Edit ↗</a>
+                                      </div>
+                                  
+                                      <div class="resource-subline">
+                                        <span
+                                          class="resource-author"
+                                          x-show="resourcesById[a.resourceId]?.author"
+                                          x-text="resourcesById[a.resourceId]?.author ? ('by ' + resourcesById[a.resourceId].author) : ''"
+                                        ></span>
+                                  
+                                        <span
+                                          class="resource-isbn"
+                                          x-show="resourcesById[a.resourceId]?.isbnAsin"
+                                          x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
+                                        ></span>
+                                  
+                                        <span
+                                          class="resource-reference"
+                                          x-show="resourcesById[a.resourceId]?.flags?.reference"
+                                          x-cloak
+                                        >✓REFERENCE</span>
+                                      </div>
+                                  
+                                      <!-- “Section” line (use resourceTagText for now) -->
                                       <div
-                                        class="resource-title"
-                                        x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
+                                        class="resource-sectionline"
+                                        x-show="resourcesById[a.resourceId]?.resourceTagText"
+                                        x-cloak
+                                        x-text="resourcesById[a.resourceId]?.resourceTagText"
                                       ></div>
-                                    
-                                      <a
-                                        class="edit-pill resource-edit-pill"
-                                        x-show="isStaff && editMode && resourcesById[a.resourceId]?.bookEditUrl"
-                                        x-cloak
-                                        :href="resourcesById[a.resourceId]?.bookEditUrl"
-                                        target="_blank"
-                                        rel="noopener"
-                                        @click.stop
-                                      >Edit ↗</a>
+                                  
                                     </div>
-                                
-                                    <div class="resource-subline">
-                                      <span
-                                        class="resource-author"
-                                        x-show="resourcesById[a.resourceId]?.author"
-                                        x-text="resourcesById[a.resourceId]?.author ? ('by ' + resourcesById[a.resourceId].author) : ''"
-                                      ></span>
-                                
-                                      <span
-                                        class="resource-isbn"
-                                        x-show="resourcesById[a.resourceId]?.isbnAsin"
-                                        x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
-                                      ></span>
-
-                                      <span
-                                        class="resource-reference"
-                                        x-show="resourcesById[a.resourceId]?.flags?.reference"
-                                        x-cloak
-                                      >
-                                        ✓REFERENCE
-                                      </span>
-
+                                  
+                                    <!-- invisible divider (keeps spacing aligned with bottom section) -->
+                                    <div class="resource-top-divider" aria-hidden="true"></div>
+                                  
+                                    <!-- RIGHT: purchase buttons (scope col) + planning buttons (shared col) -->
+                                    <div class="resource-top-right">
+                                  
+                                      <!-- Purchase buttons area (aligns above SCOPE column) -->
+                                      <div class="resource-top-scope">
+                                        <!-- Placeholder for now -->
+                                        <div class="resource-top-actions-label">Buy</div>
+                                        <div class="resource-buy-row">
+                                          <!-- buttons will go here later -->
+                                        </div>
+                                      </div>
+                                  
+                                      <!-- Planning buttons area (aligns above SHARED column) -->
+                                      <div class="resource-top-shared">
+                                        <!-- Placeholder for now -->
+                                        <div class="resource-top-actions-label">Plan</div>
+                                        <div class="resource-plan-row">
+                                          <!-- buttons will go here later -->
+                                        </div>
+                                      </div>
+                                  
                                     </div>
+                                  </div>
+
                                     <div class="resource-info-row">
                                     <!-- LEFT (wide): rationale + note/may sub -->
                                     <div class="resource-info-left">
