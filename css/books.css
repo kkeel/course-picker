@@ -110,15 +110,15 @@
 
 /* Colors per format */
 .alt-format-pill--ebook {
-  background: #6db4b2;
+  background: #6d7eaa;
 }
 
 .alt-format-pill--audiobook {
-  background: #9e6bac;
+  background: #9b5b7b;
 }
 
 .alt-format-pill--video {
-  background: #6d7eaa;
+  background: #d1b358;
 }
 
 /* Left column wrapper so Alt Formats can expand card height */
@@ -383,6 +383,35 @@
   border-radius: 999px;
   color: #fff;
   border: 1px solid #fff;
+  white-space: nowrap;
+}
+
+/* --- Tipbox formats row (Alt. Formats) --- */
+.resource-tipbox-item--formats{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.resource-tipbox-item--formats .resource-tipbox-label{
+  white-space: nowrap;  /* keeps “Alt. Formats:” together */
+}
+
+.alt-formats-pills--in-tipbox{
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Pills (not constrained to 64px image width) */
+.alt-format-pill{
+  font-size: 12px;
+  line-height: 1;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #ffffff;
+  border: 1px solid #ffffff;
   white-space: nowrap;
 }
 
