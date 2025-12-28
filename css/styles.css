@@ -1299,6 +1299,32 @@ body {
   color: inherit;
 }
 
+/* --------------------------------------------------
+   Small bookmark button (used on resource cards)
+-------------------------------------------------- */
+.bookmark-btn--small{
+  width: 22px;
+  height: 22px;
+  padding: 0;
+}
+
+/* icon inside small bookmark */
+.bookmark-btn--small .bookmark-icon{
+  width: 14px;
+  height: 14px;
+}
+
+/* smaller + overlay */
+.bookmark-btn--small .bookmark-apply{
+  width: 14px;
+  height: 14px;
+  font-size: 11px;
+  line-height: 14px;
+  right: -5px;
+  bottom: -6px;
+  border-width: 2px;
+}
+
 /* Planning tags */
 .planning-tag-region {
   display: inline-flex;
