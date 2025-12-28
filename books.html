@@ -1027,20 +1027,31 @@
                                   <div class="resource-top-actions-label resource-prep-label">
                                     <span>Resource Preparation</span>
                                 
-                                    <!-- V1: visual-only book button (no JS yet) -->
+                                    <!-- My books button -->
                                     <button
                                       type="button"
                                       class="mybooks-btn"
-                                      aria-label="Add to My Books"
-                                      title="Add to My Books"
-                                      @click.stop
+                                      :class="{ 'mybooks-btn--active': isResourceInMyBooks(a.resourceId) }"
+                                      :aria-label="isResourceInMyBooks(a.resourceId) ? 'In My Books' : 'Add to My Books'"
+                                      :title="isResourceInMyBooks(a.resourceId) ? 'In My Books' : 'Add to My Books'"
+                                      @click.stop="toggleResourceMyBooks(a.resourceId)"
                                     >
-                                      <svg viewBox="0 0 24 24" aria-hidden="true">
-                                        <path d="M6 4.5h11A1.5 1.5 0 0 1 18.5 6v13.5a.5.5 0 0 1-.8.4L12 16.5 6.3 19.9a.5.5 0 0 1-.8-.4V6A1.5 1.5 0 0 1 7 4.5Z"
-                                              fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                                      </svg>
-                                      <span class="mybooks-plus" aria-hidden="true">+</span>
+                                      <img
+                                        :src="isResourceInMyBooks(a.resourceId)
+                                          ? 'img/icons/book-icon-active.png'
+                                          : 'img/icons/book-icon-inactive.png'"
+                                        alt=""
+                                        class="mybooks-icon"
+                                      />
+                                    
+                                      <!-- Plus overlay only when inactive -->
+                                      <span
+                                        class="mybooks-plus"
+                                        x-show="!isResourceInMyBooks(a.resourceId)"
+                                        aria-hidden="true"
+                                      >+</span>
                                     </button>
+
                                   </div>
                                 
                                   <div class="resource-plan-row">
@@ -1444,20 +1455,31 @@
                                         <div class="resource-top-actions-label resource-prep-label">
                                           <span>Resource Preparation</span>
                                       
-                                          <!-- V1: visual-only book button (no JS yet) -->
+                                          <!-- My books button -->
                                           <button
                                             type="button"
                                             class="mybooks-btn"
-                                            aria-label="Add to My Books"
-                                            title="Add to My Books"
-                                            @click.stop
+                                            :class="{ 'mybooks-btn--active': isResourceInMyBooks(a.resourceId) }"
+                                            :aria-label="isResourceInMyBooks(a.resourceId) ? 'In My Books' : 'Add to My Books'"
+                                            :title="isResourceInMyBooks(a.resourceId) ? 'In My Books' : 'Add to My Books'"
+                                            @click.stop="toggleResourceMyBooks(a.resourceId)"
                                           >
-                                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                              <path d="M6 4.5h11A1.5 1.5 0 0 1 18.5 6v13.5a.5.5 0 0 1-.8.4L12 16.5 6.3 19.9a.5.5 0 0 1-.8-.4V6A1.5 1.5 0 0 1 7 4.5Z"
-                                                    fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                                            </svg>
-                                            <span class="mybooks-plus" aria-hidden="true">+</span>
+                                            <img
+                                              :src="isResourceInMyBooks(a.resourceId)
+                                                ? 'img/icons/book-icon-active.png'
+                                                : 'img/icons/book-icon-inactive.png'"
+                                              alt=""
+                                              class="mybooks-icon"
+                                            />
+                                          
+                                            <!-- Plus overlay only when inactive -->
+                                            <span
+                                              class="mybooks-plus"
+                                              x-show="!isResourceInMyBooks(a.resourceId)"
+                                              aria-hidden="true"
+                                            >+</span>
                                           </button>
+
                                         </div>
                                       
                                         <div class="resource-plan-row">
