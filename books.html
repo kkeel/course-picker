@@ -1024,8 +1024,25 @@
                             
                                 <!-- Planning buttons area (aligns above SHARED column) -->
                                 <div class="resource-top-shared">
-                                  <!-- Placeholder for now -->
-                                  <div class="resource-top-actions-label">Plan</div>
+                                  <div class="resource-top-actions-label resource-prep-label">
+                                    <span>Resource Preparation</span>
+                                
+                                    <!-- V1: visual-only book button (no JS yet) -->
+                                    <button
+                                      type="button"
+                                      class="mybooks-btn"
+                                      aria-label="Add to My Books"
+                                      title="Add to My Books"
+                                      @click.stop
+                                    >
+                                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M6 4.5h11A1.5 1.5 0 0 1 18.5 6v13.5a.5.5 0 0 1-.8.4L12 16.5 6.3 19.9a.5.5 0 0 1-.8-.4V6A1.5 1.5 0 0 1 7 4.5Z"
+                                              fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                                      </svg>
+                                      <span class="mybooks-plus" aria-hidden="true">+</span>
+                                    </button>
+                                  </div>
+                                
                                   <div class="resource-plan-row">
                                     <!-- buttons will go here later -->
                                   </div>
@@ -1424,8 +1441,25 @@
                                   
                                       <!-- Planning buttons area (aligns above SHARED column) -->
                                       <div class="resource-top-shared">
-                                        <!-- Placeholder for now -->
-                                        <div class="resource-top-actions-label">Plan</div>
+                                        <div class="resource-top-actions-label resource-prep-label">
+                                          <span>Resource Preparation</span>
+                                      
+                                          <!-- V1: visual-only book button (no JS yet) -->
+                                          <button
+                                            type="button"
+                                            class="mybooks-btn"
+                                            aria-label="Add to My Books"
+                                            title="Add to My Books"
+                                            @click.stop
+                                          >
+                                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                              <path d="M6 4.5h11A1.5 1.5 0 0 1 18.5 6v13.5a.5.5 0 0 1-.8.4L12 16.5 6.3 19.9a.5.5 0 0 1-.8-.4V6A1.5 1.5 0 0 1 7 4.5Z"
+                                                    fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                                            </svg>
+                                            <span class="mybooks-plus" aria-hidden="true">+</span>
+                                          </button>
+                                        </div>
+                                      
                                         <div class="resource-plan-row">
                                           <!-- buttons will go here later -->
                                         </div>
