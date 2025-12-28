@@ -188,6 +188,28 @@
         return this.resourcesById?.[rid]?.flags?.chooseOne === true;
       },
 
+      // --------------------------------------------------
+      // Resource Preparation: My Books (V1 – local only)
+      // --------------------------------------------------
+      
+      _myBooksResourceIds: new Set(),
+      
+      isResourceInMyBooks(resourceId) {
+        if (!resourceId) return false;
+        return this._myBooksResourceIds.has(String(resourceId));
+      },
+      
+      toggleResourceMyBooks(resourceId) {
+        if (!resourceId) return;
+        const id = String(resourceId);
+      
+        if (this._myBooksResourceIds.has(id)) {
+          this._myBooksResourceIds.delete(id);
+        } else {
+          this._myBooksResourceIds.add(id);
+        }
+      },
+
       altFormatsForAssignment(a) {
         const rid = String(a?.resourceId || "").trim();
         if (!rid) return [];
