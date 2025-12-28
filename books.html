@@ -1055,9 +1055,8 @@
                                 </div>
                             
                                 <!-- NOTE + May sub (single box; NOTE first) -->
-                                <div
-                                  class="resource-tipbox"
-                                  x-show="resourcesById[a.resourceId]?.note || resourcesById[a.resourceId]?.maySub"
+                                <div class="resource-tipbox"
+                                  x-show="a.noteText || a.maySubText || altFormatsForAssignment(a).length"
                                   x-cloak
                                 >
                                   <template x-if="resourcesById[a.resourceId]?.note">
@@ -1073,6 +1072,25 @@
                                       <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub"></span>
                                     </div>
                                   </template>
+
+                                  <template x-if="altFormatsForAssignment(a).length">
+                                    <div class="resource-tipbox-item resource-tipbox-item--formats">
+                                      <span class="resource-tipbox-label">Alt. Formats:</span>
+                                  
+                                      <span class="alt-formats-pills alt-formats-pills--in-tipbox">
+                                        <template x-for="fmt in altFormatsForAssignment(a)" :key="fmt">
+                                          <span class="alt-format-pill"
+                                                :class="{
+                                                  'alt-format-pill--ebook': fmt.toLowerCase()==='ebook',
+                                                  'alt-format-pill--audiobook': fmt.toLowerCase()==='audiobook',
+                                                  'alt-format-pill--video': fmt.toLowerCase()==='video'
+                                                }"
+                                                x-text="fmt"></span>
+                                        </template>
+                                      </span>
+                                    </div>
+                                  </template>
+
                                 </div>
                             
                               </div>
@@ -1437,9 +1455,8 @@
                                       </div>
                                   
                                       <!-- NOTE + May sub (single box; NOTE first) -->
-                                      <div
-                                        class="resource-tipbox"
-                                        x-show="resourcesById[a.resourceId]?.note || resourcesById[a.resourceId]?.maySub"
+                                      <div class="resource-tipbox"
+                                        x-show="a.noteText || a.maySubText || altFormatsForAssignment(a).length"
                                         x-cloak
                                       >
                                         <template x-if="resourcesById[a.resourceId]?.note">
@@ -1455,6 +1472,25 @@
                                             <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub"></span>
                                           </div>
                                         </template>
+
+                                        <template x-if="altFormatsForAssignment(a).length">
+                                          <div class="resource-tipbox-item resource-tipbox-item--formats">
+                                            <span class="resource-tipbox-label">Alt. Formats:</span>
+                                        
+                                            <span class="alt-formats-pills alt-formats-pills--in-tipbox">
+                                              <template x-for="fmt in altFormatsForAssignment(a)" :key="fmt">
+                                                <span class="alt-format-pill"
+                                                      :class="{
+                                                        'alt-format-pill--ebook': fmt.toLowerCase()==='ebook',
+                                                        'alt-format-pill--audiobook': fmt.toLowerCase()==='audiobook',
+                                                        'alt-format-pill--video': fmt.toLowerCase()==='video'
+                                                      }"
+                                                      x-text="fmt"></span>
+                                              </template>
+                                            </span>
+                                          </div>
+                                        </template>
+
                                       </div>
                                   
                                     </div>
