@@ -865,6 +865,89 @@
                             x-text="course.gradeText"
                           ></span>
                         </template>
+
+                        <!-- Student rail toggle (course - only when no topics) -->
+                        <div
+                            class="student-rail-toggle-row"
+                            x-show="(course.studentCount != null ? course.studentCount : assignedStudentCount(course)) > 0"
+                            x-cloak
+                          >
+                          <button
+                            type="button"
+                            class="student-rail-toggle"
+                            :aria-expanded="!isStudentRailCollapsed(studentRailKeyForCourse(course))"
+                            @click.stop="toggleStudentRailCollapsed(studentRailKeyForCourse(course))"
+                            aria-label="Toggle student assignments"
+                          >
+                            <!-- PERSON ICON + BADGE (badge anchored to icon, not chevron) -->
+                            <span style="position:relative; display:inline-flex; align-items:center; justify-content:center;">
+                              <!-- solid filled person icon -->
+                              <svg class="student-rail-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="8" r="3.2" fill="currentColor"></circle>
+                                <path
+                                  d="M4.5 20c0-3.9 3.7-6.8 7.5-6.8s7.5 2.9 7.5 6.8"
+                                  fill="currentColor">
+                                </path>
+                              </svg>
+                            
+                              <!-- badge anchored to the person icon -->
+                              <span
+                                class="student-count-badge"
+                                style="position:absolute; right:-6px; bottom:-6px;"
+                                x-show="((course.studentCount != null ? course.studentCount : assignedStudentCount(course)) > 0)"
+                                x-text="(course.studentCount != null ? course.studentCount : assignedStudentCount(course))"
+                              ></span>
+                            </span>
+                            
+                            <!-- chevron / wedge -->
+                            <svg class="student-rail-wedge" viewBox="0 0 24 24" aria-hidden="true">
+                              <path
+                                d="M7 10l5 5 5-5"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round">
+                              </path>
+                            </svg>
+                          </button>
+                      
+                          <!-- Add-students "+" (shows only when rail is OPEN) -->
+                          <template x-if="!isStudentRailCollapsed(studentRailKeyForCourse(course))">
+                            <button
+                              type="button"
+                              class="planning-tag-add"
+                              aria-label="Assign students"
+                              @click.stop="openStudentAssignMenu($event, course)"
+                            >+</button>
+                          </template>
+  
+                          <!-- Assigned-students chips (course) -->
+                          <template x-if="!isStudentRailCollapsed(studentRailKeyForCourse(course))">
+                            <div class="student-chip-row" aria-label="Assigned students">
+                              <template x-for="sid in (course.studentIds || [])" :key="'course-stu-' + sid">
+                                <template x-if="getStudentById(sid)">
+                                  <span
+                                    class="student-chip"
+                                    :title="getStudentById(sid).name"
+                                    :aria-label="getStudentById(sid).name"
+                                    :style="{ '--stu': (getStudentById(sid).color || '#9eaa99') }"
+                                  >
+                                    <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
+                            
+                                    <!-- tiny remove X -->
+                                    <button
+                                      type="button"
+                                      class="student-chip-remove"
+                                      aria-label="Remove student"
+                                      @click.stop="removeStudentAssignment(course, sid)"
+                                    >×</button>
+                                  </span>
+                                </template>
+                              </template>
+                            </div>
+                          </template> 
+                        </div>
                       
                         <!-- spacer pushes planning tag area to far right -->
                         <span class="meta-flex-spacer"></span>
@@ -1281,6 +1364,117 @@
                                     x-text="topic.gradeText"
                                   ></span>
                                 </template>
+
+                                <!-- Student rail toggle (topic) -->
+                                <div
+                                  class="student-rail-toggle-row"
+                                  x-show="(topic.studentCount != null ? topic.studentCount : assignedStudentCount(topic)) > 0"
+                                  x-cloak
+                                >
+                                <button
+                                  type="button"
+                                  class="student-rail-toggle"
+                                  :aria-expanded="!isStudentRailCollapsed(studentRailKeyForTopic(topic))"
+                                  @click.stop="toggleStudentRailCollapsed(studentRailKeyForTopic(topic))"
+                                  aria-label="Toggle student assignments"
+                                >
+                                  <!-- PERSON ICON + BADGE (anchored together) -->
+                                  <span style="position:relative; display:inline-flex; align-items:center; justify-content:center;">
+                                    <!-- person icon -->
+                                    <svg class="student-rail-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                      <circle cx="12" cy="8" r="3.2" fill="currentColor"></circle>
+                                      <path
+                                        d="M4.5 20c0-3.9 3.7-6.8 7.5-6.8s7.5 2.9 7.5 6.8"
+                                        fill="currentColor">
+                                      </path>
+                                    </svg>
+                                  
+                                    <!-- count badge -->
+                                    <span
+                                      class="student-count-badge"
+                                      style="position:absolute; right:-6px; bottom:-6px;"
+                                      x-show="assignedStudentCount(topic) > 0"
+                                      x-text="assignedStudentCount(topic)"
+                                    ></span>
+                                  </span>
+                                  
+                                  <!-- CHEVRON -->
+                                  <svg class="student-rail-wedge" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                      d="M7 10l5 5 5-5"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round">
+                                    </path>
+                                  </svg>
+                                </button>
+                              
+                                <!-- Add-students "+" (shows only when rail is OPEN) -->
+                                <template x-if="!isStudentRailCollapsed(studentRailKeyForTopic(topic))">
+                                  <button
+                                    type="button"
+                                    class="planning-tag-add"
+                                    aria-label="Assign students"
+                                    @click.stop="openStudentAssignMenu($event, topic)"
+                                  >+</button>
+                                </template>
+  
+                                  <!-- Assigned-students chips (topic instance) -->
+                                  <template x-if="!isStudentRailCollapsed(studentRailKeyForTopic(topic))">
+                                  <div class="student-chip-row" aria-label="Assigned students">
+                                    <!-- Active (this instance) -->
+                                    <template x-for="sid in (topic.studentIds || [])" :key="'topic-stu-' + sid">
+                                      <template x-if="getStudentById(sid)">
+                                        <span
+                                          class="student-chip"
+                                          :title="getStudentById(sid).name"
+                                          :aria-label="getStudentById(sid).name"
+                                          :style="{ '--stu': (getStudentById(sid).color || '#9eaa99') }"
+                                        >
+                                          <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
+                                  
+                                          <!-- tiny remove X -->
+                                          <button
+                                            type="button"
+                                            class="student-chip-remove"
+                                            aria-label="Remove student"
+                                            @click.stop="removeStudentAssignment(topic, sid)"
+                                          >×</button>
+                                        </span>
+                                      </template>
+                                    </template>
+                                  
+                                    <!-- Ghosts (assigned on other instances of same Topic_ID) -->
+                                    <template x-if="missingGlobalStudentsForItem(topic).some(sid => getStudentById(sid))">
+                                      <span class="student-ghost-marker" title="Assigned elsewhere">↪</span>
+                                    </template>
+                                  
+                                    <template x-for="sid in missingGlobalStudentsForItem(topic)" :key="'topic-stu-ghost-' + sid">
+                                      <template x-if="getStudentById(sid)">
+                                        <span
+                                          class="student-chip student-chip--ghost"
+                                          :title="getStudentById(sid).name + ' (assigned elsewhere)'"
+                                          :aria-label="getStudentById(sid).name + ' (assigned elsewhere)'"
+                                        >
+                                          <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
+                                    
+                                          <!-- tiny "+" to apply this ghost student here -->
+                                          <button
+                                            type="button"
+                                            class="student-chip-apply"
+                                            @click.stop="applyGlobalStudentToItem(topic, sid)"
+                                            aria-label="Assign student here"
+                                            title="Assign here"
+                                          >+</button>
+                                        </span>
+                                      </template>
+                                    </template>
+                                  </div>
+                                    
+                                </template>
+                              </div>
                               
                                 <!-- spacer pushes controls to the right -->
                                 <span class="meta-flex-spacer"></span>
@@ -1619,116 +1813,7 @@
                                 :style="{ backgroundColor: subjectColor(course.subject) + '1A' }"
                               ></textarea>
                             </div>
-                              <!-- Student rail toggle (topic) -->
-                              <div
-                                class="student-rail-toggle-row"
-                                x-show="(topic.studentCount != null ? topic.studentCount : assignedStudentCount(topic)) > 0"
-                                x-cloak
-                              >
-                              <button
-                                type="button"
-                                class="student-rail-toggle"
-                                :aria-expanded="!isStudentRailCollapsed(studentRailKeyForTopic(topic))"
-                                @click.stop="toggleStudentRailCollapsed(studentRailKeyForTopic(topic))"
-                                aria-label="Toggle student assignments"
-                              >
-                                <!-- PERSON ICON + BADGE (anchored together) -->
-                                <span style="position:relative; display:inline-flex; align-items:center; justify-content:center;">
-                                  <!-- person icon -->
-                                  <svg class="student-rail-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <circle cx="12" cy="8" r="3.2" fill="currentColor"></circle>
-                                    <path
-                                      d="M4.5 20c0-3.9 3.7-6.8 7.5-6.8s7.5 2.9 7.5 6.8"
-                                      fill="currentColor">
-                                    </path>
-                                  </svg>
-                                
-                                  <!-- count badge -->
-                                  <span
-                                    class="student-count-badge"
-                                    style="position:absolute; right:-6px; bottom:-6px;"
-                                    x-show="assignedStudentCount(topic) > 0"
-                                    x-text="assignedStudentCount(topic)"
-                                  ></span>
-                                </span>
-                                
-                                <!-- CHEVRON -->
-                                <svg class="student-rail-wedge" viewBox="0 0 24 24" aria-hidden="true">
-                                  <path
-                                    d="M7 10l5 5 5-5"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                  </path>
-                                </svg>
-                              </button>
-                            
-                              <!-- Add-students "+" (shows only when rail is OPEN) -->
-                              <template x-if="!isStudentRailCollapsed(studentRailKeyForTopic(topic))">
-                                <button
-                                  type="button"
-                                  class="planning-tag-add"
-                                  aria-label="Assign students"
-                                  @click.stop="openStudentAssignMenu($event, topic)"
-                                >+</button>
-                              </template>
-
-                                <!-- Assigned-students chips (topic instance) -->
-                                <template x-if="!isStudentRailCollapsed(studentRailKeyForTopic(topic))">
-                                <div class="student-chip-row" aria-label="Assigned students">
-                                  <!-- Active (this instance) -->
-                                  <template x-for="sid in (topic.studentIds || [])" :key="'topic-stu-' + sid">
-                                    <template x-if="getStudentById(sid)">
-                                      <span
-                                        class="student-chip"
-                                        :title="getStudentById(sid).name"
-                                        :aria-label="getStudentById(sid).name"
-                                        :style="{ '--stu': (getStudentById(sid).color || '#9eaa99') }"
-                                      >
-                                        <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
-                                
-                                        <!-- tiny remove X -->
-                                        <button
-                                          type="button"
-                                          class="student-chip-remove"
-                                          aria-label="Remove student"
-                                          @click.stop="removeStudentAssignment(topic, sid)"
-                                        >×</button>
-                                      </span>
-                                    </template>
-                                  </template>
-                                
-                                  <!-- Ghosts (assigned on other instances of same Topic_ID) -->
-                                  <template x-if="missingGlobalStudentsForItem(topic).some(sid => getStudentById(sid))">
-                                    <span class="student-ghost-marker" title="Assigned elsewhere">↪</span>
-                                  </template>
-                                
-                                  <template x-for="sid in missingGlobalStudentsForItem(topic)" :key="'topic-stu-ghost-' + sid">
-                                    <template x-if="getStudentById(sid)">
-                                      <span
-                                        class="student-chip student-chip--ghost"
-                                        :title="getStudentById(sid).name + ' (assigned elsewhere)'"
-                                        :aria-label="getStudentById(sid).name + ' (assigned elsewhere)'"
-                                      >
-                                        <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
-                                  
-                                        <!-- tiny "+" to apply this ghost student here -->
-                                        <button
-                                          type="button"
-                                          class="student-chip-apply"
-                                          @click.stop="applyGlobalStudentToItem(topic, sid)"
-                                          aria-label="Assign student here"
-                                          title="Assign here"
-                                        >+</button>
-                                      </span>
-                                    </template>
-                                  </template>
-                                </div>
-                                  
-                              </template>
-                            </div>
+                              <!-- Student rail toggle (topic) Was Here -->
                           </article>
 
                         </template>
@@ -1754,91 +1839,7 @@
                       </template>
 
                       <template x-if="!course.topics || course.topics.length === 0">
-                      <!-- Student rail toggle (course - only when no topics) -->
-                      <div
-                          class="student-rail-toggle-row"
-                          x-show="(course.studentCount != null ? course.studentCount : assignedStudentCount(course)) > 0"
-                          x-cloak
-                        >
-                        <button
-                          type="button"
-                          class="student-rail-toggle"
-                          :aria-expanded="!isStudentRailCollapsed(studentRailKeyForCourse(course))"
-                          @click.stop="toggleStudentRailCollapsed(studentRailKeyForCourse(course))"
-                          aria-label="Toggle student assignments"
-                        >
-                          <!-- PERSON ICON + BADGE (badge anchored to icon, not chevron) -->
-                          <span style="position:relative; display:inline-flex; align-items:center; justify-content:center;">
-                            <!-- solid filled person icon -->
-                            <svg class="student-rail-icon" viewBox="0 0 24 24" aria-hidden="true">
-                              <circle cx="12" cy="8" r="3.2" fill="currentColor"></circle>
-                              <path
-                                d="M4.5 20c0-3.9 3.7-6.8 7.5-6.8s7.5 2.9 7.5 6.8"
-                                fill="currentColor">
-                              </path>
-                            </svg>
-                          
-                            <!-- badge anchored to the person icon -->
-                            <span
-                              class="student-count-badge"
-                              style="position:absolute; right:-6px; bottom:-6px;"
-                              x-show="((course.studentCount != null ? course.studentCount : assignedStudentCount(course)) > 0)"
-                              x-text="(course.studentCount != null ? course.studentCount : assignedStudentCount(course))"
-                            ></span>
-                          </span>
-                          
-                          <!-- chevron / wedge -->
-                          <svg class="student-rail-wedge" viewBox="0 0 24 24" aria-hidden="true">
-                            <path
-                              d="M7 10l5 5 5-5"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round">
-                            </path>
-                          </svg>
-                        </button>
-                    
-                        <!-- Add-students "+" (shows only when rail is OPEN) -->
-                        <template x-if="!isStudentRailCollapsed(studentRailKeyForCourse(course))">
-                          <button
-                            type="button"
-                            class="planning-tag-add"
-                            aria-label="Assign students"
-                            @click.stop="openStudentAssignMenu($event, course)"
-                          >+</button>
-                        </template>
-
-                        <!-- Assigned-students chips (course) -->
-                        <template x-if="!isStudentRailCollapsed(studentRailKeyForCourse(course))">
-                          <div class="student-chip-row" aria-label="Assigned students">
-                            <template x-for="sid in (course.studentIds || [])" :key="'course-stu-' + sid">
-                              <template x-if="getStudentById(sid)">
-                                <span
-                                  class="student-chip"
-                                  :title="getStudentById(sid).name"
-                                  :aria-label="getStudentById(sid).name"
-                                  :style="{ '--stu': (getStudentById(sid).color || '#9eaa99') }"
-                                >
-                                  <span class="student-chip-text" x-text="getStudentById(sid).name"></span>
-                          
-                                  <!-- tiny remove X -->
-                                  <button
-                                    type="button"
-                                    class="student-chip-remove"
-                                    aria-label="Remove student"
-                                    @click.stop="removeStudentAssignment(course, sid)"
-                                  >×</button>
-                                </span>
-                              </template>
-                            </template>
-                          </div>
-                        </template> 
-                          
-                          <!-- TODO(cleanup): If we remove “ghost students”, delete student-chip--ghost and ghost logic in studentChipsForItem -->
-                        
-                      </div>
+                      <!-- Student rail toggle (course - only when no topics) WAS HERE -->
                     </template>
                       
                     </article>
