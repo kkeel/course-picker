@@ -845,7 +845,7 @@
                       </div>
                     
                       <!-- grade + schedule line -->
-                      <p
+                      <div
                         class="course-meta"
                         x-show="course.gradeText || course.schedText"
                       >
@@ -867,7 +867,7 @@
                         </template>
 
                         <!-- Student rail toggle (course - only when no topics) -->
-                        <div
+                        <span
                             class="student-rail-toggle-row"
                             x-show="(course.studentCount != null ? course.studentCount : assignedStudentCount(course)) > 0"
                             x-cloak
@@ -947,7 +947,7 @@
                               </template>
                             </div>
                           </template> 
-                        </div>
+                        </span>
                       
                         <!-- spacer pushes planning tag area to far right -->
                         <span class="meta-flex-spacer"></span>
@@ -1000,7 +1000,7 @@
                             </template>
                           </span>
                         </template>
-                      </p>
+                      </div>
                     
                       <!-- Resource cards (course-level) -->
                       <div
@@ -1344,7 +1344,7 @@
                               </div>
                             </div>
                           
-                              <p
+                              <div
                                 class="course-meta topic-meta"
                                 x-show="topic.gradeText || topic.schedText"
                               >
@@ -1366,7 +1366,7 @@
                                 </template>
 
                                 <!-- Student rail toggle (topic) -->
-                                <div
+                                <span
                                   class="student-rail-toggle-row"
                                   x-show="(topic.studentCount != null ? topic.studentCount : assignedStudentCount(topic)) > 0"
                                   x-cloak
@@ -1474,7 +1474,7 @@
                                   </div>
                                     
                                 </template>
-                              </div>
+                              </span>
                               
                                 <!-- spacer pushes controls to the right -->
                                 <span class="meta-flex-spacer"></span>
@@ -1552,7 +1552,7 @@
                                     </div>
                                   </template>
                                 </span>
-                              </p>
+                              </div>
 
                             <!-- Resource cards (topic-level) -->
                             <div
