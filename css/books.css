@@ -238,9 +238,9 @@
 /* Video icon: larger play triangle (still subtle) */
 .books-page .alt-format-pill--video::before{
   content: "";
-  width: 14px;
-  height: 14px;
-  flex: 0 0 14px;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
 
   display: inline-block;
 
