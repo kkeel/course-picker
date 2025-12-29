@@ -707,7 +707,7 @@
 
 /* =========================================================
    Book List — "+ Options" button
-   Styled like +Planning Tag, using note/sub-box palette
+   Like +Planning Tag shape, but matches NOTE/tipbox palette
    ========================================================= */
 
 .resource-plan-row .prep-options-btn{
@@ -716,18 +716,21 @@
   justify-content: center;
 
   height: 26px;
-  padding: 0 10px;
+  padding: 0 12px;
 
-  border-radius: 999px;
-  border: 1px solid #dde2d5;
-  background: #f4f6fa;
+  /* rectangular (not pill) */
+  border-radius: 10px;
+
+  /* MATCH NOTE/tipbox */
+  background: #f3f4f1;          /* same as .resource-tipbox */
+  border: 1px solid #e5e8e5;    /* same as .resource-tipbox border */
+  color: #666d66;               /* same as tipbox text */
 
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;             /* closer to planning tag feel */
   line-height: 1;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 
-  color: var(--brand-muted);
   cursor: pointer;
   user-select: none;
 
@@ -736,8 +739,8 @@
 }
 
 .resource-plan-row .prep-options-btn:hover{
-  background: #ffffff;
-  border-color: rgba(89,110,94,0.35);
+  background: #fbfbf9;          /* match card bg on hover */
+  border-color: #dde2d5;        /* slightly stronger edge */
 }
 
 .resource-plan-row .prep-options-btn:active{
