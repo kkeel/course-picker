@@ -208,6 +208,9 @@
         } else {
           this._myBooksResourceIds.add(id);
         }
+      
+        // ✅ persist (same mechanism as bookmarks/students/tags)
+        this.persistPlannerStateDebounced();
       },
 
       // --------------------------------------------------
@@ -239,6 +242,39 @@
       
         const next = !this.isPrepOpen(id);
         this._prepOpenByResourceId[id] = next;
+      
+        // ✅ persist
+        this.persistPlannerStateDebounced();
+      },
+
+      // --------------------------------------------------
+      // Planner extras (persist inside the shared planner blob)
+      // This mirrors how bookmarks/students/tags are saved,
+      // and sets us up for member-account sync later.
+      // --------------------------------------------------
+      
+      collectPlannerExtras() {
+        return {
+          resources: {
+            myBooks: Array.from(this._myBooksResourceIds || []),
+            prepOpenByResourceId: this._prepOpenByResourceId || {},
+          }
+        };
+      },
+      
+      applyPlannerExtras(extras) {
+        const r = extras?.resources;
+        if (!r) return;
+      
+        // Restore My Books
+        const ids = Array.isArray(r.myBooks) ? r.myBooks : [];
+        this._myBooksResourceIds = new Set(ids.map(String));
+      
+        // Restore prep collapse state
+        const po = (r.prepOpenByResourceId && typeof r.prepOpenByResourceId === "object")
+          ? r.prepOpenByResourceId
+          : {};
+        this._prepOpenByResourceId = { ...po };
       },
 
       altFormatsForAssignment(a) {
