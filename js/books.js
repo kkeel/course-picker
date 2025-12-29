@@ -210,6 +210,37 @@
         }
       },
 
+      // --------------------------------------------------
+      // Resource Preparation: collapse state (V1 – local only)
+      // Default: OPEN when the resource is in My Books
+      // --------------------------------------------------
+      
+      _prepOpenByResourceId: {},
+      
+      isPrepOpen(resourceId) {
+        if (!resourceId) return false;
+        const id = String(resourceId);
+      
+        // If not in My Books, treat as closed (since the section won't show anyway)
+        if (!this.isResourceInMyBooks(id)) return false;
+      
+        // If user has never toggled it, default OPEN
+        if (this._prepOpenByResourceId[id] === undefined) return true;
+      
+        return !!this._prepOpenByResourceId[id];
+      },
+      
+      togglePrepOpen(resourceId) {
+        if (!resourceId) return;
+        const id = String(resourceId);
+      
+        // Only meaningful if it's in My Books
+        if (!this.isResourceInMyBooks(id)) return;
+      
+        const next = !this.isPrepOpen(id);
+        this._prepOpenByResourceId[id] = next;
+      },
+
       altFormatsForAssignment(a) {
         const rid = String(a?.resourceId || "").trim();
         if (!rid) return [];
