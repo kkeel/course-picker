@@ -236,10 +236,10 @@
    IMPORTANT: only change requested = make TOP match BOTTOM spacing
    ========================================================= */
 
-/* âœ… CHANGE: match bottom row exactly (do NOT change bottom) */
+/* CHANGE: match bottom row exactly (do NOT change bottom) */
 .resource-top-row{
   display: grid;
-  grid-template-columns: 1.5fr 1px 1.5fr;  /* Left vs Right sides top */
+  grid-template-columns: 1.5fr 1px 1fr;  /* Left vs Right sides top */
   gap: 15px;                             
   align-items: start;
 }
@@ -462,12 +462,12 @@
 
 /* =========================================================
    Resource card: 2-column info row (Left | divider | Right)
-   (THIS is your â€œperfectâ€ bottom row â€” untouched)
+   (THIS is your bottom row untouched)
    ========================================================= */
 
 .resource-info-row {
   display: grid;
-  grid-template-columns: 1.5fr 1px 1.5fr; /* Left vs Right sides bottom */
+  grid-template-columns: 1.5fr 1px 1fr; /* Left vs Right sides bottom */
   gap: 15px;
   align-items: start;
   margin-top: 6px;
