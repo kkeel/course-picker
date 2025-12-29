@@ -1475,7 +1475,7 @@
                                             <template x-if="isResourceInMyBooks(a.resourceId)">
                                               <button
                                                 type="button"
-                                                class="bookmark-btn bookmark-btn--solid bookmark-btn--small"
+                                                class="bookmark-btn bookmark-btn--solid bookmark-btn--small mybooks-btn"
                                                 :style="{ backgroundColor: subjectColor(a.subject || a.Subject || '') || '#596e5e' }"
                                                 @click.stop="toggleResourceMyBooks(a.resourceId)"
                                                 aria-label="Remove from My Books"
@@ -1493,7 +1493,7 @@
                                             <template x-if="!isResourceInMyBooks(a.resourceId)">
                                               <button
                                                 type="button"
-                                                class="bookmark-btn bookmark-btn--empty bookmark-btn--small"
+                                                class="bookmark-btn bookmark-btn--empty bookmark-btn--small mybooks-btn"
                                                 @click.stop="toggleResourceMyBooks(a.resourceId)"
                                                 aria-label="Add to My Books"
                                                 title="Add to My Books"
