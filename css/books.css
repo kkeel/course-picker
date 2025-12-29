@@ -563,6 +563,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  line-height: 1.2;
 }
 
 .books-page .meta-students{
@@ -588,6 +589,43 @@
 /* Spacer should be the thing that grows, not the student rail */
 .books-page .meta-flex-spacer{
   flex: 1 1 auto;
+}
+
+/* --- Smooth vertical centering for meta row --- */
+.books-page .course-meta{
+  align-items: center;          /* already set, but keep explicit */
+  line-height: 1.2;             /* normalize text baseline */
+}
+
+/* Schedule + grade text */
+.books-page .course-meta span{
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Student rail container */
+.books-page .meta-students{
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Student rail button (icon) */
+.books-page .student-rail-toggle{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Student chips */
+.books-page .student-chip{
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;               /* pills look tighter + centered */
+}
+
+/* Small icons inside meta row */
+.books-page .course-meta svg{
+  vertical-align: middle;
 }
 
 /* =========================================================
