@@ -248,6 +248,48 @@
       },
 
       // --------------------------------------------------
+      // Resource Preparation: options (V1 – no modal yet)
+      // --------------------------------------------------
+      
+      _optionsByResourceId: {},
+      
+      getPrepOptions(resourceId) {
+        const id = String(resourceId || "");
+        const map = this._optionsByResourceId || {};
+        const arr = map[id];
+        return Array.isArray(arr) ? arr : [];
+      },
+      
+      addPrepOption(resourceId) {
+        const id = String(resourceId || "");
+        if (!id) return;
+      
+        if (!this._optionsByResourceId) this._optionsByResourceId = {};
+        if (!Array.isArray(this._optionsByResourceId[id])) this._optionsByResourceId[id] = [];
+      
+        // V1: add a default option line
+        this._optionsByResourceId[id].push({
+          kind: "physical",    // physical | digital
+          mode: "purchase"     // purchase | library | own | etc (later)
+        });
+      
+        this.persistPlannerStateDebounced();
+      },
+      
+      removePrepOption(resourceId, index) {
+        const id = String(resourceId || "");
+        if (!id) return;
+      
+        const arr = this.getPrepOptions(id);
+        if (!arr.length) return;
+      
+        arr.splice(index, 1);
+        this._optionsByResourceId[id] = arr;
+      
+        this.persistPlannerStateDebounced();
+      },
+
+      // --------------------------------------------------
       // Planner extras (persist inside the shared planner blob)
       // This mirrors how bookmarks/students/tags are saved,
       // and sets us up for member-account sync later.
@@ -258,6 +300,7 @@
           resources: {
             myBooks: Array.from(this._myBooksResourceIds || []),
             prepOpenByResourceId: this._prepOpenByResourceId || {},
+            optionsByResourceId: this._optionsByResourceId || {},
           }
         };
       },
@@ -275,6 +318,12 @@
           ? r.prepOpenByResourceId
           : {};
         this._prepOpenByResourceId = { ...po };
+
+          // Restore resource options
+          const ob = (r.optionsByResourceId && typeof r.optionsByResourceId === "object")
+            ? r.optionsByResourceId
+            : {};
+          this._optionsByResourceId = { ...ob };
       },
 
       altFormatsForAssignment(a) {
