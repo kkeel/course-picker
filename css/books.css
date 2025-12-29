@@ -237,8 +237,36 @@
 
 /* Video icon: play */
 .books-page .alt-format-pill--video::before{
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7.5v9l8-4.5-8-4.5zM12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z'/%3E%3C/svg%3E");
-          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7.5v9l8-4.5-8-4.5zM12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z'/%3E%3C/svg%3E");
+  content: "";
+  width: 12px;
+  height: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid currentColor;
+  border-radius: 50%;
+
+  /* triangle */
+  background: none;
+  -webkit-mask-image: none;
+          mask-image: none;
+
+  position: relative;
+}
+
+.books-page .alt-format-pill--video::after{
+  content: "";
+  position: absolute;
+
+  width: 0;
+  height: 0;
+
+  border-left: 5px solid currentColor;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+
+  margin-left: 1px; /* optical centering */
 }
 
 .resource-media .resource-img-wrap{ overflow: hidden !important; }
