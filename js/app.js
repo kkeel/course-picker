@@ -1923,8 +1923,6 @@ function coursePlanner() {
         }
       }
 
-            }
-
       // ✅ Extras hook (books page, future member state, etc.)
       // If a page defines a collector, merge its extra data into state.extras
       try {
