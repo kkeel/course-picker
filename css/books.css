@@ -176,6 +176,71 @@
   box-sizing: border-box;
 }
 
+/* =========================================================
+   Alt. Formats pills – muted, outlined, with tiny icons
+   (Books only)
+   ========================================================= */
+
+.books-page .alt-format-pill{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  /* muted look */
+  background: #f3f4f1;               /* match tipbox */
+  border: 1px solid currentColor;   /* outline uses the format color */
+  color: #666d66;                    /* default fallback */
+  font-weight: 600;
+
+  font-size: 12px;
+  line-height: 1;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* format colors now drive TEXT + OUTLINE (not fill) */
+.books-page .alt-format-pill--ebook     { color: #6d7eaa; }
+.books-page .alt-format-pill--audiobook { color: #9b5b7b; }
+.books-page .alt-format-pill--video     { color: #d1b358; }
+
+/* tiny icon before label (uses currentColor so it matches outline) */
+.books-page .alt-format-pill::before{
+  content: "";
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  flex: 0 0 12px;
+
+  background: currentColor;
+
+  /* mask defaults (icon set per format below) */
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+          mask-repeat: no-repeat;
+          mask-position: center;
+          mask-size: contain;
+}
+
+/* Ebook icon: book */
+.books-page .alt-format-pill--ebook::before{
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 4h11a2 2 0 0 1 2 2v14a1 1 0 0 1-1 1H7a3 3 0 0 1-3-3V6a2 2 0 0 1 2-2zm0 14a1 1 0 0 0 1 1h10V6H6v12zm1-9h8v2H7V9zm0 4h8v2H7v-2z'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 4h11a2 2 0 0 1 2 2v14a1 1 0 0 1-1 1H7a3 3 0 0 1-3-3V6a2 2 0 0 1 2-2zm0 14a1 1 0 0 0 1 1h10V6H6v12zm1-9h8v2H7V9zm0 4h8v2H7v-2z'/%3E%3C/svg%3E");
+}
+
+/* Audiobook icon: headphones */
+.books-page .alt-format-pill--audiobook::before{
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3a9 9 0 0 0-9 9v6a3 3 0 0 0 3 3h1v-8H6a2 2 0 0 0-2 2v-3a8 8 0 0 1 16 0v3a2 2 0 0 0-2-2h-1v8h1a3 3 0 0 0 3-3v-6a9 9 0 0 0-9-9zm-6 12h1v5H6a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2zm12 0h-1v5h1a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2z'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3a9 9 0 0 0-9 9v6a3 3 0 0 0 3 3h1v-8H6a2 2 0 0 0-2 2v-3a8 8 0 0 1 16 0v3a2 2 0 0 0-2-2h-1v8h1a3 3 0 0 0 3-3v-6a9 9 0 0 0-9-9zm-6 12h1v5H6a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2zm12 0h-1v5h1a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2z'/%3E%3C/svg%3E");
+}
+
+/* Video icon: play */
+.books-page .alt-format-pill--video::before{
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7.5v9l8-4.5-8-4.5zM12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7.5v9l8-4.5-8-4.5zM12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z'/%3E%3C/svg%3E");
+}
+
 .resource-media .resource-img-wrap{ overflow: hidden !important; }
 
 /* =========================================================
