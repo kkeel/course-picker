@@ -200,9 +200,9 @@
 }
 
 /* format colors now drive TEXT + OUTLINE (not fill) */
-.books-page .alt-format-pill--ebook     { color: #6d7eaa; }
-.books-page .alt-format-pill--audiobook { color: #9b5b7b; }
-.books-page .alt-format-pill--video     { color: #d1b358; }
+.books-page .alt-format-pill--ebook     { color: #596e5e; }
+.books-page .alt-format-pill--audiobook { color: #596e5e; }
+.books-page .alt-format-pill--video     { color: #596e5e; }
 
 /* tiny icon before label (uses currentColor so it matches outline) */
 .books-page .alt-format-pill::before{
@@ -235,39 +235,25 @@
           mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3a9 9 0 0 0-9 9v6a3 3 0 0 0 3 3h1v-8H6a2 2 0 0 0-2 2v-3a8 8 0 0 1 16 0v3a2 2 0 0 0-2-2h-1v8h1a3 3 0 0 0 3-3v-6a9 9 0 0 0-9-9zm-6 12h1v5H6a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2zm12 0h-1v5h1a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2z'/%3E%3C/svg%3E");
 }
 
-/* Video icon: refined play button in circle */
+/* Video icon: play button in a circle (single SVG so triangle never disappears) */
 .books-page .alt-format-pill--video::before{
   content: "";
   width: 13px;
   height: 13px;
+  display: inline-block;
+  flex: 0 0 13px;
 
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  /* override the global mask-based icon behavior */
+  background: transparent;
+  -webkit-mask-image: none !important;
+          mask-image: none !important;
 
-  border: 1.25px solid currentColor; /* thinner stroke */
-  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 
-  background: none;
-  position: relative;
-}
-
-/* centered play triangle */
-.books-page .alt-format-pill--video::after{
-  content: "";
-  position: absolute;
-
-  width: 0;
-  height: 0;
-
-  border-left: 4.5px solid currentColor;
-  border-top: 3px solid transparent;
-  border-bottom: 3px solid transparent;
-
-  /* true centering */
-  left: 50%;
-  top: 50%;
-  transform: translate(-40%, -50%);
+  /* stroke + triangle use the same color as the pill (video) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%23d1b358' stroke-width='2'/%3E%3Cpath d='M10 8.5v7l6-3.5-6-3.5z' fill='%23d1b358'/%3E%3C/svg%3E");
 }
 
 .resource-media .resource-img-wrap{ overflow: hidden !important; }
