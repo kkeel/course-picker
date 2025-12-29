@@ -192,10 +192,10 @@
   color: #666d66;                    /* default fallback */
   font-weight: 600;
 
-  font-size: 12px;
-  line-height: 1;
-  padding: 4px 10px;
-  border-radius: 999px;
+  font-size: 12px !important;
+  line-height: 1 !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
   white-space: nowrap;
 }
 
