@@ -1186,11 +1186,31 @@
                                         <button
                                           type="button"
                                           class="prep-options-btn"
-                                          @click.stop="openPrepOptionsModal(a.resourceId)"
+                                          @click.stop="addPrepOption(a.resourceId)"
                                         >
                                           + Options
                                         </button>
                                       </template>
+                                      <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
+                                        <div class="prep-option-row">
+                                          <div class="prep-option-label">
+                                            <span x-text="(opt.kind || 'physical') === 'digital' ? 'Digital' : 'Physical'"></span>
+                                            <span class="prep-dot">·</span>
+                                            <span x-text="(opt.mode || 'purchase') === 'purchase' ? 'Purchase' : opt.mode"></span>
+                                          </div>
+                                      
+                                          <button
+                                            type="button"
+                                            class="prep-option-remove"
+                                            @click.stop="removePrepOption(a.resourceId, idx)"
+                                            aria-label="Remove option"
+                                            title="Remove"
+                                          >
+                                            ✕
+                                          </button>
+                                        </div>
+                                      </template>
+
                                     </div>
                                   </div>
 
@@ -1779,10 +1799,29 @@
                                               <button
                                                 type="button"
                                                 class="prep-options-btn"
-                                                @click.stop="openPrepOptionsModal(a.resourceId)"
+                                                @click.stop="addPrepOption(a.resourceId)"
                                               >
                                                 + Options
                                               </button>
+                                            </template>
+                                            <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
+                                              <div class="prep-option-row">
+                                                <div class="prep-option-label">
+                                                  <span x-text="(opt.kind || 'physical') === 'digital' ? 'Digital' : 'Physical'"></span>
+                                                  <span class="prep-dot">·</span>
+                                                  <span x-text="(opt.mode || 'purchase') === 'purchase' ? 'Purchase' : opt.mode"></span>
+                                                </div>
+                                            
+                                                <button
+                                                  type="button"
+                                                  class="prep-option-remove"
+                                                  @click.stop="removePrepOption(a.resourceId, idx)"
+                                                  aria-label="Remove option"
+                                                  title="Remove"
+                                                >
+                                                  ✕
+                                                </button>
+                                              </div>
                                             </template>
                                           </div>
                                         </div>
