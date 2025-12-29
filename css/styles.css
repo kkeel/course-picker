@@ -1310,8 +1310,9 @@ body {
 
 /* icon inside small bookmark */
 .bookmark-btn--small .bookmark-icon{
-  width: 14px;
-  height: 14px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 /* smaller + overlay */
