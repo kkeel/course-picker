@@ -1152,8 +1152,20 @@
                                   </div>
                                 
                                   <div class="resource-plan-row">
-                                    <!-- buttons will go here later -->
+
+                                    <!-- + Options: only visible after the book is added -->
+                                    <template x-if="isResourceInMyBooks(a.resourceId)">
+                                      <button
+                                        type="button"
+                                        class="prep-options-btn"
+                                        @click.stop="openPrepOptionsModal(a.resourceId)"
+                                      >
+                                        + Options
+                                      </button>
+                                    </template>
+                                  
                                   </div>
+
                                 </div>
                             
                               </div>
@@ -1705,8 +1717,20 @@
                                         </div>
                                       
                                         <div class="resource-plan-row">
-                                          <!-- buttons will go here later -->
+
+                                          <!-- + Options: only visible after the book is added -->
+                                          <template x-if="isResourceInMyBooks(a.resourceId)">
+                                            <button
+                                              type="button"
+                                              class="prep-options-btn"
+                                              @click.stop="openPrepOptionsModal(a.resourceId)"
+                                            >
+                                              + Options
+                                            </button>
+                                          </template>
+                                        
                                         </div>
+
                                       </div>
                                   
                                     </div>
