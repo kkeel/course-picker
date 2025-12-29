@@ -1034,7 +1034,7 @@
                                         <button
                                           type="button"
                                           class="bookmark-btn bookmark-btn--solid bookmark-btn--small"
-                                          :style="{ backgroundColor: subjectColor(a.subject || a.Subject || '') || '#596e5e' }"
+                                          :style="{ backgroundColor: subjectColor(course.subject) || '#596e5e' }"
                                           @click.stop="toggleResourceMyBooks(a.resourceId)"
                                           aria-label="Remove from My Books"
                                           title="In My Books"
@@ -1476,7 +1476,7 @@
                                               <button
                                                 type="button"
                                                 class="bookmark-btn bookmark-btn--solid bookmark-btn--small mybooks-btn"
-                                                :style="{ backgroundColor: subjectColor(a.subject || a.Subject || '') || '#596e5e' }"
+                                                :style="{ backgroundColor: subjectColor(course.subject) || '#596e5e' }"
                                                 @click.stop="toggleResourceMyBooks(a.resourceId)"
                                                 aria-label="Remove from My Books"
                                                 title="In My Books"
