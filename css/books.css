@@ -390,6 +390,41 @@
   gap: 8px;
 }
 
+/* Resource Preparation chevron */
+.prep-collapse-btn{
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  margin-left: 2px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #e5e8e5;
+  border-radius: 6px;
+  background: #fbfbf9;
+  color: #666d66;
+
+  cursor: pointer;
+}
+
+.prep-collapse-btn svg{
+  width: 16px;
+  height: 16px;
+  transition: transform 160ms ease;
+}
+
+/* closed = chevron points down still, but we rotate like other toggles */
+.prep-collapse-btn--closed svg{
+  transform: rotate(-90deg);
+}
+
+/* Collapsible body spacing */
+.resource-prep-body{
+  margin-top: 6px;
+}
+
 /* small bookmark variant for tight resource cards */
 .bookmark-btn--small{
   width: 22px;
