@@ -1829,6 +1829,17 @@ function coursePlanner() {
           }
         }
       }
+
+        // ✅ Extras hook (books page, budget page later, etc.)
+        // If a page defines an applier, let it restore extra planner state.
+        try {
+          if (typeof this.applyPlannerExtras === "function") {
+            // We stored extras under state.extras in persistPlannerState()
+            this.applyPlannerExtras(state.extras || {}, state);
+          }
+        } catch (e) {
+          console.warn("Could not apply planner extras", e);
+        }
     },
 
     persistPlannerState() {
@@ -1910,6 +1921,21 @@ function coursePlanner() {
             }
           }
         }
+      }
+
+            }
+
+      // ✅ Extras hook (books page, future member state, etc.)
+      // If a page defines a collector, merge its extra data into state.extras
+      try {
+        if (typeof this.collectPlannerExtras === "function") {
+          const extras = this.collectPlannerExtras();
+          if (extras && typeof extras === "object") {
+            state.extras = { ...(state.extras || {}), ...extras };
+          }
+        }
+      } catch (e) {
+        console.warn("Could not collect planner extras", e);
       }
 
       try {
