@@ -1619,10 +1619,10 @@
                                 :style="{ backgroundColor: subjectColor(course.subject) + '1A' }"
                               ></textarea>
                             </div>
-                            <!-- Student rail toggle (topic) -->
-                            <div
+                              <!-- Student rail toggle (topic) -->
+                              <div
                                 class="student-rail-toggle-row"
-                                x-show="(course.studentCount != null ? course.studentCount : assignedStudentCount(course)) > 0"
+                                x-show="(topic.studentCount != null ? topic.studentCount : assignedStudentCount(topic)) > 0"
                                 x-cloak
                               >
                               <button
