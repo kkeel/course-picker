@@ -558,6 +558,38 @@
   }
 }
 
+/* --- Book list: keep schedule/grade + students on one line, tags far right --- */
+.books-page .course-meta{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.books-page .meta-students{
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  flex: 0 1 auto; /* don’t steal the whole row */
+}
+
+/* When student rail sits in the meta row, remove the “below content” spacing */
+.books-page .meta-students .student-rail-toggle-row{
+  margin-top: 0;
+  min-height: 0;
+  flex: 0 0 auto;
+}
+
+/* Don’t let chip row force the whole line wide */
+.books-page .meta-students .student-chip-row{
+  flex: 0 1 auto;
+  margin-left: 8px;
+}
+
+/* Spacer should be the thing that grows, not the student rail */
+.books-page .meta-flex-spacer{
+  flex: 1 1 auto;
+}
+
 /* =========================================================
    Book List Read-only mode (screen only)
    Keeps visibility, removes edit affordances.
