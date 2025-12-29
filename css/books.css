@@ -253,7 +253,7 @@
   background-size: contain;
 
   /* stroke + triangle use the same color as the pill (video) */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%23d1b358' stroke-width='2'/%3E%3Cpath d='M10 8.5v7l6-3.5-6-3.5z' fill='%23d1b358'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%23596e5e' stroke-width='2'/%3E%3Cpath d='M10 8.5v7l6-3.5-6-3.5z' fill='%23596e5e'/%3E%3C/svg%3E");
 }
 
 .resource-media .resource-img-wrap{ overflow: hidden !important; }
