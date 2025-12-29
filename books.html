@@ -1149,21 +1149,49 @@
                                       </template>
                                     </span>
 
-                                  </div>
-                                
-                                  <div class="resource-plan-row">
-
-                                    <!-- + Options: only visible after the book is added -->
+                                    <!-- Chevron (only after added to My Books) -->
                                     <template x-if="isResourceInMyBooks(a.resourceId)">
                                       <button
                                         type="button"
-                                        class="prep-options-btn"
-                                        @click.stop="openPrepOptionsModal(a.resourceId)"
+                                        class="prep-collapse-btn"
+                                        :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
+                                        @click.stop="togglePrepOpen(a.resourceId)"
+                                        aria-label="Toggle Resource Preparation"
+                                        :title="isPrepOpen(a.resourceId) ? 'Collapse' : 'Expand'"
                                       >
-                                        + Options
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                          <path
+                                            d="M6 9l6 6 6-6"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="1.8"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                          />
+                                        </svg>
                                       </button>
                                     </template>
-                                  
+
+                                  </div>
+                                
+                                 <div class="resource-plan-row">
+                                    <div
+                                      class="resource-prep-body"
+                                      x-show="isPrepOpen(a.resourceId)"
+                                      x-transition
+                                      x-cloak
+                                    >
+                                      <!-- + Options: only visible after the book is added -->
+                                      <template x-if="isResourceInMyBooks(a.resourceId)">
+                                        <button
+                                          type="button"
+                                          class="prep-options-btn"
+                                          @click.stop="openPrepOptionsModal(a.resourceId)"
+                                        >
+                                          + Options
+                                        </button>
+                                      </template>
+                                    </div>
                                   </div>
 
                                 </div>
@@ -1714,21 +1742,49 @@
                                             </template>
                                           </span>
 
-                                        </div>
-                                      
-                                        <div class="resource-plan-row">
-
-                                          <!-- + Options: only visible after the book is added -->
+                                          <!-- Chevron (only after added to My Books) -->
                                           <template x-if="isResourceInMyBooks(a.resourceId)">
                                             <button
                                               type="button"
-                                              class="prep-options-btn"
-                                              @click.stop="openPrepOptionsModal(a.resourceId)"
+                                              class="prep-collapse-btn"
+                                              :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
+                                              @click.stop="togglePrepOpen(a.resourceId)"
+                                              aria-label="Toggle Resource Preparation"
+                                              :title="isPrepOpen(a.resourceId) ? 'Collapse' : 'Expand'"
                                             >
-                                              + Options
+                                              <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                <path
+                                                  d="M6 9l6 6 6-6"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="1.8"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                />
+                                              </svg>
                                             </button>
                                           </template>
-                                        
+
+                                        </div>
+                                      
+                                        <div class="resource-plan-row">
+                                          <div
+                                            class="resource-prep-body"
+                                            x-show="isPrepOpen(a.resourceId)"
+                                            x-transition
+                                            x-cloak
+                                          >
+                                            <!-- + Options: only visible after the book is added -->
+                                            <template x-if="isResourceInMyBooks(a.resourceId)">
+                                              <button
+                                                type="button"
+                                                class="prep-options-btn"
+                                                @click.stop="openPrepOptionsModal(a.resourceId)"
+                                              >
+                                                + Options
+                                              </button>
+                                            </template>
+                                          </div>
                                         </div>
 
                                       </div>
