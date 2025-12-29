@@ -182,6 +182,8 @@
    ========================================================= */
 
 .books-page .alt-format-pill{
+  box-sizing: border-box;
+  height: 26px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -235,26 +237,25 @@
           mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3a9 9 0 0 0-9 9v6a3 3 0 0 0 3 3h1v-8H6a2 2 0 0 0-2 2v-3a8 8 0 0 1 16 0v3a2 2 0 0 0-2-2h-1v8h1a3 3 0 0 0 3-3v-6a9 9 0 0 0-9-9zm-6 12h1v5H6a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2zm12 0h-1v5h1a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2z'/%3E%3C/svg%3E");
 }
 
-/* Video icon: larger play triangle (still subtle) */
+/* Video icon: big-looking triangle WITHOUT changing pill height */
 .books-page .alt-format-pill--video::before{
-  content: "";
-  width: 18px;
-  height: 18px;
-  flex: 0 0 18px;
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
 
   display: inline-block;
-
   background: currentColor;
 
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
-  -webkit-mask-size: 85%;   /* key change */
+  -webkit-mask-size: 100%;
           mask-repeat: no-repeat;
           mask-position: center;
-          mask-size: 85%;
+          mask-size: 100%;
 
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 7v10l9-5-9-5z'/%3E%3C/svg%3E");
-          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 7v10l9-5-9-5z'/%3E%3C/svg%3E");
+  /* slightly larger triangle shape */
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 6.8v10.4L18 12 7 6.8z'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 6.8v10.4L18 12 7 6.8z'/%3E%3C/svg%3E");
 }
 
 .resource-media .resource-img-wrap{ overflow: hidden !important; }
@@ -508,22 +509,17 @@
   gap: 6px;
 }
 
-.resource-tipbox-formats .alt-format-pill{
-  font-size: 12px;     /* slightly larger than before */
-  line-height: 1;
-  padding: 4px 8px;
-  border-radius: 999px;
-  color: #fff;
-  border: 1px solid #fff;
-  white-space: nowrap;
-}
-
 /* --- Tipbox formats row (Alt. Formats) --- */
 .resource-tipbox-item--formats{
   display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+}
+
+.resource-tipbox-formats .alt-format-pill{
+  /* inherit the books-page .alt-format-pill sizing */
+  white-space: nowrap;
 }
 
 .resource-tipbox-item--formats .resource-tipbox-label{
