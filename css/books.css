@@ -1,6 +1,12 @@
 /* =========================================================
    Book List Resource Cards (screen only)
    ========================================================= */
+.student-rail-inline{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 10px; /* small breathing room after grade */
+}
 
 .resource-list {
   margin-top: 10px;
