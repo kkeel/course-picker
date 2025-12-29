@@ -706,6 +706,50 @@
 }
 
 /* =========================================================
+   Book List — "+ Options" button
+   Styled like +Planning Tag, using note/sub-box palette
+   ========================================================= */
+
+.resource-plan-row .prep-options-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 26px;
+  padding: 0 10px;
+
+  border-radius: 999px;
+  border: 1px solid #dde2d5;
+  background: #f4f6fa;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.01em;
+
+  color: var(--brand-muted);
+  cursor: pointer;
+  user-select: none;
+
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.resource-plan-row .prep-options-btn:hover{
+  background: #ffffff;
+  border-color: rgba(89,110,94,0.35);
+}
+
+.resource-plan-row .prep-options-btn:active{
+  transform: translateY(0.5px);
+}
+
+.resource-plan-row .prep-options-btn:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(173,181,143,0.35);
+}
+
+/* =========================================================
    Book List Read-only mode (screen only)
    Keeps visibility, removes edit affordances.
    Scoped to .books-page so course list is untouched.
