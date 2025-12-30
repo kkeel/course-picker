@@ -711,6 +711,14 @@
 .resource-bottom-buy{ grid-column: 2; }
 .resource-bottom-spacer{ grid-column: 1; }
 
+/* Force bottom-right column to EXACTLY match info-right width */
+.resource-bottom-right {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  column-gap: 15px;
+  align-items: start;
+}
+
 /* =========================================================
    Mobile: stack columns
    ========================================================= */
