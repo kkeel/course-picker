@@ -1091,27 +1091,21 @@
 }
 
 /* =========================================================
-   Mobile fix: My Books icon should NOT overlap title
+   Mobile: My Books icon lives INSIDE the title row grid
+   (do not use card-grid placement here)
    ========================================================= */
 @media (max-width: 640px){
-
-  /* Let the corner icon take up real layout space on mobile */
   .resource-card-bookmark-corner{
-    position: static;         /* stops overlap */
-    grid-column: 2;           /* put it in the right column of the card grid */
-    grid-row: 2;              /* same row as the main content */
-    justify-self: end;
-    align-self: start;
-    margin-top: 2px;          /* tiny breathing room */
-    margin-right: 0;
-    z-index: auto;
-  }
-
-  /* Make sure the title row can wrap properly inside the grid */
-  .resource-title-row{
-    min-width: 0;
+    position: static !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    justify-self: auto !important;
+    align-self: auto !important;
+    margin: 0 !important;
+    z-index: auto !important;
   }
 }
+
 
 /* =========================================================
    Book List — Buy link buttons (resource JSON links[])
@@ -1306,3 +1300,48 @@
   .resource-bottom-right{ order: 1; }
   .resource-bottom-left { order: 2; }
 }
+
+/* =========================================================
+   MOBILE (books page only): Force ALL resource sections to stack
+   This wins against nested grid defaults and Safari quirks.
+   ========================================================= */
+@media (max-width: 640px){
+
+  /* 0) Make sure the “right side” blocks are not trying to be multi-col */
+  .books-page .resource-info-row,
+  .books-page .resource-info-right,
+  .books-page .resource-top-row,
+  .books-page .resource-top-right,
+  .books-page .resource-bottom-row,
+  .books-page .resource-bottom-right,
+  .books-page .resource-bottom-right-grid{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  /* kill the invisible divider columns on mobile */
+  .books-page .resource-info-divider,
+  .books-page .resource-top-divider,
+  .books-page .resource-bottom-divider{
+    display: none !important;
+  }
+
+  /* 1) Ensure scope/shared blocks stretch full width (no “narrow column” feel) */
+  .books-page .resource-meta-block{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* 2) Bottom strip inset math must not apply on mobile */
+  .books-page .resource-bottom-inner{
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  /* 3) Buy links can wrap so they don’t squish */
+  .books-page .resource-buy-links{
+    flex-wrap: wrap !important;
+  }
+}
+
