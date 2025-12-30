@@ -33,16 +33,6 @@
   position: relative;
 }
 
-.resource-card.has-bottom-strip::after{
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(var(--bottom-strip-height, 56px));
-  height: 1px;
-  background: #e5e8e5;
-}
-
 /* =========================================================
    Card badges row
    ========================================================= */
@@ -665,6 +655,8 @@
 
   background: #fbfbf9;            /* same as card */
   border-radius: 0 0 12px 12px;   /* match card corners */
+  grid-column: 1 / -1;
+  border-top: 1px solid #e5e8e5;
 }
 
 .resource-bottom-row{
