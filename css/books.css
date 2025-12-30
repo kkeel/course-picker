@@ -641,6 +641,66 @@
 .resource-meta-block--shared { grid-column: 2; }
 
 /* =========================================================
+   Bottom strip (Resource Preparation & Tracking | Buy)
+   ========================================================= */
+
+.resource-bottom-strip{
+  /* make it feel like an attached strip at the bottom of the card */
+  margin-top: 10px;
+
+  /* stretch to the card edges (resource-card padding is 10px 12px) */
+  margin-left: -12px;
+  margin-right: -12px;
+  margin-bottom: -10px;
+
+  padding: 10px 12px;
+
+  background: #fbfbf9;            /* same as card */
+  border-top: 1px solid #e5e8e5;  /* “strip” separation line */
+  border-radius: 0 0 12px 12px;   /* match card corners */
+}
+
+.resource-bottom-row{
+  display: grid;
+  grid-template-columns: 1.5fr 1px 1fr; /* SAME as resource-info-row */
+  gap: 15px;
+  align-items: start;
+}
+
+.resource-bottom-divider{
+  width: 1px;
+  align-self: stretch;
+  background: #e5e8e5; /* visible divider (like bottom row) */
+  border-radius: 1px;
+}
+
+.resource-bottom-title{
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #666d66;
+  margin-bottom: 4px;
+}
+
+.resource-bottom-sub{
+  font-size: 13px;
+  line-height: 1.35;
+  color: #666d66;
+}
+
+/* Right side matches the scope/shared internal two-column grid */
+.resource-bottom-right-grid{
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr; /* SAME as resource-info-right */
+  column-gap: 15px;
+  align-items: start;
+}
+
+.resource-bottom-buy{ grid-column: 1; }
+.resource-bottom-spacer{ grid-column: 2; }
+
+/* =========================================================
    Mobile: stack columns
    ========================================================= */
 
