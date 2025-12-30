@@ -1232,96 +1232,97 @@
                               </div>
                             </div>
 
-                              <!-- Bottom strip (prep/tracking + buy) -->
-                              <div class="resource-bottom-strip">
-                                <div class="resource-bottom-row">
-                                  <!-- LEFT (wide): mirrors image+rationale width -->
-                                  <div class="resource-bottom-left">
-                                    <div class="resource-bottom-head">
-                                      <div class="resource-bottom-head-text">
-                                        <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
-                                        <div class="resource-bottom-sub">
-                                          Add preparation and tracking information for this resource below.
-                                        </div>
-                                      </div>
-                                  
-                                      <!-- Chevron only shows after added to My Books -->
-                                      <template x-if="isResourceInMyBooks(a.resourceId)">
-                                        <button
-                                          type="button"
-                                          class="prep-collapse-btn"
-                                          :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
-                                          @click.stop="togglePrepOpen(a.resourceId)"
-                                          aria-label="Toggle Resource Preparation"
-                                          :title="isPrepOpen(a.resourceId) ? 'Collapse' : 'Expand'"
-                                        >
-                                          <svg viewBox="0 0 24 24" aria-hidden="true">
-                                            <path
-                                              d="M6 9l6 6 6-6"
-                                              fill="none"
-                                              stroke="currentColor"
-                                              stroke-width="1.8"
-                                              stroke-linecap="round"
-                                              stroke-linejoin="round"
-                                            />
-                                          </svg>
-                                        </button>
-                                      </template>
-                                    </div>
-                                  
-                                    <!-- Collapsible body: only when in My Books AND open -->
-                                    <div
-                                      class="resource-prep-body"
-                                      x-show="isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId)"
-                                      x-transition
-                                      x-cloak
-                                    >
-                                      <button
-                                        type="button"
-                                        class="prep-options-btn"
-                                        @click.stop="openPrepOptionsModal(a.resourceId, course.subject)"
-                                      >
-                                        + Options
-                                      </button>
-                                  
-                                      <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
-                                        <div class="prep-option-row">
-                                          <div class="prep-option-label">
-                                            <span x-text="(opt.kind || 'physical') === 'digital' ? 'Digital' : 'Physical'"></span>
-                                            <span class="prep-dot">·</span>
-                                            <span x-text="(opt.mode || 'purchase') === 'purchase' ? 'Purchase' : opt.mode"></span>
-                                          </div>
-                                  
-                                          <button
-                                            type="button"
-                                            class="prep-option-remove"
-                                            @click.stop="removePrepOption(a.resourceId, idx)"
-                                            aria-label="Remove option"
-                                            title="Remove"
-                                          >
-                                            ✕
-                                          </button>
-                                        </div>
-                                      </template>
-                                    </div>
-                                  </div>
-                              
-                                  <!-- DIVIDER -->
-                                  <div class="resource-bottom-divider" aria-hidden="true"></div>
-                              
-                                  <!-- RIGHT (narrow): mirrors scope/shared width -->
-                                  <div class="resource-bottom-right">
-                                    <div class="resource-bottom-right-grid">
-                                      <div class="resource-bottom-buy">
-                                        <div class="resource-bottom-title">Buy</div>
-                                      </div>
-                                      <div class="resource-bottom-spacer"><!-- reserved for later --></div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
                             </div>
+
+                             <!-- Bottom strip (prep/tracking + buy) -->
+                                    <div class="resource-bottom-strip">
+                                      <div class="resource-bottom-row">
+                                        <!-- LEFT (wide): mirrors image+rationale width -->
+                                        <div class="resource-bottom-left">
+                                          <div class="resource-bottom-head">
+                                            <div class="resource-bottom-head-text">
+                                              <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
+                                              <div class="resource-bottom-sub">
+                                                Add preparation and tracking information for this resource below.
+                                              </div>
+                                            </div>
+                                        
+                                            <!-- Chevron only shows after added to My Books -->
+                                            <template x-if="isResourceInMyBooks(a.resourceId)">
+                                              <button
+                                                type="button"
+                                                class="prep-collapse-btn"
+                                                :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
+                                                @click.stop="togglePrepOpen(a.resourceId)"
+                                                aria-label="Toggle Resource Preparation"
+                                                :title="isPrepOpen(a.resourceId) ? 'Collapse' : 'Expand'"
+                                              >
+                                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                  <path
+                                                    d="M6 9l6 6 6-6"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="1.8"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                  />
+                                                </svg>
+                                              </button>
+                                            </template>
+                                          </div>
+                                        
+                                          <!-- Collapsible body: only when in My Books AND open -->
+                                          <div
+                                            class="resource-prep-body"
+                                            x-show="isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId)"
+                                            x-transition
+                                            x-cloak
+                                          >
+                                            <button
+                                              type="button"
+                                              class="prep-options-btn"
+                                              @click.stop="openPrepOptionsModal(a.resourceId, course.subject)"
+                                            >
+                                              + Options
+                                            </button>
+                                        
+                                            <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
+                                              <div class="prep-option-row">
+                                                <div class="prep-option-label">
+                                                  <span x-text="(opt.kind || 'physical') === 'digital' ? 'Digital' : 'Physical'"></span>
+                                                  <span class="prep-dot">·</span>
+                                                  <span x-text="(opt.mode || 'purchase') === 'purchase' ? 'Purchase' : opt.mode"></span>
+                                                </div>
+                                        
+                                                <button
+                                                  type="button"
+                                                  class="prep-option-remove"
+                                                  @click.stop="removePrepOption(a.resourceId, idx)"
+                                                  aria-label="Remove option"
+                                                  title="Remove"
+                                                >
+                                                  ✕
+                                                </button>
+                                              </div>
+                                            </template>
+                                          </div>
+                                        </div>
+                                    
+                                        <!-- DIVIDER -->
+                                        <div class="resource-bottom-divider" aria-hidden="true"></div>
+                                    
+                                        <!-- RIGHT (narrow): mirrors scope/shared width -->
+                                        <div class="resource-bottom-right">
+                                          <div class="resource-bottom-right-grid">
+                                            <div class="resource-bottom-buy">
+                                              <div class="resource-bottom-title">Buy</div>
+                                            </div>
+                                            <div class="resource-bottom-spacer"><!-- reserved for later --></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                            
                           </div>
                           
                         </template>
@@ -1866,7 +1867,9 @@
                                     </div>
                                   </div>
 
-                                    <!-- Bottom strip (prep/tracking + buy) -->
+                                  </div>
+
+                                   <!-- Bottom strip (prep/tracking + buy) -->
                                     <div class="resource-bottom-strip">
                                       <div class="resource-bottom-row">
                                         <!-- LEFT (wide): mirrors image+rationale width -->
@@ -1954,8 +1957,7 @@
                                         </div>
                                       </div>
                                     </div>
-
-                                  </div>
+                                  
                                 </div>
 
                               </template>
