@@ -1248,7 +1248,16 @@
                                                 @click.stop="togglePrepOpen(a.resourceId)"
                                                 aria-label="Toggle Resource Preparation"
                                               >
-                                                <!-- chevron svg -->
+                                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                  <path
+                                                    d="M7 10l5 5 5-5"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                  </path>
+                                                </svg>
                                               </button>
                                           
                                               <div class="resource-bottom-head-text">
@@ -1270,7 +1279,7 @@
                                                 <!-- Helper text (hidden when options visible) -->
                                                 <div
                                                   class="resource-bottom-sub"
-                                                  x-show="!(isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId))"
+                                                  x-show="!isResourceInMyBooks(a.resourceId)"
                                                   x-cloak
                                                 >
                                                   Add resource to your booklist to see preparation &amp; tracking options.
@@ -1884,7 +1893,16 @@
                                                 @click.stop="togglePrepOpen(a.resourceId)"
                                                 aria-label="Toggle Resource Preparation"
                                               >
-                                                <!-- chevron svg -->
+                                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                  <path
+                                                    d="M7 10l5 5 5-5"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                  </path>
+                                                </svg>
                                               </button>
                                           
                                               <div class="resource-bottom-head-text">
@@ -1906,7 +1924,7 @@
                                                 <!-- Helper text (hidden when options visible) -->
                                                 <div
                                                   class="resource-bottom-sub"
-                                                  x-show="!(isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId))"
+                                                  x-show="!isResourceInMyBooks(a.resourceId)"
                                                   x-cloak
                                                 >
                                                   Add resource to your booklist to see preparation &amp; tracking options.
