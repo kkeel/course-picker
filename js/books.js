@@ -252,6 +252,12 @@
       // --------------------------------------------------
       
       _optionsByResourceId: {},
+
+      // Modal state for Resource Options
+      prepOptionsModalOpen: false,
+      prepOptionsModalResourceId: "",
+      prepOptionsModalSubject: "",
+      prepOptionsModalResourceTitle: "",
       
       getPrepOptions(resourceId) {
         const id = String(resourceId || "");
@@ -260,17 +266,16 @@
         return Array.isArray(arr) ? arr : [];
       },
       
-      addPrepOption(resourceId) {
+      addPrepOption(resourceId, kind = "physical", mode = "purchase") {
         const id = String(resourceId || "");
         if (!id) return;
       
         if (!this._optionsByResourceId) this._optionsByResourceId = {};
         if (!Array.isArray(this._optionsByResourceId[id])) this._optionsByResourceId[id] = [];
       
-        // V1: add a default option line
         this._optionsByResourceId[id].push({
-          kind: "physical",    // physical | digital
-          mode: "purchase"     // purchase | library | own | etc (later)
+          kind: (kind === "digital") ? "digital" : "physical",
+          mode: String(mode || "purchase")
         });
       
         this.persistPlannerStateDebounced();
@@ -287,6 +292,33 @@
         this._optionsByResourceId[id] = arr;
       
         this.persistPlannerStateDebounced();
+      },
+
+      openPrepOptionsModal(resourceId, subject) {
+        const id = String(resourceId || "");
+        if (!id) return;
+      
+        // Only allow if in My Books (keeps UI logic consistent)
+        if (!this.isResourceInMyBooks(id)) return;
+      
+        this.prepOptionsModalResourceId = id;
+        this.prepOptionsModalSubject = String(subject || "");
+      
+        // Nice-to-have title in modal
+        this.prepOptionsModalResourceTitle =
+          this.resourcesById?.[id]?.title ||
+          "";
+      
+        this.prepOptionsModalOpen = true;
+      
+        // Ensure the prep section is open when editing options
+        this._prepOpenByResourceId[id] = true;
+      
+        this.persistPlannerStateDebounced();
+      },
+      
+      closePrepOptionsModal() {
+        this.prepOptionsModalOpen = false;
       },
 
       // --------------------------------------------------
