@@ -1350,4 +1350,68 @@
   }
 }
 
+/* =========================================================
+   Mobile: media + top-row share a row; info-row spans full width
+   Desktop remains unchanged
+   ========================================================= */
+@media (max-width: 640px){
 
+  /* Card grid for mobile header row */
+  .books-page .resource-card{
+    display: grid;
+    grid-template-columns: 96px 1fr;  /* cover + content */
+    grid-template-rows: auto auto auto; /* badges, header row, stack row */
+    gap: 12px;
+    align-items: start;
+  }
+
+  /* Badges stay full width at the top */
+  .books-page .resource-card-badges{
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  /* Cover stays left in the header row */
+  .books-page .resource-media{
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  /*
+    KEY MOVE:
+    On mobile only, remove the resource-body wrapper from layout
+    so its children can be positioned as grid items.
+  */
+  .books-page .resource-body{
+    display: contents !important;
+  }
+
+  /* Put the top-row (title/author/isbn/rationale block) in the right column */
+  .books-page .resource-top-row{
+    grid-column: 2;
+    grid-row: 2;
+    min-width: 0;
+  }
+
+  /* Make the info-row (note/maysub + scope + shared etc.) span full width under both */
+  .books-page .resource-info-row{
+    grid-column: 1 / -1;
+    grid-row: 3;
+    min-width: 0;
+  }
+
+  /* Remove the “invisible divider” columns on mobile so nothing is squeezed */
+  .books-page .resource-top-divider,
+  .books-page .resource-info-divider{
+    display: none !important;
+  }
+
+  /* Force the internal two/three-column layouts to become a clean vertical stack */
+  .books-page .resource-top-right,
+  .books-page .resource-info-right{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    min-width: 0;
+  }
+}
