@@ -696,8 +696,8 @@
   align-items: start;
 }
 
-.resource-bottom-buy{ grid-column: 1; }
-.resource-bottom-spacer{ grid-column: 2; }
+.resource-bottom-buy{ grid-column: 2; }
+.resource-bottom-spacer{ grid-column: 1; }
 
 /* =========================================================
    Mobile: stack columns
@@ -1019,7 +1019,7 @@
 .resource-buy-links{
   margin-top: 6px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 6px;
 }
 
@@ -1027,26 +1027,23 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   height: 18px;
   padding: 0 8px;
+  border-radius: 6px;
 
-  border-radius: 4px;
-  background: #fbfbf9;
-  border: 1px solid #e5e8e5;
-  color: #bdc5bf;
+  background: #bdc5bf;
+  color: #666d66;
+  border: 1px solid rgba(0,0,0,0.06);
 
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 400;
-  line-height: 1;
+  letter-spacing: 0.01em;
   text-decoration: none;
-
   white-space: nowrap;
 }
 
 .buy-link-pill:hover{
-  background: #f3f4f1;
-  border-color: #dde2d5;
+  background: #9da89f;
 }
 
 .buy-link-pill:active{
