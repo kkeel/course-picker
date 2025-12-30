@@ -1011,7 +1011,7 @@
                           x-for="a in (assignmentsByTargetId[(course.recordID || course.id)] || [])"
                           :key="'rc-' + a.assignmentId"
                         >
-                          <div class="resource-card">
+                          <div class="resource-card has-bottom-strip">
                             <div class="resource-card-badges">
                               <span
                                 class="resource-badge resource-badge--grade"
@@ -1649,7 +1649,7 @@
                                 x-for="a in (assignmentsByTargetId[(topic.recordID || topic.id)] || [])"
                                 :key="'rt-' + a.assignmentId"
                               >
-                                <div class="resource-card">
+                                <div class="resource-card has-bottom-strip">
                                   <div class="resource-card-badges">
                                     <span
                                       class="resource-badge resource-badge--grade"
