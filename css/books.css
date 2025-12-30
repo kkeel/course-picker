@@ -28,6 +28,20 @@
   align-items: start;
 }
 
+.resource-card.has-bottom-strip{
+  position: relative;
+}
+
+.resource-card.has-bottom-strip::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--bottom-strip-height, 56px));
+  height: 1px;
+  background: #e5e8e5;
+}
+
 /* =========================================================
    Card badges row
    ========================================================= */
@@ -595,13 +609,6 @@
   margin-top: 0;
 }
 
-.resource-info-divider{
-  width: 1px;
-  align-self: stretch;
-  background: #e5e8e5;
-  border-radius: 1px;
-}
-
 .resource-info-right{
   padding-top: 2px;
 
@@ -656,7 +663,6 @@
   padding: 10px 12px;
 
   background: #fbfbf9;            /* same as card */
-  border-top: 1px solid #e5e8e5;  /* “strip” separation line */
   border-radius: 0 0 12px 12px;   /* match card corners */
 }
 
@@ -668,10 +674,7 @@
 }
 
 .resource-bottom-divider{
-  width: 1px;
-  align-self: stretch;
-  background: #e5e8e5; /* visible divider (like bottom row) */
-  border-radius: 1px;
+  display: none;
 }
 
 .resource-bottom-title{
