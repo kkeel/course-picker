@@ -670,8 +670,12 @@
 }
 
 .resource-bottom-divider{
-  display: none;
+  width: 1px;
+  align-self: stretch;
+  background: transparent; /* invisible */
+  display: block;          
 }
+
 
 .resource-bottom-title{
   font-size: 11px;
@@ -718,6 +722,10 @@
   column-gap: 15px;
   align-items: start;
 }
+
+.resource-bottom-left{  grid-column: 1; }
+.resource-bottom-divider{ grid-column: 2; }
+.resource-bottom-right{ grid-column: 3; }
 
 /* =========================================================
    Mobile: stack columns
