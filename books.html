@@ -1045,97 +1045,92 @@
                               </div>
                          
                             </div>
-
-                            <div class="resource-header">
-                              <div class="resource-body-head">
-                                <!-- keep your existing title row, author/isbn/reference here -->
-                                <!-- LEFT (wide): title + author/isbn/reference + section -->
-                                <div class="resource-top-left">
-                              
-                                  <div class="resource-title-row">
-                                    <div
-                                      class="resource-title"
-                                      x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
-                                    ></div>
-  
-                                    <div class="resource-card-bookmark-corner">
-                                      <span class="bookmark-region">
-                                        <!-- ACTIVE (in My Books) -->
-                                        <template x-if="isResourceInMyBooks(a.resourceId)">
-                                          <button
-                                            type="button"
-                                            class="bookmark-btn bookmark-btn--solid"
-                                            :style="{ backgroundColor: subjectColor(course.subject) || '#596e5e' }"
-                                            @click.stop="toggleResourceMyBooks(a.resourceId)"
-                                            aria-label="Remove from My Books"
-                                            title="In My Books"
-                                          >
-                                            <img
-                                              src="img/icons/book-icon-active.png"
-                                              alt=""
-                                              class="bookmark-icon"
-                                            />
-                                          </button>
-                                        </template>
-                                    
-                                        <!-- INACTIVE (not in My Books) -->
-                                        <template x-if="!isResourceInMyBooks(a.resourceId)">
-                                          <button
-                                            type="button"
-                                            class="bookmark-btn bookmark-btn--empty"
-                                            @click.stop="toggleResourceMyBooks(a.resourceId)"
-                                            aria-label="Add to My Books"
-                                            title="Add to My Books"
-                                          >
-                                            <img
-                                              src="img/icons/book-icon-inactive.png"
-                                              alt=""
-                                              class="bookmark-icon"
-                                            />
-                                            <span class="bookmark-apply">+</span>
-                                          </button>
-                                        </template>
-                                      </span>
-                                    </div>
-                              
-                                    <a
-                                      class="edit-pill resource-edit-pill"
-                                      x-show="isStaff && editMode && resourcesById[a.resourceId]?.bookEditUrl"
-                                      x-cloak
-                                      :href="resourcesById[a.resourceId]?.bookEditUrl"
-                                      target="_blank"
-                                      rel="noopener"
-                                      @click.stop
-                                    >Edit ↗</a>
-                                  </div>
-                              
-                                  <div class="resource-subline">
-                                    <span
-                                      class="resource-author"
-                                      x-show="resourcesById[a.resourceId]?.author"
-                                      x-text="resourcesById[a.resourceId]?.author ? ('by ' + resourcesById[a.resourceId].author) : ''"
-                                    ></span>
-                              
-                                    <span
-                                      class="resource-isbn"
-                                      x-show="resourcesById[a.resourceId]?.isbnAsin"
-                                      x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
-                                    ></span>
-                              
-                                    <span
-                                      class="resource-reference"
-                                      x-show="resourcesById[a.resourceId]?.flags?.reference"
-                                      x-cloak
-                                    >✓REFERENCE</span>
-                                  </div>
-                              
-                                </div>
-                              </div>
-                            </div>
                           
                             <!-- right: text -->
                             <div class="resource-body">
                               <div class="resource-top-row">
+
+                              <!-- LEFT (wide): title + author/isbn/reference + section -->
+                              <div class="resource-top-left">
+                            
+                                <div class="resource-title-row">
+                                  <div
+                                    class="resource-title"
+                                    x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
+                                  ></div>
+
+                                  <div class="resource-card-bookmark-corner">
+                                    <span class="bookmark-region">
+                                      <!-- ACTIVE (in My Books) -->
+                                      <template x-if="isResourceInMyBooks(a.resourceId)">
+                                        <button
+                                          type="button"
+                                          class="bookmark-btn bookmark-btn--solid"
+                                          :style="{ backgroundColor: subjectColor(course.subject) || '#596e5e' }"
+                                          @click.stop="toggleResourceMyBooks(a.resourceId)"
+                                          aria-label="Remove from My Books"
+                                          title="In My Books"
+                                        >
+                                          <img
+                                            src="img/icons/book-icon-active.png"
+                                            alt=""
+                                            class="bookmark-icon"
+                                          />
+                                        </button>
+                                      </template>
+                                  
+                                      <!-- INACTIVE (not in My Books) -->
+                                      <template x-if="!isResourceInMyBooks(a.resourceId)">
+                                        <button
+                                          type="button"
+                                          class="bookmark-btn bookmark-btn--empty"
+                                          @click.stop="toggleResourceMyBooks(a.resourceId)"
+                                          aria-label="Add to My Books"
+                                          title="Add to My Books"
+                                        >
+                                          <img
+                                            src="img/icons/book-icon-inactive.png"
+                                            alt=""
+                                            class="bookmark-icon"
+                                          />
+                                          <span class="bookmark-apply">+</span>
+                                        </button>
+                                      </template>
+                                    </span>
+                                  </div>
+                            
+                                  <a
+                                    class="edit-pill resource-edit-pill"
+                                    x-show="isStaff && editMode && resourcesById[a.resourceId]?.bookEditUrl"
+                                    x-cloak
+                                    :href="resourcesById[a.resourceId]?.bookEditUrl"
+                                    target="_blank"
+                                    rel="noopener"
+                                    @click.stop
+                                  >Edit ↗</a>
+                                </div>
+                            
+                                <div class="resource-subline">
+                                  <span
+                                    class="resource-author"
+                                    x-show="resourcesById[a.resourceId]?.author"
+                                    x-text="resourcesById[a.resourceId]?.author ? ('by ' + resourcesById[a.resourceId].author) : ''"
+                                  ></span>
+                            
+                                  <span
+                                    class="resource-isbn"
+                                    x-show="resourcesById[a.resourceId]?.isbnAsin"
+                                    x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
+                                  ></span>
+                            
+                                  <span
+                                    class="resource-reference"
+                                    x-show="resourcesById[a.resourceId]?.flags?.reference"
+                                    x-cloak
+                                  >✓REFERENCE</span>
+                                </div>
+                            
+                              </div>
                             
                               <!-- invisible divider (keeps spacing aligned with bottom section) -->
                               <div class="resource-top-divider" aria-hidden="true"></div>
@@ -1717,97 +1712,92 @@
                                     </div>
                                     
                                   </div>
-
-                                  <div class="resource-header">
-                                    <div class="resource-body-head">
-                                      <!-- keep your existing title row, author/isbn/reference here -->
-                                      <!-- LEFT (wide): title + author/isbn/reference + section -->
-                                      <div class="resource-top-left">
-                                    
-                                        <div class="resource-title-row">
-                                          <div
-                                            class="resource-title"
-                                            x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
-                                          ></div>
-  
-                                          <div class="resource-card-bookmark-corner">
-                                            <span class="bookmark-region">
-                                              <!-- ACTIVE (in My Books) -->
-                                              <template x-if="isResourceInMyBooks(a.resourceId)">
-                                                <button
-                                                  type="button"
-                                                  class="bookmark-btn bookmark-btn--solid"
-                                                  :style="{ backgroundColor: subjectColor(course.subject) || '#596e5e' }"
-                                                  @click.stop="toggleResourceMyBooks(a.resourceId)"
-                                                  aria-label="Remove from My Books"
-                                                  title="In My Books"
-                                                >
-                                                  <img
-                                                    src="img/icons/book-icon-active.png"
-                                                    alt=""
-                                                    class="bookmark-icon"
-                                                  />
-                                                </button>
-                                              </template>
-                                          
-                                              <!-- INACTIVE (not in My Books) -->
-                                              <template x-if="!isResourceInMyBooks(a.resourceId)">
-                                                <button
-                                                  type="button"
-                                                  class="bookmark-btn bookmark-btn--empty"
-                                                  @click.stop="toggleResourceMyBooks(a.resourceId)"
-                                                  aria-label="Add to My Books"
-                                                  title="Add to My Books"
-                                                >
-                                                  <img
-                                                    src="img/icons/book-icon-inactive.png"
-                                                    alt=""
-                                                    class="bookmark-icon"
-                                                  />
-                                                  <span class="bookmark-apply">+</span>
-                                                </button>
-                                              </template>
-                                            </span>
-                                          </div>
-                                    
-                                          <a
-                                            class="edit-pill resource-edit-pill"
-                                            x-show="isStaff && editMode && resourcesById[a.resourceId]?.bookEditUrl"
-                                            x-cloak
-                                            :href="resourcesById[a.resourceId]?.bookEditUrl"
-                                            target="_blank"
-                                            rel="noopener"
-                                            @click.stop
-                                          >Edit ↗</a>
-                                        </div>
-                                    
-                                        <div class="resource-subline">
-                                          <span
-                                            class="resource-author"
-                                            x-show="resourcesById[a.resourceId]?.author"
-                                            x-text="resourcesById[a.resourceId]?.author ? ('by ' + resourcesById[a.resourceId].author) : ''"
-                                          ></span>
-                                    
-                                          <span
-                                            class="resource-isbn"
-                                            x-show="resourcesById[a.resourceId]?.isbnAsin"
-                                            x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
-                                          ></span>
-                                    
-                                          <span
-                                            class="resource-reference"
-                                            x-show="resourcesById[a.resourceId]?.flags?.reference"
-                                            x-cloak
-                                          >✓REFERENCE</span>
-                                        </div>
-                                    
-                                      </div>
-                                    </div>
-                                  </div>
                                 
                                   <!-- right: text -->
                                   <div class="resource-body">
                                     <div class="resource-top-row">
+
+                                    <!-- LEFT (wide): title + author/isbn/reference + section -->
+                                    <div class="resource-top-left">
+                                  
+                                      <div class="resource-title-row">
+                                        <div
+                                          class="resource-title"
+                                          x-text="resourcesById[a.resourceId]?.title || 'Untitled resource'"
+                                        ></div>
+
+                                        <div class="resource-card-bookmark-corner">
+                                          <span class="bookmark-region">
+                                            <!-- ACTIVE (in My Books) -->
+                                            <template x-if="isResourceInMyBooks(a.resourceId)">
+                                              <button
+                                                type="button"
+                                                class="bookmark-btn bookmark-btn--solid"
+                                                :style="{ backgroundColor: subjectColor(course.subject) || '#596e5e' }"
+                                                @click.stop="toggleResourceMyBooks(a.resourceId)"
+                                                aria-label="Remove from My Books"
+                                                title="In My Books"
+                                              >
+                                                <img
+                                                  src="img/icons/book-icon-active.png"
+                                                  alt=""
+                                                  class="bookmark-icon"
+                                                />
+                                              </button>
+                                            </template>
+                                        
+                                            <!-- INACTIVE (not in My Books) -->
+                                            <template x-if="!isResourceInMyBooks(a.resourceId)">
+                                              <button
+                                                type="button"
+                                                class="bookmark-btn bookmark-btn--empty"
+                                                @click.stop="toggleResourceMyBooks(a.resourceId)"
+                                                aria-label="Add to My Books"
+                                                title="Add to My Books"
+                                              >
+                                                <img
+                                                  src="img/icons/book-icon-inactive.png"
+                                                  alt=""
+                                                  class="bookmark-icon"
+                                                />
+                                                <span class="bookmark-apply">+</span>
+                                              </button>
+                                            </template>
+                                          </span>
+                                        </div>
+                                  
+                                        <a
+                                          class="edit-pill resource-edit-pill"
+                                          x-show="isStaff && editMode && resourcesById[a.resourceId]?.bookEditUrl"
+                                          x-cloak
+                                          :href="resourcesById[a.resourceId]?.bookEditUrl"
+                                          target="_blank"
+                                          rel="noopener"
+                                          @click.stop
+                                        >Edit ↗</a>
+                                      </div>
+                                  
+                                      <div class="resource-subline">
+                                        <span
+                                          class="resource-author"
+                                          x-show="resourcesById[a.resourceId]?.author"
+                                          x-text="resourcesById[a.resourceId]?.author ? ('by ' + resourcesById[a.resourceId].author) : ''"
+                                        ></span>
+                                  
+                                        <span
+                                          class="resource-isbn"
+                                          x-show="resourcesById[a.resourceId]?.isbnAsin"
+                                          x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
+                                        ></span>
+                                  
+                                        <span
+                                          class="resource-reference"
+                                          x-show="resourcesById[a.resourceId]?.flags?.reference"
+                                          x-cloak
+                                        >✓REFERENCE</span>
+                                      </div>
+                                  
+                                    </div>
                                   
                                     <!-- invisible divider (keeps spacing aligned with bottom section) -->
                                     <div class="resource-top-divider" aria-hidden="true"></div>
