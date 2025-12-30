@@ -1139,8 +1139,6 @@
                             
                                 <!-- Purchase buttons area (aligns above SCOPE column) -->
                                 <div class="resource-top-scope">
-                                  <!-- Placeholder for now -->
-                                  <div class="resource-top-actions-label">Buy</div>
                                   <div class="resource-buy-row">
                                     <!-- buttons will go here later -->
                                   </div>
@@ -1248,28 +1246,27 @@
                                               </div>
                                             </div>
                                         
-                                            <!-- Chevron only shows after added to My Books -->
-                                            <template x-if="isResourceInMyBooks(a.resourceId)">
-                                              <button
-                                                type="button"
-                                                class="prep-collapse-btn"
-                                                :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
-                                                @click.stop="togglePrepOpen(a.resourceId)"
-                                                aria-label="Toggle Resource Preparation"
-                                                :title="isPrepOpen(a.resourceId) ? 'Collapse' : 'Expand'"
-                                              >
-                                                <svg viewBox="0 0 24 24" aria-hidden="true">
-                                                  <path
-                                                    d="M6 9l6 6 6-6"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    stroke-width="1.8"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                  />
-                                                </svg>
-                                              </button>
-                                            </template>
+                                            <!-- Chevron (always visible) -->
+                                            <button
+                                              type="button"
+                                              class="prep-collapse-btn"
+                                              :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
+                                              @click.stop="togglePrepOpen(a.resourceId)"
+                                              aria-label="Toggle Resource Preparation"
+                                              :title="isPrepOpen(a.resourceId) ? 'Collapse' : 'Expand'"
+                                            >
+                                              <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                <path
+                                                  d="M6 9l6 6 6-6"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="1.8"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                />
+                                              </svg>
+                                            </button>
+
                                           </div>
                                         
                                           <!-- Collapsible body: only when in My Books AND open -->
@@ -1775,8 +1772,6 @@
                                   
                                       <!-- Purchase buttons area (aligns above SCOPE column) -->
                                       <div class="resource-top-scope">
-                                        <!-- Placeholder for now -->
-                                        <div class="resource-top-actions-label">Buy</div>
                                         <div class="resource-buy-row">
                                           <!-- buttons will go here later -->
                                         </div>
@@ -1884,28 +1879,27 @@
                                               </div>
                                             </div>
                                         
-                                            <!-- Chevron only shows after added to My Books -->
-                                            <template x-if="isResourceInMyBooks(a.resourceId)">
-                                              <button
-                                                type="button"
-                                                class="prep-collapse-btn"
-                                                :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
-                                                @click.stop="togglePrepOpen(a.resourceId)"
-                                                aria-label="Toggle Resource Preparation"
-                                                :title="isPrepOpen(a.resourceId) ? 'Collapse' : 'Expand'"
-                                              >
-                                                <svg viewBox="0 0 24 24" aria-hidden="true">
-                                                  <path
-                                                    d="M6 9l6 6 6-6"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    stroke-width="1.8"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                  />
-                                                </svg>
-                                              </button>
-                                            </template>
+                                            <!-- Chevron (always visible) -->
+                                            <button
+                                              type="button"
+                                              class="prep-collapse-btn"
+                                              :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
+                                              @click.stop="togglePrepOpen(a.resourceId)"
+                                              aria-label="Toggle Resource Preparation"
+                                              :title="isPrepOpen(a.resourceId) ? 'Collapse' : 'Expand'"
+                                            >
+                                              <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                <path
+                                                  d="M6 9l6 6 6-6"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="1.8"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                />
+                                              </svg>
+                                            </button>
+
                                           </div>
                                         
                                           <!-- Collapsible body: only when in My Books AND open -->
