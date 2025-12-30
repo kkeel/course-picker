@@ -1344,3 +1344,10 @@
   }
 }
 
+@media (max-width: 640px){
+  .resource-media .alt-formats{
+    margin-top: 8px;
+  }
+}
+
+
