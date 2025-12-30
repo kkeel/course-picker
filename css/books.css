@@ -686,6 +686,18 @@
   font-size: 13px;
   line-height: 1.35;
   color: #666d66;
+  position: relative;
+  padding-right: 22px;
+}
+
+.resource-bottom-sub::after{
+  content: "↗";
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--brand-muted);
 }
 
 /* Right side matches the scope/shared internal two-column grid */
