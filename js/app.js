@@ -1936,6 +1936,26 @@ function coursePlanner() {
         console.warn("Could not collect planner extras", e);
       }
 
+      // ✅ Preserve extras across pages that DON'T collect them (ex: Course List)
+      try {
+        const existingRaw = localStorage.getItem(PLANNER_STATE_KEY);
+        if (existingRaw) {
+          const existing = JSON.parse(existingRaw);
+      
+          // If this save didn't produce extras, carry forward existing extras
+          if (!state.extras && existing?.extras) {
+            state.extras = existing.extras;
+          }
+      
+          // If this save DID produce extras, merge with existing so sibling extras survive
+          if (state.extras && existing?.extras && typeof state.extras === "object") {
+            state.extras = { ...existing.extras, ...state.extras };
+          }
+        }
+      } catch (e) {
+        console.warn("Could not merge existing planner extras", e);
+      }
+
       try {
         localStorage.setItem(PLANNER_STATE_KEY, JSON.stringify(state));
       } catch (err) {
