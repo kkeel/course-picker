@@ -1415,3 +1415,33 @@
     min-width: 0;
   }
 }
+
+@media (max-width: 640px) {
+
+  /* Tighten gap between title block and rationale */
+  .resource-body {
+    row-gap: 0.75rem; /* if it's grid */
+  }
+
+  .resource-top-row {
+    margin-bottom: 0.5rem; /* was effectively larger */
+  }
+
+  .resource-info-row {
+    margin-top: 0; /* override inherited spacing */
+  }
+
+}
+
+@media (max-width: 640px) {
+
+  .resource-top-divider,
+  .resource-info-divider {
+    height: 0;
+    min-height: 0;
+    margin: 0;
+  }
+
+}
+
+
