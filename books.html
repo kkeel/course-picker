@@ -1215,18 +1215,19 @@
                             
                               <!-- RIGHT (narrow): shared + scope from assignment -->
                               <div class="resource-info-right">
-                            
-                                <div class="resource-meta-block" x-show="assignmentSharedR3Text(a)" x-cloak>
-                                  <div class="resource-meta-label">↔ Shared</div>
-                                  <div class="resource-meta-text" x-text="assignmentSharedR3Text(a)"></div>
-                                </div>
-                            
-                                <div class="resource-meta-block" x-show="assignmentScopeText(a)" x-cloak>
+
+                                <div class="resource-meta-block resource-meta-block--scope" x-show="assignmentScopeText(a)" x-cloak>
                                   <div class="resource-meta-label">Scope</div>
                                   <div class="resource-meta-text" x-text="assignmentScopeText(a)"></div>
                                 </div>
-                            
+                              
+                                <div class="resource-meta-block resource-meta-block--shared" x-show="assignmentSharedR3Text(a)" x-cloak>
+                                  <div class="resource-meta-label">↔ Shared</div>
+                                  <div class="resource-meta-text" x-text="assignmentSharedR3Text(a)"></div>
+                                </div>
+                              
                               </div>
+
                             </div>
 
                             </div>
@@ -1847,18 +1848,19 @@
                                   
                                     <!-- RIGHT (narrow): shared + scope from assignment -->
                                     <div class="resource-info-right">
-                                  
-                                      <div class="resource-meta-block" x-show="assignmentSharedR3Text(a)" x-cloak>
-                                        <div class="resource-meta-label">↔ Shared</div>
-                                        <div class="resource-meta-text" x-text="assignmentSharedR3Text(a)"></div>
-                                      </div>
-                                  
-                                      <div class="resource-meta-block" x-show="assignmentScopeText(a)" x-cloak>
+
+                                      <div class="resource-meta-block resource-meta-block--scope" x-show="assignmentScopeText(a)" x-cloak>
                                         <div class="resource-meta-label">Scope</div>
                                         <div class="resource-meta-text" x-text="assignmentScopeText(a)"></div>
                                       </div>
-                                  
+                                    
+                                      <div class="resource-meta-block resource-meta-block--shared" x-show="assignmentSharedR3Text(a)" x-cloak>
+                                        <div class="resource-meta-label">↔ Shared</div>
+                                        <div class="resource-meta-text" x-text="assignmentSharedR3Text(a)"></div>
+                                      </div>
+                                    
                                     </div>
+
                                   </div>
 
                                   </div>
