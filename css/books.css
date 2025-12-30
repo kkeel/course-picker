@@ -804,7 +804,7 @@
    Like +Planning Tag shape, but matches NOTE/tipbox palette
    ========================================================= */
 
-.resource-plan-row .prep-options-btn{
+.prep-options-btn{
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -832,18 +832,38 @@
   -webkit-appearance: none;
 }
 
-.resource-plan-row .prep-options-btn:hover{
+.prep-options-btn--slim{
+  height: 18px;
+  padding: 0 8px;
+  font-size: 10.5px;
+}
+
+.prep-options-btn:hover{
   background: #fbfbf9;          /* match card bg on hover */
   border-color: #dde2d5;        /* slightly stronger edge */
 }
 
-.resource-plan-row .prep-options-btn:active{
+.prep-options-btn:active{
   transform: translateY(0.5px);
 }
 
-.resource-plan-row .prep-options-btn:focus-visible{
+.prep-options-btn:focus-visible{
   outline: none;
   box-shadow: 0 0 0 2px rgba(173,181,143,0.35);
+}
+
+.resource-bottom-head{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.resource-bottom-head-left{
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
 }
 
 .prep-option-row{
