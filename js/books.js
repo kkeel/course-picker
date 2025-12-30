@@ -221,24 +221,20 @@
       _prepOpenByResourceId: {},
       
       isPrepOpen(resourceId) {
-        if (!resourceId) return false;
+        if (!resourceId) return true; // default open for safety
         const id = String(resourceId);
       
-        // If not in My Books, treat as closed (since the section won't show anyway)
-        if (!this.isResourceInMyBooks(id)) return false;
-      
         // If user has never toggled it, default OPEN
-        if (this._prepOpenByResourceId[id] === undefined) return true;
+        if (!this._prepOpenByResourceId || this._prepOpenByResourceId[id] === undefined) return true;
       
-        return !!this._prepOpenByResourceId[id];
+        return (this._prepOpenByResourceId[id] !== false); // explicit false = closed
       },
       
       togglePrepOpen(resourceId) {
         if (!resourceId) return;
         const id = String(resourceId);
       
-        // Only meaningful if it's in My Books
-        if (!this.isResourceInMyBooks(id)) return;
+        if (!this._prepOpenByResourceId) this._prepOpenByResourceId = {};
       
         const next = !this.isPrepOpen(id);
         this._prepOpenByResourceId[id] = next;
