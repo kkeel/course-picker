@@ -771,6 +771,40 @@
     grid-template-columns: 1fr;
     row-gap: 14px;
   }
+  /* Stack the bottom strip into a single column */
+  .resource-bottom-row{
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+
+  .resource-bottom-divider{
+    display: none;
+  }
+
+  /* Make right side internal grid stack too */
+  .resource-bottom-right,
+  .resource-bottom-right-grid{
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
+
+  /* ✅ Reorder: Purchase Options first, then Prep/Tracking */
+  .resource-bottom-right{
+    order: 1;
+  }
+  .resource-bottom-left{
+    order: 2;
+  }
+
+  /* Prevent awkward overflow */
+  .resource-bottom-left,
+  .resource-bottom-right{
+    min-width: 0;
+  }
+}
+
+@media (max-width: 640px){
+  .resource-body{ padding-right: 2px; }
 }
 
 /* --- Book list: keep schedule/grade + students on one line, tags far right --- */
@@ -1054,6 +1088,29 @@
 
 .resource-bottom-head-text{
   min-width: 0;
+}
+
+/* =========================================================
+   Mobile fix: My Books icon should NOT overlap title
+   ========================================================= */
+@media (max-width: 640px){
+
+  /* Let the corner icon take up real layout space on mobile */
+  .resource-card-bookmark-corner{
+    position: static;         /* stops overlap */
+    grid-column: 2;           /* put it in the right column of the card grid */
+    grid-row: 2;              /* same row as the main content */
+    justify-self: end;
+    align-self: start;
+    margin-top: 2px;          /* tiny breathing room */
+    margin-right: 0;
+    z-index: auto;
+  }
+
+  /* Make sure the title row can wrap properly inside the grid */
+  .resource-title-row{
+    min-width: 0;
+  }
 }
 
 /* =========================================================
