@@ -610,6 +610,18 @@
   align-items: start;
 }
 
+/* Keep the 3-column grid, but make the divider invisible (spacing only) */
+.resource-info-divider{
+  width: 1px;
+  align-self: stretch;
+  background: transparent; /* no visible vertical line */
+}
+
+/* Force correct column placement even if DOM order changes */
+.resource-info-left{ grid-column: 1; }
+.resource-info-divider{ grid-column: 2; }
+.resource-info-right{ grid-column: 3; }
+
 .resource-meta-label{
   font-size: 11px;
   font-weight: 600;
