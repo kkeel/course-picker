@@ -1186,7 +1186,7 @@
                                         <button
                                           type="button"
                                           class="prep-options-btn"
-                                          @click.stop="addPrepOption(a.resourceId)"
+                                          @click.stop="openPrepOptionsModal(a.resourceId, course.subject)"
                                         >
                                           + Options
                                         </button>
@@ -1799,7 +1799,7 @@
                                               <button
                                                 type="button"
                                                 class="prep-options-btn"
-                                                @click.stop="addPrepOption(a.resourceId)"
+                                                @click.stop="openPrepOptionsModal(a.resourceId, course.subject)"
                                               >
                                                 + Options
                                               </button>
@@ -2054,6 +2054,89 @@
               </span>
             </button>
           </template>
+        </div>
+      </div>
+
+      <!-- Resource Preparation: Options Modal -->
+      <div
+        x-show="prepOptionsModalOpen"
+        x-transition
+        x-cloak
+        class="fixed inset-0 z-50"
+        @keydown.escape.window="closePrepOptionsModal()"
+      >
+        <!-- click-away backdrop -->
+        <div class="absolute inset-0" @click="closePrepOptionsModal()"></div>
+      
+        <!-- modal -->
+        <div class="prep-options-modal" role="dialog" aria-modal="true" @click.stop>
+          <div class="prep-options-modal-header">
+            <div class="prep-options-modal-title">Resource Options</div>
+            <button type="button" class="prep-options-modal-close" @click="closePrepOptionsModal()" aria-label="Close">×</button>
+          </div>
+      
+          <div class="prep-options-modal-subtitle" x-show="prepOptionsModalResourceTitle">
+            <span x-text="prepOptionsModalResourceTitle"></span>
+          </div>
+      
+          <!-- Quick add buttons -->
+          <div class="prep-options-grid">
+            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'physical', 'purchase')">
+              Physical · Purchase
+            </button>
+            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'physical', 'library')">
+              Physical · Library
+            </button>
+            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'physical', 'own')">
+              Physical · Own
+            </button>
+      
+            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'digital', 'save')">
+              Digital · Save
+            </button>
+            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'digital', 'ebook')">
+              Digital · eBook
+            </button>
+            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'digital', 'audiobook')">
+              Digital · Audiobook
+            </button>
+            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'digital', 'video')">
+              Digital · Video
+            </button>
+          </div>
+      
+          <!-- Current options (same list you already show under the card) -->
+          <div class="prep-options-current">
+            <div class="prep-options-current-title">Current options</div>
+      
+            <template x-if="getPrepOptions(prepOptionsModalResourceId).length === 0">
+              <div class="prep-options-empty">No options yet. Choose one above.</div>
+            </template>
+      
+            <template x-for="(opt, idx) in getPrepOptions(prepOptionsModalResourceId)" :key="idx">
+              <div class="prep-option-row">
+                <div class="prep-option-label">
+                  <span x-text="(opt.kind || 'physical') === 'digital' ? 'Digital' : 'Physical'"></span>
+                  <span class="prep-dot">·</span>
+                  <span x-text="(opt.mode || 'purchase')"></span>
+                </div>
+      
+                <button
+                  type="button"
+                  class="prep-option-remove"
+                  @click="removePrepOption(prepOptionsModalResourceId, idx)"
+                  aria-label="Remove option"
+                  title="Remove"
+                >
+                  ✕
+                </button>
+              </div>
+            </template>
+          </div>
+      
+          <div class="prep-options-modal-actions">
+            <button type="button" class="prep-options-done" @click="closePrepOptionsModal()">Done</button>
+          </div>
         </div>
       </div>
 
