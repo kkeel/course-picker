@@ -1444,4 +1444,70 @@
 
 }
 
+/* =========================================================
+   MOBILE (books page): Better wrapping for author + ISBN
+   and stabilize the "My Books" button placement
+   ========================================================= */
+@media (max-width: 640px){
+
+  /* Let the subline become a clean stacked block */
+  .books-page .resource-subline{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  /* Allow author to wrap */
+  .books-page .resource-author{
+    white-space: normal !important;
+    margin-right: 0 !important;
+    overflow-wrap: anywhere;
+  }
+
+  /* ISBN line: label + value can wrap gracefully */
+  .books-page .resource-isbn{
+    white-space: normal !important;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    opacity: 0.9;
+  }
+
+  .books-page .resource-isbn-label{
+    white-space: nowrap; /* keep “ISBN/ASIN:” together */
+    flex: none;
+  }
+
+  .books-page .resource-isbn-value{
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* -----------------------------
+     Stabilize the "Add to Booklist" button
+     (prevents topic-level header reflow / jumping)
+  ----------------------------- */
+
+  /* Reserve a consistent slot for the book button */
+  .books-page .resource-card-bookmark-corner{
+    width: 28px;          /* fixed space so layout doesn't shift */
+    height: 28px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+
+  /* Ensure the title row always has the same column behavior */
+  .books-page .resource-title-row{
+    grid-template-columns: minmax(0, 1fr) 28px auto !important;
+    align-items: start;
+  }
+
+  /* If Edit is not present, this still keeps the bookmark slot stable */
+  .books-page .resource-edit-pill{
+    justify-self: end;
+  }
+}
+
 
