@@ -1240,51 +1240,43 @@
                                         <div class="resource-bottom-left">
                                           <div class="resource-bottom-head">
                                             <div class="resource-bottom-head-left">
-                                              <!-- Chevron on the LEFT of the title -->
+                                              <!-- Chevron + title -->
                                               <button
                                                 type="button"
                                                 class="prep-collapse-btn"
                                                 :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
                                                 @click.stop="togglePrepOpen(a.resourceId)"
                                                 aria-label="Toggle Resource Preparation"
-                                                :title="isPrepOpen(a.resourceId) ? 'Collapse' : 'Expand'"
                                               >
-                                                <svg viewBox="0 0 24 24" aria-hidden="true">
-                                                  <path
-                                                    d="M6 9l6 6 6-6"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    stroke-width="1.8"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                  />
-                                                </svg>
+                                                <!-- chevron svg -->
                                               </button>
                                           
                                               <div class="resource-bottom-head-text">
-                                                <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
+                                                <div class="resource-bottom-title">
+                                                  Resource Preparation &amp; Tracking
+                                                </div>
                                           
-                                                <!-- Helper text: hide when Options is visible -->
+                                                <!-- + Options directly under title -->
+                                                <button
+                                                  type="button"
+                                                  class="prep-options-btn prep-options-btn--slim"
+                                                  x-show="isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId)"
+                                                  x-cloak
+                                                  @click.stop="openPrepOptionsModal(a.resourceId, course.subject)"
+                                                >
+                                                  + Options
+                                                </button>
+                                          
+                                                <!-- Helper text (hidden when options visible) -->
                                                 <div
                                                   class="resource-bottom-sub"
                                                   x-show="!(isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId))"
                                                   x-cloak
                                                 >
-                                                  Add resource to your booklist to see preparation & tracking options.
+                                                  Add resource to your booklist to see preparation &amp; tracking options.
                                                 </div>
                                               </div>
                                             </div>
-                                          
-                                            <!-- Options button: visible when open (and in My Books) -->
-                                            <button
-                                              type="button"
-                                              class="prep-options-btn prep-options-btn--slim"
-                                              x-show="isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId)"
-                                              x-cloak
-                                              @click.stop="openPrepOptionsModal(a.resourceId, course.subject)"
-                                            >
-                                              + Options
-                                            </button>
                                           </div>
 
                                           <!-- Collapsible body: only when in My Books AND open -->
@@ -1884,51 +1876,43 @@
                                         <div class="resource-bottom-left">
                                           <div class="resource-bottom-head">
                                             <div class="resource-bottom-head-left">
-                                              <!-- Chevron on the LEFT of the title -->
+                                              <!-- Chevron + title -->
                                               <button
                                                 type="button"
                                                 class="prep-collapse-btn"
                                                 :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
                                                 @click.stop="togglePrepOpen(a.resourceId)"
                                                 aria-label="Toggle Resource Preparation"
-                                                :title="isPrepOpen(a.resourceId) ? 'Collapse' : 'Expand'"
                                               >
-                                                <svg viewBox="0 0 24 24" aria-hidden="true">
-                                                  <path
-                                                    d="M6 9l6 6 6-6"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    stroke-width="1.8"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                  />
-                                                </svg>
+                                                <!-- chevron svg -->
                                               </button>
                                           
                                               <div class="resource-bottom-head-text">
-                                                <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
+                                                <div class="resource-bottom-title">
+                                                  Resource Preparation &amp; Tracking
+                                                </div>
                                           
-                                                <!-- Helper text: hide when Options is visible -->
+                                                <!-- + Options directly under title -->
+                                                <button
+                                                  type="button"
+                                                  class="prep-options-btn prep-options-btn--slim"
+                                                  x-show="isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId)"
+                                                  x-cloak
+                                                  @click.stop="openPrepOptionsModal(a.resourceId, course.subject)"
+                                                >
+                                                  + Options
+                                                </button>
+                                          
+                                                <!-- Helper text (hidden when options visible) -->
                                                 <div
                                                   class="resource-bottom-sub"
                                                   x-show="!(isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId))"
                                                   x-cloak
                                                 >
-                                                  Add resource to your booklist to see preparation & tracking options.
+                                                  Add resource to your booklist to see preparation &amp; tracking options.
                                                 </div>
                                               </div>
                                             </div>
-                                          
-                                            <!-- Options button: visible when open (and in My Books) -->
-                                            <button
-                                              type="button"
-                                              class="prep-options-btn prep-options-btn--slim"
-                                              x-show="isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId)"
-                                              x-cloak
-                                              @click.stop="openPrepOptionsModal(a.resourceId, course.subject)"
-                                            >
-                                              + Options
-                                            </button>
                                           </div>
                                         
                                           <!-- Collapsible body: only when in My Books AND open -->
