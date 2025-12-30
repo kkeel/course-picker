@@ -1013,6 +1013,52 @@
 }
 
 /* =========================================================
+   Book List — Buy link buttons (resource JSON links[])
+   ========================================================= */
+
+.resource-buy-links{
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.buy-link-pill{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 18px;
+  padding: 0 8px;
+
+  border-radius: 4px;
+  background: #fbfbf9;
+  border: 1px solid #e5e8e5;
+  color: #bdc5bf;
+
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1;
+  text-decoration: none;
+
+  white-space: nowrap;
+}
+
+.buy-link-pill:hover{
+  background: #f3f4f1;
+  border-color: #dde2d5;
+}
+
+.buy-link-pill:active{
+  transform: translateY(0.5px);
+}
+
+.buy-link-pill:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(173,181,143,0.35);
+}
+
+/* =========================================================
    Book List Read-only mode (screen only)
    Keeps visibility, removes edit affordances.
    Scoped to .books-page so course list is untouched.
