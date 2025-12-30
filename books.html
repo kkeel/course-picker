@@ -1111,20 +1111,17 @@
                                 </div>
                             
                                 <div class="resource-subline">
-                                  <span
-                                    class="resource-author"
+                                  <span class="resource-author"
                                     x-show="resourcesById[a.resourceId]?.author"
                                     x-text="resourcesById[a.resourceId]?.author ? ('by ' + resourcesById[a.resourceId].author) : ''"
                                   ></span>
-                            
-                                  <span
-                                    class="resource-isbn"
-                                    x-show="resourcesById[a.resourceId]?.isbnAsin"
-                                    x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
-                                  ></span>
-                            
-                                  <span
-                                    class="resource-reference"
+                                
+                                  <span class="resource-isbn" x-show="resourcesById[a.resourceId]?.isbnAsin">
+                                    <span class="resource-isbn-label">ISBN/ASIN:</span>
+                                    <span class="resource-isbn-value" x-text="resourcesById[a.resourceId].isbnAsin"></span>
+                                  </span>
+                                
+                                  <span class="resource-reference"
                                     x-show="resourcesById[a.resourceId]?.flags?.reference"
                                     x-cloak
                                   >✓REFERENCE</span>
@@ -1778,20 +1775,17 @@
                                       </div>
                                   
                                       <div class="resource-subline">
-                                        <span
-                                          class="resource-author"
+                                        <span class="resource-author"
                                           x-show="resourcesById[a.resourceId]?.author"
                                           x-text="resourcesById[a.resourceId]?.author ? ('by ' + resourcesById[a.resourceId].author) : ''"
                                         ></span>
-                                  
-                                        <span
-                                          class="resource-isbn"
-                                          x-show="resourcesById[a.resourceId]?.isbnAsin"
-                                          x-text="resourcesById[a.resourceId]?.isbnAsin ? ('ISBN/ASIN: ' + resourcesById[a.resourceId].isbnAsin) : ''"
-                                        ></span>
-                                  
-                                        <span
-                                          class="resource-reference"
+                                      
+                                        <span class="resource-isbn" x-show="resourcesById[a.resourceId]?.isbnAsin">
+                                          <span class="resource-isbn-label">ISBN/ASIN:</span>
+                                          <span class="resource-isbn-value" x-text="resourcesById[a.resourceId].isbnAsin"></span>
+                                        </span>
+                                      
+                                        <span class="resource-reference"
                                           x-show="resourcesById[a.resourceId]?.flags?.reference"
                                           x-cloak
                                         >✓REFERENCE</span>
