@@ -1199,3 +1199,110 @@
 .books-page .planning-tag-pill--ghost {
   display: none !important;
 }
+
+/* =========================================================
+   MOBILE: Book List resource cards should use FULL width
+   (do not affect desktop)
+   ========================================================= */
+@media (max-width: 640px){
+
+  /* 1) Make the card itself single-column so text can use full width */
+  .resource-card{
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto auto auto auto; /* badges, media, body, bottom */
+    gap: 12px;
+  }
+
+  /* Badges stay on top */
+  .resource-card-badges{
+    grid-column: 1 / -1;
+    grid-row: 1;
+    margin-bottom: 0;
+  }
+
+  /* Cover becomes its own row (full width available) */
+  .resource-media{
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  /* Let the cover size be a bit larger on mobile (optional but nice) */
+  .resource-media .resource-img-wrap{
+    width: 84px;
+    height: 112px;
+    flex: 0 0 84px;
+  }
+
+  /* Body becomes full width under the cover row */
+  .resource-body{
+    grid-column: 1 / -1;
+    grid-row: 3;
+    min-width: 0;
+  }
+
+  /* 2) Title row becomes a 3-col grid: title | my-books | edit */
+  .resource-title-row{
+    display: grid !important;
+    grid-template-columns: 1fr auto auto;
+    align-items: start;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  /* My Books button: normal flow inside title row */
+  .resource-card-bookmark-corner{
+    position: static !important;
+    top: auto; right: auto;
+    margin: 0 !important;
+    z-index: auto;
+  }
+
+  /* Make sure title wraps and doesn’t push icons offscreen */
+  .resource-title{
+    min-width: 0;
+  }
+
+  /* 3) Make TOP/INFO areas truly single column (full width) */
+  .resource-top-row,
+  .resource-info-row{
+    grid-template-columns: 1fr !important;
+    row-gap: 12px;
+  }
+  .resource-top-divider,
+  .resource-info-divider{
+    display: none !important;
+  }
+
+  .resource-info-right{
+    grid-template-columns: 1fr !important;
+    row-gap: 12px;
+  }
+
+  /* 4) Bottom strip must also be full width (no leftover inset math) */
+  .resource-bottom-inner{
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .resource-bottom-row{
+    grid-template-columns: 1fr !important;
+    row-gap: 12px;
+  }
+  .resource-bottom-divider{
+    display: none !important;
+  }
+
+  .resource-bottom-right,
+  .resource-bottom-right-grid{
+    grid-template-columns: 1fr !important;
+    row-gap: 10px;
+  }
+
+  /* Purchase first, then Prep (matches your desired stack order) */
+  .resource-bottom-right{ order: 1; }
+  .resource-bottom-left { order: 2; }
+}
