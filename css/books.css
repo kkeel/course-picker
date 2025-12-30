@@ -1510,4 +1510,41 @@
   }
 }
 
+/* =========================================================
+   Mobile: tighten space between header row and RATIONALE row
+   (keep current wrap/stack behavior intact)
+   ========================================================= */
+@media (max-width: 640px){
 
+  /* reduce the vertical gap between grid rows (row2 → row3) */
+  .books-page .resource-card{
+    row-gap: 8px !important;     /* was effectively larger */
+    column-gap: 12px;            /* keep horizontal spacing */
+  }
+
+  /* remove any bottom margin that the header content might have */
+  .books-page .resource-top-row{
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* sometimes the title block/subline adds spacing */
+  .books-page .resource-title-row{
+    margin-bottom: 4px !important;
+  }
+
+  .books-page .resource-subline{
+    margin-bottom: 0 !important;
+  }
+
+  /* remove any top margin/padding before the rationale stack */
+  .books-page .resource-info-row{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* if rationale block itself has a top margin */
+  .books-page .resource-rationale{
+    margin-top: 0 !important;
+  }
+}
