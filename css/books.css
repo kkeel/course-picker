@@ -727,6 +727,22 @@
 .resource-bottom-divider{ grid-column: 2; }
 .resource-bottom-right{ grid-column: 3; }
 
+/* Bottom strip needs to align with .resource-body (right column),
+   not the full card (which includes the cover image column). */
+.resource-bottom-inner{
+  /* image col (64px) + card grid gap (12px) */
+  margin-left: calc(64px + 12px);
+  width: calc(100% - (64px + 12px));
+}
+
+/* Mobile stacks anyway, so don’t inset */
+@media (max-width: 640px){
+  .resource-bottom-inner{
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
 /* =========================================================
    Mobile: stack columns
    ========================================================= */
