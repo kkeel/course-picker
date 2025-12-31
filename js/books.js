@@ -189,27 +189,158 @@
       },
 
       // --------------------------------------------------
-      // Resource Preparation: My Books (V1 – local only)
+      // Resource Preparation: My Books (V2 – instance-aware + ghost support)
+      //
+      // Global: resourceId is "in My Books somewhere"
+      // Instance:
+      //   - Course-level: C:<courseId>:R:<resourceId>
+      //   - Topic-level : C:<courseId>:T:<topicId>:R:<resourceId>
+      //
+      // Notes:
+      // - We keep _myBooksResourceIds for fast global checks.
+      // - We store instance owners in _myBooksOwnersByResourceId.
+      // - Legacy saves that only have myBooks[] will behave like "unscoped" (solid everywhere)
+      //   until the user interacts, at which point we begin tracking per-instance owners.
       // --------------------------------------------------
       
       _myBooksResourceIds: new Set(),
-      
+      _myBooksOwnersByResourceId: {}, // { [resourceId]: string[] instanceKeys }
+      _myBooksOwnedInstanceKeys: new Set(), // derived cache (owners flattened)
+
+      myBooksInstanceKeyForCourse(courseId, resourceId) {
+        const c = String(courseId || "").trim();
+        const r = String(resourceId || "").trim();
+        if (!c || !r) return "";
+        return `C:${c}:R:${r}`;
+      },
+
+      myBooksInstanceKeyForTopic(courseId, topicId, resourceId) {
+        const c = String(courseId || "").trim();
+        const t = String(topicId || "").trim();
+        const r = String(resourceId || "").trim();
+        if (!c || !t || !r) return "";
+        return `C:${c}:T:${t}:R:${r}`;
+      },
+
+      _rebuildMyBooksOwnedInstanceCache() {
+        const map = this._myBooksOwnersByResourceId || {};
+        const flat = new Set();
+        Object.keys(map).forEach(rid => {
+          const owners = Array.isArray(map[rid]) ? map[rid] : [];
+          owners.forEach(k => { if (k) flat.add(String(k)); });
+        });
+        this._myBooksOwnedInstanceKeys = flat;
+      },
+
       isResourceInMyBooks(resourceId) {
         if (!resourceId) return false;
         return this._myBooksResourceIds.has(String(resourceId));
       },
-      
-      toggleResourceMyBooks(resourceId) {
-        if (!resourceId) return;
-        const id = String(resourceId);
-      
-        if (this._myBooksResourceIds.has(id)) {
-          this._myBooksResourceIds.delete(id);
-        } else {
-          this._myBooksResourceIds.add(id);
-        }
-      
+
+      isResourceOwnedHere(instanceKey) {
+        if (!instanceKey) return false;
+        return this._myBooksOwnedInstanceKeys.has(String(instanceKey));
+      },
+
+      // "Ghost" means: globally in My Books, AND we have scoped owners for this resource,
+      // but this specific instanceKey is NOT one of them.
+      isResourceGhostMyBooks(resourceId, instanceKey) {
+        if (!resourceId || !instanceKey) return false;
+        const rid = String(resourceId);
+        if (!this.isResourceInMyBooks(rid)) return false;
+
+        const owners = (this._myBooksOwnersByResourceId && Array.isArray(this._myBooksOwnersByResourceId[rid]))
+          ? this._myBooksOwnersByResourceId[rid]
+          : [];
+
+        // Legacy/unscoped: treat as not-ghost anywhere
+        if (!owners.length) return false;
+
+        return !owners.includes(String(instanceKey));
+      },
+
+      // Apply a global ("ghost") resource to THIS specific instance (adds an owner)
+      applyResourceMyBooksHere(resourceId, instanceKey) {
+        if (!resourceId || !instanceKey) return;
+
+        const rid = String(resourceId);
+        const key = String(instanceKey);
+
+        // Ensure global
+        if (!this._myBooksResourceIds) this._myBooksResourceIds = new Set();
+        this._myBooksResourceIds.add(rid);
+
+        // Ensure owners map
+        if (!this._myBooksOwnersByResourceId) this._myBooksOwnersByResourceId = {};
+        const owners = Array.isArray(this._myBooksOwnersByResourceId[rid]) ? this._myBooksOwnersByResourceId[rid] : [];
+        if (!owners.includes(key)) owners.push(key);
+        this._myBooksOwnersByResourceId[rid] = owners;
+
+        // Update flattened cache
+        this._rebuildMyBooksOwnedInstanceCache();
+
         // ✅ persist (same mechanism as bookmarks/students/tags)
+        this.persistPlannerStateDebounced();
+      },
+
+      // Toggle "My Books" for THIS instance.
+      // If instanceKey isn't provided, this behaves like the legacy global toggle.
+      toggleResourceMyBooks(resourceId, instanceKey = "") {
+        if (!resourceId) return;
+        const rid = String(resourceId);
+        const key = String(instanceKey || "");
+
+        // Legacy/global toggle (no instance info)
+        if (!key) {
+          if (this._myBooksResourceIds.has(rid)) {
+            this._myBooksResourceIds.delete(rid);
+            if (this._myBooksOwnersByResourceId) delete this._myBooksOwnersByResourceId[rid];
+            this._rebuildMyBooksOwnedInstanceCache();
+          } else {
+            this._myBooksResourceIds.add(rid);
+          }
+          this.persistPlannerStateDebounced();
+          return;
+        }
+
+        // Instance-aware toggle
+        if (!this._myBooksOwnersByResourceId) this._myBooksOwnersByResourceId = {};
+        const owners = Array.isArray(this._myBooksOwnersByResourceId[rid]) ? this._myBooksOwnersByResourceId[rid] : [];
+
+        // If resource isn't in My Books yet, add and scope ownership to THIS instance immediately
+        if (!this._myBooksResourceIds.has(rid)) {
+          this._myBooksResourceIds.add(rid);
+          this._myBooksOwnersByResourceId[rid] = [key];
+          this._rebuildMyBooksOwnedInstanceCache();
+          this.persistPlannerStateDebounced();
+          return;
+        }
+
+        // If unscoped legacy (no owners), start scoping by making THIS instance the first owner
+        if (!owners.length) {
+          this._myBooksOwnersByResourceId[rid] = [key];
+          this._rebuildMyBooksOwnedInstanceCache();
+          this.persistPlannerStateDebounced();
+          return;
+        }
+
+        // Scoped: toggle this key within owners
+        const nextOwners = owners.filter(k => String(k) !== key);
+        if (nextOwners.length === owners.length) {
+          nextOwners.push(key); // wasn't present → add
+        }
+
+        if (!nextOwners.length) {
+          // No owners left → remove global membership too
+          delete this._myBooksOwnersByResourceId[rid];
+          this._myBooksResourceIds.delete(rid);
+        } else {
+          this._myBooksOwnersByResourceId[rid] = nextOwners;
+        }
+
+        this._rebuildMyBooksOwnedInstanceCache();
+
+        // ✅ persist
         this.persistPlannerStateDebounced();
       },
 
@@ -359,16 +490,14 @@ prepStatusColor(status) {
         this.prepOptionsModalOpen = false;
       },
 
-      // --------------------------------------------------
-      // Planner extras (persist inside the shared planner blob)
-      // This mirrors how bookmarks/students/tags are saved,
-      // and sets us up for member-account sync later.
-      // --------------------------------------------------
-      
       collectPlannerExtras() {
         return {
           resources: {
             myBooks: Array.from(this._myBooksResourceIds || []),
+
+            // ✅ NEW: instance owners for ghost behavior
+            myBooksOwnersByResourceId: this._myBooksOwnersByResourceId || {},
+
             prepOpenByResourceId: this._prepOpenByResourceId || {},
             optionsByResourceId: this._optionsByResourceId || {},
           }
@@ -379,22 +508,20 @@ prepStatusColor(status) {
         const r = extras?.resources;
         if (!r) return;
       
-        // Restore My Books
+        // Restore My Books (global)
         const ids = Array.isArray(r.myBooks) ? r.myBooks : [];
         this._myBooksResourceIds = new Set(ids.map(String));
-      
-        // Restore prep collapse state
-        const po = (r.prepOpenByResourceId && typeof r.prepOpenByResourceId === "object")
-          ? r.prepOpenByResourceId
-          : {};
-        this._prepOpenByResourceId = { ...po };
 
-          // Restore resource options
-          const ob = (r.optionsByResourceId && typeof r.optionsByResourceId === "object")
-            ? r.optionsByResourceId
-            : {};
-          this._optionsByResourceId = { ...ob };
-      },
+        // ✅ Restore instance owners (if present; otherwise legacy/unscoped)
+        const owners = (r.myBooksOwnersByResourceId && typeof r.myBooksOwnersByResourceId === "object")
+          ? r.myBooksOwnersByResourceId
+          : {};
+        this._myBooksOwnersByResourceId = { ...owners };
+
+        // Rebuild flattened cache used by ghost checks
+        if (typeof this._rebuildMyBooksOwnedInstanceCache === "function") {
+          this._rebuildMyBooksOwnedInstanceCache();
+        }
 
       altFormatsForAssignment(a) {
         const rid = String(a?.resourceId || "").trim();
