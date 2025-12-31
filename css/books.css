@@ -977,14 +977,14 @@
   gap: 8px;                    /* Ã¢Å“â€¦ consistent spacing */
 }
 
-/* Status dot (subtle, leading) */
+
 .prep-status-dot{
   width: 8px;
   height: 8px;
   border-radius: 999px;
   flex: 0 0 8px;
-  margin-right: 2px; /* gap already handled by row gap */
-  box-shadow: 0 0 0 1px rgba(89,110,94,.22);
+  display: inline-block;
+  opacity: 0.9;
 }
 
 
