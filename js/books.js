@@ -262,7 +262,7 @@
         return Array.isArray(arr) ? arr : [];
       },
       
-      addPrepOption(resourceId, kind = "physical", mode = "purchase") {
+      addPrepOption(resourceId, kind = "physical", mode = "purchase", status = "not_ready") {
         const id = String(resourceId || "");
         if (!id) return;
       
@@ -271,7 +271,8 @@
       
         this._optionsByResourceId[id].push({
           kind: (kind === "digital") ? "digital" : "physical",
-          mode: String(mode || "purchase")
+          mode: String(mode || "purchase"),
+          status: String(status || "not_ready")
         });
       
         this.persistPlannerStateDebounced();
@@ -294,7 +295,8 @@
         const id = String(resourceId || "");
         if (!id) return;
       
-        const arr = this.getPrepOptions(id);
+        if (!this._optionsByResourceId) this._optionsByResourceId = {};
+        const arr = this._optionsByResourceId[id];
         if (!Array.isArray(arr) || !arr[index]) return;
       
         arr[index] = { ...arr[index], ...(patch || {}) };
