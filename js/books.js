@@ -313,6 +313,23 @@
         this._optionsByResourceId[id] = arr;
       
         this.persistPlannerStateDebounced();
+
+      // Prep status -> color for the small leading dot
+      prepStatusColor(status) {
+        const s = String(status || "").toLowerCase().trim();
+
+        // Subtle, brand-safe colors (avoid fighting subject chips)
+        const map = {
+          not_ready: "#cfd6cf",  // soft sage/grey
+          ordered:   "#d6c08a",  // muted gold
+          requested: "#b9c7d6",  // muted blue-grey
+          received:  "#9db1a2",  // soft green-grey
+          ready:     "#6f8f79"   // deeper green
+        };
+
+        return map[s] || map.not_ready;
+      },
+
       },
 
       openPrepOptionsModal(resourceId, subject) {
