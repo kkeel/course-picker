@@ -930,6 +930,19 @@
   box-shadow: 0 0 0 2px rgba(173,181,143,0.35);
 }
 
+.prep-select{
+  height: 26px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: #bdc5bf;
+  color: #666d66;
+  padding: 0 10px;
+  font-size: 13px;
+  line-height: 26px;
+}
+
+.prep-select:focus{ outline: none; box-shadow: 0 0 0 2px rgba(157,168,159,.35); }
+
 .resource-bottom-head{
   display: flex;
   align-items: flex-start;
