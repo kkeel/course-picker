@@ -290,6 +290,19 @@
         this.persistPlannerStateDebounced();
       },
 
+      updatePrepOption(resourceId, index, patch) {
+        const id = String(resourceId || "");
+        if (!id) return;
+      
+        const arr = this.getPrepOptions(id);
+        if (!Array.isArray(arr) || !arr[index]) return;
+      
+        arr[index] = { ...arr[index], ...(patch || {}) };
+        this._optionsByResourceId[id] = arr;
+      
+        this.persistPlannerStateDebounced();
+      },
+
       openPrepOptionsModal(resourceId, subject) {
         const id = String(resourceId || "");
         if (!id) return;
