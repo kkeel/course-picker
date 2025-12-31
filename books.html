@@ -1270,7 +1270,7 @@
                                                   class="prep-options-btn prep-options-btn--slim"
                                                   x-show="isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId)"
                                                   x-cloak
-                                                  @click.stop="openPrepOptionsModal(a.resourceId, course.subject)"
+                                                  @click.stop="addPrepOption(a.resourceId)"
                                                 >
                                                   + Options
                                                 </button>
@@ -1297,23 +1297,41 @@
                                         
                                             <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
                                               <div class="prep-option-row">
-                                                <div class="prep-option-label">
-                                                  <span x-text="(opt.kind || 'physical') === 'digital' ? 'Digital' : 'Physical'"></span>
-                                                  <span class="prep-dot">·</span>
-                                                  <span x-text="(opt.mode || 'purchase') === 'purchase' ? 'Purchase' : opt.mode"></span>
-                                                </div>
-                                        
+                                            
+                                                <select class="prep-select"
+                                                  :value="opt.mode || 'purchase'"
+                                                  @change.stop="updatePrepOption(a.resourceId, idx, { mode: $event.target.value })"
+                                                >
+                                                  <option value="save">Save (digital)</option>
+                                                  <option value="print">Print</option>
+                                                  <option value="purchase">Purchase</option>
+                                                  <option value="library">Library</option>
+                                                  <option value="ebook">Ebook</option>
+                                                  <option value="audiobook">Audiobook</option>
+                                                  <option value="own">Already Own</option>
+                                                </select>
+                                            
+                                                <select class="prep-select"
+                                                  :value="opt.status || 'not_ready'"
+                                                  @change.stop="updatePrepOption(a.resourceId, idx, { status: $event.target.value })"
+                                                >
+                                                  <option value="not_ready">Not Ready</option>
+                                                  <option value="ordered">Ordered</option>
+                                                  <option value="requested">Requested</option>
+                                                  <option value="received">Received</option>
+                                                  <option value="ready">Ready to Use</option>
+                                                </select>
+                                            
                                                 <button
                                                   type="button"
                                                   class="prep-option-remove"
                                                   @click.stop="removePrepOption(a.resourceId, idx)"
                                                   aria-label="Remove option"
                                                   title="Remove"
-                                                >
-                                                  ✕
-                                                </button>
+                                                >✕</button>
                                               </div>
                                             </template>
+
                                           </div>
                                         </div>
                                     
@@ -1934,7 +1952,7 @@
                                                   class="prep-options-btn prep-options-btn--slim"
                                                   x-show="isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId)"
                                                   x-cloak
-                                                  @click.stop="openPrepOptionsModal(a.resourceId, course.subject)"
+                                                  @click.stop="addPrepOption(a.resourceId)"
                                                 >
                                                   + Options
                                                 </button>
@@ -1961,23 +1979,41 @@
                                         
                                             <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
                                               <div class="prep-option-row">
-                                                <div class="prep-option-label">
-                                                  <span x-text="(opt.kind || 'physical') === 'digital' ? 'Digital' : 'Physical'"></span>
-                                                  <span class="prep-dot">·</span>
-                                                  <span x-text="(opt.mode || 'purchase') === 'purchase' ? 'Purchase' : opt.mode"></span>
-                                                </div>
-                                        
+                                            
+                                                <select class="prep-select"
+                                                  :value="opt.mode || 'purchase'"
+                                                  @change.stop="updatePrepOption(a.resourceId, idx, { mode: $event.target.value })"
+                                                >
+                                                  <option value="save">Save (digital)</option>
+                                                  <option value="print">Print</option>
+                                                  <option value="purchase">Purchase</option>
+                                                  <option value="library">Library</option>
+                                                  <option value="ebook">Ebook</option>
+                                                  <option value="audiobook">Audiobook</option>
+                                                  <option value="own">Already Own</option>
+                                                </select>
+                                            
+                                                <select class="prep-select"
+                                                  :value="opt.status || 'not_ready'"
+                                                  @change.stop="updatePrepOption(a.resourceId, idx, { status: $event.target.value })"
+                                                >
+                                                  <option value="not_ready">Not Ready</option>
+                                                  <option value="ordered">Ordered</option>
+                                                  <option value="requested">Requested</option>
+                                                  <option value="received">Received</option>
+                                                  <option value="ready">Ready to Use</option>
+                                                </select>
+                                            
                                                 <button
                                                   type="button"
                                                   class="prep-option-remove"
                                                   @click.stop="removePrepOption(a.resourceId, idx)"
                                                   aria-label="Remove option"
                                                   title="Remove"
-                                                >
-                                                  ✕
-                                                </button>
+                                                >✕</button>
                                               </div>
                                             </template>
+
                                           </div>
                                         </div>
                                     
