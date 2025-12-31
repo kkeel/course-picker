@@ -878,7 +878,7 @@
 }
 
 /* =========================================================
-   Book List Ã¢â‚¬â€ "+ Options" button
+   Book List "+ Options" button
    Like +Planning Tag shape, but matches NOTE/tipbox palette
    ========================================================= */
 
@@ -935,7 +935,7 @@
   height: 22px;
   border-radius: 8px;
   border: 1px solid #e5e8e5;
-  background: #fbfbf9;     /* lighter so the row feels like Ã¢â‚¬Å“text on pageÃ¢â‚¬Â */
+  background: #fbfbf9;     /* lighter so the row feels like text on page */
   color: #666d66;
   padding: 0 8px;
   font-size: 12px;
@@ -966,21 +966,21 @@
 /* Make each option feel like a simple line (not a chip/card) */
 .prep-option-row{
   margin-top: 6px;
-  padding: 0;                 /* slim */
+  padding: 0;            
   border: none;
   background: transparent;
   border-radius: 0;
 
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Ã¢Å“â€¦ align everything left */
-  gap: 8px;                    /* Ã¢Å“â€¦ consistent spacing */
+  justify-content: flex-start; 
+  gap: 6px;                   
 }
 
 
 .prep-status-dot{
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 999px;
   flex: 0 0 8px;
   display: inline-block;
@@ -988,7 +988,7 @@
 }
 
 
-/* Ã¢â‚¬Å“+ OptionsÃ¢â‚¬Â should stay at the bottom of the list */
+/* + Options should stay at the bottom of the list */
 .prep-options-add-row{
   margin-top: 8px;
 }
@@ -1005,16 +1005,16 @@
 }
 
 .prep-option-remove{
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   border-radius: 6px;
   border: none;
   background: transparent;
   color: #666d66;
   opacity: 0.55;
 
-  font-size: 14px;
-  line-height: 16px;
+  font-size: 12px;
+  line-height: 12px;
 
   display: inline-flex;
   align-items: center;
