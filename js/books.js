@@ -263,8 +263,18 @@
       },
       
       addPrepOption(resourceId, kind = "physical", mode = "purchase", status = "not_ready") {
-        const id = String(resourceId || "");
+        const id = String(resourceId || "").trim();
         if (!id) return;
+      
+        // ✅ If user adds a prep option, automatically add the resource to My Books
+        if (!this._myBooksResourceIds) this._myBooksResourceIds = new Set();
+        if (!this._myBooksResourceIds.has(id)) {
+          this._myBooksResourceIds.add(id);
+        }
+      
+        // Keep the prep section open when adding
+        if (!this._prepOpenByResourceId) this._prepOpenByResourceId = {};
+        this._prepOpenByResourceId[id] = true;
       
         if (!this._optionsByResourceId) this._optionsByResourceId = {};
         if (!Array.isArray(this._optionsByResourceId[id])) this._optionsByResourceId[id] = [];
