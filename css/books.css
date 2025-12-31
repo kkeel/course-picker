@@ -994,16 +994,32 @@
 }
 
 .prep-option-remove{
-  width: 20px;
-  height: 20px;
-  border-radius: 8px;
-  border: 1px solid #e5e8e5;
-  background: #fbfbf9;
+  width: 16px;
+  height: 16px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
   color: #666d66;
+  opacity: 0.55;
+
+  font-size: 14px;
+  line-height: 16px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   cursor: pointer;
+  padding: 0;
 }
 .prep-option-remove:hover{
-  border-color: rgba(89,110,94,0.35);
+  opacity: 0.9;
+  color: #596e5e;
+}
+.prep-option-remove:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(173,181,143,0.35);
+  border-radius: 6px;
 }
 
 .prep-options-modal{
