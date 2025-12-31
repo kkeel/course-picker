@@ -182,7 +182,7 @@
 }
 
 /* =========================================================
-   Alt. Formats pills – muted, outlined, with tiny icons
+   Alt. Formats pills â€“ muted, outlined, with tiny icons
    (Books only)
    ========================================================= */
 
@@ -337,7 +337,7 @@
   align-items: start;
 }
 
-/* Invisible divider â€“ keeps spacing identical */
+/* Invisible divider Ã¢â‚¬â€œ keeps spacing identical */
 .resource-top-divider{
   width: 1px;
   align-self: stretch;
@@ -395,7 +395,7 @@
   gap: 8px;
 }
 
-/* Resource Preparation chevron — icon only (no outline) */
+/* Resource Preparation chevron â€” icon only (no outline) */
 .prep-collapse-btn{
   width: 18px;
   height: 18px;
@@ -563,7 +563,7 @@
 }
 
 .resource-tipbox-item--formats .resource-tipbox-label{
-  white-space: nowrap;  /* keeps “Alt. Formats:” together */
+  white-space: nowrap;  /* keeps â€œAlt. Formats:â€ together */
 }
 
 .alt-formats-pills--in-tipbox{
@@ -695,7 +695,7 @@
 }
 
 .resource-bottom-sub::after{
-  content: "↗";
+  content: "â†—";
   position: absolute;
   right: 0;
   top: 0;
@@ -735,7 +735,7 @@
   width: calc(100% - (64px + 12px));
 }
 
-/* Mobile stacks anyway, so don’t inset */
+/* Mobile stacks anyway, so donâ€™t inset */
 @media (max-width: 640px){
   .resource-bottom-inner{
     margin-left: 0;
@@ -788,7 +788,7 @@
     row-gap: 10px;
   }
 
-  /* ✅ Reorder: Purchase Options first, then Prep/Tracking */
+  /* âœ… Reorder: Purchase Options first, then Prep/Tracking */
   .resource-bottom-right{
     order: 1;
   }
@@ -819,17 +819,17 @@
   display: inline-flex;
   align-items: center;
   min-width: 0;
-  flex: 0 1 auto; /* don’t steal the whole row */
+  flex: 0 1 auto; /* donâ€™t steal the whole row */
 }
 
-/* When student rail sits in the meta row, remove the “below content” spacing */
+/* When student rail sits in the meta row, remove the â€œbelow contentâ€ spacing */
 .books-page .meta-students .student-rail-toggle-row{
   margin-top: 0;
   min-height: 0;
   flex: 0 0 auto;
 }
 
-/* Don’t let chip row force the whole line wide */
+/* Donâ€™t let chip row force the whole line wide */
 .books-page .meta-students .student-chip-row{
   flex: 0 1 auto;
   margin-left: 8px;
@@ -878,7 +878,7 @@
 }
 
 /* =========================================================
-   Book List — "+ Options" button
+   Book List â€” "+ Options" button
    Like +Planning Tag shape, but matches NOTE/tipbox palette
    ========================================================= */
 
@@ -930,15 +930,21 @@
   box-shadow: 0 0 0 2px rgba(173,181,143,0.35);
 }
 
+/* Prep option controls (Book List only) */
 .prep-select{
-  height: 26px;
+  height: 22px;
   border-radius: 8px;
-  border: 1px solid rgba(0,0,0,.08);
-  background: #bdc5bf;
+  border: 1px solid #e5e8e5;
+  background: #fbfbf9;     /* lighter so the row feels like â€œtext on pageâ€ */
   color: #666d66;
-  padding: 0 10px;
-  font-size: 13px;
-  line-height: 26px;
+  padding: 0 8px;
+  font-size: 12px;
+  line-height: 22px;
+}
+
+/* Narrow first dropdown: Digital / Physical */
+.prep-select--kind{
+  min-width: 92px;
 }
 
 .prep-select:focus{ outline: none; box-shadow: 0 0 0 2px rgba(157,168,159,.35); }
@@ -957,17 +963,23 @@
   min-width: 0;
 }
 
+/* Make each option feel like a simple line (not a chip/card) */
 .prep-option-row{
   margin-top: 6px;
-  padding: 6px 8px;
-  border: 1px solid #e5e8e5;
-  background: #f3f4f1;
-  border-radius: 10px;
+  padding: 0;                 /* slim */
+  border: none;
+  background: transparent;
+  border-radius: 0;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  justify-content: flex-start; /* âœ… align everything left */
+  gap: 8px;                    /* âœ… consistent spacing */
+}
+
+/* â€œ+ Optionsâ€ should stay at the bottom of the list */
+.prep-options-add-row{
+  margin-top: 8px;
 }
 
 .prep-option-label{
@@ -982,8 +994,8 @@
 }
 
 .prep-option-remove{
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 8px;
   border: 1px solid #e5e8e5;
   background: #fbfbf9;
@@ -1121,7 +1133,7 @@
 
 
 /* =========================================================
-   Book List — Buy link buttons (resource JSON links[])
+   Book List â€” Buy link buttons (resource JSON links[])
    ========================================================= */
 
 .resource-buy-links{
@@ -1267,7 +1279,7 @@
     z-index: auto;
   }
 
-  /* Make sure title wraps and doesn’t push icons offscreen */
+  /* Make sure title wraps and doesnâ€™t push icons offscreen */
   .resource-title{
     min-width: 0;
   }
@@ -1319,7 +1331,7 @@
    ========================================================= */
 @media (max-width: 640px){
 
-  /* 0) Make sure the “right side” blocks are not trying to be multi-col */
+  /* 0) Make sure the â€œright sideâ€ blocks are not trying to be multi-col */
   .books-page .resource-info-row,
   .books-page .resource-info-right,
   .books-page .resource-top-row,
@@ -1339,7 +1351,7 @@
     display: none !important;
   }
 
-  /* 1) Ensure scope/shared blocks stretch full width (no “narrow column” feel) */
+  /* 1) Ensure scope/shared blocks stretch full width (no â€œnarrow columnâ€ feel) */
   .books-page .resource-meta-block{
     width: 100% !important;
     max-width: 100% !important;
@@ -1351,7 +1363,7 @@
     width: 100% !important;
   }
 
-  /* 3) Buy links can wrap so they don’t squish */
+  /* 3) Buy links can wrap so they donâ€™t squish */
   .books-page .resource-buy-links{
     flex-wrap: wrap !important;
   }
@@ -1413,7 +1425,7 @@
     min-width: 0;
   }
 
-  /* Remove the “invisible divider” columns on mobile so nothing is squeezed */
+  /* Remove the â€œinvisible dividerâ€ columns on mobile so nothing is squeezed */
   .books-page .resource-top-divider,
   .books-page .resource-info-divider{
     display: none !important;
@@ -1488,7 +1500,7 @@
   }
 
   .books-page .resource-isbn-label{
-    white-space: nowrap; /* keep “ISBN/ASIN:” together */
+    white-space: nowrap; /* keep â€œISBN/ASIN:â€ together */
     flex: none;
   }
 
@@ -1529,7 +1541,7 @@
    ========================================================= */
 @media (max-width: 640px){
 
-  /* reduce the vertical gap between grid rows (row2 → row3) */
+  /* reduce the vertical gap between grid rows (row2 â†’ row3) */
   .books-page .resource-card{
     row-gap: 8px !important;     /* was effectively larger */
     column-gap: 12px;            /* keep horizontal spacing */
