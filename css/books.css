@@ -182,7 +182,7 @@
 }
 
 /* =========================================================
-   Alt. Formats pills â€“ muted, outlined, with tiny icons
+   Alt. Formats pills Ã¢â‚¬â€œ muted, outlined, with tiny icons
    (Books only)
    ========================================================= */
 
@@ -337,7 +337,7 @@
   align-items: start;
 }
 
-/* Invisible divider Ã¢â‚¬â€œ keeps spacing identical */
+/* Invisible divider ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ keeps spacing identical */
 .resource-top-divider{
   width: 1px;
   align-self: stretch;
@@ -395,7 +395,7 @@
   gap: 8px;
 }
 
-/* Resource Preparation chevron â€” icon only (no outline) */
+/* Resource Preparation chevron Ã¢â‚¬â€ icon only (no outline) */
 .prep-collapse-btn{
   width: 18px;
   height: 18px;
@@ -563,7 +563,7 @@
 }
 
 .resource-tipbox-item--formats .resource-tipbox-label{
-  white-space: nowrap;  /* keeps â€œAlt. Formats:â€ together */
+  white-space: nowrap;  /* keeps Ã¢â‚¬Å“Alt. Formats:Ã¢â‚¬Â together */
 }
 
 .alt-formats-pills--in-tipbox{
@@ -695,7 +695,7 @@
 }
 
 .resource-bottom-sub::after{
-  content: "â†—";
+  content: "Ã¢â€ â€”";
   position: absolute;
   right: 0;
   top: 0;
@@ -735,7 +735,7 @@
   width: calc(100% - (64px + 12px));
 }
 
-/* Mobile stacks anyway, so donâ€™t inset */
+/* Mobile stacks anyway, so donÃ¢â‚¬â„¢t inset */
 @media (max-width: 640px){
   .resource-bottom-inner{
     margin-left: 0;
@@ -788,7 +788,7 @@
     row-gap: 10px;
   }
 
-  /* âœ… Reorder: Purchase Options first, then Prep/Tracking */
+  /* Ã¢Å“â€¦ Reorder: Purchase Options first, then Prep/Tracking */
   .resource-bottom-right{
     order: 1;
   }
@@ -819,17 +819,17 @@
   display: inline-flex;
   align-items: center;
   min-width: 0;
-  flex: 0 1 auto; /* donâ€™t steal the whole row */
+  flex: 0 1 auto; /* donÃ¢â‚¬â„¢t steal the whole row */
 }
 
-/* When student rail sits in the meta row, remove the â€œbelow contentâ€ spacing */
+/* When student rail sits in the meta row, remove the Ã¢â‚¬Å“below contentÃ¢â‚¬Â spacing */
 .books-page .meta-students .student-rail-toggle-row{
   margin-top: 0;
   min-height: 0;
   flex: 0 0 auto;
 }
 
-/* Donâ€™t let chip row force the whole line wide */
+/* DonÃ¢â‚¬â„¢t let chip row force the whole line wide */
 .books-page .meta-students .student-chip-row{
   flex: 0 1 auto;
   margin-left: 8px;
@@ -878,7 +878,7 @@
 }
 
 /* =========================================================
-   Book List â€” "+ Options" button
+   Book List Ã¢â‚¬â€ "+ Options" button
    Like +Planning Tag shape, but matches NOTE/tipbox palette
    ========================================================= */
 
@@ -935,7 +935,7 @@
   height: 22px;
   border-radius: 8px;
   border: 1px solid #e5e8e5;
-  background: #fbfbf9;     /* lighter so the row feels like â€œtext on pageâ€ */
+  background: #fbfbf9;     /* lighter so the row feels like Ã¢â‚¬Å“text on pageÃ¢â‚¬Â */
   color: #666d66;
   padding: 0 8px;
   font-size: 12px;
@@ -973,11 +973,22 @@
 
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* âœ… align everything left */
-  gap: 8px;                    /* âœ… consistent spacing */
+  justify-content: flex-start; /* Ã¢Å“â€¦ align everything left */
+  gap: 8px;                    /* Ã¢Å“â€¦ consistent spacing */
 }
 
-/* â€œ+ Optionsâ€ should stay at the bottom of the list */
+/* Status dot (subtle, leading) */
+.prep-status-dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  flex: 0 0 8px;
+  margin-right: 2px; /* gap already handled by row gap */
+  box-shadow: 0 0 0 1px rgba(89,110,94,.22);
+}
+
+
+/* Ã¢â‚¬Å“+ OptionsÃ¢â‚¬Â should stay at the bottom of the list */
 .prep-options-add-row{
   margin-top: 8px;
 }
@@ -1149,7 +1160,7 @@
 
 
 /* =========================================================
-   Book List â€” Buy link buttons (resource JSON links[])
+   Book List Ã¢â‚¬â€ Buy link buttons (resource JSON links[])
    ========================================================= */
 
 .resource-buy-links{
@@ -1295,7 +1306,7 @@
     z-index: auto;
   }
 
-  /* Make sure title wraps and doesnâ€™t push icons offscreen */
+  /* Make sure title wraps and doesnÃ¢â‚¬â„¢t push icons offscreen */
   .resource-title{
     min-width: 0;
   }
@@ -1347,7 +1358,7 @@
    ========================================================= */
 @media (max-width: 640px){
 
-  /* 0) Make sure the â€œright sideâ€ blocks are not trying to be multi-col */
+  /* 0) Make sure the Ã¢â‚¬Å“right sideÃ¢â‚¬Â blocks are not trying to be multi-col */
   .books-page .resource-info-row,
   .books-page .resource-info-right,
   .books-page .resource-top-row,
@@ -1367,7 +1378,7 @@
     display: none !important;
   }
 
-  /* 1) Ensure scope/shared blocks stretch full width (no â€œnarrow columnâ€ feel) */
+  /* 1) Ensure scope/shared blocks stretch full width (no Ã¢â‚¬Å“narrow columnÃ¢â‚¬Â feel) */
   .books-page .resource-meta-block{
     width: 100% !important;
     max-width: 100% !important;
@@ -1379,7 +1390,7 @@
     width: 100% !important;
   }
 
-  /* 3) Buy links can wrap so they donâ€™t squish */
+  /* 3) Buy links can wrap so they donÃ¢â‚¬â„¢t squish */
   .books-page .resource-buy-links{
     flex-wrap: wrap !important;
   }
@@ -1441,7 +1452,7 @@
     min-width: 0;
   }
 
-  /* Remove the â€œinvisible dividerâ€ columns on mobile so nothing is squeezed */
+  /* Remove the Ã¢â‚¬Å“invisible dividerÃ¢â‚¬Â columns on mobile so nothing is squeezed */
   .books-page .resource-top-divider,
   .books-page .resource-info-divider{
     display: none !important;
@@ -1516,7 +1527,7 @@
   }
 
   .books-page .resource-isbn-label{
-    white-space: nowrap; /* keep â€œISBN/ASIN:â€ together */
+    white-space: nowrap; /* keep Ã¢â‚¬Å“ISBN/ASIN:Ã¢â‚¬Â together */
     flex: none;
   }
 
@@ -1557,7 +1568,7 @@
    ========================================================= */
 @media (max-width: 640px){
 
-  /* reduce the vertical gap between grid rows (row2 â†’ row3) */
+  /* reduce the vertical gap between grid rows (row2 Ã¢â€ â€™ row3) */
   .books-page .resource-card{
     row-gap: 8px !important;     /* was effectively larger */
     column-gap: 12px;            /* keep horizontal spacing */
