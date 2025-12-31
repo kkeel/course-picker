@@ -321,11 +321,11 @@ prepStatusColor(status) {
 
   // Subtle, brand-safe colors (avoid fighting subject chips)
   const map = {
-    not_ready: "#cfd6cf",  // soft sage/grey
-    ordered:   "#d6c08a",  // muted gold
-    requested: "#b9c7d6",  // muted blue-grey
-    received:  "#9db1a2",  // soft green-grey
-    ready:     "#6f8f79"   // deeper green
+    not_ready: "#b7bdb8",  // neutral soft grey
+    ordered:   "#c2a84a",  // warm muted gold
+    requested: "#6f8fa3",  // calm blue-grey
+    received:  "#7fae8f",  // cool green-grey
+    ready:     "#4f8f6f"   // confident green
   };
 
   return map[s] || map.not_ready;
