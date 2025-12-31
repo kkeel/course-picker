@@ -1263,17 +1263,6 @@
                                                 <div class="resource-bottom-title">
                                                   Resource Preparation &amp; Tracking
                                                 </div>
-                                          
-                                                <!-- (Moved) + Options button lives at the bottom of the options list -->
-                                          
-                                                <!-- Helper text (hidden when options visible) -->
-                                                <div
-                                                  class="resource-bottom-sub"
-                                                  x-show="!isResourceInMyBooks(a.resourceId)"
-                                                  x-cloak
-                                                >
-                                                  Add resource to your booklist to see preparation &amp; tracking options.
-                                                </div>
                                               </div>
                                             </div>
                                           </div>
@@ -1281,7 +1270,7 @@
                                           <!-- Collapsible body: only when in My Books AND open -->
                                           <div
                                             class="resource-prep-body"
-                                            x-show="isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId)"
+                                            x-show="isPrepOpen(a.resourceId)"
                                             x-transition
                                             x-cloak
                                           >
@@ -1340,7 +1329,7 @@
                                                 class="prep-options-btn prep-options-btn--slim"
                                                 @click.stop="addPrepOption(a.resourceId)"
                                               >
-                                                + Options
+                                                + Add
                                               </button>
                                             </div>
 
@@ -1957,17 +1946,6 @@
                                                 <div class="resource-bottom-title">
                                                   Resource Preparation &amp; Tracking
                                                 </div>
-                                          
-                                                <!-- (Moved) + Options button lives at the bottom of the options list -->
-                                          
-                                                <!-- Helper text (hidden when options visible) -->
-                                                <div
-                                                  class="resource-bottom-sub"
-                                                  x-show="!isResourceInMyBooks(a.resourceId)"
-                                                  x-cloak
-                                                >
-                                                  Add resource to your booklist to see preparation &amp; tracking options.
-                                                </div>
                                               </div>
                                             </div>
                                           </div>
@@ -1975,7 +1953,7 @@
                                           <!-- Collapsible body: only when in My Books AND open -->
                                           <div
                                             class="resource-prep-body"
-                                            x-show="isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId)"
+                                            x-show="isPrepOpen(a.resourceId)"
                                             x-transition
                                             x-cloak
                                           >
@@ -2034,7 +2012,7 @@
                                                 class="prep-options-btn prep-options-btn--slim"
                                                 @click.stop="addPrepOption(a.resourceId)"
                                               >
-                                                + Options
+                                                + Add
                                               </button>
                                             </div>
 
