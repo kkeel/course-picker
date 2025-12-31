@@ -1278,14 +1278,17 @@
                                             <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
                                               <div class="prep-option-row">
 
-                                                <!-- Digital / Physical -->
+
+                                                <span class="prep-status-dot" :style="`background-color:${prepStatusColor(opt.status)}`" aria-hidden="true"></span>
+
+                                                                                                <!-- Digital / Physical -->
                                                 <select class="prep-select prep-select--kind"
                                                   :value="opt.kind || 'physical'"
                                                   @change.stop="updatePrepOption(a.resourceId, idx, { kind: $event.target.value })"
                                                   aria-label="Format"
                                                 >
-                                                  <option value="physical">Physical</option>
-                                                  <option value="digital">Digital</option>
+                                                  <option value="physical">📖 Physical</option>
+                                                  <option value="digital">💻 Digital</option>
                                                 </select>
                                             
                                                 <select class="prep-select"
@@ -1961,14 +1964,17 @@
                                             <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
                                               <div class="prep-option-row">
 
-                                                <!-- Digital / Physical -->
+
+                                                <span class="prep-status-dot" :style="`background-color:${prepStatusColor(opt.status)}`" aria-hidden="true"></span>
+
+                                                                                                <!-- Digital / Physical -->
                                                 <select class="prep-select prep-select--kind"
                                                   :value="opt.kind || 'physical'"
                                                   @change.stop="updatePrepOption(a.resourceId, idx, { kind: $event.target.value })"
                                                   aria-label="Format"
                                                 >
-                                                  <option value="physical">Physical</option>
-                                                  <option value="digital">Digital</option>
+                                                  <option value="physical">📖 Physical</option>
+                                                  <option value="digital">💻 Digital</option>
                                                 </select>
 
                                                 <select class="prep-select"
