@@ -521,7 +521,8 @@ prepStatusColor(status) {
         // Rebuild flattened cache used by ghost checks
         if (typeof this._rebuildMyBooksOwnedInstanceCache === "function") {
           this._rebuildMyBooksOwnedInstanceCache();
-        },
+        }
+      },
 
       altFormatsForAssignment(a) {
         const rid = String(a?.resourceId || "").trim();
