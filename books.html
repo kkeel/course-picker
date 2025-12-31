@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1281,7 +1282,7 @@
 
                                                 <span class="prep-status-dot" :style="`background-color:${prepStatusColor(opt.status)}`" aria-hidden="true"></span>
 
-                                                                                                <!-- Digital / Physical -->
+                                                <!-- Digital / Physical -->
                                                 <select class="prep-select prep-select--kind"
                                                   :value="opt.kind || 'physical'"
                                                   @change.stop="updatePrepOption(a.resourceId, idx, { kind: $event.target.value })"
@@ -1964,10 +1965,7 @@
                                             <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
                                               <div class="prep-option-row">
 
-
-                                                <span class="prep-status-dot" :style="`background-color:${prepStatusColor(opt.status)}`" aria-hidden="true"></span>
-
-                                                                                                <!-- Digital / Physical -->
+                                                <!-- Digital / Physical -->
                                                 <select class="prep-select prep-select--kind"
                                                   :value="opt.kind || 'physical'"
                                                   @change.stop="updatePrepOption(a.resourceId, idx, { kind: $event.target.value })"
