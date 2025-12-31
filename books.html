@@ -1264,16 +1264,7 @@
                                                   Resource Preparation &amp; Tracking
                                                 </div>
                                           
-                                                <!-- + Options directly under title -->
-                                                <button
-                                                  type="button"
-                                                  class="prep-options-btn prep-options-btn--slim"
-                                                  x-show="isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId)"
-                                                  x-cloak
-                                                  @click.stop="addPrepOption(a.resourceId)"
-                                                >
-                                                  + Options
-                                                </button>
+                                                <!-- (Moved) + Options button lives at the bottom of the options list -->
                                           
                                                 <!-- Helper text (hidden when options visible) -->
                                                 <div
@@ -1297,6 +1288,16 @@
                                         
                                             <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
                                               <div class="prep-option-row">
+
+                                                <!-- Digital / Physical -->
+                                                <select class="prep-select prep-select--kind"
+                                                  :value="opt.kind || 'physical'"
+                                                  @change.stop="updatePrepOption(a.resourceId, idx, { kind: $event.target.value })"
+                                                  aria-label="Format"
+                                                >
+                                                  <option value="physical">Physical</option>
+                                                  <option value="digital">Digital</option>
+                                                </select>
                                             
                                                 <select class="prep-select"
                                                   :value="opt.mode || 'purchase'"
@@ -1331,6 +1332,17 @@
                                                 >✕</button>
                                               </div>
                                             </template>
+
+                                            <!-- + Options (always last) -->
+                                            <div class="prep-options-add-row">
+                                              <button
+                                                type="button"
+                                                class="prep-options-btn prep-options-btn--slim"
+                                                @click.stop="addPrepOption(a.resourceId)"
+                                              >
+                                                + Options
+                                              </button>
+                                            </div>
 
                                           </div>
                                         </div>
@@ -1946,16 +1958,7 @@
                                                   Resource Preparation &amp; Tracking
                                                 </div>
                                           
-                                                <!-- + Options directly under title -->
-                                                <button
-                                                  type="button"
-                                                  class="prep-options-btn prep-options-btn--slim"
-                                                  x-show="isResourceInMyBooks(a.resourceId) && isPrepOpen(a.resourceId)"
-                                                  x-cloak
-                                                  @click.stop="addPrepOption(a.resourceId)"
-                                                >
-                                                  + Options
-                                                </button>
+                                                <!-- (Moved) + Options button lives at the bottom of the options list -->
                                           
                                                 <!-- Helper text (hidden when options visible) -->
                                                 <div
@@ -1979,7 +1982,17 @@
                                         
                                             <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
                                               <div class="prep-option-row">
-                                            
+
+                                                <!-- Digital / Physical -->
+                                                <select class="prep-select prep-select--kind"
+                                                  :value="opt.kind || 'physical'"
+                                                  @change.stop="updatePrepOption(a.resourceId, idx, { kind: $event.target.value })"
+                                                  aria-label="Format"
+                                                >
+                                                  <option value="physical">Physical</option>
+                                                  <option value="digital">Digital</option>
+                                                </select>
+
                                                 <select class="prep-select"
                                                   :value="opt.mode || 'purchase'"
                                                   @change.stop="updatePrepOption(a.resourceId, idx, { mode: $event.target.value })"
@@ -2013,6 +2026,17 @@
                                                 >✕</button>
                                               </div>
                                             </template>
+
+                                            <!-- + Options (always last) -->
+                                            <div class="prep-options-add-row">
+                                              <button
+                                                type="button"
+                                                class="prep-options-btn prep-options-btn--slim"
+                                                @click.stop="addPrepOption(a.resourceId)"
+                                              >
+                                                + Options
+                                              </button>
+                                            </div>
 
                                           </div>
                                         </div>
