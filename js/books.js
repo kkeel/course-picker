@@ -60,6 +60,30 @@
       assignmentsByResourceId: {}, // { [resourceId]: assignment[] }
       resourcesById: {},           // { [resourceId]: resource }
 
+      // ---- Book List view controls (UI only for now) ----
+      myBooksOnly: false,
+      _hasSetMyBooksOnly: false,
+      
+      listViewMode: "full",
+      _hasSetListViewMode: false,
+      
+      toggleMyBooksOnly() {
+        this.myBooksOnly = !this.myBooksOnly;
+        this._hasSetMyBooksOnly = true;
+        if (typeof this.persistPlannerStateDebounced === "function") {
+          this.persistPlannerStateDebounced();
+        }
+      },
+      
+      setListViewMode(mode) {
+        const v = (mode === "full" || mode === "compact" || mode === "minimal") ? mode : "full";
+        this.listViewMode = v;
+        this._hasSetListViewMode = true;
+        if (typeof this.persistPlannerStateDebounced === "function") {
+          this.persistPlannerStateDebounced();
+        }
+      },
+
       async init() {
         // Run your normal init first (courses/topics load, auth wrapper, etc.)
         if (typeof originalInit === "function") {
@@ -533,7 +557,7 @@ prepStatusColor(status) {
       },
 
       collectPlannerExtras() {
-        return {
+        const extras = {
           resources: {
             myBooks: Array.from(this._myBooksResourceIds || []),
 
@@ -544,12 +568,22 @@ prepStatusColor(status) {
             optionsByResourceId: this._optionsByResourceId || {},
           }
         };
+
+        // Persist view settings ONLY after the user explicitly changes them
+        if (this._hasSetMyBooksOnly || this._hasSetListViewMode) {
+          extras.resources.view = {};
+
+          if (this._hasSetMyBooksOnly) extras.resources.view.myBooksOnly = !!this.myBooksOnly;
+          if (this._hasSetListViewMode) extras.resources.view.listViewMode = this.listViewMode;
+        }
+
+        return extras;
       },
       
       applyPlannerExtras(extras) {
         const r = extras?.resources;
         if (!r) return;
-      
+
         // Restore My Books (global)
         const ids = Array.isArray(r.myBooks) ? r.myBooks : [];
         this._myBooksResourceIds = new Set(ids.map(String));
@@ -563,6 +597,22 @@ prepStatusColor(status) {
         // Rebuild flattened cache used by ghost checks
         if (typeof this._rebuildMyBooksOwnedInstanceCache === "function") {
           this._rebuildMyBooksOwnedInstanceCache();
+        }
+
+        // Restore view settings (only if they were ever saved)
+        const view = (r.view && typeof r.view === "object") ? r.view : null;
+        if (view) {
+          if (typeof view.myBooksOnly === "boolean") {
+            this.myBooksOnly = view.myBooksOnly;
+            this._hasSetMyBooksOnly = true;
+          }
+          if (typeof view.listViewMode === "string") {
+            const v = (view.listViewMode === "full" || view.listViewMode === "compact" || view.listViewMode === "minimal")
+              ? view.listViewMode
+              : "full";
+            this.listViewMode = v;
+            this._hasSetListViewMode = true;
+          }
         }
       },
 
