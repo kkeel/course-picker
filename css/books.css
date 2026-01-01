@@ -1627,17 +1627,19 @@
   justify-self: start;
 }
 
-/* List View under Search (far right) */
+/* KEY CHANGE:
+   Let List View span columns 3–4 (acts like one combined “wide” column) */
 .student-tools-row .list-view-controls{
-  grid-column: 4;
-  justify-self: start;
+  grid-column: 3 / 5;        /* spans col 3 + col 4 */
+  justify-self: end;         /* right-align the whole block */
+  width: 100%;
 
   display: inline-flex;
   align-items: center;
+  justify-content: flex-end; /* right-justify contents inside */
   gap: 14px;
 
-  /* KEY: allow wrapping when space gets tight */
-  flex-wrap: wrap;
+  flex-wrap: wrap;           /* wraps only when truly needed */
   min-width: 0;
   margin: 0;
 }
@@ -1667,11 +1669,11 @@
 .student-tools-row .list-view-radio input{
   width: 14px;
   height: 14px;
-  accent-color: #596e5e; /* brand green */
+  accent-color: #596e5e;
 }
 
 /* =========================================================
-   SMALL DESKTOP: switch 4-col → 3-col BEFORE radios get cramped
+   SMALL DESKTOP: switch 4-col → 3-col
    ========================================================= */
 @media (max-width: 1180px){
 
@@ -1679,28 +1681,25 @@
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   }
 
-  /* Students stays left */
   .student-tools-row > .relative{
     grid-column: 1 !important;
   }
 
-  /* Manage Students stays middle */
   .student-tools-row .manage-students-toggle{
     grid-column: 2 !important;
     justify-self: start;
   }
 
-  /* List View moves to col 3 (wider than the old col 4 was) */
+  /* Now it’s just the 3rd column, still right-aligned */
   .student-tools-row .list-view-controls{
     grid-column: 3 !important;
-    justify-self: start;
+    justify-self: end;
     width: 100%;
   }
 }
 
 /* =========================================================
-   MID WIDTH: stop overflow BEFORE mobile
-   - switch to 2 columns so radios don't slide off-screen
+   MID WIDTH: 2 columns
    ========================================================= */
 @media (max-width: 980px){
 
@@ -1708,27 +1707,25 @@
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 
-  /* Students stays left */
   .student-tools-row > .relative{
     grid-column: 1 !important;
   }
 
-  /* List View becomes the right column */
   .student-tools-row .list-view-controls{
     grid-column: 2 !important;
-    justify-self: start;
+    justify-self: end;
     width: 100%;
   }
 
-  /* Manage Students drops under Students */
   .student-tools-row .manage-students-toggle{
     grid-column: 1 !important;
     grid-row: 2;
+    justify-self: start;
   }
 }
 
 /* =========================================================
-   MOBILE: Students + List View stack cleanly
+   MOBILE: stack cleanly
    ========================================================= */
 @media (max-width: 640px){
 
@@ -1751,11 +1748,13 @@
     grid-column: 1 !important;
     justify-self: start;
     width: 100%;
-    gap: 10px;
+    justify-content: flex-start;
+
+    flex-wrap: wrap;
     white-space: normal;
+    gap: 10px;
   }
 
-  /* allow label + radios to wrap */
   .student-tools-row .list-view-label,
   .student-tools-row .list-view-radio{
     white-space: normal !important;
