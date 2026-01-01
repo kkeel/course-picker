@@ -1671,6 +1671,34 @@
 }
 
 /* =========================================================
+   SMALL DESKTOP: switch 4-col → 3-col BEFORE radios get cramped
+   ========================================================= */
+@media (max-width: 1180px){
+
+  .student-tools-row{
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  /* Students stays left */
+  .student-tools-row > .relative{
+    grid-column: 1 !important;
+  }
+
+  /* Manage Students stays middle */
+  .student-tools-row .manage-students-toggle{
+    grid-column: 2 !important;
+    justify-self: start;
+  }
+
+  /* List View moves to col 3 (wider than the old col 4 was) */
+  .student-tools-row .list-view-controls{
+    grid-column: 3 !important;
+    justify-self: start;
+    width: 100%;
+  }
+}
+
+/* =========================================================
    MID WIDTH: stop overflow BEFORE mobile
    - switch to 2 columns so radios don't slide off-screen
    ========================================================= */
