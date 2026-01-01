@@ -511,6 +511,45 @@
               >
                 Manage Students
               </button>
+              
+              <!-- List View (Full / Compact / Minimal) -->
+              <div class="list-view-controls" @click.stop role="group" aria-label="List view">
+                <span class="list-view-label">List View</span>
+              
+                <label class="list-view-radio">
+                  <input
+                    type="radio"
+                    name="listViewMode"
+                    value="full"
+                    x-model="listViewMode"
+                    @change="setListViewMode($event.target.value)"
+                  />
+                  <span>Full</span>
+                </label>
+              
+                <label class="list-view-radio">
+                  <input
+                    type="radio"
+                    name="listViewMode"
+                    value="compact"
+                    x-model="listViewMode"
+                    @change="setListViewMode($event.target.value)"
+                  />
+                  <span>Compact</span>
+                </label>
+              
+                <label class="list-view-radio">
+                  <input
+                    type="radio"
+                    name="listViewMode"
+                    value="minimal"
+                    x-model="listViewMode"
+                    @change="setListViewMode($event.target.value)"
+                  />
+                  <span>Minimal</span>
+                </label>
+              </div>
+
             </div>
 
             <div
@@ -651,6 +690,17 @@
                     <div class="toggle-switch-knob"></div>
                   </div>
                   <span>Descriptions &amp; Tips</span>
+                </div>
+
+                <div
+                  class="toggle"
+                  :class="myBooksOnly ? 'toggle--on' : ''"
+                  @click="toggleMyBooksOnly()"
+                >
+                  <div class="toggle-switch">
+                    <div class="toggle-switch-knob"></div>
+                  </div>
+                  <span>My Books</span>
                 </div>
 
                 <div
