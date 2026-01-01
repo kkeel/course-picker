@@ -1213,9 +1213,6 @@
 
 .books-page .card-toggle { display: none !important; }
 
-.books-page .filter-actions .btn-pill:has(.bookmark-reset) { display: none !important; }
-.books-page .filter-actions .flex.gap-2 > button:first-child { display: none !important; }
-
 .books-page .planning-tag-button { display: none !important; }
 
 .books-page .planning-tag-remove,
