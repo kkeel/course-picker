@@ -797,6 +797,15 @@ body {
   transform: rotate(-90deg);
 }
 
+/* =========================
+   List View: Minimal
+   ========================= */
+
+/* Minimal = hide ALL student rails (course + topic) */
+.course-list-shell.listview-minimal .student-rail-toggle-row{
+  display: none !important;
+}
+
 .filter-control-chips {
   display: flex;
   flex-wrap: wrap;
