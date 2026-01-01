@@ -2212,7 +2212,7 @@
                                           <template x-if="!(
                                             isResourceInMyBooks(a.resourceId) &&
                                             (
-                                              !((this._myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
+                                              !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                               isResourceOwnedHere(
                                                 myBooksInstanceKeyForTopic(
                                                   (course.recordID || course.id),
