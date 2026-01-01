@@ -351,6 +351,8 @@ function coursePlanner() {
       },
 
       // new global detail toggle
+      courseListViewMode: "full",
+      _hasSetCourseListViewMode: false,
       showAllDetails: true,
       myCoursesOnly: false,
       myNotesOpen: false,
@@ -386,6 +388,11 @@ function coursePlanner() {
           (this.newStudentName || "").trim().length > 0 &&
           (this.students || []).length < 15
         );
+      },
+
+      get courseListViewModeClass() {
+        const m = (this.courseListViewMode || "full");
+        return `listview-${m}`;
       },
 
       toggleStudentsOpen() {
@@ -591,9 +598,20 @@ function coursePlanner() {
         this.persistUiStateDebounced();
       },
 
-      toggleAllDetails() {
-        this.showAllDetails = !this.showAllDetails;
+      setCourseListViewMode(mode) {
+        const allowed = new Set(["full", "compact", "minimal"]);
+        const next = allowed.has(mode) ? mode : "full";
+      
+        this.courseListViewMode = next;
+        this.showAllDetails = (next === "full");
+      
+        this._hasSetCourseListViewMode = true;
         this.persistUiStateDebounced();
+      },
+      
+      // Back-compat if anything still calls it
+      toggleAllDetails() {
+        this.setCourseListViewMode(this.courseListViewMode === "full" ? "compact" : "full");
       },
 
       toggleMyCoursesOnly() {
@@ -1642,8 +1660,15 @@ function coursePlanner() {
         if (typeof saved.myCoursesOnly === "boolean") {
           this.myCoursesOnly = saved.myCoursesOnly;
         }
-        if (typeof saved.showAllDetails === "boolean") {
-          this.showAllDetails = saved.showAllDetails;
+        // Prefer new view-mode if present
+        if (typeof saved.courseListViewMode === "string") {
+          const m = saved.courseListViewMode;
+          this.courseListViewMode = (m === "compact" || m === "minimal" || m === "full") ? m : "full";
+          this.showAllDetails = (this.courseListViewMode === "full");
+        } else if (typeof saved.showAllDetails === "boolean") {
+          // Back-compat: old toggle maps into view mode
+          this.courseListViewMode = saved.showAllDetails ? "full" : "compact";
+          this.showAllDetails = !!saved.showAllDetails;
         }
         if (typeof saved.myNotesOpen === "boolean") {
           this.myNotesOpen = saved.myNotesOpen;
@@ -1675,7 +1700,9 @@ function coursePlanner() {
         selectedTags:     this.selectedTags,
         searchQuery:      this.searchQuery,
         myCoursesOnly:    this.myCoursesOnly,
-        showAllDetails:   this.showAllDetails,
+        
+        ...(this._hasSetCourseListViewMode ? { courseListViewMode: this.courseListViewMode } : {}),
+        
         myNotesOpen:      this.myNotesOpen,
         filtersOpen:      this.filtersOpen,
         editMode:         this.editMode,
