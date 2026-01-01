@@ -1388,14 +1388,24 @@ function coursePlanner() {
 
       // clear everything (used by Clear selected button)
       clearAllFilters() {
+        // grade
         this.selectedGrades = [];
         this.gradeDropdownOpen = false;
 
+        // subject
         this.selectedSubjects = [];
         this.subjectDropdownOpen = false;
 
+        // planning tags
         this.selectedTags = [];
         this.tagDropdownOpen = false;
+
+        // students
+        this.selectedStudents = [];
+        this.studentDropdownOpen = false;
+
+        // search
+        this.searchQuery = "";
 
         this.applyFilters();
       },
