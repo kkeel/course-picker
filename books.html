@@ -1388,7 +1388,7 @@
                                             </div>
                                           </template>
                                           
-                                          <!-- Ghost / Empty: show only +Add in the prep area -->
+                                          <!-- Ghost / Empty: show header + (open) body with ONLY bottom + Add -->
                                           <template x-if="!(
                                             isResourceInMyBooks(a.resourceId) &&
                                             (
@@ -1398,77 +1398,58 @@
                                               )
                                             )
                                           )">
-                                            <div class="resource-bottom-head">
-                                              <div class="resource-bottom-head-left">
-                                                <div class="resource-bottom-head-text">
-                                                  <div class="resource-bottom-title">
-                                                    Resource Preparation & Tracking
+                                            <div>
+                                              <div class="resource-bottom-head">
+                                                <div class="resource-bottom-head-left">
+                                                  <button
+                                                    type="button"
+                                                    class="prep-collapse-btn"
+                                                    :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
+                                                    @click.stop="togglePrepOpen(a.resourceId)"
+                                                    aria-label="Toggle Resource Preparation"
+                                                  >
+                                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                      <path
+                                                        d="M7 10l5 5 5-5"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        stroke-width="2"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                      </path>
+                                                    </svg>
+                                                  </button>
+                                          
+                                                  <div class="resource-bottom-head-text">
+                                                    <div class="resource-bottom-title">
+                                                      Resource Preparation &amp; Tracking
+                                                    </div>
                                                   </div>
                                                 </div>
                                               </div>
                                           
-                                              <div class="resource-bottom-head-right">
-                                                <!-- Ghost / Empty: show header + (open) body with ONLY bottom + Add -->
-                                                <template x-if="!(
-                                                  isResourceInMyBooks(a.resourceId) &&
-                                                  (
-                                                    !((this._myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
-                                                    isResourceOwnedHere(
+                                              <div
+                                                class="resource-prep-body"
+                                                x-show="isPrepOpen(a.resourceId)"
+                                                x-transition
+                                                x-cloak
+                                              >
+                                                <div class="prep-options-add-row">
+                                                  <button
+                                                    type="button"
+                                                    class="prep-options-btn prep-options-btn--slim"
+                                                    @click.stop="ensureMyBooksOwnedForPrep(
+                                                      a.resourceId,
                                                       myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
-                                                    )
-                                                  )
-                                                )">
-                                                  <div>
-                                                    <div class="resource-bottom-head">
-                                                      <div class="resource-bottom-head-left">
-                                                        <button
-                                                          type="button"
-                                                          class="prep-collapse-btn"
-                                                          :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
-                                                          @click.stop="togglePrepOpen(a.resourceId)"
-                                                          aria-label="Toggle Resource Preparation"
-                                                        >
-                                                          <svg viewBox="0 0 24 24" aria-hidden="true">
-                                                            <path
-                                                              d="M7 10l5 5 5-5"
-                                                              fill="none"
-                                                              stroke="currentColor"
-                                                              stroke-width="2"
-                                                              stroke-linecap="round"
-                                                              stroke-linejoin="round">
-                                                            </path>
-                                                          </svg>
-                                                        </button>
-                                                
-                                                        <div class="resource-bottom-head-text">
-                                                          <div class="resource-bottom-title">
-                                                            Resource Preparation &amp; Tracking
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                
-                                                    <div
-                                                      class="resource-prep-body"
-                                                      x-show="isPrepOpen(a.resourceId)"
-                                                      x-transition
-                                                      x-cloak
-                                                    >
-                                                      <div class="prep-options-add-row">
-                                                        <button
-                                                          type="button"
-                                                          class="prep-options-btn prep-options-btn--slim"
-                                                          @click.stop="ensureMyBooksOwnedForPrep(
-                                                            a.resourceId,
-                                                            myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
-                                                          )"
-                                                        >
-                                                          + Add
-                                                        </button>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </template>
+                                                    )"
+                                                  >
+                                                    + Add
+                                                  </button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </template>
+
                                         </div>
                                     
                                         <!-- DIVIDER -->
