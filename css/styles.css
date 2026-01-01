@@ -276,6 +276,136 @@ body {
   justify-self: start;
 }
 
+/* Students dropdown sits under Grade */
+.student-tools-row > .relative{
+  grid-column: 1;
+  min-width: 0;
+}
+
+/* Let List View span columns 3–4 (acts like one combined “wide” column) */
+.student-tools-row .list-view-controls{
+  grid-column: 3 / 5;        /* spans col 3 + col 4 */
+  justify-self: end;         /* right-align the whole block */
+  width: 100%;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+
+  flex-wrap: wrap;
+  min-width: 0;
+  margin: 0;
+}
+
+/* List View styling (match filter box tone) */
+.student-tools-row .list-view-label{
+  color: var(--brand-muted);
+  font-size: 14px;
+  font-weight: 300;
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  white-space: nowrap;
+}
+
+.student-tools-row .list-view-radio{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--brand-muted);
+  font-size: 14px;
+  font-weight: 300;
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  white-space: nowrap;
+}
+
+.student-tools-row .list-view-radio input{
+  width: 14px;
+  height: 14px;
+  accent-color: #596e5e;
+}
+
+/* ===== 4-col → 3-col ===== */
+@media (max-width: 1180px){
+  .student-tools-row{
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .student-tools-row > .relative{
+    grid-column: 1 !important;
+  }
+
+  .student-tools-row .manage-students-toggle{
+    grid-column: 2 !important;
+    justify-self: start;
+  }
+
+  .student-tools-row .list-view-controls{
+    grid-column: 3 !important;
+    justify-self: end;
+    width: 100%;
+  }
+}
+
+/* ===== 2 columns ===== */
+@media (max-width: 980px){
+  .student-tools-row{
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .student-tools-row > .relative{
+    grid-column: 1 !important;
+  }
+
+  .student-tools-row .list-view-controls{
+    grid-column: 2 !important;
+    justify-self: end;
+    width: 100%;
+  }
+
+  .student-tools-row .manage-students-toggle{
+    grid-column: 1 !important;
+    grid-row: 2;
+    justify-self: start;
+  }
+}
+
+/* ===== Mobile: stack cleanly ===== */
+@media (max-width: 640px){
+  .student-tools-row{
+    grid-template-columns: 1fr !important;
+    row-gap: 10px;
+  }
+
+  .student-tools-row > .relative{
+    grid-column: 1 !important;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .student-tools-row .manage-students-toggle{
+    grid-column: 1 !important;
+    justify-self: start;
+  }
+
+  .student-tools-row .list-view-controls{
+    grid-column: 1 !important;
+    justify-self: start;
+    width: 100%;
+    justify-content: flex-start;
+
+    flex-wrap: wrap;
+    white-space: normal;
+    gap: 10px;
+  }
+
+  .student-tools-row .list-view-label,
+  .student-tools-row .list-view-radio{
+    white-space: normal !important;
+  }
+}
+
 .manage-students-toggle{
   display:inline-flex;
   align-items:center;
@@ -2006,4 +2136,14 @@ body {
     display: none !important;
   }
   
+}
+
+/* -----------------------------------------
+   Course List: List View modes
+----------------------------------------- */
+
+/* Minimal: hide student rails completely */
+.course-list-shell.listview-minimal .student-rail-toggle-row,
+.course-list-shell.listview-minimal .student-chip-row{
+  display: none !important;
 }
