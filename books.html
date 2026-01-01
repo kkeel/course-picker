@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,7 +95,7 @@
   </footer>
 
   <!-- Main content -->
-  <main class="main-content px-6 lg:px-16 pb-16 space-y-10">
+  <main class="main-content px-6 lg:px-16 pb-16 space-y-10" :class="listViewModeClass()">
 
     <!-- Book List -->
     <section>
@@ -1056,10 +1055,10 @@
                       <!-- Resource cards (course-level) -->
                       <div
                         class="resource-list"
-                        x-show="(assignmentsByTargetId[(course.recordID || course.id)] || []).length"
+                        x-show="visibleAssignmentsForCourse(course).length"
                       >
                         <template
-                          x-for="a in (assignmentsByTargetId[(course.recordID || course.id)] || [])"
+                          x-for="a in visibleAssignmentsForCourse(course)"
                           :key="'rc-' + a.assignmentId"
                         >
                           <div class="resource-card has-bottom-strip">
@@ -1854,10 +1853,10 @@
                             <!-- Resource cards (topic-level) -->
                             <div
                               class="resource-list"
-                              x-show="(assignmentsByTargetId[(topic.recordID || topic.id)] || []).length"
+                              x-show="visibleAssignmentsForTopic(course, topic).length"
                             >
                               <template
-                                x-for="a in (assignmentsByTargetId[(topic.recordID || topic.id)] || [])"
+                                x-for="a in visibleAssignmentsForTopic(course, topic)"
                                 :key="'rt-' + a.assignmentId"
                               >
                                 <div class="resource-card has-bottom-strip">
