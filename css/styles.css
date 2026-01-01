@@ -801,8 +801,9 @@ body {
    List View: Minimal
    ========================= */
 
-/* Minimal = hide ALL student rails (course + topic) */
-.course-list-shell.listview-minimal .student-rail-toggle-row{
+/* Minimal = hide ALL student rail UI (toggle + chips) */
+.course-list-shell.listview-minimal .student-rail-toggle-row,
+.course-list-shell.listview-minimal .student-chip-row{
   display: none !important;
 }
 
