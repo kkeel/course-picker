@@ -1600,3 +1600,40 @@
     margin-top: 0 !important;
   }
 }
+
+/* -----------------------------------------
+   Book List: List View controls (Full/Compact/Minimal)
+----------------------------------------- */
+
+.student-tools-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.list-view-controls {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.list-view-label {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.list-view-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.list-view-radio input[type="radio"] {
+  transform: translateY(0.5px);
+}
+
