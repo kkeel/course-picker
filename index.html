@@ -509,6 +509,43 @@
               >
                 Manage Students
               </button>
+              <!-- List View (Full / Compact / Minimal) -->
+              <div class="list-view-controls" role="group" aria-label="List view">
+                <span class="list-view-label">List view:</span>
+
+                <label class="list-view-radio">
+                  <input
+                    type="radio"
+                    name="courseListView"
+                    value="full"
+                    :checked="courseListViewMode === 'full'"
+                    @change="setCourseListViewMode('full')"
+                  >
+                  Full
+                </label>
+
+                <label class="list-view-radio">
+                  <input
+                    type="radio"
+                    name="courseListView"
+                    value="compact"
+                    :checked="courseListViewMode === 'compact'"
+                    @change="setCourseListViewMode('compact')"
+                  >
+                  Compact
+                </label>
+
+                <label class="list-view-radio">
+                  <input
+                    type="radio"
+                    name="courseListView"
+                    value="minimal"
+                    :checked="courseListViewMode === 'minimal'"
+                    @change="setCourseListViewMode('minimal')"
+                  >
+                  Minimal
+                </label>
+              </div>
             </div>
 
             <div
@@ -633,16 +670,6 @@
 
               <!-- Right: toggles -->
               <div class="flex gap-4 justify-start md:justify-end flex-wrap">
-                <div
-                  class="toggle"
-                  :class="showAllDetails ? 'toggle--on' : ''"
-                  @click="toggleAllDetails()"
-                >
-                  <div class="toggle-switch">
-                    <div class="toggle-switch-knob"></div>
-                  </div>
-                  <span>Descriptions &amp; Tips</span>
-                </div>
 
                 <div
                   class="toggle"
@@ -671,7 +698,7 @@
       </div>     <!-- .filter-state-wrapper -->
 
       <!-- Dynamic course list -->
-      <div class="course-list-shell mt-10">
+      <div class="course-list-shell mt-10" :class="courseListViewModeClass">
       
         <!-- Loading & error states -->
         <p x-show="isLoadingCourses" class="text-sm text-muted">Loading courses…</p>
