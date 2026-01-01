@@ -1668,6 +1668,51 @@
   accent-color: #596e5e; /* brand green */
 }
 
+/* =========================================================
+   MOBILE: Students + List View should stack cleanly
+   - Students becomes full width like other dropdowns
+   - List View wraps and does NOT slide off-screen
+   ========================================================= */
+@media (max-width: 640px){
+
+  /* Stack the entire "Students row" into a single column */
+  .student-tools-row{
+    grid-template-columns: 1fr !important;
+    row-gap: 10px;
+  }
+
+  /* Students dropdown wrapper should span full width */
+  .student-tools-row > .relative{
+    grid-column: 1 !important;
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* If Manage Students is present anywhere, keep it from causing layout issues */
+  .student-tools-row .manage-students-toggle{
+    grid-column: 1 !important;
+    justify-self: start;
+  }
+
+  /* List View should become its own full-width row and WRAP */
+  .student-tools-row .list-view-controls{
+    grid-column: 1 !important;
+    justify-self: start;
+    width: 100%;
+
+    /* allow wrapping instead of sliding off-screen */
+    flex-wrap: wrap;
+    white-space: normal;
+    gap: 10px;
+  }
+
+  /* Remove nowrap so label + radios can wrap naturally */
+  .student-tools-row .list-view-label,
+  .student-tools-row .list-view-radio{
+    white-space: normal !important;
+  }
+}
+
 /* -----------------------------------------
    Book List: List View modes
 ----------------------------------------- */
