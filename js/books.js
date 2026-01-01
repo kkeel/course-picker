@@ -84,6 +84,64 @@
         }
       },
 
+      listViewModeClass() {
+        const v = (this.listViewMode === "compact" || this.listViewMode === "minimal" || this.listViewMode === "full")
+          ? this.listViewMode
+          : "full";
+        return `listview-${v}`;
+      },
+      
+      _visibleAssignmentsFilter(arr, instanceKeyFn) {
+        const list = Array.isArray(arr) ? arr : [];
+      
+        // Normal mode = show all assignments (current behavior)
+        if (!this.myBooksOnly) {
+          return list.filter(a => String(a?.resourceId || "").trim());
+        }
+      
+        // My Books mode:
+        // - must be in My Books
+        // - must be owned here if the resource has owners
+        return list.filter(a => {
+          const rid = String(a?.resourceId || "").trim();
+          if (!rid) return false;
+      
+          if (!this.isResourceInMyBooks(rid)) return false;
+      
+          const owners = (this._myBooksOwnersByResourceId?.[String(rid)] || []);
+          if (!owners.length) return true; // legacy/unscoped => treat as visible everywhere
+      
+          const instanceKey = typeof instanceKeyFn === "function" ? instanceKeyFn(rid) : "";
+          return !!instanceKey && this.isResourceOwnedHere(instanceKey);
+        });
+      },
+      
+      visibleAssignmentsForCourse(course) {
+        const courseId = (course?.recordID || course?.id);
+        const tid = String(courseId || "");
+        const arr = this.assignmentsByTargetId?.[tid] || [];
+        return this._visibleAssignmentsFilter(arr, (rid) =>
+          this.myBooksInstanceKeyForCourse(tid, rid)
+        );
+      },
+      
+      visibleAssignmentsForTopic(course, topic) {
+        const topicId = (topic?.recordID || topic?.id);
+        const tid = String(topicId || "");
+        const arr = this.assignmentsByTargetId?.[tid] || [];
+        return this._visibleAssignmentsFilter(arr, (rid) =>
+          this.myBooksInstanceKeyForTopic(tid, rid)
+        );
+      },
+      
+      _hasVisibleAssignmentsForCourse(course) {
+        return this.visibleAssignmentsForCourse(course).length > 0;
+      },
+      
+      _hasVisibleAssignmentsForTopic(course, topic) {
+        return this.visibleAssignmentsForTopic(course, topic).length > 0;
+      },
+
       async init() {
         // Run your normal init first (courses/topics load, auth wrapper, etc.)
         if (typeof originalInit === "function") {
@@ -734,7 +792,11 @@ prepStatusColor(status) {
         if (this.isLoadingBookData || !this.assignmentsData) return topics;
 
         // Published view: keep only topics with at least one assignment
-        return topics.filter(t => this._bookHasAssignments(t));
+        return topics.filter(t => {
+          return this.myBooksOnly
+            ? this._hasVisibleAssignmentsForTopic(course, t)
+            : this._bookHasAssignments(t);
+        });
       },
 
       // Override: subject -> courses map used by the Book List template
@@ -757,7 +819,9 @@ prepStatusColor(status) {
             const hasTopics = Array.isArray(course?.topics) && course.topics.length > 0;
 
             // Course-level assignments (course itself as target)
-            const courseHas = this._bookHasAssignments(course);
+            const courseHas = this.myBooksOnly
+              ? this._hasVisibleAssignmentsForCourse(course)
+              : this._bookHasAssignments(course);
 
             // Topic-level assignments (any visible topic has an assignment)
             const topicsVisible = hasTopics ? this.visibleTopicsForCourse(course) : [];
