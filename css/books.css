@@ -1605,7 +1605,7 @@
    Book List: List View controls (Full/Compact/Minimal)
 ----------------------------------------- */
 
-/* --- Students (Manage + filter) ---------------------------------- */
+/* --- Students (Manage + filter) + List View ---------------------------------- */
 .student-tools-row{
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1615,19 +1615,19 @@
   margin: 6px 0 14px;
 }
 
-/* Force the Students dropdown to behave like a single "Grade-width" column */
+/* Students dropdown sits under Grade */
 .student-tools-row > .relative{
   grid-column: 1;
   min-width: 0;
 }
 
-/* Keep Manage Students aligned next to Students (under Subject column) */
+/* Manage Students under Subject */
 .student-tools-row .manage-students-toggle{
   grid-column: 2;
   justify-self: start;
 }
 
-/* Put List View under Search (far right), leaving column 3 as "blank space" */
+/* List View under Search (far right) */
 .student-tools-row .list-view-controls{
   grid-column: 4;
   justify-self: start;
@@ -1636,8 +1636,10 @@
   align-items: center;
   gap: 14px;
 
-  margin: 0;
+  /* KEY: allow wrapping when space gets tight */
+  flex-wrap: wrap;
   min-width: 0;
+  margin: 0;
 }
 
 /* --- List View styling (match filter box tone) --- */
@@ -1666,6 +1668,70 @@
   width: 14px;
   height: 14px;
   accent-color: #596e5e; /* brand green */
+}
+
+/* =========================================================
+   MID WIDTH: stop overflow BEFORE mobile
+   - switch to 2 columns so radios don't slide off-screen
+   ========================================================= */
+@media (max-width: 980px){
+
+  .student-tools-row{
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  /* Students stays left */
+  .student-tools-row > .relative{
+    grid-column: 1 !important;
+  }
+
+  /* List View becomes the right column */
+  .student-tools-row .list-view-controls{
+    grid-column: 2 !important;
+    justify-self: start;
+    width: 100%;
+  }
+
+  /* Manage Students drops under Students */
+  .student-tools-row .manage-students-toggle{
+    grid-column: 1 !important;
+    grid-row: 2;
+  }
+}
+
+/* =========================================================
+   MOBILE: Students + List View stack cleanly
+   ========================================================= */
+@media (max-width: 640px){
+
+  .student-tools-row{
+    grid-template-columns: 1fr !important;
+    row-gap: 10px;
+  }
+
+  .student-tools-row > .relative{
+    grid-column: 1 !important;
+    width: 100%;
+  }
+
+  .student-tools-row .manage-students-toggle{
+    grid-column: 1 !important;
+    justify-self: start;
+  }
+
+  .student-tools-row .list-view-controls{
+    grid-column: 1 !important;
+    justify-self: start;
+    width: 100%;
+    gap: 10px;
+    white-space: normal;
+  }
+
+  /* allow label + radios to wrap */
+  .student-tools-row .list-view-label,
+  .student-tools-row .list-view-radio{
+    white-space: normal !important;
+  }
 }
 
 /* =========================================================
