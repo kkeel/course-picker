@@ -126,11 +126,15 @@
       },
       
       visibleAssignmentsForTopic(course, topic) {
-        const topicId = (topic?.recordID || topic?.id);
-        const tid = String(topicId || "");
+        const courseId = (course?.recordID || course?.id);
+        const topicId  = (topic?.recordID || topic?.id);
+      
+        const cid = String(courseId || "");
+        const tid = String(topicId  || "");
+      
         const arr = this.assignmentsByTargetId?.[tid] || [];
         return this._visibleAssignmentsFilter(arr, (rid) =>
-          this.myBooksInstanceKeyForTopic(tid, rid)
+          this.myBooksInstanceKeyForTopic(cid, tid, rid)
         );
       },
       
