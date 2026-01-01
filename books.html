@@ -636,23 +636,16 @@
                   class="btn-pill"
                   @click="clearAllFilters()"
                 >
-                  <span class="btn-pill-icon bookmark-reset" aria-hidden="true">
+                  <span class="btn-pill-icon" aria-hidden="true">
+                    <!-- Filter (funnel) icon -->
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <!-- bookmark outline -->
-                      <path d="M7 5h10v14l-5-3-5 3V5z"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.8"
-                            stroke-linejoin="round" />
-                      <!-- X inside bookmark -->
-                      <line x1="9" y1="9" x2="15" y2="15"
-                            stroke="currentColor"
-                            stroke-width="1.8"
-                            stroke-linecap="round" />
-                      <line x1="15" y1="9" x2="9" y2="15"
-                            stroke="currentColor"
-                            stroke-width="1.8"
-                            stroke-linecap="round" />
+                      <path
+                        d="M4 5h16l-6.5 7.5V19l-3-1.5v-5L4 5z"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linejoin="round"
+                      />
                     </svg>
                   </span>
                   <span>Clear filters</span>
