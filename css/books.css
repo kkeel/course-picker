@@ -1605,52 +1605,67 @@
    Book List: List View controls (Full/Compact/Minimal)
 ----------------------------------------- */
 
-.student-tools-row {
-  display: flex;
+/* --- Students (Manage + filter) ---------------------------------- */
+.student-tools-row{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 8px;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  margin: 6px 0 14px;
 }
 
-/* Let the Students dropdown take real width again */
-.student-tools-row > .relative {
-  flex: 1 1 340px;   /* grow + shrink, preferred width */
-  min-width: 260px;  /* prevents “squeezed” look */
+/* Force the Students dropdown to behave like a single "Grade-width" column */
+.student-tools-row > .relative{
+  grid-column: 1;
+  min-width: 0;
 }
 
-/* Keep the List View cluster to the far right */
-.list-view-controls {
-  margin-left: auto;
+/* Keep Manage Students aligned next to Students (under Subject column) */
+.student-tools-row .manage-students-toggle{
+  grid-column: 2;
+  justify-self: start;
+}
+
+/* Put List View under Search (far right), leaving column 3 as "blank space" */
+.student-tools-row .list-view-controls{
+  grid-column: 4;
+  justify-self: start;
+
   display: inline-flex;
   align-items: center;
   gap: 14px;
+
+  margin: 0;
+  min-width: 0;
+}
+
+/* --- List View styling (match filter box tone) --- */
+.student-tools-row .list-view-label{
+  color: var(--brand-muted);
+  font-size: 14px;
+  font-weight: 300;
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   white-space: nowrap;
-
-  color: #0c343d;
-  font-size: 13px;
 }
 
-.list-view-label {
-  font-size: 13px;
-  font-weight: 600;
-  opacity: 0.85;
-}
-
-.list-view-radio {
+.student-tools-row .list-view-radio{
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 13px;
-  cursor: pointer;
-  color: #0c343d;
-  opacity: 0.85;
+
+  color: var(--brand-muted);
+  font-size: 14px;
+  font-weight: 300;
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  white-space: nowrap;
 }
 
-/* Brand-colored radios */
-.list-view-radio input[type="radio"] {
+.student-tools-row .list-view-radio input{
   width: 14px;
   height: 14px;
-  accent-color: #596e5e;
+  accent-color: #596e5e; /* brand green */
 }
 
 /* -----------------------------------------
