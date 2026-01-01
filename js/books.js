@@ -283,6 +283,48 @@
         this.persistPlannerStateDebounced();
       },
 
+      // For ghost/empty prep "+ Add": ensure this instance becomes OWNED,
+      // force the prep section open, and only add the first prep line if none exist yet.
+      ensureMyBooksOwnedForPrep(resourceId, instanceKey) {
+        if (!resourceId) return;
+
+        const rid = String(resourceId);
+        const key = String(instanceKey || "");
+
+        // 1) Ensure OWNERSHIP for this instance
+        if (key) {
+          // Ghost -> owned
+          if (this.isResourceGhostMyBooks(rid, key)) {
+            this.applyResourceMyBooksHere(rid, key);
+          }
+          // Empty -> owned (instance-aware add)
+          else if (!this.isResourceInMyBooks(rid)) {
+            this.toggleResourceMyBooks(rid, key);
+          }
+          // Global exists but not owned here (extra safety)
+          else if (!this.isResourceOwnedHere(key) && ((this._myBooksOwnersByResourceId?.[rid] || []).length)) {
+            this.applyResourceMyBooksHere(rid, key);
+          }
+          // Legacy/unscoped (owners empty): do nothing here; it behaves "owned everywhere"
+        } else {
+          // Fallback: legacy global add
+          if (!this.isResourceInMyBooks(rid)) this.toggleResourceMyBooks(rid);
+        }
+
+        // 2) Force prep open
+        if (!this._prepOpenByResourceId) this._prepOpenByResourceId = {};
+        this._prepOpenByResourceId[rid] = true;
+
+        // 3) If there are no prep lines yet, create the first line (old behavior)
+        const existing = this.getPrepOptions(rid);
+        if (!existing.length) {
+          this.addPrepOption(rid); // adds one default row
+        } else {
+          // Still persist the "open" state + ownership change
+          this.persistPlannerStateDebounced();
+        }
+      },
+
       // Toggle "My Books" for THIS instance.
       // If instanceKey isn't provided, this behaves like the legacy global toggle.
       toggleResourceMyBooks(resourceId, instanceKey = "") {
