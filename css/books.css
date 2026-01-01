@@ -1618,11 +1618,15 @@
   align-items: center;
   gap: 10px;
   white-space: nowrap;
+
+  color: #0c343d;
 }
 
 .list-view-label {
   font-size: 12px;
-  opacity: 0.85;
+  font-weight: 600;
+  color: #0c343d;
+  opacity: 0.9;
 }
 
 .list-view-radio {
@@ -1631,9 +1635,30 @@
   gap: 6px;
   font-size: 12px;
   cursor: pointer;
+  color: #0c343d;
 }
 
 .list-view-radio input[type="radio"] {
   transform: translateY(0.5px);
+  accent-color: #596e5e; /* brand green */
+}
+
+/* -----------------------------------------
+   Book List: List View modes
+----------------------------------------- */
+
+/* Compact: hide rationale + note/may-sub + scope/shared column */
+.listview-compact .resource-rationale,
+.listview-compact .resource-tipbox,
+.listview-compact .resource-info-right {
+  display: none !important;
+}
+
+/* Minimal: everything in Compact + hide the prep/bottom strip */
+.listview-minimal .resource-rationale,
+.listview-minimal .resource-tipbox,
+.listview-minimal .resource-info-right,
+.listview-minimal .resource-bottom-strip {
+  display: none !important;
 }
 
