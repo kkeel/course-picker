@@ -1612,35 +1612,45 @@
   flex-wrap: wrap;
 }
 
+/* Let the Students dropdown take real width again */
+.student-tools-row > .relative {
+  flex: 1 1 340px;   /* grow + shrink, preferred width */
+  min-width: 260px;  /* prevents “squeezed” look */
+}
+
+/* Keep the List View cluster to the far right */
 .list-view-controls {
   margin-left: auto;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
   white-space: nowrap;
 
   color: #0c343d;
+  font-size: 13px;
 }
 
 .list-view-label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  color: #0c343d;
-  opacity: 0.9;
+  opacity: 0.85;
 }
 
 .list-view-radio {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
   color: #0c343d;
+  opacity: 0.85;
 }
 
+/* Brand-colored radios */
 .list-view-radio input[type="radio"] {
-  transform: translateY(0.5px);
-  accent-color: #596e5e; /* brand green */
+  width: 14px;
+  height: 14px;
+  accent-color: #596e5e;
 }
 
 /* -----------------------------------------
