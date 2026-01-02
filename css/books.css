@@ -1225,11 +1225,6 @@
 
 .books-page [x-show="planningMenuOpen"] { display: none !important; }
 
-.books-page .manage-students-toggle,
-.books-page .student-manager {
-  display: none !important;
-}
-
 .books-page .student-rail-toggle-row .planning-tag-add { display: none !important; }
 
 .books-page .student-chip-remove,
