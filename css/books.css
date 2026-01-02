@@ -1871,8 +1871,7 @@
 
 /* Compact: hide rationale + note/may-sub + scope/shared column */
 .listview-compact .resource-rationale,
-.listview-compact .resource-tipbox,
-.listview-compact .resource-info-right {
+.listview-compact .resource-tipbox {
   display: none !important;
 }
 
