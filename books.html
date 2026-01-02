@@ -1485,46 +1485,56 @@
                                 <!-- divider -->
                                 <div class="resource-info-divider" aria-hidden="true"></div>
                               
-                                <!-- RIGHT (narrow): FULL = scope/shared ; COMPACT = purchase options -->
+                                <!-- RIGHT (narrow): FULL/MINIMAL = scope + shared ; COMPACT = scope + purchase -->
                                 <div class="resource-info-right">
-                              
-                                  <!-- FULL / MINIMAL -->
-                                  <div x-show="listViewMode !== 'compact'">
-                                    <div class="resource-meta-block resource-meta-block--scope" x-show="assignmentScopeText(a)" x-cloak>
-                                      <div class="resource-meta-label">Scope</div>
-                                      <div class="resource-meta-text" x-text="assignmentScopeText(a)"></div>
-                                    </div>
-                              
-                                    <div class="resource-meta-block resource-meta-block--shared" x-show="assignmentSharedR3Text(a)" x-cloak>
-                                      <div class="resource-meta-label">↔ Shared</div>
-                                      <div class="resource-meta-text" x-text="assignmentSharedR3Text(a)"></div>
+                                
+                                  <!-- Scope stays in column 1 (all view modes) -->
+                                  <div
+                                    class="resource-meta-block resource-meta-block--scope"
+                                    x-show="assignmentScopeText(a)"
+                                    x-cloak
+                                  >
+                                    <div class="resource-meta-label">Scope</div>
+                                    <div class="resource-meta-text" x-text="assignmentScopeText(a)"></div>
+                                  </div>
+                                
+                                  <!-- Shared stays in column 2 (FULL + MINIMAL only) -->
+                                  <div
+                                    class="resource-meta-block resource-meta-block--shared"
+                                    x-show="listViewMode !== 'compact' && assignmentSharedR3Text(a)"
+                                    x-cloak
+                                  >
+                                    <div class="resource-meta-label">↔ Shared</div>
+                                    <div class="resource-meta-text" x-text="assignmentSharedR3Text(a)"></div>
+                                  </div>
+                                
+                                  <!-- Purchase Options uses column 2 (COMPACT only, replaces Shared area) -->
+                                  <div
+                                    class="resource-meta-block resource-meta-block--shared"
+                                    x-show="listViewMode === 'compact'"
+                                    x-cloak
+                                  >
+                                    <div class="resource-meta-label">Purchase Options</div>
+                                
+                                    <div
+                                      class="resource-buy-links"
+                                      x-show="(resourcesById[a.resourceId]?.links || []).length"
+                                      x-cloak
+                                    >
+                                      <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
+                                        <a
+                                          class="buy-link-pill"
+                                          :href="lnk.url"
+                                          target="_blank"
+                                          rel="noopener"
+                                          x-text="lnk.text || 'Link'"
+                                        ></a>
+                                      </template>
                                     </div>
                                   </div>
-                              
-                                  <!-- COMPACT -->
-                                  <div x-show="listViewMode === 'compact'" x-cloak>
-                                    <div class="resource-bottom-buy">
-                                      <div class="resource-bottom-title">Purchase Options</div>
-                              
-                                      <div
-                                        class="resource-buy-links"
-                                        x-show="(resourcesById[a.resourceId]?.links || []).length"
-                                        x-cloak
-                                      >
-                                        <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
-                                          <a
-                                            class="buy-link-pill"
-                                            :href="lnk.url"
-                                            target="_blank"
-                                            rel="noopener"
-                                            x-text="lnk.text || 'Link'"
-                                          ></a>
-                                        </template>
-                                      </div>
-                                    </div>
-                                  </div>
-                              
+                                
                                 </div>
+
                               </div>
 
                             </div>
@@ -2517,46 +2527,56 @@
                                       <!-- divider -->
                                       <div class="resource-info-divider" aria-hidden="true"></div>
                                     
-                                      <!-- RIGHT (narrow): FULL = scope/shared ; COMPACT = purchase options -->
+                                      <!-- RIGHT (narrow): FULL/MINIMAL = scope + shared ; COMPACT = scope + purchase -->
                                       <div class="resource-info-right">
-                                    
-                                        <!-- FULL / MINIMAL -->
-                                        <div x-show="listViewMode !== 'compact'">
-                                          <div class="resource-meta-block resource-meta-block--scope" x-show="assignmentScopeText(a)" x-cloak>
-                                            <div class="resource-meta-label">Scope</div>
-                                            <div class="resource-meta-text" x-text="assignmentScopeText(a)"></div>
-                                          </div>
-                                    
-                                          <div class="resource-meta-block resource-meta-block--shared" x-show="assignmentSharedR3Text(a)" x-cloak>
-                                            <div class="resource-meta-label">↔ Shared</div>
-                                            <div class="resource-meta-text" x-text="assignmentSharedR3Text(a)"></div>
+                                      
+                                        <!-- Scope stays in column 1 (all view modes) -->
+                                        <div
+                                          class="resource-meta-block resource-meta-block--scope"
+                                          x-show="assignmentScopeText(a)"
+                                          x-cloak
+                                        >
+                                          <div class="resource-meta-label">Scope</div>
+                                          <div class="resource-meta-text" x-text="assignmentScopeText(a)"></div>
+                                        </div>
+                                      
+                                        <!-- Shared stays in column 2 (FULL + MINIMAL only) -->
+                                        <div
+                                          class="resource-meta-block resource-meta-block--shared"
+                                          x-show="listViewMode !== 'compact' && assignmentSharedR3Text(a)"
+                                          x-cloak
+                                        >
+                                          <div class="resource-meta-label">↔ Shared</div>
+                                          <div class="resource-meta-text" x-text="assignmentSharedR3Text(a)"></div>
+                                        </div>
+                                      
+                                        <!-- Purchase Options uses column 2 (COMPACT only, replaces Shared area) -->
+                                        <div
+                                          class="resource-meta-block resource-meta-block--shared"
+                                          x-show="listViewMode === 'compact'"
+                                          x-cloak
+                                        >
+                                          <div class="resource-meta-label">Purchase Options</div>
+                                      
+                                          <div
+                                            class="resource-buy-links"
+                                            x-show="(resourcesById[a.resourceId]?.links || []).length"
+                                            x-cloak
+                                          >
+                                            <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
+                                              <a
+                                                class="buy-link-pill"
+                                                :href="lnk.url"
+                                                target="_blank"
+                                                rel="noopener"
+                                                x-text="lnk.text || 'Link'"
+                                              ></a>
+                                            </template>
                                           </div>
                                         </div>
-                                    
-                                        <!-- COMPACT -->
-                                        <div x-show="listViewMode === 'compact'" x-cloak>
-                                          <div class="resource-bottom-buy">
-                                            <div class="resource-bottom-title">Purchase Options</div>
-                                    
-                                            <div
-                                              class="resource-buy-links"
-                                              x-show="(resourcesById[a.resourceId]?.links || []).length"
-                                              x-cloak
-                                            >
-                                              <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
-                                                <a
-                                                  class="buy-link-pill"
-                                                  :href="lnk.url"
-                                                  target="_blank"
-                                                  rel="noopener"
-                                                  x-text="lnk.text || 'Link'"
-                                                ></a>
-                                              </template>
-                                            </div>
-                                          </div>
-                                        </div>
-                                    
+                                      
                                       </div>
+
                                     </div>
 
                                   </div>
