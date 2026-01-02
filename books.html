@@ -1229,206 +1229,6 @@
                                 </div>
                             
                               </div>
-
-                              <!-- COMPACT VIEW: move Resource Prep + Purchase Options up under title/author/isbn -->
-                              <div class="resource-bottom-inner resource-bottom-inner--compact">
-                              
-                                <!-- LEFT: Resource prep header + collapsible body -->
-                                <div class="resource-bottom-left">
-                              
-                                  <!-- Real (owned here) prep UI -->
-                                  <template x-if="
-                                    isResourceInMyBooks(a.resourceId) &&
-                                    (
-                                      !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
-                                      isResourceOwnedHere(
-                                        myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
-                                      )
-                                    )
-                                  ">
-                                    <div>
-                                      <!-- Header -->
-                                      <div class="resource-bottom-head">
-                                        <div class="resource-bottom-head-left">
-                                          <button
-                                            type="button"
-                                            class="prep-collapse-btn"
-                                            :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
-                                            @click.stop="togglePrepOpen(a.resourceId)"
-                                            aria-label="Toggle Resource Preparation"
-                                          >
-                                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                              <path
-                                                d="M7 10l5 5 5-5"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                stroke-width="2"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                              </path>
-                                            </svg>
-                                          </button>
-                              
-                                          <div class="resource-bottom-head-text">
-                                            <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
-                                          </div>
-                                        </div>
-                                      </div>
-                              
-                                      <!-- Body -->
-                                      <div
-                                        class="resource-prep-body"
-                                        x-show="isPrepOpen(a.resourceId)"
-                                        x-transition
-                                        x-cloak
-                                      >
-                                        <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
-                                          <div class="prep-option-row">
-                              
-                                            <span class="prep-status-dot" :style="`background-color:${prepStatusColor(opt.status)}`" aria-hidden="true"></span>
-                              
-                                            <select class="prep-select prep-select--kind"
-                                              :value="opt.kind || 'physical'"
-                                              @change.stop="updatePrepOption(a.resourceId, idx, { kind: $event.target.value })"
-                                              aria-label="Format"
-                                            >
-                                              <option value="physical">📖 Physical</option>
-                                              <option value="digital">💻 Digital</option>
-                                            </select>
-                              
-                                            <select class="prep-select"
-                                              :value="opt.mode || 'purchase'"
-                                              @change.stop="updatePrepOption(a.resourceId, idx, { mode: $event.target.value })"
-                                            >
-                                              <option value="save">Save (digital)</option>
-                                              <option value="print">Print</option>
-                                              <option value="purchase">Purchase</option>
-                                              <option value="library">Library</option>
-                                              <option value="ebook">Ebook</option>
-                                              <option value="audiobook">Audiobook</option>
-                                              <option value="own">Already Own</option>
-                                            </select>
-                              
-                                            <select class="prep-select"
-                                              :value="opt.status || 'not_ready'"
-                                              @change.stop="updatePrepOption(a.resourceId, idx, { status: $event.target.value })"
-                                            >
-                                              <option value="not_ready">Not Ready</option>
-                                              <option value="ordered">Ordered</option>
-                                              <option value="requested">Requested</option>
-                                              <option value="received">Received</option>
-                                              <option value="ready">Ready to Use</option>
-                                            </select>
-                              
-                                            <button
-                                              type="button"
-                                              class="prep-option-remove"
-                                              @click.stop="removePrepOption(a.resourceId, idx)"
-                                              aria-label="Remove option"
-                                              title="Remove"
-                                            >✕</button>
-                                          </div>
-                                        </template>
-                              
-                                        <div class="prep-options-add-row">
-                                          <button
-                                            type="button"
-                                            class="prep-options-btn prep-options-btn--slim"
-                                            @click.stop="addPrepOption(a.resourceId)"
-                                          >
-                                            + Add
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </template>
-                              
-                                  <!-- Ghost / Empty (not owned here) -->
-                                  <template x-if="!(
-                                    isResourceInMyBooks(a.resourceId) &&
-                                    (
-                                      !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
-                                      isResourceOwnedHere(
-                                        myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
-                                      )
-                                    )
-                                  )">
-                                    <div>
-                                      <div class="resource-bottom-head">
-                                        <div class="resource-bottom-head-left">
-                                          <button
-                                            type="button"
-                                            class="prep-collapse-btn"
-                                            :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
-                                            @click.stop="togglePrepOpen(a.resourceId)"
-                                            aria-label="Toggle Resource Preparation"
-                                          >
-                                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                              <path
-                                                d="M7 10l5 5 5-5"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                stroke-width="2"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                              </path>
-                                            </svg>
-                                          </button>
-                              
-                                          <div class="resource-bottom-head-text">
-                                            <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
-                                          </div>
-                                        </div>
-                                      </div>
-                              
-                                      <div
-                                        class="resource-prep-body"
-                                        x-show="isPrepOpen(a.resourceId)"
-                                        x-transition
-                                        x-cloak
-                                      >
-                                        <div class="prep-options-add-row">
-                                          <button
-                                            type="button"
-                                            class="prep-options-btn prep-options-btn--slim"
-                                            @click.stop="ensureMyBooksOwnedForPrep(
-                                              a.resourceId,
-                                              myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
-                                            )"
-                                          >
-                                            + Add
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </template>
-                              
-                                </div>
-                              
-                                <!-- RIGHT: Purchase Options -->
-                                <div class="resource-bottom-right">
-                                  <div class="resource-bottom-buy">
-                                    <div class="resource-bottom-title">Purchase Options</div>
-                              
-                                    <div
-                                      class="resource-buy-links"
-                                      x-show="(resourcesById[a.resourceId]?.links || []).length"
-                                      x-cloak
-                                    >
-                                      <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
-                                        <a
-                                          class="buy-link-pill"
-                                          :href="lnk.url"
-                                          target="_blank"
-                                          rel="noopener"
-                                          x-text="lnk.text || 'Link'"
-                                        ></a>
-                                      </template>
-                                    </div>
-                                  </div>
-                                </div>
-                              
-                              </div>
                             
                               <!-- invisible divider (keeps spacing aligned with bottom section) -->
                               <div class="resource-top-divider" aria-hidden="true"></div>
@@ -1450,90 +1250,287 @@
                             </div>
                               
                               <div class="resource-info-row">
-                              <!-- LEFT (wide): rationale + note/may sub -->
-                              <div class="resource-info-left">
-                            
-                                <!-- RATIONALE -->
-                                <div
-                                  class="resource-rationale"
-                                  x-show="resourcesById[a.resourceId]?.rationale || resourcesById[a.resourceId]?.RATIONALE"
-                                  x-cloak
-                                >
-                                  <span class="resource-rationale-label">➜ RATIONALE:</span>
-                                  <span
-                                    class="resource-rationale-text"
-                                    x-text="
-                                      resourcesById[a.resourceId]?.rationale ||
-                                      resourcesById[a.resourceId]?.RATIONALE
-                                    "
-                                  ></span>
+                                <!-- LEFT (wide): FULL = rationale/tips ; COMPACT = prep/tracking -->
+                                <div class="resource-info-left">
+                              
+                                  <!-- FULL / MINIMAL: rationale + tipbox -->
+                                  <div x-show="listViewMode !== 'compact'">
+                              
+                                    <!-- RATIONALE -->
+                                    <div
+                                      class="resource-rationale"
+                                      x-show="resourcesById[a.resourceId]?.rationale || resourcesById[a.resourceId]?.RATIONALE"
+                                      x-cloak
+                                    >
+                                      <span class="resource-rationale-label">➜ RATIONALE:</span>
+                                      <span
+                                        class="resource-rationale-text"
+                                        x-text="
+                                          resourcesById[a.resourceId]?.rationale ||
+                                          resourcesById[a.resourceId]?.RATIONALE
+                                        "
+                                      ></span>
+                                    </div>
+                              
+                                    <!-- NOTE + May sub + Alt formats -->
+                                    <div class="resource-tipbox"
+                                      x-show="a.noteText || a.maySubText || altFormatsForAssignment(a).length"
+                                      x-cloak
+                                    >
+                                      <template x-if="resourcesById[a.resourceId]?.note">
+                                        <div class="resource-tipbox-item">
+                                          <span class="resource-tipbox-label">NOTE:</span>
+                                          <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.note"></span>
+                                        </div>
+                                      </template>
+                              
+                                      <template x-if="resourcesById[a.resourceId]?.maySub">
+                                        <div class="resource-tipbox-item">
+                                          <span class="resource-tipbox-label">➜ May sub:</span>
+                                          <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub"></span>
+                                        </div>
+                                      </template>
+                              
+                                      <template x-if="altFormatsForAssignment(a).length">
+                                        <div class="resource-tipbox-item resource-tipbox-item--formats">
+                                          <span class="resource-tipbox-label">Alt. Formats:</span>
+                              
+                                          <span class="alt-formats-pills alt-formats-pills--in-tipbox">
+                                            <template x-for="fmt in altFormatsForAssignment(a)" :key="fmt">
+                                              <span class="alt-format-pill"
+                                                    :class="{
+                                                      'alt-format-pill--ebook': fmt.toLowerCase()==='ebook',
+                                                      'alt-format-pill--audiobook': fmt.toLowerCase()==='audiobook',
+                                                      'alt-format-pill--video': fmt.toLowerCase()==='video'
+                                                    }"
+                                                    x-text="fmt"></span>
+                                            </template>
+                                          </span>
+                                        </div>
+                                      </template>
+                                    </div>
+                              
+                                  </div>
+                              
+                                  <!-- COMPACT: Resource Preparation & Tracking (lives where rationale normally lives) -->
+                                  <div x-show="listViewMode === 'compact'" x-cloak>
+                              
+                                    <!-- Owned (solid): show full prep UI -->
+                                    <template x-if="
+                                      isResourceInMyBooks(a.resourceId) &&
+                                      (
+                                        !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
+                                        isResourceOwnedHere(
+                                          myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                        )
+                                      )
+                                    ">
+                                      <div>
+                                        <div class="resource-bottom-head">
+                                          <div class="resource-bottom-head-left">
+                                            <button
+                                              type="button"
+                                              class="prep-collapse-btn"
+                                              :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
+                                              @click.stop="togglePrepOpen(a.resourceId)"
+                                              aria-label="Toggle Resource Preparation"
+                                            >
+                                              <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                <path
+                                                  d="M7 10l5 5 5-5"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round">
+                                                </path>
+                                              </svg>
+                                            </button>
+                              
+                                            <div class="resource-bottom-head-text">
+                                              <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                              
+                                        <div
+                                          class="resource-prep-body"
+                                          x-show="isPrepOpen(a.resourceId)"
+                                          x-transition
+                                          x-cloak
+                                        >
+                                          <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
+                                            <div class="prep-option-row">
+                                              <span class="prep-status-dot" :style="`background-color:${prepStatusColor(opt.status)}`" aria-hidden="true"></span>
+                              
+                                              <select class="prep-select prep-select--kind"
+                                                :value="opt.kind || 'physical'"
+                                                @change.stop="updatePrepOption(a.resourceId, idx, { kind: $event.target.value })"
+                                                aria-label="Format"
+                                              >
+                                                <option value="physical">📖 Physical</option>
+                                                <option value="digital">💻 Digital</option>
+                                              </select>
+                              
+                                              <select class="prep-select"
+                                                :value="opt.mode || 'purchase'"
+                                                @change.stop="updatePrepOption(a.resourceId, idx, { mode: $event.target.value })"
+                                              >
+                                                <option value="save">Save (digital)</option>
+                                                <option value="print">Print</option>
+                                                <option value="purchase">Purchase</option>
+                                                <option value="library">Library</option>
+                                                <option value="ebook">Ebook</option>
+                                                <option value="audiobook">Audiobook</option>
+                                                <option value="own">Already Own</option>
+                                              </select>
+                              
+                                              <select class="prep-select"
+                                                :value="opt.status || 'not_ready'"
+                                                @change.stop="updatePrepOption(a.resourceId, idx, { status: $event.target.value })"
+                                              >
+                                                <option value="not_ready">Not Ready</option>
+                                                <option value="ordered">Ordered</option>
+                                                <option value="requested">Requested</option>
+                                                <option value="received">Received</option>
+                                                <option value="ready">Ready to Use</option>
+                                              </select>
+                              
+                                              <button
+                                                type="button"
+                                                class="prep-option-remove"
+                                                @click.stop="removePrepOption(a.resourceId, idx)"
+                                                aria-label="Remove option"
+                                                title="Remove"
+                                              >✕</button>
+                                            </div>
+                                          </template>
+                              
+                                          <div class="prep-options-add-row">
+                                            <button
+                                              type="button"
+                                              class="prep-options-btn prep-options-btn--slim"
+                                              @click.stop="addPrepOption(a.resourceId)"
+                                            >
+                                              + Add
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </template>
+                              
+                                    <!-- Ghost / Empty: show header + open body with only + Add -->
+                                    <template x-if="!(
+                                      isResourceInMyBooks(a.resourceId) &&
+                                      (
+                                        !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
+                                        isResourceOwnedHere(
+                                          myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                        )
+                                      )
+                                    )">
+                                      <div>
+                                        <div class="resource-bottom-head">
+                                          <div class="resource-bottom-head-left">
+                                            <button
+                                              type="button"
+                                              class="prep-collapse-btn"
+                                              :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
+                                              @click.stop="togglePrepOpen(a.resourceId)"
+                                              aria-label="Toggle Resource Preparation"
+                                            >
+                                              <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                <path
+                                                  d="M7 10l5 5 5-5"
+                                                  fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round">
+                                                </path>
+                                              </svg>
+                                            </button>
+                              
+                                            <div class="resource-bottom-head-text">
+                                              <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                              
+                                        <div
+                                          class="resource-prep-body"
+                                          x-show="isPrepOpen(a.resourceId)"
+                                          x-transition
+                                          x-cloak
+                                        >
+                                          <div class="prep-options-add-row">
+                                            <button
+                                              type="button"
+                                              class="prep-options-btn prep-options-btn--slim"
+                                              @click.stop="ensureMyBooksOwnedForPrep(
+                                                a.resourceId,
+                                                myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                              )"
+                                            >
+                                              + Add
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </template>
+                              
+                                  </div>
                                 </div>
-                            
-                                <!-- NOTE + May sub (single box; NOTE first) -->
-                                <div class="resource-tipbox"
-                                  x-show="a.noteText || a.maySubText || altFormatsForAssignment(a).length"
-                                  x-cloak
-                                >
-                                  <template x-if="resourcesById[a.resourceId]?.note">
-                                    <div class="resource-tipbox-item">
-                                      <span class="resource-tipbox-label">NOTE:</span>
-                                      <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.note"></span>
-                                    </div>
-                                  </template>
-                            
-                                  <template x-if="resourcesById[a.resourceId]?.maySub">
-                                    <div class="resource-tipbox-item">
-                                      <span class="resource-tipbox-label">➜ May sub:</span>
-                                      <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub"></span>
-                                    </div>
-                                  </template>
-
-                                  <template x-if="altFormatsForAssignment(a).length">
-                                    <div class="resource-tipbox-item resource-tipbox-item--formats">
-                                      <span class="resource-tipbox-label">Alt. Formats:</span>
-                                  
-                                      <span class="alt-formats-pills alt-formats-pills--in-tipbox">
-                                        <template x-for="fmt in altFormatsForAssignment(a)" :key="fmt">
-                                          <span class="alt-format-pill"
-                                                :class="{
-                                                  'alt-format-pill--ebook': fmt.toLowerCase()==='ebook',
-                                                  'alt-format-pill--audiobook': fmt.toLowerCase()==='audiobook',
-                                                  'alt-format-pill--video': fmt.toLowerCase()==='video'
-                                                }"
-                                                x-text="fmt"></span>
-                                        </template>
-                                      </span>
-                                    </div>
-                                  </template>
-
-                                </div>
-                            
-                              </div>
-
-                                <!-- Invisible divider (spacing only) -->
+                              
+                                <!-- divider -->
                                 <div class="resource-info-divider" aria-hidden="true"></div>
-                            
-                              <!-- RIGHT (narrow): shared + scope from assignment -->
-                              <div class="resource-info-right">
-
-                                <div class="resource-meta-block resource-meta-block--scope" x-show="assignmentScopeText(a)" x-cloak>
-                                  <div class="resource-meta-label">Scope</div>
-                                  <div class="resource-meta-text" x-text="assignmentScopeText(a)"></div>
-                                </div>
                               
-                                <div class="resource-meta-block resource-meta-block--shared" x-show="assignmentSharedR3Text(a)" x-cloak>
-                                  <div class="resource-meta-label">↔ Shared</div>
-                                  <div class="resource-meta-text" x-text="assignmentSharedR3Text(a)"></div>
-                                </div>
+                                <!-- RIGHT (narrow): FULL = scope/shared ; COMPACT = purchase options -->
+                                <div class="resource-info-right">
                               
+                                  <!-- FULL / MINIMAL -->
+                                  <div x-show="listViewMode !== 'compact'">
+                                    <div class="resource-meta-block resource-meta-block--scope" x-show="assignmentScopeText(a)" x-cloak>
+                                      <div class="resource-meta-label">Scope</div>
+                                      <div class="resource-meta-text" x-text="assignmentScopeText(a)"></div>
+                                    </div>
+                              
+                                    <div class="resource-meta-block resource-meta-block--shared" x-show="assignmentSharedR3Text(a)" x-cloak>
+                                      <div class="resource-meta-label">↔ Shared</div>
+                                      <div class="resource-meta-text" x-text="assignmentSharedR3Text(a)"></div>
+                                    </div>
+                                  </div>
+                              
+                                  <!-- COMPACT -->
+                                  <div x-show="listViewMode === 'compact'" x-cloak>
+                                    <div class="resource-bottom-buy">
+                                      <div class="resource-bottom-title">Purchase Options</div>
+                              
+                                      <div
+                                        class="resource-buy-links"
+                                        x-show="(resourcesById[a.resourceId]?.links || []).length"
+                                        x-cloak
+                                      >
+                                        <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
+                                          <a
+                                            class="buy-link-pill"
+                                            :href="lnk.url"
+                                            target="_blank"
+                                            rel="noopener"
+                                            x-text="lnk.text || 'Link'"
+                                          ></a>
+                                        </template>
+                                      </div>
+                                    </div>
+                                  </div>
+                              
+                                </div>
                               </div>
-
-                            </div>
 
                             </div>
 
                              <!-- Bottom strip (prep/tracking + buy) -->
-                                    <div class="resource-bottom-strip">
+                                    <div class="resource-bottom-strip" x-show="listViewMode !== 'compact'" x-cloak>
                                       <div class="resource-bottom-inner resource-bottom-inner--main">
                                       <div class="resource-bottom-row">
                                         <!-- LEFT (wide): mirrors image+rationale width -->
@@ -2265,218 +2262,6 @@
                                   
                                     </div>
 
-                                    <!-- COMPACT VIEW: move Resource Prep + Purchase Options up under title/author/isbn -->
-                                    <div class="resource-bottom-inner resource-bottom-inner--compact">
-                                    
-                                      <!-- LEFT: Resource prep header + collapsible body -->
-                                      <div class="resource-bottom-left">
-                                    
-                                        <!-- Real (owned here) prep UI -->
-                                        <template x-if="
-                                          isResourceInMyBooks(a.resourceId) &&
-                                          (
-                                            !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
-                                            isResourceOwnedHere(
-                                              myBooksInstanceKeyForTopic(
-                                                (course.recordID || course.id),
-                                                (topic.recordID || topic.id),
-                                                a.resourceId
-                                              )
-                                            )
-                                          )
-                                        ">
-                                          <div>
-                                            <!-- Header -->
-                                            <div class="resource-bottom-head">
-                                              <div class="resource-bottom-head-left">
-                                                <button
-                                                  type="button"
-                                                  class="prep-collapse-btn"
-                                                  :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
-                                                  @click.stop="togglePrepOpen(a.resourceId)"
-                                                  aria-label="Toggle Resource Preparation"
-                                                >
-                                                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                                                    <path
-                                                      d="M7 10l5 5 5-5"
-                                                      fill="none"
-                                                      stroke="currentColor"
-                                                      stroke-width="2"
-                                                      stroke-linecap="round"
-                                                      stroke-linejoin="round">
-                                                    </path>
-                                                  </svg>
-                                                </button>
-                                    
-                                                <div class="resource-bottom-head-text">
-                                                  <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                    
-                                            <!-- Body -->
-                                            <div
-                                              class="resource-prep-body"
-                                              x-show="isPrepOpen(a.resourceId)"
-                                              x-transition
-                                              x-cloak
-                                            >
-                                              <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
-                                                <div class="prep-option-row">
-                                    
-                                                  <span class="prep-status-dot" :style="`background-color:${prepStatusColor(opt.status)}`" aria-hidden="true"></span>
-                                    
-                                                  <select class="prep-select prep-select--kind"
-                                                    :value="opt.kind || 'physical'"
-                                                    @change.stop="updatePrepOption(a.resourceId, idx, { kind: $event.target.value })"
-                                                    aria-label="Format"
-                                                  >
-                                                    <option value="physical">📖 Physical</option>
-                                                    <option value="digital">💻 Digital</option>
-                                                  </select>
-                                    
-                                                  <select class="prep-select"
-                                                    :value="opt.mode || 'purchase'"
-                                                    @change.stop="updatePrepOption(a.resourceId, idx, { mode: $event.target.value })"
-                                                  >
-                                                    <option value="save">Save (digital)</option>
-                                                    <option value="print">Print</option>
-                                                    <option value="purchase">Purchase</option>
-                                                    <option value="library">Library</option>
-                                                    <option value="ebook">Ebook</option>
-                                                    <option value="audiobook">Audiobook</option>
-                                                    <option value="own">Already Own</option>
-                                                  </select>
-                                    
-                                                  <select class="prep-select"
-                                                    :value="opt.status || 'not_ready'"
-                                                    @change.stop="updatePrepOption(a.resourceId, idx, { status: $event.target.value })"
-                                                  >
-                                                    <option value="not_ready">Not Ready</option>
-                                                    <option value="ordered">Ordered</option>
-                                                    <option value="requested">Requested</option>
-                                                    <option value="received">Received</option>
-                                                    <option value="ready">Ready to Use</option>
-                                                  </select>
-                                    
-                                                  <button
-                                                    type="button"
-                                                    class="prep-option-remove"
-                                                    @click.stop="removePrepOption(a.resourceId, idx)"
-                                                    aria-label="Remove option"
-                                                    title="Remove"
-                                                  >✕</button>
-                                                </div>
-                                              </template>
-                                    
-                                              <div class="prep-options-add-row">
-                                                <button
-                                                  type="button"
-                                                  class="prep-options-btn prep-options-btn--slim"
-                                                  @click.stop="addPrepOption(a.resourceId)"
-                                                >
-                                                  + Add
-                                                </button>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </template>
-                                    
-                                        <!-- Ghost / Empty (not owned here) -->
-                                        <template x-if="!(
-                                          isResourceInMyBooks(a.resourceId) &&
-                                          (
-                                            !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
-                                            isResourceOwnedHere(
-                                              myBooksInstanceKeyForTopic(
-                                                (course.recordID || course.id),
-                                                (topic.recordID || topic.id),
-                                                a.resourceId
-                                              )
-                                            )
-                                          )
-                                        )">
-                                          <div>
-                                            <div class="resource-bottom-head">
-                                              <div class="resource-bottom-head-left">
-                                                <button
-                                                  type="button"
-                                                  class="prep-collapse-btn"
-                                                  :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
-                                                  @click.stop="togglePrepOpen(a.resourceId)"
-                                                  aria-label="Toggle Resource Preparation"
-                                                >
-                                                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                                                    <path
-                                                      d="M7 10l5 5 5-5"
-                                                      fill="none"
-                                                      stroke="currentColor"
-                                                      stroke-width="2"
-                                                      stroke-linecap="round"
-                                                      stroke-linejoin="round">
-                                                    </path>
-                                                  </svg>
-                                                </button>
-                                    
-                                                <div class="resource-bottom-head-text">
-                                                  <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                    
-                                            <div
-                                              class="resource-prep-body"
-                                              x-show="isPrepOpen(a.resourceId)"
-                                              x-transition
-                                              x-cloak
-                                            >
-                                              <div class="prep-options-add-row">
-                                                <button
-                                                  type="button"
-                                                  class="prep-options-btn prep-options-btn--slim"
-                                                  @click.stop="ensureMyBooksOwnedForPrep(
-                                                    a.resourceId,
-                                                    myBooksInstanceKeyForTopic(
-                                                      (course.recordID || course.id),
-                                                      (topic.recordID || topic.id),
-                                                      a.resourceId
-                                                    )
-                                                  )"
-                                                >
-                                                  + Add
-                                                </button>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </template>
-                                    
-                                      </div>
-                                    
-                                      <!-- RIGHT: Purchase Options -->
-                                      <div class="resource-bottom-right">
-                                        <div class="resource-bottom-buy">
-                                          <div class="resource-bottom-title">Purchase Options</div>
-                                    
-                                          <div
-                                            class="resource-buy-links"
-                                            x-show="(resourcesById[a.resourceId]?.links || []).length"
-                                            x-cloak
-                                          >
-                                            <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
-                                              <a
-                                                class="buy-link-pill"
-                                                :href="lnk.url"
-                                                target="_blank"
-                                                rel="noopener"
-                                                x-text="lnk.text || 'Link'"
-                                              ></a>
-                                            </template>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    
-                                    </div>
-                                  
                                     <!-- invisible divider (keeps spacing aligned with bottom section) -->
                                     <div class="resource-top-divider" aria-hidden="true"></div>
                                   
@@ -2497,90 +2282,287 @@
                                   </div>
 
                                     <div class="resource-info-row">
-                                    <!-- LEFT (wide): rationale + note/may sub -->
-                                    <div class="resource-info-left">
-                                  
-                                      <!-- RATIONALE -->
-                                      <div
-                                        class="resource-rationale"
-                                        x-show="resourcesById[a.resourceId]?.rationale || resourcesById[a.resourceId]?.RATIONALE"
-                                        x-cloak
-                                      >
-                                        <span class="resource-rationale-label">➜ RATIONALE:</span>
-                                        <span
-                                          class="resource-rationale-text"
-                                          x-text="
-                                            resourcesById[a.resourceId]?.rationale ||
-                                            resourcesById[a.resourceId]?.RATIONALE
-                                          "
-                                        ></span>
+                                      <!-- LEFT (wide): FULL = rationale/tips ; COMPACT = prep/tracking -->
+                                      <div class="resource-info-left">
+                                    
+                                        <!-- FULL / MINIMAL: rationale + tipbox -->
+                                        <div x-show="listViewMode !== 'compact'">
+                                    
+                                          <!-- RATIONALE -->
+                                          <div
+                                            class="resource-rationale"
+                                            x-show="resourcesById[a.resourceId]?.rationale || resourcesById[a.resourceId]?.RATIONALE"
+                                            x-cloak
+                                          >
+                                            <span class="resource-rationale-label">➜ RATIONALE:</span>
+                                            <span
+                                              class="resource-rationale-text"
+                                              x-text="
+                                                resourcesById[a.resourceId]?.rationale ||
+                                                resourcesById[a.resourceId]?.RATIONALE
+                                              "
+                                            ></span>
+                                          </div>
+                                    
+                                          <!-- NOTE + May sub + Alt formats -->
+                                          <div class="resource-tipbox"
+                                            x-show="a.noteText || a.maySubText || altFormatsForAssignment(a).length"
+                                            x-cloak
+                                          >
+                                            <template x-if="resourcesById[a.resourceId]?.note">
+                                              <div class="resource-tipbox-item">
+                                                <span class="resource-tipbox-label">NOTE:</span>
+                                                <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.note"></span>
+                                              </div>
+                                            </template>
+                                    
+                                            <template x-if="resourcesById[a.resourceId]?.maySub">
+                                              <div class="resource-tipbox-item">
+                                                <span class="resource-tipbox-label">➜ May sub:</span>
+                                                <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub"></span>
+                                              </div>
+                                            </template>
+                                    
+                                            <template x-if="altFormatsForAssignment(a).length">
+                                              <div class="resource-tipbox-item resource-tipbox-item--formats">
+                                                <span class="resource-tipbox-label">Alt. Formats:</span>
+                                    
+                                                <span class="alt-formats-pills alt-formats-pills--in-tipbox">
+                                                  <template x-for="fmt in altFormatsForAssignment(a)" :key="fmt">
+                                                    <span class="alt-format-pill"
+                                                          :class="{
+                                                            'alt-format-pill--ebook': fmt.toLowerCase()==='ebook',
+                                                            'alt-format-pill--audiobook': fmt.toLowerCase()==='audiobook',
+                                                            'alt-format-pill--video': fmt.toLowerCase()==='video'
+                                                          }"
+                                                          x-text="fmt"></span>
+                                                  </template>
+                                                </span>
+                                              </div>
+                                            </template>
+                                          </div>
+                                    
+                                        </div>
+                                    
+                                        <!-- COMPACT: Resource Preparation & Tracking (lives where rationale normally lives) -->
+                                        <div x-show="listViewMode === 'compact'" x-cloak>
+                                    
+                                          <!-- Owned (solid): show full prep UI -->
+                                          <template x-if="
+                                            isResourceInMyBooks(a.resourceId) &&
+                                            (
+                                              !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
+                                              isResourceOwnedHere(
+                                                myBooksInstanceKeyForTopic((course.recordID||course.id),(topic.recordID||topic.id), a.resourceId)
+                                              )
+                                            )
+                                          ">
+                                            <div>
+                                              <div class="resource-bottom-head">
+                                                <div class="resource-bottom-head-left">
+                                                  <button
+                                                    type="button"
+                                                    class="prep-collapse-btn"
+                                                    :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
+                                                    @click.stop="togglePrepOpen(a.resourceId)"
+                                                    aria-label="Toggle Resource Preparation"
+                                                  >
+                                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                      <path
+                                                        d="M7 10l5 5 5-5"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        stroke-width="2"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                      </path>
+                                                    </svg>
+                                                  </button>
+                                    
+                                                  <div class="resource-bottom-head-text">
+                                                    <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                    
+                                              <div
+                                                class="resource-prep-body"
+                                                x-show="isPrepOpen(a.resourceId)"
+                                                x-transition
+                                                x-cloak
+                                              >
+                                                <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
+                                                  <div class="prep-option-row">
+                                                    <span class="prep-status-dot" :style="`background-color:${prepStatusColor(opt.status)}`" aria-hidden="true"></span>
+                                    
+                                                    <select class="prep-select prep-select--kind"
+                                                      :value="opt.kind || 'physical'"
+                                                      @change.stop="updatePrepOption(a.resourceId, idx, { kind: $event.target.value })"
+                                                      aria-label="Format"
+                                                    >
+                                                      <option value="physical">📖 Physical</option>
+                                                      <option value="digital">💻 Digital</option>
+                                                    </select>
+                                    
+                                                    <select class="prep-select"
+                                                      :value="opt.mode || 'purchase'"
+                                                      @change.stop="updatePrepOption(a.resourceId, idx, { mode: $event.target.value })"
+                                                    >
+                                                      <option value="save">Save (digital)</option>
+                                                      <option value="print">Print</option>
+                                                      <option value="purchase">Purchase</option>
+                                                      <option value="library">Library</option>
+                                                      <option value="ebook">Ebook</option>
+                                                      <option value="audiobook">Audiobook</option>
+                                                      <option value="own">Already Own</option>
+                                                    </select>
+                                    
+                                                    <select class="prep-select"
+                                                      :value="opt.status || 'not_ready'"
+                                                      @change.stop="updatePrepOption(a.resourceId, idx, { status: $event.target.value })"
+                                                    >
+                                                      <option value="not_ready">Not Ready</option>
+                                                      <option value="ordered">Ordered</option>
+                                                      <option value="requested">Requested</option>
+                                                      <option value="received">Received</option>
+                                                      <option value="ready">Ready to Use</option>
+                                                    </select>
+                                    
+                                                    <button
+                                                      type="button"
+                                                      class="prep-option-remove"
+                                                      @click.stop="removePrepOption(a.resourceId, idx)"
+                                                      aria-label="Remove option"
+                                                      title="Remove"
+                                                    >✕</button>
+                                                  </div>
+                                                </template>
+                                    
+                                                <div class="prep-options-add-row">
+                                                  <button
+                                                    type="button"
+                                                    class="prep-options-btn prep-options-btn--slim"
+                                                    @click.stop="addPrepOption(a.resourceId)"
+                                                  >
+                                                    + Add
+                                                  </button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </template>
+                                    
+                                          <!-- Ghost / Empty: show header + open body with only + Add -->
+                                          <template x-if="!(
+                                            isResourceInMyBooks(a.resourceId) &&
+                                            (
+                                              !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
+                                              isResourceOwnedHere(
+                                                myBooksInstanceKeyForTopic((course.recordID||course.id),(topic.recordID||topic.id), a.resourceId)
+                                              )
+                                            )
+                                          )">
+                                            <div>
+                                              <div class="resource-bottom-head">
+                                                <div class="resource-bottom-head-left">
+                                                  <button
+                                                    type="button"
+                                                    class="prep-collapse-btn"
+                                                    :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
+                                                    @click.stop="togglePrepOpen(a.resourceId)"
+                                                    aria-label="Toggle Resource Preparation"
+                                                  >
+                                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                      <path
+                                                        d="M7 10l5 5 5-5"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        stroke-width="2"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                      </path>
+                                                    </svg>
+                                                  </button>
+                                    
+                                                  <div class="resource-bottom-head-text">
+                                                    <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                    
+                                              <div
+                                                class="resource-prep-body"
+                                                x-show="isPrepOpen(a.resourceId)"
+                                                x-transition
+                                                x-cloak
+                                              >
+                                                <div class="prep-options-add-row">
+                                                  <button
+                                                    type="button"
+                                                    class="prep-options-btn prep-options-btn--slim"
+                                                    @click.stop="ensureMyBooksOwnedForPrep(
+                                                      a.resourceId,
+                                                      myBooksInstanceKeyForTopic((course.recordID||course.id),(topic.recordID||topic.id), a.resourceId)
+                                                    )"
+                                                  >
+                                                    + Add
+                                                  </button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </template>
+                                    
+                                        </div>
                                       </div>
-                                  
-                                      <!-- NOTE + May sub (single box; NOTE first) -->
-                                      <div class="resource-tipbox"
-                                        x-show="a.noteText || a.maySubText || altFormatsForAssignment(a).length"
-                                        x-cloak
-                                      >
-                                        <template x-if="resourcesById[a.resourceId]?.note">
-                                          <div class="resource-tipbox-item">
-                                            <span class="resource-tipbox-label">NOTE:</span>
-                                            <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.note"></span>
-                                          </div>
-                                        </template>
-                                  
-                                        <template x-if="resourcesById[a.resourceId]?.maySub">
-                                          <div class="resource-tipbox-item">
-                                            <span class="resource-tipbox-label">➜ May sub:</span>
-                                            <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub"></span>
-                                          </div>
-                                        </template>
-
-                                        <template x-if="altFormatsForAssignment(a).length">
-                                          <div class="resource-tipbox-item resource-tipbox-item--formats">
-                                            <span class="resource-tipbox-label">Alt. Formats:</span>
-                                        
-                                            <span class="alt-formats-pills alt-formats-pills--in-tipbox">
-                                              <template x-for="fmt in altFormatsForAssignment(a)" :key="fmt">
-                                                <span class="alt-format-pill"
-                                                      :class="{
-                                                        'alt-format-pill--ebook': fmt.toLowerCase()==='ebook',
-                                                        'alt-format-pill--audiobook': fmt.toLowerCase()==='audiobook',
-                                                        'alt-format-pill--video': fmt.toLowerCase()==='video'
-                                                      }"
-                                                      x-text="fmt"></span>
-                                              </template>
-                                            </span>
-                                          </div>
-                                        </template>
-
-                                      </div>
-                                  
-                                    </div>
-
-                                      <!-- Invisible divider (spacing only) -->
+                                    
+                                      <!-- divider -->
                                       <div class="resource-info-divider" aria-hidden="true"></div>
-                                  
-                                    <!-- RIGHT (narrow): shared + scope from assignment -->
-                                    <div class="resource-info-right">
-
-                                      <div class="resource-meta-block resource-meta-block--scope" x-show="assignmentScopeText(a)" x-cloak>
-                                        <div class="resource-meta-label">Scope</div>
-                                        <div class="resource-meta-text" x-text="assignmentScopeText(a)"></div>
-                                      </div>
                                     
-                                      <div class="resource-meta-block resource-meta-block--shared" x-show="assignmentSharedR3Text(a)" x-cloak>
-                                        <div class="resource-meta-label">↔ Shared</div>
-                                        <div class="resource-meta-text" x-text="assignmentSharedR3Text(a)"></div>
-                                      </div>
+                                      <!-- RIGHT (narrow): FULL = scope/shared ; COMPACT = purchase options -->
+                                      <div class="resource-info-right">
                                     
+                                        <!-- FULL / MINIMAL -->
+                                        <div x-show="listViewMode !== 'compact'">
+                                          <div class="resource-meta-block resource-meta-block--scope" x-show="assignmentScopeText(a)" x-cloak>
+                                            <div class="resource-meta-label">Scope</div>
+                                            <div class="resource-meta-text" x-text="assignmentScopeText(a)"></div>
+                                          </div>
+                                    
+                                          <div class="resource-meta-block resource-meta-block--shared" x-show="assignmentSharedR3Text(a)" x-cloak>
+                                            <div class="resource-meta-label">↔ Shared</div>
+                                            <div class="resource-meta-text" x-text="assignmentSharedR3Text(a)"></div>
+                                          </div>
+                                        </div>
+                                    
+                                        <!-- COMPACT -->
+                                        <div x-show="listViewMode === 'compact'" x-cloak>
+                                          <div class="resource-bottom-buy">
+                                            <div class="resource-bottom-title">Purchase Options</div>
+                                    
+                                            <div
+                                              class="resource-buy-links"
+                                              x-show="(resourcesById[a.resourceId]?.links || []).length"
+                                              x-cloak
+                                            >
+                                              <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
+                                                <a
+                                                  class="buy-link-pill"
+                                                  :href="lnk.url"
+                                                  target="_blank"
+                                                  rel="noopener"
+                                                  x-text="lnk.text || 'Link'"
+                                                ></a>
+                                              </template>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    
+                                      </div>
                                     </div>
-
-                                  </div>
 
                                   </div>
 
                                    <!-- Bottom strip (prep/tracking + buy) -->
-                                    <div class="resource-bottom-strip">
+                                    <div class="resource-bottom-strip" x-show="listViewMode !== 'compact'" x-cloak>
                                       <div class="resource-bottom-inner">
                                       <div class="resource-bottom-row">
                                         <!-- LEFT (wide): mirrors image+rationale width -->
