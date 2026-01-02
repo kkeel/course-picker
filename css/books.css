@@ -1682,6 +1682,27 @@
   display: none;
 }
 
+/* -----------------------------------------
+   Book List: Compact-only "move Prep + Purchase up"
+   - Hide the normal bottom strip in Compact
+   - Show the compact replacement block only in Compact
+----------------------------------------- */
+
+/* Hidden by default (Full + Minimal) */
+.resource-bottom-inner--compact{
+  display: none;
+}
+
+/* Compact: show the moved-up block */
+.listview-compact .resource-bottom-inner--compact{
+  display: block;
+}
+
+/* Compact: hide the original bottom strip so we don't duplicate */
+.listview-compact .resource-bottom-strip{
+  display: none;
+}
+
 
 /* =========================================================
    SMALL DESKTOP: switch 4-col → 3-col
