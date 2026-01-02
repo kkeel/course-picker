@@ -645,22 +645,34 @@ prepStatusColor(status) {
       applyPlannerExtras(extras) {
         const r = extras?.resources;
         if (!r) return;
-
+      
         // Restore My Books (global)
         const ids = Array.isArray(r.myBooks) ? r.myBooks : [];
         this._myBooksResourceIds = new Set(ids.map(String));
-
+      
         // ✅ Restore instance owners (if present; otherwise legacy/unscoped)
         const owners = (r.myBooksOwnersByResourceId && typeof r.myBooksOwnersByResourceId === "object")
           ? r.myBooksOwnersByResourceId
           : {};
         this._myBooksOwnersByResourceId = { ...owners };
-
+      
+        // ✅ Restore prep tracking open/closed state
+        const prepOpen = (r.prepOpenByResourceId && typeof r.prepOpenByResourceId === "object")
+          ? r.prepOpenByResourceId
+          : {};
+        this._prepOpenByResourceId = { ...prepOpen };
+      
+        // ✅ Restore prep tracking option rows (physical/digital, acquisition, status, etc.)
+        const opts = (r.optionsByResourceId && typeof r.optionsByResourceId === "object")
+          ? r.optionsByResourceId
+          : {};
+        this._optionsByResourceId = { ...opts };
+      
         // Rebuild flattened cache used by ghost checks
         if (typeof this._rebuildMyBooksOwnedInstanceCache === "function") {
           this._rebuildMyBooksOwnedInstanceCache();
         }
-
+      
         // Restore view settings (only if they were ever saved)
         const view = (r.view && typeof r.view === "object") ? r.view : null;
         if (view) {
