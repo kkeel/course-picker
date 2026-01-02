@@ -1665,6 +1665,25 @@
 }
 
 /* =========================================================
+   Book List: Compact-only “top strip”
+   ========================================================= */
+
+/* Default: hide the compact clone */
+.resource-bottom-inner--compact{
+  display: none;
+}
+
+/* Compact view: show the compact clone and hide the normal bottom strip */
+.listview-compact .resource-bottom-inner--compact{
+  display: block;
+}
+
+.listview-compact .resource-bottom-inner--main{
+  display: none;
+}
+
+
+/* =========================================================
    SMALL DESKTOP: switch 4-col → 3-col
    ========================================================= */
 @media (max-width: 1180px){
