@@ -1334,7 +1334,7 @@
 
                              <!-- Bottom strip (prep/tracking + buy) -->
                                     <div class="resource-bottom-strip">
-                                      <div class="resource-bottom-inner">
+                                      <div class="resource-bottom-inner resource-bottom-inner--main">
                                       <div class="resource-bottom-row">
                                         <!-- LEFT (wide): mirrors image+rationale width -->
                                         <div class="resource-bottom-left">
@@ -2083,6 +2083,63 @@
                                   
                                     </div>
                                   </div>
+
+                                    <!-- Compact-only: show Prep + Purchase up here (so we don’t waste the “image-height” space) -->
+                                    <div class="resource-bottom-inner resource-bottom-inner--compact">
+                                      <div class="resource-bottom-row">
+                                    
+                                        <!-- LEFT: Resource Prep -->
+                                        <div class="resource-bottom-left">
+                                    
+                                          <!-- Keep your existing header + chevron behavior -->
+                                          <div class="resource-bottom-head">
+                                            <div class="resource-bottom-head-left">
+                                              <button
+                                                type="button"
+                                                class="prep-collapse-btn"
+                                                :class="isPrepOpen(a.resourceId) ? '' : 'prep-collapse-btn--closed'"
+                                                @click.stop="togglePrepOpen(a.resourceId)"
+                                                aria-label="Toggle Resource Preparation"
+                                              >
+                                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                  <path
+                                                    d="M7 10l5 5 5-5"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                  </path>
+                                                </svg>
+                                              </button>
+                                    
+                                              <div class="resource-bottom-head-text">
+                                                <div class="resource-bottom-title">Resource Preparation</div>
+                                                <div class="resource-bottom-subtitle"> &amp; Tracking</div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                    
+                                          <!-- Reuse your existing prep-body/templates exactly (copy from your main strip) -->
+                                          <!-- IMPORTANT: paste the SAME prep body block you already have under the main bottom strip,
+                                               starting right after your <div class="resource-bottom-head"> … </div>
+                                               and ending right before the purchase options area. -->
+                                    
+                                        </div>
+                                    
+                                        <!-- RIGHT: Purchase Options -->
+                                        <div class="resource-bottom-right resource-bottom-right-grid">
+                                          <div class="resource-meta-block">
+                                            <div class="resource-meta-title">Purchase Options</div>
+                                    
+                                            <!-- Reuse your existing buy links markup -->
+                                            <!-- IMPORTANT: paste the SAME buy links block you already have in the main bottom strip
+                                                 (the pills like “Option 1”, “Free”) -->
+                                          </div>
+                                        </div>
+                                    
+                                      </div>
+                                    </div>
 
                                     <div class="resource-info-row">
                                     <!-- LEFT (wide): rationale + note/may sub -->
