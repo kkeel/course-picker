@@ -1194,8 +1194,11 @@ function coursePlanner() {
       },
 
       isStudentRailCollapsed(itemKey) {
+        // Minimal view = all student rails collapsed (closed)
+        if ((this.courseListViewMode || "full") === "minimal") return true;
+      
         const map = this.studentRailCollapsed || {};
-        return (map[itemKey] === true); // default true (collapsed)
+        return (map[itemKey] === true);
       },
 
       toggleStudentRailCollapsed(itemKey) {
