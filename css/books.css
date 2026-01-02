@@ -1703,6 +1703,33 @@
   display: none;
 }
 
+/* Compact moved-up strip (Booklist): hidden by default, shown in Compact */
+.resource-bottom-inner--compact{
+  display: none;
+}
+
+/* In Compact, show the moved-up strip and lay it out like a 2-col strip */
+.listview-compact .resource-bottom-inner--compact{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  column-gap: 28px;
+  row-gap: 10px;
+  margin-top: 10px;
+  align-items: start;
+}
+
+/* No divider inside the moved-up version */
+.listview-compact .resource-bottom-inner--compact .resource-bottom-divider{
+  display: none !important;
+}
+
+/* On smaller screens, stack prep above purchase options */
+@media (max-width: 900px){
+  .listview-compact .resource-bottom-inner--compact{
+    grid-template-columns: 1fr;
+  }
+}
+
 
 /* =========================================================
    SMALL DESKTOP: switch 4-col → 3-col
