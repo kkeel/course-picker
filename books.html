@@ -1044,6 +1044,25 @@
                           </span>
                         </template>
                       </div>
+
+                      <!-- Course notes panel (topic-less courses only) moved ABOVE books -->
+                      <template x-if="!course.topics || course.topics.length === 0">
+                        <div
+                          class="note-panel"
+                          x-show="course.noteOpen"
+                          x-transition
+                          :style="{ backgroundColor: subjectColor(course.subject) + '4D' }"
+                        >
+                          <label class="note-label">Notes</label>
+                          <textarea
+                            class="note-textarea"
+                            placeholder="Add notes for this course..."
+                            :value="courseNoteText(course)"
+                            @input="updateCourseNoteText(course, $event.target.value)"
+                            :style="{ backgroundColor: subjectColor(course.subject) + '1A' }"
+                          ></textarea>
+                        </div>
+                      </template>
                     
                       <!-- Resource cards (course-level) -->
                       <div
@@ -1842,6 +1861,23 @@
                                   </template>
                                 </span>
                               </div>
+                            
+                            <!-- Topic notes panel (moved ABOVE books) -->
+                            <div
+                              class="note-panel"
+                              x-show="topic.noteOpen"
+                              x-transition
+                              :style="{ backgroundColor: subjectColor(course.subject) + '4D' }"
+                            >
+                              <label class="note-label">Notes</label>
+                              <textarea
+                                class="note-textarea"
+                                placeholder="Add notes for this topic..."
+                                :value="topicNoteText(topic)"
+                                @input="updateTopicNoteText(topic, $event.target.value)"
+                                :style="{ backgroundColor: subjectColor(course.subject) + '1A' }"
+                              ></textarea>
+                            </div>
 
                             <!-- Resource cards (topic-level) -->
                             <div
@@ -2360,50 +2396,12 @@
 
                               </template>
                             </div>
-                            <!-- Topic notes panel -->
-                            <div
-                              class="note-panel"
-                              x-show="topic.noteOpen"
-                              x-transition
-                              :style="{ backgroundColor: subjectColor(course.subject) + '4D' }"
-                            >
-                              <label class="note-label">Notes</label>
-                              <textarea
-                                class="note-textarea"
-                                placeholder="Add notes for this topic..."
-                                :value="topicNoteText(topic)"
-                                @input="updateTopicNoteText(topic, $event.target.value)"
-                                :style="{ backgroundColor: subjectColor(course.subject) + '1A' }"
-                              ></textarea>
-                            </div>
-                              <!-- Student rail toggle (topic) Was Here -->
                           </article>
 
                         </template>
                       </div>
-
-                      <!-- Course notes panel (topic-less courses only) -->
-                      <template x-if="!course.topics || course.topics.length === 0">
-                        <div
-                          class="note-panel"
-                          x-show="course.noteOpen"
-                          x-transition
-                          :style="{ backgroundColor: subjectColor(course.subject) + '4D' }"
-                        >
-                          <label class="note-label">Notes</label>
-                          <textarea
-                            class="note-textarea"
-                            placeholder="Add notes for this course..."
-                            :value="courseNoteText(course)"
-                            @input="updateCourseNoteText(course, $event.target.value)"
-                            :style="{ backgroundColor: subjectColor(course.subject) + '1A' }"
-                          ></textarea>
-                        </div>
-                      </template>
-
-                      <template x-if="!course.topics || course.topics.length === 0">
-                      <!-- Student rail toggle (course - only when no topics) WAS HERE -->
-                    </template>
+                      
+                      <template x-if="!course.topics || course.topics.length === 0"></template>
                       
                     </article>
                   </template>
