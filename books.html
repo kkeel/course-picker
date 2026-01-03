@@ -3083,6 +3083,18 @@
     // Tell Paged.js: do NOT auto-run on page load
     window.PagedConfig = { auto: false };
   
+    function loadPagedJsOnce() {
+      return new Promise((resolve, reject) => {
+        if (window.PagedPolyfill) return resolve();
+        const s = document.createElement("script");
+        s.src = "https://unpkg.com/pagedjs/dist/paged.polyfill.js";
+        s.onload = () => resolve();
+        s.onerror = () => reject(new Error("Failed to load Paged.js"));
+        document.head.appendChild(s);
+      });
+    }
+  
+    // Print with real page numbers WITHOUT breaking the live app
     function stripScripts(docEl) {
       docEl.querySelectorAll("script").forEach(s => s.remove());
     }
@@ -3094,8 +3106,13 @@
           data.gradeDropdownOpen = false;
           data.subjectDropdownOpen = false;
           data.tagDropdownOpen = false;
-          data.studentDropdownOpen = false;
           data.planningMenuOpen = false;
+  
+          // Close any other UI that might print weirdly
+          if ("prepOptionsModalOpen" in data) data.prepOptionsModalOpen = false;
+          if ("studentAssignMenuOpen" in data) data.studentAssignMenuOpen = false;
+          if ("studentDropdownOpen" in data) data.studentDropdownOpen = false;
+          if ("printTipOpen" in data) data.printTipOpen = false;
         }
       } catch (e) {}
     }
@@ -3115,9 +3132,11 @@
       const imgs = Array.from(win.document.querySelectorAll("img"));
       imgs.forEach(img => {
         img.setAttribute("loading", "eager");
-        img.loading = "eager";
+        try { img.loading = "eager"; } catch(e) {}
+  
         img.decoding = "sync";
         img.setAttribute("decoding", "sync");
+  
         try { img.fetchPriority = "high"; } catch(e) {}
         img.setAttribute("fetchpriority", "high");
       });
@@ -3128,7 +3147,10 @@
       const concurrency = opts.concurrency ?? 8;
   
       const imgs = Array.from(win.document.images || []);
-      const srcs = imgs.map(img => img.currentSrc || img.src).filter(Boolean);
+      const srcs = imgs
+        .map(img => img.currentSrc || img.src)
+        .filter(Boolean);
+  
       if (!srcs.length) return;
   
       let idx = 0;
@@ -3155,157 +3177,169 @@
             probe.src = src;
           }
         }
+  
         pump();
       });
     }
   
-    function openPrintWindow() {
-      // Reuse one popup so we don't spawn multiple tabs/windows
-      try {
-        if (window.__alvearyPrintWin && !window.__alvearyPrintWin.closed) {
-          window.__alvearyPrintWin.focus();
-          return window.__alvearyPrintWin;
-        }
-      } catch (e) {}
+    // ✅ Open the print popup immediately (so it’s not blocked / not left blank)
+    function openPrintWindowWithLoading() {
+      // NOTE: do NOT use noopener/noreferrer here, we need reliable scripting + closing in Safari/Edge
+      const w = window.open("", "_blank", "popup,width=900,height=700");
+      if (!w) return null;
   
-      // IMPORTANT: do NOT use noopener/noreferrer here (Safari/Edge can break doc writing)
-      const w = window.open("about:blank", "_blank", "popup,width=900,height=700");
-      if (w) window.__alvearyPrintWin = w;
-      return w;
-    }
-  
-    function writePreparingMessage(w) {
-      // If writing the real snapshot fails for any reason, user still sees *something*.
       try {
         w.document.open();
         w.document.write(`<!doctype html>
-  <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Preparing print…</title>
-    <style>
-      body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;padding:40px;background:#fbfbf9;color:#262b26}
-      .card{max-width:720px;margin:0 auto;background:#fff;border:1px solid #e5e8e5;border-radius:16px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
-      .title{font-size:20px;font-weight:650;margin:0 0 8px}
-      .sub{margin:0 0 16px;line-height:1.4;color:#596e5e}
-      .hint{font-size:13px;color:#596e5e}
-    </style>
-  </head>
-  <body>
-    <div class="card">
-      <p class="title">Preparing your Book List for printing…</p>
-      <p class="sub">Loading images and building page numbers. This window will close automatically after printing.</p>
-      <p class="hint">If you don’t see the print dialog within a moment, keep this window open and return to the main tab to try again.</p>
-    </div>
-  </body>
-  </html>`);
+          <html>
+            <head>
+              <meta charset="utf-8" />
+              <title>Preparing Print…</title>
+              <style>
+                body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;padding:24px;line-height:1.35}
+                .box{max-width:720px;margin:0 auto}
+                .title{font-size:18px;font-weight:600;margin-bottom:8px}
+                .muted{color:#555}
+                .spinner{margin:16px 0;width:24px;height:24px;border:3px solid #ddd;border-top-color:#555;border-radius:50%;animation:spin 1s linear infinite}
+                @keyframes spin{to{transform:rotate(360deg)}}
+              </style>
+            </head>
+            <body>
+              <div class="box">
+                <div class="title">Preparing your Book List print…</div>
+                <div class="muted">This tab will close automatically after the print dialog appears.</div>
+                <div class="spinner" aria-hidden="true"></div>
+                <div class="muted">If nothing happens, return to the Book List tab and click Print again.</div>
+              </div>
+            </body>
+          </html>`);
         w.document.close();
-      } catch (e) {}
+      } catch(e) {}
+  
+      return w;
     }
   
-    window.alvearyPrintWithPaged = async function () {
-      // 1) Close dropdowns/menus in the LIVE UI before snapshot
-      const root = document.querySelector("[x-data]");
-      if (root) closeOpenUi(root);
+    // ✅ Close reliably across browsers (afterprint is flaky in Safari sometimes)
+    function installAutoCloseHandlers(w) {
+      function tryClose() { try { w.close(); } catch(e) {} }
   
-      // Let Alpine settle DOM
-      await new Promise(r => setTimeout(r, 50));
+      try { w.addEventListener("afterprint", tryClose); } catch(e) {}
   
-      // 2) Open popup synchronously (this function is called from the click handler)
-      const w = openPrintWindow();
-      if (!w) {
-        // Popup blocked -> must print current tab
-        window.print();
-        return;
-      }
-  
-      // Never show a blank popup
-      writePreparingMessage(w);
-  
-      // 3) Clone already-rendered DOM
-      const cloned = document.documentElement.cloneNode(true);
-  
-      // Base URL so relative assets resolve (images/css)
-      const head = cloned.querySelector("head");
-      if (head) {
-        head.querySelectorAll("base").forEach(b => b.remove());
-        const base = document.createElement("base");
-        base.href = document.baseURI;
-        head.prepend(base);
-      }
-  
-      // Force eager image loading in the snapshot
-      cloned.querySelectorAll("img").forEach(img => {
-        try { img.loading = "eager"; } catch (e) {}
-        img.setAttribute("loading", "eager");
-        try { img.fetchPriority = "high"; } catch (e) {}
-        img.setAttribute("fetchpriority", "high");
-      });
-  
-      // Remove scripts so the popup doesn't re-run the whole app
-      stripScripts(cloned);
-  
-      // 4) Write snapshot HTML into popup
       try {
+        w.addEventListener("focus", () => setTimeout(tryClose, 400));
+      } catch(e) {}
+  
+      setTimeout(tryClose, 60000);
+    }
+  
+    // ---- MAIN PRINT FUNCTION ----
+    // IMPORTANT: NOT async. We open the popup immediately (still in the click gesture).
+    window.alvearyPrintWithPaged = function () {
+      const w = openPrintWindowWithLoading();
+      if (!w) { window.print(); return; }
+      installAutoCloseHandlers(w);
+  
+      (async () => {
+        // 1) Close dropdowns/menus/modals in the LIVE UI before snapshot
+        const root = document.querySelector("[x-data]");
+        if (root) closeOpenUi(root);
+  
+        // Let Alpine finish DOM updates
+        await new Promise(r => setTimeout(r, 50));
+  
+        // 2) Preload resource-card covers in LIVE UI (prevents “first few only”)
+        await (async function preloadPrintCovers(){
+          const imgs = Array.from(document.querySelectorAll("img.resource-img"));
+          imgs.forEach(img => { try { img.loading = "eager"; } catch(e){} });
+  
+          const timeoutMs = 12000;
+          const concurrency = 4;
+  
+          function waitForSettled(img){
+            return new Promise(resolve => {
+              if (img.complete) return resolve();
+  
+              let done = false;
+              const t = setTimeout(() => finish(), timeoutMs);
+  
+              function finish(){
+                if (done) return;
+                done = true;
+                clearTimeout(t);
+                img.removeEventListener("load", onDone);
+                img.removeEventListener("error", onDone);
+                resolve();
+              }
+              function onDone(){ setTimeout(finish, 50); }
+  
+              img.addEventListener("load", onDone);
+              img.addEventListener("error", onDone);
+            });
+          }
+  
+          let i = 0;
+          async function worker(){
+            while (i < imgs.length){
+              const img = imgs[i++];
+              await waitForSettled(img);
+            }
+          }
+  
+          const workers = Array.from({length: concurrency}, worker);
+          await Promise.all(workers);
+        })();
+  
+        // 3) Clone the current, already-rendered DOM
+        const cloned = document.documentElement.cloneNode(true);
+  
+        // Base URL so relative assets resolve in the popup
+        const head = cloned.querySelector("head");
+        if (head) {
+          head.querySelectorAll("base").forEach(b => b.remove());
+          const base = document.createElement("base");
+          base.href = document.baseURI;
+          head.prepend(base);
+        }
+  
+        // Force eager loading in snapshot
+        cloned.querySelectorAll("img").forEach(img => {
+          try { img.loading = "eager"; } catch (e) {}
+          img.setAttribute("loading", "eager");
+          try { img.fetchPriority = "high"; } catch (e) {}
+          img.setAttribute("fetchpriority", "high");
+        });
+  
+        // Remove scripts so the print window doesn’t re-run the whole app
+        stripScripts(cloned);
+  
+        // 4) Write the snapshot into the print window (replaces the “Preparing…” screen)
         w.document.open();
         w.document.write("<!doctype html>" + cloned.outerHTML);
         w.document.close();
-      } catch (e) {
-        // If we can't write, close the popup so users don't get a stuck blank tab
-        try { w.close(); } catch (e2) {}
-        // And fall back to printing current tab
-        window.print();
-        return;
-      }
   
-      // 5) Preload images INSIDE the popup (so all covers show)
-      try {
-        makeImagesEagerForPrint(w);
-        await preloadAllImages(w, { timeoutMs: 120000, concurrency: 8 });
-        await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-      } catch (e) {
-        // ok — we still try to print
-        console.warn("Print image preload skipped:", e);
-      }
-  
-      // 6) Run Paged.js in the popup. If it fails, still print from the popup (NOT the main tab).
-      let printed = false;
-  
-      function closeSoon() {
-        // afterprint is inconsistent across browsers, so we do both:
+        // 5) In the print window, ensure all images are ready before Paged.js measures layout
         try {
-          w.addEventListener("afterprint", () => { try { w.close(); } catch (e) {} }, { once: true });
-        } catch (e) {}
-        setTimeout(() => { try { if (!w.closed) w.close(); } catch (e) {} }, 1500);
-      }
+          makeImagesEagerForPrint(w);
+          await preloadAllImages(w, { timeoutMs: 120000, concurrency: 8 });
+          await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+        } catch (e) {
+          console.warn("Print image preload skipped:", e);
+        }
   
-      try {
-        w.PagedConfig = { auto: false };
-        await loadPagedInto(w);
-        await new Promise(r => setTimeout(r, 150));
-        await w.PagedPolyfill.preview();
-        w.focus();
-        w.print();
-        printed = true;
-        closeSoon();
-      } catch (e) {
-        console.warn("Paged.js preview failed, printing without it:", e);
+        // 6) Load Paged.js in the print window and print with real pagination/footers
         try {
+          w.PagedConfig = { auto: false };
+          await loadPagedInto(w);
+          await new Promise(r => setTimeout(r, 150));
+          await w.PagedPolyfill.preview();
           w.focus();
           w.print();
-          printed = true;
-          closeSoon();
-        } catch (e2) {
-          // last resort: close popup so it doesn't linger
-          try { w.close(); } catch (e3) {}
-          window.print();
+        } catch (e) {
+          console.warn(e);
+          w.focus();
+          w.print();
         }
-      } finally {
-        // If the popup is still open and we never printed, don't leave it hanging.
-        if (!printed) {
-          try { w.close(); } catch (e) {}
-        }
-      }
+      })();
     };
   </script>
   
