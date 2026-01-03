@@ -436,5 +436,35 @@ img.resource-img{
   width: 34px !important;
   height: 44px !important;
 }
+
+/* ==========================================
+   PRINT: Purchase options at top (same as desktop)
+   ========================================== */
+
+.resource-card {
+  position: relative !important;
+}
+
+.resource-bottom-buy {
+  position: absolute !important;
+  top: 4px !important;
+  right: 0 !important;
+
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+
+  max-width: 45%;
+  z-index: 2;
+}
+
+/* Keep text from colliding with links */
+.resource-top-row {
+  padding-right: 170px !important;
+}
    
 }
