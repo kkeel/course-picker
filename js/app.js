@@ -1546,18 +1546,17 @@ function coursePlanner() {
         this.gradeDropdownOpen = false;
         this.subjectDropdownOpen = false;
         this.tagDropdownOpen = false;
+        this.studentDropdownOpen = false;
       
-        // Let Alpine finish any DOM updates, then print
-        this.$nextTick(async () => {
-          // ✅ If our print-only Paged.js helper exists, use it (gives real p.#)
-          if (window.alvearyPrintWithPaged) {
-            await window.alvearyPrintWithPaged();
-            return;
-          }
+        // ✅ CRITICAL: open the print popup *synchronously* (in the click gesture)
+        // Do NOT wait for $nextTick before calling the popup opener.
+        if (window.alvearyPrintWithPaged) {
+          try { window.alvearyPrintWithPaged(); } catch (e) { window.print(); }
+          return;
+        }
       
-          // Fallback (no page numbering)
-          window.print();
-        });
+        // Fallback (no page numbering)
+        window.print();
       },
 
       // 🔹 NEW: summary text for the state bar
