@@ -23,6 +23,92 @@ window.addEventListener("load", setAppHeaderHeightVar, { passive: true });
 window.addEventListener("resize", setAppHeaderHeightVar, { passive: true });
 window.addEventListener("orientationchange", setAppHeaderHeightVar, { passive: true });
 
+// ---------------- PRINT FALLBACK: IN-PLACE PRINT WITH EAGER IMAGE PRELOAD ----------------
+// Put this near the bottom of app.js (top-level, not inside coursePlanner()).
+(function () {
+  // Preload all images (especially lazy ones) by probing their srcs.
+  async function preloadImagesFromElements(imgEls, opts = {}) {
+    const timeoutMs = opts.timeoutMs ?? 45000;
+    const concurrency = opts.concurrency ?? 8;
+
+    const srcs = imgEls
+      .map(img => img.currentSrc || img.src)
+      .filter(Boolean);
+
+    if (!srcs.length) return;
+
+    let idx = 0;
+    let active = 0;
+    let done = 0;
+
+    await new Promise(resolve => {
+      const start = Date.now();
+
+      function pump() {
+        if (done >= srcs.length) return resolve();
+        if (Date.now() - start > timeoutMs) return resolve();
+
+        while (active < concurrency && idx < srcs.length) {
+          const src = srcs[idx++];
+          active++;
+
+          const probe = new Image();
+          probe.onload = probe.onerror = () => {
+            active--;
+            done++;
+            pump();
+          };
+          probe.src = src;
+        }
+      }
+
+      pump();
+    });
+  }
+
+  // Public hook used by your existing fallback logic in app.js
+  window.alvearyPrintInPlaceWithEagerImages = async function () {
+    // Grab book covers (tight selector so we don’t waste time on icons)
+    const covers = Array.from(document.querySelectorAll("img.resource-img"));
+
+    // Force eager-ish behavior
+    covers.forEach(img => {
+      try { img.loading = "eager"; } catch (e) {}
+      img.setAttribute("loading", "eager");
+
+      img.decoding = "sync";
+      img.setAttribute("decoding", "sync");
+
+      // Chromium hint
+      try { img.fetchPriority = "high"; } catch (e) {}
+      img.setAttribute("fetchpriority", "high");
+    });
+
+    // IMPORTANT: even if the browser keeps them "lazy", probing srcs forces fetch.
+    await preloadImagesFromElements(covers, { timeoutMs: 120000, concurrency: 8 });
+
+    // Let the browser paint decoded images before print snapshot
+    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+    // Now print in-place (this is the path that keeps your existing page numbers/footers working)
+    window.print();
+  };
+
+  // Safety net: if user hits Ctrl/Cmd+P, still try to preload covers first.
+  // NOTE: beforeprint can't be truly async in all browsers, but the probe fetch helps anyway.
+  window.addEventListener("beforeprint", () => {
+    try {
+      const covers = Array.from(document.querySelectorAll("img.resource-img"));
+      covers.forEach(img => {
+        try { img.loading = "eager"; } catch (e) {}
+        img.setAttribute("loading", "eager");
+      });
+      // fire-and-forget prefetch (best effort)
+      preloadImagesFromElements(covers, { timeoutMs: 30000, concurrency: 8 });
+    } catch (e) {}
+  });
+})();
+
 function coursePlanner() {
   return {
       // existing state
