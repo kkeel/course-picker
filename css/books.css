@@ -1882,3 +1882,42 @@
   display: none !important;
 }
 
+/* ==========================================
+   DESKTOP: Move purchase options to TOP ROW
+   (visual move only — mobile untouched)
+   ========================================== */
+@media (min-width: 721px) {
+
+  /* Make resource card the positioning anchor */
+  .resource-card {
+    position: relative;
+  }
+
+  /* Visually move purchase options to the top shared area */
+  .resource-bottom-buy {
+    position: absolute;
+    top: 6px;
+    right: 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    background: transparent;
+    padding: 0;
+    margin: 0;
+
+    max-width: 45%;
+    z-index: 2;
+  }
+
+  /* Remove empty space where the bottom strip *used* to be */
+  .resource-bottom-strip {
+    padding-top: 0;
+  }
+
+  /* Prevent overlap with title/author/ISBN */
+  .resource-top-row {
+    padding-right: 170px;
+  }
+}
