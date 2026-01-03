@@ -3083,25 +3083,11 @@
   // Tell Paged.js: do NOT auto-run on page load
   window.PagedConfig = { auto: false };
 
-  function loadPagedJsOnce() {
-    return new Promise((resolve, reject) => {
-      if (window.PagedPolyfill) return resolve();
-      const s = document.createElement("script");
-      s.src = "https://unpkg.com/pagedjs/dist/paged.polyfill.js";
-      s.onload = () => resolve();
-      s.onerror = () => reject(new Error("Failed to load Paged.js"));
-      document.head.appendChild(s);
-    });
-  }
-
-  // Print with real page numbers WITHOUT breaking the live app
   function stripScripts(docEl) {
     docEl.querySelectorAll("script").forEach(s => s.remove());
   }
 
   function closeOpenUi(alpineRoot) {
-    // optional: close the left Planning Tag menu if it’s open
-    // (only runs if Alpine variables exist)
     try {
       const data = window.Alpine && window.Alpine.$data ? window.Alpine.$data(alpineRoot) : null;
       if (data) {
@@ -3110,11 +3096,12 @@
         data.tagDropdownOpen = false;
         data.planningMenuOpen = false;
 
-        // Safe closes for other common UI overlays if they exist
+        // Also close other overlays if present
         if ("prepOptionsModalOpen" in data) data.prepOptionsModalOpen = false;
         if ("studentAssignMenuOpen" in data) data.studentAssignMenuOpen = false;
         if ("studentDropdownOpen" in data) data.studentDropdownOpen = false;
         if ("printTipOpen" in data) data.printTipOpen = false;
+        if ("filtersOpen" in data) data.filtersOpen = false;
       }
     } catch (e) {}
   }
@@ -3133,43 +3120,31 @@
   function makeImagesEagerForPrint(win) {
     const imgs = Array.from(win.document.querySelectorAll("img"));
     imgs.forEach(img => {
-      // disable lazy loading in print snapshot
       img.setAttribute("loading", "eager");
       try { img.loading = "eager"; } catch(e) {}
-
-      // help some browsers prioritize decoding before layout
-      img.decoding = "sync";
       img.setAttribute("decoding", "sync");
-
-      // hint priority (supported in Chromium)
-      try { img.fetchPriority = "high"; } catch(e) {}
+      try { img.decoding = "sync"; } catch(e) {}
       img.setAttribute("fetchpriority", "high");
+      try { img.fetchPriority = "high"; } catch(e) {}
     });
   }
 
   async function preloadAllImages(win, opts = {}) {
-    const timeoutMs = opts.timeoutMs ?? 120000;   // give it real time for a long list
-    const concurrency = opts.concurrency ?? 8;    // don’t hammer the network
+    const timeoutMs = opts.timeoutMs ?? 120000;
+    const concurrency = opts.concurrency ?? 8;
 
     const imgs = Array.from(win.document.images || []);
-    const srcs = imgs
-      .map(img => img.currentSrc || img.src)
-      .filter(Boolean);
-
-    // If there are no images, we’re done
+    const srcs = imgs.map(img => img.currentSrc || img.src).filter(Boolean);
     if (!srcs.length) return;
 
-    let idx = 0;
-    let active = 0;
-    let done = 0;
+    let idx = 0, active = 0, done = 0;
 
     return await new Promise((resolve) => {
       const start = Date.now();
 
       function pump() {
-        // finish conditions
         if (done >= srcs.length) return resolve();
-        if (Date.now() - start > timeoutMs) return resolve(); // don’t block forever
+        if (Date.now() - start > timeoutMs) return resolve();
 
         while (active < concurrency && idx < srcs.length) {
           const src = srcs[idx++];
@@ -3189,10 +3164,12 @@
     });
   }
 
-  // ✅ NEW: open helper window immediately, show message, and avoid stealing focus
+  // ✅ Helper window that is NOT blank (shows message), and will close after print.
   function openPrintHelperWindow() {
-    // IMPORTANT: do NOT use noopener/noreferrer; we need reliable write/close in Safari/Edge.
-    const w = window.open("about:blank", "_blank", "popup,width=700,height=520");
+    // IMPORTANT:
+    // - Do NOT use noopener/noreferrer (Safari/Edge can break write/close)
+    // - Do NOT use tiny size / moveTo/resizeTo (creates the “tiny window” problem)
+    const w = window.open("about:blank", "_blank", "width=980,height=720");
     if (!w) return null;
 
     try {
@@ -3206,13 +3183,13 @@
   <style>
     html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fbfbf9;color:#262b26;}
     .wrap{height:100%;display:flex;align-items:center;justify-content:center;padding:24px;}
-    .card{max-width:560px;width:100%;background:white;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:20px;box-shadow:0 8px 24px rgba(0,0,0,.06);}
+    .card{max-width:640px;width:100%;background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.08);}
     .row{display:flex;gap:12px;align-items:flex-start;}
-    .spinner{width:20px;height:20px;border-radius:999px;border:3px solid rgba(0,0,0,.12);border-top-color:#596e5e;animation:spin .9s linear infinite;margin-top:2px;flex:0 0 auto;}
+    .spinner{width:22px;height:22px;border-radius:999px;border:3px solid rgba(0,0,0,.14);border-top-color:#596e5e;animation:spin .9s linear infinite;margin-top:2px;flex:0 0 auto;}
     @keyframes spin{to{transform:rotate(360deg)}}
     h1{font-size:16px;margin:0 0 6px 0;font-weight:650;}
-    p{margin:0;font-size:13px;line-height:1.4;opacity:.8;}
-    .hint{margin-top:10px;font-size:12px;opacity:.65;}
+    p{margin:0;font-size:13px;line-height:1.45;opacity:.82;}
+    .hint{margin-top:10px;font-size:12px;opacity:.70;}
   </style>
 </head>
 <body>
@@ -3223,7 +3200,7 @@
         <div>
           <h1>Preparing your Book List print…</h1>
           <p>Loading images and generating page numbers.</p>
-          <div class="hint">This window will close automatically after printing.</div>
+          <div class="hint">You can keep working — this window will close automatically after printing.</div>
         </div>
       </div>
     </div>
@@ -3231,42 +3208,32 @@
 </body>
 </html>`);
       w.document.close();
-    } catch (e) {}
+    } catch(e) {}
 
-    // Try not to leave the user on this helper window
+    // Try to keep focus on the main app window
     try { w.blur(); } catch(e) {}
     try { window.focus(); } catch(e) {}
-
-    // Optional: make it less disruptive if browser insists on focusing it
-    try {
-      w.moveTo(-10000, -10000);
-      w.resizeTo(1, 1);
-    } catch(e) {}
 
     return w;
   }
 
-  // ✅ NEW: close reliably even when afterprint is flaky
+  // ✅ Close guards (afterprint is unreliable across browsers)
   function installCloseGuards(w, state) {
     const tryClose = () => { try { w.close(); } catch(e) {} };
 
-    // Best-case
     try {
       w.addEventListener("afterprint", () => {
         if (state.printCalled) tryClose();
       });
     } catch(e) {}
 
-    // Fallback: close shortly after we call print (covers Safari/Edge)
+    // Fallback closes (covers Chrome/Safari/Edge oddities)
     setTimeout(() => { if (state.printCalled) tryClose(); }, 8000);
-
-    // Final safety: don’t leave it open forever
     setTimeout(() => { if (state.printCalled) tryClose(); }, 60000);
   }
 
-  // ✅ KEY CHANGE: NOT async at top-level. Open helper window immediately, then do async work.
+  // ✅ IMPORTANT: not declared async, so the popup opens immediately from the click gesture
   window.alvearyPrintWithPaged = function () {
-    // 0) Open helper window immediately (user gesture)
     const w = openPrintHelperWindow();
     if (!w) { window.print(); return; }
 
@@ -3274,17 +3241,14 @@
     installCloseGuards(w, state);
 
     (async () => {
-      // 1) Ensure dropdowns/menus close in the LIVE UI before snapshot
+      // 1) Close open UI in LIVE page before snapshot
       const root = document.querySelector("[x-data]");
       if (root) closeOpenUi(root);
+      await new Promise(r => setTimeout(r, 60));
 
-      // Let Alpine finish DOM updates
-      await new Promise(r => setTimeout(r, 50));
-
-      // 1.5) Preload all resource-card covers before snapshot (prevents “first few only”)
+      // 1.5) Ensure resource covers are settled before snapshot
       await (async function preloadPrintCovers(){
         const imgs = Array.from(document.querySelectorAll("img.resource-img"));
-        // Force eager for print
         imgs.forEach(img => { try { img.loading = "eager"; } catch(e){} });
 
         const timeoutMs = 12000;
@@ -3292,7 +3256,6 @@
 
         function waitForSettled(img){
           return new Promise(resolve => {
-            // If already loaded (or already failed to placeholder), done
             if (img.complete) return resolve();
 
             let done = false;
@@ -3306,17 +3269,13 @@
               img.removeEventListener("error", onDone);
               resolve();
             }
-            function onDone(){
-              // Wait a tick, then settle.
-              setTimeout(finish, 50);
-            }
+            function onDone(){ setTimeout(finish, 50); }
 
             img.addEventListener("load", onDone, { once:false });
             img.addEventListener("error", onDone, { once:false });
           });
         }
 
-        // Simple concurrency pool
         let i = 0;
         async function worker(){
           while (i < imgs.length){
@@ -3324,14 +3283,13 @@
             await waitForSettled(img);
           }
         }
-        const workers = Array.from({length: concurrency}, worker);
-        await Promise.all(workers);
+        await Promise.all(Array.from({length: concurrency}, worker));
       })();
 
-      // 2) Clone the current, already-rendered DOM
+      // 2) Clone the rendered DOM
       const cloned = document.documentElement.cloneNode(true);
 
-      // ✅ IMPORTANT: set a BASE URL so relative assets resolve correctly
+      // 2.1) Ensure relative assets resolve in the helper window
       const head = cloned.querySelector("head");
       if (head) {
         head.querySelectorAll("base").forEach(b => b.remove());
@@ -3340,58 +3298,53 @@
         head.prepend(base);
       }
 
-      // ✅ IMPORTANT: force eager loading + high priority BEFORE the helper parses the HTML
+      // 2.2) Make images eager in the snapshot
       cloned.querySelectorAll("img").forEach(img => {
-        try { img.loading = "eager"; } catch (e) {}
         img.setAttribute("loading", "eager");
-        try { img.fetchPriority = "high"; } catch (e) {}
+        img.setAttribute("decoding", "sync");
         img.setAttribute("fetchpriority", "high");
       });
 
-      // 3) Remove scripts so the helper window doesn’t re-run the whole app
+      // 3) Prevent re-running app JS in the helper window
       stripScripts(cloned);
 
-      // 4) Write snapshot into the helper window (replaces the message)
+      // 4) Write snapshot into helper window
       try {
         w.document.open();
         w.document.write("<!doctype html>" + cloned.outerHTML);
         w.document.close();
       } catch (e) {
-        console.warn("Unable to write to print helper window:", e);
-        // If we can’t write, fall back to printing the current tab
+        console.warn("Unable to write print snapshot:", e);
         try { w.close(); } catch(e2) {}
         window.print();
         return;
       }
 
-      // ✅ IMPORTANT: in the helper snapshot, disable lazy-loading and preload EVERYTHING
+      // 4.5) In helper window, eager-load everything before Paged measures
       try {
         makeImagesEagerForPrint(w);
         await preloadAllImages(w, { timeoutMs: 120000, concurrency: 8 });
-
-        // let layout/paint catch up before Paged.js measures everything
         await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
       } catch (e) {
         console.warn("Print image preload skipped:", e);
       }
 
-      // 5) In the helper window, load Paged.js and print
+      // 5) Run Paged.js in helper window and print
       try {
         w.PagedConfig = { auto: false };
         await loadPagedInto(w);
         await new Promise(r => setTimeout(r, 150));
         await w.PagedPolyfill.preview();
 
-        // Keep user on the main window if possible
+        // Keep you in the main window if possible
         try { window.focus(); } catch(e) {}
 
         state.printCalled = true;
         w.focus();
         w.print();
       } catch (e) {
-        console.warn(e);
+        console.warn("Paged print fallback:", e);
         try { window.focus(); } catch(e) {}
-
         state.printCalled = true;
         w.focus();
         w.print();
