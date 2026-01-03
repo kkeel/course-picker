@@ -1485,33 +1485,33 @@
                                 <!-- divider -->
                                 <div class="resource-info-divider" aria-hidden="true"></div>
                               
-                                <!-- RIGHT (narrow): FULL/MINIMAL = scope + shared ; COMPACT = scope + purchase -->
+                                <!-- RIGHT (narrow): FULL = scope + shared ; COMPACT/MINIMAL = purchase (scope hidden in minimal) -->
                                 <div class="resource-info-right">
                                 
-                                  <!-- Scope stays in column 1 (all view modes) -->
+                                  <!-- Scope: show in FULL + COMPACT (hide in MINIMAL) -->
                                   <div
                                     class="resource-meta-block resource-meta-block--scope"
-                                    x-show="assignmentScopeText(a)"
+                                    x-show="listViewMode !== 'minimal' && assignmentScopeText(a)"
                                     x-cloak
                                   >
                                     <div class="resource-meta-label">Scope</div>
                                     <div class="resource-meta-text" x-text="assignmentScopeText(a)"></div>
                                   </div>
                                 
-                                  <!-- Shared stays in column 2 (FULL + MINIMAL only) -->
+                                  <!-- Shared: FULL only -->
                                   <div
                                     class="resource-meta-block resource-meta-block--shared"
-                                    x-show="listViewMode !== 'compact' && assignmentSharedR3Text(a)"
+                                    x-show="listViewMode === 'full' && assignmentSharedR3Text(a)"
                                     x-cloak
                                   >
                                     <div class="resource-meta-label">↔ Shared</div>
                                     <div class="resource-meta-text" x-text="assignmentSharedR3Text(a)"></div>
                                   </div>
                                 
-                                  <!-- Purchase Options uses column 2 (COMPACT only, replaces Shared area) -->
+                                  <!-- Purchase Options: COMPACT + MINIMAL -->
                                   <div
                                     class="resource-meta-block resource-meta-block--shared"
-                                    x-show="listViewMode === 'compact'"
+                                    x-show="(listViewMode === 'compact' || listViewMode === 'minimal')"
                                     x-cloak
                                   >
                                     <div class="resource-meta-label">Purchase Options</div>
@@ -2527,33 +2527,33 @@
                                       <!-- divider -->
                                       <div class="resource-info-divider" aria-hidden="true"></div>
                                     
-                                      <!-- RIGHT (narrow): FULL/MINIMAL = scope + shared ; COMPACT = scope + purchase -->
+                                      <!-- RIGHT (narrow): FULL = scope + shared ; COMPACT/MINIMAL = purchase (scope hidden in minimal) -->
                                       <div class="resource-info-right">
                                       
-                                        <!-- Scope stays in column 1 (all view modes) -->
+                                        <!-- Scope: show in FULL + COMPACT (hide in MINIMAL) -->
                                         <div
                                           class="resource-meta-block resource-meta-block--scope"
-                                          x-show="assignmentScopeText(a)"
+                                          x-show="listViewMode !== 'minimal' && assignmentScopeText(a)"
                                           x-cloak
                                         >
                                           <div class="resource-meta-label">Scope</div>
                                           <div class="resource-meta-text" x-text="assignmentScopeText(a)"></div>
                                         </div>
                                       
-                                        <!-- Shared stays in column 2 (FULL + MINIMAL only) -->
+                                        <!-- Shared: FULL only -->
                                         <div
                                           class="resource-meta-block resource-meta-block--shared"
-                                          x-show="listViewMode !== 'compact' && assignmentSharedR3Text(a)"
+                                          x-show="listViewMode === 'full' && assignmentSharedR3Text(a)"
                                           x-cloak
                                         >
                                           <div class="resource-meta-label">↔ Shared</div>
                                           <div class="resource-meta-text" x-text="assignmentSharedR3Text(a)"></div>
                                         </div>
                                       
-                                        <!-- Purchase Options uses column 2 (COMPACT only, replaces Shared area) -->
+                                        <!-- Purchase Options: COMPACT + MINIMAL -->
                                         <div
                                           class="resource-meta-block resource-meta-block--shared"
-                                          x-show="listViewMode === 'compact'"
+                                          x-show="(listViewMode === 'compact' || listViewMode === 'minimal')"
                                           x-cloak
                                         >
                                           <div class="resource-meta-label">Purchase Options</div>
