@@ -3094,7 +3094,6 @@
     }
   
     //Print with real page numbers WITHOUT breaking the live app
-    <script>
       function stripScripts(docEl) {
         docEl.querySelectorAll("script").forEach(s => s.remove());
       }
@@ -3304,8 +3303,6 @@
           w.addEventListener("afterprint", () => { try { w.close(); } catch (e) {} });
         }
       };
-
-    </script>
   
   </script>
   
