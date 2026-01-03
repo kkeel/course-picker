@@ -1550,12 +1550,25 @@ function coursePlanner() {
       
         // ✅ CRITICAL: open the print popup *synchronously* (in the click gesture)
         // Do NOT wait for $nextTick before calling the popup opener.
+        // Prefer the Paged.js popup flow if it exists
         if (window.alvearyPrintWithPaged) {
-          try { window.alvearyPrintWithPaged(); } catch (e) { window.print(); }
+          try { window.alvearyPrintWithPaged(); }
+          catch (e) {
+            // If it errors, fall back to in-place eager printing
+            if (window.alvearyPrintInPlaceWithEagerImages) window.alvearyPrintInPlaceWithEagerImages();
+            else window.print();
+          }
           return;
         }
-      
-        // Fallback (no page numbering)
+        
+        // If the paged print function is missing (your “nested script” scenario),
+        // still preload images and then print in-place.
+        if (window.alvearyPrintInPlaceWithEagerImages) {
+          window.alvearyPrintInPlaceWithEagerImages();
+          return;
+        }
+        
+        // Last resort
         window.print();
       },
 
