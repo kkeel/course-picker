@@ -3287,7 +3287,7 @@
         } catch (e) {
           console.warn("Print image preload skipped:", e);
         }
-      
+      <script>
         // 5) In the print window, load Paged.js and print
         try {
           w.PagedConfig = { auto: false };
@@ -3304,6 +3304,7 @@
           w.addEventListener("afterprint", () => { try { w.close(); } catch (e) {} });
         }
       };
+    </script>
   
   </script>
   
