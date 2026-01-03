@@ -3183,33 +3183,30 @@
       }
     
       window.alvearyPrintWithPaged = async function () {
-        // 1) Close dropdowns/menus in LIVE UI before print
+        // 1) Ensure dropdowns/menus close in the LIVE UI before snapshot
         const root = document.querySelector("[x-data]");
-        if (root && typeof closeOpenUi === "function") closeOpenUi(root);
+        if (root) closeOpenUi(root);
       
         // Let Alpine finish DOM updates
         await new Promise(r => setTimeout(r, 50));
       
-        // 2) Preload ALL resource-card covers in LIVE UI (fixes “first 5 only”)
+        // 1.5) Preload all resource-card covers before snapshot (prevents “first few only”)
         await (async function preloadPrintCovers(){
           const imgs = Array.from(document.querySelectorAll("img.resource-img"));
-          imgs.forEach(img => {
-            try { img.loading = "eager"; } catch(e){}
-            img.setAttribute("loading","eager");
-            try { img.fetchPriority = "high"; } catch(e){}
-            img.setAttribute("fetchpriority","high");
-          });
-      
-          const timeoutMs = 120000;     // allow plenty of time for many images
-          const concurrency = 8;
-      
+          // Force eager for print
+          imgs.forEach(img => { try { img.loading = "eager"; } catch(e){} });
+
+          const timeoutMs = 12000;
+          const concurrency = 4;
+
           function waitForSettled(img){
             return new Promise(resolve => {
+              // If already loaded (or already failed to placeholder), done
               if (img.complete) return resolve();
-      
+
               let done = false;
               const t = setTimeout(() => finish(), timeoutMs);
-      
+
               function finish(){
                 if (done) return;
                 done = true;
@@ -3218,13 +3215,18 @@
                 img.removeEventListener("error", onDone);
                 resolve();
               }
-              function onDone(){ setTimeout(finish, 50); }
-      
-              img.addEventListener("load", onDone);
-              img.addEventListener("error", onDone);
+              function onDone(){
+                // If onerror swapped src (Drive → placeholder), we may get multiple events.
+                // Wait a tick, then settle.
+                setTimeout(finish, 50);
+              }
+
+              img.addEventListener("load", onDone, { once:false });
+              img.addEventListener("error", onDone, { once:false });
             });
           }
-      
+
+          // Simple concurrency pool
           let i = 0;
           async function worker(){
             while (i < imgs.length){
@@ -3235,33 +3237,71 @@
           const workers = Array.from({length: concurrency}, worker);
           await Promise.all(workers);
         })();
+
+        // 2) Clone the current, already-rendered DOM
+        const cloned = document.documentElement.cloneNode(true);
       
-        // 3) Make sure Paged.js is loaded into THIS window and run pagination
+        // ✅ IMPORTANT: set a BASE URL so relative assets (img/resources/*.webp, css/*, etc.) resolve correctly
+        // This prevents many "blank cover" failures in the print window.
+        const head = cloned.querySelector("head");
+        if (head) {
+          // Remove any existing base to avoid duplicates
+          head.querySelectorAll("base").forEach(b => b.remove());
+      
+          const base = document.createElement("base");
+          base.href = document.baseURI; // preserves the current page path (best for relative assets)
+          head.prepend(base);
+        }
+      
+        // ✅ IMPORTANT: force eager loading + high priority BEFORE the print window parses the HTML
+        cloned.querySelectorAll("img").forEach(img => {
+          try { img.loading = "eager"; } catch (e) {}
+          img.setAttribute("loading", "eager");
+      
+          // higher priority (supported in Chromium)
+          try { img.fetchPriority = "high"; } catch (e) {}
+          img.setAttribute("fetchpriority", "high");
+        });
+      
+        // 3) Remove scripts so the print window doesn’t re-run the whole app
+        stripScripts(cloned);
+      
+        // 4) Open a dedicated print window with the snapshot HTML
+        const w = window.open("", "_blank", "noopener,noreferrer");
+        if (!w) {
+          window.print();
+          return;
+        }
+      
+        w.document.open();
+        w.document.write("<!doctype html>" + cloned.outerHTML);
+        w.document.close();
+      
+        // ✅ IMPORTANT: in the print snapshot, disable lazy-loading and preload EVERYTHING
         try {
-          window.PagedConfig = { auto: false };
-      
-          // If your helper exists, use it; otherwise load Paged.js the same way your file already does
-          if (typeof loadPagedInto === "function") {
-            await loadPagedInto(window);
-          } else if (!window.PagedPolyfill) {
-            // Fallback loader (only if you don't already have loadPagedInto in this file)
-            const s = document.createElement("script");
-            s.src = "https://unpkg.com/pagedjs/dist/paged.polyfill.js";
-            await new Promise((res, rej) => {
-              s.onload = res; s.onerror = rej;
-              document.head.appendChild(s);
-            });
-          }
-      
-          await new Promise(r => setTimeout(r, 150));
-          await window.PagedPolyfill.preview();
-      
-          // 4) Print from the SAME window (no popup = no blank page)
-          window.print();
-      
+          makeImagesEagerForPrint(w);
+          await preloadAllImages(w, { timeoutMs: 120000, concurrency: 8 });
+        
+          // let layout/paint catch up before Paged.js measures everything
+          await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
         } catch (e) {
-          console.warn("Paged print failed; falling back to native print:", e);
-          window.print();
+          console.warn("Print image preload skipped:", e);
+        }
+      
+        // 5) In the print window, load Paged.js and print
+        try {
+          w.PagedConfig = { auto: false };
+          await loadPagedInto(w);
+          await new Promise(r => setTimeout(r, 150));
+          await w.PagedPolyfill.preview();
+          w.focus();
+          w.print();
+          w.addEventListener("afterprint", () => { try { w.close(); } catch (e) {} });
+        } catch (e) {
+          console.warn(e);
+          w.focus();
+          w.print();
+          w.addEventListener("afterprint", () => { try { w.close(); } catch (e) {} });
         }
       };
   
