@@ -2,6 +2,33 @@
    print-books.css
    ========================================================= */
 
+@media print {
+
+  @page {
+    margin: 32mm 28mm 24mm 15mm;
+
+    @bottom-left {
+      content: "Alveary Book List";
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+
+    @bottom-center {
+      content: "©2026 Charlotte Mason Institute® All rights reserved.";
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+
+    @bottom-right {
+      content: "p." counter(page);
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+  }
+   
   /* ---------------------------------------------------------
      BOOK LIST: Resource cards print sizing (9pt everywhere)
      --------------------------------------------------------- */
@@ -74,30 +101,3 @@
     page-break-inside: avoid !important;
   }
 }
-
-@media print {
-
-  @page {
-    margin: 32mm 28mm 24mm 15mm;
-
-    @bottom-left {
-      content: "Alveary Book List";
-      font-size: 8pt;
-      color: #4b544b;
-      white-space: nowrap;
-    }
-
-    @bottom-center {
-      content: "©2026 Charlotte Mason Institute® All rights reserved.";
-      font-size: 8pt;
-      color: #4b544b;
-      white-space: nowrap;
-    }
-
-    @bottom-right {
-      content: "p." counter(page);
-      font-size: 8pt;
-      color: #4b544b;
-      white-space: nowrap;
-    }
-  }
