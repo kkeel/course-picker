@@ -1,7 +1,82 @@
 /* =========================================================
    print-books.css
    ========================================================= */
+
+  /* ---------------------------------------------------------
+     BOOK LIST: Resource cards print sizing (9pt everywhere)
+     --------------------------------------------------------- */
+
+  /* 1) Make the resource card base 9pt, then inherit everywhere */
+  .resource-card {
+    font-size: 9pt !important;
+    line-height: 1.25 !important;
+  }
+  .resource-card * {
+    font-size: inherit !important;
+  }
+
+  /* 2) Keep weights as-is (you asked to keep existing weights),
+        but normalize line-heights a bit so things don’t feel cramped */
+  .resource-title,
+  .resource-subline,
+  .resource-rationale,
+  .resource-meta-text,
+  .resource-bottom-title,
+  .resource-bottom-head-text,
+  .buy-links,
+  .resource-prep-body {
+    line-height: 1.25 !important;
+  }
+
+  /* 3) Make images smaller so they don’t dominate */
+  .resource-img-wrap {
+    width: 56px !important;
+    height: 74px !important;
+    flex: 0 0 56px !important;
+  }
+  .resource-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* 4) Buttons/inputs: force 9pt text, and keep them slim */
+  .buy-link-pill,
+  .prep-options-btn,
+  .prep-select,
+  .prep-option-remove {
+    font-size: 9pt !important;
+    line-height: 1.1 !important;
+  }
+
+  /* If any of these had fixed heights, loosen them so 9pt fits cleanly */
+  .buy-link-pill {
+    height: auto !important;
+    padding: 1px 6px !important;
+  }
+  .prep-select {
+    height: auto !important;
+    padding: 1px 4px !important;
+  }
+
+  /* 5) Tighten vertical spacing inside resource cards just a touch */
+  .resource-subline { margin-top: 2px !important; }
+  .resource-rationale { margin-top: 4px !important; }
+  .resource-meta-label,
+  .resource-bottom-title { margin-bottom: 2px !important; }
+
+  /* 6) Avoid print splitting weirdly inside a resource card */
+  .resource-card,
+  .resource-bottom-strip,
+  .resource-prep-body,
+  .buy-links {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
+
 @media print {
+
   @page {
     margin: 32mm 28mm 24mm 15mm;
 
@@ -26,4 +101,3 @@
       white-space: nowrap;
     }
   }
-}
