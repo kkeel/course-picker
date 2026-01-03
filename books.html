@@ -3181,6 +3181,54 @@
         // Let Alpine finish DOM updates
         await new Promise(r => setTimeout(r, 50));
       
+        // 1.5) Preload all resource-card covers before snapshot (prevents “first few only”)
+        await (async function preloadPrintCovers(){
+          const imgs = Array.from(document.querySelectorAll("img.resource-img"));
+          // Force eager for print
+          imgs.forEach(img => { try { img.loading = "eager"; } catch(e){} });
+
+          const timeoutMs = 12000;
+          const concurrency = 4;
+
+          function waitForSettled(img){
+            return new Promise(resolve => {
+              // If already loaded (or already failed to placeholder), done
+              if (img.complete) return resolve();
+
+              let done = false;
+              const t = setTimeout(() => finish(), timeoutMs);
+
+              function finish(){
+                if (done) return;
+                done = true;
+                clearTimeout(t);
+                img.removeEventListener("load", onDone);
+                img.removeEventListener("error", onDone);
+                resolve();
+              }
+              function onDone(){
+                // If onerror swapped src (Drive → placeholder), we may get multiple events.
+                // Wait a tick, then settle.
+                setTimeout(finish, 50);
+              }
+
+              img.addEventListener("load", onDone, { once:false });
+              img.addEventListener("error", onDone, { once:false });
+            });
+          }
+
+          // Simple concurrency pool
+          let i = 0;
+          async function worker(){
+            while (i < imgs.length){
+              const img = imgs[i++];
+              await waitForSettled(img);
+            }
+          }
+          const workers = Array.from({length: concurrency}, worker);
+          await Promise.all(workers);
+        })();
+
         // 2) Clone the current, already-rendered DOM
         const cloned = document.documentElement.cloneNode(true);
       
