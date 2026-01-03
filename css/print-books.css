@@ -263,4 +263,123 @@
   margin-top: 2px !important;
 }
   
+/* =========================================================
+   PRINT TWEAKS (Jan 3): spacing, buy links as text, borders,
+   image fit, and better page-break behavior
+   ========================================================= */
+
+  /* 1) Rationale: add a *little* space before notes/may-sub box */
+  .resource-rationale{
+    margin-bottom: 4px !important;
+  }
+
+  /* 2) Notes / "may sub" box: slightly less padding, but keep readable */
+  .resource-tipbox{
+    padding: 4px 6px !important;
+    margin-top: 4px !important;   /* ensures separation from rationale */
+  }
+
+  /* 3) Remove background color from the purchase/options strip too */
+  .resource-bottom-strip,
+  .resource-bottom-inner,
+  .resource-bottom-row,
+  .resource-bottom-right,
+  .resource-buy-links{
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* 4) Images: smaller AND crop-fill the box so they don’t look tall/narrow */
+  img.resource-img{
+    width: 34px !important;
+    height: 48px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+  }
+
+  /* If there’s any wrapper controlling the thumbnail area, force it to match */
+  .resource-img-wrap,
+  .resource-img-col,
+  .resource-img-holder{
+    width: 34px !important;
+    height: 48px !important;
+    overflow: hidden !important;
+  }
+
+  /* 5) Purchase option “buttons” -> bold underlined hyperlink text */
+  .resource-buy-links a,
+  .resource-buy-links .buy-link-pill,
+  a.buy-link-pill{
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+    margin: 0 10px 0 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    color: #596e5e !important;
+    font-weight: 700 !important;
+    text-decoration: underline !important;
+    text-underline-offset: 2px !important;
+
+    display: inline !important; /* prevents “pill” layout */
+    line-height: 1.15 !important;
+  }
+
+  /* If your base CSS applies hover/focus styles that look button-like */
+  .resource-buy-links a:hover,
+  .resource-buy-links a:focus{
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  /* 6) Make the top-of-resource and bottom-of-purchase-strip borders visible and a tad thicker */
+  :root{
+    --print-resource-rule: #adb58f; /* fallback if the existing var isn’t available */
+  }
+
+  /* Top rule (use what exists in your structure: resource-top-row is typically the visible “top” area) */
+  .resource-top-row{
+    border-top: 2px solid var(--resource-border-color, var(--print-resource-rule)) !important;
+  }
+
+  /* Bottom rule (bottom of purchase strip) */
+  .resource-bottom-strip{
+    border-bottom: 2px solid var(--resource-border-color, var(--print-resource-rule)) !important;
+  }
+
+  /* 7) Tighten space between image and title/rationale column */
+  .resource-top-left{
+    gap: 8px !important;   /* was larger; reduces horizontal whitespace */
+  }
+  .resource-top-row{
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+  }
+
+  /* Also tighten the internal text block spacing a touch */
+  .resource-title{
+    margin: 0 0 2px 0 !important;
+  }
+  .resource-meta,
+  .resource-submeta{
+    margin-top: 1px !important;
+  }
+
+  /* 8) Keep the topic header + first resource together whenever possible
+        (avoid a page break immediately after the topic header block) */
+  .topic-card{
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+  }
+
+  /* And ensure resource blocks themselves don’t split internally (paged-friendly) */
+  .resource-top-row,
+  .resource-bottom-strip{
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
 }
