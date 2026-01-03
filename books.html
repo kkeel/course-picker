@@ -3123,54 +3123,63 @@
         });
       }
     
-      async function waitForImagesIn(win, { timeoutMs = 8000 } = {}) {
-        const doc = win.document;
-        const imgs = Array.from(doc.images || []);
-        if (!imgs.length) return;
-    
-        // Force eager loading for print
+      function makeImagesEagerForPrint(win) {
+        const imgs = Array.from(win.document.querySelectorAll("img"));
         imgs.forEach(img => {
-          try { img.loading = "eager"; } catch (e) {}
+          // disable lazy loading in print snapshot
           img.setAttribute("loading", "eager");
-          // Hint: fetch with higher priority where supported
-          try { img.fetchPriority = "high"; } catch (e) {}
+          img.loading = "eager";
+      
+          // help some browsers prioritize decoding before layout
+          img.decoding = "sync";
+          img.setAttribute("decoding", "sync");
+      
+          // hint priority (supported in Chromium)
+          try { img.fetchPriority = "high"; } catch(e) {}
           img.setAttribute("fetchpriority", "high");
         });
-    
-        // Wait for load/decode, but never forever
-        const deadline = Date.now() + timeoutMs;
-    
-        await Promise.all(
-          imgs.map(img => new Promise(resolve => {
-            // Already loaded?
-            if (img.complete && img.naturalWidth > 0) return resolve();
-    
-            const done = () => resolve();
-            const onLoad = () => { cleanup(); done(); };
-            const onErr  = () => { cleanup(); done(); };
-    
-            const cleanup = () => {
-              img.removeEventListener("load", onLoad);
-              img.removeEventListener("error", onErr);
-            };
-    
-            img.addEventListener("load", onLoad, { once: true });
-            img.addEventListener("error", onErr, { once: true });
-    
-            // If browser supports decode(), it can help ensure paint-ready
-            if (img.decode) {
-              img.decode().then(() => { cleanup(); done(); }).catch(() => { /* ignore */ });
+      }
+      
+      async function preloadAllImages(win, opts = {}) {
+        const timeoutMs = opts.timeoutMs ?? 120000;   // give it real time for a long list
+        const concurrency = opts.concurrency ?? 8;    // don’t hammer the network
+      
+        const imgs = Array.from(win.document.images || []);
+        const srcs = imgs
+          .map(img => img.currentSrc || img.src)
+          .filter(Boolean);
+      
+        // If there are no images, we’re done
+        if (!srcs.length) return;
+      
+        let idx = 0;
+        let active = 0;
+        let done = 0;
+      
+        return await new Promise((resolve) => {
+          const start = Date.now();
+      
+          function pump() {
+            // finish conditions
+            if (done >= srcs.length) return resolve();
+            if (Date.now() - start > timeoutMs) return resolve(); // don’t block forever
+      
+            while (active < concurrency && idx < srcs.length) {
+              const src = srcs[idx++];
+              active++;
+      
+              const probe = new Image();
+              probe.onload = probe.onerror = () => {
+                active--;
+                done++;
+                pump();
+              };
+              probe.src = src;
             }
-    
-            // Timeout safety
-            const tick = () => {
-              if (img.complete && img.naturalWidth > 0) return onLoad();
-              if (Date.now() > deadline) return onErr();
-              setTimeout(tick, 50);
-            };
-            tick();
-          }))
-        );
+          }
+      
+          pump();
+        });
       }
     
       window.alvearyPrintWithPaged = async function () {
@@ -3268,11 +3277,15 @@
         w.document.write("<!doctype html>" + cloned.outerHTML);
         w.document.close();
       
-        // ✅ Wait for images to load BEFORE Paged.js lays out pages
+        // ✅ IMPORTANT: in the print snapshot, disable lazy-loading and preload EVERYTHING
         try {
-          await waitForImagesIn(w, { timeoutMs: 25000 }); // longer for big book lists
+          makeImagesEagerForPrint(w);
+          await preloadAllImages(w, { timeoutMs: 120000, concurrency: 8 });
+        
+          // let layout/paint catch up before Paged.js measures everything
+          await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
         } catch (e) {
-          console.warn("Print image wait skipped:", e);
+          console.warn("Print image preload skipped:", e);
         }
       
         // 5) In the print window, load Paged.js and print
