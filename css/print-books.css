@@ -382,4 +382,59 @@
     break-inside: avoid !important;
     page-break-inside: avoid !important;
   }
+
+   /* ===========================
+   FINAL OVERRIDES (Jan 3)
+   =========================== */
+
+/* 1) RATIONALE spacing:
+   remove top space, add bottom space (between rationale and tipbox) */
+.resource-rationale{
+  margin-top: 0 !important;       /* kills the earlier margin-top:4px */
+  margin-bottom: 5px !important;  /* creates the desired separation below */
+}
+
+/* tipbox: keep a small top gap but not too much */
+.resource-tipbox{
+  margin-top: 0 !important;       /* rely on rationale bottom spacing instead */
+  padding: 3px 5px !important;    /* slightly less padding than current 4px 6px */
+}
+
+/* 2) Remove BOTTOM border of purchase options strip (too busy) */
+.resource-bottom-strip{
+  border-bottom: none !important; /* overrides earlier border-bottom:2px */
+}
+
+/* Keep ONLY the TOP rule on the resource (you liked that) */
+.resource-top-row{
+  border-top-width: 2px !important;   /* keep thickness */
+  border-top-style: solid !important;
+}
+
+/* 3) Tighten space between image and info more */
+.resource-top-left{
+  gap: 5px !important; /* was 8px */
+}
+
+/* If the right text column has its own padding/margin, tighten it too */
+.resource-info-right{
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* 4) Image: a tad shorter, width stays the same */
+img.resource-img{
+  width: 34px !important;
+  height: 44px !important;      /* was 48px */
+  object-fit: cover !important;
+}
+
+/* Keep wrapper in sync so we don’t get extra empty space */
+.resource-img-wrap,
+.resource-img-col,
+.resource-img-holder{
+  width: 34px !important;
+  height: 44px !important;
+}
+   
 }
