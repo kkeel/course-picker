@@ -3177,61 +3177,73 @@
         // 1) Ensure dropdowns/menus close in the LIVE UI before snapshot
         const root = document.querySelector("[x-data]");
         if (root) closeOpenUi(root);
-    
+      
         // Let Alpine finish DOM updates
         await new Promise(r => setTimeout(r, 50));
-    
+      
         // 2) Clone the current, already-rendered DOM
         const cloned = document.documentElement.cloneNode(true);
-    
+      
+        // ✅ IMPORTANT: set a BASE URL so relative assets (img/resources/*.webp, css/*, etc.) resolve correctly
+        // This prevents many "blank cover" failures in the print window.
+        const head = cloned.querySelector("head");
+        if (head) {
+          // Remove any existing base to avoid duplicates
+          head.querySelectorAll("base").forEach(b => b.remove());
+      
+          const base = document.createElement("base");
+          base.href = document.baseURI; // preserves the current page path (best for relative assets)
+          head.prepend(base);
+        }
+      
+        // ✅ IMPORTANT: force eager loading + high priority BEFORE the print window parses the HTML
+        cloned.querySelectorAll("img").forEach(img => {
+          try { img.loading = "eager"; } catch (e) {}
+          img.setAttribute("loading", "eager");
+      
+          // higher priority (supported in Chromium)
+          try { img.fetchPriority = "high"; } catch (e) {}
+          img.setAttribute("fetchpriority", "high");
+        });
+      
         // 3) Remove scripts so the print window doesn’t re-run the whole app
         stripScripts(cloned);
-    
+      
         // 4) Open a dedicated print window with the snapshot HTML
         const w = window.open("", "_blank", "noopener,noreferrer");
         if (!w) {
           window.print();
           return;
         }
-    
+      
         w.document.open();
         w.document.write("<!doctype html>" + cloned.outerHTML);
         w.document.close();
-    
-        // ✅ NEW: wait for images to load in the print window BEFORE Paged.js lays out pages
+      
+        // ✅ Wait for images to load BEFORE Paged.js lays out pages
         try {
-          await waitForImagesIn(w, { timeoutMs: 10000 });
+          await waitForImagesIn(w, { timeoutMs: 25000 }); // longer for big book lists
         } catch (e) {
-          // don’t block printing if something goes weird
           console.warn("Print image wait skipped:", e);
         }
-    
+      
         // 5) In the print window, load Paged.js and print
         try {
-          // Prevent auto-run
           w.PagedConfig = { auto: false };
-    
           await loadPagedInto(w);
-    
-          // Wait a beat for styles/fonts
           await new Promise(r => setTimeout(r, 150));
-    
           await w.PagedPolyfill.preview();
           w.focus();
           w.print();
-    
-          w.addEventListener("afterprint", () => {
-            try { w.close(); } catch (e) {}
-          });
+          w.addEventListener("afterprint", () => { try { w.close(); } catch (e) {} });
         } catch (e) {
           console.warn(e);
           w.focus();
           w.print();
-          w.addEventListener("afterprint", () => {
-            try { w.close(); } catch (e) {}
-          });
+          w.addEventListener("afterprint", () => { try { w.close(); } catch (e) {} });
         }
       };
+
     </script>
   
   </script>
