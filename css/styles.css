@@ -2015,7 +2015,7 @@ body {
     page-break-inside: auto;
   }
   
-  /* PRINT: Topic cards ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â top border only */
+  /* PRINT: Topic cards top border only */
   .topic-card {
     box-shadow: none !important;
     background-color: #ffffff !important;
@@ -2071,11 +2071,11 @@ body {
 
   /* PRINT: hide planning/action controls, keep selected tags visible */
 .card-header-actions,
-.planning-tag-button,     /* ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“+ Planning tagÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â button */
-.planning-tag-add,        /* small + square */
-.planning-tag-remove,     /* ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â on selected tags */
-.planning-tag-apply,      /* + on ghost tags */
-.edit-pill {              /* Edit ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬ ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â */
+.planning-tag-button,    
+.planning-tag-add,  
+.planning-tag-remove,  
+.planning-tag-apply,   
+.edit-pill {             
   display: none !important;
 }
 
@@ -2196,6 +2196,11 @@ body {
   .topic-meta {
     margin-top: 2px !important;
     line-height: 1.3 !important;
+  }
+
+  /* When student chips ARE present, add a little air above them */
+  .student-rail-toggle-row:has(.student-chip-row:not(:empty)) {
+    margin-top: 6px !important;
   }
   
 }
