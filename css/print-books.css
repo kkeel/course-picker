@@ -100,4 +100,167 @@
     break-inside: avoid !important;
     page-break-inside: avoid !important;
   }
+
+   /* ===========================
+   BOOK LIST — PRINT TWEAKS
+   (add at END of @media print)
+   =========================== */
+
+/* 1) Resource titles to 10pt */
+.resource-title,
+.resource-title * ,
+.resource-main-title,
+.resource-main-title * {
+  font-size: 10pt !important;
+  line-height: 1.15 !important;
+}
+
+/* 4) Hide "+ resource to my booklist" buttons (all states) */
+.bookmark-btn,
+.bookmark-btn * {
+  display: none !important;
+} /* buttons are .bookmark-btn--solid/--ghost/--empty in books.html */ /* :contentReference[oaicite:2]{index=2} */
+
+/* 6) Badges (optional / choose one / grade tags): white text, size 9 */
+.resource-badge,
+.badge,
+.badge * ,
+.resource-badge * {
+  color: #fff !important;
+  font-size: 9pt !important;
+  line-height: 1.05 !important;
+}
+
+/* 7) Make images smaller */
+.resource-img {
+  width: 44px !important;
+  height: auto !important;
+}
+.resource-img-wrap,
+.resource-cover,
+.resource-cover-wrap {
+  width: 44px !important;
+}
+
+/* 3) Remove colored backgrounds + card outlines/shadows.
+      Keep ONLY a single border under the purchase strip. */
+.resource-card {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+}
+.resource-card * {
+  box-shadow: none !important;
+}
+
+/* Keep only the bottom border under the purchase buttons strip.
+   (We DO NOT set a new color; we let your current border color apply.) */
+.resource-bottom-strip {
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom-width: 1px !important;
+  border-bottom-style: solid !important;
+}
+
+/* 5) Purchase buttons => bold underlined hyperlink text, #596e5e */
+.resource-buy-row a,
+.resource-buy-row button,
+.resource-buy-row .btn,
+.resource-buy-row .btn-pill,
+.resource-buy-row .buy-link-pill {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 10px 0 0 !important;
+  border-radius: 0 !important;
+
+  color: #596e5e !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+  box-shadow: none !important;
+}
+
+/* If any purchase buttons are actually <a> wrapping pills */
+.resource-buy-row a:link,
+.resource-buy-row a:visited {
+  color: #596e5e !important;
+}
+
+/* 2) Prep + Tracking:
+   - Hide header (title/chevron/+Add) when there are NO prep lines
+   - When there ARE prep lines: show TITLE + LINES only
+   - No chevron, no +Add, no remove-X, no dropdown styling
+*/
+
+/* Always hide chevron toggle + "+ Add" controls in print */
+.prep-collapse-btn { display: none !important; }               /* chevron */ /* :contentReference[oaicite:3]{index=3} */
+.prep-options-add-row,
+.prep-options-btn { display: none !important; }                /* + Add */   /* :contentReference[oaicite:4]{index=4} */
+.prep-option-remove { display: none !important; }              /* ✕ */       /* :contentReference[oaicite:5]{index=5} */
+
+/* Hide the whole prep header by default... */
+.resource-bottom-head { display: none !important; }
+
+/* ...but show it IF there is at least one prep line inside the body */
+.resource-prep-body:has(.prep-option-row) ~ * {}
+/* show the title row when options exist */
+.resource-bottom-head:has(+ .resource-prep-body .prep-option-row) {
+  display: flex !important;
+}
+
+/* Force the body OPEN in print (even if x-show closed it),
+   but ONLY when there are prep rows (prevents empty sections printing) */
+.resource-prep-body { display: none !important; }
+.resource-prep-body:has(.prep-option-row) {
+  display: block !important;
+}
+
+/* Make prep rows look like simple text lines (not dropdown chips) */
+.prep-option-row {
+  padding: 0 !important;
+  margin: 2px 0 !important;
+  gap: 6px !important;
+}
+
+/* De-dropdown the selects */
+.prep-select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  font-size: 9pt !important;
+  line-height: 1.1 !important;
+}
+
+/* Make sure the prep title is present but compact (no chevron anyway) */
+.resource-bottom-title {
+  font-weight: 700 !important;
+  font-size: 9pt !important;
+  margin: 4px 0 2px !important;
+}
+
+/* 8) Tighten vertical + horizontal spacing a bit */
+.resource-top-row,
+.resource-info-row,
+.resource-bottom-strip {
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+}
+.resource-info-row {
+  gap: 8px !important;
+}
+.resource-info-divider {
+  margin: 4px 0 !important;
+}
+.resource-subline,
+.resource-rationale,
+.resource-tipbox {
+  margin-top: 2px !important;
+}
+  
 }
