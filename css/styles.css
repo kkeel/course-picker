@@ -2145,6 +2145,58 @@ body {
   .student-chip-apply {
     display: none !important;
   }
+
+  .student-rail-toggle-row {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    min-height: 0 !important;
+  }
+
+  /* If there are NO student chips, remove the row entirely */
+  .student-rail-toggle-row:has(.student-chip-row:empty),
+  .student-rail-toggle-row:has(.student-chip-row:not(:has(*))) {
+    display: none !important;
+  }
+
+  .course-shell {
+    margin-top: 12px !important;
+  }
+
+  .subject-block + .subject-block {
+    margin-top: 16px !important;
+  }
+
+  .subject-title {
+    margin-bottom: 6px !important;
+  }
+
+  .course-card,
+  .topic-card {
+    padding: 12px 14px !important;
+  }
+
+  .subject-courses {
+    gap: 8px !important;
+  }
+
+  .topic-list {
+    gap: 8px !important;
+  }
+
+  .course-detail-row {
+    margin-top: 6px !important;
+    gap: 6px !important;
+  }
+
+  .course-detail-tips {
+    padding: 6px 8px !important;
+  }
+
+  .course-meta,
+  .topic-meta {
+    margin-top: 2px !important;
+    line-height: 1.3 !important;
+  }
   
 }
 
