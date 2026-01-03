@@ -1878,7 +1878,6 @@
 /* Minimal: everything in Compact + hide the prep/bottom strip */
 .listview-minimal .resource-rationale,
 .listview-minimal .resource-tipbox,
-.listview-minimal .resource-info-right,
 .listview-minimal .resource-bottom-strip {
   display: none !important;
 }
