@@ -3123,6 +3123,56 @@
         });
       }
     
+      async function waitForImagesIn(win, { timeoutMs = 8000 } = {}) {
+        const doc = win.document;
+        const imgs = Array.from(doc.images || []);
+        if (!imgs.length) return;
+    
+        // Force eager loading for print
+        imgs.forEach(img => {
+          try { img.loading = "eager"; } catch (e) {}
+          img.setAttribute("loading", "eager");
+          // Hint: fetch with higher priority where supported
+          try { img.fetchPriority = "high"; } catch (e) {}
+          img.setAttribute("fetchpriority", "high");
+        });
+    
+        // Wait for load/decode, but never forever
+        const deadline = Date.now() + timeoutMs;
+    
+        await Promise.all(
+          imgs.map(img => new Promise(resolve => {
+            // Already loaded?
+            if (img.complete && img.naturalWidth > 0) return resolve();
+    
+            const done = () => resolve();
+            const onLoad = () => { cleanup(); done(); };
+            const onErr  = () => { cleanup(); done(); };
+    
+            const cleanup = () => {
+              img.removeEventListener("load", onLoad);
+              img.removeEventListener("error", onErr);
+            };
+    
+            img.addEventListener("load", onLoad, { once: true });
+            img.addEventListener("error", onErr, { once: true });
+    
+            // If browser supports decode(), it can help ensure paint-ready
+            if (img.decode) {
+              img.decode().then(() => { cleanup(); done(); }).catch(() => { /* ignore */ });
+            }
+    
+            // Timeout safety
+            const tick = () => {
+              if (img.complete && img.naturalWidth > 0) return onLoad();
+              if (Date.now() > deadline) return onErr();
+              setTimeout(tick, 50);
+            };
+            tick();
+          }))
+        );
+      }
+    
       window.alvearyPrintWithPaged = async function () {
         // 1) Ensure dropdowns/menus close in the LIVE UI before snapshot
         const root = document.querySelector("[x-data]");
@@ -3140,7 +3190,6 @@
         // 4) Open a dedicated print window with the snapshot HTML
         const w = window.open("", "_blank", "noopener,noreferrer");
         if (!w) {
-          // popup blocked → fall back
           window.print();
           return;
         }
@@ -3148,6 +3197,14 @@
         w.document.open();
         w.document.write("<!doctype html>" + cloned.outerHTML);
         w.document.close();
+    
+        // ✅ NEW: wait for images to load in the print window BEFORE Paged.js lays out pages
+        try {
+          await waitForImagesIn(w, { timeoutMs: 10000 });
+        } catch (e) {
+          // don’t block printing if something goes weird
+          console.warn("Print image wait skipped:", e);
+        }
     
         // 5) In the print window, load Paged.js and print
         try {
@@ -3157,13 +3214,12 @@
           await loadPagedInto(w);
     
           // Wait a beat for styles/fonts
-          await new Promise(r => setTimeout(r, 100));
+          await new Promise(r => setTimeout(r, 150));
     
           await w.PagedPolyfill.preview();
           w.focus();
           w.print();
     
-          // Close the print window after printing
           w.addEventListener("afterprint", () => {
             try { w.close(); } catch (e) {}
           });
