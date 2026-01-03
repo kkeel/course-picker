@@ -3181,7 +3181,118 @@
           pump();
         });
       }
+    // ✅ Fallback: print in the MAIN TAB (no popup), but force/preload all images first.
+    // This fixes “only first 5 covers” when using window.print().
+    window.alvearyPrintInPlaceWithEagerImages = async function () {
+      // Close UI overlays so they don’t print
+      const root = document.querySelector("[x-data]");
+      if (root) closeOpenUi(root);
     
+      // Let Alpine flush DOM updates
+      await new Promise(r => setTimeout(r, 50));
+    
+      // 1) Force eager + high priority on ALL images in the live DOM
+      const allImgs = Array.from(document.querySelectorAll("img"));
+      allImgs.forEach(img => {
+        try { img.loading = "eager"; } catch(e) {}
+        img.setAttribute("loading", "eager");
+    
+        try { img.fetchPriority = "high"; } catch(e) {}
+        img.setAttribute("fetchpriority", "high");
+    
+        try { img.decoding = "sync"; } catch(e) {}
+        img.setAttribute("decoding", "sync");
+      });
+    
+      // 2) Specifically wait for resource covers to settle (your existing logic pattern)
+      await (async function preloadPrintCoversInPlace(){
+        const imgs = Array.from(document.querySelectorAll("img.resource-img"));
+    
+        const timeoutMs = 12000;
+        const concurrency = 6;
+    
+        function waitForSettled(img){
+          return new Promise(resolve => {
+            if (img.complete) return resolve();
+    
+            let done = false;
+            const t = setTimeout(() => finish(), timeoutMs);
+    
+            function finish(){
+              if (done) return;
+              done = true;
+              clearTimeout(t);
+              img.removeEventListener("load", onDone);
+              img.removeEventListener("error", onDone);
+              resolve();
+            }
+    
+            function onDone(){
+              // allow any onerror src-swap to happen (Drive → placeholder)
+              setTimeout(finish, 50);
+            }
+    
+            img.addEventListener("load", onDone);
+            img.addEventListener("error", onDone);
+          });
+        }
+    
+        let i = 0;
+        async function worker(){
+          while (i < imgs.length){
+            const img = imgs[i++];
+            await waitForSettled(img);
+          }
+        }
+    
+        await Promise.all(Array.from({ length: concurrency }, worker));
+      })();
+    
+      // 3) Preload ALL image URLs currently in the page (covers + icons + anything else)
+      // Uses the same idea as your print-window preloadAllImages, but in the main document.
+      await (async function preloadAllImagesInMainDoc(){
+        const timeoutMs = 120000;
+        const concurrency = 10;
+    
+        const imgs = Array.from(document.images || []);
+        const srcs = imgs.map(img => img.currentSrc || img.src).filter(Boolean);
+    
+        if (!srcs.length) return;
+    
+        let idx = 0, active = 0, done = 0;
+    
+        await new Promise((resolve) => {
+          const start = Date.now();
+    
+          function pump() {
+            if (done >= srcs.length) return resolve();
+            if (Date.now() - start > timeoutMs) return resolve();
+    
+            while (active < concurrency && idx < srcs.length) {
+              const src = srcs[idx++];
+              active++;
+    
+              const probe = new Image();
+              probe.onload = probe.onerror = () => {
+                active--;
+                done++;
+                pump();
+              };
+              probe.src = src;
+            }
+          }
+          pump();
+        });
+      })();
+    
+      // Give layout/paint a beat (important right before print)
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    
+      // 4) Print in the main tab (NO popup window)
+      window.print();
+    };
+
+    <script>
       window.alvearyPrintWithPaged = async function () {
         // 1) Ensure dropdowns/menus close in the LIVE UI before snapshot
         const root = document.querySelector("[x-data]");
@@ -3287,7 +3398,7 @@
         } catch (e) {
           console.warn("Print image preload skipped:", e);
         }
-      <script>
+    
         // 5) In the print window, load Paged.js and print
         try {
           w.PagedConfig = { auto: false };
