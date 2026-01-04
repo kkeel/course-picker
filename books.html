@@ -1243,25 +1243,20 @@
                                   </div>
                                 </div>
                             
-                                <!-- FULL VIEW (desktop/print): Purchase Options live in the TOP ROW, above the Shared column -->
-                                <div class="resource-top-shared" x-show="listViewMode === 'full'" x-cloak>
+                                <!-- Purchase Options (TOP placement: desktop/print/tablet only via CSS) -->
+                                <div class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--top"
+                                     x-show="(a.buyLinks || []).length">
+                                  <div class="resource-bottom-title">Purchase Options</div>
                                 
-                                  <div
-                                    class="resource-buy-links resource-buy-links--top"
-                                    x-show="(resourcesById[a.resourceId]?.links || []).length"
-                                    x-cloak
-                                  >
-                                    <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
-                                      <a
-                                        class="buy-link-pill"
-                                        :href="lnk.url"
-                                        target="_blank"
-                                        rel="noopener"
-                                        x-text="lnk.text || 'Link'"
-                                      ></a>
+                                  <div class="resource-buy-links">
+                                    <template x-for="link in a.buyLinks" :key="link.url">
+                                      <a class="buy-link-pill"
+                                         :href="link.url"
+                                         target="_blank"
+                                         rel="noopener"
+                                         x-text="link.label"></a>
                                     </template>
                                   </div>
-                                
                                 </div>
                             
                               </div>
@@ -1742,8 +1737,8 @@
                                         <div class="resource-bottom-divider" aria-hidden="true"></div>
                                     
                                         <!-- RIGHT (narrow): mirrors scope/shared width -->
-                                        <div class="resource-bottom-right resource-bottom-right-grid">
-                                            <div class="resource-bottom-buy" x-show="listViewMode === 'minimal'" x-cloak>
+                                        <div class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--bottom"
+                                           x-show="(a.buyLinks || []).length && (listViewMode === 'compact' || listViewMode === 'minimal')">
                                               <div class="resource-bottom-title">Purchase Options</div>
                                             
                                               <!-- Buy links (from MA_Resources.json -> links[{text,url}]) -->
@@ -1765,7 +1760,6 @@
                                                   ></a>
                                                 </template>
                                               </div>
-                                            </div>
 
                                             <div class="resource-bottom-spacer"><!-- reserved for later --></div>
                                         </div>
@@ -2303,25 +2297,20 @@
                                         </div>
                                       </div>
                                   
-                                      <!-- FULL VIEW (desktop/print): Purchase Options live in the TOP ROW, above the Shared column -->
-                                      <div class="resource-top-shared" x-show="listViewMode === 'full'" x-cloak>
+                                      <!-- Purchase Options (TOP placement: desktop/print/tablet only via CSS) -->
+                                      <div class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--top"
+                                           x-show="(a.buyLinks || []).length">
+                                        <div class="resource-bottom-title">Purchase Options</div>
                                       
-                                        <div
-                                          class="resource-buy-links resource-buy-links--top"
-                                          x-show="(resourcesById[a.resourceId]?.links || []).length"
-                                          x-cloak
-                                        >
-                                          <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
-                                            <a
-                                              class="buy-link-pill"
-                                              :href="lnk.url"
-                                              target="_blank"
-                                              rel="noopener"
-                                              x-text="lnk.text || 'Link'"
-                                            ></a>
+                                        <div class="resource-buy-links">
+                                          <template x-for="link in a.buyLinks" :key="link.url">
+                                            <a class="buy-link-pill"
+                                               :href="link.url"
+                                               target="_blank"
+                                               rel="noopener"
+                                               x-text="link.label"></a>
                                           </template>
                                         </div>
-                                      
                                       </div>
                                   
                                     </div>
@@ -2811,8 +2800,8 @@
                                         <div class="resource-bottom-divider" aria-hidden="true"></div>
                                     
                                         <!-- RIGHT (narrow): mirrors scope/shared width -->
-                                        <div class="resource-bottom-right resource-bottom-right-grid">
-                                            <div class="resource-bottom-buy" x-show="listViewMode === 'minimal'" x-cloak>
+                                        <div class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--bottom"
+                                             x-show="(a.buyLinks || []).length && (listViewMode === 'compact' || listViewMode === 'minimal')">
                                               <div class="resource-bottom-title">Purchase Options</div>
                                             
                                               <!-- Buy links (from MA_Resources.json -> links[{text,url}]) -->
@@ -2834,7 +2823,6 @@
                                                   ></a>
                                                 </template>
                                               </div>
-                                            </div>
 
                                             <div class="resource-bottom-spacer"><!-- reserved for later --></div>
                                         </div>
