@@ -444,3 +444,31 @@ img.resource-img{
 }
    
 }
+
+@media print{
+  /* Print should match desktop placement */
+  .purchase-block--top{ display: block !important; }
+  .purchase-block--bottom{ display: none !important; }
+
+  /* Print-friendly purchase links */
+  .buy-link-pill{
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    height: auto !important;
+    border-radius: 0 !important;
+
+    font-weight: 700 !important;
+    text-decoration: underline !important;
+    color: #596e5e !important;
+
+    display: inline !important;
+    white-space: nowrap !important;
+  }
+
+  .resource-buy-links{
+    gap: 10px !important;
+    flex-wrap: wrap !important; /* allows wrapping in print if needed */
+  }
+}
+
