@@ -1087,7 +1087,6 @@
                               <span class="resource-badge resource-badge--choose-one"
                                     x-show="isChooseOneAssignment(a)" x-cloak>Choose one</span>
                             </div>
-                              <!-- Top-right book icon (My Books) CORNER BUTTON WAS HERE -->
 
                             <!-- left: image -->
                             <div class="resource-media">
@@ -1227,47 +1226,9 @@
                                     x-cloak
                                   >✓REFERENCE</span>
                                 </div>
-                            
-                              </div>
-                            
-                              <!-- invisible divider (keeps spacing aligned with bottom section) -->
-                              <div class="resource-top-divider" aria-hidden="true"></div>
-                            
-                              <!-- RIGHT: purchase buttons (scope col) + planning buttons (shared col) -->
-                              <div class="resource-top-right">
-                            
-                                <!-- Purchase buttons area (aligns above SCOPE column) -->
-                                <div class="resource-top-scope">
-                                  <div class="resource-buy-row">
-                                    <!-- buttons will go here later -->
-                                  </div>
-                                </div>
-                            
-                                <!-- Purchase Options (TOP placement: desktop/print/tablet only via CSS) -->
-                                <div class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--top"
-                                     x-show="(resourcesById[a.resourceId]?.links || []).length"
-                                     x-cloak>
-                                  <div class="resource-bottom-title">Purchase Options</div>
-                                
-                                  <div class="resource-buy-links">
-                                    <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
-                                      <a class="buy-link-pill"
-                                         :href="lnk.url"
-                                         target="_blank"
-                                         rel="noopener"
-                                         x-text="lnk.text || 'Link'"></a>
-                                    </template>
-                                  </div>
-                                </div>
-                            
-                              </div>
-                            </div>
-                              
-                              <div class="resource-info-row">
-                                <!-- LEFT (wide): FULL = rationale/tips ; COMPACT = prep/tracking -->
-                                <div class="resource-info-left">
-                              
-                                  <!-- FULL / MINIMAL: rationale + tipbox -->
+
+                                <!-- Put Rationale, Note/May Sub HERE -->
+                                <!-- FULL / MINIMAL: rationale + tipbox -->
                                   <div x-show="listViewMode !== 'compact'">
                               
                                     <!-- RATIONALE -->
@@ -1494,15 +1455,19 @@
                                     </template>
                               
                                   </div>
-                                </div>
-                              
-                                <!-- divider -->
-                                <div class="resource-info-divider" aria-hidden="true"></div>
-                              
-                                <!-- RIGHT (narrow): FULL = scope + shared ; COMPACT/MINIMAL = purchase (scope hidden in minimal) -->
-                                <div class="resource-info-right">
-                                
-                                  <!-- Scope: show in FULL + COMPACT (hide in MINIMAL) -->
+                            
+                              </div>
+                            
+                              <!-- invisible divider (keeps spacing aligned with bottom section) -->
+                              <div class="resource-top-divider" aria-hidden="true"></div>
+                            
+                              <!-- RIGHT: purchase buttons (scope col) + planning buttons (shared col) -->
+                              <div class="resource-top-right">
+                            
+                                <!-- Purchase buttons area (aligns above SCOPE column) -->
+                                <div class="resource-top-scope">
+                                  <div class="resource-buy-row">
+                                    <!-- Scope: show in FULL + COMPACT (hide in MINIMAL) -->
                                   <div
                                     class="resource-meta-block resource-meta-block--scope"
                                     x-show="listViewMode !== 'minimal' && assignmentScopeText(a)"
@@ -1511,8 +1476,28 @@
                                     <div class="resource-meta-label">Scope</div>
                                     <div class="resource-meta-text" x-text="assignmentScopeText(a)"></div>
                                   </div>
+                                  </div>
+                                </div>
+                            
+                                <!-- Purchase Options (TOP placement: desktop/print/tablet only via CSS) -->
+                                <div class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--top"
+                                     x-show="(resourcesById[a.resourceId]?.links || []).length"
+                                     x-cloak>
+                                  <div class="resource-bottom-title">Purchase Options</div>
                                 
-                                  <!-- Shared: FULL only -->
+                                  <div class="resource-buy-links">
+                                    <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
+                                      <a class="buy-link-pill"
+                                         :href="lnk.url"
+                                         target="_blank"
+                                         rel="noopener"
+                                         x-text="lnk.text || 'Link'"></a>
+                                    </template>
+                                  </div>
+                                </div>
+
+                                <!-- Maybe Put Shared Resource HERE?? -->
+                                <!-- Shared: FULL only -->
                                   <div
                                     class="resource-meta-block resource-meta-block--shared"
                                     x-show="listViewMode === 'full' && assignmentSharedR3Text(a)"
@@ -1521,36 +1506,9 @@
                                     <div class="resource-meta-label">↔ Shared</div>
                                     <div class="resource-meta-text" x-text="assignmentSharedR3Text(a)"></div>
                                   </div>
-                                
-                                  <!-- Purchase Options: COMPACT + MINIMAL -->
-                                  <div
-                                    class="resource-meta-block resource-meta-block--shared"
-                                    x-show="(listViewMode === 'compact' || listViewMode === 'minimal')"
-                                    x-cloak
-                                  >
-                                    <div class="resource-meta-label">Purchase Options</div>
-                                
-                                    <div
-                                      class="resource-buy-links"
-                                      x-show="(resourcesById[a.resourceId]?.links || []).length"
-                                      x-cloak
-                                    >
-                                      <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
-                                        <a
-                                          class="buy-link-pill"
-                                          :href="lnk.url"
-                                          target="_blank"
-                                          rel="noopener"
-                                          x-text="lnk.text || 'Link'"
-                                        ></a>
-                                      </template>
-                                    </div>
-                                  </div>
-                                
-                                </div>
-
+                            
                               </div>
-
+                            </div>
                             </div>
 
                              <!-- Bottom strip (prep/tracking + buy) -->
