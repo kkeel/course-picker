@@ -1913,3 +1913,20 @@
   .books-page .purchase-block--top{ display: none !important; }
   .books-page .purchase-block--bottom{ display: block !important; }
 }
+
+/* =========================================================
+   Purchase Options placement rules:
+   - Desktop/tablet: show TOP (upper-right), hide BOTTOM strip
+   - Mobile: hide TOP, show BOTTOM (keeps current mobile layout)
+   ========================================================= */
+
+@media (min-width: 641px){
+  .purchase-block--top{ display: block !important; }
+  .purchase-block--bottom{ display: none !important; }
+}
+
+@media (max-width: 640px){
+  .purchase-block--top{ display: none !important; }
+  .purchase-block--bottom{ display: block !important; }
+}
+
