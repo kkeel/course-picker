@@ -1245,16 +1245,17 @@
                             
                                 <!-- Purchase Options (TOP placement: desktop/print/tablet only via CSS) -->
                                 <div class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--top"
-                                     x-show="(a.buyLinks || []).length">
+                                     x-show="(resourcesById[a.resourceId]?.links || []).length"
+                                     x-cloak>
                                   <div class="resource-bottom-title">Purchase Options</div>
                                 
                                   <div class="resource-buy-links">
-                                    <template x-for="link in a.buyLinks" :key="link.url">
+                                    <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
                                       <a class="buy-link-pill"
-                                         :href="link.url"
+                                         :href="lnk.url"
                                          target="_blank"
                                          rel="noopener"
-                                         x-text="link.label"></a>
+                                         x-text="lnk.text || 'Link'"></a>
                                     </template>
                                   </div>
                                 </div>
@@ -2299,16 +2300,17 @@
                                   
                                       <!-- Purchase Options (TOP placement: desktop/print/tablet only via CSS) -->
                                       <div class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--top"
-                                           x-show="(a.buyLinks || []).length">
+                                           x-show="(resourcesById[a.resourceId]?.links || []).length"
+                                           x-cloak>
                                         <div class="resource-bottom-title">Purchase Options</div>
                                       
                                         <div class="resource-buy-links">
-                                          <template x-for="link in a.buyLinks" :key="link.url">
+                                          <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
                                             <a class="buy-link-pill"
-                                               :href="link.url"
+                                               :href="lnk.url"
                                                target="_blank"
                                                rel="noopener"
-                                               x-text="link.label"></a>
+                                               x-text="lnk.text || 'Link'"></a>
                                           </template>
                                         </div>
                                       </div>
