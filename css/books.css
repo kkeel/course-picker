@@ -1895,3 +1895,21 @@
 @media (max-width: 720px) {
   .resource-top-shared { display: none !important; }
 }
+
+/* =========================================================
+   Purchase Options location:
+   - Desktop/print/tablet: show TOP block
+   - Mobile: keep existing/bottom behavior untouched
+   ========================================================= */
+
+/* Desktop + print (anything above mobile breakpoint) */
+@media (min-width: 641px){
+  .books-page .purchase-block--top{ display: block !important; }
+  .books-page .purchase-block--bottom{ display: none !important; }
+}
+
+/* Mobile */
+@media (max-width: 640px){
+  .books-page .purchase-block--top{ display: none !important; }
+  .books-page .purchase-block--bottom{ display: block !important; }
+}
