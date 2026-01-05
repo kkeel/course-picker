@@ -771,7 +771,7 @@ img.resource-img{
 
   /* Space between left content block and right (scope / purchase) */
   .resource-top-row {
-    column-gap: 18px !important; /* try 16–20px range */
+    column-gap: 8px !important; /* try 16–20px range */
   }
 
 }
