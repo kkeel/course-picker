@@ -297,7 +297,7 @@
     object-position: center !important;
     display: block !important;
   }
-
+ 
   /* If there’s any wrapper controlling the thumbnail area, force it to match */
   .resource-img-wrap,
   .resource-img-col,
@@ -723,98 +723,6 @@ img.resource-img{
 
   /* --- 3) If you still see bottom “dead space” between cards, clamp card spacing --- */
   .resource-card {
-    padding-bottom: 0 !important;
-    margin-bottom: 0px !important;
-  }
-}
-
-/* =========================================================
-   BOOK LIST — PRINT: KILL COVER LANE + EXTRA CARD BOTTOM SPACE
-   Put THIS BLOCK at the VERY END of print-books (18).css
-   ========================================================= */
-@media print {
-
-  /* A) The big mystery gap: the left column is still wide.
-        Force the image+text row to use EXACT thumbnail width. */
-  .resource-top-left{
-    display: grid !important;
-    grid-template-columns: 34px 1fr !important; /* THIS is the real fix */
-    column-gap: 6px !important;
-    align-items: start !important;
-  }
-
-  /* Make sure the media wrapper itself isn't reserving a wider lane */
-  .resource-media,
-  .resource-img-col{
-    width: 34px !important;
-    flex: 0 0 34px !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-
-  /* If any wrapper around the image is still contributing width, clamp it */
-  .resource-img-wrap,
-  .resource-cover,
-  .resource-cover-wrap,
-  .resource-img-holder{
-    width: 34px !important;
-    height: 44px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-    background: transparent !important;
-    line-height: 0 !important;
-  }
-
-  img.resource-img,
-  .resource-img{
-    width: 34px !important;
-    height: 44px !important;
-    display: block !important;
-    object-fit: cover !important;
-    object-position: center !important;
-    margin: 0 !important;
-  }
-
-  /* B) Remove "saved space" at bottom by zeroing the common wrapper spacing */
-  .resource-body,
-  .resource-top-row,
-  .resource-top-left,
-  .resource-top-right,
-  .resource-info-row,
-  .resource-info-left,
-  .resource-info-right{
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-  }
-
-  /* Keep tipbox tight to whatever follows */
-  .resource-tipbox{ margin-bottom: 2px !important; }
-
-  /* C) If there are NO prep rows, don't print the strip at all (no blank space). */
-  .resource-bottom-strip{
-    display: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  /* Only show prep if real rows exist */
-  .resource-bottom-strip:has(.resource-prep-body .prep-option-row){
-    display: block !important;
-    margin-top: 2px !important;
-    padding: 0 !important;
-  }
-
-  /* If body has no rows, it contributes nothing */
-  .resource-prep-body{ display: none !important; }
-  .resource-prep-body:has(.prep-option-row){
-    display: block !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  /* D) Keep card spacing consistent & small */
-  .resource-card{
     padding-bottom: 0 !important;
     margin-bottom: 0px !important;
   }
