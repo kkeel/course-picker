@@ -1227,7 +1227,6 @@
                                   >✓REFERENCE</span>
                                 </div>
 
-                                <!-- Put Rationale, Note/May Sub HERE -->
                                 <!-- FULL / MINIMAL: rationale + tipbox -->
                                   <div x-show="listViewMode !== 'compact'">
                               
@@ -1494,7 +1493,9 @@
                                          x-text="lnk.text || 'Link'"></a>
                                     </template>
                                   </div>
-                                  <!-- Shared: FULL only -->
+                                  <!-- SPACER -->
+                                  <div class="purchase-shared-spacer" aria-hidden="true"></div>
+                                  <!-- SHARED RESOURCES -->
                                   <div
                                     class="resource-meta-block resource-meta-block--shared"
                                     x-show="listViewMode === 'full' && assignmentSharedR3Text(a)"
@@ -2499,6 +2500,8 @@
                                                x-text="lnk.text || 'Link'"></a>
                                           </template>
                                         </div>
+                                        <!-- SPACER -->
+                                        <div class="purchase-shared-spacer" aria-hidden="true"></div>
                                         <!-- SHARED RESOURCES -->
                                         <div
                                           class="resource-meta-block resource-meta-block--shared"
