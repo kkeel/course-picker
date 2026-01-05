@@ -955,3 +955,79 @@ img.resource-img{
   }
 }
 
+/* =========================================================
+   PRINT — HARD FIX: remove dead vertical space + tighten right cols
+   Put at VERY END of print-books.css
+   ========================================================= */
+@media print {
+
+  /* Make the BODY be the layout grid so PREP can sit under LEFT text
+     without waiting for the tall right column (Scope/Purchase/Shared). */
+  .resource-body{
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 320px !important; /* left | right */
+    column-gap: 12px !important; /* tighter than before */
+    row-gap: 0 !important;
+    align-items: start !important;
+  }
+
+  /* Let the children of .resource-top-row participate in the grid */
+  .resource-top-row{ display: contents !important; }
+
+  /* Hide the invisible divider that can steal space */
+  .resource-top-divider{ display: none !important; }
+
+  /* Place LEFT block in grid col 1 */
+  .resource-top-left{
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    min-width: 0 !important;
+  }
+
+  /* Place RIGHT block in grid col 2 and let it span down
+     (so it can be tall without pushing the left-bottom content down) */
+  .resource-top-right{
+    grid-column: 2 !important;
+    grid-row: 1 / span 2 !important;
+    align-self: start !important;
+
+    /* also tighten internal two-col gap between Scope and Purchase */
+    display: grid !important;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr) !important;
+    column-gap: 10px !important; /* tighten */
+    align-items: start !important;
+  }
+
+  /* Put PREP strip directly under LEFT content (col 1 row 2) */
+  .resource-bottom-strip{
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    align-self: start !important;
+
+    margin-top: 6px !important;
+    padding-top: 0 !important;
+  }
+
+  /* Ensure Scope + Purchase headers share the same top alignment */
+  .resource-meta-block--scope .resource-meta-label,
+  .purchase-block--top .resource-bottom-title{
+    margin: 0 0 4px 0 !important;
+    padding: 0 !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Tighten space between Purchase links and Shared heading */
+  .purchase-block--top .resource-buy-links{
+    margin-bottom: 10px !important;
+  }
+
+  /* If your right column still feels too wide/narrow, tweak 320px above */
+}
+
+@media print{
+  /* Give a little breathing room before the rationale */
+  .resource-rationale{
+    margin-top: 4px !important;
+  }
+}
+
