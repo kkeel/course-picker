@@ -472,3 +472,67 @@ img.resource-img{
   }
 }
 
+@media print {
+
+  /* Pull Resource Prep into the main text flow */
+  .resource-bottom-strip {
+    margin-top: 4px !important;
+    padding-top: 0 !important;
+  }
+
+  /* Kill footer-like spacing */
+  .resource-bottom-inner,
+  .resource-bottom-row {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  /* Tighten the gap after notes / alt formats box */
+  .resource-tipbox {
+    margin-bottom: 4px !important;
+  }
+
+  /* Prep title should feel like a continuation, not a new section */
+  .resource-bottom-title {
+    margin-top: 2px !important;
+  }
+
+}
+
+@media print {
+
+  /* Authoritative print thumbnail size */
+  .resource-img-wrap,
+  .resource-img-col,
+  .resource-img-holder {
+    width: 34px !important;
+    height: 44px !important;
+    overflow: hidden !important;
+    background: transparent !important;
+  }
+
+  img.resource-img {
+    width: 34px !important;
+    height: 44px !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+}
+
+@media print {
+
+  /* Tighten image → text spacing */
+  .resource-top-left {
+    gap: 5px !important;
+  }
+
+  /* Remove any lingering indent on the text column */
+  .resource-info-right {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+
+}
+
+
