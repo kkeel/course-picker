@@ -864,3 +864,39 @@ img.resource-img{
     margin-bottom: 14px !important; /* was 10px in your print override */
   }
 }
+/* =========================================================
+   PRINT: Align SCOPE + PURCHASE OPTIONS headers perfectly
+   (put at VERY END)
+   ========================================================= */
+@media print {
+
+  /* Make the entire right side a strict 2-col grid */
+  .resource-top-right{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    column-gap: 18px !important;   /* tweak 16–22 */
+    align-items: start !important;
+  }
+
+  /* Hard reset both blocks so neither can “sink” */
+  .resource-top-scope,
+  .purchase-block--top{
+    margin: 0 !important;
+    padding: 0 !important;
+    align-self: start !important;
+  }
+
+  /* Hard reset the actual labels in each block */
+  .resource-top-scope .resource-top-actions-label,
+  .purchase-block--top .resource-top-actions-label{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Add a little breathing room between Purchase links and SHARED title */
+  .purchase-block--top
+    .resource-buy-links:has(+ .resource-meta-block--shared){
+    margin-bottom: 16px !important; /* you can keep 14–18 */
+  }
+}
