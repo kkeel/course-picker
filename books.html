@@ -2904,7 +2904,6 @@
       
             <template x-for="(opt, idx) in getPrepOptions(prepOptionsModalResourceId)" :key="idx">
               <div class="prep-option-row">
-                <span class="prep-status-dot" :style="`background-color:${prepStatusColor(opt.status)}`" aria-hidden="true"></span>
                 <div class="prep-option-label">
                   <span x-text="(opt.kind || 'physical') === 'digital' ? 'Digital' : 'Physical'"></span>
                   <span class="prep-dot">·</span>
