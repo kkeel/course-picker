@@ -766,3 +766,56 @@ img.resource-img{
     padding-bottom: 0 !important;
   }
 }
+
+@media print {
+
+  /* Space between left content block and right (scope / purchase) */
+  .resource-top-row {
+    column-gap: 18px !important; /* try 16–20px range */
+  }
+
+}
+
+/* =========================================================
+   PRINT: Alt. Formats pills (smaller + quieter)
+   Put at VERY END of print-books.css
+   ========================================================= */
+@media print {
+
+  /* smaller pill */
+  .books-page .alt-format-pill{
+    height: 18px !important;          /* was 26px */
+    gap: 4px !important;              /* was 6px */
+
+    font-size: 9px !important;        /* was 12px */
+    font-weight: 600 !important;      /* keep readable but not loud */
+    line-height: 1 !important;
+
+    padding: 2px 7px !important;      /* was 4px 10px */
+    border-radius: 999px !important;
+
+    /* quieter look for print */
+    background: transparent !important;        /* remove the fill */
+    border-width: 0.75px !important;          /* lighter stroke */
+    color: #596e5e !important;                /* keep brand tone */
+  }
+
+  /* shrink icon */
+  .books-page .alt-format-pill::before{
+    width: 9px !important;            /* was 12px */
+    height: 9px !important;
+    flex: 0 0 9px !important;
+    -webkit-mask-size: contain !important;
+            mask-size: contain !important;
+  }
+
+  /* ensure the video triangle doesn’t pop bigger than others */
+  .books-page .alt-format-pill--video::before{
+    width: 9px !important;
+    height: 9px !important;
+    flex: 0 0 9px !important;
+    -webkit-mask-size: 100% !important;
+            mask-size: 100% !important;
+  }
+
+}
