@@ -270,7 +270,7 @@
 
   /* 1) Rationale: add a *little* space before notes/may-sub box */
   .resource-rationale{
-    margin-bottom: 4px !important;
+    margin-bottom: 8px !important;
   }
 
   /* 2) Notes / "may sub" box: slightly less padding, but keep readable */
@@ -391,7 +391,7 @@
    remove top space, add bottom space (between rationale and tipbox) */
 .resource-rationale{
   margin-top: 0 !important;       /* kills the earlier margin-top:4px */
-  margin-bottom: 5px !important;  /* creates the desired separation below */
+  margin-bottom: 8px !important;  /* creates the desired separation below */
 }
 
 /* tipbox: keep a small top gap but not too much */
@@ -467,7 +467,7 @@ img.resource-img{
   }
 
   .resource-buy-links{
-    gap: 10px !important;
+    gap: 15px !important;
     flex-wrap: wrap !important; /* allows wrapping in print if needed */
   }
 }
@@ -611,7 +611,7 @@ img.resource-img{
   }
 
   /* Tighten the title + first line spacing when it *does* print */
-  .resource-bottom-title { margin: 2px 0 2px !important; }
+  .resource-bottom-title { margin: 6px 0 6px !important; }
   .resource-prep-body { margin: 0 !important; padding: 0 !important; }
 
   /* 2) Image wrapper + image MUST match exactly (prevents grey “tail” under covers) */
@@ -670,6 +670,8 @@ img.resource-img{
   .resource-info-right {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
+    gap: 0px !important;
+    column-gap: 0px !important;
   }
 
   /* Keep the note/alt-formats box tight to whatever follows */
@@ -702,8 +704,8 @@ img.resource-img{
 
   /* --- 2) Tighten image → text spacing (multiple wrappers can add space) --- */
   .resource-top-left {
-    gap: 4px !important;
-    column-gap: 4px !important;
+    gap: 0px !important;
+    column-gap: 0px !important;
   }
 
   .resource-media,
