@@ -535,4 +535,59 @@ img.resource-img{
 
 }
 
+/* ===========================
+   BOOK LIST — PRINT TIGHTENING (Jan 5)
+   Add at VERY END of print-books (15).css
+   =========================== */
+
+/* A) Pull “Resource Preparation & Tracking” up tighter under the tipbox */
+.resource-bottom-strip{
+  margin-top: 4px !important;        /* was 10px */
+  padding-top: 6px !important;       /* was 10px */
+  padding-bottom: 6px !important;    /* was 10px */
+  margin-bottom: 0 !important;       /* stop the weird extra space/overlap in print */
+}
+
+/* Also reduce internal grid gap inside the bottom strip */
+.resource-bottom-row{
+  gap: 6px !important;              /* was 15px */
+}
+
+/* B) Tighten horizontal space between cover image and text column */
+.resource-top-left{
+  gap: 4px !important;               /* you had 5px; go a touch tighter */
+}
+
+/* C) Fix “grey space” under images in print by forcing wrapper + img to match */
+.resource-img-wrap,
+.resource-cover,
+.resource-cover-wrap{
+  height: auto !important;           /* overrides any fixed height from screen styles */
+  min-height: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+.resource-img{
+  display: block !important;
+  height: auto !important;
+  object-fit: cover !important;
+}
+
+/* D) Remove “reserved” blank space at the bottom of cards in print */
+.resource-card{
+  padding-bottom: 0 !important;
+  margin-bottom: 8px !important;     /* small consistent separation between cards */
+}
+
+/* E) If a tipbox exists but is truly empty, don’t print it */
+.resource-tipbox:empty{
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+
 
