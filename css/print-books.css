@@ -88,7 +88,7 @@
 
   /* 5) Tighten vertical spacing inside resource cards just a touch */
   .resource-subline { margin-top: 2px !important; }
-  .resource-rationale { margin-top: 4px !important; }
+  .resource-rationale { margin-top: 8px !important; }
   .resource-meta-label,
   .resource-bottom-title { margin-bottom: 2px !important; }
 
@@ -611,7 +611,7 @@ img.resource-img{
   }
 
   /* Tighten the title + first line spacing when it *does* print */
-  .resource-bottom-title { margin: 10px 0 6px !important; }
+  .resource-bottom-title { margin: 6px 0 6px !important; }
   .resource-prep-body { margin: 0 !important; padding: 0 !important; }
 
   /* 2) Image wrapper + image MUST match exactly (prevents grey “tail” under covers) */
