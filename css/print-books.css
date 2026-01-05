@@ -1031,3 +1031,13 @@ img.resource-img{
   }
 }
 
+@media print{
+  .prep-status-dot{
+    display: inline-block !important;
+    width: 9px !important;
+    height: 9px !important;
+    border-radius: 999px !important;
+    flex: 0 0 9px !important;
+  }
+}
+
