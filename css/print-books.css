@@ -722,6 +722,6 @@ img.resource-img{
   /* --- 3) If you still see bottom “dead space” between cards, clamp card spacing --- */
   .resource-card {
     padding-bottom: 0 !important;
-    margin-bottom: 8px !important;
+    margin-bottom: 0px !important;
   }
 }
