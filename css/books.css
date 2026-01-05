@@ -1933,13 +1933,13 @@
 /* Only add space if Shared exists under Purchase Options */
 .purchase-block--top
   .resource-buy-links:has(+ .resource-meta-block--shared){
-  margin-bottom: 10px; /* adjust as needed */
+  margin-bottom: 20px; /* adjust as needed */
 }
 
 @media print {
   .purchase-block--top
     .resource-buy-links:has(+ .resource-meta-block--shared){
-    margin-bottom: 6px;
+    margin-bottom: 10px;
   }
 }
 
