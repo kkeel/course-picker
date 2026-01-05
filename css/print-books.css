@@ -819,3 +819,48 @@ img.resource-img{
   }
 
 }
+/* =========================================================
+   PRINT: Fix badge overlap + align Scope/Purchase headers
+   + add space between Purchase links and Shared
+   Put at VERY END of print-books (20).css
+   ========================================================= */
+@media print {
+
+  /* 1) BADGES: stop negative-margin overlap in print */
+  .resource-card-badges{
+    margin-bottom: 6px !important;   /* overrides -4px from screen css */
+    position: relative !important;
+    z-index: 2 !important;
+  }
+
+  /* If any top rule/border is being drawn, keep it from colliding with badges */
+  .resource-top-row{
+    margin-top: 2px !important;
+  }
+
+  /* 2) ALIGN: Scope + Purchase Options titles should share the same baseline */
+  .resource-top-right{
+    padding-top: 0 !important; /* kills tiny drift between columns */
+    align-items: start !important;
+  }
+
+  .resource-top-actions-label{
+    margin: 0 0 4px 0 !important;   /* normalize label spacing */
+    padding: 0 !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Some browsers add small default margins inside blocks—clamp them */
+  .resource-top-scope,
+  .resource-top-shared,
+  .purchase-block--top{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* 3) SPACE: more breathing room between Purchase links and SHARED title */
+  .purchase-block--top
+    .resource-buy-links:has(+ .resource-meta-block--shared){
+    margin-bottom: 14px !important; /* was 10px in your print override */
+  }
+}
