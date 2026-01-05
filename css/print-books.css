@@ -655,3 +655,73 @@ img.resource-img{
   }
 }
 
+/* =========================================================
+   BOOK LIST — PRINT: AUTHORITATIVE TIGHTENING (put LAST)
+   ========================================================= */
+@media print {
+
+  /* --- 0) Stop “rules fighting”: zero out bottom spacing on the big wrappers --- */
+  .resource-body,
+  .resource-top-row,
+  .resource-top-left,
+  .resource-top-right,
+  .resource-info-row,
+  .resource-info-left,
+  .resource-info-right {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Keep the note/alt-formats box tight to whatever follows */
+  .resource-tipbox {
+    margin-bottom: 2px !important;
+  }
+
+  /* --- 1) Remove ALL reserved prep space unless there is a real prep row --- */
+  .resource-bottom-strip {
+    display: none !important;     /* default: no prep area at all */
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* If there’s at least one prep line, show it and keep it snug */
+  .resource-bottom-strip:has(.resource-prep-body .prep-option-row) {
+    display: block !important;
+    margin-top: 2px !important;   /* was visually much larger */
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Ensure the prep body only contributes height when it has rows */
+  .resource-prep-body { display: none !important; }
+  .resource-prep-body:has(.prep-option-row) {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* --- 2) Tighten image → text spacing (multiple wrappers can add space) --- */
+  .resource-top-left {
+    gap: 4px !important;
+    column-gap: 4px !important;
+  }
+
+  .resource-media,
+  .resource-img-col {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .resource-img-wrap,
+  .resource-img-holder {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 0 !important; /* prevents baseline “tail” gaps */
+  }
+
+  /* --- 3) If you still see bottom “dead space” between cards, clamp card spacing --- */
+  .resource-card {
+    padding-bottom: 0 !important;
+    margin-bottom: 8px !important;
+  }
+}
