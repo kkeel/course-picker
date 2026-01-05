@@ -900,3 +900,58 @@ img.resource-img{
     margin-bottom: 16px !important; /* you can keep 14–18 */
   }
 }
+/* =========================================================
+   PRINT — Align SCOPE + PURCHASE OPTIONS titles perfectly
+   (Scope uses .resource-meta-label, Purchase uses .resource-bottom-title)
+   Put at VERY END of print-books.css
+   ========================================================= */
+@media print {
+
+  /* Make sure the whole right column aligns content to the top */
+  .resource-top-right{
+    align-items: start !important;
+    align-content: start !important;
+  }
+
+  /* SCOPE title */
+  .resource-meta-block--scope .resource-meta-label{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    line-height: 1.1 !important;
+  }
+
+  /* PURCHASE OPTIONS title (different element/class) */
+  .purchase-block--top .resource-bottom-title{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    line-height: 1.1 !important;
+  }
+
+  /* In case the purchase block itself is being nudged down */
+  .purchase-block--top{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    align-self: start !important;
+  }
+}
+
+/* =========================================================
+   PRINT — Make cover corners consistent (all 4 corners)
+   ========================================================= */
+@media print {
+  .resource-media .resource-img-wrap,
+  .resource-cover-wrap,
+  .resource-cover,
+  img.resource-img,
+  .resource-img{
+    border-radius: 6px !important;
+  }
+
+  /* Ensure the wrapper clips the image corners */
+  .resource-media .resource-img-wrap,
+  .resource-cover-wrap,
+  .resource-cover{
+    overflow: hidden !important;
+  }
+}
+
