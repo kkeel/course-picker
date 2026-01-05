@@ -1943,3 +1943,12 @@
   }
 }
 
+/* Prep status dot — authoritative */
+.prep-status-dot{
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  flex: 0 0 10px;
+  margin-right: 2px;
+}
