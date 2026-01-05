@@ -728,3 +728,41 @@ img.resource-img{
   }
 }
 
+/* =========================================================
+   BOOK LIST — PRINT: FIX COVER COLUMN + TEXT WIDTH (PUT LAST)
+   ========================================================= */
+@media print {
+
+  /* The gap is mostly the reserved GRID column (96px). Override it for print. */
+  .resource-card{
+    display: grid !important;
+    grid-template-columns: 34px minmax(0, 1fr) !important; /* cover | content */
+    column-gap: 10px !important; /* tighten the real gap */
+    row-gap: 0 !important;
+    align-items: start !important;
+  }
+
+  /* Make sure the cover truly lives in the first column */
+  .resource-media{
+    grid-column: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+  }
+
+  /* Make sure the body truly uses the full second column */
+  .resource-body{
+    grid-column: 2 !important;
+    min-width: 0 !important;     /* prevents “skinny column” min-content squeeze */
+    width: auto !important;
+  }
+
+  /* These often introduce phantom vertical space in print */
+  .resource-body,
+  .resource-top-row,
+  .resource-top-left,
+  .resource-top-right{
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
