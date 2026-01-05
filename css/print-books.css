@@ -589,5 +589,69 @@ img.resource-img{
   border: 0 !important;
 }
 
+/* =========================================================
+   BOOK LIST — PRINT HARD OVERRIDES (Jan 5)
+   Put at the VERY END of print-books (16).css
+   ========================================================= */
 
+@media print {
+
+  /* 1) Absolutely kill the “reserved” prep area when there are NO real prep rows */
+  .resource-bottom-strip { 
+    margin: 0 !important;
+  }
+
+  /* Hide the entire prep strip unless it contains at least one .prep-option-row */
+  .resource-bottom-strip { display: none !important; }
+  .resource-bottom-strip:has(.resource-prep-body .prep-option-row) {
+    display: block !important;
+    margin-top: 4px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Tighten the title + first line spacing when it *does* print */
+  .resource-bottom-title { margin: 2px 0 2px !important; }
+  .resource-prep-body { margin: 0 !important; padding: 0 !important; }
+
+  /* 2) Image wrapper + image MUST match exactly (prevents grey “tail” under covers) */
+  .resource-img-wrap,
+  .resource-cover,
+  .resource-cover-wrap,
+  .resource-img-col,
+  .resource-img-holder {
+    width: 34px !important;
+    height: 44px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    overflow: hidden !important;
+    line-height: 0 !important;  /* prevents inline-image baseline gaps */
+  }
+
+  img.resource-img,
+  .resource-img {
+    width: 34px !important;
+    height: 44px !important;
+    display: block !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    margin: 0 !important;
+  }
+
+  /* 3) The “gap” is not just gap — clamp all likely offenders */
+  .resource-top-left {
+    gap: 4px !important;
+    column-gap: 4px !important;
+  }
+  .resource-media,
+  .resource-img-col {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+  }
+  .resource-info-right {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+}
 
