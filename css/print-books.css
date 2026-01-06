@@ -1245,3 +1245,60 @@ img.resource-img{
   .resource-body { grid-column: 2 !important; grid-row: 1 / span 2 !important; }
 
 }
+/* =========================================================
+   PRINT — Badges on their own line ABOVE the cover (no overlap)
+   Put at VERY END of print-books.css
+   ========================================================= */
+@media print {
+
+  /* Ensure a simple 2-col grid with an explicit "badge row" on top */
+  .resource-card{
+    display: grid !important;
+    grid-template-columns: 34px minmax(0, 1fr) !important; /* cover | content */
+    grid-template-rows: auto auto !important;              /* badges | main */
+    column-gap: 8px !important;
+    row-gap: 4px !important;                               /* space between badges and cover/text */
+    align-items: start !important;
+  }
+
+  /* Badges get their OWN row (above everything), but stay aligned left */
+  .resource-card-badges{
+    grid-column: 1 / -1 !important;  /* spans full width */
+    grid-row: 1 !important;
+
+    position: static !important;     /* kill any absolute/floating behavior */
+    inset: auto !important;
+    transform: none !important;
+
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    align-items: center !important;
+
+    margin: 0 0 0 0 !important;      /* row-gap controls spacing */
+    padding: 0 !important;
+    justify-self: start !important;
+    align-self: start !important;
+    z-index: 0 !important;
+  }
+
+  /* Main content sits on row 2 */
+  .resource-media{
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .resource-body{
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    min-width: 0 !important;
+  }
+
+  /* Just in case any badge styles still have weird negative margins */
+  .resource-card-badges .resource-badge,
+  .resource-card-badges .badge{
+    margin: 0 !important;
+  }
+}
