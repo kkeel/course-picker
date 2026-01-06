@@ -1098,3 +1098,61 @@ img.resource-img{
     border-radius: 6px !important;
   }
 }
+@media print {
+
+  /* ================================
+     FIX 1: cover-to-text gap (match grid column to print thumbnail)
+     ================================ */
+
+  .resource-card{
+    /* Match the left grid column to the ACTUAL printed cover size */
+    grid-template-columns: 34px 1fr !important;
+
+    /* Tighten the space between cover + text */
+    column-gap: 8px !important;
+    gap: 8px !important;
+  }
+
+  /* Make sure the cover column doesn't add mystery padding/margins */
+  .resource-media{
+    margin: 0 !important;
+    padding: 0 !important;
+    justify-self: start !important;
+    align-self: start !important;
+  }
+
+  /* ================================
+     FIX 2: Prep strip alignment (stop using 64px+12px inset)
+     ================================ */
+
+  .resource-bottom-inner{
+    /* Must match the print grid math above: 34px cover + 8px gap */
+    margin-left: calc(34px + 8px) !important;
+    width: calc(100% - (34px + 8px)) !important;
+  }
+
+  /* Prep lines should align left like normal text */
+  .resource-bottom-left,
+  .resource-bottom-head-left,
+  .resource-prep-body,
+  .prep-option-row{
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+
+  /* ================================
+     FIX 3: Straight top rules (remove rounding that clips the border)
+     ================================ */
+
+  .resource-card,
+  .resource-top-row{
+    border-radius: 0 !important;
+  }
+
+  /* Covers were rounding top only — force consistent corners */
+  .resource-img-wrap,
+  img.resource-img{
+    border-radius: 0 !important;
+  }
+
+}
