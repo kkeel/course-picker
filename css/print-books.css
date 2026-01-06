@@ -1188,3 +1188,60 @@ img.resource-img{
   }
 
 }
+@media print {
+
+  /* Make the cover column a vertical stack: badges then image */
+  .resource-media{
+    display: grid !important;
+    grid-template-rows: auto auto !important; /* badges row, cover row */
+    row-gap: 4px !important;
+    align-content: start !important;
+    justify-items: start !important;
+  }
+
+  /* Badges: normal flow (no overlap), sit ABOVE cover */
+  .resource-media .resource-card-badges{
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    align-items: center !important;
+
+    margin: 0 0 2px 0 !important;
+    padding: 0 !important;
+    width: max-content !important;
+    max-width: 100% !important;
+  }
+
+  /* If badges are NOT currently inside .resource-media in your HTML,
+     this moves them visually into the cover column without absolute positioning */
+  .resource-card{
+    /* ensure grid is active */
+    display: grid !important;
+    grid-template-columns: 34px 1fr !important;
+    column-gap: 8px !important;
+    align-items: start !important;
+  }
+
+  .resource-card > .resource-card-badges{
+    grid-column: 1 !important;   /* cover column */
+    grid-row: 1 !important;
+    margin: 0 0 4px 0 !important;
+    justify-self: start !important;
+    align-self: start !important;
+
+    position: static !important;
+    transform: none !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  /* Make sure the cover and body start on the next row */
+  .resource-media{ grid-column: 1 !important; grid-row: 2 !important; }
+  .resource-body { grid-column: 2 !important; grid-row: 1 / span 2 !important; }
+
+}
