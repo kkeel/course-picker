@@ -3114,6 +3114,55 @@
         });
       };
   </script>
+
+  <script>
+  (function () {
+    // Keep track of original locations so we can restore after printing
+    const moved = new Map();
+  
+    function movePrepIntoLeftForPrint() {
+      document.querySelectorAll('.resource-card').forEach(card => {
+        const strip = card.querySelector('.resource-bottom-strip');
+        const left  = card.querySelector('.resource-top-left');
+  
+        if (!strip || !left) return;
+        if (moved.has(strip)) return; // already moved
+  
+        // Create a placeholder to restore position later
+        const ph = document.createComment('prep-strip-placeholder');
+        strip.parentNode.insertBefore(ph, strip);
+  
+        // Insert strip at end of left column content (after notes/tipbox area)
+        left.appendChild(strip);
+  
+        moved.set(strip, ph);
+      });
+    }
+  
+    function restorePrepAfterPrint() {
+      moved.forEach((ph, strip) => {
+        if (ph && ph.parentNode) {
+          ph.parentNode.insertBefore(strip, ph);
+          ph.parentNode.removeChild(ph);
+        }
+      });
+      moved.clear();
+    }
+  
+    window.addEventListener('beforeprint', movePrepIntoLeftForPrint);
+    window.addEventListener('afterprint', restorePrepAfterPrint);
+  
+    // Some browsers fire print differently (esp. Chrome)
+    // This helps if afterprint is inconsistent:
+    const mq = window.matchMedia && window.matchMedia('print');
+    if (mq && mq.addEventListener) {
+      mq.addEventListener('change', e => {
+        if (e.matches) movePrepIntoLeftForPrint();
+        else restorePrepAfterPrint();
+      });
+    }
+  })();
+  </script>
   
 </body>
 </html>
