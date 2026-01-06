@@ -1051,7 +1051,7 @@ img.resource-img{
   .resource-card{
     display: grid !important;
     grid-template-columns: 56px minmax(0, 1fr) !important; /* cover | content */
-    column-gap: 12px !important;
+    column-gap: 6px !important;
     row-gap: 0 !important;
     align-items: start !important;
 
