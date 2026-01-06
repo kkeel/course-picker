@@ -1302,3 +1302,27 @@ img.resource-img{
     margin: 0 !important;
   }
 }
+@media print {
+  /* When prep strip is moved into .resource-top-left, make it behave like normal content */
+  .resource-top-left .resource-bottom-strip{
+    margin: 8px 0 0 0 !important;
+    padding: 0 !important;
+    border-top: none !important; /* keep it from looking like a new section */
+  }
+
+  /* If your prep strip had layout wrappers that assumed full-width */
+  .resource-top-left .resource-bottom-inner,
+  .resource-top-left .resource-bottom-row{
+    margin-left: 0 !important;
+    width: auto !important;
+    padding-left: 0 !important;
+  }
+
+  /* Keep it left-aligned, consistent with text column */
+  .resource-top-left .resource-bottom-left,
+  .resource-top-left .resource-prep-body,
+  .resource-top-left .prep-option-row{
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+}
