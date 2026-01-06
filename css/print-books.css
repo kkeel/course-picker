@@ -1156,3 +1156,35 @@ img.resource-img{
   }
 
 }
+@media print {
+
+  /* Badges should NOT overlay the cover in print */
+  .resource-card-badges{
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+
+    /* Put badges in the text column (same start as the title text) */
+    grid-column: 2 !important;
+
+    /* If your badges bar is NOT participating in the grid (depends on markup),
+       this margin-left guarantees it starts after cover+gap */
+    margin-left: calc(34px + 8px) !important;
+
+    /* Keep them tidy */
+    margin-top: 0 !important;
+    margin-bottom: 6px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    align-items: center !important;
+    z-index: 1 !important;
+  }
+
+  /* Ensure individual badges don't have negative margins pushing them back */
+  .resource-card-badges .resource-badge,
+  .resource-card-badges .badge{
+    margin: 0 !important;
+  }
+
+}
