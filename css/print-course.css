@@ -3,7 +3,8 @@
    ========================================================= */
 @media print {
   @page {
-    margin: 32mm 28mm 24mm 15mm;
+    size: 8.5in 11in;      /* Letter portrait */
+    margin: 0.5in;         /* 0.5" all sides */
 
     @bottom-left {
       content: "Alveary Course List";
