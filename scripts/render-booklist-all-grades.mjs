@@ -26,13 +26,48 @@ const targets = [
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
-const browser = await chromium.launch();
+const browser = await chromium.launch({
+  args: ["--disable-dev-shm-usage"],
+});
 const page = await browser.newPage();
 
 // Prevent print dialog during automation
 await page.addInitScript(() => {
   window.print = () => {};
 });
+
+async function waitForAllImages(page, timeoutMs = 600000) {
+  const start = Date.now();
+
+  // Force eager loading for all images (important for huge lists)
+  await page.evaluate(() => {
+    document.querySelectorAll('img').forEach(img => {
+      try { img.loading = "eager"; } catch (e) {}
+      img.setAttribute("loading", "eager");
+    });
+  });
+
+  // Wait until every image is finished loading (or errored)
+  await page.waitForFunction(() => {
+    const imgs = Array.from(document.images || []);
+    if (!imgs.length) return true;
+
+    return imgs.every(img => img.complete);
+  }, null, { timeout: timeoutMs });
+
+  // Ask Chromium to decode images before PDF snapshot
+  await page.evaluate(async () => {
+    const imgs = Array.from(document.images || []);
+    await Promise.allSettled(
+      imgs
+        .filter(img => img.complete && img.naturalWidth > 0 && img.decode)
+        .map(img => img.decode())
+    );
+  });
+
+  const elapsed = ((Date.now() - start) / 1000).toFixed(1);
+  console.log(`Images ready after ${elapsed}s`);
+}
 
 for (const t of targets) {
   console.log(`\n--- Rendering ${t.key}: ${t.url}`);
@@ -51,6 +86,14 @@ for (const t of targets) {
 
   // Small settle time for images/layout
   await page.waitForTimeout(750);
+
+  if (t.key === "MASTER") {
+    // Master list is HUGE — give images plenty of time
+    await waitForAllImages(page, 12 * 60 * 1000);
+  } else {
+    // Normal grades
+    await waitForAllImages(page, 2 * 60 * 1000);
+  }
 
   const outPath = path.join(OUT_DIR, t.filename);
 
