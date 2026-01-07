@@ -1658,6 +1658,61 @@ function coursePlanner() {
         window.print();
       },
 
+    // ===============================
+    // AUTO-PRINT (automation only)
+    // Trigger via: ?autoprint=1&grade=G1   (or G2..G12)
+    // Master list: ?autoprint=1&master=1
+    // ===============================
+    async autoPrintFromQuery() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+    
+        // Only run when explicitly requested
+        if (params.get("autoprint") !== "1") return;
+    
+        // Decide target: one grade OR master
+        const isMaster = params.get("master") === "1";
+        const grade = (params.get("grade") || "").trim().toUpperCase(); // "G1".."G12"
+    
+        // Safety: if not master, require a valid grade code
+        const validGrades = new Set(this.gradeOptions.map(g => String(g.code).toUpperCase()));
+        if (!isMaster && !validGrades.has(grade)) {
+          console.warn("[autoprint] Invalid or missing grade param:", grade);
+          return;
+        }
+    
+        // Ensure we generate a stable, complete view for PDFs
+        // (only affects this run; does not persist unless you want it to)
+        this.courseListViewMode = "full";
+        this.showAllDetails = true;
+    
+        // Start from a clean slate so "Master" truly means EVERYTHING
+        this.clearAllFilters();
+    
+        // Apply grade filter (or leave empty for Master)
+        if (!isMaster) {
+          this.selectedGrades = [grade];
+        } else {
+          this.selectedGrades = [];
+        }
+    
+        // Build filtered dataset
+        this.applyFilters();
+    
+        // Set a helpful title (often becomes the default PDF filename in headless printing)
+        const label = this.gradePrintLabel(); // "Grade 1" or "Master"
+        document.title = `Alveary Course List — ${label}`;
+    
+        // Let DOM settle (filters + layout) before print snapshot
+        await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    
+        // Use your existing print flow (Paged.js popup if present, else fallback)
+        this.printView();
+      } catch (e) {
+        console.warn("[autoprint] Failed:", e);
+      }
+    },
+
       // 🔹 NEW: summary text for the state bar
       get filterSummary() {
         const parts = [];
@@ -2116,12 +2171,15 @@ function coursePlanner() {
       // 1) Restore filters/search/toggles from previous visit
       this.loadUiState();
       if (!this.isStaff) this.editMode = false;
-
+    
       // Students: build palette (follows subject color order)
       this.studentColorPalette = this.buildStudentColorPalette();
-
+    
       // 2) Load course data (from cache if available, then refresh from network)
       await this.loadCoursesFromJson();
+    
+      // 3) Automation-only: if URL requests it, auto-filter + print
+      await this.autoPrintFromQuery?.();
     },
 
     // Load courses with a "stale-while-revalidate" strategy:
