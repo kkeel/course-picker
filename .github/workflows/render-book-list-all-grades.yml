@@ -22,7 +22,7 @@ jobs:
           npx playwright install --with-deps chromium
 
       - name: Render Book List PDFs
-        run: node scripts/render-booklist-all-grades.mjs
+        run: node scripts/render-book-list-all-grades.mjs
 
       - name: Commit PDFs
         run: |
