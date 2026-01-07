@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-06T08:46:49.914Z",
+  "lastUpdated": "2026-01-07T08:46:47.765Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -1101,15 +1101,16 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
-        "T2"
+        "T2",
+        "T3"
       ],
       "termNotes": {
-        "T1": "Economics in One Lesson (Full Term - Ch.1-11)",
-        "T2": "Economics in One Lesson (Full Term - Ch.12-24)",
-        "T3": ""
+        "T1": "Economics in One Lesson (Full Term)",
+        "T2": "Economics in One Lesson (Full Term)",
+        "T3": "Economics in One Lesson (Full Term)"
       },
       "gradeText": "G12,",
       "grades": [
@@ -4019,34 +4020,6 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recbib99MSqhVumm9?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "rec2cZ2PPPiWEBbxe",
-      "targetId": "recBP0ILhMKRSKye3",
-      "resourceId": "recciTcw8xzqK1aTW",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2",
-      "terms": [
-        "T1",
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "The Aeneid for Boys and Girls (Full Term - Ch.1-11)",
-        "T2": "The Aeneid for Boys and Girls (Full Term - Ch.12-22)",
-        "T3": ""
-      },
-      "gradeText": "G5, G6, G5, G6,",
-      "grades": [
-        5,
-        6
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recBP0ILhMKRSKye3?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "rec0IgD8As4OVyWIh",
       "targetId": "recBP0ILhMKRSKye3",
       "resourceId": "recMCU05MT5TWYKrs",
@@ -4062,6 +4035,33 @@
         "T1": "The Bronze Bow (Full Term)",
         "T2": "The Bronze Bow (Full Term)",
         "T3": ""
+      },
+      "gradeText": "G5, G6, G5, G6,",
+      "grades": [
+        5,
+        6
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recBP0ILhMKRSKye3?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recYSiOJPDghT7CfR",
+      "targetId": "recBP0ILhMKRSKye3",
+      "resourceId": "recUV4v0GyiQDjt7S",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "003.003.000",
+      "scopeText": "Term 3",
+      "terms": [
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "",
+        "T3": "Redemption: The Church in Ancient Times (Full Term)"
       },
       "gradeText": "G5, G6, G5, G6,",
       "grades": [
@@ -5223,8 +5223,11 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
+      "sharedTextR3": "U.S. History: Grade 9\nU.S. History: Grades 7-8",
+      "sharedLinesR3": [
+        "U.S. History: Grade 9",
+        "U.S. History: Grades 7-8"
+      ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/reccptIZEfyPj6VOX?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -5748,14 +5751,14 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "001.003.000",
-      "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)",
+      "scopeText": "Term 1\nTerm 2",
       "terms": [
         "T1",
         "T2"
       ],
       "termNotes": {
-        "T1": "A Short History of Ancient Rome (Selections)",
-        "T2": "A Short History of Ancient Rome (Selections)",
+        "T1": "A Short History of Ancient Rome (Full Term)",
+        "T2": "A Short History of Ancient Rome (Full Term)",
         "T3": ""
       },
       "gradeText": "G7, G8, G7, G8, G9, G9,",
@@ -5777,14 +5780,14 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "003.003.000",
-      "scopeText": "Term 3 (Selections)",
+      "scopeText": "Term 3",
       "terms": [
         "T3"
       ],
       "termNotes": {
         "T1": "",
         "T2": "",
-        "T3": "The Witness of Early Christian Women: Mothers of the Church (Selections)"
+        "T3": "The Witness of Early Christian Women: Mothers of the Church (Full Term)"
       },
       "gradeText": "G7, G8, G7, G8, G9, G9,",
       "grades": [
@@ -6059,32 +6062,6 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recdpbKpVIwfvRcIw?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "rechgc8nWasuuwK5f",
-      "targetId": "recDY9EzpeC95AAcw",
-      "resourceId": "recfhEICVStPgotwB",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "000.003.000",
-      "scopeText": "",
-      "terms": [],
-      "termNotes": {
-        "T1": "",
-        "T2": "",
-        "T3": ""
-      },
-      "gradeText": "G10, G11, G12, G10, G11, G12,",
-      "grades": [
-        10,
-        11,
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recDY9EzpeC95AAcw?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "recUAC1qqrD80sc4o",
       "targetId": "recDY9EzpeC95AAcw",
       "resourceId": "recTJd5zTm3syYIlP",
@@ -6108,6 +6085,37 @@
       "optional": false,
       "sharedTextR3": "",
       "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recDY9EzpeC95AAcw?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "rechgc8nWasuuwK5f",
+      "targetId": "recDY9EzpeC95AAcw",
+      "resourceId": "recfhEICVStPgotwB",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "003.003.000",
+      "scopeText": "Term 3",
+      "terms": [
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "",
+        "T3": "Blood and Iron: The Rise and Fall of the German Empire (Full Term)"
+      },
+      "gradeText": "G10, G11, G12, G10, G11, G12,",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "World History: Grades 10-12\nWorld History: Grade 9",
+      "sharedLinesR3": [
+        "World History: Grades 10-12",
+        "World History: Grade 9"
+      ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recDY9EzpeC95AAcw?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -6257,6 +6265,61 @@
       "sharedTextR3": "",
       "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recEemFl5Fyohl95X?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "rec1pn8vZH6Y9acNq",
+      "targetId": "receGemutNrOAFIFJ",
+      "resourceId": "recWtQ9v1m2yjol7i",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1",
+      "terms": [
+        "T1"
+      ],
+      "termNotes": {
+        "T1": "A Little Book for New Historians (Full Term)",
+        "T2": "",
+        "T3": ""
+      },
+      "gradeText": "G9, G9,",
+      "grades": [
+        9
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/receGemutNrOAFIFJ?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recKroIgSdwT42wzV",
+      "targetId": "receGemutNrOAFIFJ",
+      "resourceId": "recfhEICVStPgotwB",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "003.003.000",
+      "scopeText": "Term 3",
+      "terms": [
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "",
+        "T3": "Blood and Iron: The Rise and Fall of the German Empire (Full Term)"
+      },
+      "gradeText": "G9, G9,",
+      "grades": [
+        9
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "World History: Grades 10-12\nWorld History: Grade 9",
+      "sharedLinesR3": [
+        "World History: Grades 10-12",
+        "World History: Grade 9"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/receGemutNrOAFIFJ?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "recpJmbXead2m0eK1",
@@ -6658,6 +6721,61 @@
         "Microbiology Lessons"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recFovwuS7zeV6AkE?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "rec3bO8ONGDR65jqp",
+      "targetId": "recfXdRHtTUmQQfre",
+      "resourceId": "recQp6EwwCJ4kqsg2",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1",
+      "terms": [
+        "T1"
+      ],
+      "termNotes": {
+        "T1": "In the Shadow of the Alamo (Full Term)",
+        "T2": "",
+        "T3": ""
+      },
+      "gradeText": "G7, G8, G7, G8,",
+      "grades": [
+        7,
+        8
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recfXdRHtTUmQQfre?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recCgdAQZeeZ17jKl",
+      "targetId": "recfXdRHtTUmQQfre",
+      "resourceId": "recGDXfZM9GzPjF6K",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.003.000",
+      "scopeText": "Term 2\nTerm 3",
+      "terms": [
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "Eiffel's Tower for Young People (Full Term)",
+        "T3": "Eiffel's Tower for Young People (Full Term)"
+      },
+      "gradeText": "G7, G8, G7, G8,",
+      "grades": [
+        7,
+        8
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recfXdRHtTUmQQfre?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "recgD7udpYHZ3u3W0",
@@ -9453,6 +9571,58 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recIOls4bTrh0o2bL?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "recCKqrZ3RhJNc0uO",
+      "targetId": "recISQurkNxA8MJna",
+      "resourceId": "rec99OR2wNMglujNX",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.001.000",
+      "scopeText": "Term 1",
+      "terms": [
+        "T1"
+      ],
+      "termNotes": {
+        "T1": "Stewards of Eden: What Scripture Says About the Environment and Why It Matters (Full Term)",
+        "T2": "",
+        "T3": ""
+      },
+      "gradeText": "G12,",
+      "grades": [
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recISQurkNxA8MJna?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "receF7yPgZro4h0nv",
+      "targetId": "recISQurkNxA8MJna",
+      "resourceId": "recnNyh56iL4uZbJw",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.002.000",
+      "scopeText": "Term 2",
+      "terms": [
+        "T2"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "The Life We're Looking For: Reclaiming Relationship in a Technological World (Full Term)",
+        "T3": ""
+      },
+      "gradeText": "G12,",
+      "grades": [
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recISQurkNxA8MJna?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recZ36OZ7HvtCx9KR",
       "targetId": "recISQurkNxA8MJna",
       "resourceId": "recxWfONMFDZIC2tj",
@@ -10206,7 +10376,7 @@
         "T3"
       ],
       "termNotes": {
-        "T1": "The Chronological Guide to the Bible ( )",
+        "T1": "The Chronological Guide to the Bible",
         "T2": "The Chronological Guide to the Bible",
         "T3": "The Chronological Guide to the Bible"
       },
@@ -10710,62 +10880,9 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recjxhOtJDBXK35Pc?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recDV99DrmzfhufSR",
+      "assignmentId": "recklobEjpawVpaVR",
       "targetId": "recjxhOtJDBXK35Pc",
-      "resourceId": "recCzXtbvnkaTtgKe",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "000.003.000",
-      "scopeText": "",
-      "terms": [],
-      "termNotes": {
-        "T1": "",
-        "T2": "",
-        "T3": ""
-      },
-      "gradeText": "G7, G8,",
-      "grades": [
-        7,
-        8
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recjxhOtJDBXK35Pc?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "reckG9wHWGJ56rlGO",
-      "targetId": "recjxhOtJDBXK35Pc",
-      "resourceId": "rec0AHSZzCBWRzIdy",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)",
-      "terms": [
-        "T1",
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "Lincoln: A Photobiography (Partial Term - Ch.1-4)",
-        "T2": "Lincoln: A Photobiography (Partial Term - Ch.5-7)",
-        "T3": ""
-      },
-      "gradeText": "G7, G8,",
-      "grades": [
-        7,
-        8
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recjxhOtJDBXK35Pc?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "rec6aLt3XujLM0Cgk",
-      "targetId": "recjxhOtJDBXK35Pc",
-      "resourceId": "recc1AjcA6zXM91LI",
+      "resourceId": "recHfeudUbdDsMiXi",
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "001.003.000",
@@ -10774,7 +10891,7 @@
         "T1"
       ],
       "termNotes": {
-        "T1": "Diary of an Early American Boy 1805 (Full Term)",
+        "T1": "Sacajawea (Full Term)",
         "T2": "",
         "T3": ""
       },
@@ -10785,8 +10902,11 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
+      "sharedTextR3": "U.S. History: Grade 9\nU.S. History: Grades 7-8",
+      "sharedLinesR3": [
+        "U.S. History: Grade 9",
+        "U.S. History: Grades 7-8"
+      ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recjxhOtJDBXK35Pc?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -10818,84 +10938,20 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recjxhOtJDBXK35Pc?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recH5GbFDzhIsbafl",
+      "assignmentId": "recmvmagnWxzCzrUd",
       "targetId": "recjxhOtJDBXK35Pc",
-      "resourceId": "recMO46Pg5fQEA2LZ",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1 (Partial Term)\nTerm 3 (Partial Term)",
-      "terms": [
-        "T1",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "America Grows Up (Partial Term - Ch.4-6)",
-        "T2": "",
-        "T3": "America Grows Up (Partial Term - Ch.8)"
-      },
-      "gradeText": "G7, G8,",
-      "grades": [
-        7,
-        8
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "U.S. History: Grades 4-6\nU.S. History: Grades 7-8",
-      "sharedLinesR3": [
-        "U.S. History: Grades 4-6",
-        "U.S. History: Grades 7-8"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recjxhOtJDBXK35Pc?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recDnqs6dRJJnsu73",
-      "targetId": "recjxhOtJDBXK35Pc",
-      "resourceId": "recXbEbDp4E1weSLA",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)\nTerm 3 (Partial Term)",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "Heart and Soul: The Story of America and African Americans (Partial Term - Ch.3)",
-        "T2": "Heart and Soul: The Story of America and African Americans (Partial Term - Ch.4)",
-        "T3": "Heart and Soul: The Story of America and African Americans (Partial Term - Ch.5-6)"
-      },
-      "gradeText": "G7, G8,",
-      "grades": [
-        7,
-        8
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "U.S. History: Grades 4-6\nU.S. History: Grades 7-8",
-      "sharedLinesR3": [
-        "U.S. History: Grades 4-6",
-        "U.S. History: Grades 7-8"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recjxhOtJDBXK35Pc?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recgACZImyZW1kE4D",
-      "targetId": "recjxhOtJDBXK35Pc",
-      "resourceId": "reczCr29zRWEiJ53Q",
+      "resourceId": "recA3cY6i4uaffqyM",
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "002.003.000",
-      "scopeText": "Term 2 (Partial Term)\nTerm 3 (Partial Term)",
+      "scopeText": "Term 2",
       "terms": [
-        "T2",
-        "T3"
+        "T2"
       ],
       "termNotes": {
         "T1": "",
-        "T2": "Up from Slavery (Partial Term - Ch.1-10)",
-        "T3": "Up from Slavery (Partial Term - Ch.11-17)"
+        "T2": "Gold Mountain (Full Term)",
+        "T3": ""
       },
       "gradeText": "G7, G8,",
       "grades": [
@@ -10923,6 +10979,33 @@
         "T1": "",
         "T2": "",
         "T3": "Abraham Lincoln and Frederick Douglass: The Story Behind and American Friendship (Full Term)"
+      },
+      "gradeText": "G7, G8,",
+      "grades": [
+        7,
+        8
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recjxhOtJDBXK35Pc?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recDV99DrmzfhufSR",
+      "targetId": "recjxhOtJDBXK35Pc",
+      "resourceId": "recCzXtbvnkaTtgKe",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "003.003.000",
+      "scopeText": "Term 3",
+      "terms": [
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "",
+        "T3": "A Year in the South: 1865 (Full Term)"
       },
       "gradeText": "G7, G8,",
       "grades": [
@@ -12347,6 +12430,87 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recm5rqbd7VkHFZwR?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "recosaMq55PL0AkX5",
+      "targetId": "recMaPKBscCmVvdjg",
+      "resourceId": "recs3IxYgRkUkta83",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.001.000",
+      "scopeText": "Term 1",
+      "terms": [
+        "T1"
+      ],
+      "termNotes": {
+        "T1": "Practicing the Way (Full Term)",
+        "T2": "",
+        "T3": ""
+      },
+      "gradeText": "G10, G11,",
+      "grades": [
+        10,
+        11
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recMaPKBscCmVvdjg?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recuYEMMCPY1yHrFj",
+      "targetId": "recMaPKBscCmVvdjg",
+      "resourceId": "recOkcmoS3kfkSJNV",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.001.000",
+      "scopeText": "Term 2",
+      "terms": [
+        "T2"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "God of All Things (Full Term)",
+        "T3": ""
+      },
+      "gradeText": "G10, G11,",
+      "grades": [
+        10,
+        11
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recMaPKBscCmVvdjg?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recVdbFWnrCYN01wP",
+      "targetId": "recMaPKBscCmVvdjg",
+      "resourceId": "recbzwSJs7y3EyZkg",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "003.001.000",
+      "scopeText": "Term 3",
+      "terms": [
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "",
+        "T3": "How Does Sanctification Work?"
+      },
+      "gradeText": "G10, G11,",
+      "grades": [
+        10,
+        11
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recMaPKBscCmVvdjg?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recvKlbbt56JHgRqR",
       "targetId": "recmJAn0Ul3F0VQyz",
       "resourceId": "receer062cIdkFYGo",
@@ -12826,9 +12990,9 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recNJHxMpmevpJkq6?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "rec1qoHk3FAw4Y1jq",
+      "assignmentId": "recLogtJDtXEOKk3W",
       "targetId": "recNJHxMpmevpJkq6",
-      "resourceId": "recEIQGsoQua6Pb1C",
+      "resourceId": "recKwo348vS6SuZ9o",
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "003.003.000",
@@ -12839,7 +13003,7 @@
       "termNotes": {
         "T1": "",
         "T2": "",
-        "T3": "Stories of the Nations Vol.2 (Full Term - Ch.1-6)"
+        "T3": "Commodore Perry in the Land of the Shogun (Full Term)"
       },
       "gradeText": "G4, G4, G5, G6, G5, G6,",
       "grades": [
@@ -13074,6 +13238,36 @@
         "Plutarch: Grades 6-8",
         "First Citizen Stories"
       ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recNZjfwI3SeCuONn?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recvWQ3RvbrzLWCIR",
+      "targetId": "recNZjfwI3SeCuONn",
+      "resourceId": "recUCjRu76tQczZuF",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "The Plutarch Project Volume Three (Revised) (Full Term)",
+        "T2": "The Plutarch Project Volume Three (Revised) (Full Term)",
+        "T3": "The Plutarch Project Volume Three (Revised) (Full Term)"
+      },
+      "gradeText": "G6, G7, G7, G8, G8,",
+      "grades": [
+        6,
+        7,
+        8
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recNZjfwI3SeCuONn?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -14911,9 +15105,9 @@
         "T3"
       ],
       "termNotes": {
-        "T1": "Art Print Set (Full Term)",
-        "T2": "Art Print Set (Full Term)",
-        "T3": "Art Print Set (Full Term)"
+        "T1": "Art Print Set (Full Term - Edward Mitchell Bannister)",
+        "T2": "Art Print Set (Full Term - Vincent Willem van Gogh)",
+        "T3": "Art Print Set (Full Term - Lilias Trotter)"
       },
       "gradeText": "G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12,",
       "grades": [
@@ -16654,6 +16848,58 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recSOLOkJU4e0fEl7?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "recPp7H3yei7AQmqL",
+      "targetId": "recSOLOkJU4e0fEl7",
+      "resourceId": "recycfEUQBNPoHUZi",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.001.000",
+      "scopeText": "Term 2",
+      "terms": [
+        "T2"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "Being God's Image: Why Creation Still Matters (Full Term)",
+        "T3": ""
+      },
+      "gradeText": "G12,",
+      "grades": [
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recSOLOkJU4e0fEl7?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recQAsTn62NM7JujB",
+      "targetId": "recSOLOkJU4e0fEl7",
+      "resourceId": "recqkbLLdRsO5Icq7",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "003.001.000",
+      "scopeText": "Term 3",
+      "terms": [
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "",
+        "T3": "Delighting in the Trinity (Full Term)"
+      },
+      "gradeText": "G12,",
+      "grades": [
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recSOLOkJU4e0fEl7?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recWthkRhLxVsr2Pb",
       "targetId": "recSrzME9wnhZuhfb",
       "resourceId": "rec5AEKHqzrhwpR9x",
@@ -18291,6 +18537,35 @@
       "sharedTextR3": "",
       "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recW7Ozpg6YpDopUs?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recDO1qwIlSC02UUX",
+      "targetId": "recwdjPJ19zLtMKB3",
+      "resourceId": "recEwODkwJZNKwdhf",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1\nTerm 2 (Partial Term)",
+      "terms": [
+        "T1",
+        "T2"
+      ],
+      "termNotes": {
+        "T1": "The Bandit of Ashley Downs: George Muller (Full Term)",
+        "T2": "The Bandit of Ashley Downs: George Muller (Partial Term)",
+        "T3": ""
+      },
+      "gradeText": "G1, G2, G3,",
+      "grades": [
+        1,
+        2,
+        3
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recwdjPJ19zLtMKB3?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "recY5OwsiaNd89ssm",
@@ -20789,11 +21064,8 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "U.S. History: Grades 4-6\nU.S. History: Grades 7-8",
-      "sharedLinesR3": [
-        "U.S. History: Grades 4-6",
-        "U.S. History: Grades 7-8"
-      ],
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recZ0DXfFP97QArDQ?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -20851,11 +21123,36 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "U.S. History: Grades 4-6\nU.S. History: Grades 7-8",
-      "sharedLinesR3": [
-        "U.S. History: Grades 4-6",
-        "U.S. History: Grades 7-8"
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recZ0DXfFP97QArDQ?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "reckG9wHWGJ56rlGO",
+      "targetId": "recZ0DXfFP97QArDQ",
+      "resourceId": "rec0AHSZzCBWRzIdy",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.003.000",
+      "scopeText": "Term 2",
+      "terms": [
+        "T2"
       ],
+      "termNotes": {
+        "T1": "",
+        "T2": "Lincoln: A Photobiography (Full Term)",
+        "T3": ""
+      },
+      "gradeText": "G4, G5, G6,",
+      "grades": [
+        4,
+        5,
+        6
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recZ0DXfFP97QArDQ?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -21019,34 +21316,6 @@
         "T1": "",
         "T2": "The Story of the World Vol.4: The Modern Age (Revised Edition) (Full Term - Ch.1-8)",
         "T3": "The Story of the World Vol.4: The Modern Age (Revised Edition) (Full Term - Ch.9-15)"
-      },
-      "gradeText": "G7, G8, G7, G8, G9, G9,",
-      "grades": [
-        7,
-        8,
-        9
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recZAQiujSttNSfhB?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recCgdAQZeeZ17jKl",
-      "targetId": "recZAQiujSttNSfhB",
-      "resourceId": "recGDXfZM9GzPjF6K",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "003.003.000",
-      "scopeText": "Term 3",
-      "terms": [
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "",
-        "T3": "Eiffel's Tower for Young People (Full Term)"
       },
       "gradeText": "G7, G8, G7, G8, G9, G9,",
       "grades": [
