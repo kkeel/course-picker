@@ -1,4 +1,4 @@
-name: Render Course List PDF (G1)
+name: Render Course List PDFs (All Grades)
 
 on:
   workflow_dispatch:
@@ -23,8 +23,8 @@ jobs:
           npm i -D playwright
           npx playwright install --with-deps chromium
 
-      - name: Render Course List (G1)
-        run: node scripts/render-course-g1.mjs
+      - name: Render Course List PDFs
+        run: node scripts/render-course-list-all-grades.mjs
 
       - name: Commit PDFs
         run: |
