@@ -26,10 +26,11 @@ jobs:
       - name: Render Course List (G1)
         run: node scripts/render-course-g1.mjs
 
-      - name: Commit PDF
+      - name: Commit PDFs
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add pdf/course-list/Course-List_G1.pdf
-          git commit -m "Update Course List PDF (G1)" || echo "No changes to commit"
+          git add pdf/course-list/*.pdf
+          git commit -m "Update Course List PDFs" || echo "No changes to commit"
           git push
+
