@@ -1628,35 +1628,47 @@ function coursePlanner() {
     },
 
       printView() {
-        // Close any open dropdowns so they don’t overlay the printout
-        this.gradeDropdownOpen = false;
-        this.subjectDropdownOpen = false;
-        this.tagDropdownOpen = false;
-        this.studentDropdownOpen = false;
-      
-        // ✅ CRITICAL: open the print popup *synchronously* (in the click gesture)
-        // Do NOT wait for $nextTick before calling the popup opener.
-        // Prefer the Paged.js popup flow if it exists
-        if (window.alvearyPrintWithPaged) {
-          try { window.alvearyPrintWithPaged(); }
-          catch (e) {
-            // If it errors, fall back to in-place eager printing
-            if (window.alvearyPrintInPlaceWithEagerImages) window.alvearyPrintInPlaceWithEagerImages();
-            else window.print();
-          }
-          return;
-        }
-        
-        // If the paged print function is missing (your “nested script” scenario),
-        // still preload images and then print in-place.
+      // Close any open dropdowns so they don’t overlay the printout
+      this.gradeDropdownOpen = false;
+      this.subjectDropdownOpen = false;
+      this.tagDropdownOpen = false;
+      this.studentDropdownOpen = false;
+    
+      // ✅ Automation / headless / reliable mode:
+      // If URL contains ?pdf=1 (or ?forceInPlacePrint=1), skip popup printing entirely.
+      const params = new URLSearchParams(window.location.search);
+      const forceInPlace =
+        params.get("pdf") === "1" || params.get("forceInPlacePrint") === "1";
+    
+      if (forceInPlace) {
         if (window.alvearyPrintInPlaceWithEagerImages) {
           window.alvearyPrintInPlaceWithEagerImages();
           return;
         }
-        
-        // Last resort
         window.print();
-      },
+        return;
+      }
+    
+      // ✅ Human mode: prefer the Paged.js popup flow if it exists
+      if (window.alvearyPrintWithPaged) {
+        try { window.alvearyPrintWithPaged(); }
+        catch (e) {
+          // If it errors, fall back to in-place eager printing
+          if (window.alvearyPrintInPlaceWithEagerImages) window.alvearyPrintInPlaceWithEagerImages();
+          else window.print();
+        }
+        return;
+      }
+    
+      // If the paged print function is missing, still preload images and then print in-place.
+      if (window.alvearyPrintInPlaceWithEagerImages) {
+        window.alvearyPrintInPlaceWithEagerImages();
+        return;
+      }
+    
+      // Last resort
+      window.print();
+    },
 
     // ===============================
     // AUTO-PRINT (automation only)
