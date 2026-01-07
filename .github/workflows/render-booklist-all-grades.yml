@@ -1,0 +1,33 @@
+name: Render Book List PDFs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Playwright
+        run: |
+          npm i -D playwright
+          npx playwright install --with-deps chromium
+
+      - name: Render Book List PDFs
+        run: node scripts/render-booklist-all-grades.mjs
+
+      - name: Commit PDFs
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add pdf/book-list/*.pdf
+          git commit -m "Update Book List PDFs" || echo "No changes to commit"
+          git push
