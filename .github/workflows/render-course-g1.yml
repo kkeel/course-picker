@@ -1,0 +1,35 @@
+name: Render Course List PDF (G1)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Playwright
+        run: |
+          npm i -D playwright
+          npx playwright install --with-deps chromium
+
+      - name: Render Course List (G1)
+        run: node scripts/render-course-g1.mjs
+
+      - name: Commit PDF
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add pdf/course-list/Course-List_G1.pdf
+          git commit -m "Update Course List PDF (G1)" || echo "No changes to commit"
+          git push
