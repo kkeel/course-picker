@@ -2,6 +2,24 @@ name: Render Book List PDFs
 
 on:
   workflow_dispatch:
+    inputs:
+      master:
+        description: "Include MASTER"
+        type: boolean
+        default: true
+
+      g1:  { description: "Grade 1",  type: boolean, default: false }
+      g2:  { description: "Grade 2",  type: boolean, default: false }
+      g3:  { description: "Grade 3",  type: boolean, default: false }
+      g4:  { description: "Grade 4",  type: boolean, default: false }
+      g5:  { description: "Grade 5",  type: boolean, default: false }
+      g6:  { description: "Grade 6",  type: boolean, default: false }
+      g7:  { description: "Grade 7",  type: boolean, default: false }
+      g8:  { description: "Grade 8",  type: boolean, default: false }
+      g9:  { description: "Grade 9",  type: boolean, default: false }
+      g10: { description: "Grade 10", type: boolean, default: false }
+      g11: { description: "Grade 11", type: boolean, default: false }
+      g12: { description: "Grade 12", type: boolean, default: false }
 
 jobs:
   render:
@@ -21,8 +39,35 @@ jobs:
           npm i -D playwright
           npx playwright install --with-deps chromium
 
+      - name: Build grade selection
+        id: grades
+        run: |
+          GRADES=""
+          add() {
+            if [ -z "$GRADES" ]; then GRADES="$1"; else GRADES="$GRADES,$1"; fi
+          }
+
+          if [ "${{ inputs.g1 }}" = "true" ]; then add "G1"; fi
+          if [ "${{ inputs.g2 }}" = "true" ]; then add "G2"; fi
+          if [ "${{ inputs.g3 }}" = "true" ]; then add "G3"; fi
+          if [ "${{ inputs.g4 }}" = "true" ]; then add "G4"; fi
+          if [ "${{ inputs.g5 }}" = "true" ]; then add "G5"; fi
+          if [ "${{ inputs.g6 }}" = "true" ]; then add "G6"; fi
+          if [ "${{ inputs.g7 }}" = "true" ]; then add "G7"; fi
+          if [ "${{ inputs.g8 }}" = "true" ]; then add "G8"; fi
+          if [ "${{ inputs.g9 }}" = "true" ]; then add "G9"; fi
+          if [ "${{ inputs.g10 }}" = "true" ]; then add "G10"; fi
+          if [ "${{ inputs.g11 }}" = "true" ]; then add "G11"; fi
+          if [ "${{ inputs.g12 }}" = "true" ]; then add "G12"; fi
+
+          echo "grades=$GRADES" >> $GITHUB_OUTPUT
+          echo "Selected grades: $GRADES"
+
       - name: Render Book List PDFs
         run: node scripts/render-book-list-all-grades.mjs
+        env:
+          GRADES: ${{ steps.grades.outputs.grades }}
+          INCLUDE_MASTER: ${{ inputs.master }}
 
       - name: Commit PDFs
         run: |
