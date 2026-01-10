@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-09T08:46:36.076Z",
+  "lastUpdated": "2026-01-10T08:39:35.394Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -2246,50 +2246,21 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec7Zd0pHZwZI01wm?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recT2A4aZoYEYR5GT",
-      "targetId": "rec7ZFS33CbZViLLV",
-      "resourceId": "recFKmcgde5dxKPMh",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "002.003.000",
-      "scopeText": "Term 2",
-      "terms": [
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "Hans Brinker or The Silver Skates (Full Term)",
-        "T3": ""
-      },
-      "gradeText": "G5, G6,",
-      "grades": [
-        5,
-        6
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "General Lit.: Grade 4\nGeneral Lit.: Grades 5-6",
-      "sharedLinesR3": [
-        "General Lit.: Grade 4",
-        "General Lit.: Grades 5-6"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec7ZFS33CbZViLLV?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "recexVNWRfom5VPsk",
       "targetId": "rec7ZFS33CbZViLLV",
       "resourceId": "rec8oemEyLSCeLUEf",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "003.003.000",
-      "scopeText": "Term 3",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1\nTerm 2 (Partial Term)",
       "terms": [
-        "T3"
+        "T1",
+        "T2"
       ],
       "termNotes": {
-        "T1": "",
-        "T2": "",
-        "T3": "Little Women (Part 1) (Full Term)"
+        "T1": "Little Women (Part 1) (Full Term)",
+        "T2": "Little Women (Part 1) (Partial Term)",
+        "T3": ""
       },
       "gradeText": "G5, G6,",
       "grades": [
@@ -2301,6 +2272,37 @@
       "sharedTextR3": "General Lit: Grades 7-8\nGeneral Lit.: Grades 5-6",
       "sharedLinesR3": [
         "General Lit: Grades 7-8",
+        "General Lit.: Grades 5-6"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec7ZFS33CbZViLLV?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recT2A4aZoYEYR5GT",
+      "targetId": "rec7ZFS33CbZViLLV",
+      "resourceId": "recFKmcgde5dxKPMh",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.003.000",
+      "scopeText": "Term 2 (Partial Term)\nTerm 3",
+      "terms": [
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "Hans Brinker or The Silver Skates (Partial Term)",
+        "T3": "Hans Brinker or The Silver Skates (Full Term)"
+      },
+      "gradeText": "G5, G6,",
+      "grades": [
+        5,
+        6
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "General Lit.: Grade 4\nGeneral Lit.: Grades 5-6",
+      "sharedLinesR3": [
+        "General Lit.: Grade 4",
         "General Lit.: Grades 5-6"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec7ZFS33CbZViLLV?home=pag8nmiUVfXJRZFLW"
@@ -2341,6 +2343,37 @@
         "Story of Arithmetic: Part 1",
         "Story of Geometry: Part 1"
       ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec8fMADfpLzUlCnb?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recwS1TiwyIpgsRck",
+      "targetId": "rec8fMADfpLzUlCnb",
+      "resourceId": "rec01nkYbeecMfZgR",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.002.000",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "The New Manners and Customs of Bible Times (Full Term)",
+        "T2": "The New Manners and Customs of Bible Times (Full Term)",
+        "T3": "The New Manners and Customs of Bible Times (Full Term)"
+      },
+      "gradeText": "G3, G4, G5, G6, G3, G4, G5, G6,",
+      "grades": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec8fMADfpLzUlCnb?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -2670,6 +2703,33 @@
         "Art: High School Fast Track"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec8uExmrd5iccO3z?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recbmA6w55olPyGK7",
+      "targetId": "rec94JklXBmpXn1Ky",
+      "resourceId": "recrsNiVJtNacZvR9",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.003.000",
+      "scopeText": "Term 2",
+      "terms": [
+        "T2"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "The Underground Railroad: Next Stop, Toronto! (Full Term)",
+        "T3": ""
+      },
+      "gradeText": "G9, G10,",
+      "grades": [
+        9,
+        10
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec94JklXBmpXn1Ky?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "rechuHF9ymsaiHQa8",
@@ -5170,36 +5230,6 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recCIKPAUtjmwgV4a?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recZdAZcwXdMB738n",
-      "targetId": "recCKYMTFjpceB5Dg",
-      "resourceId": "recUw67yVS9H4zGXd",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2",
-      "terms": [
-        "T1",
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "Gladiola Garden (Full Term)",
-        "T2": "Gladiola Garden (Full Term)",
-        "T3": ""
-      },
-      "gradeText": "G1, G2, G3, G4,",
-      "grades": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recCKYMTFjpceB5Dg?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "recRYhChwaXEi6yDD",
       "targetId": "recCKYMTFjpceB5Dg",
       "resourceId": "recuzZNUCUmNMMlPv",
@@ -5224,8 +5254,11 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
+      "sharedTextR3": "Poetry: Grades 1-4\nPoetry: Grades 5-6",
+      "sharedLinesR3": [
+        "Poetry: Grades 1-4",
+        "Poetry: Grades 5-6"
+      ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recCKYMTFjpceB5Dg?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -5260,6 +5293,35 @@
         "Poetry: Grades 1-4",
         "Poetry: Grades 5-6"
       ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recCKYMTFjpceB5Dg?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recZdAZcwXdMB738n",
+      "targetId": "recCKYMTFjpceB5Dg",
+      "resourceId": "recUw67yVS9H4zGXd",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "002.003.000",
+      "scopeText": "Term 2",
+      "terms": [
+        "T2"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "Gladiola Garden (Full Term)",
+        "T3": ""
+      },
+      "gradeText": "G1, G2, G3, G4,",
+      "grades": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recCKYMTFjpceB5Dg?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -5698,33 +5760,6 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/reccptIZEfyPj6VOX?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "rectevkSEWuxqkPLr",
-      "targetId": "recCQuj3cZ8Hd8QF8",
-      "resourceId": "recmayDVcm6Bvu9j8",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1",
-      "terms": [
-        "T1"
-      ],
-      "termNotes": {
-        "T1": "The Story of the Amistad (Full Term)",
-        "T2": "",
-        "T3": ""
-      },
-      "gradeText": "G7, G8,",
-      "grades": [
-        7,
-        8
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recCQuj3cZ8Hd8QF8?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "rechw5bNjS9gWI6XX",
       "targetId": "recCQuj3cZ8Hd8QF8",
       "resourceId": "rectQeZOe9TstFr1x",
@@ -5755,46 +5790,19 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recCQuj3cZ8Hd8QF8?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "rec2unsjzLzaKNuBm",
+      "assignmentId": "rec8rjJXbhPtTznb4",
       "targetId": "recCQuj3cZ8Hd8QF8",
-      "resourceId": "recuXHJO970Y5iq83",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1",
-      "terms": [
-        "T1"
-      ],
-      "termNotes": {
-        "T1": "At the Back of the North Wind (Everyman's Library Edition) (Full Term)",
-        "T2": "",
-        "T3": ""
-      },
-      "gradeText": "G7, G8,",
-      "grades": [
-        7,
-        8
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recCQuj3cZ8Hd8QF8?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "rec22wHtp5j3L34tf",
-      "targetId": "recCQuj3cZ8Hd8QF8",
-      "resourceId": "recizBRPubb80UUJk",
+      "resourceId": "recwAAsRvvVMG3mGV",
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "002.003.000",
-      "scopeText": "Term 2",
+      "scopeText": "Term 2 (Partial Term)",
       "terms": [
         "T2"
       ],
       "termNotes": {
         "T1": "",
-        "T2": "Across Five Aprils (Full Term)",
+        "T2": "A Christmas Carol (Partial Term)",
         "T3": ""
       },
       "gradeText": "G7, G8,",
@@ -5804,62 +5812,11 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recCQuj3cZ8Hd8QF8?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recqfv53Ov2Z7pjah",
-      "targetId": "recCQuj3cZ8Hd8QF8",
-      "resourceId": "recmhh5u13vl3vJoH",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "003.003.000",
-      "scopeText": "Term 3",
-      "terms": [
-        "T3"
+      "sharedTextR3": "General Lit.: Grades 9-10\nLit./Mythology: Grades 7-8",
+      "sharedLinesR3": [
+        "General Lit.: Grades 9-10",
+        "Lit./Mythology: Grades 7-8"
       ],
-      "termNotes": {
-        "T1": "",
-        "T2": "",
-        "T3": "Around the World in Eighty Days (Full Term)"
-      },
-      "gradeText": "G7, G8,",
-      "grades": [
-        7,
-        8
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recCQuj3cZ8Hd8QF8?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recEvlcIHSD2YIwGJ",
-      "targetId": "recCQuj3cZ8Hd8QF8",
-      "resourceId": "recpgMKuIOOxo6sJL",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "003.003.000",
-      "scopeText": "Term 3",
-      "terms": [
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "",
-        "T3": "Thunder Rolling in the Mountains (Full Term)"
-      },
-      "gradeText": "G7, G8,",
-      "grades": [
-        7,
-        8
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recCQuj3cZ8Hd8QF8?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -7120,13 +7077,14 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "001.003.000",
-      "scopeText": "Term 1",
+      "scopeText": "Term 1\nTerm 2 (Partial Term)",
       "terms": [
-        "T1"
+        "T1",
+        "T2"
       ],
       "termNotes": {
         "T1": "In the Shadow of the Alamo (Full Term)",
-        "T2": "",
+        "T2": "In the Shadow of the Alamo (Partial Term)",
         "T3": ""
       },
       "gradeText": "G7, G8, G7, G8,",
@@ -7147,14 +7105,14 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "002.003.000",
-      "scopeText": "Term 2\nTerm 3",
+      "scopeText": "Term 2 (Partial Term)\nTerm 3",
       "terms": [
         "T2",
         "T3"
       ],
       "termNotes": {
         "T1": "",
-        "T2": "Eiffel's Tower for Young People (Full Term)",
+        "T2": "Eiffel's Tower for Young People (Partial Term)",
         "T3": "Eiffel's Tower for Young People (Full Term)"
       },
       "gradeText": "G7, G8, G7, G8,",
@@ -9663,15 +9621,14 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "002.001.003",
-      "scopeText": "Term 2\nTerm 3",
+      "scopeText": "Term 2",
       "terms": [
-        "T2",
-        "T3"
+        "T2"
       ],
       "termNotes": {
         "T1": "",
         "T2": "Annals of the Former World (Full Term)",
-        "T3": "Annals of the Former World (Full Term)"
+        "T3": ""
       },
       "gradeText": "G11, G12,",
       "grades": [
@@ -10586,6 +10543,33 @@
       "termNotes": {
         "T1": "America: Our Stories (Vol. 1) (Full Term - Ch.25-29)",
         "T2": "",
+        "T3": ""
+      },
+      "gradeText": "G2, G3,",
+      "grades": [
+        2,
+        3
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recJIxZb1XZli9xOn?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recJDRQkZXjuQDihv",
+      "targetId": "recJIxZb1XZli9xOn",
+      "resourceId": "recbQgipyAhHvRQkR",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "002.003.000",
+      "scopeText": "Term 2 (Partial Term)",
+      "terms": [
+        "T2"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "Escape by Night: A Civil War Adventure (Partial Term)",
         "T3": ""
       },
       "gradeText": "G2, G3,",
@@ -12771,93 +12755,6 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recm5rqbd7VkHFZwR?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recH5rSRAQEfvZYbK",
-      "targetId": "recm5rqbd7VkHFZwR",
-      "resourceId": "recj4tnY3LVuCFC9e",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1 (Selections)",
-      "terms": [
-        "T1"
-      ],
-      "termNotes": {
-        "T1": "Tennyson: Poems (Everyman's Library) (Selections)",
-        "T2": "",
-        "T3": ""
-      },
-      "gradeText": "G7,",
-      "grades": [
-        7
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "Poetry Reading: Grade 7\nPoetry Reading: Grade 8",
-      "sharedLinesR3": [
-        "Poetry Reading: Grade 7",
-        "Poetry Reading: Grade 8"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recm5rqbd7VkHFZwR?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recNST2HsSMpMQZ0Q",
-      "targetId": "recm5rqbd7VkHFZwR",
-      "resourceId": "recM1HRFdMnUZQLp8",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "002.003.000",
-      "scopeText": "Term 2 (Selections)",
-      "terms": [
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "Keats: Poems (Everyman's Library) (Selections)",
-        "T3": ""
-      },
-      "gradeText": "G7,",
-      "grades": [
-        7
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "Poetry Reading: Grade 7\nPoetry Reading: Grade 8",
-      "sharedLinesR3": [
-        "Poetry Reading: Grade 7",
-        "Poetry Reading: Grade 8"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recm5rqbd7VkHFZwR?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recAOw9yLGnADn6xp",
-      "targetId": "recm5rqbd7VkHFZwR",
-      "resourceId": "recMGTz4dJE7ieZe7",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "003.003.000",
-      "scopeText": "Term 3 (Selections)",
-      "terms": [
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "",
-        "T3": "Carver: A Life in Poems (Selections)"
-      },
-      "gradeText": "G7,",
-      "grades": [
-        7
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "Poetry Reading: Grade 7\nPoetry Reading: Grade 8",
-      "sharedLinesR3": [
-        "Poetry Reading: Grade 7",
-        "Poetry Reading: Grade 8"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recm5rqbd7VkHFZwR?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "recDsRYWoteOzXBNo",
       "targetId": "recm5rqbd7VkHFZwR",
       "resourceId": "recYIRwDEThES9D03",
@@ -13039,6 +12936,34 @@
         "T1": "",
         "T2": "Spurgeon: A Biography (Full Term)",
         "T3": "Spurgeon: A Biography (Full Term)"
+      },
+      "gradeText": "G7, G8, G9,",
+      "grades": [
+        7,
+        8,
+        9
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recmJAn0Ul3F0VQyz?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recTLmQ1lSm1F0nui",
+      "targetId": "recmJAn0Ul3F0VQyz",
+      "resourceId": "rec0HbHnQV6fLbbOy",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "003.003.000",
+      "scopeText": "Term 3 (Partial Term)",
+      "terms": [
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "",
+        "T3": "An Honorable Heritage: The Pandita Ramabai Story in Her Own Words (Partial Term)"
       },
       "gradeText": "G7, G8, G9,",
       "grades": [
@@ -14219,8 +14144,11 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
+      "sharedTextR3": "General Lit.: Grades 9-10\nLit./Mythology: Grades 7-8",
+      "sharedLinesR3": [
+        "General Lit.: Grades 9-10",
+        "Lit./Mythology: Grades 7-8"
+      ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recOGMsLG43gBsvN4?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -15935,6 +15863,36 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recQE3x6FUA7hb6Vb?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "rec38pMbL5TnvOcGQ",
+      "targetId": "recQE3x6FUA7hb6Vb",
+      "resourceId": "recuzZNUCUmNMMlPv",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1",
+      "terms": [
+        "T1"
+      ],
+      "termNotes": {
+        "T1": "The Crescent Moon: Illustrated (Full Term)",
+        "T2": "",
+        "T3": ""
+      },
+      "gradeText": "G5, G6,",
+      "grades": [
+        5,
+        6
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Poetry: Grades 1-4\nPoetry: Grades 5-6",
+      "sharedLinesR3": [
+        "Poetry: Grades 1-4",
+        "Poetry: Grades 5-6"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recQE3x6FUA7hb6Vb?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recv5IEtzCxe7Bc6L",
       "targetId": "recQE3x6FUA7hb6Vb",
       "resourceId": "recZ3NUcDoZolVrPc",
@@ -16075,11 +16033,8 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Poetry Reading: Grade 7\nPoetry Reading: Grade 8",
-      "sharedLinesR3": [
-        "Poetry Reading: Grade 7",
-        "Poetry Reading: Grade 8"
-      ],
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recqnHQ3B8nKT6YZ1?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -16104,11 +16059,8 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Poetry Reading: Grade 7\nPoetry Reading: Grade 8",
-      "sharedLinesR3": [
-        "Poetry Reading: Grade 7",
-        "Poetry Reading: Grade 8"
-      ],
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recqnHQ3B8nKT6YZ1?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -16133,11 +16085,8 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Poetry Reading: Grade 7\nPoetry Reading: Grade 8",
-      "sharedLinesR3": [
-        "Poetry Reading: Grade 7",
-        "Poetry Reading: Grade 8"
-      ],
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recqnHQ3B8nKT6YZ1?home=pag8nmiUVfXJRZFLW"
     },
     {
