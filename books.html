@@ -2983,24 +2983,24 @@
 
   <script src="js/books.js"></script>
 
-  <!-- Authentication + user bootstrap (must run AFTER the final coursePlanner definition, BEFORE Alpine init) -->
+  <!-- Authentication + user bootstrap (shared auth.js, same as Course List) -->
+  <script>
+    // defaults without overwriting real auth
+    window.currentUser ??= null;
+    window.role ??= "guest";
+    window.isStaff ??= false;
+    window.authReady ??= false;
+    window.__ALVEARY_AUTH ??= { ok: false, role: "guest", user: null };
+  </script>
+  
   <script type="module">
-    import { patchPlannerFactory, refreshAuth } from "./js/auth.js";
+    import { patchPlannerFactory, initAuthForPage } from "./js/auth.js";
   
-    // Patch your Alpine factories before Alpine boots
+    // Wrap your Alpine factory once
     patchPlannerFactory("coursePlanner");
-    patchPlannerFactory("booksPlanner");
   
-    // Kick auth once the DOM is ready
-    window.addEventListener("DOMContentLoaded", async () => {
-      await refreshAuth();
-  
-      // If your page’s root x-data is coursePlanner(), this makes sure it updates:
-      // (If you already call refreshAuth inside your planner init, this is still fine.)
-      try {
-        // no-op if planner instance handles it
-      } catch (e) {}
-    });
+    // Book List is viewable by everyone; staff gets edit UI
+    initAuthForPage({ requireStaff: false });
   </script>
 
   <!-- ✅ Alpine -->
