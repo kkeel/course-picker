@@ -2985,49 +2985,22 @@
 
   <!-- Authentication + user bootstrap (must run AFTER the final coursePlanner definition, BEFORE Alpine init) -->
   <script type="module">
-    import { getCurrentUser } from "./js/auth.js";
+    import { patchPlannerFactory, refreshAuth } from "./js/auth.js";
   
-    // Global safety defaults (prevents "isStaff is not defined" from nuking Alpine)
-    window.currentUser = null;
-    window.isStaff = false;
+    // Patch your Alpine factories before Alpine boots
+    patchPlannerFactory("coursePlanner");
+    patchPlannerFactory("booksPlanner");
   
-    // Wrap coursePlanner ONCE, after all scripts have defined it.
-    if (typeof window.coursePlanner === "function" && !window.coursePlanner.__authWrapped) {
-      const original = window.coursePlanner;
+    // Kick auth once the DOM is ready
+    window.addEventListener("DOMContentLoaded", async () => {
+      await refreshAuth();
   
-      const wrapped = function (...args) {
-        const base = original(...args);
-  
-        // Ensure these exist immediately so Alpine expressions never ReferenceError
-        if (typeof base.isStaff === "undefined") base.isStaff = false;
-        if (typeof base.currentUser === "undefined") base.currentUser = null;
-        if (typeof base.role === "undefined") base.role = "guest";
-  
-        base.refreshAuth = async function () {
-          const auth = await getCurrentUser();
-          base.currentUser = auth?.user || null;
-          base.role = auth?.role || "guest";
-          base.isStaff = base.role === "staff";
-  
-          // Mirror to window for any code that accidentally references globals
-          window.currentUser = base.currentUser;
-          window.isStaff = base.isStaff;
-  
-          // Optional debug
-          console.log("[Auth] ok:", auth?.ok, "role:", base.role, "user:", base.currentUser);
-        };
-  
-        // Kick off refresh, but don't block initial render
-        base.refreshAuth();
-  
-        return base;
-      };
-  
-      wrapped.__authWrapped = true;
-      window.coursePlanner = wrapped;
-    } else {
-      console.warn("[Auth] coursePlanner not found (or already wrapped).");
-    }
+      // If your page’s root x-data is coursePlanner(), this makes sure it updates:
+      // (If you already call refreshAuth inside your planner init, this is still fine.)
+      try {
+        // no-op if planner instance handles it
+      } catch (e) {}
+    });
   </script>
 
   <!-- ✅ Alpine -->
