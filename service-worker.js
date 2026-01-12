@@ -1,23 +1,23 @@
-/* Alveary Yearly Planning App — Service Worker (INACTIVE until registered)
-   If you ever update this file later, bump SW_VERSION to force an update.
+/* Alveary Planning App — Service Worker
+   If you update this file, bump SW_VERSION to force a clean update.
 */
-const SW_VERSION = "v1.0.0";
+const SW_VERSION = "v1.0.1";
 const STATIC_CACHE = `alveary-static-${SW_VERSION}`;
 
-// Keep this list SMALL while you're still building pages.
+// Keep this list SMALL.
 const APP_SHELL = [
-  "/course-picker/",
-  "/course-picker/index.html",
-  "/course-picker/manifest.webmanifest",
+  "/",
+  "/index.html",
+  "/books.html",
+  "/manifest.webmanifest",
 
-  // App icons (your folder)
-  "/course-picker/img/icon/icon-192.png",
-  "/course-picker/img/icon/icon-512.png",
-  "/course-picker/img/icon/icon-192-maskable.png",
-  "/course-picker/img/icon/icon-512-maskable.png"
+  // icons (adjust folder name to match your repo)
+  "/img/icons/icon-192.png",
+  "/img/icons/icon-512.png",
+  "/img/icons/icon-192-maskable.png",
+  "/img/icons/icon-512-maskable.png",
 ];
 
-// Install: cache the shell
 self.addEventListener("install", (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(STATIC_CACHE);
@@ -26,7 +26,6 @@ self.addEventListener("install", (event) => {
   })());
 });
 
-// Activate: remove older caches
 self.addEventListener("activate", (event) => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
@@ -39,7 +38,6 @@ self.addEventListener("activate", (event) => {
   })());
 });
 
-// Fetch: cache-first for same-origin GET requests
 self.addEventListener("fetch", (event) => {
   const req = event.request;
   if (req.method !== "GET") return;
