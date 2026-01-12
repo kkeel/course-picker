@@ -2983,54 +2983,56 @@
   
   <!-- Authentication Bootstrapping -->
   <script type="module">
-    import { getCurrentUser, openLogin } from './js/auth.js';
+    import { getCurrentUser, openLogin, openSignup, logout } from "./js/auth.js";
   
-    function waitForAlpine(timeoutMs = 8000) {
-      const start = Date.now();
-      return new Promise((resolve) => {
-        const t = setInterval(() => {
-          if (window.Alpine) {
-            clearInterval(t);
-            resolve(true);
-          } else if (Date.now() - start > timeoutMs) {
-            clearInterval(t);
-            resolve(false);
-          }
-        }, 50);
-      });
-    }
+    window.AlvearyAuth = { getCurrentUser, openLogin, openSignup, logout };
   
-    await waitForAlpine();
+    function patchPlannerFactory(factoryName) {
+      const original = window[factoryName];
+      if (typeof original !== "function") return;
   
-    if (window.bookPlanner) {
-      const original = window.bookPlanner;
+      window[factoryName] = function (...args) {
+        const base = original.apply(this, args) || {};
   
-      window.bookPlanner = function(...args) {
-        const inst = original.apply(this, args);
-        const originalInit = inst.init?.bind(inst);
+        if (base.authReady === undefined) base.authReady = false;
+        if (base.authError === undefined) base.authError = null;
+        if (base.role === undefined) base.role = "anonymous";
+        if (base.user === undefined) base.user = null;
+        if (base.memberstack === undefined) base.memberstack = null;
+        if (base.isStaff === undefined) base.isStaff = false;
   
-        inst.init = async function() {
-          let u = await getCurrentUser();
+        if (typeof base.refreshAuth !== "function") {
+          base.refreshAuth = async function () {
+            const info = await getCurrentUser();
+            base.authReady = true;
+            base.authError = info?.error || null;
+            base.role = String(info?.role || "anonymous").toLowerCase();
+            base.user = info?.user || null;
+            base.memberstack = info?.memberstack || null;
+            base.isStaff = base.role === "staff";
   
-          if (!u || u.role === "anonymous") {
-            await openLogin();
-            u = await getCurrentUser();
-          }
+            if (base.requireAuth && base.role === "anonymous") {
+              await openLogin();
+            }
   
-          if (!u || u.role === "anonymous") {
-            console.warn("Auth: user not logged in or not allowed.");
-            return;
-          }
+            if (!base.isStaff && base.editMode) base.editMode = false;
   
-          inst.user = u;
-          inst.isStaff = (u.role === "staff");
+            return info;
+          };
+        }
   
-          return originalInit ? originalInit() : undefined;
+        const prevInit = base.init;
+        base.init = async function (...initArgs) {
+          base.refreshAuth();
+          if (typeof prevInit === "function") return prevInit.apply(this, initArgs);
         };
   
-        return inst;
+        return base;
       };
     }
+  
+    // books.js also wraps coursePlanner, so patch the same factory name
+    patchPlannerFactory("coursePlanner");
   </script>
 
   <script src="js/books.js"></script>
