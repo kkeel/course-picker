@@ -1,57 +1,56 @@
-/* Alveary Planning App — Service Worker
-   If you update this file, bump SW_VERSION to force a clean update.
-*/
 const SW_VERSION = "v1.0.1";
-const STATIC_CACHE = `alveary-static-${SW_VERSION}`;
+const CACHE_NAME = `alveary-planning-${SW_VERSION}`;
 
-// Keep this list SMALL.
+// Minimal shell — avoid hard-caching lots of files while you're actively changing things.
 const APP_SHELL = [
   "/",
   "/index.html",
   "/books.html",
   "/manifest.webmanifest",
-
-  // icons (adjust folder name to match your repo)
   "/img/icons/icon-192.png",
   "/img/icons/icon-512.png",
   "/img/icons/icon-192-maskable.png",
-  "/img/icons/icon-512-maskable.png",
+  "/img/icons/icon-512-maskable.png"
 ];
 
 self.addEventListener("install", (event) => {
-  event.waitUntil((async () => {
-    const cache = await caches.open(STATIC_CACHE);
-    await cache.addAll(APP_SHELL);
-    self.skipWaiting();
-  })());
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(APP_SHELL))
+      .then(() => self.skipWaiting())
+      .catch(() => {}) // don't fail install if any single asset 404s
+  );
 });
 
 self.addEventListener("activate", (event) => {
-  event.waitUntil((async () => {
-    const keys = await caches.keys();
-    await Promise.all(
-      keys
-        .filter(k => k.startsWith("alveary-") && k !== STATIC_CACHE)
-        .map(k => caches.delete(k))
-    );
-    self.clients.claim();
-  })());
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.map((k) => (k !== CACHE_NAME ? caches.delete(k) : null)))
+    ).then(() => self.clients.claim())
+  );
 });
 
 self.addEventListener("fetch", (event) => {
   const req = event.request;
+
+  // Only GET requests
   if (req.method !== "GET") return;
 
-  const url = new URL(req.url);
-  if (url.origin !== self.location.origin) return;
+  event.respondWith(
+    caches.match(req).then((cached) => {
+      if (cached) return cached;
 
-  event.respondWith((async () => {
-    const cached = await caches.match(req);
-    if (cached) return cached;
-
-    const fresh = await fetch(req);
-    const cache = await caches.open(STATIC_CACHE);
-    cache.put(req, fresh.clone());
-    return fresh;
-  })());
+      return fetch(req).then((res) => {
+        // Cache same-origin successful responses
+        try {
+          const url = new URL(req.url);
+          if (url.origin === location.origin && res.ok) {
+            const copy = res.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
+          }
+        } catch (_) {}
+        return res;
+      });
+    })
+  );
 });
