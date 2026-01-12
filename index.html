@@ -30,6 +30,18 @@
 
   <link rel="icon" type="image/png" href="img/Alveary%20Lt.%20Green.png">
 
+  <!-- Lock UI until auth finishes -->
+<style>
+  html { opacity: var(--auth-ready, 0); }
+</style>
+
+<!-- Memberstack Framework (v2) -->
+<script
+  data-memberstack-app="app_clbb9rspy00160ujl6tsxbsrj"
+  src="https://static.memberstack.com/scripts/v2/memberstack.js"
+  type="text/javascript">
+</script>
+
 </head>
 
 <body x-data="coursePlanner()" x-init="init()">
