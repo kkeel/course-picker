@@ -1657,11 +1657,12 @@
   </script>
 
   <script>
-    // Prevent Alpine from crashing if auth vars aren't ready yet.
-    // Alpine expressions like: x-show="isStaff && editMode" will throw if isStaff is undefined.
-    window.isStaff = false;
-    window.authRole = "anonymous";
-    window.authReady = false;
+    // Set defaults ONLY if they don't already exist (prevents overwriting real auth)
+    window.currentUser ??= null;
+    window.role ??= "guest";
+    window.isStaff ??= false;
+    window.authReady ??= false;
+    window.__ALVEARY_AUTH ??= { ok: false, role: "guest", user: null };
   </script>
 
   <!-- ✅ Alpine -->
