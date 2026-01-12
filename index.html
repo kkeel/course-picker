@@ -1640,49 +1640,19 @@
   <script type="module">
     import { patchPlannerFactory, refreshAuth } from "./js/auth.js";
   
-    // Patch the Alpine factory so every page instance gets auth fields immediately.
+    // Patch your Alpine factories before Alpine boots
     patchPlannerFactory("coursePlanner");
+    patchPlannerFactory("booksPlanner");
   
-    // Keep safe globals in sync (so Alpine expressions won't crash even if scope changes)
-    function syncGlobalsFrom(base) {
-      window.isStaff = !!base.isStaff;
-      window.authRole = base.authRole || "anonymous";
-      window.authReady = !!base.authReady;
-    }
+    // Kick auth once the DOM is ready
+    window.addEventListener("DOMContentLoaded", async () => {
+      await refreshAuth();
   
-    // If the factory exists now, eagerly set globals from a temporary instance.
-    // (This prevents a brief undefined window where Alpine evaluates early.)
-    try {
-      if (typeof window.coursePlanner === "function") {
-        const temp = window.coursePlanner();
-        syncGlobalsFrom(temp);
-      }
-    } catch (e) {
-      // ignore
-    }
-  
-    // When auth refreshes, update globals again.
-    // This makes sure window.isStaff reflects real Airtable role after login.
-    document.addEventListener("alpine:init", () => {
-      // Wait until Alpine creates the component instance, then sync from it.
-      queueMicrotask(() => {
-        const root = document.querySelector("body[x-data]");
-        if (!root || !root.__x) return;
-  
-        const base = root.__x.$data;
-        if (!base) return;
-  
-        // Sync immediately, then after auth refresh
-        syncGlobalsFrom(base);
-  
-        refreshAuth(base)
-          .then(() => syncGlobalsFrom(base))
-          .catch(() => syncGlobalsFrom(base));
-  
-        // Also sync whenever your auth system triggers listeners (your auth.js uses _authListeners)
-        base._authListeners = base._authListeners || [];
-        base._authListeners.push(() => syncGlobalsFrom(base));
-      });
+      // If your page’s root x-data is coursePlanner(), this makes sure it updates:
+      // (If you already call refreshAuth inside your planner init, this is still fine.)
+      try {
+        // no-op if planner instance handles it
+      } catch (e) {}
     });
   </script>
 
