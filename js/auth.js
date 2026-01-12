@@ -1,119 +1,109 @@
 // js/auth.js
-// Memberstack client + Airtable role lookup (Cloudflare Worker)
 
-const WHOAMI_URL = "https://alveary-planning-api.kim-b5d.workers.dev/api/whoami";
+const WHOAMI_ENDPOINT = "https://alveary-planning-api.kim-b5d.workers.dev/api/whoami";
 
-// Your pages already create/use this global (books.html sets defaults before Alpine)
-window.$memberstackDom = window.$memberstackDom || null;
+// Small helper: your HTML hides everything until this becomes 1.
+function setAuthReadyCSS(val) {
+  try {
+    document.documentElement.style.setProperty("--auth-ready", val ? "1" : "0");
+  } catch (_) {}
+}
 
-// ---- Core: get current user + role ----
+// Returns { memberstackId, email } when logged in, otherwise null
 export async function getCurrentUser() {
   try {
+    // Memberstack v2 puts an object on window.$memberstackDom
     const ms = window.$memberstackDom;
-    if (!ms || typeof ms.getCurrentMember !== "function") {
-      return { ok: false, role: "anonymous", user: null };
-    }
+    if (!ms?.getCurrentMember) return null;
 
     const member = await ms.getCurrentMember();
-    const memberstackId = member?.id;
-    if (!memberstackId) return { ok: false, role: "anonymous", user: null };
+    const data = member?.data;
+    if (!data?.id) return null;
 
-    const res = await fetch(WHOAMI_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ memberstackId }),
-    });
+    // email can be in different places depending on Memberstack config
+    const email =
+      data.auth?.email ||
+      data.email ||
+      member?.email ||
+      null;
 
-    const data = await res.json().catch(() => ({}));
-    return {
-      ok: !!data?.ok,
-      role: (data?.role || "member"),
-      user: data?.user || null,
-    };
-  } catch (err) {
-    console.error("[Auth] getCurrentUser error:", err);
-    return { ok: false, role: "anonymous", user: null };
+    return { memberstackId: data.id, email };
+  } catch (e) {
+    return null;
   }
 }
 
-// ---- Convenience actions (Memberstack) ----
-export async function openLogin() {
-  const ms = window.$memberstackDom;
-  if (!ms?.openModal) throw new Error("Memberstack not loaded: openModal missing");
-  return ms.openModal("LOGIN");
+async function whoami(payload) {
+  const r = await fetch(WHOAMI_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  return r.json();
 }
 
-export async function openSignup() {
-  const ms = window.$memberstackDom;
-  if (!ms?.openModal) throw new Error("Memberstack not loaded: openModal missing");
-  return ms.openModal("SIGNUP");
+// Use Memberstack ID first (your Airtable uses that), fallback to email if needed
+export async function whoamiByMemberstackId(memberstackId) {
+  return whoami({ memberstackId });
+}
+export async function whoamiByEmail(email) {
+  return whoami({ email });
 }
 
-export async function logout() {
-  const ms = window.$memberstackDom;
-  if (!ms?.logout) throw new Error("Memberstack not loaded: logout missing");
-  return ms.logout();
-}
+// This runs once at boot (and you can call it later).
+// Always sets --auth-ready to 1 so public pages don’t stay blank.
+export async function refreshAuth() {
+  try {
+    const user = await getCurrentUser();
 
-// ---- NEW: functions your index.html already imports ----
+    let result = { ok: false, role: "anonymous", user: null };
 
-// Patches a global factory (ex: window.coursePlanner) so every instance has auth fields immediately.
-// Your index.html currently calls: patchPlannerFactory("coursePlanner")
-export function patchPlannerFactory(factoryNameOrFn) {
-  const name = typeof factoryNameOrFn === "string" ? factoryNameOrFn : null;
-  const original =
-    typeof factoryNameOrFn === "function"
-      ? factoryNameOrFn
-      : (name && typeof window[name] === "function" ? window[name] : null);
+    if (user?.memberstackId) {
+      result = await whoamiByMemberstackId(user.memberstackId);
+    } else if (user?.email) {
+      result = await whoamiByEmail(user.email);
+    }
 
-  if (!original) {
-    console.warn("[Auth] patchPlannerFactory: factory not found:", factoryNameOrFn);
-    return;
+    // Normalize a bit
+    const ok = !!result?.ok;
+    const role = result?.role || (ok ? "member" : "anonymous");
+
+    window.__auth = { ok, role, user: result?.user || null };
+
+    // IMPORTANT: reveal the page once auth check is done (even if anonymous)
+    setAuthReadyCSS(true);
+
+    return window.__auth;
+  } catch (e) {
+    window.__auth = { ok: false, role: "anonymous", user: null };
+    setAuthReadyCSS(true); // still reveal so public pages work
+    return window.__auth;
   }
+}
 
-  const patched = function (...args) {
-    const base = original(...args);
+// Patches a planner factory so Alpine always has stable auth fields.
+export function patchPlannerFactory(factoryName) {
+  const original = window[factoryName];
+  if (typeof original !== "function") return;
 
-    // Ensure these ALWAYS exist so Alpine expressions never throw
-    if (typeof base.authReady === "undefined") base.authReady = false;
-    if (typeof base.authRole === "undefined") base.authRole = "anonymous";
-    if (typeof base.authUser === "undefined") base.authUser = null;
-    if (typeof base.isStaff === "undefined") base.isStaff = false;
+  window[factoryName] = function patchedFactory(...args) {
+    const base = original(...args) || {};
 
-    // Optional listener bucket used by your pages
-    base._authListeners = base._authListeners || [];
+    // Stable defaults so Alpine expressions don’t throw
+    base.authReady = false;
+    base.isStaff = false;
+    base.authRole = "anonymous";
+    base.authUser = null;
 
-    // Small helper: refresh and notify
     base.refreshAuth = async () => {
-      const result = await refreshAuth(base);
-      try {
-        base._authListeners.forEach((fn) => {
-          try { fn(result); } catch (_) {}
-        });
-      } catch (_) {}
-      return result;
+      const a = await refreshAuth();
+      base.authReady = true;
+      base.isStaff = a.role === "staff";
+      base.authRole = a.role;
+      base.authUser = a.user;
+      return a;
     };
 
     return base;
   };
-
-  if (name) window[name] = patched;
-  return patched;
-}
-
-// Refreshes auth on an existing Alpine data object (planner)
-export async function refreshAuth(base) {
-  const auth = await getCurrentUser();
-
-  base.authReady = true;
-  base.authRole = auth.role || "anonymous";
-  base.authUser = auth.user || null;
-  base.isStaff = (base.authRole || "").toLowerCase() === "staff";
-
-  // Keep your “safe globals” in sync if you’re using them anywhere
-  window.isStaff = !!base.isStaff;
-  window.authRole = base.authRole;
-  window.authReady = !!base.authReady;
-
-  return auth;
 }
