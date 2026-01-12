@@ -1638,64 +1638,60 @@
   
   <!-- Authentication Bootstrapping -->
   <script type="module">
-    import { getCurrentUser, openLogin, openSignup, logout } from "./js/auth.js";
+    import { patchPlannerFactory, refreshAuth } from "./js/auth.js";
   
-    // Optional: handy in DevTools
-    window.AlvearyAuth = { getCurrentUser, openLogin, openSignup, logout };
+    // Patch the Alpine factory so every page instance gets auth fields immediately.
+    patchPlannerFactory("coursePlanner");
   
-    // Wrap a planner factory (coursePlanner) so auth fields EXIST immediately,
-    // then refresh async so Alpine never sees undefined variables.
-    function patchPlannerFactory(factoryName) {
-      const original = window[factoryName];
-      if (typeof original !== "function") return;
-  
-      window[factoryName] = function (...args) {
-        const base = original.apply(this, args) || {};
-  
-        // ---- Ensure these ALWAYS exist (prevents Alpine "not defined" errors) ----
-        if (base.authReady === undefined) base.authReady = false;
-        if (base.authError === undefined) base.authError = null;
-        if (base.role === undefined) base.role = "anonymous";
-        if (base.user === undefined) base.user = null;
-        if (base.memberstack === undefined) base.memberstack = null;
-        if (base.isStaff === undefined) base.isStaff = false;
-  
-        // ---- Auth refresh (async) ----
-        if (typeof base.refreshAuth !== "function") {
-          base.refreshAuth = async function () {
-            const info = await getCurrentUser();
-            base.authReady = true;
-            base.authError = info?.error || null;
-            base.role = String(info?.role || "anonymous").toLowerCase();
-            base.user = info?.user || null;
-            base.memberstack = info?.memberstack || null;
-            base.isStaff = base.role === "staff";
-  
-            // If you want to FORCE login everywhere, set base.requireAuth = true in the planner.
-            if (base.requireAuth && base.role === "anonymous") {
-              await openLogin();
-            }
-  
-            // Never allow editMode for non-staff (extra safety)
-            if (!base.isStaff && base.editMode) base.editMode = false;
-  
-            return info;
-          };
-        }
-  
-        // ---- Hook into init() so auth starts early but doesn't block UI ----
-        const prevInit = base.init;
-        base.init = async function (...initArgs) {
-          // Start auth refresh (don’t await — keep UI snappy)
-          base.refreshAuth();
-          if (typeof prevInit === "function") return prevInit.apply(this, initArgs);
-        };
-  
-        return base;
-      };
+    // Keep safe globals in sync (so Alpine expressions won't crash even if scope changes)
+    function syncGlobalsFrom(base) {
+      window.isStaff = !!base.isStaff;
+      window.authRole = base.authRole || "anonymous";
+      window.authReady = !!base.authReady;
     }
   
-    patchPlannerFactory("coursePlanner");
+    // If the factory exists now, eagerly set globals from a temporary instance.
+    // (This prevents a brief undefined window where Alpine evaluates early.)
+    try {
+      if (typeof window.coursePlanner === "function") {
+        const temp = window.coursePlanner();
+        syncGlobalsFrom(temp);
+      }
+    } catch (e) {
+      // ignore
+    }
+  
+    // When auth refreshes, update globals again.
+    // This makes sure window.isStaff reflects real Airtable role after login.
+    document.addEventListener("alpine:init", () => {
+      // Wait until Alpine creates the component instance, then sync from it.
+      queueMicrotask(() => {
+        const root = document.querySelector("body[x-data]");
+        if (!root || !root.__x) return;
+  
+        const base = root.__x.$data;
+        if (!base) return;
+  
+        // Sync immediately, then after auth refresh
+        syncGlobalsFrom(base);
+  
+        refreshAuth(base)
+          .then(() => syncGlobalsFrom(base))
+          .catch(() => syncGlobalsFrom(base));
+  
+        // Also sync whenever your auth system triggers listeners (your auth.js uses _authListeners)
+        base._authListeners = base._authListeners || [];
+        base._authListeners.push(() => syncGlobalsFrom(base));
+      });
+    });
+  </script>
+
+  <script>
+    // Prevent Alpine from crashing if auth vars aren't ready yet.
+    // Alpine expressions like: x-show="isStaff && editMode" will throw if isStaff is undefined.
+    window.isStaff = false;
+    window.authRole = "anonymous";
+    window.authReady = false;
   </script>
 
   <!-- ✅ Alpine -->
