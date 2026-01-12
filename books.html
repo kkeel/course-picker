@@ -2981,40 +2981,56 @@
 
   <script src="js/app.js"></script>
   
-  <!-- Authentication Bootstrapping (wrap the global coursePlanner() function) -->
+  <!-- Authentication Bootstrapping -->
   <script type="module">
-    import { getCurrentUser } from "./js/auth.js";
+    import { getCurrentUser, openLogin } from './js/auth.js';
   
-    const originalCoursePlanner = window.coursePlanner;
-  
-    window.coursePlanner = function () {
-      const original = originalCoursePlanner();
-      const originalInit = original.init;
-  
-      return {
-        ...original,
-  
-        user: { role: "anonymous" },
-  
-        get isStaff()  { return this.user?.role === "staff"; },
-        get isMember() { return this.user?.role === "member"; },
-        get isAnon()   { return !this.user?.role || this.user.role === "anonymous"; },
-  
-        async init() {
-          this.user = await getCurrentUser();
-        
-          // ✅ DEV OVERRIDE (temporary): force staff when a local flag is set
-          try {
-            const devStaff = localStorage.getItem("ALVEARY_DEV_STAFF") === "1";
-            if (devStaff) this.user = { role: "staff" };
-          } catch (e) {}
-        
-          if (typeof originalInit === "function") {
-            await originalInit.call(this);
+    function waitForAlpine(timeoutMs = 8000) {
+      const start = Date.now();
+      return new Promise((resolve) => {
+        const t = setInterval(() => {
+          if (window.Alpine) {
+            clearInterval(t);
+            resolve(true);
+          } else if (Date.now() - start > timeoutMs) {
+            clearInterval(t);
+            resolve(false);
           }
-        },
+        }, 50);
+      });
+    }
+  
+    await waitForAlpine();
+  
+    if (window.bookPlanner) {
+      const original = window.bookPlanner;
+  
+      window.bookPlanner = function(...args) {
+        const inst = original.apply(this, args);
+        const originalInit = inst.init?.bind(inst);
+  
+        inst.init = async function() {
+          let u = await getCurrentUser();
+  
+          if (!u || u.role === "anonymous") {
+            await openLogin();
+            u = await getCurrentUser();
+          }
+  
+          if (!u || u.role === "anonymous") {
+            console.warn("Auth: user not logged in or not allowed.");
+            return;
+          }
+  
+          inst.user = u;
+          inst.isStaff = (u.role === "staff");
+  
+          return originalInit ? originalInit() : undefined;
+        };
+  
+        return inst;
       };
-    };
+    }
   </script>
 
   <script src="js/books.js"></script>
