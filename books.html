@@ -2980,62 +2980,55 @@
   </div>
 
   <script src="js/app.js"></script>
-  
-  <!-- Authentication Bootstrapping -->
+
+  <script src="js/books.js"></script>
+
+  <!-- Authentication + user bootstrap (must run AFTER the final coursePlanner definition, BEFORE Alpine init) -->
   <script type="module">
-    import { getCurrentUser, openLogin, openSignup, logout } from "./js/auth.js";
+    import { getCurrentUser } from "./js/auth.js";
   
-    window.AlvearyAuth = { getCurrentUser, openLogin, openSignup, logout };
+    // Global safety defaults (prevents "isStaff is not defined" from nuking Alpine)
+    window.currentUser = null;
+    window.isStaff = false;
   
-    function patchPlannerFactory(factoryName) {
-      const original = window[factoryName];
-      if (typeof original !== "function") return;
+    // Wrap coursePlanner ONCE, after all scripts have defined it.
+    if (typeof window.coursePlanner === "function" && !window.coursePlanner.__authWrapped) {
+      const original = window.coursePlanner;
   
-      window[factoryName] = function (...args) {
-        const base = original.apply(this, args) || {};
+      const wrapped = function (...args) {
+        const base = original(...args);
   
-        if (base.authReady === undefined) base.authReady = false;
-        if (base.authError === undefined) base.authError = null;
-        if (base.role === undefined) base.role = "anonymous";
-        if (base.user === undefined) base.user = null;
-        if (base.memberstack === undefined) base.memberstack = null;
-        if (base.isStaff === undefined) base.isStaff = false;
+        // Ensure these exist immediately so Alpine expressions never ReferenceError
+        if (typeof base.isStaff === "undefined") base.isStaff = false;
+        if (typeof base.currentUser === "undefined") base.currentUser = null;
+        if (typeof base.role === "undefined") base.role = "guest";
   
-        if (typeof base.refreshAuth !== "function") {
-          base.refreshAuth = async function () {
-            const info = await getCurrentUser();
-            base.authReady = true;
-            base.authError = info?.error || null;
-            base.role = String(info?.role || "anonymous").toLowerCase();
-            base.user = info?.user || null;
-            base.memberstack = info?.memberstack || null;
-            base.isStaff = base.role === "staff";
+        base.refreshAuth = async function () {
+          const auth = await getCurrentUser();
+          base.currentUser = auth?.user || null;
+          base.role = auth?.role || "guest";
+          base.isStaff = base.role === "staff";
   
-            if (base.requireAuth && base.role === "anonymous") {
-              await openLogin();
-            }
+          // Mirror to window for any code that accidentally references globals
+          window.currentUser = base.currentUser;
+          window.isStaff = base.isStaff;
   
-            if (!base.isStaff && base.editMode) base.editMode = false;
-  
-            return info;
-          };
-        }
-  
-        const prevInit = base.init;
-        base.init = async function (...initArgs) {
-          base.refreshAuth();
-          if (typeof prevInit === "function") return prevInit.apply(this, initArgs);
+          // Optional debug
+          console.log("[Auth] ok:", auth?.ok, "role:", base.role, "user:", base.currentUser);
         };
+  
+        // Kick off refresh, but don't block initial render
+        base.refreshAuth();
   
         return base;
       };
-    }
   
-    // books.js also wraps coursePlanner, so patch the same factory name
-    patchPlannerFactory("coursePlanner");
+      wrapped.__authWrapped = true;
+      window.coursePlanner = wrapped;
+    } else {
+      console.warn("[Auth] coursePlanner not found (or already wrapped).");
+    }
   </script>
-
-  <script src="js/books.js"></script>
 
   <!-- ✅ Alpine -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
