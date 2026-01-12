@@ -1,4 +1,4 @@
-const SW_VERSION = "v1.0.1";
+const SW_VERSION = "v1.0.2";
 const CACHE_NAME = `alveary-planning-${SW_VERSION}`;
 
 // Minimal shell — avoid hard-caching lots of files while you're actively changing things.
