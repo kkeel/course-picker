@@ -3008,7 +3008,7 @@
   
   <!-- Authentication Bootstrapping (wrap the global coursePlanner() function) -->
   <script type="module">
-    import { getCurrentUser } from "./js/auth.js";
+    import { getCurrentUser, openAuth } from "./js/auth.js";
   
     const originalCoursePlanner = window.coursePlanner;
   
@@ -3020,6 +3020,8 @@
         ...original,
   
         user: { role: "anonymous" },
+
+        openAuth,
   
         get isStaff()  { return this.user?.role === "staff"; },
         get isMember() { return this.user?.role === "member"; },
@@ -3046,6 +3048,7 @@
 
   <!-- ✅ Alpine -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
 
   <!-- Print-only page numbers (Paged.js loads only when printing) -->
   <script>
