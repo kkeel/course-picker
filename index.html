@@ -18,6 +18,13 @@
   <meta name="mobile-web-app-capable" content="yes">
 
   <!-- 2.5 MemberStack (must load early to read login state) -->
+  <script>
+    window.memberstackConfig = {
+      useCookies: true,
+      setCookieOnRootDomain: true
+    };
+  </script>
+  
   <script
     data-memberstack-app="app_clbb9rspy00160ujl6tsxbsrj"
     src="https://static.memberstack.com/scripts/v1/memberstack.js"
