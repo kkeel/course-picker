@@ -111,23 +111,6 @@ window.addEventListener("orientationchange", setAppHeaderHeightVar, { passive: t
 
 function coursePlanner() {
   return {
-    
-        // --- Auth / role flags (must exist at component creation time) ---
-        // Alpine throws ReferenceError if templates reference a missing property.
-        // These defaults keep pages from going blank while auth bootstrapping runs.
-        authReady: false,
-        authRole: null,
-        authUser: null,
-        isStaff: false,
-    
-        // Set by auth bootstrapping (see auth.js + page script). Safe to call anytime.
-        setAuthStatus(payload = {}) {
-          this.authReady = !!payload.ok;
-          this.authRole  = payload.role || null;
-          this.authUser  = payload.user || null;
-          this.isStaff   = (payload.role || "").toLowerCase() === "staff";
-        },
-
       // existing state
       step: 3,
       openStep(n) {
