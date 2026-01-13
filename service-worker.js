@@ -55,7 +55,7 @@ self.addEventListener("fetch", (event) => {
   if (isHTML) {
     event.respondWith((async () => {
       try {
-        const fresh = await fetch(req);
+        const fresh = await fetch(req, { cache: "no-store" });
         const cache = await caches.open(STATIC_CACHE);
         cache.put(req, fresh.clone());
         return fresh;
