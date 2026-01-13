@@ -11,10 +11,10 @@ const APP_SHELL = [
   "/course-picker/manifest.webmanifest",
 
   // App icons (your folder)
-  "/course-picker/img/icon/icon-192.png",
-  "/course-picker/img/icon/icon-512.png",
-  "/course-picker/img/icon/icon-192-maskable.png",
-  "/course-picker/img/icon/icon-512-maskable.png"
+  "/img/icon/icon-192.png",
+  "/img/icon/icon-512.png",
+  "/img/icon/icon-192-maskable.png",
+  "/img/icon/icon-512-maskable.png"
 ];
 
 // Install: cache the shell
