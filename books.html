@@ -71,6 +71,7 @@
       >
         Sign in
       </button>
+      <span x-show="isAuthed" class="text-xs text-[#666d66]" x-text="authRole === 'staff' ? 'Staff' : 'Member'"></span>
       <!-- Staff-only: Edit mode (inline, before nav) -->
       <div
         class="toggle"
