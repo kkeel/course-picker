@@ -2994,13 +2994,10 @@
   </script>
   
   <script type="module">
-    import { patchPlannerFactory, initAuthForPage } from "./js/auth.js";
-  
-    // Wrap your Alpine factory once
-    patchPlannerFactory("coursePlanner");
-  
-    // Book List is viewable by everyone; staff gets edit UI
-    initAuthForPage({ requireStaff: false });
+    import { initAuthForPage } from "./js/auth.js";
+    initAuthForPage({ requireStaff: false, patchFactoryName: "coursePlanner" })
+      .then(a => console.log("[Auth]", a))
+      .catch(e => console.error("[Auth] init error", e));
   </script>
 
   <!-- ✅ Alpine -->
