@@ -6,7 +6,6 @@ const STATIC_CACHE = `alveary-static-${SW_VERSION}`;
 
 // Keep this list SMALL while you're still building pages.
 const APP_SHELL = [
-  "/",
   "/index.html",
   "/books.html",
   "/manifest.webmanifest",
