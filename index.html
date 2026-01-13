@@ -70,14 +70,23 @@
     <!-- Top-right: staff toggle + nav (screen only) -->
     <div class="mt-3 md:mt-0 md:ml-auto flex items-center justify-end gap-6 text-sm">
       <!-- Auth button: public + members -->
-      <button
-        id="auth-button"
-        class="auth-button text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
-        @click="openAuth()"
-      >
-        Sign in
-      </button>
-      <span x-show="isAuthed" class="text-xs text-[#666d66]" x-text="authRole === 'staff' ? 'Staff' : 'Member'"></span>
+        <button
+          id="auth-button"
+          class="auth-button text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
+          x-show="!isAuthed"
+          @click="openAuth('LOGIN')"
+        >
+          Sign in
+        </button>
+  
+        <button
+          class="text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
+          x-show="isAuthed"
+          @click="logout()"
+        >
+          Log out
+        </button>
+      
       <!-- Staff-only: Edit mode (inline, before nav) -->
       <div
         class="toggle"
