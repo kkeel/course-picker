@@ -111,6 +111,12 @@ window.addEventListener("orientationchange", setAppHeaderHeightVar, { passive: t
 
 function coursePlanner() {
   return {
+
+    authRole: "public",
+    isAuthed: false,
+    isMember: false,
+    isStaff: false,
+
       // existing state
       step: 3,
       openStep(n) {
@@ -2177,9 +2183,49 @@ function coursePlanner() {
       }, 200);
     },
 
+    async initAuth({ force = false } = {}) {
+      try {
+        const auth = await (window.AlvearyAuth?.whoami?.({ force }) || null);
+        const role = (auth?.role || "public").toLowerCase();
+        this.authRole = role;
+        this.isAuthed = !!auth?.ok;
+        this.isStaff = role === "staff";
+        this.isMember = role === "member" || this.isStaff;
+        return auth;
+      } catch {
+        this.authRole = "public";
+        this.isAuthed = false;
+        this.isStaff = false;
+        this.isMember = false;
+        return { ok: false, role: "public", reason: "auth_exception" };
+      }
+    },
+    
+    openAuth() {
+      window.AlvearyAuth?.openAuth?.("LOGIN")?.catch((e) => {
+        console.warn("openAuth failed:", e);
+      });
+    },
+    
+    enforceAccessGate() {
+      // Public users: books only. Members+staff: both pages. Staff: also sees edit toggle.
+      const path = window.location.pathname || "";
+      const onCourseList =
+        path.endsWith("/index.html") || path.endsWith("/") || path.endsWith("/index");
+    
+      if (onCourseList && !this.isMember) {
+        window.location.href = "books.html?auth=required";
+        return false;
+      }
+      return true;
+    },
+
     // ---------- INIT & COURSE DATA LOADING (with cache) ----------
 
     async init() {
+      await this.initAuth();
+      if (this.enforceAccessGate?.() === false) return;
+
       // 1) Restore filters/search/toggles from previous visit
       this.loadUiState();
       if (!this.isStaff) this.editMode = false;
