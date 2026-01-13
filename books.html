@@ -759,10 +759,11 @@
                       
                         <div class="card-header-actions">
                           <!-- Course notes (only for courses with NO topics) -->
-                          <template x-if="!course.topics || course.topics.length === 0">
                               <button
                                 type="button"
                                 class="note-btn"
+                                x-show="!course.topics || course.topics.length === 0"
+                                x-cloak
                                 :class="{
                                   'note-btn--empty': !hasCourseNote(course),
                                   'note-btn--soft':  hasCourseNote(course) && !isCourseBookmarked(course),
@@ -798,7 +799,7 @@
                                 />
                               </svg>
                             </button>
-                          </template>
+
                           <!-- Course bookmark (Book List = show only when active) -->
                           <template x-if="(!course.topics || course.topics.length === 0) && isCourseBookmarked(course)">
                             <span class="bookmark-region">
@@ -996,8 +997,12 @@
                         <span class="meta-flex-spacer"></span>
 
                         <!-- right: planning tag UI (courses *without* topics only) -->
-                        <template x-if="!course.topics || course.topics.length === 0">
-                          <span class="planning-tag-region">
+                        
+                          <span 
+                            class="planning-tag-region"
+                            x-show="!course.topics || course.topics.length === 0"
+                            x-cloak
+                            >
                             <!-- If no tags yet: show "+ Planning tag" button -->
                             <template x-if="!course.planningTags || course.planningTags.length === 0">
                               <button
@@ -1042,15 +1047,16 @@
                               </div>
                             </template>
                           </span>
-                        </template>
+                       
                       </div>
 
                       <!-- Course notes panel (topic-less courses only) moved ABOVE books -->
-                      <template x-if="!course.topics || course.topics.length === 0">
+                      
                         <div
                           class="note-panel"
-                          x-show="course.noteOpen"
+                          x-show="(!course.topics || course.topics.length === 0) && course.noteOpen"
                           x-transition
+                          x-cloak
                           :style="{ backgroundColor: subjectColor(course.subject) + '4D' }"
                         >
                           <label class="note-label">Notes</label>
@@ -1062,7 +1068,7 @@
                             :style="{ backgroundColor: subjectColor(course.subject) + '1A' }"
                           ></textarea>
                         </div>
-                      </template>
+                      
                     
                       <!-- Resource cards (course-level) -->
                       <div
@@ -2747,8 +2753,6 @@
 
                         </template>
                       </div>
-                      
-                      <template x-if="!course.topics || course.topics.length === 0"></template>
                       
                     </article>
                   </template>
