@@ -1,77 +1,59 @@
-const SW_VERSION = "v1.0.3"; // bump every time you change JS/HTML
-const CACHE_NAME = `alveary-planning-${SW_VERSION}`;
+/* Alveary Yearly Planning App — Service Worker (INACTIVE until registered)
+   If you ever update this file later, bump SW_VERSION to force an update.
+*/
+const SW_VERSION = "v1.0.0";
+const STATIC_CACHE = `alveary-static-${SW_VERSION}`;
 
-// Keep this small. Do NOT aggressively cache HTML/JS while iterating.
+// Keep this list SMALL while you're still building pages.
 const APP_SHELL = [
-  "/",
-  "/index.html",
-  "/books.html",
-  "/manifest.webmanifest",
-  "/img/icons/icon-192.png",
-  "/img/icons/icon-512.png",
-  "/img/icons/icon-192-maskable.png",
-  "/img/icons/icon-512-maskable.png"
+  "/course-picker/",
+  "/course-picker/index.html",
+  "/course-picker/manifest.webmanifest",
+
+  // App icons (your folder)
+  "/course-picker/img/icon/icon-192.png",
+  "/course-picker/img/icon/icon-512.png",
+  "/course-picker/img/icon/icon-192-maskable.png",
+  "/course-picker/img/icon/icon-512-maskable.png"
 ];
 
+// Install: cache the shell
 self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(APP_SHELL))
-      .then(() => self.skipWaiting())
-      .catch(() => {})
-  );
+  event.waitUntil((async () => {
+    const cache = await caches.open(STATIC_CACHE);
+    await cache.addAll(APP_SHELL);
+    self.skipWaiting();
+  })());
 });
 
+// Activate: remove older caches
 self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys()
-      .then((keys) => Promise.all(keys.map((k) => (k !== CACHE_NAME ? caches.delete(k) : null))))
-      .then(() => self.clients.claim())
-  );
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(
+      keys
+        .filter(k => k.startsWith("alveary-") && k !== STATIC_CACHE)
+        .map(k => caches.delete(k))
+    );
+    self.clients.claim();
+  })());
 });
 
-// Network-first for HTML/JS/CSS so exports + page code never go stale.
-// Cache-first for everything else (images/icons/etc).
+// Fetch: cache-first for same-origin GET requests
 self.addEventListener("fetch", (event) => {
   const req = event.request;
   if (req.method !== "GET") return;
 
   const url = new URL(req.url);
-  const isSameOrigin = url.origin === location.origin;
+  if (url.origin !== self.location.origin) return;
 
-  // Only handle same-origin; let everything else pass through.
-  if (!isSameOrigin) return;
-
-  const path = url.pathname;
-  const isHTML = path.endsWith(".html") || path === "/" || path.endsWith("/index.html");
-  const isJS   = path.endsWith(".js");
-  const isCSS  = path.endsWith(".css");
-
-  const networkFirst = async () => {
-    try {
-      const res = await fetch(req);
-      if (res && res.ok) {
-        const copy = res.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
-      }
-      return res;
-    } catch (err) {
-      const cached = await caches.match(req);
-      if (cached) return cached;
-      throw err;
-    }
-  };
-
-  const cacheFirst = async () => {
+  event.respondWith((async () => {
     const cached = await caches.match(req);
     if (cached) return cached;
-    const res = await fetch(req);
-    if (res && res.ok) {
-      const copy = res.clone();
-      caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
-    }
-    return res;
-  };
 
-  event.respondWith((isHTML || isJS || isCSS) ? networkFirst() : cacheFirst());
-});
+    const fresh = await fetch(req);
+    const cache = await caches.open(STATIC_CACHE);
+    cache.put(req, fresh.clone());
+    return fresh;
+  })());
+})
