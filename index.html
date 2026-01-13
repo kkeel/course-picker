@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
   <title>Alveary – Planner</title>
 
   <!-- 2. PWA / App metadata -->
-  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="manifest" href="./manifest.webmanifest">
   <meta name="theme-color" content="#596e5e">
 
   <!-- iOS support -->
@@ -29,18 +30,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <link rel="icon" type="image/png" href="img/Alveary%20Lt.%20Green.png">
-
-  <!-- Lock UI until auth finishes -->
-<style>
-  html { opacity: var(--auth-ready, 0); }
-</style>
-
-<!-- Memberstack Framework (v2) -->
-<script
-  defer
-  data-memberstack-app="app_clbb9rspy00160ujl6tsxbsrj"
-  src="https://static.memberstack.com/scripts/v2/memberstack.js">
-</script>
 
 </head>
 
@@ -1636,33 +1625,40 @@
 
   <script src="js/app.js"></script>
   
-  <!-- Authentication Bootstrapping -->
+  <!-- Authentication Bootstrapping (wrap the global coursePlanner() function) -->
   <script type="module">
-    import { patchPlannerFactory, refreshAuth } from "./js/auth.js";
+    import { getCurrentUser } from "./js/auth.js";
   
-    // Patch your Alpine factories before Alpine boots
-    patchPlannerFactory("coursePlanner");
-    patchPlannerFactory("booksPlanner");
+    const originalCoursePlanner = window.coursePlanner;
   
-    // Kick auth once the DOM is ready
-    window.addEventListener("DOMContentLoaded", async () => {
-      await refreshAuth();
+    window.coursePlanner = function () {
+      const original = originalCoursePlanner();
+      const originalInit = original.init;
   
-      // If your page’s root x-data is coursePlanner(), this makes sure it updates:
-      // (If you already call refreshAuth inside your planner init, this is still fine.)
-      try {
-        // no-op if planner instance handles it
-      } catch (e) {}
-    });
-  </script>
-
-  <script>
-    // Set defaults ONLY if they don't already exist (prevents overwriting real auth)
-    window.currentUser ??= null;
-    window.role ??= "guest";
-    window.isStaff ??= false;
-    window.authReady ??= false;
-    window.__ALVEARY_AUTH ??= { ok: false, role: "guest", user: null };
+      return {
+        ...original,
+  
+        user: { role: "anonymous" },
+  
+        get isStaff()  { return this.user?.role === "staff"; },
+        get isMember() { return this.user?.role === "member"; },
+        get isAnon()   { return !this.user?.role || this.user.role === "anonymous"; },
+  
+        async init() {
+          this.user = await getCurrentUser();
+        
+          // ✅ DEV OVERRIDE (temporary): force staff when a local flag is set
+          try {
+            const devStaff = localStorage.getItem("ALVEARY_DEV_STAFF") === "1";
+            if (devStaff) this.user = { role: "staff" };
+          } catch (e) {}
+        
+          if (typeof originalInit === "function") {
+            await originalInit.call(this);
+          }
+        },
+      };
+    };
   </script>
 
   <!-- ✅ Alpine -->
