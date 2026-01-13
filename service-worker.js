@@ -56,9 +56,14 @@ self.addEventListener("fetch", (event) => {
     event.respondWith((async () => {
       try {
         const fresh = await fetch(req, { cache: "no-store" });
-        const cache = await caches.open(STATIC_CACHE);
-        cache.put(req, fresh.clone());
-        return fresh;
+
+         // Only cache successful (200-ish) responses
+         if (fresh.ok) {
+           const cache = await caches.open(STATIC_CACHE);
+           cache.put(req, fresh.clone());
+         }
+         return fresh;
+        
       } catch {
         const cached = await caches.match(req);
         return cached || new Response("Offline", { status: 503 });
