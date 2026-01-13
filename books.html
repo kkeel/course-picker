@@ -63,6 +63,14 @@
 
     <!-- Top-right: staff toggle + nav (screen only) -->
     <div class="mt-3 md:mt-0 md:ml-auto flex items-center justify-end gap-6 text-sm">
+      <!-- Auth button: public + members -->
+      <button
+        id="auth-button"
+        class="auth-button text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
+        @click="openAuth()"
+      >
+        Sign in
+      </button>
       <!-- Staff-only: Edit mode (inline, before nav) -->
       <div
         class="toggle"
