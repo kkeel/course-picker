@@ -69,16 +69,21 @@ export async function getCurrentMember() {
   }
 }
 
-// Open the MemberStack modal. Mode is optional; "LOGIN" works for most setups.
 export async function openAuth(mode = "LOGIN") {
-  const dom = await getMemberstackDom();
-  if (!dom) throw new Error("MemberStack DOM not loaded on this page.");
+  const ms = await getMemberstackDom();
 
-  if (typeof dom.openModal === "function") {
-    return dom.openModal(mode);
-  }
-  throw new Error("MemberStack openModal() not available.");
+  // Memberstack modal returns a promise. When it resolves, the user has completed an action.
+  const result = await ms.openModal(mode);
+
+  // Memberstack modals don't auto-close
+  try { ms.hideModal(); } catch (e) {}
+
+  // Clear cached auth so the app re-checks fresh
+  clearAuthCache();
+
+  return result;
 }
+
 
 // Call the Cloudflare Worker to map this MemberStack member to an Airtable record + role.
 // Returns a normalized object:
