@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-15T08:46:37.918Z",
+  "lastUpdated": "2026-01-15T16:41:51.843Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -1304,37 +1304,6 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec4dlS5S8PVYawuL?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recgvLIuybR9FtVQ7",
-      "targetId": "rec54v9pWjwaKBC2s",
-      "resourceId": "recoscyGuurLmZ17x",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2",
-      "terms": [
-        "T1",
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "If You Can Keep It (Full Term)",
-        "T2": "If You Can Keep It (Full Term)",
-        "T3": ""
-      },
-      "gradeText": "G12,",
-      "grades": [
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "Econ/ Civics: Grade 10\nEcon/ Civics: Grade 11\nEcon/ Civics: Grade 12",
-      "sharedLinesR3": [
-        "Econ/ Civics: Grade 10",
-        "Econ/ Civics: Grade 11",
-        "Econ/ Civics: Grade 12"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec54v9pWjwaKBC2s?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "rec6k29y4p4xVeVbF",
       "targetId": "rec5q2mTTsX5J913g",
       "resourceId": "rec3LGbi1zkqjfVsH",
@@ -2033,37 +2002,6 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec7b6nmpi8HTZ9JX?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recz0FOEY5RTbTFZ0",
-      "targetId": "rec7b6nmpi8HTZ9JX",
-      "resourceId": "recoscyGuurLmZ17x",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2",
-      "terms": [
-        "T1",
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "If You Can Keep It (Full Term)",
-        "T2": "If You Can Keep It (Full Term)",
-        "T3": ""
-      },
-      "gradeText": "G11,",
-      "grades": [
-        11
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "Econ/ Civics: Grade 10\nEcon/ Civics: Grade 11\nEcon/ Civics: Grade 12",
-      "sharedLinesR3": [
-        "Econ/ Civics: Grade 10",
-        "Econ/ Civics: Grade 11",
-        "Econ/ Civics: Grade 12"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec7b6nmpi8HTZ9JX?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "recyIN73NEpdWxPRg",
       "targetId": "rec7b6nmpi8HTZ9JX",
       "resourceId": "rec22O3t21BvJaiDw",
@@ -2077,7 +2015,7 @@
       "termNotes": {
         "T1": "",
         "T2": "",
-        "T3": "What Would Keynes Do?"
+        "T3": "What Would Keynes Do? (Full Term)"
       },
       "gradeText": "G11,",
       "grades": [
@@ -2085,8 +2023,11 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
+      "sharedTextR3": "Econ/ Civics: Grade 10\nEcon/ Civics: Grade 11",
+      "sharedLinesR3": [
+        "Econ/ Civics: Grade 10",
+        "Econ/ Civics: Grade 11"
+      ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec7b6nmpi8HTZ9JX?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -6501,20 +6442,19 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recEP3zrR9MMA5GAp?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recAiwYyev8YIjmXZ",
+      "assignmentId": "recMMZQas3J1kVwIc",
       "targetId": "receYVcsBWVNyLXLS",
-      "resourceId": "recoscyGuurLmZ17x",
+      "resourceId": "receYiXHRchDVPdO3",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2",
+      "resourceKey": "001.001.000",
+      "scopeText": "Term 1",
       "terms": [
-        "T1",
-        "T2"
+        "T1"
       ],
       "termNotes": {
-        "T1": "If You Can Keep It (Full Term)",
-        "T2": "If You Can Keep It (Full Term)",
+        "T1": "Think: The Life of the Mind and the Love of God (Full Term - Choose this OR Atomic Habits)",
+        "T2": "",
         "T3": ""
       },
       "gradeText": "G10,",
@@ -6523,11 +6463,62 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Econ/ Civics: Grade 10\nEcon/ Civics: Grade 11\nEcon/ Civics: Grade 12",
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/receYVcsBWVNyLXLS?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "rec2vmSnBTyMusfx3",
+      "targetId": "receYVcsBWVNyLXLS",
+      "resourceId": "rec15R98Dglfr11MF",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.002.000",
+      "scopeText": "Term 1",
+      "terms": [
+        "T1"
+      ],
+      "termNotes": {
+        "T1": "Atomic Habits (Full Term - Choose this OR Think)",
+        "T2": "",
+        "T3": ""
+      },
+      "gradeText": "G10,",
+      "grades": [
+        10
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/receYVcsBWVNyLXLS?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recwPdbE644kfyhuQ",
+      "targetId": "receYVcsBWVNyLXLS",
+      "resourceId": "rec22O3t21BvJaiDw",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "003.001.000",
+      "scopeText": "Term 3",
+      "terms": [
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "",
+        "T3": "What Would Keynes Do? (Full Term)"
+      },
+      "gradeText": "G10,",
+      "grades": [
+        10
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Econ/ Civics: Grade 10\nEcon/ Civics: Grade 11",
       "sharedLinesR3": [
         "Econ/ Civics: Grade 10",
-        "Econ/ Civics: Grade 11",
-        "Econ/ Civics: Grade 12"
+        "Econ/ Civics: Grade 11"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/receYVcsBWVNyLXLS?home=pag8nmiUVfXJRZFLW"
     },
@@ -8293,8 +8284,11 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
+      "sharedTextR3": "Ancient History: Grades 11-12\nAncient History: Grades 10-12",
+      "sharedLinesR3": [
+        "Ancient History: Grades 11-12",
+        "Ancient History: Grades 10-12"
+      ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recgCyNgSnG5wUi8u?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -8451,42 +8445,6 @@
         "Sloyd: Level 4"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recgESzLLnd2ZR8cn?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recXHtB4t95yIsLpt",
-      "targetId": "recGPYJ8F20tJ77NJ",
-      "resourceId": "recnhXViq8NcQNK2r",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "002.002.000",
-      "scopeText": "Term 2 (Selections)",
-      "terms": [
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "A Manual of Clay-Modelling (Selections)",
-        "T3": ""
-      },
-      "gradeText": "G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12,",
-      "grades": [
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recGPYJ8F20tJ77NJ?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "recM6SeQWp77U60oY",
@@ -10226,9 +10184,9 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recjbWhVcJf5Ouy3a?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "rec9ZXEtcjO3Ney42",
+      "assignmentId": "recOC6z1avGqwd0Yy",
       "targetId": "recjbWhVcJf5Ouy3a",
-      "resourceId": "recpoXpnLQ1pJDC7p",
+      "resourceId": "recyTdfyRcbMebPU6",
       "rotation": "R3",
       "targetType": "course",
       "resourceKey": "003.003.000",
@@ -10239,7 +10197,7 @@
       "termNotes": {
         "T1": "",
         "T2": "",
-        "T3": "The Power of Geography: Ten Maps that Reveal the Future of Our World"
+        "T3": "A Brief History of the World in 47 Borders: Surprising Stories Behind the Lines on Our Maps (Full Term)"
       },
       "gradeText": "G12,",
       "grades": [
@@ -10250,6 +10208,33 @@
       "sharedTextR3": "",
       "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recjbWhVcJf5Ouy3a?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "reco1kQjdAS9lOqsR",
+      "targetId": "recJIxZb1XZli9xOn",
+      "resourceId": "recSAOpEMyKMiYvzx",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1",
+      "terms": [
+        "T1"
+      ],
+      "termNotes": {
+        "T1": "Abraham Lincoln: An Initial Biography (Full Term)",
+        "T2": "",
+        "T3": ""
+      },
+      "gradeText": "G2, G3,",
+      "grades": [
+        2,
+        3
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recJIxZb1XZli9xOn?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "recJDRQkZXjuQDihv",
@@ -10951,56 +10936,6 @@
         "Picture Study"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recJv9IaOszrEltoQ?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "rec1JZGu2YLxwnyF5",
-      "targetId": "recjxhOtJDBXK35Pc",
-      "resourceId": "rec4cUo8Fa24gx9Mx",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "000.003.000",
-      "scopeText": "",
-      "terms": [],
-      "termNotes": {
-        "T1": "",
-        "T2": "",
-        "T3": ""
-      },
-      "gradeText": "G7, G8,",
-      "grades": [
-        7,
-        8
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recjxhOtJDBXK35Pc?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "rec5No4yxUqneIwb1",
-      "targetId": "recjxhOtJDBXK35Pc",
-      "resourceId": "rec8WDdyjqTFr0bS1",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "000.003.000",
-      "scopeText": "",
-      "terms": [],
-      "termNotes": {
-        "T1": "",
-        "T2": "",
-        "T3": ""
-      },
-      "gradeText": "G7, G8,",
-      "grades": [
-        7,
-        8
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recjxhOtJDBXK35Pc?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "recklobEjpawVpaVR",
@@ -12464,18 +12399,18 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recm5rqbd7VkHFZwR?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recosaMq55PL0AkX5",
+      "assignmentId": "reczgk0TN5nU41Wyy",
       "targetId": "recMaPKBscCmVvdjg",
-      "resourceId": "recs3IxYgRkUkta83",
+      "resourceId": "recoR5dUTNBS6Lg5R",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.001.000",
+      "resourceKey": "001.003.000",
       "scopeText": "Term 1",
       "terms": [
         "T1"
       ],
       "termNotes": {
-        "T1": "Practicing the Way (Full Term)",
+        "T1": "Reading the Bible for a Change (Full Term)",
         "T2": "",
         "T3": ""
       },
@@ -12543,32 +12478,6 @@
       "sharedTextR3": "",
       "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recMaPKBscCmVvdjg?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recvKlbbt56JHgRqR",
-      "targetId": "recmJAn0Ul3F0VQyz",
-      "resourceId": "receer062cIdkFYGo",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "000.003.000",
-      "scopeText": "",
-      "terms": [],
-      "termNotes": {
-        "T1": "",
-        "T2": "",
-        "T3": ""
-      },
-      "gradeText": "G7, G8, G9,",
-      "grades": [
-        7,
-        8,
-        9
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recmJAn0Ul3F0VQyz?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "rec5fLYTnEPicEoyx",
@@ -16707,18 +16616,18 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recSOH2TsTSkH7gy8?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recUld0RBgVbNoi2k",
+      "assignmentId": "recD4gSDkl5MpgFCS",
       "targetId": "recSOLOkJU4e0fEl7",
-      "resourceId": "recsgOoz7a79GcVaV",
+      "resourceId": "rec45LFeRdU2fi2Xl",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.001.000",
+      "resourceKey": "001.003.000",
       "scopeText": "Term 1",
       "terms": [
         "T1"
       ],
       "termNotes": {
-        "T1": "Journey into God's Word (Full Term)",
+        "T1": "Becoming by Beholding (Full Term)",
         "T2": "",
         "T3": ""
       },
@@ -16903,30 +16812,6 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recst0aVIebKf7Sw7?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recgxrP3JlKsZXrAS",
-      "targetId": "recSTL1mmHDECHmkV",
-      "resourceId": "recfMUT3wdIeU0jAc",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "000.003.000",
-      "scopeText": "",
-      "terms": [],
-      "termNotes": {
-        "T1": "",
-        "T2": "",
-        "T3": ""
-      },
-      "gradeText": "G8,",
-      "grades": [
-        8
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recSTL1mmHDECHmkV?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "recOWmIFwShZNjXVG",
       "targetId": "recSTL1mmHDECHmkV",
       "resourceId": "recM2Is6mCqMkBedP",
@@ -17027,6 +16912,33 @@
         "Geography: Grade 3 (U.S.)",
         "Geography: Grade 8 (U.S.)"
       ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recSTL1mmHDECHmkV?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recgxrP3JlKsZXrAS",
+      "targetId": "recSTL1mmHDECHmkV",
+      "resourceId": "recfMUT3wdIeU0jAc",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1\nTerm 2 (Partial Term)",
+      "terms": [
+        "T1",
+        "T2"
+      ],
+      "termNotes": {
+        "T1": "Westward with Fremont: The Story of Solomon Carvalho (Full Term)",
+        "T2": "Westward with Fremont: The Story of Solomon Carvalho (Partial Term)",
+        "T3": ""
+      },
+      "gradeText": "G8,",
+      "grades": [
+        8
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recSTL1mmHDECHmkV?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -21862,6 +21774,39 @@
       "sharedTextR3": "",
       "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recZwtVr7xJbFZ4Yv?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "rechadMr2hfMWRK7t",
+      "targetId": "recZwW63MrJRv4YVe",
+      "resourceId": "rec8mOKj4a0LVWl1U",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Ancient Empires: From Mesopotamia to the Rise of Islam (Full Term)",
+        "T2": "Ancient Empires: From Mesopotamia to the Rise of Islam (Full Term)",
+        "T3": "Ancient Empires: From Mesopotamia to the Rise of Islam (Full Term)"
+      },
+      "gradeText": "G10, G11, G12, G10, G11, G12,",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Ancient History: Grades 11-12\nAncient History: Grades 10-12",
+      "sharedLinesR3": [
+        "Ancient History: Grades 11-12",
+        "Ancient History: Grades 10-12"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recZwW63MrJRv4YVe?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "recAQPjB93cG6b3uD",
