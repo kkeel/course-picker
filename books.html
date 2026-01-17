@@ -71,14 +71,19 @@
     <!-- Top-right: staff toggle + nav (screen only) -->
     <div class="mt-3 md:mt-0 md:ml-auto flex items-center justify-end gap-6 text-sm">
       <!-- Auth button: public + members -->
-      <button
+        <button
           id="auth-button"
           class="auth-button text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
+          x-cloak
           x-show="!isAuthed"
-          @click="openAuth('LOGIN')"
+          @click="openAuth()"
         >
           Sign in
         </button>
+        
+        <span x-cloak x-show="isAuthed" class="text-xs text-[#666d66]"
+          x-text="authRole === 'staff' ? 'Signed in (staff)' : 'Signed in'">
+        </span>
       
       <!-- Staff-only: Edit mode (inline, before nav) -->
       <div
