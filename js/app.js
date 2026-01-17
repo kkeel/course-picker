@@ -2203,10 +2203,22 @@ function coursePlanner() {
     
     async openAuth() {
       try {
+        // Open MemberStack modal (login/signup/etc.)
         await window.AlvearyAuth?.openAuth?.("LOGIN");
     
-        // Re-check role + permissions now that login may have changed
-        await this.initAuth({ force: true });
+        // ✅ MemberStack session can take a moment to become readable after modal closes.
+        // Poll a few times until we see a real authed role.
+        const maxTries = 12;          // ~3s total
+        const delayMs = 250;
+    
+        for (let i = 0; i < maxTries; i++) {
+          await this.initAuth({ force: true });
+    
+          // Stop as soon as auth is recognized
+          if (this.isAuthed && (this.isMember || this.isStaff)) break;
+    
+          await new Promise((r) => setTimeout(r, delayMs));
+        }
     
         // Re-run your gate after auth updates
         this.enforceAccessGate?.();
