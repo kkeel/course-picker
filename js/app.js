@@ -2206,7 +2206,7 @@ function coursePlanner() {
         // Open MemberStack modal (login/signup/etc.)
         await window.AlvearyAuth?.openAuth?.("LOGIN");
     
-        // ✅ MemberStack session can take a moment to become readable after modal closes.
+        // MemberStack session can take a moment to become readable after modal closes.
         // Poll a few times until we see a real authed role.
         const maxTries = 12;          // ~3s total
         const delayMs = 250;
@@ -2222,6 +2222,12 @@ function coursePlanner() {
     
         // Re-run your gate after auth updates
         this.enforceAccessGate?.();
+    
+        // ✅ If we successfully authenticated, reload so the UI snaps into the correct state everywhere
+        if (this.isAuthed && (this.isMember || this.isStaff)) {
+          this.authRefreshing = true;     // used by optional overlay (next step)
+          setTimeout(() => window.location.reload(), 250);
+        }
       } catch (e) {
         console.warn("openAuth failed:", e);
       }
