@@ -2201,10 +2201,18 @@ function coursePlanner() {
       }
     },
     
-    openAuth() {
-      window.AlvearyAuth?.openAuth?.("LOGIN")?.catch((e) => {
+    async openAuth() {
+      try {
+        await window.AlvearyAuth?.openAuth?.("LOGIN");
+    
+        // Re-check role + permissions now that login may have changed
+        await this.initAuth({ force: true });
+    
+        // Re-run your gate after auth updates
+        this.enforceAccessGate?.();
+      } catch (e) {
         console.warn("openAuth failed:", e);
-      });
+      }
     },
     
     enforceAccessGate() {
