@@ -2234,10 +2234,13 @@ function coursePlanner() {
     },
     
     enforceAccessGate() {
-      // Public users: books only. Members+staff: both pages. Staff: also sees edit toggle.
       const path = window.location.pathname || "";
       const onCourseList =
         path.endsWith("/index.html") || path.endsWith("/") || path.endsWith("/index");
+    
+      // ✅ DEV OVERRIDE: allow forcing access
+      const devBypass = localStorage.getItem("alveary_dev_bypass") === "true";
+      if (devBypass) return true;
     
       if (onCourseList && !this.isMember) {
         window.location.href = "books.html?auth=required";
@@ -2249,9 +2252,32 @@ function coursePlanner() {
     // ---------- INIT & COURSE DATA LOADING (with cache) ----------
 
     async init() {
-      await this.initAuth();
+      // Always try auth first
+      const path = window.location.pathname || "";
+      const onCourseList =
+        path.endsWith("/index.html") || path.endsWith("/") || path.endsWith("/index");
+    
+      // ✅ On Course List, wait a moment for MemberStack + whoami to become reliable
+      if (onCourseList) {
+        const maxTries = 16;     // ~4s total
+        const delayMs = 250;
+    
+        for (let i = 0; i < maxTries; i++) {
+          await this.initAuth({ force: true });
+    
+          // As soon as we know you're a member/staff, stop waiting
+          if (this.isAuthed && this.isMember) break;
+    
+          await new Promise((r) => setTimeout(r, delayMs));
+        }
+      } else {
+        // Books page can stay fast
+        await this.initAuth();
+      }
+    
+      // ✅ Gate AFTER auth has had a real chance to resolve
       if (this.enforceAccessGate?.() === false) return;
-
+    
       // 1) Restore filters/search/toggles from previous visit
       this.loadUiState();
       if (!this.isStaff) this.editMode = false;
@@ -2264,7 +2290,7 @@ function coursePlanner() {
     
       // 3) Automation-only: if URL requests it, auto-filter + print
       await this.autoPrintFromQuery?.();
-    },
+    }
 
     // Load courses with a "stale-while-revalidate" strategy:
     // - First try localStorage (fast).
