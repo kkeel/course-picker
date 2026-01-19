@@ -2240,18 +2240,39 @@ function coursePlanner() {
         path.endsWith("/index.html") || path.endsWith("/") || path.endsWith("/index");
     
       if (onCourseList && !this.isMember) {
-        window.location.href = "books.html?auth=required";
+        // ✅ Do NOT redirect away.
+        // Instead: stop loading and show a friendly message + sign-in option.
+        this.isLoadingCourses = false;
+        this.loadError = "You are not signed in. Please sign in to view the Course List.";
         return false;
       }
+    
       return true;
     },
 
     // ---------- INIT & COURSE DATA LOADING (with cache) ----------
 
     async init() {
-      await this.initAuth();
+      const path = window.location.pathname || "";
+      const onCourseList =
+        path.endsWith("/index.html") || path.endsWith("/") || path.endsWith("/index");
+    
+      // ✅ Course List: give MemberStack a moment to become readable on navigation
+      if (onCourseList) {
+        const maxTries = 12;     // ~3s
+        const delayMs = 250;
+    
+        for (let i = 0; i < maxTries; i++) {
+          await this.initAuth({ force: true });
+          if (this.isMember) break;
+          await new Promise((r) => setTimeout(r, delayMs));
+        }
+      } else {
+        await this.initAuth();
+      }
+    
       if (this.enforceAccessGate?.() === false) return;
-
+    
       // 1) Restore filters/search/toggles from previous visit
       this.loadUiState();
       if (!this.isStaff) this.editMode = false;
