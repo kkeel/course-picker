@@ -75,7 +75,7 @@
           id="auth-button"
           class="auth-button text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
           x-show="!isAuthed"
-          @click="openAuth('LOGIN')"
+          @click="openAuth()"
         >
           Sign in
         </button>
@@ -728,7 +728,19 @@
       
         <!-- Loading & error states -->
         <p x-show="isLoadingCourses" class="text-sm text-muted">Loading courses…</p>
-        <p x-show="!isLoadingCourses && loadError" class="text-sm text-red-600" x-text="loadError"></p>
+        <div x-show="!isLoadingCourses && loadError" x-cloak class="text-sm text-red-600">
+          <span x-text="loadError"></span>
+        
+          <button
+            type="button"
+            class="ml-3 underline"
+            style="color:#596e5e;"
+            x-show="!isMember"
+            @click="openAuth()"
+          >
+            Sign in
+          </button>
+        </div>
       
         <!-- Subjects, courses, and topics -->
         <template x-if="!isLoadingCourses && !loadError">
