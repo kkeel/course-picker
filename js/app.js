@@ -2188,7 +2188,7 @@ function coursePlanner() {
         const auth = await (window.AlvearyAuth?.whoami?.({ force }) || null);
         const role = (auth?.role || "public").toLowerCase();
         this.authRole = role;
-        this.isAuthed = !!auth?.ok;
+        this.isAuthed = !!(auth?.ok ?? auth?.isAuthed);
         this.isStaff = role === "staff";
         this.isMember = role === "member" || this.isStaff;
         return auth;
