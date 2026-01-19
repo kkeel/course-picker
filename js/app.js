@@ -2253,37 +2253,32 @@ function coursePlanner() {
     // ---------- INIT & COURSE DATA LOADING (with cache) ----------
 
     async init() {
+      // Always do a short auth “settle” period on first load so both pages behave the same.
       const path = window.location.pathname || "";
       const onCourseList =
         path.endsWith("/index.html") || path.endsWith("/") || path.endsWith("/index");
     
-      // ✅ Course List: give MemberStack a moment to become readable on navigation
-      if (onCourseList) {
-        const maxTries = 12;     // ~3s
-        const delayMs = 250;
+      // Books needs this too (you said you currently refresh to see staff)
+      const maxTries = onCourseList ? 16 : 12; // ~4s vs ~3s
+      const delayMs = 250;
     
-        for (let i = 0; i < maxTries; i++) {
-          await this.initAuth({ force: true });
-          if (this.isMember) break;
-          await new Promise((r) => setTimeout(r, delayMs));
-        }
-      } else {
-        await this.initAuth();
+      for (let i = 0; i < maxTries; i++) {
+        await this.initAuth({ force: true });
+        if (this.isAuthed) break; // once we have ANY auth state, stop
+        await new Promise((r) => setTimeout(r, delayMs));
       }
+    
+      // If you’re using authChecked in your HTML, set it here (safe even if unused)
+      this.authChecked = true;
     
       if (this.enforceAccessGate?.() === false) return;
     
-      // 1) Restore filters/search/toggles from previous visit
       this.loadUiState();
       if (!this.isStaff) this.editMode = false;
     
-      // Students: build palette (follows subject color order)
       this.studentColorPalette = this.buildStudentColorPalette();
     
-      // 2) Load course data (from cache if available, then refresh from network)
       await this.loadCoursesFromJson();
-    
-      // 3) Automation-only: if URL requests it, auto-filter + print
       await this.autoPrintFromQuery?.();
     },
 
