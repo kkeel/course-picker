@@ -24,7 +24,6 @@ window.addEventListener("resize", setAppHeaderHeightVar, { passive: true });
 window.addEventListener("orientationchange", setAppHeaderHeightVar, { passive: true });
 
 // ---------------- PRINT FALLBACK: IN-PLACE PRINT WITH EAGER IMAGE PRELOAD ----------------
-// Put this near the bottom of app.js (top-level, not inside coursePlanner()).
 (function () {
   // Preload all images (especially lazy ones) by probing their srcs.
   async function preloadImagesFromElements(imgEls, opts = {}) {
@@ -116,6 +115,7 @@ function coursePlanner() {
     isAuthed: false,
     isMember: false,
     isStaff: false,
+    authRefreshing: false,
 
       // existing state
       step: 3,
