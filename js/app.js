@@ -2217,8 +2217,8 @@ function coursePlanner() {
     
         // MemberStack session can take a moment to become readable after modal closes.
         // Poll a few times until we see a real authed role.
-        const maxTries = 12;          // ~3s total
-        const delayMs = 250;
+        const maxTries = 12;   // ~3s total
+        const delayMs  = 250;
     
         for (let i = 0; i < maxTries; i++) {
           await this.initAuth({ force: true });
@@ -2229,16 +2229,18 @@ function coursePlanner() {
           await new Promise((r) => setTimeout(r, delayMs));
         }
     
-        // Re-run your gate after auth updates
-        this.enforceAccessGate?.();
+        // ✅ Re-run your gate after auth updates (clears courseGate, updates UI)
+        if (typeof this.enforceAccessGate === "function") {
+          this.enforceAccessGate();
+        }
     
-        // ✅ If we successfully authenticated, reload so the UI snaps into the correct state everywhere
+        // ✅ If login succeeded, show success overlay + hard refresh
         if (this.isAuthed && (this.isMember || this.isStaff)) {
-          this.authRefreshing = true;     // used by optional overlay (next step)
+          this.authRefreshing = true;
           setTimeout(() => window.location.reload(), 250);
         }
       } catch (e) {
-        console.warn("openAuth failed:", e);
+        console.warn("openAuth failed", e);
       }
     },
     
