@@ -121,6 +121,25 @@
 
   <!-- Main content -->
   <main class="main-content px-6 lg:px-16 pb-16 space-y-10">
+    <!-- PUBLIC GATE MESSAGE (Course List) -->
+    <section x-show="courseGate" x-cloak class="mt-6">
+      <h2 class="section-title">Course List</h2>
+      <p class="section-subtitle">
+        Please sign in to view courses.
+      </p>
+    
+      <div class="mt-6 p-6 rounded-lg border border-[#d2d6d2] bg-white max-w-2xl">
+        <p class="text-sm text-[#596e5e] mb-4">
+          This course planner is available to Alveary members.
+        </p>
+        <button
+          class="auth-button text-sm px-4 py-2 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
+          @click="openAuth()"
+        >
+          Sign in to view courses
+        </button>
+      </div>
+    </section>
 
     <!-- Course List -->
     <section>
