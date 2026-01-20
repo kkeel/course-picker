@@ -2188,7 +2188,7 @@ function coursePlanner() {
         const auth = await (window.AlvearyAuth?.whoami?.({ force }) || null);
         const role = (auth?.role || "public").toLowerCase();
         this.authRole = role;
-        this.isAuthed = !!(auth?.ok ?? auth?.isAuthed);
+        this.isAuthed = !!auth?.ok;
         this.isStaff = role === "staff";
         this.isMember = role === "member" || this.isStaff;
         return auth;
@@ -2240,45 +2240,29 @@ function coursePlanner() {
         path.endsWith("/index.html") || path.endsWith("/") || path.endsWith("/index");
     
       if (onCourseList && !this.isMember) {
-        // ✅ Do NOT redirect away.
-        // Instead: stop loading and show a friendly message + sign-in option.
-        this.isLoadingCourses = false;
-        this.loadError = "You are not signed in. Please sign in to view the Course List.";
+        window.location.href = "books.html?auth=required";
         return false;
       }
-    
       return true;
     },
 
     // ---------- INIT & COURSE DATA LOADING (with cache) ----------
 
     async init() {
-      // Always do a short auth “settle” period on first load so both pages behave the same.
-      const path = window.location.pathname || "";
-      const onCourseList =
-        path.endsWith("/index.html") || path.endsWith("/") || path.endsWith("/index");
-    
-      // Books needs this too (you said you currently refresh to see staff)
-      const maxTries = onCourseList ? 16 : 12; // ~4s vs ~3s
-      const delayMs = 250;
-    
-      for (let i = 0; i < maxTries; i++) {
-        await this.initAuth({ force: true });
-        if (this.isAuthed) break; // once we have ANY auth state, stop
-        await new Promise((r) => setTimeout(r, delayMs));
-      }
-    
-      // If you’re using authChecked in your HTML, set it here (safe even if unused)
-      this.authChecked = true;
-    
+      await this.initAuth();
       if (this.enforceAccessGate?.() === false) return;
-    
+
+      // 1) Restore filters/search/toggles from previous visit
       this.loadUiState();
       if (!this.isStaff) this.editMode = false;
     
+      // Students: build palette (follows subject color order)
       this.studentColorPalette = this.buildStudentColorPalette();
     
+      // 2) Load course data (from cache if available, then refresh from network)
       await this.loadCoursesFromJson();
+    
+      // 3) Automation-only: if URL requests it, auto-filter + print
       await this.autoPrintFromQuery?.();
     },
 
