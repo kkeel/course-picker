@@ -117,6 +117,7 @@ function coursePlanner() {
     isStaff: false,
     authRefreshing: false,
     courseGate: false,
+    _blockedByGate: false,
 
       // existing state
       step: 3,
@@ -2188,11 +2189,18 @@ function coursePlanner() {
       try {
         const auth = await (window.AlvearyAuth?.whoami?.({ force }) || null);
         const role = (auth?.role || "public").toLowerCase();
+        
         this.authRole = role;
         this.isAuthed = !!auth?.ok;
         this.isStaff = role === "staff";
         this.isMember = role === "member" || this.isStaff;
+        if (this._blockedByGate && this.isAuthed && (this.isMember || this.isStaff) && !this.authRefreshing) {
+          this.authRefreshing = true;
+          this._blockedByGate = false; // prevent loops
+          setTimeout(() => window.location.reload(), 250);
+        }
         return auth;
+        
       } catch {
         this.authRole = "public";
         this.isAuthed = false;
@@ -2254,9 +2262,10 @@ function coursePlanner() {
     async init() {
       await this.initAuth();
       this.enforceAccessGate?.();
-    
-      // ✅ If public user is on Course List, don't load anything heavy.
-      if (this.courseGate) return;
+      if (this.courseGate) {
+        this._blockedByGate = true;
+        return;
+      }
     
       // 1) Restore filters/search/toggles from previous visit
       this.loadUiState();
