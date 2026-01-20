@@ -43,22 +43,6 @@ export function clearAuthCache() {
   }
 }
 
-// --- MemberStack readiness helpers ---
-function sleep(ms) {
-  return new Promise((r) => setTimeout(r, ms));
-}
-
-async function waitForMemberStackDom({ timeoutMs = 4000, stepMs = 100 } = {}) {
-  const start = Date.now();
-  while (Date.now() - start < timeoutMs) {
-    if (window.$memberstackDom && typeof window.$memberstackDom.getCurrentMember === "function") {
-      return true;
-    }
-    await sleep(stepMs);
-  }
-  return false;
-}
-
 // Wait for MemberStack DOM library to exist on this page.
 // Returns null if not available (script not included).
 export async function getMemberstackDom({ timeoutMs = 4000 } = {}) {
@@ -105,47 +89,50 @@ export async function openAuth(mode = "LOGIN") {
 // Returns a normalized object:
 // { ok:boolean, role:'public'|'member'|'staff', user?:{...}, reason?:string }
 export async function whoami({ force = false } = {}) {
-  // 1) Read cache unless forced
   if (!force) {
     const cached = readCache();
-    if (cached && cached.expiresAt > Date.now()) {
-      return cached.value;
-    }
+    if (cached) return cached;
   }
 
-  // 2) Wait briefly for MemberStack DOM API (prevents “needs refresh”)
-  const msReady = await waitForMemberStackDom({ timeoutMs: 4000, stepMs: 100 });
-
-  // If MemberStack isn't ready, do NOT poison cache as "public" for minutes.
-  if (!msReady) {
-    return { role: "public", isAuthed: false };
+  const member = await getCurrentMember();
+  if (!member?.id) {
+    const out = { ok: false, role: "public", reason: "no_memberstack_session" };
+    writeCache(out);
+    return out;
   }
 
-  // 3) Ask MemberStack
-  let member = null;
   try {
-    const res = await window.$memberstackDom.getCurrentMember();
-    member = res?.data || res; // tolerate either shape
-  } catch (e) {
-    // If the call fails, treat as public but don't cache long.
-    return { role: "public", isAuthed: false };
+    const res = await fetch(AUTH_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ memberstackId: String(member.id) }),
+    });
+
+    const json = await res.json().catch(() => ({}));
+
+    if (!res.ok || !json?.ok) {
+      const out = {
+        ok: false,
+        role: "public",
+        reason: json?.reason || `http_${res.status}`,
+      };
+      writeCache(out);
+      return out;
+    }
+
+    const role = String(json.role || "member").toLowerCase();
+    const out = {
+      ok: true,
+      role: role === "staff" ? "staff" : "member",
+      user: json.user || {},
+    };
+    writeCache(out);
+    return out;
+  } catch (err) {
+    const out = { ok: false, role: "public", reason: String(err) };
+    writeCache(out);
+    return out;
   }
-
-  // 4) Determine role
-  // If your existing file has a specific way you detect staff/member, keep that logic here.
-  // Below is conservative: any member object => "member" unless your code sets staff explicitly elsewhere.
-  const isAuthed = !!member;
-  const role = isAuthed ? "member" : "public";
-
-  const value = { role, isAuthed };
-
-  // 5) Cache policy:
-  // - Cache member/staff for longer
-  // - Cache public for VERY short time so you don’t get stuck requiring refresh
-  const ttlMs = role === "public" ? 10_000 : 5 * 60_000;
-  writeCache(value, ttlMs);
-
-  return value;
 }
 
 // Backwards-compatible export used in your HTML modules (if you still have any)
