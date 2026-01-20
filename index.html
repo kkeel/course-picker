@@ -121,12 +121,10 @@
 
   <!-- Main content -->
   <main class="main-content px-6 lg:px-16 pb-16 space-y-10">
+    
     <!-- PUBLIC GATE MESSAGE (Course List) -->
     <section x-show="courseGate" x-cloak class="mt-6">
       <h2 class="section-title">Course List</h2>
-      <p class="section-subtitle">
-        Please sign in to view courses.
-      </p>
     
       <div class="mt-6 p-6 rounded-lg border border-[#d2d6d2] bg-white max-w-2xl">
         <p class="text-sm text-[#596e5e] mb-4">
@@ -141,6 +139,7 @@
       </div>
     </section>
 
+    <div x-show="!courseGate" x-cloak>
     <!-- Course List -->
     <section>
       <h2 class="section-title">Course List</h2>
@@ -1642,6 +1641,7 @@
       </div>
 
     </section>
+    </div>
 
   </main>
 
