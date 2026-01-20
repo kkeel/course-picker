@@ -5,7 +5,7 @@
 // 2) Call the Cloudflare Worker to map MemberStack -> Airtable -> role
 // 3) Provide helpers for "Sign in" UI + caching
 
-export const AUTH_ENDPOINT = "https://alveary-planning-api.kim-b5d.workers.dev/api/whoami";
+export const AUTH_BASE = "https://alveary-planning-api.kim-b5d.workers.dev/api";
 
 const CACHE_KEY = "alveary_auth_cache_v1";
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
@@ -102,7 +102,7 @@ export async function whoami({ force = false } = {}) {
   }
 
   try {
-    const res = await fetch(AUTH_ENDPOINT, {
+    const res = await fetch(`${AUTH_BASE}/whoami`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ memberstackId: String(member.id) }),
@@ -135,6 +135,34 @@ export async function whoami({ force = false } = {}) {
   }
 }
 
+export async function getPlannerState() {
+  const member = await getCurrentMember();
+  if (!member?.id) return { ok: false, reason: "no_memberstack_session" };
+
+  const res = await fetch(`${AUTH_BASE}/state/get`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ memberstackId: String(member.id) }),
+  });
+
+  const json = await res.json().catch(() => ({}));
+  return res.ok ? json : { ok: false, reason: json?.reason || `http_${res.status}` };
+}
+
+export async function setPlannerState(state) {
+  const member = await getCurrentMember();
+  if (!member?.id) return { ok: false, reason: "no_memberstack_session" };
+
+  const res = await fetch(`${AUTH_BASE}/state/set`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ memberstackId: String(member.id), state }),
+  });
+
+  const json = await res.json().catch(() => ({}));
+  return res.ok ? json : { ok: false, reason: json?.reason || `http_${res.status}` };
+}
+
 // Backwards-compatible export used in your HTML modules (if you still have any)
 export async function getCurrentUser(opts = {}) {
   return whoami(opts);
@@ -146,4 +174,8 @@ if (typeof window !== "undefined") {
   window.AlvearyAuth.openAuth = openAuth;
   window.AlvearyAuth.whoami = whoami;
   window.AlvearyAuth.clearAuthCache = clearAuthCache;
+  window.AlvearyAuth.getPlannerState = getPlannerState;
+  window.AlvearyAuth.setPlannerState = setPlannerState;
 }
+
+
