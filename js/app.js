@@ -116,6 +116,7 @@ function coursePlanner() {
     isMember: false,
     isStaff: false,
     authRefreshing: false,
+    courseGate: false,
 
       // existing state
       step: 3,
@@ -2234,15 +2235,17 @@ function coursePlanner() {
     },
     
     enforceAccessGate() {
-      // Public users: books only. Members+staff: both pages. Staff: also sees edit toggle.
+      // Public users can open the Course List page, but they should only see a sign-in prompt.
+      // Members+staff can see the full Course List.
       const path = window.location.pathname || "";
       const onCourseList =
         path.endsWith("/index.html") || path.endsWith("/") || path.endsWith("/index");
     
-      if (onCourseList && !(this.isMember || this.isStaff)) {
-        window.location.href = "books.html?auth=required";
-        return false;
-      }
+      const authorized = (this.isMember || this.isStaff);
+    
+      // Soft gate: do NOT redirect; just toggle what the page displays.
+      this.courseGate = !!(onCourseList && !authorized);
+    
       return true;
     },
 
@@ -2250,8 +2253,11 @@ function coursePlanner() {
 
     async init() {
       await this.initAuth();
-      if (this.enforceAccessGate?.() === false) return;
-
+      this.enforceAccessGate?.();
+    
+      // ✅ If public user is on Course List, don't load anything heavy.
+      if (this.courseGate) return;
+    
       // 1) Restore filters/search/toggles from previous visit
       this.loadUiState();
       if (!this.isStaff) this.editMode = false;
