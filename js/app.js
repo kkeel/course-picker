@@ -2239,7 +2239,7 @@ function coursePlanner() {
       const onCourseList =
         path.endsWith("/index.html") || path.endsWith("/") || path.endsWith("/index");
     
-      if (onCourseList && !this.isMember) {
+      if (onCourseList && !(this.isMember || this.isStaff)) {
         window.location.href = "books.html?auth=required";
         return false;
       }
