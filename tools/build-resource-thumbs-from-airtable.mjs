@@ -86,10 +86,16 @@ async function main() {
     const resourceId = (f.resourceID || rec.id).toString().trim();
     const outFile = path.join(OUT_DIR, `${resourceId}.webp`);
 
-    // Only create if missing (keeps runs fast)
-    if (await fileExists(outFile)) {
-      skipped++;
-      continue;
+    // Skip only if the existing thumbnail is newer than the image-modified timestamp
+    const lastMod = f.Last_Modified_Image; // Airtable field (string/date)
+    if (await fileExists(outFile) && lastMod) {
+      const stat = await fs.stat(outFile);
+      const thumbTime = stat.mtimeMs;
+      const imageTime = Date.parse(lastMod); // assumes ISO-ish date string
+      if (!Number.isNaN(imageTime) && thumbTime >= imageTime) {
+        skipped++;
+        continue;
+      }
     }
 
     const attachments = f.Image; // Airtable attachment field
