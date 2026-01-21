@@ -1704,6 +1704,8 @@ function coursePlanner() {
       
       // If your books page uses a "My Books" toggle, include it too.
       if ("showOnlyMyBooks"   in this) this.showOnlyMyBooks   = false;
+
+      if (typeof this.saveUIState === "function") this.saveUIState();
     
       // Apply master (no grade filter) OR a specific grade
       if (wantsMaster) {
