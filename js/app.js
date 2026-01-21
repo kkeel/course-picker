@@ -1699,11 +1699,14 @@ function coursePlanner() {
 
       // Share-link behavior: also reset "My ..." toggles so we don’t stack filters
       // (pre-filtered grade links should show the full list for that grade by default)
-      if ("showOnlyMyCourses" in this) this.showOnlyMyCourses = false;
-      if ("showOnlyMyNotes"   in this) this.showOnlyMyNotes   = false;
+      if ("myCoursesOnly" in this) this.myCoursesOnly = false;
+      if ("myNotesOpen"   in this) this.myNotesOpen   = false;
+      if ("myBooksOnly"   in this) this.myBooksOnly   = false;
       
-      // If your books page uses a "My Books" toggle, include it too.
-      if ("showOnlyMyBooks"   in this) this.showOnlyMyBooks   = false;
+      // If you track "hasSet" flags to control whether view settings persist, reset those too
+      if ("_hasSetMyCoursesOnly" in this) this._hasSetMyCoursesOnly = false;
+      if ("_hasSetMyNotesOpen"   in this) this._hasSetMyNotesOpen   = false;
+      if ("_hasSetMyBooksOnly"   in this) this._hasSetMyBooksOnly   = false;
 
       if (typeof this.saveUIState === "function") this.saveUIState();
     
