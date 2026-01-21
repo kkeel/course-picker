@@ -2162,7 +2162,7 @@ function coursePlanner() {
       
           // If this save DID produce extras, merge with existing so sibling extras survive
           if (state.extras && existing?.extras && typeof state.extras === "object") {
-            state.extras = { ...existing.extras, ...state.extras };
+            state.extras = { ...(existing.extras || {}), ...(state.extras || {}) };
           }
         }
       } catch (e) {
@@ -2182,6 +2182,7 @@ function coursePlanner() {
       }
       this.plannerPersistDebounce = setTimeout(() => {
         this.persistPlannerState();
+        this.pushPlannerStateToCloudDebounced();
       }, 200);
     },
 
@@ -2259,6 +2260,59 @@ function coursePlanner() {
       return true;
     },
 
+    async syncPlannerStateFromCloud() {
+      try {
+        // Only for authed members/staff
+        if (!this.isAuthed || !(this.isMember || this.isStaff)) return;
+        if (!window.AlvearyAuth?.getPlannerState) return;
+    
+        const remote = await window.AlvearyAuth.getPlannerState();
+        if (!remote?.ok) return;
+    
+        const remoteState = remote.state;
+        if (!remoteState || typeof remoteState !== "object") return;
+    
+        // OPTIONAL: enforce version match so we don't apply incompatible shapes
+        if (remoteState.version && remoteState.version !== APP_CACHE_VERSION) {
+          console.warn("[planner] Remote state version mismatch, skipping apply");
+          return;
+        }
+    
+        // Store the server timestamp on the object so we can compare later if needed
+        remoteState._cloudUpdatedAt = remote.lastUpdated || null;
+    
+        // Write to localStorage so existing load/apply logic works unchanged
+        localStorage.setItem(PLANNER_STATE_KEY, JSON.stringify(remoteState));
+      } catch (e) {
+        console.warn("[planner] Failed to sync state from cloud", e);
+      }
+    },
+    
+    pushPlannerStateToCloudDebounced() {
+      if (this._cloudPersistDebounce) clearTimeout(this._cloudPersistDebounce);
+    
+      // Debounce more aggressively than localStorage
+      this._cloudPersistDebounce = setTimeout(async () => {
+        try {
+          if (!this.isAuthed || !(this.isMember || this.isStaff)) return;
+          if (!window.AlvearyAuth?.setPlannerState) return;
+    
+          const raw = localStorage.getItem(PLANNER_STATE_KEY);
+          if (!raw) return;
+    
+          const state = JSON.parse(raw);
+          if (!state || typeof state !== "object") return;
+    
+          const res = await window.AlvearyAuth.setPlannerState(state);
+          if (!res?.ok) {
+            console.warn("[planner] Cloud save failed:", res);
+          }
+        } catch (e) {
+          console.warn("[planner] Failed to push state to cloud", e);
+        }
+      }, 1500);
+    },
+
     // ---------- INIT & COURSE DATA LOADING (with cache) ----------
 
     async init() {
@@ -2268,6 +2322,9 @@ function coursePlanner() {
         this._blockedByGate = true;
         return;
       }
+
+      // Pull saved planner state from Airtable BEFORE we load/apply state
+      await this.syncPlannerStateFromCloud();
     
       // 1) Restore filters/search/toggles from previous visit
       this.loadUiState();
