@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-21T17:14:23.041Z",
+  "lastUpdated": "2026-01-21T20:50:40.506Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -310,6 +310,72 @@
         "Sloyd: Level 7"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec18fvwcWROKwRu9?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recROw7n9O8wNFX3V",
+      "targetId": "rec19QYvUC2XXH1P3",
+      "resourceId": "rec7JegAwU8OPHU65",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Why Buildings Stand Up (Full Term)",
+        "T2": "Why Buildings Stand Up (Full Term)",
+        "T3": "Why Buildings Stand Up (Full Term)"
+      },
+      "gradeText": "G10, G11, G12,",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Architecture: Grade 9\nArchitecture: Grades 10-12",
+      "sharedLinesR3": [
+        "Architecture: Grade 9",
+        "Architecture: Grades 10-12"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec19QYvUC2XXH1P3?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recAQ4ZL563Q0zXRz",
+      "targetId": "rec19QYvUC2XXH1P3",
+      "resourceId": "recheee07g4cK0ETc",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)\nTerm 3 (Partial Term)",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "50 Buildings You Should Know (Partial Term)",
+        "T2": "50 Buildings You Should Know (Partial Term)",
+        "T3": "50 Buildings You Should Know (Partial Term)"
+      },
+      "gradeText": "G10, G11, G12,",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Architecture: Grade 9\nArchitecture: Grades 10-12",
+      "sharedLinesR3": [
+        "Architecture: Grade 9",
+        "Architecture: Grades 10-12"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec19QYvUC2XXH1P3?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "rec3IqbLXvfEopDoS",
@@ -1025,13 +1091,13 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "002.003.000",
-      "scopeText": "Term 2",
+      "scopeText": "Term 2 (Selections)",
       "terms": [
         "T2"
       ],
       "termNotes": {
         "T1": "",
-        "T2": "Russian Fairy Tales",
+        "T2": "Russian Fairy Tales (Selections)",
         "T3": ""
       },
       "gradeText": "G5, G6,",
@@ -1055,13 +1121,13 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "002.003.000",
-      "scopeText": "Term 2",
+      "scopeText": "Term 2 (Selections)",
       "terms": [
         "T2"
       ],
       "termNotes": {
         "T1": "",
-        "T2": "South American Jungle Tales",
+        "T2": "South American Jungle Tales (Selections)",
         "T3": ""
       },
       "gradeText": "G5, G6,",
@@ -4036,34 +4102,6 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recbib99MSqhVumm9?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recVGecTUaN85b5SP",
-      "targetId": "recbib99MSqhVumm9",
-      "resourceId": "rec6mpXf6CzKzEppJ",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "002.003.000",
-      "scopeText": "Term 2",
-      "terms": [
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "The Kid's Book of Canada's Railway (Full Term)",
-        "T3": ""
-      },
-      "gradeText": "G2, G3, G4,",
-      "grades": [
-        2,
-        3,
-        4
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recbib99MSqhVumm9?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "recffzsWgrDsqKtEa",
       "targetId": "recbib99MSqhVumm9",
       "resourceId": "recXnuH87pQYT58Cy",
@@ -4790,6 +4828,99 @@
         "Art: High School Fast Track"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recCd8bct7Z4Mo7l6?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recI0j7V1MyLOXtBg",
+      "targetId": "reccEm8T5hzKrWrUH",
+      "resourceId": "recgECwMa1pjs2VnL",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "The Kids Book of Canada (Full Term)",
+        "T2": "The Kids Book of Canada (Full Term)",
+        "T3": "The Kids Book of Canada (Full Term)"
+      },
+      "gradeText": "G3,",
+      "grades": [
+        3
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Geography: Grade 2 (Canada)\nGeography: Grade 3 (Canada)",
+      "sharedLinesR3": [
+        "Geography: Grade 2 (Canada)",
+        "Geography: Grade 3 (Canada)"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/reccEm8T5hzKrWrUH?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "rec9wnY2i5o2str1B",
+      "targetId": "reccEm8T5hzKrWrUH",
+      "resourceId": "recWe8BWvLumLf1DA",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "My Canada: An Illustrated Atlas (Full Term)",
+        "T2": "My Canada: An Illustrated Atlas (Full Term)",
+        "T3": "My Canada: An Illustrated Atlas (Full Term)"
+      },
+      "gradeText": "G3,",
+      "grades": [
+        3
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Geography: Grade 2 (Canada)\nGeography: Grade 3 (Canada)",
+      "sharedLinesR3": [
+        "Geography: Grade 2 (Canada)",
+        "Geography: Grade 3 (Canada)"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/reccEm8T5hzKrWrUH?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recRxo7F0tmbhX3I6",
+      "targetId": "reccEm8T5hzKrWrUH",
+      "resourceId": "recXRFY35nX9sYw2c",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)\nTerm 3 (Partial Term)",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Canada Wild: Animals Found Nowhere Else on Earth (Partial Term)",
+        "T2": "Canada Wild: Animals Found Nowhere Else on Earth (Partial Term)",
+        "T3": "Canada Wild: Animals Found Nowhere Else on Earth (Partial Term)"
+      },
+      "gradeText": "G3,",
+      "grades": [
+        3
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Geography: Grade 2 (Canada)\nGeography: Grade 3 (Canada)",
+      "sharedLinesR3": [
+        "Geography: Grade 2 (Canada)",
+        "Geography: Grade 3 (Canada)"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/reccEm8T5hzKrWrUH?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "recAMg4KZyTHd4YeP",
@@ -5680,16 +5811,15 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "scopeText": "Term 1\nTerm 2 (Partial Term)",
       "terms": [
         "T1",
-        "T2",
-        "T3"
+        "T2"
       ],
       "termNotes": {
         "T1": "The Boy Who Harnessed the Wind, Young Reader's Edition (Full Term)",
-        "T2": "The Boy Who Harnessed the Wind, Young Reader's Edition (Full Term)",
-        "T3": "The Boy Who Harnessed the Wind, Young Reader's Edition (Full Term)"
+        "T2": "The Boy Who Harnessed the Wind, Young Reader's Edition (Partial Term)",
+        "T3": ""
       },
       "gradeText": "G9, G10, G11, G12,",
       "grades": [
@@ -5740,16 +5870,45 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "scopeText": "Term 1\nTerm 2 (Partial Term)",
       "terms": [
         "T1",
+        "T2"
+      ],
+      "termNotes": {
+        "T1": "The Boy Who Harnessed the Wind (Full Term)",
+        "T2": "The Boy Who Harnessed the Wind (Partial Term)",
+        "T3": ""
+      },
+      "gradeText": "G9, G10, G11, G12,",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recDeupYbqp2v4Hpz?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recEwHuuGWQzoNyqo",
+      "targetId": "recDeupYbqp2v4Hpz",
+      "resourceId": "recAvrwNnkmvBUV1x",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.003.000",
+      "scopeText": "Term 2 (Partial Term)\nTerm 3",
+      "terms": [
         "T2",
         "T3"
       ],
       "termNotes": {
-        "T1": "The Boy Who Harnessed the Wind (Full Term)",
-        "T2": "The Boy Who Harnessed the Wind (Full Term)",
-        "T3": "The Boy Who Harnessed the Wind (Full Term)"
+        "T1": "",
+        "T2": "By Design: Ethics, Theology, and the Practice of Engineering (Partial Term)",
+        "T3": "By Design: Ethics, Theology, and the Practice of Engineering (Full Term)"
       },
       "gradeText": "G9, G10, G11, G12,",
       "grades": [
@@ -8208,6 +8367,68 @@
         "Sloyd: Level 4"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recgESzLLnd2ZR8cn?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recouaNc5Ww4PEsB6",
+      "targetId": "recgsUAK6BCMop9Sh",
+      "resourceId": "rec7JegAwU8OPHU65",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Why Buildings Stand Up (Selections)",
+        "T2": "Why Buildings Stand Up (Selections)",
+        "T3": "Why Buildings Stand Up (Selections)"
+      },
+      "gradeText": "G9,",
+      "grades": [
+        9
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Architecture: Grade 9\nArchitecture: Grades 10-12",
+      "sharedLinesR3": [
+        "Architecture: Grade 9",
+        "Architecture: Grades 10-12"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recgsUAK6BCMop9Sh?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recUKjoopEsdTW5FI",
+      "targetId": "recgsUAK6BCMop9Sh",
+      "resourceId": "recheee07g4cK0ETc",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)\nTerm 3 (Partial Term)",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "50 Buildings You Should Know (Partial Term)",
+        "T2": "50 Buildings You Should Know (Partial Term)",
+        "T3": "50 Buildings You Should Know (Partial Term)"
+      },
+      "gradeText": "G9,",
+      "grades": [
+        9
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Architecture: Grade 9\nArchitecture: Grades 10-12",
+      "sharedLinesR3": [
+        "Architecture: Grade 9",
+        "Architecture: Grades 10-12"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recgsUAK6BCMop9Sh?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "reca7SkQT1uUifIh3",
@@ -15333,6 +15554,155 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recqs5CJX6rm4MnPJ?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "recg695GItJ2oiP3O",
+      "targetId": "recqv7ncp4qei07K0",
+      "resourceId": "rec4S3UHWafRPSXxM",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1 (Partial Term)\nTerm 3 (One Lesson)",
+      "terms": [
+        "T1",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Making Your Own Maps (Partial Term)",
+        "T2": "",
+        "T3": "Making Your Own Maps (One Lesson)"
+      },
+      "gradeText": "G2,",
+      "grades": [
+        2
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Geography: Grade 2 (U.S.)\nGeography: Grade 2 (Canada)",
+      "sharedLinesR3": [
+        "Geography: Grade 2 (U.S.)",
+        "Geography: Grade 2 (Canada)"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recqv7ncp4qei07K0?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recGgKVuCzcWM4emy",
+      "targetId": "recqv7ncp4qei07K0",
+      "resourceId": "recgECwMa1pjs2VnL",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "The Kids Book of Canada (Full Term)",
+        "T2": "The Kids Book of Canada (Full Term)",
+        "T3": "The Kids Book of Canada (Full Term)"
+      },
+      "gradeText": "G2,",
+      "grades": [
+        2
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Geography: Grade 2 (Canada)\nGeography: Grade 3 (Canada)",
+      "sharedLinesR3": [
+        "Geography: Grade 2 (Canada)",
+        "Geography: Grade 3 (Canada)"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recqv7ncp4qei07K0?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "receHC0lq4Kx15GPR",
+      "targetId": "recqv7ncp4qei07K0",
+      "resourceId": "recWe8BWvLumLf1DA",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "My Canada: An Illustrated Atlas (Full Term)",
+        "T2": "My Canada: An Illustrated Atlas (Full Term)",
+        "T3": "My Canada: An Illustrated Atlas (Full Term)"
+      },
+      "gradeText": "G2,",
+      "grades": [
+        2
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Geography: Grade 2 (Canada)\nGeography: Grade 3 (Canada)",
+      "sharedLinesR3": [
+        "Geography: Grade 2 (Canada)",
+        "Geography: Grade 3 (Canada)"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recqv7ncp4qei07K0?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recdRufVLeE8I1JkL",
+      "targetId": "recqv7ncp4qei07K0",
+      "resourceId": "recXRFY35nX9sYw2c",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)\nTerm 3 (Partial Term)",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Canada Wild: Animals Found Nowhere Else on Earth (Partial Term)",
+        "T2": "Canada Wild: Animals Found Nowhere Else on Earth (Partial Term)",
+        "T3": "Canada Wild: Animals Found Nowhere Else on Earth (Partial Term)"
+      },
+      "gradeText": "G2,",
+      "grades": [
+        2
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Geography: Grade 2 (Canada)\nGeography: Grade 3 (Canada)",
+      "sharedLinesR3": [
+        "Geography: Grade 2 (Canada)",
+        "Geography: Grade 3 (Canada)"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recqv7ncp4qei07K0?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recXZjLo3ZBqfWeXD",
+      "targetId": "recqv7ncp4qei07K0",
+      "resourceId": "recBW8QJCHsV0XMoM",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "003.003.000",
+      "scopeText": "Term 3",
+      "terms": [
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "",
+        "T3": "Our Canadian Flag (Full Term)"
+      },
+      "gradeText": "G2,",
+      "grades": [
+        2
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recqv7ncp4qei07K0?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "rec8ygEGl8NSIp14N",
       "targetId": "recqxe0MPp3Lz61Ry",
       "resourceId": "rec2DOed4yBUg6vJC",
@@ -15472,35 +15842,6 @@
       "sharedTextR3": "",
       "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recQXiQ3dIrnl8mGT?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recrRy3Y30LvzvF1U",
-      "targetId": "recR6fjtNfXqxq2mT",
-      "resourceId": "rec7JegAwU8OPHU65",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "Why Buildings Stand Up (Full Term)",
-        "T2": "Why Buildings Stand Up (Full Term)",
-        "T3": "Why Buildings Stand Up (Full Term)"
-      },
-      "gradeText": "G10, G11,",
-      "grades": [
-        10,
-        11
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recR6fjtNfXqxq2mT?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "recAhcmB5ukCxmuUs",
@@ -19355,32 +19696,6 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recy9WbCqz2fs07iL?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "rechs7zE3fGDfTiiN",
-      "targetId": "recyAMOsJVfBdGg0r",
-      "resourceId": "recIuygflugPleDum",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "000.003.000",
-      "scopeText": "",
-      "terms": [],
-      "termNotes": {
-        "T1": "",
-        "T2": "",
-        "T3": ""
-      },
-      "gradeText": "G10, G11, G12,",
-      "grades": [
-        10,
-        11,
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recyAMOsJVfBdGg0r?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "recl8biJR8FnbtJoi",
       "targetId": "recyAMOsJVfBdGg0r",
       "resourceId": "recDkUYOYpWCv6KlP",
@@ -19836,13 +20151,13 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "002.003.000",
-      "scopeText": "Term 2",
+      "scopeText": "Term 2 (Selections)",
       "terms": [
         "T2"
       ],
       "termNotes": {
         "T1": "",
-        "T2": "Russian Fairy Tales (Full Term)",
+        "T2": "Russian Fairy Tales (Selections)",
         "T3": ""
       },
       "gradeText": "G4,",
@@ -19865,13 +20180,13 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "002.003.000",
-      "scopeText": "Term 2",
+      "scopeText": "Term 2 (Selections)",
       "terms": [
         "T2"
       ],
       "termNotes": {
         "T1": "",
-        "T2": "South American Jungle Tales (Full Term)",
+        "T2": "South American Jungle Tales (Selections)",
         "T3": ""
       },
       "gradeText": "G4,",
@@ -20472,8 +20787,11 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
+      "sharedTextR3": "Geography: Grade 2 (U.S.)\nGeography: Grade 2 (Canada)",
+      "sharedLinesR3": [
+        "Geography: Grade 2 (U.S.)",
+        "Geography: Grade 2 (Canada)"
+      ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recyqXBP4TluYd1hZ?home=pag8nmiUVfXJRZFLW"
     },
     {
