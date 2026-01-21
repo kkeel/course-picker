@@ -2283,7 +2283,10 @@ function coursePlanner() {
       // Members+staff can see the full Course List.
       const path = window.location.pathname || "";
       const onCourseList =
-        path.endsWith("/index.html") || path.endsWith("/") || path.endsWith("/index");
+        path.endsWith("/index.html") ||
+        path.endsWith("/") ||
+        path.endsWith("/index") ||
+        path.endsWith("/courses.html");
     
       const authorized = (this.isMember || this.isStaff);
     
