@@ -1696,6 +1696,14 @@ function coursePlanner() {
       // For shared links: start clean so old saved filters don't "stack"
       // (grade links should show JUST that grade by default)
       this.clearAllFilters();
+
+      // Share-link behavior: also reset "My ..." toggles so we don’t stack filters
+      // (pre-filtered grade links should show the full list for that grade by default)
+      if ("showOnlyMyCourses" in this) this.showOnlyMyCourses = false;
+      if ("showOnlyMyNotes"   in this) this.showOnlyMyNotes   = false;
+      
+      // If your books page uses a "My Books" toggle, include it too.
+      if ("showOnlyMyBooks"   in this) this.showOnlyMyBooks   = false;
     
       // Apply master (no grade filter) OR a specific grade
       if (wantsMaster) {
