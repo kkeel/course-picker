@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-20T17:14:27.012Z",
+  "lastUpdated": "2026-01-21T08:48:46.237Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -1731,110 +1731,6 @@
         "Art: High School Fast Track"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec6MBLqzC1D2dewf?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recCUOsxsqD8V5YvY",
-      "targetId": "rec6vgxAyalXbH09U",
-      "resourceId": "recgNKZ3ApTZk4bYf",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1",
-      "terms": [
-        "T1"
-      ],
-      "termNotes": {
-        "T1": "Hard Times (Full Term)",
-        "T2": "",
-        "T3": ""
-      },
-      "gradeText": "G12,",
-      "grades": [
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec6vgxAyalXbH09U?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recEoRx1O9mOnnrcP",
-      "targetId": "rec6vgxAyalXbH09U",
-      "resourceId": "recmOt8vojs0Fvbl0",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "002.003.000",
-      "scopeText": "Term 2",
-      "terms": [
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "The Bondwoman's Narrative (Full Term)",
-        "T3": ""
-      },
-      "gradeText": "G12,",
-      "grades": [
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec6vgxAyalXbH09U?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recK5wAYt8jLHVvV3",
-      "targetId": "rec6vgxAyalXbH09U",
-      "resourceId": "recx21oBeUkmZlc4o",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "002.003.000",
-      "scopeText": "Term 2",
-      "terms": [
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "Crime and Punishment (Full Term)",
-        "T3": ""
-      },
-      "gradeText": "G12,",
-      "grades": [
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec6vgxAyalXbH09U?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recctggvjt38BqVQo",
-      "targetId": "rec6vgxAyalXbH09U",
-      "resourceId": "recLUyzHRPpszsTQy",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "003.003.000",
-      "scopeText": "Term 3",
-      "terms": [
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "",
-        "T3": "Journal of Henry David Thoreau (Full Term)"
-      },
-      "gradeText": "G12,",
-      "grades": [
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec6vgxAyalXbH09U?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "recGBxipYvj66DrW2",
@@ -5656,6 +5552,37 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recd3yaMAQJpdn7CR?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "recPjdpgo1A7nQfxd",
+      "targetId": "recD507HPC8MtQqrX",
+      "resourceId": "recHnNaWYDRO6RSft",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "The Word Made Fresh (Full Term)",
+        "T2": "The Word Made Fresh (Full Term)",
+        "T3": "The Word Made Fresh (Full Term)"
+      },
+      "gradeText": "G11,",
+      "grades": [
+        11
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Poetry Study: Grade 10\nPoetry Study: Grade 11",
+      "sharedLinesR3": [
+        "Poetry Study: Grade 10",
+        "Poetry Study: Grade 11"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recD507HPC8MtQqrX?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recqqEjngGe5LieN6",
       "targetId": "recDaqVPbcOCFqtPb",
       "resourceId": "recNiSkoMTSZuBmf6",
@@ -6430,32 +6357,6 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/receYVcsBWVNyLXLS?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recRLaGebHosF6GaE",
-      "targetId": "receYVcsBWVNyLXLS",
-      "resourceId": "rec0dyDxIGTFGVnsF",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "003.003.000",
-      "scopeText": "Term 3",
-      "terms": [
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "",
-        "T3": "Home Economics: Fourteen Essays (Full Term)"
-      },
-      "gradeText": "G10,",
-      "grades": [
-        10
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/receYVcsBWVNyLXLS?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "rec3nf5OHSjxwcEAD",
       "targetId": "recF1FnEXl8c1k1Fl",
       "resourceId": "recbZP18lAHr7w9XS",
@@ -6826,38 +6727,6 @@
       "sharedTextR3": "",
       "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recfXdRHtTUmQQfre?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recgD7udpYHZ3u3W0",
-      "targetId": "recg19YwLyOajDB8g",
-      "resourceId": "recHnNaWYDRO6RSft",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.002.000",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "The Word Made Fresh (Full Term - Ch.4)",
-        "T2": "The Word Made Fresh (Full Term - Ch.5)",
-        "T3": "The Word Made Fresh (Full Term - Ch.6)"
-      },
-      "gradeText": "G11, G12, G11, G12,",
-      "grades": [
-        11,
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "Poetry Study: Grades 11-12\nPoetry Study: Grade 10",
-      "sharedLinesR3": [
-        "Poetry Study: Grades 11-12",
-        "Poetry Study: Grade 10"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recg19YwLyOajDB8g?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "recGw3P2SqZLkkNwP",
@@ -13891,10 +13760,10 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Poetry Study: Grades 11-12\nPoetry Study: Grade 10",
+      "sharedTextR3": "Poetry Study: Grade 10\nPoetry Study: Grade 11",
       "sharedLinesR3": [
-        "Poetry Study: Grades 11-12",
-        "Poetry Study: Grade 10"
+        "Poetry Study: Grade 10",
+        "Poetry Study: Grade 11"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recp1tFUA5OyJ1HjN?home=pag8nmiUVfXJRZFLW"
     },
@@ -18255,6 +18124,35 @@
         "T1": "The Bandit of Ashley Downs: George Muller (Full Term)",
         "T2": "The Bandit of Ashley Downs: George Muller (Partial Term)",
         "T3": ""
+      },
+      "gradeText": "G1, G2, G3,",
+      "grades": [
+        1,
+        2,
+        3
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recwdjPJ19zLtMKB3?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recFlKv30ZRkV3rov",
+      "targetId": "recwdjPJ19zLtMKB3",
+      "resourceId": "recF3TyjRbJFC4JyB",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.003.000",
+      "scopeText": "Term 2 (Partial Term)\nTerm 3",
+      "terms": [
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "Adoniram Judson: Danger on the Streets of Gold (Partial Term)",
+        "T3": "Adoniram Judson: Danger on the Streets of Gold (Full Term)"
       },
       "gradeText": "G1, G2, G3,",
       "grades": [
