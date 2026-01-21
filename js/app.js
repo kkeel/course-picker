@@ -1679,6 +1679,39 @@ function coursePlanner() {
     },
 
     // ===============================
+    // URL → FILTER HYDRATION (shareable links)
+    // Examples:
+    //   courses.html?grade=G3
+    //   courses.html?master=1
+    // ===============================
+    applyFiltersFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+    
+      const wantsMaster = params.get("master") === "1";
+      const gradeParam = (params.get("grade") || "").trim().toUpperCase(); // "G1".."G12"
+    
+      // If neither param exists, do nothing (keep saved UI state)
+      if (!wantsMaster && !gradeParam) return;
+    
+      // For shared links: start clean so old saved filters don't "stack"
+      // (grade links should show JUST that grade by default)
+      this.clearAllFilters();
+    
+      // Apply master (no grade filter) OR a specific grade
+      if (wantsMaster) {
+        this.selectedGrades = [];
+      } else {
+        const valid = new Set(this.gradeOptions.map(g => String(g.code).toUpperCase()));
+        if (valid.has(gradeParam)) {
+          this.selectedGrades = [gradeParam];
+        }
+      }
+    
+      // Apply now (and this will also rebuild the visible list)
+      this.applyFilters();
+    },
+
+    // ===============================
     // AUTO-PRINT (automation only)
     // Trigger via: ?autoprint=1&grade=G1   (or G2..G12)
     // Master list: ?autoprint=1&master=1
@@ -2333,8 +2366,15 @@ function coursePlanner() {
       // Students: build palette (follows subject color order)
       this.studentColorPalette = this.buildStudentColorPalette();
     
-      // 2) Load course data (from cache if available, then refresh from network)
+      // 2a) Load course data (from cache if available, then refresh from network)
       await this.loadCoursesFromJson();
+
+      // 2b) if URL has grade/master params, apply them now
+      // (Skip if we're in autoprint mode, because autoprint handles its own filtering)
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("autoprint") !== "1") {
+        this.applyFiltersFromQuery();
+      }
     
       // 3) Automation-only: if URL requests it, auto-filter + print
       await this.autoPrintFromQuery?.();
