@@ -1305,7 +1305,10 @@
                               
                                     <!-- NOTE + May sub + Alt formats -->
                                     <div class="resource-tipbox"
-                                      x-show="a.noteText || a.maySubText || altFormatsForAssignment(a).length"
+                                      x-show="
+                                        (resourcesById[a.resourceId]?.note || a.noteText) ||
+                                        (resourcesById[a.resourceId]?.maySub || a.maySubText) ||
+                                        altFormatsForAssignment(a).length"
                                       x-cloak
                                     >
                                       <template x-if="resourcesById[a.resourceId]?.note">
@@ -2312,7 +2315,10 @@
                                     
                                           <!-- NOTE + May sub + Alt formats -->
                                           <div class="resource-tipbox"
-                                            x-show="a.noteText || a.maySubText || altFormatsForAssignment(a).length"
+                                            x-show="
+                                              (resourcesById[a.resourceId]?.note || a.noteText) ||
+                                              (resourcesById[a.resourceId]?.maySub || a.maySubText) ||
+                                              altFormatsForAssignment(a).length"
                                             x-cloak
                                           >
                                             <template x-if="resourcesById[a.resourceId]?.note">
