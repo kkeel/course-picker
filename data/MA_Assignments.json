@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-21T08:48:46.237Z",
+  "lastUpdated": "2026-01-21T17:14:23.041Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -14296,57 +14296,12 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recPM5jXG1kesMguO?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recAGrcWHHXnYv7uz",
-      "targetId": "recpmAVPZE4aoIEGv",
-      "resourceId": "recpZeVli0urkjOFH",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "Our Work: Grades 4-6 (Full Term)",
-        "T2": "Our Work: Grades 4-6 (Full Term)",
-        "T3": "Our Work: Grades 4-6 (Full Term)"
-      },
-      "gradeText": "G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12,",
-      "grades": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12
-      ],
-      "gradeLevelTag": "Grades 4-6 ONLY",
-      "optional": false,
-      "sharedTextR3": "Picture Study\nRecitation: Grades 4-6\nMusic: Level 3\nMusic: Level 4\nMusic: Level 5",
-      "sharedLinesR3": [
-        "Picture Study",
-        "Recitation: Grades 4-6",
-        "Music: Level 3",
-        "Music: Level 4",
-        "Music: Level 5"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recpmAVPZE4aoIEGv?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "recsl09IEDlmJf8XT",
       "targetId": "recpmAVPZE4aoIEGv",
       "resourceId": "recRjVoGfG4YhjxQU",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.003.001",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -14380,101 +14335,12 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recpmAVPZE4aoIEGv?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recOBvgQIlFaRpcnE",
-      "targetId": "recpmAVPZE4aoIEGv",
-      "resourceId": "recsfooztY1xN2Ukk",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "Our Work: Grades 7-8 (Full Term)",
-        "T2": "Our Work: Grades 7-8 (Full Term)",
-        "T3": "Our Work: Grades 7-8 (Full Term)"
-      },
-      "gradeText": "G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12,",
-      "grades": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12
-      ],
-      "gradeLevelTag": "Grades 7-8 ONLY",
-      "optional": false,
-      "sharedTextR3": "Picture Study\nRecitation: Grades 7-8\nMusic: Level 5",
-      "sharedLinesR3": [
-        "Picture Study",
-        "Recitation: Grades 7-8",
-        "Music: Level 5"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recpmAVPZE4aoIEGv?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recgwMTFKzQ186TOq",
-      "targetId": "recpmAVPZE4aoIEGv",
-      "resourceId": "recsNwud3Tci78Te8",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "Our Work: Grades 9-12 (Full Term)",
-        "T2": "Our Work: Grades 9-12 (Full Term)",
-        "T3": "Our Work: Grades 9-12 (Full Term)"
-      },
-      "gradeText": "G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12,",
-      "grades": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12
-      ],
-      "gradeLevelTag": "Grades 9-12 ONLY",
-      "optional": false,
-      "sharedTextR3": "Recitation: Grade 9\nRecitation: Grade 10\nRecitation: Grade 11\nRecitation: Grade 12\nMusic: Level 5\nPicture Study",
-      "sharedLinesR3": [
-        "Recitation: Grade 9",
-        "Recitation: Grade 10",
-        "Recitation: Grade 11",
-        "Recitation: Grade 12",
-        "Music: Level 5",
-        "Picture Study"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recpmAVPZE4aoIEGv?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "recuQqgrDrPB1gtir",
       "targetId": "recpmAVPZE4aoIEGv",
       "resourceId": "recw7BBdhDZlQO2RS",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.003.002",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -14518,7 +14384,7 @@
       "resourceId": "recYJHQP07uKDyMpq",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.003.003",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -14552,6 +14418,140 @@
         "Picture Study",
         "Recitation: Grade 3",
         "Music: Level 3"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recpmAVPZE4aoIEGv?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recAGrcWHHXnYv7uz",
+      "targetId": "recpmAVPZE4aoIEGv",
+      "resourceId": "recpZeVli0urkjOFH",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.004",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Our Work: Grades 4-6 (Full Term)",
+        "T2": "Our Work: Grades 4-6 (Full Term)",
+        "T3": "Our Work: Grades 4-6 (Full Term)"
+      },
+      "gradeText": "G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12,",
+      "grades": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "gradeLevelTag": "Grades 4-6 ONLY",
+      "optional": false,
+      "sharedTextR3": "Picture Study\nRecitation: Grades 4-6\nMusic: Level 3\nMusic: Level 4\nMusic: Level 5",
+      "sharedLinesR3": [
+        "Picture Study",
+        "Recitation: Grades 4-6",
+        "Music: Level 3",
+        "Music: Level 4",
+        "Music: Level 5"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recpmAVPZE4aoIEGv?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recOBvgQIlFaRpcnE",
+      "targetId": "recpmAVPZE4aoIEGv",
+      "resourceId": "recsfooztY1xN2Ukk",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.005",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Our Work: Grades 7-8 (Full Term)",
+        "T2": "Our Work: Grades 7-8 (Full Term)",
+        "T3": "Our Work: Grades 7-8 (Full Term)"
+      },
+      "gradeText": "G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12,",
+      "grades": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "gradeLevelTag": "Grades 7-8 ONLY",
+      "optional": false,
+      "sharedTextR3": "Picture Study\nRecitation: Grades 7-8\nMusic: Level 5",
+      "sharedLinesR3": [
+        "Picture Study",
+        "Recitation: Grades 7-8",
+        "Music: Level 5"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recpmAVPZE4aoIEGv?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recgwMTFKzQ186TOq",
+      "targetId": "recpmAVPZE4aoIEGv",
+      "resourceId": "recsNwud3Tci78Te8",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.006",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Our Work: Grades 9-12 (Full Term)",
+        "T2": "Our Work: Grades 9-12 (Full Term)",
+        "T3": "Our Work: Grades 9-12 (Full Term)"
+      },
+      "gradeText": "G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12,",
+      "grades": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "gradeLevelTag": "Grades 9-12 ONLY",
+      "optional": false,
+      "sharedTextR3": "Recitation: Grade 9\nRecitation: Grade 10\nRecitation: Grade 11\nRecitation: Grade 12\nMusic: Level 5\nPicture Study",
+      "sharedLinesR3": [
+        "Recitation: Grade 9",
+        "Recitation: Grade 10",
+        "Recitation: Grade 11",
+        "Recitation: Grade 12",
+        "Music: Level 5",
+        "Picture Study"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recpmAVPZE4aoIEGv?home=pag8nmiUVfXJRZFLW"
     },
@@ -16715,12 +16715,44 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recsV1leROEsZ73oW?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "rectUBMAxwI3tb21J",
+      "targetId": "recSybgW92Wd2KXg9",
+      "resourceId": "recYJHQP07uKDyMpq",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.001",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Our Work: Grade 3 (Full Term)",
+        "T2": "Our Work: Grade 3 (Full Term)",
+        "T3": "Our Work: Grade 3 (Full Term)"
+      },
+      "gradeText": "G4,",
+      "grades": [
+        4
+      ],
+      "gradeLevelTag": "Grade 3 ONLY",
+      "optional": false,
+      "sharedTextR3": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+      "sharedLinesR3": [
+        "Picture Study",
+        "Recitation: Grade 3",
+        "Music: Level 3"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recSybgW92Wd2KXg9?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recKyJufS3iE3lm2r",
       "targetId": "recSybgW92Wd2KXg9",
       "resourceId": "recpZeVli0urkjOFH",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.003.002",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -16745,38 +16777,6 @@
         "Music: Level 3",
         "Music: Level 4",
         "Music: Level 5"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recSybgW92Wd2KXg9?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "rectUBMAxwI3tb21J",
-      "targetId": "recSybgW92Wd2KXg9",
-      "resourceId": "recYJHQP07uKDyMpq",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "Our Work: Grade 3 (Full Term)",
-        "T2": "Our Work: Grade 3 (Full Term)",
-        "T3": "Our Work: Grade 3 (Full Term)"
-      },
-      "gradeText": "G4,",
-      "grades": [
-        4
-      ],
-      "gradeLevelTag": "Grade 3 ONLY",
-      "optional": false,
-      "sharedTextR3": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
-      "sharedLinesR3": [
-        "Picture Study",
-        "Recitation: Grade 3",
-        "Music: Level 3"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recSybgW92Wd2KXg9?home=pag8nmiUVfXJRZFLW"
     },
@@ -16963,7 +16963,7 @@
       "resourceId": "recpZeVli0urkjOFH",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.003.001",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -17003,7 +17003,7 @@
       "resourceId": "recsfooztY1xN2Ukk",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.003.002",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -17041,7 +17041,7 @@
       "resourceId": "recsNwud3Tci78Te8",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.003.003",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
