@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-21T20:50:40.506Z",
+  "lastUpdated": "2026-01-22T08:50:35.881Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -2094,8 +2094,8 @@
         "T2"
       ],
       "termNotes": {
-        "T1": "Little Women (Part 1) (Full Term)",
-        "T2": "Little Women (Part 1) (Partial Term)",
+        "T1": "Little Women (Full Term)",
+        "T2": "Little Women (Partial Term)",
         "T3": ""
       },
       "gradeText": "G5, G6,",
@@ -4342,8 +4342,8 @@
         "T2"
       ],
       "termNotes": {
-        "T1": "Little Women (Part 1) (Full Term)",
-        "T2": "Little Women (Part 1) (Full Term)",
+        "T1": "Little Women (Full Term)",
+        "T2": "Little Women (Full Term)",
         "T3": ""
       },
       "gradeText": "G7, G8,",
@@ -20270,9 +20270,40 @@
         "T3"
       ],
       "termNotes": {
-        "T1": "Elementary Studies in Plant Life (Full Term)",
-        "T2": "Elementary Studies in Plant Life (Partial Term)",
-        "T3": "Elementary Studies in Plant Life (Full Term)"
+        "T1": "Elementary Studies in Plant LifeElementary Studies in Plant Life (Full Term)",
+        "T2": "Elementary Studies in Plant LifeElementary Studies in Plant Life (Partial Term)",
+        "T3": "Elementary Studies in Plant LifeElementary Studies in Plant Life (Full Term)"
+      },
+      "gradeText": "G9, G10, G11, G12,",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recykTvcJ3yoG8O1t?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "reczMYZaT4raSlzoe",
+      "targetId": "recykTvcJ3yoG8O1t",
+      "resourceId": "recEyHOJo6i1qKzs9",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.001.001",
+      "scopeText": "Term 1\nTerm 2 (Partial Term)\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Elementary Studies in Plant LifeElementary Studies in Plant Life (Full Term)",
+        "T2": "Elementary Studies in Plant LifeElementary Studies in Plant Life (Partial Term)",
+        "T3": "Elementary Studies in Plant LifeElementary Studies in Plant Life (Full Term)"
       },
       "gradeText": "G9, G10, G11, G12,",
       "grades": [
