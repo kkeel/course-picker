@@ -2342,6 +2342,19 @@ body {
     background: rgba(0,0,0,0.06);
   }
 
+  /* Mobile override: move launcher to top-right, modal opens below it */
+  @media (max-width: 720px) {
+    .av-video-mobile-btn {
+      top: calc(14px + env(safe-area-inset-top, 0px));
+      bottom: auto; /* override desktop bottom-right */
+    }
+  
+    .av-video-modal {
+      top: calc(66px + env(safe-area-inset-top, 0px)); /* below button */
+      bottom: auto; /* override desktop above-button positioning */
+    }
+  }
+
   /* Print: hide completely */
   @media print {
     .av-video-links { display: none !important; }
