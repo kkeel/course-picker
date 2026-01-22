@@ -2346,22 +2346,32 @@ body {
   .av-intro-flex{
     display:flex;
     align-items:flex-start;
-    justify-content:space-between;
+    justify-content:flex-start;     
     gap:18px;
   }
   
   .av-intro-text{
-    flex:1 1 520px;
+    flex: 1 1 520px;
+    margin: 0;                    
   }
   
+  /* keep box on the right on desktop without extra padding bulk */
   .av-video-inline{
-    flex:0 0 auto;
-    min-width:260px;
-    max-width:340px;
-    border:1px solid rgba(89,110,94,0.25);
-    border-radius:12px;
-    padding:10px 10px;
-    background:transparent; /* same as page */
+    margin-left: auto;     
+    flex: 0 0 auto;
+    min-width: 260px;
+    max-width: 340px;
+  
+    border: 1px solid rgba(89,110,94,0.25);
+    border-radius: 12px;
+  
+    padding: 6px;                
+    background: transparent;   
+  }
+  
+  /* slightly tighter rows ONLY for the inline box */
+  .av-video-inline .av-video-row{
+    padding: 10px 12px;          
   }
   
   /* Stack on smaller screens (and on mobile) */
@@ -2370,9 +2380,15 @@ body {
       flex-direction:column;
       gap:12px;
     }
+  
+    .av-intro-text{
+      flex: 0 0 auto;           
+    }
+  
     .av-video-inline{
-      width:100%;
-      max-width:520px;
+      margin-left: 0;         
+      width: 100%;
+      max-width: 520px;
     }
   }
 
