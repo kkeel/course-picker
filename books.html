@@ -3190,6 +3190,63 @@
     }
   })();
   </script>
+
+  <!-- =========================
+       Floating Video Links (Book Previews + Tutorials)
+       Desktop: bottom-right box
+       Mobile: top-right icon opens modal
+  ========================== -->
+  <div id="videoLinks" class="av-video-links" aria-live="polite">
+    <!-- Desktop floating box -->
+    <div class="av-video-box" role="region" aria-label="Video links">
+      <a class="av-video-row" id="avBookPreviewsLink" href="#" target="_blank" rel="noopener">
+        <span class="av-play-icon" aria-hidden="true">
+          <img src="./img/icons/play-button.svg" alt="" />
+        </span>
+        <span class="av-video-text">Alveary 2026–27 Book Previews</span>
+      </a>
+  
+      <a class="av-video-row" id="avTutorialsLink" href="#" target="_blank" rel="noopener">
+        <span class="av-play-icon" aria-hidden="true">
+          <img src="./img/icons/play-button.svg" alt="" />
+        </span>
+        <span class="av-video-text">Planning App Tutorials</span>
+      </a>
+    </div>
+  
+    <!-- Mobile icon launcher -->
+    <button class="av-video-mobile-btn" id="avVideoMobileBtn" type="button" aria-label="Open video links">
+      <span class="av-play-icon" aria-hidden="true">
+        <img src="./img/icons/play-button.svg" alt="" />
+      </span>
+    </button>
+  
+    <!-- Mobile modal -->
+    <div class="av-video-modal-backdrop" id="avVideoBackdrop" hidden></div>
+  
+    <div class="av-video-modal" id="avVideoModal" role="dialog" aria-modal="true" aria-label="Video links" hidden>
+      <div class="av-video-modal-header">
+        <div class="av-video-modal-title">Videos</div>
+        <button class="av-video-close" id="avVideoClose" type="button" aria-label="Close videos">✕</button>
+      </div>
+  
+      <div class="av-video-modal-body">
+        <a class="av-video-row" id="avBookPreviewsLinkMobile" href="#" target="_blank" rel="noopener">
+          <span class="av-play-icon" aria-hidden="true">
+            <img src="./img/icons/play-button.svg" alt="" />
+          </span>
+          <span class="av-video-text">Alveary 2026–27 Book Previews</span>
+        </a>
+  
+        <a class="av-video-row" id="avTutorialsLinkMobile" href="#" target="_blank" rel="noopener">
+          <span class="av-play-icon" aria-hidden="true">
+            <img src="./img/icons/play-button.svg" alt="" />
+          </span>
+          <span class="av-video-text">Planning App Tutorials</span>
+        </a>
+      </div>
+    </div>
+  </div>
   
 </body>
 </html>
