@@ -2342,6 +2342,40 @@ body {
     background: rgba(0,0,0,0.06);
   }
 
+  /* Intro layout: description + inline video box */
+  .av-intro-flex{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:18px;
+  }
+  
+  .av-intro-text{
+    flex:1 1 520px;
+  }
+  
+  .av-video-inline{
+    flex:0 0 auto;
+    min-width:260px;
+    max-width:340px;
+    border:1px solid rgba(89,110,94,0.25);
+    border-radius:12px;
+    padding:10px 10px;
+    background:transparent; /* same as page */
+  }
+  
+  /* Stack on smaller screens (and on mobile) */
+  @media (max-width: 900px){
+    .av-intro-flex{
+      flex-direction:column;
+      gap:12px;
+    }
+    .av-video-inline{
+      width:100%;
+      max-width:520px;
+    }
+  }
+
   /* Mobile override: move launcher to top-right, modal opens below it */
   @media (max-width: 720px) {
     .av-video-mobile-btn {
