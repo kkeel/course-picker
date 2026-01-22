@@ -2228,18 +2228,7 @@ body {
 
   /* Desktop floating box */
   .av-video-box {
-    position: fixed;
-    right: 16px;
-    bottom: 16px;
-    z-index: var(--av-z);
-    background: var(--av-bg);
-    color: var(--av-text);
-    border: 1px solid var(--av-border);
-    border-radius: var(--av-radius);
-    box-shadow: var(--av-shadow);
-    overflow: hidden;
-    min-width: 280px;
-    max-width: 360px;
+    display: none; /* hide the old desktop box */
   }
 
   .av-video-row {
@@ -2276,25 +2265,31 @@ body {
     display: block;
   }
 
-  /* Mobile icon button */
+  /* Launcher button (all screen sizes) */
   .av-video-mobile-btn {
     position: fixed;
-    right: 14px;
-    top: 14px; /* bump down if your header overlaps */
+    right: calc(16px + env(safe-area-inset-right, 0px));
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
     z-index: var(--av-z);
+  
     background: var(--av-bg);
     color: var(--av-text);
     border: 1px solid var(--av-border);
-    border-radius: 999px;
+    border-radius: 4px;      /* ✅ square with 4px corners */
     box-shadow: var(--av-shadow);
-    width: 46px;
-    height: 46px;
-    display: none; /* only on mobile */
+  
+    width: 44px;             /* small + unobtrusive */
+    height: 44px;
+  
+    display: inline-flex;    /* ✅ always visible now */
+    align-items: center;
+    justify-content: center;
+  
     cursor: pointer;
     padding: 0;
   }
 
-  /* Mobile modal */
+  /* Modal backdrop */
   .av-video-modal-backdrop {
     position: fixed;
     inset: 0;
@@ -2302,10 +2297,13 @@ body {
     background: rgba(0,0,0,0.35);
   }
 
+  /* Modal opens above the bottom-right button */
   .av-video-modal {
     position: fixed;
-    right: 14px;
-    top: 70px;
+    right: calc(16px + env(safe-area-inset-right, 0px));
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px)); /* ✅ above the button */
+    top: auto;
+  
     z-index: var(--av-z);
     background: var(--av-bg);
     border: 1px solid var(--av-border);
@@ -2342,12 +2340,6 @@ body {
 
   .av-video-close:hover {
     background: rgba(0,0,0,0.06);
-  }
-
-  /* Responsive: swap desktop box for mobile button */
-  @media (max-width: 720px) {
-    .av-video-box { display: none; }
-    .av-video-mobile-btn { display: inline-flex; align-items:center; justify-content:center; }
   }
 
   /* Print: hide completely */
