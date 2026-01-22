@@ -127,6 +127,8 @@ window.addEventListener("orientationchange", setAppHeaderHeightVar, { passive: t
       ["avTutorialsLink", TUTORIALS_URL],
       ["avBookPreviewsLinkMobile", BOOK_PREVIEWS_URL],
       ["avTutorialsLinkMobile", TUTORIALS_URL],
+      ["avBookPreviewsInlineLink", BOOK_PREVIEWS_URL],
+      ["avTutorialsInlineLink", TUTORIALS_URL],
     ];
 
     linkIds.forEach(([id, url]) => {
