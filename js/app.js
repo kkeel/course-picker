@@ -108,6 +108,72 @@ window.addEventListener("orientationchange", setAppHeaderHeightVar, { passive: t
   });
 })();
 
+// ---------------- FLOATING VIDEO LINKS (Book List page) ----------------
+// Safe on all pages: if markup isn't present, it does nothing.
+(function initFloatingVideoLinks() {
+  // ====== SET YOUR PLAYLIST URLS HERE ======
+  const BOOK_PREVIEWS_URL = "https://youtube.com/playlist?list=PLvg0fKfOahKR84TV79NMDkZYEuWy0HoAO&si=fYkD8-4dFOdnTQUH";
+  const TUTORIALS_URL     = "https://www.youtube.com/playlist?list=YOUR_TUTORIALS_PLAYLIST_ID";
+
+  function wireUp() {
+    // If the floating video markup isn't on this page, exit quietly.
+    const desktopLink = document.getElementById("avBookPreviewsLink");
+    const mobileBtn   = document.getElementById("avVideoMobileBtn");
+    if (!desktopLink && !mobileBtn) return;
+
+    // Wire up links (desktop + mobile)
+    const linkIds = [
+      ["avBookPreviewsLink", BOOK_PREVIEWS_URL],
+      ["avTutorialsLink", TUTORIALS_URL],
+      ["avBookPreviewsLinkMobile", BOOK_PREVIEWS_URL],
+      ["avTutorialsLinkMobile", TUTORIALS_URL],
+    ];
+
+    linkIds.forEach(([id, url]) => {
+      const el = document.getElementById(id);
+      if (el) el.href = url;
+    });
+
+    // Mobile modal open/close
+    const btn = document.getElementById("avVideoMobileBtn");
+    const modal = document.getElementById("avVideoModal");
+    const backdrop = document.getElementById("avVideoBackdrop");
+    const closeBtn = document.getElementById("avVideoClose");
+
+    function openModal() {
+      if (!modal || !backdrop) return;
+      backdrop.hidden = false;
+      modal.hidden = false;
+    }
+
+    function closeModal() {
+      if (!modal || !backdrop) return;
+      backdrop.hidden = true;
+      modal.hidden = true;
+    }
+
+    btn?.addEventListener("click", () => {
+      if (modal?.hidden) openModal();
+      else closeModal();
+    });
+
+    closeBtn?.addEventListener("click", closeModal);
+    backdrop?.addEventListener("click", closeModal);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal && !modal.hidden) {
+        closeModal();
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", wireUp, { once: true });
+  } else {
+    wireUp();
+  }
+})();
+
 function coursePlanner() {
   return {
 
