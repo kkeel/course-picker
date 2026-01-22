@@ -2212,3 +2212,145 @@ body {
 .course-list-shell.listview-minimal .student-chip-row{
   display: none !important;
 }
+
+/* -----------------------------------------
+   Video Tutorial & Preview Styles
+----------------------------------------- */
+  .av-video-links {
+    --av-bg: rgba(255, 255, 255, 0.95);
+    --av-text: #0c343d;
+    --av-border: rgba(0,0,0,0.10);
+    --av-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    --av-radius: 14px;
+    --av-z: 9999;
+    font-family: inherit;
+  }
+
+  /* Desktop floating box */
+  .av-video-box {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: var(--av-z);
+    background: var(--av-bg);
+    color: var(--av-text);
+    border: 1px solid var(--av-border);
+    border-radius: var(--av-radius);
+    box-shadow: var(--av-shadow);
+    overflow: hidden;
+    min-width: 280px;
+    max-width: 360px;
+  }
+
+  .av-video-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    text-decoration: none;
+    color: inherit;
+    font-size: 14px;
+    line-height: 1.15;
+  }
+
+  .av-video-row + .av-video-row {
+    border-top: 1px solid var(--av-border);
+  }
+
+  .av-video-row:hover {
+    background: rgba(0,0,0,0.04);
+  }
+
+  /* Icon */
+  .av-play-icon {
+    width: 26px;
+    height: 26px;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .av-play-icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Mobile icon button */
+  .av-video-mobile-btn {
+    position: fixed;
+    right: 14px;
+    top: 14px; /* bump down if your header overlaps */
+    z-index: var(--av-z);
+    background: var(--av-bg);
+    color: var(--av-text);
+    border: 1px solid var(--av-border);
+    border-radius: 999px;
+    box-shadow: var(--av-shadow);
+    width: 46px;
+    height: 46px;
+    display: none; /* only on mobile */
+    cursor: pointer;
+    padding: 0;
+  }
+
+  /* Mobile modal */
+  .av-video-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--av-z) - 1);
+    background: rgba(0,0,0,0.35);
+  }
+
+  .av-video-modal {
+    position: fixed;
+    right: 14px;
+    top: 70px;
+    z-index: var(--av-z);
+    background: var(--av-bg);
+    border: 1px solid var(--av-border);
+    border-radius: var(--av-radius);
+    box-shadow: var(--av-shadow);
+    width: min(92vw, 360px);
+    overflow: hidden;
+  }
+
+  .av-video-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--av-border);
+  }
+
+  .av-video-modal-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--av-text);
+  }
+
+  .av-video-close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    color: var(--av-text);
+    padding: 6px 8px;
+    border-radius: 10px;
+  }
+
+  .av-video-close:hover {
+    background: rgba(0,0,0,0.06);
+  }
+
+  /* Responsive: swap desktop box for mobile button */
+  @media (max-width: 720px) {
+    .av-video-box { display: none; }
+    .av-video-mobile-btn { display: inline-flex; align-items:center; justify-content:center; }
+  }
+
+  /* Print: hide completely */
+  @media print {
+    .av-video-links { display: none !important; }
+  }
