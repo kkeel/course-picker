@@ -4,7 +4,7 @@ import path from "node:path";
 
 const OUT_DIR = "pdf/course-list";
 const BASE =
-  "https://kkeel.github.io/course-picker/index.html?autoprint=1&pdf=1";
+  "https://kkeel.github.io/course-picker/courses.html?autoprint=1&pdf=1";
 
 // Read selections from env:
 // - GRADES: "G2,G6" (optional). If empty -> render all grades.
