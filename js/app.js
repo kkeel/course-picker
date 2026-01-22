@@ -2292,6 +2292,17 @@ function coursePlanner() {
     },
     
     enforceAccessGate() {
+      // ✅ Allow headless PDF generation links to run without member login.
+      // GitHub Actions uses URLs like:
+      //   courses.html?autoprint=1&pdf=1&grade=G3
+      //   courses.html?autoprint=1&pdf=1&master=1
+      const params = new URLSearchParams(window.location.search);
+      const isAutoPdf = params.get("autoprint") === "1" && params.get("pdf") === "1";
+      if (isAutoPdf) {
+        this.courseGate = false;
+        return true;
+      }
+    
       // Public users can open the Course List page, but they should only see a sign-in prompt.
       // Members+staff can see the full Course List.
       const path = window.location.pathname || "";
