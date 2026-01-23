@@ -2460,3 +2460,8 @@ body {
     display: none !important;
   }
 }
+@media print {
+  .print-header-title-block {
+    gap: 22px !important; /* was 14px */
+  }
+}
