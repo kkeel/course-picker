@@ -2212,10 +2212,11 @@ body {
 /* Print-only QR styling */
 @media print {
   .print-header-title-block{
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    gap: 14px;
+    display: flex !important;
+    flex-direction: row !important;  
+    align-items: flex-start !important;
+    justify-content: flex-end !important;
+    gap: 14px !important;
   }
 
   .print-header-text{
@@ -2449,5 +2450,13 @@ body {
 
   /* Print: hide completely */
   @media print {
-    .av-video-links { display: none !important; }
+  /* Hide ALL video UI in print (inline box + floating + modal) */
+  .av-video-links,
+  .av-intro-flex,
+  .av-video-inline,
+  .av-video-mobile-btn,
+  .av-video-modal,
+  .av-video-modal-backdrop {
+    display: none !important;
   }
+}
