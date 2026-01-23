@@ -2486,3 +2486,11 @@ body {
   }
 }
 
+/* Hide auth UI in PDFs (Course List + Book List) */
+@media print {
+  #auth-button,
+  .auth-button,
+  .app-header span[x-show="isAuthed"] {
+    display: none !important;
+  }
+}
