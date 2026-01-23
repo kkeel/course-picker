@@ -101,10 +101,6 @@
         >
           Sign in
         </button>
-        
-        <span x-cloak x-show="isAuthed" class="text-xs text-[#666d66]"
-          x-text="authRole === 'staff' ? 'Signed in (staff)' : 'Signed in'">
-        </span>
       
       <!-- Staff-only: Edit mode (inline, before nav) -->
       <div
@@ -129,9 +125,18 @@
 
     <!-- PRINT-ONLY: Course List + grade/master label on the right -->
     <div class="print-header-title-block">
+    <div class="print-header-text">
       <div class="print-header-title">Book List</div>
       <div class="print-header-grade" x-text="gradePrintLabel()"></div>
     </div>
+  
+    <!-- PRINT-ONLY: QR to Book Previews playlist -->
+    <div class="print-qr-block" aria-hidden="true">
+      <img id="printBookPreviewQR" class="print-qr-img" alt="Book previews QR code" />
+      <div class="print-qr-label">Book previews playlist</div>
+    </div>
+  </div>
+
     
   </header>
 
