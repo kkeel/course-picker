@@ -112,16 +112,19 @@ window.addEventListener("orientationchange", setAppHeaderHeightVar, { passive: t
 // Safe on all pages: if markup isn't present, it does nothing.
 (function initFloatingVideoLinks() {
   // ====== SET YOUR PLAYLIST URLS HERE ======
-  const BOOK_PREVIEWS_URL = "https://youtube.com/playlist?list=PLvg0fKfOahKR84TV79NMDkZYEuWy0HoAO&si=fYkD8-4dFOdnTQUH";
-  const TUTORIALS_URL     = "https://www.youtube.com/playlist?list=YOUR_TUTORIALS_PLAYLIST_ID";
+  const BOOK_PREVIEWS_URL =
+    "https://youtube.com/playlist?list=PLvg0fKfOahKR84TV79NMDkZYEuWy0HoAO&si=fYkD8-4dFOdnTQUH";
+
+  const TUTORIALS_URL =
+    "https://www.youtube.com/playlist?list=YOUR_TUTORIALS_PLAYLIST_ID";
 
   function wireUp() {
     // If the floating video markup isn't on this page, exit quietly.
     const desktopLink = document.getElementById("avBookPreviewsLink");
-    const mobileBtn   = document.getElementById("avVideoMobileBtn");
+    const mobileBtn = document.getElementById("avVideoMobileBtn");
     if (!desktopLink && !mobileBtn) return;
 
-    // Wire up links (desktop + mobile)
+    // Wire up links (desktop + mobile + inline)
     const linkIds = [
       ["avBookPreviewsLink", BOOK_PREVIEWS_URL],
       ["avTutorialsLink", TUTORIALS_URL],
@@ -133,7 +136,11 @@ window.addEventListener("orientationchange", setAppHeaderHeightVar, { passive: t
 
     linkIds.forEach(([id, url]) => {
       const el = document.getElementById(id);
-      if (el) el.href = url;
+      if (el) {
+        el.href = url;
+        el.target = "_blank";
+        el.rel = "noopener";
+      }
     });
 
     // Mobile modal open/close
@@ -167,8 +174,19 @@ window.addEventListener("orientationchange", setAppHeaderHeightVar, { passive: t
         closeModal();
       }
     });
+
+    // ✅ Print QR: Book previews only
+    const qrImg = document.getElementById("printBookPreviewQR");
+    if (qrImg) {
+      const qrSrc =
+        "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=" +
+        encodeURIComponent(BOOK_PREVIEWS_URL);
+
+      qrImg.src = qrSrc;
+    }
   }
 
+  // Ensure DOM is ready
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", wireUp, { once: true });
   } else {
