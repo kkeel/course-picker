@@ -2465,3 +2465,24 @@ body {
     gap: 22px !important; /* was 14px */
   }
 }
+
+@media print {
+  /* Hide authentication / sign-in UI in print */
+  .sign-in-button,
+  .auth-controls,
+  .auth-status,
+  .signed-in-text,
+  button[aria-label="Sign in"],
+  a[href*="signin"],
+  a[href*="login"] {
+    display: none !important;
+  }
+}
+
+@media print {
+  #signInBtn,
+  .header-auth {
+    display: none !important;
+  }
+}
+
