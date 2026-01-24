@@ -89,6 +89,7 @@ function normalizeCourse(rec) {
     recordID: f["recordID"] || rec.id,
 
     title: txt(f["ProgramLIST"]) || "(Untitled)",
+    shared: txt(f["Shared"]).trim(),   // expect "↔" or ""
     subject,
 
     gradeTags,
@@ -129,6 +130,7 @@ function normalizeTopic(rec) {
     recordID: f["recordID"] || rec.id,
 
     Topic: txt(f["ProgramLIST"]) || "(Untitled topic)",
+    shared: txt(f["Shared"]).trim(),   // expect "↔" or ""
     Topic_ID: topicId,
     courseId,
 
