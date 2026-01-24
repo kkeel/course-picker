@@ -28,6 +28,9 @@ BRAND FONTS (self-hosted)
   --brand-accent: #adb58f;
   --brand-surface: #ffffff;
   --divider-subtle: #dde2d5;
+  --border-soft: rgba(89,110,94,0.25);
+  --surface-soft: transparent;
+  --text-muted: var(--brand-muted);
 }
 
 body {
@@ -2355,7 +2358,7 @@ body {
     display:flex;
     align-items:flex-start;
     justify-content:flex-start;     
-    gap:18px;
+    gap:28px;
   }
   
   .av-intro-text{
@@ -2394,8 +2397,13 @@ body {
     }
   
     .av-video-inline{
-      margin-left: 0;         
       width: 100%;
+      max-width: 520px;
+    }
+
+    .av-intro-side{
+      width: 100%;
+      flex: 0 0 auto;
       max-width: 520px;
     }
   }
@@ -2469,15 +2477,32 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+
+  /* keeps both boxes the same width on desktop */
+  width: 340px;
+  flex: 0 0 340px;
 }
 
-/* Symbol Key box */
+/* Make BOTH boxes match (outline, radius, width) */
+.av-video-inline,
 .av-symbol-key {
+  width: 100%;
   border: 1px solid var(--border-soft);
-  border-radius: 10px;
-  padding: 12px 14px;
+  border-radius: 12px;
   background: var(--surface-soft);
-  font-size: 0.9rem;
+}
+
+/* Remove the "push right" behavior so it aligns cleanly */
+.av-video-inline {
+  margin-left: 0;      /* was auto */
+  min-width: 0;        /* remove fixed min constraint */
+  max-width: none;     /* let av-intro-side control width */
+  padding: 6px;
+}
+
+/* Symbol key spacing (leave as-is if you like it) */
+.av-symbol-key {
+  padding: 12px 14px;
 }
 
 .av-symbol-key-title {
