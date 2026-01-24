@@ -2490,6 +2490,7 @@ body {
   border: 1px solid var(--border-soft);
   border-radius: 12px;
   background: var(--surface-soft);
+  text-align: left;
 }
 
 /* Remove the "push right" behavior so it aligns cleanly */
