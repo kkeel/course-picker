@@ -140,6 +140,14 @@ body {
   margin-left: 0;
 }
 
+.section-subtitle p {
+  margin-bottom: 0.75rem;
+}
+
+.section-subtitle p:last-child {
+  margin-bottom: 0;
+}
+
 /* Font helpers for branding */
 .font-plantin {
   font-family: 'Plantin MT Pro', 'Times New Roman', serif;
