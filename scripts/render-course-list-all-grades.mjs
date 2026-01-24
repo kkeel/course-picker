@@ -83,7 +83,7 @@ await page.addInitScript(() => {
 for (const t of targets) {
   console.log(`\n--- Rendering ${t.key}: ${t.url}`);
 
-  await page.goto(t.url, { waitUntil: "networkidle", timeout: 180_000 });
+  await page.goto(t.url, { waitUntil: "load", timeout: 180_000 });
 
   // Wait until autoprint has applied the correct label (title includes "Grade X" or "Master")
   await page.waitForFunction(
