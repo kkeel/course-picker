@@ -118,7 +118,7 @@ async function waitForAllImages(page, timeoutMs = 600000) {
 for (const t of targets) {
   console.log(`\n--- Rendering ${t.key}: ${t.url}`);
 
-  await page.goto(t.url, { waitUntil: "networkidle", timeout: 180_000 });
+  await page.goto(t.url, { waitUntil: "load", timeout: 180_000 });
 
   // Wait until grade/master label is applied
   await page.waitForFunction(
