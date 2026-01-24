@@ -1848,6 +1848,28 @@
         <p class="sub">Loading cover images and building page numbers. This window will close automatically after printing.</p>
       </div>
     </div>
+  </body>
+  </html>`);
+      w.document.close();
+  
+      return w;
+    }
+  
+    function installAutoCloseHandlers(w) {
+      function tryClose() { try { w.close(); } catch (e) {} }
+  
+      // best-case
+      try { w.addEventListener("afterprint", tryClose); } catch(e) {}
+  
+      // very common fallback
+      try {
+        w.addEventListener("focus", () => setTimeout(tryClose, 400));
+      } catch(e) {}
+  
+      // never leave orphan tabs
+      setTimeout(tryClose, 60000);
+    };
+  </script>
 
   <!-- =========================
        Floating Video Links (Tutorials only for Course List)
@@ -1892,29 +1914,6 @@
       </div>
     </div>
   </div>
-
-  </body>
-  </html>`);
-      w.document.close();
-  
-      return w;
-    }
-  
-    function installAutoCloseHandlers(w) {
-      function tryClose() { try { w.close(); } catch (e) {} }
-  
-      // best-case
-      try { w.addEventListener("afterprint", tryClose); } catch(e) {}
-  
-      // very common fallback
-      try {
-        w.addEventListener("focus", () => setTimeout(tryClose, 400));
-      } catch(e) {}
-  
-      // never leave orphan tabs
-      setTimeout(tryClose, 60000);
-    };
-  </script>
   
 </body>
 </html>
