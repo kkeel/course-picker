@@ -1034,6 +1034,23 @@ function coursePlanner() {
       return this.selectedTags.some(id => tagIds.has(id));
       },
 
+      displayCourseTitle(course) {
+        const base =
+          course?.course_title ||
+          course?.title ||
+          course?.Course ||
+          "Untitled course";
+      
+        const shared = String(course?.Shared || course?.shared || "").trim();
+        return (shared === "↔" ? "↔ " : "") + base;
+      },
+      
+      displayTopicTitle(topic) {
+        const base = topic?.Topic || topic?.title || "Untitled topic";
+        const shared = String(topic?.Shared || topic?.shared || "").trim();
+        return (shared === "↔" ? "↔ " : "") + base;
+      },
+
       courseMatchesSearch(course, searchLower) {
         const q = (searchLower || "").trim();
         if (!q) return true;
