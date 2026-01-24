@@ -165,18 +165,32 @@
         </div>
       
         <div class="av-intro-side">
-          <div class="av-video-inline av-video-links">
-            <button type="button" class="av-video-link" data-video="BOOK_PREVIEWS_VIDEO_ID">
-              <span class="av-video-icon">▶</span>
-              <span>Book Previews</span>
-            </button>
-      
-            <button type="button" class="av-video-link" data-video="PLANNING_APP_TUTORIALS_VIDEO_ID">
-              <span class="av-video-icon">▶</span>
-              <span>Planning App Tutorials</span>
-            </button>
+          <div class="av-video-inline">
+            <!-- Reuse the SAME working links that your floating box is already wiring up -->
+            <a
+              class="av-video-row"
+              href="#"
+              onclick="document.getElementById('avBookPreviewsLink')?.click(); return false;"
+            >
+              <span class="av-play-icon" aria-hidden="true">
+                <img src="./img/icons/play-button.svg" alt="" />
+              </span>
+              <span class="av-video-text">Book Previews</span>
+            </a>
+        
+            <a
+              class="av-video-row"
+              href="#"
+              onclick="document.getElementById('avTutorialsLink')?.click(); return false;"
+            >
+              <span class="av-play-icon" aria-hidden="true">
+                <img src="./img/icons/play-button.svg" alt="" />
+              </span>
+              <span class="av-video-text">Planning App Tutorials</span>
+            </a>
           </div>
         </div>
+
       </div>
 
       <!-- Filter state + panel (both stick under header) -->
