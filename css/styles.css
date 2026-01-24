@@ -2365,6 +2365,19 @@ body {
     flex: 1 1 520px;
     margin: 0;                    
   }
+
+  /* Make intro row align to the same width as the filter bar */
+  .av-intro-flex{
+    max-width: 1601px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Ensure the right-side stack hugs the right edge */
+  .av-intro-side{
+    margin-left: auto;
+  }
   
   /* keep box on the right on desktop without extra padding bulk */
   .av-video-inline{
