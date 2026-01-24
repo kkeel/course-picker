@@ -2503,7 +2503,7 @@ body {
 /* Symbol key spacing (leave as-is if you like it) */
 .av-symbol-key {
   font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 14px;        /* match tutorial button */
+  font-size: 10px;        /* match tutorial button */
   font-weight: 300;
   line-height: 1.4;
   padding: 12px 14px;
@@ -2530,7 +2530,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;       /* ensure consistency */
+  font-size: 10px;       /* ensure consistency */
   font-weight: 300;
 }
 
@@ -2542,7 +2542,7 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 03px;
   opacity: 0.9;
 }
 
