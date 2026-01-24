@@ -10,6 +10,11 @@ const COURSES_CACHE_KEY = `alveary_courses_${APP_CACHE_VERSION}`;
 const UI_STATE_KEY      = `alveary_ui_${APP_CACHE_VERSION}`;
 const PLANNER_STATE_KEY = `alveary_planner_${APP_CACHE_VERSION}`;
 
+// ---------------- SHARED COURSE/TOPIC TITLE HELPER ----------------
+function withSharedPrefix(title, shared) {
+  return shared === "↔" ? `↔ ${title}` : title;
+}
+
 function setAppHeaderHeightVar() {
   const header = document.querySelector(".app-header");
   if (!header) return;
