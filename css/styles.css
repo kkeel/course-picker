@@ -2000,7 +2000,7 @@ body {
     font-size: 9pt !important;
   }
 
-  /* PRINT: Course cards ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â top border only */
+  /* PRINT: Course cards top border only */
   .course-card {
     box-shadow: none !important;
     background-color: #ffffff !important;
@@ -2201,49 +2201,6 @@ body {
     margin-top: 6px !important;
   }
   
-}
-
-/* -----------------------------------------
-   Book List: QR
------------------------------------------ */
-/* Default: never show QR on screen */
-.print-qr-block { display: none; }
-
-/* Print-only QR styling */
-@media print {
-  .print-header-title-block{
-    display: flex !important;
-    flex-direction: row !important;  
-    align-items: flex-start !important;
-    justify-content: flex-end !important;
-    gap: 14px !important;
-  }
-
-  .print-header-text{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-  }
-
-  .print-qr-block{
-    display: flex !important;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .print-qr-img{
-    width: 72px;
-    height: 72px;
-  }
-
-  .print-qr-label{
-    margin-top: 3px;
-    font-size: 8px;          /* tiny + non-distracting */
-    line-height: 1.1;
-    color: #666d66;
-    text-align: center;
-    max-width: 90px;
-  }
 }
 
 /* -----------------------------------------
