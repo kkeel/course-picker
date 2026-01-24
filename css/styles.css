@@ -2454,3 +2454,12 @@ body {
     display: none !important;
   }
 }
+
+/* Intro text paragraphs (Course List + Book List style) */
+.av-intro-paragraphs p {
+  margin: 0;
+}
+
+.av-intro-paragraphs p + p {
+  margin-top: 12px; /* adjust if you want a touch more/less */
+}
