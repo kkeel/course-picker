@@ -23,7 +23,7 @@ on:
 
   schedule:
     # Nightly (UTC). 10:15 UTC ≈ 2:15am PST / 3:15am PDT
-    - cron: "50 15 * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   render:
