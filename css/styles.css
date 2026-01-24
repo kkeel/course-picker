@@ -2536,14 +2536,14 @@ body {
 
 /* Symbols */
 .av-symbol {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  font-size: 12px;     /* 👈 IMPORTANT */
+  font-size: 11px;     /* 👈 IMPORTANT */
   line-height: 1;
   font-weight: 600;
 
@@ -2553,33 +2553,40 @@ body {
 }
 
 .av-symbol.glyph {
-  font-size: 16px;
+  font-size: 12px;
 }
 
-/* Full teacher attention (T box) */
+/* --- Teacher attention squares: consistent + smaller for 10px text --- */
+.av-symbol-box,
+.av-symbol-half,
+.av-symbol-empty {
+  width: 12px;
+  height: 12px;
+
+  border: 1.25px solid currentColor;
+  box-sizing: border-box;
+  flex-shrink: 0;
+
+  /* keep baseline aligned with tiny text */
+  transform: translateY(1px);
+}
+
+/* Full teacher attention (T in a box) */
 .av-symbol-box {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  font-size: 9px;       
+  font-size: 8px;
   font-weight: 600;
   line-height: 1;
 }
 
-/* Partial teacher attention */
+/* Partial teacher attention (half filled) */
 .av-symbol-half {
   background: linear-gradient(
     135deg,
     currentColor 50%,
     transparent 50%
   );
-}
-
-/* Little to no teacher attention */
-.av-symbol-empty {
-  width: 16px;
-  height: 16px;
-
-  border: 1.5px solid currentColor;
 }
