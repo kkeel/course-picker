@@ -816,7 +816,7 @@
                       <!-- Title row with bookmark (for topic-less courses) + chevron -->
                       <div class="card-header">
                         <div class="title-with-edit">
-                          <h4 class="course-title" x-text="course.course_title || course.title || course.Course || 'Untitled course'"></h4>
+                          <h4 class="course-title" x-text="displayCourseTitle(course)"></h4>
                             <a
                               class="edit-pill"
                               x-show="isStaff && editMode && (course.Edit_ResourceAssignmentsURL || _editUrlForTargetId(course.recordID || course.id))"
@@ -1815,7 +1815,7 @@
                             <!-- Title row with chevron -->
                             <div class="card-header">
                               <div class="title-with-edit">
-                                <h5 class="topic-title" x-text="topic.Topic"></h5>
+                                <h5 class="topic-title" x-text="displayTopicTitle(topic)"></h5>
                                  <a
                                   class="edit-pill"
                                   x-show="isStaff && editMode && (topic.Edit_ResourceAssignmentsURL || _editUrlForTargetId(topic.recordID || topic.id))"
