@@ -2463,3 +2463,71 @@ body {
 .av-intro-paragraphs p + p {
   margin-top: 12px; /* adjust if you want a touch more/less */
 }
+
+/* Right-side intro stack (tutorial + symbol key) */
+.av-intro-side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Symbol Key box */
+.av-symbol-key {
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: var(--surface-soft);
+  font-size: 0.9rem;
+}
+
+.av-symbol-key-title {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+}
+
+/* Grid layout */
+.av-symbol-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  row-gap: 8px;
+  column-gap: 12px;
+}
+
+.av-symbol-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Symbols */
+.av-symbol {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+/* Teacher attention icons */
+.av-symbol-box {
+  border: 1px solid currentColor;
+  font-size: 0.7rem;
+}
+
+.av-symbol-half {
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(135deg, currentColor 50%, transparent 50%);
+  border: 1px solid currentColor;
+}
+
+.av-symbol-empty {
+  width: 14px;
+  height: 14px;
+  border: 1px solid currentColor;
+}
