@@ -133,7 +133,12 @@
   background: rgba(255,255,255,0.60);
   border: 1px solid var(--divider-subtle);
   border-radius: 16px;
-  padding: 18px 18px;
+
+  /* keep your existing vertical padding, but reserve space on the right for the image */
+  padding: 18px 240px 18px 18px;
+
+  /* allows absolute-positioned image to anchor to the whole card */
+  position: relative;
 }
 
 .guide-section-cream{
@@ -170,9 +175,8 @@
 
 .guide-grid{
   display: grid;
-  grid-template-columns: 1.35fr 0.65fr;
+  grid-template-columns: 1fr;
   gap: 16px;
-  align-items: center;
 }
 
 .guide-text p{
@@ -193,9 +197,14 @@
 }
 
 .guide-image{
+  position: absolute;
+  right: 18px;          /* matches left padding for symmetry */
+  top: 50%;
+  transform: translateY(-50%);  /* THIS is the “center on whole card” */
+
+  width: 210px;         /* container width for the image column */
   display: flex;
-  justify-content: flex-end;
-  padding-right: 6px;
+  justify-content: flex-end;  /* keep the same horizontal behavior you liked */
 }
 
 .guide-image img{
@@ -210,4 +219,23 @@
   .index-top-grid{ grid-template-columns: 1fr; }
   .guide-grid{ grid-template-columns: 1fr; }
   .guide-image{ justify-content: flex-start; }
+}
+
+@media (max-width: 980px){
+  .index-top-grid{ grid-template-columns: 1fr; }
+  .guide-grid{ grid-template-columns: 1fr; }
+  .guide-image{ justify-content: flex-start; }
+
+  /* NEW: revert to normal stacking */
+  .guide-section{
+    padding: 18px;
+  }
+  .guide-image{
+    position: static;
+    top: auto;
+    right: auto;
+    transform: none;
+    width: auto;
+    margin-top: 12px;
+  }
 }
