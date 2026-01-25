@@ -1,219 +1,312 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Course Planning | Alveary</title>
-</head>
+  <!-- 1. Required basics -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alveary – Planning Guide</title>
+
+  <!-- 2. PWA / App metadata -->
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="theme-color" content="#596e5e">
+
+  <!-- iOS support -->
+  <link rel="apple-touch-icon" href="./img/icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <!-- 2.5 MemberStack (must load early to read login state) -->
+  <script>
+    window.memberstackConfig = {
+      useCookies: true,
+      setCookieOnRootDomain: true
+    };
+  </script>
+  <script
+    data-memberstack-app="app_clbb9rspy00160ujl6tsxbsrj"
+    src="https://static.memberstack.com/scripts/v1/memberstack.js"
+    type="text/javascript">
+  </script>
+
+  <!-- 3. Fonts -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+  />
+
+  <!-- 4. CSS -->
+  <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/index.css">
+
+  <!-- Tailwind via CDN (matches courses/books pages) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="icon" type="image/png" href="img/Alveary%20Lt.%20Green.png">
+</head>
+
 <body>
-  <main class="wrap">
-    <!-- Top header -->
-    <header class="topbar">
-      <div class="brand">
-        <img src="img/Alveary Lt. Green.png" alt="Alveary mark" />
-        <div class="title">
-          <strong>Course</strong>
-          <span>Planning</span>
-        </div>
+  <!-- Header (matches courses/books app shell) -->
+  <header class="app-header mb-8 px-6 md:px-16 py-4 md:py-6 flex flex-col md:flex-row md:items-center gap-4">
+    <!-- Logo + wordmark -->
+    <div class="flex items-center gap-3">
+      <img
+        src="img/Alveary%20Lt.%20Green.png"
+        alt="Alveary logo"
+        class="object-contain"
+        style="height: 40px; width: 40px;"
+      />
+      <div class="logo-text-block">
+        <span class="logo-title">Alveary</span>
+        <!-- (Print-only on other pages; harmless here if present) -->
+        <span class="print-year-left">2026–2027</span>
       </div>
+    </div>
 
-      <nav class="actions" aria-label="Primary actions">
-        <a class="btn primary" href="courses.html">
-          <!-- arrow icon -->
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M20 12H4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          Start Planning
-        </a>
+    <!-- Top-right: auth + nav -->
+    <div class="mt-3 md:mt-0 md:ml-auto flex items-center justify-end gap-6 text-sm">
+      <button
+        id="auth-button"
+        class="auth-button text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
+        type="button"
+      >
+        Sign in
+      </button>
 
-        <a class="btn" href="books.html">
-          <!-- book icon -->
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 19a2 2 0 0 1 2-2h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M6 17V5a2 2 0 0 1 2-2h12v16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Open Book List
-        </a>
+      <nav class="flex items-center gap-x-6 text-sm">
+        <a href="index.html" class="nav-tab nav-tab-active">Planning Guide</a>
+        <a href="courses.html" class="nav-tab">Course List</a>
+        <a href="books.html" class="nav-tab">Book List</a>
       </nav>
-    </header>
+    </div>
+  </header>
 
-    <!-- Intro -->
-    <section class="intro" aria-label="Planning guide intro">
-      <div class="intro-card">
-        <p>
-          The guidance below is designed to help you plan your year with intention and grace.
-          <br />
-          <em>A Charlotte Mason education should fit the child, not force the child to fit the curriculum.</em>
+  <main class="main-content px-6 md:px-16 pb-16">
+    <!-- Hero -->
+    <section class="intro-hero">
+      <div class="intro-hero-left">
+        <p class="intro-kicker">Start here</p>
+        <h1 class="intro-title">Planning Guide</h1>
+        <p class="intro-subtitle">
+          Everything you need to build, customize, and print your Alveary plan.
         </p>
-        <p style="margin:0;">
-          Use this page as a quick roadmap before you jump into the Course List and Book List tools.
-        </p>
-      </div>
 
-      <aside class="quicklinks">
-        <h3>On this page</h3>
-        <ul>
-          <li><a href="#core">Core Subjects</a></li>
-          <li><a href="#high-interest">High Interest Subjects</a></li>
-          <li><a href="#additional">Additional Subjects</a></li>
-          <li><a href="#plan">Plan Your Year</a></li>
-        </ul>
-      </aside>
-    </section>
+        <div class="intro-cta-row">
+          <a class="intro-primary-btn" href="courses.html">
+            <span class="intro-btn-icon" aria-hidden="true">
+              <img src="img/icons/bookmark-muted.svg" alt="" />
+            </span>
+            <span>Open Course List</span>
+          </a>
 
-    <!-- Core Subjects -->
-    <section class="section" id="core">
-      <div class="section-grid">
-        <div>
-          <div class="kicker">Step 1</div>
-          <h2>Core Subjects</h2>
-          <div class="bar dark"></div>
-
-          <p>
-            Start by focusing on the core subjects required by your state or those you consider nonnegotiable,
-            such as Bible, History, Geography, English/Reading, Literature, Science, and Math.
-          </p>
-
-          <p>
-            If you plan to modify a subject—such as focusing on only one stream of History (e.g., World, Ancient,
-            or US/Canadian for grades 4+)—make a note of it. Similarly, if you intend to combine students into a
-            single grade level for a subject (e.g., 2nd and 3rd graders sharing a 3rd-grade Science course), make
-            note of that too.
-          </p>
-
-          <p style="margin-bottom:0;">
-            Refer to our tips on <a href="combine.html">combining students</a> for additional guidance.
-            <!-- Swap combine.html to the real route when you have it -->
-          </p>
+          <a class="intro-secondary-btn" href="books.html">
+            <span class="intro-btn-icon" aria-hidden="true">
+              <img src="img/icons/book-icon-inactive.svg" alt="" />
+            </span>
+            <span>Open Book List</span>
+          </a>
         </div>
 
-        <div class="side-img">
-          <img src="img/Core Subjects.png" alt="Core Subjects icon" />
+        <div class="intro-note">
+          <strong>Tip:</strong> If you sign in, your “My Courses” and “My Books” selections will save across devices.
         </div>
       </div>
-    </section>
 
-    <!-- High Interest Subjects -->
-    <section class="section" id="high-interest">
-      <div class="section-grid">
-        <div>
-          <div class="kicker">Step 2</div>
-          <h2>High Interest Subjects</h2>
-          <div class="bar"></div>
-
-          <p>
-            Next, choose a few subjects that spark high interest for each child or that your whole family would
-            enjoy together.
-          </p>
-
-          <p>
-            You can focus on the same subject throughout the year or rotate topics to explore a variety. For example,
-            you might dedicate one term each to Shakespeare, Plutarch, and Composer Study if you don’t have room for a
-            full year of each. If you prefer a slower pace, consider spreading a term’s worth of lessons across two terms.
-          </p>
-
-          <p style="margin-bottom:0;">
-            This approach works well for subjects such as Art Instruction or Singing, giving you the flexibility
-            to adjust to your students’ needs.
-          </p>
-        </div>
-
-        <div class="side-img">
-          <img src="img/High Interest Subjects.png" alt="High Interest Subjects icon" />
-        </div>
-      </div>
-    </section>
-
-    <!-- Additional Subjects -->
-    <section class="section" id="additional">
-      <div class="section-grid">
-        <div>
-          <div class="kicker">Step 3</div>
-          <h2>Additional Subjects</h2>
-          <div class="bar"></div>
-
-          <p>
-            Review the remaining subjects and choose one or two that feel especially important to include,
-            especially if they haven’t been covered yet. Consider options that:
-          </p>
-
-          <ul>
-            <li>Fulfill high school credit requirements.</li>
-            <li>Reflect your family’s priorities or interests.</li>
-            <li>Align with your child’s passions or future goals.</li>
-          </ul>
-
-          <p style="margin:10px 0 0;">
-            These could also be subjects where Alveary offers resources without daily lesson plans
-            (e.g., cooking or car maintenance) or areas where you can incorporate non-Alveary resources,
-            such as co-op classes or ACT prep courses.
-          </p>
-        </div>
-
-        <div class="side-img">
-          <img src="img/Additional Subjects.png" alt="Additional Subjects icon" />
-        </div>
-      </div>
-    </section>
-
-    <!-- Plan Your Year -->
-    <section class="section" id="plan" style="background: linear-gradient(180deg, var(--paper), #fbfaf6);">
-      <div class="section-grid">
-        <div>
-          <div class="kicker">Step 4</div>
-          <h2>Plan Your Year</h2>
-          <div class="bar cream"></div>
-
-          <p>
-            Now that you’ve identified your subjects you are ready to create a schedule using Alveary’s scheduling tools.
-            This is a great starting point for your school year.
-          </p>
-
-          <p>
-            If you have room for additional subjects—or think you might later—make a list of what you’d like to include
-            and why each is important. Consider adding these subjects when time allows.
-          </p>
-
-          <p style="margin-bottom:0;">
-            For guidance, refer to these Alveary resources:
-          </p>
-
-          <ul>
-            <li><a href="relational-education.html">Relational Education (which subjects are intertwined)</a></li>
-            <li><a href="balancing-the-feast.html">Balancing the Feast (often overlooked subjects)</a></li>
-            <li><a href="combine.html">Tips for Combining Students</a></li>
-          </ul>
-
-          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-            <a class="btn primary" href="courses.html">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M20 12H4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              Go to Course List
-            </a>
-            <a class="btn" href="books.html">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M4 19a2 2 0 0 1 2-2h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M6 17V5a2 2 0 0 1 2-2h12v16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Go to Book List
-            </a>
+      <div class="intro-hero-right">
+        <!-- Replace this image path with whichever banner you want to use -->
+        <div class="intro-hero-image-wrap">
+          <img
+            src="img/landing/planning-guide-hero.png"
+            alt="Planning guide preview"
+            class="intro-hero-image"
+            onerror="this.closest('.intro-hero-image-wrap').classList.add('intro-hero-image-missing'); this.remove();"
+          />
+          <div class="intro-hero-image-fallback">
+            Add your banner image at <code>img/landing/planning-guide-hero.png</code>
           </div>
         </div>
-
-        <div class="side-img">
-          <img src="img/Plan Your Year.png" alt="Plan Your Year icon" />
-        </div>
       </div>
     </section>
 
-    <footer>
-      © Alveary • Planning tools and guidance
-    </footer>
+    <!-- Content grid (PDF-style: main narrative + right rail cards) -->
+    <section class="intro-grid">
+      <!-- Left column -->
+      <div class="intro-main">
+        <section class="intro-card">
+          <h2 class="intro-h2">1) Choose courses &amp; topics</h2>
+          <p class="intro-p">
+            Browse by subject and grade, then bookmark the courses and topics you plan to use.
+            Turn on <em>My Courses</em> to focus on your selections.
+          </p>
+          <ul class="intro-bullets">
+            <li>Use filters to narrow by grade, subject, and planning tags.</li>
+            <li>Add planning tags to help you track term plans, co-op plans, or student assignments.</li>
+            <li>Use “My Notes” to keep your personal planning thoughts right alongside the curriculum.</li>
+          </ul>
+        </section>
+
+        <section class="intro-card">
+          <h2 class="intro-h2">2) Build your Book List</h2>
+          <p class="intro-p">
+            Your Book List reflects the resources connected to your selected courses/topics.
+            Bookmark books as you gather them, and track preparation status if needed.
+          </p>
+          <ul class="intro-bullets">
+            <li>Turn on <em>My Books</em> to see only what you plan to use.</li>
+            <li>Use preparation tracking (digital/physical, ordered/received/ready) to stay organized.</li>
+            <li>Print when you’re ready—covers and page numbers are handled for you.</li>
+          </ul>
+        </section>
+
+        <section class="intro-card">
+          <h2 class="intro-h2">3) Print &amp; share</h2>
+          <p class="intro-p">
+            Both lists are designed to work on screen and on paper. Use print to create a clean,
+            shareable copy for your home, co-op, or school.
+          </p>
+          <div class="intro-callout">
+            <span class="intro-callout-dot" aria-hidden="true"></span>
+            <div>
+              <div class="intro-callout-title">Printing works best in Chrome</div>
+              <div class="intro-callout-text">
+                If covers look slow to load, give the print window a moment to finish “preparing.”
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="intro-card intro-card--soft">
+          <h2 class="intro-h2">Need a quick start?</h2>
+          <p class="intro-p">
+            Start by choosing just one grade and one subject, bookmark what you want, then switch
+            to the Book List to see your full materials list come together.
+          </p>
+          <div class="intro-mini-actions">
+            <a class="intro-link-btn" href="courses.html">Go to Course List →</a>
+            <a class="intro-link-btn" href="books.html">Go to Book List →</a>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right column (boxes like your PDF sidebar) -->
+      <aside class="intro-rail">
+        <section class="intro-sidecard">
+          <div class="intro-sidecard-title">Tutorials</div>
+          <p class="intro-sidecard-text">
+            Watch the short videos to learn filters, bookmarking, and printing.
+          </p>
+
+          <div class="intro-sidecard-actions">
+            <!-- TODO: replace the href values with your real YouTube links -->
+            <a class="intro-sidecard-btn" href="#" target="_blank" rel="noopener">
+              <span class="intro-sidecard-btn-icon" aria-hidden="true">
+                <img src="./img/icons/play-button.svg" alt="" />
+              </span>
+              <span>Planning App Tutorials</span>
+            </a>
+
+            <a class="intro-sidecard-btn" href="#" target="_blank" rel="noopener">
+              <span class="intro-sidecard-btn-icon" aria-hidden="true">
+                <img src="./img/icons/play-button.svg" alt="" />
+              </span>
+              <span>Book List Preview</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="intro-sidecard">
+          <div class="intro-sidecard-title">Symbol key</div>
+          <div class="intro-key">
+            <div class="intro-key-row">
+              <span class="intro-key-symbol">↔</span>
+              <span class="intro-key-text">Shared with other grade levels</span>
+            </div>
+            <div class="intro-key-row">
+              <span class="intro-key-symbol">★</span>
+              <span class="intro-key-text">Alveary recommended</span>
+            </div>
+            <div class="intro-key-row">
+              <span class="intro-key-symbol">⍞</span>
+              <span class="intro-key-text">Materials / books needed</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="intro-sidecard intro-sidecard--image">
+          <div class="intro-sidecard-title">Planning workflow</div>
+          <p class="intro-sidecard-text">
+            Use the course list to choose what you’ll teach, then use the book list to gather materials.
+          </p>
+
+          <!-- Replace with a real workflow image if you have one -->
+          <div class="intro-sidecard-image-wrap">
+            <img
+              src="img/landing/planning-workflow.png"
+              alt="Planning workflow"
+              class="intro-sidecard-image"
+              onerror="this.closest('.intro-sidecard-image-wrap').classList.add('intro-sidecard-image-missing'); this.remove();"
+            />
+            <div class="intro-sidecard-image-fallback">
+              Add image at <code>img/landing/planning-workflow.png</code>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </section>
   </main>
+
+  <script>
+    // -------------------------
+    // Minimal MemberStack auth button behavior (no Alpine on index)
+    // -------------------------
+    (function () {
+      const btn = document.getElementById("auth-button");
+      if (!btn) return;
+
+      function openAuth() {
+        try {
+          // Most common in MemberStack v1
+          if (window.$memberstackDom && window.$memberstackDom.openModal) {
+            window.$memberstackDom.openModal("LOGIN");
+            return;
+          }
+          if (window.MemberStack && window.MemberStack.openModal) {
+            window.MemberStack.openModal("LOGIN");
+            return;
+          }
+        } catch (e) {}
+        // fallback: nothing
+      }
+
+      btn.addEventListener("click", openAuth);
+
+      async function updateAuthUi() {
+        try {
+          if (!window.$memberstackDom || !window.$memberstackDom.getCurrentMember) return;
+          const res = await window.$memberstackDom.getCurrentMember();
+          const isAuthed = !!(res && res.data && res.data.id);
+          if (isAuthed) {
+            btn.textContent = "Account";
+            btn.addEventListener("click", function () {
+              try {
+                window.$memberstackDom.openModal("PROFILE");
+              } catch (e) {}
+            }, { once: true });
+          }
+        } catch (e) {
+          // ignore
+        }
+      }
+
+      // MemberStack loads async; poll briefly
+      let tries = 0;
+      const t = setInterval(() => {
+        tries++;
+        updateAuthUi();
+        if (tries > 20) clearInterval(t);
+      }, 250);
+    })();
+  </script>
 </body>
 </html>
-
