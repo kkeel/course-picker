@@ -1,0 +1,273 @@
+/* ---------- Fonts (adjust paths to match your repo) ---------- */
+    @font-face {
+      font-family: "Circular Pro";
+      src: url("fonts/CircularPro-Book.otf") format("opentype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Circular Pro";
+      src: url("fonts/CircularPro-Medium.otf") format("opentype");
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Circular Pro";
+      src: url("fonts/CircularPro-Bold.otf") format("opentype");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Plantin MT Pro";
+      src: url("fonts/PlantinMTProRg.TTF") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Plantin MT Pro";
+      src: url("fonts/PlantinMTProRgIt.TTF") format("truetype");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    /* ---------- Brand-ish tokens (tweak as desired) ---------- */
+    :root{
+      --ink: #1e2320;
+      --muted: #5b625c;
+
+      --green-dark: #596e5e;
+      --green-mid:  #adb58f;
+      --green-soft: #e5e8e5;
+      --green-soft-2:#d2d6d2;
+
+      --paper: #ffffff;
+      --cream: #f4f2ea;
+
+      --radius-xl: 22px;
+      --radius-lg: 16px;
+
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --border: 1px solid rgba(0,0,0,.08);
+
+      --container: 1080px;
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--ink);
+      background: linear-gradient(180deg, #ffffff 0%, #fbfbfa 35%, #f7f7f5 100%);
+      font-family: "Circular Pro", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.45;
+    }
+
+    a{ color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+    a:hover{ opacity:.9; }
+
+    .wrap{
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 28px 18px 64px;
+    }
+
+    /* ---------- Header ---------- */
+    .topbar{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 240px;
+    }
+    .brand img{
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+    .brand .title{
+      display:flex;
+      flex-direction:column;
+      line-height:1.05;
+    }
+    .brand .title strong{
+      font-size: 28px;
+      letter-spacing: .2px;
+      color: var(--green-dark);
+    }
+    .brand .title span{
+      margin-top: 6px;
+      font-family: "Plantin MT Pro", Georgia, serif;
+      font-size: 22px;
+      color: var(--green-mid);
+    }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: var(--border);
+      background: var(--paper);
+      box-shadow: 0 4px 14px rgba(0,0,0,.06);
+      cursor:pointer;
+      text-decoration:none;
+      font-weight: 600;
+      color: var(--green-dark);
+    }
+    .btn.primary{
+      background: var(--green-dark);
+      color: #fff;
+      border: 1px solid rgba(0,0,0,.08);
+    }
+    .btn:focus{ outline: 3px solid rgba(89,110,94,.25); outline-offset: 2px; }
+    .btn svg{ width: 18px; height: 18px; }
+
+    /* ---------- Intro text ---------- */
+    .intro{
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 18px;
+      align-items: start;
+      margin: 12px 0 24px;
+    }
+    .intro-card{
+      background: var(--paper);
+      border: var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 18px 18px 16px;
+    }
+    .intro-card p{
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+    .intro-card p em{
+      font-family: "Plantin MT Pro", Georgia, serif;
+      font-style: italic;
+      color: var(--ink);
+    }
+
+    .quicklinks{
+      background: var(--paper);
+      border: var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .quicklinks h3{
+      margin: 0 0 10px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--green-dark);
+    }
+    .quicklinks ul{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+    .quicklinks li{ margin: 8px 0; }
+
+    /* ---------- Guide sections ---------- */
+    .section{
+      position: relative;
+      background: var(--paper);
+      border: var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      margin: 14px 0;
+      overflow:hidden;
+    }
+
+    .section-grid{
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .kicker{
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--green-dark);
+      margin: 0 0 10px;
+    }
+
+    .section h2{
+      margin: 0 0 10px;
+      font-size: 22px;
+      color: #111;
+    }
+
+    .bar{
+      height: 10px;
+      width: 55%;
+      border-radius: 999px;
+      background: var(--green-mid);
+      margin: 10px 0 14px;
+      opacity: .85;
+    }
+    .bar.dark{ background: var(--green-dark); }
+    .bar.cream{ background: #efe9d7; }
+
+    .section p{
+      margin: 0 0 10px;
+      color: var(--muted);
+    }
+
+    .section ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+    .section li{ margin: 6px 0; }
+
+    .side-img{
+      display:flex;
+      justify-content:flex-end;
+    }
+    .side-img img{
+      width: min(260px, 100%);
+      height: auto;
+      border-radius: 18px;
+      filter: drop-shadow(0 10px 22px rgba(0,0,0,.12));
+    }
+
+    /* ---------- Footer ---------- */
+    footer{
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align:center;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 860px){
+      .intro, .section-grid{ grid-template-columns: 1fr; }
+      .side-img{ justify-content:flex-start; }
+      .brand .title strong{ font-size: 24px; }
+      .brand .title span{ font-size: 18px; }
+    }
