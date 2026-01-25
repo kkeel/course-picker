@@ -172,7 +172,7 @@
   display: grid;
   grid-template-columns: 1.35fr 0.65fr;
   gap: 16px;
-  align-items: stretch;
+  align-items: center;
 }
 
 .guide-text p{
@@ -194,8 +194,7 @@
 
 .guide-image{
   display: flex;
-  align-items: center;      /* vertical centering */
-  justify-content: center;  /* horizontal centering */
+  justify-content: flex-end;
   padding-right: 6px;
 }
 
