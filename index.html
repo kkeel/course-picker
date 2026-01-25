@@ -1,12 +1,219 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=./courses.html" />
-  <link rel="canonical" href="./courses.html" />
-  <title>Redirecting…</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Course Planning | Alveary</title>
 </head>
+  <link rel="stylesheet" href="css/index.css">
 <body>
-  <p>Redirecting to <a href="./courses.html">courses.html</a>…</p>
+  <main class="wrap">
+    <!-- Top header -->
+    <header class="topbar">
+      <div class="brand">
+        <img src="img/Alveary Lt. Green.png" alt="Alveary mark" />
+        <div class="title">
+          <strong>Course</strong>
+          <span>Planning</span>
+        </div>
+      </div>
+
+      <nav class="actions" aria-label="Primary actions">
+        <a class="btn primary" href="courses.html">
+          <!-- arrow icon -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 12H4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Start Planning
+        </a>
+
+        <a class="btn" href="books.html">
+          <!-- book icon -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 19a2 2 0 0 1 2-2h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M6 17V5a2 2 0 0 1 2-2h12v16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Open Book List
+        </a>
+      </nav>
+    </header>
+
+    <!-- Intro -->
+    <section class="intro" aria-label="Planning guide intro">
+      <div class="intro-card">
+        <p>
+          The guidance below is designed to help you plan your year with intention and grace.
+          <br />
+          <em>A Charlotte Mason education should fit the child, not force the child to fit the curriculum.</em>
+        </p>
+        <p style="margin:0;">
+          Use this page as a quick roadmap before you jump into the Course List and Book List tools.
+        </p>
+      </div>
+
+      <aside class="quicklinks">
+        <h3>On this page</h3>
+        <ul>
+          <li><a href="#core">Core Subjects</a></li>
+          <li><a href="#high-interest">High Interest Subjects</a></li>
+          <li><a href="#additional">Additional Subjects</a></li>
+          <li><a href="#plan">Plan Your Year</a></li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Core Subjects -->
+    <section class="section" id="core">
+      <div class="section-grid">
+        <div>
+          <div class="kicker">Step 1</div>
+          <h2>Core Subjects</h2>
+          <div class="bar dark"></div>
+
+          <p>
+            Start by focusing on the core subjects required by your state or those you consider nonnegotiable,
+            such as Bible, History, Geography, English/Reading, Literature, Science, and Math.
+          </p>
+
+          <p>
+            If you plan to modify a subject—such as focusing on only one stream of History (e.g., World, Ancient,
+            or US/Canadian for grades 4+)—make a note of it. Similarly, if you intend to combine students into a
+            single grade level for a subject (e.g., 2nd and 3rd graders sharing a 3rd-grade Science course), make
+            note of that too.
+          </p>
+
+          <p style="margin-bottom:0;">
+            Refer to our tips on <a href="combine.html">combining students</a> for additional guidance.
+            <!-- Swap combine.html to the real route when you have it -->
+          </p>
+        </div>
+
+        <div class="side-img">
+          <img src="img/Core Subjects.png" alt="Core Subjects icon" />
+        </div>
+      </div>
+    </section>
+
+    <!-- High Interest Subjects -->
+    <section class="section" id="high-interest">
+      <div class="section-grid">
+        <div>
+          <div class="kicker">Step 2</div>
+          <h2>High Interest Subjects</h2>
+          <div class="bar"></div>
+
+          <p>
+            Next, choose a few subjects that spark high interest for each child or that your whole family would
+            enjoy together.
+          </p>
+
+          <p>
+            You can focus on the same subject throughout the year or rotate topics to explore a variety. For example,
+            you might dedicate one term each to Shakespeare, Plutarch, and Composer Study if you don’t have room for a
+            full year of each. If you prefer a slower pace, consider spreading a term’s worth of lessons across two terms.
+          </p>
+
+          <p style="margin-bottom:0;">
+            This approach works well for subjects such as Art Instruction or Singing, giving you the flexibility
+            to adjust to your students’ needs.
+          </p>
+        </div>
+
+        <div class="side-img">
+          <img src="img/High Interest Subjects.png" alt="High Interest Subjects icon" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Additional Subjects -->
+    <section class="section" id="additional">
+      <div class="section-grid">
+        <div>
+          <div class="kicker">Step 3</div>
+          <h2>Additional Subjects</h2>
+          <div class="bar"></div>
+
+          <p>
+            Review the remaining subjects and choose one or two that feel especially important to include,
+            especially if they haven’t been covered yet. Consider options that:
+          </p>
+
+          <ul>
+            <li>Fulfill high school credit requirements.</li>
+            <li>Reflect your family’s priorities or interests.</li>
+            <li>Align with your child’s passions or future goals.</li>
+          </ul>
+
+          <p style="margin:10px 0 0;">
+            These could also be subjects where Alveary offers resources without daily lesson plans
+            (e.g., cooking or car maintenance) or areas where you can incorporate non-Alveary resources,
+            such as co-op classes or ACT prep courses.
+          </p>
+        </div>
+
+        <div class="side-img">
+          <img src="img/Additional Subjects.png" alt="Additional Subjects icon" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Plan Your Year -->
+    <section class="section" id="plan" style="background: linear-gradient(180deg, var(--paper), #fbfaf6);">
+      <div class="section-grid">
+        <div>
+          <div class="kicker">Step 4</div>
+          <h2>Plan Your Year</h2>
+          <div class="bar cream"></div>
+
+          <p>
+            Now that you’ve identified your subjects you are ready to create a schedule using Alveary’s scheduling tools.
+            This is a great starting point for your school year.
+          </p>
+
+          <p>
+            If you have room for additional subjects—or think you might later—make a list of what you’d like to include
+            and why each is important. Consider adding these subjects when time allows.
+          </p>
+
+          <p style="margin-bottom:0;">
+            For guidance, refer to these Alveary resources:
+          </p>
+
+          <ul>
+            <li><a href="relational-education.html">Relational Education (which subjects are intertwined)</a></li>
+            <li><a href="balancing-the-feast.html">Balancing the Feast (often overlooked subjects)</a></li>
+            <li><a href="combine.html">Tips for Combining Students</a></li>
+          </ul>
+
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn primary" href="courses.html">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M20 12H4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              Go to Course List
+            </a>
+            <a class="btn" href="books.html">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 19a2 2 0 0 1 2-2h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6 17V5a2 2 0 0 1 2-2h12v16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Go to Book List
+            </a>
+          </div>
+        </div>
+
+        <div class="side-img">
+          <img src="img/Plan Your Year.png" alt="Plan Your Year icon" />
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © Alveary • Planning tools and guidance
+    </footer>
+  </main>
 </body>
 </html>
+
