@@ -293,7 +293,7 @@ body {
   min-width: 0;
 }
 
-/* Let List View span columns 3â€“4 (acts like one combined â€œwideâ€ column) */
+/* Let List View span columns 3Ã¢â‚¬â€œ4 (acts like one combined Ã¢â‚¬Å“wideÃ¢â‚¬Â column) */
 .student-tools-row .list-view-controls{
   grid-column: 3 / 5;        /* spans col 3 + col 4 */
   justify-self: end;         /* right-align the whole block */
@@ -337,7 +337,7 @@ body {
   accent-color: #596e5e;
 }
 
-/* ===== 4-col â†’ 3-col ===== */
+/* ===== 4-col Ã¢â€ â€™ 3-col ===== */
 @media (max-width: 1180px){
   .student-tools-row{
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
@@ -612,7 +612,7 @@ body {
   /* keep a little space between the person + chevron */
   gap: 8px;
 
-  /* remove extra clickable padding so it doesnÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢t waste vertical space */
+  /* remove extra clickable padding so it doesnÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢t waste vertical space */
   padding: 0;
   margin: 0;
 
@@ -637,7 +637,7 @@ body {
   width: 18px;
   height: 18px;
   display: block;
-  opacity: 0.75; /* makes filled icon a touch more visible without getting ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œheavyÃƒÂ¢Ã¢â€šÂ¬Ã‚Â */
+  opacity: 0.75; /* makes filled icon a touch more visible without getting ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“heavyÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â */
 }
 
 .student-rail-wedge {
@@ -672,7 +672,7 @@ body {
   font-weight: 600;
 
   border: 1px solid rgba(0,0,0,0.10);
-  pointer-events: none; /* donâ€™t steal clicks from the icon */
+  pointer-events: none; /* donÃ¢â‚¬â„¢t steal clicks from the icon */
 }
 
 /* =========================
@@ -761,7 +761,7 @@ body {
   line-height: 1;
 }
 
-/* Ghost student chips â€” match combining & placement tips styling */
+/* Ghost student chips Ã¢â‚¬â€ match combining & placement tips styling */
 .student-chip--ghost{
   position: relative;          
   background-color: #f4f6fa;  
@@ -2135,12 +2135,12 @@ body {
     display: none !important;
   }
 
-  /* Hide the ghost marker symbol (â†ª) */
+  /* Hide the ghost marker symbol (Ã¢â€ Âª) */
   .student-ghost-marker {
     display: none !important;
   }
 
-  /* Hide ghost chips entirely (outlined â€œassigned elsewhereâ€ ones) */
+  /* Hide ghost chips entirely (outlined Ã¢â‚¬Å“assigned elsewhereÃ¢â‚¬Â ones) */
   .student-chip--ghost {
     display: none !important;
   }
@@ -2150,7 +2150,7 @@ body {
     display: none !important;
   }
 
-  /* Hide any ghost â€œapply +â€ button (just in case a ghost chip sneaks through) */
+  /* Hide any ghost Ã¢â‚¬Å“apply +Ã¢â‚¬Â button (just in case a ghost chip sneaks through) */
   .student-chip-apply {
     display: none !important;
   }
@@ -2286,13 +2286,13 @@ body {
     background: var(--av-bg);
     color: var(--av-text);
     border: 1px solid var(--av-border);
-    border-radius: 4px;      /* âœ… square with 4px corners */
+    border-radius: 4px;      /* Ã¢Å“â€¦ square with 4px corners */
     box-shadow: var(--av-shadow);
   
     width: 44px;             /* small + unobtrusive */
     height: 44px;
   
-    display: inline-flex;    /* âœ… always visible now */
+    display: inline-flex;    /* Ã¢Å“â€¦ always visible now */
     align-items: center;
     justify-content: center;
   
@@ -2312,7 +2312,7 @@ body {
   .av-video-modal {
     position: fixed;
     right: calc(16px + env(safe-area-inset-right, 0px));
-    bottom: calc(72px + env(safe-area-inset-bottom, 0px)); /* âœ… above the button */
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px)); /* Ã¢Å“â€¦ above the button */
     top: auto;
   
     z-index: var(--av-z);
@@ -2557,7 +2557,7 @@ body {
   align-items: center;
   justify-content: center;
 
-  font-size: 11px;     /* ðŸ‘ˆ IMPORTANT */
+  font-size: 11px;     /* Ã°Å¸â€˜Ë† IMPORTANT */
   line-height: 1;
   font-weight: 600;
 
@@ -2695,50 +2695,70 @@ body {
 }
 
 /* Menu overlay */
+/* Step menu behaves like a website dropdown (not a full modal) */
 .step-menu-overlay{
   position: fixed;
   inset: 0;
   z-index: 9998;
   display:none;
+  pointer-events:none; /* prevents the overlay from feeling like a modal */
 }
-.step-menu-overlay.is-open{ display:block; }
+.step-menu-overlay.is-open{ display:block; pointer-events:auto; }
 
 .step-menu-backdrop{
   position:absolute;
   inset:0;
-  background: rgba(0,0,0,0.28);
+  /* keep click-outside-to-close, but visually look like a normal nav dropdown */
+  background: transparent;
 }
 
 .step-menu-panel{
   position:absolute;
-  top: 18px;
-  right: 18px;
-  width: min(420px, calc(100vw - 36px));
-  background: rgba(255,255,255,0.96);
-  border: 1px solid rgba(89,110,94,0.18);
-  border-radius: 16px;
-  box-shadow: 0 18px 45px rgba(0,0,0,0.18);
+  /* JS sets these so the panel tucks under the Menu control */
+  top: var(--step-menu-top, 64px);
+  right: var(--step-menu-right, 18px);
+  width: min(360px, calc(100vw - 24px));
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(89,110,94,0.14);
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.14);
   overflow:hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* small caret so it reads as a dropdown */
+.step-menu-panel::before{
+  content:"";
+  position:absolute;
+  top: -8px;
+  right: 18px;
+  width: 14px;
+  height: 14px;
+  background: rgba(255,255,255,0.92);
+  border-left: 1px solid rgba(89,110,94,0.14);
+  border-top: 1px solid rgba(89,110,94,0.14);
+  transform: rotate(45deg);
 }
 
 .step-menu-head{
-  padding: 14px 16px 10px;
+  padding: 12px 14px 8px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:12px;
 }
 .step-menu-title{
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-size: 12px;
-  color: rgba(38,43,38,0.72);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  font-size: 13px;
+  color: rgba(38,43,38,0.78);
 }
 .step-menu-close{
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
   border: 1px solid rgba(89,110,94,0.22);
   background: rgba(255,255,255,0.75);
   cursor:pointer;
@@ -2746,30 +2766,28 @@ body {
 .step-menu-close:hover{ background: rgba(255,255,255,0.98); }
 
 .step-menu-list{
-  padding: 6px 8px 10px;
+  padding: 6px 10px 12px;
   display:flex;
   flex-direction:column;
-  gap: 6px;
+  gap: 2px; /* tighter like a nav */
 }
 
 .step-menu-item{
   display:flex;
   align-items:center;
   gap: 10px;
-  padding: 10px 10px;
-  border-radius: 12px;
+  padding: 9px 10px;
+  border-radius: 10px;
   text-decoration:none;
   color: var(--brand-text);
   border: 1px solid transparent;
 }
 .step-menu-item:hover{
   background: rgba(89,110,94,0.06);
-  border-color: rgba(89,110,94,0.10);
 }
 
 .step-menu-item.is-current{
   background: rgba(89,110,94,0.10);
-  border-color: rgba(89,110,94,0.16);
 }
 
 .step-menu-item.is-disabled{
@@ -2788,6 +2806,7 @@ body {
   align-items:center;
   justify-content:center;
   flex: 0 0 auto;
+  opacity: 0.80;
 }
 .step-menu-item-icon svg{ width: 22px; height: 22px; }
 
@@ -2808,7 +2827,7 @@ body {
   line-height: 1.2;
 }
 
-/* Small toast for â€œComing soonâ€ */
+/* Small toast for Ã¢â‚¬Å“Coming soonÃ¢â‚¬Â */
 .step-toast{
   position: fixed;
   left: 50%;
@@ -2835,13 +2854,13 @@ body {
 
 /* === Step menu: more seamless / website-like popover === */
 .step-menu-backdrop{
-  background: rgba(38,43,38,0.12); /* was ~0.28 */
+  background: transparent; /* look like a normal website dropdown */
 }
 
 .step-menu-panel{
-  background: rgba(255,255,255,0.92);         /* slightly softer */
-  border: 1px solid rgba(89,110,94,0.14);     /* lighter border */
-  box-shadow: 0 10px 26px rgba(0,0,0,0.10);   /* softer shadow */
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(89,110,94,0.14);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.14);
   border-radius: 14px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -2857,7 +2876,7 @@ body {
 
 .step-menu-list{
   padding: 6px 10px 12px;
-  gap: 2px; /* tighter, more “nav” */
+  gap: 2px; /* tighter, more â€œnavâ€ */
 }
 
 .step-menu-item{
@@ -2866,15 +2885,16 @@ body {
 }
 
 .step-menu-item-icon{
-  opacity: 0.70; /* icons feel less “app button” */
+  opacity: 0.70; /* icons feel less â€œapp buttonâ€ */
 }
 
 @media (max-width: 640px){
   .step-menu-panel{
-    top: 64px;
+    top: var(--step-menu-top, 64px);
     right: 12px;
     left: 12px;
     width: auto;
     border-radius: 14px;
   }
+  .step-menu-panel::before{ right: 26px; }
 }
