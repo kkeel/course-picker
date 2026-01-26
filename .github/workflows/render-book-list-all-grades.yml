@@ -22,8 +22,7 @@ on:
       g12: { description: "Grade 12", type: boolean, default: false }
 
   schedule:
-    # Nightly (UTC). 10:30 UTC ≈ 2:30am PST / 3:30am PDT
-    - cron: "*/5 * * * *"
+  - cron: "45 4 * * *"
 
 jobs:
   render:
