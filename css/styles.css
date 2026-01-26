@@ -2832,3 +2832,49 @@ body {
     display:none !important;
   }
 }
+
+/* === Step menu: more seamless / website-like popover === */
+.step-menu-backdrop{
+  background: rgba(38,43,38,0.12); /* was ~0.28 */
+}
+
+.step-menu-panel{
+  background: rgba(255,255,255,0.92);         /* slightly softer */
+  border: 1px solid rgba(89,110,94,0.14);     /* lighter border */
+  box-shadow: 0 10px 26px rgba(0,0,0,0.10);   /* softer shadow */
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.step-menu-title{
+  text-transform: none;     /* was uppercase */
+  letter-spacing: 0.01em;   /* was wide */
+  font-weight: 600;
+  font-size: 13px;
+  color: rgba(38,43,38,0.78);
+}
+
+.step-menu-list{
+  padding: 6px 10px 12px;
+  gap: 2px; /* tighter, more “nav” */
+}
+
+.step-menu-item{
+  padding: 9px 10px;
+  border-radius: 10px;
+}
+
+.step-menu-item-icon{
+  opacity: 0.70; /* icons feel less “app button” */
+}
+
+@media (max-width: 640px){
+  .step-menu-panel{
+    top: 64px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    border-radius: 14px;
+  }
+}
