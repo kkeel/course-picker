@@ -2634,6 +2634,9 @@ function coursePlanner() {
 (function () {
   const DASH_URL = "https://www.alveary.org/alveary-2026-2027/dashboard";
 
+  // NOTE:
+  // - "ready" steps must have an href (page exists)
+  // - "soon" steps have href: null and are hidden from the menu until live
   const STEPS = [
     { key: "intro", label: "Course Planning Intro", href: "index.html", status: "ready", icon: "spark" },
     { key: "courses", label: "Courses", href: "courses.html", status: "ready", icon: "list" },
@@ -2645,6 +2648,10 @@ function coursePlanner() {
     { key: "ataglance", label: "At-A-Glance", href: null, status: "soon", icon: "grid", group: "Other tools" },
     { key: "budget", label: "Budget Planner", href: null, status: "soon", icon: "dollar", group: "Other tools" },
   ];
+
+  function isLiveStep(s) {
+    return !!(s && s.href);
+  }
 
   function iconSvg(name) {
     // Minimal inline icons to match your clean light theme (uses currentColor)
@@ -2679,10 +2686,27 @@ function coursePlanner() {
     return last === "" ? "index.html" : last;
   }
 
-  function getCurrentStepIndex() {
+  function getCurrentStep() {
     const here = normalizePath(window.location.pathname);
     const idx = STEPS.findIndex(s => s.href && normalizePath(s.href) === here);
-    return idx >= 0 ? idx : 0;
+    return {
+      idx: idx >= 0 ? idx : 0,
+      key: (idx >= 0 ? STEPS[idx]?.key : STEPS[0]?.key) || "intro",
+    };
+  }
+
+  function findPrevLive(idx) {
+    for (let i = idx - 1; i >= 0; i--) {
+      if (isLiveStep(STEPS[i])) return STEPS[i];
+    }
+    return null;
+  }
+
+  function findNextLive(idx) {
+    for (let i = idx + 1; i < STEPS.length; i++) {
+      if (isLiveStep(STEPS[i])) return STEPS[i];
+    }
+    return null;
   }
 
   function ensureLogoLinksToDashboard() {
@@ -2690,20 +2714,7 @@ function coursePlanner() {
     if (logoLink) logoLink.setAttribute("href", DASH_URL);
   }
 
-  function showToast(msg) {
-    let el = document.querySelector(".step-toast");
-    if (!el) {
-      el = document.createElement("div");
-      el.className = "step-toast";
-      document.body.appendChild(el);
-    }
-    el.textContent = msg;
-    el.classList.add("is-show");
-    window.clearTimeout(showToast._t);
-    showToast._t = window.setTimeout(() => el.classList.remove("is-show"), 1800);
-  }
-
-  function buildMenu(currentIdx) {
+  function buildMenu(currentKey) {
     let overlay = document.querySelector(".step-menu-overlay");
     if (overlay) return overlay;
 
@@ -2723,8 +2734,14 @@ function coursePlanner() {
 
     const list = overlay.querySelector(".step-menu-list");
 
+    // Only show LIVE steps (hide "coming soon" until the page exists)
+    const liveSteps = STEPS.filter(isLiveStep);
+
     let lastGroup = null;
-    STEPS.forEach((s, i) => {
+
+    liveSteps.forEach((s) => {
+      // Only add a group label when this live step actually has a group,
+      // and the group is changing.
       if (s.group && s.group !== lastGroup) {
         const divider = document.createElement("div");
         divider.style.padding = "10px 10px 4px";
@@ -2736,26 +2753,22 @@ function coursePlanner() {
         divider.textContent = s.group;
         list.appendChild(divider);
         lastGroup = s.group;
+      } else if (!s.group) {
+        lastGroup = null;
       }
 
       const a = document.createElement("a");
-      a.href = s.href || "#";
-      a.className = "step-menu-item" + (i === currentIdx ? " is-current" : "") + (s.href ? "" : " is-disabled");
+      a.href = s.href;
+      a.className = "step-menu-item" + (s.key === currentKey ? " is-current" : "");
 
       a.innerHTML = `
         <span class="step-menu-item-icon" aria-hidden="true">${iconSvg(s.icon)}</span>
         <span class="step-menu-item-text">
           <span class="step-menu-item-label">${escapeHtml(s.label)}</span>
-          <span class="step-menu-item-sub">${s.href ? "Open" : "Coming soon"}</span>
         </span>
       `;
 
-      a.addEventListener("click", (e) => {
-        if (!s.href) {
-          e.preventDefault();
-          showToast("Coming soon");
-          return;
-        }
+      a.addEventListener("click", () => {
         // close menu before navigating for a snappy feel
         closeMenu();
       });
@@ -2782,11 +2795,12 @@ function coursePlanner() {
     return overlay;
   }
 
-  function openMenu(currentIdx) {
-    const overlay = buildMenu(currentIdx);
+  function openMenu(currentKey) {
+    const overlay = buildMenu(currentKey);
     overlay.classList.add("is-open");
     document.body.style.overflow = "hidden";
   }
+
   function closeMenu() {
     const overlay = document.querySelector(".step-menu-overlay");
     if (overlay && overlay._closeMenu) overlay._closeMenu();
@@ -2801,13 +2815,12 @@ function coursePlanner() {
       .replaceAll("'", "&#039;");
   }
 
-  function buildStepper(container, currentIdx) {
-    const total = STEPS.length;
+  function buildStepper(container, currentIdx, currentKey) {
     const current = STEPS[currentIdx] || STEPS[0];
 
-    // Back/Next targets include “coming soon” so the funnel order is preserved.
-    const prev = currentIdx > 0 ? STEPS[currentIdx - 1] : null;
-    const next = currentIdx < total - 1 ? STEPS[currentIdx + 1] : null;
+    // Back/Next should SKIP steps that don't exist yet (href is null)
+    const prev = findPrevLive(currentIdx);
+    const next = findNextLive(currentIdx);
 
     const backBtn = document.createElement("button");
     backBtn.type = "button";
@@ -2820,7 +2833,6 @@ function coursePlanner() {
     if (!prev) backBtn.disabled = true;
     backBtn.addEventListener("click", () => {
       if (!prev) return;
-      if (!prev.href) return showToast("Coming soon");
       window.location.href = prev.href;
     });
 
@@ -2835,20 +2847,20 @@ function coursePlanner() {
     if (!next) nextBtn.disabled = true;
     nextBtn.addEventListener("click", () => {
       if (!next) return;
-      if (!next.href) return showToast("Coming soon");
       window.location.href = next.href;
     });
 
+    // No "Step X of Y" text — keep it subtle
     const currentLabel = document.createElement("div");
     currentLabel.className = "stepper-current";
-    currentLabel.textContent = `Step ${currentIdx + 1} of ${total} • ${current.label}`;
+    currentLabel.textContent = current.label;
 
     const menuBtn = document.createElement("button");
     menuBtn.type = "button";
     menuBtn.className = "hamburger-btn";
     menuBtn.setAttribute("aria-label", "Open planning steps menu");
     menuBtn.innerHTML = `<span class="hamburger-label">Menu</span><span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span>`;
-    menuBtn.addEventListener("click", () => openMenu(currentIdx));
+    menuBtn.addEventListener("click", () => openMenu(currentKey));
 
     container.innerHTML = "";
     container.appendChild(backBtn);
@@ -2863,8 +2875,8 @@ function coursePlanner() {
     const container = document.getElementById("app-step-nav");
     if (!container) return;
 
-    const currentIdx = getCurrentStepIndex();
-    buildStepper(container, currentIdx);
+    const cur = getCurrentStep();
+    buildStepper(container, cur.idx, cur.key);
 
     // Close menu if user navigates/scrolls to keep it tidy
     window.addEventListener("scroll", () => {
@@ -2878,4 +2890,4 @@ function coursePlanner() {
   } else {
     init();
   }
-})();
+})();;
