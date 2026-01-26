@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,6 +99,21 @@
               <span>Start Planning</span>
               <span class="index-cta-arrow" aria-hidden="true">↗</span>
             </a>
+
+            <!-- Print (matches courses/books) -->
+            <button
+              type="button"
+              class="btn-pill btn-secondary print-btn"
+              @click="openPrintTip()"
+              aria-label="Print Course Planning Intro"
+            >
+              <svg class="print-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 8V3h10v5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 17H5a3 3 0 0 1-3-3v-3a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7 14h10v7H7v-7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Print
+            </button>
           </div>
         </div>
         
@@ -233,6 +249,41 @@
       </div>
     </section>
   </main>
+
+  <!-- Print Tip Modal (screen-only) -->
+  <div
+    x-show="printTipOpen"
+    x-cloak
+    class="print-tip-overlay"
+    @keydown.escape.window="closePrintTip()"
+  >
+    <div class="print-tip-backdrop" @click="closePrintTip()"></div>
+
+    <div class="print-tip-modal" role="dialog" aria-modal="true" aria-label="Print tips" @click.stop>
+      <div class="print-tip-title">Best print settings</div>
+
+      <div class="print-tip-body">
+        <p><strong>For the cleanest print/PDF:</strong></p>
+        <ul>
+          <li>Set <strong>Margins</strong> to <strong>Custom: 0.5"</strong> on all sides</li>
+          <li>Turn <strong>Headers and footers</strong> <strong>OFF</strong></li>
+        </ul>
+      </div>
+
+      <label class="print-tip-checkbox">
+        <input type="checkbox" x-model="printTipDontShowAgain" />
+        Don’t show this again
+      </label>
+
+      <div class="print-tip-actions">
+        <button type="button" class="print-tip-btn" @click="closePrintTip()">Cancel</button>
+        <button type="button" class="print-tip-btn print-tip-btn-primary" @click="confirmPrintTipAndPrint()">
+          Continue to Print
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script type="module" src="js/auth.js"></script>
   <!-- Minimal Alpine controller for this page (auth-only; avoids loading app.js) -->
   <script>
@@ -243,6 +294,10 @@
         isMember: false,
         isStaff: false,
         authRefreshing: false,
+
+        // Print tip modal (matches courses/books)
+        printTipOpen: false,
+        printTipDontShowAgain: false,
 
         async init() {
           await this.refreshAuth();
@@ -274,6 +329,36 @@
             // Always re-check auth (fresh) after the modal closes
             await this.refreshAuth(true);
           }
+        },
+
+        // ---- Printing (browser print) ----
+        openPrintTip() {
+          try {
+            if (localStorage.getItem('ALVEARY_HIDE_PRINT_TIP') === '1') {
+              this.printNow();
+              return;
+            }
+          } catch (_) {}
+
+          this.printTipDontShowAgain = false;
+          this.printTipOpen = true;
+        },
+
+        closePrintTip() {
+          this.printTipOpen = false;
+        },
+
+        confirmPrintTipAndPrint() {
+          try {
+            if (this.printTipDontShowAgain) localStorage.setItem('ALVEARY_HIDE_PRINT_TIP', '1');
+          } catch (_) {}
+          this.printTipOpen = false;
+          this.printNow();
+        },
+
+        printNow() {
+          // Allow the modal to close before printing
+          setTimeout(() => window.print(), 50);
         },
       }));
     });
