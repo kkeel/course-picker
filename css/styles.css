@@ -293,7 +293,7 @@ body {
   min-width: 0;
 }
 
-/* Let List View span columns 3–4 (acts like one combined “wide” column) */
+/* Let List View span columns 3â€“4 (acts like one combined â€œwideâ€ column) */
 .student-tools-row .list-view-controls{
   grid-column: 3 / 5;        /* spans col 3 + col 4 */
   justify-self: end;         /* right-align the whole block */
@@ -337,7 +337,7 @@ body {
   accent-color: #596e5e;
 }
 
-/* ===== 4-col → 3-col ===== */
+/* ===== 4-col â†’ 3-col ===== */
 @media (max-width: 1180px){
   .student-tools-row{
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
@@ -612,7 +612,7 @@ body {
   /* keep a little space between the person + chevron */
   gap: 8px;
 
-  /* remove extra clickable padding so it doesnÃ¢â‚¬â„¢t waste vertical space */
+  /* remove extra clickable padding so it doesnÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢t waste vertical space */
   padding: 0;
   margin: 0;
 
@@ -637,7 +637,7 @@ body {
   width: 18px;
   height: 18px;
   display: block;
-  opacity: 0.75; /* makes filled icon a touch more visible without getting Ã¢â‚¬Å“heavyÃ¢â‚¬Â */
+  opacity: 0.75; /* makes filled icon a touch more visible without getting ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œheavyÃƒÂ¢Ã¢â€šÂ¬Ã‚Â */
 }
 
 .student-rail-wedge {
@@ -672,7 +672,7 @@ body {
   font-weight: 600;
 
   border: 1px solid rgba(0,0,0,0.10);
-  pointer-events: none; /* don’t steal clicks from the icon */
+  pointer-events: none; /* donâ€™t steal clicks from the icon */
 }
 
 /* =========================
@@ -761,7 +761,7 @@ body {
   line-height: 1;
 }
 
-/* Ghost student chips — match combining & placement tips styling */
+/* Ghost student chips â€” match combining & placement tips styling */
 .student-chip--ghost{
   position: relative;          
   background-color: #f4f6fa;  
@@ -2135,12 +2135,12 @@ body {
     display: none !important;
   }
 
-  /* Hide the ghost marker symbol (↪) */
+  /* Hide the ghost marker symbol (â†ª) */
   .student-ghost-marker {
     display: none !important;
   }
 
-  /* Hide ghost chips entirely (outlined “assigned elsewhere” ones) */
+  /* Hide ghost chips entirely (outlined â€œassigned elsewhereâ€ ones) */
   .student-chip--ghost {
     display: none !important;
   }
@@ -2150,7 +2150,7 @@ body {
     display: none !important;
   }
 
-  /* Hide any ghost “apply +” button (just in case a ghost chip sneaks through) */
+  /* Hide any ghost â€œapply +â€ button (just in case a ghost chip sneaks through) */
   .student-chip-apply {
     display: none !important;
   }
@@ -2286,13 +2286,13 @@ body {
     background: var(--av-bg);
     color: var(--av-text);
     border: 1px solid var(--av-border);
-    border-radius: 4px;      /* ✅ square with 4px corners */
+    border-radius: 4px;      /* âœ… square with 4px corners */
     box-shadow: var(--av-shadow);
   
     width: 44px;             /* small + unobtrusive */
     height: 44px;
   
-    display: inline-flex;    /* ✅ always visible now */
+    display: inline-flex;    /* âœ… always visible now */
     align-items: center;
     justify-content: center;
   
@@ -2312,7 +2312,7 @@ body {
   .av-video-modal {
     position: fixed;
     right: calc(16px + env(safe-area-inset-right, 0px));
-    bottom: calc(72px + env(safe-area-inset-bottom, 0px)); /* ✅ above the button */
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px)); /* âœ… above the button */
     top: auto;
   
     z-index: var(--av-z);
@@ -2557,7 +2557,7 @@ body {
   align-items: center;
   justify-content: center;
 
-  font-size: 11px;     /* 👈 IMPORTANT */
+  font-size: 11px;     /* ðŸ‘ˆ IMPORTANT */
   line-height: 1;
   font-weight: 600;
 
@@ -2603,4 +2603,226 @@ body {
     currentColor 50%,
     transparent 50%
   );
+}
+
+
+/* =========================================================
+   App step navigation (Back/Next + hamburger menu)
+   ========================================================= */
+.logo-link{ text-decoration:none; color: inherit; }
+.logo-link:hover .logo-title{ text-decoration:none; }
+
+.app-step-nav{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* pill buttons (reuse vibe of .btn-pill but smaller) */
+.stepper-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border-radius:999px;
+  border:1px solid rgba(89,110,94,0.22);
+  background: rgba(255,255,255,0.70);
+  color: var(--brand-text);
+  font-size: 13px;
+  line-height: 1;
+  cursor:pointer;
+  text-decoration:none;
+}
+.stepper-btn:hover{ background: rgba(255,255,255,0.92); }
+.stepper-btn:active{ transform: translateY(1px); }
+.stepper-btn[disabled],
+.stepper-btn.is-disabled{
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform:none;
+}
+
+.stepper-icon{
+  width:18px;
+  height:18px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.stepper-icon svg{ width:18px; height:18px; display:block; }
+
+.stepper-current{
+  font-size: 13px;
+  color: rgba(38,43,38,0.75);
+  white-space: nowrap;
+}
+
+/* Hamburger */
+.hamburger-btn{
+  width: 40px;
+  height: 34px;
+  border-radius: 12px;
+  border: 1px solid rgba(89,110,94,0.22);
+  background: rgba(255,255,255,0.70);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+.hamburger-btn:hover{ background: rgba(255,255,255,0.92); }
+.hamburger-lines{
+  width: 18px;
+  height: 12px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.hamburger-lines span{
+  display:block;
+  height:2px;
+  background: rgba(38,43,38,0.75);
+  border-radius: 2px;
+}
+
+/* Menu overlay */
+.step-menu-overlay{
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  display:none;
+}
+.step-menu-overlay.is-open{ display:block; }
+
+.step-menu-backdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,0.28);
+}
+
+.step-menu-panel{
+  position:absolute;
+  top: 18px;
+  right: 18px;
+  width: min(420px, calc(100vw - 36px));
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(89,110,94,0.18);
+  border-radius: 16px;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.18);
+  overflow:hidden;
+}
+
+.step-menu-head{
+  padding: 14px 16px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.step-menu-title{
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: rgba(38,43,38,0.72);
+}
+.step-menu-close{
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid rgba(89,110,94,0.22);
+  background: rgba(255,255,255,0.75);
+  cursor:pointer;
+}
+.step-menu-close:hover{ background: rgba(255,255,255,0.98); }
+
+.step-menu-list{
+  padding: 6px 8px 10px;
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+}
+
+.step-menu-item{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 12px;
+  text-decoration:none;
+  color: var(--brand-text);
+  border: 1px solid transparent;
+}
+.step-menu-item:hover{
+  background: rgba(89,110,94,0.06);
+  border-color: rgba(89,110,94,0.10);
+}
+
+.step-menu-item.is-current{
+  background: rgba(89,110,94,0.10);
+  border-color: rgba(89,110,94,0.16);
+}
+
+.step-menu-item.is-disabled{
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.step-menu-item.is-disabled:hover{
+  background: transparent;
+  border-color: transparent;
+}
+
+.step-menu-item-icon{
+  width: 22px;
+  height: 22px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex: 0 0 auto;
+}
+.step-menu-item-icon svg{ width: 22px; height: 22px; }
+
+.step-menu-item-text{
+  display:flex;
+  flex-direction:column;
+  gap: 2px;
+  min-width:0;
+}
+.step-menu-item-label{
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.step-menu-item-sub{
+  font-size: 12px;
+  color: rgba(38,43,38,0.60);
+  line-height: 1.2;
+}
+
+/* Small toast for â€œComing soonâ€ */
+.step-toast{
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background: rgba(38,43,38,0.92);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  display:none;
+}
+.step-toast.is-show{ display:block; }
+
+@media (max-width: 640px){
+  .stepper-current{ display:none; }
+}
+
+/* Print: hide interactive step navigation and menu */
+@media print{
+  .app-step-nav,
+  .step-menu-overlay,
+  .step-toast{
+    display:none !important;
+  }
 }
