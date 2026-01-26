@@ -940,6 +940,64 @@ function coursePlanner() {
         return `Grades ${stripped.join(", ")}`;
       },
 
+      // --- Year-At-A-Glance helpers ---
+      termLines(value) {
+        if (!value) return [];
+        const s = String(value)
+          .replace(/\r/g, "\n")
+          .trim();
+      
+        if (!s) return [];
+      
+        // split on new lines first; also tolerate bullets and semicolons
+        return s
+          .split("\n")
+          .map(x => x.replace(/^[•\-\u2022]\s*/,"").trim())
+          .flatMap(x => x.includes(";") ? x.split(";").map(y => y.trim()) : [x])
+          .filter(Boolean);
+      },
+      
+      yagaRows() {
+        const out = [];
+        const groups = this.coursesBySubject || {};
+      
+        Object.keys(groups).forEach(subject => {
+          const courses = groups[subject] || [];
+      
+          courses.forEach(course => {
+            if (!course) return;
+      
+            // Always include the course row (acts as a header)
+            out.push({
+              kind: "course",
+              subject,
+              title: course.title || "",
+              schedText: course.schedText || "",
+              term1: this.termLines(course.term1),
+              term2: this.termLines(course.term2),
+              term3: this.termLines(course.term3),
+            });
+      
+            // Then include topic rows (indented) if present
+            const topics = Array.isArray(course.topics) ? course.topics : [];
+            topics.forEach(topic => {
+              if (!topic) return;
+              out.push({
+                kind: "topic",
+                subject,
+                title: topic.Topic || "",
+                schedText: topic.schedText || "",
+                term1: this.termLines(topic.term1),
+                term2: this.termLines(topic.term2),
+                term3: this.termLines(topic.term3),
+              });
+            });
+          });
+        });
+      
+        return out;
+      },
+
       // toggle a grade in/out of the selection
       toggleGrade(code) {
         const idx = this.selectedGrades.indexOf(code);
