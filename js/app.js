@@ -2624,3 +2624,258 @@ function coursePlanner() {
     }
     };
   }
+
+
+
+/* =========================================================
+   App step navigation (Back/Next + hamburger menu)
+   - Injects into <div id="app-step-nav"></div> on each page
+   ========================================================= */
+(function () {
+  const DASH_URL = "https://www.alveary.org/alveary-2026-2027/dashboard";
+
+  const STEPS = [
+    { key: "intro", label: "Course Planning Intro", href: "index.html", status: "ready", icon: "spark" },
+    { key: "courses", label: "Courses", href: "courses.html", status: "ready", icon: "list" },
+    { key: "schedule", label: "Schedule", href: null, status: "soon", icon: "calendar" },
+    { key: "books", label: "Books", href: "books.html", status: "ready", icon: "book" },
+    { key: "lesson-plans", label: "Lesson Plans", href: null, status: "soon", icon: "doc" },
+    { key: "supplies", label: "Supplies", href: null, status: "soon", icon: "box" },
+    { key: "exams", label: "Exams", href: null, status: "soon", icon: "check" },
+    { key: "ataglance", label: "At-A-Glance", href: null, status: "soon", icon: "grid", group: "Other tools" },
+    { key: "budget", label: "Budget Planner", href: null, status: "soon", icon: "dollar", group: "Other tools" },
+  ];
+
+  function iconSvg(name) {
+    // Minimal inline icons to match your clean light theme (uses currentColor)
+    const common = 'xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
+    switch (name) {
+      case "spark":
+        return `<svg ${common}><path d="M12 2l1.2 4.2L17 7l-3.8 1L12 12l-1.2-4-3.8-1 3.8-.8L12 2z"/><path d="M5 13l.8 2.8L9 17l-3.2.8L5 21l-.8-3.2L1 17l3.2-1.2L5 13z"/></svg>`;
+      case "list":
+        return `<svg ${common}><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>`;
+      case "calendar":
+        return `<svg ${common}><path d="M7 4v2"/><path d="M17 4v2"/><path d="M3.5 9h17"/><path d="M5 6h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></svg>`;
+      case "book":
+        return `<svg ${common}><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16h-13.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 5.5V19"/></svg>`;
+      case "doc":
+        return `<svg ${common}><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h8"/></svg>`;
+      case "box":
+        return `<svg ${common}><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v10l9 5 9-5V8"/><path d="M12 13v10"/></svg>`;
+      case "check":
+        return `<svg ${common}><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 1 1-5-8"/></svg>`;
+      case "grid":
+        return `<svg ${common}><path d="M4 4h7v7H4z"/><path d="M13 4h7v7h-7z"/><path d="M4 13h7v7H4z"/><path d="M13 13h7v7h-7z"/></svg>`;
+      case "dollar":
+        return `<svg ${common}><path d="M12 2v20"/><path d="M17 6.5c0-2-2.2-3.5-5-3.5s-5 1.5-5 3.5 2.2 3 5 3 5 1 5 3-2.2 3.5-5 3.5-5-1.5-5-3.5"/></svg>`;
+      default:
+        return `<svg ${common}><path d="M12 2v20"/><path d="M2 12h20"/></svg>`;
+    }
+  }
+
+  function normalizePath(p) {
+    if (!p) return "index.html";
+    const last = p.split("/").pop() || "";
+    return last === "" ? "index.html" : last;
+  }
+
+  function getCurrentStepIndex() {
+    const here = normalizePath(window.location.pathname);
+    const idx = STEPS.findIndex(s => s.href && normalizePath(s.href) === here);
+    return idx >= 0 ? idx : 0;
+  }
+
+  function ensureLogoLinksToDashboard() {
+    const logoLink = document.querySelector(".logo-link");
+    if (logoLink) logoLink.setAttribute("href", DASH_URL);
+  }
+
+  function showToast(msg) {
+    let el = document.querySelector(".step-toast");
+    if (!el) {
+      el = document.createElement("div");
+      el.className = "step-toast";
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.classList.add("is-show");
+    window.clearTimeout(showToast._t);
+    showToast._t = window.setTimeout(() => el.classList.remove("is-show"), 1800);
+  }
+
+  function buildMenu(currentIdx) {
+    let overlay = document.querySelector(".step-menu-overlay");
+    if (overlay) return overlay;
+
+    overlay = document.createElement("div");
+    overlay.className = "step-menu-overlay";
+    overlay.innerHTML = `
+      <div class="step-menu-backdrop" aria-hidden="true"></div>
+      <div class="step-menu-panel" role="dialog" aria-modal="true" aria-label="Planning steps menu">
+        <div class="step-menu-head">
+          <div class="step-menu-title">Planning steps</div>
+          <button type="button" class="step-menu-close" aria-label="Close menu">✕</button>
+        </div>
+        <div class="step-menu-list"></div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    const list = overlay.querySelector(".step-menu-list");
+
+    let lastGroup = null;
+    STEPS.forEach((s, i) => {
+      if (s.group && s.group !== lastGroup) {
+        const divider = document.createElement("div");
+        divider.style.padding = "10px 10px 4px";
+        divider.style.fontSize = "11px";
+        divider.style.fontWeight = "700";
+        divider.style.letterSpacing = "0.08em";
+        divider.style.textTransform = "uppercase";
+        divider.style.color = "rgba(38,43,38,0.55)";
+        divider.textContent = s.group;
+        list.appendChild(divider);
+        lastGroup = s.group;
+      }
+
+      const a = document.createElement("a");
+      a.href = s.href || "#";
+      a.className = "step-menu-item" + (i === currentIdx ? " is-current" : "") + (s.href ? "" : " is-disabled");
+
+      a.innerHTML = `
+        <span class="step-menu-item-icon" aria-hidden="true">${iconSvg(s.icon)}</span>
+        <span class="step-menu-item-text">
+          <span class="step-menu-item-label">${escapeHtml(s.label)}</span>
+          <span class="step-menu-item-sub">${s.href ? "Open" : "Coming soon"}</span>
+        </span>
+      `;
+
+      a.addEventListener("click", (e) => {
+        if (!s.href) {
+          e.preventDefault();
+          showToast("Coming soon");
+          return;
+        }
+        // close menu before navigating for a snappy feel
+        closeMenu();
+      });
+
+      list.appendChild(a);
+    });
+
+    const backdrop = overlay.querySelector(".step-menu-backdrop");
+    const closeBtn = overlay.querySelector(".step-menu-close");
+
+    function closeMenu() {
+      overlay.classList.remove("is-open");
+      document.body.style.overflow = "";
+    }
+    overlay._closeMenu = closeMenu;
+
+    backdrop.addEventListener("click", closeMenu);
+    closeBtn.addEventListener("click", closeMenu);
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && overlay.classList.contains("is-open")) closeMenu();
+    });
+
+    return overlay;
+  }
+
+  function openMenu(currentIdx) {
+    const overlay = buildMenu(currentIdx);
+    overlay.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+  }
+  function closeMenu() {
+    const overlay = document.querySelector(".step-menu-overlay");
+    if (overlay && overlay._closeMenu) overlay._closeMenu();
+  }
+
+  function escapeHtml(str) {
+    return String(str || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function buildStepper(container, currentIdx) {
+    const total = STEPS.length;
+    const current = STEPS[currentIdx] || STEPS[0];
+
+    // Back/Next targets include “coming soon” so the funnel order is preserved.
+    const prev = currentIdx > 0 ? STEPS[currentIdx - 1] : null;
+    const next = currentIdx < total - 1 ? STEPS[currentIdx + 1] : null;
+
+    const backBtn = document.createElement("button");
+    backBtn.type = "button";
+    backBtn.className = "stepper-btn";
+    backBtn.innerHTML = `<span class="stepper-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"></path>
+        </svg>
+      </span><span>Back</span>`;
+    if (!prev) backBtn.disabled = true;
+    backBtn.addEventListener("click", () => {
+      if (!prev) return;
+      if (!prev.href) return showToast("Coming soon");
+      window.location.href = prev.href;
+    });
+
+    const nextBtn = document.createElement("button");
+    nextBtn.type = "button";
+    nextBtn.className = "stepper-btn";
+    nextBtn.innerHTML = `<span>Next</span><span class="stepper-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 6l6 6-6 6"></path>
+        </svg>
+      </span>`;
+    if (!next) nextBtn.disabled = true;
+    nextBtn.addEventListener("click", () => {
+      if (!next) return;
+      if (!next.href) return showToast("Coming soon");
+      window.location.href = next.href;
+    });
+
+    const currentLabel = document.createElement("div");
+    currentLabel.className = "stepper-current";
+    currentLabel.textContent = `Step ${currentIdx + 1} of ${total} • ${current.label}`;
+
+    const menuBtn = document.createElement("button");
+    menuBtn.type = "button";
+    menuBtn.className = "hamburger-btn";
+    menuBtn.setAttribute("aria-label", "Open planning steps menu");
+    menuBtn.innerHTML = `<span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span>`;
+    menuBtn.addEventListener("click", () => openMenu(currentIdx));
+
+    container.innerHTML = "";
+    container.appendChild(backBtn);
+    container.appendChild(nextBtn);
+    container.appendChild(currentLabel);
+    container.appendChild(menuBtn);
+  }
+
+  function init() {
+    ensureLogoLinksToDashboard();
+
+    const container = document.getElementById("app-step-nav");
+    if (!container) return;
+
+    const currentIdx = getCurrentStepIndex();
+    buildStepper(container, currentIdx);
+
+    // Close menu if user navigates/scrolls to keep it tidy
+    window.addEventListener("scroll", () => {
+      const overlay = document.querySelector(".step-menu-overlay");
+      if (overlay && overlay.classList.contains("is-open")) closeMenu();
+    }, { passive: true });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
