@@ -2615,63 +2615,79 @@ body {
 .app-step-nav{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:12px;
 }
 
-/* pill buttons (reuse vibe of .btn-pill but smaller) */
+/* Back/Next as subtle text controls (not button pills) */
 .stepper-btn{
   display:inline-flex;
   align-items:center;
-  gap:8px;
-  padding:7px 10px;
-  border-radius:999px;
-  border:1px solid rgba(89,110,94,0.22);
-  background: rgba(255,255,255,0.70);
-  color: var(--brand-text);
+  gap:6px;
+
+  padding: 2px 0;
+  border: none;
+  background: transparent;
+  border-radius: 0;
+
+  color: rgba(38,43,38,0.80);
   font-size: 13px;
   line-height: 1;
-  cursor:pointer;
-  text-decoration:none;
+  cursor: pointer;
+  text-decoration: none;
 }
-.stepper-btn:hover{ background: rgba(255,255,255,0.92); }
+.stepper-btn:hover{
+  color: rgba(38,43,38,0.95);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .stepper-btn:active{ transform: translateY(1px); }
 .stepper-btn[disabled],
 .stepper-btn.is-disabled{
-  opacity: 0.45;
+  opacity: 0.35;
   cursor: not-allowed;
+  text-decoration: none;
   transform:none;
 }
 
 .stepper-icon{
-  width:18px;
-  height:18px;
+  width:16px;
+  height:16px;
   display:inline-flex;
   align-items:center;
   justify-content:center;
+  transform: translateY(0.5px);
 }
-.stepper-icon svg{ width:18px; height:18px; display:block; }
+.stepper-icon svg{ width:16px; height:16px; display:block; }
 
 .stepper-current{
   font-size: 13px;
-  color: rgba(38,43,38,0.75);
+  color: rgba(38,43,38,0.60);
   white-space: nowrap;
 }
 
-/* Hamburger */
+/* Hamburger as subtle text+icon (not a button box) */
 .hamburger-btn{
-  width: 40px;
-  height: 34px;
-  border-radius: 12px;
-  border: 1px solid rgba(89,110,94,0.22);
-  background: rgba(255,255,255,0.70);
   display:inline-flex;
   align-items:center;
-  justify-content:center;
+  gap:8px;
+
+  padding: 2px 0;
+  border: none;
+  background: transparent;
+  border-radius: 0;
+
   cursor:pointer;
+  color: rgba(38,43,38,0.80);
 }
-.hamburger-btn:hover{ background: rgba(255,255,255,0.92); }
+.hamburger-btn:hover{
+  color: rgba(38,43,38,0.95);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.hamburger-label{ font-size:13px; line-height:1; }
+
 .hamburger-lines{
-  width: 18px;
+  width: 16px;
   height: 12px;
   display:flex;
   flex-direction:column;
@@ -2680,8 +2696,13 @@ body {
 .hamburger-lines span{
   display:block;
   height:2px;
-  background: rgba(38,43,38,0.75);
+  background: currentColor;
   border-radius: 2px;
+}
+
+/* On very small widths, hide the long current label */
+@media (max-width: 520px){
+  .stepper-current{ display:none; }
 }
 
 /* Menu overlay */
