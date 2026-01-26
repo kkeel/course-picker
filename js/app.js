@@ -2795,10 +2795,32 @@ function coursePlanner() {
     return overlay;
   }
 
-  function openMenu(currentKey) {
+  function openMenu(currentKey, anchorEl) {
     const overlay = buildMenu(currentKey);
+
+    // Position the panel like a website dropdown (anchored to the Menu control)
+    // using CSS variables so we don't have to restructure the DOM.
+    try {
+      const panel = overlay.querySelector(".step-menu-panel");
+      const rect = anchorEl?.getBoundingClientRect?.();
+
+      if (panel && rect) {
+        const margin = 10;
+        const top = Math.round(rect.bottom + margin);
+        const right = Math.round(Math.max(12, window.innerWidth - rect.right));
+
+        // Clamp so it stays on-screen
+        overlay.style.setProperty("--step-menu-top", `${top}px`);
+        overlay.style.setProperty("--step-menu-right", `${right}px`);
+
+        // Max height so it feels like a nav dropdown (scroll inside if long)
+        const maxH = Math.round(Math.max(220, window.innerHeight - top - 16));
+        panel.style.maxHeight = `${maxH}px`;
+      }
+    } catch (e) {}
+
     overlay.classList.add("is-open");
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = ""; // keep page scrollable (website-like)
   }
 
   function closeMenu() {
@@ -2855,7 +2877,7 @@ function coursePlanner() {
     menuBtn.className = "hamburger-btn";
     menuBtn.setAttribute("aria-label", "Open planning steps menu");
     menuBtn.innerHTML = `<span class="hamburger-label">Menu</span><span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span>`;
-    menuBtn.addEventListener("click", () => openMenu(currentKey));
+    menuBtn.addEventListener("click", () => openMenu(currentKey, menuBtn));
 
     container.innerHTML = "";
     container.appendChild(backBtn);
