@@ -2419,11 +2419,15 @@ function coursePlanner() {
         path.endsWith("/") ||
         path.endsWith("/index") ||
         path.endsWith("/courses.html");
+
+      const onYearAtAGlance =
+        path.endsWith("/year-at-a-glance.html") ||
+        path.endsWith("/year-at-a-glance");
     
       const authorized = (this.isMember || this.isStaff);
     
       // Soft gate: do NOT redirect; just toggle what the page displays.
-      this.courseGate = !!(onCourseList && !authorized);
+      this.courseGate = !!((onCourseList || onYearAtAGlance) && !authorized);
     
       return true;
     },
