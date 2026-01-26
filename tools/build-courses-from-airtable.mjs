@@ -111,6 +111,9 @@ function normalizeCourse(rec) {
     Resource_Assignments: txt(f["Resource_Assignments"]),
     Edit_CourseListURL: txt(f["Edit_CourseListURL"]),
     Edit_ResourceAssignmentsURL: txt(f["Edit_ResourceAssignmentsURL"]),
+    term1: fields["Term 1"] || "",
+    term2: fields["Term 2"] || "",
+    term3: fields["Term 3"] || "",
   };
 }
 
