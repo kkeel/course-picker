@@ -65,7 +65,8 @@
       <button
         id="auth-button"
         class="auth-button text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
-        type="button"
+        x-show="!isAuthed"
+        @click="openAuth()"
       >
         Sign in
       </button>
@@ -256,49 +257,7 @@
       </div>
     </section>
   </main>
-
-  <script>
-    // Minimal MemberStack auth button behavior (kept consistent across pages)
-    (function () {
-      const btn = document.getElementById("auth-button");
-      if (!btn) return;
-
-      function openAuth() {
-        try {
-          if (window.$memberstackDom && window.$memberstackDom.openModal) {
-            window.$memberstackDom.openModal("LOGIN");
-            return;
-          }
-          if (window.MemberStack && window.MemberStack.openModal) {
-            window.MemberStack.openModal("LOGIN");
-            return;
-          }
-        } catch (e) {}
-      }
-
-      btn.addEventListener("click", openAuth);
-
-      async function updateAuthUi() {
-        try {
-          if (!window.$memberstackDom || !window.$memberstackDom.getCurrentMember) return;
-          const res = await window.$memberstackDom.getCurrentMember();
-          const isAuthed = !!(res && res.data && res.data.id);
-          if (isAuthed) {
-            btn.textContent = "Account";
-            btn.addEventListener("click", function () {
-              try { window.$memberstackDom.openModal("PROFILE"); } catch (e) {}
-            }, { once: true });
-          }
-        } catch (e) {}
-      }
-
-      let tries = 0;
-      const t = setInterval(() => {
-        tries++;
-        updateAuthUi();
-        if (tries > 20) clearInterval(t);
-      }, 250);
-    })();
-  </script>
+  <script type="module" src="js/auth.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 </html>
