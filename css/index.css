@@ -190,7 +190,7 @@
 .guide-bar-dark{ background: var(--brand-dark); }
 .guide-bar-cream{ background: #efe9d7; }
 
-/* Section 3 – Additional Subjects bar color */
+/* Section 3 â€“ Additional Subjects bar color */
 #additional .guide-bar{
   background: #babbac;
 }
@@ -222,7 +222,7 @@
   position: absolute;
   right: 18px;          /* matches left padding for symmetry */
   top: 50%;
-  transform: translateY(-50%);  /* THIS is the “center on whole card” */
+  transform: translateY(-50%);  /* THIS is the â€œcenter on whole cardâ€ */
 
   width: 210px;         /* container width for the image column */
   display: flex;
@@ -275,4 +275,53 @@
 .guide-text a:hover,
 .guide-list a:hover{
   color: #445a4c; /* slightly darker on hover */
+}
+
+/* =========================================================
+   Print / PDF
+   ========================================================= */
+
+@page { margin: 0.5in; }
+
+@media print {
+  /* Hide app chrome */
+  .app-header,
+  .index-cta-row,
+  .print-tip-overlay,
+  .print-tip-backdrop,
+  .print-tip-modal{
+    display: none !important;
+  }
+
+  body{
+    background: #ffffff !important;
+  }
+
+  .main-content{
+    padding: 0 !important;
+  }
+
+  /* Keep each section together when possible */
+  .guide-section{
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+  }
+
+  /* Print-friendly image placement (avoid absolute positioning quirks) */
+  .guide-image{
+    position: static !important;
+    transform: none !important;
+    width: auto !important;
+    margin-left: 0 !important;
+  }
+
+  .guide-grid{
+    grid-template-columns: 1fr 220px !important;
+  }
+
+  .guide-image img{
+    width: 180px !important;
+    filter: none !important;
+  }
 }
