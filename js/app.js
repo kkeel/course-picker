@@ -2850,11 +2850,6 @@ function coursePlanner() {
       window.location.href = next.href;
     });
 
-    // No "Step X of Y" text — keep it subtle
-    const currentLabel = document.createElement("div");
-    currentLabel.className = "stepper-current";
-    currentLabel.textContent = current.label;
-
     const menuBtn = document.createElement("button");
     menuBtn.type = "button";
     menuBtn.className = "hamburger-btn";
