@@ -48,7 +48,7 @@
 <body x-data="indexPlanner()" x-init="init()">
   <!-- Header / app shell (matches courses/books) -->
   <header class="app-header mb-8 px-6 md:px-16 py-4 md:py-6 flex flex-col md:flex-row md:items-center gap-4">
-    <div class="flex items-center gap-3">
+    <a href="https://www.alveary.org/alveary-2026-2027/dashboard" class="logo-link flex items-center gap-3" aria-label="Go to Alveary dashboard">
       <img
         src="img/Alveary%20Lt.%20Green.png"
         alt="Alveary logo"
@@ -59,7 +59,7 @@
         <span class="logo-title">Alveary</span>
         <span class="print-year-left">2026–2027</span>
       </div>
-    </div>
+    </a>
 
     <div class="mt-3 md:mt-0 md:ml-auto flex items-center justify-end gap-6 text-sm">
       <button
@@ -72,11 +72,7 @@
         Sign in
       </button>
 
-      <nav class="flex items-center gap-x-6 text-sm">
-        <a href="index.html" class="nav-tab nav-tab-active">Planning Guide</a>
-        <a href="courses.html" class="nav-tab">Course List</a>
-        <a href="books.html" class="nav-tab">Book List</a>
-      </nav>
+      <div id="app-step-nav" class="app-step-nav"></div>
     </div>
   </header>
 
@@ -289,6 +285,7 @@
   </div>
 
   <script type="module" src="js/auth.js"></script>
+  <script src="js/app.js"></script>
   <!-- Minimal Alpine controller for this page (auth-only; avoids loading app.js) -->
   <script>
     document.addEventListener('alpine:init', () => {
