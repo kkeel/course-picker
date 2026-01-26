@@ -30,9 +30,26 @@
 }
 .index-cta-row-bottom{ margin-top: 14px; }
 
+/* Primary Start Planning CTA */
 .index-btn-primary{
-  border-color: rgba(89,110,94,0.35) !important;
-  background: rgba(89,110,94,0.08);
+  background: #596e5e;
+  border-color: #596e5e !important;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 12px 18px;
+  gap: 10px;
+}
+
+.index-btn-primary:hover{
+  background: #4c5f50;
+  border-color: #4c5f50 !important;
+}
+
+/* Diagonal arrow */
+.index-cta-arrow{
+  font-size: 16px;
+  line-height: 1;
+  transform: translateY(-1px);
 }
 .index-btn-secondary{
   border-color: rgba(89,110,94,0.20) !important;
