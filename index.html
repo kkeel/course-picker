@@ -282,9 +282,57 @@
 
       <div class="print-tip-actions">
         <button type="button" class="print-tip-btn" @click="closePrintTip()">Cancel</button>
-        <button type="button" class="print-tip-btn print-tip-btn-primary" @click="openPlanningPdfForPrint(); closePrintTip();">
+        <button type="button" class="print-tip-btn print-tip-btn-primary" @click="continueToPrint()">
           Continue to Print
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF Preview Overlay (mobile-safe exit) -->
+  <div
+    x-show="pdfPreviewOpen"
+    x-cloak
+    class="print-tip-overlay"
+    @keydown.escape.window="pdfPreviewOpen = false"
+  >
+    <div class="print-tip-backdrop" @click="pdfPreviewOpen = false"></div>
+  
+    <div
+      class="print-tip-modal"
+      style="max-width: 900px; width: min(92vw, 900px);"
+      @click.stop
+    >
+      <div class="print-tip-title">Course Planning PDF</div>
+  
+      <div
+        class="print-tip-body"
+        style="padding: 0; height: min(70vh, 720px);"
+      >
+        <iframe
+          :src="pdfUrl"
+          title="Course Planning PDF"
+          style="width: 100%; height: 100%; border: 0;"
+        ></iframe>
+      </div>
+  
+      <div class="print-tip-actions">
+        <button
+          type="button"
+          class="print-tip-btn"
+          @click="pdfPreviewOpen = false"
+        >
+          Back to Guide
+        </button>
+  
+        <a
+          class="print-tip-btn print-tip-btn-primary"
+          :href="pdfUrl"
+          target="_blank"
+          rel="noopener"
+        >
+          Open in new tab
+        </a>
       </div>
     </div>
   </div>
@@ -303,6 +351,9 @@
         // Print tip modal (matches courses/books)
         printTipOpen: false,
         printTipDontShowAgain: false,
+        
+        pdfPreviewOpen: false,
+        pdfUrl: "",
 
         async init() {
           await this.refreshAuth();
@@ -335,55 +386,57 @@
             await this.refreshAuth(true);
           }
         },
-
-        // ---- Printing (browser print) ----
+        
+        // ---- Printing (PDF) ----
         openPrintTip() {
           try {
             if (localStorage.getItem('ALVEARY_HIDE_PRINT_TIP') === '1') {
-              this.printNow();
+              // If tip is suppressed, go straight to PDF flow
+              this.openPlanningPdfFlow();
               return;
             }
           } catch (_) {}
-
+        
           this.printTipDontShowAgain = false;
           this.printTipOpen = true;
         },
-
+        
         closePrintTip() {
           this.printTipOpen = false;
         },
-
-        confirmPrintTipAndPrint() {
+        
+        continueToPrint() {
           try {
             if (this.printTipDontShowAgain) localStorage.setItem('ALVEARY_HIDE_PRINT_TIP', '1');
           } catch (_) {}
+        
           this.printTipOpen = false;
-          this.printNow();
+          this.openPlanningPdfFlow();
         },
-
-        printNow() {
-          // Allow the modal to close before printing
-          setTimeout(() => window.print(), 50);
+        
+        openPlanningPdfFlow() {
+          const pdfUrl = "pdf/course-planning.pdf";
+        
+          // Mobile / PWA-safe: show an in-app preview overlay instead of navigating away
+          if (this.isMobileDevice()) {
+            this.pdfUrl = pdfUrl;
+            this.pdfPreviewOpen = true;
+            return;
+          }
+        
+          // Desktop: open PDF in a new tab (user prints from there)
+          const win = window.open(pdfUrl, "_blank", "noopener,noreferrer");
+          if (win) win.focus();
+        },
+        
+        isMobileDevice() {
+          // robust-enough heuristic for your use case
+          return window.matchMedia("(max-width: 900px)").matches ||
+                 /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         },
       }));
     });
   </script>
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <script>
-  function openPlanningPdfForPrint() {
-    const pdfUrl = "pdf/course-planning.pdf";
-    const win = window.open(pdfUrl, "_blank");
-
-    if (!win) return;
-
-    // Optional: auto-open print dialog once PDF loads
-    win.addEventListener("load", () => {
-      try {
-        win.focus();
-        win.print();
-      } catch (e) {}
-    });
-  }
-</script>
 </body>
 </html>
