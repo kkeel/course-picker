@@ -423,22 +423,31 @@
 
         async mobilePdfShareOrFallback() {
           const pdfPath = "pdf/course-planning.pdf";
-          const pdfUrl = this.absoluteUrl(pdfPath);
+          const pdfAbs = new URL(pdfPath, window.location.href).toString();
         
-          // Best case: Share Sheet (lets user pick Print / Save to Files)
-          if (navigator.share) {
-            try {
-              await navigator.share({
-                title: "Course Planning",
-                url: pdfUrl
+          // 1) Try sharing the actual PDF FILE (best chance to show Print / Books)
+          try {
+            if (navigator.share && navigator.canShare) {
+              const res = await fetch(pdfAbs, { cache: "no-store" });
+              const blob = await res.blob();
+        
+              const file = new File([blob], "course-planning.pdf", {
+                type: "application/pdf",
               });
-              return;
-            } catch (e) {
-              // user cancelled or share failed — fall through to overlay
+        
+              if (navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                  title: "Course Planning",
+                  files: [file],
+                });
+                return;
+              }
             }
+          } catch (e) {
+            // fall through
           }
         
-          // Fallback: in-app overlay preview (never traps)
+          // 2) Fallback: show your in-app overlay (with a Back button)
           this.pdfUrl = pdfPath;
           this.pdfPreviewOpen = true;
         },
