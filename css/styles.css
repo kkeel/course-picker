@@ -2659,12 +2659,6 @@ body {
 }
 .stepper-icon svg{ width:16px; height:16px; display:block; }
 
-.stepper-current{
-  font-size: 13px;
-  color: rgba(38,43,38,0.60);
-  white-space: nowrap;
-}
-
 /* Hamburger as subtle text+icon (not a button box) */
 .hamburger-btn{
   display:inline-flex;
@@ -2698,11 +2692,6 @@ body {
   height:2px;
   background: currentColor;
   border-radius: 2px;
-}
-
-/* On very small widths, hide the long current label */
-@media (max-width: 520px){
-  .stepper-current{ display:none; }
 }
 
 /* Menu overlay */
@@ -2834,10 +2823,6 @@ body {
   display:none;
 }
 .step-toast.is-show{ display:block; }
-
-@media (max-width: 640px){
-  .stepper-current{ display:none; }
-}
 
 /* Print: hide interactive step navigation and menu */
 @media print{
