@@ -2847,7 +2847,7 @@ function coursePlanner() {
     menuBtn.type = "button";
     menuBtn.className = "hamburger-btn";
     menuBtn.setAttribute("aria-label", "Open planning steps menu");
-    menuBtn.innerHTML = `<span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span>`;
+    menuBtn.innerHTML = `<span class="hamburger-label">Menu</span><span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span>`;
     menuBtn.addEventListener("click", () => openMenu(currentIdx));
 
     container.innerHTML = "";
