@@ -369,5 +369,21 @@
     });
   </script>
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script>
+  function openPlanningPdfForPrint() {
+    const pdfUrl = "pdf/course-planning.pdf";
+    const win = window.open(pdfUrl, "_blank");
+
+    if (!win) return;
+
+    // Optional: auto-open print dialog once PDF loads
+    win.addEventListener("load", () => {
+      try {
+        win.focus();
+        win.print();
+      } catch (e) {}
+    });
+  }
+</script>
 </body>
 </html>
