@@ -16,9 +16,10 @@
   display: block;
   margin-top: 6px;
   font-family: "Plantin MT Pro", "Times New Roman", serif;
-  font-style: italic;
-  font-weight: 300;
+  font-style: normal;
+  font-weight: 200;
   opacity: 0.9;
+  letter-spacing: 0.01em;
 }
 
 /* CTA buttons (reuse .btn-pill, add stronger primary/secondary) */
