@@ -233,7 +233,7 @@
   width: min(180px, 100%);
   height: auto;
   border-radius: 14px;
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.09));
+  filter: none;
 }
 
 /* Responsive */
