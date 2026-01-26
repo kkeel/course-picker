@@ -239,3 +239,18 @@
     margin-top: 12px;
   }
 }
+
+/* Guide text links */
+.guide-text a,
+.guide-list a{
+  color: #596e5e;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  font-weight: 500;
+}
+
+.guide-text a:hover,
+.guide-list a:hover{
+  color: #445a4c; /* slightly darker on hover */
+}
