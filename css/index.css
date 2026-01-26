@@ -173,6 +173,11 @@
 .guide-bar-dark{ background: var(--brand-dark); }
 .guide-bar-cream{ background: #efe9d7; }
 
+/* Section 3 – Additional Subjects bar color */
+#additional .guide-bar{
+  background: #babbac;
+}
+
 .guide-grid{
   display: grid;
   grid-template-columns: 1fr;
