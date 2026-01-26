@@ -2860,7 +2860,6 @@ function coursePlanner() {
     container.innerHTML = "";
     container.appendChild(backBtn);
     container.appendChild(nextBtn);
-    container.appendChild(currentLabel);
     container.appendChild(menuBtn);
   }
 
