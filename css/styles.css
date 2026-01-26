@@ -2898,3 +2898,15 @@ body {
   }
   .step-menu-panel::before{ right: 26px; }
 }
+
+/* Course list intro inline links */
+.av-intro-paragraphs a.av-inline-link{
+  color: #596e5e;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  font-weight: 500;
+}
+.av-intro-paragraphs a.av-inline-link:hover{
+  color: #445a4c;
+}
