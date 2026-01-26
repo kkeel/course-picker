@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -304,6 +303,9 @@
         printTipOpen: false,
         printTipDontShowAgain: false,
 
+        pdfPreviewOpen: false,
+        pdfUrl: "",
+
         async init() {
           await this.refreshAuth();
         },
@@ -338,16 +340,22 @@
         
         // ---- Printing (PDF) ----
         openPrintTip() {
-          // Mobile: skip modal/overlay and just download the PDF
-          if (this.isMobileDevice()) {
-            this.downloadPdf();
+          // iOS home-screen app: never open PDF viewer / never trap user
+          if (this.isIos() && this.isStandalonePwa()) {
+            this.mobilePdfShareOrFallback();
             return;
           }
         
-          // Desktop: keep existing behavior
+          // regular mobile (optional: either share or download)
+          if (this.isMobileDevice()) {
+            this.mobilePdfShareOrFallback();
+            return;
+          }
+        
+          // desktop: keep your existing Print Tip modal flow
           try {
             if (localStorage.getItem("ALVEARY_HIDE_PRINT_TIP") === "1") {
-              this.openPlanningPdfFlow(); // your desktop open/print function
+              this.openPlanningPdfFlow();
               return;
             }
           } catch (_) {}
@@ -398,6 +406,41 @@
           document.body.appendChild(a);
           a.click();
           a.remove();
+        },
+
+        isIos() {
+          return /iPad|iPhone|iPod/.test(navigator.userAgent);
+        },
+        isStandalonePwa() {
+          // iOS home-screen app: navigator.standalone === true
+          // Other PWAs: display-mode: standalone
+          return (window.navigator.standalone === true) ||
+                 window.matchMedia("(display-mode: standalone)").matches;
+        },
+        absoluteUrl(path) {
+          return new URL(path, window.location.href).toString();
+        },
+
+        async mobilePdfShareOrFallback() {
+          const pdfPath = "pdf/course-planning.pdf";
+          const pdfUrl = this.absoluteUrl(pdfPath);
+        
+          // Best case: Share Sheet (lets user pick Print / Save to Files)
+          if (navigator.share) {
+            try {
+              await navigator.share({
+                title: "Course Planning",
+                url: pdfUrl
+              });
+              return;
+            } catch (e) {
+              // user cancelled or share failed — fall through to overlay
+            }
+          }
+        
+          // Fallback: in-app overlay preview (never traps)
+          this.pdfUrl = pdfPath;
+          this.pdfPreviewOpen = true;
         },
 
       }));
