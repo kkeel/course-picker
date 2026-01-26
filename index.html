@@ -289,54 +289,6 @@
     </div>
   </div>
 
-  <!-- PDF Preview Overlay (mobile-safe exit) -->
-  <div
-    x-show="pdfPreviewOpen"
-    x-cloak
-    class="print-tip-overlay"
-    @keydown.escape.window="pdfPreviewOpen = false"
-  >
-    <div class="print-tip-backdrop" @click="pdfPreviewOpen = false"></div>
-  
-    <div
-      class="print-tip-modal"
-      style="max-width: 900px; width: min(92vw, 900px);"
-      @click.stop
-    >
-      <div class="print-tip-title">Course Planning PDF</div>
-  
-      <div
-        class="print-tip-body"
-        style="padding: 0; height: min(70vh, 720px);"
-      >
-        <iframe
-          :src="pdfUrl"
-          title="Course Planning PDF"
-          style="width: 100%; height: 100%; border: 0;"
-        ></iframe>
-      </div>
-  
-      <div class="print-tip-actions">
-        <button
-          type="button"
-          class="print-tip-btn"
-          @click="pdfPreviewOpen = false"
-        >
-          Back to Guide
-        </button>
-  
-        <a
-          class="print-tip-btn print-tip-btn-primary"
-          :href="pdfUrl"
-          target="_blank"
-          rel="noopener"
-        >
-          Open in new tab
-        </a>
-      </div>
-    </div>
-  </div>
-
   <script type="module" src="js/auth.js"></script>
   <!-- Minimal Alpine controller for this page (auth-only; avoids loading app.js) -->
   <script>
@@ -351,9 +303,6 @@
         // Print tip modal (matches courses/books)
         printTipOpen: false,
         printTipDontShowAgain: false,
-        
-        pdfPreviewOpen: false,
-        pdfUrl: "",
 
         async init() {
           await this.refreshAuth();
@@ -389,10 +338,16 @@
         
         // ---- Printing (PDF) ----
         openPrintTip() {
+          // Mobile: skip modal/overlay and just download the PDF
+          if (this.isMobileDevice()) {
+            this.downloadPdf();
+            return;
+          }
+        
+          // Desktop: keep existing behavior
           try {
-            if (localStorage.getItem('ALVEARY_HIDE_PRINT_TIP') === '1') {
-              // If tip is suppressed, go straight to PDF flow
-              this.openPlanningPdfFlow();
+            if (localStorage.getItem("ALVEARY_HIDE_PRINT_TIP") === "1") {
+              this.openPlanningPdfFlow(); // your desktop open/print function
               return;
             }
           } catch (_) {}
@@ -434,6 +389,17 @@
           return window.matchMedia("(max-width: 900px)").matches ||
                  /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         },
+
+        downloadPdf() {
+          const pdfUrl = "pdf/course-planning.pdf";
+          const a = document.createElement("a");
+          a.href = pdfUrl;
+          a.download = "course-planning.pdf"; // filename users get
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        },
+
       }));
     });
   </script>
