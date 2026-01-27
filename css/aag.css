@@ -142,7 +142,7 @@
 
 /* space before the grid (chart) */
 .aag-grid-section{
-  margin-top: 24px;
+  margin-top: 0 !important;
 }
 
 
