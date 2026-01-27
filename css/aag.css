@@ -207,3 +207,22 @@
 /* Header alignment helpers */
 .yaga-hcell-left{ text-align: left; }
 .yaga-hcell-center{ text-align: center; }
+
+/* Base row reset */
+.yaga-row {
+  border-bottom: none;
+}
+
+/* Course divider — stronger */
+.yaga-row.course-row {
+  border-top: 2px solid #c3cbc3;
+}
+
+/* Topic dividers — lighter */
+.yaga-row.topic-row {
+  border-top: 1px solid #e5e8e5;
+}
+
+.yaga-body tr:first-child {
+  border-top: 2px solid #c3cbc3;
+}
