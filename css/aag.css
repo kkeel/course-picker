@@ -259,7 +259,7 @@
 .yaga-header-sticky{
   position: sticky;
   top: var(--aag-sticky-top, 160px);
-  z-index: 900;           /* below filters, above table rows */
+  z-index: 20;           /* below filters, above table rows */
   background: transparent;
 }
 
