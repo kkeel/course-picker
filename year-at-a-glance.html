@@ -476,7 +476,7 @@
                 <template x-for="course in courseList" :key="course.id || course.Course || course.title">
                   <div>
                     <!-- course row -->
-                    <div class="yaga-row">
+                    <div class="yaga-row course-row">
                       <div class="yaga-cell">
                         <div class="yaga-title"
                            x-text="(course.shared ? '↔ ' : '') + (course.title || course.Course || '')"></div>
@@ -499,7 +499,7 @@
                     <!-- topic rows -->
                     <template x-if="course.topics && course.topics.length">
                       <template x-for="topic in visibleTopicsForCourse(course)" :key="topic.id || topic.Topic">
-                        <div class="yaga-row">
+                        <div class="yaga-row topic-row">
                           <div class="yaga-cell">
                             <div class="yaga-title topic"
                                x-text="(topic.shared ? '↔ ' : '') + (topic.Topic || '')"></div>
