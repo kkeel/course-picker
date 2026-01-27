@@ -271,19 +271,44 @@
 .filter-state-wrapper.aag-filters{
   position: sticky !important;
 }
-/* AAG: keep Manage Students + panel stacked in one grid cell */
+
+/* AAG: Manage Students label/button stays in row 1, panel spans full width below */
 .aag-filters .manage-students-cell{
-  grid-column: 3 / span 2;           /* uses columns 3–4 on desktop */
+  grid-column: 3;                 /* keep the label/button in the 3rd column */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
 }
 
-/* Ensure the manager uses the full cell width and doesn’t add extra spacing */
-.aag-filters .manage-students-cell .student-manager{
+/* The panel breaks onto its own row and spans the whole filter panel width */
+.aag-filters .manage-students-cell .student-manager--full{
+  grid-column: 1 / -1;            /* span full grid */
   width: 100%;
-  margin-bottom: 0;
+  margin-top: 12px;
+}
+
+/* IMPORTANT: because student-manager is inside manage-students-cell,
+   we need to let it "escape" the 3rd column layout */
+.aag-filters .manage-students-cell{
+  position: relative;
+}
+
+/* Put the panel in the normal grid flow by using display: contents on the wrapper */
+.aag-filters .manage-students-cell{
+  display: contents;
+}
+
+/* Style the toggle itself (since display: contents removes the wrapper box) */
+.aag-filters .manage-students-toggle{
+  grid-column: 3;
+  justify-self: start;
+}
+
+/* Now the panel can span full width */
+.aag-filters .student-manager--full{
+  grid-column: 1 / -1;
+  width: 100%;
+  margin-top: 12px;
 }
 
 /* On tablet/mobile (2 columns or 1 column), let it span full width */
