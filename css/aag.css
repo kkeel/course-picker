@@ -226,3 +226,13 @@
 .yaga-body tr:first-child {
   border-top: 2px solid #c3cbc3;
 }
+
+/* Lock all term column body text color */
+.yaga-table td.term-cell {
+  color: #262b26;
+}
+
+.yaga-table td.term-cell * {
+  color: inherit;
+}
+
