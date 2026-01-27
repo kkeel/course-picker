@@ -882,7 +882,7 @@ body {
   border-radius: 4px;
   border: 1px solid #dde2d5;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-  z-index: 20;
+  z-index: 20000;
 }
 
 .filter-dropdown-item {
