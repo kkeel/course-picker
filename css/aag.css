@@ -122,7 +122,6 @@
   margin-bottom: 24px;/* space between filter block + grid */
 }
 
-/* remove the Ã¢â‚¬Å“floating gapÃ¢â‚¬Â between sticky bar and panel */
 .aag-filters .filter-state-bar{
   margin-bottom: 0;
   border-bottom-left-radius: 0;
@@ -250,7 +249,11 @@
 
 /* keep the bar “solid” when sticky */
 .aag-filters .filter-state-bar{
-  background: #f6f2ea; /* your app paper background */
+  background: var(--brand-bg) !important;
+}
+
+.filter-state-wrapper{
+  margin-top: 40px !important;   /* tweak: 32–48px */
 }
 
 /* =========================
