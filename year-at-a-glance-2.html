@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -183,8 +184,7 @@
     </section>
 
       <!-- Filter state + panel (both stick under header) -->
-      <div class="filter-state-wrapper">
-        <!-- Sticky bar -->
+        <div class="filter-state-wrapper aag-filters" id="aagFilterSticky">
         <div class="flex justify-center">
           <div
             class="filter-state-bar"
@@ -196,23 +196,14 @@
               <span class="filter-state-label">Filter by</span>
               <span class="filter-state-summary" x-text="filterSummary"></span>
             </div>
-        
+
             <div class="filter-state-actions">
-              <span
-                class="filter-state-toggle-text"
-                x-text="filtersOpen ? 'Hide' : 'Show'"
-              ></span>
+              <span class="filter-state-toggle-text" x-text="filtersOpen ? 'Hide' : 'Show'"></span>
             </div>
           </div>
         </div>
 
-        <!-- Sticky panel (only shown when filtersOpen === true) -->
-        <div
-          class="mt-0 flex justify-center"
-          id="course-filters"
-          x-show="filtersOpen"
-          x-transition
-        >
+        <div class="mt-0 flex justify-center" x-show="filtersOpen" x-transition>
           <div class="filter-panel">
             <div class="filter-grid">
               <!-- Grade -->
@@ -224,12 +215,10 @@
                   aria-label="Filter by grade"
                   @click="gradeDropdownOpen = !gradeDropdownOpen"
                 >
-                  <!-- placeholder when nothing selected -->
                   <template x-if="selectedGrades.length === 0">
                     <span class="filter-placeholder">Grade</span>
                   </template>
 
-                  <!-- chips when grades are selected -->
                   <template x-if="selectedGrades.length > 0">
                     <div class="filter-control-chips">
                       <template x-for="code in selectedGrades" :key="code">
@@ -240,323 +229,73 @@
                             class="filter-chip-remove"
                             @click.stop="removeGrade(code)"
                             aria-label="Remove grade"
-                          >
-                            ×
-                          </button>
+                          >×</button>
                         </span>
                       </template>
                     </div>
                   </template>
 
-                  <span
-                    class="filter-chevron"
-                    :class="gradeDropdownOpen ? 'filter-chevron-open' : ''"
-                    aria-hidden="true"
-                  >
+                  <span class="filter-chevron" :class="gradeDropdownOpen ? 'filter-chevron-open' : ''" aria-hidden="true">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M6 9l6 6 6-6"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
+                      <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                   </span>
                 </button>
 
-                <!-- dropdown menu -->
-                <div
-                  class="filter-dropdown"
-                  x-show="gradeDropdownOpen"
-                  x-transition
-                >
+                <div class="filter-dropdown" x-show="gradeDropdownOpen" x-transition>
                   <template x-for="opt in gradeOptions" :key="opt.code">
-                    <button
-                      type="button"
-                      class="filter-dropdown-item"
-                      @click="toggleGrade(opt.code)"
-                    >
+                    <button type="button" class="filter-dropdown-item" @click="toggleGrade(opt.code)">
                       <span x-text="opt.label"></span>
-                      <span
-                        class="filter-dropdown-check"
-                        x-show="selectedGrades.includes(opt.code)"
-                      >
-                        ✓
-                      </span>
+                      <span class="filter-dropdown-check" x-show="selectedGrades.includes(opt.code)">✓</span>
                     </button>
                   </template>
                 </div>
               </div>
 
-              <!-- Subject -->
-              <div class="relative" @click.outside="subjectDropdownOpen = false">
-                <button
-                  type="button"
-                  id="filter-subject"
-                  class="filter-control"
-                  aria-label="Filter by subject"
-                  @click="subjectDropdownOpen = !subjectDropdownOpen"
-                >
-                  <!-- placeholder when nothing selected -->
-                  <template x-if="selectedSubjects.length === 0">
-                    <span class="filter-placeholder">Subject</span>
-                  </template>
-              
-                  <!-- chips when subjects are selected -->
-                  <template x-if="selectedSubjects.length > 0">
-                    <div class="filter-control-chips">
-                      <template x-for="subj in selectedSubjects" :key="subj">
-                        <span
-                          class="filter-chip"
-                          :style="`background-color: ${subjectColor(subj)}4D;`"
-                        >
-                          <span x-text="subj"></span>
-                          <button
-                            type="button"
-                            class="filter-chip-remove"
-                            @click.stop="removeSubject(subj)"
-                            aria-label="Remove subject"
-                          >
-                            ×
-                          </button>
-                        </span>
-                      </template>
-                    </div>
-                  </template>
-              
-                  <span
-                    class="filter-chevron"
-                    :class="subjectDropdownOpen ? 'filter-chevron-open' : ''"
-                    aria-hidden="true"
-                  >
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M6 9l6 6 6-6"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              
-                <!-- dropdown menu -->
-                <div
-                  class="filter-dropdown"
-                  x-show="subjectDropdownOpen"
-                  x-transition
-                >
-                  <template x-for="opt in subjectOptions" :key="opt">
-                    <button
-                      type="button"
-                      class="filter-dropdown-item"
-                      @click="toggleSubject(opt)"
-                    >
-                      <span x-text="opt"></span>
-                      <span
-                        class="filter-dropdown-check"
-                        x-show="selectedSubjects.includes(opt)"
-                      >
-                        ✓
-                      </span>
-                    </button>
-                  </template>
-                </div>
-              </div>
-
-              <!-- Tags -->
-              <div class="relative" @click.outside="tagDropdownOpen = false">
-                <button
-                  type="button"
-                  id="filter-tags"
-                  class="filter-control"
-                  aria-label="Filter by planning tag"
-                  @click="tagDropdownOpen = !tagDropdownOpen"
-                >
-                  <!-- placeholder when nothing selected -->
-                  <template x-if="selectedTags.length === 0">
-                    <span class="filter-placeholder">Planning tag</span>
-                  </template>
-              
-                  <!-- chips when tags are selected -->
-                  <template x-if="selectedTags.length > 0">
-                    <div class="filter-control-chips">
-                      <template x-for="tagId in selectedTags" :key="tagId">
-                        <span class="filter-chip">
-                          <span x-text="planningTagLabel(tagId)"></span>
-                          <button
-                            type="button"
-                            class="filter-chip-remove"
-                            @click.stop="removeSelectedTag(tagId)"
-                            aria-label="Remove tag"
-                          >
-                            ×
-                          </button>
-                        </span>
-                      </template>
-                    </div>
-                  </template>
-              
-                  <span
-                    class="filter-chevron"
-                    :class="tagDropdownOpen ? 'filter-chevron-open' : ''"
-                    aria-hidden="true"
-                  >
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M6 9l6 6 6-6"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              
-                <!-- dropdown menu -->
-                <div
-                  class="filter-dropdown"
-                  x-show="tagDropdownOpen"
-                  x-transition
-                >
-                  <template x-for="opt in planningTagOptions" :key="opt.id">
-                    <button
-                      type="button"
-                      class="filter-dropdown-item"
-                      @click="toggleSelectedTag(opt.id)"
-                    >
-                      <div class="planning-tag-option-main">
-                        <img
-                          :src="opt.img"
-                          :alt="opt.label"
-                        />
-                        <span x-text="opt.label"></span>
-                      </div>
-                      <span
-                        class="filter-dropdown-check"
-                        x-show="selectedTags.includes(opt.id)"
-                      >
-                        ✓
-                      </span>
-                    </button>
-                  </template>
-                </div>
-              </div>
-
-              <!-- Search -->
-              <div>
-                <div class="filter-control" aria-label="Search courses or topics">
-                  <input
-                    id="filter-search"
-                    type="search"
-                    placeholder="Search"
-                    autocomplete="off"
-                    x-model="searchQuery"
-                    @input="applyFilters()"
-                  />
-                  <span class="search-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <circle
-                        cx="11"
-                        cy="11"
-                        r="6.5"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        fill="none"
-                      />
-                      <line
-                        x1="15"
-                        y1="15"
-                        x2="20"
-                        y2="20"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-
-            <!-- Students: manage + filter -->
-            <div class="student-tools-row" @click.stop>
-              <!-- Student (multi-select, chip-style like other filters) -->
+              <!-- Students dropdown (chip-style) -->
               <div class="relative" @click.outside="studentDropdownOpen = false">
                 <button
                   type="button"
                   id="filter-student"
                   class="filter-control"
-                  aria-label="Filter by student"
-                  @click="studentDropdownOpen = !studentDropdownOpen"
+                  @click.stop="studentDropdownOpen = !studentDropdownOpen"
+                  aria-label="Students"
                 >
-                  <!-- placeholder when nothing selected -->
+                  <!-- placeholder -->
                   <template x-if="!selectedStudents || selectedStudents.length === 0">
                     <span class="filter-placeholder">Students</span>
                   </template>
-              
-                  <!-- chips when students are selected -->
+
+                  <!-- chips -->
                   <template x-if="selectedStudents && selectedStudents.length > 0">
                     <div class="filter-control-chips">
                       <template x-for="sid in selectedStudents" :key="sid">
                         <span
-                            class="filter-chip"
-                            :class="sid === '__any__' ? 'filter-chip--any-student' : 'filter-chip--student'"
-                            :style="sid === '__any__' ? '' : `background-color:${studentColorFromId(sid)};`"
-                          >
-                          <span x-text="studentNameFromId(sid)"></span>
+                          class="filter-chip filter-chip--student"
+                          :style="{ backgroundColor: (studentById(sid)?.color || '#666d66') }"
+                        >
+                          <span x-text="studentById(sid)?.name || 'Student'"></span>
                           <button
                             type="button"
                             class="filter-chip-remove"
-                            @click.stop="removeStudentFilter(sid)"
+                            @click.stop="toggleStudentFilter(sid)"
                             aria-label="Remove student"
-                          >
-                            ×
-                          </button>
+                          >×</button>
                         </span>
                       </template>
                     </div>
                   </template>
-              
-                  <span
-                    class="filter-chevron"
-                    :class="studentDropdownOpen ? 'filter-chevron-open' : ''"
-                    aria-hidden="true"
-                  >
+
+                  <span class="filter-chevron" :class="studentDropdownOpen ? 'filter-chevron-open' : ''" aria-hidden="true">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M6 9l6 6 6-6"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
+                      <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg>
                   </span>
                 </button>
-              
-                <!-- dropdown menu -->
-                <div class="filter-dropdown" x-show="studentDropdownOpen" x-transition>
-                  <button
-                    type="button"
-                    class="filter-dropdown-item"
-                    @click="toggleStudentFilter('__any__')"
-                  >
-                    <span class="student-dd-row">
-                      <span class="student-dd-swatch" style="background-color:#f4f6fa; border-color:#dde2d5" aria-hidden="true"></span>
-                      <span>All Students</span>
-                    </span>
-                  
-                    <span class="filter-dropdown-check" x-show="selectedStudents.includes('__any__')">✓</span>
-                  </button>
+
+                <!-- dropdown -->
+                <div class="filter-dropdown" x-show="studentDropdownOpen" x-transition x-cloak @click.stop>
                   <template x-for="s in students" :key="s.id">
                     <button
                       type="button"
@@ -571,13 +310,14 @@
                         ></span>
                         <span x-text="s.name || 'Unnamed'"></span>
                       </span>
-                  
-                      <span class="filter-dropdown-check" x-show="selectedStudents.includes(s.id)">✓</span>
+
+                      <span class="filter-dropdown-check" x-show="(selectedStudents || []).includes(s.id)">✓</span>
                     </button>
                   </template>
                 </div>
               </div>
 
+              <!-- Manage Students toggle -->
               <button
                 type="button"
                 class="manage-students-toggle"
@@ -586,45 +326,9 @@
               >
                 Manage Students
               </button>
-              <!-- List View (Full / Compact / Minimal) -->
-              <div class="list-view-controls" role="group" aria-label="List view">
-                <span class="list-view-label">List view:</span>
-
-                <label class="list-view-radio">
-                  <input
-                    type="radio"
-                    name="courseListView"
-                    value="full"
-                    :checked="courseListViewMode === 'full'"
-                    @change="setCourseListViewMode('full')"
-                  >
-                  Full
-                </label>
-
-                <label class="list-view-radio">
-                  <input
-                    type="radio"
-                    name="courseListView"
-                    value="compact"
-                    :checked="courseListViewMode === 'compact'"
-                    @change="setCourseListViewMode('compact')"
-                  >
-                  Compact
-                </label>
-
-                <label class="list-view-radio">
-                  <input
-                    type="radio"
-                    name="courseListView"
-                    value="minimal"
-                    :checked="courseListViewMode === 'minimal'"
-                    @change="setCourseListViewMode('minimal')"
-                  >
-                  Minimal
-                </label>
-              </div>
             </div>
-
+            
+            <!-- Student manager panel (opens below, full width) -->
             <div
               class="student-manager"
               x-show="studentsOpen"
@@ -640,7 +344,6 @@
                 <template x-for="s in students" :key="s.id">
                   <div>
                     <div class="student-row">
-                      <!-- Color square (click to open swatches) -->
                       <button
                         type="button"
                         class="student-color-btn"
@@ -649,7 +352,7 @@
                         aria-label="Choose student color"
                         title="Choose color"
                       ></button>
-                    
+
                       <input
                         class="student-name-input"
                         type="text"
@@ -657,8 +360,7 @@
                         :value="s.name"
                         @input="updateStudentName(s.id, $event.target.value)"
                       />
-                    
-                      <!-- Subtle X remove -->
+
                       <button
                         type="button"
                         class="student-remove-x"
@@ -701,7 +403,7 @@
                 >Add</button>
               </div>
             </div>
-
+            <!-- Actions row (reuse your existing clear/print buttons if present in app.js UI state) -->
             <div class="filter-actions">
               <!-- Left: clear + print buttons -->
               <div class="flex gap-2">
@@ -747,32 +449,25 @@
 
               <!-- Right: toggles -->
               <div class="flex gap-4 justify-start md:justify-end flex-wrap">
-
                 <div
                   class="toggle"
                   :class="myCoursesOnly ? 'toggle--on' : ''"
                   @click="toggleMyCoursesOnly()"
+                  title="Show only your saved courses"
                 >
                   <div class="toggle-switch">
                     <div class="toggle-switch-knob"></div>
                   </div>
                   <span>My Courses</span>
                 </div>
-                <div
-                  class="toggle"
-                  :class="myNotesOpen ? 'toggle--on' : ''"
-                  @click="toggleMyNotes()"
-                >
-                  <div class="toggle-switch">
-                    <div class="toggle-switch-knob"></div>
-                  </div>
-                  <span>My Notes</span>
-                </div>
               </div>
             </div>
-          </div> <!-- .filter-panel -->
-        </div>   <!-- #course-filters -->
-      </div>     <!-- .filter-state-wrapper -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
 
       <!-- Grid -->
       <section class="aag-grid-section">
