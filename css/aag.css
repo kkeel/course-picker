@@ -130,7 +130,7 @@
    ========================================================= */
 
 .aag-filters{
-  margin-top: 24px;   /* space between intro text + filter block */
+  margin-top: 0;   /* space between intro text + filter block */
   margin-bottom: 24px;/* space between filter block + grid */
 }
 
@@ -190,6 +190,9 @@
 .yaga-grid-header{
   background: #596e5e;
   border-bottom: 1px solid #596e5e; /* blends */
+  position: sticky;
+  top: calc(var(--app-header-h, 85px) + var(--aag-filter-h, 0px));
+  z-index: 30;
 }
 
 .yaga-hcell{
@@ -236,3 +239,7 @@
   color: inherit;
 }
 
+@media print{
+  .filter-state-wrapper{ position: static !important; }
+  .yaga-grid-header{ position: static !important; }
+}
