@@ -39,6 +39,7 @@
   <!-- 4. CSS -->
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/print-course.css">
+  <link rel="stylesheet" href="css/aag.css">
 
   <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -60,7 +61,7 @@
         Sign in successful
       </div>
       <div class="text-sm opacity-70 mb-4">
-        Gathering your course list info…
+        Gathering your At-a-Glance info…
       </div>
       <div class="animate-pulse text-sm">
         Loading…
@@ -97,20 +98,6 @@
         >
           Sign in
         </button>
-      
-      <!-- Staff-only: Edit mode (inline, before nav) -->
-      <div
-        class="toggle"
-        x-show="isStaff"
-        style="display:none"
-        :class="editMode ? 'toggle--on' : ''"
-        @click="toggleEditMode()"
-      >
-        <div class="toggle-switch">
-          <div class="toggle-switch-knob"></div>
-        </div>
-        <span x-text="editMode ? 'Edit Mode' : 'Published'"></span>
-      </div>
     
       <!-- navigation (stepper + menu) -->
       <div id="app-step-nav" class="app-step-nav"></div>
@@ -118,7 +105,7 @@
 
     <!-- PRINT-ONLY: Course List + grade/master label on the right -->
     <div class="print-header-title-block">
-      <div class="print-header-title">Course List</div>
+      <div class="print-header-title">Year At-A-Glance</div>
       <div class="print-header-grade" x-text="gradePrintLabel()"></div>
     </div>
     
@@ -126,7 +113,7 @@
 
   <!-- PRINT-ONLY FOOTER -->
   <footer class="print-footer" aria-hidden="true">
-    <div class="print-footer-left">Alveary Course List</div>
+    <div class="print-footer-left">Alveary Year At-A-Glance</div>
     <div class="print-footer-center">©2026 Charlotte Mason Institute® All rights reserved.</div>
     <div class="print-footer-right">
       <span class="print-footer-grade" x-text="gradePrintLabel()"></span>
@@ -139,42 +126,35 @@
     
     <!-- PUBLIC GATE MESSAGE (Course List) -->
     <section x-show="courseGate" x-cloak class="mt-6">
-      <h2 class="section-title">Course List</h2>
+      <h2 class="section-title">Year At-A-Glance</h2>
     
       <div class="mt-6 p-6 rounded-lg border border-[#d2d6d2] bg-white max-w-2xl">
         <p class="text-sm text-[#596e5e] mb-4">
-          This course planner is available to Alveary members.
+          The Year At-A-Glance is available to Alveary members.
         </p>
         <button
           class="auth-button text-sm px-4 py-2 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
           @click="openAuth()"
         >
-          Sign in to view courses
+          Sign in to view
         </button>
       </div>
     </section>
 
     <div x-show="!courseGate" x-cloak>
-    <!-- Course List -->
+    <!-- Yearly At-A-Glance -->
     <section>
-      <h2 class="section-title">Course List</h2>
+      <h2 class="section-title">Yearly At-A-Glance</h2>
     
       <div class="av-intro-flex">
       <!-- Intro text (paragraphs) -->
       <div class="section-subtitle av-intro-text av-intro-paragraphs">
         <p>
-          Make initial decisions on which courses you'd like to teach. Read the course descriptions and scheduling information and use your
-          <a
-            class="av-inline-link"
-            href="https://planning.alveary.org/pdf/course-planning.pdf"
-            target="_blank"
-            rel="noopener"
-          >Course Planning worksheet</a>
-          to help you tailor the Charlotte Mason feast to your students and season of life, creating a joyful, sustainable year.
+          View your year plan by course and topic, organized in hierarchy order, with assigned books listed by term. Use the grade filter to preview a full grade-level plan, or (later) we can extend this to reflect your personal Course List + Book List selections.
         </p>
     
         <p>
-          Use the filters below to view courses by grade or subject, bookmark courses, and print your selections. Some courses contain several topic areas. When possible, you will want to include each of these topic areas in your schedule as they are designed to be studied together. If planning digitally, you'll find additional features allowing you to assign students to courses and add planning notes. 
+          Tip: this layout is designed to print cleanly to PDF while still being readable on the web.
         </p>
       </div>
         
@@ -188,35 +168,13 @@
           </a>
         </div>
       
-        <!-- Symbol Key box -->
+        <!-- PDF Files -->
         <div class="av-symbol-key" aria-label="Symbol Key">
-          <div class="av-symbol-key-title">Symbol Key</div>
+          <div class="av-symbol-key-title">PDF by Grade</div>
       
           <div class="av-symbol-grid">
             <div class="av-symbol-item">
-              <span class="av-symbol glyph">↔</span>
-              <span>Shared Course</span>
-            </div>
-            <div class="av-symbol-item">
-              <span class="av-symbol glyph">*</span>
-              <span>Morning Lesson</span>
-            </div>
-            <div class="av-symbol-item">
-              <span class="av-symbol glyph">–</span>
-              <span>Afternoon Lesson</span>
-            </div>
-            <div class="av-symbol-item">
-              <span class="av-symbol av-symbol-box">T</span>
-              <span>Full Teacher Attention</span>
-            </div>
-            <div class="av-symbol-item">
-              <span class="av-symbol av-symbol-half"></span>
-              <span>Partial Teacher Attention</span>
-            </div>
-            <div class="av-symbol-item">
-              <span class="av-symbol av-symbol-empty"></span>
-              <span>Little to No Teacher Attention</span>
-            </div>
+              <span>ADD PDF LINKS HERE</span>
           </div>
         </div>
       
