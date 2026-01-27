@@ -2716,27 +2716,20 @@ function coursePlanner() {
   }
 
   function iconSvg(name) {
-    // Minimal inline icons to match your clean light theme (uses currentColor)
+    // Keep inline SVGs for the few "built-in" icons you still want
     const common = 'xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
+  
+    // ✅ If the icon looks like a file (ends in .svg), use your repo icons
+    // Folder: /img/menu-icons/
+    if (typeof name === "string" && name.toLowerCase().endsWith(".svg")) {
+      const safe = encodeURIComponent(name).replace(/%2F/g, "/");
+      return `<img class="step-menu-svg-icon" src="img/menu-icons/${safe}" alt="" aria-hidden="true">`;
+    }
+  
+    // ✅ Otherwise fall back to inline icons (only needed for the ones you keep)
     switch (name) {
-      case "spark":
-        return `<svg ${common}><path d="M12 2l1.2 4.2L17 7l-3.8 1L12 12l-1.2-4-3.8-1 3.8-.8L12 2z"/><path d="M5 13l.8 2.8L9 17l-3.2.8L5 21l-.8-3.2L1 17l3.2-1.2L5 13z"/></svg>`;
-      case "list":
-        return `<svg ${common}><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>`;
-      case "calendar":
-        return `<svg ${common}><path d="M7 4v2"/><path d="M17 4v2"/><path d="M3.5 9h17"/><path d="M5 6h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></svg>`;
-      case "book":
-        return `<svg ${common}><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16h-13.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 5.5V19"/></svg>`;
-      case "doc":
-        return `<svg ${common}><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h8"/></svg>`;
-      case "box":
-        return `<svg ${common}><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v10l9 5 9-5V8"/><path d="M12 13v10"/></svg>`;
-      case "check":
-        return `<svg ${common}><path d="M9 11l3 3 8-8"/><path d="M21 12a9 9 0 1 1-5-8"/></svg>`;
       case "grid":
         return `<svg ${common}><path d="M4 4h7v7H4z"/><path d="M13 4h7v7h-7z"/><path d="M4 13h7v7H4z"/><path d="M13 13h7v7h-7z"/></svg>`;
-      case "dollar":
-        return `<svg ${common}><path d="M12 2v20"/><path d="M17 6.5c0-2-2.2-3.5-5-3.5s-5 1.5-5 3.5 2.2 3 5 3 5 1 5 3-2.2 3.5-5 3.5-5-1.5-5-3.5"/></svg>`;
       default:
         return `<svg ${common}><path d="M12 2v20"/><path d="M2 12h20"/></svg>`;
     }
