@@ -190,9 +190,6 @@
 .yaga-grid-header{
   background: #596e5e;
   border-bottom: 1px solid #596e5e; /* blends */
-  position: sticky;
-  top: calc(var(--app-header-h, 85px) + var(--aag-filter-h, 0px));
-  z-index: 30;
 }
 
 .yaga-hcell{
@@ -244,14 +241,6 @@
   .yaga-grid-header{ position: static !important; }
 }
 
-/* AAG: chart header sticky (below the sticky filter bar) */
-.yaga-header-sticky{
-  position: sticky;
-  top: var(--aag-sticky-top, 160px);
-  z-index: 40; /* below filter, above rows */
-  background: transparent;
-}
-
 /* Keep header visuals clean */
 .yaga-header-sticky .yaga-grid-header{
   border-radius: 10px 10px 0 0;
@@ -278,8 +267,9 @@
    ========================= */
 .yaga-header-sticky{
   position: sticky;
-  top: var(--aag-sticky-top, calc(var(--app-header-h, 84px) + 48px));
-  z-index: 400;
+  top: var(--aag-sticky-top, 160px);
+  z-index: 900;           /* below filters, above table rows */
+  background: transparent;
 }
 
 /* Ensure the header row stays opaque while sticky */
