@@ -2700,15 +2700,15 @@ function coursePlanner() {
   // - "ready" steps must have an href (page exists)
   // - "soon" steps have href: null and are hidden from the menu until live
   const STEPS = [
-    { key: "intro", label: "Course Planning Intro", href: "index.html", status: "ready", icon: "spark" },
-    { key: "courses", label: "Courses", href: "courses.html", status: "ready", icon: "list" },
-    { key: "schedule", label: "Schedule", href: null, status: "soon", icon: "calendar" },
-    { key: "books", label: "Books", href: "books.html", status: "ready", icon: "book" },
-    { key: "lesson-plans", label: "Lesson Plans", href: null, status: "soon", icon: "doc" },
-    { key: "supplies", label: "Supplies", href: null, status: "soon", icon: "box" },
-    { key: "exams", label: "Exams", href: null, status: "soon", icon: "check" },
+    { key: "intro", label: "Course Planning Intro", href: "index.html", status: "ready", icon: "course-planning-intro.svg" },
+    { key: "courses", label: "Courses", href: "courses.html", status: "ready", icon: "course-list.svg" },
+    { key: "schedule", label: "Schedule", href: null, status: "soon", icon: "schedule.svg" },
+    { key: "books", label: "Books", href: "books.html", status: "ready", icon: "book-list.svg" },
+    { key: "lesson-plans", label: "Lesson Plans", href: null, status: "soon", icon: "Lesson-plans.svg" },
+    { key: "supplies", label: "Supplies", href: null, status: "soon", icon: "supplies.svg" },
+    { key: "exams", label: "Exams", href: null, status: "soon", icon: "exams.svg" },
     { key: "ataglance", label: "Year At-A-Glance", href: "year-at-a-glance.html", status: "ready", icon: "grid", group: "Other tools" },
-    { key: "budget", label: "Budget Planner", href: null, status: "soon", icon: "dollar", group: "Other tools" },
+    { key: "budget", label: "Budget Planner", href: null, status: "soon", icon: "budget.svg", group: "Other tools" },
   ];
 
   function isLiveStep(s) {
