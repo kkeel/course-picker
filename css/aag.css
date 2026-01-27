@@ -118,3 +118,34 @@
       .yaga-term { font-size: 11px; }
       .yaga-sched { font-size: 10px; }
     }
+/* =========================================================
+   AAG spacing + filter block alignment
+   ========================================================= */
+
+.aag-filters{
+  margin-top: 24px;   /* space between intro text + filter block */
+  margin-bottom: 24px;/* space between filter block + grid */
+}
+
+/* remove the “floating gap” between sticky bar and panel */
+.aag-filters .filter-state-bar{
+  margin-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* panel should visually attach to the bar */
+.aag-filters .filter-panel{
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+  /* pull up 1px so borders touch cleanly */
+  position: relative;
+  top: -1px;
+}
+
+/* space before the grid (chart) */
+.aag-grid-section{
+  margin-top: 24px;
+}
