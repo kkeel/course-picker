@@ -243,7 +243,7 @@
 /* Match Courses page sticky behavior (do NOT customize separately) */
 .filter-state-wrapper.aag-filters{
   position: sticky;
-  top: calc(var(--app-header-h, 64px) + 10px);
+  top: var(--app-header-h, 64px);
   z-index: 1200;
 }
 
