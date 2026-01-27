@@ -182,3 +182,24 @@
   display: flex;
   align-items: center;
 }
+
+.yaga-grid-header{
+  background: #596e5e;
+  border-bottom: 1px solid #596e5e; /* blends */
+}
+
+.yaga-hcell{
+  padding: 12px 14px;
+  font-size: 12px;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-weight: 650;
+
+  /* remove vertical dividers */
+  border-right: none;
+}
+
+/* Header alignment helpers */
+.yaga-hcell-left{ text-align: left; }
+.yaga-hcell-center{ text-align: center; }
