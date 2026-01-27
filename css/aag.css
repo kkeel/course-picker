@@ -317,3 +317,16 @@
     grid-column: 1 / -1;
   }
 }
+
+/* AAG: keep the Manage Students toggle in column 3 */
+.aag-filters .aag-manage-toggle{
+  grid-column: 3;
+  justify-self: start;
+}
+
+/* AAG: make the manager panel span the entire filter grid width */
+.aag-filters .aag-student-manager{
+  grid-column: 1 / -1;
+  width: 100%;
+  margin-top: 12px;
+}
