@@ -271,3 +271,24 @@
 .filter-state-wrapper.aag-filters{
   position: sticky !important;
 }
+/* AAG: keep Manage Students + panel stacked in one grid cell */
+.aag-filters .manage-students-cell{
+  grid-column: 3 / span 2;           /* uses columns 3–4 on desktop */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* Ensure the manager uses the full cell width and doesn’t add extra spacing */
+.aag-filters .manage-students-cell .student-manager{
+  width: 100%;
+  margin-bottom: 0;
+}
+
+/* On tablet/mobile (2 columns or 1 column), let it span full width */
+@media (max-width: 1024px){
+  .aag-filters .manage-students-cell{
+    grid-column: 1 / -1;
+  }
+}
