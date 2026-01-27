@@ -168,6 +168,7 @@
 
       <!-- Filters (reuse your existing grade filter UI; keep everything else minimal for now) -->
       <section class="aag-filters">
+        <div class="filter-state-wrapper">
         <div class="flex justify-center">
           <div
             class="filter-state-bar"
@@ -234,9 +235,6 @@
                   </template>
                 </div>
               </div>
-
-
-
 
               <!-- Students dropdown (chip-style) -->
               <div class="relative" @click.outside="studentDropdownOpen = false">
@@ -312,9 +310,8 @@
               >
                 Manage Students
               </button>
-           
-
             </div>
+            
             <!-- Student manager panel (opens below, full width) -->
             <div
               class="student-manager"
@@ -453,6 +450,7 @@
               </div>
             </div>
           </div>
+        </div>
         </div>
       </section>
 
@@ -665,5 +663,27 @@
       });
     }
   </script>
+  
+  <script>
+  (function () {
+    function setAagFilterHeightVar() {
+      const w = document.querySelector('.filter-state-wrapper');
+      const h = w ? Math.round(w.getBoundingClientRect().height) : 0;
+      document.documentElement.style.setProperty('--aag-filter-h', h + 'px');
+    }
+  
+    window.addEventListener('load', setAagFilterHeightVar);
+    window.addEventListener('resize', setAagFilterHeightVar);
+  
+    const w = document.querySelector('.filter-state-wrapper');
+    if (w && 'ResizeObserver' in window) {
+      const ro = new ResizeObserver(setAagFilterHeightVar);
+      ro.observe(w);
+    }
+  
+    setAagFilterHeightVar();
+  })();
+  </script>
+  
 </body>
 </html>
