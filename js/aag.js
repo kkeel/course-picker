@@ -7,13 +7,13 @@
 
     // Default: sit under app header if filter wrapper can't be found
     const appHeader = document.querySelector(".app-header");
-    let top = (appHeader ? Math.round(appHeader.getBoundingClientRect().bottom) : 0) + 8;
+    let top = (appHeader ? Math.round(appHeader.getBoundingClientRect().bottom) : 0);
 
     // Preferred: sit under the LIVE bottom edge of the filter wrapper
     // (bar only when closed; bar+panel when open)
     if (filterWrap) {
       const r = filterWrap.getBoundingClientRect();
-      top = Math.round(r.bottom) + 8;
+      top = Math.round(r.bottom);
     }
 
     root.style.setProperty("--aag-sticky-top", `${top}px`);
