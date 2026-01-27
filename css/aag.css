@@ -142,7 +142,7 @@
 
 /* space before the grid (chart) */
 .aag-grid-section{
-  margin-top: 0 !important;
+  margin-top: 18px
 }
 
 
@@ -257,9 +257,9 @@
    AAG: Sticky chart header (under sticky filter bar)
    ========================= */
 .yaga-header-sticky{
-  position: sticky;
-  top: var(--aag-sticky-top, 160px);
-  z-index: 20;           /* below filters, above table rows */
+  position: static;   /* or just remove position/top entirely */
+  top: auto;
+  z-index: auto;           /* below filters, above table rows */
   background: transparent;
 }
 
