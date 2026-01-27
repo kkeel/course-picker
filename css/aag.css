@@ -260,10 +260,11 @@
 /* =========================
    AAG: Sticky filter bar (match Courses behavior)
    ========================= */
-.aag-filters .filter-state-wrapper{
+#aagFilterSticky,
+.filter-state-wrapper.aag-filters{
   position: sticky;
-  top: var(--app-header-h, 84px); /* Courses uses this variable */
-  z-index: 30;                  /* above page content */
+  top: var(--app-header-h, 84px);
+  z-index: 600;
 }
 
 /* keep the bar “solid” when sticky */
