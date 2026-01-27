@@ -127,7 +127,7 @@
   margin-bottom: 24px;/* space between filter block + grid */
 }
 
-/* remove the “floating gap” between sticky bar and panel */
+/* remove the â€œfloating gapâ€ between sticky bar and panel */
 .aag-filters .filter-state-bar{
   margin-bottom: 0;
   border-bottom-left-radius: 0;
@@ -148,4 +148,31 @@
 /* space before the grid (chart) */
 .aag-grid-section{
   margin-top: 24px;
+}
+
+
+/* =========================================================
+   AAG filter layout: match Course List spacing
+   ========================================================= */
+
+/* Grade should not look "quarter width" on this page */
+.aag-filters .filter-grid{
+  grid-template-columns: 1fr;
+}
+
+/* Student row on AAG only has 2 controls, so use 2 columns (no squish) */
+.aag-filters .student-tools-row{
+  grid-template-columns: 1fr auto;
+  column-gap: 16px;
+  row-gap: 8px;
+  margin: 14px 0 12px;
+}
+
+.aag-filters .student-tools-row > .relative{
+  grid-column: auto;
+}
+
+.aag-filters .student-tools-row .manage-students-toggle{
+  grid-column: auto;
+  justify-self: start;
 }
