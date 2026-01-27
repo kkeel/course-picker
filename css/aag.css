@@ -165,3 +165,20 @@
   row-gap: 12px;
   align-items: end;
 }
+
+.filter-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.filter-actions-left {
+  display: flex;
+  gap: 12px;
+}
+
+.filter-actions-right {
+  display: flex;
+  align-items: center;
+}
