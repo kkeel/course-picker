@@ -457,73 +457,69 @@
       <!-- Grid -->
       <section class="aag-grid-section">
         <div class="yaga-card">
+      
+          <!-- Sticky column headers ONLY -->
           <div class="yaga-header-sticky" id="aagTableHeader">
-            <!-- header row -->
             <div class="yaga-grid-header">
               <div class="yaga-hcell yaga-hcell-left">Program List</div>
               <div class="yaga-hcell yaga-hcell-center">Term 1</div>
               <div class="yaga-hcell yaga-hcell-center">Term 2</div>
               <div class="yaga-hcell yaga-hcell-center">Term 3</div>
             </div>
-
-            <!-- content -->
-            <template x-for="(courseList, subject) in visibleCourseGroups()" :key="subject">
-              <div>
-                <div class="yaga-subject" x-text="subject"></div>
-
-                <template x-for="course in courseList" :key="course.id || course.Course || course.title">
-                  <div>
-                    <!-- course row -->
-                    <div class="yaga-row course-row">
-                      <div class="yaga-cell">
-                        <div class="yaga-title"
-                           x-text="(course.shared ? '↔ ' : '') + (course.title || course.Course || '')"></div>
-                        <template x-if="course.schedText && course.schedText.trim()">
-                          <div class="yaga-sched" x-text="course.schedText"></div>
-                        </template>
-                      </div>
-
-                      <div class="yaga-cell">
-                        <div class="yaga-term" x-text="course.term1 || ''"></div>
-                      </div>
-                      <div class="yaga-cell">
-                        <div class="yaga-term" x-text="course.term2 || ''"></div>
-                      </div>
-                      <div class="yaga-cell">
-                        <div class="yaga-term" x-text="course.term3 || ''"></div>
-                      </div>
-                    </div>
-
-                    <!-- topic rows -->
-                    <template x-if="course.topics && course.topics.length">
-                      <template x-for="topic in visibleTopicsForCourse(course)" :key="topic.id || topic.Topic">
-                        <div class="yaga-row topic-row">
-                          <div class="yaga-cell">
-                            <div class="yaga-title topic"
-                               x-text="(topic.shared ? '↔ ' : '') + (topic.Topic || '')"></div>
-                            <template x-if="topic.schedText && topic.schedText.trim()">
-                              <div class="yaga-sched topic" x-text="topic.schedText"></div>
-                            </template>
-                          </div>
-
-                          <div class="yaga-cell">
-                            <div class="yaga-term" x-text="topic.term1 || ''"></div>
-                          </div>
-                          <div class="yaga-cell">
-                            <div class="yaga-term" x-text="topic.term2 || ''"></div>
-                          </div>
-                          <div class="yaga-cell">
-                            <div class="yaga-term" x-text="topic.term3 || ''"></div>
-                          </div>
-                        </div>
-                      </template>
-                    </template>
-
-                  </div>
-                </template>
-              </div>
-            </template>
           </div>
+      
+          <!-- Scroll / body -->
+          <div class="yaga-scroll">
+            <div class="yaga-grid">
+      
+              <template x-for="(courseList, subject) in visibleCourseGroups()" :key="subject">
+                <div>
+                  <div class="yaga-subject" x-text="subject"></div>
+      
+                  <template x-for="course in courseList" :key="course.id || course.Course || course.title">
+                    <div>
+                      <!-- course row -->
+                      <div class="yaga-row course-row">
+                        <div class="yaga-cell">
+                          <div class="yaga-title"
+                            x-text="(course.shared ? '↔ ' : '') + (course.title || course.Course || '')"></div>
+                          <template x-if="course.schedText && course.schedText.trim()">
+                            <div class="yaga-sched" x-text="course.schedText"></div>
+                          </template>
+                        </div>
+      
+                        <div class="yaga-cell"><div class="yaga-term" x-text="course.term1 || ''"></div></div>
+                        <div class="yaga-cell"><div class="yaga-term" x-text="course.term2 || ''"></div></div>
+                        <div class="yaga-cell"><div class="yaga-term" x-text="course.term3 || ''"></div></div>
+                      </div>
+      
+                      <!-- topic rows -->
+                      <template x-if="course.topics && course.topics.length">
+                        <template x-for="topic in visibleTopicsForCourse(course)" :key="topic.id || topic.Topic">
+                          <div class="yaga-row topic-row">
+                            <div class="yaga-cell">
+                              <div class="yaga-title topic"
+                                x-text="(topic.shared ? '↔ ' : '') + (topic.Topic || '')"></div>
+                              <template x-if="topic.schedText && topic.schedText.trim()">
+                                <div class="yaga-sched topic" x-text="topic.schedText"></div>
+                              </template>
+                            </div>
+      
+                            <div class="yaga-cell"><div class="yaga-term" x-text="topic.term1 || ''"></div></div>
+                            <div class="yaga-cell"><div class="yaga-term" x-text="topic.term2 || ''"></div></div>
+                            <div class="yaga-cell"><div class="yaga-term" x-text="topic.term3 || ''"></div></div>
+                          </div>
+                        </template>
+                      </template>
+      
+                    </div>
+                  </template>
+                </div>
+              </template>
+      
+            </div>
+          </div>
+      
         </div>
       </section>
 
