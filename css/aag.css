@@ -251,3 +251,16 @@
   z-index: 50;
   background: var(--brand-bg, #fbf7ef);
 }
+
+/* AAG: chart header sticky (below the sticky filter bar) */
+.yaga-header-sticky{
+  position: sticky;
+  top: var(--aag-sticky-top, 160px);
+  z-index: 40; /* below filter, above rows */
+  background: transparent;
+}
+
+/* Keep header visuals clean */
+.yaga-header-sticky .yaga-grid-header{
+  border-radius: 10px 10px 0 0;
+}
