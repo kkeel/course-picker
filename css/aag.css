@@ -244,14 +244,6 @@
   .yaga-grid-header{ position: static !important; }
 }
 
-/* AAG: keep filter bar sticky + above table header */
-#aagFilterSticky{
-  position: sticky;
-  top: var(--app-header-h, 85px);
-  z-index: 50;
-  background: var(--brand-bg, #fbf7ef);
-}
-
 /* AAG: chart header sticky (below the sticky filter bar) */
 .yaga-header-sticky{
   position: sticky;
@@ -271,7 +263,7 @@
 .aag-filters .filter-state-wrapper{
   position: sticky;
   top: var(--app-header-h, 84px); /* Courses uses this variable */
-  z-index: 500;                  /* above page content */
+  z-index: 30;                  /* above page content */
 }
 
 /* keep the bar “solid” when sticky */
