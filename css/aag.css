@@ -261,10 +261,11 @@
    AAG: Sticky filter bar (match Courses behavior)
    ========================= */
 #aagFilterSticky,
+/* Match Courses page sticky behavior (do NOT customize separately) */
 .filter-state-wrapper.aag-filters{
   position: sticky;
-  top: var(--app-header-h, 84px);
-  z-index: 600;
+  top: calc(var(--app-header-h, 64px) + 10px);
+  z-index: 1200;
 }
 
 /* keep the bar “solid” when sticky */
@@ -286,3 +287,11 @@
   background: #596e5e;
 }
 
+.aag-filter-section{
+  overflow: visible;
+}
+
+/* Safety lock: keep the filter sticky */
+.filter-state-wrapper.aag-filters{
+  position: sticky !important;
+}
