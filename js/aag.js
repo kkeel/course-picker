@@ -1,35 +1,43 @@
 (function () {
   const root = document.documentElement;
+  let ticking = false;
 
   function updateAagStickyOffsets() {
-    const appHeader = document.querySelector(".app-header");
-    const headerH = appHeader ? Math.round(appHeader.getBoundingClientRect().height) : 0;
-
-    // This wrapper's height automatically changes when filtersOpen toggles
-    // because the panel is x-show'd in/out.
     const filterWrap = document.querySelector(".filter-state-wrapper");
-    const filterH = filterWrap ? Math.round(filterWrap.getBoundingClientRect().height) : 0;
 
-    // Put the chart header directly under whatever is currently "live"
-    // (bar only when closed, bar+panel when open)
-    const top = headerH + filterH + 8;
+    // Default: sit under app header if filter wrapper can't be found
+    const appHeader = document.querySelector(".app-header");
+    let top = (appHeader ? Math.round(appHeader.getBoundingClientRect().bottom) : 0) + 8;
+
+    // Preferred: sit under the LIVE bottom edge of the filter wrapper
+    // (bar only when closed; bar+panel when open)
+    if (filterWrap) {
+      const r = filterWrap.getBoundingClientRect();
+      top = Math.round(r.bottom) + 8;
+    }
 
     root.style.setProperty("--aag-sticky-top", `${top}px`);
-    root.style.setProperty("--aag-filter-h", `${filterH}px`); // optional, safe
-    if (headerH) root.style.setProperty("--app-header-h", `${headerH}px`); // safe fallback
   }
 
-  // Run on load/resize
-  window.addEventListener("load", updateAagStickyOffsets);
-  window.addEventListener("resize", updateAagStickyOffsets);
+  function requestUpdate() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        updateAagStickyOffsets();
+      });
+    }
+  }
 
-  // Observe filter wrapper resizing (dropdowns, open/close, manage students expansion, etc.)
+  window.addEventListener("load", requestUpdate);
+  window.addEventListener("resize", requestUpdate);
+  window.addEventListener("scroll", requestUpdate, { passive: true });
+  document.addEventListener("DOMContentLoaded", requestUpdate);
+
+  // Updates when the filter box expands/collapses or content changes size
   const filterWrap = document.querySelector(".filter-state-wrapper");
   if (filterWrap && "ResizeObserver" in window) {
-    const ro = new ResizeObserver(() => updateAagStickyOffsets());
+    const ro = new ResizeObserver(requestUpdate);
     ro.observe(filterWrap);
   }
-
-  // Also run once ASAP
-  document.addEventListener("DOMContentLoaded", updateAagStickyOffsets);
 })();
