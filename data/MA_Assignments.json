@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-26T08:50:32.561Z",
+  "lastUpdated": "2026-01-27T08:49:37.528Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -4202,7 +4202,7 @@
       ],
       "termNotes": {
         "T1": "",
-        "T2": "Born !: A Foal, Five Kittens and Confederation (Full Term)",
+        "T2": "Born!: A Foal, Five Kittens and Confederation (Full Term)",
         "T3": ""
       },
       "gradeText": "G2, G3, G4,",
@@ -6071,36 +6071,6 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recDeupYbqp2v4Hpz?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recEwHuuGWQzoNyqo",
-      "targetId": "recDeupYbqp2v4Hpz",
-      "resourceId": "recAvrwNnkmvBUV1x",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "002.003.000",
-      "scopeText": "Term 2 (Partial Term)\nTerm 3",
-      "terms": [
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "By Design: Ethics, Theology, and the Practice of Engineering (Partial Term)",
-        "T3": "By Design: Ethics, Theology, and the Practice of Engineering (Full Term)"
-      },
-      "gradeText": "G9, G10, G11, G12,",
-      "grades": [
-        9,
-        10,
-        11,
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recDeupYbqp2v4Hpz?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "rec2rimSoRld2Cc36",
       "targetId": "recDeupYbqp2v4Hpz",
       "resourceId": "recO65PpJVUhYm4wS",
@@ -6116,6 +6086,35 @@
         "T1": "",
         "T2": "The Way Things Work: Newly Revised Edition: The Ultimate Guide to How Things Work (Full Term)",
         "T3": "The Way Things Work: Newly Revised Edition: The Ultimate Guide to How Things Work (Full Term)"
+      },
+      "gradeText": "G9, G10, G11, G12,",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recDeupYbqp2v4Hpz?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recEwHuuGWQzoNyqo",
+      "targetId": "recDeupYbqp2v4Hpz",
+      "resourceId": "recAvrwNnkmvBUV1x",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "003.003.000",
+      "scopeText": "Term 3",
+      "terms": [
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "",
+        "T3": "By Design: Ethics, Theology, and the Practice of Engineering (Full Term)"
       },
       "gradeText": "G9, G10, G11, G12,",
       "grades": [
@@ -6260,6 +6259,34 @@
         "Art: High School Fast Track"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recdpbKpVIwfvRcIw?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recjY2wYa2WLtLK1L",
+      "targetId": "recdq6lu7MCE3kUuC",
+      "resourceId": "recM99PeNDdcQd2s6",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.001.000",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Your Rugged Constitution (Full Term)",
+        "T2": "Your Rugged Constitution (Full Term)",
+        "T3": "Your Rugged Constitution (Full Term)"
+      },
+      "gradeText": "G7,",
+      "grades": [
+        7
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recdq6lu7MCE3kUuC?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "recUAC1qqrD80sc4o",
@@ -13383,8 +13410,11 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
+      "sharedTextR3": "Plutarch: Grades 6-8\nPlutarch/Government: Grade 9",
+      "sharedLinesR3": [
+        "Plutarch: Grades 6-8",
+        "Plutarch/Government: Grade 9"
+      ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recNZjfwI3SeCuONn?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -14706,15 +14736,16 @@
       "rotation": "R3",
       "targetType": "course",
       "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
-        "T2"
+        "T2",
+        "T3"
       ],
       "termNotes": {
         "T1": "Redeeming Vision (Full Term)",
         "T2": "Redeeming Vision (Full Term)",
-        "T3": ""
+        "T3": "Redeeming Vision (Full Term)"
       },
       "gradeText": "G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12,",
       "grades": [
@@ -16267,6 +16298,36 @@
         "Sloyd: Level 4"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recRefBpDHe8bvBjF?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recFUfIxzgsuhXDvO",
+      "targetId": "recRFlZuJbs8WPB2T",
+      "resourceId": "recUCjRu76tQczZuF",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1\nTerm 3",
+      "terms": [
+        "T1",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "The Plutarch Project Volume Three (Revised) (Full Term)",
+        "T2": "",
+        "T3": "The Plutarch Project Volume Three (Revised) (Full Term)"
+      },
+      "gradeText": "G9,",
+      "grades": [
+        9
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Plutarch: Grades 6-8\nPlutarch/Government: Grade 9",
+      "sharedLinesR3": [
+        "Plutarch: Grades 6-8",
+        "Plutarch/Government: Grade 9"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recRFlZuJbs8WPB2T?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "recKzuSxR3TnMmL0g",
