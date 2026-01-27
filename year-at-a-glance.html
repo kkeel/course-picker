@@ -683,6 +683,24 @@
   
     setAagFilterHeightVar();
   })();
+
+    function updateAagStickyOffsets() {
+      const appHeader = document.querySelector(".app-header");
+      const headerH = appHeader ? appHeader.getBoundingClientRect().height : 85;
+    
+      const filterWrap = document.getElementById("aagFilterSticky");
+      const filterH = filterWrap ? filterWrap.getBoundingClientRect().height : 0;
+    
+      // small breathing room so the table header doesn't touch the filter bar
+      const top = Math.round(headerH + filterH + 8);
+      document.documentElement.style.setProperty("--aag-sticky-top", `${top}px`);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateAagStickyOffsets();
+      window.addEventListener("resize", updateAagStickyOffsets);
+    });
+
   </script>
   
 </body>
