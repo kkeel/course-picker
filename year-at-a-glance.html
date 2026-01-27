@@ -393,43 +393,12 @@
             <!-- Actions row (reuse your existing clear/print buttons if present in app.js UI state) -->
             <div class="filter-actions">
               <div class="filter-actions-left">
-                <button
-                  type="button"
-                  class="btn-pill"
-                  @click="clearAllFilters()"
-                >
-                  <span class="btn-pill-icon" aria-hidden="true">
-                    <!-- Filter (funnel) -->
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M4 5h16l-6 7.5V19l-3-1.5v-5L4 5z"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </span>
-                  <span>Clear filters</span>
+                <button class="btn-pill" @click="clearAllFilters()">
+                  Clear filters
                 </button>
-
-                <button
-                  type="button"
-                  class="btn-pill btn-secondary print-btn"
-                  @click="openPrintTip()"
-                >
-                  <span class="btn-pill-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="5" y="9" width="14" height="9" rx="1.5" ry="1.5"
-                            fill="none" stroke="currentColor" stroke-width="1.8" />
-                      <path d="M8 9V5h8v4"
-                            fill="none" stroke="currentColor" stroke-width="1.8" />
-                      <rect x="9" y="13" width="6" height="4"
-                            fill="none" stroke="currentColor" stroke-width="1.5" />
-                      <circle cx="17" cy="12" r="0.9" fill="currentColor" />
-                    </svg>
-                  </span>
-                  <span>Print</span>
+            
+                <button class="btn-pill" @click="openPrintTip()">
+                  Print
                 </button>
               </div>
             
@@ -438,14 +407,15 @@
                   class="toggle"
                   :class="myCoursesOnly ? 'toggle--on' : ''"
                   @click="toggleMyCoursesOnly()"
-                  title="Show only your saved courses"
                 >
-                  <div class="toggle-switch"><div class="toggle-switch-knob"></div></div>
+                  <div class="toggle-switch">
+                    <div class="toggle-switch-knob"></div>
+                  </div>
                   <span>My Courses</span>
                 </div>
-</div>
-                  <span>My Books</span>
-                </div>
+              </div>
+            </div>
+
               </div>
             </div>
           </div>
@@ -465,12 +435,12 @@
             </div>
 
             <!-- content -->
-            <template x-for="(courseList, subject) in coursesBySubject" :key="subject">
+            <template x-for="group in visibleCourseGroups()" :key="group.subject">
               <div>
-                <div class="yaga-subject" x-text="subject"></div>
+                <div class="yaga-subject" x-text="group.subject"></div>
 
-                <template x-for="course in courseList" :key="course.id || course.Course || course.title">
-                  <div x-show="filterTopicsForDisplay(course.topics).length">
+                  <template x-for="course in group.courses" :key="course.id">
+
                     <!-- course row -->
                     <div class="yaga-row">
                       <div class="yaga-cell">
@@ -493,7 +463,7 @@
 
                     <!-- topic rows -->
                     <template x-if="course.topics && course.topics.length">
-                      <template x-for="topic in filterTopicsForDisplay(course.topics)" :key="topic.id || topic.Topic">
+                      <template x-for="topic in visibleTopicsForCourse(course)">
                         <div class="yaga-row">
                           <div class="yaga-cell">
                             <div class="yaga-title topic" x-text="topic.Topic || ''"></div>
@@ -515,7 +485,6 @@
                       </template>
                     </template>
 
-                  </div>
                 </template>
               </div>
             </template>
