@@ -39,21 +39,23 @@
 
     .yaga-cell {
       padding: 12px 14px;
-      border-right: 1px solid #f0f2f0;
+      border-right: none;
     }
-    .yaga-cell:last-child { border-right: none; }
 
     .yaga-subject {
-      grid-column: 1 / -1;
-      padding: 10px 14px;
-      background: #f6f7f6;
-      border-bottom: 1px solid #e5e8e5;
-      font-size: 12px;
-      color: #596e5e;
-      font-weight: 650;
-      letter-spacing: .02em;
-      text-transform: uppercase;
-    }
+        grid-column: 1 / -1;
+        padding: 10px 14px;
+      
+        background: #bdc5bf;   /* subject bar background */
+        color: #3b413b;        /* subject bar text */
+      
+        font-size: 12px;
+        font-weight: 650;
+        letter-spacing: .02em;
+        text-transform: uppercase;
+      
+        border-bottom: 1px solid #d2d6d2;
+      }
 
     .yaga-title {
       font-weight: 650;
