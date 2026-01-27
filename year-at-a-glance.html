@@ -235,6 +235,69 @@
                 </div>
               </div>
 
+              <!-- Students -->
+              <div class="relative" @click.outside="studentDropdownOpen = false">
+                <button
+                  type="button"
+                  id="filter-students"
+                  class="filter-control"
+                  aria-label="Filter by students"
+                  @click="studentDropdownOpen = !studentDropdownOpen"
+                >
+                  <template x-if="selectedStudents.length === 0">
+                    <span class="filter-placeholder">Students</span>
+                  </template>
+              
+                  <template x-if="selectedStudents.length > 0">
+                    <div class="filter-control-chips">
+                      <template x-for="sid in selectedStudents" :key="sid">
+                        <span class="filter-chip">
+                          <span x-text="studentNameFromId(sid)"></span>
+                          <button
+                            type="button"
+                            class="filter-chip-remove"
+                            @click.stop="removeStudent(sid)"
+                            aria-label="Remove student"
+                          >×</button>
+                        </span>
+                      </template>
+                    </div>
+                  </template>
+              
+                  <span class="filter-control-caret">▾</span>
+                </button>
+              
+                <div class="filter-dropdown" x-show="studentDropdownOpen" x-transition x-cloak>
+                  <div class="filter-dropdown-inner">
+                    <template x-if="studentOptions.length === 0">
+                      <div class="filter-option muted">No students yet</div>
+                    </template>
+              
+                    <template x-for="opt in studentOptions" :key="opt.id">
+                      <button
+                        type="button"
+                        class="filter-option"
+                        :class="selectedStudents.includes(opt.id) ? 'is-selected' : ''"
+                        @click="toggleStudent(opt.id)"
+                      >
+                        <span x-text="opt.name"></span>
+                        <span class="check" x-show="selectedStudents.includes(opt.id)">✓</span>
+                      </button>
+                    </template>
+              
+                    <div class="filter-dropdown-divider"></div>
+              
+                    <button
+                      type="button"
+                      class="filter-option linkish"
+                      @click="openManageStudents()"
+                    >
+                      Manage Students
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               <!-- (Optional placeholder space so layout stays centered; you can remove if you want) -->
               <div class="hidden md:block"></div>
               <div class="hidden md:block"></div>
@@ -242,13 +305,37 @@
 
             <!-- Actions row (reuse your existing clear/print buttons if present in app.js UI state) -->
             <div class="filter-actions">
-              <button type="button" class="filter-action-btn" @click="clearFilters()">
-                Clear
-              </button>
-
-              <button type="button" class="filter-action-btn filter-action-btn-primary" @click="printOrOpenPrintTip()">
-                Print / Save PDF
-              </button>
+              <div class="filter-actions-left">
+                <button type="button" class="filter-clear" @click="clearAllFilters()">
+                  Clear filters
+                </button>
+            
+                <button type="button" class="filter-print" @click="openPrintTip()">
+                  Print / Save PDF
+                </button>
+              </div>
+            
+              <div class="filter-actions-right">
+                <div
+                  class="toggle"
+                  :class="myCoursesOnly ? 'toggle--on' : ''"
+                  @click="toggleMyCoursesOnly()"
+                  title="Show only your saved courses"
+                >
+                  <div class="toggle-switch"><div class="toggle-switch-knob"></div></div>
+                  <span>My Courses</span>
+                </div>
+            
+                <!-- My Books (disabled for now — see note below) -->
+                <div
+                  class="toggle"
+                  style="opacity:.45; pointer-events:none;"
+                  title="Coming soon"
+                >
+                  <div class="toggle-switch"><div class="toggle-switch-knob"></div></div>
+                  <span>My Books</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
