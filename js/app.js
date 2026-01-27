@@ -2704,10 +2704,10 @@ function coursePlanner() {
     { key: "courses", label: "Courses", href: "courses.html", status: "ready", icon: "course-list.svg" },
     { key: "schedule", label: "Schedule", href: null, status: "soon", icon: "schedule.svg" },
     { key: "books", label: "Books", href: "books.html", status: "ready", icon: "book-list.svg" },
-    { key: "lesson-plans", label: "Lesson Plans", href: null, status: "soon", icon: "Lesson-plans.svg" },
+    { key: "lesson-plans", label: "Lesson Plans", href: null, status: "soon", icon: "lesson-plans.svg" },
     { key: "supplies", label: "Supplies", href: null, status: "soon", icon: "supplies.svg" },
     { key: "exams", label: "Exams", href: null, status: "soon", icon: "exams.svg" },
-    { key: "ataglance", label: "Year At-A-Glance", href: "year-at-a-glance.html", status: "ready", icon: "grid", group: "Other tools" },
+    { key: "ataglance", label: "Year At-A-Glance", href: "year-at-a-glance.html", status: "ready", icon: "at-a-glance.svg", group: "Other tools" },
     { key: "budget", label: "Budget Planner", href: null, status: "soon", icon: "budget.svg", group: "Other tools" },
   ];
 
