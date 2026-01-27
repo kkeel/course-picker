@@ -235,22 +235,29 @@
                 </div>
               </div>
 
-              <!-- Students (same UI as Course List) -->
-              <div class="student-tools-row">
-                <!-- Students dropdown (chip-style) -->
-                <div class="relative">
-                  <button
-                    type="button"
-                    class="filter-control"
-                    @click.stop="studentDropdownOpen = !studentDropdownOpen"
-                    aria-label="Students"
-                  >
+
+            </div>
+
+            <!-- Students: manage + filter (match Course List) -->
+            <div class="student-tools-row" @click.stop>
+              <!-- Students dropdown (chip-style) -->
+              <div class="relative" @click.outside="studentDropdownOpen = false">
+                <button
+                  type="button"
+                  id="filter-student"
+                  class="filter-control"
+                  @click.stop="studentDropdownOpen = !studentDropdownOpen"
+                  aria-label="Students"
+                >
+                  <!-- placeholder -->
+                  <template x-if="!selectedStudents || selectedStudents.length === 0">
+                    <span class="filter-placeholder">Students</span>
+                  </template>
+
+                  <!-- chips -->
+                  <template x-if="selectedStudents && selectedStudents.length > 0">
                     <div class="filter-control-chips">
-                      <template x-if="!selectedStudents || selectedStudents.length === 0">
-                        <span class="filter-placeholder">Students</span>
-                      </template>
-              
-                      <template x-for="sid in (selectedStudents || [])" :key="sid">
+                      <template x-for="sid in selectedStudents" :key="sid">
                         <span
                           class="filter-chip filter-chip--student"
                           :style="{ backgroundColor: (studentById(sid)?.color || '#666d66') }"
@@ -265,122 +272,125 @@
                         </span>
                       </template>
                     </div>
-              
-                    <span class="filter-chevron" :class="studentDropdownOpen ? 'filter-chevron-open' : ''">
-                      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"
-                              stroke-linecap="round" stroke-linejoin="round"></path>
-                      </svg>
-                    </span>
-                  </button>
-              
-                  <!-- Dropdown -->
-                  <div class="filter-dropdown" x-show="studentDropdownOpen" x-transition x-cloak @click.stop>
-                    <template x-for="s in students" :key="s.id">
-                      <button
-                        type="button"
-                        class="filter-dropdown-item"
-                        @click="toggleStudentFilter(s.id)"
-                      >
-                        <span x-text="s.name"></span>
-                        <span class="filter-dropdown-check" x-show="(selectedStudents || []).includes(s.id)">✓</span>
-                      </button>
-                    </template>
-                  </div>
-                </div>
-              
-                <!-- Manage Students toggle -->
-                <button
-                  type="button"
-                  class="manage-students-toggle"
-                  @click.stop="toggleStudentsOpen()"
-                  :aria-expanded="studentsOpen ? 'true' : 'false'"
-                >
-                  Manage Students
+                  </template>
+
+                  <span class="filter-chevron" :class="studentDropdownOpen ? 'filter-chevron-open' : ''" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </span>
                 </button>
-              </div>
-              
-              <!-- Student manager panel -->
-              <div
-                class="student-manager"
-                x-show="studentsOpen"
-                x-transition
-                x-cloak
-                @click.stop
-              >
-                <p class="student-manager-help">
-                  Add up to 15 students. Click color buttons to change student colors.
-                </p>
-              
-                <div class="student-list">
+
+                <!-- dropdown -->
+                <div class="filter-dropdown" x-show="studentDropdownOpen" x-transition x-cloak @click.stop>
                   <template x-for="s in students" :key="s.id">
-                    <div>
-                      <div class="student-row">
-                        <button
-                          type="button"
-                          class="student-color-btn"
-                          :style="{ backgroundColor: s.color }"
-                          @click.stop="toggleStudentColorPicker(s.id)"
-                          aria-label="Choose student color"
-                          title="Choose color"
-                        ></button>
-              
-                        <input
-                          class="student-name-input"
-                          type="text"
-                          placeholder="Student name"
-                          :value="s.name"
-                          @input="updateStudentName(s.id, $event.target.value)"
-                        />
-              
-                        <button
-                          type="button"
-                          class="student-remove-x"
-                          @click.stop="removeStudent(s.id)"
-                          aria-label="Remove student"
-                          title="Remove"
-                        >×</button>
-                      </div>
-              
-                      <div class="student-swatches" x-show="colorPickerFor === s.id" x-transition>
-                        <template x-for="c in studentColorPalette" :key="c">
-                          <button
-                            type="button"
-                            class="student-swatch"
-                            :class="s.color === c ? 'student-swatch--selected' : ''"
-                            :style="{ backgroundColor: c }"
-                            @click="setStudentColor(s.id, c)"
-                            :aria-label="`Set color ${c}`"
-                            title="Set color"
-                          ></button>
-                        </template>
-                      </div>
-                    </div>
+                    <button
+                      type="button"
+                      class="filter-dropdown-item"
+                      @click="toggleStudentFilter(s.id)"
+                    >
+                      <span class="student-dd-row">
+                        <span
+                          class="student-dd-swatch"
+                          :style="`background-color:${s.color || '#596e5e'}`"
+                          aria-hidden="true"
+                        ></span>
+                        <span x-text="s.name || 'Unnamed'"></span>
+                      </span>
+
+                      <span class="filter-dropdown-check" x-show="(selectedStudents || []).includes(s.id)">✓</span>
+                    </button>
                   </template>
                 </div>
-              
-                <div class="student-add-row">
-                  <input
-                    class="student-name-input"
-                    type="text"
-                    placeholder="Add a student…"
-                    x-model="newStudentName"
-                    @keydown.enter.prevent="addStudent()"
-                  />
-                  <button
-                    type="button"
-                    class="student-row-btn"
-                    @click="addStudent()"
-                    :disabled="!canAddStudent"
-                  >Add</button>
-                </div>
               </div>
 
-              <!-- (Optional placeholder space so layout stays centered; you can remove if you want) -->
-              <div class="hidden md:block"></div>
-              <div class="hidden md:block"></div>
+              <!-- Manage Students toggle -->
+              <button
+                type="button"
+                class="manage-students-toggle"
+                @click.stop="toggleStudentsOpen()"
+                :aria-expanded="studentsOpen ? 'true' : 'false'"
+              >
+                Manage Students
+              </button>
             </div>
 
+            <!-- Student manager panel (opens below, full width) -->
+            <div
+              class="student-manager"
+              x-show="studentsOpen"
+              x-transition
+              x-cloak
+              @click.stop
+            >
+              <p class="student-manager-help">
+                Add up to 15 students. Click color buttons to change student colors.
+              </p>
+
+              <div class="student-list">
+                <template x-for="s in students" :key="s.id">
+                  <div>
+                    <div class="student-row">
+                      <button
+                        type="button"
+                        class="student-color-btn"
+                        :style="{ backgroundColor: s.color }"
+                        @click.stop="toggleStudentColorPicker(s.id)"
+                        aria-label="Choose student color"
+                        title="Choose color"
+                      ></button>
+
+                      <input
+                        class="student-name-input"
+                        type="text"
+                        placeholder="Student name"
+                        :value="s.name"
+                        @input="updateStudentName(s.id, $event.target.value)"
+                      />
+
+                      <button
+                        type="button"
+                        class="student-remove-x"
+                        @click.stop="removeStudent(s.id)"
+                        aria-label="Remove student"
+                        title="Remove"
+                      >×</button>
+                    </div>
+
+                    <div class="student-swatches" x-show="colorPickerFor === s.id" x-transition>
+                      <template x-for="c in studentColorPalette" :key="c">
+                        <button
+                          type="button"
+                          class="student-swatch"
+                          :class="s.color === c ? 'student-swatch--selected' : ''"
+                          :style="{ backgroundColor: c }"
+                          @click="setStudentColor(s.id, c)"
+                          :aria-label="`Set color ${c}`"
+                          title="Set color"
+                        ></button>
+                      </template>
+                    </div>
+                  </div>
+                </template>
+              </div>
+
+              <div class="student-add-row">
+                <input
+                  class="student-name-input"
+                  type="text"
+                  placeholder="Add a student…"
+                  x-model="newStudentName"
+                  @keydown.enter.prevent="addStudent()"
+                />
+                <button
+                  type="button"
+                  class="student-row-btn"
+                  @click="addStudent()"
+                  :disabled="!canAddStudent"
+                >Add</button>
+              </div>
+            </div>
             <!-- Actions row (reuse your existing clear/print buttons if present in app.js UI state) -->
             <div class="filter-actions">
               <div class="filter-actions-left">
