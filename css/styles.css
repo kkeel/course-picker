@@ -2911,3 +2911,8 @@ a.av-inline-link{
 a.av-inline-link:hover{
   color: #445a4c;
 }
+.step-menu-item-icon img.step-menu-svg-icon{
+  width: 20px;
+  height: 20px;
+  display: block;
+}
