@@ -252,8 +252,8 @@
   background: var(--brand-bg) !important;
 }
 
-.filter-state-wrapper{
-  margin-top: 40px !important;   /* tweak: 32–48px */
+.av-intro-flex{
+  margin-bottom: 40px; /* tweak: 24–48px */
 }
 
 /* =========================
