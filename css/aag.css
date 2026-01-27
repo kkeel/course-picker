@@ -14,11 +14,14 @@
       display: grid;
       grid-template-columns: minmax(280px, 1.25fr) minmax(220px, 1fr) minmax(220px, 1fr) minmax(220px, 1fr);
       gap: 0;
+      border-bottom: 1px solid #e5e8e5;
     }
 
+     .yaga-row:last-child { border-bottom: none; }
+
     .yaga-grid-header {
-      background: #fbfbf9;
-      border-bottom: 1px solid #e5e8e5;
+      background: #596e5e;
+      border-bottom: 1px solid #596e5e;
     }
 
     .yaga-hcell {
@@ -31,11 +34,6 @@
       border-right: 1px solid #e5e8e5;
     }
     .yaga-hcell:last-child { border-right: none; }
-
-    .yaga-row {
-      border-bottom: 1px solid #e5e8e5;
-    }
-    .yaga-row:last-child { border-bottom: none; }
 
     .yaga-cell {
       padding: 12px 14px;
@@ -104,16 +102,6 @@
     .yaga-scroll {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-    }
-
-    @media (max-width: 900px) {
-  .aag-filters .filter-grid{ grid-template-columns: 1fr; }
-  .aag-filters .manage-students-toggle{ justify-self: start; }
-
-      .yaga-grid-header,
-      .yaga-row {
-        grid-template-columns: 320px 260px 260px 260px;
-      }
     }
 
     /* Print tweaks */
@@ -187,11 +175,6 @@
   align-items: center;
 }
 
-.yaga-grid-header{
-  background: #596e5e;
-  border-bottom: 1px solid #596e5e; /* blends */
-}
-
 .yaga-hcell{
   padding: 12px 14px;
   font-size: 12px;
@@ -236,6 +219,14 @@
   color: inherit;
 }
 
+@media (max-width: 900px) {
+  .aag-filters .filter-grid{ grid-template-columns: 1fr; }
+  .aag-filters .manage-students-toggle{ justify-self: start; }
+
+   .yaga-grid-header,
+   .yaga-row {grid-template-columns: 320px 260px 260px 260px;}
+}
+
 @media print{
   .filter-state-wrapper{ position: static !important; }
   .yaga-grid-header{ position: static !important; }
@@ -270,11 +261,6 @@
   top: var(--aag-sticky-top, 160px);
   z-index: 900;           /* below filters, above table rows */
   background: transparent;
-}
-
-/* Ensure the header row stays opaque while sticky */
-.yaga-grid-header{
-  background: #596e5e;
 }
 
 .aag-filter-section{
