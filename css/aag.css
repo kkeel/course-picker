@@ -2,12 +2,12 @@
    Year At-A-Glance
    ========================================================= */
 
-.yaga-card {
-      border: 1px solid #d2d6d2;
-      background: #fff;
-      border-radius: 16px;
-      overflow: hidden;
-    }
+   .yaga-card{
+     border: 1px solid #d2d6d2;
+     border-radius: 16px;
+     background: #fff;
+     overflow: visible;
+   }
 
     .yaga-grid-header,
     .yaga-row {
@@ -264,3 +264,32 @@
 .yaga-header-sticky .yaga-grid-header{
   border-radius: 10px 10px 0 0;
 }
+
+/* =========================
+   AAG: Sticky filter bar (match Courses behavior)
+   ========================= */
+.aag-filters .filter-state-wrapper{
+  position: sticky;
+  top: var(--app-header-h, 84px); /* Courses uses this variable */
+  z-index: 500;                  /* above page content */
+}
+
+/* keep the bar “solid” when sticky */
+.aag-filters .filter-state-bar{
+  background: #f6f2ea; /* your app paper background */
+}
+
+/* =========================
+   AAG: Sticky chart header (under sticky filter bar)
+   ========================= */
+.yaga-header-sticky{
+  position: sticky;
+  top: var(--aag-sticky-top, calc(var(--app-header-h, 84px) + 48px));
+  z-index: 400;
+}
+
+/* Ensure the header row stays opaque while sticky */
+.yaga-grid-header{
+  background: #596e5e;
+}
+
