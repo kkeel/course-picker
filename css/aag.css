@@ -103,6 +103,9 @@
     }
 
     @media (max-width: 900px) {
+  .aag-filters .filter-grid{ grid-template-columns: 1fr; }
+  .aag-filters .manage-students-toggle{ justify-self: start; }
+
       .yaga-grid-header,
       .yaga-row {
         grid-template-columns: 320px 260px 260px 260px;
@@ -127,7 +130,7 @@
   margin-bottom: 24px;/* space between filter block + grid */
 }
 
-/* remove the â€œfloating gapâ€ between sticky bar and panel */
+/* remove the Ã¢â‚¬Å“floating gapÃ¢â‚¬Â between sticky bar and panel */
 .aag-filters .filter-state-bar{
   margin-bottom: 0;
   border-bottom-left-radius: 0;
@@ -155,24 +158,10 @@
    AAG filter layout: match Course List spacing
    ========================================================= */
 
-/* Grade should not look "quarter width" on this page */
+/* Grade + Students + Manage Students in one row on desktop */
 .aag-filters .filter-grid{
-  grid-template-columns: 1fr;
-}
-
-/* Student row on AAG only has 2 controls, so use 2 columns (no squish) */
-.aag-filters .student-tools-row{
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr 1fr auto;
   column-gap: 16px;
-  row-gap: 8px;
-  margin: 14px 0 12px;
-}
-
-.aag-filters .student-tools-row > .relative{
-  grid-column: auto;
-}
-
-.aag-filters .student-tools-row .manage-students-toggle{
-  grid-column: auto;
-  justify-self: start;
+  row-gap: 12px;
+  align-items: end;
 }
