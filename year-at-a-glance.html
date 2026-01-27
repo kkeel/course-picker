@@ -478,7 +478,8 @@
                     <!-- course row -->
                     <div class="yaga-row">
                       <div class="yaga-cell">
-                        <div class="yaga-title" x-text="course.title || course.Course || ''"></div>
+                        <div class="yaga-title"
+                           x-text="(course.shared ? '↔ ' : '') + (course.title || course.Course || '')"></div>
                         <template x-if="course.schedText && course.schedText.trim()">
                           <div class="yaga-sched" x-text="course.schedText"></div>
                         </template>
@@ -500,9 +501,10 @@
                       <template x-for="topic in visibleTopicsForCourse(course)" :key="topic.id || topic.Topic">
                         <div class="yaga-row">
                           <div class="yaga-cell">
-                            <div class="yaga-title topic" x-text="topic.Topic || ''"></div>
+                            <div class="yaga-title topic"
+                               x-text="(topic.shared ? '↔ ' : '') + (topic.Topic || '')"></div>
                             <template x-if="topic.schedText && topic.schedText.trim()">
-                              <div class="yaga-sched" x-text="topic.schedText"></div>
+                              <div class="yaga-sched topic" x-text="topic.schedText"></div>
                             </template>
                           </div>
 
