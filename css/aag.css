@@ -243,3 +243,11 @@
   .filter-state-wrapper{ position: static !important; }
   .yaga-grid-header{ position: static !important; }
 }
+
+/* AAG: keep filter bar sticky + above table header */
+#aagFilterSticky{
+  position: sticky;
+  top: var(--app-header-h, 85px);
+  z-index: 50;
+  background: var(--brand-bg, #fbf7ef);
+}
