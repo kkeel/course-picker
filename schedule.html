@@ -202,6 +202,59 @@
                   More
                 </div>
 
+                <!-- Global visible days (Student View columns) -->
+                <div class="schedule-days-global" x-show="view === 'track'">
+                  <div class="schedule-days-global-label">Days:</div>
+                
+                  <template x-for="(label, i) in dayLabels" :key="i">
+                    <button
+                      type="button"
+                      class="schedule-day-chip"
+                      :class="visibleDays.includes(i) ? 'schedule-day-chip--on' : ''"
+                      @click="toggleDay(i)"
+                      :aria-pressed="visibleDays.includes(i)"
+                      x-text="label"
+                    ></button>
+                  </template>
+                
+                  <button
+                    type="button"
+                    class="schedule-day-chip schedule-day-chip--ghost"
+                    @click="showAllDays()"
+                    aria-label="Show all days"
+                  >
+                    Show all
+                  </button>
+                </div>
+
+                <!-- Global visible students (Day View columns - ready for next step) -->
+                <div class="schedule-students-global" x-show="view === 'day'">
+                  <div class="schedule-days-global-label">Students:</div>
+                
+                  <button type="button" class="schedule-chev-btn" @click="pageStudentCols(-1)" aria-label="Previous students">
+                    <svg class="schedule-chev" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                
+                  <template x-for="id in visibleStudentCols" :key="id">
+                    <button
+                      type="button"
+                      class="schedule-day-chip schedule-student-chip"
+                      :class="visibleStudentCols.includes(id) ? 'schedule-day-chip--on' : ''"
+                      @click="toggleStudentCol(id)"
+                      :aria-pressed="visibleStudentCols.includes(id)"
+                      x-text="studentLabel(id)"
+                    ></button>
+                  </template>
+                
+                  <button type="button" class="schedule-chev-btn" @click="pageStudentCols(1)" aria-label="Next students">
+                    <svg class="schedule-chev" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+
               </div>
             
               <div class="schedule-topbar-right">
@@ -288,32 +341,9 @@
           
                       <!-- Panel body: week columns -->
                       <div class="schedule-panel-body">
-                        <div class="schedule-day-chips">
-                          <div class="schedule-day-chip-label">Days:</div>
-                        
-                          <template x-for="(label, i) in dayLabels" :key="i">
-                            <button
-                              type="button"
-                              class="schedule-day-chip"
-                              :class="panel.visibleDays.includes(i) ? 'schedule-day-chip--on' : ''"
-                              @click="toggleDay(panel, i)"
-                              :aria-pressed="panel.visibleDays.includes(i)"
-                              x-text="label"
-                            ></button>
-                          </template>
-                        
-                          <button
-                            type="button"
-                            class="schedule-day-chip schedule-day-chip--ghost"
-                            @click="showAllDays(panel)"
-                            aria-label="Show all days"
-                          >
-                            Show all
-                          </button>
-                        </div>
                         <div class="schedule-board">
                           <div class="schedule-columns">
-                            <template x-for="i in panel.visibleDays" :key="i">
+                            <template x-for="i in visibleDays" :key="i">
                               <section class="schedule-col" :aria-label="dayLabel(i)">
                                 <div class="schedule-col-head">
                                   <div class="schedule-col-title" x-text="dayLabel(i)"></div>
