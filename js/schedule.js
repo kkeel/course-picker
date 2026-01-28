@@ -125,34 +125,6 @@
           this.visibleStudentCols.push(id);
         }
       },
-      
-      ensurePanelDays(panel) {
-        if (!panel.visibleDays || !Array.isArray(panel.visibleDays) || panel.visibleDays.length === 0) {
-          panel.visibleDays = [0, 1, 2, 3, 4];
-        }
-        // keep in range + sorted
-        panel.visibleDays = panel.visibleDays
-          .filter(i => Number.isInteger(i) && i >= 0 && i < this.dayLabels.length)
-          .sort((a,b) => a - b);
-      },
-      
-      toggleDay(panel, i) {
-        this.ensurePanelDays(panel);
-        const idx = panel.visibleDays.indexOf(i);
-      
-        // don’t allow hiding the last visible day
-        if (idx >= 0) {
-          if (panel.visibleDays.length === 1) return;
-          panel.visibleDays.splice(idx, 1);
-        } else {
-          panel.visibleDays.push(i);
-          panel.visibleDays.sort((a,b) => a - b);
-        }
-      },
-      
-      showAllDays(panel) {
-        panel.visibleDays = [0, 1, 2, 3, 4];
-      },
     
       // Make sure visible slots are unique and in-range
       normalizeVisibleStudents() {
