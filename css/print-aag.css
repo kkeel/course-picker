@@ -54,3 +54,33 @@
     page-break-inside: avoid !important;
   }
 }
+
+   @media print {
+  /* Let grid cells shrink so text can wrap instead of overflow */
+  .yaga-row > .yaga-cell,
+  .yaga-grid-header > .yaga-hcell{
+    min-width: 0 !important;
+  }
+
+  /* Ensure the actual text wraps inside the cell */
+  .yaga-term{
+    white-space: pre-wrap !important;   /* preserves Airtable newlines + wraps */
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
+  }
+}
+
+@media print {
+  /* Don’t split a single row across pages */
+  .yaga-row{
+    break-inside: avoid !important;
+    page-break-inside: avoid !important; /* older engines */
+  }
+
+  /* Also keep the subject bar from being split */
+  .yaga-subject{
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
