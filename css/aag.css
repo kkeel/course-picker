@@ -316,3 +316,20 @@
   width: 100%;
   margin-top: 12px;
 }
+/* =========================
+   AAG PRINT ONLY OVERRIDES
+   ========================= */
+@media print {
+  @page {
+    size: 11in 8.5in; /* Letter landscape (AAG only, because this file is only loaded on AAG page) */
+    margin: 0.5in;
+  }
+
+   /* Re-assert AAG table header styling in print (overrides global "all text black") */
+  .yaga-grid-header {
+    background: #596e5e !important;
+  }
+  .yaga-grid-header .yaga-hcell {
+    color: #ffffff !important;
+  }
+}
