@@ -129,6 +129,57 @@
   gap:6px;
 }
 
+/* Chevron pager buttons (match app chevron feel) */
+.schedule-chev-btn{
+  border: none;
+  background: transparent;
+  padding: 2px 4px;
+  border-radius: 10px;
+  color: #596e5e;
+  line-height: 1;
+}
+
+.schedule-chev-btn:hover{
+  background: rgba(89,110,94,.08);
+}
+
+.schedule-chev-btn:active{
+  background: rgba(89,110,94,.12);
+}
+
+.schedule-chev{
+  width: 20px;
+  height: 20px;
+  display:block;
+}
+
+/* Pin button (SVG) */
+.schedule-pin-btn{
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  border-radius: 10px;
+  padding: 6px 8px;
+  color: #596e5e;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.schedule-pin-btn:hover{
+  background: rgba(89,110,94,.06);
+}
+
+.schedule-pin-btn--on{
+  border-color: #596e5e;
+  background: rgba(89,110,94,.10);
+}
+
+.schedule-pin{
+  width: 16px;
+  height: 16px;
+  display:block;
+}
+
 /* =========================
    Schedule Cards (static for now)
    ========================= */
@@ -307,11 +358,6 @@
 
 .schedule-panel-body{
   padding: 12px;
-}
-
-/* Collapsed panel */
-.schedule-panel--collapsed .schedule-panel-body{
-  display:none;
 }
 
 .schedule-day-placeholder{
