@@ -84,3 +84,49 @@
     page-break-inside: avoid !important;
   }
 }
+/* print-aag.css */
+
+@media print {
+
+  /* Make the AAG grid behave nicely on a fixed landscape page */
+  .yaga-grid-header,
+  .yaga-row{
+    grid-template-columns: minmax(0, 1.15fr) repeat(3, minmax(0, 1fr)) !important;
+    width: 100% !important;
+  }
+
+  /* Critical for grid text wrapping: allow items to shrink */
+  .yaga-row > .yaga-cell,
+  .yaga-grid-header > .yaga-hcell{
+    min-width: 0 !important;
+  }
+
+  /* Keep borders “true” to the column width (optional but helps the visual) */
+  .yaga-row > .yaga-cell{
+    border-right: 1px solid #e5e8e5 !important;
+    box-sizing: border-box;
+  }
+  .yaga-row > .yaga-cell:last-child{
+    border-right: none !important;
+  }
+}
+
+@media print {
+  .yaga-term,
+  .yaga-title,
+  .yaga-sched{
+    white-space: pre-wrap !important;   /* keeps Airtable line breaks + wraps */
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
+  }
+}
+
+@media print {
+  .yaga-row,
+  .yaga-subject{
+    break-inside: avoid !important;
+    page-break-inside: avoid !important; /* older engines */
+  }
+}
+
