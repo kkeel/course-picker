@@ -100,15 +100,6 @@
   .yaga-grid-header > .yaga-hcell{
     min-width: 0 !important;
   }
-
-  /* Keep borders “true” to the column width (optional but helps the visual) */
-  .yaga-row > .yaga-cell{
-    border-right: 1px solid #e5e8e5 !important;
-    box-sizing: border-box;
-  }
-  .yaga-row > .yaga-cell:last-child{
-    border-right: none !important;
-  }
 }
 
 @media print {
@@ -130,3 +121,14 @@
   }
 }
 
+@media print {
+  /* No vertical dividers in body rows */
+  .yaga-row > .yaga-cell{
+    border-right: none !important;
+  }
+
+  /* If you also want to guarantee no header vertical dividers */
+  .yaga-grid-header > .yaga-hcell{
+    border-right: none !important;
+  }
+}
