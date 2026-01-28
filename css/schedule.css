@@ -102,6 +102,20 @@
   background: rgba(255,255,255,.6);
 }
 
+/* Prevent the schedule grid from forcing the whole page to overflow */
+.schedule-board{
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Keep columns from shrinking too small */
+.schedule-columns{
+  width: max-content; /* forces horizontal scroll inside .schedule-board */
+  min-width: 100%;
+}
+
 /* =========================
    Schedule Cards (static for now)
    ========================= */
