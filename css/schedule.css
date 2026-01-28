@@ -180,6 +180,57 @@
   display:block;
 }
 
+/* Topbar hint (makes chevrons obvious) */
+.schedule-pager-hint{
+  margin-left: 2px;
+  color: #666d66;
+}
+
+/* Pin: make the simple icon crisp */
+.schedule-pin{
+  width: 16px;
+  height: 16px;
+  display:block;
+}
+
+/* Day chips (per panel) */
+.schedule-day-chips{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  padding: 0 2px 10px;
+}
+
+.schedule-day-chip-label{
+  font-size: 12px;
+  color: #666d66;
+  opacity: .8;
+}
+
+.schedule-day-chip{
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: #596e5e;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.schedule-day-chip--on{
+  background: rgba(89,110,94,.10);
+  border-color: #596e5e;
+}
+
+.schedule-day-chip--ghost{
+  background: transparent;
+  border-style: dashed;
+  color: #666d66;
+  font-weight: 600;
+}
+
 /* =========================
    Schedule Cards (static for now)
    ========================= */
