@@ -1,7 +1,8 @@
 /* =========================================================
    print-aag.css
-   ========================================================= */@media print {
+   ========================================================= */
 @media print {
+
   @page {
     size: 11in 8.5in;      /* Letter — Landscape */
     margin: 0.5in;         /* 0.5" all sides */
@@ -27,14 +28,29 @@
       white-space: nowrap;
     }
   }
-   /* 5) wrap text inside the AAG grid cells */
-      .yaga-title, .yaga-term, .yaga-sched{
-        overflow-wrap: anywhere !important;
-        word-break: break-word !important;
-        white-space: normal !important;
-      }
-    
-      /* 6) if your term cells are inheriting nowrap, kill it */
-      .yaga-cell { min-width: 0 !important; }
-    }
-   }
+
+  /* ✅ WRAPPING (this was being ignored before) */
+  .yaga-cell,
+  .yaga-hcell{
+    min-width: 0 !important; /* allows grid items to shrink */
+  }
+
+  .yaga-title,
+  .yaga-term,
+  .yaga-sched{
+    white-space: normal !important;      /* override pre-line for print */
+    overflow-wrap: anywhere !important;  /* break long strings */
+    word-break: break-word !important;
+    hyphens: auto !important;
+  }
+
+  /* If term fields have <br> / newlines you still want respected, use this instead:
+     white-space: pre-wrap !important;
+  */
+
+  /* ✅ Prevent a single ROW from splitting */
+  .yaga-row{
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
