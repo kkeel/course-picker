@@ -168,7 +168,8 @@
     </div>
 
         <div class="mt-6 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6">
-          <!-- Left rail -->
+          
+          <!-- Left card rail -->
           <div class="p-4 rounded-lg border border-[#e5e8e5] bg-white">
             <div class="text-sm font-semibold mb-2">Scheduling Cards</div>
             <div class="text-sm opacity-70">Coming next: grade/student pickers + draggable card list.</div>
@@ -176,10 +177,70 @@
 
           <!-- Right build area -->
           <div class="p-4 rounded-lg border border-[#e5e8e5] bg-white">
-            <div class="text-sm font-semibold mb-2">Week Builder</div>
-            <div class="text-sm opacity-70">Coming next: Mon–Fri columns + time totals + drop zones.</div>
+            <div class="flex items-center justify-between gap-4 mb-3">
+              <div class="text-sm font-semibold">Week Builder</div>
+          
+              <!-- Later: mode switch + display density -->
+              <div class="text-xs opacity-70">Mon–Fri</div>
+            </div>
+          
+            <div class="schedule-board">
+              <div class="schedule-columns">
+                <!-- Column template: repeat 5 -->
+                <section class="schedule-col" aria-label="Monday">
+                  <div class="schedule-col-head">
+                    <div class="schedule-col-title">Mon</div>
+                    <div class="schedule-col-total">0m</div>
+                  </div>
+                  <div class="schedule-dropzone">
+                    <div class="schedule-empty">Drop cards here</div>
+                  </div>
+                </section>
+          
+                <section class="schedule-col" aria-label="Tuesday">
+                  <div class="schedule-col-head">
+                    <div class="schedule-col-title">Tue</div>
+                    <div class="schedule-col-total">0m</div>
+                  </div>
+                  <div class="schedule-dropzone">
+                    <div class="schedule-empty">Drop cards here</div>
+                  </div>
+                </section>
+          
+                <section class="schedule-col" aria-label="Wednesday">
+                  <div class="schedule-col-head">
+                    <div class="schedule-col-title">Wed</div>
+                    <div class="schedule-col-total">0m</div>
+                  </div>
+                  <div class="schedule-dropzone">
+                    <div class="schedule-empty">Drop cards here</div>
+                  </div>
+                </section>
+          
+                <section class="schedule-col" aria-label="Thursday">
+                  <div class="schedule-col-head">
+                    <div class="schedule-col-title">Thu</div>
+                    <div class="schedule-col-total">0m</div>
+                  </div>
+                  <div class="schedule-dropzone">
+                    <div class="schedule-empty">Drop cards here</div>
+                  </div>
+                </section>
+          
+                <section class="schedule-col" aria-label="Friday">
+                  <div class="schedule-col-head">
+                    <div class="schedule-col-title">Fri</div>
+                    <div class="schedule-col-total">0m</div>
+                  </div>
+                  <div class="schedule-dropzone">
+                    <div class="schedule-empty">Drop cards here</div>
+                  </div>
+                </section>
+              </div>
+            </div>
           </div>
-        </div>
+          
+        </div> <!-- Schedule Space Closer -->
         
     </section>
 
