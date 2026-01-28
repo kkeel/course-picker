@@ -33,6 +33,28 @@
   overflow-x: auto;
 }
 
+/* Global day chips (in header) */
+.schedule-days-global,
+.schedule-students-global{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.schedule-days-global-label{
+  font-size: 12px;
+  color: #666d66;
+  opacity: .8;
+  margin-right: 2px;
+}
+
+/* Student chips can be a tiny bit tighter */
+.schedule-student-chip{
+  padding: 6px 9px;
+}
+
 /* =========================
    Week Builder Board
    ========================= */
