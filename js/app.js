@@ -2481,11 +2481,15 @@ function coursePlanner() {
       const onYearAtAGlance =
         path.endsWith("/year-at-a-glance.html") ||
         path.endsWith("/year-at-a-glance");
+
+      const onSchedule =
+        path.endsWith("/schedule.html") ||
+        path.endsWith("/schedule");
     
       const authorized = (this.isMember || this.isStaff);
     
       // Soft gate: do NOT redirect; just toggle what the page displays.
-      this.courseGate = !!((onCourseList || onYearAtAGlance) && !authorized);
+      this.courseGate = !!((onCourseList || onYearAtAGlance || onSchedule) && !authorized);
     
       return true;
     },
