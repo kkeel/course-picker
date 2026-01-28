@@ -1,7 +1,7 @@
 /* =========================================================
    print-aag.css
    ========================================================= */@media print {
-
+@media print {
   @page {
     size: 11in 8.5in;      /* Letter — Landscape */
     margin: 0.5in;         /* 0.5" all sides */
@@ -37,3 +37,4 @@
       /* 6) if your term cells are inheriting nowrap, kill it */
       .yaga-cell { min-width: 0 !important; }
     }
+   }
