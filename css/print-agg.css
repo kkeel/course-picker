@@ -26,8 +26,8 @@
       color: #4b544b;
       white-space: nowrap;
     }
-
-      /* 5) wrap text inside the AAG grid cells */
+  }
+   /* 5) wrap text inside the AAG grid cells */
       .yaga-title, .yaga-term, .yaga-sched{
         overflow-wrap: anywhere !important;
         word-break: break-word !important;
@@ -37,5 +37,3 @@
       /* 6) if your term cells are inheriting nowrap, kill it */
       .yaga-cell { min-width: 0 !important; }
     }
-    
-  }
