@@ -231,6 +231,11 @@
   font-weight: 600;
 }
 
+.schedule-pin{
+  fill: currentColor;
+  display: block;
+}
+
 /* =========================
    Schedule Cards (static for now)
    ========================= */
