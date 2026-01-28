@@ -185,11 +185,16 @@
             
                 <!-- Paging controls (Student View v1) -->
                 <div class="schedule-pager" x-show="view === 'track'">
-                  <button type="button" class="schedule-icon-btn" @click="pageStudents(-1)" aria-label="Previous students">
-                    ◀
+                  <button type="button" class="schedule-chev-btn" @click="pageStudents(-1)" aria-label="Previous students">
+                    <svg class="schedule-chev" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                   </button>
-                  <button type="button" class="schedule-icon-btn" @click="pageStudents(1)" aria-label="Next students">
-                    ▶
+                
+                  <button type="button" class="schedule-chev-btn" @click="pageStudents(1)" aria-label="Next students">
+                    <svg class="schedule-chev" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                   </button>
                 </div>
               </div>
@@ -230,7 +235,7 @@
                 <div class="schedule-panel-row">
           
                   <template x-for="(panel, idx) in visibleStudentPanels" :key="panel.slot">
-                    <section class="schedule-panel" :class="panel.collapsed ? 'schedule-panel--collapsed' : ''">
+                    <section class="schedule-panel">
           
                       <div class="schedule-panel-head">
                         <div class="schedule-panel-title">
@@ -242,13 +247,17 @@
                           <!-- Pin -->
                           <button
                             type="button"
-                            class="schedule-icon-btn"
-                            :class="panel.pinned ? 'schedule-icon-btn--on' : ''"
+                            class="schedule-pin-btn"
+                            :class="panel.pinned ? 'schedule-pin-btn--on' : ''"
                             @click="panel.pinned = !panel.pinned"
                             title="Pin"
                             aria-label="Pin panel"
                           >
-                            📌
+                            <svg class="schedule-pin" viewBox="0 0 24 24" aria-hidden="true">
+                              <!-- simple pushpin -->
+                              <path d="M14 3l7 7-2 2-2-2-3 3v5l-2 2-2-2v-5l3-3-2-2 2-2z"
+                                    fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>
+                            </svg>
                           </button>
           
                           <!-- Replace -->
@@ -262,17 +271,7 @@
                               <option :value="s.id" x-text="s.name"></option>
                             </template>
                           </select>
-          
-                          <!-- Collapse -->
-                          <button
-                            type="button"
-                            class="schedule-icon-btn"
-                            @click="panel.collapsed = !panel.collapsed"
-                            title="Collapse"
-                            aria-label="Collapse panel"
-                          >
-                            <span x-text="panel.collapsed ? '▸' : '▾'"></span>
-                          </button>
+                          
                         </div>
                       </div>
           
@@ -281,57 +280,9 @@
                         <div class="schedule-board">
                           <div class="schedule-columns">
                             <template x-for="(label, i) in dayLabels" :key="i">
-                              <section class="schedule-col" :aria-label="Day 1">
+                              <section class="schedule-col" :aria-label="label">
                                 <div class="schedule-col-head">
-                                  <div class="schedule-col-title" x-text="Day 1"></div>
-                                  <div class="schedule-col-total">0m</div>
-                                </div>
-                                <div class="schedule-dropzone">
-                                  <div class="schedule-empty">Drop cards here</div>
-                                </div>
-                              </section>
-                            </template>
-          
-                            <template x-for="(label, i) in dayLabels" :key="i">
-                              <section class="schedule-col" :aria-label="Day 2">
-                                <div class="schedule-col-head">
-                                  <div class="schedule-col-title" x-text="Day 2"></div>
-                                  <div class="schedule-col-total">0m</div>
-                                </div>
-                                <div class="schedule-dropzone">
-                                  <div class="schedule-empty">Drop cards here</div>
-                                </div>
-                              </section>
-                            </template>
-          
-                            <template x-for="(label, i) in dayLabels" :key="i">
-                              <section class="schedule-col" :aria-label="Day 3">
-                                <div class="schedule-col-head">
-                                  <div class="schedule-col-title" x-text="Day 3"></div>
-                                  <div class="schedule-col-total">0m</div>
-                                </div>
-                                <div class="schedule-dropzone">
-                                  <div class="schedule-empty">Drop cards here</div>
-                                </div>
-                              </section>
-                            </template>
-          
-                            <template x-for="(label, i) in dayLabels" :key="i">
-                              <section class="schedule-col" :aria-label="Day 4">
-                                <div class="schedule-col-head">
-                                  <div class="schedule-col-title" x-text="Day 4"></div>
-                                  <div class="schedule-col-total">0m</div>
-                                </div>
-                                <div class="schedule-dropzone">
-                                  <div class="schedule-empty">Drop cards here</div>
-                                </div>
-                              </section>
-                            </template>
-          
-                            <template x-for="(label, i) in dayLabels" :key="i">
-                              <section class="schedule-col" :aria-label="Day 5">
-                                <div class="schedule-col-head">
-                                  <div class="schedule-col-title" x-text="Day 5"></div>
+                                  <div class="schedule-col-title" x-text="label"></div>
                                   <div class="schedule-col-total">0m</div>
                                 </div>
                                 <div class="schedule-dropzone">
