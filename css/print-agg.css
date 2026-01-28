@@ -1,36 +1,39 @@
 @media print {
 
-  /* 1) landscape */
-  @page { size: 11in 8.5in; margin: 0.5in; }
+  @page {
+    size: 11in 8.5in;      /* Letter — Landscape */
+    margin: 0.5in;         /* 0.5" all sides */
 
-  /* 2) reserve footer space (Courses already does this; make it stronger for AAG) */
-  body { padding-bottom: 52pt !important; }
+    @bottom-left {
+      content: "Alveary Book List";
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
 
-  /* 3) explicitly show the footer in AAG print */
-  .print-footer{
-    display: flex !important;
-    position: fixed !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    padding: 4pt 15mm 2pt !important;
-    background: #fff !important;
-    border-top: 1px solid #e5e8e5 !important;
-    box-sizing: border-box !important;
+    @bottom-center {
+      content: "©2026 Charlotte Mason Institute® All rights reserved.";
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+
+    @bottom-right {
+      content: "p." counter(page);
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+
+      /* 5) wrap text inside the AAG grid cells */
+      .yaga-title, .yaga-term, .yaga-sched{
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+        white-space: normal !important;
+      }
+    
+      /* 6) if your term cells are inheriting nowrap, kill it */
+      .yaga-cell { min-width: 0 !important; }
+    }
+    
   }
-
-  /* 4) stop the header from overflowing in landscape */
-  header.app-header { width: 100% !important; }
-  .logo-link, .print-header-title-block { min-width: 0 !important; }
-  .print-header-title { font-size: 24pt !important; } /* tiny reduction */
-
-  /* 5) wrap text inside the AAG grid cells */
-  .yaga-title, .yaga-term, .yaga-sched{
-    overflow-wrap: anywhere !important;
-    word-break: break-word !important;
-    white-space: normal !important;
-  }
-
-  /* 6) if your term cells are inheriting nowrap, kill it */
-  .yaga-cell { min-width: 0 !important; }
-}
