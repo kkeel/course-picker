@@ -116,6 +116,19 @@
   min-width: 100%;
 }
 
+/* Builder left area (title + pager buttons) */
+.schedule-topbar-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.schedule-pager{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
 /* =========================
    Schedule Cards (static for now)
    ========================= */
