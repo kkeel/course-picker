@@ -155,7 +155,7 @@
       </div>
     </section>
 
-    <div x-show="!courseGate" x-cloak x-data="scheduleBuilder()">
+    <div x-show="!courseGate" x-cloak x-data="scheduleBuilder()" x-init="init()">
      <div class="schedule-head">
       <h2 class="section-title">Schedule</h2>
     
@@ -180,8 +180,20 @@
           
             <!-- Header row -->
             <div class="schedule-topbar">
-              <div class="text-sm font-semibold">Builder</div>
-          
+              <div class="schedule-topbar-left">
+                <div class="text-sm font-semibold">Builder</div>
+            
+                <!-- Paging controls (Student View v1) -->
+                <div class="schedule-pager" x-show="view === 'track'">
+                  <button type="button" class="schedule-icon-btn" @click="pageStudents(-1)" aria-label="Previous students">
+                    ◀
+                  </button>
+                  <button type="button" class="schedule-icon-btn" @click="pageStudents(1)" aria-label="Next students">
+                    ▶
+                  </button>
+                </div>
+              </div>
+            
               <div class="schedule-topbar-right">
                 <!-- View toggle -->
                 <div class="schedule-view-toggle" role="tablist" aria-label="Schedule view">
@@ -217,13 +229,13 @@
               <template x-if="view === 'track'">
                 <div class="schedule-panel-row">
           
-                  <template x-for="(panel, idx) in visibleTrackPanels" :key="panel.slot">
+                  <template x-for="(panel, idx) in visibleStudentPanels" :key="panel.slot">
                     <section class="schedule-panel" :class="panel.collapsed ? 'schedule-panel--collapsed' : ''">
           
                       <div class="schedule-panel-head">
                         <div class="schedule-panel-title">
-                          <span class="schedule-panel-label" x-text="trackLabel(panel.trackId)"></span>
-                          <span class="schedule-panel-sub">Mon–Fri</span>
+                          <span class="schedule-panel-label" x-text="studentLabel(panel.studentId)"></span>
+                          <span class="schedule-panel-sub">Day 1–5</span>
                         </div>
           
                         <div class="schedule-panel-actions">
@@ -242,11 +254,12 @@
                           <!-- Replace -->
                           <select
                             class="schedule-select"
-                            x-model="panel.trackId"
-                            aria-label="Choose track"
+                            x-model="panel.studentId"
+                            aria-label="Choose student"
+                            @change="normalizeVisibleStudents()"
                           >
-                            <template x-for="t in tracks" :key="t.id">
-                              <option :value="t.id" x-text="t.name"></option>
+                            <template x-for="s in students" :key="s.id">
+                              <option :value="s.id" x-text="s.name"></option>
                             </template>
                           </select>
           
@@ -267,55 +280,66 @@
                       <div class="schedule-panel-body">
                         <div class="schedule-board">
                           <div class="schedule-columns">
-                            <section class="schedule-col" aria-label="Monday">
-                              <div class="schedule-col-head">
-                                <div class="schedule-col-title">Mon</div>
-                                <div class="schedule-col-total">0m</div>
-                              </div>
-                              <div class="schedule-dropzone">
-                                <div class="schedule-empty">Drop cards here</div>
-                              </div>
-                            </section>
+                            <template x-for="(label, i) in dayLabels" :key="i">
+                              <section class="schedule-col" :aria-label="Day 1">
+                                <div class="schedule-col-head">
+                                  <div class="schedule-col-title" x-text="Day 1"></div>
+                                  <div class="schedule-col-total">0m</div>
+                                </div>
+                                <div class="schedule-dropzone">
+                                  <div class="schedule-empty">Drop cards here</div>
+                                </div>
+                              </section>
+                            </template>
           
-                            <section class="schedule-col" aria-label="Tuesday">
-                              <div class="schedule-col-head">
-                                <div class="schedule-col-title">Tue</div>
-                                <div class="schedule-col-total">0m</div>
-                              </div>
-                              <div class="schedule-dropzone">
-                                <div class="schedule-empty">Drop cards here</div>
-                              </div>
-                            </section>
+                            <template x-for="(label, i) in dayLabels" :key="i">
+                              <section class="schedule-col" :aria-label="Day 2">
+                                <div class="schedule-col-head">
+                                  <div class="schedule-col-title" x-text="Day 2"></div>
+                                  <div class="schedule-col-total">0m</div>
+                                </div>
+                                <div class="schedule-dropzone">
+                                  <div class="schedule-empty">Drop cards here</div>
+                                </div>
+                              </section>
+                            </template>
           
-                            <section class="schedule-col" aria-label="Wednesday">
-                              <div class="schedule-col-head">
-                                <div class="schedule-col-title">Wed</div>
-                                <div class="schedule-col-total">0m</div>
-                              </div>
-                              <div class="schedule-dropzone">
-                                <div class="schedule-empty">Drop cards here</div>
-                              </div>
-                            </section>
+                            <template x-for="(label, i) in dayLabels" :key="i">
+                              <section class="schedule-col" :aria-label="Day 3">
+                                <div class="schedule-col-head">
+                                  <div class="schedule-col-title" x-text="Day 3"></div>
+                                  <div class="schedule-col-total">0m</div>
+                                </div>
+                                <div class="schedule-dropzone">
+                                  <div class="schedule-empty">Drop cards here</div>
+                                </div>
+                              </section>
+                            </template>
           
-                            <section class="schedule-col" aria-label="Thursday">
-                              <div class="schedule-col-head">
-                                <div class="schedule-col-title">Thu</div>
-                                <div class="schedule-col-total">0m</div>
-                              </div>
-                              <div class="schedule-dropzone">
-                                <div class="schedule-empty">Drop cards here</div>
-                              </div>
-                            </section>
+                            <template x-for="(label, i) in dayLabels" :key="i">
+                              <section class="schedule-col" :aria-label="Day 4">
+                                <div class="schedule-col-head">
+                                  <div class="schedule-col-title" x-text="Day 4"></div>
+                                  <div class="schedule-col-total">0m</div>
+                                </div>
+                                <div class="schedule-dropzone">
+                                  <div class="schedule-empty">Drop cards here</div>
+                                </div>
+                              </section>
+                            </template>
           
-                            <section class="schedule-col" aria-label="Friday">
-                              <div class="schedule-col-head">
-                                <div class="schedule-col-title">Fri</div>
-                                <div class="schedule-col-total">0m</div>
-                              </div>
-                              <div class="schedule-dropzone">
-                                <div class="schedule-empty">Drop cards here</div>
-                              </div>
-                            </section>
+                            <template x-for="(label, i) in dayLabels" :key="i">
+                              <section class="schedule-col" :aria-label="Day 5">
+                                <div class="schedule-col-head">
+                                  <div class="schedule-col-title" x-text="Day 5"></div>
+                                  <div class="schedule-col-total">0m</div>
+                                </div>
+                                <div class="schedule-dropzone">
+                                  <div class="schedule-empty">Drop cards here</div>
+                                </div>
+                              </section>
+                            </template>
+                            
                           </div>
                         </div>
                       </div>
