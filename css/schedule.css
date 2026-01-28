@@ -390,13 +390,6 @@
   min-width: 0;
 }
 
-.schedule-panel-label{
-  font-weight: 750;
-  font-size: 13px;
-  color: #262b26;
-  white-space: nowrap;
-}
-
 .schedule-panel-sub{
   font-size: 12px;
   color: #666d66;
@@ -427,11 +420,13 @@
 .schedule-select{
   border: 1px solid #d2d6d2;
   background: #fff;
-  border-radius: 10px;
-  padding: 6px 8px;
-  font-size: 12px;
+  border-radius: 12px;
+  padding: 8px 10px;
+  font-weight: 750;
+  font-size: 13px;
   color: #262b26;
-  max-width: 160px;
+  max-width: none;
+  min-width: 160px;
 }
 
 .schedule-panel-body{
