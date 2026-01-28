@@ -1,0 +1,13 @@
+/* Schedule header row: title left, tutorial right */
+.schedule-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap; /* stacks nicely on small screens */
+}
+
+/* optional: prevent the tutorial button from stretching */
+.schedule-head .av-video-inline{
+  flex: 0 0 auto;
+}
