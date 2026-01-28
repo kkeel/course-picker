@@ -15,3 +15,20 @@
 .schedule-head .av-video-inline{
   flex: 0 0 auto;
 }
+
+/* Schedule: keep tutorial box inline (override global intro rules) */
+.schedule-head .av-video-inline{
+  width: auto !important;
+  max-width: 340px;
+  min-width: 260px;
+  margin-left: auto;
+}
+
+/* Schedule: allow this page’s workspace to use full screen width */
+.main-content.schedule-main{
+  max-width: none;
+}
+
+.schedule-board{
+  overflow-x: auto;
+}
