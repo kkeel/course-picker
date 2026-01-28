@@ -155,7 +155,7 @@
       </div>
     </section>
 
-    <div x-show="!courseGate" x-cloak>
+    <div x-show="!courseGate" x-cloak x-data="scheduleBuilder()">
      <div class="schedule-head">
       <h2 class="section-title">Schedule</h2>
     
@@ -177,92 +177,165 @@
 
           <!-- Right build area -->
           <div class="p-4 rounded-lg border border-[#e5e8e5] bg-white">
-            <div class="flex items-center justify-between gap-4 mb-3">
-              <div class="text-sm font-semibold">Week Builder</div>
           
-              <!-- Later: mode switch + display density -->
-              <div class="schedule-view-placeholder text-xs opacity-70">
-                Student View • Mon–Fri
+            <!-- Header row -->
+            <div class="schedule-topbar">
+              <div class="text-sm font-semibold">Builder</div>
+          
+              <div class="schedule-topbar-right">
+                <!-- View toggle -->
+                <div class="schedule-view-toggle" role="tablist" aria-label="Schedule view">
+                  <button
+                    type="button"
+                    class="schedule-pill"
+                    :class="view === 'track' ? 'schedule-pill--on' : ''"
+                    @click="view='track'"
+                  >
+                    Student View
+                  </button>
+                  <button
+                    type="button"
+                    class="schedule-pill"
+                    :class="view === 'day' ? 'schedule-pill--on' : ''"
+                    @click="view='day'"
+                  >
+                    Day View
+                  </button>
+                </div>
+          
+                <!-- Density placeholder -->
+                <div class="schedule-view-placeholder text-xs opacity-70">
+                  Comfortable
+                </div>
               </div>
             </div>
           
-            <div class="schedule-board">
-              <div class="schedule-columns">
-                <!-- Column template: repeat 5 -->
-                <section class="schedule-col" aria-label="Monday">
-                  <div class="schedule-col-head">
-                    <div class="schedule-col-title">Mon</div>
-                    <div class="schedule-col-total">0m</div>
-                  </div>
-                  <div class="schedule-dropzone">
-                    
-                    <article class="sched-card">
-                      <div class="sched-card-top">
-                        <div class="sched-card-title">Math</div>
-                        <div class="sched-card-min">20m</div>
+            <!-- Panels -->
+            <div class="schedule-panels">
+          
+              <!-- TRACK / “Student View” (v1 = Tracks) -->
+              <template x-if="view === 'track'">
+                <div class="schedule-panel-row">
+          
+                  <template x-for="(panel, idx) in visibleTrackPanels" :key="panel.slot">
+                    <section class="schedule-panel" :class="panel.collapsed ? 'schedule-panel--collapsed' : ''">
+          
+                      <div class="schedule-panel-head">
+                        <div class="schedule-panel-title">
+                          <span class="schedule-panel-label" x-text="trackLabel(panel.trackId)"></span>
+                          <span class="schedule-panel-sub">Mon–Fri</span>
+                        </div>
+          
+                        <div class="schedule-panel-actions">
+                          <!-- Pin -->
+                          <button
+                            type="button"
+                            class="schedule-icon-btn"
+                            :class="panel.pinned ? 'schedule-icon-btn--on' : ''"
+                            @click="panel.pinned = !panel.pinned"
+                            title="Pin"
+                            aria-label="Pin panel"
+                          >
+                            📌
+                          </button>
+          
+                          <!-- Replace -->
+                          <select
+                            class="schedule-select"
+                            x-model="panel.trackId"
+                            aria-label="Choose track"
+                          >
+                            <template x-for="t in tracks" :key="t.id">
+                              <option :value="t.id" x-text="t.name"></option>
+                            </template>
+                          </select>
+          
+                          <!-- Collapse -->
+                          <button
+                            type="button"
+                            class="schedule-icon-btn"
+                            @click="panel.collapsed = !panel.collapsed"
+                            title="Collapse"
+                            aria-label="Collapse panel"
+                          >
+                            <span x-text="panel.collapsed ? '▸' : '▾'"></span>
+                          </button>
+                        </div>
                       </div>
-                      <div class="sched-card-sub">Student: Anna</div>
-                    </article>
-                    
-                    <article class="sched-card sched-card--utility">
-                      <div class="sched-card-top">
-                        <div class="sched-card-title">Break</div>
-                        <div class="sched-card-min">10m</div>
+          
+                      <!-- Panel body: week columns -->
+                      <div class="schedule-panel-body">
+                        <div class="schedule-board">
+                          <div class="schedule-columns">
+                            <section class="schedule-col" aria-label="Monday">
+                              <div class="schedule-col-head">
+                                <div class="schedule-col-title">Mon</div>
+                                <div class="schedule-col-total">0m</div>
+                              </div>
+                              <div class="schedule-dropzone">
+                                <div class="schedule-empty">Drop cards here</div>
+                              </div>
+                            </section>
+          
+                            <section class="schedule-col" aria-label="Tuesday">
+                              <div class="schedule-col-head">
+                                <div class="schedule-col-title">Tue</div>
+                                <div class="schedule-col-total">0m</div>
+                              </div>
+                              <div class="schedule-dropzone">
+                                <div class="schedule-empty">Drop cards here</div>
+                              </div>
+                            </section>
+          
+                            <section class="schedule-col" aria-label="Wednesday">
+                              <div class="schedule-col-head">
+                                <div class="schedule-col-title">Wed</div>
+                                <div class="schedule-col-total">0m</div>
+                              </div>
+                              <div class="schedule-dropzone">
+                                <div class="schedule-empty">Drop cards here</div>
+                              </div>
+                            </section>
+          
+                            <section class="schedule-col" aria-label="Thursday">
+                              <div class="schedule-col-head">
+                                <div class="schedule-col-title">Thu</div>
+                                <div class="schedule-col-total">0m</div>
+                              </div>
+                              <div class="schedule-dropzone">
+                                <div class="schedule-empty">Drop cards here</div>
+                              </div>
+                            </section>
+          
+                            <section class="schedule-col" aria-label="Friday">
+                              <div class="schedule-col-head">
+                                <div class="schedule-col-title">Fri</div>
+                                <div class="schedule-col-total">0m</div>
+                              </div>
+                              <div class="schedule-dropzone">
+                                <div class="schedule-empty">Drop cards here</div>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
                       </div>
-                      <div class="sched-card-sub">Wait until group lesson</div>
-                    </article>
-                    
-                    <article class="sched-card sched-card--shared">
-                      <div class="sched-card-top">
-                        <div class="sched-card-title">↔ Picture Study</div>
-                        <div class="sched-card-min">15m</div>
-                      </div>
-                      <div class="sched-card-sub">Shared: Anna + Ben</div>
-                    </article>
-
-                  </div>
-                </section>
           
-                <section class="schedule-col" aria-label="Tuesday">
-                  <div class="schedule-col-head">
-                    <div class="schedule-col-title">Tue</div>
-                    <div class="schedule-col-total">0m</div>
-                  </div>
-                  <div class="schedule-dropzone">
-                    <div class="schedule-empty">Drop cards here</div>
-                  </div>
-                </section>
+                    </section>
+                  </template>
           
-                <section class="schedule-col" aria-label="Wednesday">
-                  <div class="schedule-col-head">
-                    <div class="schedule-col-title">Wed</div>
-                    <div class="schedule-col-total">0m</div>
-                  </div>
-                  <div class="schedule-dropzone">
-                    <div class="schedule-empty">Drop cards here</div>
-                  </div>
-                </section>
+                </div>
+              </template>
           
-                <section class="schedule-col" aria-label="Thursday">
-                  <div class="schedule-col-head">
-                    <div class="schedule-col-title">Thu</div>
-                    <div class="schedule-col-total">0m</div>
+              <!-- DAY VIEW (placeholder scaffold) -->
+              <template x-if="view === 'day'">
+                <div class="schedule-day-placeholder">
+                  <div class="text-sm font-semibold mb-2">Day View (next)</div>
+                  <div class="text-sm opacity-70">
+                    This will become “2–3 day panels side-by-side” with collapsible student lanes.
                   </div>
-                  <div class="schedule-dropzone">
-                    <div class="schedule-empty">Drop cards here</div>
-                  </div>
-                </section>
+                </div>
+              </template>
           
-                <section class="schedule-col" aria-label="Friday">
-                  <div class="schedule-col-head">
-                    <div class="schedule-col-title">Fri</div>
-                    <div class="schedule-col-total">0m</div>
-                  </div>
-                  <div class="schedule-dropzone">
-                    <div class="schedule-empty">Drop cards here</div>
-                  </div>
-                </section>
-              </div>
             </div>
           </div>
           
@@ -308,6 +381,9 @@
 
   <script type="module" src="js/auth.js"></script>
   <script src="js/app.js"></script>
+
+  <!-- Schedule page scripts -->
+  <script src="js/schedule.js"></script>
 
   <!-- ✅ Alpine -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
