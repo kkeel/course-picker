@@ -3,9 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  
   <title>Alveary Schedule Builder</title>
+  
+  <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <link rel="icon" type="image/png" href="img/Alveary%20Lt.%20Green.png">
+  
+  <!-- MemberStack -->
+  <script src="https://api.memberstack.io/static/memberstack.js?custom" data-memberstack-id="YOUR_ID_HERE"></script>
+
+  <!-- CSS -->
   <link rel="stylesheet" href="css/styles.css" />
+  
 </head>
 
 <body x-data="coursePlanner()" x-init="init()">
@@ -14,7 +25,12 @@
   <header class="app-header px-6 lg:px-16 py-4">
     <a class="brand" href="https://www.alveary.org/alveary-2026-2027/dashboard" target="_blank" rel="noopener">
       <div class="brand-left">
-        <img src="img/brand/alveary-mark.svg" alt="Alveary" class="brand-logo" />
+        <img
+          src="img/Alveary%20Lt.%20Green.png"
+          alt="Alveary logo"
+          class="object-contain"
+          style="height: 40px; width: 40px;"
+        />
         <span class="print-year-left">2026–2027</span>
       </div>
     </a>
