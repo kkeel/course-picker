@@ -125,10 +125,6 @@
         // Safety normalization (always)
         this.ensureVisibleDays();
         this.ensureUniqueStudents();
-        this.ensureVisibleStudentCols(); // ✅ new
-      
-        // Start watchers AFTER state is settled
-        this.watchPersist();
       
         // If there was no saved state, write the defaults once
         if (!saved) this.persist();
@@ -224,46 +220,10 @@
           this.visibleStudentCols = ["S1", "S2", "S3", "S4", "S5"];
         }
       },
-
-      ensureVisibleStudentCols() {
-        // Always keep an array so Alpine templates don't explode
-        if (!Array.isArray(this.visibleStudentCols)) this.visibleStudentCols = [];
-      
-        // Remove any ids that don't exist in students list
-        const valid = new Set(this.students.map((s) => s.id));
-        this.visibleStudentCols = this.visibleStudentCols.filter((id) => valid.has(id));
-      
-        // Ensure we have *something*
-        if (!this.visibleStudentCols.length) {
-          this.visibleStudentCols = ["S1", "S2", "S3", "S4", "S5"].filter((id) => valid.has(id));
-        }
-      },
       
       studentLabel(id) {
         const s = this.students.find((x) => x.id === id);
         return s ? s.name : id;
-      },
-      
-      toggleStudentCol(id) {
-        if (!Array.isArray(this.visibleStudentCols)) this.visibleStudentCols = [];
-        const i = this.visibleStudentCols.indexOf(id);
-      
-        if (i >= 0) {
-          // don't allow empty
-          if (this.visibleStudentCols.length <= 1) return;
-          this.visibleStudentCols.splice(i, 1);
-        } else {
-          this.visibleStudentCols.push(id);
-        }
-      
-        this.ensureVisibleStudentCols();
-        this.persist();
-      },
-      
-      showAllStudentCols() {
-        this.visibleStudentCols = this.students.map((s) => s.id);
-        this.ensureVisibleStudentCols();
-        this.persist();
       },
 
       ensureVisibleDays() {
