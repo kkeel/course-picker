@@ -102,15 +102,34 @@
       ],
 
       init() {
+        // Load saved UI state (if any)
         const saved = loadUiState();
-        const state = normalizeState(saved || defaultState());
-
-        this.view = state.view;
-        this.visibleDays = state.visibleDays;
-        this.visibleStudentPanels = state.panels;
-
-        // write back once so incognito / first load always becomes consistent
-        this.persist();
+      
+        if (saved && typeof saved === "object") {
+          this.applyUiState(saved);
+        } else {
+          // First-time defaults
+          this.view = "track";
+          this.visibleDays = [0, 1, 2, 3, 4];
+          this.visibleStudentPanels = [
+            { slot: "P1", studentId: "S1" },
+            { slot: "P2", studentId: "S2" }, // ✅ default slot 2
+          ];
+      
+          // ✅ day-view scaffold needs this defined (even if you aren't using Day View yet)
+          this.visibleStudentCols = ["S1", "S2", "S3", "S4", "S5"];
+        }
+      
+        // Safety normalization (always)
+        this.ensureVisibleDays();
+        this.ensureUniqueStudents();
+        this.ensureVisibleStudentCols(); // ✅ new
+      
+        // Start watchers AFTER state is settled
+        this.watchPersist();
+      
+        // If there was no saved state, write the defaults once
+        if (!saved) this.persist();
       },
 
       persist() {
@@ -167,6 +186,95 @@
       dayLabel(i) {
         return this.dayLabels[i] || `Day ${i + 1}`;
       },
+
+      applyUiState(state) {
+        if (!state) return;
+      
+        if (typeof state.view === "string") this.view = state.view;
+      
+        if (Array.isArray(state.visibleDays)) {
+          this.visibleDays = state.visibleDays;
+        }
+      
+        // ✅ panels (student slots)
+        if (Array.isArray(state.panels) && state.panels.length) {
+          this.visibleStudentPanels = state.panels.map((p) => {
+            const slot = p.slot || "P1";
+      
+            // Default P1 -> S1, P2 -> S2 (even if studentId missing)
+            let studentId = p.studentId;
+            if (!studentId) studentId = slot === "P2" ? "S2" : "S1";
+      
+            return { slot, studentId };
+          });
+        } else {
+          // If panels missing, fall back safely
+          this.visibleStudentPanels = [
+            { slot: "P1", studentId: "S1" },
+            { slot: "P2", studentId: "S2" },
+          ];
+        }
+      
+        // ✅ day-view scaffold (prevents Alpine crash from schedule.html)
+        if (Array.isArray(state.studentCols) && state.studentCols.length) {
+          this.visibleStudentCols = state.studentCols;
+        } else if (!Array.isArray(this.visibleStudentCols) || !this.visibleStudentCols.length) {
+          this.visibleStudentCols = ["S1", "S2", "S3", "S4", "S5"];
+        }
+      },
+
+      ensureVisibleStudentCols() {
+        // Always keep an array so Alpine templates don't explode
+        if (!Array.isArray(this.visibleStudentCols)) this.visibleStudentCols = [];
+      
+        // Remove any ids that don't exist in students list
+        const valid = new Set(this.students.map((s) => s.id));
+        this.visibleStudentCols = this.visibleStudentCols.filter((id) => valid.has(id));
+      
+        // Ensure we have *something*
+        if (!this.visibleStudentCols.length) {
+          this.visibleStudentCols = ["S1", "S2", "S3", "S4", "S5"].filter((id) => valid.has(id));
+        }
+      },
+      
+      studentLabel(id) {
+        const s = this.students.find((x) => x.id === id);
+        return s ? s.name : id;
+      },
+      
+      toggleStudentCol(id) {
+        if (!Array.isArray(this.visibleStudentCols)) this.visibleStudentCols = [];
+        const i = this.visibleStudentCols.indexOf(id);
+      
+        if (i >= 0) {
+          // don't allow empty
+          if (this.visibleStudentCols.length <= 1) return;
+          this.visibleStudentCols.splice(i, 1);
+        } else {
+          this.visibleStudentCols.push(id);
+        }
+      
+        this.ensureVisibleStudentCols();
+        this.persist();
+      },
+      
+      showAllStudentCols() {
+        this.visibleStudentCols = this.students.map((s) => s.id);
+        this.ensureVisibleStudentCols();
+        this.persist();
+      },
+
+      persist() {
+        saveUiState({
+          view: this.view,
+          visibleDays: this.visibleDays,
+          panels: this.visibleStudentPanels.map((p) => ({ slot: p.slot, studentId: p.studentId })),
+      
+          // ✅ keep this so schedule.html never references an undefined key
+          studentCols: Array.isArray(this.visibleStudentCols) ? this.visibleStudentCols : [],
+        });
+      },
+      
     };
   };
 })();
