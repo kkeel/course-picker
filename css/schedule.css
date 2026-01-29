@@ -458,3 +458,129 @@
 .sched-card-sub{
   margin-top: 2px;
 }
+
+/* =========================================================
+   Phase 2.5 — Card rail + minor card controls
+   ========================================================= */
+
+.sched-rail-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.sched-rail-btn{
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  border-radius: 12px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 650;
+  color: #596e5e;
+}
+
+.sched-rail-btn:hover{
+  background: rgba(89,110,94,.06);
+}
+
+.sched-rail-btn--primary{
+  border-color: #596e5e;
+}
+
+.sched-rail-target{
+  font-weight: 650;
+  color: #262b26;
+}
+
+.sched-rail-choice-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.sched-rail-chip{
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 650;
+  color: #596e5e;
+  line-height: 1;
+}
+
+.sched-rail-chip--on{
+  background: rgba(89,110,94,.10);
+  border-color: #596e5e;
+}
+
+.sched-rail-item{
+  border: 1px solid #e5e8e5;
+  border-radius: 14px;
+  background: #fbfbf9;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.sched-rail-item-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.sched-rail-item-title{
+  font-size: 13px;
+  font-weight: 650;
+  color: #262b26;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  line-height: 1.2;
+}
+
+.sched-rail-item-min{
+  font-size: 12px;
+  color: #596e5e;
+  font-weight: 650;
+  white-space: nowrap;
+  margin-left: 8px;
+}
+
+.sched-rail-item-sub{
+  font-size: 12px;
+  color: #666d66;
+  margin-top: 4px;
+}
+
+.sched-rail-actions{
+  margin-top: 8px;
+  display:flex;
+  justify-content:flex-end;
+}
+
+/* Remove button on placed cards */
+.sched-card{
+  position: relative;
+}
+
+.sched-card-remove{
+  position:absolute;
+  top: 6px;
+  right: 6px;
+  border: none;
+  background: transparent;
+  color: #666d66;
+  opacity: .65;
+  font-size: 14px;
+  line-height: 1;
+  padding: 4px 6px;
+  border-radius: 10px;
+}
+
+.sched-card-remove:hover{
+  background: rgba(0,0,0,.06);
+  opacity: .9;
+}
