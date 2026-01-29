@@ -1,7 +1,12 @@
 // schedule.js
 // Schedule page UI state (Student View / "track") + persistence
+// + Phase 2.5: Card templates + instances + ordered placements + rail + grade-band choice (Picture Study)
 (function () {
-  const STORAGE_KEY = "alveary_schedule_ui_v1";
+  // -----------------------------
+  // Storage keys
+  // -----------------------------
+  const UI_STORAGE_KEY = "alveary_schedule_ui_v1";
+  const CARDS_STORAGE_KEY = "alveary_schedule_cards_v1";
 
   function safeParse(raw) {
     try {
@@ -11,37 +16,38 @@
     }
   }
 
-  function loadUiState() {
-    const raw = localStorage.getItem(STORAGE_KEY);
+  function loadKey(key) {
+    const raw = localStorage.getItem(key);
     return raw ? safeParse(raw) : null;
   }
 
-  function saveUiState(state) {
+  function saveKey(key, value) {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      localStorage.setItem(key, JSON.stringify(value));
     } catch {
       // ignore (private mode, quota, etc.)
     }
   }
 
-  function defaultState() {
+  // -----------------------------
+  // UI state (existing)
+  // -----------------------------
+  function defaultUiState() {
     return {
       view: "track",
       visibleDays: [0, 1, 2, 3, 4],
       panels: [
         { slot: "P1", studentId: "S1" },
-        { slot: "P2", studentId: "S2" }, // ✅ default Student 2
+        { slot: "P2", studentId: "S2" },
       ],
     };
   }
 
-  function normalizeState(state, allStudentIds) {
-    const d = defaultState();
+  function normalizeUiState(state, allStudentIds) {
+    const d = defaultUiState();
 
-    // view
     const view = typeof state?.view === "string" ? state.view : d.view;
 
-    // visibleDays
     let visibleDays = Array.isArray(state?.visibleDays)
       ? state.visibleDays.slice()
       : d.visibleDays.slice();
@@ -53,7 +59,6 @@
     if (!visibleDays.length) visibleDays = d.visibleDays.slice();
     visibleDays = Array.from(new Set(visibleDays)).sort((a, b) => a - b);
 
-    // panels
     let panels = Array.isArray(state?.panels) ? state.panels.slice() : d.panels.slice();
 
     panels = panels
@@ -61,10 +66,11 @@
         const slot = p?.slot || (idx === 1 ? "P2" : "P1");
         let studentId = p?.studentId || (slot === "P2" ? "S2" : "S1");
 
-        // if invalid, fall back to something real
         if (Array.isArray(allStudentIds) && allStudentIds.length) {
           if (!allStudentIds.includes(studentId)) {
-            studentId = slot === "P2" ? (allStudentIds[1] || allStudentIds[0]) : allStudentIds[0];
+            studentId = slot === "P2"
+              ? (allStudentIds[1] || allStudentIds[0])
+              : allStudentIds[0];
           }
         }
 
@@ -72,80 +78,316 @@
       })
       .slice(0, 2);
 
-    // ensure exactly 2 panels
     if (panels.length < 2) panels = d.panels.slice();
 
-    // ensure unique students
     if (panels[0].studentId === panels[1].studentId) {
-      const fallback =
-        panels[0].studentId === "S1"
-          ? "S2"
-          : "S1";
+      const fallback = panels[0].studentId === "S1" ? "S2" : "S1";
       panels[1].studentId = fallback;
     }
 
     return { view, visibleDays, panels };
   }
 
+  // -----------------------------
+  // Cards state (Phase 2.5)
+  // -----------------------------
+  function defaultCardsState() {
+    return {
+      // template catalog (official sample + user custom templates)
+      templatesById: {},
+      // ordered placement per student/day: placements[studentId][dayIndex] = [instanceId...]
+      placements: {},
+      // all instances by id: instanceId -> { instanceId, templateId, createdAt }
+      instancesById: {},
+      // preferences/choices that affect which templates are active
+      choices: {
+        // Picture Study grade-band choice (global for now; can become per-student later)
+        pictureStudyBand: "g1-3",
+      },
+    };
+  }
+
+  function uid(prefix = "i") {
+    return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+  }
+
+  function ensureStudentPlacements(cardsState, studentId) {
+    if (!cardsState.placements[studentId]) {
+      cardsState.placements[studentId] = { 0: [], 1: [], 2: [], 3: [], 4: [] };
+    } else {
+      // ensure all days exist
+      for (let d = 0; d <= 4; d++) {
+        if (!Array.isArray(cardsState.placements[studentId][d])) cardsState.placements[studentId][d] = [];
+      }
+    }
+  }
+
+  // Sample catalog that demonstrates complexity:
+  // - multi-rule course (Grammar has two rules)
+  // - shared topic duplicates (Church History for Bible G1 vs Bible G2)
+  // - grade-band choice (Picture Study)
+  function buildSampleTemplates() {
+    const t = {};
+
+    // Sort keys: mimic your Course List order keys (string compare works if zero-padded)
+    // (These are placeholders; later we’ll pull real sort keys from course JSON.)
+    t["a:grammar:ruleA"] = {
+      id: "a:grammar:ruleA",
+      sortKey: "004.001.010.000::10", // placeholder
+      courseKey: "grammar",
+      courseLabel: "Grammar",
+      variantKey: "20m",
+      variantSort: 10,
+      title: "Grammar: Grade 5",
+      minutes: 20,
+      symbols: "* 🅃",
+      trackingCount: 12,
+    };
+
+    t["a:grammar:ruleB"] = {
+      id: "a:grammar:ruleB",
+      sortKey: "004.001.010.000::20",
+      courseKey: "grammar",
+      courseLabel: "Grammar",
+      variantKey: "15m",
+      variantSort: 20,
+      title: "Grammar: Grade 5",
+      minutes: 15,
+      symbols: "* 🅃",
+      trackingCount: 12,
+    };
+
+    // Shared topic duplicates (two separate instances / contexts)
+    t["a:church-history:bible-g1"] = {
+      id: "a:church-history:bible-g1",
+      sortKey: "004.001.020.000::10",
+      courseKey: "bible-g1",
+      courseLabel: "Bible: Grade 1",
+      variantKey: "church-history",
+      variantSort: 10,
+      title: "Church History: Grade 1",
+      minutes: 20,
+      symbols: "↔ * 🅃",
+      trackingCount: 12,
+    };
+
+    t["a:church-history:bible-g2"] = {
+      id: "a:church-history:bible-g2",
+      sortKey: "004.001.021.000::10",
+      courseKey: "bible-g2",
+      courseLabel: "Bible: Grade 2",
+      variantKey: "church-history",
+      variantSort: 10,
+      title: "Church History: Grade 2",
+      minutes: 20,
+      symbols: "↔ * 🅃",
+      trackingCount: 12,
+    };
+
+    // Break / buffer card (no course source)
+    t["a:break:lunch"] = {
+      id: "a:break:lunch",
+      sortKey: "ZZZ::01",
+      courseKey: "break",
+      courseLabel: "Breaks",
+      variantKey: "lunch",
+      variantSort: 1,
+      title: "Lunch",
+      minutes: 30,
+      symbols: "☼",
+      trackingCount: 0,
+    };
+
+    // Picture Study grade-band options (choice controls which one is shown as “active”)
+    t["a:picture-study:g1-3"] = {
+      id: "a:picture-study:g1-3",
+      sortKey: "004.001.030.000::10",
+      courseKey: "picture-study",
+      courseLabel: "Picture Study",
+      variantKey: "g1-3",
+      variantSort: 10,
+      title: "Picture Study: Grades 1–3",
+      minutes: 10,
+      symbols: "🎨",
+      trackingCount: 12,
+      meta: { band: "g1-3" },
+    };
+
+    t["a:picture-study:g4-6"] = {
+      id: "a:picture-study:g4-6",
+      sortKey: "004.001.030.000::20",
+      courseKey: "picture-study",
+      courseLabel: "Picture Study",
+      variantKey: "g4-6",
+      variantSort: 20,
+      title: "Picture Study: Grades 4–6",
+      minutes: 15,
+      symbols: "🎨",
+      trackingCount: 12,
+      meta: { band: "g4-6" },
+    };
+
+    t["a:picture-study:g7-8"] = {
+      id: "a:picture-study:g7-8",
+      sortKey: "004.001.030.000::30",
+      courseKey: "picture-study",
+      courseLabel: "Picture Study",
+      variantKey: "g7-8",
+      variantSort: 30,
+      title: "Picture Study: Grades 7–8",
+      minutes: 20,
+      symbols: "🎨",
+      trackingCount: 12,
+      meta: { band: "g7-8" },
+    };
+
+    t["a:picture-study:g9-12"] = {
+      id: "a:picture-study:g9-12",
+      sortKey: "004.001.030.000::40",
+      courseKey: "picture-study",
+      courseLabel: "Picture Study",
+      variantKey: "g9-12",
+      variantSort: 40,
+      title: "Picture Study: Grades 9–12",
+      minutes: 20,
+      symbols: "🎨",
+      trackingCount: 12,
+      meta: { band: "g9-12" },
+    };
+
+    return t;
+  }
+
+  function normalizeCardsState(raw, allStudentIds) {
+    const d = defaultCardsState();
+    const state = raw && typeof raw === "object" ? raw : {};
+
+    const templatesById = (state.templatesById && typeof state.templatesById === "object")
+      ? state.templatesById
+      : {};
+
+    const placements = (state.placements && typeof state.placements === "object")
+      ? state.placements
+      : {};
+
+    const instancesById = (state.instancesById && typeof state.instancesById === "object")
+      ? state.instancesById
+      : {};
+
+    const choices = (state.choices && typeof state.choices === "object")
+      ? { ...d.choices, ...state.choices }
+      : { ...d.choices };
+
+    const next = { templatesById, placements, instancesById, choices };
+
+    // ensure placement buckets for existing students
+    (allStudentIds || []).forEach((sid) => ensureStudentPlacements(next, sid));
+
+    return next;
+  }
+
+  // -----------------------------
+  // Alpine builder
+  // -----------------------------
   window.scheduleBuilder = function scheduleBuilder() {
     return {
       // -----------------------------
-      // state used by schedule.html
+      // UI state used by schedule.html
       // -----------------------------
       view: "track",
       visibleDays: [0, 1, 2, 3, 4],
-
       dayLabels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"],
 
-      // two visible student panels
       visibleStudentPanels: [
         { slot: "P1", studentId: "S1" },
         { slot: "P2", studentId: "S2" },
       ],
 
-      // placeholder students (until you wire real students)
+      // placeholder students (until wired)
       students: Array.from({ length: 15 }, (_, i) => {
         const n = i + 1;
         return { id: `S${n}`, name: `Student ${n}` };
       }),
 
-      // dropdown menu UI
       openStudentMenu: null,
+
+      // -----------------------------
+      // Phase 2.5 cards state
+      // -----------------------------
+      templatesById: {},      // catalog
+      instancesById: {},      // instanceId -> instance
+      placements: {},         // studentId -> dayIndex -> [instanceId...]
+      choices: { pictureStudyBand: "g1-3" },
+
+      // where “Add” goes (click a column to set target)
+      activeTarget: {
+        studentId: "S1",
+        dayIndex: 0,
+      },
 
       // -----------------------------
       // init + persistence
       // -----------------------------
       init() {
-        const saved = loadUiState();
-
+        // load UI
+        const savedUi = loadKey(UI_STORAGE_KEY);
         const allIds = (this.students || []).map((s) => s.id);
-        const normalized = normalizeState(saved || defaultState(), allIds);
+        const normalizedUi = normalizeUiState(savedUi || defaultUiState(), allIds);
 
-        this.view = normalized.view;
-        this.visibleDays = normalized.visibleDays;
-        this.visibleStudentPanels = normalized.panels;
-
-        // close any open menu on load (prevents weird "stuck open")
+        this.view = normalizedUi.view;
+        this.visibleDays = normalizedUi.visibleDays;
+        this.visibleStudentPanels = normalizedUi.panels;
         this.openStudentMenu = null;
 
-        // always persist normalized state back (keeps storage clean)
-        this.persist();
+        // load cards
+        const savedCards = loadKey(CARDS_STORAGE_KEY);
+        const normalizedCards = normalizeCardsState(savedCards || defaultCardsState(), allIds);
+
+        // ensure sample templates exist (merge without overwriting user custom templates)
+        const sample = buildSampleTemplates();
+        this.templatesById = { ...sample, ...(normalizedCards.templatesById || {}) };
+
+        this.instancesById = normalizedCards.instancesById || {};
+        this.placements = normalizedCards.placements || {};
+        this.choices = normalizedCards.choices || { pictureStudyBand: "g1-3" };
+
+        // ensure placements buckets for currently visible panel students
+        this.visibleStudentPanels.forEach((p) => this.ensureStudent(p.studentId));
+
+        // set a sane active target
+        this.activeTarget = {
+          studentId: this.visibleStudentPanels?.[0]?.studentId || "S1",
+          dayIndex: this.visibleDays?.[0] ?? 0,
+        };
+
+        // persist normalized
+        this.persistUi();
+        this.persistCards();
       },
 
-      persist() {
-        saveUiState({
+      persistUi() {
+        saveKey(UI_STORAGE_KEY, {
           view: this.view,
           visibleDays: this.visibleDays,
           panels: this.visibleStudentPanels.map((p) => ({ slot: p.slot, studentId: p.studentId })),
         });
       },
 
+      persistCards() {
+        saveKey(CARDS_STORAGE_KEY, {
+          templatesById: this.templatesById,
+          placements: this.placements,
+          instancesById: this.instancesById,
+          choices: this.choices,
+        });
+      },
+
       // -----------------------------
-      // header controls
+      // UI controls
       // -----------------------------
       setView(next) {
         this.view = next;
-        this.persist();
+        this.persistUi();
       },
 
       isDayVisible(i) {
@@ -158,20 +400,23 @@
         } else {
           this.visibleDays = [...this.visibleDays, i].sort((a, b) => a - b);
         }
-
-        // never allow empty
         if (!this.visibleDays.length) this.visibleDays = [0, 1, 2, 3, 4];
 
-        this.persist();
+        // keep active day valid
+        if (!this.visibleDays.includes(this.activeTarget.dayIndex)) {
+          this.activeTarget.dayIndex = this.visibleDays[0];
+        }
+
+        this.persistUi();
       },
 
       showAllDays() {
         this.visibleDays = [0, 1, 2, 3, 4];
-        this.persist();
+        this.persistUi();
       },
 
       // -----------------------------
-      // dropdown helpers (used by your HTML)
+      // Student dropdown
       // -----------------------------
       toggleStudentMenu(idx) {
         this.openStudentMenu = this.openStudentMenu === idx ? null : idx;
@@ -190,12 +435,10 @@
         if (!Array.isArray(this.visibleStudentPanels)) return;
         if (!this.visibleStudentPanels[idx]) return;
 
-        // update target panel
         const next = this.visibleStudentPanels.map((p, i) =>
           i === idx ? { ...p, studentId } : { ...p }
         );
 
-        // enforce uniqueness across the two visible panels
         if (next[0].studentId === next[1].studentId) {
           const allIds = (this.students || []).map((s) => s.id);
           const fallback = allIds.find((id) => id !== next[0].studentId) || "S1";
@@ -203,15 +446,177 @@
         }
 
         this.visibleStudentPanels = next;
-        this.persist();
+
+        // ensure placements exist for new student
+        this.ensureStudent(studentId);
+
+        // if active target was on the swapped panel, keep it aligned
+        if (this.activeTarget.studentId !== next[0].studentId && this.activeTarget.studentId !== next[1].studentId) {
+          this.activeTarget.studentId = next[0].studentId;
+        }
+
+        this.persistUi();
+        this.persistCards();
       },
 
       // -----------------------------
-      // display helpers
+      // Display helpers
       // -----------------------------
       dayLabel(i) {
         const n = Number(i);
         return this.dayLabels[n] || `Day ${n + 1}`;
+      },
+
+      // -----------------------------
+      // Phase 2.5: Catalog + placements
+      // -----------------------------
+      ensureStudent(studentId) {
+        if (!this.placements[studentId]) {
+          this.placements[studentId] = { 0: [], 1: [], 2: [], 3: [], 4: [] };
+        } else {
+          for (let d = 0; d <= 4; d++) {
+            if (!Array.isArray(this.placements[studentId][d])) this.placements[studentId][d] = [];
+          }
+        }
+      },
+
+      // rail sorting: match course list order via sortKey
+      sortedTemplates() {
+        const all = Object.values(this.templatesById || {});
+        // Filter: only show the chosen Picture Study band in the rail
+        const band = this.choices?.pictureStudyBand || "g1-3";
+
+        const filtered = all.filter((t) => {
+          if (!t) return false;
+          if (t.courseKey === "picture-study") {
+            return t?.meta?.band === band;
+          }
+          return true;
+        });
+
+        return filtered.sort((a, b) => {
+          const ak = String(a.sortKey || "");
+          const bk = String(b.sortKey || "");
+          if (ak < bk) return -1;
+          if (ak > bk) return 1;
+
+          // then by courseLabel, then variantSort, then title
+          const ac = String(a.courseLabel || "");
+          const bc = String(b.courseLabel || "");
+          if (ac < bc) return -1;
+          if (ac > bc) return 1;
+
+          const av = Number(a.variantSort || 0);
+          const bv = Number(b.variantSort || 0);
+          if (av !== bv) return av - bv;
+
+          const at = String(a.title || "");
+          const bt = String(b.title || "");
+          return at.localeCompare(bt);
+        });
+      },
+
+      // active target (click a column to set)
+      setActiveTarget(studentId, dayIndex) {
+        this.activeTarget = { studentId, dayIndex: Number(dayIndex) };
+      },
+
+      activeTargetLabel() {
+        const s = this.getStudentName(this.activeTarget.studentId);
+        const d = this.dayLabel(this.activeTarget.dayIndex);
+        return `${s} • ${d}`;
+      },
+
+      // Create a new instance and append to active day
+      addTemplateToActive(templateId) {
+        const tpl = this.templatesById?.[templateId];
+        if (!tpl) return;
+
+        const studentId = this.activeTarget.studentId;
+        const dayIndex = this.activeTarget.dayIndex;
+
+        this.ensureStudent(studentId);
+
+        const instanceId = uid("inst");
+        this.instancesById[instanceId] = {
+          instanceId,
+          templateId,
+          createdAt: Date.now(),
+        };
+
+        this.placements[studentId][dayIndex].push(instanceId);
+        this.persistCards();
+      },
+
+      // Remove instance from a day (Phase 2.5 helper)
+      removeInstance(studentId, dayIndex, instanceId) {
+        this.ensureStudent(studentId);
+        const arr = this.placements[studentId][dayIndex] || [];
+        this.placements[studentId][dayIndex] = arr.filter((id) => id !== instanceId);
+        // keep instance in instancesById for now (safe); can GC later
+        this.persistCards();
+      },
+
+      // Render helpers
+      instancesFor(studentId, dayIndex) {
+        this.ensureStudent(studentId);
+        const ids = this.placements[studentId][dayIndex] || [];
+        return ids
+          .map((id) => this.instancesById[id])
+          .filter(Boolean);
+      },
+
+      templateForInstance(inst) {
+        return inst ? this.templatesById?.[inst.templateId] : null;
+      },
+
+      dayTotalMinutes(studentId, dayIndex) {
+        const list = this.instancesFor(studentId, dayIndex);
+        let total = 0;
+        for (const inst of list) {
+          const tpl = this.templateForInstance(inst);
+          const m = Number(tpl?.minutes || 0);
+          if (Number.isFinite(m)) total += m;
+        }
+        return total;
+      },
+
+      trackingBlocks(tpl) {
+        const n = Number(tpl?.trackingCount || 0);
+        if (!Number.isFinite(n) || n <= 0) return "";
+        return "⬚".repeat(Math.min(n, 20)); // cap display; real rendering later
+      },
+
+      // Picture Study choice
+      setPictureStudyBand(band) {
+        this.choices.pictureStudyBand = band;
+        this.persistCards();
+      },
+
+      // Custom card (minimal v2.5)
+      addCustomCard() {
+        const title = prompt("Custom card title?");
+        if (!title) return;
+
+        const minutesRaw = prompt("Minutes (number)?", "15");
+        const minutes = Number(minutesRaw);
+        const m = Number.isFinite(minutes) ? minutes : 15;
+
+        const id = `u:${uid("card")}`;
+        this.templatesById[id] = {
+          id,
+          sortKey: "ZZZ::99",
+          courseKey: "custom",
+          courseLabel: "Custom",
+          variantKey: "custom",
+          variantSort: 99,
+          title,
+          minutes: m,
+          symbols: "",
+          trackingCount: 0,
+        };
+
+        this.persistCards();
       },
     };
   };
