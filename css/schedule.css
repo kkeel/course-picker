@@ -377,7 +377,7 @@
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap: 10px;
+  gap: 12px;
   padding: 12px 12px;
   background: #fff;
   border-bottom: 1px solid #e5e8e5;
@@ -388,6 +388,12 @@
   align-items:baseline;
   gap:10px;
   min-width: 0;
+}
+
+.schedule-panel-meta {
+  font-size: 12px;
+  color: #6b756b;
+  white-space: nowrap;
 }
 
 .schedule-panel-sub{
