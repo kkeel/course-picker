@@ -282,7 +282,6 @@
                             class="schedule-select schedule-select--title"
                             x-model="panel.studentId"
                             aria-label="Choose student"
-                              @change="$nextTick(() => onStudentSelectChange())"
                           >
                             <template x-for="s in students" :key="s.id">
                               <option :value="s.id" x-text="s.name"></option>
