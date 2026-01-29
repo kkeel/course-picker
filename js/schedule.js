@@ -259,8 +259,11 @@
 
       // Start persistence watchers
       this.watchPersist();
-      
-      // Optional: write a first “clean” state so incognito gets a consistent baseline
+        
+      const saved = loadUiState();
+      this.applyUiState(saved);
+      this.ensureUniqueStudents();
+      this.ensureVisibleDays?.();  // if present in your file
       this.persist();
     }
     };
