@@ -134,9 +134,8 @@
         });
       },
 
-      onStudentSelectChange() {
-        // Keep uniqueness rules, then persist.
-        // (We’ll also persist via watchers, but keeping this doesn’t hurt.)
+      onStudentSelectChange(idx) {
+        // Enforce uniqueness and persist.
         this.ensureUniqueStudents();
         this.persist();
       },
