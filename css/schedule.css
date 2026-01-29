@@ -486,3 +486,51 @@
 .student-select-option.is-active {
   font-weight: 600;
 }
+/* --- Schedule: student dropdown --- */
+.schedule-panel-head { overflow: visible; position: relative; }
+
+.student-select { position: relative; display: inline-block; }
+
+.student-select-trigger{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  min-width: 180px;
+  padding: 10px 12px;
+  border: 1px solid #d2d6d2;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.student-select-menu{
+  position:absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: min(280px, 90vw);
+  background:#fff;
+  border: 1px solid #d2d6d2;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  padding: 6px;
+  z-index: 999;
+  max-height: 280px;
+  overflow: auto;
+}
+
+.student-select-option{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  text-align:left;
+  padding: 10px 10px;
+  border-radius: 10px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.student-select-option:hover{ background: #f3f4f3; }
+.student-select-check{ opacity: .85; }
