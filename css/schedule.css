@@ -731,3 +731,61 @@
   font-weight: 700;
   color: #596e5e;
 }
+/* =========================================================
+   Schedule — Panel header slim + unified (dropdown + Day 1–5)
+   Paste at END of schedule.css
+   ========================================================= */
+
+/* Slim the entire header row */
+.schedule-panel-head{
+  padding: 8px 12px;                 /* was ~12px */
+}
+
+/* Make the title row tighter */
+.schedule-panel-title{
+  gap: 10px;
+  align-items: center;               /* was baseline */
+}
+
+/* Remove the “control” look: no border, no box */
+.student-select{
+  width: auto;                       /* stop forcing a wide input */
+  flex: 0 1 auto;
+}
+
+.student-select-trigger{
+  padding: 6px 8px;                  /* slimmer */
+  border: none;                      /* remove border */
+  border-radius: 10px;
+  background: transparent;           /* feels like part of header */
+  font-size: 13px;
+  font-weight: 650;
+  color: #262b26;
+  box-shadow: none;
+}
+
+/* Subtle hover to show it’s clickable */
+.student-select-trigger:hover{
+  background: rgba(89,110,94,.06);
+}
+
+/* Keep focus visible without creating a bordered input */
+.student-select-trigger:focus{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(89,110,94,.12);
+}
+
+/* Chevron icon sizing to match app feel */
+.student-select-caret{
+  width: 18px;
+  height: 18px;
+  opacity: .75;
+  flex: 0 0 auto;
+}
+
+/* Tighten the Day 1–5 label so it reads like header metadata */
+.schedule-panel-range{
+  font-size: 12px;
+  color: #6b756b;
+  margin-left: auto;
+}
