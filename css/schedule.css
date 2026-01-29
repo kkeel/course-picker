@@ -538,3 +538,41 @@
 /* --- Schedule: horizontal day scroll --- */
 .schedule-board { overflow-x: auto; overflow-y: hidden; }
 .schedule-columns { display: flex; gap: 12px; min-width: max-content; padding-bottom: 6px; }
+
+.schedule-panel {
+  /* Allow dropdowns to extend outside */
+  overflow: visible;
+}
+
+/* Keep the internal scroll region clipped */
+.schedule-panel-body {
+  overflow: hidden;
+}
+
+.sched-panel-select{
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0c343d;
+
+  background: #fff;
+  border: 1px solid #d2d6d2;
+  border-radius: 12px;
+
+  padding: 10px 14px;
+  min-width: 170px;
+  max-width: 240px;
+}
+
+.sched-panel-select:focus{
+  outline: none;
+  border-color: #596e5e;
+  box-shadow: 0 0 0 3px rgba(89,110,94,.12);
+}
+
+.schedule-board { overflow-x: auto; }
+
+.schedule-board{
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
