@@ -295,3 +295,65 @@
 
   background: transparent;
   border: 0;
+/* =========================================================
+   Schedule — Restore “board” height + day column styling
+   Paste at END of schedule.css
+   ========================================================= */
+
+/* Make each panel behave like a real workspace */
+.schedule-panel{
+  display: flex;
+  flex-direction: column;
+  min-height: 520px;          /* <- restores the “work area” height */
+}
+
+/* Let the body be the flexible area */
+.schedule-panel-body{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;              /* important for scroll children */
+}
+
+/* Board should fill the body and scroll horizontally when needed */
+.schedule-board{
+  flex: 1;
+  min-height: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;        /* space for scrollbar */
+}
+
+/* Columns: ensure “board-like” layout + sane min widths */
+.schedule-columns{
+  display: grid !important;
+  grid-auto-flow: column !important;
+  grid-auto-columns: minmax(220px, 1fr) !important;
+  gap: 12px;
+
+  /* Key: allow the grid to be wider than the viewport so the board scroll works */
+  width: max-content !important;
+  min-width: 100% !important;
+}
+
+/* Each day column should look like a real column and have height */
+.schedule-col{
+  border: 1px solid #e5e8e5;
+  border-radius: 14px;
+  background: #fbfbf9;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+}
+
+/* Column header */
+.schedule-col-head{
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 12px 10px;
+  border-bottom: 1px
