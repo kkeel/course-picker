@@ -279,10 +279,11 @@
                       <div class="schedule-panel-head">
                         <div class="schedule-panel-title">
                           <select
-                              class="sched-panel-select"
-                              x-model="panel.studentId"
-                              @change="onStudentSelectChange(idx)"
-                            >
+                            class="schedule-select"
+                            x-model="panel.studentId"
+                            aria-label="Choose student"
+                            @change="onStudentSelectChange()"
+                          >
                             <template x-for="s in students" :key="s.id">
                               <option :value="s.id" x-text="s.name"></option>
                             </template>
