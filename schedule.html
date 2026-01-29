@@ -293,9 +293,20 @@
                                 :aria-expanded="openStudentMenu === idx"
                                 :aria-controls="`student-menu-${panel.slot}`"
                               >
-                              <span class="student-select-label" x-text="getStudentName(panel.studentId)"></span>
-                              <span class="student-select-caret" aria-hidden="true">▾</span>
-                            </button>
+                                <span class="student-select-label" x-text="getStudentName(panel.studentId)"></span>
+                              
+                                <!-- open chevron caret (matches app chevrons) -->
+                                <svg class="student-select-caret" viewBox="0 0 24 24" aria-hidden="true">
+                                  <path
+                                    d="M6 9l6 6 6-6"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2.25"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                  />
+                                </svg>
+                              </button>
               
                             <div
                                 class="student-select-menu"
