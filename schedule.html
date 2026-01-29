@@ -245,7 +245,7 @@
                     type="button"
                     class="schedule-pill"
                     :class="view === 'track' ? 'schedule-pill--on' : ''"
-                    @click="view='track'"
+                    @click="setView='track'"
                   >
                     Student View
                   </button>
@@ -253,7 +253,7 @@
                     type="button"
                     class="schedule-pill"
                     :class="view === 'day' ? 'schedule-pill--on' : ''"
-                    @click="view='day'"
+                    @click="setView='day'"
                   >
                     Day View
                   </button>
@@ -282,7 +282,7 @@
                             class="schedule-select schedule-select--title"
                             x-model="panel.studentId"
                             aria-label="Choose student"
-                            @change="ensureUniqueStudents()"
+                            @change="onStudentSelectChange()"
                           >
                             <template x-for="s in students" :key="s.id">
                               <option :value="s.id" x-text="s.name"></option>
