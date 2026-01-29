@@ -328,6 +328,14 @@
       }),
 
       openStudentMenu: null,
+      // -----------------------------
+      // Custom Card Modal (Create / Edit / Delete)
+      // -----------------------------
+      customModalOpen: false,
+      customModalMode: "create", // "create" | "edit" | "delete"
+      customModalTemplateId: null,
+      customForm: { title: "", minutes: 15 },
+      customModalError: "",
 
       // -----------------------------
       // Phase 2.5 cards state
@@ -461,6 +469,103 @@
       showAllDays() {
         this.visibleDays = [0, 1, 2, 3, 4];
         this.persistUi();
+      },
+
+      openCustomCardModal(mode = "create", templateId = null) {
+        this.customModalMode = mode;
+        this.customModalTemplateId = templateId;
+        this.customModalError = "";
+      
+        if (mode === "create") {
+          this.customForm = { title: "", minutes: 15 };
+        } else {
+          const tpl = this.templatesById?.[templateId];
+          if (!tpl) return;
+          this.customForm = {
+            title: String(tpl.title || ""),
+            minutes: Number(tpl.minutes || 15),
+          };
+        }
+      
+        this.customModalOpen = true;
+      },
+      
+      closeCustomCardModal() {
+        this.customModalOpen = false;
+        this.customModalError = "";
+      },
+      
+      saveCustomCardModal() {
+        const title = String(this.customForm?.title || "").trim();
+        const minutes = Number(this.customForm?.minutes);
+      
+        if (!title) {
+          this.customModalError = "Please enter a title.";
+          return;
+        }
+        if (!Number.isFinite(minutes) || minutes < 0 || minutes > 600) {
+          this.customModalError = "Minutes must be a number between 0 and 600.";
+          return;
+        }
+      
+        if (this.customModalMode === "create") {
+          const id = `u:${uid("card")}`;
+          this.templatesById[id] = {
+            id,
+            sortKey: "ZZZ::99",
+            courseKey: "custom",
+            courseLabel: "Custom",
+            variantKey: "custom",
+            variantSort: 99,
+            title,
+            minutes,
+            symbols: "",
+            trackingCount: 0,
+          };
+        }
+      
+        if (this.customModalMode === "edit") {
+          const id = this.customModalTemplateId;
+          if (!id || !String(id).startsWith("u:")) return;
+          const tpl = this.templatesById?.[id];
+          if (!tpl) return;
+      
+          this.templatesById[id] = {
+            ...tpl,
+            title,
+            minutes,
+          };
+        }
+      
+        this.persistCards();
+        this.closeCustomCardModal();
+      },
+      
+      confirmDeleteCustomCard() {
+        const templateId = this.customModalTemplateId;
+        if (!templateId || !String(templateId).startsWith("u:")) return;
+      
+        // remove template
+        delete this.templatesById[templateId];
+      
+        // remove instances referencing it
+        const doomedInstanceIds = [];
+        for (const [instId, inst] of Object.entries(this.instancesById || {})) {
+          if (inst?.templateId === templateId) doomedInstanceIds.push(instId);
+        }
+        for (const instId of doomedInstanceIds) delete this.instancesById[instId];
+      
+        // remove placements
+        for (const [studentId, daysObj] of Object.entries(this.placements || {})) {
+          for (let d = 0; d <= 4; d++) {
+            const arr = daysObj?.[d];
+            if (!Array.isArray(arr)) continue;
+            this.placements[studentId][d] = arr.filter((id) => !doomedInstanceIds.includes(id));
+          }
+        }
+      
+        this.persistCards();
+        this.closeCustomCardModal();
       },
 
       // -----------------------------
@@ -748,28 +853,7 @@
 
       // Custom card (minimal v2.5)
       addCustomCard() {
-        const title = prompt("Custom card title?");
-        if (!title) return;
-
-        const minutesRaw = prompt("Minutes (number)?", "15");
-        const minutes = Number(minutesRaw);
-        const m = Number.isFinite(minutes) ? minutes : 15;
-
-        const id = `u:${uid("card")}`;
-        this.templatesById[id] = {
-          id,
-          sortKey: "ZZZ::99",
-          courseKey: "custom",
-          courseLabel: "Custom",
-          variantKey: "custom",
-          variantSort: 99,
-          title,
-          minutes: m,
-          symbols: "",
-          trackingCount: 0,
-        };
-
-        this.persistCards();
+        this.openCustomCardModal("create");
       },
 
       removeCustomTemplate(templateId) {
