@@ -128,6 +128,8 @@
       },
 
       onStudentSelectChange() {
+        // Keep uniqueness rules, then persist.
+        // (We’ll also persist via watchers, but keeping this doesn’t hurt.)
         this.ensureUniqueStudents();
         this.persist();
       },
@@ -216,6 +218,28 @@
       // 1) Load saved UI state
       const saved = loadUiState();
       this.applyUiState(saved);
+
+      // ✅ Watchers: persist reliably when dropdowns / chips change
+      // (Prevents “it changed on screen but didn’t save” issues.)
+      if (typeof this.$watch === "function") {
+        // student dropdowns
+        this.$watch(
+          () => this.visibleStudentPanels.map(p => p.studentId).join("|"),
+          () => this.persist()
+        );
+      
+        // day chips
+        this.$watch(
+          () => this.visibleDays.join("|"),
+          () => this.persist()
+        );
+      
+        // view toggle
+        this.$watch(
+          () => this.view,
+          () => this.persist()
+        );
+      }
     
       // 2) Normalize + enforce rules
       this.ensureVisibleDays();
@@ -224,6 +248,13 @@
       if (!saved || !Array.isArray(saved.panels) || saved.panels.length === 0) {
         this.visibleStudentPanels[0].studentId = "S1";
         this.visibleStudentPanels[1].studentId = "S2";
+      }
+
+      // Extra safety: if panel 2 somehow isn't set, force S2 on first load
+      if (!saved || !Array.isArray(saved.panels) || saved.panels.length === 0) {
+        if (!this.visibleStudentPanels[1]?.studentId) {
+          this.visibleStudentPanels[1].studentId = "S2";
+        }
       }
     
       // If saved state has duplicates (common from earlier iterations),
