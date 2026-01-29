@@ -272,13 +272,15 @@
               <!-- TRACK / “Student View” (v1 = Tracks) -->
               <template x-if="view === 'track'">
                 <div class="schedule-panel-row">
-          
+              
                   <template x-for="(panel, idx) in visibleStudentPanels" :key="panel.slot">
                     <section class="schedule-panel">
-          
+              
+                      <!-- PANEL HEADER -->
                       <div class="schedule-panel-head">
                         <div class="schedule-panel-title">
-                          <!-- Student dropdown (one per panel) -->
+              
+                          <!-- Student dropdown -->
                           <div class="student-select" @click.outside="closeStudentMenu()">
                             <button
                               type="button"
@@ -289,7 +291,7 @@
                               <span x-text="getStudentName(panel.studentId)"></span>
                               <span class="student-select-caret" aria-hidden="true">▾</span>
                             </button>
-                        
+              
                             <div
                               class="student-select-menu"
                               x-cloak
@@ -304,38 +306,49 @@
                                   @click="setPanelStudent(idx, s.id); closeStudentMenu()"
                                 >
                                   <span x-text="s.name"></span>
-                                  <span class="student-select-check" x-show="panel.studentId === s.id">✓</span>
+                                  <span
+                                    class="student-select-check"
+                                    x-show="panel.studentId === s.id"
+                                  >✓</span>
                                 </button>
                               </template>
                             </div>
                           </div>
-                        
+              
                           <div class="schedule-panel-range">Day 1–5</div>
                         </div>
-          
-                      <!-- Panel body: week columns -->
+                      </div>
+                      <!-- ✅ HEADER CLOSED -->
+              
+                      <!-- PANEL BODY (horizontal scroll lives here) -->
                       <div class="schedule-panel-body">
                         <div class="schedule-board">
                           <div class="schedule-columns">
+              
                             <template x-for="i in visibleDays" :key="i">
                               <section class="schedule-col" :aria-label="dayLabel(i)">
                                 <div class="schedule-col-head">
-                                  <div class="schedule-col-title" x-text="dayLabel(i)"></div>
+                                  <div
+                                    class="schedule-col-title"
+                                    x-text="dayLabel(i)"
+                                  ></div>
                                   <div class="schedule-col-total">0m</div>
                                 </div>
+              
                                 <div class="schedule-dropzone">
                                   <div class="schedule-empty">Drop cards here</div>
                                 </div>
                               </section>
                             </template>
-                            
+              
                           </div>
                         </div>
                       </div>
-          
+                      <!-- ✅ BODY CLOSED -->
+              
                     </section>
                   </template>
-          
+              
                 </div>
               </template>
           
