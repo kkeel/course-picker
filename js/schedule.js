@@ -101,8 +101,10 @@
       instancesById: {},
       // preferences/choices that affect which templates are active
       choices: {
-        // Picture Study grade-band choice (global for now; can become per-student later)
-        pictureStudyBand: "g1-3",
+        // per-course option selections (scales to multiple “banded” courses)
+        courseOptions: {
+          "picture-study": "g1-3",
+        },
       },
     };
   }
@@ -210,7 +212,11 @@
       minutes: 10,
       symbols: "🎨",
       trackingCount: 12,
-      meta: { band: "g1-3" },
+      meta: {
+        choiceGroup: "gradeBand",
+        option: "g1-3",
+        optionLabel: "1–3",
+      },
     };
 
     t["a:picture-study:g4-6"] = {
@@ -224,7 +230,11 @@
       minutes: 15,
       symbols: "🎨",
       trackingCount: 12,
-      meta: { band: "g4-6" },
+      meta: {
+        choiceGroup: "gradeBand",
+        option: "g4-6",
+        optionLabel: "4–6",
+      },
     };
 
     t["a:picture-study:g7-8"] = {
@@ -238,7 +248,11 @@
       minutes: 20,
       symbols: "🎨",
       trackingCount: 12,
-      meta: { band: "g7-8" },
+      meta: {
+        choiceGroup: "gradeBand",
+        option: "g7-8",
+        optionLabel: "7–8",
+      },
     };
 
     t["a:picture-study:g9-12"] = {
@@ -252,7 +266,11 @@
       minutes: 20,
       symbols: "🎨",
       trackingCount: 12,
-      meta: { band: "g9-12" },
+      meta: {
+        choiceGroup: "gradeBand",
+        option: "g9-12",
+        optionLabel: "9–12",
+      },
     };
 
     return t;
@@ -467,6 +485,29 @@
         return this.dayLabels[n] || `Day ${n + 1}`;
       },
 
+      setCourseOption(courseKey, option) {
+        if (!this.choices.courseOptions) this.choices.courseOptions = {};
+        this.choices.courseOptions[courseKey] = option;
+        this.persistCards();
+      },
+      
+      addRailEntryToActive(entry) {
+        if (!entry) return;
+      
+        let templateId = null;
+      
+        if (entry.type === "single") {
+          templateId = entry.templateId;
+        } else if (entry.type === "group") {
+          const selectedOpt = this.choices?.courseOptions?.[entry.courseKey];
+          const match = (entry.options || []).find(o => o.option === selectedOpt);
+          templateId = (match && match.templateId) || entry.activeTemplateId;
+        }
+      
+        if (!templateId) return;
+        this.addTemplateToActive(templateId);
+      },
+
       // -----------------------------
       // Phase 2.5: Catalog + placements
       // -----------------------------
@@ -481,39 +522,88 @@
       },
 
       // rail sorting: match course list order via sortKey
-      sortedTemplates() {
-        const all = Object.values(this.templatesById || {});
-        // Filter: only show the chosen Picture Study band in the rail
-        const band = this.choices?.pictureStudyBand || "g1-3";
-
-        const filtered = all.filter((t) => {
-          if (!t) return false;
-          if (t.courseKey === "picture-study") {
-            return t?.meta?.band === band;
+      railEntries() {
+        const templates = Object.values(this.templatesById || {}).filter(Boolean);
+      
+        // group templates by courseKey when they have meta.choiceGroup
+        const byCourse = new Map();
+        for (const t of templates) {
+          const courseKey = t.courseKey || "";
+          const cg = t?.meta?.choiceGroup;
+          if (cg) {
+            if (!byCourse.has(courseKey)) byCourse.set(courseKey, []);
+            byCourse.get(courseKey).push(t);
           }
-          return true;
-        });
-
-        return filtered.sort((a, b) => {
+        }
+      
+        // helper: sort templates the same way you were sorting before
+        const sortTpl = (a, b) => {
           const ak = String(a.sortKey || "");
           const bk = String(b.sortKey || "");
           if (ak < bk) return -1;
           if (ak > bk) return 1;
-
-          // then by courseLabel, then variantSort, then title
+      
           const ac = String(a.courseLabel || "");
           const bc = String(b.courseLabel || "");
           if (ac < bc) return -1;
           if (ac > bc) return 1;
-
+      
           const av = Number(a.variantSort || 0);
           const bv = Number(b.variantSort || 0);
           if (av !== bv) return av - bv;
-
-          const at = String(a.title || "");
-          const bt = String(b.title || "");
-          return at.localeCompare(bt);
-        });
+      
+          return String(a.title || "").localeCompare(String(b.title || ""));
+        };
+      
+        templates.sort(sortTpl);
+      
+        const entries = [];
+        const seenGroupedCourse = new Set();
+      
+        for (const t of templates) {
+          const courseKey = t.courseKey || "";
+          const cg = t?.meta?.choiceGroup;
+      
+          if (cg) {
+            if (seenGroupedCourse.has(courseKey)) continue;
+            seenGroupedCourse.add(courseKey);
+      
+            const options = (byCourse.get(courseKey) || []).slice().sort(sortTpl);
+            const selected = this.choices?.courseOptions?.[courseKey] || options?.[0]?.meta?.option;
+      
+            // pick the selected template for display
+            const activeTpl =
+              options.find(x => x?.meta?.option === selected) || options[0];
+      
+            entries.push({
+              type: "group",
+              courseKey,
+              choiceGroup: cg,
+              courseLabel: activeTpl?.courseLabel || "",
+              sortKey: activeTpl?.sortKey || "",
+              options: options.map(x => ({
+                option: x?.meta?.option,
+                label: x?.meta?.optionLabel || x?.meta?.option,
+                templateId: x.id,
+              })),
+              activeTemplateId: activeTpl?.id,
+            });
+          } else {
+            entries.push({
+              type: "single",
+              templateId: t.id,
+              sortKey: t.sortKey || "",
+            });
+          }
+        }
+      
+        return entries;
+      },
+      
+      sortedTemplates() {
+        // Backwards-compatible helper for anywhere else that expects templates.
+        // We’ll render from railEntries() in the HTML now.
+        return Object.values(this.templatesById || {}).filter(Boolean);
       },
 
       // active target (click a column to set)
