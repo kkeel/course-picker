@@ -234,37 +234,50 @@
                   <template x-if="entry.type === 'group'">
                     <div>
                       <div class="sched-rail-item-top">
-                        <div class="sched-rail-item-title"
-                             :title="(templatesById[entry.activeTemplateId] || {}).title || ''"
-                             x-text="(templatesById[entry.activeTemplateId] || {}).title || ''"></div>
+                        <div
+                          class="sched-rail-item-title"
+                          :title="railEntryDisplay(entry).title || ''"
+                          x-text="railEntryDisplay(entry).title || ''"
+                        ></div>
+                  
                         <div class="sched-rail-item-min"
-                             x-text="`${(templatesById[entry.activeTemplateId] || {}).minutes || 0}m`"></div>
+                             x-text="`${railEntryDisplay(entry).minutes || 0}m`"></div>
                       </div>
-              
+                  
+                      <!-- band line (makes it feel like ONE card with options) -->
                       <div class="sched-rail-item-sub"
-                           x-text="(templatesById[entry.activeTemplateId] || {}).symbols || ''"></div>
-              
+                           x-show="railEntryDisplay(entry).sub"
+                           x-text="railEntryDisplay(entry).sub"></div>
+                  
+                      <div class="sched-rail-item-sub"
+                           x-text="railEntryDisplay(entry).symbols || ''"></div>
+                  
                       <!-- choice chips live ON the card -->
                       <div class="sched-rail-inline-choices">
                         <template x-for="opt in entry.options" :key="opt.option">
-                          <button type="button"
-                                  class="sched-rail-chip sched-rail-chip--sm"
-                                  :class="(choices.courseOptions && choices.courseOptions[entry.courseKey] === opt.option) ? 'sched-rail-chip--on' : ''"
-                                  @click="setCourseOption(entry.courseKey, opt.option)">
+                          <button
+                            type="button"
+                            class="sched-rail-chip sched-rail-chip--sm"
+                            :class="(choices.courseOptions && choices.courseOptions[entry.courseKey] === opt.option) ? 'sched-rail-chip--on' : ''"
+                            @click="setCourseOption(entry.courseKey, opt.option)"
+                          >
                             <span x-text="opt.label"></span>
                           </button>
                         </template>
                       </div>
-              
+                  
                       <div class="sched-rail-actions">
-                        <button type="button"
-                                class="sched-rail-btn sched-rail-btn--primary"
-                                @click="addRailEntryToActive(entry)">
+                        <button
+                          type="button"
+                          class="sched-rail-btn sched-rail-btn--primary"
+                          @click="addRailEntryToActive(entry)"
+                        >
                           Add
                         </button>
                       </div>
                     </div>
                   </template>
+
                 </div>
               </template>
             </div>
