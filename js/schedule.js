@@ -82,6 +82,8 @@
     return {
       // mode
       view: "track",
+      
+      openStudentMenu: null, // which panel slot menu is open (P1/P2)
 
       // V1 placeholder students (later replaced with real students)
       students: Array.from({ length: 15 }, (_, i) => {
@@ -262,6 +264,62 @@
         this.visibleStudentCols = this.students.map((s) => s.id);
         this.ensureVisibleStudentCols();
         this.persist();
+      },
+
+      ensureVisibleDays() {
+        const max = (this.dayLabels?.length || 5) - 1;
+      
+        if (!Array.isArray(this.visibleDays)) this.visibleDays = [];
+        // keep only valid ints
+        this.visibleDays = this.visibleDays
+          .map((n) => Number(n))
+          .filter((n) => Number.isInteger(n) && n >= 0 && n <= max);
+      
+        // de-dupe + sort
+        this.visibleDays = Array.from(new Set(this.visibleDays)).sort((a, b) => a - b);
+      
+        // if empty, default to all
+        if (this.visibleDays.length === 0) {
+          this.visibleDays = Array.from({ length: max + 1 }, (_, i) => i);
+        }
+      },
+      
+      ensureUniqueStudents() {
+        // Make sure P1/P2 are not the same student
+        if (!Array.isArray(this.visibleStudentPanels) || this.visibleStudentPanels.length === 0) return;
+      
+        const allIds = (this.students || []).map((s) => s.id);
+        if (allIds.length === 0) return;
+      
+        const used = new Set();
+      
+        this.visibleStudentPanels = this.visibleStudentPanels.map((p, idx) => {
+          const slot = p.slot || (idx === 1 ? "P2" : "P1");
+          let studentId = p.studentId || (slot === "P2" ? "S2" : "S1");
+      
+          // if invalid id, fall back
+          if (!allIds.includes(studentId)) {
+            studentId = slot === "P2" ? (allIds[1] || allIds[0]) : allIds[0];
+          }
+      
+          // if already used, pick the first unused
+          if (used.has(studentId)) {
+            const next = allIds.find((id) => !used.has(id)) || allIds[0];
+            studentId = next;
+          }
+      
+          used.add(studentId);
+          return { slot, studentId };
+        });
+      },
+      
+      studentName(studentId) {
+        const s = (this.students || []).find((x) => x.id === studentId);
+        return s ? s.name : "Student";
+      },
+      
+      closeStudentMenu() {
+        this.openStudentMenu = null;
       },
 
       persist() {
