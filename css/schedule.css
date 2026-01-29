@@ -648,3 +648,23 @@
   padding: 5px 9px;
   font-size: 12px;
 }
+
+.sched-rail-actions{
+  gap: 8px;
+  align-items: center;
+}
+
+.sched-rail-icon-btn{
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  border-radius: 12px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 750;
+  color: #666d66;
+  line-height: 1;
+}
+
+.sched-rail-icon-btn:hover{
+  background: rgba(0,0,0,.06);
+}
