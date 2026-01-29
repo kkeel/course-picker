@@ -584,3 +584,62 @@
   background: rgba(0,0,0,.06);
   opacity: .9;
 }
+
+/* =========================================================
+   Rail target picker + compact option chips
+   ========================================================= */
+
+.sched-target{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding: 10px;
+  border: 1px solid #e5e8e5;
+  border-radius: 14px;
+  background: #fbfbf9;
+}
+
+.sched-target-select{
+  width: 100%;
+  border: 1px solid #d2d6d2;
+  border-radius: 12px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 650;
+  color: #262b26;
+  background:#fff;
+}
+
+.sched-target-days{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.sched-target-day{
+  border: 1px solid #d2d6d2;
+  background:#fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 650;
+  color:#596e5e;
+  line-height:1;
+}
+
+.sched-target-day--on{
+  background: rgba(89,110,94,.10);
+  border-color:#596e5e;
+}
+
+.sched-rail-inline-choices{
+  margin-top: 8px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.sched-rail-chip--sm{
+  padding: 5px 9px;
+  font-size: 12px;
+}
