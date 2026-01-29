@@ -174,7 +174,7 @@
             <div class="sched-rail-head">
               <div class="text-sm font-semibold">Scheduling Cards</div>
           
-              <button type="button" class="sched-rail-btn" @click="addCustomCard()">
+              <button type="button" class="sched-rail-btn" @click="openCustomCardModal('create')">
                 + Custom
               </button>
             </div>
@@ -221,18 +221,29 @@
                            x-text="(templatesById[entry.templateId] || {}).symbols || ''"></div>
               
                       <div class="sched-rail-actions">
+                        <!-- Add (+) -->
                         <button type="button"
-                                class="sched-rail-btn sched-rail-btn--primary"
+                                class="sched-rail-add"
+                                title="Add to schedule"
                                 @click="addRailEntryToActive(entry)">
-                          Add
+                          <span aria-hidden="true">＋</span>
                         </button>
                       
-                        <!-- only for custom templates -->
+                        <!-- Custom-only: edit -->
+                        <button type="button"
+                                class="sched-rail-icon-btn"
+                                x-show="String(entry.templateId || '').startsWith('u:')"
+                                title="Edit custom card"
+                                @click="openCustomCardModal('edit', entry.templateId)">
+                          ✎
+                        </button>
+                      
+                        <!-- Custom-only: delete -->
                         <button type="button"
                                 class="sched-rail-icon-btn"
                                 x-show="String(entry.templateId || '').startsWith('u:')"
                                 title="Remove custom card"
-                                @click="removeCustomTemplate(entry.templateId)">
+                                @click="openCustomCardModal('delete', entry.templateId)">
                           ✕
                         </button>
                       </div>
@@ -263,26 +274,26 @@
                            x-text="railEntryDisplay(entry).symbols || ''"></div>
                   
                       <!-- choice chips live ON the card -->
-                      <div class="sched-rail-inline-choices">
-                        <template x-for="opt in entry.options" :key="opt.option">
-                          <button
-                            type="button"
-                            class="sched-rail-chip sched-rail-chip--sm"
-                            :class="(choices.courseOptions && choices.courseOptions[entry.courseKey] === opt.option) ? 'sched-rail-chip--on' : ''"
-                            @click="setCourseOption(entry.courseKey, opt.option)"
-                          >
-                            <span x-text="opt.label"></span>
-                          </button>
-                        </template>
+                      <div class="sched-rail-band">
+                        <div class="sched-rail-band-label">Choose grades</div>
+                          <div class="sched-rail-band-chips">
+                            <template x-for="opt in entry.options" :key="opt.option">
+                              <button type="button"
+                                      class="sched-rail-chip sched-rail-chip--sm"
+                                      :class="(choices.courseOptions && choices.courseOptions[entry.courseKey] === opt.option) ? 'sched-rail-chip--on' : ''"
+                                      @click="setCourseOption(entry.courseKey, opt.option)">
+                                <span x-text="opt.label"></span>
+                              </button>
+                            </template>
+                          </div>
                       </div>
                   
                       <div class="sched-rail-actions">
-                        <button
-                          type="button"
-                          class="sched-rail-btn sched-rail-btn--primary"
-                          @click="addRailEntryToActive(entry)"
-                        >
-                          Add
+                        <button type="button"
+                                class="sched-rail-add"
+                                title="Add to schedule"
+                                @click="addRailEntryToActive(entry)">
+                          <span aria-hidden="true">＋</span>
                         </button>
                       </div>
                     </div>
@@ -519,6 +530,58 @@
                 </div>
               </template>
           
+            </div>
+          </div>
+
+          <!-- Custom Card Modal (Create/Edit/Delete) -->
+          <div x-show="customModalOpen" x-cloak class="sched-modal-overlay" @keydown.escape.window="closeCustomCardModal()">
+            <div class="sched-modal-backdrop" @click="closeCustomCardModal()"></div>
+          
+            <div class="sched-modal" role="dialog" aria-modal="true" aria-label="Custom card" @click.stop>
+              <div class="sched-modal-head">
+                <div class="sched-modal-title"
+                     x-text="customModalMode === 'create' ? 'New custom card' :
+                             customModalMode === 'edit' ? 'Edit custom card' :
+                             'Remove custom card'"></div>
+          
+                <button type="button" class="sched-modal-close" @click="closeCustomCardModal()" aria-label="Close">✕</button>
+              </div>
+          
+              <div class="sched-modal-body">
+                <template x-if="customModalMode !== 'delete'">
+                  <div class="sched-modal-form">
+                    <label class="sched-modal-label">Title</label>
+                    <input class="sched-modal-input" type="text" x-model="customForm.title" placeholder="Co-op Class" />
+          
+                    <label class="sched-modal-label mt-3">Minutes</label>
+                    <input class="sched-modal-input" type="number" min="0" max="600" step="5" x-model="customForm.minutes" />
+          
+                    <div class="sched-modal-error" x-show="customModalError" x-text="customModalError"></div>
+                  </div>
+                </template>
+          
+                <template x-if="customModalMode === 'delete'">
+                  <div class="text-sm opacity-80">
+                    Remove this custom card? This will also remove it from any days it was added to.
+                  </div>
+                </template>
+              </div>
+          
+              <div class="sched-modal-actions">
+                <button type="button" class="sched-modal-btn" @click="closeCustomCardModal()">Cancel</button>
+          
+                <template x-if="customModalMode === 'delete'">
+                  <button type="button" class="sched-modal-btn sched-modal-btn-danger" @click="confirmDeleteCustomCard()">
+                    Remove
+                  </button>
+                </template>
+          
+                <template x-if="customModalMode !== 'delete'">
+                  <button type="button" class="sched-modal-btn sched-modal-btn-primary" @click="saveCustomCardModal()">
+                    Save
+                  </button>
+                </template>
+              </div>
             </div>
           </div>
           
