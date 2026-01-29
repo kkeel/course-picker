@@ -226,7 +226,17 @@
                                 @click="addRailEntryToActive(entry)">
                           Add
                         </button>
+                      
+                        <!-- only for custom templates -->
+                        <button type="button"
+                                class="sched-rail-icon-btn"
+                                x-show="String(entry.templateId || '').startsWith('u:')"
+                                title="Remove custom card"
+                                @click="removeCustomTemplate(entry.templateId)">
+                          ✕
+                        </button>
                       </div>
+                      
                     </div>
                   </template>
               
