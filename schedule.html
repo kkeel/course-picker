@@ -307,45 +307,34 @@
                               </svg>
                             </button>
                           
-                            <div
-                              class="av-filter-panel"
-                              x-show="openStudentMenu === panel.slot"
-                              x-transition
-                              @click.outside="closeStudentMenu()"
-                            >
-                              <template x-for="s in students" :key="s.id">
-                                <button
-                                  type="button"
-                                  class="av-filter-option"
-                                  @click="
-                                    setPanelStudent(idx, s.id);
-                                    closeStudentMenu();
-                                  "
-                                >
-                                  <span x-text="s.name"></span>
-                          
-                                  <!-- check mark (matches course list behavior) -->
-                                  <svg
-                                    x-show="panel.studentId === s.id"
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    aria-hidden="true"
+                            <div class="student-select" @click.outside="closeStudentMenu()">
+                              <button
+                                class="student-select-trigger"
+                                @click="openStudentMenu = openStudentMenu === panel.slot ? null : panel.slot"
+                              >
+                                <span x-text="studentName(panel.studentId)"></span>
+                                <svg class="chevron" viewBox="0 0 20 20">
+                                  <path d="M6 8l4 4 4-4" />
+                                </svg>
+                              </button>
+                            
+                              <div
+                                class="student-select-menu"
+                                x-show="openStudentMenu === panel.slot"
+                                x-transition
+                              >
+                                <template x-for="s in students" :key="s.id">
+                                  <button
+                                    class="student-select-option"
+                                    :class="{ 'is-active': s.id === panel.studentId }"
+                                    @click="setPanelStudent(idx, s.id); closeStudentMenu()"
                                   >
-                                    <path
-                                      d="M20 6L9 17l-5-5"
-                                      stroke="currentColor"
-                                      stroke-width="2"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                    />
-                                  </svg>
-                                </button>
-                              </template>
+                                    <span x-text="s.name"></span>
+                                    <span x-show="s.id === panel.studentId">✓</span>
+                                  </button>
+                                </template>
+                              </div>
                             </div>
-                          </div>
 
                         </div>
                         
