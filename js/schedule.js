@@ -508,6 +508,39 @@
         this.addTemplateToActive(templateId);
       },
 
+      railEntryDisplay(entry) {
+        if (!entry) return { title: "", sub: "", minutes: 0, symbols: "" };
+      
+        // SINGLE template
+        if (entry.type === "single") {
+          const tpl = this.templatesById?.[entry.templateId] || {};
+          return {
+            title: tpl.title || "",
+            sub: "", // no extra line
+            minutes: Number(tpl.minutes || 0),
+            symbols: tpl.symbols || "",
+          };
+        }
+      
+        // GROUP template (choice-based, e.g. Picture Study)
+        const active = this.templatesById?.[entry.activeTemplateId] || {};
+        const selectedOpt = this.choices?.courseOptions?.[entry.courseKey];
+        const selectedMeta =
+          (entry.options || []).find((o) => o.option === selectedOpt) || (entry.options || [])[0];
+      
+        // Rail should feel like ONE card:
+        // Title stays “Picture Study” (course label), and the band is a secondary line.
+        const baseTitle = active.courseLabel || active.title || "";
+        const bandLabel = selectedMeta?.label || active?.meta?.optionLabel || "";
+      
+        return {
+          title: baseTitle,                // "Picture Study"
+          sub: bandLabel ? `Grades ${bandLabel}` : "", // "Grades 1–3"
+          minutes: Number(active.minutes || 0),
+          symbols: active.symbols || "",
+        };
+      },
+
       // -----------------------------
       // Phase 2.5: Catalog + placements
       // -----------------------------
