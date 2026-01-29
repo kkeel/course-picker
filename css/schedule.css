@@ -576,3 +576,47 @@
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
 }
+
+/* Allow dropdown menu to render outside the panel */
+.schedule-panel{
+  overflow: visible; /* IMPORTANT: was hidden */
+}
+
+/* Keep the body clipped/clean (so only the dropdown can overflow) */
+.schedule-panel-body{
+  overflow: hidden;
+}
+
+/* Header layout: dropdown left, Day 1–5 on right */
+.schedule-panel-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  width:100%;
+  min-width:0;
+}
+
+.student-select{
+  position:relative;
+  flex:0 1 220px;
+  min-width: 160px;
+}
+
+.student-select-trigger{
+  width:100%;
+}
+
+.student-select-label{
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.schedule-panel-range{
+  margin-left:auto;
+  font-size:12px;
+  color:#6b756b;
+  white-space:nowrap;
+}
