@@ -218,28 +218,6 @@
       // 1) Load saved UI state
       const saved = loadUiState();
       this.applyUiState(saved);
-
-      // ✅ Watchers: persist reliably when dropdowns / chips change
-      // (Prevents “it changed on screen but didn’t save” issues.)
-      if (typeof this.$watch === "function") {
-        // student dropdowns
-        this.$watch(
-          () => this.visibleStudentPanels.map(p => p.studentId).join("|"),
-          () => this.persist()
-        );
-      
-        // day chips
-        this.$watch(
-          () => this.visibleDays.join("|"),
-          () => this.persist()
-        );
-      
-        // view toggle
-        this.$watch(
-          () => this.view,
-          () => this.persist()
-        );
-      }
     
       // 2) Normalize + enforce rules
       this.ensureVisibleDays();
