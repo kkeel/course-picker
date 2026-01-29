@@ -335,7 +335,11 @@
       templatesById: {},      // catalog
       instancesById: {},      // instanceId -> instance
       placements: {},         // studentId -> dayIndex -> [instanceId...]
-      choices: { pictureStudyBand: "g1-3" },
+      choices: {
+        courseOptions: {
+          "picture-study": "g1-3",
+        },
+      },
 
       // where “Add” goes (click a column to set target)
       activeTarget: {
@@ -365,9 +369,35 @@
         const sample = buildSampleTemplates();
         this.templatesById = { ...sample, ...(normalizedCards.templatesById || {}) };
 
+        // --- MIGRATION: ensure “choiceGroup” metadata exists for older cached templates ---
+        for (const [id, tpl] of Object.entries(this.templatesById || {})) {
+          if (!tpl || tpl.courseKey !== "picture-study") continue;
+        
+          // If old saved template lacks choiceGroup metadata, reconstruct it from variantKey
+          if (!tpl.meta || !tpl.meta.choiceGroup) {
+            const option = tpl.variantKey || (id.split(":").pop() || "g1-3");
+            const labelMap = { "g1-3": "1–3", "g4-6": "4–6", "g7-8": "7–8", "g9-12": "9–12" };
+            tpl.meta = {
+              ...(tpl.meta || {}),
+              choiceGroup: "gradeBand",
+              option,
+              optionLabel: labelMap[option] || option,
+            };
+            this.templatesById[id] = tpl;
+          }
+        }
+        
+        // ensure default selection exists
+        if (!this.choices.courseOptions["picture-study"]) {
+          this.choices.courseOptions["picture-study"] = "g1-3";
+        }
+
         this.instancesById = normalizedCards.instancesById || {};
         this.placements = normalizedCards.placements || {};
-        this.choices = normalizedCards.choices || { pictureStudyBand: "g1-3" };
+        this.choices = normalizedCards.choices || {
+          courseOptions: { "picture-study": "g1-3" },
+        };
+        if (!this.choices.courseOptions) this.choices.courseOptions = { "picture-study": "g1-3" };
 
         // ensure placements buckets for currently visible panel students
         this.visibleStudentPanels.forEach((p) => this.ensureStudent(p.studentId));
@@ -741,6 +771,38 @@
 
         this.persistCards();
       },
+
+      removeCustomTemplate(templateId) {
+        if (!templateId || !String(templateId).startsWith("u:")) return;
+      
+        const tpl = this.templatesById?.[templateId];
+        if (!tpl) return;
+      
+        const ok = confirm(`Remove custom card "${tpl.title}"?\n\nThis will also remove it from any days it was added to.`);
+        if (!ok) return;
+      
+        // 1) remove the template
+        delete this.templatesById[templateId];
+      
+        // 2) remove any instances that reference this template
+        const doomedInstanceIds = [];
+        for (const [instId, inst] of Object.entries(this.instancesById || {})) {
+          if (inst?.templateId === templateId) doomedInstanceIds.push(instId);
+        }
+        for (const instId of doomedInstanceIds) delete this.instancesById[instId];
+      
+        // 3) remove those instances from placements
+        for (const [studentId, daysObj] of Object.entries(this.placements || {})) {
+          for (let d = 0; d <= 4; d++) {
+            const arr = daysObj?.[d];
+            if (!Array.isArray(arr)) continue;
+            this.placements[studentId][d] = arr.filter((id) => !doomedInstanceIds.includes(id));
+          }
+        }
+      
+        this.persistCards();
+      },
+      
     };
   };
 })();
