@@ -280,24 +280,31 @@
                       <div class="schedule-panel-head">
                         <div class="schedule-panel-title">
                           <!-- Student dropdown (one per panel) -->
-                          <div class="student-select" @click.outside="closeStudentMenu()">
-                            <button
-                              type="button"
-                              class="student-select-trigger"
-                              @click="toggleStudentMenu(idx)"
-                              :aria-expanded="openStudentMenu === idx"
+                          <div
+                              class="student-select"
+                              @click.outside="closeStudentMenu()"
+                              @keydown.escape.window="closeStudentMenu()"
+                              @click.stop
                             >
+                              <button
+                                type="button"
+                                class="student-select-trigger"
+                                @click.stop.prevent="toggleStudentMenu(idx)"
+                                :aria-expanded="openStudentMenu === idx"
+                                :aria-controls="`student-menu-${panel.slot}`"
+                              >
                               <span class="student-select-label" x-text="getStudentName(panel.studentId)"></span>
                               <span class="student-select-caret" aria-hidden="true">▾</span>
                             </button>
               
                             <div
-                              class="student-select-menu"
-                              x-cloak
-                              x-show="openStudentMenu === idx"
-                              x-transition
-                              @click.stop
-                            >
+                                class="student-select-menu"
+                                :id="`student-menu-${panel.slot}`"
+                                x-cloak
+                                x-show="openStudentMenu === idx"
+                                x-transition
+                                @click.stop
+                              >
                               <template x-for="s in students" :key="s.id">
                                 <button
                                   type="button"
