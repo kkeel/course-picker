@@ -279,10 +279,9 @@
                       <div class="schedule-panel-head">
                         <div class="schedule-panel-title">
                           <select
-                            class="schedule-select"
-                            x-model="panel.studentId"
-                            aria-label="Choose student"
-                            @change="onStudentSelectChange()"
+                            class="sched-panel-select"
+                            x-effect="$el.value = panels[idx]?.studentId"
+                            @change="setPanelStudent(idx, $event.target.value)"
                           >
                             <template x-for="s in students" :key="s.id">
                               <option :value="s.id" x-text="s.name"></option>
