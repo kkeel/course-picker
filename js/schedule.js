@@ -62,29 +62,36 @@
         };
       },
 
-      applyUiState(saved) {
-        if (!saved || typeof saved !== "object") return;
-
-        if (saved.view === "track" || saved.view === "day") {
-          this.view = saved.view;
+      applyUiState(state) {
+        if (!state) return;
+      
+        if (typeof state.view === "string") this.view = state.view;
+      
+        if (Array.isArray(state.visibleDays)) {
+          this.visibleDays = state.visibleDays;
         }
-
-        if (Array.isArray(saved.visibleDays)) {
-          this.visibleDays = saved.visibleDays.slice();
-        }
-
-        if (Array.isArray(saved.panels)) {
-          // Map saved panel selections onto our two slots
-          const bySlot = new Map(saved.panels.map(p => [p.slot, p.studentId]));
-          this.visibleStudentPanels.forEach(p => {
-            const v = bySlot.get(p.slot);
-            if (v) p.studentId = v;
+      
+        if (Array.isArray(state.panels) && state.panels.length) {
+          this.visibleStudentPanels = state.panels.map((p) => {
+            const slot = p.slot || "P1";
+      
+            // Default P1 -> S1, P2 -> S2 (even if studentId missing)
+            let studentId = p.studentId;
+            if (!studentId) studentId = slot === "P2" ? "S2" : "S1";
+      
+            return { slot, studentId };
           });
         }
       },
 
       persist() {
         saveUiState(this.getUiState());
+      },
+
+      watchPersist() {
+        // Deep-ish watchers (works reliably for nested object changes)
+        this.$watch(() => JSON.stringify(this.visibleStudentPanels), () => this.persist());
+        this.$watch(() => JSON.stringify(this.visibleDays), () => this.persist());
       },
 
       setView(next) {
@@ -250,8 +257,11 @@
       // Prep day-view columns (later)
       this.visibleStudentCols = this.buildStudentColsPage(this.studentColsCursor);
       this.ensureVisibleStudentCols();
-    
-      // 3) Save back (locks in corrected defaults)
+
+      // Start persistence watchers
+      this.watchPersist();
+      
+      // Optional: write a first “clean” state so incognito gets a consistent baseline
       this.persist();
     }
     };
