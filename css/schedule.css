@@ -389,3 +389,41 @@
   font-weight: 800;
   color: #596e5e;
 }
+
+/* =========================================================
+   Schedule Cards (static for now)
+   ========================================================= */
+
+.sched-card{
+  border: 1px solid #e5e8e5;
+  border-radius: 14px;
+  background: #fff;
+  padding: 10px 10px 9px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.03);
+}
+
+.sched-card-top{
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.sched-card-title{
+  font-weight: 650;
+  font-size: 13px;
+  color: #262b26;
+}
+
+.sched-card-min{
+  font-size: 12px;
+  color: #596e5e;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.sched-card-sub{
+  font-size: 12px;
+  color: #666d66;
+}
