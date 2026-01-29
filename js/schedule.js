@@ -71,9 +71,10 @@
           this.visibleDays = state.visibleDays;
         }
       
+        // IMPORTANT: hydrate `this.panels` because the UI binds to `panels`
         if (Array.isArray(state.panels) && state.panels.length) {
-          this.visibleStudentPanels = state.panels.map((p) => {
-            const slot = p.slot || "P1";
+          this.panels = state.panels.map((p, idx) => {
+            const slot = p.slot || (idx === 1 ? "P2" : "P1");
       
             // Default P1 -> S1, P2 -> S2 (even if studentId missing)
             let studentId = p.studentId;
@@ -81,6 +82,12 @@
       
             return { slot, studentId };
           });
+        } else {
+          // If panels missing from saved state, ensure defaults exist
+          this.panels = [
+            { slot: "P1", studentId: "S1" },
+            { slot: "P2", studentId: "S2" },
+          ];
         }
       },
 
@@ -134,10 +141,14 @@
         });
       },
 
-      onStudentSelectChange(idx) {
-        // Enforce uniqueness and persist.
-        this.ensureUniqueStudents();
-        this.persist();
+      setPanelStudent(idx, studentId) {
+        if (!this.panels || !this.panels[idx]) return;
+      
+        this.panels[idx].studentId = studentId;
+      
+        // persist immediately
+        this.saveNow();
+        this.onStateChange();
       },
 
       // ---------------------------
@@ -231,7 +242,9 @@
           // First-time defaults
           this.view = "track";
           this.visibleDays = [0, 1, 2, 3, 4];
-          this.visibleStudentPanels = [
+      
+          // IMPORTANT: use `panels` (not `visibleStudentPanels`)
+          this.panels = [
             { slot: "P1", studentId: "S1" },
             { slot: "P2", studentId: "S2" },
           ];
@@ -246,6 +259,11 @@
       
         // If there was no saved state, write the defaults once
         if (!saved) this.persist();
+      
+        // Final sync AFTER DOM/options render
+        this.$nextTick(() => {
+          this.onStateChange();
+        });
       },
     };
   };
