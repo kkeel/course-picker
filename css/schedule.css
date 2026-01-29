@@ -620,3 +620,114 @@
   color:#6b756b;
   white-space:nowrap;
 }
+/* =========================================================
+   Schedule — Student Dropdown (final override)
+   Paste at END of schedule.css
+   ========================================================= */
+
+.schedule-panel,
+.schedule-panel-head,
+.schedule-panel-title {
+  overflow: visible;
+}
+
+/* Container */
+.student-select{
+  position: relative;
+  display: inline-block;
+  width: 220px;
+  max-width: 100%;
+}
+
+/* Trigger */
+.student-select-trigger{
+  width: 100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+
+  padding: 10px 12px;
+  border: 1px solid #d2d6d2;
+  border-radius: 12px;
+  background: #fff;
+
+  font-size: 13px;
+  font-weight: 650;
+  color: #262b26;
+  line-height: 1.1;
+}
+
+.student-select-trigger:hover{
+  background: rgba(89,110,94,.05);
+}
+
+.student-select-trigger:focus{
+  outline: none;
+  border-color: #596e5e;
+  box-shadow: 0 0 0 3px rgba(89,110,94,.12);
+}
+
+.student-select-label{
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.student-select-caret{
+  opacity: .7;
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* Menu */
+.student-select-menu{
+  position:absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  max-width: 320px;
+
+  background:#fff;
+  border: 1px solid #d2d6d2;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.10);
+
+  padding: 6px;
+  z-index: 9999;
+
+  max-height: 280px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Options */
+.student-select-option{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+
+  text-align:left;
+  padding: 10px 10px;
+  border-radius: 12px;
+
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+
+  font-size: 13px;
+  color: #262b26;
+}
+
+.student-select-option:hover{
+  background: #f4f6f4;
+}
+
+.student-select-check{
+  opacity: .85;
+  font-weight: 700;
+  color: #596e5e;
+}
