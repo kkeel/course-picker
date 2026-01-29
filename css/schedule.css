@@ -534,3 +534,7 @@
 
 .student-select-option:hover{ background: #f3f4f3; }
 .student-select-check{ opacity: .85; }
+
+/* --- Schedule: horizontal day scroll --- */
+.schedule-board { overflow-x: auto; overflow-y: hidden; }
+.schedule-columns { display: flex; gap: 12px; min-width: max-content; padding-bottom: 6px; }
