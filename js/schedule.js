@@ -104,6 +104,41 @@
         return { id: `S${n}`, name: `Student ${n}` };
       }),
 
+      // Dropdown UI state (Student View panels)
+      openStudentMenu: null,
+      
+      toggleStudentMenu(idx) {
+        this.openStudentMenu = this.openStudentMenu === idx ? null : idx;
+      },
+      
+      closeStudentMenu() {
+        this.openStudentMenu = null;
+      },
+      
+      // schedule.html uses getStudentName(), but this file currently has studentName()
+      getStudentName(studentId) {
+        return this.studentName(studentId);
+      },
+      
+      setPanelStudent(idx, studentId) {
+        if (!Array.isArray(this.visibleStudentPanels)) return;
+        if (!this.visibleStudentPanels[idx]) return;
+      
+        this.visibleStudentPanels[idx].studentId = studentId;
+      
+        // keep panels unique + valid
+        this.ensureUniqueStudents();
+      
+        // save selection
+        this.persist();
+      },
+      
+      dayLabel(i) {
+        // schedule.html calls dayLabel(i)
+        if (Array.isArray(this.dayLabels) && this.dayLabels[i]) return this.dayLabels[i];
+        return `Day ${Number(i) + 1}`;
+      },
+
       // Day labels (not tied to calendar days)
       dayLabels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"],
 
