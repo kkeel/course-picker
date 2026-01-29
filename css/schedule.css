@@ -427,3 +427,34 @@
   font-size: 12px;
   color: #666d66;
 }
+
+/* =========================================================
+   Schedule Cards — long title handling
+   ========================================================= */
+
+/* Make the top row behave nicely when titles are long */
+.sched-card-top{
+  align-items: flex-start; /* instead of baseline */
+}
+
+/* Title: clamp to 2 lines and ellipsis */
+.sched-card-title{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;     /* <- change to 1 or 3 if you prefer */
+  overflow: hidden;
+
+  line-height: 1.2;
+  max-width: 100%;
+}
+
+/* Minutes: keep it pinned to the right, never wrap */
+.sched-card-min{
+  flex: 0 0 auto;
+  margin-left: 10px;
+}
+
+/* Optional: smaller subtext if title wraps */
+.sched-card-sub{
+  margin-top: 2px;
+}
