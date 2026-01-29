@@ -213,27 +213,38 @@
       // Init
       // ---------------------------
       init() {
-        // 1) Load saved UI state
-        const saved = loadUiState();
-        this.applyUiState(saved);
-
-        // 2) Normalize + enforce rules
-        this.ensureVisibleDays();
-
-        // Default P2 to Student 2 if something still tries to set it to Student 1
-        if (this.visibleStudentPanels?.[1] && this.visibleStudentPanels[1].studentId === "S1") {
-          this.visibleStudentPanels[1].studentId = "S2";
-        }
-
-        this.ensureUniqueStudents();
-
-        // Prep day-view columns (later)
-        this.visibleStudentCols = this.buildStudentColsPage(this.studentColsCursor);
-        this.ensureVisibleStudentCols();
-
-        // 3) Save back (so first load locks in defaults)
-        this.persist();
+      // 1) Load saved UI state
+      const saved = loadUiState();
+      this.applyUiState(saved);
+    
+      // 2) Normalize + enforce rules
+      this.ensureVisibleDays();
+    
+      // If we have no saved panels at all, force the intended defaults
+      if (!saved || !Array.isArray(saved.panels) || saved.panels.length === 0) {
+        this.visibleStudentPanels[0].studentId = "S1";
+        this.visibleStudentPanels[1].studentId = "S2";
       }
+    
+      // If saved state has duplicates (common from earlier iterations),
+      // always bump panel 2 away from panel 1
+      if (
+        this.visibleStudentPanels?.length >= 2 &&
+        this.visibleStudentPanels[0].studentId === this.visibleStudentPanels[1].studentId
+      ) {
+        this.visibleStudentPanels[1].studentId = "S2";
+      }
+    
+      // Final: enforce uniqueness in a general way
+      this.ensureUniqueStudents();
+    
+      // Prep day-view columns (later)
+      this.visibleStudentCols = this.buildStudentColsPage(this.studentColsCursor);
+      this.ensureVisibleStudentCols();
+    
+      // 3) Save back (locks in corrected defaults)
+      this.persist();
+    }
     };
   };
 })();
