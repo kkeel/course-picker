@@ -221,51 +221,32 @@
       // Init
       // ---------------------------
       init() {
-      // 1) Load saved UI state
-      const saved = loadUiState();
-      this.applyUiState(saved);
-    
-      // 2) Normalize + enforce rules
-      this.ensureVisibleDays();
-    
-      // If we have no saved panels at all, force the intended defaults
-      if (!saved || !Array.isArray(saved.panels) || saved.panels.length === 0) {
-        this.visibleStudentPanels[0].studentId = "S1";
-        this.visibleStudentPanels[1].studentId = "S2";
-      }
-
-      // Extra safety: if panel 2 somehow isn't set, force S2 on first load
-      if (!saved || !Array.isArray(saved.panels) || saved.panels.length === 0) {
-        if (!this.visibleStudentPanels[1]?.studentId) {
-          this.visibleStudentPanels[1].studentId = "S2";
+        // Load saved UI state (if any)
+        const saved = loadUiState();
+      
+        if (saved && typeof saved === "object") {
+          // Apply saved view + days + panels
+          this.applyUiState(saved);
+        } else {
+          // First-time defaults
+          this.view = "track";
+          this.visibleDays = [0, 1, 2, 3, 4];
+          this.visibleStudentPanels = [
+            { slot: "P1", studentId: "S1" },
+            { slot: "P2", studentId: "S2" },
+          ];
         }
-      }
-    
-      // If saved state has duplicates (common from earlier iterations),
-      // always bump panel 2 away from panel 1
-      if (
-        this.visibleStudentPanels?.length >= 2 &&
-        this.visibleStudentPanels[0].studentId === this.visibleStudentPanels[1].studentId
-      ) {
-        this.visibleStudentPanels[1].studentId = "S2";
-      }
-    
-      // Final: enforce uniqueness in a general way
-      this.ensureUniqueStudents();
-    
-      // Prep day-view columns (later)
-      this.visibleStudentCols = this.buildStudentColsPage(this.studentColsCursor);
-      this.ensureVisibleStudentCols();
-
-      // Start persistence watchers
-      this.watchPersist();
-        
-      const saved = loadUiState();
-      this.applyUiState(saved);
-      this.ensureUniqueStudents();
-      this.ensureVisibleDays?.();  // if present in your file
-      this.persist();
-    }
+      
+        // Safety normalization (always)
+        this.ensureVisibleDays();
+        this.ensureUniqueStudents();
+      
+        // Start watchers AFTER state is settled
+        this.watchPersist();
+      
+        // If there was no saved state, write the defaults once
+        if (!saved) this.persist();
+      },
     };
   };
 })();
