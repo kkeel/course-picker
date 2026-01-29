@@ -280,8 +280,8 @@
                         <div class="schedule-panel-title">
                           <select
                             class="sched-panel-select"
-                            x-effect="$el.value = panels[idx]?.studentId"
-                            @change="setPanelStudent(idx, $event.target.value)"
+                            x-model="panel.studentId"
+                            @change="setPanelStudent(idx, panel.studentId)"
                           >
                             <template x-for="s in students" :key="s.id">
                               <option :value="s.id" x-text="s.name"></option>
