@@ -83,7 +83,20 @@
       // mode
       view: "track",
       
-      openStudentMenu: null, // which panel slot menu is open (P1/P2)
+      openStudentMenu: null,
+
+      toggleStudentMenu(idx) {
+        this.openStudentMenu = (this.openStudentMenu === idx) ? null : idx;
+      },
+      
+      closeStudentMenu() {
+        this.openStudentMenu = null;
+      },
+      
+      getStudentName(studentId) {
+        const s = (this.students || []).find(x => x.id === studentId);
+        return s ? s.name : "Student";
+      },
 
       // V1 placeholder students (later replaced with real students)
       students: Array.from({ length: 15 }, (_, i) => {
@@ -276,10 +289,6 @@
       studentName(studentId) {
         const s = (this.students || []).find((x) => x.id === studentId);
         return s ? s.name : "Student";
-      },
-      
-      closeStudentMenu() {
-        this.openStudentMenu = null;
       },
 
       persist() {
