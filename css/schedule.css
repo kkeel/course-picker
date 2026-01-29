@@ -568,7 +568,8 @@
 
 .sched-card-remove{
   position:absolute;
-  top: 6px;
+  top: auto;
+  bottom: 6px;
   right: 6px;
   border: none;
   background: transparent;
@@ -583,6 +584,10 @@
 .sched-card-remove:hover{
   background: rgba(0,0,0,.06);
   opacity: .9;
+}
+
+.sched-card{
+  padding-bottom: 28px;
 }
 
 /* =========================================================
