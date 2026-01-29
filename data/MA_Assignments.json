@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-29T00:12:22.520Z",
+  "lastUpdated": "2026-01-29T08:57:44.867Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -2631,16 +2631,16 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
       "terms": [
         "T1",
         "T2",
         "T3"
       ],
       "termNotes": {
-        "T1": "Early Voices (Full Term)",
-        "T2": "Early Voices (Full Term)",
-        "T3": "Early Voices (Full Term)"
+        "T1": "Early Voices (Selections)",
+        "T2": "Early Voices (Selections)",
+        "T3": "Early Voices (Selections)"
       },
       "gradeText": "G9, G10,",
       "grades": [
@@ -2654,6 +2654,33 @@
         "Canadian History: Grades 11-12",
         "Canadian History: Grades 9-10"
       ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec94JklXBmpXn1Ky?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recbmA6w55olPyGK7",
+      "targetId": "rec94JklXBmpXn1Ky",
+      "resourceId": "recrsNiVJtNacZvR9",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1",
+      "terms": [
+        "T1"
+      ],
+      "termNotes": {
+        "T1": "The Underground Railroad: Next Stop, Toronto! (Full Term)",
+        "T2": "",
+        "T3": ""
+      },
+      "gradeText": "G9, G10,",
+      "grades": [
+        9,
+        10
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec94JklXBmpXn1Ky?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -2685,33 +2712,6 @@
         "Geography: Grade 8 (Canada)",
         "Canadian History: Grades 9-10"
       ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec94JklXBmpXn1Ky?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recbmA6w55olPyGK7",
-      "targetId": "rec94JklXBmpXn1Ky",
-      "resourceId": "recrsNiVJtNacZvR9",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "002.003.000",
-      "scopeText": "Term 2",
-      "terms": [
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "The Underground Railroad: Next Stop, Toronto! (Full Term)",
-        "T3": ""
-      },
-      "gradeText": "G9, G10,",
-      "grades": [
-        9,
-        10
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec94JklXBmpXn1Ky?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -4179,6 +4179,40 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recbHf0MqLbILcfsB?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "recivs7inHjwu8xZW",
+      "targetId": "recbib99MSqhVumm9",
+      "resourceId": "recAYCiNb4mH6y06V",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.002.000",
+      "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "The Spirit of Canada: Canada's Story in Legends, Fiction, Poems, and Songs (Selections)",
+        "T2": "The Spirit of Canada: Canada's Story in Legends, Fiction, Poems, and Songs (Selections)",
+        "T3": "The Spirit of Canada: Canada's Story in Legends, Fiction, Poems, and Songs (Selections)"
+      },
+      "gradeText": "G2, G3, G4,",
+      "grades": [
+        2,
+        3,
+        4
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Canadian History: Grades 2-4\nTall Tales/ Fables\nCanadian History: Grades 2-4",
+      "sharedLinesR3": [
+        "Canadian History: Grades 2-4",
+        "Tall Tales/ Fables",
+        "Canadian History: Grades 2-4"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recbib99MSqhVumm9?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recKYpO2gBNnXdj0e",
       "targetId": "recbib99MSqhVumm9",
       "resourceId": "recbTe8WTph2lzeDb",
@@ -4234,8 +4268,9 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Tall Tales/ Fables\nCanadian History: Grades 2-4",
+      "sharedTextR3": "Canadian History: Grades 2-4\nTall Tales/ Fables\nCanadian History: Grades 2-4",
       "sharedLinesR3": [
+        "Canadian History: Grades 2-4",
         "Tall Tales/ Fables",
         "Canadian History: Grades 2-4"
       ],
@@ -4248,12 +4283,12 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "001.003.000",
-      "scopeText": "Term 1",
+      "scopeText": "Term 1 (Partial Term)",
       "terms": [
         "T1"
       ],
       "termNotes": {
-        "T1": "Laura Secord's Brave Walk (Full Term)",
+        "T1": "Laura Secord's Brave Walk (Partial Term)",
         "T2": "",
         "T3": ""
       },
@@ -4276,13 +4311,13 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "002.003.000",
-      "scopeText": "Term 2",
+      "scopeText": "Term 2 (Partial Term)",
       "terms": [
         "T2"
       ],
       "termNotes": {
         "T1": "",
-        "T2": "Born!: A Foal, Five Kittens and Confederation (Full Term)",
+        "T2": "Born!: A Foal, Five Kittens and Confederation (Partial Term)",
         "T3": ""
       },
       "gradeText": "G2, G3, G4,",
@@ -4304,14 +4339,14 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "003.003.000",
-      "scopeText": "Term 3",
+      "scopeText": "Term 3 (Partial Term)",
       "terms": [
         "T3"
       ],
       "termNotes": {
         "T1": "",
         "T2": "",
-        "T3": "I Am Not a Ghost: The Canadian Pacific Railway (Full Term)"
+        "T3": "I Am Not a Ghost: The Canadian Pacific Railway (Partial Term)"
       },
       "gradeText": "G2, G3, G4,",
       "grades": [
@@ -8887,8 +8922,9 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Tall Tales/ Fables\nCanadian History: Grades 2-4",
+      "sharedTextR3": "Canadian History: Grades 2-4\nTall Tales/ Fables\nCanadian History: Grades 2-4",
       "sharedLinesR3": [
+        "Canadian History: Grades 2-4",
         "Tall Tales/ Fables",
         "Canadian History: Grades 2-4"
       ],
@@ -18293,16 +18329,15 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "001.003.000",
-      "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)\nTerm 3 (Partial Term)",
+      "scopeText": "Term 1\nTerm 2 (Partial Term)",
       "terms": [
         "T1",
-        "T2",
-        "T3"
+        "T2"
       ],
       "termNotes": {
-        "T1": "A History of Canada in Ten Maps: Epic Stories of Charting a Mysterious Land (Partial Term)",
+        "T1": "A History of Canada in Ten Maps: Epic Stories of Charting a Mysterious Land (Full Term)",
         "T2": "A History of Canada in Ten Maps: Epic Stories of Charting a Mysterious Land (Partial Term)",
-        "T3": "A History of Canada in Ten Maps: Epic Stories of Charting a Mysterious Land (Partial Term)"
+        "T3": ""
       },
       "gradeText": "G11, G12,",
       "grades": [
@@ -18351,16 +18386,16 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
       "terms": [
         "T1",
         "T2",
         "T3"
       ],
       "termNotes": {
-        "T1": "Early Voices (Full Term)",
-        "T2": "Early Voices (Full Term)",
-        "T3": "Early Voices (Full Term)"
+        "T1": "Early Voices (Selections)",
+        "T2": "Early Voices (Selections)",
+        "T3": "Early Voices (Selections)"
       },
       "gradeText": "G11, G12,",
       "grades": [
