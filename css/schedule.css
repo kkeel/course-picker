@@ -8,26 +8,307 @@
   align-items:center;
   justify-content:space-between;
   gap:16px;
-  flex-wrap:wrap;
+  flex-wrap:wrap; /* stacks nicely on small screens */
 }
 
-/* prevent the tutorial button from stretching */
+/* optional: prevent the tutorial button from stretching */
 .schedule-head .av-video-inline{
   flex: 0 0 auto;
+}
+
+/* Schedule: keep tutorial box inline (override global intro rules) */
+.schedule-head .av-video-inline{
   width: auto !important;
   max-width: 340px;
   min-width: 260px;
   margin-left: auto;
 }
 
-/* Schedule: allow this page’s workspace to use full screen width */
+/* Schedule: allow this pageâ€™s workspace to use full screen width */
 .main-content.schedule-main{
   max-width: none;
 }
 
-/* =========================================================
-   Topbar (view toggle + chips)
-   ========================================================= */
+.schedule-board{
+  overflow-x: auto;
+}
+
+/* Global day chips (in header) */
+.schedule-days-global,
+.schedule-students-global{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.schedule-days-global-label{
+  font-size: 12px;
+  color: #666d66;
+  opacity: .8;
+  margin-right: 2px;
+}
+
+/* Student chips can be a tiny bit tighter */
+.schedule-student-chip{
+  padding: 6px 9px;
+}
+
+/* =========================
+   Week Builder Board
+   ========================= */
+
+.schedule-board{
+  overflow-x: auto;
+  padding-bottom: 8px; /* space for scrollbar */
+}
+
+.schedule-columns{
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 1fr); /* each day column width */
+  gap: 12px;
+  min-width: 1100px; /* ensures 5 columns donâ€™t crush */
+}
+
+.schedule-col{
+  border: 1px solid #e5e8e5;
+  border-radius: 14px;
+  background: #fbfbf9;
+  display: flex;
+  flex-direction: column;
+  min-height: 420px; /* gives you space to see it working */
+}
+
+.schedule-col-head{
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 12px 10px;
+  border-bottom: 1px solid #e5e8e5;
+  background: #fff;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+.schedule-col-title{
+  font-weight: 650;
+  font-size: 13px;
+  color: #262b26;
+}
+
+.schedule-col-total{
+  font-size: 12px;
+  color: #596e5e;
+  font-weight: 600;
+}
+
+.schedule-dropzone{
+  flex: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.schedule-empty{
+  font-size: 12px;
+  color: #666d66;
+  opacity: .7;
+  border: 1px dashed #d2d6d2;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  background: rgba(255,255,255,.6);
+}
+
+/* Prevent the schedule grid from forcing the whole page to overflow */
+.schedule-board{
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Keep columns from shrinking too small */
+.schedule-columns{
+  width: max-content; /* forces horizontal scroll inside .schedule-board */
+  min-width: 100%;
+}
+
+/* Builder left area (title + pager buttons) */
+.schedule-topbar-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.schedule-pager{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+/* Chevron pager buttons (match app chevron feel) */
+.schedule-chev-btn{
+  border: none;
+  background: transparent;
+  padding: 2px 4px;
+  border-radius: 10px;
+  color: #596e5e;
+  line-height: 1;
+}
+
+.schedule-chev-btn:hover{
+  background: rgba(89,110,94,.08);
+}
+
+.schedule-chev-btn:active{
+  background: rgba(89,110,94,.12);
+}
+
+.schedule-chev{
+  width: 20px;
+  height: 20px;
+  display:block;
+}
+
+/* Pin button (SVG) */
+.schedule-pin-btn{
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  border-radius: 10px;
+  padding: 6px 8px;
+  color: #596e5e;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.schedule-pin-btn:hover{
+  background: rgba(89,110,94,.06);
+}
+
+.schedule-pin-btn--on{
+  border-color: #596e5e;
+  background: rgba(89,110,94,.10);
+}
+
+.schedule-pin{
+  width: 16px;
+  height: 16px;
+  display:block;
+}
+
+/* Topbar hint (makes chevrons obvious) */
+.schedule-pager-hint{
+  margin-left: 2px;
+  color: #666d66;
+}
+
+/* Pin: make the simple icon crisp */
+.schedule-pin{
+  width: 16px;
+  height: 16px;
+  display:block;
+}
+
+/* Day chips (per panel) */
+.schedule-day-chips{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  padding: 0 2px 10px;
+}
+
+.schedule-day-chip-label{
+  font-size: 12px;
+  color: #666d66;
+  opacity: .8;
+}
+
+.schedule-day-chip{
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: #596e5e;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.schedule-day-chip--on{
+  background: rgba(89,110,94,.10);
+  border-color: #596e5e;
+}
+
+.schedule-day-chip--ghost{
+  background: transparent;
+  border-style: dashed;
+  color: #666d66;
+  font-weight: 600;
+}
+
+.schedule-pin{
+  fill: currentColor;
+  display: block;
+}
+
+/* =========================
+   Schedule Cards (static for now)
+   ========================= */
+
+.sched-card{
+  border: 1px solid #e5e8e5;
+  border-radius: 14px;
+  background: #fff;
+  padding: 10px 10px 9px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.03);
+}
+
+.sched-card-top{
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.sched-card-title{
+  font-weight: 650;
+  font-size: 13px;
+  color: #262b26;
+}
+
+.sched-card-min{
+  font-size: 12px;
+  color: #596e5e;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.sched-card-sub{
+  font-size: 12px;
+  color: #666d66;
+}
+
+/* Utility / shared styling hints */
+.sched-card--utility{
+  background: #fbfbf9;
+  border-style: dashed;
+}
+
+.sched-card--shared{
+  border-color: #adb58f;
+}
+
+/* =========================
+   Panels + top controls (V1)
+   ========================= */
 
 .schedule-topbar{
   display:flex;
@@ -35,14 +316,6 @@
   justify-content:space-between;
   gap:12px;
   margin-bottom: 12px;
-}
-
-.schedule-topbar-left{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  min-width: 0;
 }
 
 .schedule-topbar-right{
@@ -76,73 +349,6 @@
   border-color: #596e5e;
 }
 
-/* Global day chips (in header) */
-.schedule-days-global,
-.schedule-students-global{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
-  justify-content:flex-end;
-}
-
-.schedule-days-global-label{
-  font-size: 12px;
-  color: #666d66;
-  opacity: .8;
-  margin-right: 2px;
-}
-
-.schedule-day-chip{
-  border: 1px solid #d2d6d2;
-  background: #fff;
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-size: 12px;
-  color: #596e5e;
-  font-weight: 650;
-  line-height: 1;
-}
-
-.schedule-day-chip--on{
-  background: rgba(89,110,94,.10);
-  border-color: #596e5e;
-}
-
-.schedule-day-chip--ghost{
-  background: transparent;
-  border-style: dashed;
-  color: #666d66;
-  font-weight: 600;
-}
-
-/* Student chips can be a tiny bit tighter */
-.schedule-student-chip{
-  padding: 6px 9px;
-}
-
-/* Chevron pager buttons (match app chevron feel) */
-.schedule-chev-btn{
-  border: none;
-  background: transparent;
-  padding: 2px 4px;
-  border-radius: 10px;
-  color: #596e5e;
-  line-height: 1;
-}
-.schedule-chev-btn:hover{ background: rgba(89,110,94,.08); }
-.schedule-chev-btn:active{ background: rgba(89,110,94,.12); }
-
-.schedule-chev{
-  width: 20px;
-  height: 20px;
-  display:block;
-}
-
-/* =========================================================
-   Panels (Student View)
-   ========================================================= */
-
 .schedule-panels{
   width: 100%;
 }
@@ -155,80 +361,296 @@
 
 /* On smaller screens, stack panels */
 @media (max-width: 1024px){
-  .schedule-panel-row{ grid-template-columns: 1fr; }
+  .schedule-panel-row{
+    grid-template-columns: 1fr;
+  }
 }
 
-/* Panel shell */
 .schedule-panel{
   border: 1px solid #e5e8e5;
   border-radius: 16px;
-  background: #fff;
-  overflow: visible; /* dropdown can overflow */
+  background: #fbfbf9;
+  overflow: hidden;
 }
 
-/* Panel header: slim + clean */
 .schedule-panel-head{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap: 12px;
-  padding: 8px 12px;
+  padding: 12px 12px;
   background: #fff;
   border-bottom: 1px solid #e5e8e5;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  overflow: visible;
 }
 
-/* Header layout: dropdown left, Day 1–5 on right */
 .schedule-panel-title{
   display:flex;
-  align-items:center;
-  justify-content:space-between;
+  align-items:baseline;
   gap:10px;
-  width:100%;
-  min-width:0;
-  overflow: visible;
+  min-width: 0;
 }
 
-.schedule-panel-range{
-  margin-left:auto;
+.schedule-panel-meta {
   font-size: 12px;
   color: #6b756b;
   white-space: nowrap;
 }
 
-/* Panel body: keep internals clipped and corners clean */
+.schedule-panel-sub{
+  font-size: 12px;
+  color: #666d66;
+  opacity: .8;
+  white-space: nowrap;
+}
+
+.schedule-panel-actions{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+}
+
+.schedule-icon-btn{
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  border-radius: 10px;
+  padding: 6px 8px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.schedule-icon-btn--on{
+  border-color: #596e5e;
+  background: rgba(89,110,94,.08);
+}
+
+.schedule-select{
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px 10px;
+  font-weight: 750;
+  font-size: 13px;
+  color: #262b26;
+  max-width: none;
+  min-width: 160px;
+}
+
 .schedule-panel-body{
   padding: 12px;
-  background: #fbfbf9;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
-  overflow: hidden;
 }
 
-/* =========================================================
-   Student dropdown (final)
-   ========================================================= */
-
-.student-select{
+.schedule-day-placeholder{
+  border: 1px dashed #d2d6d2;
+  border-radius: 14px;
+  padding: 14px;
+  background: rgba(255,255,255,.6);
+}
+.student-select {
   position: relative;
-  display: inline-block;
-  width: auto;
-  max-width: 100%;
-  flex: 0 1 auto;
 }
+
+.student-select-trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d2d6d2;
+  border-radius: 10px;
+  background: white;
+  font-weight: 500;
+}
+
+.student-select-menu {
+  position: absolute;
+  z-index: 50;
+  background: white;
+  border: 1px solid #d2d6d2;
+  border-radius: 12px;
+  margin-top: 6px;
+  max-height: 280px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.student-select-option {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+}
+
+.student-select-option:hover {
+  background: #f4f6f4;
+}
+
+.student-select-option.is-active {
+  font-weight: 600;
+}
+/* --- Schedule: student dropdown --- */
+.schedule-panel-head { overflow: visible; position: relative; }
+
+.student-select { position: relative; display: inline-block; }
 
 .student-select-trigger{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:10px;
+  min-width: 180px;
+  padding: 10px 12px;
+  border: 1px solid #d2d6d2;
+  border-radius: 12px;
+  background: #fff;
+}
 
-  padding: 6px 8px;
-  border: none;
+.student-select-menu{
+  position:absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: min(280px, 90vw);
+  background:#fff;
+  border: 1px solid #d2d6d2;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  padding: 6px;
+  z-index: 999;
+  max-height: 280px;
+  overflow: auto;
+}
+
+.student-select-option{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  text-align:left;
+  padding: 10px 10px;
   border-radius: 10px;
   background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.student-select-option:hover{ background: #f3f4f3; }
+.student-select-check{ opacity: .85; }
+
+/* --- Schedule: horizontal day scroll --- */
+.schedule-board { overflow-x: auto; overflow-y: hidden; }
+.schedule-columns { display: flex; gap: 12px; min-width: max-content; padding-bottom: 6px; }
+
+.schedule-panel {
+  /* Allow dropdowns to extend outside */
+  overflow: visible;
+}
+
+/* Keep the internal scroll region clipped */
+.schedule-panel-body {
+  overflow: hidden;
+}
+
+.sched-panel-select{
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0c343d;
+
+  background: #fff;
+  border: 1px solid #d2d6d2;
+  border-radius: 12px;
+
+  padding: 10px 14px;
+  min-width: 170px;
+  max-width: 240px;
+}
+
+.sched-panel-select:focus{
+  outline: none;
+  border-color: #596e5e;
+  box-shadow: 0 0 0 3px rgba(89,110,94,.12);
+}
+
+.schedule-board { overflow-x: auto; }
+
+.schedule-board{
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+/* Allow dropdown menu to render outside the panel */
+.schedule-panel{
+  overflow: visible; /* IMPORTANT: was hidden */
+}
+
+/* Keep the body clipped/clean (so only the dropdown can overflow) */
+.schedule-panel-body{
+  overflow: hidden;
+}
+
+/* Header layout: dropdown left, Day 1â€“5 on right */
+.schedule-panel-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  width:100%;
+  min-width:0;
+}
+
+.student-select{
+  position:relative;
+  flex:0 1 220px;
+  min-width: 160px;
+}
+
+.student-select-trigger{
+  width:100%;
+}
+
+.student-select-label{
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.schedule-panel-range{
+  margin-left:auto;
+  font-size:12px;
+  color:#6b756b;
+  white-space:nowrap;
+}
+/* =========================================================
+   Schedule â€” Student Dropdown (final override)
+   Paste at END of schedule.css
+   ========================================================= */
+
+.schedule-panel,
+.schedule-panel-head,
+.schedule-panel-title {
+  overflow: visible;
+}
+
+/* Container */
+.student-select{
+  position: relative;
+  display: inline-block;
+  width: 220px;
+  max-width: 100%;
+}
+
+/* Trigger */
+.student-select-trigger{
+  width: 100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+
+  padding: 10px 12px;
+  border: 1px solid #d2d6d2;
+  border-radius: 12px;
+  background: #fff;
 
   font-size: 13px;
   font-weight: 650;
@@ -237,11 +659,12 @@
 }
 
 .student-select-trigger:hover{
-  background: rgba(89,110,94,.06);
+  background: rgba(89,110,94,.05);
 }
 
 .student-select-trigger:focus{
   outline: none;
+  border-color: #596e5e;
   box-shadow: 0 0 0 3px rgba(89,110,94,.12);
 }
 
@@ -250,14 +673,12 @@
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
-  max-width: 220px;
 }
 
 .student-select-caret{
-  width: 18px;
-  height: 18px;
-  opacity: .75;
-  flex: 0 0 auto;
+  opacity: .7;
+  font-size: 12px;
+  line-height: 1;
 }
 
 /* Menu */
@@ -265,13 +686,13 @@
   position:absolute;
   top: calc(100% + 8px);
   left: 0;
-  width: 320px;
-  max-width: min(320px, 80vw);
+  width: 100%;
+  max-width: 320px;
 
   background:#fff;
-  border: none;
+  border: 1px solid #d2d6d2;
   border-radius: 14px;
-  box-shadow: 0 14px 34px rgba(0,0,0,.12);
+  box-shadow: 0 12px 30px rgba(0,0,0,.10);
 
   padding: 6px;
   z-index: 9999;
@@ -295,65 +716,76 @@
 
   background: transparent;
   border: 0;
+  cursor: pointer;
+
+  font-size: 13px;
+  color: #262b26;
+}
+
+.student-select-option:hover{
+  background: #f4f6f4;
+}
+
+.student-select-check{
+  opacity: .85;
+  font-weight: 700;
+  color: #596e5e;
+}
 /* =========================================================
-   Schedule — Restore “board” height + day column styling
+   Schedule â€” Panel header slim + unified (dropdown + Day 1â€“5)
    Paste at END of schedule.css
    ========================================================= */
 
-/* Make each panel behave like a real workspace */
-.schedule-panel{
-  display: flex;
-  flex-direction: column;
-  min-height: 520px;          /* <- restores the “work area” height */
+/* Slim the entire header row */
+.schedule-panel-head{
+  padding: 8px 12px;                 /* was ~12px */
 }
 
-/* Let the body be the flexible area */
-.schedule-panel-body{
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;              /* important for scroll children */
-}
-
-/* Board should fill the body and scroll horizontally when needed */
-.schedule-board{
-  flex: 1;
-  min-height: 0;
-  max-width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 8px;        /* space for scrollbar */
-}
-
-/* Columns: ensure “board-like” layout + sane min widths */
-.schedule-columns{
-  display: grid !important;
-  grid-auto-flow: column !important;
-  grid-auto-columns: minmax(220px, 1fr) !important;
-  gap: 12px;
-
-  /* Key: allow the grid to be wider than the viewport so the board scroll works */
-  width: max-content !important;
-  min-width: 100% !important;
-}
-
-/* Each day column should look like a real column and have height */
-.schedule-col{
-  border: 1px solid #e5e8e5;
-  border-radius: 14px;
-  background: #fbfbf9;
-
-  display: flex;
-  flex-direction: column;
-  min-height: 420px;
-}
-
-/* Column header */
-.schedule-col-head{
-  display:flex;
-  align-items: baseline;
-  justify-content: space-between;
+/* Make the title row tighter */
+.schedule-panel-title{
   gap: 10px;
-  padding: 12px 12px 10px;
-  border-bottom: 1px
+  align-items: center;               /* was baseline */
+}
+
+/* Remove the â€œcontrolâ€ look: no border, no box */
+.student-select{
+  width: auto;                       /* stop forcing a wide input */
+  flex: 0 1 auto;
+}
+
+.student-select-trigger{
+  padding: 6px 8px;                  /* slimmer */
+  border: none;                      /* remove border */
+  border-radius: 10px;
+  background: transparent;           /* feels like part of header */
+  font-size: 13px;
+  font-weight: 650;
+  color: #262b26;
+  box-shadow: none;
+}
+
+/* Subtle hover to show itâ€™s clickable */
+.student-select-trigger:hover{
+  background: rgba(89,110,94,.06);
+}
+
+/* Keep focus visible without creating a bordered input */
+.student-select-trigger:focus{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(89,110,94,.12);
+}
+
+/* Chevron icon sizing to match app feel */
+.student-select-caret{
+  width: 18px;
+  height: 18px;
+  opacity: .75;
+  flex: 0 0 auto;
+}
+
+/* Tighten the Day 1â€“5 label so it reads like header metadata */
+.schedule-panel-range{
+  font-size: 12px;
+  color: #6b756b;
+  margin-left: auto;
+}
