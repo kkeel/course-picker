@@ -278,70 +278,40 @@
           
                       <div class="schedule-panel-head">
                         <div class="schedule-panel-title">
-
-                          <div class="av-filter av-filter--single">
+                          <!-- Student dropdown (one per panel) -->
+                          <div class="student-select" @click.outside="closeStudentMenu()">
                             <button
                               type="button"
-                              class="av-filter-btn"
-                              @click="openStudentMenu = (openStudentMenu === panel.slot ? null : panel.slot)"
+                              class="student-select-trigger"
+                              @click.stop="toggleStudentMenu(idx)"
+                              :aria-expanded="openStudentMenu === idx"
                             >
-                              <span class="av-filter-btn-label" x-text="studentName(panel.studentId)"></span>
-                          
-                              <!-- same chevron style used elsewhere -->
-                              <svg
-                                class="av-filter-btn-icon"
-                                width="18"
-                                height="18"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                                aria-hidden="true"
-                              >
-                                <path
-                                  d="M7 10l5 5 5-5"
-                                  stroke="currentColor"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                />
-                              </svg>
+                              <span x-text="getStudentName(panel.studentId)"></span>
+                              <span class="student-select-caret" aria-hidden="true">▾</span>
                             </button>
-                          
-                            <div class="student-select" @click.outside="closeStudentMenu()">
-                              <button
-                                class="student-select-trigger"
-                                @click="openStudentMenu = openStudentMenu === panel.slot ? null : panel.slot"
-                              >
-                                <span x-text="studentName(panel.studentId)"></span>
-                                <svg class="chevron" viewBox="0 0 20 20">
-                                  <path d="M6 8l4 4 4-4" />
-                                </svg>
-                              </button>
-                            
-                              <div
-                                class="student-select-menu"
-                                x-show="openStudentMenu === panel.slot"
-                                x-transition
-                              >
-                                <template x-for="s in students" :key="s.id">
-                                  <button
-                                    class="student-select-option"
-                                    :class="{ 'is-active': s.id === panel.studentId }"
-                                    @click="setPanelStudent(idx, s.id); closeStudentMenu()"
-                                  >
-                                    <span x-text="s.name"></span>
-                                    <span x-show="s.id === panel.studentId">✓</span>
-                                  </button>
-                                </template>
-                              </div>
-                            </div>
-
-                        </div>
                         
-                        <div class="schedule-panel-meta">
-                          <span class="schedule-panel-sub">Day 1–5</span>
+                            <div
+                              class="student-select-menu"
+                              x-cloak
+                              x-show="openStudentMenu === idx"
+                              x-transition
+                              @click.stop
+                            >
+                              <template x-for="s in students" :key="s.id">
+                                <button
+                                  type="button"
+                                  class="student-select-option"
+                                  @click="setPanelStudent(idx, s.id); closeStudentMenu()"
+                                >
+                                  <span x-text="s.name"></span>
+                                  <span class="student-select-check" x-show="panel.studentId === s.id">✓</span>
+                                </button>
+                              </template>
+                            </div>
+                          </div>
+                        
+                          <div class="schedule-panel-range">Day 1–5</div>
                         </div>
-                      </div>
           
                       <!-- Panel body: week columns -->
                       <div class="schedule-panel-body">
