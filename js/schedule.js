@@ -1,42 +1,121 @@
 // js/schedule.js
-// Schedule page local state (V1 scaffolding)
+// Schedule page local state (V1 scaffolding) + persistence
 
 (function () {
-  // Alpine component for schedule page
+  const STORAGE_KEY = "alveary_schedule_ui_v1";
+
+  function safeParse(raw) {
+    try { return JSON.parse(raw); } catch { return null; }
+  }
+
+  function loadUiState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? safeParse(raw) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function saveUiState(state) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch {
+      // ignore (private mode, storage full, etc.)
+    }
+  }
+
   window.scheduleBuilder = function scheduleBuilder() {
     return {
       view: "track", // 'track' (student panels) or 'day' (later)
-    
+
       // V1: students are placeholders (later these become real students)
       students: Array.from({ length: 15 }, (_, i) => {
         const n = i + 1;
         return { id: `S${n}`, name: `Student ${n}` };
       }),
-    
+
       // Day labels (not tied to calendar days)
-      // Later you can let users edit these.
       dayLabels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"],
 
-      // Global visible columns:
-      // - Student View: visibleDays controls Day 1–5 columns inside each student panel
+      // Global visible columns (Student View)
       visibleDays: [0, 1, 2, 3, 4],
-      
-      // - Day View (next): visibleStudentCols controls which students appear as columns
+
+      // Day View (later)
       visibleStudentCols: ["S1", "S2", "S3", "S4", "S5"],
       studentColsCursor: 0,
-    
-      // Visible panel slots (2 visible at a time)
+
+      // Two visible panels (default: Student 1 + Student 2)
       visibleStudentPanels: [
         { slot: "P1", studentId: "S1" },
         { slot: "P2", studentId: "S2" }
       ],
-    
-      // ---------- helpers ----------
+
+      // ---------------------------
+      // Persistence
+      // ---------------------------
+      getUiState() {
+        return {
+          view: this.view,
+          visibleDays: Array.isArray(this.visibleDays) ? this.visibleDays.slice() : [0,1,2,3,4],
+          panels: this.visibleStudentPanels.map(p => ({ slot: p.slot, studentId: p.studentId }))
+        };
+      },
+
+      applyUiState(saved) {
+        if (!saved || typeof saved !== "object") return;
+
+        if (saved.view === "track" || saved.view === "day") {
+          this.view = saved.view;
+        }
+
+        if (Array.isArray(saved.visibleDays)) {
+          this.visibleDays = saved.visibleDays.slice();
+        }
+
+        if (Array.isArray(saved.panels)) {
+          // Map saved panel selections onto our two slots
+          const bySlot = new Map(saved.panels.map(p => [p.slot, p.studentId]));
+          this.visibleStudentPanels.forEach(p => {
+            const v = bySlot.get(p.slot);
+            if (v) p.studentId = v;
+          });
+        }
+      },
+
+      persist() {
+        saveUiState(this.getUiState());
+      },
+
+      setView(next) {
+        this.view = next;
+        this.persist();
+      },
+
+      // ---------------------------
+      // Helpers
+      // ---------------------------
       studentLabel(studentId) {
         const s = this.students.find(x => x.id === studentId);
         return s ? s.name : "Student";
       },
 
+      dayLabel(i) {
+        return this.dayLabels[i] || `Day ${i + 1}`;
+      },
+
+      ensureVisibleDays() {
+        if (!this.visibleDays || !Array.isArray(this.visibleDays) || this.visibleDays.length === 0) {
+          this.visibleDays = [0, 1, 2, 3, 4];
+        }
+        this.visibleDays = this.visibleDays
+          .filter(i => Number.isInteger(i) && i >= 0 && i < this.dayLabels.length)
+          .sort((a, b) => a - b);
+
+        if (this.visibleDays.length === 0) this.visibleDays = [0, 1, 2, 3, 4];
+      },
+
+      // Keep the two student panels from selecting the same student
       ensureUniqueStudents() {
         const used = new Set();
         this.visibleStudentPanels.forEach(panel => {
@@ -48,24 +127,18 @@
         });
       },
 
-      // ---------- global day visibility ----------
-      dayLabel(i) {
-        return this.dayLabels[i] || `Day ${i + 1}`;
+      onStudentSelectChange() {
+        this.ensureUniqueStudents();
+        this.persist();
       },
-      
-      ensureVisibleDays() {
-        if (!this.visibleDays || !Array.isArray(this.visibleDays) || this.visibleDays.length === 0) {
-          this.visibleDays = [0, 1, 2, 3, 4];
-        }
-        this.visibleDays = this.visibleDays
-          .filter(i => Number.isInteger(i) && i >= 0 && i < this.dayLabels.length)
-          .sort((a, b) => a - b);
-      },
-      
+
+      // ---------------------------
+      // Global day visibility (Student View)
+      // ---------------------------
       toggleDay(i) {
         this.ensureVisibleDays();
         const idx = this.visibleDays.indexOf(i);
-      
+
         // don't allow hiding the last day
         if (idx >= 0) {
           if (this.visibleDays.length === 1) return;
@@ -74,29 +147,31 @@
           this.visibleDays.push(i);
           this.visibleDays.sort((a, b) => a - b);
         }
+
+        this.persist();
       },
-      
+
       showAllDays() {
         this.visibleDays = [0, 1, 2, 3, 4];
+        this.persist();
       },
-      
-      
-      // ---------- global student columns (for Day View later) ----------
+
+      // ---------------------------
+      // Day View columns (later)
+      // ---------------------------
       ensureVisibleStudentCols() {
         if (!this.visibleStudentCols || !Array.isArray(this.visibleStudentCols) || this.visibleStudentCols.length === 0) {
           this.visibleStudentCols = this.students.slice(0, 5).map(s => s.id);
         }
-      
-        // Remove any ids that don't exist
+
         const valid = new Set(this.students.map(s => s.id));
         this.visibleStudentCols = this.visibleStudentCols.filter(id => valid.has(id));
-      
-        // Ensure at least 1
+
         if (this.visibleStudentCols.length === 0 && this.students.length) {
           this.visibleStudentCols = [this.students[0].id];
         }
       },
-      
+
       buildStudentColsPage(startIdx) {
         const n = this.students.length;
         if (!n) return [];
@@ -107,39 +182,57 @@
         }
         return ids;
       },
-      
+
       pageStudentCols(direction = 1) {
-        // direction: +1 next set of students, -1 previous set
         const n = this.students.length;
         if (!n) return;
-      
-        // Move cursor by 5 for "page" feel
+
         this.studentColsCursor = (this.studentColsCursor + direction * 5) % n;
         if (this.studentColsCursor < 0) this.studentColsCursor += n;
-      
+
         this.visibleStudentCols = this.buildStudentColsPage(this.studentColsCursor);
         this.ensureVisibleStudentCols();
+        this.persist();
       },
-      
+
       toggleStudentCol(id) {
         this.ensureVisibleStudentCols();
         const idx = this.visibleStudentCols.indexOf(id);
-      
-        // don't allow hiding the last column
+
         if (idx >= 0) {
           if (this.visibleStudentCols.length === 1) return;
           this.visibleStudentCols.splice(idx, 1);
         } else {
           this.visibleStudentCols.push(id);
         }
+
+        this.persist();
       },
-    
+
+      // ---------------------------
+      // Init
+      // ---------------------------
       init() {
+        // 1) Load saved UI state
+        const saved = loadUiState();
+        this.applyUiState(saved);
+
+        // 2) Normalize + enforce rules
         this.ensureVisibleDays();
+
+        // Default P2 to Student 2 if something still tries to set it to Student 1
+        if (this.visibleStudentPanels?.[1] && this.visibleStudentPanels[1].studentId === "S1") {
+          this.visibleStudentPanels[1].studentId = "S2";
+        }
+
         this.ensureUniqueStudents();
-      
+
+        // Prep day-view columns (later)
         this.visibleStudentCols = this.buildStudentColsPage(this.studentColsCursor);
         this.ensureVisibleStudentCols();
+
+        // 3) Save back (so first load locks in defaults)
+        this.persist();
       }
     };
   };
