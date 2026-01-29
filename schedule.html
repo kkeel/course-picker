@@ -169,10 +169,48 @@
 
         <div class="mt-6 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6">
           
-          <!-- Left card rail -->
-          <div class="p-4 rounded-lg border border-[#e5e8e5] bg-white">
-            <div class="text-sm font-semibold mb-2">Scheduling Cards</div>
-            <div class="text-sm opacity-70">Coming next: grade/student pickers + draggable card list.</div>
+          <!-- Left card rail (Phase 2.5) -->
+          <div class="sched-rail p-4 rounded-lg border border-[#e5e8e5] bg-white">
+            <div class="sched-rail-head">
+              <div class="text-sm font-semibold">Scheduling Cards</div>
+          
+              <button type="button" class="sched-rail-btn" @click="addCustomCard()">
+                + Custom
+              </button>
+            </div>
+          
+            <div class="sched-rail-sub text-xs opacity-70 mt-1">
+              Add cards to: <span class="sched-rail-target" x-text="activeTargetLabel()"></span>
+            </div>
+          
+            <!-- Picture Study grade choice -->
+            <div class="sched-rail-choice mt-3">
+              <div class="text-xs font-semibold mb-1">Picture Study grade band</div>
+              <div class="sched-rail-choice-row">
+                <button type="button" class="sched-rail-chip" :class="choices.pictureStudyBand==='g1-3' ? 'sched-rail-chip--on' : ''" @click="setPictureStudyBand('g1-3')">1–3</button>
+                <button type="button" class="sched-rail-chip" :class="choices.pictureStudyBand==='g4-6' ? 'sched-rail-chip--on' : ''" @click="setPictureStudyStudyBand ? setPictureStudyStudyBand('g4-6') : setPictureStudyBand('g4-6')">4–6</button>
+                <button type="button" class="sched-rail-chip" :class="choices.pictureStudyBand==='g7-8' ? 'sched-rail-chip--on' : ''" @click="setPictureStudyBand('g7-8')">7–8</button>
+                <button type="button" class="sched-rail-chip" :class="choices.pictureStudyBand==='g9-12' ? 'sched-rail-chip--on' : ''" @click="setPictureStudyBand('g9-12')">9–12</button>
+              </div>
+            </div>
+          
+            <div class="sched-rail-list mt-3">
+              <template x-for="tpl in sortedTemplates()" :key="tpl.id">
+                <div class="sched-rail-item">
+                  <div class="sched-rail-item-top">
+                    <div class="sched-rail-item-title" :title="tpl.title" x-text="tpl.title"></div>
+                    <div class="sched-rail-item-min" x-text="`${tpl.minutes}m`"></div>
+                  </div>
+                  <div class="sched-rail-item-sub" x-text="tpl.symbols || ''"></div>
+          
+                  <div class="sched-rail-actions">
+                    <button type="button" class="sched-rail-btn sched-rail-btn--primary" @click="addTemplateToActive(tpl.id)">
+                      Add
+                    </button>
+                  </div>
+                </div>
+              </template>
+            </div>
           </div>
 
           <!-- Right build area -->
@@ -341,49 +379,42 @@
                               <section class="schedule-col" :aria-label="dayLabel(i)">
                                 <div class="schedule-col-head">
                                   <div class="schedule-col-title" x-text="dayLabel(i)"></div>
-                                  <div class="schedule-col-total">0m</div>
+                                  <div class="schedule-col-total" x-text="`${dayTotalMinutes(panel.studentId, i)}m`"></div>
                                 </div>
                                 
-                                <div class="schedule-dropzone">
-                                  <!-- Static demo cards (Phase 2A) -->
-                                  <article class="sched-card">
-                                    <div class="sched-card-top">
-                                      <div class="sched-card-title">Community Read Alouds: Grades 1-12</div>
-                                      <div class="sched-card-min">20m</div>
-                                    </div>
-                                    <div class="sched-card-sub">* 🅃</div>
-                                    <div class="sched-card-sub">⬚⬚⬚⬚⬚⬚⬚⬚⬚⬚⬚⬚</div>
-                                  </article>
-                                
-                                  <article class="sched-card">
-                                    <div class="sched-card-top">
-                                      <div class="sched-card-title">Nature Walks & Scouting: Grades 1-8</div>
-                                      <div class="sched-card-min">15m</div>
-                                    </div>
-                                    <div class="sched-card-sub">* 🅃</div>
-                                    <div class="sched-card-sub">⬚⬚⬚⬚⬚⬚⬚⬚⬚⬚⬚⬚</div>
-                                  </article>
+                                <div class="schedule-dropzone" @click="setActiveTarget(panel.studentId, i)">
 
-                                  <article class="sched-card">
-                                    <div class="sched-card-top">
-                                      <div class="sched-card-title">Advanced Nature Study Afternoon Work</div>
-                                      <div class="sched-card-min">15m</div>
-                                    </div>
-                                    <div class="sched-card-sub">* 🅃</div>
-                                    <div class="sched-card-sub">⬚⬚⬚⬚⬚⬚⬚⬚⬚⬚⬚⬚</div>
-                                  </article>
-
-                                  <article class="sched-card">
-                                    <div class="sched-card-top">
-                                      <div class="sched-card-title">Penmanship & Copywork: Grade 3</div>
-                                      <div class="sched-card-min">15m</div>
-                                    </div>
-                                    <div class="sched-card-sub">* 🅃</div>
-                                    <div class="sched-card-sub">⬚⬚⬚⬚⬚⬚⬚⬚⬚⬚⬚⬚</div>
-                                  </article>
+                                  <!-- placed instances (Phase 2.5) -->
+                                  <template x-for="inst in instancesFor(panel.studentId, i)" :key="inst.instanceId">
+                                    <article class="sched-card">
+                                      <div class="sched-card-top">
+                                        <div
+                                          class="sched-card-title"
+                                          :title="(templateForInstance(inst) || {}).title || ''"
+                                          x-text="(templateForInstance(inst) || {}).title || 'Card'"
+                                        ></div>
+                                        <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
+                                      </div>
                                 
-                                  <!-- Keep the empty state for now so columns still look “droppable” -->
-                                  <div class="schedule-empty">Drop cards here</div>
+                                      <div class="sched-card-sub" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
+                                
+                                      <div class="sched-card-sub" x-show="(templateForInstance(inst) || {}).trackingCount > 0"
+                                           x-text="trackingBlocks(templateForInstance(inst))"></div>
+                                
+                                      <button
+                                        type="button"
+                                        class="sched-card-remove"
+                                        title="Remove"
+                                        @click.stop="removeInstance(panel.studentId, i, inst.instanceId)"
+                                      >
+                                        ✕
+                                      </button>
+                                    </article>
+                                  </template>
+                                
+                                  <div class="schedule-empty" x-show="instancesFor(panel.studentId, i).length === 0">
+                                    Click a card on the left to add it here
+                                  </div>
                                 </div>
 
                               </section>
