@@ -2916,3 +2916,52 @@ a.av-inline-link:hover{
   height: 20px;
   display: block;
 }
+/* =========================================================
+   Schedule — Panel day columns should expand to fill width
+   + Fix clipped top corners
+   Paste at END of schedule.css
+   ========================================================= */
+
+/* 1) Panel corners: make header match the panel rounding */
+.schedule-panel{
+  border-radius: 16px;
+  background: #fff;          /* so the border + corners look continuous */
+  overflow: visible;         /* keep dropdown usable */
+}
+
+.schedule-panel-head{
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  background: #fff;
+  /* ensures no “white blocks” / mismatched corner fill */
+}
+
+.schedule-panel-body{
+  background: #fbfbf9;       /* keep the soft panel body */
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  overflow: hidden;          /* keep internals tidy */
+}
+
+/* 2) Let visible day columns grow to fill the panel instead of staying tiny */
+.schedule-panel .schedule-board{
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* IMPORTANT: override earlier flex/max-content/min-width rules */
+.schedule-panel .schedule-columns{
+  display: grid !important;
+  grid-auto-flow: column !important;
+  grid-auto-columns: minmax(220px, 1fr) !important;
+
+  gap: 12px;
+  width: 100% !important;
+  min-width: 0 !important;     /* removes the “always 1100px” behavior */
+}
+
+/* Prevent content from forcing columns wider than available */
+.schedule-panel .schedule-col{
+  min-width: 0;
+}
