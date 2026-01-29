@@ -180,34 +180,91 @@
             </div>
           
             <div class="sched-rail-sub text-xs opacity-70 mt-1">
-              Add cards to: <span class="sched-rail-target" x-text="activeTargetLabel()"></span>
+              Place into:
             </div>
-          
-            <!-- Picture Study grade choice -->
-            <div class="sched-rail-choice mt-3">
-              <div class="text-xs font-semibold mb-1">Picture Study grade band</div>
-              <div class="sched-rail-choice-row">
-                <button type="button" class="sched-rail-chip" :class="choices.pictureStudyBand==='g1-3' ? 'sched-rail-chip--on' : ''" @click="setPictureStudyBand('g1-3')">1–3</button>
-                <button type="button" class="sched-rail-chip" :class="choices.pictureStudyBand==='g4-6' ? 'sched-rail-chip--on' : ''" @click="setPictureStudyStudyBand ? setPictureStudyStudyBand('g4-6') : setPictureStudyBand('g4-6')">4–6</button>
-                <button type="button" class="sched-rail-chip" :class="choices.pictureStudyBand==='g7-8' ? 'sched-rail-chip--on' : ''" @click="setPictureStudyBand('g7-8')">7–8</button>
-                <button type="button" class="sched-rail-chip" :class="choices.pictureStudyBand==='g9-12' ? 'sched-rail-chip--on' : ''" @click="setPictureStudyBand('g9-12')">9–12</button>
+            
+            <div class="sched-target mt-2">
+              <select class="sched-target-select"
+                      x-model="activeTarget.studentId"
+                      @change="ensureStudent(activeTarget.studentId); persistCards()">
+                <template x-for="s in students" :key="s.id">
+                  <option :value="s.id" x-text="s.name"></option>
+                </template>
+              </select>
+            
+              <div class="sched-target-days">
+                <template x-for="(label, i) in dayLabels" :key="i">
+                  <button type="button"
+                          class="sched-target-day"
+                          :class="activeTarget.dayIndex === i ? 'sched-target-day--on' : ''"
+                          @click="activeTarget.dayIndex = i; persistCards()"
+                          x-text="label"></button>
+                </template>
               </div>
             </div>
           
             <div class="sched-rail-list mt-3">
-              <template x-for="tpl in sortedTemplates()" :key="tpl.id">
+              <template x-for="entry in railEntries()" :key="entry.type + ':' + (entry.templateId || entry.courseKey)">
                 <div class="sched-rail-item">
-                  <div class="sched-rail-item-top">
-                    <div class="sched-rail-item-title" :title="tpl.title" x-text="tpl.title"></div>
-                    <div class="sched-rail-item-min" x-text="`${tpl.minutes}m`"></div>
-                  </div>
-                  <div class="sched-rail-item-sub" x-text="tpl.symbols || ''"></div>
-          
-                  <div class="sched-rail-actions">
-                    <button type="button" class="sched-rail-btn sched-rail-btn--primary" @click="addTemplateToActive(tpl.id)">
-                      Add
-                    </button>
-                  </div>
+                  <!-- SINGLE template -->
+                  <template x-if="entry.type === 'single'">
+                    <div>
+                      <div class="sched-rail-item-top">
+                        <div class="sched-rail-item-title"
+                             :title="(templatesById[entry.templateId] || {}).title || ''"
+                             x-text="(templatesById[entry.templateId] || {}).title || ''"></div>
+                        <div class="sched-rail-item-min"
+                             x-text="`${(templatesById[entry.templateId] || {}).minutes || 0}m`"></div>
+                      </div>
+              
+                      <div class="sched-rail-item-sub"
+                           x-text="(templatesById[entry.templateId] || {}).symbols || ''"></div>
+              
+                      <div class="sched-rail-actions">
+                        <button type="button"
+                                class="sched-rail-btn sched-rail-btn--primary"
+                                @click="addRailEntryToActive(entry)">
+                          Add
+                        </button>
+                      </div>
+                    </div>
+                  </template>
+              
+                  <!-- GROUP template (grade-band / choice-based) -->
+                  <template x-if="entry.type === 'group'">
+                    <div>
+                      <div class="sched-rail-item-top">
+                        <div class="sched-rail-item-title"
+                             :title="(templatesById[entry.activeTemplateId] || {}).title || ''"
+                             x-text="(templatesById[entry.activeTemplateId] || {}).title || ''"></div>
+                        <div class="sched-rail-item-min"
+                             x-text="`${(templatesById[entry.activeTemplateId] || {}).minutes || 0}m`"></div>
+                      </div>
+              
+                      <div class="sched-rail-item-sub"
+                           x-text="(templatesById[entry.activeTemplateId] || {}).symbols || ''"></div>
+              
+                      <!-- choice chips live ON the card -->
+                      <div class="sched-rail-inline-choices">
+                        <template x-for="opt in entry.options" :key="opt.option">
+                          <button type="button"
+                                  class="sched-rail-chip sched-rail-chip--sm"
+                                  :class="(choices.courseOptions && choices.courseOptions[entry.courseKey] === opt.option) ? 'sched-rail-chip--on' : ''"
+                                  @click="setCourseOption(entry.courseKey, opt.option)">
+                            <span x-text="opt.label"></span>
+                          </button>
+                        </template>
+                      </div>
+              
+                      <div class="sched-rail-actions">
+                        <button type="button"
+                                class="sched-rail-btn sched-rail-btn--primary"
+                                @click="addRailEntryToActive(entry)">
+                          Add
+                        </button>
+                      </div>
+                    </div>
+                  </template>
                 </div>
               </template>
             </div>
