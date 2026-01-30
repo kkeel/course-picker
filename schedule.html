@@ -47,7 +47,7 @@
   <link rel="icon" type="image/png" href="img/Alveary%20Lt.%20Green.png">
 </head>
 
-<body class="schedule-page" x-data="coursePlanner()" x-init="init()">
+<body x-data="coursePlanner()" x-init="init()">
   <!-- Auth refresh overlay -->
   <div
     x-show="authRefreshing"
@@ -155,7 +155,7 @@
       </div>
     </section>
 
-    <div x-show="!courseGate" x-cloak x-data="scheduleBuilder()" x-init="init()" class="schedule-root">
+    <div x-show="!courseGate" x-cloak x-data="scheduleBuilder()" x-init="init()">
      <div class="schedule-head">
       <h2 class="section-title">Schedule</h2>
     
@@ -167,7 +167,7 @@
       </div>
     </div>
 
-        <div class="schedule-workspace mt-6 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6">
+        <div class="mt-6 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6">
           
           <!-- Left card rail (Phase 2.5) -->
           <div class="sched-rail p-4 rounded-lg border border-[#e5e8e5] bg-white">
@@ -203,8 +203,7 @@
               </div>
             </div>
           
-              <div class="sched-rail-scroll">
-                <div class="sched-rail-sep"></div>
+              <div class="sched-rail-sep"></div>
                 <div class="sched-rail-section-head">Need to schedule:</div>
     
                 <div class="sched-rail-list mt-3">
@@ -361,6 +360,7 @@
                     </div>
                   </template>
                 </div>
+    
                 <template x-if="railEntriesComplete().length">
                   <div class="sched-rail-complete-wrap">
                     <div class="sched-rail-sep"></div>
@@ -521,12 +521,11 @@
                     </template>
                   </div>
                 </template>
-              </div>
           
           </div>
 
           <!-- Right build area -->
-          <div class="sched-build p-4 rounded-lg border border-[#e5e8e5] bg-white">
+          <div class="p-4 rounded-lg border border-[#e5e8e5] bg-white">
           
             <!-- Header row -->
             <div class="schedule-topbar">
