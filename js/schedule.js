@@ -144,6 +144,7 @@
       minutes: 20,
       symbols: "* 🅃",
       trackingCount: 12,
+      weeklyTarget: 2,
     };
 
     t["a:grammar:ruleB"] = {
@@ -157,6 +158,7 @@
       minutes: 15,
       symbols: "* 🅃",
       trackingCount: 12,
+      weeklyTarget: 3,
     };
 
     // Shared topic duplicates (two separate instances / contexts)
@@ -171,6 +173,7 @@
       minutes: 20,
       symbols: "↔ * 🅃",
       trackingCount: 12,
+      weeklyTarget: 1,
     };
 
     t["a:church-history:bible-g2"] = {
@@ -184,6 +187,7 @@
       minutes: 20,
       symbols: "↔ * 🅃",
       trackingCount: 12,
+      weeklyTarget: 1,
     };
 
     // Break / buffer card (no course source)
@@ -198,6 +202,7 @@
       minutes: 30,
       symbols: "☼",
       trackingCount: 0,
+      weeklyTarget: 5,
     };
 
     // Picture Study grade-band options (choice controls which one is shown as “active”)
@@ -210,8 +215,9 @@
       variantSort: 10,
       title: "Picture Study: Grades 1–3",
       minutes: 10,
-      symbols: "🎨",
+      symbols: "↔ * 🅃",
       trackingCount: 12,
+      weeklyTarget: 1,
       meta: {
         choiceGroup: "gradeBand",
         option: "g1-3",
@@ -228,8 +234,9 @@
       variantSort: 20,
       title: "Picture Study: Grades 4–6",
       minutes: 15,
-      symbols: "🎨",
+      symbols: "↔ * 🅃-",
       trackingCount: 12,
+      weeklyTarget: 1,
       meta: {
         choiceGroup: "gradeBand",
         option: "g4-6",
@@ -246,8 +253,9 @@
       variantSort: 30,
       title: "Picture Study: Grades 7–8",
       minutes: 20,
-      symbols: "🎨",
+      symbols: "↔ * 🅃--",
       trackingCount: 12,
+      weeklyTarget: 1,
       meta: {
         choiceGroup: "gradeBand",
         option: "g7-8",
@@ -264,8 +272,9 @@
       variantSort: 40,
       title: "Picture Study: Grades 9–12",
       minutes: 20,
-      symbols: "🎨",
+      symbols: "↔ * 🅃---",
       trackingCount: 12,
+      weeklyTarget: 1,
       meta: {
         choiceGroup: "gradeBand",
         option: "g9-12",
@@ -764,8 +773,88 @@
             });
           }
         }
+
+        // Move completed items to the bottom for the currently selected rail student
+        const sid = this.activeTarget?.studentId;
+        if (sid) {
+          entries.sort((a, b) => {
+            const ta = this.trackingForEntry(a);
+            const tb = this.trackingForEntry(b);
+            const da = ta.show && ta.done ? 1 : 0;
+            const db = tb.show && tb.done ? 1 : 0;
+        
+            // incomplete first, complete last
+            if (da !== db) return da - db;
+        
+            // keep existing order otherwise (already sorted above)
+            return 0;
+          });
+        }
       
         return entries;
+      },
+
+      weeklyTargetForEntry(entry) {
+        if (!entry) return 0;
+      
+        // SINGLE: target from template
+        if (entry.type === "single") {
+          const tpl = this.templatesById?.[entry.templateId];
+          return Number(tpl?.weeklyTarget || 0);
+        }
+      
+        // GROUP: target from active template (they should all match)
+        if (entry.type === "group") {
+          const tpl = this.templatesById?.[entry.activeTemplateId];
+          return Number(tpl?.weeklyTarget || 0);
+        }
+      
+        return 0;
+      },
+      
+      weeklyUsedForEntry(studentId, entry) {
+        if (!studentId || !entry) return 0;
+        const daysObj = this.placements?.[studentId];
+        if (!daysObj) return 0;
+      
+        let used = 0;
+      
+        for (let d = 0; d <= 4; d++) {
+          const ids = daysObj?.[d];
+          if (!Array.isArray(ids)) continue;
+      
+          for (const instId of ids) {
+            const inst = this.instancesById?.[instId];
+            if (!inst) continue;
+      
+            const tpl = this.templatesById?.[inst.templateId];
+            if (!tpl) continue;
+      
+            if (entry.type === "single") {
+              if (inst.templateId === entry.templateId) used++;
+            } else if (entry.type === "group") {
+              // Count by courseKey so any grade-band satisfies Picture Study
+              if (tpl.courseKey === entry.courseKey) used++;
+            }
+          }
+        }
+      
+        return used;
+      },
+      
+      trackingForEntry(entry) {
+        const studentId = this.activeTarget?.studentId; // ties to rail student picker
+        const target = this.weeklyTargetForEntry(entry);
+        if (!target) return { show: false, done: false, label: "" };
+      
+        const used = this.weeklyUsedForEntry(studentId, entry);
+        const done = used >= target;
+      
+        return {
+          show: true,
+          done,
+          label: done ? "" : `${used}/${target}`,
+        };
       },
       
       sortedTemplates() {
