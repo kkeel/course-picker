@@ -267,16 +267,17 @@
                              x-text="`${railEntryDisplay(entry).minutes || 0}m`"></div>
                       </div>
                   
-                      <!-- band line (makes it feel like ONE card with options) -->
-                      <div class="sched-rail-item-sub"
-                           x-show="railEntryDisplay(entry).sub"
-                           x-text="railEntryDisplay(entry).sub"></div>
-                      
-                      <!-- symbols + add in the main card area -->
+                      <!-- symbols + grade tag + add in the main card area -->
                       <div class="sched-rail-meta">
-                        <div class="sched-rail-symbols"
-                             x-text="railEntryDisplay(entry).symbols || ''"></div>
-                      
+                        <div class="sched-rail-meta-left">
+                          <div class="sched-rail-symbols"
+                               x-text="railEntryDisplay(entry).symbols || ''"></div>
+
+                          <div class="sched-rail-grade"
+                               x-show="railEntryDisplay(entry).sub"
+                               x-text="railEntryDisplay(entry).sub"></div>
+                        </div>
+
                         <div class="sched-rail-actions">
                           <button type="button"
                                   class="sched-rail-add"
