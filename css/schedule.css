@@ -1173,6 +1173,7 @@
   display:flex;
   gap:6px;
   align-items: center;
+  margin-right: auto;
 }
 
 /* Make grade option chips match weekday toggle scale */
@@ -1234,19 +1235,4 @@
   height: 12px;
   color: #596e5e;
   pointer-events: none;
-}
-
-.sched-rail-footer{
-  margin-top: 8px;
-  padding: 8px 10px;
-  border-top: 1px solid #e5e8e5;
-  background: rgba(89,110,94,.06);
-  border-radius: 0 0 14px 14px;
-
-  display: flex;
-  align-items: right;
-  justify-content: space-between; /* ✅ key line */
-  gap: 12px;
-
-  flex-wrap: nowrap;
 }
