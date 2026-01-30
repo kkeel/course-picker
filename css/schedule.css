@@ -879,3 +879,83 @@
   font-size: 13px;
   line-height: 1.25;
 }
+
+/* =========================================================
+   Rail: symbols + actions row (under minutes)
+   ========================================================= */
+
+.sched-rail-meta{
+  margin-top: 4px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.sched-rail-symbols{
+  font-size: 12px;
+  color: #666d66;
+  line-height: 1.2;
+  min-width: 0;
+}
+
+/* keep buttons tight + aligned under minutes */
+.sched-rail-actions{
+  margin-top: 0;          /* override older rules */
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:8px;
+}
+
+/* Make edit/delete match the + button feel/size */
+.sched-rail-icon-btn{
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 1px solid #e5e8e5;
+  background:#fff;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1;
+  color:#666d66;
+}
+.sched-rail-icon-btn:hover{ background:#f7f8f7; }
+
+/* =========================================================
+   Picture Study footer: compact + darker + full-width
+   ========================================================= */
+
+.sched-rail-band{
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-top: 1px solid #e5e8e5;
+  background: rgba(89,110,94,.06); /* slightly darker footer strip */
+  border-radius: 0 0 14px 14px;   /* match card radius */
+}
+
+/* remove “box inside box” vibe */
+.sched-rail-band-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.sched-rail-band-label{
+  margin: 0;
+  font-size: 11px;
+  font-weight: 650;
+  opacity: .75;
+  white-space: nowrap;
+}
+
+.sched-rail-band-chips{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
