@@ -325,16 +325,22 @@
                           <!-- Footer: choose grades (left) + weekdays (right) -->
                           <div class="sched-rail-footer">
                             <div class="sched-rail-footer-left" aria-label="Choose grades">
-                              <select
-                                class="sched-rail-grade-select"
-                                x-model="choices.courseOptions[entry.courseKey]"
-                                @change="setCourseOption(entry.courseKey, choices.courseOptions[entry.courseKey])"
-                                aria-label="Grade band"
-                              >
-                                <template x-for="opt in entry.options" :key="opt.option">
-                                  <option :value="opt.option" x-text="`Grades ${opt.label}`"></option>
-                                </template>
-                              </select>
+                              <div class="sched-rail-grade-select-wrap">
+                                <select
+                                  class="sched-rail-grade-select"
+                                  x-model="choices.courseOptions[entry.courseKey]"
+                                  @change="setCourseOption(entry.courseKey, choices.courseOptions[entry.courseKey])"
+                                  aria-label="Grade band"
+                                >
+                                  <template x-for="opt in entry.options" :key="opt.option">
+                                    <option :value="opt.option" x-text="`Grades ${opt.label}`"></option>
+                                  </template>
+                                </select>
+                              
+                                <svg class="sched-rail-grade-chevron" viewBox="0 0 20 20" aria-hidden="true">
+                                  <path d="M5.5 7.5l4.5 4.5 4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                              </div>
                             </div>
 
                             <div class="sched-rail-daytoggles" aria-label="Scheduled days">
@@ -477,16 +483,22 @@
                                 <!-- Footer: choose grades (left) + weekdays (right) -->
                                 <div class="sched-rail-footer">
                                   <div class="sched-rail-footer-left" aria-label="Choose grades">
-                                    <select
-                                      class="sched-rail-grade-select"
-                                      x-model="choices.courseOptions[entry.courseKey]"
-                                      @change="setCourseOption(entry.courseKey, choices.courseOptions[entry.courseKey])"
-                                      aria-label="Grade band"
-                                    >
-                                      <template x-for="opt in entry.options" :key="opt.option">
-                                        <option :value="opt.option" x-text="`Grades ${opt.label}`"></option>
-                                      </template>
-                                    </select>
+                                    <div class="sched-rail-grade-select-wrap">
+                                      <select
+                                        class="sched-rail-grade-select"
+                                        x-model="choices.courseOptions[entry.courseKey]"
+                                        @change="setCourseOption(entry.courseKey, choices.courseOptions[entry.courseKey])"
+                                        aria-label="Grade band"
+                                      >
+                                        <template x-for="opt in entry.options" :key="opt.option">
+                                          <option :value="opt.option" x-text="`Grades ${opt.label}`"></option>
+                                        </template>
+                                      </select>
+                                    
+                                      <svg class="sched-rail-grade-chevron" viewBox="0 0 20 20" aria-hidden="true">
+                                        <path d="M5.5 7.5l4.5 4.5 4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                                      </svg>
+                                    </div>
                                   </div>
 
                                   <div class="sched-rail-daytoggles" aria-label="Scheduled days">
