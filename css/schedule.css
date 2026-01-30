@@ -1244,7 +1244,7 @@
   border-radius: 0 0 14px 14px;
 
   display: flex;
-  align-items: center;
+  align-items: right;
   justify-content: space-between; /* ✅ key line */
   gap: 12px;
 
