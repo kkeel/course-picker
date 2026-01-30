@@ -213,6 +213,21 @@
                         <div class="sched-rail-item-title"
                              :title="(templatesById[entry.templateId] || {}).title || ''"
                              x-text="(templatesById[entry.templateId] || {}).title || ''"></div>
+
+                              <span class="sched-rail-trackchip"
+                                    x-show="trackingForEntry(entry).show"
+                                    :class="trackingForEntry(entry).done ? 'sched-rail-trackchip--done' : ''">
+                                <template x-if="!trackingForEntry(entry).done">
+                                  <span x-text="trackingForEntry(entry).label"></span>
+                                </template>
+                            
+                                <template x-if="trackingForEntry(entry).done">
+                                  <svg class="sched-rail-check" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                  </svg>
+                                </template>
+                              </span>
+                        
                         <div class="sched-rail-item-min"
                              x-text="`${(templatesById[entry.templateId] || {}).minutes || 0}m`"></div>
                       </div>
