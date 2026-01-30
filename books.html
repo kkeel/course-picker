@@ -1375,35 +1375,14 @@
 
                               
                                       <template x-if="(resourcesById[a.resourceId]?.discount?.text || resourcesById[a.resourceId]?.discount?.code)">
-
-                              
                                         <div class="resource-tipbox-item">
-
-                              
-                                          <span class="resource-tipbox-label">➜ With code:</span>
-
-                              
-                                          <span class="resource-tipbox-text">
-
-                              
-                                            <span x-text="resourcesById[a.resourceId]?.discount?.text"></span>
-
-                              
-                                            <template x-if="resourcesById[a.resourceId]?.discount?.code">
-
-                              
-                                              <span> — <strong x-text="resourcesById[a.resourceId]?.discount?.code"></strong></span>
-
-                              
-                                            </template>
-
-                              
-                                          </span>
-
-                              
+                                          <template x-if="resourcesById[a.resourceId]?.discount?.text">
+                                            <div><span class="resource-tipbox-label">Discount:</span><span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.discount?.text"></span></div>
+                                          </template>
+                                          <template x-if="resourcesById[a.resourceId]?.discount?.code">
+                                            <div><span class="resource-tipbox-label">➜ With code:</span><span class="resource-tipbox-text"><strong x-text="resourcesById[a.resourceId]?.discount?.code"></strong></span></div>
+                                          </template>
                                         </div>
-
-                              
                                       </template>
 
 
@@ -2436,36 +2415,15 @@
 
                                     
                                             <template x-if="(resourcesById[a.resourceId]?.discount?.text || resourcesById[a.resourceId]?.discount?.code)">
-
-                                    
-                                              <div class="resource-tipbox-item">
-
-                                    
-                                                <span class="resource-tipbox-label">➜ With code:</span>
-
-                                    
-                                                <span class="resource-tipbox-text">
-
-                                    
-                                                  <span x-text="resourcesById[a.resourceId]?.discount?.text"></span>
-
-                                    
-                                                  <template x-if="resourcesById[a.resourceId]?.discount?.code">
-
-                                    
-                                                    <span> — <strong x-text="resourcesById[a.resourceId]?.discount?.code"></strong></span>
-
-                                    
-                                                  </template>
-
-                                    
-                                                </span>
-
-                                    
-                                              </div>
-
-                                    
-                                            </template>
+                                        <div class="resource-tipbox-item">
+                                          <template x-if="resourcesById[a.resourceId]?.discount?.text">
+                                            <div><span class="resource-tipbox-label">Discount:</span><span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.discount?.text"></span></div>
+                                          </template>
+                                          <template x-if="resourcesById[a.resourceId]?.discount?.code">
+                                            <div><span class="resource-tipbox-label">➜ With code:</span><span class="resource-tipbox-text"><strong x-text="resourcesById[a.resourceId]?.discount?.code"></strong></span></div>
+                                          </template>
+                                        </div>
+                                      </template>
 
 
                                     
