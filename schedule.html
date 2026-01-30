@@ -217,35 +217,37 @@
                              x-text="`${(templatesById[entry.templateId] || {}).minutes || 0}m`"></div>
                       </div>
               
-                      <div class="sched-rail-item-sub"
-                           x-text="(templatesById[entry.templateId] || {}).symbols || ''"></div>
-              
-                      <div class="sched-rail-actions">
-                        <!-- Add (+) -->
-                        <button type="button"
-                                class="sched-rail-add"
-                                title="Add to schedule"
-                                @click="addRailEntryToActive(entry)">
-                          <span aria-hidden="true">＋</span>
-                        </button>
+                      <div class="sched-rail-meta">
+                        <div class="sched-rail-symbols"
+                             x-text="(templatesById[entry.templateId] || {}).symbols || ''"></div>
                       
-                        <!-- Custom-only: edit -->
-                        <button type="button"
-                                class="sched-rail-icon-btn"
-                                x-show="String(entry.templateId || '').startsWith('u:')"
-                                title="Edit custom card"
-                                @click="openCustomCardModal('edit', entry.templateId)">
-                          ✎
-                        </button>
+                        <div class="sched-rail-actions">
+                          <!-- Add (+) -->
+                          <button type="button"
+                                  class="sched-rail-add"
+                                  title="Add to schedule"
+                                  @click="addRailEntryToActive(entry)">
+                            <span aria-hidden="true">＋</span>
+                          </button>
                       
-                        <!-- Custom-only: delete -->
-                        <button type="button"
-                                class="sched-rail-icon-btn"
-                                x-show="String(entry.templateId || '').startsWith('u:')"
-                                title="Remove custom card"
-                                @click="openCustomCardModal('delete', entry.templateId)">
-                          ✕
-                        </button>
+                          <!-- Custom-only: edit -->
+                          <button type="button"
+                                  class="sched-rail-icon-btn"
+                                  x-show="String(entry.templateId || '').startsWith('u:')"
+                                  title="Edit custom card"
+                                  @click="openCustomCardModal('edit', entry.templateId)">
+                            ✎
+                          </button>
+                      
+                          <!-- Custom-only: delete -->
+                          <button type="button"
+                                  class="sched-rail-icon-btn"
+                                  x-show="String(entry.templateId || '').startsWith('u:')"
+                                  title="Remove custom card"
+                                  @click="openCustomCardModal('delete', entry.templateId)">
+                            ✕
+                          </button>
+                        </div>
                       </div>
                       
                     </div>
@@ -269,13 +271,26 @@
                       <div class="sched-rail-item-sub"
                            x-show="railEntryDisplay(entry).sub"
                            x-text="railEntryDisplay(entry).sub"></div>
-                  
-                      <div class="sched-rail-item-sub"
-                           x-text="railEntryDisplay(entry).symbols || ''"></div>
-                  
-                      <!-- choice chips live ON the card -->
+                      
+                      <!-- symbols + add in the main card area -->
+                      <div class="sched-rail-meta">
+                        <div class="sched-rail-symbols"
+                             x-text="railEntryDisplay(entry).symbols || ''"></div>
+                      
+                        <div class="sched-rail-actions">
+                          <button type="button"
+                                  class="sched-rail-add"
+                                  title="Add to schedule"
+                                  @click="addRailEntryToActive(entry)">
+                            <span aria-hidden="true">＋</span>
+                          </button>
+                        </div>
+                      </div>
+                      
+                      <!-- choice chips as a footer strip -->
                       <div class="sched-rail-band">
-                        <div class="sched-rail-band-label">Choose grades</div>
+                        <div class="sched-rail-band-row">
+                          <div class="sched-rail-band-label">Choose grades</div>
                           <div class="sched-rail-band-chips">
                             <template x-for="opt in entry.options" :key="opt.option">
                               <button type="button"
@@ -286,16 +301,9 @@
                               </button>
                             </template>
                           </div>
+                        </div>
                       </div>
-                  
-                      <div class="sched-rail-actions">
-                        <button type="button"
-                                class="sched-rail-add"
-                                title="Add to schedule"
-                                @click="addRailEntryToActive(entry)">
-                          <span aria-hidden="true">＋</span>
-                        </button>
-                      </div>
+
                     </div>
                   </template>
 
