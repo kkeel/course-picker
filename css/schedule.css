@@ -664,3 +664,190 @@
 .sched-rail-icon-btn:hover{
   background: rgba(0,0,0,.06);
 }
+
+/* =========================================================
+   Custom modal (replaces browser confirm/prompt)
+   ========================================================= */
+
+.sched-modal-overlay{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+.sched-modal-backdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,0.28);
+}
+
+.sched-modal{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(520px, calc(100vw - 28px));
+  background: #fff;
+  border: 1px solid #e5e8e5;
+  border-radius: 18px;
+  box-shadow: 0 18px 50px rgba(0,0,0,.18);
+  overflow: hidden;
+}
+
+.sched-modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e8e5;
+  background:#fff;
+}
+
+.sched-modal-title{
+  font-weight: 700;
+  color:#262b26;
+  font-size: 14px;
+}
+
+.sched-modal-close{
+  border: none;
+  background: transparent;
+  padding: 6px 8px;
+  border-radius: 12px;
+  color:#666d66;
+}
+.sched-modal-close:hover{ background: rgba(0,0,0,.06); }
+
+.sched-modal-body{
+  padding: 14px 16px;
+  background:#fbfbf9;
+}
+
+.sched-modal-label{
+  display:block;
+  font-size: 12px;
+  font-weight: 650;
+  color:#262b26;
+  margin-top: 2px;
+}
+
+.sched-modal-input{
+  width: 100%;
+  margin-top: 6px;
+  border: 1px solid #d2d6d2;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 13px;
+  background:#fff;
+}
+
+.sched-modal-error{
+  margin-top: 10px;
+  font-size: 12px;
+  color: #b42318;
+  font-weight: 650;
+}
+
+.sched-modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  padding: 12px 16px;
+  border-top: 1px solid #e5e8e5;
+  background:#fff;
+}
+
+.sched-modal-btn{
+  border: 1px solid #d2d6d2;
+  background:#fff;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color:#596e5e;
+}
+
+.sched-modal-btn:hover{ background: rgba(89,110,94,.06); }
+
+.sched-modal-btn-primary{
+  border-color:#596e5e;
+  background:#596e5e;
+  color:#fff;
+}
+.sched-modal-btn-primary:hover{ background:#506550; }
+
+.sched-modal-btn-danger{
+  border-color:#b42318;
+  background:#b42318;
+  color:#fff;
+}
+.sched-modal-btn-danger:hover{ background:#991b13; }
+
+/* =========================================================
+   Rail compact layout + + button
+   ========================================================= */
+
+.sched-rail-item{
+  padding: 10px;
+}
+
+.sched-rail-item-sub{
+  margin-top: 2px;
+}
+
+/* keep symbols + controls on one row */
+.sched-rail-actions{
+  margin-top: 6px;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:8px;
+}
+
+/* small circular + button (instead of “Add”) */
+.sched-rail-add{
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid #596e5e;
+  background: #fff;
+  color:#596e5e;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.sched-rail-add:hover{
+  background: rgba(89,110,94,.08);
+}
+
+/* =========================================================
+   Group option band (chips in a bottom band)
+   ========================================================= */
+
+.sched-rail-band{
+  margin-top: 10px;
+  border-top: 1px solid #e5e8e5;
+  padding-top: 10px;
+  background: rgba(89,110,94,.06);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.sched-rail-band-label{
+  font-size: 11px;
+  font-weight: 700;
+  color: #596e5e;
+  opacity: .9;
+  margin-bottom: 8px;
+}
+
+.sched-rail-band-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
