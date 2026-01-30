@@ -824,6 +824,79 @@
         return entries;
       },
 
+      // ---- Day-toggle helpers (Rail) ----
+
+      // Returns an instanceId if entry is already placed on that day for that student, else null
+      instanceIdForEntryOnDay(studentId, dayIndex, entry) {
+        const ids = this.placements?.[studentId]?.[dayIndex];
+        if (!Array.isArray(ids) || !entry) return null;
+      
+        for (const instId of ids) {
+          const inst = this.instancesById?.[instId];
+          if (!inst) continue;
+      
+          const tpl = this.templatesById?.[inst.templateId];
+          if (!tpl) continue;
+      
+          if (entry.type === "single") {
+            if (inst.templateId === entry.templateId) return instId;
+          } else if (entry.type === "group") {
+            // count/toggle by courseKey (any grade-band counts as “Picture Study”)
+            if (tpl.courseKey === entry.courseKey) return instId;
+          }
+        }
+      
+        return null;
+      },
+      
+      isEntryOnDay(studentId, dayIndex, entry) {
+        return !!this.instanceIdForEntryOnDay(studentId, dayIndex, entry);
+      },
+      
+      toggleEntryOnDay(entry, dayIndex) {
+        const studentId = this.activeTarget?.studentId;
+        dayIndex = Number(dayIndex);
+      
+        if (!studentId || !Number.isInteger(dayIndex) || dayIndex < 0 || dayIndex > 4) return;
+      
+        this.ensureStudent(studentId);
+      
+        const existingId = this.instanceIdForEntryOnDay(studentId, dayIndex, entry);
+      
+        // If already placed, remove it
+        if (existingId) {
+          this.removeInstance(studentId, dayIndex, existingId);
+          return;
+        }
+      
+        // Otherwise add it (respect group selection)
+        let templateId = null;
+      
+        if (entry.type === "single") {
+          templateId = entry.templateId;
+        } else if (entry.type === "group") {
+          const selectedOpt = this.choices?.courseOptions?.[entry.courseKey];
+          const match = (entry.options || []).find(o => o.option === selectedOpt);
+          templateId = (match && match.templateId) || entry.activeTemplateId;
+        }
+      
+        if (!templateId) return;
+      
+        // Add to *that* day (not activeTarget.dayIndex)
+        const tpl = this.templatesById?.[templateId];
+        if (!tpl) return;
+      
+        const instanceId = uid("inst");
+        this.instancesById[instanceId] = {
+          instanceId,
+          templateId,
+          createdAt: Date.now(),
+        };
+      
+        this.placements[studentId][dayIndex].push(instanceId);
+        this.persistCards();
+      },
+
       weeklyTargetForEntry(entry) {
         if (!entry) return 0;
       
