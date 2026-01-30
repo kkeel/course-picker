@@ -20,7 +20,7 @@
   margin-left: auto;
 }
 
-/* Schedule: allow this pageÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s workspace to use full screen width */
+/* Schedule: allow this page workspace to use full screen width */
 .main-content.schedule-main{
   max-width: none;
 }
@@ -73,6 +73,28 @@ body.schedule-page .schedule-head{
 body.schedule-page .schedule-workspace{
   flex: 1 1 auto;
   min-height: 0;
+}
+
+/* =========================================================
+   Nested scrolling: rail + build must be flex containers
+   ========================================================= */
+
+.sched-rail,
+.sched-build{
+  display: flex;
+  flex-direction: column;
+  min-height: 0;     /* critical so children can scroll */
+  overflow: hidden;  /* keep scrolling inside, not on the page */
+}
+
+/* Left rail scroll area */
+.sched-rail-scroll{
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding-right: 6px; /* tiny room so scrollbar doesn't overlay content */
 }
 
 /* =========================================================
@@ -214,6 +236,10 @@ body.schedule-page .schedule-workspace{
   border-radius: 16px;
   background: #fff;
   overflow: visible; /* dropdown can overflow */
+
+  display: flex;
+  flex-direction: column;
+  min-height: 0;     /* allow body to become a scroll layout */
 }
 
 /* Panel header: slim + clean */
@@ -248,13 +274,16 @@ body.schedule-page .schedule-workspace{
   white-space: nowrap;
 }
 
-/* Panel body: keep internals clipped and corners clean */
+/* Panel body: becomes the scroll layout host for the board */
 .schedule-panel-body{
   padding: 12px;
   background: #fbfbf9;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
-  overflow: hidden;
+
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden; /* horizontal scroll happens in .schedule-board */
 }
 
 /* =========================================================
@@ -330,6 +359,31 @@ body.schedule-page .schedule-workspace{
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+}
+
+/* Make the board the horizontal scroller */
+.schedule-board{
+  height: 100%;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+}
+
+/* Let columns fill available height */
+.schedule-columns{
+  height: 100%;
+}
+
+/* IMPORTANT: remove viewport-based max-height that can clamp scroll */
+.schedule-col{
+  min-height: 0;
+  max-height: none;   /* overrides calc(100vh - 320px) */
+  height: 100%;
+}
+
+/* Day column list: vertical scroll only; don't intercept horizontal */
+.schedule-dropzone{
+  overflow-x: hidden; /* key fix: lets horizontal scroll bubble to .schedule-board */
+  touch-action: pan-y;
 }
 
 .schedule-empty{
