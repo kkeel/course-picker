@@ -20,7 +20,7 @@
   margin-left: auto;
 }
 
-/* Schedule: allow this pageÃ¢â‚¬â„¢s workspace to use full screen width */
+/* Schedule: allow this pageÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s workspace to use full screen width */
 .main-content.schedule-main{
   max-width: none;
 }
@@ -180,7 +180,7 @@
   overflow: visible;
 }
 
-/* Header layout: dropdown left, Day 1Ã¢â‚¬â€œ5 on right */
+/* Header layout: dropdown left, Day 1ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“5 on right */
 .schedule-panel-title{
   display:flex;
   align-items:center;
@@ -429,7 +429,7 @@
 }
 
 /* =========================================================
-   Schedule Cards Ã¢â‚¬â€ long title handling
+   Schedule Cards ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â long title handling
    ========================================================= */
 
 /* Make the top row behave nicely when titles are long */
@@ -460,7 +460,7 @@
 }
 
 /* =========================================================
-   Phase 2.5 Ã¢â‚¬â€ Card rail + minor card controls
+   Phase 2.5 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Card rail + minor card controls
    ========================================================= */
 
 .sched-rail-head{
@@ -893,7 +893,7 @@
   gap:8px;
 }
 
-/* small circular + button (instead of Ã¢â‚¬Å“AddÃ¢â‚¬Â) */
+/* small circular + button (instead of ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œAddÃƒÂ¢Ã¢â€šÂ¬Ã‚Â) */
 /* Small light add button */
 .sched-rail-add {
   width: 24px;
@@ -1097,7 +1097,7 @@
 
 .sched-rail-trackchip--done{
   border-color: #d2d6d2;
-  color: #596e5e; /* subtle Ã¢â‚¬Å“finishedÃ¢â‚¬Â */
+  color: #596e5e; /* subtle ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œfinishedÃƒÂ¢Ã¢â€šÂ¬Ã‚Â */
 }
 
 .sched-rail-check{
@@ -1166,7 +1166,7 @@
   justify-content:flex-end;
   gap:10px;
 
-  /* match the card’s 10px side padding */
+  /* match the cardâ€™s 10px side padding */
   margin-left: -10px;
   margin-right: -10px;
 }
@@ -1297,10 +1297,4 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   top: auto;
   bottom: -6px;
   opacity: 1;
-}
-
-/* Drop-to-end indicator when hovering empty space in a column */
-body.sched-drop-below .schedule-dropzone{
-  box-shadow: inset 0 -3px 0 rgba(89,110,94,.35);
-  border-radius: 12px;
 }
