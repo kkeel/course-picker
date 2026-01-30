@@ -2,6 +2,18 @@
    Schedule
    ========================================================= */
 
+/* =========================================================
+   Page-level: lock viewport; all scrolling happens inside containers
+   ========================================================= */
+html, body { height: 100%; }
+
+body.schedule-page{
+  height: 100vh;
+  overflow: hidden;          /* no page scroll */
+  display: flex;             /* enables .schedule-root flex sizing */
+  flex-direction: column;
+}
+
 /* Schedule header row: title left, tutorial right */
 .schedule-head{
   display:flex;
@@ -363,14 +375,21 @@ body.schedule-page .schedule-workspace{
 
 /* Make the board the horizontal scroller */
 .schedule-board{
-  height: 100%;
-  touch-action: pan-x;
+  flex: 1 1 auto;
+  min-height: 0;
+
+  overflow-x: auto;          /* <-- critical */
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
+
+  touch-action: pan-x;       /* allow horizontal panning on touch devices */
 }
 
 /* Let columns fill available height */
 .schedule-columns{
   height: 100%;
+  min-height: 0;             /* <-- critical for nested scroll */
 }
 
 /* IMPORTANT: remove viewport-based max-height that can clamp scroll */
@@ -380,10 +399,16 @@ body.schedule-page .schedule-workspace{
   height: 100%;
 }
 
-/* Day column list: vertical scroll only; don't intercept horizontal */
+/* Day column list: vertical scroll, but allow horizontal gesture to reach .schedule-board */
 .schedule-dropzone{
-  overflow-x: hidden; /* key fix: lets horizontal scroll bubble to .schedule-board */
-  touch-action: pan-y;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: visible;       /* <-- key change (don’t block horizontal) */
+
+  -webkit-overflow-scrolling: touch;
+  rememberscroll-behavior: contain;
+
+  touch-action: pan-x pan-y; /* <-- allow both directions */
 }
 
 .schedule-empty{
