@@ -190,6 +190,43 @@
   gap: 12px;
 }
 
+/* =========================================================
+   Panels: make each student panel fit the builder height
+   (sets us up for vertical scrolling inside day columns)
+   ========================================================= */
+
+/* The panels area already flexes inside .sched-work — this makes it "real" height */
+.schedule-panels{
+  height: 100%;
+  min-height: 0;
+}
+
+/* Make the grid row consume the available height */
+.schedule-panel-row{
+  height: 100%;
+  min-height: 0;
+  align-items: stretch; /* keep both panels same height inside the workspace */
+}
+
+/* Panel becomes a flex column so header stays fixed and body can flex */
+.schedule-panel{
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Body fills remaining height (instead of expanding the whole page) */
+.schedule-panel-body{
+  flex: 1;
+  min-height: 0;
+}
+
+/* Board inherits the body height (keeps your horizontal scroll working) */
+.schedule-board{
+  height: 100%;
+  min-height: 0;
+}
+
 /* On smaller screens, stack panels */
 @media (max-width: 1024px){
   .schedule-panel-row{ grid-template-columns: 1fr; }
