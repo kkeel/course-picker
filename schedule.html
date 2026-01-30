@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -693,11 +694,7 @@
                                   <div class="schedule-col-total" x-text="`${dayTotalMinutes(panel.studentId, i)}m`"></div>
                                 </div>
                                 
-                                <div class="schedule-dropzone"
-                                     @click="setActiveTarget(panel.studentId, i)"
-                                     @dragover.prevent="onDropzoneOver($event, panel.studentId, i)"
-                                     @drop.prevent="onDropzoneDrop($event, panel.studentId, i)"
-                                >
+                                <div class="schedule-dropzone" @click="setActiveTarget(panel.studentId, i)">
 
                                   <!-- placed instances (Phase 2.5) -->
                                   <template x-for="inst in instancesFor(panel.studentId, i)" :key="inst.instanceId">
@@ -711,8 +708,8 @@
                                       :data-inst-id="inst.instanceId"
                                       @dragstart="onDragStart($event, panel.studentId, i, inst.instanceId)"
                                       @dragend="onDragEnd($event)"
-                                      @dragover.stop.prevent="onDragOver($event, panel.studentId, i, inst.instanceId)"
-                                      @drop.stop.prevent="onDrop($event, panel.studentId, i, inst.instanceId)"
+                                      @dragover.prevent="onDragOver($event, panel.studentId, i, inst.instanceId)"
+                                      @drop.prevent="onDrop($event, panel.studentId, i, inst.instanceId)"
                                     >
                                       <div class="sched-card-top">
                                         <div
