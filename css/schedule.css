@@ -499,19 +499,20 @@
   flex-wrap:wrap;
 }
 
-.sched-rail-chip{
-  border: 1px solid #d2d6d2;
-  background: #fff;
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-size: 12px;
-  font-weight: 650;
-  color: #596e5e;
-  line-height: 1;
+/* Grade-band chips (Picture Study) */
+.sched-rail-chip--sm {
+  padding: 3px 8px;         
+  font-size: 11px;          
+  line-height: 1.2;
+  border-width: 1px;       
+  border-radius: 999px;     
+  min-height: 24px;
+  background: #f5f7f4;
 }
 
+
 .sched-rail-chip--on{
-  background: rgba(89,110,94,.10);
+  background: #e8efe9;
   border-color: #596e5e;
 }
 
@@ -1169,10 +1170,9 @@
 
 /* When grade options exist, they sit on the left side of the footer */
 .sched-rail-footer-left{
-  margin-right:auto;
   display:flex;
-  flex-wrap:wrap;
   gap:6px;
+  align-items: center;
 }
 
 /* Make grade option chips match weekday toggle scale */
