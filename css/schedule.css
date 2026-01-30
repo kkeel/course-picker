@@ -20,7 +20,7 @@
   margin-left: auto;
 }
 
-/* Schedule: allow this page’s workspace to use full screen width */
+/* Schedule: allow this pageâ€™s workspace to use full screen width */
 .main-content.schedule-main{
   max-width: none;
 }
@@ -180,7 +180,7 @@
   overflow: visible;
 }
 
-/* Header layout: dropdown left, Day 1–5 on right */
+/* Header layout: dropdown left, Day 1â€“5 on right */
 .schedule-panel-title{
   display:flex;
   align-items:center;
@@ -429,7 +429,7 @@
 }
 
 /* =========================================================
-   Schedule Cards — long title handling
+   Schedule Cards â€” long title handling
    ========================================================= */
 
 /* Make the top row behave nicely when titles are long */
@@ -460,7 +460,7 @@
 }
 
 /* =========================================================
-   Phase 2.5 — Card rail + minor card controls
+   Phase 2.5 â€” Card rail + minor card controls
    ========================================================= */
 
 .sched-rail-head{
@@ -667,15 +667,17 @@
 
 .sched-rail-daytoggles{
   display:flex;
-  gap:6px;
+  gap:4px;
   align-items:center;
 }
 
 .sched-rail-daytoggle{
-  height:28px;
-  min-width:34px;
-  padding:0 8px;
-  border-radius:8px;
+  height:22px;
+  min-width:26px;
+  padding:0 6px;
+  border-radius:6px;
+  font-size:11px;
+  letter-spacing:.01em;
   border:1px solid #d2d6d2;
   background:#fff;
   color:#596e5e;
@@ -872,7 +874,7 @@
   gap:8px;
 }
 
-/* small circular + button (instead of “Add”) */
+/* small circular + button (instead of â€œAddâ€) */
 /* Small light add button */
 .sched-rail-add {
   width: 24px;
@@ -1028,7 +1030,7 @@
   border-radius: 0 0 14px 14px;   /* match card radius */
 }
 
-/* remove “box inside box” vibe */
+/* remove â€œbox inside boxâ€ vibe */
 .sched-rail-band-row{
   display:flex;
   align-items:center;
@@ -1070,7 +1072,7 @@
 
 .sched-rail-trackchip--done{
   border-color: #d2d6d2;
-  color: #596e5e; /* subtle “finished” */
+  color: #596e5e; /* subtle â€œfinishedâ€ */
 }
 
 .sched-rail-check{
