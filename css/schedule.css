@@ -1334,3 +1334,54 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   bottom: -6px;
   opacity: 1;
 }
+
+/* Left rail becomes a fixed-height pane with internal scrolling */
+body.schedule-page .sched-rail{
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* keep header static */
+}
+
+/* The “cards area” should scroll */
+body.schedule-page .sched-rail-list{
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.schedule-columns{
+  display: grid;
+
+  /* Always one row of day columns; overflow handled by .schedule-board */
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 1fr);
+
+  gap: 12px;
+  width: max-content; /* key: makes grid wider than container */
+  min-width: 100%;
+}
+
+.schedule-col{
+  /* keep your existing styling */
+  min-height: 0;      /* ✅ allow inner scroll */
+  height: 100%;       /* ✅ fill panel body height */
+  max-height: none;   /* remove the vh math */
+}
+
+body.schedule-page .schedule-panel{
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+body.schedule-page .schedule-panel-body{
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden; /* corners clipped; internal scrollers handle movement */
+}
+
+body.schedule-page .schedule-board{
+  height: 100%;
+  min-height: 0;
+}
