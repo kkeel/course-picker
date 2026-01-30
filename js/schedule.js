@@ -382,9 +382,36 @@
         const savedCards = loadKey(CARDS_STORAGE_KEY);
         const normalizedCards = normalizeCardsState(savedCards || defaultCardsState(), allIds);
 
-        // ensure sample templates exist (merge without overwriting user custom templates)
+        // ensure sample templates exist (merge + PATCH missing fields from sample)
         const sample = buildSampleTemplates();
-        this.templatesById = { ...sample, ...(normalizedCards.templatesById || {}) };
+        
+        // Start with whatever was saved, then add any missing sample templates.
+        this.templatesById = { ...(normalizedCards.templatesById || {}) };
+        for (const [id, sampleTpl] of Object.entries(sample)) {
+          const existing = this.templatesById[id];
+        
+          // If template doesn't exist yet, add it.
+          if (!existing) {
+            this.templatesById[id] = { ...sampleTpl };
+            continue;
+          }
+        
+          // If template exists (cached older version), patch only missing fields
+          // so we don't blow away any future edits.
+          this.templatesById[id] = {
+            ...existing,
+            weeklyTarget:
+              existing.weeklyTarget == null ? sampleTpl.weeklyTarget : existing.weeklyTarget,
+            trackingCount:
+              existing.trackingCount == null ? sampleTpl.trackingCount : existing.trackingCount,
+            symbols:
+              (existing.symbols == null || existing.symbols === "") ? sampleTpl.symbols : existing.symbols,
+            minutes:
+              existing.minutes == null ? sampleTpl.minutes : existing.minutes,
+            sortKey:
+              (existing.sortKey == null || existing.sortKey === "") ? sampleTpl.sortKey : existing.sortKey,
+          };
+        }
 
         // --- MIGRATION: ensure “choiceGroup” metadata exists for older cached templates ---
         for (const [id, tpl] of Object.entries(this.templatesById || {})) {
