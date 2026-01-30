@@ -42,22 +42,38 @@
 /* Left rail: scroll internally when it gets long */
 .sched-rail{
   max-height: var(--sched-workspace-max-h);
-  overflow-y: auto;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+
+  /* IMPORTANT: the rail itself should NOT scroll */
+  overflow: hidden;
 }
 
-/* Sticky, collapsible rail header */
+/* Top area stays visible because only the body scrolls */
 .sched-rail-top{
-  position: sticky;
-  top: 0;
+  flex: 0 0 auto;
   z-index: 5;
-  background: #fbfbf7;
+  background: #fff;
 
-  /* make it span full width inside the rail’s p-4 padding */
-  margin: -16px -16px 10px;
+  /* keep your “full width inside p-4” look */
+  margin: -16px -16px 0;
   padding: 16px 16px 12px;
 
   border-bottom: 1px solid #e5e8e5;
+
+  /* helps it feel “sealed” at the top */
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+/* The body is the ONLY scroll container */
+.sched-rail-body{
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: 12px;
 }
 
 .sched-rail-head-actions{
@@ -67,25 +83,26 @@
 }
 
 .sched-rail-collapse-btn{
-  width: 34px;
-  height: 34px;
-  border-radius: 999px;
-  border: 1px solid #d2d6d2;
-  background: #fff;
+  border: none;
+  background: transparent;
+  padding: 2px 4px;
+  border-radius: 10px;
   color: #596e5e;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  line-height: 1;
   cursor: pointer;
+
+  width: auto;
+  height: auto;
 }
 
 .sched-rail-collapse-btn:hover{
-  background: #f7f8f7;
+  background: rgba(89,110,94,.08);
 }
 
 .sched-rail-collapse-icon{
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
+  display: block;
   transition: transform 140ms ease;
 }
 
