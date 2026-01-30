@@ -1184,3 +1184,55 @@
 
 /* Remove older spacing if still present anywhere */
 .sched-rail-band{ display:none; }
+
+/* Grade-band dropdown (replaces chip row) */
+.sched-rail-grade-select{
+  height: 18px;                 /* match weekday toggle height */
+  border: 1px solid #d2d6d2;
+  border-radius: 10px;
+  padding: 0 22px 0 8px;        /* extra right padding for caret */
+  background: #fff;
+  color: #596e5e;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+/* Grade selector wrapper */
+.sched-rail-grade-select-wrap{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Grade-band dropdown */
+.sched-rail-grade-select{
+  height: 18px;
+  border: 1px solid #d2d6d2;
+  border-radius: 10px;
+  padding: 0 22px 0 8px;
+  background: #fff;
+  color: #596e5e;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+/* Chevron icon (matches other dropdowns) */
+.sched-rail-grade-chevron{
+  position: absolute;
+  right: 6px;
+  width: 12px;
+  height: 12px;
+  color: #596e5e;
+  pointer-events: none;
+}
+
