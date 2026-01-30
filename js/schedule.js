@@ -1101,7 +1101,10 @@
         this.dragState.dragging = false;
         this.dragState.overInstanceId = null;
         this.dragState.overPos = null;
-        try { document.body.classList.remove("sched-dragging"); } catch (e) {}
+      
+        try {
+          document.body.classList.remove("sched-dragging", "sched-drop-above", "sched-drop-below");
+        } catch (e) {}
       },
       
       onDragOver(evt, studentId, dayIndex, overInstanceId) {
@@ -1120,6 +1123,11 @@
         } catch (e) {
           this.dragState.overPos = null;
         }
+
+        try {
+          document.body.classList.toggle("sched-drop-above", this.dragState.overPos === "above");
+          document.body.classList.toggle("sched-drop-below", this.dragState.overPos === "below");
+        } catch (e) {}
         
         try { evt.dataTransfer.dropEffect = "move"; } catch (e) {}
       },
@@ -1146,12 +1154,14 @@
         if (fromIndex === -1 || toIndex === -1) return;
       
         this.moveInstance(sid, d, fromIndex, toIndex);
-
-        this.dragState.overInstanceId = null;
-        this.dragState.overPos = null;
       
         // cleanup
         this.dragState.overInstanceId = null;
+        this.dragState.overPos = null;
+      
+        try {
+          document.body.classList.remove("sched-drop-above", "sched-drop-below");
+        } catch (e) {}
       },
 
       // Render helpers
