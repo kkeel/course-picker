@@ -300,6 +300,10 @@
   gap: 12px;
   width: 100%;
   min-width: 0;
+
+  /* NEW: make the grid fill the panel body so columns can reach the bottom */
+  height: 100%;
+  align-items: stretch;
 }
 
 .schedule-col{
@@ -308,7 +312,11 @@
   background: #fbfbf9;
   display: flex;
   flex-direction: column;
-  min-height: 420px;
+
+  /* NEW: critical — allow the column to shrink and fill available height
+     (removes “grow forever” behavior) */
+  min-height: 0;
+  height: 100%;
 }
 
 .schedule-col-head{
@@ -337,10 +345,13 @@
 
 .schedule-dropzone{
   flex: 1;
-  padding: 12px;
+  padding: 6px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .schedule-empty{
