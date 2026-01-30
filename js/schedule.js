@@ -323,7 +323,8 @@
       // -----------------------------
       view: "track",
       visibleDays: [0, 1, 2, 3, 4],
-      dayLabels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"],
+      dayLabels: ["Mon","Tue","Wed","Thu","Fri"],
+      dayShortLabels: ["M","T","W","Th","F"],
 
       visibleStudentPanels: [
         { slot: "P1", studentId: "S1" },
@@ -656,7 +657,7 @@
       // -----------------------------
       dayLabel(i) {
         const n = Number(i);
-        return this.dayLabels[n] || `Day ${n + 1}`;
+        return this.dayLabels[n] || ['Mon','Tue','Wed','Thu','Fri'][n] || `Day ${n + 1}`;
       },
 
       setCourseOption(courseKey, option) {
