@@ -788,6 +788,47 @@
    Rail compact layout + + button
    ========================================================= */
 
+/* Rail section labels + separators */
+.sched-rail-sep{
+  margin: 12px -16px 10px;      /* full-width inside p-4 rail */
+  border-top: 1px solid #e5e8e5;
+}
+
+.sched-rail-section-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.sched-rail-section-head{
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: #666d66;
+  opacity: .8;
+  margin: 0 0 6px;
+}
+
+.sched-rail-toggle{
+  appearance:none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #596e5e;
+  opacity: .85;
+  cursor: pointer;
+  line-height: 1;
+}
+.sched-rail-toggle:hover{ opacity: 1; }
+
+.sched-rail-complete-wrap{
+  margin-top: 10px;
+}
+
 .sched-rail-item{
   padding: 10px;
 }
@@ -990,14 +1031,12 @@
   align-items:center;
   justify-content:center;
   min-width: 34px;
-  height: 20px;
+  height: 24px;                 /* match + button height */
   padding: 0 6px;
-  margin: 0 2px 0 0;
-
-  border: 1px solid #e5e8e5;
-  border-radius: 4px;
-  background: transparent;              /* matches card background */
-  color: #666d66;
+  border: 1px solid #e5e8e5;    /* match + button */
+  border-radius: 6px;          /* match + button */
+  background: #fff;            /* match + button */
+  color: #596e5e;              /* match + button */
   font-size: 12px;
   font-weight: 650;
   line-height: 1;
