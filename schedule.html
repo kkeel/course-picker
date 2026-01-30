@@ -239,13 +239,18 @@
                                 </template>
                               </span>
     
-                              <!-- Add (+) -->
-                              <button type="button"
-                                      class="sched-rail-add"
-                                      title="Add to schedule"
-                                      @click="addRailEntryToActive(entry)">
-                                <span aria-hidden="true">＋</span>
-                              </button>
+                              <!-- Add to days (D1,D2,D3,D4,D5) -->
+                              <div class="sched-rail-daytoggles" aria-label="Add to days">
+                                <template x-for="(label, i) in dayLabels" :key="i">
+                                  <button type="button"
+                                          class="sched-rail-daytoggle"
+                                          :class="isEntryOnDay(activeTarget.studentId, i, entry) ? 'sched-rail-daytoggle--on' : ''"
+                                          @click="toggleEntryOnDay(entry, i)"
+                                          :title="`Toggle ${label}`">
+                                    <span x-text="`D${i+1}`"></span>
+                                  </button>
+                                </template>
+                              </div>
     
                               <!-- Custom-only: edit -->
                               <button type="button"
@@ -306,12 +311,19 @@
                                 </template>
                               </span>
     
-                              <button type="button"
-                                      class="sched-rail-add"
-                                      title="Add to schedule"
-                                      @click="addRailEntryToActive(entry)">
-                                <span aria-hidden="true">＋</span>
-                              </button>
+                              <!-- Add to days (D1,D2,D3,D4,D5) -->
+                              <div class="sched-rail-daytoggles" aria-label="Add to days">
+                                <template x-for="(label, i) in dayLabels" :key="i">
+                                  <button type="button"
+                                          class="sched-rail-daytoggle"
+                                          :class="isEntryOnDay(activeTarget.studentId, i, entry) ? 'sched-rail-daytoggle--on' : ''"
+                                          @click="toggleEntryOnDay(entry, i)"
+                                          :title="`Toggle ${label}`">
+                                    <span x-text="`D${i+1}`"></span>
+                                  </button>
+                                </template>
+                              </div>
+                              
                             </div>
                           </div>
     
