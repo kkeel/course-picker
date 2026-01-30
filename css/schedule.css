@@ -49,6 +49,11 @@ body.schedule-page .main-content.schedule-main{
   padding-bottom: 0 !important; /* remove pb-16 “extra scroll space” */
 }
 
+body.schedule-page .schedule-workspace{
+  height: 100%;
+  min-height: 0;
+}
+
 /* =========================================================
    Topbar (view toggle + chips)
    ========================================================= */
