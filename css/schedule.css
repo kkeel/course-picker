@@ -2,6 +2,69 @@
    Schedule
    ========================================================= */
 
+/
+.sched-rail-topright{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.sched-rail-tracktext{
+  font-size: 12px;
+  font-weight: 650;
+  color: #666d66;
+  letter-spacing: .01em;
+}
+
+.sched-rail-check{
+  font-size: 16px;
+  font-weight: 800;
+  color: #596e5e;
+  line-height: 1;
+}
+
+/* Plain grade label that sits on the symbols row */
+.sched-rail-gradeplain{
+  margin-left: 8px;
+  font-size: 12px;
+  font-weight: 650;
+  color: #666d66;
+  white-space: nowrap;
+}
+
+/* Grade chips (footer) â€” match the day toggle size */
+.sched-rail-gradechips{
+  display:flex;
+  gap:4px;
+  align-items:center;
+  min-width: 0;
+}
+
+.sched-rail-gradechip{
+  height: 18px;
+  min-width: 28px;
+  padding: 0 8px;
+  border-radius: 10px;
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  color: #596e5e;
+  font-size: 10.5px;
+  line-height: 1;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.sched-rail-gradechip--on{
+  border-color: #596e5e;
+  background: rgba(89,110,94,.14);
+  font-weight: 700;
+}
+
+* =========================================================
+   Schedule
+   ========================================================= */
+
 /* Schedule header row: title left, tutorial right */
 .schedule-head{
   display:flex;
@@ -20,7 +83,7 @@
   margin-left: auto;
 }
 
-/* Schedule: allow this pageâ€™s workspace to use full screen width */
+/* Schedule: allow this pageÃ¢â‚¬â„¢s workspace to use full screen width */
 .main-content.schedule-main{
   max-width: none;
 }
@@ -105,7 +168,7 @@
 }
 
 .schedule-day-chip--on{
-  background: rgba(89,110,94,.10);
+  background: rgba(89,110,94,.16);
   border-color: #596e5e;
 }
 
@@ -180,7 +243,7 @@
   overflow: visible;
 }
 
-/* Header layout: dropdown left, Day 1â€“5 on right */
+/* Header layout: dropdown left, Day 1Ã¢â‚¬â€œ5 on right */
 .schedule-panel-title{
   display:flex;
   align-items:center;
@@ -429,7 +492,7 @@
 }
 
 /* =========================================================
-   Schedule Cards â€” long title handling
+   Schedule Cards Ã¢â‚¬â€ long title handling
    ========================================================= */
 
 /* Make the top row behave nicely when titles are long */
@@ -460,7 +523,7 @@
 }
 
 /* =========================================================
-   Phase 2.5 â€” Card rail + minor card controls
+   Phase 2.5 Ã¢â‚¬â€ Card rail + minor card controls
    ========================================================= */
 
 .sched-rail-head{
@@ -511,7 +574,7 @@
 }
 
 .sched-rail-chip--on{
-  background: rgba(89,110,94,.10);
+  background: rgba(89,110,94,.16);
   border-color: #596e5e;
 }
 
@@ -519,15 +582,18 @@
   border: 1px solid #e5e8e5;
   border-radius: 14px;
   background: #fbfbf9;
-  padding: 10px;
   margin-bottom: 10px;
+  overflow: hidden;          /* allows full-width footer */
 }
+
+/* Top row: title + (tracker/check) + minutes */
 
 .sched-rail-item-top{
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
   gap:10px;
+  padding: 10px 12px 6px;
 }
 
 /* Top line right-side group: tracker + minutes */
@@ -645,7 +711,7 @@
 }
 
 .sched-target-day--on{
-  background: rgba(89,110,94,.10);
+  background: rgba(89,110,94,.16);
   border-color:#596e5e;
 }
 
@@ -689,9 +755,9 @@
 
 /* Smaller MTWThF toggles */
 .sched-rail-daytoggle{
-  height: 18px;
-  min-width: 20px;
-  padding: 0 4px;
+  height: 16px;
+  min-width: 18px;
+  padding: 0 3px;
   border-radius: 5px;
   letter-spacing: .01em;
   border: 1px solid #d2d6d2;
@@ -706,7 +772,7 @@
 
 .sched-rail-daytoggle--on{
   border-color: #596e5e;
-  background: rgba(89,110,94,.10); /* filled ON state */
+  background: rgba(89,110,94,.16); /* filled ON state */
   color: #596e5e;
   font-weight: 700;
 }
@@ -892,7 +958,7 @@
   gap:8px;
 }
 
-/* small circular + button (instead of â€œAddâ€) */
+/* small circular + button (instead of Ã¢â‚¬Å“AddÃ¢â‚¬Â) */
 /* Small light add button */
 .sched-rail-add {
   width: 24px;
@@ -918,19 +984,37 @@
    ========================================================= */
 
 /* Picture Study band footer */
-.sched-rail-band{
-  margin-top: 8px;
-
-  /* pull the band to the card edges (matches .sched-rail-item padding) */
-  margin-left: -10px;
-  margin-right: -10px;
-  margin-bottom: -8px;
-
-  padding: 10px 10px;
+.sched-rail-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding: 8px 12px;
+  background: #f2f3ef;
   border-top: 1px solid #e5e8e5;
-  background: #f3f4ef;
-  border-radius: 0 0 14px 14px;
 }
+
+.sched-rail-footer-left{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width: 0;
+}
+
+.sched-rail-footer-label{
+  font-size: 11px;
+  font-weight: 700;
+  color: #666d66;
+  opacity: .85;
+  white-space: nowrap;
+}
+
+.sched-rail-footer-right{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+}
+
 
 .sched-rail-band-chips{
   display:flex;
@@ -979,11 +1063,11 @@
    ========================================================= */
 
 .sched-rail-meta{
-  margin-top: 4px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:10px;
+  padding: 0 12px 10px;
 }
 
 .sched-rail-symbols{
@@ -1055,7 +1139,7 @@
   border-radius: 0 0 14px 14px;   /* match card radius */
 }
 
-/* remove â€œbox inside boxâ€ vibe */
+/* remove Ã¢â‚¬Å“box inside boxÃ¢â‚¬Â vibe */
 .sched-rail-band-row{
   display:flex;
   align-items:center;
@@ -1097,7 +1181,7 @@
 
 .sched-rail-trackchip--done{
   border-color: #d2d6d2;
-  color: #596e5e; /* subtle â€œfinishedâ€ */
+  color: #596e5e; /* subtle Ã¢â‚¬Å“finishedÃ¢â‚¬Â */
 }
 
 .sched-rail-check{
