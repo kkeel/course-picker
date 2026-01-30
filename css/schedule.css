@@ -665,6 +665,32 @@
   background: rgba(0,0,0,.06);
 }
 
+.sched-rail-daytoggles{
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+
+.sched-rail-daytoggle{
+  height:28px;
+  min-width:34px;
+  padding:0 8px;
+  border-radius:8px;
+  border:1px solid #d2d6d2;
+  background:#fff;
+  color:#596e5e;
+  font-size:12px;
+  line-height:1;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.sched-rail-daytoggle--on{
+  border-color:#596e5e;
+  font-weight:600;
+}
+
 /* =========================================================
    Custom modal (replaces browser confirm/prompt)
    ========================================================= */
