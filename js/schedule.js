@@ -377,6 +377,7 @@
         dayIndex: null,
         instanceId: null,
         overInstanceId: null,
+        overPos: null,
       },
 
       // -----------------------------
@@ -1083,6 +1084,7 @@
           dayIndex: Number(dayIndex),
           instanceId,
           overInstanceId: null,
+          overPos: null,
         };
       
         // Required for Safari/Firefox: set some drag data
@@ -1098,6 +1100,7 @@
       onDragEnd() {
         this.dragState.dragging = false;
         this.dragState.overInstanceId = null;
+        this.dragState.overPos = null;
         try { document.body.classList.remove("sched-dragging"); } catch (e) {}
       },
       
@@ -1108,6 +1111,16 @@
         if (Number(this.dragState.dayIndex) !== Number(dayIndex)) return;
       
         this.dragState.overInstanceId = overInstanceId;
+
+        // Determine whether we're above or below the midpoint of the hovered card
+        try {
+          const rect = evt.currentTarget.getBoundingClientRect();
+          const y = evt.clientY - rect.top;
+          this.dragState.overPos = (y < rect.height / 2) ? "above" : "below";
+        } catch (e) {
+          this.dragState.overPos = null;
+        }
+        
         try { evt.dataTransfer.dropEffect = "move"; } catch (e) {}
       },
       
@@ -1133,6 +1146,9 @@
         if (fromIndex === -1 || toIndex === -1) return;
       
         this.moveInstance(sid, d, fromIndex, toIndex);
+
+        this.dragState.overInstanceId = null;
+        this.dragState.overPos = null;
       
         // cleanup
         this.dragState.overInstanceId = null;
