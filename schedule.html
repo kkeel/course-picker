@@ -776,6 +776,8 @@
           
                     <label class="sched-modal-label mt-3">Minutes</label>
                     <input class="sched-modal-input" type="number" min="0" max="600" step="5" x-model="customForm.minutes" />
+                    <label class="sched-modal-label mt-3">Days per week</label>
+                    <input class="sched-modal-input" type="number" min="0" max="5" step="1" x-model="customForm.weeklyTarget" />
           
                     <div class="sched-modal-error" x-show="customModalError" x-text="customModalError"></div>
                   </div>
