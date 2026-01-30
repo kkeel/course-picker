@@ -216,8 +216,12 @@
                             <div class="sched-rail-item-title"
                                  :title="(templatesById[entry.templateId] || {}).title || ''"
                                  x-text="(templatesById[entry.templateId] || {}).title || ''"></div>
-                            <div class="sched-rail-item-min"
-                                 x-text="`${(templatesById[entry.templateId] || {}).minutes || 0}m`"></div>
+                          
+                            <div class="sched-rail-item-top-right">
+                          
+                              <div class="sched-rail-item-min"
+                                   x-text="`${(templatesById[entry.templateId] || {}).minutes || 0}m`"></div>
+                            </div>
                           </div>
     
                           <div class="sched-rail-meta">
@@ -271,6 +275,25 @@
                               </button>
                             </div>
                           </div>
+
+                          <!-- Custom-only: bottom-left edit/remove (custom cards have no symbols, so this spot works well) -->
+                          <div class="sched-rail-custom-actions"
+                               x-show="String(entry.templateId || '').startsWith('u:')">
+                            <button type="button"
+                                    class="sched-rail-icon-btn"
+                                    title="Edit custom card"
+                                    @click="openCustomCardModal('edit', entry.templateId)">
+                              ✎
+                            </button>
+                          
+                            <button type="button"
+                                    class="sched-rail-icon-btn"
+                                    title="Remove custom card"
+                                    @click="openCustomCardModal('delete', entry.templateId)">
+                              ✕
+                            </button>
+                          </div>
+                          
                         </div>
                       </template>
     
@@ -281,9 +304,25 @@
                             <div class="sched-rail-item-title"
                                  :title="railEntryDisplay(entry).title || ''"
                                  x-text="railEntryDisplay(entry).title || ''"></div>
-    
-                            <div class="sched-rail-item-min"
-                                 x-text="`${railEntryDisplay(entry).minutes || 0}m`"></div>
+                          
+                            <div class="sched-rail-item-top-right">
+                              <span class="sched-rail-trackchip"
+                                    x-show="trackingForEntry(entry).show"
+                                    :class="trackingForEntry(entry).done ? 'sched-rail-trackchip--done' : ''">
+                                <template x-if="!trackingForEntry(entry).done">
+                                  <span x-text="trackingForEntry(entry).label"></span>
+                                </template>
+                          
+                                <template x-if="trackingForEntry(entry).done">
+                                  <svg class="sched-rail-check" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                  </svg>
+                                </template>
+                              </span>
+                          
+                              <div class="sched-rail-item-min"
+                                   x-text="`${railEntryDisplay(entry).minutes || 0}m`"></div>
+                            </div>
                           </div>
     
                           <div class="sched-rail-meta">
@@ -297,19 +336,6 @@
                             </div>
     
                             <div class="sched-rail-actions">
-                              <span class="sched-rail-trackchip"
-                                    x-show="trackingForEntry(entry).show"
-                                    :class="trackingForEntry(entry).done ? 'sched-rail-trackchip--done' : ''">
-                                <template x-if="!trackingForEntry(entry).done">
-                                  <span x-text="trackingForEntry(entry).label"></span>
-                                </template>
-    
-                                <template x-if="trackingForEntry(entry).done">
-                                  <svg class="sched-rail-check" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                                  </svg>
-                                </template>
-                              </span>
     
                               <!-- Add to days (D1,D2,D3,D4,D5) -->
                               <div class="sched-rail-daytoggles" aria-label="Add to days">
