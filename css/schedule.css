@@ -806,48 +806,76 @@
 }
 
 /* small circular + button (instead of “Add”) */
-.sched-rail-add{
-  width: 34px;
-  height: 34px;
-  border-radius: 999px;
-  border: 1px solid #596e5e;
+/* Small light add button */
+.sched-rail-add {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 1px solid #e5e8e5;
   background: #fff;
-  color:#596e5e;
-  font-weight: 900;
-  font-size: 18px;
+  color: #596e5e;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
   line-height: 1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  cursor: pointer;
 }
 
-.sched-rail-add:hover{
-  background: rgba(89,110,94,.08);
+.sched-rail-add:hover {
+  background: #f7f8f7;
 }
 
 /* =========================================================
    Group option band (chips in a bottom band)
    ========================================================= */
 
-.sched-rail-band{
-  margin-top: 10px;
+/* Picture Study band footer */
+.sched-rail-band {
+  margin-top: 6px;
+  padding: 6px 8px;
   border-top: 1px solid #e5e8e5;
-  padding-top: 10px;
-  background: rgba(89,110,94,.06);
-  border-radius: 12px;
-  padding: 10px;
-}
-
-.sched-rail-band-label{
-  font-size: 11px;
-  font-weight: 700;
-  color: #596e5e;
-  opacity: .9;
-  margin-bottom: 8px;
+  background: #fbfbf9;
+  border-radius: 0 0 8px 8px;
 }
 
 .sched-rail-band-chips{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
+}
+
+/* --- Rail card tightening --- */
+.sched-rail-item {
+  padding: 10px 10px 8px;
+}
+
+/* Title + minutes line */
+.sched-rail-item-top {
+  margin-bottom: 2px;
+}
+
+/* Symbols row becomes flex */
+.sched-rail-item-sub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  opacity: 0.8;
+  line-height: 1.2;
+}
+
+/* Reduce rail list spacing */
+.sched-rail-list {
+  gap: 6px;
+}
+
+.sched-rail-item + .sched-rail-item {
+  margin-top: 6px;
+}
+
+.sched-rail-item-title {
+  font-size: 13px;
+  line-height: 1.25;
 }
