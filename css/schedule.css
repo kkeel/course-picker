@@ -1250,20 +1250,3 @@
 
   flex-wrap: nowrap;
 }
-
-.sched-rail-footer-left{
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  flex: 0 0 auto;     /* ✅ don’t stretch */
-  justify-content: flex-start;
-}
-
-.sched-rail-daytoggles{
-  display: flex;
-  align-items: center;
-  gap: 4px;
-
-  flex: 0 0 auto;
-}
