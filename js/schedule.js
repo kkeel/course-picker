@@ -364,6 +364,9 @@
         dayIndex: 0,
       },
 
+      // Rail list: show/hide completed cards (per active rail student)
+      showCompleted: true,
+
       // -----------------------------
       // init + persistence
       // -----------------------------
@@ -882,6 +885,31 @@
           done,
           label: done ? "" : `${used}/${target}`,
         };
+      },
+
+      // Rail sections (per active rail student):
+      // - Need to schedule: anything not yet meeting weekly target
+      // - Complete: items that have met/exceeded weekly target
+      railEntriesNeed() {
+        return this.railEntries().filter((e) => {
+          const t = this.trackingForEntry(e);
+          return !(t.show && t.done);
+        });
+      },
+
+      railEntriesComplete() {
+        return this.railEntries().filter((e) => {
+          const t = this.trackingForEntry(e);
+          return (t.show && t.done);
+        });
+      },
+
+      toggleCompletedRail() {
+        this.showCompleted = !this.showCompleted;
+      },
+
+      completedRailLabel() {
+        return this.showCompleted ? "Hide completed" : "Show completed";
       },
       
       sortedTemplates() {
