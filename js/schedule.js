@@ -369,6 +369,17 @@
       showCompleted: true,
 
       // -----------------------------
+      // Drag reorder state (Phase 1)
+      // -----------------------------
+      dragState: {
+        dragging: false,
+        studentId: null,
+        dayIndex: null,
+        instanceId: null,
+        overInstanceId: null,
+      },
+
+      // -----------------------------
       // init + persistence
       // -----------------------------
       init() {
@@ -1063,6 +1074,68 @@
       
         this.placements[studentId][dayIndex] = next;
         this.persistCards();
+      },
+
+      onDragStart(evt, studentId, dayIndex, instanceId) {
+        this.dragState = {
+          dragging: true,
+          studentId,
+          dayIndex: Number(dayIndex),
+          instanceId,
+          overInstanceId: null,
+        };
+      
+        // Required for Safari/Firefox: set some drag data
+        try {
+          evt.dataTransfer.effectAllowed = "move";
+          evt.dataTransfer.setData("text/plain", String(instanceId));
+        } catch (e) {}
+      
+        // optional: add a class to body for styling while dragging
+        try { document.body.classList.add("sched-dragging"); } catch (e) {}
+      },
+      
+      onDragEnd() {
+        this.dragState.dragging = false;
+        this.dragState.overInstanceId = null;
+        try { document.body.classList.remove("sched-dragging"); } catch (e) {}
+      },
+      
+      onDragOver(evt, studentId, dayIndex, overInstanceId) {
+        // Only allow reordering within same student + same day (Phase 1 constraint)
+        if (!this.dragState.dragging) return;
+        if (this.dragState.studentId !== studentId) return;
+        if (Number(this.dragState.dayIndex) !== Number(dayIndex)) return;
+      
+        this.dragState.overInstanceId = overInstanceId;
+        try { evt.dataTransfer.dropEffect = "move"; } catch (e) {}
+      },
+      
+      onDrop(evt, studentId, dayIndex, dropOnInstanceId) {
+        if (!this.dragState.dragging) return;
+      
+        // Only same column (Phase 1 constraint)
+        if (this.dragState.studentId !== studentId) return;
+        if (Number(this.dragState.dayIndex) !== Number(dayIndex)) return;
+      
+        const sid = studentId;
+        const d = Number(dayIndex);
+      
+        const list = this.placements?.[sid]?.[d];
+        if (!Array.isArray(list)) return;
+      
+        const fromId = this.dragState.instanceId;
+        const toId = dropOnInstanceId;
+      
+        const fromIndex = list.indexOf(fromId);
+        const toIndex = list.indexOf(toId);
+      
+        if (fromIndex === -1 || toIndex === -1) return;
+      
+        this.moveInstance(sid, d, fromIndex, toIndex);
+      
+        // cleanup
+        this.dragState.overInstanceId = null;
       },
 
       // Render helpers
