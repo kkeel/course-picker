@@ -344,7 +344,7 @@
       customModalOpen: false,
       customModalMode: "create", // "create" | "edit" | "delete"
       customModalTemplateId: null,
-      customForm: { title: "", minutes: 15 },
+      customForm: { title: "", minutes: 15, weeklyTarget: 1 },
       customModalError: "",
 
       // -----------------------------
@@ -517,13 +517,14 @@
         this.customModalError = "";
       
         if (mode === "create") {
-          this.customForm = { title: "", minutes: 15 };
+          this.customForm = { title: "", minutes: 15, weeklyTarget: 1 };
         } else {
           const tpl = this.templatesById?.[templateId];
           if (!tpl) return;
           this.customForm = {
             title: String(tpl.title || ""),
-            minutes: Number(tpl.minutes || 15),
+            minutes: Number(tpl.minutes ?? 15),
+            weeklyTarget: Number(tpl.weeklyTarget ?? 1),
           };
         }
       
@@ -538,6 +539,7 @@
       saveCustomCardModal() {
         const title = String(this.customForm?.title || "").trim();
         const minutes = Number(this.customForm?.minutes);
+        const weeklyTarget = Number(this.customForm?.weeklyTarget);
       
         if (!title) {
           this.customModalError = "Please enter a title.";
@@ -545,6 +547,11 @@
         }
         if (!Number.isFinite(minutes) || minutes < 0 || minutes > 600) {
           this.customModalError = "Minutes must be a number between 0 and 600.";
+          return;
+        }
+
+        if (!Number.isFinite(weeklyTarget) || weeklyTarget < 0 || weeklyTarget > 5) {
+          this.customModalError = "Days per week must be a number between 0 and 5.";
           return;
         }
       
@@ -561,6 +568,7 @@
             minutes,
             symbols: "",
             trackingCount: 0,
+            weeklyTarget, // ✅ enables counters/checkmark
           };
         }
       
@@ -574,6 +582,7 @@
             ...tpl,
             title,
             minutes,
+            weeklyTarget,
           };
         }
       
