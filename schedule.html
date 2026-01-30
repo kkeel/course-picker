@@ -155,7 +155,7 @@
       </div>
     </section>
 
-    <div x-show="!courseGate" x-cloak x-data="scheduleBuilder()" x-init="init()">
+    <div x-show="!courseGate" x-cloak x-data="scheduleBuilder()" x-init="init()" class="schedule-root">
      <div class="schedule-head">
       <h2 class="section-title">Schedule</h2>
     
@@ -203,7 +203,8 @@
               </div>
             </div>
           
-              <div class="sched-rail-sep"></div>
+              <div class="sched-rail-scroll">
+                <div class="sched-rail-sep"></div>
                 <div class="sched-rail-section-head">Need to schedule:</div>
     
                 <div class="sched-rail-list mt-3">
@@ -360,6 +361,7 @@
                     </div>
                   </template>
                 </div>
+              </div>
     
                 <template x-if="railEntriesComplete().length">
                   <div class="sched-rail-complete-wrap">
@@ -525,7 +527,7 @@
           </div>
 
           <!-- Right build area -->
-          <div class="p-4 rounded-lg border border-[#e5e8e5] bg-white">
+          <div class="sched-build p-4 rounded-lg border border-[#e5e8e5] bg-white">
           
             <!-- Header row -->
             <div class="schedule-topbar">
