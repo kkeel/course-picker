@@ -1042,6 +1042,29 @@
         this.persistCards();
       },
 
+      moveInstance(studentId, dayIndex, fromIndex, toIndex) {
+        this.ensureStudent(studentId);
+      
+        const list = this.placements?.[studentId]?.[dayIndex];
+        if (!Array.isArray(list)) return;
+      
+        const len = list.length;
+        if (
+          fromIndex < 0 || fromIndex >= len ||
+          toIndex < 0 || toIndex >= len ||
+          fromIndex === toIndex
+        ) {
+          return;
+        }
+      
+        const next = list.slice();
+        const [moved] = next.splice(fromIndex, 1);
+        next.splice(toIndex, 0, moved);
+      
+        this.placements[studentId][dayIndex] = next;
+        this.persistCards();
+      },
+
       // Render helpers
       instancesFor(studentId, dayIndex) {
         this.ensureStudent(studentId);
