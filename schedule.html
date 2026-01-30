@@ -698,6 +698,10 @@
                                   <!-- placed instances (Phase 2.5) -->
                                   <template x-for="inst in instancesFor(panel.studentId, i)" :key="inst.instanceId">
                                     <article
+                                      :class="{
+                                        'is-drop-target': dragState.dragging && dragState.overInstanceId === inst.instanceId,
+                                        'is-drag-source': dragState.dragging && dragState.instanceId === inst.instanceId
+                                      }"
                                       class="sched-card"
                                       draggable="true"
                                       :data-inst-id="inst.instanceId"
