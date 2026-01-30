@@ -697,7 +697,15 @@
 
                                   <!-- placed instances (Phase 2.5) -->
                                   <template x-for="inst in instancesFor(panel.studentId, i)" :key="inst.instanceId">
-                                    <article class="sched-card">
+                                    <article
+                                      class="sched-card"
+                                      draggable="true"
+                                      :data-inst-id="inst.instanceId"
+                                      @dragstart="onDragStart($event, panel.studentId, i, inst.instanceId)"
+                                      @dragend="onDragEnd($event)"
+                                      @dragover.prevent="onDragOver($event, panel.studentId, i, inst.instanceId)"
+                                      @drop.prevent="onDrop($event, panel.studentId, i, inst.instanceId)"
+                                    >
                                       <div class="sched-card-top">
                                         <div
                                           class="sched-card-title"
