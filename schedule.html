@@ -711,8 +711,8 @@
                                       :data-inst-id="inst.instanceId"
                                       @dragstart="onDragStart($event, panel.studentId, i, inst.instanceId)"
                                       @dragend="onDragEnd($event)"
-                                      @dragover.prevent="onDragOver($event, panel.studentId, i, inst.instanceId)"
-                                      @drop.prevent="onDrop($event, panel.studentId, i, inst.instanceId)"
+                                      @dragover.stop.prevent="onDragOver($event, panel.studentId, i, inst.instanceId)"
+                                      @drop.stop.prevent="onDrop($event, panel.studentId, i, inst.instanceId)"
                                     >
                                       <div class="sched-card-top">
                                         <div
