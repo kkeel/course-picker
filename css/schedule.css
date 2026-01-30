@@ -914,16 +914,12 @@
   min-width:0;
 }
 
-/* Grade tag pill shown for banded courses (e.g. Picture Study) */
+/* Grade text shown inline with symbols (no pill) */
 .sched-rail-grade{
-  border: 1px solid #d2d6d2;
-  background: #fff;
-  border-radius: 999px;
-  padding: 4px 8px;
   font-size: 12px;
-  font-weight: 650;
-  color: #596e5e;
-  line-height: 1;
+  font-weight: 500;
+  color: #666d66;       /* same family as symbols */
+  line-height: 1.2;
   white-space: nowrap;
 }
 
