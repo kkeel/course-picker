@@ -46,6 +46,63 @@
   overflow-x: hidden;
 }
 
+/* Sticky, collapsible rail header */
+.sched-rail-top{
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #fbfbf7;
+
+  /* make it span full width inside the rail’s p-4 padding */
+  margin: -16px -16px 10px;
+  padding: 16px 16px 12px;
+
+  border-bottom: 1px solid #e5e8e5;
+}
+
+.sched-rail-head-actions{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sched-rail-collapse-btn{
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  color: #596e5e;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.sched-rail-collapse-btn:hover{
+  background: #f7f8f7;
+}
+
+.sched-rail-collapse-icon{
+  width: 16px;
+  height: 16px;
+  transition: transform 140ms ease;
+}
+
+/* rotate when collapsed */
+.sched-rail-collapse-btn[aria-expanded="false"] .sched-rail-collapse-icon{
+  transform: rotate(-90deg);
+}
+
+/* Optional: visually de-emphasize completed */
+.sched-rail-complete-wrap .sched-rail-item{
+  opacity: .68;
+}
+
+.sched-rail-complete-wrap .sched-rail-item:hover{
+  opacity: .85;
+}
+
 /* Right builder: fixed-ish height with internal scrolling in panels/columns */
 .sched-work{
   max-height: var(--sched-workspace-max-h);
