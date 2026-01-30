@@ -37,6 +37,14 @@ body.schedule-page{
   max-width: none;
 }
 
+/* Let Schedule main-content participate in the locked-viewport flex layout */
+body.schedule-page .main-content.schedule-main{
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 /* =========================================================
    Fixed Schedule workspace (no page scroll)
    ========================================================= */
@@ -295,120 +303,82 @@ body.schedule-page .schedule-workspace{
 
   flex: 1 1 auto;
   min-height: 0;
-  overflow: hidden; /* horizontal scroll happens in .schedule-board */
+
+  /* critical: make this a flex column so the board can take remaining height */
+  display: flex;
+  flex-direction: column;
+
+  /* keep scrolling inside, not on the page */
+  overflow: hidden;
 }
 
 /* =========================================================
-   Week Builder Board (RESTORED + FIXED)
+   Week Builder Board (single source of truth)
    ========================================================= */
 
-/* This is the scroll container */
+/* Horizontal scroller */
 .schedule-board{
+  flex: 1 1 auto;
+  min-height: 0;
+
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+
+  /* allow horizontal panning on touch devices */
+  touch-action: pan-x;
+
   padding-bottom: 8px; /* room for scrollbar */
 }
 
-/*
-  KEY FIX:
-  Use auto-fit so when visibleDays is 3, you get 3 columns that expand.
-  When the screen is narrow, minmax(220px, 1fr) forces horizontal scroll.
-*/
+/* Grid of day columns */
 .schedule-columns{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px;
+
   width: 100%;
   min-width: 0;
+
+  /* critical: let children stretch to board height so dropzones can scroll */
+  height: 100%;
+  min-height: 0;
 }
 
+/* Day column container */
 .schedule-col{
   border: 1px solid #e5e8e5;
   border-radius: 14px;
   background: #fbfbf9;
+
   display: flex;
   flex-direction: column;
-  min-height: 420px;
-  max-height: calc(100vh - 320px);
+
+  /* critical for nested scroll */
+  min-height: 0;
+  height: 100%;
 }
 
-.schedule-col-head{
-  display:flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 12px 12px 10px;
-  border-bottom: 1px solid #e5e8e5;
-  background: #fff;
-  border-top-left-radius: 14px;
-  border-top-right-radius: 14px;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-}
-
-.schedule-col-title{
-  font-weight: 650;
-  font-size: 13px;
-  color: #262b26;
-}
-
-.schedule-col-total{
-  font-size: 12px;
-  color: #596e5e;
-  font-weight: 600;
-}
-
+/* Day column list (vertical scroller) */
 .schedule-dropzone{
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
+
   padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+
   overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-}
 
-/* Make the board the horizontal scroller */
-.schedule-board{
-  flex: 1 1 auto;
-  min-height: 0;
-
-  overflow-x: auto;          /* <-- critical */
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-
-  touch-action: pan-x;       /* allow horizontal panning on touch devices */
-}
-
-/* Let columns fill available height */
-.schedule-columns{
-  height: 100%;
-  min-height: 0;             /* <-- critical for nested scroll */
-}
-
-/* IMPORTANT: remove viewport-based max-height that can clamp scroll */
-.schedule-col{
-  min-height: 0;
-  max-height: none;   /* overrides calc(100vh - 320px) */
-  height: 100%;
-}
-
-/* Day column list: vertical scroll, but allow horizontal gesture to reach .schedule-board */
-.schedule-dropzone{
-  min-height: 0;
-  overflow-y: auto;
-  overflow-x: visible;       /* <-- key change (don’t block horizontal) */
-
-  -webkit-overflow-scrolling: touch;
-  rememberscroll-behavior: contain;
-
-  touch-action: pan-x pan-y; /* <-- allow both directions */
+  /* key: vertical scroll here, horizontal swipe can reach .schedule-board */
+  touch-action: pan-y;
 }
 
 .schedule-empty{
