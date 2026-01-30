@@ -1256,3 +1256,45 @@ body.sched-dragging .sched-card[draggable="true"]{
 body.sched-dragging .sched-card{
   opacity: 0.92;
 }
+
+/* =========================================================
+   Drag reorder: visual drop indicator
+   ========================================================= */
+
+.sched-card.is-drag-source{
+  opacity: 0.65;
+}
+
+/* Subtle highlight on the card you're hovering over */
+.sched-card.is-drop-target{
+  box-shadow: 0 0 0 3px rgba(89,110,94,.12);
+}
+
+/* Insertion line (top/bottom) */
+.sched-card.is-drop-target{
+  position: relative;
+}
+
+.sched-card.is-drop-target::before{
+  content:"";
+  position:absolute;
+  left: 10px;
+  right: 10px;
+  height: 2px;
+  background: rgba(89,110,94,.55);
+  border-radius: 2px;
+  top: -6px;
+  opacity: 0; /* default off, turned on by data attr below */
+}
+
+/* We'll flip this line to top/bottom using a data attribute on BODY */
+body.sched-drop-above .sched-card.is-drop-target::before{
+  top: -6px;
+  opacity: 1;
+}
+
+body.sched-drop-below .sched-card.is-drop-target::before{
+  top: auto;
+  bottom: -6px;
+  opacity: 1;
+}
