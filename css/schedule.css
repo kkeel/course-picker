@@ -1298,3 +1298,9 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   bottom: -6px;
   opacity: 1;
 }
+
+/* Drop-to-end indicator when hovering empty space in a column */
+body.sched-drop-below .schedule-dropzone{
+  box-shadow: inset 0 -3px 0 rgba(89,110,94,.35);
+  border-radius: 12px;
+}
