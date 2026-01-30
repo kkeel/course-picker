@@ -2,18 +2,6 @@
    Schedule
    ========================================================= */
 
-/* =========================================================
-   Page-level: lock viewport; all scrolling happens inside containers
-   ========================================================= */
-html, body { height: 100%; }
-
-body.schedule-page{
-  height: 100vh;
-  overflow: hidden;          /* no page scroll */
-  display: flex;             /* enables .schedule-root flex sizing */
-  flex-direction: column;
-}
-
 /* Schedule header row: title left, tutorial right */
 .schedule-head{
   display:flex;
@@ -32,89 +20,9 @@ body.schedule-page{
   margin-left: auto;
 }
 
-/* Schedule: allow this page workspace to use full screen width */
+/* Schedule: allow this pageÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢s workspace to use full screen width */
 .main-content.schedule-main{
   max-width: none;
-}
-
-/* Let Schedule main-content participate in the locked-viewport flex layout */
-body.schedule-page .main-content.schedule-main{
-  flex: 1 1 auto;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-/* =========================================================
-   Fixed Schedule workspace (no page scroll)
-   ========================================================= */
-
-body.schedule-page{
-  height: 100vh;
-  overflow: hidden;          /* stop page scroll */
-  display: flex;
-  flex-direction: column;
-}
-
-/* Header stays at top, main takes the rest */
-body.schedule-page .app-header{
-  flex: 0 0 auto;
-}
-
-/* Main becomes the fixed workspace area */
-body.schedule-page .main-content.schedule-main{
-  flex: 1 1 auto;
-  min-height: 0;             /* critical for nested scroll areas */
-  overflow: hidden;          /* no page scroll */
-  padding-bottom: 0 !important;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Tailwind's space-y-10 adds margins between children; kill it so height math is stable */
-body.schedule-page .main-content.schedule-main > * + *{
-  margin-top: 0 !important;
-}
-
-/* The Alpine root becomes the vertical layout container */
-body.schedule-page .schedule-root{
-  flex: 1 1 auto;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Header row (Schedule + Tutorials) stays visible above workspace */
-body.schedule-page .schedule-head{
-  flex: 0 0 auto;
-}
-
-/* Workspace fills remaining height */
-body.schedule-page .schedule-workspace{
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
-/* =========================================================
-   Nested scrolling: rail + build must be flex containers
-   ========================================================= */
-
-.sched-rail,
-.sched-build{
-  display: flex;
-  flex-direction: column;
-  min-height: 0;     /* critical so children can scroll */
-  overflow: hidden;  /* keep scrolling inside, not on the page */
-}
-
-/* Left rail scroll area */
-.sched-rail-scroll{
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-  padding-right: 6px; /* tiny room so scrollbar doesn't overlay content */
 }
 
 /* =========================================================
@@ -256,10 +164,6 @@ body.schedule-page .schedule-workspace{
   border-radius: 16px;
   background: #fff;
   overflow: visible; /* dropdown can overflow */
-
-  display: flex;
-  flex-direction: column;
-  min-height: 0;     /* allow body to become a scroll layout */
 }
 
 /* Panel header: slim + clean */
@@ -276,7 +180,7 @@ body.schedule-page .schedule-workspace{
   overflow: visible;
 }
 
-/* Header layout: dropdown left, Day 1ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“5 on right */
+/* Header layout: dropdown left, Day 1ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ5 on right */
 .schedule-panel-title{
   display:flex;
   align-items:center;
@@ -294,91 +198,81 @@ body.schedule-page .schedule-workspace{
   white-space: nowrap;
 }
 
-/* Panel body: becomes the scroll layout host for the board */
+/* Panel body: keep internals clipped and corners clean */
 .schedule-panel-body{
   padding: 12px;
   background: #fbfbf9;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
-
-  flex: 1 1 auto;
-  min-height: 0;
-
-  /* critical: make this a flex column so the board can take remaining height */
-  display: flex;
-  flex-direction: column;
-
-  /* keep scrolling inside, not on the page */
   overflow: hidden;
 }
 
 /* =========================================================
-   Week Builder Board (single source of truth)
+   Week Builder Board (RESTORED + FIXED)
    ========================================================= */
 
-/* Horizontal scroller */
+/* This is the scroll container */
 .schedule-board{
-  flex: 1 1 auto;
-  min-height: 0;
-
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-
-  /* allow horizontal panning on touch devices */
-  touch-action: pan-x;
-
   padding-bottom: 8px; /* room for scrollbar */
 }
 
-/* Grid of day columns */
+/*
+  KEY FIX:
+  Use auto-fit so when visibleDays is 3, you get 3 columns that expand.
+  When the screen is narrow, minmax(220px, 1fr) forces horizontal scroll.
+*/
 .schedule-columns{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px;
-
   width: 100%;
   min-width: 0;
-
-  /* critical: let children stretch to board height so dropzones can scroll */
-  height: 100%;
-  min-height: 0;
 }
 
-/* Day column container */
 .schedule-col{
   border: 1px solid #e5e8e5;
   border-radius: 14px;
   background: #fbfbf9;
-
   display: flex;
   flex-direction: column;
-
-  /* critical for nested scroll */
-  min-height: 0;
-  height: 100%;
+  min-height: 420px;
 }
 
-/* Day column list (vertical scroller) */
-.schedule-dropzone{
-  flex: 1 1 auto;
-  min-height: 0;
+.schedule-col-head{
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 12px 10px;
+  border-bottom: 1px solid #e5e8e5;
+  background: #fff;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
 
+.schedule-col-title{
+  font-weight: 650;
+  font-size: 13px;
+  color: #262b26;
+}
+
+.schedule-col-total{
+  font-size: 12px;
+  color: #596e5e;
+  font-weight: 600;
+}
+
+.schedule-dropzone{
+  flex: 1;
   padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-
-  /* key: vertical scroll here, horizontal swipe can reach .schedule-board */
-  touch-action: pan-y;
 }
 
 .schedule-empty{
@@ -535,7 +429,7 @@ body.schedule-page .schedule-workspace{
 }
 
 /* =========================================================
-   Schedule Cards ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â long title handling
+   Schedule Cards ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â long title handling
    ========================================================= */
 
 /* Make the top row behave nicely when titles are long */
@@ -566,7 +460,7 @@ body.schedule-page .schedule-workspace{
 }
 
 /* =========================================================
-   Phase 2.5 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Card rail + minor card controls
+   Phase 2.5 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Card rail + minor card controls
    ========================================================= */
 
 .sched-rail-head{
@@ -999,7 +893,7 @@ body.schedule-page .schedule-workspace{
   gap:8px;
 }
 
-/* small circular + button (instead of ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œAddÃƒÂ¢Ã¢â€šÂ¬Ã‚Â) */
+/* small circular + button (instead of ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“AddÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â) */
 /* Small light add button */
 .sched-rail-add {
   width: 24px;
@@ -1203,7 +1097,7 @@ body.schedule-page .schedule-workspace{
 
 .sched-rail-trackchip--done{
   border-color: #d2d6d2;
-  color: #596e5e; /* subtle ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œfinishedÃƒÂ¢Ã¢â€šÂ¬Ã‚Â */
+  color: #596e5e; /* subtle ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“finishedÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â */
 }
 
 .sched-rail-check{
@@ -1272,7 +1166,7 @@ body.schedule-page .schedule-workspace{
   justify-content:flex-end;
   gap:10px;
 
-  /* match the cardâ€™s 10px side padding */
+  /* match the cardÃ¢â‚¬â„¢s 10px side padding */
   margin-left: -10px;
   margin-right: -10px;
 }
@@ -1403,231 +1297,4 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   top: auto;
   bottom: -6px;
   opacity: 1;
-}
-
-/* Left rail becomes a fixed-height pane with internal scrolling */
-body.schedule-page .sched-rail{
-  height: 100%;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; /* keep header static */
-}
-
-/* The “cards area” should scroll */
-body.schedule-page .sched-rail-list{
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  overflow: visible;
-}
-
-.schedule-columns{
-  display: grid;
-
-  /* Always one row of day columns; overflow handled by .schedule-board */
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(220px, 1fr);
-
-  gap: 12px;
-  width: max-content; /* key: makes grid wider than container */
-  min-width: 100%;
-}
-
-.schedule-col{
-  /* keep your existing styling */
-  min-height: 0;      /* ✅ allow inner scroll */
-  height: 100%;       /* ✅ fill panel body height */
-  max-height: none;   /* remove the vh math */
-}
-
-body.schedule-page .schedule-panel{
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-}
-
-body.schedule-page .schedule-panel-body{
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: hidden; /* corners clipped; internal scrollers handle movement */
-}
-
-body.schedule-page .schedule-board{
-  height: 100%;
-  min-height: 0;
-}
-
-body.schedule-page .sched-rail-scroll{
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Right build area is a fixed-height pane */
-body.schedule-page .sched-build{
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-/* Panels region consumes remaining height under the topbar */
-body.schedule-page .schedule-panels{
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
-/* Panel row should be allowed to shrink for inner scroll */
-body.schedule-page .schedule-panel-row{
-  min-height: 0;
-}
-/* =========================================================
-   FIX: Student panel scrolling + restore day column headers
-   (Place at VERY BOTTOM of schedule.css so it overrides)
-   ========================================================= */
-
-/* Panel body must be a flex container with min-height:0 so nested scrollers work */
-.schedule-panel-body{
-  flex: 1 1 auto;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-/* The board is the horizontal scroller */
-.schedule-board{
-  flex: 1 1 auto;
-  min-height: 0;
-
-  overflow-x: auto;            /* critical: horizontal scroll lives here */
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-
-  touch-action: pan-x;         /* allow horizontal panning on touch */
-}
-
-/* Columns must fill the board height so day columns can scroll internally */
-.schedule-columns{
-  height: 100%;
-  min-height: 0;               /* critical for nested scroll */
-}
-
-/* Day column must be height-aware so its dropzone can scroll */
-.schedule-col{
-  min-height: 0;
-  height: 100%;
-  max-height: none;            /* prevents viewport-based clamping */
-  display: flex;
-  flex-direction: column;
-}
-
-/* Restore the day column header styling that got broken */
-.schedule-col-head{
-  display:flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 12px 12px 10px;
-  border-bottom: 1px solid #e5e8e5;
-  background: #fff;
-  border-top-left-radius: 14px;
-  border-top-right-radius: 14px;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-}
-
-.schedule-col-title{
-  font-weight: 650;
-  font-size: 13px;
-  color: #262b26;
-}
-
-.schedule-col-total{
-  font-size: 12px;
-  color: #596e5e;
-  font-weight: 600;
-}
-
-/* The dropzone is the vertical scroller, BUT it must not block horizontal gestures */
-.schedule-dropzone{
-  flex: 1 1 auto;
-  min-height: 0;
-
-  overflow-y: auto;            /* vertical scroll inside each day */
-  overflow-x: visible;         /* IMPORTANT: don’t block horizontal scroll */
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-
-  touch-action: pan-x pan-y;   /* allows both directions on touch */
-}
-/* =========================================================
-   FINAL OVERRIDES — make the workspace fit + fix scroll behavior
-   (paste at the VERY BOTTOM of schedule.css)
-   ========================================================= */
-
-/* 1) Stop the header's Tailwind margin/padding from "stealing" height
-      when the page itself is overflow:hidden */
-body.schedule-page .app-header{
-  margin-bottom: 12px !important; /* overrides mb-8 */
-}
-
-body.schedule-page .main-content.schedule-main{
-  padding-bottom: 12px !important; /* overrides pb-16 */
-}
-
-/* Reduce the workspace top margin a bit so the bottom edge is visible */
-body.schedule-page .schedule-workspace{
-  margin-top: 12px !important; /* overrides mt-6 */
-}
-
-/* 2) Make sure the right-side build area can actually shrink
-      so inner scroll areas can activate */
-body.schedule-page .schedule-panels,
-body.schedule-page .schedule-panel-row,
-body.schedule-page .schedule-panel{
-  min-height: 0;
-}
-
-/* 3) IMPORTANT: force real horizontal overflow so the board can scroll
-      anywhere (not just when hovering the header area).
-      Grid "auto-fit" tries to make everything fit, which kills overflow. */
-.schedule-columns{
-  display: flex !important;
-  gap: 12px;
-  width: max-content;   /* <-- creates overflow when 5 days don't fit */
-  min-width: 100%;
-  height: 100%;
-  min-height: 0;
-}
-
-/* Fixed-ish column width so 5 days overflow and scroll naturally */
-.schedule-col{
-  flex: 0 0 240px;
-  height: 100%;
-  min-height: 0;
-}
-
-/* 4) Keep vertical scroll inside each day column */
-.schedule-dropzone{
-  overflow-y: auto !important;
-  min-height: 0;
-  flex: 1 1 auto;
-}
-
-/* 5) Make horizontal scrolling feel available everywhere inside the panel */
-.schedule-board{
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-  touch-action: pan-x;
-}
-
-/* Let swipes start on cards/inside columns and still pan horizontally */
-.schedule-dropzone,
-.sched-card{
-  touch-action: pan-x pan-y;
 }
