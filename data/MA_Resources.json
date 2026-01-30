@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-30T08:56:34.795Z",
+  "lastUpdated": "2026-01-30T19:17:37.795Z",
   "rotation": "R3",
   "resources": [
     {
@@ -3581,12 +3581,8 @@
       "resourceTagText": "Ebook",
       "links": [
         {
-          "text": "Option 1",
-          "url": "https://marketplace.mimeo.com/alveary-member-2526/product/73b1a7db324345bfa3782e01002f589d"
-        },
-        {
-          "text": "Free",
-          "url": "https://drive.google.com/file/d/1eZC5vHSitLrr1lsFU3F3hV3T0niOlt2B/view?usp=sharing"
+          "text": "Included in Lessons",
+          "url": ""
         }
       ],
       "flags": {
@@ -3617,12 +3613,8 @@
       "resourceTagText": "Ebook",
       "links": [
         {
-          "text": "Option 1",
-          "url": "https://marketplace.mimeo.com/alveary-member-2526/product/6618f7c96edf4903be0bb3f0232b32e0"
-        },
-        {
-          "text": "Free",
-          "url": "https://drive.google.com/file/d/1MP1lltAttq5ZJ-evJlK4dVjx5kH0bT-e/view?usp=sharing"
+          "text": "Included in Lessons",
+          "url": ""
         }
       ],
       "flags": {
@@ -6667,8 +6659,8 @@
         "code": ""
       },
       "maySub": "",
-      "rationale": "",
-      "note": "",
+      "rationale": "_Belle of Batoche_ is a work of historical fiction which imagines one girl's experience in the Battle of Batoche in 1885, where Métis fighters led by Louis Riel raised an ultimately unsuccessful defence against Canadian militia troops in Batoche, Saskatchewan. A simple story of two girls' rivalry and eventual friendship is woven into an historically-accurate depiction both of life in the late-nineteenth century Canadian prairies and of specific events from the battle itself.",
+      "note": "This is good as an independent read for Grade 4 or confident readers.",
       "assignmentIdsR3": [
         "recyD8NcrnWOBB7Dx"
       ],
@@ -23871,6 +23863,10 @@
         {
           "text": "Option 1",
           "url": "https://www.amazon.ca/dp/1550749889"
+        },
+        {
+          "text": "Option 2",
+          "url": "https://www.kidscanpress.com/product/jeremys-war-1812/"
         }
       ],
       "flags": {
@@ -23885,7 +23881,7 @@
         "code": ""
       },
       "maySub": "",
-      "rationale": "",
+      "rationale": "A gripping account of the War of 1812 told from the perspective of Jeremy Fields, a fifteen-year old orphaned boy who joins a regiment of British soldiers and eventually becomes the personal servant of Sir Isaac Brock. Historical details blend smoothly with a fictional story to create a detail recreation of this definitive period in Canada's pre-Confederation history.",
       "note": "",
       "assignmentIdsR3": [
         "recGO6r94o5twMlNP"
@@ -23926,6 +23922,38 @@
       "assignmentIdsR3": [],
       "imageViewLink": "https://drive.google.com/uc?id=1A289PSf7jJ4Bhj1sE7xp8yc5_E5Qzs-j",
       "bookEditUrl": "https://airtable.com/app1aju9e3YhfQTXd/pag8BT9Kl6uQ8sdqh?e0DsR=allRecords&uNjQ2=recPetucyIEjFEDsk"
+    },
+    {
+      "resourceId": "recmOVOrkNY53BDD1",
+      "title": "Joe and the Wreck of the Tribune",
+      "author": "Jacqueline Halsey",
+      "isbnAsin": "9781774714379",
+      "resourceTagText": "Ebook",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.indigo.ca/en-ca/joe-the-wreck-of-the-tribune/9781774714379.html"
+        }
+      ],
+      "flags": {
+        "save": false,
+        "print": false,
+        "reference": false,
+        "optional": false,
+        "chooseOne": false
+      },
+      "discount": {
+        "text": "",
+        "code": ""
+      },
+      "maySub": "",
+      "rationale": "",
+      "note": "",
+      "assignmentIdsR3": [
+        "recdGT6Dgb3saHAKj"
+      ],
+      "imageViewLink": "",
+      "bookEditUrl": "https://airtable.com/app1aju9e3YhfQTXd/pag8BT9Kl6uQ8sdqh?e0DsR=allRecords&uNjQ2=recmOVOrkNY53BDD1"
     },
     {
       "resourceId": "recNBnPW7aDKJuFaZ",
@@ -25285,6 +25313,42 @@
       ],
       "imageViewLink": "https://drive.google.com/uc?id=1tjK62TDa0QaJodjPX83jU93SkFEwvZUV",
       "bookEditUrl": "https://airtable.com/app1aju9e3YhfQTXd/pag8BT9Kl6uQ8sdqh?e0DsR=allRecords&uNjQ2=rec0AHSZzCBWRzIdy"
+    },
+    {
+      "resourceId": "rec5EgFFy7cprp5gU",
+      "title": "Linnea in Monet's Garden",
+      "author": "Christina Björk",
+      "isbnAsin": "978-1402277290",
+      "resourceTagText": "",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://a.co/d/5YiUZxg"
+        },
+        {
+          "text": "Option 2",
+          "url": "https://bookshop.org/a/90084/9781402277290"
+        }
+      ],
+      "flags": {
+        "save": false,
+        "print": false,
+        "reference": false,
+        "optional": false,
+        "chooseOne": false
+      },
+      "discount": {
+        "text": "",
+        "code": ""
+      },
+      "maySub": "",
+      "rationale": "This beautifully illustrated children’s book introduces readers to art, history, travel, and the life of the famous Impressionist painter Claude Monet through the eyes of a curious young girl. The watercolor paintings and reproductions of Monet’s work provide a great way for students to learn French vocabulary during the picture study lessons.",
+      "note": "",
+      "assignmentIdsR3": [
+        "recGJXKhhaJCQVzWm"
+      ],
+      "imageViewLink": "",
+      "bookEditUrl": "https://airtable.com/app1aju9e3YhfQTXd/pag8BT9Kl6uQ8sdqh?e0DsR=allRecords&uNjQ2=rec5EgFFy7cprp5gU"
     },
     {
       "resourceId": "recM7s1zUv52xy2qe",
@@ -33109,8 +33173,8 @@
       "resourceTagText": "Ebook",
       "links": [
         {
-          "text": "PDF",
-          "url": "https://drive.google.com/file/d/1Iixxi7_7x4QNwyQCClEJPmK-2Y2hCLy5/view?usp=drive_link"
+          "text": "Included in Lessons",
+          "url": ""
         }
       ],
       "flags": {
@@ -33141,8 +33205,8 @@
       "resourceTagText": "Ebook",
       "links": [
         {
-          "text": "PDF",
-          "url": "https://drive.google.com/file/d/1Pz1YvHneP2jzA1gok2s6t-v76K00n2Eh/view"
+          "text": "Included in Lessons",
+          "url": ""
         }
       ],
       "flags": {
@@ -33173,8 +33237,8 @@
       "resourceTagText": "",
       "links": [
         {
-          "text": "PDF",
-          "url": "https://drive.google.com/file/d/1jQmx2XUoXKDklwv2DnHs31tYid6e7mIP/view?usp=drive_link"
+          "text": "Included in Lessons",
+          "url": ""
         }
       ],
       "flags": {
@@ -35415,12 +35479,8 @@
       "resourceTagText": "Ebook",
       "links": [
         {
-          "text": "Option 1",
-          "url": "https://marketplace.mimeo.com/alveary-member-2526/product/4d0cebd74a3548c1a8bb6e2afc455799"
-        },
-        {
-          "text": "Free",
-          "url": "https://drive.google.com/file/d/1o2agW0S5m2wS5F3Yfs9eZovhK4G3hufh/view?usp=sharing"
+          "text": "Included in Lessons",
+          "url": ""
         }
       ],
       "flags": {
@@ -35451,12 +35511,8 @@
       "resourceTagText": "Ebook",
       "links": [
         {
-          "text": "Option 1",
-          "url": "https://marketplace.mimeo.com/alveary-member-2526/product/2bdca539fa3e4145ae41fa71ec2e1b98"
-        },
-        {
-          "text": "Free",
-          "url": "https://drive.google.com/file/d/1UFmsPR0xQJK78BhHVcq_yEG92otS21Gk/view?usp=sharing"
+          "text": "Included in Lessons",
+          "url": ""
         }
       ],
       "flags": {
@@ -35487,12 +35543,8 @@
       "resourceTagText": "Ebook",
       "links": [
         {
-          "text": "Option 1",
-          "url": "https://marketplace.mimeo.com/alveary-member-2526/product/35a06f21caf94986bab8ddcb4a58cf99"
-        },
-        {
-          "text": "Free",
-          "url": "https://drive.google.com/file/d/1ZPjy0pqCav0cI3Bh-luFPxf3OEszbOcn/view?usp=sharing"
+          "text": "Included in Lessons",
+          "url": ""
         }
       ],
       "flags": {
@@ -35523,12 +35575,8 @@
       "resourceTagText": "Ebook",
       "links": [
         {
-          "text": "Option 1",
-          "url": "https://marketplace.mimeo.com/alveary-member-2526/product/533801f2238a43618b77b6de2d97a503"
-        },
-        {
-          "text": "Free",
-          "url": "https://drive.google.com/file/d/1FFegBCavHuDBmnIJGSeV9RceqAPW1oa0/view?usp=sharing"
+          "text": "Included in Lessons",
+          "url": ""
         }
       ],
       "flags": {
@@ -35559,12 +35607,8 @@
       "resourceTagText": "Ebook",
       "links": [
         {
-          "text": "Option 1",
-          "url": "https://marketplace.mimeo.com/alveary-member-2526/product/b7e8ecbb8be942f6ab0bb23f4a6f5734"
-        },
-        {
-          "text": "Free",
-          "url": "https://drive.google.com/file/d/12sYBFEJoELPFwE1NnhxaaAjb7l31GEMo/view?usp=sharing"
+          "text": "Included in Lessons",
+          "url": ""
         }
       ],
       "flags": {
@@ -37090,6 +37134,10 @@
         {
           "text": "Option 1",
           "url": "https://classicaleducationbooks.ca/product/sophies-rebellion/"
+        },
+        {
+          "text": "Option 2",
+          "url": "https://www.dundurn.com/books_/t22117/a9781550025668-sophie-s-rebellion"
         }
       ],
       "flags": {
@@ -37104,7 +37152,7 @@
         "code": ""
       },
       "maySub": "",
-      "rationale": "",
+      "rationale": "Although ultimately unsuccessful, the rebellions in Upper and Lower Canada in 1837-1838, fueled by frustrations against British colonial rule, led to the formation of a single Province of Canada and the establishment of responsible government in the British North American colonies. _Sophie's Rebellion_ is a fictional account of one American girl's experience of these events, as she is both held prisoner alongside her British travelling companions, and befriends a young rebel named Luc. Through Sophie's eyes, the reader is able to see multiple perspectives of this conflict, and is introduced to a number of notable historical figures.",
       "note": "",
       "assignmentIdsR3": [
         "recUVlZ8DKTsygfXX",
@@ -41345,7 +41393,7 @@
     },
     {
       "resourceId": "recyvHTlefUZzpApF",
-      "title": "The Charlottetown Conference",
+      "title": "The Charlottetown Conference and the Birth of Confederation",
       "author": "Deirdre Kessler",
       "isbnAsin": "9781771083201",
       "resourceTagText": "",
@@ -41371,7 +41419,7 @@
         "code": ""
       },
       "maySub": "",
-      "rationale": "",
+      "rationale": "_The Charlottetown Conference and the Birth of Confederation _is a detailed, engagingly-written account of the historical factors, issues, political players, and conferences which eventually led to Canada's Confederation in 1867. Attention is paid to the motives and pressures urging British North America towards unity, as well as the specific interests and context of each of the colonies before Confederation. The book brings this historical period to life with numerous photographs, paintings, archival documents, and other primary sources.",
       "note": "",
       "assignmentIdsR3": [
         "rec7sipwSpjH39nPX",
@@ -45350,6 +45398,42 @@
       "assignmentIdsR3": [],
       "imageViewLink": "https://drive.google.com/uc?id=1vJmYwyxMhOjVcQvAGE4rbfUU2Uu_9o1x",
       "bookEditUrl": "https://airtable.com/app1aju9e3YhfQTXd/pag8BT9Kl6uQ8sdqh?e0DsR=allRecords&uNjQ2=recNoCl7gGTpOOYDZ"
+    },
+    {
+      "resourceId": "recKgb0PuksU4HFUQ",
+      "title": "The Loxleys and Confederation",
+      "author": "Mark Zuehlke",
+      "isbnAsin": "978-9921508925",
+      "resourceTagText": "Ebook",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://a.co/d/ilIMVRt"
+        },
+        {
+          "text": "Option 2",
+          "url": "https://www.indigo.ca/en-ca/the-loxleys-and-confederation/9780992150891.html"
+        }
+      ],
+      "flags": {
+        "save": false,
+        "print": false,
+        "reference": false,
+        "optional": false,
+        "chooseOne": false
+      },
+      "discount": {
+        "text": "",
+        "code": ""
+      },
+      "maySub": "",
+      "rationale": "",
+      "note": "",
+      "assignmentIdsR3": [
+        "rec6cu0r7LjJTbSZn"
+      ],
+      "imageViewLink": "",
+      "bookEditUrl": "https://airtable.com/app1aju9e3YhfQTXd/pag8BT9Kl6uQ8sdqh?e0DsR=allRecords&uNjQ2=recKgb0PuksU4HFUQ"
     },
     {
       "resourceId": "recoM0qt2AsZlIczP",
@@ -50745,7 +50829,7 @@
         "code": ""
       },
       "maySub": "",
-      "rationale": "",
+      "rationale": "This book speaks directly to teenagers, showing how the gospel shapes identity, purpose, and everyday choices. The author challenges the idea that faith is something to “grow into later” and instead invites young readers to take their beliefs seriously now.",
       "note": "",
       "assignmentIdsR3": [
         "rec5xICngYr2OVxuZ"
