@@ -26,6 +26,30 @@
 }
 
 /* =========================================================
+   Fixed Schedule workspace (no page scroll)
+   ========================================================= */
+
+body.schedule-page{
+  height: 100vh;
+  overflow: hidden;          /* ✅ stop page scroll */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header stays at top, main takes the rest */
+body.schedule-page .app-header{
+  flex: 0 0 auto;
+}
+
+/* Main becomes the fixed workspace area */
+body.schedule-page .main-content.schedule-main{
+  flex: 1 1 auto;
+  min-height: 0;             /* ✅ critical for nested scroll areas */
+  overflow: hidden;          /* ✅ no page scroll */
+  padding-bottom: 0 !important; /* remove pb-16 “extra scroll space” */
+}
+
+/* =========================================================
    Topbar (view toggle + chips)
    ========================================================= */
 
