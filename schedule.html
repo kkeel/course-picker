@@ -203,140 +203,274 @@
               </div>
             </div>
           
-            <div class="sched-rail-list mt-3">
-              <template x-for="entry in railEntries()" :key="entry.type + ':' + (entry.templateId || entry.courseKey)">
-                <div class="sched-rail-item">
-                  <!-- SINGLE template -->
-                  <template x-if="entry.type === 'single'">
-                    <div>
-                      <div class="sched-rail-item-top">
-                        <div class="sched-rail-item-title"
-                             :title="(templatesById[entry.templateId] || {}).title || ''"
-                             x-text="(templatesById[entry.templateId] || {}).title || ''"></div>
-                        <div class="sched-rail-item-min"
-                             x-text="`${(templatesById[entry.templateId] || {}).minutes || 0}m`"></div>
-                      </div>
-              
-                      <div class="sched-rail-meta">
-                        <div class="sched-rail-symbols"
-                             x-text="(templatesById[entry.templateId] || {}).symbols || ''"></div>
-                      
-                        <div class="sched-rail-actions">
-                          <span class="sched-rail-trackchip"
-                                x-show="trackingForEntry(entry).show"
-                                :class="trackingForEntry(entry).done ? 'sched-rail-trackchip--done' : ''">
-                            <template x-if="!trackingForEntry(entry).done">
-                              <span x-text="trackingForEntry(entry).label"></span>
-                            </template>
-                          
-                            <template x-if="trackingForEntry(entry).done">
-                              <svg class="sched-rail-check" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                              </svg>
-                            </template>
-                          </span>
-                          <!-- Add (+) -->
-                          <button type="button"
-                                  class="sched-rail-add"
-                                  title="Add to schedule"
-                                  @click="addRailEntryToActive(entry)">
-                            <span aria-hidden="true">＋</span>
-                          </button>
-                      
-                          <!-- Custom-only: edit -->
-                          <button type="button"
-                                  class="sched-rail-icon-btn"
-                                  x-show="String(entry.templateId || '').startsWith('u:')"
-                                  title="Edit custom card"
-                                  @click="openCustomCardModal('edit', entry.templateId)">
-                            ✎
-                          </button>
-                      
-                          <!-- Custom-only: delete -->
-                          <button type="button"
-                                  class="sched-rail-icon-btn"
-                                  x-show="String(entry.templateId || '').startsWith('u:')"
-                                  title="Remove custom card"
-                                  @click="openCustomCardModal('delete', entry.templateId)">
-                            ✕
-                          </button>
-                        </div>
-                      </div>
-                      
-                    </div>
-                  </template>
-              
-                  <!-- GROUP template (grade-band / choice-based) -->
-                  <template x-if="entry.type === 'group'">
-                    <div>
-                      <div class="sched-rail-item-top">
-                        <div
-                          class="sched-rail-item-title"
-                          :title="railEntryDisplay(entry).title || ''"
-                          x-text="railEntryDisplay(entry).title || ''"
-                        ></div>
-                  
-                        <div class="sched-rail-item-min"
-                             x-text="`${railEntryDisplay(entry).minutes || 0}m`"></div>
-                      </div>
-                  
-                      <!-- symbols + grade tag + add in the main card area -->
-                      <div class="sched-rail-meta">
-                        <div class="sched-rail-meta-left">
-                          <div class="sched-rail-symbols"
-                               x-text="railEntryDisplay(entry).symbols || ''"></div>
-
-                          <div class="sched-rail-grade"
-                               x-show="railEntryDisplay(entry).sub"
-                               x-text="railEntryDisplay(entry).sub"></div>
-                        </div>
-
-                        <div class="sched-rail-actions">
-                          <span class="sched-rail-trackchip"
-                                x-show="trackingForEntry(entry).show"
-                                :class="trackingForEntry(entry).done ? 'sched-rail-trackchip--done' : ''">
-                            <template x-if="!trackingForEntry(entry).done">
-                              <span x-text="trackingForEntry(entry).label"></span>
-                            </template>
-                          
-                            <template x-if="trackingForEntry(entry).done">
-                              <svg class="sched-rail-check" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                              </svg>
-                            </template>
-                          </span>
-                          <button type="button"
-                                  class="sched-rail-add"
-                                  title="Add to schedule"
-                                  @click="addRailEntryToActive(entry)">
-                            <span aria-hidden="true">＋</span>
-                          </button>
-                        </div>
-                      </div>
-                      
-                      <!-- choice chips as a footer strip -->
-                      <div class="sched-rail-band">
-                        <div class="sched-rail-band-row">
-                          <div class="sched-rail-band-label">Choose grades</div>
-                          <div class="sched-rail-band-chips">
-                            <template x-for="opt in entry.options" :key="opt.option">
+              <div class="sched-rail-sep"></div>
+                <div class="sched-rail-section-head">Need to schedule:</div>
+    
+                <div class="sched-rail-list mt-3">
+                  <template x-for="entry in railEntriesNeed()" :key="entry.type + ':' + (entry.templateId || entry.courseKey)">
+                    <div class="sched-rail-item">
+                      <!-- SINGLE template -->
+                      <template x-if="entry.type === 'single'">
+                        <div>
+                          <div class="sched-rail-item-top">
+                            <div class="sched-rail-item-title"
+                                 :title="(templatesById[entry.templateId] || {}).title || ''"
+                                 x-text="(templatesById[entry.templateId] || {}).title || ''"></div>
+                            <div class="sched-rail-item-min"
+                                 x-text="`${(templatesById[entry.templateId] || {}).minutes || 0}m`"></div>
+                          </div>
+    
+                          <div class="sched-rail-meta">
+                            <div class="sched-rail-symbols"
+                                 x-text="(templatesById[entry.templateId] || {}).symbols || ''"></div>
+    
+                            <div class="sched-rail-actions">
+                              <span class="sched-rail-trackchip"
+                                    x-show="trackingForEntry(entry).show"
+                                    :class="trackingForEntry(entry).done ? 'sched-rail-trackchip--done' : ''">
+                                <template x-if="!trackingForEntry(entry).done">
+                                  <span x-text="trackingForEntry(entry).label"></span>
+                                </template>
+    
+                                <template x-if="trackingForEntry(entry).done">
+                                  <svg class="sched-rail-check" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                  </svg>
+                                </template>
+                              </span>
+    
+                              <!-- Add (+) -->
                               <button type="button"
-                                      class="sched-rail-chip sched-rail-chip--sm"
-                                      :class="(choices.courseOptions && choices.courseOptions[entry.courseKey] === opt.option) ? 'sched-rail-chip--on' : ''"
-                                      @click="setCourseOption(entry.courseKey, opt.option)">
-                                <span x-text="opt.label"></span>
+                                      class="sched-rail-add"
+                                      title="Add to schedule"
+                                      @click="addRailEntryToActive(entry)">
+                                <span aria-hidden="true">＋</span>
                               </button>
-                            </template>
+    
+                              <!-- Custom-only: edit -->
+                              <button type="button"
+                                      class="sched-rail-icon-btn"
+                                      x-show="String(entry.templateId || '').startsWith('u:')"
+                                      title="Edit custom card"
+                                      @click="openCustomCardModal('edit', entry.templateId)">
+                                ✎
+                              </button>
+    
+                              <!-- Custom-only: delete -->
+                              <button type="button"
+                                      class="sched-rail-icon-btn"
+                                      x-show="String(entry.templateId || '').startsWith('u:')"
+                                      title="Remove custom card"
+                                      @click="openCustomCardModal('delete', entry.templateId)">
+                                ✕
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-
+                      </template>
+    
+                      <!-- GROUP template (grade-band / choice-based) -->
+                      <template x-if="entry.type === 'group'">
+                        <div>
+                          <div class="sched-rail-item-top">
+                            <div class="sched-rail-item-title"
+                                 :title="railEntryDisplay(entry).title || ''"
+                                 x-text="railEntryDisplay(entry).title || ''"></div>
+    
+                            <div class="sched-rail-item-min"
+                                 x-text="`${railEntryDisplay(entry).minutes || 0}m`"></div>
+                          </div>
+    
+                          <div class="sched-rail-meta">
+                            <div class="sched-rail-meta-left">
+                              <div class="sched-rail-symbols"
+                                   x-text="railEntryDisplay(entry).symbols || ''"></div>
+    
+                              <div class="sched-rail-grade"
+                                   x-show="railEntryDisplay(entry).sub"
+                                   x-text="railEntryDisplay(entry).sub"></div>
+                            </div>
+    
+                            <div class="sched-rail-actions">
+                              <span class="sched-rail-trackchip"
+                                    x-show="trackingForEntry(entry).show"
+                                    :class="trackingForEntry(entry).done ? 'sched-rail-trackchip--done' : ''">
+                                <template x-if="!trackingForEntry(entry).done">
+                                  <span x-text="trackingForEntry(entry).label"></span>
+                                </template>
+    
+                                <template x-if="trackingForEntry(entry).done">
+                                  <svg class="sched-rail-check" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                  </svg>
+                                </template>
+                              </span>
+    
+                              <button type="button"
+                                      class="sched-rail-add"
+                                      title="Add to schedule"
+                                      @click="addRailEntryToActive(entry)">
+                                <span aria-hidden="true">＋</span>
+                              </button>
+                            </div>
+                          </div>
+    
+                          <!-- choice chips as a footer strip -->
+                          <div class="sched-rail-band">
+                            <div class="sched-rail-band-row">
+                              <div class="sched-rail-band-label">Choose grades</div>
+                              <div class="sched-rail-band-chips">
+                                <template x-for="opt in entry.options" :key="opt.option">
+                                  <button type="button"
+                                          class="sched-rail-chip sched-rail-chip--sm"
+                                          :class="(choices.courseOptions && choices.courseOptions[entry.courseKey] === opt.option) ? 'sched-rail-chip--on' : ''"
+                                          @click="setCourseOption(entry.courseKey, opt.option)">
+                                    <span x-text="opt.label"></span>
+                                  </button>
+                                </template>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </template>
                     </div>
                   </template>
-
                 </div>
-              </template>
-            </div>
+    
+                <template x-if="railEntriesComplete().length">
+                  <div class="sched-rail-complete-wrap">
+                    <div class="sched-rail-sep"></div>
+    
+                    <div class="sched-rail-section-row">
+                      <div class="sched-rail-section-head">Complete:</div>
+                      <button type="button"
+                              class="sched-rail-toggle"
+                              @click="toggleCompletedRail()"
+                              x-text="completedRailLabel()"></button>
+                    </div>
+    
+                    <template x-if="showCompleted">
+                      <div class="sched-rail-list mt-2">
+                        <template x-for="entry in railEntriesComplete()" :key="entry.type + ':' + (entry.templateId || entry.courseKey)">
+                          <div class="sched-rail-item">
+                            <!-- reuse the same SINGLE/GROUP markup (kept identical for consistency) -->
+                            <template x-if="entry.type === 'single'">
+                              <div>
+                                <div class="sched-rail-item-top">
+                                  <div class="sched-rail-item-title"
+                                       :title="(templatesById[entry.templateId] || {}).title || ''"
+                                       x-text="(templatesById[entry.templateId] || {}).title || ''"></div>
+                                  <div class="sched-rail-item-min"
+                                       x-text="`${(templatesById[entry.templateId] || {}).minutes || 0}m`"></div>
+                                </div>
+    
+                                <div class="sched-rail-meta">
+                                  <div class="sched-rail-symbols"
+                                       x-text="(templatesById[entry.templateId] || {}).symbols || ''"></div>
+    
+                                  <div class="sched-rail-actions">
+                                    <span class="sched-rail-trackchip"
+                                          x-show="trackingForEntry(entry).show"
+                                          :class="trackingForEntry(entry).done ? 'sched-rail-trackchip--done' : ''">
+                                      <template x-if="trackingForEntry(entry).done">
+                                        <svg class="sched-rail-check" viewBox="0 0 24 24" aria-hidden="true">
+                                          <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                      </template>
+                                    </span>
+    
+                                    <button type="button"
+                                            class="sched-rail-add"
+                                            title="Add to schedule"
+                                            @click="addRailEntryToActive(entry)">
+                                      <span aria-hidden="true">＋</span>
+                                    </button>
+    
+                                    <button type="button"
+                                            class="sched-rail-icon-btn"
+                                            x-show="String(entry.templateId || '').startsWith('u:')"
+                                            title="Edit custom card"
+                                            @click="openCustomCardModal('edit', entry.templateId)">
+                                      ✎
+                                    </button>
+    
+                                    <button type="button"
+                                            class="sched-rail-icon-btn"
+                                            x-show="String(entry.templateId || '').startsWith('u:')"
+                                            title="Remove custom card"
+                                            @click="openCustomCardModal('delete', entry.templateId)">
+                                      ✕
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </template>
+    
+                            <template x-if="entry.type === 'group'">
+                              <div>
+                                <div class="sched-rail-item-top">
+                                  <div class="sched-rail-item-title"
+                                       :title="railEntryDisplay(entry).title || ''"
+                                       x-text="railEntryDisplay(entry).title || ''"></div>
+    
+                                  <div class="sched-rail-item-min"
+                                       x-text="`${railEntryDisplay(entry).minutes || 0}m`"></div>
+                                </div>
+    
+                                <div class="sched-rail-meta">
+                                  <div class="sched-rail-meta-left">
+                                    <div class="sched-rail-symbols"
+                                         x-text="railEntryDisplay(entry).symbols || ''"></div>
+    
+                                    <div class="sched-rail-grade"
+                                         x-show="railEntryDisplay(entry).sub"
+                                         x-text="railEntryDisplay(entry).sub"></div>
+                                  </div>
+    
+                                  <div class="sched-rail-actions">
+                                    <span class="sched-rail-trackchip"
+                                          x-show="trackingForEntry(entry).show"
+                                          :class="trackingForEntry(entry).done ? 'sched-rail-trackchip--done' : ''">
+                                      <template x-if="trackingForEntry(entry).done">
+                                        <svg class="sched-rail-check" viewBox="0 0 24 24" aria-hidden="true">
+                                          <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                      </template>
+                                    </span>
+    
+                                    <button type="button"
+                                            class="sched-rail-add"
+                                            title="Add to schedule"
+                                            @click="addRailEntryToActive(entry)">
+                                      <span aria-hidden="true">＋</span>
+                                    </button>
+                                  </div>
+                                </div>
+    
+                                <div class="sched-rail-band">
+                                  <div class="sched-rail-band-row">
+                                    <div class="sched-rail-band-label">Choose grades</div>
+                                    <div class="sched-rail-band-chips">
+                                      <template x-for="opt in entry.options" :key="opt.option">
+                                        <button type="button"
+                                                class="sched-rail-chip sched-rail-chip--sm"
+                                                :class="(choices.courseOptions && choices.courseOptions[entry.courseKey] === opt.option) ? 'sched-rail-chip--on' : ''"
+                                                @click="setCourseOption(entry.courseKey, opt.option)">
+                                          <span x-text="opt.label"></span>
+                                        </button>
+                                      </template>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </template>
+                          </div>
+                        </template>
+                      </div>
+                    </template>
+                  </div>
+                </template>
+          
           </div>
 
           <!-- Right build area -->
