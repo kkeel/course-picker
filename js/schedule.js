@@ -1169,8 +1169,19 @@
         const toIndex = list.indexOf(toId);
       
         if (fromIndex === -1 || toIndex === -1) return;
+        if (fromIndex === toIndex) return;
       
-        this.moveInstance(sid, d, fromIndex, toIndex);
+        // Insert before/after hovered card based on midpoint detection
+        const wantAfter = this.dragState.overPos === "below";
+        let insertIndex = toIndex + (wantAfter ? 1 : 0);
+      
+        // If moving downward in the same array, account for removal shift
+        if (fromIndex < insertIndex) insertIndex -= 1;
+      
+        // Clamp to valid range (including "end")
+        insertIndex = Math.max(0, Math.min(insertIndex, list.length - 1));
+      
+        this.moveInstance(sid, d, fromIndex, insertIndex);
       
         // cleanup
         this.dragState.overInstanceId = null;
