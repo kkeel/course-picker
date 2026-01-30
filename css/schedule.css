@@ -1001,6 +1001,13 @@
   min-width:0;
 }
 
+/* Custom (user) card inline controls next to symbols */
+.sched-rail-custom-inline{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
 /* Grade text shown inline with symbols (no pill) */
 .sched-rail-grade{
   font-size: 12px;
