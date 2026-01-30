@@ -247,7 +247,7 @@
                                           :class="isEntryOnDay(activeTarget.studentId, i, entry) ? 'sched-rail-daytoggle--on' : ''"
                                           @click="toggleEntryOnDay(entry, i)"
                                           :title="`Toggle ${label}`">
-                                    <span x-text="`D${i+1}`"></span>
+                                    <span x-text="dayShortLabels[i]"></span>
                                   </button>
                                 </template>
                               </div>
@@ -319,7 +319,7 @@
                                           :class="isEntryOnDay(activeTarget.studentId, i, entry) ? 'sched-rail-daytoggle--on' : ''"
                                           @click="toggleEntryOnDay(entry, i)"
                                           :title="`Toggle ${label}`">
-                                    <span x-text="`D${i+1}`"></span>
+                                    <span x-text="dayShortLabels[i]"></span>
                                   </button>
                                 </template>
                               </div>
@@ -390,13 +390,20 @@
                                         </svg>
                                       </template>
                                     </span>
-    
-                                    <button type="button"
-                                            class="sched-rail-add"
-                                            title="Add to schedule"
-                                            @click="addRailEntryToActive(entry)">
-                                      <span aria-hidden="true">＋</span>
-                                    </button>
+
+                                    <!-- Scheduled days (click to unschedule) -->
+                                    <div class="sched-rail-daytoggles" aria-label="Scheduled days">
+                                      <template x-for="(label, i) in dayLabels" :key="i">
+                                        <button type="button"
+                                                class="sched-rail-daytoggle"
+                                                :class="isEntryOnDay(activeTarget.studentId, i, entry) ? 'sched-rail-daytoggle--on' : ''"
+                                                @click="toggleEntryOnDay(entry, i)"
+                                                :title="`Toggle ${label}`">
+                                          <span x-text="dayShortLabels[i]"></span>
+                                        </button>
+                                      </template>
+                                    </div>
+
     
                                     <button type="button"
                                             class="sched-rail-icon-btn"
@@ -449,13 +456,20 @@
                                         </svg>
                                       </template>
                                     </span>
-    
-                                    <button type="button"
-                                            class="sched-rail-add"
-                                            title="Add to schedule"
-                                            @click="addRailEntryToActive(entry)">
-                                      <span aria-hidden="true">＋</span>
-                                    </button>
+
+                                    <!-- Scheduled days (click to unschedule) -->
+                                    <div class="sched-rail-daytoggles" aria-label="Scheduled days">
+                                      <template x-for="(label, i) in dayLabels" :key="i">
+                                        <button type="button"
+                                                class="sched-rail-daytoggle"
+                                                :class="isEntryOnDay(activeTarget.studentId, i, entry) ? 'sched-rail-daytoggle--on' : ''"
+                                                @click="toggleEntryOnDay(entry, i)"
+                                                :title="`Toggle ${label}`">
+                                          <span x-text="dayShortLabels[i]"></span>
+                                        </button>
+                                      </template>
+                                    </div>
+
                                   </div>
                                 </div>
     
@@ -639,7 +653,7 @@
                             </div>
                           </div>
               
-                          <div class="schedule-panel-range">Day 1–5</div>
+                          <div class="schedule-panel-range">Mon–Fri</div>
                         </div>
                       </div>
               
