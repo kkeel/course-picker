@@ -31,7 +31,7 @@
 
 body.schedule-page{
   height: 100vh;
-  overflow: hidden;          /* ✅ stop page scroll */
+  overflow: hidden;          /* stop page scroll */
   display: flex;
   flex-direction: column;
 }
@@ -44,13 +44,34 @@ body.schedule-page .app-header{
 /* Main becomes the fixed workspace area */
 body.schedule-page .main-content.schedule-main{
   flex: 1 1 auto;
-  min-height: 0;             /* ✅ critical for nested scroll areas */
-  overflow: hidden;          /* ✅ no page scroll */
-  padding-bottom: 0 !important; /* remove pb-16 “extra scroll space” */
+  min-height: 0;             /* critical for nested scroll areas */
+  overflow: hidden;          /* no page scroll */
+  padding-bottom: 0 !important;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Tailwind's space-y-10 adds margins between children; kill it so height math is stable */
+body.schedule-page .main-content.schedule-main > * + *{
+  margin-top: 0 !important;
+}
+
+/* The Alpine root becomes the vertical layout container */
+body.schedule-page .schedule-root{
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header row (Schedule + Tutorials) stays visible above workspace */
+body.schedule-page .schedule-head{
+  flex: 0 0 auto;
+}
+
+/* Workspace fills remaining height */
 body.schedule-page .schedule-workspace{
-  height: 100%;
+  flex: 1 1 auto;
   min-height: 0;
 }
 
@@ -1348,6 +1369,7 @@ body.schedule-page .sched-rail{
 body.schedule-page .sched-rail-list{
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  overflow: visible;
 }
 
 .schedule-columns{
@@ -1383,5 +1405,31 @@ body.schedule-page .schedule-panel-body{
 
 body.schedule-page .schedule-board{
   height: 100%;
+  min-height: 0;
+}
+
+body.schedule-page .sched-rail-scroll{
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Right build area is a fixed-height pane */
+body.schedule-page .sched-build{
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Panels region consumes remaining height under the topbar */
+body.schedule-page .schedule-panels{
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* Panel row should be allowed to shrink for inner scroll */
+body.schedule-page .schedule-panel-row{
   min-height: 0;
 }
