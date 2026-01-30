@@ -983,3 +983,33 @@
   flex-wrap:wrap;
   justify-content:flex-end;
 }
+
+/* Tracking chip on rail title line */
+.sched-rail-trackchip{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width: 34px;
+  height: 20px;
+  padding: 0 6px;
+  margin-left: 8px;
+
+  border: 1px solid #e5e8e5;
+  border-radius: 4px;
+  background: transparent;              /* matches card background */
+  color: #666d66;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.sched-rail-trackchip--done{
+  border-color: #d2d6d2;
+  color: #596e5e; /* subtle “finished” */
+}
+
+.sched-rail-check{
+  width: 16px;
+  height: 16px;
+  display:block;
+}
