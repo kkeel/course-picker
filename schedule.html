@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -326,14 +325,16 @@
                           <!-- Footer: choose grades (left) + weekdays (right) -->
                           <div class="sched-rail-footer">
                             <div class="sched-rail-footer-left" aria-label="Choose grades">
-                              <template x-for="opt in entry.options" :key="opt.option">
-                                <button type="button"
-                                        class="sched-rail-chip sched-rail-chip--sm"
-                                        :class="(choices.courseOptions && choices.courseOptions[entry.courseKey] === opt.option) ? 'sched-rail-chip--on' : ''"
-                                        @click="setCourseOption(entry.courseKey, opt.option)">
-                                  <span x-text="opt.label"></span>
-                                </button>
-                              </template>
+                              <select
+                                class="sched-rail-grade-select"
+                                x-model="choices.courseOptions[entry.courseKey]"
+                                @change="setCourseOption(entry.courseKey, choices.courseOptions[entry.courseKey])"
+                                aria-label="Grade band"
+                              >
+                                <template x-for="opt in entry.options" :key="opt.option">
+                                  <option :value="opt.option" x-text="`Grades ${opt.label}`"></option>
+                                </template>
+                              </select>
                             </div>
 
                             <div class="sched-rail-daytoggles" aria-label="Scheduled days">
@@ -476,14 +477,16 @@
                                 <!-- Footer: choose grades (left) + weekdays (right) -->
                                 <div class="sched-rail-footer">
                                   <div class="sched-rail-footer-left" aria-label="Choose grades">
-                                    <template x-for="opt in entry.options" :key="opt.option">
-                                      <button type="button"
-                                              class="sched-rail-chip sched-rail-chip--sm"
-                                              :class="(choices.courseOptions && choices.courseOptions[entry.courseKey] === opt.option) ? 'sched-rail-chip--on' : ''"
-                                              @click="setCourseOption(entry.courseKey, opt.option)">
-                                        <span x-text="opt.label"></span>
-                                      </button>
-                                    </template>
+                                    <select
+                                      class="sched-rail-grade-select"
+                                      x-model="choices.courseOptions[entry.courseKey]"
+                                      @change="setCourseOption(entry.courseKey, choices.courseOptions[entry.courseKey])"
+                                      aria-label="Grade band"
+                                    >
+                                      <template x-for="opt in entry.options" :key="opt.option">
+                                        <option :value="opt.option" x-text="`Grades ${opt.label}`"></option>
+                                      </template>
+                                    </select>
                                   </div>
 
                                   <div class="sched-rail-daytoggles" aria-label="Scheduled days">
