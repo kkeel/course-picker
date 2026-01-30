@@ -26,6 +26,43 @@
 }
 
 /* =========================================================
+   Workspace sizing (do NOT lock the page)
+   ========================================================= */
+
+:root{
+  /* Tune this number if needed (it represents header + padding above the grid) */
+  --sched-workspace-max-h: calc(100vh - 260px);
+}
+
+/* The 2-column area should not grow forever */
+.schedule-grid{
+  align-items: start; /* prevents weird stretching behavior */
+}
+
+/* Left rail: scroll internally when it gets long */
+.sched-rail{
+  max-height: var(--sched-workspace-max-h);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Right builder: fixed-ish height with internal scrolling in panels/columns */
+.sched-work{
+  max-height: var(--sched-workspace-max-h);
+  overflow: hidden;         /* important: prevents the whole builder from growing */
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Let the panels area take remaining height under the topbar */
+.sched-work .schedule-panels{
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* =========================================================
    Topbar (view toggle + chips)
    ========================================================= */
 
