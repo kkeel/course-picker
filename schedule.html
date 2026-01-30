@@ -170,49 +170,73 @@
         <div class="schedule-grid mt-6 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6">
           
           <!-- Left card rail (Phase 2.5) -->
-          <div class="sched-rail p-4 rounded-lg border border-[#e5e8e5] bg-white">
-          
-            <!-- Sticky top controls -->
+          <div
+            class="sched-rail p-4 rounded-lg border border-[#e5e8e5] bg-white"
+            x-data="{ railTopCollapsed: false }"
+          >
+            <!-- Sticky / collapsible rail header -->
             <div class="sched-rail-top">
               <div class="sched-rail-head">
                 <div class="text-sm font-semibold">Scheduling Cards</div>
-          
-                <button type="button" class="sched-rail-btn" @click="openCustomCardModal('create')">
-                  + Custom
-                </button>
+
+                <div class="sched-rail-head-actions">
+                  <button type="button" class="sched-rail-btn" @click="openCustomCardModal('create')">
+                    + Custom
+                  </button>
+
+                  <button
+                    type="button"
+                    class="sched-rail-collapse-btn"
+                    @click="railTopCollapsed = !railTopCollapsed"
+                    :aria-expanded="(!railTopCollapsed).toString()"
+                    :title="railTopCollapsed ? 'Show placement controls' : 'Hide placement controls'"
+                  >
+                    <svg class="sched-rail-collapse-icon" viewBox="0 0 20 20" aria-hidden="true">
+                      <path d="M5.5 7.5l4.5 4.5 4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
               </div>
-          
-              <div class="sched-rail-sub text-xs opacity-70 mt-1">
-                Place into:
-              </div>
-          
-              <div class="sched-target mt-2">
-                <select class="sched-target-select"
-                        x-model="activeTarget.studentId"
-                        @change="ensureStudent(activeTarget.studentId); persistCards()">
-                  <template x-for="s in students" :key="s.id">
-                    <option :value="s.id" x-text="s.name"></option>
-                  </template>
-                </select>
-          
-                <div class="sched-target-days">
-                  <template x-for="(label, i) in dayLabels" :key="i">
-                    <button type="button"
-                            class="sched-target-day"
-                            :class="activeTarget.dayIndex === i ? 'sched-target-day--on' : ''"
-                            @click="activeTarget.dayIndex = i; persistCards()"
-                            x-text="label"></button>
-                  </template>
+
+              <!-- Collapsible controls (Place into...) -->
+              <div class="sched-rail-top-controls" x-show="!railTopCollapsed" x-transition>
+                <div class="sched-rail-sub text-xs opacity-70 mt-1">
+                  Place into:
+                </div>
+
+                <div class="sched-target mt-2">
+                  <select
+                    class="sched-target-select"
+                    x-model="activeTarget.studentId"
+                    @change="ensureStudent(activeTarget.studentId); persistCards()"
+                  >
+                    <template x-for="s in students" :key="s.id">
+                      <option :value="s.id" x-text="s.name"></option>
+                    </template>
+                  </select>
+
+                  <div class="sched-target-days">
+                    <template x-for="(label, i) in dayLabels" :key="i">
+                      <button
+                        type="button"
+                        class="sched-target-day"
+                        :class="activeTarget.dayIndex === i ? 'sched-target-day--on' : ''"
+                        @click="activeTarget.dayIndex = i; persistCards()"
+                        x-text="label"
+                      ></button>
+                    </template>
+                  </div>
                 </div>
               </div>
             </div>
-          
-            <!-- Scroll area (Need + Complete) -->
-            <div class="sched-rail-scroll">
-          
+
+            <!-- Scrollable rail content -->
+            <div class="sched-rail-body">
+              <!-- (single separator line — avoids the “double line” look) -->
               <div class="sched-rail-sep"></div>
+
               <div class="sched-rail-section-head">Need to schedule:</div>
-          
+
               <div class="sched-rail-list mt-3">
                 <template x-for="entry in railEntriesNeed()" :key="entry.type + ':' + (entry.templateId || entry.courseKey)">
                   <div class="sched-rail-item">
@@ -224,19 +248,19 @@
                           <div class="sched-rail-item-title"
                                :title="(templatesById[entry.templateId] || {}).title || ''"
                                x-text="(templatesById[entry.templateId] || {}).title || ''"></div>
-          
+
                           <div class="sched-rail-row1-right">
                             <div class="sched-rail-item-min"
                                  x-text="`${(templatesById[entry.templateId] || {}).minutes || 0}m`"></div>
                           </div>
                         </div>
-          
+
                         <!-- Row 2: symbols + (custom edit/delete) + tracker/check -->
                         <div class="sched-rail-row2">
                           <div class="sched-rail-meta-left">
                             <div class="sched-rail-symbols"
                                  x-text="(templatesById[entry.templateId] || {}).symbols || ''"></div>
-          
+
                             <!-- Custom-only: edit/delete live where symbols normally are -->
                             <div class="sched-rail-custom-inline"
                                  x-show="String(entry.templateId || '').startsWith('u:')">
@@ -246,7 +270,7 @@
                                       @click="openCustomCardModal('edit', entry.templateId)">
                                 ✎
                               </button>
-          
+
                               <button type="button"
                                       class="sched-rail-icon-btn"
                                       title="Remove custom card"
@@ -255,14 +279,14 @@
                               </button>
                             </div>
                           </div>
-          
+
                           <div class="sched-rail-track"
                                x-show="trackingForEntry(entry).show"
                                :class="trackingForEntry(entry).done ? 'is-done' : ''">
                             <template x-if="!trackingForEntry(entry).done">
                               <span x-text="trackingForEntry(entry).label"></span>
                             </template>
-          
+
                             <template x-if="trackingForEntry(entry).done">
                               <svg class="sched-rail-check" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -270,7 +294,7 @@
                             </template>
                           </div>
                         </div>
-          
+
                         <!-- Footer: weekdays -->
                         <div class="sched-rail-footer">
                           <div class="sched-rail-daytoggles" aria-label="Scheduled days">
@@ -287,7 +311,7 @@
                         </div>
                       </div>
                     </template>
-          
+
                     <!-- GROUP template (grade-band / choice-based) -->
                     <template x-if="entry.type === 'group'">
                       <div>
@@ -296,31 +320,31 @@
                           <div class="sched-rail-item-title"
                                :title="railEntryDisplay(entry).title || ''"
                                x-text="railEntryDisplay(entry).title || ''"></div>
-          
+
                           <div class="sched-rail-row1-right">
                             <div class="sched-rail-item-min"
                                  x-text="`${railEntryDisplay(entry).minutes || 0}m`"></div>
                           </div>
                         </div>
-          
+
                         <!-- Row 2: symbols + chosen grade text + tracker/check -->
                         <div class="sched-rail-row2">
                           <div class="sched-rail-meta-left">
                             <div class="sched-rail-symbols"
                                  x-text="railEntryDisplay(entry).symbols || ''"></div>
-          
+
                             <div class="sched-rail-grade"
                                  x-show="railEntryDisplay(entry).sub"
                                  x-text="railEntryDisplay(entry).sub"></div>
                           </div>
-          
+
                           <div class="sched-rail-track"
                                x-show="trackingForEntry(entry).show"
                                :class="trackingForEntry(entry).done ? 'is-done' : ''">
                             <template x-if="!trackingForEntry(entry).done">
                               <span x-text="trackingForEntry(entry).label"></span>
                             </template>
-          
+
                             <template x-if="trackingForEntry(entry).done">
                               <svg class="sched-rail-check" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -328,7 +352,7 @@
                             </template>
                           </div>
                         </div>
-          
+
                         <!-- Footer: choose grades (left) + weekdays (right) -->
                         <div class="sched-rail-footer">
                           <div class="sched-rail-footer-left" aria-label="Choose grades">
@@ -343,13 +367,13 @@
                                   <option :value="opt.option" x-text="`Grades ${opt.label}`"></option>
                                 </template>
                               </select>
-          
+
                               <svg class="sched-rail-grade-chevron" viewBox="0 0 20 20" aria-hidden="true">
                                 <path d="M5.5 7.5l4.5 4.5 4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
                               </svg>
                             </div>
                           </div>
-          
+
                           <div class="sched-rail-daytoggles" aria-label="Scheduled days">
                             <template x-for="(label, i) in dayLabels" :key="i">
                               <button type="button"
@@ -367,11 +391,11 @@
                   </div>
                 </template>
               </div>
-          
+
               <template x-if="railEntriesComplete().length">
                 <div class="sched-rail-complete-wrap">
                   <div class="sched-rail-sep"></div>
-          
+
                   <div class="sched-rail-section-row">
                     <div class="sched-rail-section-head">Complete:</div>
                     <button type="button"
@@ -379,7 +403,7 @@
                             @click="toggleCompletedRail()"
                             x-text="completedRailLabel()"></button>
                   </div>
-          
+
                   <template x-if="showCompleted">
                     <div class="sched-rail-list mt-2">
                       <template x-for="entry in railEntriesComplete()" :key="entry.type + ':' + (entry.templateId || entry.courseKey)">
@@ -387,24 +411,22 @@
                           <!-- reuse the same SINGLE/GROUP markup (kept identical for consistency) -->
                           <template x-if="entry.type === 'single'">
                             <div>
-                              <!-- Row 1: title + minutes -->
                               <div class="sched-rail-row1">
                                 <div class="sched-rail-item-title"
                                      :title="(templatesById[entry.templateId] || {}).title || ''"
                                      x-text="(templatesById[entry.templateId] || {}).title || ''"></div>
-          
+
                                 <div class="sched-rail-row1-right">
                                   <div class="sched-rail-item-min"
                                        x-text="`${(templatesById[entry.templateId] || {}).minutes || 0}m`"></div>
                                 </div>
                               </div>
-          
-                              <!-- Row 2: symbols + (custom edit/delete) + tracker/check -->
+
                               <div class="sched-rail-row2">
                                 <div class="sched-rail-meta-left">
                                   <div class="sched-rail-symbols"
                                        x-text="(templatesById[entry.templateId] || {}).symbols || ''"></div>
-          
+
                                   <div class="sched-rail-custom-inline"
                                        x-show="String(entry.templateId || '').startsWith('u:')">
                                     <button type="button"
@@ -413,7 +435,7 @@
                                             @click="openCustomCardModal('edit', entry.templateId)">
                                       ✎
                                     </button>
-          
+
                                     <button type="button"
                                             class="sched-rail-icon-btn"
                                             title="Remove custom card"
@@ -422,7 +444,7 @@
                                     </button>
                                   </div>
                                 </div>
-          
+
                                 <div class="sched-rail-track"
                                      x-show="trackingForEntry(entry).show"
                                      :class="trackingForEntry(entry).done ? 'is-done' : ''">
@@ -433,8 +455,7 @@
                                   </template>
                                 </div>
                               </div>
-          
-                              <!-- Footer: weekdays -->
+
                               <div class="sched-rail-footer">
                                 <div class="sched-rail-daytoggles" aria-label="Scheduled days">
                                   <template x-for="(label, i) in dayLabels" :key="i">
@@ -450,32 +471,30 @@
                               </div>
                             </div>
                           </template>
-          
+
                           <template x-if="entry.type === 'group'">
                             <div>
-                              <!-- Row 1: title + minutes -->
                               <div class="sched-rail-row1">
                                 <div class="sched-rail-item-title"
                                      :title="railEntryDisplay(entry).title || ''"
                                      x-text="railEntryDisplay(entry).title || ''"></div>
-          
+
                                 <div class="sched-rail-row1-right">
                                   <div class="sched-rail-item-min"
                                        x-text="`${railEntryDisplay(entry).minutes || 0}m`"></div>
                                 </div>
                               </div>
-          
-                              <!-- Row 2: symbols + chosen grade text + tracker/check -->
+
                               <div class="sched-rail-row2">
                                 <div class="sched-rail-meta-left">
                                   <div class="sched-rail-symbols"
                                        x-text="railEntryDisplay(entry).symbols || ''"></div>
-          
+
                                   <div class="sched-rail-grade"
                                        x-show="railEntryDisplay(entry).sub"
                                        x-text="railEntryDisplay(entry).sub"></div>
                                 </div>
-          
+
                                 <div class="sched-rail-track"
                                      x-show="trackingForEntry(entry).show"
                                      :class="trackingForEntry(entry).done ? 'is-done' : ''">
@@ -486,8 +505,7 @@
                                   </template>
                                 </div>
                               </div>
-          
-                              <!-- Footer: choose grades (left) + weekdays (right) -->
+
                               <div class="sched-rail-footer">
                                 <div class="sched-rail-footer-left" aria-label="Choose grades">
                                   <div class="sched-rail-grade-select-wrap">
@@ -501,13 +519,13 @@
                                         <option :value="opt.option" x-text="`Grades ${opt.label}`"></option>
                                       </template>
                                     </select>
-          
+
                                     <svg class="sched-rail-grade-chevron" viewBox="0 0 20 20" aria-hidden="true">
                                       <path d="M5.5 7.5l4.5 4.5 4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                   </div>
                                 </div>
-          
+
                                 <div class="sched-rail-daytoggles" aria-label="Scheduled days">
                                   <template x-for="(label, i) in dayLabels" :key="i">
                                     <button type="button"
@@ -528,7 +546,6 @@
                   </template>
                 </div>
               </template>
-          
             </div>
           </div>
 
