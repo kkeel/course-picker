@@ -1563,3 +1563,71 @@ body.schedule-page .schedule-panel-row{
 
   touch-action: pan-x pan-y;   /* allows both directions on touch */
 }
+/* =========================================================
+   FINAL OVERRIDES — make the workspace fit + fix scroll behavior
+   (paste at the VERY BOTTOM of schedule.css)
+   ========================================================= */
+
+/* 1) Stop the header's Tailwind margin/padding from "stealing" height
+      when the page itself is overflow:hidden */
+body.schedule-page .app-header{
+  margin-bottom: 12px !important; /* overrides mb-8 */
+}
+
+body.schedule-page .main-content.schedule-main{
+  padding-bottom: 12px !important; /* overrides pb-16 */
+}
+
+/* Reduce the workspace top margin a bit so the bottom edge is visible */
+body.schedule-page .schedule-workspace{
+  margin-top: 12px !important; /* overrides mt-6 */
+}
+
+/* 2) Make sure the right-side build area can actually shrink
+      so inner scroll areas can activate */
+body.schedule-page .schedule-panels,
+body.schedule-page .schedule-panel-row,
+body.schedule-page .schedule-panel{
+  min-height: 0;
+}
+
+/* 3) IMPORTANT: force real horizontal overflow so the board can scroll
+      anywhere (not just when hovering the header area).
+      Grid "auto-fit" tries to make everything fit, which kills overflow. */
+.schedule-columns{
+  display: flex !important;
+  gap: 12px;
+  width: max-content;   /* <-- creates overflow when 5 days don't fit */
+  min-width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+/* Fixed-ish column width so 5 days overflow and scroll naturally */
+.schedule-col{
+  flex: 0 0 240px;
+  height: 100%;
+  min-height: 0;
+}
+
+/* 4) Keep vertical scroll inside each day column */
+.schedule-dropzone{
+  overflow-y: auto !important;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+/* 5) Make horizontal scrolling feel available everywhere inside the panel */
+.schedule-board{
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x;
+}
+
+/* Let swipes start on cards/inside columns and still pan horizontally */
+.schedule-dropzone,
+.sched-card{
+  touch-action: pan-x pan-y;
+}
