@@ -1166,6 +1166,8 @@
   align-items:center;
   justify-content:flex-end;
   gap:10px;
+  margin-left: -16px;
+  margin-right: -16px;
 }
 
 /* When grade options exist, they sit on the left side of the footer */
