@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-29T18:40:20.961Z",
+  "lastUpdated": "2026-01-30T08:56:31.355Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -838,15 +838,15 @@
       "resourceId": "recPb5gHeLu8G3EXl",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "003.002.000",
-      "scopeText": "Term 3",
+      "resourceKey": "001.002.000",
+      "scopeText": "Term 1",
       "terms": [
-        "T3"
+        "T1"
       ],
       "termNotes": {
-        "T1": "",
+        "T1": "Like a Bird: The Art of the American Slave Song (Full Term)",
         "T2": "",
-        "T3": "Like a Bird: The Art of the American Slave Song (Full Term)"
+        "T3": ""
       },
       "gradeText": "G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12,",
       "grades": [
@@ -2625,6 +2625,36 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec8uExmrd5iccO3z?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "recUVlZ8DKTsygfXX",
+      "targetId": "rec94JklXBmpXn1Ky",
+      "resourceId": "reckrNrYGs7Cee08j",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1",
+      "terms": [
+        "T1"
+      ],
+      "termNotes": {
+        "T1": "Sophie's Rebellion (Full Term)",
+        "T2": "",
+        "T3": ""
+      },
+      "gradeText": "G9, G10,",
+      "grades": [
+        9,
+        10
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Canadian History: Grades 9-10\nCanadian History: Grades 7-8",
+      "sharedLinesR3": [
+        "Canadian History: Grades 9-10",
+        "Canadian History: Grades 7-8"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec94JklXBmpXn1Ky?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "rec5vdKASlsKmCGmP",
       "targetId": "rec94JklXBmpXn1Ky",
       "resourceId": "reclTSrJE2vbwfJaf",
@@ -2684,6 +2714,34 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec94JklXBmpXn1Ky?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "rec42uFhQm0Nf7Wa5",
+      "targetId": "rec94JklXBmpXn1Ky",
+      "resourceId": "recerCcBPX6VYGc7c",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.003.000",
+      "scopeText": "Term 2\nTerm 3",
+      "terms": [
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "Red Wolf (Full Term)",
+        "T3": "Red Wolf (Full Term)"
+      },
+      "gradeText": "G9, G10,",
+      "grades": [
+        9,
+        10
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec94JklXBmpXn1Ky?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recqo2pwfL3w2H3vl",
       "targetId": "rec94JklXBmpXn1Ky",
       "resourceId": "recfUzI2Tz0Ywd4gq",
@@ -2710,6 +2768,36 @@
       "sharedTextR3": "Geography: Grade 8 (Canada)\nCanadian History: Grades 9-10",
       "sharedLinesR3": [
         "Geography: Grade 8 (Canada)",
+        "Canadian History: Grades 9-10"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec94JklXBmpXn1Ky?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recIQ5jgXR0e9qn1c",
+      "targetId": "rec94JklXBmpXn1Ky",
+      "resourceId": "recyvHTlefUZzpApF",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.003.000",
+      "scopeText": "Term 2",
+      "terms": [
+        "T2"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "The Charlottetown Conference (Full Term)",
+        "T3": ""
+      },
+      "gradeText": "G9, G10,",
+      "grades": [
+        9,
+        10
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Canadian History: Grades 7-8\nCanadian History: Grades 9-10",
+      "sharedLinesR3": [
+        "Canadian History: Grades 7-8",
         "Canadian History: Grades 9-10"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec94JklXBmpXn1Ky?home=pag8nmiUVfXJRZFLW"
@@ -4256,6 +4344,35 @@
         "T1": "Laura Secord's Brave Walk (Partial Term)",
         "T2": "",
         "T3": ""
+      },
+      "gradeText": "G2, G3, G4,",
+      "grades": [
+        2,
+        3,
+        4
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recbib99MSqhVumm9?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recyD8NcrnWOBB7Dx",
+      "targetId": "recbib99MSqhVumm9",
+      "resourceId": "recK0hZdWraPTz0lj",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.003.000",
+      "scopeText": "Term 2 (Partial Term)\nTerm 3 (Partial Term)",
+      "terms": [
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "Belle of Batoche (Partial Term)",
+        "T3": "Belle of Batoche (Partial Term)"
       },
       "gradeText": "G2, G3, G4,",
       "grades": [
@@ -17567,6 +17684,33 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recsV1leROEsZ73oW?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "rec5xICngYr2OVxuZ",
+      "targetId": "recsV1leROEsZ73oW",
+      "resourceId": "reccdmmviI727Mepk",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "003.003.000",
+      "scopeText": "Term 3",
+      "terms": [
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "",
+        "T3": "This Changes Everything (Full Term)"
+      },
+      "gradeText": "G7, G8,",
+      "grades": [
+        7,
+        8
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recsV1leROEsZ73oW?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "rectUBMAxwI3tb21J",
       "targetId": "recSybgW92Wd2KXg9",
       "resourceId": "recYJHQP07uKDyMpq",
@@ -17751,6 +17895,33 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recTfs8xpxgUQ1ugj?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "recGO6r94o5twMlNP",
+      "targetId": "rectYyDExoONIDZ4N",
+      "resourceId": "recgNjdHvf9CKaDa6",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1",
+      "terms": [
+        "T1"
+      ],
+      "termNotes": {
+        "T1": "Jeremy's War 1812 (Full Term)",
+        "T2": "",
+        "T3": ""
+      },
+      "gradeText": "G7, G8,",
+      "grades": [
+        7,
+        8
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rectYyDExoONIDZ4N?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "rec5muA64UyBwh74h",
       "targetId": "rectYyDExoONIDZ4N",
       "resourceId": "recWTIXEZPlab84Z0",
@@ -17783,6 +17954,36 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rectYyDExoONIDZ4N?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "rec0dknphodbaXCMM",
+      "targetId": "rectYyDExoONIDZ4N",
+      "resourceId": "reckrNrYGs7Cee08j",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.003.000",
+      "scopeText": "Term 2",
+      "terms": [
+        "T2"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "Sophie's Rebellion (Full Term)",
+        "T3": ""
+      },
+      "gradeText": "G7, G8,",
+      "grades": [
+        7,
+        8
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Canadian History: Grades 9-10\nCanadian History: Grades 7-8",
+      "sharedLinesR3": [
+        "Canadian History: Grades 9-10",
+        "Canadian History: Grades 7-8"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rectYyDExoONIDZ4N?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recN8S2XaCdhl8ZUm",
       "targetId": "rectYyDExoONIDZ4N",
       "resourceId": "recNY9aIjlncWz6wr",
@@ -17807,6 +18008,36 @@
       "optional": false,
       "sharedTextR3": "",
       "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rectYyDExoONIDZ4N?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "rec7sipwSpjH39nPX",
+      "targetId": "rectYyDExoONIDZ4N",
+      "resourceId": "recyvHTlefUZzpApF",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.003.000",
+      "scopeText": "Term 2",
+      "terms": [
+        "T2"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "The Charlottetown Conference (Full Term)",
+        "T3": ""
+      },
+      "gradeText": "G7, G8,",
+      "grades": [
+        7,
+        8
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Canadian History: Grades 7-8\nCanadian History: Grades 9-10",
+      "sharedLinesR3": [
+        "Canadian History: Grades 7-8",
+        "Canadian History: Grades 9-10"
+      ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rectYyDExoONIDZ4N?home=pag8nmiUVfXJRZFLW"
     },
     {
