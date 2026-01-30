@@ -530,6 +530,22 @@
   gap:10px;
 }
 
+/* Top line right-side group: tracker + minutes */
+.sched-rail-item-top-right{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex: 0 0 auto;
+}
+
+/* Custom card bottom-left controls */
+.sched-rail-custom-actions{
+  margin-top: 6px;
+  display:flex;
+  gap:8px;
+  justify-content:flex-start;
+}
+
 .sched-rail-item-title{
   font-size: 13px;
   font-weight: 650;
@@ -671,26 +687,28 @@
   align-items:center;
 }
 
+/* Smaller MTWThF toggles */
 .sched-rail-daytoggle{
-  height:22px;
-  min-width:26px;
-  padding:0 6px;
-  border-radius:6px;
-  font-size:11px;
-  letter-spacing:.01em;
-  border:1px solid #d2d6d2;
-  background:#fff;
-  color:#596e5e;
-  font-size:12px;
-  line-height:1;
+  height: 18px;
+  min-width: 20px;
+  padding: 0 4px;
+  border-radius: 5px;
+  letter-spacing: .01em;
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  color: #596e5e;
+  font-size: 11px;
+  line-height: 1;
   display:inline-flex;
   align-items:center;
   justify-content:center;
 }
 
 .sched-rail-daytoggle--on{
-  border-color:#596e5e;
-  font-weight:600;
+  border-color: #596e5e;
+  background: rgba(89,110,94,.10); /* filled ON state */
+  color: #596e5e;
+  font-weight: 700;
 }
 
 /* =========================================================
