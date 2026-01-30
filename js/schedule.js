@@ -1077,23 +1077,6 @@
         this.persistCards();
       },
 
-      moveInstanceToEnd(studentId, dayIndex, fromIndex) {
-        this.ensureStudent(studentId);
-      
-        const list = this.placements?.[studentId]?.[dayIndex];
-        if (!Array.isArray(list)) return;
-      
-        const len = list.length;
-        if (fromIndex < 0 || fromIndex >= len) return;
-      
-        const next = list.slice();
-        const [moved] = next.splice(fromIndex, 1);
-        next.push(moved);
-      
-        this.placements[studentId][dayIndex] = next;
-        this.persistCards();
-      },
-
       onDragStart(evt, studentId, dayIndex, instanceId) {
         this.dragState = {
           dragging: true,
@@ -1169,61 +1152,8 @@
         const toIndex = list.indexOf(toId);
       
         if (fromIndex === -1 || toIndex === -1) return;
-        if (fromIndex === toIndex) return;
       
-        // Insert before/after hovered card based on midpoint detection
-        const wantAfter = this.dragState.overPos === "below";
-        let insertIndex = toIndex + (wantAfter ? 1 : 0);
-      
-        // If moving downward in the same array, account for removal shift
-        if (fromIndex < insertIndex) insertIndex -= 1;
-      
-        // Clamp to valid range (including "end")
-        insertIndex = Math.max(0, Math.min(insertIndex, list.length - 1));
-      
-        this.moveInstance(sid, d, fromIndex, insertIndex);
-      
-        // cleanup
-        this.dragState.overInstanceId = null;
-        this.dragState.overPos = null;
-      
-        try {
-          document.body.classList.remove("sched-drop-above", "sched-drop-below");
-        } catch (e) {}
-      },
-
-      onDropzoneOver(evt, studentId, dayIndex) {
-        if (!this.dragState.dragging) return;
-        if (this.dragState.studentId !== studentId) return;
-        if (Number(this.dragState.dayIndex) !== Number(dayIndex)) return;
-      
-        // If we're over empty space in the column, show a "drop at end" indicator
-        this.dragState.overInstanceId = null;
-        this.dragState.overPos = "below";
-      
-        try {
-          document.body.classList.remove("sched-drop-above");
-          document.body.classList.add("sched-drop-below");
-        } catch (e) {}
-      },
-      
-      onDropzoneDrop(evt, studentId, dayIndex) {
-        if (!this.dragState.dragging) return;
-        if (this.dragState.studentId !== studentId) return;
-        if (Number(this.dragState.dayIndex) !== Number(dayIndex)) return;
-      
-        const sid = studentId;
-        const d = Number(dayIndex);
-      
-        const list = this.placements?.[sid]?.[d];
-        if (!Array.isArray(list)) return;
-      
-        const fromId = this.dragState.instanceId;
-        const fromIndex = list.indexOf(fromId);
-        if (fromIndex === -1) return;
-      
-        // Drop onto empty space = move to end
-        this.moveInstanceToEnd(sid, d, fromIndex);
+        this.moveInstance(sid, d, fromIndex, toIndex);
       
         // cleanup
         this.dragState.overInstanceId = null;
