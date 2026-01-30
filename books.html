@@ -1340,22 +1340,73 @@
                                       x-show="
                                         (resourcesById[a.resourceId]?.note || a.noteText) ||
                                         (resourcesById[a.resourceId]?.maySub || a.maySubText) ||
+                                        (resourcesById[a.resourceId]?.discount?.text || resourcesById[a.resourceId]?.discount?.code) ||
                                         altFormatsForAssignment(a).length"
                                       x-cloak
                                     >
-                                      <template x-if="resourcesById[a.resourceId]?.note">
+                                      <template x-if="(resourcesById[a.resourceId]?.note || a.noteText)">
+
                                         <div class="resource-tipbox-item">
+
                                           <span class="resource-tipbox-label">NOTE:</span>
-                                          <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.note"></span>
+
+                                          <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.note || a.noteText"></span>
+
                                         </div>
+
                                       </template>
                               
-                                      <template x-if="resourcesById[a.resourceId]?.maySub">
+                                      <template x-if="(resourcesById[a.resourceId]?.maySub || a.maySubText)">
+
+                              
                                         <div class="resource-tipbox-item">
+
+                              
                                           <span class="resource-tipbox-label">➜ May sub:</span>
-                                          <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub"></span>
+
+                              
+                                          <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub || a.maySubText"></span>
+
+                              
                                         </div>
+
+                              
                                       </template>
+
+                              
+                                      <template x-if="(resourcesById[a.resourceId]?.discount?.text || resourcesById[a.resourceId]?.discount?.code)">
+
+                              
+                                        <div class="resource-tipbox-item">
+
+                              
+                                          <span class="resource-tipbox-label">➜ With code:</span>
+
+                              
+                                          <span class="resource-tipbox-text">
+
+                              
+                                            <span x-text="resourcesById[a.resourceId]?.discount?.text"></span>
+
+                              
+                                            <template x-if="resourcesById[a.resourceId]?.discount?.code">
+
+                              
+                                              <span> — <strong x-text="resourcesById[a.resourceId]?.discount?.code"></strong></span>
+
+                              
+                                            </template>
+
+                              
+                                          </span>
+
+                              
+                                        </div>
+
+                              
+                                      </template>
+
+
                               
                                       <template x-if="altFormatsForAssignment(a).length">
                                         <div class="resource-tipbox-item resource-tipbox-item--formats">
@@ -2350,22 +2401,73 @@
                                             x-show="
                                               (resourcesById[a.resourceId]?.note || a.noteText) ||
                                               (resourcesById[a.resourceId]?.maySub || a.maySubText) ||
+                                              (resourcesById[a.resourceId]?.discount?.text || resourcesById[a.resourceId]?.discount?.code) ||
                                               altFormatsForAssignment(a).length"
                                             x-cloak
                                           >
-                                            <template x-if="resourcesById[a.resourceId]?.note">
+                                            <template x-if="(resourcesById[a.resourceId]?.note || a.noteText)">
+
                                               <div class="resource-tipbox-item">
+
                                                 <span class="resource-tipbox-label">NOTE:</span>
-                                                <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.note"></span>
+
+                                                <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.note || a.noteText"></span>
+
                                               </div>
+
                                             </template>
                                     
-                                            <template x-if="resourcesById[a.resourceId]?.maySub">
+                                            <template x-if="(resourcesById[a.resourceId]?.maySub || a.maySubText)">
+
+                                    
                                               <div class="resource-tipbox-item">
+
+                                    
                                                 <span class="resource-tipbox-label">➜ May sub:</span>
-                                                <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub"></span>
+
+                                    
+                                                <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub || a.maySubText"></span>
+
+                                    
                                               </div>
+
+                                    
                                             </template>
+
+                                    
+                                            <template x-if="(resourcesById[a.resourceId]?.discount?.text || resourcesById[a.resourceId]?.discount?.code)">
+
+                                    
+                                              <div class="resource-tipbox-item">
+
+                                    
+                                                <span class="resource-tipbox-label">➜ With code:</span>
+
+                                    
+                                                <span class="resource-tipbox-text">
+
+                                    
+                                                  <span x-text="resourcesById[a.resourceId]?.discount?.text"></span>
+
+                                    
+                                                  <template x-if="resourcesById[a.resourceId]?.discount?.code">
+
+                                    
+                                                    <span> — <strong x-text="resourcesById[a.resourceId]?.discount?.code"></strong></span>
+
+                                    
+                                                  </template>
+
+                                    
+                                                </span>
+
+                                    
+                                              </div>
+
+                                    
+                                            </template>
+
+
                                     
                                             <template x-if="altFormatsForAssignment(a).length">
                                               <div class="resource-tipbox-item resource-tipbox-item--formats">
