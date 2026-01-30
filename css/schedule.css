@@ -831,12 +831,18 @@
    ========================================================= */
 
 /* Picture Study band footer */
-.sched-rail-band {
-  margin-top: 6px;
-  padding: 6px 8px;
+.sched-rail-band{
+  margin-top: 8px;
+
+  /* pull the band to the card edges (matches .sched-rail-item padding) */
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-bottom: -8px;
+
+  padding: 10px 10px;
   border-top: 1px solid #e5e8e5;
-  background: #fbfbf9;
-  border-radius: 0 0 8px 8px;
+  background: #f3f4ef;
+  border-radius: 0 0 14px 14px;
 }
 
 .sched-rail-band-chips{
@@ -848,6 +854,7 @@
 /* --- Rail card tightening --- */
 .sched-rail-item {
   padding: 10px 10px 8px;
+  overflow: hidden;
 }
 
 /* Title + minutes line */
@@ -897,6 +904,27 @@
   color: #666d66;
   line-height: 1.2;
   min-width: 0;
+}
+
+/* Left side of the meta row: symbols + grade tag */
+.sched-rail-meta-left{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+}
+
+/* Grade tag pill shown for banded courses (e.g. Picture Study) */
+.sched-rail-grade{
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 650;
+  color: #596e5e;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 /* keep buttons tight + aligned under minutes */
