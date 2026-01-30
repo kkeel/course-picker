@@ -1239,3 +1239,20 @@
   color: #596e5e;
   pointer-events: none;
 }
+
+/* =========================================================
+   Drag reorder (Phase 1)
+   ========================================================= */
+
+.sched-card[draggable="true"]{
+  cursor: grab;
+}
+
+body.sched-dragging .sched-card[draggable="true"]{
+  cursor: grabbing;
+}
+
+/* While dragging, slightly mute non-dragged cards (keeps it calm) */
+body.sched-dragging .sched-card{
+  opacity: 0.92;
+}
