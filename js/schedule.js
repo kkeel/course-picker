@@ -707,6 +707,54 @@
         return this.dayLabels[n] || ['Mon','Tue','Wed','Thu','Fri'][n] || `Day ${n + 1}`;
       },
 
+      // -----------------------------
+      // Day View helpers (Phase 3)
+      // -----------------------------
+      dayViewSize() {
+        // v1: 2–3 day panels side-by-side; easy to tune later
+        return 3;
+      },
+      
+      dayViewWindowStart: 0,
+      
+      getDayViewDays() {
+        // Only show days that are currently "visibleDays"
+        const days = Array.isArray(this.visibleDays) ? [...this.visibleDays] : [0,1,2,3,4];
+        const size = this.dayViewSize();
+        const maxStart = Math.max(0, days.length - size);
+      
+        // clamp stored window start
+        if (this.dayViewWindowStart > maxStart) this.dayViewWindowStart = maxStart;
+        if (this.dayViewWindowStart < 0) this.dayViewWindowStart = 0;
+      
+        return days.slice(this.dayViewWindowStart, this.dayViewWindowStart + size);
+      },
+      
+      dayViewCanPrev() {
+        return (this.dayViewWindowStart || 0) > 0;
+      },
+      
+      dayViewCanNext() {
+        const days = Array.isArray(this.visibleDays) ? this.visibleDays : [0,1,2,3,4];
+        return (this.dayViewWindowStart || 0) < Math.max(0, days.length - this.dayViewSize());
+      },
+      
+      dayViewPrev() {
+        this.dayViewWindowStart = Math.max(0, (this.dayViewWindowStart || 0) - 1);
+      },
+      
+      dayViewNext() {
+        const days = Array.isArray(this.visibleDays) ? this.visibleDays : [0,1,2,3,4];
+        const maxStart = Math.max(0, days.length - this.dayViewSize());
+        this.dayViewWindowStart = Math.min(maxStart, (this.dayViewWindowStart || 0) + 1);
+      },
+      
+      getLaneInstanceIds(studentId, dayIndex) {
+        const d = Number(dayIndex);
+        const arr = this.placements?.[studentId]?.[d];
+        return Array.isArray(arr) ? arr : [];
+      },
+
       setCourseOption(courseKey, option) {
         if (!this.choices.courseOptions) this.choices.courseOptions = {};
         this.choices.courseOptions[courseKey] = option;
