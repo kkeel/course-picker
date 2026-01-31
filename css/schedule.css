@@ -40,12 +40,13 @@
 
 /* The 2-column area should not grow forever */
 .schedule-grid{
-  align-items: start; /* prevents weird stretching behavior */
+  align-items: stretch; /* prevents weird stretching behavior */
 }
 
 /* Left rail: scroll internally when it gets long */
 .sched-rail{
   max-height: var(--sched-workspace-max-h);
+  height: var(--sched-workspace-max-h);
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -60,18 +61,18 @@
   z-index: 5;
   background: #f6f7f3; 
 
-  /* keep your “full width inside p-4” look */
+  /* keep your â€œfull width inside p-4â€ look */
   margin: -16px -16px 0;
   padding: 16px 16px 12px;
 
   border-bottom: 1px solid #e5e8e5;
 
-  /* helps it feel “sealed” at the top */
+  /* helps it feel â€œsealedâ€ at the top */
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 }
 
-/* Remove the inner “box” just inside the header */
+/* Remove the inner â€œboxâ€ just inside the header */
 .sched-rail-top .sched-target{
   padding: 0;
   border: 0;
@@ -150,6 +151,7 @@
 /* Right builder: fixed-ish height with internal scrolling in panels/columns */
 .sched-work{
   max-height: var(--sched-workspace-max-h);
+  height: var(--sched-workspace-max-h);
   overflow: hidden;         /* important: prevents the whole builder from growing */
   display: flex;
   flex-direction: column;
@@ -345,7 +347,7 @@
   overflow: visible;
 }
 
-/* Header layout: dropdown left, Day 1ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ5 on right */
+/* Header layout: dropdown left, Day 1ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“5 on right */
 .schedule-panel-title{
   display:flex;
   align-items:center;
@@ -410,8 +412,8 @@
   display: flex;
   flex-direction: column;
 
-  /* NEW: critical — allow the column to shrink and fill available height
-     (removes “grow forever” behavior) */
+  /* NEW: critical â€” allow the column to shrink and fill available height
+     (removes â€œgrow foreverâ€ behavior) */
   min-height: 0;
   height: 100%;
 }
@@ -915,7 +917,7 @@
   padding-top: 12px;
 }
 
-/* section blocks: subtle “you are here” cues */
+/* section blocks: subtle â€œyou are hereâ€ cues */
 .sched-rail-block {
   border-radius: 14px;
   padding: 10px;
@@ -928,7 +930,7 @@
   border: 1px solid rgba(210, 214, 210, 0.9);
 }
 
-/* Complete = a touch lighter so it feels “finished” */
+/* Complete = a touch lighter so it feels â€œfinishedâ€ */
 .sched-rail-block--complete {
   background: rgba(102, 109, 102, 0.04);
   border: 1px solid rgba(210, 214, 210, 0.8);
@@ -1124,7 +1126,7 @@
   gap:8px;
 }
 
-/* small circular + button (instead of ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“AddÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â) */
+/* small circular + button (instead of ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œAddÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â) */
 /* Small light add button */
 .sched-rail-add {
   width: 24px;
@@ -1328,7 +1330,7 @@
 
 .sched-rail-trackchip--done{
   border-color: #d2d6d2;
-  color: #596e5e; /* subtle ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“finishedÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â */
+  color: #596e5e; /* subtle ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œfinishedÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â */
 }
 
 .sched-rail-check{
@@ -1397,7 +1399,7 @@
   justify-content:flex-end;
   gap:10px;
 
-  /* match the cardÃ¢â‚¬â„¢s 10px side padding */
+  /* match the cardÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s 10px side padding */
   margin-left: -10px;
   margin-right: -10px;
 }
@@ -1534,7 +1536,7 @@ body.sched-drop-below .sched-card.is-drop-target::before{
    Rail header: light-tint sticky (matches chip ON fill)
    ========================================================= */
 
-/* Match the rail’s corner radius to the rest of your UI (and your header block) */
+/* Match the railâ€™s corner radius to the rest of your UI (and your header block) */
 .sched-rail{
   border-radius: 16px;
 }
@@ -1545,7 +1547,7 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   top: 0;
   z-index: 10;
 
-  /* Light tint (same “on chip” family) */
+  /* Light tint (same â€œon chipâ€ family) */
   background: rgba(89,110,94,.10);
 
   /* Pull the header to the card edges (because the rail uses p-4 = 16px) */
@@ -1554,7 +1556,7 @@ body.sched-drop-below .sched-card.is-drop-target::before{
 
   border-bottom: 1px solid #e5e8e5;
 
-  /* Seal the top corners so there’s no white strip above */
+  /* Seal the top corners so thereâ€™s no white strip above */
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 }
@@ -1570,7 +1572,7 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   opacity: .75;
 }
 
-/* Remove the inner “box” in the header (keep it clean) */
+/* Remove the inner â€œboxâ€ in the header (keep it clean) */
 .sched-rail-top .sched-target{
   padding: 0;
   border: 0;
@@ -1694,7 +1696,7 @@ body.sched-drop-below .sched-card.is-drop-target::before{
 /* NEED list only:
    targets the first rail list (the one right after "Need to schedule:") */
 .sched-rail-body > .sched-rail-section-head + .sched-rail-list .sched-rail-item{
-  background: #ffffff;                 /* pop forward vs the rail’s soft surfaces */
+  background: #ffffff;                 /* pop forward vs the railâ€™s soft surfaces */
   border-left: 4px solid #596e5e;      /* brand accent */
   box-shadow: 0 1px 0 rgba(0,0,0,.04);
 }
@@ -1709,7 +1711,7 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   opacity: .55;                       /* was ~.68 in your file */
   filter: grayscale(.18);
   background: #fbfbf9;                /* keep it calm */
-  border-left: 0;                     /* remove the “active” accent */
+  border-left: 0;                     /* remove the â€œactiveâ€ accent */
   box-shadow: none;
 }
 
@@ -1717,28 +1719,4 @@ body.sched-drop-below .sched-card.is-drop-target::before{
 .sched-rail-complete-wrap .sched-rail-item:hover{
   opacity: .75;
   filter: grayscale(.05);
-}
-
-.schedule-grid{
-  display: grid;
-  grid-template-columns: minmax(320px, 380px) 1fr;
-  gap: 18px;
-  align-items: stretch; /* was start */
-}
-
-.sched-rail{
-  max-height: var(--sched-workspace-max-h);
-  height: var(--sched-workspace-max-h); /* add this */
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.sched-work{
-  max-height: var(--sched-workspace-max-h);
-  height: var(--sched-workspace-max-h); /* add this */
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
 }
