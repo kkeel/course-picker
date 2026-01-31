@@ -34,6 +34,10 @@
   // -----------------------------
   function defaultUiState() {
     return {
+      // Left rail UI
+      railTopCollapsed: false,
+      showCompleted: false,
+      
       view: "track",
       visibleDays: [0, 1, 2, 3, 4],
       panels: [
@@ -65,6 +69,18 @@
       .map((p, idx) => {
         const slot = p?.slot || (idx === 1 ? "P2" : "P1");
         let studentId = p?.studentId || (slot === "P2" ? "S2" : "S1");
+
+        const railTopCollapsed =
+        typeof state?.railTopCollapsed === "boolean"
+          ? state.railTopCollapsed
+          : d.railTopCollapsed;
+  
+        const showCompleted =
+          typeof state?.showCompleted === "boolean"
+            ? state.showCompleted
+            : d.showCompleted;
+    
+        return { view, visibleDays, panels, railTopCollapsed, showCompleted };
 
         if (Array.isArray(allStudentIds) && allStudentIds.length) {
           if (!allStudentIds.includes(studentId)) {
@@ -393,6 +409,10 @@
         this.visibleDays = normalizedUi.visibleDays;
         this.visibleStudentPanels = normalizedUi.panels;
         this.openStudentMenu = null;
+        // Restore left-rail UI toggles
+        this.railTopCollapsed = !!normalizedUi.railTopCollapsed;
+        this.showCompleted = !!normalizedUi.showCompleted;
+
 
         // load cards
         const savedCards = loadKey(CARDS_STORAGE_KEY);
@@ -478,6 +498,8 @@
           view: this.view,
           visibleDays: this.visibleDays,
           panels: this.visibleStudentPanels.map((p) => ({ slot: p.slot, studentId: p.studentId })),
+          railTopCollapsed: this.railTopCollapsed,
+          showCompleted: this.showCompleted,
         });
       },
 
@@ -1001,6 +1023,12 @@
 
       toggleCompletedRail() {
         this.showCompleted = !this.showCompleted;
+        this.persistUi();
+      },
+
+      toggleRailTop() {
+        this.railTopCollapsed = !this.railTopCollapsed;
+        this.persistUi();
       },
 
       completedRailLabel() {
