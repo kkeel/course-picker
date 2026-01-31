@@ -385,6 +385,7 @@
         instanceId: null,
         overInstanceId: null,
         overPos: null,
+        overEl: null, 
       },
 
       // -----------------------------
@@ -1166,32 +1167,48 @@
         this.dragState.overInstanceId = null;
         this.dragState.overPos = null;
       
+        // ✅ remove per-card drop marker
+        try {
+          if (this.dragState.overEl) this.dragState.overEl.removeAttribute("data-drop-pos");
+        } catch (e) {}
+        this.dragState.overEl = null;
+      
         try {
           document.body.classList.remove("sched-dragging", "sched-drop-above", "sched-drop-below");
         } catch (e) {}
       },
       
       onDragOver(evt, studentId, dayIndex, overInstanceId) {
-        // Allow hovering cards across days (same student) so we can show insertion indicator
         if (!this.dragState.dragging) return;
         if (this.dragState.studentId !== studentId) return;
       
         this.dragState.overInstanceId = overInstanceId;
       
-        // Determine whether we're above or below the midpoint of the hovered card
+        // Determine above/below midpoint
+        let pos = null;
         try {
           const rect = evt.currentTarget.getBoundingClientRect();
           const y = evt.clientY - rect.top;
-          this.dragState.overPos = (y < rect.height / 2) ? "above" : "below";
-        } catch (e) {
-          this.dragState.overPos = null;
-        }
-      
-        try {
-          document.body.classList.toggle("sched-drop-above", this.dragState.overPos === "above");
-          document.body.classList.toggle("sched-drop-below", this.dragState.overPos === "below");
+          pos = (y < rect.height / 2) ? "above" : "below";
         } catch (e) {}
       
+        this.dragState.overPos = pos;
+      
+        // ✅ Clear previous hovered element marker
+        try {
+          if (this.dragState.overEl && this.dragState.overEl !== evt.currentTarget) {
+            this.dragState.overEl.removeAttribute("data-drop-pos");
+          }
+        } catch (e) {}
+      
+        // ✅ Mark current hovered card with drop position
+        try {
+          if (pos) evt.currentTarget.setAttribute("data-drop-pos", pos);
+          else evt.currentTarget.removeAttribute("data-drop-pos");
+          this.dragState.overEl = evt.currentTarget;
+        } catch (e) {}
+      
+        // allow drop
         try { evt.dataTransfer.dropEffect = "move"; } catch (e) {}
       },
 
@@ -1206,6 +1223,11 @@
         // clear card-target visuals when hovering empty space
         this.dragState.overInstanceId = null;
         this.dragState.overPos = null;
+
+        try {
+          if (this.dragState.overEl) this.dragState.overEl.removeAttribute("data-drop-pos");
+        } catch (e) {}
+        this.dragState.overEl = null;
       },
       
       onDropzoneDrop(evt, studentId, dayIndex) {
