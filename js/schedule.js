@@ -456,13 +456,18 @@
             };
             this.templatesById[id] = tpl;
 
-            // MIGRATION: custom cards should always use a 12-block tracker
-            if (String(id).startsWith('u:')) {
-              if (!tpl.trackingCount || tpl.trackingCount < 12) tpl.trackingCount = 12;
-              if (!tpl.weeklyTarget) tpl.weeklyTarget = 1;
-            }
-
           }
+        }
+
+        // MIGRATION (v1.2): ensure ALL cached custom templates use a 12-block tracker.
+        // This must not be scoped to picture-study templates.
+        for (const [id, tpl] of Object.entries(this.templatesById || {})) {
+          if (!tpl) continue;
+          // Custom template IDs are prefixed with "u:".
+          if (!String(id).startsWith("u:")) continue;
+          if (!tpl.trackingCount || tpl.trackingCount < 12) tpl.trackingCount = 12;
+          if (!tpl.weeklyTarget) tpl.weeklyTarget = 1;
+          this.templatesById[id] = tpl;
         }
         
         // ensure default selection exists
@@ -1224,7 +1229,10 @@
         },
 
       trackingBlocks(tpl) {
-        const n = Number(tpl?.trackingCount || 0);
+        const isCustom = String(tpl?.id || "").startsWith("u:");
+        // Older cached custom cards may lack trackingCount; treat as 12 by default.
+        const raw = (tpl?.trackingCount == null || tpl?.trackingCount === "") && isCustom ? 12 : tpl?.trackingCount;
+        const n = Number(raw || 0);
         if (!Number.isFinite(n) || n <= 0) return "";
         return "⬚".repeat(Math.min(n, 20)); // cap display; real rendering later
       },
