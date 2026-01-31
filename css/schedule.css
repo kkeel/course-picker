@@ -1520,3 +1520,53 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   bottom: -6px;
   opacity: 1;
 }
+
+/* =========================================================
+   Dark Green Rail Header Styles
+   ========================================================= */
+
+/* Dark header variant */
+.sched-rail-top{
+  background: #596e5e;
+  border-bottom: 1px solid rgba(255,255,255,.18);
+}
+
+/* Header text + icons go white */
+.sched-rail-top,
+.sched-rail-top .text-sm,
+.sched-rail-top .sched-rail-sub{
+  color: #fff;
+}
+
+.sched-rail-top .sched-rail-sub{
+  opacity: .85;
+}
+
+/* Buttons become light-on-dark */
+.sched-rail-top .sched-rail-btn{
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.35);
+  color: #fff;
+}
+.sched-rail-top .sched-rail-btn:hover{
+  background: rgba(255,255,255,.16);
+}
+
+.sched-rail-top .sched-rail-collapse-btn{
+  color: #fff;
+}
+.sched-rail-top .sched-rail-collapse-btn:hover{
+  background: rgba(255,255,255,.12);
+}
+
+/* Remove the inner “box” in the header */
+.sched-rail-top .sched-target{
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+/* Keep the select readable */
+.sched-rail-top .sched-target-select{
+  border-color: rgba(255,255,255,.35);
+}
