@@ -347,6 +347,21 @@
   overflow: visible;
 }
 
+/* =========================================================
+   Right side visual anchor (match rail header tint)
+   ========================================================= */
+
+/* Reuse the same tint as the Scheduling Cards header */
+.schedule-panel-head{
+  background: var(--rail-head-bg);
+}
+
+/* Slightly improve contrast on the tinted header */
+.schedule-panel-range{
+  color: #465146; /* was lighter; this reads better on the tint */
+}
+
+
 /* Header layout: dropdown left, Day 1ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“5 on right */
 .schedule-panel-title{
   display:flex;
