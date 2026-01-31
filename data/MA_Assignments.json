@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-31T08:46:22.076Z",
+  "lastUpdated": "2026-01-31T14:15:49.903Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -13359,11 +13359,9 @@
         "T2": "Primary French Course Part I (Full Term)",
         "T3": "Primary French Course Part I (Full Term)"
       },
-      "gradeText": "G10, G11, G12,",
+      "gradeText": "G10,",
       "grades": [
-        10,
-        11,
-        12
+        10
       ],
       "gradeLevelTag": "",
       "optional": false,
@@ -13394,11 +13392,9 @@
         "T2": "French: Level 4 SoundCloud Playlist (Full Term)",
         "T3": "French: Level 4 SoundCloud Playlist (Full Term)"
       },
-      "gradeText": "G10, G11, G12,",
+      "gradeText": "G10,",
       "grades": [
-        10,
-        11,
-        12
+        10
       ],
       "gradeLevelTag": "",
       "optional": false,
@@ -13424,11 +13420,9 @@
         "T2": "French: Level 4 Student Notebook (Full Term)",
         "T3": "French: Level 4 Student Notebook (Full Term)"
       },
-      "gradeText": "G10, G11, G12,",
+      "gradeText": "G10,",
       "grades": [
-        10,
-        11,
-        12
+        10
       ],
       "gradeLevelTag": "",
       "optional": false,
@@ -16314,6 +16308,35 @@
         "T1": "French: Level 5 SoundCloud Playlist (Full Term)",
         "T2": "French: Level 5 SoundCloud Playlist (Full Term)",
         "T3": "French: Level 5 SoundCloud Playlist (Full Term)"
+      },
+      "gradeText": "G11, G12,",
+      "grades": [
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recqNOmOD0VFoWjt4?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recrmxz1AD0zyz8K3",
+      "targetId": "recqNOmOD0VFoWjt4",
+      "resourceId": "recLlhUmtH9rDWtT9",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.003",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "French: Level 5 Student Notebook (Full Term)",
+        "T2": "French: Level 5 Student Notebook (Full Term)",
+        "T3": "French: Level 5 Student Notebook (Full Term)"
       },
       "gradeText": "G11, G12,",
       "grades": [
