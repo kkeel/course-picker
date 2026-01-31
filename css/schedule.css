@@ -1944,3 +1944,23 @@ body.sched-dragging .sched-card{
   height: 16px;
   opacity: .85;
 }
+
+/* =========================================================
+   Empty schedule column placeholder (Student + Day View)
+   ========================================================= */
+.schedule-empty{
+  border: 2px dashed #d2d6d2;
+  border-radius: 14px;
+
+  padding: 18px 16px;
+  margin: 4px 0;
+
+  font-size: 14px;
+  line-height: 1.4;
+  color: #8a908a;
+  text-align: center;
+
+  background: transparent;
+
+  pointer-events: none; /* important: never blocks drag/drop */
+}
