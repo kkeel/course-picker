@@ -2,6 +2,10 @@
    Schedule
    ========================================================= */
 
+:root{
+  --rail-head-bg: #dee1d2; /* brand light green */
+}
+
 /* Schedule header row: title left, tutorial right */
 .schedule-head{
   display:flex;
@@ -1668,4 +1672,18 @@ body.sched-drop-below .sched-card.is-drop-target::before{
 .sched-rail-body > .sched-rail-section-head{
   margin-top: 0;
   padding-top: 2px;
+}
+
+/* Rail shell */
+.sched-rail{
+  border-radius: 16px !important; /* <- force over Tailwind rounded-lg */
+  overflow: hidden;              /* ensures header bg clips to corners */
+  background: #fff;              /* rail body stays white */
+}
+
+/* Sticky header block */
+.sched-rail-top{
+  background: var(--rail-head-bg);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 }
