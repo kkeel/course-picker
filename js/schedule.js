@@ -1139,7 +1139,7 @@
         this.placements[studentId][toDay] = toList;
       
         this.persistCards();
-      }
+      },
 
       onDragStart(evt, studentId, dayIndex, instanceId) {
         this.dragState = {
@@ -1241,7 +1241,7 @@
         try {
           document.body.classList.remove("sched-drop-above", "sched-drop-below");
         } catch (e) {}
-      }
+      },
       
       onDrop(evt, studentId, dayIndex, dropOnInstanceId) {
         if (!this.dragState.dragging) return;
