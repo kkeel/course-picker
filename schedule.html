@@ -807,51 +807,63 @@
                 </div>
               
                 <div class="sched-dayview-grid">
-                  <template x-for="dayIdx in getDayViewDays()" :key="'dv-day-' + dayIdx">
+                  <template x-for="(panel, pIdx) in (dayViewPanels || [])" :key="panel.slot">
                     <section class="sched-dayview-day">
                       <header class="sched-dayview-dayhead">
-                        <div class="sched-dayview-dayname" x-text="dayLabel(dayIdx)"></div>
+                        <button type="button"
+                          class="sched-panel-student-btn"
+                          @click="toggleDayMenu(pIdx)"
+                          @click.away="closeDayMenu()">
+                          <span x-text="dayLabel(panel.dayIdx)"></span>
+                          <span class="sched-panel-caret">▾</span>
+                        </button>
+                
+                        <div class="sched-panel-student-menu"
+                          x-show="openDayMenu === pIdx"
+                          x-transition>
+                          <template x-for="d in [0,1,2,3,4]" :key="'dv-day-opt-' + pIdx + '-' + d">
+                            <button type="button"
+                              class="sched-panel-student-item"
+                              @click="setDayPanel(pIdx, d); closeDayMenu();">
+                              <span x-text="dayLabel(d)"></span>
+                            </button>
+                          </template>
+                        </div>
                       </header>
-              
+                
                       <div class="sched-dayview-lanes">
-                        <template x-for="s in (students || [])" :key="'dv-lane-' + dayIdx + '-' + s.id">
+                        <template x-for="(studentId, sIdx) in (dayViewStudentSlots || [])" :key="'dv-slot-' + pIdx + '-' + sIdx">
                           <div class="sched-dayview-lane">
                             <div class="sched-dayview-lanehead">
-                              <div class="sched-dayview-student" x-text="s.name"></div>
-                            </div>
-              
-                            <div class="sched-dayview-lanebody">
-                              <template x-for="instId in getLaneInstanceIds(s.id, dayIdx)" :key="instId">
-                                <!-- Reuse your existing scheduled-card markup here.
-                                     If you already have a single “scheduled card” HTML block in Student View,
-                                     copy/paste that exact block into here (DO NOT redesign it). -->
-                                <div class="sched-card sched-card--scheduled"
-                                     draggable="true"
-                                     @dragstart="onDragStart($event, s.id, dayIdx, instId)"
-                                     @dragend="onDragEnd()"
-                                     @dragover.prevent="onDragOver($event, s.id, dayIdx, instId)"
-                                     @drop.prevent="onDrop($event, s.id, dayIdx, instId)"
-                                     x-data="{ _instId: instId }">
-                                  <!-- IMPORTANT:
-                                       Replace the inside of this card with your existing scheduled-card inner HTML
-                                       (title/minutes/tracker/etc) so it matches Student View exactly. -->
-                                  <div class="sched-card-inner">
-                                    <div class="sched-card-title" x-text="getInstanceTitle(instId)"></div>
-                                  </div>
-                                </div>
-                              </template>
-              
-                              <!-- Empty drop area (lets you drop into empty lanes) -->
-                              <div class="sched-dropzone"
-                                   @dragover.prevent
-                                   @drop.prevent="onDropToLane($event, s.id, dayIdx)">
+                              <button type="button"
+                                class="sched-panel-student-btn"
+                                @click="openDayStudentMenu = (openDayStudentMenu === (pIdx + ':' + sIdx) ? null : (pIdx + ':' + sIdx))"
+                                @click.away="openDayStudentMenu = null">
+                                <span x-text="getStudentName(studentId)"></span>
+                                <span class="sched-panel-caret">▾</span>
+                              </button>
+                
+                              <div class="sched-panel-student-menu"
+                                x-show="openDayStudentMenu === (pIdx + ':' + sIdx)"
+                                x-transition>
+                                <template x-for="s in (students || [])" :key="'dv-slot-opt-' + pIdx + '-' + sIdx + '-' + s.id">
+                                  <button type="button"
+                                    class="sched-panel-student-item"
+                                    @click="setDayViewSlotStudent(sIdx, s.id); openDayStudentMenu = null;">
+                                    <span x-text="s.name"></span>
+                                  </button>
+                                </template>
                               </div>
-              
+                            </div>
+                
+                            <div class="sched-dayview-lanebody">
+                              <template x-for="instId in getLaneInstanceIds(studentId, panel.dayIdx)" :key="instId">
+                                <!-- Use your SAME scheduled-card markup here -->
+                              </template>
                             </div>
                           </div>
                         </template>
                       </div>
-              
                     </section>
                   </template>
                 </div>
