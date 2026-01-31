@@ -455,6 +455,13 @@
               optionLabel: labelMap[option] || option,
             };
             this.templatesById[id] = tpl;
+
+            // MIGRATION: custom cards should always use a 12-block tracker
+            if (String(id).startsWith('u:')) {
+              if (!tpl.trackingCount || tpl.trackingCount < 12) tpl.trackingCount = 12;
+              if (!tpl.weeklyTarget) tpl.weeklyTarget = 1;
+            }
+
           }
         }
         
@@ -592,7 +599,7 @@
             title,
             minutes,
             symbols: "",
-            trackingCount: 0,
+            trackingCount: 12,
             weeklyTarget, // ✅ enables counters/checkmark
           };
         }
