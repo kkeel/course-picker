@@ -1143,14 +1143,13 @@
       },
 
       onDragStart(evt, studentId, dayIndex, instanceId) {
-        this.dragState = {
-          dragging: true,
-          studentId,
-          dayIndex: Number(dayIndex),
-          instanceId,
-          overInstanceId: null,
-          overPos: null,
-        };
+        this.dragState.dragging = true;
+        this.dragState.studentId = studentId;
+        this.dragState.dayIndex = Number(dayIndex);
+        this.dragState.instanceId = instanceId;
+        this.dragState.overInstanceId = null;
+        this.dragState.overPos = null;
+        this.dragState.overEl = null;
       
         // Required for Safari/Firefox: set some drag data
         try {
