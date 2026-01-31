@@ -1523,7 +1523,8 @@ body.sched-dragging .sched-card{
   box-shadow: 0 0 0 3px rgba(89,110,94,.12);
 }
 
-/* Insertion line (top/bottom) */
+/* Insertion line (top/bottom) — draw INSIDE the card
+   (prevents clipping inside overflow-y:auto columns) */
 .sched-card.is-drop-target{
   position: relative;
 }
@@ -1533,22 +1534,23 @@ body.sched-dragging .sched-card{
   position:absolute;
   left: 10px;
   right: 10px;
-  height: 2px;
+  height: 3px;
   background: rgba(89,110,94,.55);
   border-radius: 2px;
-  top: -6px;
-  opacity: 0; /* default off, turned on by data attr below */
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* We'll flip this line to top/bottom using a data attribute on BODY */
+/* Show line at the very top edge (inside) */
 body.sched-drop-above .sched-card.is-drop-target::before{
-  top: -6px;
+  top: 0;
   opacity: 1;
 }
 
+/* Show line at the very bottom edge (inside) */
 body.sched-drop-below .sched-card.is-drop-target::before{
   top: auto;
-  bottom: -6px;
+  bottom: 0;
   opacity: 1;
 }
 
