@@ -817,7 +817,7 @@
                             :aria-expanded="openDayMenu === pIdx"
                             :aria-controls="`day-menu-${panel.slot}`"
                           >
-                            <span class="student-select-label" x-text="dayLabel(panel.dayIdx)"></span>
+                            <span class="student-select-label" x-text="dayLabelLong(panel.dayIdx)"></span>
               
                             <svg class="student-select-caret" viewBox="0 0 24 24" aria-hidden="true">
                               <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
@@ -838,7 +838,7 @@
                                 class="student-select-option"
                                 @click="setDayPanel(pIdx, d); closeDayMenu();"
                               >
-                                <span x-text="dayLabel(d)"></span>
+                                <span x-text="dayLabelLong(d)"></span>
                                 <span class="student-select-check" x-show="panel.dayIdx === d">✓</span>
                               </button>
                             </template>
