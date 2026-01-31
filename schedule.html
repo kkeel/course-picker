@@ -590,7 +590,7 @@
                       >
                         <button
                           type="button"
-                          class="student-select-trigger schedule-day-chip schedule-student-chip"
+                          class="student-select-trigger schedule-day-chip schedule-day-chip--on schedule-student-chip"
                           @click.stop.prevent="openDayStudentMenu = (openDayStudentMenu === sIdx ? null : sIdx)"
                           :aria-expanded="openDayStudentMenu === sIdx"
                           :aria-controls="`day-student-top-menu-${sIdx}`"
@@ -717,8 +717,6 @@
                               </template>
                             </div>
                           </div>
-              
-                          <div class="schedule-panel-range">Mon–Fri</div>
                         </div>
                       </div>
               
