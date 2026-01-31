@@ -578,6 +578,54 @@
                     Show all
                   </button>
                 </div>
+                  <!-- Global visible students (Day View columns) -->
+                  <div class="schedule-days-global" x-show="view === 'day'">
+                    <div class="schedule-days-global-label">Students:</div>
+                  
+                    <template x-for="(studentId, sIdx) in (dayViewStudentSlots || [])" :key="'dv-top-slot-' + sIdx">
+                      <div
+                        class="student-select"
+                        @click.outside="openDayStudentMenu = null"
+                        @keydown.escape.window="openDayStudentMenu = null"
+                        @click.stop
+                      >
+                        <button
+                          type="button"
+                          class="student-select-trigger"
+                          @click.stop.prevent="openDayStudentMenu = (openDayStudentMenu === sIdx ? null : sIdx)"
+                          :aria-expanded="openDayStudentMenu === sIdx"
+                          :aria-controls="`day-student-top-menu-${sIdx}`"
+                        >
+                          <span class="student-select-label" x-text="getStudentName(studentId)"></span>
+                  
+                          <!-- chevron to match the rest of the app -->
+                          <svg class="student-select-caret" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </button>
+                  
+                        <div
+                          class="student-select-menu"
+                          :id="`day-student-top-menu-${sIdx}`"
+                          x-cloak
+                          x-show="openDayStudentMenu === sIdx"
+                          x-transition
+                          @click.stop
+                        >
+                          <template x-for="s in (students || [])" :key="'dv-top-opt-' + sIdx + '-' + s.id">
+                            <button
+                              type="button"
+                              class="student-select-option"
+                              @click="setDayViewSlotStudent(sIdx, s.id); openDayStudentMenu = null;"
+                            >
+                              <span x-text="s.name"></span>
+                              <span class="student-select-check" x-show="s.id === studentId">✓</span>
+                            </button>
+                          </template>
+                        </div>
+                      </div>
+                    </template>
+                  </div>
               </div>
             
               <div class="schedule-topbar-right">
@@ -756,8 +804,9 @@
                 <div class="sched-dayview-grid">
                   <template x-for="(panel, pIdx) in (dayViewPanels || [])" :key="panel.slot">
                     <section class="sched-dayview-day">
+              
                       <header class="sched-dayview-dayhead">
-                        <!-- Day dropdown (uses the SAME component as Student View) -->
+                        <!-- Day dropdown -->
                         <div
                           class="student-select"
                           @click.outside="closeDayMenu()"
@@ -772,12 +821,12 @@
                             :aria-controls="`day-menu-${panel.slot}`"
                           >
                             <span class="student-select-label" x-text="dayLabel(panel.dayIdx)"></span>
-                      
+              
                             <svg class="student-select-caret" viewBox="0 0 24 24" aria-hidden="true">
                               <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                           </button>
-                      
+              
                           <div
                             class="student-select-menu"
                             :id="`day-menu-${panel.slot}`"
@@ -798,96 +847,72 @@
                             </template>
                           </div>
                         </div>
-                      
-                        <!-- optional: you can later add a day total here if you want -->
+              
                         <div class="schedule-panel-range">Mon–Fri</div>
                       </header>
-                
-                      <div class="sched-dayview-lanes">
-                        <template x-for="(studentId, sIdx) in (dayViewStudentSlots || [])" :key="'dv-slot-' + pIdx + '-' + sIdx">
-                          <div class="sched-dayview-lane">
-                            <div class="sched-dayview-lanehead">
-                            <div
-                              class="student-select"
-                              @click.outside="openDayStudentMenu = null"
-                              @keydown.escape.window="openDayStudentMenu = null"
-                              @click.stop
-                            >
-                              <button
-                                type="button"
-                                class="student-select-trigger"
-                                @click.stop.prevent="openDayStudentMenu = (openDayStudentMenu === (pIdx + ':' + sIdx) ? null : (pIdx + ':' + sIdx))"
-                                :aria-expanded="openDayStudentMenu === (pIdx + ':' + sIdx)"
-                                :aria-controls="`day-student-menu-${pIdx}-${sIdx}`"
-                              >
-                                <span class="student-select-label" x-text="getStudentName(studentId)"></span>
-                            
-                                <svg class="student-select-caret" viewBox="0 0 24 24" aria-hidden="true">
-                                  <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                              </button>
-                            
-                              <div
-                                class="student-select-menu"
-                                :id="`day-student-menu-${pIdx}-${sIdx}`"
-                                x-cloak
-                                x-show="openDayStudentMenu === (pIdx + ':' + sIdx)"
-                                x-transition
-                                @click.stop
-                              >
-                                <template x-for="s in (students || [])" :key="'dv-slot-opt-' + pIdx + '-' + sIdx + '-' + s.id">
-                                  <button
-                                    type="button"
-                                    class="student-select-option"
-                                    @click="setDayViewSlotStudent(sIdx, s.id); openDayStudentMenu = null;"
-                                  >
-                                    <span x-text="s.name"></span>
-                                    <span class="student-select-check" x-show="s.id === studentId">✓</span>
-                                  </button>
-                                </template>
-                              </div>
-                            </div>
-                            </div>
-                
-                            <div class="sched-dayview-lanebody">
-                              <template x-for="inst in instancesFor(studentId, panel.dayIdx)" :key="inst.instanceId">
-                                <article
-                                  class="sched-card"
-                                  draggable="true"
-                                  :data-inst-id="inst.instanceId"
-                                  @dragstart="onDragStart($event, studentId, panel.dayIdx, inst.instanceId)"
-                                  @dragend="onDragEnd($event)"
-                                  @dragover.prevent="onDragOver($event, studentId, panel.dayIdx, inst.instanceId)"
-                                  @drop.prevent="onDrop($event, studentId, panel.dayIdx, inst.instanceId)"
+              
+                      <!-- Body matches Student View: board -> columns -> column headers -> dropzones -->
+                      <div class="sched-dayview-daybody">
+                        <div class="schedule-board">
+                          <div class="schedule-columns schedule-columns--nowrap">
+              
+                            <template x-for="(studentId, sIdx) in (dayViewStudentSlots || [])" :key="'dv-col-' + panel.slot + '-' + sIdx">
+                              <section class="schedule-col">
+                                <div class="schedule-col-head">
+                                  <div class="schedule-col-title" x-text="getStudentName(studentId)"></div>
+                                  <div class="schedule-col-total" x-text="formatMinutes(dayTotalMinutes(studentId, panel.dayIdx))"></div>
+                                </div>
+              
+                                <div
+                                  class="schedule-dropzone"
+                                  :data-student="studentId"
+                                  :data-day="panel.dayIdx"
+                                  @click="setActiveTarget(studentId, panel.dayIdx)"
+                                  @dragover.prevent="onDropzoneDragOver($event, studentId, panel.dayIdx)"
+                                  @drop.prevent="onDropzoneDrop($event, studentId, panel.dayIdx)"
                                 >
-                                  <div class="sched-card-top">
-                                    <div
-                                      class="sched-card-title"
-                                      :title="(templateForInstance(inst) || {}).title || ''"
-                                      x-text="(templateForInstance(inst) || {}).title || 'Card'"
-                                    ></div>
-                                    <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
-                                  </div>
-                              
-                                  <div class="sched-card-sub" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
-                              
-                                  <div class="sched-card-trackline"
-                                       x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"></div>
-                              
-                                  <button
-                                    type="button"
-                                    class="sched-card-remove"
-                                    title="Remove"
-                                    @click.stop="removeInstance(studentId, panel.dayIdx, inst.instanceId)"
-                                  >
-                                    ✕
-                                  </button>
-                                </article>
-                              </template>
-                            </div>
+                                  <template x-for="inst in instancesFor(studentId, panel.dayIdx)" :key="inst.instanceId">
+                                    <article
+                                      class="sched-card"
+                                      draggable="true"
+                                      :data-inst-id="inst.instanceId"
+                                      @dragstart="onDragStart($event, studentId, panel.dayIdx, inst.instanceId)"
+                                      @dragend="onDragEnd($event)"
+                                      @dragover.prevent="onDragOver($event, studentId, panel.dayIdx, inst.instanceId)"
+                                      @drop.prevent="onDrop($event, studentId, panel.dayIdx, inst.instanceId)"
+                                    >
+                                      <div class="sched-card-top">
+                                        <div
+                                          class="sched-card-title"
+                                          :title="(templateForInstance(inst) || {}).title || ''"
+                                          x-text="(templateForInstance(inst) || {}).title || 'Card'"
+                                        ></div>
+                                        <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
+                                      </div>
+              
+                                      <div class="sched-card-sub" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
+              
+                                      <div class="sched-card-trackline"
+                                           x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"></div>
+              
+                                      <button
+                                        type="button"
+                                        class="sched-card-remove"
+                                        title="Remove"
+                                        @click.stop="removeInstance(studentId, panel.dayIdx, inst.instanceId)"
+                                      >
+                                        ✕
+                                      </button>
+                                    </article>
+                                  </template>
+                                </div>
+                              </section>
+                            </template>
+              
                           </div>
-                        </template>
+                        </div>
                       </div>
+              
                     </section>
                   </template>
                 </div>
