@@ -738,6 +738,14 @@
                                   @drop.prevent="onDropzoneDrop($event, panel.studentId, i)"
                                 >
 
+                                  <!-- Empty column placeholder -->
+                                  <div
+                                    class="schedule-empty"
+                                    x-show="instancesFor(studentId, dayIdx).length === 0"
+                                  >
+                                    Assign schedule cards from the list to this day by clicking a day button on a scheduling card.
+                                  </div>
+
                                   <!-- placed instances (Phase 2.5) -->
                                   <template x-for="inst in instancesFor(panel.studentId, i)" :key="inst.instanceId">
                                     <article
@@ -866,6 +874,14 @@
                                   @dragover.prevent="onDropzoneDragOver($event, studentId, panel.dayIdx)"
                                   @drop.prevent="onDropzoneDrop($event, studentId, panel.dayIdx)"
                                 >
+                                  <!-- Empty column placeholder -->
+                                  <div
+                                    class="schedule-empty"
+                                    x-show="instancesFor(studentId, panel.dayIdx).length === 0"
+                                  >
+                                    Assign schedule cards from the list to this day by clicking a day button on a scheduling card.
+                                  </div>
+
                                   <template x-for="inst in instancesFor(studentId, panel.dayIdx)" :key="inst.instanceId">
                                     <article
                                       class="sched-card"
