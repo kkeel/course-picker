@@ -1542,13 +1542,13 @@ body.sched-dragging .sched-card{
 }
 
 /* Show line at the very top edge (inside) */
-body.sched-drop-above .sched-card.is-drop-target::before{
+.sched-card.is-drop-target[data-drop-pos="above"]::before{
   top: 0;
   opacity: 1;
 }
 
 /* Show line at the very bottom edge (inside) */
-body.sched-drop-below .sched-card.is-drop-target::before{
+.sched-card.is-drop-target[data-drop-pos="below"]::before{
   top: auto;
   bottom: 0;
   opacity: 1;
