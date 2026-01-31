@@ -1906,3 +1906,24 @@ body.sched-dragging .sched-card{
   display: flex;
   flex-direction: column;
 }
+
+/* Chip-style triggers for the Day View "Show students" dropdowns */
+.student-select-trigger.schedule-day-chip{
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: #596e5e;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.student-select-trigger.schedule-day-chip:hover{
+  background: rgba(89,110,94,.06);
+}
+
+.student-select-trigger.schedule-day-chip:focus{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(89,110,94,.12);
+}
