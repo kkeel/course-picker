@@ -1172,13 +1172,12 @@
       },
       
       onDragOver(evt, studentId, dayIndex, overInstanceId) {
-        // Only allow reordering within same student + same day (Phase 1 constraint)
+        // Allow hovering cards across days (same student) so we can show insertion indicator
         if (!this.dragState.dragging) return;
         if (this.dragState.studentId !== studentId) return;
-        if (Number(this.dragState.dayIndex) !== Number(dayIndex)) return;
       
         this.dragState.overInstanceId = overInstanceId;
-
+      
         // Determine whether we're above or below the midpoint of the hovered card
         try {
           const rect = evt.currentTarget.getBoundingClientRect();
@@ -1187,12 +1186,12 @@
         } catch (e) {
           this.dragState.overPos = null;
         }
-
+      
         try {
           document.body.classList.toggle("sched-drop-above", this.dragState.overPos === "above");
           document.body.classList.toggle("sched-drop-below", this.dragState.overPos === "below");
         } catch (e) {}
-        
+      
         try { evt.dataTransfer.dropEffect = "move"; } catch (e) {}
       },
 
@@ -1207,10 +1206,6 @@
         // clear card-target visuals when hovering empty space
         this.dragState.overInstanceId = null;
         this.dragState.overPos = null;
-      
-        try {
-          document.body.classList.remove("sched-drop-above", "sched-drop-below");
-        } catch (e) {}
       },
       
       onDropzoneDrop(evt, studentId, dayIndex) {
@@ -1246,25 +1241,35 @@
       onDrop(evt, studentId, dayIndex, dropOnInstanceId) {
         if (!this.dragState.dragging) return;
       
-        // Only same column (Phase 1 constraint)
+        // Same student only (Phase 2 scope)
         if (this.dragState.studentId !== studentId) return;
-        if (Number(this.dragState.dayIndex) !== Number(dayIndex)) return;
       
         const sid = studentId;
-        const d = Number(dayIndex);
       
-        const list = this.placements?.[sid]?.[d];
-        if (!Array.isArray(list)) return;
+        const fromDay = Number(this.dragState.dayIndex);
+        const toDay = Number(dayIndex);
+      
+        const fromList = this.placements?.[sid]?.[fromDay];
+        const toList = this.placements?.[sid]?.[toDay];
+        if (!Array.isArray(fromList) || !Array.isArray(toList)) return;
       
         const fromId = this.dragState.instanceId;
         const toId = dropOnInstanceId;
       
-        const fromIndex = list.indexOf(fromId);
-        const toIndex = list.indexOf(toId);
+        const fromIndex = fromList.indexOf(fromId);
+        const hoverIndex = toList.indexOf(toId);
       
-        if (fromIndex === -1 || toIndex === -1) return;
+        if (fromIndex === -1 || hoverIndex === -1) return;
       
-        this.moveInstance(sid, d, fromIndex, toIndex);
+        // Insert ABOVE or BELOW the hovered card
+        let insertAt = hoverIndex + (this.dragState.overPos === "below" ? 1 : 0);
+      
+        // If moving within the same list, removing first shifts indices
+        if (fromDay === toDay && fromIndex < insertAt) {
+          insertAt = Math.max(0, insertAt - 1);
+        }
+      
+        this.moveInstanceAcrossDays(sid, fromDay, toDay, fromIndex, insertAt);
       
         // cleanup
         this.dragState.overInstanceId = null;
