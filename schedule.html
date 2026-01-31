@@ -753,75 +753,95 @@
               <!-- DAY VIEW -->
               <div x-show="view === 'day'" class="sched-dayview">
               
-                <div class="sched-dayview-topbar">
-                  <div class="sched-dayview-title">
-                    <div class="schedule-title">Schedule</div>
-              
-                    <div class="sched-dayview-nav">
-                      <span class="schedule-days-global-label">Days:</span>
-              
-                      <button class="schedule-day-chip schedule-day-chip--ghost"
-                              @click="dayViewPrev()"
-                              :disabled="!dayViewCanPrev()"
-                              aria-label="Previous day panel">
-                        ‹
-                      </button>
-              
-                      <button class="schedule-day-chip schedule-day-chip--ghost"
-                              @click="dayViewNext()"
-                              :disabled="!dayViewCanNext()"
-                              aria-label="Next day panel">
-                        ›
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              
                 <div class="sched-dayview-grid">
                   <template x-for="(panel, pIdx) in (dayViewPanels || [])" :key="panel.slot">
                     <section class="sched-dayview-day">
                       <header class="sched-dayview-dayhead">
-                        <button type="button"
-                          class="sched-panel-student-btn"
-                          @click="toggleDayMenu(pIdx)"
-                          @click.away="closeDayMenu()">
-                          <span x-text="dayLabel(panel.dayIdx)"></span>
-                          <span class="sched-panel-caret">▾</span>
-                        </button>
-                
-                        <div class="sched-panel-student-menu"
-                          x-show="openDayMenu === pIdx"
-                          x-transition>
-                          <template x-for="d in [0,1,2,3,4]" :key="'dv-day-opt-' + pIdx + '-' + d">
-                            <button type="button"
-                              class="sched-panel-student-item"
-                              @click="setDayPanel(pIdx, d); closeDayMenu();">
-                              <span x-text="dayLabel(d)"></span>
-                            </button>
-                          </template>
+                        <!-- Day dropdown (uses the SAME component as Student View) -->
+                        <div
+                          class="student-select"
+                          @click.outside="closeDayMenu()"
+                          @keydown.escape.window="closeDayMenu()"
+                          @click.stop
+                        >
+                          <button
+                            type="button"
+                            class="student-select-trigger"
+                            @click.stop.prevent="toggleDayMenu(pIdx)"
+                            :aria-expanded="openDayMenu === pIdx"
+                            :aria-controls="`day-menu-${panel.slot}`"
+                          >
+                            <span class="student-select-label" x-text="dayLabel(panel.dayIdx)"></span>
+                      
+                            <svg class="student-select-caret" viewBox="0 0 24 24" aria-hidden="true">
+                              <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                          </button>
+                      
+                          <div
+                            class="student-select-menu"
+                            :id="`day-menu-${panel.slot}`"
+                            x-cloak
+                            x-show="openDayMenu === pIdx"
+                            x-transition
+                            @click.stop
+                          >
+                            <template x-for="d in [0,1,2,3,4]" :key="'dv-day-opt-' + pIdx + '-' + d">
+                              <button
+                                type="button"
+                                class="student-select-option"
+                                @click="setDayPanel(pIdx, d); closeDayMenu();"
+                              >
+                                <span x-text="dayLabel(d)"></span>
+                                <span class="student-select-check" x-show="panel.dayIdx === d">✓</span>
+                              </button>
+                            </template>
+                          </div>
                         </div>
+                      
+                        <!-- optional: you can later add a day total here if you want -->
+                        <div class="schedule-panel-range">Mon–Fri</div>
                       </header>
                 
                       <div class="sched-dayview-lanes">
                         <template x-for="(studentId, sIdx) in (dayViewStudentSlots || [])" :key="'dv-slot-' + pIdx + '-' + sIdx">
                           <div class="sched-dayview-lane">
-                            <div class="sched-dayview-lanehead">
-                              <button type="button"
-                                class="sched-panel-student-btn"
-                                @click="openDayStudentMenu = (openDayStudentMenu === (pIdx + ':' + sIdx) ? null : (pIdx + ':' + sIdx))"
-                                @click.away="openDayStudentMenu = null">
-                                <span x-text="getStudentName(studentId)"></span>
-                                <span class="sched-panel-caret">▾</span>
+                            <div
+                              class="student-select"
+                              @click.outside="openDayStudentMenu = null"
+                              @keydown.escape.window="openDayStudentMenu = null"
+                              @click.stop
+                            >
+                              <button
+                                type="button"
+                                class="student-select-trigger"
+                                @click.stop.prevent="openDayStudentMenu = (openDayStudentMenu === (pIdx + ':' + sIdx) ? null : (pIdx + ':' + sIdx))"
+                                :aria-expanded="openDayStudentMenu === (pIdx + ':' + sIdx)"
+                                :aria-controls="`day-student-menu-${pIdx}-${sIdx}`"
+                              >
+                                <span class="student-select-label" x-text="getStudentName(studentId)"></span>
+                            
+                                <svg class="student-select-caret" viewBox="0 0 24 24" aria-hidden="true">
+                                  <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                               </button>
-                
-                              <div class="sched-panel-student-menu"
+                            
+                              <div
+                                class="student-select-menu"
+                                :id="`day-student-menu-${pIdx}-${sIdx}`"
+                                x-cloak
                                 x-show="openDayStudentMenu === (pIdx + ':' + sIdx)"
-                                x-transition>
+                                x-transition
+                                @click.stop
+                              >
                                 <template x-for="s in (students || [])" :key="'dv-slot-opt-' + pIdx + '-' + sIdx + '-' + s.id">
-                                  <button type="button"
-                                    class="sched-panel-student-item"
-                                    @click="setDayViewSlotStudent(sIdx, s.id); openDayStudentMenu = null;">
+                                  <button
+                                    type="button"
+                                    class="student-select-option"
+                                    @click="setDayViewSlotStudent(sIdx, s.id); openDayStudentMenu = null;"
+                                  >
                                     <span x-text="s.name"></span>
+                                    <span class="student-select-check" x-show="s.id === studentId">✓</span>
                                   </button>
                                 </template>
                               </div>
