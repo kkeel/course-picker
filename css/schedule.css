@@ -1736,3 +1736,24 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   opacity: .75;
   filter: grayscale(.05);
 }
+
+/* =========================================================
+   V1.1 — Force a consistent 2-line title height on ALL cards
+   (fixes custom cards not reserving title space)
+   ========================================================= */
+
+/* Schedule board cards */
+.sched-card-title{
+  line-height: 1.25;
+  /* Reserve exactly 2 lines of title space even if the title is short */
+  height: 2.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Rail cards (left) — keep title blocks consistent too */
+.sched-rail-item-title{
+  line-height: 1.25;
+  height: 2.5em;
+  overflow: hidden;
+}
