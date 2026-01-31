@@ -90,7 +90,13 @@
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-top: 12px;
+  padding-top: 14px;
+}
+
+/* Give the very first section label a tiny breathing room */
+.sched-rail-body > .sched-rail-section-head{
+  margin-top: 0;
+  padding-top: 2px;
 }
 
 .sched-rail-head-actions{
@@ -1521,51 +1527,67 @@ body.sched-drop-below .sched-card.is-drop-target::before{
 }
 
 /* =========================================================
-   Dark Green Rail Header Styles
+   Rail header: light-tint sticky (matches chip ON fill)
    ========================================================= */
 
-/* Dark header variant */
-.sched-rail-top{
-  background: #596e5e;
-  border-bottom: 1px solid rgba(255,255,255,.18);
+/* Match the rail’s corner radius to the rest of your UI (and your header block) */
+.sched-rail{
+  border-radius: 16px;
 }
 
-/* Header text + icons go white */
+/* Sticky top area */
+.sched-rail-top{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  /* Light tint (same “on chip” family) */
+  background: rgba(89,110,94,.10);
+
+  /* Pull the header to the card edges (because the rail uses p-4 = 16px) */
+  margin: -16px -16px 0;
+  padding: 16px 16px 14px;
+
+  border-bottom: 1px solid #e5e8e5;
+
+  /* Seal the top corners so there’s no white strip above */
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+/* Header text stays dark on the light tint */
 .sched-rail-top,
 .sched-rail-top .text-sm,
 .sched-rail-top .sched-rail-sub{
-  color: #fff;
+  color: #262b26;
 }
 
 .sched-rail-top .sched-rail-sub{
-  opacity: .85;
+  opacity: .75;
 }
 
-/* Buttons become light-on-dark */
-.sched-rail-top .sched-rail-btn{
-  background: rgba(255,255,255,.10);
-  border-color: rgba(255,255,255,.35);
-  color: #fff;
-}
-.sched-rail-top .sched-rail-btn:hover{
-  background: rgba(255,255,255,.16);
-}
-
-.sched-rail-top .sched-rail-collapse-btn{
-  color: #fff;
-}
-.sched-rail-top .sched-rail-collapse-btn:hover{
-  background: rgba(255,255,255,.12);
-}
-
-/* Remove the inner “box” in the header */
+/* Remove the inner “box” in the header (keep it clean) */
 .sched-rail-top .sched-target{
   padding: 0;
   border: 0;
   background: transparent;
 }
 
-/* Keep the select readable */
-.sched-rail-top .sched-target-select{
-  border-color: rgba(255,255,255,.35);
+/* Buttons sit nicely on the tint */
+.sched-rail-top .sched-rail-btn{
+  background: #fff;
+}
+
+/* Chevron button: no circle background by default (only subtle hover) */
+.sched-rail-collapse-btn{
+  border: none;
+  background: transparent;
+  padding: 2px 4px;
+  border-radius: 10px;
+  color: #596e5e;
+  line-height: 1;
+  cursor: pointer;
+}
+.sched-rail-collapse-btn:hover{
+  background: rgba(89,110,94,.08);
 }
