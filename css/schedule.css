@@ -1687,3 +1687,34 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 }
+/* =========================================================
+   Rail clarity: Need stands out, Complete recedes
+   ========================================================= */
+
+/* NEED list only:
+   targets the first rail list (the one right after "Need to schedule:") */
+.sched-rail-body > .sched-rail-section-head + .sched-rail-list .sched-rail-item{
+  background: #ffffff;                 /* pop forward vs the rail’s soft surfaces */
+  border-left: 4px solid #596e5e;      /* brand accent */
+  box-shadow: 0 1px 0 rgba(0,0,0,.04);
+}
+
+/* Slightly strengthen NEED titles so your eye finds them faster */
+.sched-rail-body > .sched-rail-section-head + .sched-rail-list .sched-rail-item-title{
+  color: #1f241f;
+}
+
+/* COMPLETE list only (already muted, just a touch more) */
+.sched-rail-complete-wrap .sched-rail-item{
+  opacity: .55;                       /* was ~.68 in your file */
+  filter: grayscale(.18);
+  background: #fbfbf9;                /* keep it calm */
+  border-left: 0;                     /* remove the “active” accent */
+  box-shadow: none;
+}
+
+/* On hover, let completed items come forward slightly (nice usability) */
+.sched-rail-complete-wrap .sched-rail-item:hover{
+  opacity: .75;
+  filter: grayscale(.05);
+}
