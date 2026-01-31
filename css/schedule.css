@@ -1919,6 +1919,12 @@ body.sched-dragging .sched-card{
   line-height: 1;
 }
 
+/* When a chip-trigger is "on", match the active day-chip styling */
+.student-select-trigger.schedule-day-chip.schedule-day-chip--on{
+  background: rgba(89,110,94,.10);
+  border-color: #596e5e;
+}
+
 .student-select-trigger.schedule-day-chip:hover{
   background: rgba(89,110,94,.06);
 }
@@ -1927,3 +1933,15 @@ body.sched-dragging .sched-card{
   outline: none;
   box-shadow: 0 0 0 3px rgba(89,110,94,.12);
 }
+
+/* Tighten caret + internal spacing so it matches chip proportions */
+.student-select-trigger.schedule-day-chip{
+  gap: 8px;
+}
+
+.student-select-trigger.schedule-day-chip .student-select-caret{
+  width: 16px;
+  height: 16px;
+  opacity: .85;
+}
+
