@@ -1993,3 +1993,8 @@ body.sched-dragging .sched-card{
   flex: 0 0 auto;
   margin-left: 2px;
 }
+/* Prevent the dropdown wrappers from acting like blocks in the toolbar */
+.schedule-days-global .student-select {
+  display: inline-flex;
+  margin: 0;
+}
