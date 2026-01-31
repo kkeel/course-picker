@@ -1108,6 +1108,39 @@
         this.persistCards();
       },
 
+      moveInstanceAcrossDays(studentId, fromDayIndex, toDayIndex, fromIndex, toIndex) {
+        this.ensureStudent(studentId);
+      
+        const fromDay = Number(fromDayIndex);
+        const toDay = Number(toDayIndex);
+      
+        if (fromDay === toDay) {
+          // fall back to existing reorder
+          return this.moveInstance(studentId, fromDay, fromIndex, toIndex);
+        }
+      
+        const fromList = this.placements?.[studentId]?.[fromDay];
+        const toList = this.placements?.[studentId]?.[toDay];
+      
+        if (!Array.isArray(fromList) || !Array.isArray(toList)) return;
+      
+        if (fromIndex < 0 || fromIndex >= fromList.length) return;
+      
+        // Clamp target index to [0..toList.length]
+        const insertAt = Math.max(0, Math.min(Number(toIndex), toList.length));
+      
+        const [moved] = fromList.splice(fromIndex, 1);
+        if (!moved) return;
+      
+        toList.splice(insertAt, 0, moved);
+      
+        // write back (keeps reactivity predictable)
+        this.placements[studentId][fromDay] = fromList;
+        this.placements[studentId][toDay] = toList;
+      
+        this.persistCards();
+      }
+
       onDragStart(evt, studentId, dayIndex, instanceId) {
         this.dragState = {
           dragging: true,
@@ -1162,6 +1195,53 @@
         
         try { evt.dataTransfer.dropEffect = "move"; } catch (e) {}
       },
+
+      onDropzoneDragOver(evt, studentId, dayIndex) {
+        if (!this.dragState.dragging) return;
+        // Phase 2 scope: same student only (for now)
+        if (this.dragState.studentId !== studentId) return;
+      
+        // allow drop
+        try { evt.dataTransfer.dropEffect = "move"; } catch (e) {}
+      
+        // clear card-target visuals when hovering empty space
+        this.dragState.overInstanceId = null;
+        this.dragState.overPos = null;
+      
+        try {
+          document.body.classList.remove("sched-drop-above", "sched-drop-below");
+        } catch (e) {}
+      },
+      
+      onDropzoneDrop(evt, studentId, dayIndex) {
+        if (!this.dragState.dragging) return;
+        if (this.dragState.studentId !== studentId) return;
+      
+        const sid = studentId;
+        const fromDay = Number(this.dragState.dayIndex);
+        const toDay = Number(dayIndex);
+      
+        const fromList = this.placements?.[sid]?.[fromDay];
+        const toList = this.placements?.[sid]?.[toDay];
+        if (!Array.isArray(fromList) || !Array.isArray(toList)) return;
+      
+        const fromId = this.dragState.instanceId;
+        const fromIndex = fromList.indexOf(fromId);
+        if (fromIndex === -1) return;
+      
+        // Dropzone drop = append to end of target column
+        const toIndex = toList.length;
+      
+        this.moveInstanceAcrossDays(sid, fromDay, toDay, fromIndex, toIndex);
+      
+        // cleanup
+        this.dragState.overInstanceId = null;
+        this.dragState.overPos = null;
+      
+        try {
+          document.body.classList.remove("sched-drop-above", "sched-drop-below");
+        } catch (e) {}
+      }
       
       onDrop(evt, studentId, dayIndex, dropOnInstanceId) {
         if (!this.dragState.dragging) return;
