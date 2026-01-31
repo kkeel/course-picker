@@ -552,11 +552,10 @@
             <!-- Header row -->
             <div class="schedule-topbar">
               <div class="schedule-topbar-left">
-                <div class="text-sm font-semibold" x-text="view === 'track' ? 'Schedule' : 'Schedule'"></div>
 
                 <!-- Global visible days (Student View columns) -->
                 <div class="schedule-days-global" x-show="view === 'track'">
-                  <div class="schedule-days-global-label">Days:</div>
+                  <div class="schedule-days-global-label">Show days:</div>
                 
                   <template x-for="(label, i) in dayLabels" :key="i">
                     <button
@@ -580,7 +579,7 @@
                 </div>
                   <!-- Global visible students (Day View columns) -->
                   <div class="schedule-days-global" x-show="view === 'day'">
-                    <div class="schedule-days-global-label">Students:</div>
+                    <div class="schedule-days-global-label">Show students:</div>
                   
                     <template x-for="(studentId, sIdx) in (dayViewStudentSlots || [])" :key="'dv-top-slot-' + sIdx">
                       <div
@@ -591,7 +590,7 @@
                       >
                         <button
                           type="button"
-                          class="student-select-trigger"
+                          class="student-select-trigger schedule-day-chip schedule-student-chip"
                           @click.stop.prevent="openDayStudentMenu = (openDayStudentMenu === sIdx ? null : sIdx)"
                           :aria-expanded="openDayStudentMenu === sIdx"
                           :aria-controls="`day-student-top-menu-${sIdx}`"
