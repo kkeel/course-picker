@@ -806,6 +806,7 @@
                       <div class="sched-dayview-lanes">
                         <template x-for="(studentId, sIdx) in (dayViewStudentSlots || [])" :key="'dv-slot-' + pIdx + '-' + sIdx">
                           <div class="sched-dayview-lane">
+                            <div class="sched-dayview-lanehead">
                             <div
                               class="student-select"
                               @click.outside="openDayStudentMenu = null"
@@ -845,6 +846,7 @@
                                   </button>
                                 </template>
                               </div>
+                            </div>
                             </div>
                 
                             <div class="sched-dayview-lanebody">
