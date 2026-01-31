@@ -412,6 +412,7 @@
       visibleDays: [0, 1, 2, 3, 4],
       dayLabels: ["Mon","Tue","Wed","Thu","Fri"],
       dayShortLabels: ["M","T","W","Th","F"],
+      dayLongLabels: ["Monday","Tuesday","Wednesday","Thursday","Friday"],
 
       visibleStudentPanels: [
         { slot: "P1", studentId: "S1" },
@@ -798,6 +799,11 @@
       dayLabel(i) {
         const n = Number(i);
         return this.dayLabels[n] || ['Mon','Tue','Wed','Thu','Fri'][n] || `Day ${n + 1}`;
+      },
+
+      dayLabelLong(i) {
+        const n = Number(i);
+        return this.dayLongLabels?.[n] || ["Monday","Tuesday","Wednesday","Thursday","Friday"][n] || `Day ${n + 1}`;
       },
 
       // -----------------------------
