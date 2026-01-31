@@ -61,18 +61,16 @@
   z-index: 5;
   background: #f6f7f3; 
 
-  /* keep your Ã¢â‚¬Å“full width inside p-4Ã¢â‚¬Â look */
+  /* keep full width inside */
   margin: -16px -16px 0;
   padding: 16px 16px 12px;
 
   border-bottom: 1px solid #e5e8e5;
 
-  /* helps it feel Ã¢â‚¬Å“sealedÃ¢â‚¬Â at the top */
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 }
 
-/* Remove the inner Ã¢â‚¬Å“boxÃ¢â‚¬Â just inside the header */
 .sched-rail-top .sched-target{
   padding: 0;
   border: 0;
@@ -361,8 +359,6 @@
   color: #465146; /* was lighter; this reads better on the tint */
 }
 
-
-/* Header layout: dropdown left, Day 1ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ5 on right */
 .schedule-panel-title{
   display:flex;
   align-items:center;
@@ -426,9 +422,6 @@
   background: #fbfbf9;
   display: flex;
   flex-direction: column;
-
-  /* NEW: critical Ã¢â‚¬â€ allow the column to shrink and fill available height
-     (removes Ã¢â‚¬Å“grow foreverÃ¢â‚¬Â behavior) */
   min-height: 0;
   height: 100%;
 }
@@ -950,7 +943,6 @@
   padding-top: 12px;
 }
 
-/* section blocks: subtle Ã¢â‚¬Å“you are hereÃ¢â‚¬Â cues */
 .sched-rail-block {
   border-radius: 14px;
   padding: 10px;
@@ -963,7 +955,6 @@
   border: 1px solid rgba(210, 214, 210, 0.9);
 }
 
-/* Complete = a touch lighter so it feels Ã¢â‚¬Å“finishedÃ¢â‚¬Â */
 .sched-rail-block--complete {
   background: rgba(102, 109, 102, 0.04);
   border: 1px solid rgba(210, 214, 210, 0.8);
@@ -1159,8 +1150,6 @@
   gap:8px;
 }
 
-/* small circular + button (instead of ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“AddÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â) */
-/* Small light add button */
 .sched-rail-add {
   width: 24px;
   height: 24px;
@@ -1363,7 +1352,7 @@
 
 .sched-rail-trackchip--done{
   border-color: #d2d6d2;
-  color: #596e5e; /* subtle ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“finishedÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â */
+  color: #596e5e; 
 }
 
 .sched-rail-check{
@@ -1431,8 +1420,6 @@
   align-items:center;
   justify-content:flex-end;
   gap:10px;
-
-  /* match the cardÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢s 10px side padding */
   margin-left: -10px;
   margin-right: -10px;
 }
@@ -1580,16 +1567,13 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   top: 0;
   z-index: 10;
 
-  /* Light tint (same Ã¢â‚¬Å“on chipÃ¢â‚¬Â family) */
+  /* Light tint */
   background: rgba(89,110,94,.10);
 
   /* Pull the header to the card edges (because the rail uses p-4 = 16px) */
   margin: -16px -16px 0;
   padding: 16px 16px 14px;
-
   border-bottom: 1px solid #e5e8e5;
-
-  /* Seal the top corners so thereÃ¢â‚¬â„¢s no white strip above */
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 }
@@ -1605,7 +1589,6 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   opacity: .75;
 }
 
-/* Remove the inner Ã¢â‚¬Å“boxÃ¢â‚¬Â in the header (keep it clean) */
 .sched-rail-top .sched-target{
   padding: 0;
   border: 0;
