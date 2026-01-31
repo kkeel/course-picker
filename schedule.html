@@ -715,7 +715,12 @@
                                   <div class="schedule-col-total" x-text="formatMinutes(dayTotalMinutes(panel.studentId, i))"></div>
                                 </div>
                                 
-                                <div class="schedule-dropzone" @click="setActiveTarget(panel.studentId, i)">
+                                <div
+                                  class="schedule-dropzone"
+                                  @click="setActiveTarget(panel.studentId, i)"
+                                  @dragover.prevent="onDropzoneDragOver($event, panel.studentId, i)"
+                                  @drop.prevent="onDropzoneDrop($event, panel.studentId, i)"
+                                >
 
                                   <!-- placed instances (Phase 2.5) -->
                                   <template x-for="inst in instancesFor(panel.studentId, i)" :key="inst.instanceId">
