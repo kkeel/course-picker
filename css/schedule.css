@@ -61,18 +61,18 @@
   z-index: 5;
   background: #f6f7f3; 
 
-  /* keep your â€œfull width inside p-4â€ look */
+  /* keep your Ã¢â‚¬Å“full width inside p-4Ã¢â‚¬Â look */
   margin: -16px -16px 0;
   padding: 16px 16px 12px;
 
   border-bottom: 1px solid #e5e8e5;
 
-  /* helps it feel â€œsealedâ€ at the top */
+  /* helps it feel Ã¢â‚¬Å“sealedÃ¢â‚¬Â at the top */
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 }
 
-/* Remove the inner â€œboxâ€ just inside the header */
+/* Remove the inner Ã¢â‚¬Å“boxÃ¢â‚¬Â just inside the header */
 .sched-rail-top .sched-target{
   padding: 0;
   border: 0;
@@ -362,7 +362,7 @@
 }
 
 
-/* Header layout: dropdown left, Day 1ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“5 on right */
+/* Header layout: dropdown left, Day 1ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ5 on right */
 .schedule-panel-title{
   display:flex;
   align-items:center;
@@ -427,8 +427,8 @@
   display: flex;
   flex-direction: column;
 
-  /* NEW: critical â€” allow the column to shrink and fill available height
-     (removes â€œgrow foreverâ€ behavior) */
+  /* NEW: critical Ã¢â‚¬â€ allow the column to shrink and fill available height
+     (removes Ã¢â‚¬Å“grow foreverÃ¢â‚¬Â behavior) */
   min-height: 0;
   height: 100%;
 }
@@ -630,6 +630,13 @@
   font-size: 12px;
   color: #666d66;
 }
+.sched-card-trackline{
+  font-size: 12px;
+  color: #666d66;
+  line-height: 1.2;
+  min-height: 16px; /* reserves space even when blank */
+  margin-top: auto; /* pushes tracker area to bottom for consistent heights */
+}
 
 /* =========================================================
    Schedule Cards long title handling
@@ -648,6 +655,7 @@
   overflow: hidden;
 
   line-height: 1.2;
+  min-height: calc(1.2em * 2);
   max-width: 100%;
 }
 
@@ -942,7 +950,7 @@
   padding-top: 12px;
 }
 
-/* section blocks: subtle â€œyou are hereâ€ cues */
+/* section blocks: subtle Ã¢â‚¬Å“you are hereÃ¢â‚¬Â cues */
 .sched-rail-block {
   border-radius: 14px;
   padding: 10px;
@@ -955,7 +963,7 @@
   border: 1px solid rgba(210, 214, 210, 0.9);
 }
 
-/* Complete = a touch lighter so it feels â€œfinishedâ€ */
+/* Complete = a touch lighter so it feels Ã¢â‚¬Å“finishedÃ¢â‚¬Â */
 .sched-rail-block--complete {
   background: rgba(102, 109, 102, 0.04);
   border: 1px solid rgba(210, 214, 210, 0.8);
@@ -1151,7 +1159,7 @@
   gap:8px;
 }
 
-/* small circular + button (instead of ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œAddÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â) */
+/* small circular + button (instead of ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“AddÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â) */
 /* Small light add button */
 .sched-rail-add {
   width: 24px;
@@ -1355,7 +1363,7 @@
 
 .sched-rail-trackchip--done{
   border-color: #d2d6d2;
-  color: #596e5e; /* subtle ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œfinishedÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â */
+  color: #596e5e; /* subtle ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“finishedÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â */
 }
 
 .sched-rail-check{
@@ -1424,7 +1432,7 @@
   justify-content:flex-end;
   gap:10px;
 
-  /* match the cardÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s 10px side padding */
+  /* match the cardÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢s 10px side padding */
   margin-left: -10px;
   margin-right: -10px;
 }
@@ -1561,7 +1569,7 @@ body.sched-drop-below .sched-card.is-drop-target::before{
    Rail header: light-tint sticky (matches chip ON fill)
    ========================================================= */
 
-/* Match the railâ€™s corner radius to the rest of your UI (and your header block) */
+/* Match the railÃ¢â‚¬â„¢s corner radius to the rest of your UI (and your header block) */
 .sched-rail{
   border-radius: 16px;
 }
@@ -1572,7 +1580,7 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   top: 0;
   z-index: 10;
 
-  /* Light tint (same â€œon chipâ€ family) */
+  /* Light tint (same Ã¢â‚¬Å“on chipÃ¢â‚¬Â family) */
   background: rgba(89,110,94,.10);
 
   /* Pull the header to the card edges (because the rail uses p-4 = 16px) */
@@ -1581,7 +1589,7 @@ body.sched-drop-below .sched-card.is-drop-target::before{
 
   border-bottom: 1px solid #e5e8e5;
 
-  /* Seal the top corners so thereâ€™s no white strip above */
+  /* Seal the top corners so thereÃ¢â‚¬â„¢s no white strip above */
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 }
@@ -1597,7 +1605,7 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   opacity: .75;
 }
 
-/* Remove the inner â€œboxâ€ in the header (keep it clean) */
+/* Remove the inner Ã¢â‚¬Å“boxÃ¢â‚¬Â in the header (keep it clean) */
 .sched-rail-top .sched-target{
   padding: 0;
   border: 0;
@@ -1721,7 +1729,7 @@ body.sched-drop-below .sched-card.is-drop-target::before{
 /* NEED list only:
    targets the first rail list (the one right after "Need to schedule:") */
 .sched-rail-body > .sched-rail-section-head + .sched-rail-list .sched-rail-item{
-  background: #ffffff;                 /* pop forward vs the railâ€™s soft surfaces */
+  background: #ffffff;                 /* pop forward vs the railÃ¢â‚¬â„¢s soft surfaces */
   border-left: 4px solid #596e5e;      /* brand accent */
   box-shadow: 0 1px 0 rgba(0,0,0,.04);
 }
@@ -1736,7 +1744,7 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   opacity: .55;                       /* was ~.68 in your file */
   filter: grayscale(.18);
   background: #fbfbf9;                /* keep it calm */
-  border-left: 0;                     /* remove the â€œactiveâ€ accent */
+  border-left: 0;                     /* remove the Ã¢â‚¬Å“activeÃ¢â‚¬Â accent */
   box-shadow: none;
 }
 
