@@ -34,16 +34,15 @@
   // -----------------------------
   function defaultUiState() {
     return {
-      // Left rail UI
-      railTopCollapsed: false,
-      showCompleted: false,
-      
       view: "track",
       visibleDays: [0, 1, 2, 3, 4],
       panels: [
         { slot: "P1", studentId: "S1" },
         { slot: "P2", studentId: "S2" },
       ],
+      // Left rail UI
+      railTopCollapsed: false,
+      showCompleted: false,
     };
   }
 
@@ -70,18 +69,6 @@
         const slot = p?.slot || (idx === 1 ? "P2" : "P1");
         let studentId = p?.studentId || (slot === "P2" ? "S2" : "S1");
 
-        const railTopCollapsed =
-        typeof state?.railTopCollapsed === "boolean"
-          ? state.railTopCollapsed
-          : d.railTopCollapsed;
-  
-        const showCompleted =
-          typeof state?.showCompleted === "boolean"
-            ? state.showCompleted
-            : d.showCompleted;
-    
-        return { view, visibleDays, panels, railTopCollapsed, showCompleted };
-
         if (Array.isArray(allStudentIds) && allStudentIds.length) {
           if (!allStudentIds.includes(studentId)) {
             studentId = slot === "P2"
@@ -101,7 +88,10 @@
       panels[1].studentId = fallback;
     }
 
-    return { view, visibleDays, panels };
+    const railTopCollapsed = typeof state?.railTopCollapsed === 'boolean' ? state.railTopCollapsed : d.railTopCollapsed;
+    const showCompleted = typeof state?.showCompleted === 'boolean' ? state.showCompleted : d.showCompleted;
+
+    return { view, visibleDays, panels, railTopCollapsed, showCompleted };
   }
 
   // -----------------------------
@@ -382,7 +372,8 @@
       },
 
       // Rail list: show/hide completed cards (per active rail student)
-      showCompleted: true,
+      showCompleted: false,
+      railTopCollapsed: false,
 
       // -----------------------------
       // Drag reorder state (Phase 1)
@@ -405,14 +396,14 @@
         const allIds = (this.students || []).map((s) => s.id);
         const normalizedUi = normalizeUiState(savedUi || defaultUiState(), allIds);
 
-        this.view = normalizedUi.view;
-        this.visibleDays = normalizedUi.visibleDays;
-        this.visibleStudentPanels = normalizedUi.panels;
-        this.openStudentMenu = null;
         // Restore left-rail UI toggles
         this.railTopCollapsed = !!normalizedUi.railTopCollapsed;
         this.showCompleted = !!normalizedUi.showCompleted;
 
+        this.view = normalizedUi.view;
+        this.visibleDays = normalizedUi.visibleDays;
+        this.visibleStudentPanels = normalizedUi.panels;
+        this.openStudentMenu = null;
 
         // load cards
         const savedCards = loadKey(CARDS_STORAGE_KEY);
@@ -1022,14 +1013,14 @@
       },
 
       toggleCompletedRail() {
-        this.showCompleted = !this.showCompleted;
-        this.persistUi();
-      },
+      this.showCompleted = !this.showCompleted;
+      this.persistUi();
+    },
 
-      toggleRailTop() {
-        this.railTopCollapsed = !this.railTopCollapsed;
-        this.persistUi();
-      },
+    toggleRailTop() {
+      this.railTopCollapsed = !this.railTopCollapsed;
+      this.persistUi();
+    },
 
       completedRailLabel() {
         return this.showCompleted ? "Hide completed" : "Show completed";
