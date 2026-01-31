@@ -713,7 +713,7 @@
                               <section class="schedule-col" :aria-label="dayLabel(i)">
                                 <div class="schedule-col-head">
                                   <div class="schedule-col-title" x-text="dayLabel(i)"></div>
-                                  <div class="schedule-col-total" x-text="`${dayTotalMinutes(panel.studentId, i)}m`"></div>
+                                  <div class="schedule-col-total" x-text="formatMinutes(dayTotalMinutes(panel.studentId, i))"></div>
                                 </div>
                                 
                                 <div class="schedule-dropzone" @click="setActiveTarget(panel.studentId, i)">
