@@ -1591,3 +1591,81 @@ body.sched-drop-below .sched-card.is-drop-target::before{
 .sched-rail-collapse-btn:hover{
   background: rgba(89,110,94,.08);
 }
+/* =========================================================
+   Rail header: fix white strip + remove transparency
+   (place at VERY BOTTOM of schedule.css)
+   ========================================================= */
+
+/* Let the sticky header truly seal to the rounded corners */
+.sched-rail{
+  padding: 0 !important;          /* overrides Tailwind p-4 */
+  border-radius: 16px;
+  overflow: hidden;               /* prevents any white sliver at top corners */
+}
+
+/* Sticky top area (OPAQUE, not rgba) */
+.sched-rail-top{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  /* OPAQUE tint that matches the "on" chip feel but doesn't show cards through it */
+  background: #eef1ee;
+
+  /* Now that the rail has no padding, we don't need negative margins */
+  margin: 0;
+  padding: 16px 16px 14px;
+
+  border-bottom: 1px solid #e5e8e5;
+}
+
+/* Keep header text readable */
+.sched-rail-top,
+.sched-rail-top .text-sm,
+.sched-rail-top .sched-rail-sub{
+  color: #262b26;
+}
+.sched-rail-top .sched-rail-sub{ opacity: .75; }
+
+/* Remove inner box styling in the header */
+.sched-rail-top .sched-target{
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+/* Buttons sit nicely on the tint */
+.sched-rail-top .sched-rail-btn{
+  background: #fff;
+}
+
+/* Chevron: no circle background unless hover */
+.sched-rail-collapse-btn{
+  border: none;
+  background: transparent;
+  padding: 2px 4px;
+  border-radius: 10px;
+  color: #596e5e;
+  line-height: 1;
+  cursor: pointer;
+}
+.sched-rail-collapse-btn:hover{
+  background: rgba(89,110,94,.08);
+}
+
+/* The body is the ONLY scroll container, with real breathing room */
+.sched-rail-body{
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* This fixes the "Need to schedule" label feeling clipped/tight */
+  padding: 14px 16px 16px;
+}
+
+/* Make sure the first section label never hugs the header border */
+.sched-rail-body > .sched-rail-section-head{
+  margin-top: 0;
+  padding-top: 2px;
+}
