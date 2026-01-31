@@ -54,7 +54,7 @@
 .sched-rail-top{
   flex: 0 0 auto;
   z-index: 5;
-  background: #fff;
+  background: #f6f7f3; 
 
   /* keep your “full width inside p-4” look */
   margin: -16px -16px 0;
@@ -67,13 +67,30 @@
   border-top-right-radius: 16px;
 }
 
+/* Remove the inner “box” just inside the header */
+.sched-rail-top .sched-target{
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+/* Slightly tighten spacing so it reads like one header block */
+.sched-rail-top .sched-rail-sub{
+  margin-top: 6px;
+}
+
+/* Optional: make the header buttons sit nicely on the tint */
+.sched-rail-top .sched-rail-btn{
+  background: #fff;
+}
+
 /* The body is the ONLY scroll container */
 .sched-rail-body{
   flex: 1;
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-top: 12px;
+  padding-top: 16px;
 }
 
 .sched-rail-head-actions{
@@ -1059,6 +1076,8 @@
   color: #666d66;
   opacity: .8;
   margin: 0 0 6px;
+  line-height: 1.25;
+  padding-top: 2px; 
 }
 
 .sched-rail-toggle{
