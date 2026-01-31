@@ -417,6 +417,12 @@
         { slot: "P1", studentId: "S1" },
         { slot: "P2", studentId: "S2" },
       ],
+
+      dayViewPanels: [
+        { slot: "D1", dayIdx: 0 },
+        { slot: "D2", dayIdx: 1 },
+      ],
+      dayViewStudentSlots: ["S1", "S2", "S3", "S4", "S5"],
       openDayMenu: null,
       openDayStudentMenu: null,
 
@@ -487,6 +493,8 @@
         this.view = normalizedUi.view;
         this.visibleDays = normalizedUi.visibleDays;
         this.visibleStudentPanels = normalizedUi.panels;
+        this.dayViewPanels = normalizedUi.dayViewPanels;
+        this.dayViewStudentSlots = normalizedUi.dayViewStudentSlots;
         this.openStudentMenu = null;
 
         // load cards
@@ -587,6 +595,8 @@
           panels: this.visibleStudentPanels.map((p) => ({ slot: p.slot, studentId: p.studentId })),
           railTopCollapsed: this.railTopCollapsed,
           showCompleted: this.showCompleted,
+          dayViewPanels: (this.dayViewPanels || []).map(p => ({ slot: p.slot, dayIdx: p.dayIdx })),
+          dayViewStudentSlots: (this.dayViewStudentSlots || []).slice(0, 5),
         });
       },
 
