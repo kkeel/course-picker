@@ -1718,3 +1718,27 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   opacity: .75;
   filter: grayscale(.05);
 }
+
+.schedule-grid{
+  display: grid;
+  grid-template-columns: minmax(320px, 380px) 1fr;
+  gap: 18px;
+  align-items: stretch; /* was start */
+}
+
+.sched-rail{
+  max-height: var(--sched-workspace-max-h);
+  height: var(--sched-workspace-max-h); /* add this */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.sched-work{
+  max-height: var(--sched-workspace-max-h);
+  height: var(--sched-workspace-max-h); /* add this */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
