@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -744,8 +743,8 @@
                                 
                                       <div class="sched-card-sub" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
                                 
-                                      <div class="sched-card-sub" x-show="(templateForInstance(inst) || {}).trackingCount > 0"
-                                           x-text="trackingBlocks(templateForInstance(inst))"></div>
+                                      <div class="sched-card-trackline"
+                                           x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"></div>
                                 
                                       <button
                                         type="button"
