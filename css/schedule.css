@@ -1537,7 +1537,8 @@ body.sched-dragging .sched-card{
   height: 3px;
   background: rgba(89,110,94,.55);
   border-radius: 2px;
-  opacity: 0;
+  opacity: 1;
+  top: 0;
   pointer-events: none;
 }
 
