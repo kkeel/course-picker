@@ -779,15 +779,84 @@
                 </div>
               </template>
           
-              <!-- DAY VIEW (placeholder scaffold) -->
-              <template x-if="view === 'day'">
-                <div class="schedule-day-placeholder">
-                  <div class="text-sm font-semibold mb-2">Day View (next)</div>
-                  <div class="text-sm opacity-70">
-                    This will become “2–3 day panels side-by-side” with collapsible student lanes.
+              <!-- DAY VIEW -->
+              <div x-show="view === 'day'" class="sched-dayview">
+              
+                <div class="sched-dayview-topbar">
+                  <div class="sched-dayview-title">
+                    <div class="schedule-title">Schedule</div>
+              
+                    <div class="sched-dayview-nav">
+                      <span class="schedule-days-global-label">Days:</span>
+              
+                      <button class="schedule-day-chip schedule-day-chip--ghost"
+                              @click="dayViewPrev()"
+                              :disabled="!dayViewCanPrev()"
+                              aria-label="Previous day panel">
+                        ‹
+                      </button>
+              
+                      <button class="schedule-day-chip schedule-day-chip--ghost"
+                              @click="dayViewNext()"
+                              :disabled="!dayViewCanNext()"
+                              aria-label="Next day panel">
+                        ›
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </template>
+              
+                <div class="sched-dayview-grid">
+                  <template x-for="dayIdx in getDayViewDays()" :key="'dv-day-' + dayIdx">
+                    <section class="sched-dayview-day">
+                      <header class="sched-dayview-dayhead">
+                        <div class="sched-dayview-dayname" x-text="dayLabel(dayIdx)"></div>
+                      </header>
+              
+                      <div class="sched-dayview-lanes">
+                        <template x-for="s in (students || [])" :key="'dv-lane-' + dayIdx + '-' + s.id">
+                          <div class="sched-dayview-lane">
+                            <div class="sched-dayview-lanehead">
+                              <div class="sched-dayview-student" x-text="s.name"></div>
+                            </div>
+              
+                            <div class="sched-dayview-lanebody">
+                              <template x-for="instId in getLaneInstanceIds(s.id, dayIdx)" :key="instId">
+                                <!-- Reuse your existing scheduled-card markup here.
+                                     If you already have a single “scheduled card” HTML block in Student View,
+                                     copy/paste that exact block into here (DO NOT redesign it). -->
+                                <div class="sched-card sched-card--scheduled"
+                                     draggable="true"
+                                     @dragstart="onDragStart($event, s.id, dayIdx, instId)"
+                                     @dragend="onDragEnd()"
+                                     @dragover.prevent="onDragOver($event, s.id, dayIdx, instId)"
+                                     @drop.prevent="onDrop($event, s.id, dayIdx, instId)"
+                                     x-data="{ _instId: instId }">
+                                  <!-- IMPORTANT:
+                                       Replace the inside of this card with your existing scheduled-card inner HTML
+                                       (title/minutes/tracker/etc) so it matches Student View exactly. -->
+                                  <div class="sched-card-inner">
+                                    <div class="sched-card-title" x-text="getInstanceTitle(instId)"></div>
+                                  </div>
+                                </div>
+                              </template>
+              
+                              <!-- Empty drop area (lets you drop into empty lanes) -->
+                              <div class="sched-dropzone"
+                                   @dragover.prevent
+                                   @drop.prevent="onDropToLane($event, s.id, dayIdx)">
+                              </div>
+              
+                            </div>
+                          </div>
+                        </template>
+                      </div>
+              
+                    </section>
+                  </template>
+                </div>
+              
+              </div>
           
             </div>
           </div>
