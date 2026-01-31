@@ -1207,6 +1207,15 @@
         return total;
       },
 
+      formatMinutes(mins) {
+          const total = Math.max(0, Math.round(Number(mins) || 0));
+          const h = Math.floor(total / 60);
+          const m = total % 60;
+          if (h <= 0) return `${m}m`;
+          if (m === 0) return `${h}h`;
+          return `${h}h ${m}m`;
+        },
+
       trackingBlocks(tpl) {
         const n = Number(tpl?.trackingCount || 0);
         if (!Number.isFinite(n) || n <= 0) return "";
