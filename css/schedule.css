@@ -1945,3 +1945,51 @@ body.sched-dragging .sched-card{
   opacity: .85;
 }
 
+/* =========================================================
+   Day View topbar: make student dropdown "chips" match day chips
+   ========================================================= */
+
+.schedule-topbar {
+  /* ensure both views share the same vertical feel */
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.schedule-days-global {
+  align-items: center;
+  gap: 10px; /* match chip row spacing */
+}
+
+/* This is the Day View topbar dropdown trigger; it currently inherits "panel dropdown" sizing */
+.schedule-student-chip.student-select-trigger {
+  /* match your day chip sizing */
+  padding: 6px 12px;
+  min-height: 34px;
+  line-height: 1;
+  font-size: 13px;
+  border-radius: 999px;
+
+  /* match active chip look (you asked for active styling) */
+  background: #e9ece6;            /* same family as your active chip fill */
+  border: 1px solid #596e5e;
+  color: #596e5e;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Keep the label text from adding extra height */
+.schedule-days-global-label {
+  line-height: 1;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Chevron sizing/position so it doesn't "inflate" the chip */
+.schedule-student-chip .student-select-caret {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  margin-left: 2px;
+}
