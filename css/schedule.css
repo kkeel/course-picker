@@ -1757,3 +1757,20 @@ body.sched-drop-below .sched-card.is-drop-target::before{
   height: 2.5em;
   overflow: hidden;
 }
+
+/* =========================================================
+   Card height consistency (custom cards too)
+   - Reserve space for symbols/sub row even when empty
+   - Keep tracker row height consistent
+   ========================================================= */
+
+/* Some custom cards have no symbols/subtext; reserve the same vertical space */
+.sched-card-sub{
+  line-height: 1.2;
+  min-height: 16px; /* matches the visual height of the symbol row */
+}
+
+/* Tracker row: slightly taller so the 12-box tracker and blanks match */
+.sched-card-trackline{
+  min-height: 18px;
+}
