@@ -90,7 +90,7 @@
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-top: 16px;
+  padding-top: 12px;
 }
 
 .sched-rail-head-actions{
@@ -595,7 +595,7 @@
 }
 
 /* =========================================================
-   Schedule Cards ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â long title handling
+   Schedule Cards long title handling
    ========================================================= */
 
 /* Make the top row behave nicely when titles are long */
@@ -626,7 +626,7 @@
 }
 
 /* =========================================================
-   Phase 2.5 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Card rail + minor card controls
+   Phase 2.5 Card rail + minor card controls
    ========================================================= */
 
 .sched-rail-head{
@@ -1075,9 +1075,8 @@
   text-transform: uppercase;
   color: #666d66;
   opacity: .8;
-  margin: 0 0 6px;
-  line-height: 1.25;
-  padding-top: 2px; 
+  margin: 0 0 8px;
+  line-height: 1.35; 
 }
 
 .sched-rail-toggle{
