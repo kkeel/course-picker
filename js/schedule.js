@@ -40,6 +40,11 @@
         { slot: "P1", studentId: "S1" },
         { slot: "P2", studentId: "S2" },
       ],
+      dayViewPanels: [
+        { slot: "D1", dayIdx: 0 }, // Mon
+        { slot: "D2", dayIdx: 1 }, // Tue
+      ],
+      dayViewStudentSlots: ["S1", "S2", "S3", "S4", "S5"],
       // Left rail UI
       railTopCollapsed: false,
       showCompleted: false,
@@ -91,7 +96,83 @@
     const railTopCollapsed = typeof state?.railTopCollapsed === 'boolean' ? state.railTopCollapsed : d.railTopCollapsed;
     const showCompleted = typeof state?.showCompleted === 'boolean' ? state.showCompleted : d.showCompleted;
 
-    return { view, visibleDays, panels, railTopCollapsed, showCompleted };
+        // -----------------------------
+        // Day View state (Phase 3)
+        // -----------------------------
+        let dayViewPanels = Array.isArray(state?.dayViewPanels)
+          ? state.dayViewPanels.slice()
+          : (Array.isArray(d.dayViewPanels) ? d.dayViewPanels.slice() : []);
+    
+        // Ensure we have a usable student list for defaults
+        const studentIds = (Array.isArray(allStudentIds) && allStudentIds.length)
+          ? allStudentIds.slice()
+          : ["S1", "S2", "S3", "S4", "S5"];
+    
+        // Normalize day panels: exactly 2 panels, dayIdx in 0..4, no duplicates
+        dayViewPanels = dayViewPanels
+          .map((p, idx) => {
+            const slot = p?.slot || (idx === 1 ? "D2" : "D1");
+            let dayIdx = Number(p?.dayIdx);
+    
+            if (!Number.isInteger(dayIdx) || dayIdx < 0 || dayIdx > 4) {
+              dayIdx = idx === 1 ? 1 : 0; // default: Mon, Tue
+            }
+    
+            return { slot, dayIdx };
+          })
+          .slice(0, 2);
+    
+        if (dayViewPanels.length < 2) {
+          dayViewPanels = [
+            { slot: "D1", dayIdx: 0 },
+            { slot: "D2", dayIdx: 1 },
+          ];
+        }
+    
+        if (dayViewPanels[0].dayIdx === dayViewPanels[1].dayIdx) {
+          const fallbackDay = [0, 1, 2, 3, 4].find((d) => d !== dayViewPanels[0].dayIdx) ?? 1;
+          dayViewPanels[1].dayIdx = fallbackDay;
+        }
+    
+        // Normalize dayViewStudentSlots: exactly 5 valid student IDs, de-duped
+        let dayViewStudentSlots = Array.isArray(state?.dayViewStudentSlots)
+          ? state.dayViewStudentSlots.slice()
+          : (Array.isArray(d.dayViewStudentSlots) ? d.dayViewStudentSlots.slice() : []);
+    
+        dayViewStudentSlots = dayViewStudentSlots
+          .map((id, idx) => {
+            const v = String(id || "");
+            if (studentIds.includes(v)) return v;
+            return studentIds[idx] || studentIds[0] || "S1";
+          })
+          .slice(0, 5);
+    
+        // pad to 5
+        while (dayViewStudentSlots.length < 5) {
+          dayViewStudentSlots.push(studentIds[dayViewStudentSlots.length] || studentIds[0] || "S1");
+        }
+    
+        // de-dupe while preserving order
+        const seen = new Set();
+        dayViewStudentSlots = dayViewStudentSlots.map((id) => {
+          if (!seen.has(id)) {
+            seen.add(id);
+            return id;
+          }
+          const repl = studentIds.find((sid) => !seen.has(sid)) || id;
+          seen.add(repl);
+          return repl;
+        });
+
+    return {
+      view,
+      visibleDays,
+      panels,
+      dayViewPanels,
+      dayViewStudentSlots,
+      railTopCollapsed,
+      showCompleted
+    };
   }
 
   // -----------------------------
@@ -336,6 +417,8 @@
         { slot: "P1", studentId: "S1" },
         { slot: "P2", studentId: "S2" },
       ],
+      openDayMenu: null,
+      openDayStudentMenu: null,
 
       // placeholder students (until wired)
       students: Array.from({ length: 15 }, (_, i) => {
@@ -717,17 +800,60 @@
       
       dayViewWindowStart: 0,
       
-      getDayViewDays() {
-        // Only show days that are currently "visibleDays"
-        const days = Array.isArray(this.visibleDays) ? [...this.visibleDays] : [0,1,2,3,4];
-        const size = this.dayViewSize();
-        const maxStart = Math.max(0, days.length - size);
+      // -----------------------------
+      // Day View helpers (Phase 3)
+      // -----------------------------
+      toggleDayMenu(idx) {
+        this.openDayMenu = this.openDayMenu === idx ? null : idx;
+      },
+      closeDayMenu() {
+        this.openDayMenu = null;
+      },
       
-        // clamp stored window start
-        if (this.dayViewWindowStart > maxStart) this.dayViewWindowStart = maxStart;
-        if (this.dayViewWindowStart < 0) this.dayViewWindowStart = 0;
+      setDayPanel(idx, dayIdx) {
+        const n = Number(dayIdx);
+        if (!Number.isInteger(n) || n < 0 || n > 4) return;
+        if (!Array.isArray(this.dayViewPanels)) return;
+        if (!this.dayViewPanels[idx]) return;
       
-        return days.slice(this.dayViewWindowStart, this.dayViewWindowStart + size);
+        const next = this.dayViewPanels.map((p, i) =>
+          i === idx ? { ...p, dayIdx: n } : { ...p }
+        );
+      
+        // prevent duplicates (keep it simple like student panels)
+        if (next[0].dayIdx === next[1].dayIdx) {
+          const fallback = [0,1,2,3,4].find((d) => d !== next[0].dayIdx) ?? 0;
+          next[1].dayIdx = fallback;
+        }
+      
+        this.dayViewPanels = next;
+        this.persistUi();
+      },
+      
+      setDayViewSlotStudent(slotIdx, studentId) {
+        if (!Array.isArray(this.dayViewStudentSlots)) return;
+        if (slotIdx < 0 || slotIdx >= this.dayViewStudentSlots.length) return;
+      
+        const allIds = (this.students || []).map((s) => s.id);
+        if (!allIds.includes(studentId)) return;
+      
+        const next = this.dayViewStudentSlots.slice();
+        next[slotIdx] = studentId;
+      
+        // optional: de-dupe (don’t allow the same student in multiple slots)
+        const seen = new Set();
+        for (let i = 0; i < next.length; i++) {
+          if (seen.has(next[i])) {
+            const repl = allIds.find((id) => !seen.has(id)) || next[i];
+            next[i] = repl;
+          }
+          seen.add(next[i]);
+        }
+      
+        this.dayViewStudentSlots = next;
+        this.ensureStudent(studentId); // keep placements safe
+        this.persistUi();
+        this.persistCards();
       },
       
       dayViewCanPrev() {
