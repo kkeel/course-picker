@@ -101,9 +101,7 @@ function transformRecord(record) {
 
   // Titles/labels can come from either of these depending on your view fields
   const title =
-    f.Schedule_CARD ||
     f["Course/Topic_Title"] ||
-    f.Course_Topic_Title ||
     "";
 
   return {
