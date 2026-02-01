@@ -1,42 +1,178 @@
-name: Build MA_Scheduling JSON
+/**
+ * Build data/MA_Scheduling.json from Airtable (MA_Scheduling table)
+ * Location: tools/build-scheduling-from-airtable.mjs
+ *
+ * Required env:
+ *  - AIRTABLE_PAT
+ *  - AIRTABLE_BASE_ID
+ * Optional:
+ *  - ROTATION   (e.g. "R3" or "3") -> selects view: "R3 – Scheduling JSON"
+ */
 
-on:
-  schedule:
-    - cron: "20 15 * * *"
-  workflow_dispatch:
+import fs from "fs/promises";
+import path from "path";
+import { fileURLToPath } from "url";
 
-permissions:
-  contents: write
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-jobs:
-  build-scheduling:
-    runs-on: ubuntu-latest
+// ==============================
+// ENV
+// ==============================
+const AIRTABLE_PAT = process.env.AIRTABLE_PAT;
+const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
+const ROTATION_RAW = process.env.ROTATION || "R3";
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+// normalize ROTATION to "R#"
+const ROTATION = /^R\d+$/i.test(ROTATION_RAW)
+  ? ROTATION_RAW.toUpperCase()
+  : `R${String(ROTATION_RAW).replace(/\D/g, "") || "3"}`;
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
+if (!AIRTABLE_PAT || !AIRTABLE_BASE_ID) {
+  throw new Error("Missing AIRTABLE_PAT or AIRTABLE_BASE_ID");
+}
 
-      # ✅ No npm install — repo has no package.json
-      - name: Build MA_Scheduling.json from Airtable
-        env:
-          AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
-          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
-          ROTATION: ${{ secrets.ROTATION }}
-        run: node tools/build-scheduling-from-airtable.mjs
+// ==============================
+// CONFIG
+// ==============================
+const TABLE_NAME = "MA_Scheduling";
+const VIEW_NAME = `${ROTATION} – Scheduling JSON`;
+const OUTPUT_PATH = path.resolve(__dirname, "../data/MA_Scheduling.json");
 
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/MA_Scheduling.json
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
-          fi
-          git commit -m "Nightly build: MA_Scheduling.json"
-          git push
+// ==============================
+// FETCH HELPERS
+// ==============================
+async function fetchAllRecords() {
+  const records = [];
+  let offset;
+
+  do {
+    const url = new URL(
+      `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(
+        TABLE_NAME
+      )}`
+    );
+    url.searchParams.set("view", VIEW_NAME);
+    if (offset) url.searchParams.set("offset", offset);
+
+    const res = await fetch(url.toString(), {
+      headers: { Authorization: `Bearer ${AIRTABLE_PAT}` },
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Airtable error ${res.status}: ${text}`);
+    }
+
+    const data = await res.json();
+    records.push(...(data.records || []));
+    offset = data.offset;
+  } while (offset);
+
+  return records;
+}
+
+// ==============================
+// TRANSFORM
+// ==============================
+function numOrNull(v) {
+  if (v === undefined || v === null || v === "") return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+}
+
+function isTruthyVariant(v) {
+  // supports 1/0, true/false, "1"/"0", "TRUE"/"FALSE"
+  if (v === 1 || v === true) return true;
+  if (v === 0 || v === false || v === null || v === undefined || v === "") return false;
+
+  const s = String(v).trim().toLowerCase();
+  return s === "1" || s === "true" || s === "yes";
+}
+
+function transformRecord(record) {
+  const f = record.fields || {};
+
+  // ✅ Your field name for "the course/topic record id this schedule row belongs to"
+  const courseOrTopicId = f.Source_ID || null;
+
+  // ✅ Your field is now isVarient (1/0)
+  const isVariant = isTruthyVariant(f.isVarient);
+
+  // Titles/labels can come from either of these depending on your view fields
+  const title =
+    f.Schedule_CARD ||
+    f["Course/Topic_Title"] ||
+    f.Course_Topic_Title ||
+    "";
+
+  return {
+    // record IDs
+    schedulingRecordId: record.id,
+    courseOrTopicId,
+
+    // optional extra metadata (safe to keep; helps debugging later)
+    sourceKind: f.Source_Kind || null, // "Course" / "Topic" if you want it
+    type: f.Type || null,              // "C" / "T" if present
+
+    // display
+    title,
+    subject: f.Subject || null,
+
+    // schedule logic
+    timesPerWeek: numOrNull(f["WK.+"] ?? f["WK"]),
+    minutes: numOrNull(f["MIN.+"] ?? f["MIN"]),
+    termTracking: numOrNull(f.Term_Tracking) ?? 12,
+
+    // variant grouping (only meaningful when there are multiple rows per course/topic)
+    isVariant,
+    variantKey: isVariant ? (f.variantKey || null) : null,
+    variantSort: numOrNull(f.variantSort) ?? numOrNull(f["MIN"]) ?? 0,
+
+    // grade-band (choice cards)
+    gradeBandKey: f.gradeBandKey || null,
+    gradeBandSort: numOrNull(f.gradeBandSort),
+    gradeMin: numOrNull(f.grade_min),
+    gradeMax: numOrNull(f.grade_max),
+    gradeNote: f["(Opt.) +Grade Note"] || null,
+
+    // text helpers
+    schedulingInfoText: f.Scheduling_Info_TextONLY || null,
+    cardText: f.Card_Text || null,
+
+    rotation: ROTATION,
+  };
+}
+
+// ==============================
+// BUILD
+// ==============================
+async function build() {
+  console.log(`Fetching ${TABLE_NAME} (${VIEW_NAME})…`);
+  const records = await fetchAllRecords();
+  console.log(`Fetched ${records.length} records`);
+
+  const data = records.map(transformRecord);
+
+  // stable ordering for diffs
+  data.sort((a, b) => {
+    const aid = a.courseOrTopicId || "";
+    const bid = b.courseOrTopicId || "";
+    if (aid !== bid) return aid.localeCompare(bid);
+
+    // If variantSort ties, fall back to record id
+    const vs = (a.variantSort || 0) - (b.variantSort || 0);
+    if (vs !== 0) return vs;
+
+    return (a.schedulingRecordId || "").localeCompare(b.schedulingRecordId || "");
+  });
+
+  await fs.mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
+  await fs.writeFile(OUTPUT_PATH, JSON.stringify(data, null, 2), "utf8");
+  console.log(`Wrote ${OUTPUT_PATH}`);
+}
+
+build().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
