@@ -1,2968 +1,1580 @@
-// Data URL for pre-built course JSON
-const MA_COURSES_JSON_URL = "data/MA_Courses.json";
-
-// Bump this version string whenever you change the JSON shape
-// or the UI state we store in localStorage.
-const APP_CACHE_VERSION = "2025-12-09-v1";
-
-// Keys for localStorage
-const COURSES_CACHE_KEY = `alveary_courses_${APP_CACHE_VERSION}`;
-const UI_STATE_KEY      = `alveary_ui_${APP_CACHE_VERSION}`;
-const PLANNER_STATE_KEY = `alveary_planner_${APP_CACHE_VERSION}`;
-
-// ---------------- SHARED COURSE/TOPIC TITLE HELPER ----------------
-function withSharedPrefix(title, shared) {
-  return shared === "↔" ? `↔ ${title}` : title;
-}
-
-function setAppHeaderHeightVar() {
-  const header = document.querySelector(".app-header");
-  if (!header) return;
-
-  const h = header.offsetHeight || 0;
-  document.documentElement.style.setProperty("--app-header-h", `${h}px`);
-}
-
-// Set once on load, and keep updated for rotation / resize
-window.addEventListener("load", setAppHeaderHeightVar, { passive: true });
-window.addEventListener("resize", setAppHeaderHeightVar, { passive: true });
-window.addEventListener("orientationchange", setAppHeaderHeightVar, { passive: true });
-
-// ---------------- PRINT FALLBACK: IN-PLACE PRINT WITH EAGER IMAGE PRELOAD ----------------
+// schedule.js
+// Schedule page UI state (Student View / "track") + persistence
+// + Phase 2.5: Card templates + instances + ordered placements + rail + grade-band choice (Picture Study)
 (function () {
-  // Preload all images (especially lazy ones) by probing their srcs.
-  async function preloadImagesFromElements(imgEls, opts = {}) {
-    const timeoutMs = opts.timeoutMs ?? 45000;
-    const concurrency = opts.concurrency ?? 8;
+  // -----------------------------
+  // Storage keys
+  // -----------------------------
+  const UI_STORAGE_KEY = "alveary_schedule_ui_v1";
+  const CARDS_STORAGE_KEY = "alveary_schedule_cards_v1";
 
-    const srcs = imgEls
-      .map(img => img.currentSrc || img.src)
-      .filter(Boolean);
-
-    if (!srcs.length) return;
-
-    let idx = 0;
-    let active = 0;
-    let done = 0;
-
-    await new Promise(resolve => {
-      const start = Date.now();
-
-      function pump() {
-        if (done >= srcs.length) return resolve();
-        if (Date.now() - start > timeoutMs) return resolve();
-
-        while (active < concurrency && idx < srcs.length) {
-          const src = srcs[idx++];
-          active++;
-
-          const probe = new Image();
-          probe.onload = probe.onerror = () => {
-            active--;
-            done++;
-            pump();
-          };
-          probe.src = src;
-        }
-      }
-
-      pump();
-    });
-  }
-
-  // Public hook used by your existing fallback logic in app.js
-  window.alvearyPrintInPlaceWithEagerImages = async function () {
-    // Grab book covers (tight selector so we don’t waste time on icons)
-    const covers = Array.from(document.querySelectorAll("img.resource-img"));
-
-    // Force eager-ish behavior
-    covers.forEach(img => {
-      try { img.loading = "eager"; } catch (e) {}
-      img.setAttribute("loading", "eager");
-
-      img.decoding = "sync";
-      img.setAttribute("decoding", "sync");
-
-      // Chromium hint
-      try { img.fetchPriority = "high"; } catch (e) {}
-      img.setAttribute("fetchpriority", "high");
-    });
-
-    // IMPORTANT: even if the browser keeps them "lazy", probing srcs forces fetch.
-    await preloadImagesFromElements(covers, { timeoutMs: 120000, concurrency: 8 });
-
-    // Let the browser paint decoded images before print snapshot
-    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-
-    // Now print in-place (this is the path that keeps your existing page numbers/footers working)
-    window.print();
-  };
-
-  // Safety net: if user hits Ctrl/Cmd+P, still try to preload covers first.
-  // NOTE: beforeprint can't be truly async in all browsers, but the probe fetch helps anyway.
-  window.addEventListener("beforeprint", () => {
+  function safeParse(raw) {
     try {
-      const covers = Array.from(document.querySelectorAll("img.resource-img"));
-      covers.forEach(img => {
-        try { img.loading = "eager"; } catch (e) {}
-        img.setAttribute("loading", "eager");
-      });
-      // fire-and-forget prefetch (best effort)
-      preloadImagesFromElements(covers, { timeoutMs: 30000, concurrency: 8 });
-    } catch (e) {}
-  });
-})();
-
-// ---------------- FLOATING VIDEO LINKS (Book List page) ----------------
-// Safe on all pages: if markup isn't present, it does nothing.
-(function initFloatingVideoLinks() {
-  // ====== SET YOUR PLAYLIST URLS HERE ======
-  const BOOK_PREVIEWS_URL =
-    "https://youtube.com/playlist?list=PLvg0fKfOahKR84TV79NMDkZYEuWy0HoAO&si=fYkD8-4dFOdnTQUH";
-
-  const TUTORIALS_URL =
-    "https://www.youtube.com/playlist?list=YOUR_TUTORIALS_PLAYLIST_ID";
-
-  function wireUp() {
-    // If the floating video markup isn't on this page, exit quietly.
-    const desktopLink = document.getElementById("avBookPreviewsLink");
-    const mobileBtn = document.getElementById("avVideoMobileBtn");
-    if (!desktopLink && !mobileBtn) return;
-
-    // Wire up links (desktop + mobile + inline)
-    const linkIds = [
-      ["avBookPreviewsLink", BOOK_PREVIEWS_URL],
-      ["avTutorialsLink", TUTORIALS_URL],
-      ["avBookPreviewsLinkMobile", BOOK_PREVIEWS_URL],
-      ["avTutorialsLinkMobile", TUTORIALS_URL],
-      ["avBookPreviewsInlineLink", BOOK_PREVIEWS_URL],
-      ["avTutorialsInlineLink", TUTORIALS_URL],
-    ];
-
-    linkIds.forEach(([id, url]) => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.href = url;
-        el.target = "_blank";
-        el.rel = "noopener";
-      }
-    });
-
-    // Mobile modal open/close
-    const btn = document.getElementById("avVideoMobileBtn");
-    const modal = document.getElementById("avVideoModal");
-    const backdrop = document.getElementById("avVideoBackdrop");
-    const closeBtn = document.getElementById("avVideoClose");
-
-    function openModal() {
-      if (!modal || !backdrop) return;
-      backdrop.hidden = false;
-      modal.hidden = false;
-    }
-
-    function closeModal() {
-      if (!modal || !backdrop) return;
-      backdrop.hidden = true;
-      modal.hidden = true;
-    }
-
-    btn?.addEventListener("click", () => {
-      if (modal?.hidden) openModal();
-      else closeModal();
-    });
-
-    closeBtn?.addEventListener("click", closeModal);
-    backdrop?.addEventListener("click", closeModal);
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal && !modal.hidden) {
-        closeModal();
-      }
-    });
-
-    // ✅ Print QR: Book previews only
-    const qrImg = document.getElementById("printBookPreviewQR");
-    if (qrImg) {
-      const qrSrc =
-        "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=" +
-        encodeURIComponent(BOOK_PREVIEWS_URL);
-
-      qrImg.src = qrSrc;
+      return JSON.parse(raw);
+    } catch {
+      return null;
     }
   }
 
-  // Ensure DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", wireUp, { once: true });
-  } else {
-    wireUp();
-  }
-})();
-
-function coursePlanner() {
-  return {
-
-    authRole: "public",
-    isAuthed: false,
-    isMember: false,
-    isStaff: false,
-    authRefreshing: false,
-    courseGate: false,
-    _blockedByGate: false,
-
-      // existing state
-      step: 3,
-      openStep(n) {
-        this.step = n;
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      },
-
-      // Global planning-tag menu (modal-style)
-      planningMenuOpen: false,
-      planningMenuItem: null,   // the course OR topic currently being edited
-      planningMenuX: 0,
-      planningMenuY: 0,
-
-      openPlanningMenu(evt, item) {
-        const rect = evt.currentTarget.getBoundingClientRect();
-        const menuWidth = 260; // keep in sync with CSS / markup
-
-        // Position horizontally so the menu's right edge lines up with the button,
-        // but keep it inside the viewport with a small margin.
-        let x = rect.right - menuWidth;
-        const margin = 16;
-        if (x < margin) x = margin;
-        if (x + menuWidth > window.innerWidth - margin) {
-          x = window.innerWidth - margin - menuWidth;
-        }
-
-        // Position below the button, but don't let it run off the bottom of the screen.
-        let y = rect.bottom + 8;
-        const maxY = window.innerHeight - margin - 260; // approx max menu height
-        if (y > maxY) y = maxY;
-
-        this.planningMenuX = x;
-        this.planningMenuY = y;
-        this.planningMenuItem = item;
-        this.planningMenuOpen = true;
-      },
-
-      closePlanningMenu() {
-        this.planningMenuOpen = false;
-        this.planningMenuItem = null;
-      },
-
-      // Global student-assign menu (modal-style)
-      studentAssignMenuOpen: false,
-      studentAssignMenuItem: null, // the course OR topic currently being edited
-      studentAssignMenuX: 0,
-      studentAssignMenuY: 0,
-
-      openStudentAssignMenu(evt, item) {
-        const rect = evt.currentTarget.getBoundingClientRect();
-        const menuWidth = 260; // keep consistent with planning menu width + CSS
-
-        // Left-align to the button (since your + button is on the left)
-        let x = rect.left;
-        const margin = 16;
-        if (x < margin) x = margin;
-        if (x + menuWidth > window.innerWidth - margin) {
-          x = window.innerWidth - margin - menuWidth;
-        }
-
-        // Prefer below the button, but clamp to viewport
-        let y = rect.bottom + 8;
-        const maxY = window.innerHeight - margin - 260; // approx max menu height
-        if (y > maxY) y = maxY;
-        if (y < margin) y = margin;
-
-        this.studentAssignMenuX = x;
-        this.studentAssignMenuY = y;
-        this.studentAssignMenuItem = item;
-        this.studentAssignMenuOpen = true;
-      },
-
-      closeStudentAssignMenu() {
-        this.studentAssignMenuOpen = false;
-        this.studentAssignMenuItem = null;
-      },
-
-      // ✅ Reactive tick to force Alpine to re-evaluate assigned-student counts
-      // when deep nested arrays change (e.g., `item.studentIds`).
-      studentCountTick: 0,
-
-    // ✅ NEW SOURCE OF TRUTH (to match Planning Tags):
-    // Store assigned students directly on the clicked item object as `item.studentIds`.
-    // TODO(cleanup): Once verified, remove legacy plannerState-based student helpers
-    // (_getAssignedStudentIds / _setAssignedStudentIds) and globalTopicStudents union logic.
-    
-    isStudentAssigned(item, studentId) {
-      if (!item || !studentId) return false;
-      const ids = Array.isArray(item.studentIds) ? item.studentIds : [];
-      return ids.map(String).includes(String(studentId));
-    },
-    
-    toggleStudentAssignment(item, student) {
-      if (!item) return;
-    
-      if (!item.studentIds) item.studentIds = [];
-    
-      const next = item.studentIds.map(String);
-    
-      const sid = String(student.id);
-      const idx = next.indexOf(sid);
-    
-      if (idx >= 0) {
-        next.splice(idx, 1);
-      } else {
-        next.push(sid);
-      }
-    
-      item.studentIds = this._normalizeStudentIds(next);
-    
-      // ✅ NEW — keep global ghost memory in sync (planning-tag equivalent)
-      const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
-      if (topicId) this.recomputeGlobalTopicStudents(topicId);
-    
-      this.persistPlannerStateDebounced();
-      // force any badge/count UI to update immediately
-      this.studentCountTick++;
-    },
-
-    getStudentById(id) {
-      const sid = String(id);
-      return (this.students || []).find(s => String(s.id) === sid) || null;
-    },
-
-    // Keep student id arrays consistent across the app (and prevent duplicate-count bugs)
-    _normalizeStudentIds(ids) {
-      const arr = Array.isArray(ids) ? ids : [];
-      const seen = new Set();
-      const out = [];
-      for (const raw of arr) {
-        const v = String(raw).trim();
-        if (!v) continue;
-        if (seen.has(v)) continue;
-        seen.add(v);
-        out.push(v);
-      }
-      return out;
-    },
-    
-    // Count ACTIVE assigned students on an item (ignores ghosts; de-duped; ignores unknown ids)
-    assignedStudentCount(item) {
-      if (!item) return 0;
-
-      // Touch the reactive tick so Alpine knows this depends on assignment changes.
-      // (We increment `studentCountTick` whenever students are added/removed.)
-      const _tick = this.studentCountTick;
-
-      const ids = this._normalizeStudentIds(item.studentIds);
-      let n = 0;
-      for (const id of ids) {
-        if (this.getStudentById(id)) n++;
-      }
-      return n;
-    },
-
-    removeStudentAssignment(item, studentId) {
-      if (!item) return;
-    
-      const sid = String(studentId);
-    
-      // 1) remove locally (this card instance only)
-      const cur = Array.isArray(item.studentIds) ? item.studentIds.map(String) : [];
-      item.studentIds = this._normalizeStudentIds(cur.filter(id => id !== sid));
-    
-      // 2) if this is a TOPIC instance, keep global ghost memory in sync
-      const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
-      if (topicId) this.recomputeGlobalTopicStudents(topicId);
-    
-      // 3) persist
-      this.persistPlannerStateDebounced();
-      // force any badge/count UI to update immediately
-      this.studentCountTick++;
-    },
-
-      //OLD CODE BELOW
-
-      _isCourseItem(item) {
-        // Courses in this app consistently have a Sort_ID (like "003.002.003") and/or a subject.
-        return !!(item && (item.Sort_ID || item.subject || item.grade));
-      },
-
-      _courseKey(course) {
-        return (course && (course.Sort_ID || course.id || course.courseId)) || null;
-      },
-
-      _topicInstanceKey(topic) {
-        // Topic cards may repeat; we use the topic record/id for the instance key.
-        return (topic && (topic.recordID || topic.id || topic.Topic_ID || topic.Sort_ID)) || null;
-      },
-
-      _topicGlobalKey(topic) {
-        // Shared topic identity for "ghost" students across repeated topic cards.
-        return (topic && (topic.Topic_ID || topic.id || topic.recordID)) || null;
-      },
-
-      _ensurePlannerCourseState(course) {
-        const key = this._courseKey(course);
-        if (!key) return null;
-
-        if (!this.plannerState) this.plannerState = {};
-        if (!this.plannerState.courses) this.plannerState.courses = {};
-        if (!this.plannerState.courses[key]) this.plannerState.courses[key] = {};
-
-        const st = this.plannerState.courses[key];
-        if (!Array.isArray(st.students)) st.students = [];
-        return st;
-      },
-
-      _ensurePlannerTopicState(topic) {
-        const key = this._topicInstanceKey(topic);
-        if (!key) return null;
-      
-        if (!this.plannerState) this.plannerState = {};
-        if (!this.plannerState.topics) this.plannerState.topics = {};
-        if (!this.plannerState.topics[key]) this.plannerState.topics[key] = {};
-      
-        const st = this.plannerState.topics[key];
-        if (!Array.isArray(st.students)) st.students = [];
-      
-        // ✅ Track the shared Topic identity so we can build "ghost" students later
-        const gk = this._topicGlobalKey(topic);
-        if (gk) st.globalKey = gk;
-      
-        return st;
-      },
-
-      // TODO(cleanup): LEGACY student assignment storage (plannerState-based).
-      // We are transitioning to `item.studentIds` as the single source of truth,
-      // matching how Planning Tags store on `item.planningTags`.
-      // Once student chips + persistence are verified, delete:
-      // - _getAssignedStudentIds
-      // - _setAssignedStudentIds
-      // - _ensurePlannerCourseState / _ensurePlannerTopicState (if only used for students)
-      // - plannerState.globalTopicStudents union logic (unless we re-add as "ghost suggestions")
-      _getAssignedStudentIds(item) {
-        if (this._isCourseItem(item)) {
-          const st = this._ensurePlannerCourseState(item);
-          return st ? st.students : [];
-        } else {
-          const st = this._ensurePlannerTopicState(item);
-          return st ? st.students : [];
-        }
-      },
-
-      _setAssignedStudentIds(item, studentIds) {
-        const safe = Array.isArray(studentIds) ? studentIds : [];
-
-        if (this._isCourseItem(item)) {
-          const st = this._ensurePlannerCourseState(item);
-          if (!st) return;
-          st.students = safe;
-
-          // Optional: keep a mirrored array on the item for immediate UI use if needed later
-          item.students = safe;
-        } else {
-          const st = this._ensurePlannerTopicState(item);
-          if (!st) return;
-          st.students = safe;
-
-          // Optional mirror
-          item.students = safe;
-
-          // Update globalTopicStudents for "ghost student" rendering (union across all instances)
-          const gk = this._topicGlobalKey(item);
-          if (gk) {
-            if (!this.plannerState.globalTopicStudents) this.plannerState.globalTopicStudents = {};
-          
-            // Recompute union of students across ALL topic instances that share this Topic_ID
-            const union = new Set();
-            const topicsState = this.plannerState.topics || {};
-            for (const k of Object.keys(topicsState)) {
-              const t = topicsState[k];
-              if (!t) continue;
-              if (t.globalKey !== gk) continue;
-              if (!Array.isArray(t.students)) continue;
-              for (const sid of t.students) union.add(String(sid));
-            }
-          
-            this.plannerState.globalTopicStudents[gk] = Array.from(union);
-          
-            // (Optional mirror for older code paths)
-            this.globalTopicStudents = this.plannerState.globalTopicStudents;
-          }
-        }
-      },
-
-      studentChipsForItem(item) {
-        if (!item) return [];
-      
-        const all = Array.isArray(this.students) ? this.students : [];
-        const byId = new Map(all.map(s => [s.id, s]));
-      
-        // ✅ Use new source of truth (matches Planning Tags approach)
-        const fullIds = (Array.isArray(item.studentIds) ? item.studentIds : []).map(String);
-        const fullSet = new Set(fullIds);
-      
-        // Courses: only show fully assigned
-        if (this._isCourseItem(item)) {
-          return fullIds
-            .map(id => byId.get(id))
-            .filter(Boolean)
-            .map(s => ({ ...s, ghost: false }));
-        }
-      
-        // Topics: show fully assigned + ghosts from other instances of same Topic_ID
-        const gk = this._topicGlobalKey(item);
-        const globalIds = gk && this.globalTopicStudents
-          ? (this.globalTopicStudents[gk] || []).map(String)
-          : [];
-      
-        const ghosts = globalIds.filter(id => !fullSet.has(id));
-      
-        const full = fullIds
-          .map(id => byId.get(id))
-          .filter(Boolean)
-          .map(s => ({ ...s, ghost: false }));
-      
-        const ghostObjs = ghosts
-          .map(id => byId.get(id))
-          .filter(Boolean)
-          .map(s => ({ ...s, ghost: true }));
-      
-        return [...full, ...ghostObjs];
-      },
-
-      // new global detail toggle
-      courseListViewMode: "full",
-      _hasSetCourseListViewMode: false,
-      showAllDetails: true,
-      myCoursesOnly: false,
-      myNotesOpen: false,
-      editMode: false, // staff-only
-      studentDropdownOpen: false,
-
-      // debounce handle for saving UI state
-      uiPersistDebounce: null,
-    
-      // debounce handle for saving planner state
-      plannerPersistDebounce: null,
-
-      // --- FILTER PANEL ---
-      filtersOpen: true,
-
-      // --- STUDENTS (local, user-defined) ---
-      studentsOpen: false,
-      colorPickerFor: null,
-      newStudentName: "",
-      students: [],             
-      selectedStudents: [],
-
-      // Student rail open/close per item (default collapsed)
-      // Keys like "course:<id>" and "topic:<id>"
-      studentRailCollapsed: {},
-
-      // color palette follows SUBJECT order (unique colors only)
-      studentColorPalette: [],
-      studentColorCursor: 0,
-
-      get canAddStudent() {
-        return (
-          (this.newStudentName || "").trim().length > 0 &&
-          (this.students || []).length < 15
-        );
-      },
-
-      get courseListViewModeClass() {
-        const m = (this.courseListViewMode || "full");
-        return `listview-${m}`;
-      },
-
-      toggleStudentsOpen() {
-        this.studentsOpen = !this.studentsOpen;
-        // keep UI stable; no need to persist open/close state
-      },
-
-      buildStudentColorPalette() {
-        const uniq = [];
-        const seen = new Set();
-
-        (this.subjectOptions || []).forEach(subj => {
-          const c = this.subjectColor(subj);
-          if (!c) return;
-          const key = String(c).toLowerCase();
-          if (seen.has(key)) return;
-          seen.add(key);
-          uniq.push(c);
-        });
-
-        return uniq;
-      },
-
-      nextDefaultStudentColor() {
-        const pal = this.studentColorPalette || [];
-        if (!pal.length) return "#dde2d5";
-        const idx = (this.studentColorCursor || 0) % pal.length;
-        this.studentColorCursor = (this.studentColorCursor || 0) + 1;
-        return pal[idx];
-      },
-
-      addStudent() {
-        const name = (this.newStudentName || "").trim();
-        if (!name) return;
-        if ((this.students || []).length >= 15) return;
-
-        const id = `s_${Date.now()}_${Math.random().toString(16).slice(2)}`;
-        const color = this.nextDefaultStudentColor();
-
-        this.students = [
-          ...(this.students || []),
-          { id, name, color }
-        ];
-
-        this.newStudentName = "";
-        this.colorPickerFor = null;
-
-        this.persistPlannerStateDebounced();
-      },
-
-      removeStudent(id) {
-        if (!id) return;
-      
-        const sid = String(id);
-      
-        // 1) Remove from roster
-        this.students = (this.students || []).filter(s => String(s.id) !== sid);
-      
-        // 2) Remove from student filter selection
-        this.selectedStudents = (this.selectedStudents || []).filter(x => String(x) !== sid);
-      
-        // 3) Remove from ALL assignments (courses + topics)
-        //    This prevents “orphan” studentIds from lingering on cards.
-        (this.courses || []).forEach(c => {
-          if (!Array.isArray(c.studentIds)) return;
-          c.studentIds = c.studentIds.map(String).filter(x => x !== sid);
-        });
-      
-        Object.values(this.topicsByCourse || {}).forEach(list => {
-          (list || []).forEach(t => {
-            if (!Array.isArray(t.studentIds)) return;
-            t.studentIds = t.studentIds.map(String).filter(x => x !== sid);
-          });
-        });
-      
-        // 4) Close color picker if it was open for this student
-        if (this.colorPickerFor === id) {
-          this.colorPickerFor = null;
-        }
-      
-        // 5) Persist + refresh UI
-        this.persistPlannerStateDebounced();
-        this.applyFilters();
-        // force any badge/count UI to update immediately
-        this.studentCountTick++;
-      },
-
-      updateStudentName(id, name) {
-        this.students = (this.students || []).map(s =>
-          s.id === id ? { ...s, name } : s
-        );
-        this.persistPlannerStateDebounced();
-      },
-
-      toggleStudentColorPicker(id) {
-        this.colorPickerFor = (this.colorPickerFor === id) ? null : id;
-      },
-
-      setStudentColor(id, color) {
-        if (!id || !color) return;
-        this.students = (this.students || []).map(s =>
-          s.id === id ? { ...s, color } : s
-        );
-      
-        // ✅ auto-close swatches after pick
-        this.colorPickerFor = null;
-      
-        this.persistPlannerStateDebounced();
-      },
-
-      // --- PRINT TIP MODAL ---
-     printTipOpen: false,
-     printTipDontShowAgain: false,
-
-      // --- FILTER STATE (grade) ---
-      selectedGrades: [],          // e.g. ["G1", "G3"]
-      gradeDropdownOpen: false,
-      gradeOptions: [
-        { code: "G1",  label: "Grade 1"  },
-        { code: "G2",  label: "Grade 2"  },
-        { code: "G3",  label: "Grade 3"  },
-        { code: "G4",  label: "Grade 4"  },
-        { code: "G5",  label: "Grade 5"  },
-        { code: "G6",  label: "Grade 6"  },
-        { code: "G7",  label: "Grade 7"  },
-        { code: "G8",  label: "Grade 8"  },
-        { code: "G9",  label: "Grade 9"  },
-        { code: "G10", label: "Grade 10" },
-        { code: "G11", label: "Grade 11" },
-        { code: "G12", label: "Grade 12" },
-      ],
-
-      // --- FILTER STATE (subject) ---
-      selectedSubjects: [],       // e.g. ["Science", "Art"]
-      subjectDropdownOpen: false,
-      // Order matches subject display (Science, then Alt. Science Options directly after)
-      subjectOptions: [
-        "Architecture",
-        "Art",
-        "Bible",
-        "Citizenship",
-        "English",
-        "Geography",
-        "History",
-        "Latin",
-        "Life Skills",
-        "Literature",
-        "Math",
-        "Modern Language",
-        "Music",
-        "Physical Education",
-        "Science",
-        "Alt. Science Options",
-      ],
-
-      // --- FILTER STATE (planning tags) ---
-      selectedTags: [],
-      tagDropdownOpen: false,
-
-      // --- FILTER STATE (search) ---
-      searchQuery: "",
-
-      // --- PLANNING TAG OPTIONS ---
-      // Adjust image filenames/paths as needed so they match your repo
-      planningTagOptions: [
-        {
-          id: "core",
-          label: "Core",
-          img: "img/Core%20Subjects.png",
-        },
-        {
-          id: "family",
-          label: "Family",
-          img: "img/Family%20Subjects.png",
-        },
-        {
-          id: "combine",
-          label: "Combine",
-          img: "img/Combine%20Subjects.png",
-        },
-        {
-          id: "high-interest",
-          label: "High interest",
-          img: "img/High%20Interest%20Subjects.png",
-        },
-        {
-          id: "additional",
-          label: "Additional",
-          img: "img/Additional%20Subjects.png",
-        },
-      ],
-
-      // Global "memory" of which Topic_IDs have ever been tagged
-      // Example shape: { "CHURCH_HISTORY_1_3": ["core", "family"] }
-      globalTopicTags: {},
-
-      // Global notes for topics (shared across all instances of the same Topic_ID)
-      // Example shape: { "CHURCH_HISTORY_1_3": "My running note text..." }
-      globalTopicNotes: {},
-
-      toggleFiltersOpen() {
-        this.filtersOpen = !this.filtersOpen;
-        this.persistUiStateDebounced();
-      },
-
-      setCourseListViewMode(mode) {
-        const allowed = new Set(["full", "compact", "minimal"]);
-        const next = allowed.has(mode) ? mode : "full";
-      
-        this.courseListViewMode = next;
-        this.showAllDetails = (next === "full");
-      
-        this._hasSetCourseListViewMode = true;
-        this.persistUiStateDebounced();
-      },
-      
-      // Back-compat if anything still calls it
-      toggleAllDetails() {
-        this.setCourseListViewMode(this.courseListViewMode === "full" ? "compact" : "full");
-      },
-
-      toggleMyCoursesOnly() {
-        this.myCoursesOnly = !this.myCoursesOnly;
-        this.persistUiStateDebounced();
-      },
-
-      // Open/close all notes for items that are bookmarked AND have notes
-      toggleMyNotes() {
-        this.myNotesOpen = !this.myNotesOpen;
-        const shouldOpen = this.myNotesOpen;
-      
-        const groups = this.coursesBySubject || {};
-      
-        Object.values(groups).forEach(courses => {
-          (courses || []).forEach(course => {
-            const hasTopics = Array.isArray(course.topics) && course.topics.length > 0;
-      
-            // Course-level notes (only for topic-less courses)
-            if (!hasTopics) {
-              const openCourseNote =
-                shouldOpen &&
-                this.isCourseBookmarked &&
-                this.hasCourseNote &&
-                this.isCourseBookmarked(course) &&
-                this.hasCourseNote(course);
-      
-              course.noteOpen = !!openCourseNote;
-            }
-      
-            // Topic-level notes
-            if (hasTopics && this.hasTopicNote && this.isTopicBookmarked) {
-              course.topics.forEach(topic => {
-                const openTopicNote =
-                  shouldOpen &&
-                  this.isTopicBookmarked(topic) &&
-                  this.hasTopicNote(topic);
-      
-                topic.noteOpen = !!openTopicNote;
-              });
-            }
-          });
-        });
-
-        this.persistUiStateDebounced();
-      },
-
-      toggleEditMode() {
-        if (!this.isStaff) {
-          this.editMode = false;
-          return;
-        }
-        this.editMode = !this.editMode;
-        this.persistUiStateDebounced?.();
-      },
-      
-      // Subject → courses map used by the template.
-      // When myCoursesOnly is off, just return the normal filtered view.
-      // When it's on, keep only courses with bookmarks.
-      visibleCourseGroups() {
-        // No special filtering when toggle is off
-        if (!this.myCoursesOnly) return this.coursesBySubject;
-      
-        const result = {};
-        const entries = Object.entries(this.coursesBySubject || {});
-      
-        entries.forEach(([subject, courses]) => {
-          const filteredCourses = (courses || []).filter(course => {
-            const hasTopics = Array.isArray(course.topics) && course.topics.length > 0;
-      
-            // Any bookmarked topic *in this course*?
-            const anyTopicBookmarked =
-              hasTopics && course.topics.some(t => this.isTopicBookmarked(t));
-      
-            // Course-level bookmark for topic-less courses
-            const courseBookmarked =
-              !hasTopics && this.isCourseBookmarked(course);
-      
-            // Visible if there is either a course bookmark or
-            // at least one topic bookmark in THIS course
-            return anyTopicBookmarked || courseBookmarked;
-          });
-      
-          if (filteredCourses.length > 0) {
-            result[subject] = filteredCourses;
-          }
-        });
-      
-        return result;
-      },
-      
-      visibleTopicsForCourse(course) {
-        let topics = Array.isArray(course.topics) ? course.topics : [];
-      
-        // Student filter: only show the topics that match the selected student(s)
-        if (this.selectedStudents?.length) {
-          topics = topics.filter(t => this.studentMatchesTopic(t));
-        }
-      
-        // My Courses toggle: only show bookmarked topics (applies after student filtering too)
-        if (this.myCoursesOnly) {
-          topics = topics.filter(t => this.isTopicBookmarked(t));
-        }
-      
-        return topics;
-      },
-
-      // label helper for chips
-      gradeLabelFromCode(code) {
-        const found = this.gradeOptions.find(o => o.code === code);
-        return found ? found.label : code;
-      },
-
-      // Label for print header under "Alveary"
-      gradePrintLabel() {
-        // Default when no grade filters are applied
-        if (!this.selectedGrades || this.selectedGrades.length === 0) {
-          return "Master";
-        }
-      
-        // Map selected grade codes to labels like "Grade 1", "Grade 3"
-        const labels = this.selectedGrades
-          .map(code => this.gradeLabelFromCode(code))
-          .filter(Boolean);
-      
-        if (labels.length === 0) return "Master";
-      
-        // Remove duplicates
-        const unique = [...new Set(labels)];
-      
-        // Single grade: just return "Grade 1", "Kindergarten", etc.
-        if (unique.length === 1) {
-          return unique[0];
-        }
-      
-        // Multiple grades: "Grades 3, 4" style
-        const stripped = unique.map(label =>
-          label.replace(/^Grade[s]?\s*/i, "").trim()
-        );
-      
-        return `Grades ${stripped.join(", ")}`;
-      },
-
-      // --- Year-At-A-Glance helpers ---
-      termLines(value) {
-        if (!value) return [];
-        const s = String(value)
-          .replace(/\r/g, "\n")
-          .trim();
-      
-        if (!s) return [];
-      
-        // split on new lines first; also tolerate bullets and semicolons
-        return s
-          .split("\n")
-          .map(x => x.replace(/^[•\-\u2022]\s*/,"").trim())
-          .flatMap(x => x.includes(";") ? x.split(";").map(y => y.trim()) : [x])
-          .filter(Boolean);
-      },
-      
-      yagaRows() {
-        const out = [];
-        const groups = this.coursesBySubject || {};
-      
-        Object.keys(groups).forEach(subject => {
-          const courses = groups[subject] || [];
-      
-          courses.forEach(course => {
-            if (!course) return;
-      
-            // Always include the course row (acts as a header)
-            out.push({
-              kind: "course",
-              subject,
-              title: course.title || "",
-              schedText: course.schedText || "",
-              term1: this.termLines(course.term1),
-              term2: this.termLines(course.term2),
-              term3: this.termLines(course.term3),
-            });
-      
-            // Then include topic rows (indented) if present
-            const topics = Array.isArray(course.topics) ? course.topics : [];
-            topics.forEach(topic => {
-              if (!topic) return;
-              out.push({
-                kind: "topic",
-                subject,
-                title: topic.Topic || "",
-                schedText: topic.schedText || "",
-                term1: this.termLines(topic.term1),
-                term2: this.termLines(topic.term2),
-                term3: this.termLines(topic.term3),
-              });
-            });
-          });
-        });
-      
-        return out;
-      },
-
-      // toggle a grade in/out of the selection
-      toggleGrade(code) {
-        const idx = this.selectedGrades.indexOf(code);
-        if (idx === -1) {
-          this.selectedGrades.push(code);
-        } else {
-          this.selectedGrades.splice(idx, 1);
-        }
-        this.applyFilters();
-      },
-
-      // remove a single grade (chip ×)
-      removeGrade(code) {
-        this.selectedGrades = this.selectedGrades.filter(c => c !== code);
-        this.applyFilters();
-      },
-
-      // --- SUBJECT FILTER HELPERS ---
-      toggleSubject(name) {
-        const idx = this.selectedSubjects.indexOf(name);
-        if (idx === -1) {
-          this.selectedSubjects.push(name);
-        } else {
-          this.selectedSubjects.splice(idx, 1);
-        }
-        this.applyFilters();
-      },
-
-      removeSubject(name) {
-        this.selectedSubjects = this.selectedSubjects.filter(s => s !== name);
-        this.applyFilters();
-      },
-
-      // --- TAG FILTER HELPERS ---
-
-      // label helper for planning-tag chips
-      planningTagLabel(id) {
-        const found = this.planningTagOptions.find(o => o.id === id);
-        return found ? found.label : id;
-      },
-
-      // image helper for planning-tag icons
-      planningTagImage(id) {
-        const found = this.planningTagOptions.find(o => o.id === id);
-        return found ? found.img : "";
-      },
-
-      // toggle a planning tag in/out of the filter selection
-      toggleSelectedTag(id) {
-        const idx = this.selectedTags.indexOf(id);
-        if (idx === -1) {
-          this.selectedTags.push(id);
-        } else {
-          this.selectedTags.splice(idx, 1);
-        }
-        this.applyFilters();
-      },
-
-      // remove a single tag (chip × in the filter bar)
-      removeSelectedTag(id) {
-        this.selectedTags = this.selectedTags.filter(t => t !== id);
-        this.applyFilters();
-      },
-
-      subjectMatches(courseSubject) {
-        if (!this.selectedSubjects.length) return true; // no subject filter
-        if (!courseSubject) return false;
-        const subj = courseSubject.trim();
-        return this.selectedSubjects.includes(subj);
-      },
-
-      // Does this course match the current tag filter?
-      // For now, this checks tags on the course itself AND on any of its topics.
-      tagMatchesCourse(course) {
-        if (!this.selectedTags.length) return true; // no tag filter => match all
-
-        const tagIds = new Set();
-
-        if (Array.isArray(course.planningTags)) {
-          course.planningTags.forEach(t => tagIds.add(t.id));
-        }
-
-        if (Array.isArray(course.topics)) {
-          course.topics.forEach(topic => {
-            if (topic && Array.isArray(topic.planningTags)) {
-              topic.planningTags.forEach(t => tagIds.add(t.id));
-            }
-          });
-        }
-
-      // course matches if any selected tag is present
-      return this.selectedTags.some(id => tagIds.has(id));
-      },
-
-      displayCourseTitle(course) {
-        const base =
-          course?.course_title ||
-          course?.title ||
-          course?.Course ||
-          "Untitled course";
-      
-        const shared = String(course?.Shared || course?.shared || "").trim();
-        return (shared === "↔" ? "↔ " : "") + base;
-      },
-      
-      displayTopicTitle(topic) {
-        const base = topic?.Topic || topic?.title || "Untitled topic";
-        const shared = String(topic?.Shared || topic?.shared || "").trim();
-        return (shared === "↔" ? "↔ " : "") + base;
-      },
-
-      courseMatchesSearch(course, searchLower) {
-        const q = (searchLower || "").trim();
-        if (!q) return true;
-      
-        // 1. Collect all searchable text
-        const pieces = [
-          course.title,
-          course.subject,
-          course.description,
-          course.tips,
-          course.gradeText,
-          course.schedText,
-          course.metaLine,
-        ];
-      
-        // course-level notes
-        const courseNote = this.plan?.[course.id]?.note;
-        if (courseNote) pieces.push(courseNote);
-      
-        if (Array.isArray(course.topics)) {
-          course.topics.forEach(topic => {
-            if (!topic) return;
-      
-            pieces.push(
-              topic.Topic || topic.title,
-              topic.description,
-              topic.tips,
-              topic.Grade_Text || topic.gradeText,
-              topic.Scheduling_R3 || topic.schedText
-            );
-      
-            // topic-level notes (support topic.topic_id or topic.id)
-            const topicNote = this.plan?.[topic.topic_id]?.note || this.plan?.[topic.id]?.note;
-            if (topicNote) pieces.push(topicNote);
-          });
-        }
-      
-        // 2. Normalize to lowercase and split into "words"
-        const haystack = pieces
-          .filter(Boolean)
-          .join(" ")
-          .toLowerCase();
-      
-        const words = haystack.split(/[^a-z0-9]+/); // split on spaces & punctuation
-      
-        // 3. Match whole word or word prefix (so "natu" still finds "nature")
-        return words.some(w => w && (w === q || w.startsWith(q)));
-      },
-
-      // For a given topic, which globally-known tags have NOT yet been applied here?
-      missingGlobalTagsForTopic(topic) {
-        if (!topic) return [];
-
-        const topicId = (topic.Topic_ID || "").trim();
-        if (!topicId) return [];
-
-        const global = this.globalTopicTags[topicId] || [];
-        if (!global.length) return [];
-
-        const localIds = new Set(
-          (topic.planningTags || []).map(t => t.id)
-        );
-
-      // Only show tags that are global but not yet applied locally
-      return global.filter(id => !localIds.has(id));
-      },
-
-      // Apply a previously used ("global") tag to this specific topic instance
-      applyGlobalTagToTopic(topic, tagId) {
-        if (!topic) return;
-
-        const topicId = (topic.Topic_ID || "").trim();
-        const opt = this.planningTagOptions.find(o => o.id === tagId);
-        if (!opt) return;
-
-        if (!topic.planningTags) topic.planningTags = [];
-
-        // If it already has this tag locally, do nothing
-        if (topic.planningTags.some(t => t.id === tagId)) {
-          return;
-        }
-
-        // Add to the plan layer for this topic instance
-        topic.planningTags.push({
-          id: opt.id,
-          label: opt.label,
-          img: opt.img,
-        });
-
-       // Also make sure the global memory knows about it (for safety)
-       if (topicId) {
-          if (!this.globalTopicTags[topicId]) {
-            this.globalTopicTags[topicId] = [];
-          }
-          if (!this.globalTopicTags[topicId].includes(tagId)) {
-            this.globalTopicTags[topicId].push(tagId);
-          }
-        }
-
-        this.persistPlannerStateDebounced();
-      },
-
-      missingGlobalStudentsForItem(item) {
-        if (!item) return [];
-      
-        // Courses do NOT have ghost students (ghosts are topic-repeats only)
-        if (this._isCourseItem(item)) return [];
-      
-        const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
-        if (!topicId) return [];
-      
-        // ✅ Match planning-tag logic: read from the LIVE global map
-        const global = (this.globalTopicStudents?.[topicId] || []).map(String);
-      
-        // local assignments for THIS topic instance
-        const local = (Array.isArray(item.studentIds) ? item.studentIds : []).map(String);
-        const localSet = new Set(local);
-      
-        // return only ghosts (in global, not local)
-        return global.filter(sid => !localSet.has(sid));
-      },
-
-      // Apply a previously-assigned ("ghost") student to this specific topic instance.
-      // Mirrors applyGlobalTagToTopic() behavior for Planning Tags.
-      applyGlobalStudentToItem(item, studentId) {
-        if (!item || !studentId) return;
-      
-        // Courses don't have ghost students; applying is topic-only
-        if (this._isCourseItem(item)) return;
-      
-        const sid = String(studentId);
-      
-        if (!Array.isArray(item.studentIds)) item.studentIds = [];
-      
-        // If already locally assigned, do nothing
-        const cur = item.studentIds.map(String);
-        if (cur.includes(sid)) return;
-      
-        // Add locally (this instance)
-        cur.push(sid);
-        item.studentIds = this._normalizeStudentIds(cur);
-      
-        // Keep global ghost memory in sync
-        const topicId = item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
-        if (topicId) this.recomputeGlobalTopicStudents(topicId);
-      
-        this.persistPlannerStateDebounced();
-        // force any badge/count UI to update immediately
-        this.studentCountTick++;
-      },
-
-      // ==== TOPIC NOTES (shared by Topic_ID) =====================
-
-      // Read the shared note text for this topic (all instances share by Topic_ID)
-      topicNoteText(topic) {
-        if (!topic || !topic.Topic_ID) return "";
-        const id = String(topic.Topic_ID).trim();
-        if (!id) return "";
-        return this.globalTopicNotes[id] || "";
-      },
-
-      // Update the shared note text for this topic
-      updateTopicNoteText(topic, text) {
-        if (!topic || !topic.Topic_ID) return;
-        const id = String(topic.Topic_ID).trim();
-        if (!id) return;
-        this.globalTopicNotes[id] = text;
-        this.persistPlannerStateDebounced();
-      },
-
-      // Does this topic have any note text?
-      hasTopicNote(topic) {
-        return this.topicNoteText(topic).trim().length > 0;
-      },
-
-      // Open/close the note accordion for a particular topic card
-      toggleTopicNoteOpen(topic) {
-        if (!topic) return;
-        topic.noteOpen = !topic.noteOpen;
-      },
-
-      // After removing a plan tag from a topic, make sure the global memory
-      // stays accurate. If no topic with this Topic_ID still has this tag,
-      // remove it from globalTopicTags.
-      cleanupGlobalTopicTag(topicId, tagId) {
-        if (!topicId || !tagId) return;
-
-        let stillUsed = false;
-        const subjects = Object.keys(this.allCoursesBySubject || {});
-
-        for (const subject of subjects) {
-          const courses = this.allCoursesBySubject[subject] || [];
-          for (const course of courses) {
-            if (!Array.isArray(course.topics)) continue;
-
-            for (const topic of course.topics) {
-              if (!topic) continue;
-              const tid = (topic.Topic_ID || "").trim();
-              if (tid !== topicId) continue;
-
-              if (
-                Array.isArray(topic.planningTags) &&
-                topic.planningTags.some(t => t.id === tagId)
-              ) {
-                stillUsed = true;
-                break;
-              }
-            }
-
-            if (stillUsed) break;
-          }
-
-          if (stillUsed) break;
-        }
-
-        if (!stillUsed && this.globalTopicTags[topicId]) {
-          this.globalTopicTags[topicId] =
-            this.globalTopicTags[topicId].filter(id => id !== tagId);
-          if (this.globalTopicTags[topicId].length === 0) {
-            delete this.globalTopicTags[topicId];
-          }
-        }
-
-        this.persistPlannerStateDebounced();
-      },
-
-      // --- STUDENT GHOST MEMORY (shared by Topic_ID) -----------------
-
-      recomputeGlobalTopicStudents(topicId) {
-        if (!topicId) return;
-      
-        const union = new Set();
-        const subjects = Object.keys(this.allCoursesBySubject || {});
-      
-        for (const subject of subjects) {
-          const courses = this.allCoursesBySubject[subject] || [];
-          for (const course of courses) {
-            if (!Array.isArray(course.topics)) continue;
-      
-            for (const t of course.topics) {
-              if (!t) continue;
-              const tid = String(t.Topic_ID || "").trim();
-              if (tid !== topicId) continue;
-      
-              const ids = Array.isArray(t.studentIds) ? t.studentIds : [];
-              ids.map(String).forEach(sid => union.add(sid));
-            }
-          }
-        }
-      
-        if (!this.globalTopicStudents) this.globalTopicStudents = {};
-      
-        const arr = Array.from(union);
-        if (arr.length) this.globalTopicStudents[topicId] = arr;
-        else delete this.globalTopicStudents[topicId];
-      },
-
-      // --- PLANNING TAG HELPERS ---
-      togglePlanningTag(item, opt) {
-        if (!item || !opt) return;
-
-        if (!item.planningTags) item.planningTags = [];
-
-        const existingIndex = item.planningTags.findIndex(t => t.id === opt.id);
-
-        // Detect if this item is a Topic (has Topic_ID)
-        const topicId =
-          item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
-
-        if (existingIndex === -1) {
-          // ADD tag at the plan layer
-          item.planningTags.push({
-            id: opt.id,
-            label: opt.label,
-            img: opt.img,
-          });
-
-          // If it's a topic, also remember this tag at the global layer
-          if (topicId) {
-            if (!this.globalTopicTags[topicId]) {
-              this.globalTopicTags[topicId] = [];
-            }
-            if (!this.globalTopicTags[topicId].includes(opt.id)) {
-              this.globalTopicTags[topicId].push(opt.id);
-            }
-          }
-        } else {
-          // REMOVE tag at the plan layer
-          item.planningTags.splice(existingIndex, 1);
-
-          // If it's a topic, re-check whether this tag is still used anywhere
-          if (topicId) {
-            this.cleanupGlobalTopicTag(topicId, opt.id);
-          }
-        }
-
-        // close after click
-        this.closePlanningMenu();
-        this.persistPlannerStateDebounced();
-      },
-
-      removePlanningTag(item, tagId) {
-        if (!item || !item.planningTags) return;
-
-        item.planningTags = item.planningTags.filter(t => t.id !== tagId);
-
-        // If this is a topic (has Topic_ID), update globalTopicTags as needed
-        const topicId =
-          item && item.Topic_ID ? String(item.Topic_ID).trim() : "";
-        if (topicId) {
-          this.cleanupGlobalTopicTag(topicId, tagId);
-        }
-
-        this.persistPlannerStateDebounced();
-      },
-
-      // --- STUDENT OPTION HELPERS ---
-      studentById(id) {
-        const needle = String(id);
-        return (this.students || []).find(s => String(s.id) === needle) || null;
-      },
-      
-      studentNameFromId(id) {
-        if (String(id) === "__any__") return "All Students";
-        const s = this.studentById(id);
-        return s ? (s.name || "Unnamed") : "";
-      },
-      
-      studentColorFromId(id) {
-        if (String(id) === "__any__") return "#9eaa99";
-        const s = this.studentById(id);
-        return s?.color || "#596e5e";
-      },
-
-      studentRailKeyForCourse(course) {
-        const id = course?.recordID || course?.id || "";
-        return `course:${String(id)}`;
-      },
-
-      studentRailKeyForTopic(topic) {
-        const id = topic?.recordID || topic?.id || "";
-        return `topic:${String(id)}`;
-      },
-
-      isStudentRailCollapsed(itemKey) {
-        // Minimal view = all student rails collapsed (closed)
-        if ((this.courseListViewMode || "full") === "minimal") return true;
-      
-        const map = this.studentRailCollapsed || {};
-        return (map[itemKey] === true);
-      },
-
-      toggleStudentRailCollapsed(itemKey) {
-        if (!itemKey) return;
-        if (!this.studentRailCollapsed) this.studentRailCollapsed = {};
-        const nextCollapsed = !this.isStudentRailCollapsed(itemKey);
-        this.studentRailCollapsed[itemKey] = nextCollapsed;
-
-        // persist with planner state (same pattern as bookmarks/tags/notes)
-        this.persistPlannerStateDebounced();
-      },
-      
-      toggleStudentFilter(id) {
-        if (id === undefined || id === null) return;
-        const sid = String(id);
-        const ANY = "__any__";
-      
-        if (!Array.isArray(this.selectedStudents)) this.selectedStudents = [];
-        this.selectedStudents = this.selectedStudents.map(String);
-      
-        // "Any student tag" is mutually exclusive with specific students
-        if (sid === ANY) {
-          if (this.selectedStudents.includes(ANY)) {
-            this.selectedStudents = [];
-          } else {
-            this.selectedStudents = [ANY];
-          }
-          this.applyFilters();
-          return;
-        }
-      
-        // If ANY is selected and user picks a specific student, remove ANY first
-        this.selectedStudents = this.selectedStudents.filter(x => x !== ANY);
-      
-        const idx = this.selectedStudents.indexOf(sid);
-        if (idx === -1) this.selectedStudents.push(sid);
-        else this.selectedStudents.splice(idx, 1);
-      
-        this.applyFilters();
-      },
-      
-      removeStudentFilter(id) {
-        const sid = String(id);
-        this.selectedStudents = (this.selectedStudents || []).map(String).filter(x => x !== sid);
-        this.applyFilters();
-      },
-
-      studentMatchesCourse(course) {
-        // Match-all when the student filter is not active (same as planning tags)
-        if (!this.selectedStudents?.length) return true;
-      
-        const ANY = "__any__";
-        const selected = (this.selectedStudents || []).map(String);
-      
-        const ids = new Set();
-      
-        const addIds = (arr) => {
-          this._normalizeStudentIds(arr).forEach(id => ids.add(id));
-        };
-      
-        // Course-level studentIds
-        addIds(course?.studentIds);
-      
-        // Topic-level studentIds (any topic in this course)
-        if (Array.isArray(course?.topics)) {
-          course.topics.forEach(t => addIds(t?.studentIds));
-        }
-      
-        // If "All Students" is selected, match ONLY if at least one REAL student exists here
-        if (selected.includes(ANY)) {
-          for (const id of ids) {
-            if (this.studentById(id)) return true;
-          }
-          return false;
-        }
-      
-        // If the student filter is active and NOTHING is assigned here, do not match
-        if (ids.size === 0) return false;
-      
-        return selected.some(id => ids.has(id));
-      },
-
-      studentMatchesTopic(topic) {
-        // Match-all when the student filter is not active
-        if (!this.selectedStudents?.length) return true;
-      
-        const ANY = "__any__";
-        const selected = (this.selectedStudents || []).map(String);
-      
-        const ids = new Set();
-        this._normalizeStudentIds(topic?.studentIds).forEach(id => ids.add(id));
-      
-        // If "All Students" is selected, match ONLY if at least one REAL student exists on this topic instance
-        if (selected.includes(ANY)) {
-          for (const id of ids) {
-            if (this.studentById(id)) return true;
-          }
-          return false;
-        }
-      
-        // If filter is active and topic has no students assigned, it should NOT match
-        if (ids.size === 0) return false;
-      
-        return selected.some(id => ids.has(id));
-      },
-
-      // --- BOOKMARK HELPERS (My courses) ---
-
-      // Is this course bookmarked (for courses without topics)?
-      isCourseBookmarked(course) {
-        return !!(course && course.isBookmarked);
-      },
-
-      // Toggle bookmark on this specific course
-      toggleCourseBookmark(course) {
-        if (!course) return;
-        course.isBookmarked = !course.isBookmarked;
-        this.persistPlannerStateDebounced();
-      },
-
-      // ==== COURSE NOTES (only for courses with NO topics) =======
-
-      courseNoteText(course) {
-        if (!course) return "";
-        return course.noteText || "";
-      },
-
-      updateCourseNoteText(course, text) {
-        if (!course) return;
-        course.noteText = text;
-        this.persistPlannerStateDebounced();
-      },
-
-      hasCourseNote(course) {
-        if (!course) return false;
-        return (course.noteText || "").trim().length > 0;
-      },
-
-      toggleCourseNoteOpen(course) {
-        if (!course) return;
-        course.noteOpen = !course.noteOpen;
-      },
-
-      // Is this topic bookmarked *here* in this course?
-      isTopicBookmarked(topic) {
-        return !!(topic && topic.isBookmarked);
-      },
-
-      // Toggle bookmark on this specific topic instance
-      toggleTopicBookmark(topic) {
-        if (!topic) return;
-        topic.isBookmarked = !topic.isBookmarked;
-        this.persistPlannerStateDebounced();
-      },
-
-      // Are *all* topics in this course bookmarked?
-      allTopicsBookmarked(course) {
-        if (!course || !Array.isArray(course.topics) || !course.topics.length) return false;
-        return course.topics.every(t => t && t.isBookmarked);
-      },
-      
-      // Quickmark: bookmark or un-bookmark *all* topics in this course
-      toggleAllTopicsBookmark(course) {
-        if (!course || !Array.isArray(course.topics) || !course.topics.length) return;
-      
-        const markAll = !this.allTopicsBookmarked(course); // if not all → bookmark all; if all → clear all
-      
-        course.topics.forEach(topic => {
-          if (!topic) return;
-          topic.isBookmarked = markAll;
-        });
-
-        this.persistPlannerStateDebounced();
-      },
-
-      // Is this same Topic_ID bookmarked in any *other* course?
-      topicBookmarkedElsewhere(topic) {
-        if (!topic || !topic.Topic_ID) return false;
-
-        const topicId = String(topic.Topic_ID).trim();
-        if (!topicId) return false;
-
-        const all = this.allCoursesBySubject || {};
-        const subjects = Object.keys(all);
-
-        for (const subject of subjects) {
-          const courses = all[subject] || [];
-          for (const course of courses) {
-            if (!Array.isArray(course.topics)) continue;
-
-            for (const t of course.topics) {
-              if (!t) continue;
-              if (t === topic) continue; // skip this exact instance
-              if (String(t.Topic_ID || "").trim() !== topicId) continue;
-              if (t.isBookmarked) return true;
-            }
-          }
-        }
-        return false;
-      },
-
-      // Turn a ghost bookmark into a real bookmark on this topic
-      applyBookmarkFromElsewhere(topic) {
-        if (!topic) return;
-        topic.isBookmarked = true;
-        this.persistPlannerStateDebounced();
-      },
-
-      // clear everything (used by Clear selected button)
-      clearAllFilters() {
-        // grade
-        this.selectedGrades = [];
-        this.gradeDropdownOpen = false;
-
-        // subject
-        this.selectedSubjects = [];
-        this.subjectDropdownOpen = false;
-
-        // planning tags
-        this.selectedTags = [];
-        this.tagDropdownOpen = false;
-
-        // students
-        this.selectedStudents = [];
-        this.studentDropdownOpen = false;
-
-        // search
-        this.searchQuery = "";
-
-        this.applyFilters();
-      },
-
-      clearAllBookmarks() {
-        const groups = this.allCoursesBySubject || {};
-      
-        Object.values(groups).forEach(courses => {
-          (courses || []).forEach(course => {
-            if (!course) return;
-      
-            // clear course-level bookmark (for courses without topics)
-            course.isBookmarked = false;
-      
-            // clear topic-level bookmarks (for courses with topics)
-            if (Array.isArray(course.topics)) {
-              course.topics.forEach(topic => {
-                if (!topic) return;
-                topic.isBookmarked = false;
-              });
-            }
-          });
-        });
-      
-        // Rebuild visibleCourseGroups / filters view after changes
-        this.applyFilters();
-        this.persistPlannerStateDebounced();
-      },
-
-      // helper: does this item match the grade filter?
-      gradeMatches(tags) {
-        if (!this.selectedGrades.length) return true;  // no filter => match all
-        if (!tags || !tags.length) return false;
-        return this.selectedGrades.some(code => tags.includes(code));
-      },
-
-      // rebuild coursesBySubject from allCoursesBySubject + filters
-      applyFilters() {
-        const hasGrade   = this.selectedGrades.length > 0;
-        const hasSubject = this.selectedSubjects.length > 0;
-        const hasTag     = this.selectedTags.length > 0;
-        const hasStudent = this.selectedStudents.length > 0;
-
-        const search = (this.searchQuery || "").trim().toLowerCase();
-        const hasSearch = !!search;
-
-        // No filters and no search => show full dataset
-        if (!hasGrade && !hasSubject && !hasTag && !hasStudent && !hasSearch) {
-          this.coursesBySubject = this.allCoursesBySubject;
-          this.persistUiStateDebounced();
-          return;
-        }
-
-        const filtered = {};
-        const subjects = Object.keys(this.allCoursesBySubject);
-
-        subjects.forEach(subject => {
-          const courses = this.allCoursesBySubject[subject];
-          const subjectCourses = [];
-
-          courses.forEach(course => {
-            const matchesGrade   = !hasGrade   || this.gradeMatches(course.gradeTags);
-            const matchesSubject = !hasSubject || this.subjectMatches(course.subject);
-            const matchesTag     = !hasTag     || this.tagMatchesCourse(course);
-            const matchesSearch  = !hasSearch  || this.courseMatchesSearch(course, search);
-            const matchesStudent = !hasStudent || this.studentMatchesCourse(course);
-
-            if (!(matchesGrade && matchesSubject && matchesTag && matchesStudent && matchesSearch)) return;
-
-            subjectCourses.push(course);
-          });
-
-          if (subjectCourses.length) {
-            filtered[subject] = subjectCourses;
-          }
-        });
-
-        this.coursesBySubject = filtered;
-        this.persistUiStateDebounced();
-      },
-
-    openPrintTip() {
-      // If user chose "don't show again", go straight to printing
-      try {
-        const hidden = localStorage.getItem("ALVEARY_HIDE_PRINT_TIP") === "1";
-        if (hidden) {
-          this.printView();
-          return;
-        }
-      } catch (e) {}
-    
-      // Otherwise show the modal
-      this.printTipDontShowAgain = false;
-      this.printTipOpen = true;
-    },
-    
-    confirmPrintTipAndPrint() {
-      // Save preference
-      try {
-        if (this.printTipDontShowAgain) {
-          localStorage.setItem("ALVEARY_HIDE_PRINT_TIP", "1");
-        }
-      } catch (e) {}
-    
-      this.printTipOpen = false;
-    
-      // Proceed with your existing print flow (Paged.js + page numbers)
-      this.printView();
-    },
-    
-    closePrintTip() {
-      this.printTipOpen = false;
-    },
-
-      printView() {
-      // Close any open dropdowns so they don’t overlay the printout
-      this.gradeDropdownOpen = false;
-      this.subjectDropdownOpen = false;
-      this.tagDropdownOpen = false;
-      this.studentDropdownOpen = false;
-    
-      // ✅ Automation / headless / reliable mode:
-      // If URL contains ?pdf=1 (or ?forceInPlacePrint=1), skip popup printing entirely.
-      const params = new URLSearchParams(window.location.search);
-      const forceInPlace =
-        params.get("pdf") === "1" || params.get("forceInPlacePrint") === "1";
-    
-      if (forceInPlace) {
-        if (window.alvearyPrintInPlaceWithEagerImages) {
-          window.alvearyPrintInPlaceWithEagerImages();
-          return;
-        }
-        window.print();
-        return;
-      }
-    
-      // ✅ Human mode: prefer the Paged.js popup flow if it exists
-      if (window.alvearyPrintWithPaged) {
-        try { window.alvearyPrintWithPaged(); }
-        catch (e) {
-          // If it errors, fall back to in-place eager printing
-          if (window.alvearyPrintInPlaceWithEagerImages) window.alvearyPrintInPlaceWithEagerImages();
-          else window.print();
-        }
-        return;
-      }
-    
-      // If the paged print function is missing, still preload images and then print in-place.
-      if (window.alvearyPrintInPlaceWithEagerImages) {
-        window.alvearyPrintInPlaceWithEagerImages();
-        return;
-      }
-    
-      // Last resort
-      window.print();
-    },
-
-    // ===============================
-    // URL → FILTER HYDRATION (shareable links)
-    // Examples:
-    //   courses.html?grade=G3
-    //   courses.html?master=1
-    // ===============================
-    applyFiltersFromQuery() {
-      const params = new URLSearchParams(window.location.search);
-    
-      const wantsMaster = params.get("master") === "1";
-      const gradeParam = (params.get("grade") || "").trim().toUpperCase(); // "G1".."G12"
-    
-      // If neither param exists, do nothing (keep saved UI state)
-      if (!wantsMaster && !gradeParam) return;
-    
-      // For shared links: start clean so old saved filters don't "stack"
-      // (grade links should show JUST that grade by default)
-      this.clearAllFilters();
-
-      // Share-link behavior: also reset "My ..." toggles so we don’t stack filters
-      // (pre-filtered grade links should show the full list for that grade by default)
-      if ("myCoursesOnly" in this) this.myCoursesOnly = false;
-      if ("myNotesOpen"   in this) this.myNotesOpen   = false;
-      if ("myBooksOnly"   in this) this.myBooksOnly   = false;
-      
-      // If you track "hasSet" flags to control whether view settings persist, reset those too
-      if ("_hasSetMyCoursesOnly" in this) this._hasSetMyCoursesOnly = false;
-      if ("_hasSetMyNotesOpen"   in this) this._hasSetMyNotesOpen   = false;
-      if ("_hasSetMyBooksOnly"   in this) this._hasSetMyBooksOnly   = false;
-
-      if (typeof this.saveUIState === "function") this.saveUIState();
-    
-      // Apply master (no grade filter) OR a specific grade
-      if (wantsMaster) {
-        this.selectedGrades = [];
-      } else {
-        const valid = new Set(this.gradeOptions.map(g => String(g.code).toUpperCase()));
-        if (valid.has(gradeParam)) {
-          this.selectedGrades = [gradeParam];
-        }
-      }
-    
-      // Apply now (and this will also rebuild the visible list)
-      this.applyFilters();
-    },
-
-    // ===============================
-    // AUTO-PRINT (automation only)
-    // Trigger via: ?autoprint=1&grade=G1   (or G2..G12)
-    // Master list: ?autoprint=1&master=1
-    // ===============================
-    async autoPrintFromQuery() {
-      try {
-        const params = new URLSearchParams(window.location.search);
-    
-        // Only run when explicitly requested
-        if (params.get("autoprint") !== "1") return;
-    
-        // Decide target: one grade OR master
-        const isMaster = params.get("master") === "1";
-        const grade = (params.get("grade") || "").trim().toUpperCase(); // "G1".."G12"
-    
-        // Safety: if not master, require a valid grade code
-        const validGrades = new Set(this.gradeOptions.map(g => String(g.code).toUpperCase()));
-        if (!isMaster && !validGrades.has(grade)) {
-          console.warn("[autoprint] Invalid or missing grade param:", grade);
-          return;
-        }
-    
-        // Ensure we generate a stable, complete view for PDFs
-        // (only affects this run; does not persist unless you want it to)
-        this.courseListViewMode = "full";
-        this.showAllDetails = true;
-    
-        // Start from a clean slate so "Master" truly means EVERYTHING
-        this.clearAllFilters();
-    
-        // Apply grade filter (or leave empty for Master)
-        if (!isMaster) {
-          this.selectedGrades = [grade];
-        } else {
-          this.selectedGrades = [];
-        }
-    
-        // Build filtered dataset
-        this.applyFilters();
-    
-        // Set a helpful title (often becomes the default PDF filename in headless printing)
-        const label = this.gradePrintLabel(); // "Grade 1" or "Master"
-        document.title = `Alveary Course List — ${label}`;
-    
-        // Let DOM settle (filters + layout) before print snapshot
-        await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-    
-        // Use your existing print flow (Paged.js popup if present, else fallback)
-        this.printView();
-      } catch (e) {
-        console.warn("[autoprint] Failed:", e);
-      }
-    },
-
-      // 🔹 NEW: summary text for the state bar
-      get filterSummary() {
-        const parts = [];
-      
-        if (this.selectedGrades?.length) {
-          parts.push(
-            this.selectedGrades
-              .map(code => this.gradeLabelFromCode(code))
-              .join(", ")
-          );
-        }
-      
-        if (this.selectedSubjects?.length) {
-          parts.push(this.selectedSubjects.join(", "));
-        }
-      
-        if (this.selectedTags?.length) {
-          parts.push(
-            this.selectedTags.length === 1
-              ? this.planningTagLabel(this.selectedTags[0])
-              : `${this.selectedTags.length} tags`
-          );
-        }
-
-        if (this.selectedStudents?.length) {
-          parts.push(
-            this.selectedStudents.length === 1
-              ? this.studentNameFromId(this.selectedStudents[0])
-              : `${this.selectedStudents.length} students`
-          );
-        }
-      
-        // NEW: show My Courses when that toggle is on
-        if (this.myCoursesOnly) {
-          parts.push("My courses");
-        }
-      
-        if (this.searchQuery) {
-          parts.push(`Search: “${this.searchQuery}”`);
-        }
-      
-        return parts.length ? parts.join(" • ") : "";
-      },
-
-      // ---------------- NEW STATE FOR COURSES (still inside the object!) ---------------
-      isLoadingCourses: true,
-      loadError: "",
-      allCoursesBySubject: {}, // full dataset
-      coursesBySubject: {},    // filtered view
-
-      subjectColors: {
-        "Architecture": "#a0a6be",
-        "Art": "#907061",
-        "Bible": "#964945",
-        "Citizenship": "#62765c",
-        "English": "#9b5b7b",
-        "Geography": "#4d8da2",
-        "History": "#6b6bbf",
-        "Latin": "#5a5373",
-        "Life Skills": "#d1b358",
-        "Literature": "#c07669",
-        "Math": "#6d7eaa",
-        "Modern Language": "#6db4b2",
-        "Music": "#9e6bac",
-        "Physical Education": "#bd855e",
-        "Science": "#96a767",
-        "Alt. Science Options": "#96a767",
-      },
-
-      subjectColor(name) {
-        if (!name) return "#dde2d5";
-        const key = Object.keys(this.subjectColors).find(k =>
-          k.toLowerCase() === name.toLowerCase()
-        );
-        return key ? this.subjectColors[key] : "#dde2d5";
-      },
-
-    // ---------- UI STATE PERSISTENCE (filters, toggles, search) ----------
-
-    loadUiState() {
-      if (typeof window === "undefined" || !window.localStorage) return;
-    
-      try {
-        const raw = localStorage.getItem(UI_STATE_KEY);
-        if (!raw) return;
-    
-        const saved = JSON.parse(raw) || {};
-    
-        if (Array.isArray(saved.selectedSubjects)) {
-          this.selectedSubjects = saved.selectedSubjects;
-        }
-        if (Array.isArray(saved.selectedGrades)) {
-          this.selectedGrades = saved.selectedGrades;
-        }
-        if (Array.isArray(saved.selectedTags)) {
-          this.selectedTags = saved.selectedTags;
-        }
-        if (typeof saved.searchQuery === "string") {
-          this.searchQuery = saved.searchQuery;
-        }
-        if (typeof saved.myCoursesOnly === "boolean") {
-          this.myCoursesOnly = saved.myCoursesOnly;
-        }
-        // Prefer new view-mode if present
-        if (typeof saved.courseListViewMode === "string") {
-          const m = saved.courseListViewMode;
-          this.courseListViewMode = (m === "compact" || m === "minimal" || m === "full") ? m : "full";
-          this.showAllDetails = (this.courseListViewMode === "full");
-        } else if (typeof saved.showAllDetails === "boolean") {
-          // Back-compat: old toggle maps into view mode
-          this.courseListViewMode = saved.showAllDetails ? "full" : "compact";
-          this.showAllDetails = !!saved.showAllDetails;
-        }
-        if (typeof saved.myNotesOpen === "boolean") {
-          this.myNotesOpen = saved.myNotesOpen;
-        }
-    
-        if (typeof saved.filtersOpen === "boolean") {
-          this.filtersOpen = saved.filtersOpen;
-        }
-
-        if (typeof saved.editMode === "boolean") {
-          this.editMode = saved.editMode;
-        }
-
-        if (Array.isArray(saved.selectedStudents)) {
-          this.selectedStudents = saved.selectedStudents;
-        }
-    
-      } catch (err) {
-        console.warn("Could not load UI state from localStorage", err);
-      }
-    },
-
-    persistUiState() {
-      if (typeof window === "undefined" || !window.localStorage) return;
-
-      const payload = {
-        selectedSubjects: this.selectedSubjects,
-        selectedGrades:   this.selectedGrades,
-        selectedTags:     this.selectedTags,
-        searchQuery:      this.searchQuery,
-        myCoursesOnly:    this.myCoursesOnly,
-        
-        ...(this._hasSetCourseListViewMode ? { courseListViewMode: this.courseListViewMode } : {}),
-        
-        myNotesOpen:      this.myNotesOpen,
-        filtersOpen:      this.filtersOpen,
-        editMode:         this.editMode,
-        selectedStudents: this.selectedStudents,
-      };
-
-      try {
-        localStorage.setItem(UI_STATE_KEY, JSON.stringify(payload));
-      } catch (err) {
-        console.warn("Could not persist UI state to localStorage", err);
-      }
-    },
-
-    persistUiStateDebounced() {
-      if (this.uiPersistDebounce) {
-        clearTimeout(this.uiPersistDebounce);
-      }
-      this.uiPersistDebounce = setTimeout(() => {
-        this.persistUiState();
-      }, 150);
-    },
-
-    // ---------- PLANNER STATE (bookmarks, tags, notes) ----------
-
-    loadPlannerStateFromStorage() {
-      if (typeof window === "undefined" || !window.localStorage) return;
-
-      let raw;
-      try {
-        raw = localStorage.getItem(PLANNER_STATE_KEY);
-      } catch (err) {
-        console.warn("Could not read planner state from localStorage", err);
-        return;
-      }
-      if (!raw) return;
-
-      let state;
-      try {
-        state = JSON.parse(raw);
-      } catch (err) {
-        console.warn("Invalid planner state JSON", err);
-        return;
-      }
-      if (!state || state.version !== APP_CACHE_VERSION) return;
-
-      // Restore global topic-level notes and tags
-      this.globalTopicTags  = state.globalTopicTags  || {};
-      this.globalTopicNotes = state.globalTopicNotes || {};
-
-      // Restore global topic-level student memory (for "ghost" chips)
-      this.globalTopicStudents = state.globalTopicStudents || {};
-
-      // Restore students (and cursor)
-      if (Array.isArray(state.students)) {
-        this.students = state.students
-          .filter(s => s && s.id)
-          .map(s => ({
-            id: String(s.id),
-            name: typeof s.name === "string" ? s.name : "",
-            color: typeof s.color === "string" && s.color ? s.color : "",
-          }));
-      }
-
-      // Palette may not be built yet if subject options change; rebuild if needed
-      if (!Array.isArray(this.studentColorPalette) || !this.studentColorPalette.length) {
-        this.studentColorPalette = this.buildStudentColorPalette();
-      }
-
-      // Backfill missing colors using the default assignment order
-      this.students = (this.students || []).map(s => {
-        if (s.color) return s;
-        return { ...s, color: this.nextDefaultStudentColor() };
-      });
-
-      // Restore cursor (or continue after existing students)
-      if (typeof state.studentColorCursor === "number") {
-        this.studentColorCursor = state.studentColorCursor;
-      } else {
-        this.studentColorCursor = (this.students || []).length;
-      }
-
-      if (state && typeof state.studentRailCollapsed === "object" && state.studentRailCollapsed) {
-        this.studentRailCollapsed = state.studentRailCollapsed;
-      }
-
-      const coursesState = state.courses || {};
-      const topicsState  = state.topics  || {};
-
-      const makeTagObjects = (ids) => {
-        if (!Array.isArray(ids)) return [];
-        return ids
-          .map(id => {
-            const opt = this.planningTagOptions.find(o => o.id === id);
-            return opt
-              ? { id: opt.id, label: opt.label, img: opt.img }
-              : null;
-          })
-          .filter(Boolean);
-      };
-
-      const subjects = Object.keys(this.allCoursesBySubject || {});
-      for (const subject of subjects) {
-        const courses = this.allCoursesBySubject[subject] || [];
-        for (const course of courses) {
-          if (!course) continue;
-
-          const courseKey = course.courseId || course.id;
-          const cState = courseKey && coursesState[courseKey];
-          if (cState) {
-            if (typeof cState.isBookmarked === "boolean") {
-              course.isBookmarked = cState.isBookmarked;
-            }
-            if (typeof cState.noteText === "string") {
-              course.noteText = cState.noteText;
-            }
-            if (Array.isArray(cState.tags)) {
-              course.planningTags = makeTagObjects(cState.tags);
-            }
-            // Restore assigned students for this specific course card
-            if (Array.isArray(cState.students)) {
-              course.studentIds = this._normalizeStudentIds(
-                cState.students.map(String).map(s => s.trim()).filter(Boolean)
-              );
-            } else {
-              // Ensure a consistent shape even if nothing stored
-              course.studentIds = this._normalizeStudentIds(course.studentIds);
-            }
-          }
-
-          if (Array.isArray(course.topics)) {
-            for (const topic of course.topics) {
-              if (!topic) continue;
-
-              const topicId = String(
-                topic.Topic_ID || topic.topic_id || topic.id || ""
-              ).trim();
-              if (!topicId) continue;
-              if (!courseKey) continue;
-
-              const instanceKey = `${courseKey}::${topicId}`;
-              const tState = topicsState[instanceKey];
-              if (!tState) continue;
-
-              if (typeof tState.isBookmarked === "boolean") {
-                topic.isBookmarked = tState.isBookmarked;
-              }
-              if (Array.isArray(tState.tags)) {
-                topic.planningTags = makeTagObjects(tState.tags);
-              }
-              // Restore assigned students for this specific topic *instance*
-              if (Array.isArray(tState.students)) {
-                topic.studentIds = this._normalizeStudentIds(
-                  tState.students.map(String).map(s => s.trim()).filter(Boolean)
-                );
-              } else {
-                topic.studentIds = this._normalizeStudentIds(topic.studentIds);
-              }
-              // Topic notes are global per Topic_ID (this.globalTopicNotes),
-              // so we don't restore them here; topicNoteText() reads from that map.
-            }
-          }
-        }
-      }
-
-        // ✅ Extras hook (books page, budget page later, etc.)
-        // If a page defines an applier, let it restore extra planner state.
-        try {
-          if (typeof this.applyPlannerExtras === "function") {
-            // We stored extras under state.extras in persistPlannerState()
-            this.applyPlannerExtras(state.extras || {}, state);
-          }
-        } catch (e) {
-          console.warn("Could not apply planner extras", e);
-        }
-    },
-
-    persistPlannerState() {
-      if (typeof window === "undefined" || !window.localStorage) return;
-
-      const state = {
-        version: APP_CACHE_VERSION,
-        globalTopicTags:  this.globalTopicTags  || {},
-        globalTopicNotes: this.globalTopicNotes || {},
-        globalTopicStudents: this.globalTopicStudents || {},
-
-        students: (this.students || []).slice(0, 15),
-        studentColorCursor: this.studentColorCursor || 0,
-        studentRailCollapsed: this.studentRailCollapsed || {},
-
-        courses: {},
-        topics: {},
-      };
-
-      const subjects = Object.keys(this.allCoursesBySubject || {});
-
-      const tagIdsFromObjs = (tags) =>
-        Array.isArray(tags) ? tags.map(t => t.id).filter(Boolean) : [];
-
-      for (const subject of subjects) {
-        const courses = this.allCoursesBySubject[subject] || [];
-        for (const course of courses) {
-          if (!course) continue;
-
-          const courseKey = course.courseId || course.id;
-          if (!courseKey) continue;
-
-          const isBookmarked = !!course.isBookmarked;
-          const noteText     = typeof course.noteText === "string"
-            ? course.noteText
-            : "";
-          const tagIds       = tagIdsFromObjs(course.planningTags);
-          const studentIds   = Array.isArray(course.studentIds)
-            ? course.studentIds.map(String).map(s => s.trim()).filter(Boolean)
-            : [];
-
-          if (
-            isBookmarked ||
-            noteText.trim().length > 0 ||
-            tagIds.length > 0 ||
-            studentIds.length > 0
-          ) {
-            state.courses[courseKey] = {
-              isBookmarked,
-              noteText,
-              tags: tagIds,
-              students: studentIds,
-            };
-          }
-
-          if (Array.isArray(course.topics)) {
-            for (const topic of course.topics) {
-              if (!topic) continue;
-
-              const topicId = String(
-                topic.Topic_ID || topic.topic_id || topic.id || ""
-              ).trim();
-              if (!topicId) continue;
-
-              const instanceKey = `${courseKey}::${topicId}`;
-              const tBookmarked = !!topic.isBookmarked;
-              const tTagIds     = tagIdsFromObjs(topic.planningTags);
-              const tStudentIds = Array.isArray(topic.studentIds)
-                ? topic.studentIds.map(String).map(s => s.trim()).filter(Boolean)
-                : [];
-
-              if (tBookmarked || tTagIds.length > 0 || tStudentIds.length > 0) {
-                state.topics[instanceKey] = {
-                  isBookmarked: tBookmarked,
-                  tags: tTagIds,
-                  students: tStudentIds,
-                };
-              }
-            }
-          }
-        }
-      }
-
-      // ✅ Extras hook (books page, future member state, etc.)
-      // If a page defines a collector, merge its extra data into state.extras
-      try {
-        if (typeof this.collectPlannerExtras === "function") {
-          const extras = this.collectPlannerExtras();
-          if (extras && typeof extras === "object") {
-            state.extras = { ...(state.extras || {}), ...extras };
-          }
-        }
-      } catch (e) {
-        console.warn("Could not collect planner extras", e);
-      }
-
-      // ✅ Preserve extras across pages that DON'T collect them (ex: Course List)
-      try {
-        const existingRaw = localStorage.getItem(PLANNER_STATE_KEY);
-        if (existingRaw) {
-          const existing = JSON.parse(existingRaw);
-      
-          // If this save didn't produce extras, carry forward existing extras
-          if (!state.extras && existing?.extras) {
-            state.extras = existing.extras;
-          }
-      
-          // If this save DID produce extras, merge with existing so sibling extras survive
-          if (state.extras && existing?.extras && typeof state.extras === "object") {
-            state.extras = { ...(existing.extras || {}), ...(state.extras || {}) };
-          }
-        }
-      } catch (e) {
-        console.warn("Could not merge existing planner extras", e);
-      }
-
-      try {
-        localStorage.setItem(PLANNER_STATE_KEY, JSON.stringify(state));
-      } catch (err) {
-        console.warn("Could not persist planner state to localStorage", err);
-      }
-    },
-
-    persistPlannerStateDebounced() {
-      if (this.plannerPersistDebounce) {
-        clearTimeout(this.plannerPersistDebounce);
-      }
-      this.plannerPersistDebounce = setTimeout(() => {
-        this.persistPlannerState();
-        this.pushPlannerStateToCloudDebounced();
-      }, 200);
-    },
-
-    async initAuth({ force = false } = {}) {
-      try {
-        const auth = await (window.AlvearyAuth?.whoami?.({ force }) || null);
-        const role = (auth?.role || "public").toLowerCase();
-        
-        this.authRole = role;
-        this.isAuthed = !!auth?.ok;
-        this.isStaff = role === "staff";
-        this.isMember = role === "member" || this.isStaff;
-        if (this._blockedByGate && this.isAuthed && (this.isMember || this.isStaff) && !this.authRefreshing) {
-          this.authRefreshing = true;
-          this._blockedByGate = false; // prevent loops
-          setTimeout(() => window.location.reload(), 250);
-        }
-        return auth;
-        
-      } catch {
-        this.authRole = "public";
-        this.isAuthed = false;
-        this.isStaff = false;
-        this.isMember = false;
-        return { ok: false, role: "public", reason: "auth_exception" };
-      }
-    },
-    
-    async openAuth() {
-      try {
-        // Open MemberStack modal (login/signup/etc.)
-        await window.AlvearyAuth?.openAuth?.("LOGIN");
-    
-        // MemberStack session can take a moment to become readable after modal closes.
-        // Poll a few times until we see a real authed role.
-        const maxTries = 12;   // ~3s total
-        const delayMs  = 250;
-    
-        for (let i = 0; i < maxTries; i++) {
-          await this.initAuth({ force: true });
-    
-          // Stop as soon as auth is recognized
-          if (this.isAuthed && (this.isMember || this.isStaff)) break;
-    
-          await new Promise((r) => setTimeout(r, delayMs));
-        }
-    
-        // ✅ Re-run your gate after auth updates (clears courseGate, updates UI)
-        if (typeof this.enforceAccessGate === "function") {
-          this.enforceAccessGate();
-        }
-    
-        // ✅ If login succeeded, show success overlay + hard refresh
-        if (this.isAuthed && (this.isMember || this.isStaff)) {
-          this.authRefreshing = true;
-          setTimeout(() => window.location.reload(), 250);
-        }
-      } catch (e) {
-        console.warn("openAuth failed", e);
-      }
-    },
-    
-    enforceAccessGate() {
-      // ✅ Allow headless PDF generation links to run without member login.
-      // GitHub Actions uses URLs like:
-      //   courses.html?autoprint=1&pdf=1&grade=G3
-      //   courses.html?autoprint=1&pdf=1&master=1
-      const params = new URLSearchParams(window.location.search);
-      const isAutoPdf = params.get("autoprint") === "1" && params.get("pdf") === "1";
-      if (isAutoPdf) {
-        this.courseGate = false;
-        return true;
-      }
-    
-      // Public users can open the Course List page, but they should only see a sign-in prompt.
-      // Members+staff can see the full Course List.
-      const path = window.location.pathname || "";
-      const onCourseList =
-        path.endsWith("/index.html") ||
-        path.endsWith("/") ||
-        path.endsWith("/index") ||
-        path.endsWith("/courses.html");
-
-      const onYearAtAGlance =
-        path.endsWith("/year-at-a-glance.html") ||
-        path.endsWith("/year-at-a-glance");
-
-      const onSchedule =
-        path.endsWith("/schedule.html") ||
-        path.endsWith("/schedule");
-    
-      const authorized = (this.isMember || this.isStaff);
-    
-      // Soft gate: do NOT redirect; just toggle what the page displays.
-      this.courseGate = !!((onCourseList || onYearAtAGlance || onSchedule) && !authorized);
-    
-      return true;
-    },
-
-    async syncPlannerStateFromCloud() {
-      try {
-        // Only for authed members/staff
-        if (!this.isAuthed || !(this.isMember || this.isStaff)) return;
-        if (!window.AlvearyAuth?.getPlannerState) return;
-    
-        const remote = await window.AlvearyAuth.getPlannerState();
-        if (!remote?.ok) return;
-    
-        const remoteState = remote.state;
-        if (!remoteState || typeof remoteState !== "object") return;
-    
-        // OPTIONAL: enforce version match so we don't apply incompatible shapes
-        if (remoteState.version && remoteState.version !== APP_CACHE_VERSION) {
-          console.warn("[planner] Remote state version mismatch, skipping apply");
-          return;
-        }
-    
-        // Store the server timestamp on the object so we can compare later if needed
-        remoteState._cloudUpdatedAt = remote.lastUpdated || null;
-    
-        // Write to localStorage so existing load/apply logic works unchanged
-        localStorage.setItem(PLANNER_STATE_KEY, JSON.stringify(remoteState));
-      } catch (e) {
-        console.warn("[planner] Failed to sync state from cloud", e);
-      }
-    },
-    
-    pushPlannerStateToCloudDebounced() {
-      if (this._cloudPersistDebounce) clearTimeout(this._cloudPersistDebounce);
-    
-      // Debounce more aggressively than localStorage
-      this._cloudPersistDebounce = setTimeout(async () => {
-        try {
-          if (!this.isAuthed || !(this.isMember || this.isStaff)) return;
-          if (!window.AlvearyAuth?.setPlannerState) return;
-    
-          const raw = localStorage.getItem(PLANNER_STATE_KEY);
-          if (!raw) return;
-    
-          const state = JSON.parse(raw);
-          if (!state || typeof state !== "object") return;
-    
-          const res = await window.AlvearyAuth.setPlannerState(state);
-          if (!res?.ok) {
-            console.warn("[planner] Cloud save failed:", res);
-          }
-        } catch (e) {
-          console.warn("[planner] Failed to push state to cloud", e);
-        }
-      }, 1500);
-    },
-
-    // ---------- INIT & COURSE DATA LOADING (with cache) ----------
-
-    async init() {
-      await this.initAuth();
-      this.enforceAccessGate?.();
-      if (this.courseGate) {
-        this._blockedByGate = true;
-        return;
-      }
-
-      // Pull saved planner state from Airtable BEFORE we load/apply state
-      await this.syncPlannerStateFromCloud();
-    
-      // 1) Restore filters/search/toggles from previous visit
-      this.loadUiState();
-      if (!this.isStaff) this.editMode = false;
-    
-      // Students: build palette (follows subject color order)
-      this.studentColorPalette = this.buildStudentColorPalette();
-    
-      // 2a) Load course data (from cache if available, then refresh from network)
-      await this.loadCoursesFromJson();
-
-      // 2b) if URL has grade/master params, apply them now
-      // (Skip if we're in autoprint mode, because autoprint handles its own filtering)
-      const params = new URLSearchParams(window.location.search);
-      if (params.get("autoprint") !== "1") {
-        this.applyFiltersFromQuery();
-      }
-    
-      // 3) Automation-only: if URL requests it, auto-filter + print
-      await this.autoPrintFromQuery?.();
-    },
-
-    // Load courses with a "stale-while-revalidate" strategy:
-    // - First try localStorage (fast).
-    // - Then fetch from network and refresh both state + cache.
-    async loadCoursesFromJson() {
-      this.isLoadingCourses = true;
-      this.loadError = "";
-
-      let hadCached = false;
-
-      // Step 1: try cached JSON
-      if (typeof window !== "undefined" && window.localStorage) {
-        try {
-          const cachedRaw = localStorage.getItem(COURSES_CACHE_KEY);
-          if (cachedRaw) {
-            const cachedData = JSON.parse(cachedRaw);
-            if (cachedData && typeof cachedData === "object") {
-              this.allCoursesBySubject = cachedData;
-              this.loadPlannerStateFromStorage();
-              this.applyFilters();      // respects restored filters
-              hadCached = true;
-            }
-          }
-        } catch (err) {
-          console.warn("Could not read cached courses from localStorage", err);
-        }
-      }
-
-      // Step 2: always try to fetch fresh data
-      try {
-        const res = await fetch(MA_COURSES_JSON_URL, { cache: "no-cache" });
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status}`);
-        }
-
-        const data = await res.json();
-
-        // Normalize JSON so the app works with BOTH shapes:
-        // - { "Bible": [ ... ] }
-        // - { "Bible": { courses:[...], lastUpdated:"..." } }
-        // - OR wrapper shapes like { coursesBySubject:{...}, lastUpdated:"..." }
-        const bySubject =
-          data?.coursesBySubject ||
-          data?.bySubject ||
-          data?.subjects ||
-          data ||
-          {};
-        
-        this.allCoursesBySubject = bySubject;
-
-        // Helper: does this course/topic actually have any details text?
-        const hasCourseDetails = (course) => {
-          const d = (course.description || "").trim();
-          const t = (course.tips || "").trim();
-          return !!(d || t);
-        };
-
-        const hasTopicDetails = (topic) => {
-          const d = (topic.description || "").trim();
-          const t = (topic.tips || "").trim();
-          return !!(d || t);
-        };
-
-        // Only default-open items that really have details
-        for (const subject of Object.keys(this.allCoursesBySubject || {})) {
-        const bucket = this.allCoursesBySubject?.[subject];
-        const courses =
-          Array.isArray(bucket) ? bucket :
-          Array.isArray(bucket?.courses) ? bucket.courses :
-          [];
-      
-        for (const course of courses) {
-          if (!course || typeof course !== "object") continue;
-      
-          course.detailsOpen = hasCourseDetails(course);
-      
-          if (Array.isArray(course.topics)) {
-            for (const topic of course.topics) {
-              if (!topic || typeof topic !== "object") continue;
-              topic.detailsOpen = hasTopicDetails(topic);
-            }
-          }
-        }
-      }
-
-        this.loadPlannerStateFromStorage();
-        this.applyFilters();
-
-        // Step 3: update cache
-        if (typeof window !== "undefined" && window.localStorage) {
-          try {
-            localStorage.setItem(COURSES_CACHE_KEY, JSON.stringify(data));
-          } catch (err) {
-            console.warn("Could not write courses cache to localStorage", err);
-          }
-        }
-      } catch (err) {
-        console.error("Error loading course JSON", err);
-
-        // Only show a blocking error if we had no cached data to fall back on
-        if (!hadCached) {
-          this.loadError =
-            "We couldn’t load the course data. Please try refreshing the page.";
-        }
-      } finally {
-        this.isLoadingCourses = false;
-      }
-    }
-    };
+  function loadKey(key) {
+    const raw = localStorage.getItem(key);
+    return raw ? safeParse(raw) : null;
   }
 
-
-
-/* =========================================================
-   App step navigation (Back/Next + hamburger menu)
-   - Injects into <div id="app-step-nav"></div> on each page
-   ========================================================= */
-(function () {
-  const DASH_URL = "https://www.alveary.org/alveary-2026-2027/dashboard";
-
-  // NOTE:
-  // - "ready" steps must have an href (page exists)
-  // - "soon" steps have href: null and are hidden from the menu until live
-  const STEPS = [
-    { key: "intro", label: "Course Planning Intro", href: "index.html", status: "ready", icon: "course-planning-intro.svg" },
-    { key: "courses", label: "Courses", href: "courses.html", status: "ready", icon: "course-list.svg" },
-    { key: "schedule", label: "Schedule", href: "schedule.html", status: "ready", icon: "schedule.svg" },
-    { key: "books", label: "Books", href: "books.html", status: "ready", icon: "book-list.svg" },
-    { key: "lesson-plans", label: "Lesson Plans", href: null, status: "soon", icon: "lesson-plans.svg" },
-    { key: "supplies", label: "Supplies", href: null, status: "soon", icon: "supplies.svg" },
-    { key: "exams", label: "Exams", href: null, status: "soon", icon: "exams.svg" },
-    { key: "ataglance", label: "Year At-A-Glance", href: "year-at-a-glance.html", status: "ready", icon: "at-a-glance.svg", group: "Other tools" },
-    { key: "budget", label: "Budget Planner", href: null, status: "soon", icon: "budget.svg", group: "Other tools" },
-  ];
-
-  function isLiveStep(s) {
-    return !!(s && s.href);
-  }
-
-  function iconSvg(name) {
-    // Keep inline SVGs for the few "built-in" icons you still want
-    const common = 'xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
-  
-    // ✅ If the icon looks like a file (ends in .svg), use your repo icons
-    // Folder: /img/menu-icons/
-    if (typeof name === "string" && name.toLowerCase().endsWith(".svg")) {
-      const safe = encodeURIComponent(name).replace(/%2F/g, "/");
-      return `<img class="step-menu-svg-icon" src="img/menu-icons/${safe}" alt="" aria-hidden="true">`;
-    }
-  
-    // ✅ Otherwise fall back to inline icons (only needed for the ones you keep)
-    switch (name) {
-      case "grid":
-        return `<svg ${common}><path d="M4 4h7v7H4z"/><path d="M13 4h7v7h-7z"/><path d="M4 13h7v7H4z"/><path d="M13 13h7v7h-7z"/></svg>`;
-      default:
-        return `<svg ${common}><path d="M12 2v20"/><path d="M2 12h20"/></svg>`;
+  function saveKey(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      // ignore (private mode, quota, etc.)
     }
   }
 
-  function normalizePath(p) {
-    if (!p) return "index.html";
-    const last = p.split("/").pop() || "";
-    return last === "" ? "index.html" : last;
-  }
-
-  function getCurrentStep() {
-    const here = normalizePath(window.location.pathname);
-    const idx = STEPS.findIndex(s => s.href && normalizePath(s.href) === here);
+  // -----------------------------
+  // UI state (existing)
+  // -----------------------------
+  function defaultUiState() {
     return {
-      idx: idx >= 0 ? idx : 0,
-      key: (idx >= 0 ? STEPS[idx]?.key : STEPS[0]?.key) || "intro",
+      view: "track",
+      visibleDays: [0, 1, 2, 3, 4],
+      panels: [
+        { slot: "P1", studentId: "S1" },
+        { slot: "P2", studentId: "S2" },
+      ],
+      dayViewPanels: [
+        { slot: "D1", dayIdx: 0 }, // Mon
+        { slot: "D2", dayIdx: 1 }, // Tue
+      ],
+      dayViewStudentSlots: ["S1", "S2", "S3", "S4", "S5"],
+      // Left rail UI
+      railTopCollapsed: false,
+      showCompleted: false,
     };
   }
 
-  function findPrevLive(idx) {
-    for (let i = idx - 1; i >= 0; i--) {
-      if (isLiveStep(STEPS[i])) return STEPS[i];
+  function normalizeUiState(state, allStudentIds) {
+    const d = defaultUiState();
+
+    const view = typeof state?.view === "string" ? state.view : d.view;
+
+    let visibleDays = Array.isArray(state?.visibleDays)
+      ? state.visibleDays.slice()
+      : d.visibleDays.slice();
+
+    visibleDays = visibleDays
+      .map((n) => Number(n))
+      .filter((n) => Number.isInteger(n) && n >= 0 && n <= 4);
+
+    if (!visibleDays.length) visibleDays = d.visibleDays.slice();
+    visibleDays = Array.from(new Set(visibleDays)).sort((a, b) => a - b);
+
+    let panels = Array.isArray(state?.panels) ? state.panels.slice() : d.panels.slice();
+
+    panels = panels
+      .map((p, idx) => {
+        const slot = p?.slot || (idx === 1 ? "P2" : "P1");
+        let studentId = p?.studentId || (slot === "P2" ? "S2" : "S1");
+
+        if (Array.isArray(allStudentIds) && allStudentIds.length) {
+          if (!allStudentIds.includes(studentId)) {
+            studentId = slot === "P2"
+              ? (allStudentIds[1] || allStudentIds[0])
+              : allStudentIds[0];
+          }
+        }
+
+        return { slot, studentId };
+      })
+      .slice(0, 2);
+
+    if (panels.length < 2) panels = d.panels.slice();
+
+    if (panels[0].studentId === panels[1].studentId) {
+      const fallback = panels[0].studentId === "S1" ? "S2" : "S1";
+      panels[1].studentId = fallback;
     }
-    return null;
+
+    const railTopCollapsed = typeof state?.railTopCollapsed === 'boolean' ? state.railTopCollapsed : d.railTopCollapsed;
+    const showCompleted = typeof state?.showCompleted === 'boolean' ? state.showCompleted : d.showCompleted;
+
+        // -----------------------------
+        // Day View state (Phase 3)
+        // -----------------------------
+        let dayViewPanels = Array.isArray(state?.dayViewPanels)
+          ? state.dayViewPanels.slice()
+          : (Array.isArray(d.dayViewPanels) ? d.dayViewPanels.slice() : []);
+    
+        // Ensure we have a usable student list for defaults
+        const studentIds = (Array.isArray(allStudentIds) && allStudentIds.length)
+          ? allStudentIds.slice()
+          : ["S1", "S2", "S3", "S4", "S5"];
+    
+        // Normalize day panels: exactly 2 panels, dayIdx in 0..4, no duplicates
+        dayViewPanels = dayViewPanels
+          .map((p, idx) => {
+            const slot = p?.slot || (idx === 1 ? "D2" : "D1");
+            let dayIdx = Number(p?.dayIdx);
+    
+            if (!Number.isInteger(dayIdx) || dayIdx < 0 || dayIdx > 4) {
+              dayIdx = idx === 1 ? 1 : 0; // default: Mon, Tue
+            }
+    
+            return { slot, dayIdx };
+          })
+          .slice(0, 2);
+    
+        if (dayViewPanels.length < 2) {
+          dayViewPanels = [
+            { slot: "D1", dayIdx: 0 },
+            { slot: "D2", dayIdx: 1 },
+          ];
+        }
+    
+        if (dayViewPanels[0].dayIdx === dayViewPanels[1].dayIdx) {
+          const fallbackDay = [0, 1, 2, 3, 4].find((d) => d !== dayViewPanels[0].dayIdx) ?? 1;
+          dayViewPanels[1].dayIdx = fallbackDay;
+        }
+    
+        // Normalize dayViewStudentSlots: exactly 5 valid student IDs, de-duped
+        let dayViewStudentSlots = Array.isArray(state?.dayViewStudentSlots)
+          ? state.dayViewStudentSlots.slice()
+          : (Array.isArray(d.dayViewStudentSlots) ? d.dayViewStudentSlots.slice() : []);
+    
+        dayViewStudentSlots = dayViewStudentSlots
+          .map((id, idx) => {
+            const v = String(id || "");
+            if (studentIds.includes(v)) return v;
+            return studentIds[idx] || studentIds[0] || "S1";
+          })
+          .slice(0, 5);
+    
+        // pad to 5
+        while (dayViewStudentSlots.length < 5) {
+          dayViewStudentSlots.push(studentIds[dayViewStudentSlots.length] || studentIds[0] || "S1");
+        }
+    
+        // de-dupe while preserving order
+        const seen = new Set();
+        dayViewStudentSlots = dayViewStudentSlots.map((id) => {
+          if (!seen.has(id)) {
+            seen.add(id);
+            return id;
+          }
+          const repl = studentIds.find((sid) => !seen.has(sid)) || id;
+          seen.add(repl);
+          return repl;
+        });
+
+    return {
+      view,
+      visibleDays,
+      panels,
+      dayViewPanels,
+      dayViewStudentSlots,
+      railTopCollapsed,
+      showCompleted
+    };
   }
 
-  function findNextLive(idx) {
-    for (let i = idx + 1; i < STEPS.length; i++) {
-      if (isLiveStep(STEPS[i])) return STEPS[i];
-    }
-    return null;
+  // -----------------------------
+  // Cards state (Phase 2.5)
+  // -----------------------------
+  function defaultCardsState() {
+    return {
+      // template catalog (official sample + user custom templates)
+      templatesById: {},
+      // ordered placement per student/day: placements[studentId][dayIndex] = [instanceId...]
+      placements: {},
+      // all instances by id: instanceId -> { instanceId, templateId, createdAt }
+      instancesById: {},
+      // preferences/choices that affect which templates are active
+      choices: {
+        // per-course option selections (scales to multiple “banded” courses)
+        courseOptions: {
+          "picture-study": "g1-3",
+        },
+      },
+    };
   }
 
-  function ensureLogoLinksToDashboard() {
-    const logoLink = document.querySelector(".logo-link");
-    if (logoLink) logoLink.setAttribute("href", DASH_URL);
+  function uid(prefix = "i") {
+    return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
   }
 
-  function buildMenu(currentKey) {
-    let overlay = document.querySelector(".step-menu-overlay");
-    if (overlay) return overlay;
-
-    overlay = document.createElement("div");
-    overlay.className = "step-menu-overlay";
-    overlay.innerHTML = `
-      <div class="step-menu-backdrop" aria-hidden="true"></div>
-      <div class="step-menu-panel" role="dialog" aria-modal="true" aria-label="Planning steps menu">
-        <div class="step-menu-head">
-          <div class="step-menu-title">Planning steps</div>
-          <button type="button" class="step-menu-close" aria-label="Close menu">✕</button>
-        </div>
-        <div class="step-menu-list"></div>
-      </div>
-    `;
-    document.body.appendChild(overlay);
-
-    const list = overlay.querySelector(".step-menu-list");
-
-    // Only show LIVE steps (hide "coming soon" until the page exists)
-    const liveSteps = STEPS.filter(isLiveStep);
-
-    let lastGroup = null;
-
-    liveSteps.forEach((s) => {
-      // Only add a group label when this live step actually has a group,
-      // and the group is changing.
-      if (s.group && s.group !== lastGroup) {
-        const divider = document.createElement("div");
-        divider.style.padding = "10px 10px 4px";
-        divider.style.fontSize = "11px";
-        divider.style.fontWeight = "700";
-        divider.style.letterSpacing = "0.08em";
-        divider.style.textTransform = "uppercase";
-        divider.style.color = "rgba(38,43,38,0.55)";
-        divider.textContent = s.group;
-        list.appendChild(divider);
-        lastGroup = s.group;
-      } else if (!s.group) {
-        lastGroup = null;
+  function ensureStudentPlacements(cardsState, studentId) {
+    if (!cardsState.placements[studentId]) {
+      cardsState.placements[studentId] = { 0: [], 1: [], 2: [], 3: [], 4: [] };
+    } else {
+      // ensure all days exist
+      for (let d = 0; d <= 4; d++) {
+        if (!Array.isArray(cardsState.placements[studentId][d])) cardsState.placements[studentId][d] = [];
       }
-
-      const a = document.createElement("a");
-      a.href = s.href;
-      a.className = "step-menu-item" + (s.key === currentKey ? " is-current" : "");
-
-      a.innerHTML = `
-        <span class="step-menu-item-icon" aria-hidden="true">${iconSvg(s.icon)}</span>
-        <span class="step-menu-item-text">
-          <span class="step-menu-item-label">${escapeHtml(s.label)}</span>
-        </span>
-      `;
-
-      a.addEventListener("click", () => {
-        // close menu before navigating for a snappy feel
-        closeMenu();
-      });
-
-      list.appendChild(a);
-    });
-
-    const backdrop = overlay.querySelector(".step-menu-backdrop");
-    const closeBtn = overlay.querySelector(".step-menu-close");
-
-    function closeMenu() {
-      overlay.classList.remove("is-open");
-      document.body.style.overflow = "";
     }
-    overlay._closeMenu = closeMenu;
-
-    backdrop.addEventListener("click", closeMenu);
-    closeBtn.addEventListener("click", closeMenu);
-
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && overlay.classList.contains("is-open")) closeMenu();
-    });
-
-    return overlay;
   }
 
-  function openMenu(currentKey, anchorEl) {
-    const overlay = buildMenu(currentKey);
+  // Sample catalog that demonstrates complexity:
+  // - multi-rule course (Grammar has two rules)
+  // - shared topic duplicates (Church History for Bible G1 vs Bible G2)
+  // - grade-band choice (Picture Study)
+  function buildSampleTemplates() {
+    const t = {};
 
-    // Position the panel like a website dropdown (anchored to the Menu control)
-    // using CSS variables so we don't have to restructure the DOM.
-    try {
-      const panel = overlay.querySelector(".step-menu-panel");
-      const rect = anchorEl?.getBoundingClientRect?.();
+    // Sort keys: mimic your Course List order keys (string compare works if zero-padded)
+    // (These are placeholders; later we’ll pull real sort keys from course JSON.)
+    t["a:grammar:ruleA"] = {
+      id: "a:grammar:ruleA",
+      sortKey: "004.001.010.000::10", // placeholder
+      courseKey: "grammar",
+      courseLabel: "Grammar",
+      variantKey: "20m",
+      variantSort: 10,
+      title: "Grammar: Grade 5",
+      minutes: 20,
+      symbols: "* 🅃",
+      trackingCount: 12,
+      weeklyTarget: 2,
+    };
 
-      if (panel && rect) {
-        const margin = 10;
-        const top = Math.round(rect.bottom + margin);
-        const right = Math.round(Math.max(12, window.innerWidth - rect.right));
+    t["a:grammar:ruleB"] = {
+      id: "a:grammar:ruleB",
+      sortKey: "004.001.010.000::20",
+      courseKey: "grammar",
+      courseLabel: "Grammar",
+      variantKey: "15m",
+      variantSort: 20,
+      title: "Grammar: Grade 5",
+      minutes: 15,
+      symbols: "* 🅃",
+      trackingCount: 12,
+      weeklyTarget: 3,
+    };
 
-        // Clamp so it stays on-screen
-        overlay.style.setProperty("--step-menu-top", `${top}px`);
-        overlay.style.setProperty("--step-menu-right", `${right}px`);
+    // Shared topic duplicates (two separate instances / contexts)
+    t["a:church-history:bible-g1"] = {
+      id: "a:church-history:bible-g1",
+      sortKey: "004.001.020.000::10",
+      courseKey: "bible-g1",
+      courseLabel: "Bible: Grade 1",
+      variantKey: "church-history",
+      variantSort: 10,
+      title: "Church History: Grade 1",
+      minutes: 20,
+      symbols: "↔ * 🅃",
+      trackingCount: 12,
+      weeklyTarget: 1,
+    };
 
-        // Max height so it feels like a nav dropdown (scroll inside if long)
-        const maxH = Math.round(Math.max(220, window.innerHeight - top - 16));
-        panel.style.maxHeight = `${maxH}px`;
-      }
-    } catch (e) {}
+    t["a:church-history:bible-g2"] = {
+      id: "a:church-history:bible-g2",
+      sortKey: "004.001.021.000::10",
+      courseKey: "bible-g2",
+      courseLabel: "Bible: Grade 2",
+      variantKey: "church-history",
+      variantSort: 10,
+      title: "Church History: Grade 2",
+      minutes: 20,
+      symbols: "↔ * 🅃",
+      trackingCount: 12,
+      weeklyTarget: 1,
+    };
 
-    overlay.classList.add("is-open");
-    document.body.style.overflow = ""; // keep page scrollable (website-like)
+    // Break / buffer card (no course source)
+    t["a:break:lunch"] = {
+      id: "a:break:lunch",
+      sortKey: "ZZZ::01",
+      courseKey: "break",
+      courseLabel: "Breaks",
+      variantKey: "lunch",
+      variantSort: 1,
+      title: "Lunch",
+      minutes: 30,
+      symbols: "☼",
+      trackingCount: 0,
+      weeklyTarget: 5,
+    };
+
+    // Picture Study grade-band options (choice controls which one is shown as “active”)
+    t["a:picture-study:g1-3"] = {
+      id: "a:picture-study:g1-3",
+      sortKey: "004.001.030.000::10",
+      courseKey: "picture-study",
+      courseLabel: "Picture Study",
+      variantKey: "g1-3",
+      variantSort: 10,
+      title: "Picture Study: Grades 1–3",
+      minutes: 10,
+      symbols: "↔ * 🅃",
+      trackingCount: 12,
+      weeklyTarget: 1,
+      meta: {
+        choiceGroup: "gradeBand",
+        option: "g1-3",
+        optionLabel: "1–3",
+      },
+    };
+
+    t["a:picture-study:g4-6"] = {
+      id: "a:picture-study:g4-6",
+      sortKey: "004.001.030.000::20",
+      courseKey: "picture-study",
+      courseLabel: "Picture Study",
+      variantKey: "g4-6",
+      variantSort: 20,
+      title: "Picture Study: Grades 4–6",
+      minutes: 15,
+      symbols: "↔ * 🅃-",
+      trackingCount: 12,
+      weeklyTarget: 1,
+      meta: {
+        choiceGroup: "gradeBand",
+        option: "g4-6",
+        optionLabel: "4–6",
+      },
+    };
+
+    t["a:picture-study:g7-8"] = {
+      id: "a:picture-study:g7-8",
+      sortKey: "004.001.030.000::30",
+      courseKey: "picture-study",
+      courseLabel: "Picture Study",
+      variantKey: "g7-8",
+      variantSort: 30,
+      title: "Picture Study: Grades 7–8",
+      minutes: 20,
+      symbols: "↔ * 🅃--",
+      trackingCount: 12,
+      weeklyTarget: 1,
+      meta: {
+        choiceGroup: "gradeBand",
+        option: "g7-8",
+        optionLabel: "7–8",
+      },
+    };
+
+    t["a:picture-study:g9-12"] = {
+      id: "a:picture-study:g9-12",
+      sortKey: "004.001.030.000::40",
+      courseKey: "picture-study",
+      courseLabel: "Picture Study",
+      variantKey: "g9-12",
+      variantSort: 40,
+      title: "Picture Study: Grades 9–12",
+      minutes: 20,
+      symbols: "↔ * 🅃---",
+      trackingCount: 12,
+      weeklyTarget: 1,
+      meta: {
+        choiceGroup: "gradeBand",
+        option: "g9-12",
+        optionLabel: "9–12",
+      },
+    };
+
+    return t;
   }
 
-  function closeMenu() {
-    const overlay = document.querySelector(".step-menu-overlay");
-    if (overlay && overlay._closeMenu) overlay._closeMenu();
+  function normalizeCardsState(raw, allStudentIds) {
+    const d = defaultCardsState();
+    const state = raw && typeof raw === "object" ? raw : {};
+
+    const templatesById = (state.templatesById && typeof state.templatesById === "object")
+      ? state.templatesById
+      : {};
+
+    const placements = (state.placements && typeof state.placements === "object")
+      ? state.placements
+      : {};
+
+    const instancesById = (state.instancesById && typeof state.instancesById === "object")
+      ? state.instancesById
+      : {};
+
+    const choices = (state.choices && typeof state.choices === "object")
+      ? { ...d.choices, ...state.choices }
+      : { ...d.choices };
+
+    const next = { templatesById, placements, instancesById, choices };
+
+    // ensure placement buckets for existing students
+    (allStudentIds || []).forEach((sid) => ensureStudentPlacements(next, sid));
+
+    return next;
   }
 
-  function escapeHtml(str) {
-    return String(str || "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
+  // -----------------------------
+  // Alpine builder
+  // -----------------------------
+  window.scheduleBuilder = function scheduleBuilder() {
+    return {
+      // -----------------------------
+      // UI state used by schedule.html
+      // -----------------------------
+      view: "track",
+      visibleDays: [0, 1, 2, 3, 4],
+      dayLabels: ["Mon","Tue","Wed","Thu","Fri"],
+      dayShortLabels: ["M","T","W","Th","F"],
+      dayLongLabels: ["Monday","Tuesday","Wednesday","Thursday","Friday"],
 
-  function buildStepper(container, currentIdx, currentKey) {
-    const current = STEPS[currentIdx] || STEPS[0];
+      visibleStudentPanels: [
+        { slot: "P1", studentId: "S1" },
+        { slot: "P2", studentId: "S2" },
+      ],
 
-    // Back/Next should SKIP steps that don't exist yet (href is null)
-    const prev = findPrevLive(currentIdx);
-    const next = findNextLive(currentIdx);
+      dayViewPanels: [
+        { slot: "D1", dayIdx: 0 },
+        { slot: "D2", dayIdx: 1 },
+      ],
+      dayViewStudentSlots: ["S1", "S2", "S3", "S4", "S5"],
+      openDayMenu: null,
+      openDayStudentMenu: null,
 
-    const backBtn = document.createElement("button");
-    backBtn.type = "button";
-    backBtn.className = "stepper-btn";
-    backBtn.innerHTML = `<span class="stepper-icon" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M15 18l-6-6 6-6"></path>
-        </svg>
-      </span><span>Back</span>`;
-    if (!prev) backBtn.disabled = true;
-    backBtn.addEventListener("click", () => {
-      if (!prev) return;
-      window.location.href = prev.href;
-    });
+      // placeholder students (until wired)
+      students: Array.from({ length: 15 }, (_, i) => {
+        const n = i + 1;
+        return { id: `S${n}`, name: `Student ${n}` };
+      }),
 
-    const nextBtn = document.createElement("button");
-    nextBtn.type = "button";
-    nextBtn.className = "stepper-btn";
-    nextBtn.innerHTML = `<span>Next</span><span class="stepper-icon" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M9 6l6 6-6 6"></path>
-        </svg>
-      </span>`;
-    if (!next) nextBtn.disabled = true;
-    nextBtn.addEventListener("click", () => {
-      if (!next) return;
-      window.location.href = next.href;
-    });
+      openStudentMenu: null,
+      // -----------------------------
+      // Custom Card Modal (Create / Edit / Delete)
+      // -----------------------------
+      customModalOpen: false,
+      customModalMode: "create", // "create" | "edit" | "delete"
+      customModalTemplateId: null,
+      customForm: { title: "", minutes: 15, weeklyTarget: 1 },
+      customModalError: "",
 
-    const menuBtn = document.createElement("button");
-    menuBtn.type = "button";
-    menuBtn.className = "hamburger-btn";
-    menuBtn.setAttribute("aria-label", "Open planning steps menu");
-    menuBtn.innerHTML = `<span class="hamburger-label">Menu</span><span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span>`;
-    menuBtn.addEventListener("click", () => openMenu(currentKey, menuBtn));
+      // -----------------------------
+      // Phase 2.5 cards state
+      // -----------------------------
+      templatesById: {},      // catalog
+      instancesById: {},      // instanceId -> instance
+      placements: {},         // studentId -> dayIndex -> [instanceId...]
+      choices: {
+        courseOptions: {
+          "picture-study": "g1-3",
+        },
+      },
 
-    container.innerHTML = "";
-    container.appendChild(backBtn);
-    container.appendChild(nextBtn);
-    container.appendChild(menuBtn);
-  }
+      // where “Add” goes (click a column to set target)
+      activeTarget: {
+        studentId: "S1",
+        dayIndex: 0,
+      },
 
-  function init() {
-    ensureLogoLinksToDashboard();
+      // Rail list: show/hide completed cards (per active rail student)
+      showCompleted: false,
+      railTopCollapsed: false,
 
-    const container = document.getElementById("app-step-nav");
-    if (!container) return;
+      // -----------------------------
+      // Drag reorder state (Phase 1)
+      // -----------------------------
+      dragState: {
+        dragging: false,
+        studentId: null,
+        dayIndex: null,
+        instanceId: null,
+        overInstanceId: null,
+        overPos: null,
+        overEl: null, 
+      },
 
-    const cur = getCurrentStep();
-    buildStepper(container, cur.idx, cur.key);
+      // -----------------------------
+      // init + persistence
+      // -----------------------------
+      init() {
+        // load UI
+        const savedUi = loadKey(UI_STORAGE_KEY);
+        const allIds = (this.students || []).map((s) => s.id);
+        const normalizedUi = normalizeUiState(savedUi || defaultUiState(), allIds);
 
-    // Close menu if user navigates/scrolls to keep it tidy
-    window.addEventListener("scroll", () => {
-      const overlay = document.querySelector(".step-menu-overlay");
-      if (overlay && overlay.classList.contains("is-open")) closeMenu();
-    }, { passive: true });
-  }
+        // Restore left-rail UI toggles
+        this.railTopCollapsed = !!normalizedUi.railTopCollapsed;
+        this.showCompleted = !!normalizedUi.showCompleted;
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
-})();;
+        this.view = normalizedUi.view;
+        this.visibleDays = normalizedUi.visibleDays;
+        this.visibleStudentPanels = normalizedUi.panels;
+        this.dayViewPanels = normalizedUi.dayViewPanels;
+        this.dayViewStudentSlots = normalizedUi.dayViewStudentSlots;
+        this.openStudentMenu = null;
+
+        // load cards
+        const savedCards = loadKey(CARDS_STORAGE_KEY);
+        const normalizedCards = normalizeCardsState(savedCards || defaultCardsState(), allIds);
+
+        // ensure sample templates exist (merge + PATCH missing fields from sample)
+        const sample = buildSampleTemplates();
+        
+        // Start with whatever was saved, then add any missing sample templates.
+        this.templatesById = { ...(normalizedCards.templatesById || {}) };
+        for (const [id, sampleTpl] of Object.entries(sample)) {
+          const existing = this.templatesById[id];
+        
+          // If template doesn't exist yet, add it.
+          if (!existing) {
+            this.templatesById[id] = { ...sampleTpl };
+            continue;
+          }
+        
+          // If template exists (cached older version), patch only missing fields
+          // so we don't blow away any future edits.
+          this.templatesById[id] = {
+            ...existing,
+            weeklyTarget:
+              existing.weeklyTarget == null ? sampleTpl.weeklyTarget : existing.weeklyTarget,
+            trackingCount:
+              existing.trackingCount == null ? sampleTpl.trackingCount : existing.trackingCount,
+            symbols:
+              (existing.symbols == null || existing.symbols === "") ? sampleTpl.symbols : existing.symbols,
+            minutes:
+              existing.minutes == null ? sampleTpl.minutes : existing.minutes,
+            sortKey:
+              (existing.sortKey == null || existing.sortKey === "") ? sampleTpl.sortKey : existing.sortKey,
+          };
+        }
+
+        // --- MIGRATION: ensure “choiceGroup” metadata exists for older cached templates ---
+        for (const [id, tpl] of Object.entries(this.templatesById || {})) {
+          if (!tpl || tpl.courseKey !== "picture-study") continue;
+        
+          // If old saved template lacks choiceGroup metadata, reconstruct it from variantKey
+          if (!tpl.meta || !tpl.meta.choiceGroup) {
+            const option = tpl.variantKey || (id.split(":").pop() || "g1-3");
+            const labelMap = { "g1-3": "1–3", "g4-6": "4–6", "g7-8": "7–8", "g9-12": "9–12" };
+            tpl.meta = {
+              ...(tpl.meta || {}),
+              choiceGroup: "gradeBand",
+              option,
+              optionLabel: labelMap[option] || option,
+            };
+            this.templatesById[id] = tpl;
+
+          }
+        }
+
+        // MIGRATION (v1.2): ensure ALL cached custom templates use a 12-block tracker.
+        // This must not be scoped to picture-study templates.
+        for (const [id, tpl] of Object.entries(this.templatesById || {})) {
+          if (!tpl) continue;
+          // Custom template IDs are prefixed with "u:".
+          if (!String(id).startsWith("u:")) continue;
+          if (!tpl.trackingCount || tpl.trackingCount < 12) tpl.trackingCount = 12;
+          if (!tpl.weeklyTarget) tpl.weeklyTarget = 1;
+          this.templatesById[id] = tpl;
+        }
+        
+        // ensure default selection exists
+        if (!this.choices.courseOptions["picture-study"]) {
+          this.choices.courseOptions["picture-study"] = "g1-3";
+        }
+
+        this.instancesById = normalizedCards.instancesById || {};
+        this.placements = normalizedCards.placements || {};
+        this.choices = normalizedCards.choices || {
+          courseOptions: { "picture-study": "g1-3" },
+        };
+        if (!this.choices.courseOptions) this.choices.courseOptions = { "picture-study": "g1-3" };
+
+        // ensure placements buckets for currently visible panel students
+        this.visibleStudentPanels.forEach((p) => this.ensureStudent(p.studentId));
+
+        // set a sane active target
+        this.activeTarget = {
+          studentId: this.visibleStudentPanels?.[0]?.studentId || "S1",
+          dayIndex: this.visibleDays?.[0] ?? 0,
+        };
+
+        // persist normalized
+        this.persistUi();
+        this.persistCards();
+      },
+
+      persistUi() {
+        saveKey(UI_STORAGE_KEY, {
+          view: this.view,
+          visibleDays: this.visibleDays,
+          panels: this.visibleStudentPanels.map((p) => ({ slot: p.slot, studentId: p.studentId })),
+          railTopCollapsed: this.railTopCollapsed,
+          showCompleted: this.showCompleted,
+          dayViewPanels: (this.dayViewPanels || []).map(p => ({ slot: p.slot, dayIdx: p.dayIdx })),
+          dayViewStudentSlots: (this.dayViewStudentSlots || []).slice(0, 5),
+        });
+      },
+
+      persistCards() {
+        saveKey(CARDS_STORAGE_KEY, {
+          templatesById: this.templatesById,
+          placements: this.placements,
+          instancesById: this.instancesById,
+          choices: this.choices,
+        });
+      },
+
+      // -----------------------------
+      // UI controls
+      // -----------------------------
+      setView(next) {
+        this.view = next;
+        this.persistUi();
+      },
+
+      isDayVisible(i) {
+        return this.visibleDays.includes(i);
+      },
+
+      toggleDay(i) {
+        if (this.isDayVisible(i)) {
+          this.visibleDays = this.visibleDays.filter((d) => d !== i);
+        } else {
+          this.visibleDays = [...this.visibleDays, i].sort((a, b) => a - b);
+        }
+        if (!this.visibleDays.length) this.visibleDays = [0, 1, 2, 3, 4];
+
+        // keep active day valid
+        if (!this.visibleDays.includes(this.activeTarget.dayIndex)) {
+          this.activeTarget.dayIndex = this.visibleDays[0];
+        }
+
+        this.persistUi();
+      },
+
+      showAllDays() {
+        this.visibleDays = [0, 1, 2, 3, 4];
+        this.persistUi();
+      },
+
+      openCustomCardModal(mode = "create", templateId = null) {
+        this.customModalMode = mode;
+        this.customModalTemplateId = templateId;
+        this.customModalError = "";
+      
+        if (mode === "create") {
+          this.customForm = { title: "", minutes: 15, weeklyTarget: 1 };
+        } else {
+          const tpl = this.templatesById?.[templateId];
+          if (!tpl) return;
+          this.customForm = {
+            title: String(tpl.title || ""),
+            minutes: Number(tpl.minutes ?? 15),
+            weeklyTarget: Number(tpl.weeklyTarget ?? 1),
+          };
+        }
+      
+        this.customModalOpen = true;
+      },
+      
+      closeCustomCardModal() {
+        this.customModalOpen = false;
+        this.customModalError = "";
+      },
+      
+      saveCustomCardModal() {
+        const title = String(this.customForm?.title || "").trim();
+        const minutes = Number(this.customForm?.minutes);
+        const weeklyTarget = Number(this.customForm?.weeklyTarget);
+      
+        if (!title) {
+          this.customModalError = "Please enter a title.";
+          return;
+        }
+        if (!Number.isFinite(minutes) || minutes < 0 || minutes > 600) {
+          this.customModalError = "Minutes must be a number between 0 and 600.";
+          return;
+        }
+
+        if (!Number.isFinite(weeklyTarget) || weeklyTarget < 0 || weeklyTarget > 5) {
+          this.customModalError = "Days per week must be a number between 0 and 5.";
+          return;
+        }
+      
+        if (this.customModalMode === "create") {
+          const id = `u:${uid("card")}`;
+          this.templatesById[id] = {
+            id,
+            sortKey: "ZZZ::99",
+            courseKey: "custom",
+            courseLabel: "Custom",
+            variantKey: "custom",
+            variantSort: 99,
+            title,
+            minutes,
+            symbols: "",
+            trackingCount: 12,
+            weeklyTarget, // ✅ enables counters/checkmark
+          };
+        }
+      
+        if (this.customModalMode === "edit") {
+          const id = this.customModalTemplateId;
+          if (!id || !String(id).startsWith("u:")) return;
+          const tpl = this.templatesById?.[id];
+          if (!tpl) return;
+      
+          this.templatesById[id] = {
+            ...tpl,
+            title,
+            minutes,
+            weeklyTarget,
+          };
+        }
+      
+        this.persistCards();
+        this.closeCustomCardModal();
+      },
+      
+      confirmDeleteCustomCard() {
+        const templateId = this.customModalTemplateId;
+        if (!templateId || !String(templateId).startsWith("u:")) return;
+      
+        // remove template
+        delete this.templatesById[templateId];
+      
+        // remove instances referencing it
+        const doomedInstanceIds = [];
+        for (const [instId, inst] of Object.entries(this.instancesById || {})) {
+          if (inst?.templateId === templateId) doomedInstanceIds.push(instId);
+        }
+        for (const instId of doomedInstanceIds) delete this.instancesById[instId];
+      
+        // remove placements
+        for (const [studentId, daysObj] of Object.entries(this.placements || {})) {
+          for (let d = 0; d <= 4; d++) {
+            const arr = daysObj?.[d];
+            if (!Array.isArray(arr)) continue;
+            this.placements[studentId][d] = arr.filter((id) => !doomedInstanceIds.includes(id));
+          }
+        }
+      
+        this.persistCards();
+        this.closeCustomCardModal();
+      },
+
+      // -----------------------------
+      // Student dropdown
+      // -----------------------------
+      toggleStudentMenu(idx) {
+        this.openStudentMenu = this.openStudentMenu === idx ? null : idx;
+      },
+
+      closeStudentMenu() {
+        this.openStudentMenu = null;
+      },
+
+      getStudentName(studentId) {
+        const s = (this.students || []).find((x) => x.id === studentId);
+        return s ? s.name : "Student";
+      },
+
+      setPanelStudent(idx, studentId) {
+        if (!Array.isArray(this.visibleStudentPanels)) return;
+        if (!this.visibleStudentPanels[idx]) return;
+
+        const next = this.visibleStudentPanels.map((p, i) =>
+          i === idx ? { ...p, studentId } : { ...p }
+        );
+
+        if (next[0].studentId === next[1].studentId) {
+          const allIds = (this.students || []).map((s) => s.id);
+          const fallback = allIds.find((id) => id !== next[0].studentId) || "S1";
+          next[1].studentId = fallback;
+        }
+
+        this.visibleStudentPanels = next;
+
+        // ensure placements exist for new student
+        this.ensureStudent(studentId);
+
+        // if active target was on the swapped panel, keep it aligned
+        if (this.activeTarget.studentId !== next[0].studentId && this.activeTarget.studentId !== next[1].studentId) {
+          this.activeTarget.studentId = next[0].studentId;
+        }
+
+        this.persistUi();
+        this.persistCards();
+      },
+
+      // -----------------------------
+      // Display helpers
+      // -----------------------------
+      dayLabel(i) {
+        const n = Number(i);
+        return this.dayLabels[n] || ['Mon','Tue','Wed','Thu','Fri'][n] || `Day ${n + 1}`;
+      },
+
+      dayLabelLong(i) {
+        const n = Number(i);
+        return this.dayLongLabels?.[n] || ["Monday","Tuesday","Wednesday","Thursday","Friday"][n] || `Day ${n + 1}`;
+      },
+
+      // -----------------------------
+      // Day View helpers (Phase 3)
+      // -----------------------------
+      dayViewSize() {
+        // v1: 2–3 day panels side-by-side; easy to tune later
+        return 3;
+      },
+      
+      dayViewWindowStart: 0,
+      
+      // -----------------------------
+      // Day View helpers (Phase 3)
+      // -----------------------------
+      toggleDayMenu(idx) {
+        this.openDayMenu = this.openDayMenu === idx ? null : idx;
+      },
+      closeDayMenu() {
+        this.openDayMenu = null;
+      },
+      
+      setDayPanel(idx, dayIdx) {
+        const n = Number(dayIdx);
+        if (!Number.isInteger(n) || n < 0 || n > 4) return;
+        if (!Array.isArray(this.dayViewPanels)) return;
+        if (!this.dayViewPanels[idx]) return;
+      
+        const next = this.dayViewPanels.map((p, i) =>
+          i === idx ? { ...p, dayIdx: n } : { ...p }
+        );
+      
+        // prevent duplicates (keep it simple like student panels)
+        if (next[0].dayIdx === next[1].dayIdx) {
+          const fallback = [0,1,2,3,4].find((d) => d !== next[0].dayIdx) ?? 0;
+          next[1].dayIdx = fallback;
+        }
+      
+        this.dayViewPanels = next;
+        this.persistUi();
+      },
+      
+      setDayViewSlotStudent(slotIdx, studentId) {
+        if (!Array.isArray(this.dayViewStudentSlots)) return;
+        if (slotIdx < 0 || slotIdx >= this.dayViewStudentSlots.length) return;
+      
+        const allIds = (this.students || []).map((s) => s.id);
+        if (!allIds.includes(studentId)) return;
+      
+        const next = this.dayViewStudentSlots.slice();
+        next[slotIdx] = studentId;
+      
+        // optional: de-dupe (don’t allow the same student in multiple slots)
+        const seen = new Set();
+        for (let i = 0; i < next.length; i++) {
+          if (seen.has(next[i])) {
+            const repl = allIds.find((id) => !seen.has(id)) || next[i];
+            next[i] = repl;
+          }
+          seen.add(next[i]);
+        }
+      
+        this.dayViewStudentSlots = next;
+        this.ensureStudent(studentId); // keep placements safe
+        this.persistUi();
+        this.persistCards();
+      },
+      
+      dayViewCanPrev() {
+        return (this.dayViewWindowStart || 0) > 0;
+      },
+      
+      dayViewCanNext() {
+        const days = Array.isArray(this.visibleDays) ? this.visibleDays : [0,1,2,3,4];
+        return (this.dayViewWindowStart || 0) < Math.max(0, days.length - this.dayViewSize());
+      },
+      
+      dayViewPrev() {
+        this.dayViewWindowStart = Math.max(0, (this.dayViewWindowStart || 0) - 1);
+      },
+      
+      dayViewNext() {
+        const days = Array.isArray(this.visibleDays) ? this.visibleDays : [0,1,2,3,4];
+        const maxStart = Math.max(0, days.length - this.dayViewSize());
+        this.dayViewWindowStart = Math.min(maxStart, (this.dayViewWindowStart || 0) + 1);
+      },
+      
+      getLaneInstanceIds(studentId, dayIndex) {
+        const d = Number(dayIndex);
+        const arr = this.placements?.[studentId]?.[d];
+        return Array.isArray(arr) ? arr : [];
+      },
+
+      setCourseOption(courseKey, option) {
+        if (!this.choices.courseOptions) this.choices.courseOptions = {};
+        this.choices.courseOptions[courseKey] = option;
+        this.persistCards();
+      },
+      
+      addRailEntryToActive(entry) {
+        if (!entry) return;
+      
+        let templateId = null;
+      
+        if (entry.type === "single") {
+          templateId = entry.templateId;
+        } else if (entry.type === "group") {
+          const selectedOpt = this.choices?.courseOptions?.[entry.courseKey];
+          const match = (entry.options || []).find(o => o.option === selectedOpt);
+          templateId = (match && match.templateId) || entry.activeTemplateId;
+        }
+      
+        if (!templateId) return;
+        this.addTemplateToActive(templateId);
+      },
+
+      railEntryDisplay(entry) {
+        if (!entry) return { title: "", sub: "", minutes: 0, symbols: "" };
+      
+        // SINGLE template
+        if (entry.type === "single") {
+          const tpl = this.templatesById?.[entry.templateId] || {};
+          return {
+            title: tpl.title || "",
+            sub: "", // no extra line
+            minutes: Number(tpl.minutes || 0),
+            symbols: tpl.symbols || "",
+          };
+        }
+      
+        // GROUP template (choice-based, e.g. Picture Study)
+        const active = this.templatesById?.[entry.activeTemplateId] || {};
+        const selectedOpt = this.choices?.courseOptions?.[entry.courseKey];
+        const selectedMeta =
+          (entry.options || []).find((o) => o.option === selectedOpt) || (entry.options || [])[0];
+      
+        // Rail should feel like ONE card:
+        // Title stays “Picture Study” (course label), and the band is a secondary line.
+        const baseTitle = active.courseLabel || active.title || "";
+        const bandLabel = selectedMeta?.label || active?.meta?.optionLabel || "";
+      
+        return {
+          title: baseTitle,                // "Picture Study"
+          sub: bandLabel ? `Grades ${bandLabel}` : "", // "Grades 1–3"
+          minutes: Number(active.minutes || 0),
+          symbols: active.symbols || "",
+        };
+      },
+
+      // -----------------------------
+      // Phase 2.5: Catalog + placements
+      // -----------------------------
+      ensureStudent(studentId) {
+        if (!this.placements[studentId]) {
+          this.placements[studentId] = { 0: [], 1: [], 2: [], 3: [], 4: [] };
+        } else {
+          for (let d = 0; d <= 4; d++) {
+            if (!Array.isArray(this.placements[studentId][d])) this.placements[studentId][d] = [];
+          }
+        }
+      },
+
+      // rail sorting: match course list order via sortKey
+      railEntries() {
+        const templates = Object.values(this.templatesById || {}).filter(Boolean);
+      
+        // group templates by courseKey when they have meta.choiceGroup
+        const byCourse = new Map();
+        for (const t of templates) {
+          const courseKey = t.courseKey || "";
+          const cg = t?.meta?.choiceGroup;
+          if (cg) {
+            if (!byCourse.has(courseKey)) byCourse.set(courseKey, []);
+            byCourse.get(courseKey).push(t);
+          }
+        }
+      
+        // helper: sort templates the same way you were sorting before
+        const sortTpl = (a, b) => {
+          const ak = String(a.sortKey || "");
+          const bk = String(b.sortKey || "");
+          if (ak < bk) return -1;
+          if (ak > bk) return 1;
+      
+          const ac = String(a.courseLabel || "");
+          const bc = String(b.courseLabel || "");
+          if (ac < bc) return -1;
+          if (ac > bc) return 1;
+      
+          const av = Number(a.variantSort || 0);
+          const bv = Number(b.variantSort || 0);
+          if (av !== bv) return av - bv;
+      
+          return String(a.title || "").localeCompare(String(b.title || ""));
+        };
+      
+        templates.sort(sortTpl);
+      
+        const entries = [];
+        const seenGroupedCourse = new Set();
+      
+        for (const t of templates) {
+          const courseKey = t.courseKey || "";
+          const cg = t?.meta?.choiceGroup;
+      
+          if (cg) {
+            if (seenGroupedCourse.has(courseKey)) continue;
+            seenGroupedCourse.add(courseKey);
+      
+            const options = (byCourse.get(courseKey) || []).slice().sort(sortTpl);
+            const selected = this.choices?.courseOptions?.[courseKey] || options?.[0]?.meta?.option;
+      
+            // pick the selected template for display
+            const activeTpl =
+              options.find(x => x?.meta?.option === selected) || options[0];
+      
+            entries.push({
+              type: "group",
+              courseKey,
+              choiceGroup: cg,
+              courseLabel: activeTpl?.courseLabel || "",
+              sortKey: activeTpl?.sortKey || "",
+              options: options.map(x => ({
+                option: x?.meta?.option,
+                label: x?.meta?.optionLabel || x?.meta?.option,
+                templateId: x.id,
+              })),
+              activeTemplateId: activeTpl?.id,
+            });
+          } else {
+            entries.push({
+              type: "single",
+              templateId: t.id,
+              sortKey: t.sortKey || "",
+            });
+          }
+        }
+
+        // Move completed items to the bottom for the currently selected rail student
+        const sid = this.activeTarget?.studentId;
+        if (sid) {
+          entries.sort((a, b) => {
+            const ta = this.trackingForEntry(a);
+            const tb = this.trackingForEntry(b);
+            const da = ta.show && ta.done ? 1 : 0;
+            const db = tb.show && tb.done ? 1 : 0;
+        
+            // incomplete first, complete last
+            if (da !== db) return da - db;
+        
+            // keep existing order otherwise (already sorted above)
+            return 0;
+          });
+        }
+      
+        return entries;
+      },
+
+      // ---- Day-toggle helpers (Rail) ----
+
+      // Returns an instanceId if entry is already placed on that day for that student, else null
+      instanceIdForEntryOnDay(studentId, dayIndex, entry) {
+        const ids = this.placements?.[studentId]?.[dayIndex];
+        if (!Array.isArray(ids) || !entry) return null;
+      
+        for (const instId of ids) {
+          const inst = this.instancesById?.[instId];
+          if (!inst) continue;
+      
+          const tpl = this.templatesById?.[inst.templateId];
+          if (!tpl) continue;
+      
+          if (entry.type === "single") {
+            if (inst.templateId === entry.templateId) return instId;
+          } else if (entry.type === "group") {
+            // count/toggle by courseKey (any grade-band counts as “Picture Study”)
+            if (tpl.courseKey === entry.courseKey) return instId;
+          }
+        }
+      
+        return null;
+      },
+      
+      isEntryOnDay(studentId, dayIndex, entry) {
+        return !!this.instanceIdForEntryOnDay(studentId, dayIndex, entry);
+      },
+      
+      toggleEntryOnDay(entry, dayIndex) {
+        const studentId = this.activeTarget?.studentId;
+        dayIndex = Number(dayIndex);
+      
+        if (!studentId || !Number.isInteger(dayIndex) || dayIndex < 0 || dayIndex > 4) return;
+      
+        this.ensureStudent(studentId);
+      
+        const existingId = this.instanceIdForEntryOnDay(studentId, dayIndex, entry);
+      
+        // If already placed, remove it
+        if (existingId) {
+          this.removeInstance(studentId, dayIndex, existingId);
+          return;
+        }
+      
+        // Otherwise add it (respect group selection)
+        let templateId = null;
+      
+        if (entry.type === "single") {
+          templateId = entry.templateId;
+        } else if (entry.type === "group") {
+          const selectedOpt = this.choices?.courseOptions?.[entry.courseKey];
+          const match = (entry.options || []).find(o => o.option === selectedOpt);
+          templateId = (match && match.templateId) || entry.activeTemplateId;
+        }
+      
+        if (!templateId) return;
+      
+        // Add to *that* day (not activeTarget.dayIndex)
+        const tpl = this.templatesById?.[templateId];
+        if (!tpl) return;
+      
+        const instanceId = uid("inst");
+        this.instancesById[instanceId] = {
+          instanceId,
+          templateId,
+          createdAt: Date.now(),
+        };
+      
+        this.placements[studentId][dayIndex].push(instanceId);
+        this.persistCards();
+      },
+
+      weeklyTargetForEntry(entry) {
+        if (!entry) return 0;
+      
+        // SINGLE: target from template
+        if (entry.type === "single") {
+          const tpl = this.templatesById?.[entry.templateId];
+          return Number(tpl?.weeklyTarget || 0);
+        }
+      
+        // GROUP: target from active template (they should all match)
+        if (entry.type === "group") {
+          const tpl = this.templatesById?.[entry.activeTemplateId];
+          return Number(tpl?.weeklyTarget || 0);
+        }
+      
+        return 0;
+      },
+      
+      weeklyUsedForEntry(studentId, entry) {
+        if (!studentId || !entry) return 0;
+        const daysObj = this.placements?.[studentId];
+        if (!daysObj) return 0;
+      
+        let used = 0;
+      
+        for (let d = 0; d <= 4; d++) {
+          const ids = daysObj?.[d];
+          if (!Array.isArray(ids)) continue;
+      
+          for (const instId of ids) {
+            const inst = this.instancesById?.[instId];
+            if (!inst) continue;
+      
+            const tpl = this.templatesById?.[inst.templateId];
+            if (!tpl) continue;
+      
+            if (entry.type === "single") {
+              if (inst.templateId === entry.templateId) used++;
+            } else if (entry.type === "group") {
+              // Count by courseKey so any grade-band satisfies Picture Study
+              if (tpl.courseKey === entry.courseKey) used++;
+            }
+          }
+        }
+      
+        return used;
+      },
+      
+      trackingForEntry(entry) {
+        const studentId = this.activeTarget?.studentId; // ties to rail student picker
+        const target = this.weeklyTargetForEntry(entry);
+        if (!target) return { show: false, done: false, label: "" };
+      
+        const used = this.weeklyUsedForEntry(studentId, entry);
+        const done = used >= target;
+      
+        return {
+          show: true,
+          done,
+          label: done ? "" : `${used}/${target}`,
+        };
+      },
+
+      // Rail sections (per active rail student):
+      // - Need to schedule: anything not yet meeting weekly target
+      // - Complete: items that have met/exceeded weekly target
+      railEntriesNeed() {
+        return this.railEntries().filter((e) => {
+          const t = this.trackingForEntry(e);
+          return !(t.show && t.done);
+        });
+      },
+
+      railEntriesComplete() {
+        return this.railEntries().filter((e) => {
+          const t = this.trackingForEntry(e);
+          return (t.show && t.done);
+        });
+      },
+
+      toggleCompletedRail() {
+      this.showCompleted = !this.showCompleted;
+      this.persistUi();
+    },
+
+    toggleRailTop() {
+      this.railTopCollapsed = !this.railTopCollapsed;
+      this.persistUi();
+    },
+
+      completedRailLabel() {
+        return this.showCompleted ? "Hide completed" : "Show completed";
+      },
+      
+      sortedTemplates() {
+        // Backwards-compatible helper for anywhere else that expects templates.
+        // We’ll render from railEntries() in the HTML now.
+        return Object.values(this.templatesById || {}).filter(Boolean);
+      },
+
+      // active target (click a column to set)
+      setActiveTarget(studentId, dayIndex) {
+        this.activeTarget = { studentId, dayIndex: Number(dayIndex) };
+      },
+
+      activeTargetLabel() {
+        const s = this.getStudentName(this.activeTarget.studentId);
+        const d = this.dayLabel(this.activeTarget.dayIndex);
+        return `${s} • ${d}`;
+      },
+
+      // Create a new instance and append to active day
+      addTemplateToActive(templateId) {
+        const tpl = this.templatesById?.[templateId];
+        if (!tpl) return;
+
+        const studentId = this.activeTarget.studentId;
+        const dayIndex = this.activeTarget.dayIndex;
+
+        this.ensureStudent(studentId);
+
+        const instanceId = uid("inst");
+        this.instancesById[instanceId] = {
+          instanceId,
+          templateId,
+          createdAt: Date.now(),
+        };
+
+        this.placements[studentId][dayIndex].push(instanceId);
+        this.persistCards();
+      },
+
+      // Remove instance from a day (Phase 2.5 helper)
+      removeInstance(studentId, dayIndex, instanceId) {
+        this.ensureStudent(studentId);
+        const arr = this.placements[studentId][dayIndex] || [];
+        this.placements[studentId][dayIndex] = arr.filter((id) => id !== instanceId);
+        // keep instance in instancesById for now (safe); can GC later
+        this.persistCards();
+      },
+
+      moveInstance(studentId, dayIndex, fromIndex, toIndex) {
+        this.ensureStudent(studentId);
+      
+        const list = this.placements?.[studentId]?.[dayIndex];
+        if (!Array.isArray(list)) return;
+      
+        const len = list.length;
+        if (
+          fromIndex < 0 || fromIndex >= len ||
+          toIndex < 0 || toIndex >= len ||
+          fromIndex === toIndex
+        ) {
+          return;
+        }
+      
+        const next = list.slice();
+        const [moved] = next.splice(fromIndex, 1);
+        next.splice(toIndex, 0, moved);
+      
+        this.placements[studentId][dayIndex] = next;
+        this.persistCards();
+      },
+
+      moveInstanceAcrossDays(studentId, fromDayIndex, toDayIndex, fromIndex, toIndex) {
+        this.ensureStudent(studentId);
+      
+        const fromDay = Number(fromDayIndex);
+        const toDay = Number(toDayIndex);
+      
+        if (fromDay === toDay) {
+          // fall back to existing reorder
+          return this.moveInstance(studentId, fromDay, fromIndex, toIndex);
+        }
+      
+        const fromList = this.placements?.[studentId]?.[fromDay];
+        const toList = this.placements?.[studentId]?.[toDay];
+      
+        if (!Array.isArray(fromList) || !Array.isArray(toList)) return;
+      
+        if (fromIndex < 0 || fromIndex >= fromList.length) return;
+      
+        // Clamp target index to [0..toList.length]
+        const insertAt = Math.max(0, Math.min(Number(toIndex), toList.length));
+      
+        const [moved] = fromList.splice(fromIndex, 1);
+        if (!moved) return;
+      
+        toList.splice(insertAt, 0, moved);
+      
+        // write back (keeps reactivity predictable)
+        this.placements[studentId][fromDay] = fromList;
+        this.placements[studentId][toDay] = toList;
+      
+        this.persistCards();
+      },
+
+      onDragStart(evt, studentId, dayIndex, instanceId) {
+        this.dragState.dragging = true;
+        this.dragState.studentId = studentId;
+        this.dragState.dayIndex = Number(dayIndex);
+        this.dragState.instanceId = instanceId;
+        this.dragState.overInstanceId = null;
+        this.dragState.overPos = null;
+        this.dragState.overEl = null;
+      
+        // Required for Safari/Firefox: set some drag data
+        try {
+          evt.dataTransfer.effectAllowed = "move";
+          evt.dataTransfer.setData("text/plain", String(instanceId));
+        } catch (e) {}
+      
+        // optional: add a class to body for styling while dragging
+        try { document.body.classList.add("sched-dragging"); } catch (e) {}
+      },
+      
+      onDragEnd() {
+        this.dragState.dragging = false;
+        this.dragState.overInstanceId = null;
+        this.dragState.overPos = null;
+      
+        // ✅ remove per-card drop marker
+        try {
+          if (this.dragState.overEl) this.dragState.overEl.removeAttribute("data-drop-pos");
+        } catch (e) {}
+        this.dragState.overEl = null;
+      
+        try {
+          document.body.classList.remove("sched-dragging", "sched-drop-above", "sched-drop-below");
+        } catch (e) {}
+      },
+      
+      onDragOver(evt, studentId, dayIndex, overInstanceId) {
+        if (!this.dragState.dragging) return;
+        if (this.dragState.studentId !== studentId) return;
+      
+        this.dragState.overInstanceId = overInstanceId;
+      
+        // Determine above/below midpoint
+        let pos = null;
+        try {
+          const rect = evt.currentTarget.getBoundingClientRect();
+          const y = evt.clientY - rect.top;
+          pos = (y < rect.height / 2) ? "above" : "below";
+        } catch (e) {}
+      
+        this.dragState.overPos = pos;
+      
+        // ✅ Clear previous hovered element marker
+        try {
+          if (this.dragState.overEl && this.dragState.overEl !== evt.currentTarget) {
+            this.dragState.overEl.removeAttribute("data-drop-pos");
+          }
+        } catch (e) {}
+      
+        // ✅ Mark current hovered card with drop position
+        try {
+          if (pos) evt.currentTarget.setAttribute("data-drop-pos", pos);
+          else evt.currentTarget.removeAttribute("data-drop-pos");
+          this.dragState.overEl = evt.currentTarget;
+        } catch (e) {}
+      
+        // allow drop
+        try { evt.dataTransfer.dropEffect = "move"; } catch (e) {}
+      },
+
+      onDropzoneDragOver(evt, studentId, dayIndex) {
+        if (!this.dragState.dragging) return;
+        // Phase 2 scope: same student only (for now)
+        if (this.dragState.studentId !== studentId) return;
+      
+        // allow drop
+        try { evt.dataTransfer.dropEffect = "move"; } catch (e) {}
+      
+        // clear card-target visuals when hovering empty space
+        this.dragState.overInstanceId = null;
+        this.dragState.overPos = null;
+
+        try {
+          if (this.dragState.overEl) this.dragState.overEl.removeAttribute("data-drop-pos");
+        } catch (e) {}
+        this.dragState.overEl = null;
+      },
+      
+      onDropzoneDrop(evt, studentId, dayIndex) {
+        if (!this.dragState.dragging) return;
+        if (this.dragState.studentId !== studentId) return;
+      
+        const sid = studentId;
+        const fromDay = Number(this.dragState.dayIndex);
+        const toDay = Number(dayIndex);
+      
+        const fromList = this.placements?.[sid]?.[fromDay];
+        const toList = this.placements?.[sid]?.[toDay];
+        if (!Array.isArray(fromList) || !Array.isArray(toList)) return;
+      
+        const fromId = this.dragState.instanceId;
+        const fromIndex = fromList.indexOf(fromId);
+        if (fromIndex === -1) return;
+      
+        // Dropzone drop = append to end of target column
+        const toIndex = toList.length;
+      
+        this.moveInstanceAcrossDays(sid, fromDay, toDay, fromIndex, toIndex);
+      
+        // cleanup
+        this.dragState.overInstanceId = null;
+        this.dragState.overPos = null;
+      
+        try {
+          document.body.classList.remove("sched-drop-above", "sched-drop-below");
+        } catch (e) {}
+      },
+      
+      onDrop(evt, studentId, dayIndex, dropOnInstanceId) {
+        if (!this.dragState.dragging) return;
+      
+        // Same student only (Phase 2 scope)
+        if (this.dragState.studentId !== studentId) return;
+      
+        const sid = studentId;
+      
+        const fromDay = Number(this.dragState.dayIndex);
+        const toDay = Number(dayIndex);
+      
+        const fromList = this.placements?.[sid]?.[fromDay];
+        const toList = this.placements?.[sid]?.[toDay];
+        if (!Array.isArray(fromList) || !Array.isArray(toList)) return;
+      
+        const fromId = this.dragState.instanceId;
+        const toId = dropOnInstanceId;
+      
+        const fromIndex = fromList.indexOf(fromId);
+        const hoverIndex = toList.indexOf(toId);
+      
+        if (fromIndex === -1 || hoverIndex === -1) return;
+      
+        // Insert ABOVE or BELOW the hovered card
+        let insertAt = hoverIndex + (this.dragState.overPos === "below" ? 1 : 0);
+      
+        // If moving within the same list, removing first shifts indices
+        if (fromDay === toDay && fromIndex < insertAt) {
+          insertAt = Math.max(0, insertAt - 1);
+        }
+      
+        this.moveInstanceAcrossDays(sid, fromDay, toDay, fromIndex, insertAt);
+      
+        // cleanup
+        this.dragState.overInstanceId = null;
+        this.dragState.overPos = null;
+      
+        try {
+          document.body.classList.remove("sched-drop-above", "sched-drop-below");
+        } catch (e) {}
+      },
+
+      // Render helpers
+      instancesFor(studentId, dayIndex) {
+        this.ensureStudent(studentId);
+        const ids = this.placements[studentId][dayIndex] || [];
+        return ids
+          .map((id) => this.instancesById[id])
+          .filter(Boolean);
+      },
+
+      templateForInstance(inst) {
+        return inst ? this.templatesById?.[inst.templateId] : null;
+      },
+
+      dayTotalMinutes(studentId, dayIndex) {
+        const list = this.instancesFor(studentId, dayIndex);
+        let total = 0;
+        for (const inst of list) {
+          const tpl = this.templateForInstance(inst);
+          const m = Number(tpl?.minutes || 0);
+          if (Number.isFinite(m)) total += m;
+        }
+        return total;
+      },
+
+      formatMinutes(mins) {
+          const total = Math.max(0, Math.round(Number(mins) || 0));
+          const h = Math.floor(total / 60);
+          const m = total % 60;
+          if (h <= 0) return `${m}m`;
+          if (m === 0) return `${h}h`;
+          return `${h}h ${m}m`;
+        },
+
+      trackingBlocks(tpl) {
+        const isCustom = String(tpl?.id || "").startsWith("u:");
+        // Older cached custom cards may lack trackingCount; treat as 12 by default.
+        const raw = (tpl?.trackingCount == null || tpl?.trackingCount === "") && isCustom ? 12 : tpl?.trackingCount;
+        const n = Number(raw || 0);
+        if (!Number.isFinite(n) || n <= 0) return "";
+        return "⬚".repeat(Math.min(n, 20)); // cap display; real rendering later
+      },
+
+      // Picture Study choice
+      setPictureStudyBand(band) {
+        this.choices.pictureStudyBand = band;
+        this.persistCards();
+      },
+
+      // Custom card (minimal v2.5)
+      addCustomCard() {
+        this.openCustomCardModal("create");
+      },
+
+      removeCustomTemplate(templateId) {
+        if (!templateId || !String(templateId).startsWith("u:")) return;
+      
+        const tpl = this.templatesById?.[templateId];
+        if (!tpl) return;
+      
+        const ok = confirm(`Remove custom card "${tpl.title}"?\n\nThis will also remove it from any days it was added to.`);
+        if (!ok) return;
+      
+        // 1) remove the template
+        delete this.templatesById[templateId];
+      
+        // 2) remove any instances that reference this template
+        const doomedInstanceIds = [];
+        for (const [instId, inst] of Object.entries(this.instancesById || {})) {
+          if (inst?.templateId === templateId) doomedInstanceIds.push(instId);
+        }
+        for (const instId of doomedInstanceIds) delete this.instancesById[instId];
+      
+        // 3) remove those instances from placements
+        for (const [studentId, daysObj] of Object.entries(this.placements || {})) {
+          for (let d = 0; d <= 4; d++) {
+            const arr = daysObj?.[d];
+            if (!Array.isArray(arr)) continue;
+            this.placements[studentId][d] = arr.filter((id) => !doomedInstanceIds.includes(id));
+          }
+        }
+      
+        this.persistCards();
+      },
+      
+    };
+  };
+})();
