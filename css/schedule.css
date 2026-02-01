@@ -1836,17 +1836,15 @@ body.sched-dragging .sched-card{
 .sched-dayview-lanes{
   flex: 1;
   min-height: 0;
-  overflow: hidden;
 
   padding: 12px;
 
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(var(--sched-col-w), 1fr));
-  gap: 12px;
-
+  /* let .schedule-columns / .schedule-columns--nowrap control the layout */
+  overflow-x: auto;
+  overflow-y: hidden;
   height: 100%;
-  align-items: stretch;
 }
+
 
 .sched-dayview-lane{
   border: 1px solid #e5e8e5;
@@ -1949,4 +1947,16 @@ body.sched-dragging .sched-card{
   background: transparent;
 
   pointer-events: none; /* important: never blocks drag/drop */
+}
+
+.schedule-columns,
+.schedule-columns--nowrap{
+  display: grid;
+  grid-auto-flow: column;
+
+  /* key: columns have a minimum width, but can grow to fill available space */
+  grid-auto-columns: minmax(var(--sched-col-w), 1fr);
+
+  gap: 12px;
+  align-items: stretch;
 }
