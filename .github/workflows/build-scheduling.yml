@@ -2,7 +2,6 @@ name: Build MA_Scheduling JSON
 
 on:
   schedule:
-    # pick whatever time you want; this example is 8:20am PT-ish depending on DST
     - cron: "20 15 * * *"
   workflow_dispatch:
 
@@ -22,9 +21,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install dependencies
-        run: npm install
-
+      # ✅ No npm install — repo has no package.json
       - name: Build MA_Scheduling.json from Airtable
         env:
           AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
