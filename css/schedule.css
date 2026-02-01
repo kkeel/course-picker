@@ -1529,7 +1529,7 @@ body.sched-dragging .sched-card{
   box-shadow: 0 0 0 3px rgba(89,110,94,.12);
 }
 
-/* Insertion line (top/bottom) â€” draw INSIDE the card
+/* Insertion line (top/bottom) draw INSIDE the card
    (prevents clipping inside overflow-y:auto columns) */
 .sched-card.is-drop-target{
   position: relative;
