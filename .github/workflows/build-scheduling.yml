@@ -1,9 +1,11 @@
-name: Build MA_Scheduling JSON (R3)
+# .github/workflows/build-scheduling.yml
+name: build-scheduling
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "25 8 * * *" # adjust time as desired (UTC)
+    # Pick whatever time matches your other nightly runs
+    - cron: "50 3 * * *"
 
 permissions:
   contents: write
@@ -11,9 +13,12 @@ permissions:
 jobs:
   build-scheduling:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -23,12 +28,17 @@ jobs:
       - name: Build MA_Scheduling.json from Airtable
         env:
           AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
           AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
           ROTATION: ${{ secrets.ROTATION }}
-        run: node tools/build-scheduling-from-airtable.mjs
+          # RECOMMENDED: set this secret (exact view name), or remove if you want auto-detect
+          AIRTABLE_VIEW: ${{ secrets.AIRTABLE_VIEW }}
+        run: |
+          node tools/build-scheduling-from-airtable.mjs
 
       - name: Commit and push changes
         uses: EndBug/add-and-commit@v9
         with:
           add: "data/MA_Scheduling.json"
           message: "Nightly build: MA_Scheduling.json"
+          default_author: github_actions
