@@ -1,12 +1,6 @@
 /**
  * Build data/MA_Scheduling.json from Airtable (MA_Scheduling table)
  * Location: tools/build-scheduling-from-airtable.mjs
- *
- * Required env:
- *  - AIRTABLE_PAT
- *  - AIRTABLE_BASE_ID
- * Optional:
- *  - ROTATION   (e.g. "R3" or "3") -> selects view: "R3 – Scheduling JSON"
  */
 
 import fs from "fs/promises";
