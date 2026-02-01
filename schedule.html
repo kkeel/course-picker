@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -723,7 +724,7 @@
                       <!-- Panel body: week columns -->
                       <div class="schedule-panel-body">
                         <div class="schedule-board">
-                          <div class="schedule-columns">
+                          <div class="schedule-columns schedule-columns--nowrap">
                             <template x-for="i in visibleDays" :key="i">
                               <section class="schedule-col" :aria-label="dayLabel(i)">
                                 <div class="schedule-col-head">
@@ -738,14 +739,14 @@
                                   @drop.prevent="onDropzoneDrop($event, panel.studentId, i)"
                                 >
 
-                                  <!-- Empty column placeholder -->
+                                  <!-- Empty column placeholder (hide once first card exists) -->
                                   <div
                                     class="schedule-empty"
-                                    x-show="instancesFor(studentId, dayIdx).length === 0"
+                                    x-show="instancesFor(panel.studentId, i).length === 0"
                                   >
                                     Assign schedule cards from the list to this day by clicking a day button on a scheduling card.
                                   </div>
-
+                                  
                                   <!-- placed instances (Phase 2.5) -->
                                   <template x-for="inst in instancesFor(panel.studentId, i)" :key="inst.instanceId">
                                     <article
@@ -769,12 +770,12 @@
                                         ></div>
                                         <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
                                       </div>
-                                
+                                  
                                       <div class="sched-card-sub" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
-                                
+                                  
                                       <div class="sched-card-trackline"
                                            x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"></div>
-                                
+                                  
                                       <button
                                         type="button"
                                         class="sched-card-remove"
@@ -785,10 +786,7 @@
                                       </button>
                                     </article>
                                   </template>
-                                
-                                  <div class="schedule-empty" x-show="instancesFor(panel.studentId, i).length === 0">
-                                    Click a card on the left to add it here
-                                  </div>
+
                                 </div>
 
                               </section>
