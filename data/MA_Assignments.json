@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-31T17:17:08.628Z",
+  "lastUpdated": "2026-02-01T08:48:48.516Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -6053,8 +6053,8 @@
       ],
       "termNotes": {
         "T1": "Our Hymns, Our Heritage (Full Term - #57, #74)",
-        "T2": "Our Hymns, Our Heritage (Full Term - #6,)",
-        "T3": "Our Hymns, Our Heritage (Full Term)"
+        "T2": "Our Hymns, Our Heritage (Full Term - #6, #79)",
+        "T3": "Our Hymns, Our Heritage (Full Term - #25, #89)"
       },
       "gradeText": "G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12,",
       "grades": [
@@ -10560,13 +10560,13 @@
       "rotation": "R3",
       "targetType": "course",
       "resourceKey": "002.003.000",
-      "scopeText": "Term 2 (Partial Term)",
+      "scopeText": "Term 2",
       "terms": [
         "T2"
       ],
       "termNotes": {
         "T1": "",
-        "T2": "Escape by Night: A Civil War Adventure (Partial Term)",
+        "T2": "Escape by Night: A Civil War Adventure (Full Term)",
         "T3": ""
       },
       "gradeText": "G2, G3,",
@@ -13017,12 +13017,12 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "001.003.000",
-      "scopeText": "Term 1",
+      "scopeText": "Term 1 (Partial Term)",
       "terms": [
         "T1"
       ],
       "termNotes": {
-        "T1": "Renewal: The Church That Expands Outward (Full Term)",
+        "T1": "Renewal: The Church That Expands Outward (Partial Term)",
         "T2": "",
         "T3": ""
       },
@@ -13044,16 +13044,17 @@
       "resourceId": "rechMm5zpTXoqbRq3",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "002.003.000",
-      "scopeText": "Term 2\nTerm 3",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1 (Partial Term)\nTerm 2\nTerm 3 (Partial Term)",
       "terms": [
+        "T1",
         "T2",
         "T3"
       ],
       "termNotes": {
-        "T1": "",
+        "T1": "Spurgeon: A Biography (Partial Term)",
         "T2": "Spurgeon: A Biography (Full Term)",
-        "T3": "Spurgeon: A Biography (Full Term)"
+        "T3": "Spurgeon: A Biography (Partial Term)"
       },
       "gradeText": "G7, G8, G9,",
       "grades": [
@@ -16320,35 +16321,6 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recqNOmOD0VFoWjt4?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recrmxz1AD0zyz8K3",
-      "targetId": "recqNOmOD0VFoWjt4",
-      "resourceId": "recLlhUmtH9rDWtT9",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "001.003.003",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "French: Level 5 Student Notebook (Full Term)",
-        "T2": "French: Level 5 Student Notebook (Full Term)",
-        "T3": "French: Level 5 Student Notebook (Full Term)"
-      },
-      "gradeText": "G11, G12,",
-      "grades": [
-        11,
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recqNOmOD0VFoWjt4?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "recUyz0NKr0rw3X7q",
       "targetId": "recqNQrKdVJQ5PxQP",
       "resourceId": "recvX4HmvwtODCrX3",
@@ -19292,6 +19264,33 @@
         "General Lit.: Grades 9-10",
         "General Lit.: Grades 11-12"
       ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recvgYTB1CAmd95Rc?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "rec7A0cE1YI9ebrFd",
+      "targetId": "recvgYTB1CAmd95Rc",
+      "resourceId": "recS4h5NzibgWj3XK",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "003.003.000",
+      "scopeText": "Term 3",
+      "terms": [
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "",
+        "T3": "Things Fall Apart (Full Term)"
+      },
+      "gradeText": "G11, G12, G11, G12,",
+      "grades": [
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recvgYTB1CAmd95Rc?home=pag8nmiUVfXJRZFLW"
     },
     {
