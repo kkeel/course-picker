@@ -1841,7 +1841,7 @@ body.sched-dragging .sched-card{
   padding: 12px;
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(var(--sched-col-w), 1fr));
   gap: 12px;
 
   height: 100%;
