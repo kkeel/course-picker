@@ -4,7 +4,7 @@
 
 :root{
   --rail-head-bg: #dee1d2; /* brand light green */
-  --sched-col-w: 260px;
+  --sched-col-min: 260px;
 }
 
 /* Schedule header row: title left, tutorial right */
@@ -419,7 +419,7 @@
 }
 
 .schedule-columns--nowrap{
-  grid-auto-columns: var(--sched-col-w);
+  grid-auto-columns: minmax(var(--sched-col-min), 1fr);
 }
 
 .schedule-col{
@@ -1833,20 +1833,20 @@ body.sched-dragging .sched-card{
 }
 
 /* KEY CHANGE: lanes become COLUMNS (like day columns in student view) */
-.sched-dayview-lanes{
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
+//.sched-dayview-lanes{
+  /*flex: 1;
+  /*min-height: 0;
+  /*overflow: hidden;
 
-  padding: 12px;
+  /*padding: 12px;
 
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
+  /*display: grid;
+  /*grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  /*gap: 12px;
 
-  height: 100%;
-  align-items: stretch;
-}
+  /*height: 100%;
+  /*align-items: stretch;
+/*}
 
 .sched-dayview-lane{
   border: 1px solid #e5e8e5;
