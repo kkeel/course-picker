@@ -48,10 +48,26 @@ function asBool01(v) {
 }
 
 function asList(v) {
+  const norm = (s) =>
+    String(s ?? "")
+      .trim()
+      .replace(/^,+/, "")
+      .replace(/,+$/, "")
+      .trim();
+
   if (v == null) return [];
-  if (Array.isArray(v)) return v.map(x => String(x).trim()).filter(Boolean);
-  // sometimes rollups come back as comma-separated text depending on Airtable config
-  return String(v).split(",").map(s => s.trim()).filter(Boolean);
+
+  if (Array.isArray(v)) {
+    return v
+      .flatMap((x) => String(x).split(",")) // handles ["G5,"] or ["G5,G6"]
+      .map(norm)
+      .filter(Boolean);
+  }
+
+  return String(v)
+    .split(",")
+    .map(norm)
+    .filter(Boolean);
 }
 
 function isViewNotFoundError(text) {
