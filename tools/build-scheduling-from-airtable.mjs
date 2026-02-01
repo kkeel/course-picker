@@ -47,6 +47,13 @@ function asBool01(v) {
   return 0;
 }
 
+function asList(v) {
+  if (v == null) return [];
+  if (Array.isArray(v)) return v.map(x => String(x).trim()).filter(Boolean);
+  // sometimes rollups come back as comma-separated text depending on Airtable config
+  return String(v).split(",").map(s => s.trim()).filter(Boolean);
+}
+
 function isViewNotFoundError(text) {
   // Airtable returns JSON like:
   // {"error":{"type":"VIEW_NAME_NOT_FOUND","message":"View ... not found"}}
@@ -175,6 +182,8 @@ function transformRecord(record) {
     gradeBandSort: asNumber(f.gradeBandSort, 0),
     grade_min: asNumber(f.grade_min, 0),
     grade_max: asNumber(f.grade_max, 0),
+
+    gradeFilter: asList(f.Grade_Filter),
 
     gradeNote: asString(f["(Opt.) +Grade Note"]),
     cardText: asString(f.Card_Text),
