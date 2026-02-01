@@ -4,6 +4,7 @@
 
 :root{
   --rail-head-bg: #dee1d2; /* brand light green */
+  --sched-col-w: 260px;
 }
 
 /* Schedule header row: title left, tutorial right */
@@ -404,11 +405,12 @@
    Use GRID to prevent column overlap and keep scrolling stable
    ========================================================= */
 
-.schedule-columns,
-.schedule-columns--nowrap{
+.schedule-columns{
   display: grid;
   grid-auto-flow: column;
+  grid-auto-columns: var(--sched-col-w);
   gap: 12px;
+  padding: 12px;
 
   /* keep a single horizontal row + allow horizontal scroll */
   min-width: 100%;
@@ -416,16 +418,8 @@
   align-items: stretch;
 }
 
-/* Student View columns:
-   expand when fewer days are shown, but never smaller than 260px */
-.schedule-columns{
-  grid-auto-columns: minmax(260px, 1fr);
-}
-
-/* Day View columns:
-   fixed-width student columns (horizontal scroll as needed) */
 .schedule-columns--nowrap{
-  grid-auto-columns: 260px;
+  grid-auto-columns: var(--sched-col-w);
 }
 
 .schedule-col{
