@@ -7,6 +7,8 @@
   // -----------------------------
   const UI_STORAGE_KEY = "alveary_schedule_ui_v1";
   const CARDS_STORAGE_KEY = "alveary_schedule_cards_v1";
+  const MA_COURSES_URL = "data/MA_Courses.json";
+  const MA_SCHED_URL = "data/MA_Scheduling.json";
 
   function safeParse(raw) {
     try {
@@ -198,6 +200,34 @@
 
   function uid(prefix = "i") {
     return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+  }
+
+  function pad2(n) {
+  const x = Number(n || 0);
+  return String(x).padStart(2, "0");
+}
+
+  function normGradeList(arr) {
+    if (!Array.isArray(arr)) return [];
+    return arr
+      .flatMap((x) => String(x ?? "").split(",")) // handles ["G5,"] etc
+      .map((s) => s.trim().replace(/^,+/, "").replace(/,+$/, "").trim())
+      .filter(Boolean);
+  }
+  
+  function guessBandLabel(key) {
+    // Examples: "g1-3" -> "1–3", "G1-3" -> "1–3", "g9-12" -> "9–12"
+    const s = String(key || "").trim();
+    const m = s.match(/(\d+)\s*[-–]\s*(\d+)/i);
+    if (m) return `${m[1]}–${m[2]}`;
+    const one = s.match(/(\d+)/);
+    return one ? one[1] : s;
+  }
+  
+  async function fetchJson(url) {
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) throw new Error(`Fetch failed: ${url} (${res.status})`);
+    return await res.json();
   }
 
   function ensureStudentPlacements(cardsState, studentId) {
@@ -502,36 +532,73 @@
         const savedCards = loadKey(CARDS_STORAGE_KEY);
         const normalizedCards = normalizeCardsState(savedCards || defaultCardsState(), allIds);
 
-        // ensure sample templates exist (merge + PATCH missing fields from sample)
-        const sample = buildSampleTemplates();
-        
-        // Start with whatever was saved, then add any missing sample templates.
+        // Start with whatever was saved
         this.templatesById = { ...(normalizedCards.templatesById || {}) };
-        for (const [id, sampleTpl] of Object.entries(sample)) {
-          const existing = this.templatesById[id];
         
-          // If template doesn't exist yet, add it.
-          if (!existing) {
-            this.templatesById[id] = { ...sampleTpl };
-            continue;
-          }
-        
-          // If template exists (cached older version), patch only missing fields
-          // so we don't blow away any future edits.
-          this.templatesById[id] = {
-            ...existing,
-            weeklyTarget:
-              existing.weeklyTarget == null ? sampleTpl.weeklyTarget : existing.weeklyTarget,
-            trackingCount:
-              existing.trackingCount == null ? sampleTpl.trackingCount : existing.trackingCount,
-            symbols:
-              (existing.symbols == null || existing.symbols === "") ? sampleTpl.symbols : existing.symbols,
-            minutes:
-              existing.minutes == null ? sampleTpl.minutes : existing.minutes,
-            sortKey:
-              (existing.sortKey == null || existing.sortKey === "") ? sampleTpl.sortKey : existing.sortKey,
-          };
+        // If empty (first run), seed with samples so the page isn't blank
+        if (!this.templatesById || Object.keys(this.templatesById).length === 0) {
+          this.templatesById = { ...buildSampleTemplates() };
         }
+        
+        // Load REAL catalog in the background and swap it in safely
+        Promise.all([fetchJson(MA_COURSES_URL), fetchJson(MA_SCHED_URL)])
+          .then(([maCourses, maScheduling]) => {
+            const real = buildTemplatesFromJson(maCourses, maScheduling);
+            if (!real || Object.keys(real).length === 0) return;
+        
+            // Keep custom templates + keep any user-edited values if they exist
+            const merged = { ...this.templatesById };
+        
+            // Remove sample templates once real loads
+            for (const id of Object.keys(merged)) {
+              if (String(id).startsWith("a:")) delete merged[id];
+            }
+        
+            for (const [id, realTpl] of Object.entries(real)) {
+              const existing = merged[id];
+        
+              if (!existing) {
+                merged[id] = { ...realTpl };
+                continue;
+              }
+        
+              // Preserve user edits, but pull in any missing real fields
+              merged[id] = {
+                ...realTpl,
+                weeklyTarget: existing.weeklyTarget ?? realTpl.weeklyTarget,
+                trackingCount: existing.trackingCount ?? realTpl.trackingCount,
+                symbols: (existing.symbols ?? "").trim() ? existing.symbols : realTpl.symbols,
+                minutes: existing.minutes ?? realTpl.minutes,
+                sortKey: (existing.sortKey ?? "").trim() ? existing.sortKey : realTpl.sortKey,
+                title: (existing.title ?? "").trim() ? existing.title : realTpl.title,
+              };
+            }
+        
+            // Ensure 12-box tracker baseline stays true
+            for (const [id, tpl] of Object.entries(merged)) {
+              if (!tpl) continue;
+              if (!tpl.trackingCount || tpl.trackingCount < 12) tpl.trackingCount = 12;
+              if (!tpl.weeklyTarget) tpl.weeklyTarget = 1;
+            }
+        
+            // Ensure default gradeband selections exist for any grouped courseKey
+            if (!this.choices) this.choices = {};
+            if (!this.choices.courseOptions) this.choices.courseOptions = {};
+            for (const tpl of Object.values(merged)) {
+              const cg = tpl?.meta?.choiceGroup;
+              if (!cg) continue;
+              const courseKey = tpl.courseKey;
+              if (!this.choices.courseOptions[courseKey]) {
+                this.choices.courseOptions[courseKey] = tpl.meta.option;
+              }
+            }
+        
+            this.templatesById = merged;
+            this.persistCards();
+          })
+          .catch((err) => {
+            console.warn("MA catalog load failed; staying on sample/saved catalog.", err);
+          });
 
         // --- MIGRATION: ensure “choiceGroup” metadata exists for older cached templates ---
         for (const [id, tpl] of Object.entries(this.templatesById || {})) {
@@ -952,6 +1019,98 @@
           symbols: active.symbols || "",
         };
       },
+
+      function buildTemplatesFromJson(maCourses, maScheduling) {
+      // Flatten courses + topics into lookup maps by Airtable recordID
+      const courseByRecord = new Map();
+      const topicByRecord = new Map();
+      const courseTitleByCourseId = new Map();
+    
+      for (const [subject, courseList] of Object.entries(maCourses || {})) {
+        for (const c of courseList || []) {
+          if (c?.recordID) courseByRecord.set(c.recordID, c);
+          if (c?.courseId && c?.title) courseTitleByCourseId.set(c.courseId, c.title);
+    
+          for (const t of c?.topics || []) {
+            if (t?.recordID) topicByRecord.set(t.recordID, t);
+          }
+        }
+      }
+    
+      const templates = {};
+    
+      for (const rule of maScheduling || []) {
+        const id = rule?.scheduleRecordId;
+        if (!id) continue;
+    
+        // Resolve the source (course or topic) by Airtable record id
+        const sourceId = rule.courseOrTopicId;
+        const kind = String(rule.sourceKind || "").toLowerCase();
+    
+        const source =
+          (kind === "course" ? courseByRecord.get(sourceId) : topicByRecord.get(sourceId)) ||
+          courseByRecord.get(sourceId) ||
+          topicByRecord.get(sourceId);
+    
+        // If we can't resolve the source, skip it for now
+        if (!source) continue;
+    
+        const isCourse = !!(source.title && source.courseId);
+        const sourceKey = isCourse
+          ? (source.courseId || source.id || id)
+          : (source.Topic_ID || source.Topic_ID_App || source.id || id);
+    
+        const parentCourseTitle = courseTitleByCourseId.get(source.courseId) || "";
+    
+        const title = isCourse ? source.title : (source.Topic || source.title || "");
+        const courseLabel = isCourse ? source.title : (parentCourseTitle || title);
+    
+        const weeklyTarget = Number(rule.wk || 0);
+        const trackingCount = Number(rule.termTracking || 0);
+        const minutes = Number(rule.min || 0);
+    
+        // Symbols: keep simple + consistent (we can enhance later)
+        const symbols = [
+          source.shared ? "↔" : "",
+          trackingCount ? "*" : "",
+          rule.teach ? "🅃" : "",
+        ].filter(Boolean).join(" ");
+    
+        const variantSort = Number(rule.variantSort || 0);
+        const bandSort = Number(rule.gradeBandSort || 0);
+    
+        // Gradeband option: rule.gradeBandKey is a string when applicable
+        const bandKey = String(rule.gradeBandKey || "").trim();
+    
+        const tpl = {
+          id,
+          sortKey: `${sourceKey}::${pad2(variantSort || bandSort || 0)}`,
+          courseKey: sourceKey,             // used for grouping gradeband choices
+          courseLabel,
+          variantKey: String(rule.variantKey || ""),
+          variantSort: variantSort || 0,
+          title,
+          minutes,
+          symbols,
+          trackingCount,
+          weeklyTarget,
+          // store gradeFilter for later filtering (grade panel filter)
+          gradeFilter: normGradeList(rule.gradeFilter),
+        };
+    
+        if (bandKey) {
+          tpl.meta = {
+            choiceGroup: "gradeBand",
+            option: bandKey,
+            optionLabel: guessBandLabel(bandKey),
+          };
+        }
+    
+        templates[id] = tpl;
+      }
+    
+      return templates;
+    }
 
       // -----------------------------
       // Phase 2.5: Catalog + placements
