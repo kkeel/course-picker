@@ -1,6 +1,12 @@
 /**
  * Build data/MA_Scheduling.json from Airtable (MA_Scheduling table)
  * Location: tools/build-scheduling-from-airtable.mjs
+ *
+ * Required env:
+ *  - AIRTABLE_PAT
+ *  - AIRTABLE_BASE_ID
+ * Optional:
+ *  - ROTATION   (e.g. "R3" or "3") -> selects view: "R3 – Scheduling JSON"
  */
 
 import fs from "fs/promises";
@@ -75,21 +81,42 @@ function numOrNull(v) {
   return Number.isFinite(n) ? n : null;
 }
 
+function isTruthyVariant(v) {
+  // supports 1/0, true/false, "1"/"0", "TRUE"/"FALSE"
+  if (v === 1 || v === true) return true;
+  if (v === 0 || v === false || v === null || v === undefined || v === "") return false;
+
+  const s = String(v).trim().toLowerCase();
+  return s === "1" || s === "true" || s === "yes";
+}
+
 function transformRecord(record) {
   const f = record.fields || {};
 
-  // These field names match what you showed in Airtable screenshots.
-  // If any are slightly different, change ONLY the key strings here.
-  const courseOrTopicId = f.Course_RecordID || f.Topic_RecordID || null;
+  // ✅ Your field name for "the course/topic record id this schedule row belongs to"
+  const courseOrTopicId = f.Source_ID || null;
+
+  // ✅ Your field is now isVarient (1/0)
+  const isVariant = isTruthyVariant(f.isVarient);
+
+  // Titles/labels can come from either of these depending on your view fields
+  const title =
+    f.Schedule_CARD ||
+    f["Course/Topic_Title"] ||
+    f.Course_Topic_Title ||
+    "";
 
   return {
     // record IDs
     schedulingRecordId: record.id,
     courseOrTopicId,
-    type: f.Type || null, // "C" or "T"
+
+    // optional extra metadata (safe to keep; helps debugging later)
+    sourceKind: f.Source_Kind || null, // "Course" / "Topic" if you want it
+    type: f.Type || null,              // "C" / "T" if present
 
     // display
-    title: f.Schedule_CARD || f.Course_Topic_Title || "",
+    title,
     subject: f.Subject || null,
 
     // schedule logic
@@ -98,8 +125,8 @@ function transformRecord(record) {
     termTracking: numOrNull(f.Term_Tracking) ?? 12,
 
     // variant grouping (only meaningful when there are multiple rows per course/topic)
-    isVariant: Boolean(f.isVariant),
-    variantKey: f.variantKey || null,
+    isVariant,
+    variantKey: isVariant ? (f.variantKey || null) : null,
     variantSort: numOrNull(f.variantSort) ?? numOrNull(f["MIN"]) ?? 0,
 
     // grade-band (choice cards)
