@@ -3,8 +3,7 @@ name: Build MA_Scheduling JSON (R3)
 on:
   workflow_dispatch:
   schedule:
-    # adjust to match your other nightly jobs
-    - cron: "50 7 * * *"
+    - cron: "50 7 * * *" # adjust if you want, but keep consistent with your other nightly jobs
 
 jobs:
   build-scheduling:
@@ -21,7 +20,7 @@ jobs:
 
       - name: Build MA_Scheduling.json from Airtable
         env:
-          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+          AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
           AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
         run: node tools/build-scheduling-from-airtable.mjs
 
