@@ -1,8 +1,12 @@
 /**
- * Build MA_Scheduling.json from Airtable
+ * Build data/MA_Scheduling.json from Airtable (MA_Scheduling table)
  * Location: tools/build-scheduling-from-airtable.mjs
  *
- * Uses native fetch (Node 18+/20)
+ * Required env:
+ *  - AIRTABLE_PAT
+ *  - AIRTABLE_BASE_ID
+ * Optional:
+ *  - ROTATION   (e.g. "R3" or "3") -> selects view: "R3 – Scheduling JSON"
  */
 
 import fs from "fs/promises";
@@ -13,44 +17,46 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // ==============================
-// ENV (match other builders)
+// ENV
 // ==============================
-// Prefer AIRTABLE_PAT (newer Airtable Personal Access Token), but support legacy AIRTABLE_API_KEY too.
-const AIRTABLE_TOKEN = process.env.AIRTABLE_PAT || process.env.AIRTABLE_API_KEY;
+const AIRTABLE_PAT = process.env.AIRTABLE_PAT;
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
+const ROTATION_RAW = process.env.ROTATION || "R3";
 
-if (!AIRTABLE_TOKEN || !AIRTABLE_BASE_ID) {
-  throw new Error("Missing AIRTABLE_PAT (or AIRTABLE_API_KEY) or AIRTABLE_BASE_ID");
+// normalize ROTATION to "R#"
+const ROTATION = /^R\d+$/i.test(ROTATION_RAW)
+  ? ROTATION_RAW.toUpperCase()
+  : `R${String(ROTATION_RAW).replace(/\D/g, "") || "3"}`;
+
+if (!AIRTABLE_PAT || !AIRTABLE_BASE_ID) {
+  throw new Error("Missing AIRTABLE_PAT or AIRTABLE_BASE_ID");
 }
 
 // ==============================
 // CONFIG
 // ==============================
 const TABLE_NAME = "MA_Scheduling";
-const VIEW_NAME = "R3 – Scheduling JSON";
-
-// where the JSON will live (match your other builders)
+const VIEW_NAME = `${ROTATION} – Scheduling JSON`;
 const OUTPUT_PATH = path.resolve(__dirname, "../data/MA_Scheduling.json");
 
 // ==============================
 // FETCH HELPERS
 // ==============================
 async function fetchAllRecords() {
-  let records = [];
+  const records = [];
   let offset;
 
   do {
     const url = new URL(
-      `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(TABLE_NAME)}`
+      `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(
+        TABLE_NAME
+      )}`
     );
-
     url.searchParams.set("view", VIEW_NAME);
     if (offset) url.searchParams.set("offset", offset);
 
     const res = await fetch(url.toString(), {
-      headers: {
-        Authorization: `Bearer ${AIRTABLE_TOKEN}`,
-      },
+      headers: { Authorization: `Bearer ${AIRTABLE_PAT}` },
     });
 
     if (!res.ok) {
@@ -59,7 +65,7 @@ async function fetchAllRecords() {
     }
 
     const data = await res.json();
-    records.push(...data.records);
+    records.push(...(data.records || []));
     offset = data.offset;
   } while (offset);
 
@@ -69,7 +75,7 @@ async function fetchAllRecords() {
 // ==============================
 // TRANSFORM
 // ==============================
-function toNum(v) {
+function numOrNull(v) {
   if (v === undefined || v === null || v === "") return null;
   const n = Number(v);
   return Number.isFinite(n) ? n : null;
@@ -78,86 +84,74 @@ function toNum(v) {
 function transformRecord(record) {
   const f = record.fields || {};
 
-  const minutes =
-    f["MIN.+"] !== undefined ? toNum(f["MIN.+"]) :
-    f["MIN"] !== undefined ? toNum(f["MIN"]) :
-    null;
+  // These field names match what you showed in Airtable screenshots.
+  // If any are slightly different, change ONLY the key strings here.
+  const courseOrTopicId = f.Course_RecordID || f.Topic_RecordID || null;
 
   return {
-    // stable IDs
+    // record IDs
     schedulingRecordId: record.id,
-
-    courseOrTopicId: f.Course_RecordID || f.Topic_RecordID || null,
-
-    type: f.Type || null, // "C" | "T"
+    courseOrTopicId,
+    type: f.Type || null, // "C" or "T"
 
     // display
     title: f.Schedule_CARD || f.Course_Topic_Title || "",
     subject: f.Subject || null,
 
     // schedule logic
-    timesPerWeek:
-      f["WK.+"] !== undefined ? toNum(f["WK.+"]) :
-      f["WK"] !== undefined ? toNum(f["WK"]) :
-      null,
+    timesPerWeek: numOrNull(f["WK.+"] ?? f["WK"]),
+    minutes: numOrNull(f["MIN.+"] ?? f["MIN"]),
+    termTracking: numOrNull(f.Term_Tracking) ?? 12,
 
-    minutes,
-
-    // tracking (you set this to always be 12, but we still default safely)
-    termTracking: f.Term_Tracking ?? 12,
-
-    // variant handling
+    // variant grouping (only meaningful when there are multiple rows per course/topic)
     isVariant: Boolean(f.isVariant),
-    // key: use Airtable field if you set it, else fall back to record.id
-    variantKey: f.variantKey || record.id,
-    // sort: use Airtable field if you set it, else fall back to minutes, else 0
-    variantSort: f.variantSort !== undefined ? toNum(f.variantSort) : (minutes ?? 0),
+    variantKey: f.variantKey || null,
+    variantSort: numOrNull(f.variantSort) ?? numOrNull(f["MIN"]) ?? 0,
 
-    // grade-band (choice cards only)
+    // grade-band (choice cards)
     gradeBandKey: f.gradeBandKey || null,
-    gradeBandSort: f.gradeBandSort !== undefined ? toNum(f.gradeBandSort) : null,
-    gradeMin: f.grade_min !== undefined ? toNum(f.grade_min) : null,
-    gradeMax: f.grade_max !== undefined ? toNum(f.grade_max) : null,
+    gradeBandSort: numOrNull(f.gradeBandSort),
+    gradeMin: numOrNull(f.grade_min),
+    gradeMax: numOrNull(f.grade_max),
     gradeNote: f["(Opt.) +Grade Note"] || null,
+
+    // text helpers
+    schedulingInfoText: f.Scheduling_Info_TextONLY || null,
+    cardText: f.Card_Text || null,
+
+    rotation: ROTATION,
   };
 }
 
 // ==============================
-// MAIN
+// BUILD
 // ==============================
-async function main() {
+async function build() {
+  console.log(`Fetching ${TABLE_NAME} (${VIEW_NAME})…`);
   const records = await fetchAllRecords();
+  console.log(`Fetched ${records.length} records`);
 
-  const out = records.map(transformRecord);
+  const data = records.map(transformRecord);
 
-  // Optional: stable sort to keep diffs clean
-  out.sort((a, b) => {
-    // group by course/topic
-    const idA = a.courseOrTopicId || "";
-    const idB = b.courseOrTopicId || "";
-    if (idA !== idB) return idA.localeCompare(idB);
+  // stable ordering for diffs
+  data.sort((a, b) => {
+    const aid = a.courseOrTopicId || "";
+    const bid = b.courseOrTopicId || "";
+    if (aid !== bid) return aid.localeCompare(bid);
 
-    // then by gradeBandSort (choices)
-    const gA = a.gradeBandSort ?? 9999;
-    const gB = b.gradeBandSort ?? 9999;
-    if (gA !== gB) return gA - gB;
+    // If variantSort ties, fall back to record id
+    const vs = (a.variantSort || 0) - (b.variantSort || 0);
+    if (vs !== 0) return vs;
 
-    // then by variantSort
-    const vA = a.variantSort ?? 0;
-    const vB = b.variantSort ?? 0;
-    if (vA !== vB) return vA - vB;
-
-    // then stable by record id
     return (a.schedulingRecordId || "").localeCompare(b.schedulingRecordId || "");
   });
 
   await fs.mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
-  await fs.writeFile(OUTPUT_PATH, JSON.stringify(out, null, 2) + "\n", "utf8");
-
-  console.log(`✅ Wrote ${out.length} records to ${OUTPUT_PATH}`);
+  await fs.writeFile(OUTPUT_PATH, JSON.stringify(data, null, 2), "utf8");
+  console.log(`Wrote ${OUTPUT_PATH}`);
 }
 
-main().catch((err) => {
-  console.error("❌ build-scheduling failed:", err);
+build().catch((err) => {
+  console.error(err);
   process.exit(1);
 });
