@@ -3,7 +3,7 @@ name: Build MA_Scheduling JSON (R3)
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 10 * * *" # 3:00am PST (adjust if you want)
+    - cron: "25 8 * * *" # adjust time as desired (UTC)
 
 permissions:
   contents: write
@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: "20"
 
       - name: Build MA_Scheduling.json from Airtable
         env:
