@@ -67,6 +67,23 @@ function txt(v) {
   return String(v);
 }
 
+function list(v) {
+  if (v == null) return [];
+  if (Array.isArray(v)) return v.map(x => String(x).trim()).filter(Boolean);
+  // rollups sometimes come through as a comma-separated string depending on config
+  return String(v).split(",").map(s => s.trim()).filter(Boolean);
+}
+
+function bool01(v) {
+  // handles: 1/0, "1"/"0", true/false, "true"/"false"
+  if (v === true || v === false) return v;
+  const s = String(v ?? "").trim().toLowerCase();
+  if (s === "1" || s === "true") return true;
+  if (s === "0" || s === "false" || s === "") return false;
+  // fallback: any non-empty value counts as true
+  return true;
+}
+
 // ─────────────────────────────────────────────
 // Record normalizers
 // ─────────────────────────────────────────────
@@ -114,6 +131,11 @@ function normalizeCourse(rec) {
     term1: txt(f["Term 1"]).trim(),
     term2: txt(f["Term 2"]).trim(),
     term3: txt(f["Term 3"]).trim(),
+
+    scheduleID: list(f["scheduleID"]),
+    hasVariant: bool01(f["hasVariant"]),
+    hasGradeband: bool01(f["hasGradeband"]),
+    gradeBandKey: list(f["gradeBandKey"]),
   };
 }
 
@@ -151,6 +173,11 @@ function normalizeTopic(rec) {
     term1: txt(f["Term 1"]).trim(),
     term2: txt(f["Term 2"]).trim(),
     term3: txt(f["Term 3"]).trim(),
+
+    scheduleID: list(f["scheduleID"]),
+    hasVariant: bool01(f["hasVariant"]),
+    hasGradeband: bool01(f["hasGradeband"]),
+    gradeBandKey: list(f["gradeBandKey"]),
   };
 }
 
