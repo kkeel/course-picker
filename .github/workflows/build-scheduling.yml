@@ -1,0 +1,39 @@
+name: build-scheduling
+
+on:
+  workflow_dispatch:
+  schedule:
+    # pick a time that doesn’t collide with your other nightly builds
+    - cron: "20 8 * * *" # 8:20am UTC = 12:20am PST
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build MA_Scheduling.json from Airtable
+        env:
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+        run: node tools/build-scheduling-from-airtable.mjs
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/MA_Scheduling.json
+          git commit -m "Nightly build: MA_Scheduling.json" || echo "No changes to commit"
+          git push
