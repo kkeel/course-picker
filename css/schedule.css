@@ -399,52 +399,33 @@
   padding-bottom: 8px; /* room for scrollbar */
 }
 
-/*
-  KEY FIX:
-  Use auto-fit so when visibleDays is 3, you get 3 columns that expand.
-  When the screen is narrow, minmax(220px, 1fr) forces horizontal scroll.
-*/
-.schedule-columns{
-  display: flex;
-  flex-wrap: nowrap;
+/* =========================================================
+   Schedule columns layout (Student View + Day View)
+   Use GRID to prevent column overlap and keep scrolling stable
+   ========================================================= */
+
+.schedule-columns,
+.schedule-columns--nowrap{
+  display: grid;
+  grid-auto-flow: column;
   gap: 12px;
 
-  /* keep a single horizontal row (prevents 2-row wrapping) */
-  width: max-content;
+  /* keep a single horizontal row + allow horizontal scroll */
   min-width: 100%;
-
   height: 100%;
   align-items: stretch;
 }
 
 /* Student View columns:
-   - grow wider when you only show 2–3 days
-   - but never shrink below 260px
-   - and never wrap to a second row */
-.schedule-columns .schedule-col{
-  flex: 1 0 260px;
-  min-width: 260px;
-  height: 100%;
+   expand when fewer days are shown, but never smaller than 260px */
+.schedule-columns{
+  grid-auto-columns: minmax(260px, 1fr);
 }
 
-/* Day View needs one horizontal row of student columns (no stacking) */
+/* Day View columns:
+   fixed-width student columns (horizontal scroll as needed) */
 .schedule-columns--nowrap{
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 12px;
-
-  /* force horizontal scrolling inside .schedule-board */
-  width: max-content;
-  min-width: 100%;
-
-  height: 100%;
-  align-items: stretch;
-}
-
-.schedule-columns--nowrap .schedule-col{
-  flex: 0 0 260px;     /* column width */
-  min-width: 260px;    /* prevents squishing */
-  height: 100%;
+  grid-auto-columns: 260px;
 }
 
 .schedule-col{
