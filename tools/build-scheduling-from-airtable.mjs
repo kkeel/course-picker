@@ -1,152 +1,174 @@
-// tools/build-scheduling-from-airtable.mjs
+/**
+ * Build MA_Scheduling.json from Airtable
+ * Location: tools/build-scheduling-from-airtable.mjs
+ *
+ * Uses native fetch (Node 18+/20)
+ */
+
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
-import fetch from "node-fetch";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// ==============================
+// ENV
+// ==============================
 const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
 
-// Update these two to match your Airtable
+if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
+  throw new Error("Missing AIRTABLE_API_KEY or AIRTABLE_BASE_ID");
+}
+
+// ==============================
+// CONFIG
+// ==============================
 const TABLE_NAME = "MA_Scheduling";
 const VIEW_NAME = "R3 – Scheduling JSON";
 
-if (!AIRTABLE_API_KEY) throw new Error("Missing AIRTABLE_API_KEY");
-if (!AIRTABLE_BASE_ID) throw new Error("Missing AIRTABLE_BASE_ID");
+// where the JSON will live (match your other builders)
+const OUTPUT_PATH = path.resolve(
+  __dirname,
+  "../data/MA_Scheduling.json"
+);
 
-const AIRTABLE_URL = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(TABLE_NAME)}`;
-
-async function fetchAllFromView(viewName) {
+// ==============================
+// FETCH HELPERS
+// ==============================
+async function fetchAllRecords() {
   let records = [];
-  let offset = undefined;
+  let offset;
 
-  while (true) {
-    const url = new URL(AIRTABLE_URL);
-    url.searchParams.set("view", viewName);
-    url.searchParams.set("pageSize", "100");
+  do {
+    const url = new URL(
+      `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(
+        TABLE_NAME
+      )}`
+    );
+
+    url.searchParams.set("view", VIEW_NAME);
     if (offset) url.searchParams.set("offset", offset);
 
     const res = await fetch(url.toString(), {
-      headers: { Authorization: `Bearer ${AIRTABLE_API_KEY}` },
+      headers: {
+        Authorization: `Bearer ${AIRTABLE_API_KEY}`,
+      },
     });
 
     if (!res.ok) {
       const text = await res.text();
-      throw new Error(`Airtable fetch failed: ${res.status} ${text}`);
+      throw new Error(`Airtable error ${res.status}: ${text}`);
     }
 
-    const json = await res.json();
-    records.push(...(json.records || []));
-    if (!json.offset) break;
-    offset = json.offset;
-  }
+    const data = await res.json();
+    records.push(...data.records);
+    offset = data.offset;
+  } while (offset);
 
   return records;
 }
 
-function asNumber(v, fallback = 0) {
-  const n = Number(v);
-  return Number.isFinite(n) ? n : fallback;
+// ==============================
+// TRANSFORM
+// ==============================
+function transformRecord(record) {
+  const f = record.fields;
+
+  return {
+    // stable IDs
+    schedulingRecordId: record.id,
+    courseOrTopicId:
+      f.Course_RecordID ||
+      f.Topic_RecordID ||
+      null,
+
+    type: f.Type || null, // "C" | "T"
+
+    // display
+    title: f.Schedule_CARD || f.Course_Topic_Title || "",
+    subject: f.Subject || null,
+
+    // schedule logic
+    timesPerWeek: f["WK.+"]
+      ? Number(f["WK.+"])
+      : f["WK"]
+      ? Number(f["WK"])
+      : null,
+
+    minutes: f["MIN.+"]
+      ? Number(f["MIN.+"])
+      : f["MIN"]
+      ? Number(f["MIN"])
+      : null,
+
+    termTracking: f.Term_Tracking ?? 12,
+
+    // variant handling
+    isVariant: Boolean(f.isVariant),
+    variantKey: f.variantKey || record.id,
+    variantSort:
+      f.variantSort !== undefined
+        ? Number(f.variantSort)
+        : f["MIN"]
+        ? Number(f["MIN"])
+        : 0,
+
+    // grade-band (choice cards only)
+    gradeBandKey: f.gradeBandKey || null,
+    gradeBandSort:
+      f.gradeBandSort !== undefined
+        ? Number(f.gradeBandSort)
+        : null,
+    gradeMin:
+      f.grade_min !== undefined ? Number(f.grade_min) : null,
+    gradeMax:
+      f.grade_max !== undefined ? Number(f.grade_max) : null,
+
+    gradeNote: f["(Opt.) +Grade Note"] || null,
+
+    // metadata / UI text
+    schedulingInfoText: f.Scheduling_Info_TextONLY || null,
+    cardText: f.Card_Text || null,
+
+    // rotation
+    rotation: "R3",
+  };
 }
 
-function asString(v, fallback = "") {
-  return (v === null || v === undefined) ? fallback : String(v);
-}
-
-function buildTitle(fields) {
-  // Prefer explicit fields if you have them; fall back gracefully.
-  const base = asString(fields["Course/Topic_Title"] || fields["CourseTopic_Title"] || fields["Title"]);
-  const gradeNote = asString(fields["Grade_Note"] || fields["(Opt.) +Grade Note"] || fields["Grade Note"]);
-  if (base && gradeNote) return `${base}: ${gradeNote}`;
-  return base || "Schedule Card";
-}
-
-function buildCourseKey(fields) {
-  // You should feed this from your MA_Scheduling formula/lookup field:
-  // e.g. CourseTopic_RecordID that points to the linked Course or Topic record id.
-  return asString(fields["CourseTopic_RecordID"] || fields["Course/Topic_RecordID"] || fields["CourseTopicID"] || "");
-}
-
-function isTrue(v) {
-  return v === true || v === "true" || v === "TRUE" || v === 1 || v === "1";
-}
-
+// ==============================
+// BUILD
+// ==============================
 async function build() {
-  console.log("Fetching MA_Scheduling…");
-  const records = await fetchAllFromView(VIEW_NAME);
+  console.log("Fetching MA_Scheduling records…");
+  const records = await fetchAllRecords();
 
-  const cards = records.map((r) => {
-    const f = r.fields || {};
+  console.log(`Fetched ${records.length} records`);
 
-    const recId = r.id; // Airtable record id of MA_Scheduling
-    const courseKey = buildCourseKey(f);
+  const data = records.map(transformRecord);
 
-    const gradeBandKey = asString(f["gradeBandKey"] || "");
-    const gradeBandSort = asNumber(f["gradeBandSort"], 0);
-
-    const minutes = asNumber(f["MIN"] ?? f["Min"] ?? f["Minutes"], 0);
-    const weeklyTarget = asNumber(f["WK"] ?? f["Wk"] ?? f["Times/Week"], 0);
-
-    const trackingCount = asNumber(f["Term_Tracking"] ?? f["Tracking"] ?? f["trackingCount"], 12);
-
-    const isVariant = isTrue(f["isVarient"] || f["isVariant"]); // spelling as in your screenshot
-
-    const obj = {
-      id: recId,
-      // sortKey controls rail ordering; use whatever you already use for ordering in Airtable
-      sortKey: asString(f["Sort"] || f["sortKey"] || f["Schedule_CARD"] || f["Schedule_CARD_byCourse"] || recId),
-
-      // used to attach schedule rules to the right course/topic later:
-      courseKey,
-      courseLabel: asString(f["Subject"] || f["courseLabel"] || ""), // optional
-      title: buildTitle(f),
-
-      minutes,
-      symbols: asString(f["Card_Text"] || f["symbols"] || ""),
-      trackingCount,
-      weeklyTarget,
-
-      // Variant fields (only meaningful for “true variants”)
-      variantKey: "",
-      variantSort: 0,
-
-      meta: {},
-    };
-
-    // Choice / grade-band option
-    if (gradeBandKey) {
-      obj.meta = {
-        choiceGroup: "gradeBand",
-        choiceOption: gradeBandKey,
-        choiceOptionLabel: asString(f["Grade_Note"] || f["(Opt.) +Grade Note"] || ""),
-      };
-      obj.gradeMin = asNumber(f["grade_min"], 0);
-      obj.gradeMax = asNumber(f["grade_max"], 0);
-      obj.gradeBandSort = gradeBandSort;
+  // stable ordering for git diffs
+  data.sort((a, b) => {
+    if (a.courseOrTopicId !== b.courseOrTopicId) {
+      return (a.courseOrTopicId || "").localeCompare(
+        b.courseOrTopicId || ""
+      );
     }
-    // True variant (multiple schedule cards per same course/topic)
-    else if (isVariant) {
-      obj.variantKey = recId;
-      obj.variantSort = asNumber(f["varientSort"] || f["variantSort"] || minutes, minutes);
-    }
-
-    return obj;
+    return (a.variantSort || 0) - (b.variantSort || 0);
   });
 
-  // Deterministic ordering in the JSON (helps diffs + stability)
-  cards.sort((a, b) => String(a.sortKey).localeCompare(String(b.sortKey)));
+  await fs.mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
+  await fs.writeFile(
+    OUTPUT_PATH,
+    JSON.stringify(data, null, 2),
+    "utf8"
+  );
 
-  const outPath = path.join(__dirname, "..", "data", "MA_Scheduling.json");
-  await fs.writeFile(outPath, JSON.stringify(cards, null, 2), "utf8");
-
-  console.log("✓ Done!");
-  console.log("Written:", outPath);
+  console.log(`Wrote ${OUTPUT_PATH}`);
 }
 
 build().catch((err) => {
-  console.error("Build failed:", err);
+  console.error(err);
   process.exit(1);
 });
