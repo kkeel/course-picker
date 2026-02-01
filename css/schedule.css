@@ -4,7 +4,6 @@
 
 :root{
   --rail-head-bg: #dee1d2; /* brand light green */
-  --sched-col-min: 260px;
 }
 
 /* Schedule header row: title left, tutorial right */
@@ -400,26 +399,52 @@
   padding-bottom: 8px; /* room for scrollbar */
 }
 
-/* =========================================================
-   Schedule columns layout (Student View + Day View)
-   Use GRID to prevent column overlap and keep scrolling stable
-   ========================================================= */
-
+/*
+  KEY FIX:
+  Use auto-fit so when visibleDays is 3, you get 3 columns that expand.
+  When the screen is narrow, minmax(220px, 1fr) forces horizontal scroll.
+*/
 .schedule-columns{
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: var(--sched-col-w);
+  display: flex;
+  flex-wrap: nowrap;
   gap: 12px;
-  padding: 12px;
 
-  /* keep a single horizontal row + allow horizontal scroll */
+  /* keep a single horizontal row (prevents 2-row wrapping) */
+  width: max-content;
   min-width: 100%;
+
   height: 100%;
   align-items: stretch;
 }
 
+/* Student View columns:
+   - grow wider when you only show 2â€“3 days
+   - but never shrink below 260px
+   - and never wrap to a second row */
+.schedule-columns .schedule-col{
+  flex: 1 0 260px;
+  min-width: 260px;
+  height: 100%;
+}
+
+/* Day View needs one horizontal row of student columns (no stacking) */
 .schedule-columns--nowrap{
-  grid-auto-columns: minmax(var(--sched-col-min), 1fr);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px;
+
+  /* force horizontal scrolling inside .schedule-board */
+  width: max-content;
+  min-width: 100%;
+
+  height: 100%;
+  align-items: stretch;
+}
+
+.schedule-columns--nowrap .schedule-col{
+  flex: 0 0 260px;     /* column width */
+  min-width: 260px;    /* prevents squishing */
+  height: 100%;
 }
 
 .schedule-col{
@@ -1529,7 +1554,7 @@ body.sched-dragging .sched-card{
   box-shadow: 0 0 0 3px rgba(89,110,94,.12);
 }
 
-/* Insertion line (top/bottom) — draw INSIDE the card
+/* Insertion line (top/bottom) â€” draw INSIDE the card
    (prevents clipping inside overflow-y:auto columns) */
 .sched-card.is-drop-target{
   position: relative;
@@ -1565,7 +1590,7 @@ body.sched-dragging .sched-card{
    Rail header: light-tint sticky (matches chip ON fill)
    ========================================================= */
 
-/* Match the railÃ¢â‚¬â„¢s corner radius to the rest of your UI (and your header block) */
+/* Match the railÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s corner radius to the rest of your UI (and your header block) */
 .sched-rail{
   border-radius: 16px;
 }
@@ -1721,7 +1746,7 @@ body.sched-dragging .sched-card{
 /* NEED list only:
    targets the first rail list (the one right after "Need to schedule:") */
 .sched-rail-body > .sched-rail-section-head + .sched-rail-list .sched-rail-item{
-  background: #ffffff;                 /* pop forward vs the railÃ¢â‚¬â„¢s soft surfaces */
+  background: #ffffff;                 /* pop forward vs the railÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s soft surfaces */
   border-left: 4px solid #596e5e;      /* brand accent */
   box-shadow: 0 1px 0 rgba(0,0,0,.04);
 }
@@ -1736,7 +1761,7 @@ body.sched-dragging .sched-card{
   opacity: .55;                       /* was ~.68 in your file */
   filter: grayscale(.18);
   background: #fbfbf9;                /* keep it calm */
-  border-left: 0;                     /* remove the Ã¢â‚¬Å“activeÃ¢â‚¬Â accent */
+  border-left: 0;                     /* remove the ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œactiveÃƒÂ¢Ã¢â€šÂ¬Ã‚Â accent */
   box-shadow: none;
 }
 
@@ -1747,7 +1772,7 @@ body.sched-dragging .sched-card{
 }
 
 /* =========================================================
-   V1.1 — Force a consistent 2-line title height on ALL cards
+   V1.1 â€” Force a consistent 2-line title height on ALL cards
    (fixes custom cards not reserving title space)
    ========================================================= */
 
@@ -1760,7 +1785,7 @@ body.sched-dragging .sched-card{
   text-overflow: ellipsis;
 }
 
-/* Rail cards (left) — keep title blocks consistent too */
+/* Rail cards (left) â€” keep title blocks consistent too */
 .sched-rail-item-title{
   line-height: 1.25;
   height: 2.5em;
@@ -1794,7 +1819,7 @@ body.sched-dragging .sched-card{
   min-height:0;
 }
 
-/* remove extra internal topbar spacing (we’re not using it now) */
+/* remove extra internal topbar spacing (weâ€™re not using it now) */
 .sched-dayview-topbar{ display:none; }
 
 .sched-dayview-grid{
@@ -1833,20 +1858,20 @@ body.sched-dragging .sched-card{
 }
 
 /* KEY CHANGE: lanes become COLUMNS (like day columns in student view) */
-//.sched-dayview-lanes{
-  /*flex: 1;
-  /*min-height: 0;
-  /*overflow: hidden;
+.sched-dayview-lanes{
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 
-  /*padding: 12px;
+  padding: 12px;
 
-  /*display: grid;
-  /*grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  /*gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
 
-  /*height: 100%;
-  /*align-items: stretch;
-/*}
+  height: 100%;
+  align-items: stretch;
+}
 
 .sched-dayview-lane{
   border: 1px solid #e5e8e5;
