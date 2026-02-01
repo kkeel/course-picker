@@ -68,10 +68,26 @@ function txt(v) {
 }
 
 function list(v) {
+  const clean = (s) => {
+    const x = String(s ?? "").trim();
+    if (!x) return "";
+    if (x.toLowerCase() === "null") return "";
+    return x;
+  };
+
   if (v == null) return [];
-  if (Array.isArray(v)) return v.map(x => String(x).trim()).filter(Boolean);
-  // rollups sometimes come through as a comma-separated string depending on config
-  return String(v).split(",").map(s => s.trim()).filter(Boolean);
+
+  if (Array.isArray(v)) {
+    return v
+      .flatMap((x) => String(x).split(","))
+      .map(clean)
+      .filter(Boolean);
+  }
+
+  return String(v)
+    .split(",")
+    .map(clean)
+    .filter(Boolean);
 }
 
 function bool01(v) {
