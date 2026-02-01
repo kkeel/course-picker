@@ -165,11 +165,11 @@ function transformRecord(record) {
     termTracking: asNumber(f.Term_Tracking, 12),
 
     // flags
-    isVarient: asBool01(f.isVarient),
+    isVariant: asBool01(f.isVariant),
 
     // optional helpers
-    varientKey: asString(f.varientKey),
-    varientSort: asNumber(f.varientSort, 0),
+    variantKey: asString(f.variantKey),
+    variantSort: asNumber(f.variantSort, 0),
 
     gradeBandKey: asString(f.gradeBandKey),
     gradeBandSort: asNumber(f.gradeBandSort, 0),
@@ -193,7 +193,7 @@ function safeCompare(a, b) {
   if (cmp) return cmp;
 
   // Keep together: variants first (optional preference)
-  cmp = (b.isVarient || 0) - (a.isVarient || 0);
+  cmp = (b.isVariant || 0) - (a.isVariant || 0);
   if (cmp) return cmp;
 
   // Choices: grade band order
@@ -201,7 +201,7 @@ function safeCompare(a, b) {
   if (cmp) return cmp;
 
   // Variants: variant order
-  cmp = (a.varientSort || 0) - (b.varientSort || 0);
+  cmp = (a.variantSort || 0) - (b.variantSort || 0);
   if (cmp) return cmp;
 
   // Minutes then title
