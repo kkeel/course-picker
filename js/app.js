@@ -2706,7 +2706,7 @@ function coursePlanner() {
   const STEPS = [
     { key: "intro", label: "Course Planning Intro", href: "index.html", status: "ready", icon: "course-planning-intro.svg" },
     { key: "courses", label: "Courses", href: "courses.html", status: "ready", icon: "course-list.svg" },
-    { key: "schedule", label: "Schedule", href: "schedule.html", status: "ready", icon: "schedule.svg" },
+    { key: "schedule", label: "Schedule", href: "schedule.html", status: "soon", icon: "schedule.svg" },
     { key: "books", label: "Books", href: "books.html", status: "ready", icon: "book-list.svg" },
     { key: "lesson-plans", label: "Lesson Plans", href: null, status: "soon", icon: "lesson-plans.svg" },
     { key: "supplies", label: "Supplies", href: null, status: "soon", icon: "supplies.svg" },
