@@ -4,6 +4,7 @@
 
 :root{
   --rail-head-bg: #dee1d2; /* brand light green */
+  --sched-col-w: 260px;
 }
 
 /* Schedule header row: title left, tutorial right */
@@ -399,41 +400,26 @@
   padding-bottom: 8px; /* room for scrollbar */
 }
 
-/*
-  KEY FIX:
-  Use auto-fit so when visibleDays is 3, you get 3 columns that expand.
-  When the screen is narrow, minmax(220px, 1fr) forces horizontal scroll.
-*/
+/* =========================================================
+   Schedule columns layout (Student View + Day View)
+   Use GRID to prevent column overlap and keep scrolling stable
+   ========================================================= */
+
 .schedule-columns{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-auto-flow: column;
+  grid-auto-columns: var(--sched-col-w);
   gap: 12px;
-  width: 100%;
-  min-width: 0;
+  padding: 12px;
 
-  /* NEW: make the grid fill the panel body so columns can reach the bottom */
-  height: 100%;
-  align-items: stretch;
-}
-
-/* Day View needs one horizontal row of student columns (no stacking) */
-.schedule-columns--nowrap{
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 12px;
-
-  /* force horizontal scrolling inside .schedule-board */
-  width: max-content;
+  /* keep a single horizontal row + allow horizontal scroll */
   min-width: 100%;
-
   height: 100%;
   align-items: stretch;
 }
 
-.schedule-columns--nowrap .schedule-col{
-  flex: 0 0 260px;     /* column width */
-  min-width: 260px;    /* prevents squishing */
-  height: 100%;
+.schedule-columns--nowrap{
+  grid-auto-columns: var(--sched-col-w);
 }
 
 .schedule-col{
