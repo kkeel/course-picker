@@ -2476,3 +2476,40 @@ body.sched-dragging .sched-card{
 .sched-rail-head-actions{
   padding-right: 28px; /* prevents visual crowding on narrow screens */
 }
+
+/* =========================================================
+   Rail collapse chevron — align with Showing summary row
+   ========================================================= */
+
+/* Ensure the top header is the positioning context */
+.sched-rail-top{ position: relative; }
+
+/* Place the collapse chevron relative to the summary line */
+.sched-rail-collapse-btn{
+  position: absolute;
+  right: 12px;
+
+  /* Align vertically to the summary text */
+  top: 0;
+  transform: translateY(0);
+
+  /* We'll compute a more reliable offset using the summary padding */
+}
+
+/* Match the summary row's baseline by referencing its spacing */
+.sched-rail-summary{
+  position: relative;
+  padding-right: 34px; /* makes room so text never runs under chevron */
+}
+
+/* Put the chevron at the same vertical position as the summary text */
+.sched-rail-summary::after{
+  content: "";
+}
+
+/* Override chevron placement to summary row baseline */
+.sched-rail-top .sched-rail-collapse-btn{
+  /* This number should match the distance from the top of .sched-rail-top
+     to the summary text line. It's smaller than before because padding changed. */
+  top: 50px;
+}
