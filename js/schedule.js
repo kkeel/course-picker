@@ -258,7 +258,9 @@
     const parentCourseTitle = courseTitleByCourseId.get(source.courseId) || "";
 
     const title = isCourse ? source.title : (source.Topic || source.title || "");
-    const courseLabel = isCourse ? source.title : (parentCourseTitle || title);
+    const courseLabel = isCourse
+      ? source.title
+      : (source.hasGradeband ? title : (parentCourseTitle || title));
 
     const weeklyTarget = Number(rule.wk || 0);
     const trackingCount = Number(rule.termTracking || 0);
