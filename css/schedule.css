@@ -189,7 +189,7 @@
   align-items:center;
   gap:12px;
   flex-wrap:wrap;
-  justify-content:flex-end;
+  justify-content:flex-start;
 }
 
 .schedule-view-toggle{
@@ -222,7 +222,7 @@
   align-items:center;
   gap:8px;
   flex-wrap:wrap;
-  justify-content:flex-end;
+  justify-content:flex-start;
 }
 
 .schedule-days-global-label{
@@ -785,7 +785,7 @@
 .sched-rail-actions{
   margin-top: 8px;
   display:flex;
-  justify-content:flex-end;
+  justify-content:flex-start;
 }
 
 /* Remove button on placed cards */
@@ -877,6 +877,33 @@
   align-items: center;
 }
 
+
+/* Footer actions (edit/delete) */
+.sched-rail-actions{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.sched-rail-action-btn{
+  height: 18px;
+  min-width: 20px;
+  padding: 0 6px;
+  border-radius: 5px;
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  color: #666d66;
+  font-size: 12px;
+  line-height: 1;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.sched-rail-action-btn:hover{
+  background: rgba(0,0,0,.06);
+}
+
 .sched-rail-icon-btn{
   border: 1px solid #d2d6d2;
   background: #fff;
@@ -896,6 +923,7 @@
   display:flex;
   gap:4px;
   align-items:center;
+  margin-left:auto;
 }
 
 /* Smaller MTWThF toggles */
@@ -1060,7 +1088,7 @@
 
 .sched-modal-actions{
   display:flex;
-  justify-content:flex-end;
+  justify-content:flex-start;
   gap:10px;
   padding: 12px 16px;
   border-top: 1px solid #e5e8e5;
@@ -1151,7 +1179,7 @@
 .sched-rail-actions{
   margin-top: 6px;
   display:flex;
-  justify-content:flex-end;
+  justify-content:flex-start;
   align-items:center;
   gap:8px;
 }
@@ -1284,7 +1312,7 @@
   margin-top: 0;          /* override older rules */
   display:flex;
   align-items:center;
-  justify-content:flex-end;
+  justify-content:flex-start;
   gap:8px;
 }
 
@@ -1336,7 +1364,7 @@
   display:flex;
   gap:8px;
   flex-wrap:wrap;
-  justify-content:flex-end;
+  justify-content:flex-start;
 }
 
 /* Tracking chip on rail title line */
@@ -1396,7 +1424,7 @@
 .sched-rail-track{
   display:inline-flex;
   align-items:center;
-  justify-content:flex-end;
+  justify-content:flex-start;
   min-width: 34px;
   height: 18px;
   font-size: 12px;
@@ -1424,7 +1452,7 @@
   border-radius: 0 0 14px 14px;
   display:flex;
   align-items:center;
-  justify-content:flex-end;
+  justify-content:flex-start;
   gap:10px;
   margin-left: -10px;
   margin-right: -10px;
@@ -1433,6 +1461,8 @@
 /* When grade options exist, they sit on the left side of the footer */
 .sched-rail-footer-left{
   display:flex;
+  align-items:center;
+  gap:10px;
   gap:6px;
   align-items: center;
   margin-right: auto;
@@ -1565,7 +1595,7 @@ body.sched-dragging .sched-card{
    Rail header: light-tint sticky (matches chip ON fill)
    ========================================================= */
 
-/* Match the railÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s corner radius to the rest of your UI (and your header block) */
+/* Match the railÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢s corner radius to the rest of your UI (and your header block) */
 .sched-rail{
   border-radius: 16px;
 }
@@ -1721,7 +1751,7 @@ body.sched-dragging .sched-card{
 /* NEED list only:
    targets the first rail list (the one right after "Need to schedule:") */
 .sched-rail-body > .sched-rail-section-head + .sched-rail-list .sched-rail-item{
-  background: #ffffff;                 /* pop forward vs the railÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s soft surfaces */
+  background: #ffffff;                 /* pop forward vs the railÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢s soft surfaces */
   border-left: 4px solid #596e5e;      /* brand accent */
   box-shadow: 0 1px 0 rgba(0,0,0,.04);
 }
@@ -1736,7 +1766,7 @@ body.sched-dragging .sched-card{
   opacity: .55;                       /* was ~.68 in your file */
   filter: grayscale(.18);
   background: #fbfbf9;                /* keep it calm */
-  border-left: 0;                     /* remove the ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œactiveÃƒÂ¢Ã¢â€šÂ¬Ã‚Â accent */
+  border-left: 0;                     /* remove the ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“activeÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â accent */
   box-shadow: none;
 }
 
@@ -1747,7 +1777,7 @@ body.sched-dragging .sched-card{
 }
 
 /* =========================================================
-   V1.1 â€” Force a consistent 2-line title height on ALL cards
+   V1.1 Ã¢â‚¬â€ Force a consistent 2-line title height on ALL cards
    (fixes custom cards not reserving title space)
    ========================================================= */
 
@@ -1760,7 +1790,7 @@ body.sched-dragging .sched-card{
   text-overflow: ellipsis;
 }
 
-/* Rail cards (left) â€” keep title blocks consistent too */
+/* Rail cards (left) Ã¢â‚¬â€ keep title blocks consistent too */
 .sched-rail-item-title{
   line-height: 1.25;
   height: 2.5em;
@@ -1794,7 +1824,7 @@ body.sched-dragging .sched-card{
   min-height:0;
 }
 
-/* remove extra internal topbar spacing (weâ€™re not using it now) */
+/* remove extra internal topbar spacing (weÃ¢â‚¬â„¢re not using it now) */
 .sched-dayview-topbar{ display:none; }
 
 .sched-dayview-grid{
