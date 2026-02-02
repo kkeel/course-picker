@@ -2068,3 +2068,14 @@ body.sched-dragging .sched-card{
   padding: 10px 12px;
   font-size: 13px;
 }
+
+/* Force sticky header to be stacked (row1, row2, row3) */
+.sched-rail-top{
+  display: flex;
+  flex-direction: column;
+}
+
+/* Summary sits under row 1 */
+.sched-rail-summary{
+  margin-top: 6px;
+}
