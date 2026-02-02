@@ -1632,7 +1632,7 @@ body.sched-dragging .sched-card{
    Rail header: light-tint sticky (matches chip ON fill)
    ========================================================= */
 
-/* Match the railÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢s corner radius to the rest of your UI (and your header block) */
+/* Match the railÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¾ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢s corner radius to the rest of your UI (and your header block) */
 .sched-rail{
   border-radius: 16px;
 }
@@ -1788,7 +1788,7 @@ body.sched-dragging .sched-card{
 /* NEED list only:
    targets the first rail list (the one right after "Need to schedule:") */
 .sched-rail-body > .sched-rail-section-head + .sched-rail-list .sched-rail-item{
-  background: #ffffff;                 /* pop forward vs the railÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢s soft surfaces */
+  background: #ffffff;                 /* pop forward vs the railÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¾ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢s soft surfaces */
   border-left: 4px solid #596e5e;      /* brand accent */
   box-shadow: 0 1px 0 rgba(0,0,0,.04);
 }
@@ -1803,7 +1803,7 @@ body.sched-dragging .sched-card{
   opacity: .55;                       /* was ~.68 in your file */
   filter: grayscale(.18);
   background: #fbfbf9;                /* keep it calm */
-  border-left: 0;                     /* remove the ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œactiveÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â accent */
+  border-left: 0;                     /* remove the ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“activeÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â accent */
   box-shadow: none;
 }
 
@@ -1814,7 +1814,7 @@ body.sched-dragging .sched-card{
 }
 
 /* =========================================================
-   V1.1 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Force a consistent 2-line title height on ALL cards
+   V1.1 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Force a consistent 2-line title height on ALL cards
    (fixes custom cards not reserving title space)
    ========================================================= */
 
@@ -1827,7 +1827,7 @@ body.sched-dragging .sched-card{
   text-overflow: ellipsis;
 }
 
-/* Rail cards (left) ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â keep title blocks consistent too */
+/* Rail cards (left) ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â keep title blocks consistent too */
 .sched-rail-item-title{
   line-height: 1.25;
   height: 2.5em;
@@ -1861,7 +1861,7 @@ body.sched-dragging .sched-card{
   min-height:0;
 }
 
-/* remove extra internal topbar spacing (weÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢re not using it now) */
+/* remove extra internal topbar spacing (weÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢re not using it now) */
 .sched-dayview-topbar{ display:none; }
 
 .sched-dayview-grid{
@@ -2026,4 +2026,38 @@ body.sched-dragging .sched-card{
 
   gap: 12px;
   align-items: stretch;
+}
+
+/* =========================================================
+   Rail header + footer controls (layout plan)
+   ========================================================= */
+
+/* compact select used in the rail header row */
+.sched-target-select--compact{
+  width: auto;
+  min-width: 150px;
+  max-width: 220px;
+  height: 34px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+/* rail footer area (below the scrollable rail list) */
+.sched-rail-bottom{
+  flex: 0 0 auto;
+  margin: 12px -16px -16px;
+  padding: 12px 16px 16px;
+  border-top: 1px solid #e5e8e5;
+  background: #fff;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.sched-rail-btn--full{
+  width: 100%;
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-size: 13px;
 }
