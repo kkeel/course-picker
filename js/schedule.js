@@ -6,6 +6,7 @@
   // Storage keys
   // -----------------------------
   const UI_STORAGE_KEY = "alveary_schedule_ui_v1";
+const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
   const CARDS_STORAGE_KEY = "alveary_schedule_cards_v1";
   const MA_COURSES_URL = "data/MA_Courses.json";
   const MA_SCHED_URL = "data/MA_Scheduling.json";
@@ -640,6 +641,9 @@
         this.dayViewPanels = normalizedUi.dayViewPanels;
         this.dayViewStudentSlots = normalizedUi.dayViewStudentSlots;
         this.openStudentMenu = null;
+
+        // workspace resizer (rail + schedule board height)
+        requestAnimationFrame(() => this.initWorkspaceResizer());
 
         // load cards
         const savedCards = loadKey(CARDS_STORAGE_KEY);
@@ -1839,7 +1843,87 @@
           for (let d = 0; d <= 4; d++) {
             const arr = daysObj?.[d];
             if (!Array.isArray(arr)) continue;
-            this.placements[studentId][d] = arr.filter((id) => !doomedInstanceIds.includes(id));
+            this.placements[studentId][d] = 
+      // -----------------------------
+      // Workspace height (rail + board)
+      // -----------------------------
+      setWorkspaceHeight(px) {
+        const h = Math.round(Number(px) || 0);
+        if (!h) return;
+        document.documentElement.style.setProperty("--sched-workspace-h", `${h}px`);
+      },
+
+      getWorkspaceHeightPx() {
+        const rail = document.querySelector(".sched-rail");
+        if (!rail) return 0;
+        return Math.round(rail.getBoundingClientRect().height || 0);
+      },
+
+      initWorkspaceResizer() {
+        const handle = document.getElementById("schedWorkspaceResize");
+        const rail = document.querySelector(".sched-rail");
+        if (!handle || !rail) return;
+
+        // restore saved height if available
+        const saved = window.localStorage ? localStorage.getItem(WORKSPACE_H_KEY) : null;
+        if (saved) {
+          const px = parseInt(saved, 10);
+          if (Number.isFinite(px) && px > 0) this.setWorkspaceHeight(px);
+        }
+
+        const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+
+        const commit = () => {
+          try {
+            const px = this.getWorkspaceHeightPx();
+            if (px) localStorage.setItem(WORKSPACE_H_KEY, String(px));
+          } catch (e) {}
+        };
+
+        // pointer drag (vertical)
+        let startY = 0;
+        let startH = 0;
+
+        const onMove = (e) => {
+          const dy = e.clientY - startY;
+          const next = clamp(startH + dy, 420, 2600);
+          this.setWorkspaceHeight(next);
+        };
+
+        const onUp = () => {
+          document.body.classList.remove("is-resizing-workspace");
+          window.removeEventListener("pointermove", onMove);
+          window.removeEventListener("pointerup", onUp);
+          commit();
+        };
+
+        handle.addEventListener("pointerdown", (e) => {
+          // only left click / primary touch
+          if (e.button !== undefined && e.button !== 0) return;
+          e.preventDefault();
+          startY = e.clientY;
+          startH = this.getWorkspaceHeightPx() || Math.round(rail.getBoundingClientRect().height || 0);
+          document.body.classList.add("is-resizing-workspace");
+          window.addEventListener("pointermove", onMove);
+          window.addEventListener("pointerup", onUp, { once: true });
+        });
+
+        // keyboard nudge (accessibility)
+        handle.addEventListener("keydown", (e) => {
+          const step = e.shiftKey ? 60 : 20;
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            this.setWorkspaceHeight(clamp(this.getWorkspaceHeightPx() + step, 420, 2600));
+            commit();
+          }
+          if (e.key === "ArrowUp") {
+            e.preventDefault();
+            this.setWorkspaceHeight(clamp(this.getWorkspaceHeightPx() - step, 420, 2600));
+            commit();
+          }
+        });
+      },
+arr.filter((id) => !doomedInstanceIds.includes(id));
           }
         }
       
