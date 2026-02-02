@@ -50,6 +50,10 @@
       // Left rail UI
       railTopCollapsed: false,
       showCompleted: false,
+      // Rail filters (affect rail ONLY — never the schedule columns)
+      railGradeFilter: "", // "" = all; otherwise "G1".."G12"
+      railMyCoursesOnly: false,
+      railStudentAssignedOnly: false,
     };
   }
 
@@ -97,6 +101,12 @@
 
     const railTopCollapsed = typeof state?.railTopCollapsed === 'boolean' ? state.railTopCollapsed : d.railTopCollapsed;
     const showCompleted = typeof state?.showCompleted === 'boolean' ? state.showCompleted : d.showCompleted;
+
+    // Rail filters (rail ONLY)
+    const railGradeFilterRaw = typeof state?.railGradeFilter === 'string' ? state.railGradeFilter : d.railGradeFilter;
+    const railGradeFilter = (/^G([1-9]|1[0-2])$/).test(railGradeFilterRaw) ? railGradeFilterRaw : "";
+    const railMyCoursesOnly = typeof state?.railMyCoursesOnly === 'boolean' ? state.railMyCoursesOnly : d.railMyCoursesOnly;
+    const railStudentAssignedOnly = typeof state?.railStudentAssignedOnly === 'boolean' ? state.railStudentAssignedOnly : d.railStudentAssignedOnly;
 
         // -----------------------------
         // Day View state (Phase 3)
@@ -173,7 +183,10 @@
       dayViewPanels,
       dayViewStudentSlots,
       railTopCollapsed,
-      showCompleted
+      showCompleted,
+      railGradeFilter,
+      railMyCoursesOnly,
+      railStudentAssignedOnly,
     };
   }
 
@@ -587,6 +600,10 @@
       // Rail list: show/hide completed cards (per active rail student)
       showCompleted: false,
       railTopCollapsed: false,
+      // Rail filters (affect rail ONLY)
+      railGradeFilter: "",
+      railMyCoursesOnly: false,
+      railStudentAssignedOnly: false,
 
       // -----------------------------
       // Drag reorder state (Phase 1)
@@ -613,6 +630,9 @@
         // Restore left-rail UI toggles
         this.railTopCollapsed = !!normalizedUi.railTopCollapsed;
         this.showCompleted = !!normalizedUi.showCompleted;
+        this.railGradeFilter = normalizedUi.railGradeFilter || "";
+        this.railMyCoursesOnly = !!normalizedUi.railMyCoursesOnly;
+        this.railStudentAssignedOnly = !!normalizedUi.railStudentAssignedOnly;
 
         this.view = normalizedUi.view;
         this.visibleDays = normalizedUi.visibleDays;
@@ -756,6 +776,9 @@
           panels: this.visibleStudentPanels.map((p) => ({ slot: p.slot, studentId: p.studentId })),
           railTopCollapsed: this.railTopCollapsed,
           showCompleted: this.showCompleted,
+          railGradeFilter: this.railGradeFilter,
+          railMyCoursesOnly: this.railMyCoursesOnly,
+          railStudentAssignedOnly: this.railStudentAssignedOnly,
           dayViewPanels: (this.dayViewPanels || []).map(p => ({ slot: p.slot, dayIdx: p.dayIdx })),
           dayViewStudentSlots: (this.dayViewStudentSlots || []).slice(0, 5),
         });
@@ -1219,10 +1242,18 @@
           }
         }
 
+        // Apply rail-only grade filter AFTER building entries so grade-band
+        // cards keep their full option list.
+        const g = String(this.railGradeFilter || "");
+        let filtered = entries;
+        if ((/^G([1-9]|1[0-2])$/).test(g)) {
+          filtered = entries.filter((e) => this.railEntryMatchesGrade(e, g));
+        }
+
         // Move completed items to the bottom for the currently selected rail student
         const sid = this.activeTarget?.studentId;
         if (sid) {
-          entries.sort((a, b) => {
+          filtered.sort((a, b) => {
             const ta = this.trackingForEntry(a);
             const tb = this.trackingForEntry(b);
             const da = ta.show && ta.done ? 1 : 0;
@@ -1235,8 +1266,30 @@
             return 0;
           });
         }
-      
-        return entries;
+
+        return filtered;
+      },
+
+      railEntryMatchesGrade(entry, grade) {
+        if (!grade) return true;
+
+        if (entry?.type === "single") {
+          const tpl = this.templatesById?.[entry.templateId];
+          const gf = Array.isArray(tpl?.gradeFilter) ? tpl.gradeFilter : [];
+          return gf.includes(grade);
+        }
+
+        if (entry?.type === "group") {
+          const opts = Array.isArray(entry.options) ? entry.options : [];
+          for (const o of opts) {
+            const tpl = this.templatesById?.[o.templateId];
+            const gf = Array.isArray(tpl?.gradeFilter) ? tpl.gradeFilter : [];
+            if (gf.includes(grade)) return true;
+          }
+          return false;
+        }
+
+        return true;
       },
 
       // ---- Day-toggle helpers (Rail) ----
@@ -1421,6 +1474,35 @@
         const s = this.getStudentName(this.activeTarget.studentId);
         const d = this.dayLabel(this.activeTarget.dayIndex);
         return `${s} • ${d}`;
+      },
+
+      railGradeLabel(g) {
+        const v = String(g || "");
+        const m = v.match(/^G([1-9]|1[0-2])$/);
+        if (!m) return "All grades";
+        return `Grade ${m[1]}`;
+      },
+
+      railFilterSummary() {
+        const parts = [this.railGradeLabel(this.railGradeFilter)];
+        if (this.railMyCoursesOnly) parts.push("My courses");
+        if (this.railStudentAssignedOnly) parts.push("Student assignments");
+        return `Showing: ${parts.join(" • ")}`;
+      },
+
+      setRailGradeFilter(val) {
+        this.railGradeFilter = String(val || "");
+        this.persistUi();
+      },
+
+      toggleRailMyCoursesOnly() {
+        this.railMyCoursesOnly = !this.railMyCoursesOnly;
+        this.persistUi();
+      },
+
+      toggleRailStudentAssignedOnly() {
+        this.railStudentAssignedOnly = !this.railStudentAssignedOnly;
+        this.persistUi();
       },
 
       // Create a new instance and append to active day
