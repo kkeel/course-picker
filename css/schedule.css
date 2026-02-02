@@ -2154,3 +2154,77 @@ body.sched-dragging .sched-card{
 .sched-rail-filter-toggles .toggle:hover {
   opacity: 0.9;
 }
+
+/* =========================================================
+   Quiet rail header (KEEP existing green background)
+   Paste at VERY BOTTOM of schedule.css
+   ========================================================= */
+
+/* 1) Calm the title + reduce overall ink */
+.sched-rail-top .sched-rail-head .text-sm{
+  font-weight: 700;                 /* slightly less shouty */
+  letter-spacing: 0.01em;
+  color: rgba(38,43,38,0.88);
+}
+
+/* 2) “Showing…” becomes clearly secondary */
+.sched-rail-summary{
+  color: rgba(38,43,38,0.55) !important;
+  font-size: 12px;
+}
+
+/* 3) Inputs: less bright than pure white, softer borders */
+.sched-target-select,
+.sched-target-select--compact{
+  background: rgba(255,255,255,0.78) !important;   /* keeps your green showing through */
+  border: 1px solid rgba(38,43,38,0.14) !important;
+  color: rgba(38,43,38,0.90);
+}
+
+/* Subtle hover (still calm) */
+.sched-target-select:hover,
+.sched-target-select--compact:hover{
+  background: rgba(255,255,255,0.84) !important;
+  border-color: rgba(38,43,38,0.18) !important;
+}
+
+/* Softer focus ring (no bright blue) */
+.sched-target-select:focus,
+.sched-target-select--compact:focus{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(89,110,94,0.12) !important;
+}
+
+/* 4) Chevron button: reduce contrast so it feels like a control, not a focal point */
+.sched-rail-collapse-btn{
+  color: rgba(38,43,38,0.58) !important;
+}
+.sched-rail-collapse-btn:hover{
+  color: rgba(38,43,38,0.72) !important;
+}
+
+/* 5) Toggle row: keep style, reduce “ink” */
+.sched-rail-filter-toggles .toggle{
+  color: rgba(89,110,94,0.82) !important;
+  font-weight: 600;
+}
+
+/* Toggle track: softer off-state */
+.sched-rail-filter-toggles .toggle-switch{
+  background: rgba(210,214,210,0.78) !important;
+}
+
+/* Toggle on-state: slightly less saturated than full green */
+.sched-rail-filter-toggles .toggle--on .toggle-switch{
+  background: rgba(89,110,94,0.86) !important;
+}
+
+/* Optional: slightly tighter vertical rhythm without moving layout */
+.sched-rail-summary{
+  margin-top: 6px !important;
+}
+
+/* Optional: make filter dropdown text slightly lighter than the student dropdown */
+.sched-rail-top-controls .sched-target-select{
+  font-weight: 600;
+}
