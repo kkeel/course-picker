@@ -190,8 +190,14 @@
                       <option :value="s.id" x-text="s.name"></option>
                     </template>
                   </select>
-              
-                  <!-- Collapse toggle -->
+                </div>
+
+              </div>
+                <!-- Always-visible summary of rail filters (does NOT affect schedule columns) -->
+                <div class="sched-rail-summary-row">
+                  <div class="sched-rail-summary" x-text="railFilterSummary()"></div>
+                
+                  <!-- Collapse toggle (moved here so it aligns with the summary row) -->
                   <button
                     type="button"
                     class="sched-rail-collapse-btn"
@@ -204,10 +210,6 @@
                     </svg>
                   </button>
                 </div>
-              </div>
-              
-              <!-- Always-visible summary of rail filters (does NOT affect schedule columns) -->
-              <div class="sched-rail-summary" x-text="railFilterSummary()"></div>
               
               <div class="sched-rail-top-controls" x-show="!railTopCollapsed" x-transition>
 
