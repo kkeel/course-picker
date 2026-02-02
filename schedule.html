@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -258,25 +259,7 @@
                           <div class="sched-rail-meta-left">
                             <div class="sched-rail-symbols"
                                  x-text="(templatesById[entry.templateId] || {}).symbols || ''"></div>
-
-                            <!-- Custom-only: edit/delete live where symbols normally are -->
-                            <div class="sched-rail-custom-inline"
-                                 x-show="String(entry.templateId || '').startsWith('u:')">
-                              <button type="button"
-                                      class="sched-rail-icon-btn"
-                                      title="Edit custom card"
-                                      @click="openCustomCardModal('edit', entry.templateId)">
-                                ✎
-                              </button>
-
-                              <button type="button"
-                                      class="sched-rail-icon-btn"
-                                      title="Remove custom card"
-                                      @click="openCustomCardModal('delete', entry.templateId)">
-                                ✕
-                              </button>
-                            </div>
-                          </div>
+</div>
 
                           <div class="sched-rail-track"
                                x-show="trackingForEntry(entry).show"
@@ -295,6 +278,25 @@
 
                         <!-- Footer: weekdays -->
                         <div class="sched-rail-footer">
+                          <div class="sched-rail-footer-left">
+                            <div class="sched-rail-actions">
+                              <button type="button"
+                                      class="sched-rail-action-btn"
+                                      title="Edit card settings"
+                                      @click="openCustomCardModal('adjust', entry.templateId)">
+                                ✎
+                              </button>
+
+                              <button type="button"
+                                      class="sched-rail-action-btn"
+                                      title="Remove custom card"
+                                      x-show="String(entry.templateId || '').startsWith('u:')"
+                                      @click="openCustomCardModal('delete', entry.templateId)">
+                                ✕
+                              </button>
+                            </div>
+                          </div>
+
                           <div class="sched-rail-daytoggles" aria-label="Scheduled days">
                             <template x-for="(label, i) in dayLabels" :key="i">
                               <button type="button"
@@ -354,6 +356,23 @@
                         <!-- Footer: choose grades (left) + weekdays (right) -->
                         <div class="sched-rail-footer">
                           <div class="sched-rail-footer-left" aria-label="Choose grades">
+                                                        <div class="sched-rail-actions">
+                              <button type="button"
+                                      class="sched-rail-action-btn"
+                                      title="Edit card settings"
+                                      @click="openCustomCardModal('adjust', entry.templateId)">
+                                ✎
+                              </button>
+
+                              <button type="button"
+                                      class="sched-rail-action-btn"
+                                      title="Remove custom card"
+                                      x-show="String(entry.templateId || '').startsWith('u:')"
+                                      @click="openCustomCardModal('delete', entry.templateId)">
+                                ✕
+                              </button>
+                            </div>
+
                             <div class="sched-rail-grade-select-wrap">
                               <select
                                 class="sched-rail-grade-select"
@@ -940,6 +959,7 @@
                 <div class="sched-modal-title"
                      x-text="customModalMode === 'create' ? 'New custom card' :
                              customModalMode === 'edit' ? 'Edit custom card' :
+                             customModalMode === 'adjust' ? 'Adjust card settings' :
                              'Remove custom card'"></div>
           
                 <button type="button" class="sched-modal-close" @click="closeCustomCardModal()" aria-label="Close">✕</button>
@@ -949,7 +969,8 @@
                 <template x-if="customModalMode !== 'delete'">
                   <div class="sched-modal-form">
                     <label class="sched-modal-label">Title</label>
-                    <input class="sched-modal-input" type="text" x-model="customForm.title" placeholder="Co-op Class" />
+                    <input class="sched-modal-input" type="text" x-model="customForm.title" placeholder="Co-op Class"
+                           :disabled="customModalMode === 'adjust'" />
           
                     <label class="sched-modal-label mt-3">Minutes</label>
                     <input class="sched-modal-input" type="number" min="0" max="600" step="5" x-model="customForm.minutes" />
