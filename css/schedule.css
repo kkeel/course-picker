@@ -2394,3 +2394,55 @@ body.sched-dragging .sched-card{
     background-color: transparent !important;
   }
 }
+/* =========================================================
+   Rail selects — final calming pass
+   ========================================================= */
+
+/* Shared surface color (matches panel column headers) */
+:root{
+  --rail-select-bg: #bdc5bf;
+  --rail-select-bg-hover: #c7cec9;
+}
+
+/* Student + Grade selects: match panel header surface */
+.sched-target-select,
+.sched-target-select--compact{
+  background-color: var(--rail-select-bg) !important;
+  border: none !important;
+  box-shadow: none !important;
+
+  padding: 6px 28px 6px 8px !important;
+  border-radius: 10px !important;
+
+  background-image: var(--rail-select-caret) !important;
+  background-repeat: no-repeat !important;
+  background-size: 18px 18px !important;
+  background-position: right 6px center !important;
+
+  color: #262b26 !important;
+}
+
+/* Hover/focus stays very soft */
+.sched-target-select:hover,
+.sched-target-select--compact:hover{
+  background-color: var(--rail-select-bg-hover) !important;
+}
+
+.sched-target-select:focus,
+.sched-target-select--compact:focus{
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(89,110,94,0.14) !important;
+}
+
+/* Student dropdown: primary control */
+.sched-target-select--compact{
+  font-size: 13px !important;
+  font-weight: 650 !important;
+}
+
+/* Grade dropdown: quieter, matches toggle labels */
+.sched-target-select{
+  font-size: 12px !important;      /* match toggle text */
+  font-weight: 600 !important;
+  color: rgba(38,43,38,0.88) !important; /* SAME color, just lighter weight */
+}
