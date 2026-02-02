@@ -2542,3 +2542,26 @@ body.sched-dragging .sched-card{
 .sched-rail-summary{
   padding-right: 0 !important;
 }
+
+/* =========================================================
+   Rail header alignment tweaks (student select + summary row)
+   ========================================================= */
+
+/* 1) Let the Student dropdown reach the true right padding edge */
+.sched-rail-head-actions{
+  margin-left: auto;
+  padding-right: 0 !important; /* overrides older 28px safety padding */
+}
+
+.sched-target-select--compact{
+  margin-left: auto; /* keeps it hugged to the right */
+}
+
+/* 2) Nudge the “Showing…” summary row + collapse chevron down slightly */
+.sched-rail-summary-row{
+  padding-top: 2px;  /* tiny nudge down */
+}
+
+.sched-rail-summary-row .sched-rail-collapse-btn{
+  margin-top: 2px;   /* keeps the chevron baseline matching the text */
+}
