@@ -2039,7 +2039,7 @@ body.sched-dragging .sched-card{
   max-width: 220px;
   height: 34px;
   padding: 6px 12px;
-  border-radius: 999px;
+  border-radius: 4px;
   font-size: 12px;
   font-weight: 650;
 }
@@ -2060,4 +2060,37 @@ body.sched-dragging .sched-card{
   border-radius: 14px;
   padding: 10px 12px;
   font-size: 13px;
+}
+
+/* =========================================================
+   OVERRIDES — Rail header student dropdown + toggle layout
+   (keep at bottom of schedule.css)
+   ========================================================= */
+
+/* 1) Student dropdown in rail header: rectangular (4px) */
+.sched-target-select--compact{
+  border-radius: 4px !important;
+  height: 34px;
+  padding: 6px 10px;
+  min-width: 160px;
+  max-width: 240px;
+  background: #fff;
+}
+
+/* 2) Grade dropdown row: stack toggles UNDER the dropdown */
+.sched-rail-filter-row{
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+
+/* Toggles row sits under dropdown and aligns left */
+.sched-rail-filter-toggles{
+  width: 100%;
+  justify-content: flex-start;
+}
+
+/* Optional: make toggle buttons visually consistent when stacked */
+.sched-rail-filter-btn{
+  align-self: flex-start;
 }
