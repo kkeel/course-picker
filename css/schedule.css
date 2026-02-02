@@ -2228,3 +2228,95 @@ body.sched-dragging .sched-card{
 .sched-rail-top-controls .sched-target-select{
   font-weight: 600;
 }
+
+/* =========================================================
+   Rail header — quieter controls + matching dropdowns
+   (PASTE AT VERY BOTTOM of schedule.css)
+   ========================================================= */
+
+:root{
+  /* A calm control surface that’s close to the rail header tint */
+  --rail-control-bg: rgba(255,255,255,.55);
+  --rail-control-bg-hover: rgba(255,255,255,.66);
+  --rail-control-border: rgba(38,43,38,.14);
+  --rail-control-border-hover: rgba(38,43,38,.18);
+}
+
+/* 1) Calm the title + hierarchy */
+.sched-rail-top .sched-rail-head .text-sm{
+  font-weight: 700;
+  letter-spacing: .01em;
+  color: rgba(38,43,38,.86);
+}
+
+/* “Showing…” reads secondary */
+.sched-rail-summary{
+  color: rgba(38,43,38,.52) !important;
+  font-size: 12px;
+}
+
+/* 2) Make BOTH dropdowns match: same radius, padding, text rhythm */
+.sched-target-select,
+.sched-target-select--compact{
+  border-radius: 12px !important;        /* match grade dropdown */
+  padding: 8px 12px !important;          /* match the softer student feel */
+  font-size: 13px !important;
+  line-height: 1.1 !important;
+
+  background: var(--rail-control-bg) !important;
+  border: 1px solid var(--rail-control-border) !important;
+  color: rgba(38,43,38,.90) !important;
+}
+
+/* Student dropdown can stay slightly stronger than grade if you want */
+.sched-target-select--compact{
+  font-weight: 650 !important;
+}
+
+/* Grade dropdown slightly lighter so it doesn't compete with title row */
+.sched-target-select{
+  font-weight: 600 !important;
+}
+
+/* Hover + focus stay calm */
+.sched-target-select:hover,
+.sched-target-select--compact:hover{
+  background: var(--rail-control-bg-hover) !important;
+  border-color: var(--rail-control-border-hover) !important;
+}
+
+.sched-target-select:focus,
+.sched-target-select--compact:focus{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(89,110,94,.12) !important;
+}
+
+/* 3) Chevron collapse button: reduce “ink” */
+.sched-rail-collapse-btn{
+  color: rgba(38,43,38,.55) !important;
+}
+.sched-rail-collapse-btn:hover{
+  color: rgba(38,43,38,.70) !important;
+}
+
+/* 4) Toggles: match the new control surface */
+.sched-rail-filter-toggles .toggle{
+  color: rgba(89,110,94,.82) !important;
+  font-weight: 600;
+}
+
+/* Off track matches the dropdown surface (slightly darker than it) */
+.sched-rail-filter-toggles .toggle-switch{
+  background: rgba(38,43,38,.12) !important;
+}
+
+/* Knob stays white for clarity */
+.sched-rail-filter-toggles .toggle-switch-knob{
+  background: rgba(255,255,255,.95) !important;
+}
+
+/* On state: still green, but not super saturated */
+.sched-rail-filter-toggles .toggle--on .toggle-switch{
+  background: rgba(89,110,94,.86) !important;
+}
+
