@@ -258,22 +258,18 @@
     const parentCourseTitle = courseTitleByCourseId.get(source.courseId) || "";
 
     const title = isCourse ? source.title : (source.Topic || source.title || "");
-    const courseLabel = isCourse
-      ? source.title
-      : (source.hasGradeband ? title : (parentCourseTitle || title));
+    const courseLabel = isCourse ? source.title : (parentCourseTitle || title);
 
     const weeklyTarget = Number(rule.wk || 0);
     const trackingCount = Number(rule.termTracking || 0);
     const minutes = Number(rule.min || 0);
 
     // Symbols: keep simple + consistent (we can enhance later)
-    const symbols =
-      symbolsFromCardText(rule.cardText) ||
-      [
-        source.shared ? "↔" : "",
-        trackingCount ? "*" : "",
-        rule.teach ? "🅃" : "",
-      ].filter(Boolean).join(" ");
+    const symbols = [
+      source.shared ? "↔" : "",
+      trackingCount ? "*" : "",
+      rule.teach ? "🅃" : "",
+    ].filter(Boolean).join(" ");
 
     const variantSort = Number(rule.variantSort || 0);
     const bandSort = Number(rule.gradeBandSort || 0);
@@ -319,14 +315,6 @@
     if (m) return `${m[1]}–${m[2]}`;
     const one = s.match(/(\d+)/);
     return one ? one[1] : s;
-  }
-
-  function symbolsFromCardText(cardText) {
-    if (!cardText) return "";
-    // Example: "↔ * ⬔ (Grades 2-4)"  -> "↔ * ⬔"
-    const s = String(cardText).trim();
-    const beforeParen = s.split("(")[0].trim();
-    return beforeParen.replace(/\s+/g, " ");
   }
   
   async function fetchJson(url) {
@@ -881,7 +869,7 @@
           if (!id || !String(id).startsWith("u:")) return;
           const tpl = this.templatesById?.[id];
           if (!tpl) return;
-      
+
           this.templatesById[id] = {
             ...tpl,
             title,
@@ -889,7 +877,22 @@
             weeklyTarget,
           };
         }
-      
+
+        if (this.customModalMode === "adjust") {
+          const id = this.customModalTemplateId;
+          if (!id) return;
+          const tpl = this.templatesById?.[id];
+          if (!tpl) return;
+
+          // Adjust an existing (Alveary or custom) template's scheduling defaults locally.
+          // Title stays the same for Alveary templates.
+          this.templatesById[id] = {
+            ...tpl,
+            minutes,
+            weeklyTarget,
+          };
+        }
+
         this.persistCards();
         this.closeCustomCardModal();
       },
