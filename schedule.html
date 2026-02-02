@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -197,13 +195,58 @@
                     </svg>
                   </button>
                 </div>
+
+                <!-- Always-visible summary of rail filters (does NOT affect schedule columns) -->
+                <div class="sched-rail-summary" x-text="railFilterSummary()"></div>
               </div>
 
-              <!-- Collapsible controls (Place into...) -->
+              <!-- Collapsible controls (filters + placement) -->
               <div class="sched-rail-top-controls" x-show="!railTopCollapsed" x-transition>
-                <div class="sched-rail-sub text-xs opacity-70 mt-1">
-                  Place into:
+
+                <!-- Filters (rail only) -->
+                <div class="sched-rail-sub text-xs opacity-70 mt-1">Filter cards:</div>
+
+                <div class="sched-rail-filter-row mt-2">
+                  <select
+                    class="sched-target-select"
+                    x-model="railGradeFilter"
+                    @change="setRailGradeFilter(railGradeFilter)"
+                    aria-label="Filter cards by grade"
+                  >
+                    <option value="">All grades</option>
+                    <option value="G1">Grade 1</option>
+                    <option value="G2">Grade 2</option>
+                    <option value="G3">Grade 3</option>
+                    <option value="G4">Grade 4</option>
+                    <option value="G5">Grade 5</option>
+                    <option value="G6">Grade 6</option>
+                    <option value="G7">Grade 7</option>
+                    <option value="G8">Grade 8</option>
+                    <option value="G9">Grade 9</option>
+                    <option value="G10">Grade 10</option>
+                    <option value="G11">Grade 11</option>
+                    <option value="G12">Grade 12</option>
+                  </select>
+
+                  <div class="sched-rail-filter-toggles">
+                    <button type="button"
+                            class="sched-rail-filter-btn"
+                            :class="railMyCoursesOnly ? 'is-on' : ''"
+                            @click="toggleRailMyCoursesOnly()">
+                      My courses
+                    </button>
+
+                    <button type="button"
+                            class="sched-rail-filter-btn"
+                            :class="railStudentAssignedOnly ? 'is-on' : ''"
+                            @click="toggleRailStudentAssignedOnly()">
+                      Student assignments
+                    </button>
+                  </div>
                 </div>
+
+                <!-- Placement controls -->
+                <div class="sched-rail-sub text-xs opacity-70 mt-3">Place into:</div>
 
                 <div class="sched-target mt-2">
                   <select
