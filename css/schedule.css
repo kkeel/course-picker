@@ -2320,3 +2320,77 @@ body.sched-dragging .sched-card{
   background: rgba(89,110,94,.86) !important;
 }
 
+
+/* =========================================================
+   Rail selects — "baked in" style like student panel trigger
+   (paste at VERY BOTTOM of schedule.css)
+   ========================================================= */
+
+/* shared chevron (SVG) */
+:root{
+  --rail-select-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 20 20'%3E%3Cpath d='M6.5 8.0l3.5 3.8L13.5 8.0' fill='none' stroke='%23596e5e' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* Make BOTH selects feel like inline triggers */
+.sched-target-select,
+.sched-target-select--compact{
+  /* remove the “input box” look */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+
+  /* typography similar to panel trigger */
+  font-size: 13px !important;
+  line-height: 1.1 !important;
+  color: #262b26 !important;
+
+  /* tight trigger-like padding */
+  padding: 6px 28px 6px 8px !important;
+
+  /* keep it from looking like a pill/button */
+  border-radius: 10px !important;
+
+  /* hide native arrow + use our own */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image: var(--rail-select-caret) !important;
+  background-repeat: no-repeat !important;
+  background-size: 18px 18px !important;
+
+  /* chevron close to text (matches panel) */
+  background-position: right 6px center !important;
+
+  cursor: pointer;
+}
+
+/* Slightly stronger weight for Student select, lighter for Grade select */
+.sched-target-select--compact{
+  font-weight: 650 !important;
+}
+.sched-target-select{
+  font-weight: 600 !important;
+  color: rgba(38,43,38,0.88) !important; /* slightly quieter than student */
+}
+
+/* Hover/focus like the panel trigger */
+.sched-target-select:hover,
+.sched-target-select--compact:hover{
+  background-color: rgba(89,110,94,.06) !important;
+}
+
+.sched-target-select:focus,
+.sched-target-select--compact:focus{
+  outline: none !important;
+  background-color: rgba(89,110,94,.06) !important;
+  box-shadow: 0 0 0 3px rgba(89,110,94,.12) !important;
+}
+
+/* Optional: remove the “gray box” feeling behind the selected option on iOS */
+@supports (-webkit-touch-callout: none){
+  .sched-target-select,
+  .sched-target-select--compact{
+    background-color: transparent !important;
+  }
+}
