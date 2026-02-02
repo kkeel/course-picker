@@ -2446,3 +2446,33 @@ body.sched-dragging .sched-card{
   font-weight: 600 !important;
   color: rgba(38,43,38,0.88) !important; /* SAME color, just lighter weight */
 }
+
+/* =========================================================
+   Rail header: separate collapse chevron from student dropdown
+   ========================================================= */
+
+/* Make the rail header a positioning context */
+.sched-rail-top{
+  position: relative;
+}
+
+/* Visually move collapse chevron down to the summary row */
+.sched-rail-collapse-btn{
+  position: absolute;
+  right: 12px;
+
+  /* This aligns it with the “Showing: …” text */
+  top: 44px;
+
+  /* Quiet it slightly so it reads as a container affordance */
+  opacity: 0.65;
+}
+
+.sched-rail-collapse-btn:hover{
+  opacity: 0.9;
+}
+
+/* Optional: ensure the student dropdown row keeps its spacing */
+.sched-rail-head-actions{
+  padding-right: 28px; /* prevents visual crowding on narrow screens */
+}
