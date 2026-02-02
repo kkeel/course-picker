@@ -2565,3 +2565,40 @@ body.sched-dragging .sched-card{
 .sched-rail-summary-row .sched-rail-collapse-btn{
   margin-top: 2px;   /* keeps the chevron baseline matching the text */
 }
+
+/* =========================================================
+   Rail header: Student dropdown matches active day chips
+   ========================================================= */
+
+/* Student dropdown in rail header only (compact select) */
+.sched-target-select--compact{
+  /* Match .schedule-day-chip--on */
+  background: rgba(89,110,94,.10) !important;
+  border: 1px solid #596e5e !important;
+  color: #596e5e !important;
+
+  border-radius: 999px !important;
+  padding: 6px 34px 6px 12px !important; /* keep room for chevron */
+  height: auto !important;
+
+  font-size: 12px !important;
+  font-weight: 650 !important;
+  line-height: 1 !important;
+
+  /* Keep your custom caret close + consistent */
+  background-image: var(--rail-select-caret) !important;
+  background-repeat: no-repeat !important;
+  background-size: 18px 18px !important;
+  background-position: right 10px center !important;
+}
+
+/* Hover = same family as chips */
+.sched-target-select--compact:hover{
+  background: rgba(89,110,94,.06) !important;
+}
+
+/* Focus ring = same as the rest of your UI */
+.sched-target-select--compact:focus{
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(89,110,94,.12) !important;
+}
