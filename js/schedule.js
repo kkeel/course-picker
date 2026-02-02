@@ -214,6 +214,99 @@
       .map((s) => s.trim().replace(/^,+/, "").replace(/,+$/, "").trim())
       .filter(Boolean);
   }
+
+  function buildTemplatesFromJson(maCourses, maScheduling) {
+  // Flatten courses + topics into lookup maps by Airtable recordID
+  const courseByRecord = new Map();
+  const topicByRecord = new Map();
+  const courseTitleByCourseId = new Map();
+
+  for (const [subject, courseList] of Object.entries(maCourses || {})) {
+    for (const c of courseList || []) {
+      if (c?.recordID) courseByRecord.set(c.recordID, c);
+      if (c?.courseId && c?.title) courseTitleByCourseId.set(c.courseId, c.title);
+
+      for (const t of c?.topics || []) {
+        if (t?.recordID) topicByRecord.set(t.recordID, t);
+      }
+    }
+  }
+
+  const templates = {};
+
+  for (const rule of maScheduling || []) {
+    const id = rule?.scheduleRecordId;
+    if (!id) continue;
+
+    // Resolve the source (course or topic) by Airtable record id
+    const sourceId = rule.courseOrTopicId;
+    const kind = String(rule.sourceKind || "").toLowerCase();
+
+    const source =
+      (kind === "course" ? courseByRecord.get(sourceId) : topicByRecord.get(sourceId)) ||
+      courseByRecord.get(sourceId) ||
+      topicByRecord.get(sourceId);
+
+    // If we can't resolve the source, skip it for now
+    if (!source) continue;
+
+    const isCourse = !!(source.title && source.courseId);
+    const sourceKey = isCourse
+      ? (source.courseId || source.id || id)
+      : (source.Topic_ID || source.Topic_ID_App || source.id || id);
+
+    const parentCourseTitle = courseTitleByCourseId.get(source.courseId) || "";
+
+    const title = isCourse ? source.title : (source.Topic || source.title || "");
+    const courseLabel = isCourse ? source.title : (parentCourseTitle || title);
+
+    const weeklyTarget = Number(rule.wk || 0);
+    const trackingCount = Number(rule.termTracking || 0);
+    const minutes = Number(rule.min || 0);
+
+    // Symbols: keep simple + consistent (we can enhance later)
+    const symbols = [
+      source.shared ? "↔" : "",
+      trackingCount ? "*" : "",
+      rule.teach ? "🅃" : "",
+    ].filter(Boolean).join(" ");
+
+    const variantSort = Number(rule.variantSort || 0);
+    const bandSort = Number(rule.gradeBandSort || 0);
+
+    // Gradeband option: rule.gradeBandKey is a string when applicable
+    const bandKey = String(rule.gradeBandKey || "").trim();
+
+    const tpl = {
+      id,
+      sortKey: `${sourceKey}::${pad2(variantSort || bandSort || 0)}`,
+      courseKey: sourceKey,             // used for grouping gradeband choices
+      courseLabel,
+      variantKey: String(rule.variantKey || ""),
+      variantSort: variantSort || 0,
+      title,
+      minutes,
+      symbols,
+      trackingCount,
+      weeklyTarget,
+      // store gradeFilter for later filtering (grade panel filter)
+      gradeFilter: normGradeList(rule.gradeFilter),
+    };
+
+    if (bandKey) {
+      tpl.meta = {
+        choiceGroup: "gradeBand",
+        option: bandKey,
+        optionLabel: guessBandLabel(bandKey),
+      };
+    }
+
+    templates[id] = tpl;
+  }
+
+  return templates;
+}
+
   
   function guessBandLabel(key) {
     // Examples: "g1-3" -> "1–3", "G1-3" -> "1–3", "g9-12" -> "9–12"
@@ -1020,97 +1113,7 @@
         };
       },
 
-      function buildTemplatesFromJson(maCourses, maScheduling) {
-      // Flatten courses + topics into lookup maps by Airtable recordID
-      const courseByRecord = new Map();
-      const topicByRecord = new Map();
-      const courseTitleByCourseId = new Map();
-    
-      for (const [subject, courseList] of Object.entries(maCourses || {})) {
-        for (const c of courseList || []) {
-          if (c?.recordID) courseByRecord.set(c.recordID, c);
-          if (c?.courseId && c?.title) courseTitleByCourseId.set(c.courseId, c.title);
-    
-          for (const t of c?.topics || []) {
-            if (t?.recordID) topicByRecord.set(t.recordID, t);
-          }
-        }
-      }
-    
-      const templates = {};
-    
-      for (const rule of maScheduling || []) {
-        const id = rule?.scheduleRecordId;
-        if (!id) continue;
-    
-        // Resolve the source (course or topic) by Airtable record id
-        const sourceId = rule.courseOrTopicId;
-        const kind = String(rule.sourceKind || "").toLowerCase();
-    
-        const source =
-          (kind === "course" ? courseByRecord.get(sourceId) : topicByRecord.get(sourceId)) ||
-          courseByRecord.get(sourceId) ||
-          topicByRecord.get(sourceId);
-    
-        // If we can't resolve the source, skip it for now
-        if (!source) continue;
-    
-        const isCourse = !!(source.title && source.courseId);
-        const sourceKey = isCourse
-          ? (source.courseId || source.id || id)
-          : (source.Topic_ID || source.Topic_ID_App || source.id || id);
-    
-        const parentCourseTitle = courseTitleByCourseId.get(source.courseId) || "";
-    
-        const title = isCourse ? source.title : (source.Topic || source.title || "");
-        const courseLabel = isCourse ? source.title : (parentCourseTitle || title);
-    
-        const weeklyTarget = Number(rule.wk || 0);
-        const trackingCount = Number(rule.termTracking || 0);
-        const minutes = Number(rule.min || 0);
-    
-        // Symbols: keep simple + consistent (we can enhance later)
-        const symbols = [
-          source.shared ? "↔" : "",
-          trackingCount ? "*" : "",
-          rule.teach ? "🅃" : "",
-        ].filter(Boolean).join(" ");
-    
-        const variantSort = Number(rule.variantSort || 0);
-        const bandSort = Number(rule.gradeBandSort || 0);
-    
-        // Gradeband option: rule.gradeBandKey is a string when applicable
-        const bandKey = String(rule.gradeBandKey || "").trim();
-    
-        const tpl = {
-          id,
-          sortKey: `${sourceKey}::${pad2(variantSort || bandSort || 0)}`,
-          courseKey: sourceKey,             // used for grouping gradeband choices
-          courseLabel,
-          variantKey: String(rule.variantKey || ""),
-          variantSort: variantSort || 0,
-          title,
-          minutes,
-          symbols,
-          trackingCount,
-          weeklyTarget,
-          // store gradeFilter for later filtering (grade panel filter)
-          gradeFilter: normGradeList(rule.gradeFilter),
-        };
-    
-        if (bandKey) {
-          tpl.meta = {
-            choiceGroup: "gradeBand",
-            option: bandKey,
-            optionLabel: guessBandLabel(bandKey),
-          };
-        }
-    
-        templates[id] = tpl;
-      }
-    
-      return templates;
-    }
+
 
       // -----------------------------
       // Phase 2.5: Catalog + placements
