@@ -112,6 +112,7 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
         // -----------------------------
         // Day View state (Phase 3)
         // -----------------------------
+    
         let dayViewPanels = Array.isArray(state?.dayViewPanels)
           ? state.dayViewPanels.slice()
           : (Array.isArray(d.dayViewPanels) ? d.dayViewPanels.slice() : []);
