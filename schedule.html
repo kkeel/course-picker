@@ -235,20 +235,31 @@
                   </select>
 
                   <div class="sched-rail-filter-toggles">
-                    <button type="button"
-                            class="sched-rail-filter-btn"
-                            :class="railMyCoursesOnly ? 'is-on' : ''"
-                            @click="toggleRailMyCoursesOnly()">
-                      My courses
+                    <button
+                      type="button"
+                      class="toggle"
+                      :class="railMyCoursesOnly ? 'toggle--on' : ''"
+                      @click="toggleRailMyCoursesOnly()"
+                    >
+                      <div class="toggle-switch">
+                        <div class="toggle-switch-knob"></div>
+                      </div>
+                      <span>My courses</span>
                     </button>
-
-                    <button type="button"
-                            class="sched-rail-filter-btn"
-                            :class="railStudentAssignedOnly ? 'is-on' : ''"
-                            @click="toggleRailStudentAssignedOnly()">
-                      Student assignments
+                  
+                    <button
+                      type="button"
+                      class="toggle"
+                      :class="railStudentAssignedOnly ? 'toggle--on' : ''"
+                      @click="toggleRailStudentAssignedOnly()"
+                    >
+                      <div class="toggle-switch">
+                        <div class="toggle-switch-knob"></div>
+                      </div>
+                      <span>Student assignments</span>
                     </button>
                   </div>
+
                 </div>
               </div>
 </div>
