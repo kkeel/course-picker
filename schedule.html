@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -176,37 +177,42 @@
             <!-- Sticky / collapsible rail header -->
             <div class="sched-rail-top">
               <div class="sched-rail-head">
-                <div class="text-sm font-semibold">Scheduling Cards</div>
+  <div class="text-sm font-semibold">Scheduling Cards</div>
 
-                <div class="sched-rail-head-actions">
-                  <button type="button" class="sched-rail-btn" @click="openCustomCardModal('create')">
-                    + Custom
-                  </button>
+  <div class="sched-rail-head-actions">
+    <!-- Always-visible assignment target -->
+    <select
+      class="sched-target-select sched-target-select--compact"
+      x-model="activeTarget.studentId"
+      @change="ensureStudent(activeTarget.studentId); persistCards()"
+      aria-label="Assign cards to student"
+    >
+      <template x-for="s in students" :key="s.id">
+        <option :value="s.id" x-text="s.name"></option>
+      </template>
+    </select>
 
-                  <button
-                    type="button"
-                    class="sched-rail-collapse-btn"
-                    @click="toggleRailTop()"
-                    :aria-expanded="(!railTopCollapsed).toString()"
-                    :title="railTopCollapsed ? 'Show placement controls' : 'Hide placement controls'"
-                  >
-                    <svg class="sched-rail-collapse-icon" viewBox="0 0 20 20" aria-hidden="true">
-                      <path d="M5.5 7.5l4.5 4.5 4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </button>
-                </div>
+    <!-- Collapse toggle -->
+    <button
+      type="button"
+      class="sched-rail-collapse-btn"
+      @click="toggleRailTop()"
+      :aria-expanded="(!railTopCollapsed).toString()"
+      :title="railTopCollapsed ? 'Show filters' : 'Hide filters'"
+    >
+      <svg class="sched-rail-collapse-icon" viewBox="0 0 20 20" aria-hidden="true">
+        <path d="M5.5 7.5l4.5 4.5 4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
 
-                <!-- Always-visible summary of rail filters (does NOT affect schedule columns) -->
-                <div class="sched-rail-summary" x-text="railFilterSummary()"></div>
-              </div>
-
-              <!-- Collapsible controls (filters + placement) -->
+  <!-- Always-visible summary of rail filters (does NOT affect schedule columns) -->
+  <div class="sched-rail-summary" x-text="railFilterSummary()"></div>
+</div>
               <div class="sched-rail-top-controls" x-show="!railTopCollapsed" x-transition>
 
                 <!-- Filters (rail only) -->
-                <div class="sched-rail-sub text-xs opacity-70 mt-1">Filter cards:</div>
-
-                <div class="sched-rail-filter-row mt-2">
+<div class="sched-rail-filter-row mt-2">
                   <select
                     class="sched-target-select"
                     x-model="railGradeFilter"
@@ -244,35 +250,8 @@
                     </button>
                   </div>
                 </div>
-
-                <!-- Placement controls -->
-                <div class="sched-rail-sub text-xs opacity-70 mt-3">Place into:</div>
-
-                <div class="sched-target mt-2">
-                  <select
-                    class="sched-target-select"
-                    x-model="activeTarget.studentId"
-                    @change="ensureStudent(activeTarget.studentId); persistCards()"
-                  >
-                    <template x-for="s in students" :key="s.id">
-                      <option :value="s.id" x-text="s.name"></option>
-                    </template>
-                  </select>
-
-                  <div class="sched-target-days">
-                    <template x-for="(label, i) in dayLabels" :key="i">
-                      <button
-                        type="button"
-                        class="sched-target-day"
-                        :class="activeTarget.dayIndex === i ? 'sched-target-day--on' : ''"
-                        @click="activeTarget.dayIndex = i; persistCards()"
-                        x-text="label"
-                      ></button>
-                    </template>
-                  </div>
-                </div>
               </div>
-            </div>
+</div>
 
             <!-- Scrollable rail content -->
             <div class="sched-rail-body">
@@ -326,15 +305,15 @@
                               <button type="button"
                                       class="sched-rail-action-btn"
                                       title="Edit card settings"
-                                      @click="openCustomCardModal('adjust', entry.templateId)">
+                                      @click="openCustomCardModal('adjust', railEntryTemplateId(entry))">
                                 ✎
                               </button>
 
                               <button type="button"
                                       class="sched-rail-action-btn"
                                       title="Remove custom card"
-                                      x-show="String(entry.templateId || '').startsWith('u:')"
-                                      @click="openCustomCardModal('delete', entry.templateId)">
+                                      x-show="String(railEntryTemplateId(entry) || '').startsWith('u:')"
+                                      @click="openCustomCardModal('delete', railEntryTemplateId(entry))">
                                 ✕
                               </button>
                             </div>
@@ -403,15 +382,15 @@
                               <button type="button"
                                       class="sched-rail-action-btn"
                                       title="Edit card settings"
-                                      @click="openCustomCardModal('adjust', entry.templateId)">
+                                      @click="openCustomCardModal('adjust', railEntryTemplateId(entry))">
                                 ✎
                               </button>
 
                               <button type="button"
                                       class="sched-rail-action-btn"
                                       title="Remove custom card"
-                                      x-show="String(entry.templateId || '').startsWith('u:')"
-                                      @click="openCustomCardModal('delete', entry.templateId)">
+                                      x-show="String(railEntryTemplateId(entry) || '').startsWith('u:')"
+                                      @click="openCustomCardModal('delete', railEntryTemplateId(entry))">
                                 ✕
                               </button>
                             </div>
@@ -486,24 +465,7 @@
                                 <div class="sched-rail-meta-left">
                                   <div class="sched-rail-symbols"
                                        x-text="(templatesById[entry.templateId] || {}).symbols || ''"></div>
-
-                                  <div class="sched-rail-custom-inline"
-                                       x-show="String(entry.templateId || '').startsWith('u:')">
-                                    <button type="button"
-                                            class="sched-rail-icon-btn"
-                                            title="Edit custom card"
-                                            @click="openCustomCardModal('edit', entry.templateId)">
-                                      ✎
-                                    </button>
-
-                                    <button type="button"
-                                            class="sched-rail-icon-btn"
-                                            title="Remove custom card"
-                                            @click="openCustomCardModal('delete', entry.templateId)">
-                                      ✕
-                                    </button>
-                                  </div>
-                                </div>
+</div>
 
                                 <div class="sched-rail-track"
                                      x-show="trackingForEntry(entry).show"
@@ -516,8 +478,28 @@
                                 </div>
                               </div>
 
+                              
                               <div class="sched-rail-footer">
-                                <div class="sched-rail-daytoggles" aria-label="Scheduled days">
+                                <div class="sched-rail-footer-left">
+                                  <div class="sched-rail-actions">
+                                    <button type="button"
+                                            class="sched-rail-action-btn"
+                                            title="Edit card settings"
+                                            @click="openCustomCardModal('adjust', railEntryTemplateId(entry))">
+                                      ✎
+                                    </button>
+
+                                    <button type="button"
+                                            class="sched-rail-action-btn"
+                                            title="Remove custom card"
+                                            x-show="String(railEntryTemplateId(entry) || '').startsWith('u:')"
+                                            @click="openCustomCardModal('delete', railEntryTemplateId(entry))">
+                                      ✕
+                                    </button>
+                                  </div>
+                                </div>
+
+<div class="sched-rail-daytoggles" aria-label="Scheduled days">
                                   <template x-for="(label, i) in dayLabels" :key="i">
                                     <button type="button"
                                             class="sched-rail-daytoggle"
@@ -568,6 +550,24 @@
 
                               <div class="sched-rail-footer">
                                 <div class="sched-rail-footer-left" aria-label="Choose grades">
+                                  
+                                  <div class="sched-rail-actions">
+                                    <button type="button"
+                                            class="sched-rail-action-btn"
+                                            title="Edit card settings"
+                                            @click="openCustomCardModal('adjust', railEntryTemplateId(entry))">
+                                      ✎
+                                    </button>
+
+                                    <button type="button"
+                                            class="sched-rail-action-btn"
+                                            title="Remove custom card"
+                                            x-show="String(railEntryTemplateId(entry) || '').startsWith('u:')"
+                                            @click="openCustomCardModal('delete', railEntryTemplateId(entry))">
+                                      ✕
+                                    </button>
+                                  </div>
+
                                   <div class="sched-rail-grade-select-wrap">
                                     <select
                                       class="sched-rail-grade-select"
@@ -606,10 +606,19 @@
                   </template>
                 </div>
               </template>
+
+            </div>
+
+            <!-- Rail footer actions (create custom cards) -->
+            <div class="sched-rail-bottom">
+              <button type="button" class="sched-rail-btn sched-rail-btn--full" @click="openCustomCardModal('create')">
+                + Custom Card
+              </button>
             </div>
           </div>
 
           <!-- Right build area -->
+
           <div class="sched-work p-4 rounded-lg border border-[#e5e8e5] bg-white">
           
             <!-- Header row -->
