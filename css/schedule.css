@@ -2513,3 +2513,32 @@ body.sched-dragging .sched-card{
      to the summary text line. It's smaller than before because padding changed. */
   top: 50px;
 }
+
+/* =========================================================
+   Rail header: summary row + collapse chevron alignment
+   ========================================================= */
+
+.sched-rail-summary-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* remove any previous absolute positioning attempts */
+.sched-rail-collapse-btn{
+  position: static !important;
+  right: auto !important;
+  top: auto !important;
+  transform: none !important;
+  opacity: .72;
+}
+
+.sched-rail-collapse-btn:hover{
+  opacity: .95;
+}
+
+/* summary should not reserve space for a chevron anymore */
+.sched-rail-summary{
+  padding-right: 0 !important;
+}
