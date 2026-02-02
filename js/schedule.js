@@ -1151,6 +1151,18 @@
         };
       },
 
+      // Helper: resolve the active templateId for either a single or group rail entry
+      railEntryTemplateId(entry) {
+        if (!entry) return null;
+        if (entry.type === "single") return entry.templateId || null;
+
+        // group (grade-band / option-based)
+        const selectedOpt = this.choices?.courseOptions?.[entry.courseKey];
+        const match = (entry.options || []).find(o => o.option === selectedOpt);
+        return (match && match.templateId) || entry.activeTemplateId || null;
+      },
+
+
 
 
       // -----------------------------
