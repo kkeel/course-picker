@@ -167,7 +167,7 @@
       </div>
     </div>
 
-        <div class="schedule-grid mt-6 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6">
+      <div class="schedule-grid mt-6 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6">
           
           <!-- Left card rail (Phase 2.5) -->
           <div
@@ -214,7 +214,7 @@
               <div class="sched-rail-top-controls" x-show="!railTopCollapsed" x-transition>
 
                 <!-- Filters (rail only) -->
-<div class="sched-rail-filter-row mt-2">
+                <div class="sched-rail-filter-row mt-2">
                   <select
                     class="sched-target-select"
                     x-model="railGradeFilter"
@@ -264,7 +264,7 @@
 
                 </div>
               </div>
-</div>
+            </div>
 
             <!-- Scrollable rail content -->
             <div class="sched-rail-body">
@@ -294,7 +294,7 @@
                           <div class="sched-rail-meta-left">
                             <div class="sched-rail-symbols"
                                  x-text="(templatesById[entry.templateId] || {}).symbols || ''"></div>
-</div>
+                          </div>
 
                           <div class="sched-rail-track"
                                x-show="trackingForEntry(entry).show"
@@ -478,7 +478,7 @@
                                 <div class="sched-rail-meta-left">
                                   <div class="sched-rail-symbols"
                                        x-text="(templatesById[entry.templateId] || {}).symbols || ''"></div>
-</div>
+                                  </div>
 
                                 <div class="sched-rail-track"
                                      x-show="trackingForEntry(entry).show"
@@ -512,7 +512,7 @@
                                   </div>
                                 </div>
 
-<div class="sched-rail-daytoggles" aria-label="Scheduled days">
+                                <div class="sched-rail-daytoggles" aria-label="Scheduled days">
                                   <template x-for="(label, i) in dayLabels" :key="i">
                                     <button type="button"
                                             class="sched-rail-daytoggle"
