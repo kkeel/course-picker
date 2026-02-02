@@ -318,6 +318,14 @@
     const one = s.match(/(\d+)/);
     return one ? one[1] : s;
   }
+
+  function symbolsFromCardText(cardText) {
+    if (!cardText) return "";
+    // Example: "↔ * ⬔ (Grades 2-4)"  -> "↔ * ⬔"
+    const s = String(cardText).trim();
+    const beforeParen = s.split("(")[0].trim();
+    return beforeParen.replace(/\s+/g, " ");
+  }
   
   async function fetchJson(url) {
     const res = await fetch(url, { cache: "no-store" });
