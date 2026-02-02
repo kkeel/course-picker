@@ -267,11 +267,13 @@
     const minutes = Number(rule.min || 0);
 
     // Symbols: keep simple + consistent (we can enhance later)
-    const symbols = [
-      source.shared ? "↔" : "",
-      trackingCount ? "*" : "",
-      rule.teach ? "🅃" : "",
-    ].filter(Boolean).join(" ");
+    const symbols =
+      symbolsFromCardText(rule.cardText) ||
+      [
+        source.shared ? "↔" : "",
+        trackingCount ? "*" : "",
+        rule.teach ? "🅃" : "",
+      ].filter(Boolean).join(" ");
 
     const variantSort = Number(rule.variantSort || 0);
     const bandSort = Number(rule.gradeBandSort || 0);
