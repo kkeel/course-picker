@@ -19,6 +19,7 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
     }
   }
 
+  
   function loadKey(key) {
     const raw = localStorage.getItem(key);
     return raw ? safeParse(raw) : null;
