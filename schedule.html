@@ -176,38 +176,39 @@
             <!-- Sticky / collapsible rail header -->
             <div class="sched-rail-top">
               <div class="sched-rail-head">
-  <div class="text-sm font-semibold">Scheduling Cards</div>
-
-  <div class="sched-rail-head-actions">
-    <!-- Always-visible assignment target -->
-    <select
-      class="sched-target-select sched-target-select--compact"
-      x-model="activeTarget.studentId"
-      @change="ensureStudent(activeTarget.studentId); persistCards()"
-      aria-label="Assign cards to student"
-    >
-      <template x-for="s in students" :key="s.id">
-        <option :value="s.id" x-text="s.name"></option>
-      </template>
-    </select>
-
-    <!-- Collapse toggle -->
-    <button
-      type="button"
-      class="sched-rail-collapse-btn"
-      @click="toggleRailTop()"
-      :aria-expanded="(!railTopCollapsed).toString()"
-      :title="railTopCollapsed ? 'Show filters' : 'Hide filters'"
-    >
-      <svg class="sched-rail-collapse-icon" viewBox="0 0 20 20" aria-hidden="true">
-        <path d="M5.5 7.5l4.5 4.5 4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-  </div>
-
-  <!-- Always-visible summary of rail filters (does NOT affect schedule columns) -->
-  <div class="sched-rail-summary" x-text="railFilterSummary()"></div>
-</div>
+                <div class="text-sm font-semibold">Scheduling Cards</div>
+              
+                <div class="sched-rail-head-actions">
+                  <!-- Always-visible assignment target -->
+                  <select
+                    class="sched-target-select sched-target-select--compact"
+                    x-model="activeTarget.studentId"
+                    @change="ensureStudent(activeTarget.studentId); persistCards()"
+                    aria-label="Assign cards to student"
+                  >
+                    <template x-for="s in students" :key="s.id">
+                      <option :value="s.id" x-text="s.name"></option>
+                    </template>
+                  </select>
+              
+                  <!-- Collapse toggle -->
+                  <button
+                    type="button"
+                    class="sched-rail-collapse-btn"
+                    @click="toggleRailTop()"
+                    :aria-expanded="(!railTopCollapsed).toString()"
+                    :title="railTopCollapsed ? 'Show filters' : 'Hide filters'"
+                  >
+                    <svg class="sched-rail-collapse-icon" viewBox="0 0 20 20" aria-hidden="true">
+                      <path d="M5.5 7.5l4.5 4.5 4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Always-visible summary of rail filters (does NOT affect schedule columns) -->
+              <div class="sched-rail-summary" x-text="railFilterSummary()"></div>
+              
               <div class="sched-rail-top-controls" x-show="!railTopCollapsed" x-transition>
 
                 <!-- Filters (rail only) -->
