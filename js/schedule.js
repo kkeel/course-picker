@@ -208,37 +208,39 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
           dayViewPanels[1].dayIdx = fallbackDay;
         }
     
-        // Normalize dayViewStudentSlots: exactly 5 valid student IDs, de-duped
-        let dayViewStudentSlots = Array.isArray(state?.dayViewStudentSlots)
-          ? state.dayViewStudentSlots.slice()
-          : (Array.isArray(d.dayViewStudentSlots) ? d.dayViewStudentSlots.slice() : []);
-    
-        dayViewStudentSlots = dayViewStudentSlots
-          .map((id, idx) => {
-            const v = String(id || "");
-            if (studentIds.includes(v)) return v;
-            return studentIds[idx] || studentIds[0] || "S1";
-          })
-          .slice(0, 5);
-    
-        // pad to 5
-        while (dayViewStudentSlots.length < 5) {
-          dayViewStudentSlots.push(studentIds[dayViewStudentSlots.length] || studentIds[0] || "S1");
+                // Normalize dayViewStudentSlots
+        // - If you have fewer than 5 students, we show only that many columns (no duplicates).
+        // - If you have 0 students loaded, keep 5 placeholder columns.
+        const targetSlots = studentIds.length ? Math.min(5, studentIds.length) : 5;
+
+        dayViewStudentSlots = Array.isArray(dayViewStudentSlots) ? dayViewStudentSlots : [];
+        // Keep any existing choices that are still valid; otherwise fall back to first student / placeholder
+        dayViewStudentSlots = dayViewStudentSlots.map((id, i) =>
+          studentIds.includes(id) ? id : (studentIds[i] || studentIds[0] || "S1")
+        );
+
+        // Trim to target count, then (if needed) pad up to target count.
+        dayViewStudentSlots = dayViewStudentSlots.slice(0, targetSlots);
+        while (dayViewStudentSlots.length < targetSlots) {
+          dayViewStudentSlots.push(studentIds[dayViewStudentSlots.length] || studentIds[0] || `S${dayViewStudentSlots.length + 1}`);
         }
-    
-        // de-dupe while preserving order
+
+        // De-dupe while preserving order (only within the target count)
         const seen = new Set();
         dayViewStudentSlots = dayViewStudentSlots.map((id) => {
           if (!seen.has(id)) {
             seen.add(id);
             return id;
           }
-          const repl = studentIds.find((sid) => !seen.has(sid)) || id;
-          seen.add(repl);
-          return repl;
+          const repl = studentIds.find((sid) => !seen.has(sid));
+          if (repl) {
+            seen.add(repl);
+            return repl;
+          }
+          // If we can't find a replacement (e.g., fewer unique students than slots), keep the id.
+          return id;
         });
-
-    return {
+return {
       view,
       visibleDays,
       panels,
