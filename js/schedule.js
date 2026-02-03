@@ -162,6 +162,9 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
       railStudentAssignedOnly: false,
       railSearch: "", // rail title search
 
+      // Rail header "target student" selector (persists across refresh)
+      activeTargetStudentId: "S1",
+      activeTargetDayIndex: 0,
     };
   }
 
@@ -218,6 +221,10 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
 
     // -----------------------------
     // Day View state
+    const railSearch = typeof state?.railSearch === "string" ? state.railSearch : (d.railSearch || "");
+
+    // -----------------------------
+    // Day View state
     // -----------------------------
     let dayViewPanels = Array.isArray(state?.dayViewPanels)
       ? state.dayViewPanels.slice()
@@ -250,7 +257,38 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
     }
 
     const dayViewStudentSlots = normalizeDayViewSlots(state?.dayViewStudentSlots, allStudentIds);
-return {
+// -----------------------------
+// Rail "Add target" (student/day)
+// -----------------------------
+let activeTargetStudentId = "";
+if (typeof state?.activeTargetStudentId === "string") activeTargetStudentId = state.activeTargetStudentId;
+if (!activeTargetStudentId && typeof state?.activeTarget?.studentId === "string") activeTargetStudentId = state.activeTarget.studentId;
+
+if (Array.isArray(allStudentIds) && allStudentIds.length) {
+  if (!allStudentIds.includes(activeTargetStudentId)) {
+    activeTargetStudentId =
+      (panels && panels[0] && panels[0].studentId)
+        ? panels[0].studentId
+        : allStudentIds[0];
+  }
+}
+
+if (!activeTargetStudentId) {
+  activeTargetStudentId = (panels && panels[0] && panels[0].studentId) ? panels[0].studentId : "S1";
+}
+
+let activeTargetDayIndex = Number(state?.activeTargetDayIndex);
+if (!Number.isInteger(activeTargetDayIndex)) activeTargetDayIndex = Number(state?.activeTarget?.dayIndex);
+if (!Number.isInteger(activeTargetDayIndex) || activeTargetDayIndex < 0 || activeTargetDayIndex > 4) {
+  activeTargetDayIndex = Number.isInteger(Number(d.activeTargetDayIndex)) ? Number(d.activeTargetDayIndex) : 0;
+}
+
+// Keep day target within visible days (if provided)
+if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(activeTargetDayIndex)) {
+  activeTargetDayIndex = visibleDays[0];
+}
+
+    return {
       view,
       visibleDays,
       panels,
@@ -261,6 +299,9 @@ return {
       railGradeFilter,
       railMyCoursesOnly,
       railStudentAssignedOnly,
+      railSearch,
+      activeTargetStudentId,
+      activeTargetDayIndex,
     };
   }
 
@@ -731,6 +772,17 @@ return {
         this.dayViewStudentSlots = normalizedUi.dayViewStudentSlots;
         this.openStudentMenu = null;
 
+        // Restore rail header "Add target" selector (student/day)
+        this.activeTarget = {
+          studentId: normalizedUi.activeTargetStudentId || this.visibleStudentPanels?.[0]?.studentId || "S1",
+          dayIndex: Number.isInteger(Number(normalizedUi.activeTargetDayIndex))
+            ? Number(normalizedUi.activeTargetDayIndex)
+            : (this.visibleDays?.[0] ?? 0),
+        };
+        if (!this.visibleDays.includes(this.activeTarget.dayIndex)) {
+          this.activeTarget.dayIndex = this.visibleDays?.[0] ?? 0;
+        }
+
         // --------------------------------------------------
         // Live-update students when planner state changes
         // (e.g., Course List adds/removes students)
@@ -762,11 +814,24 @@ return {
             railMyCoursesOnly: this.railMyCoursesOnly,
             railStudentAssignedOnly: this.railStudentAssignedOnly,
             railSearch: this.railSearch,
+            activeTargetStudentId: this.activeTarget?.studentId,
+            activeTargetDayIndex: this.activeTarget?.dayIndex,
           };
           const uiNorm = normalizeUiState(uiNow, ids);
           this.visibleStudentPanels = uiNorm.panels;
           this.dayViewPanels = uiNorm.dayViewPanels;
           this.dayViewStudentSlots = uiNorm.dayViewStudentSlots;
+
+          // Keep rail "target" selector stable as students change
+          if (this.activeTarget) {
+            this.activeTarget.studentId = uiNorm.activeTargetStudentId || this.visibleStudentPanels?.[0]?.studentId || ids[0] || "S1";
+            this.activeTarget.dayIndex = Number.isInteger(Number(uiNorm.activeTargetDayIndex))
+              ? Number(uiNorm.activeTargetDayIndex)
+              : (this.visibleDays?.[0] ?? 0);
+            if (!this.visibleDays.includes(this.activeTarget.dayIndex)) {
+              this.activeTarget.dayIndex = this.visibleDays?.[0] ?? 0;
+            }
+          }
 
           // If the currently targeted student no longer exists, pick a sane default
           if (this.activeTarget && this.activeTarget.studentId && !ids.includes(this.activeTarget.studentId)) {
@@ -910,12 +975,24 @@ return {
 
         // ensure placements buckets for currently visible panel students
         this.visibleStudentPanels.forEach((p) => this.ensureStudent(p.studentId));
+        // set a sane active target (prefer saved rail selector)
+        {
+          const ids = (this.students || []).map((s) => s.id);
+          let studentId = this.activeTarget?.studentId;
+          if (!studentId || (ids.length && !ids.includes(studentId))) {
+            studentId = this.visibleStudentPanels?.[0]?.studentId || ids[0] || "S1";
+          }
 
-        // set a sane active target
-        this.activeTarget = {
-          studentId: this.visibleStudentPanels?.[0]?.studentId || "S1",
-          dayIndex: this.visibleDays?.[0] ?? 0,
-        };
+          let dayIndex = Number(this.activeTarget?.dayIndex);
+          if (!Number.isInteger(dayIndex) || dayIndex < 0 || dayIndex > 4) {
+            dayIndex = this.visibleDays?.[0] ?? 0;
+          }
+          if (!this.visibleDays.includes(dayIndex)) {
+            dayIndex = this.visibleDays?.[0] ?? 0;
+          }
+
+          this.activeTarget = { studentId, dayIndex };
+        }
 
         // persist normalized
         this.persistUi();
@@ -935,6 +1012,8 @@ return {
           railSearch: this.railSearch,
           dayViewPanels: (this.dayViewPanels || []).map(p => ({ slot: p.slot, dayIdx: p.dayIdx })),
           dayViewStudentSlots: (this.dayViewStudentSlots || []).slice(0, 5),
+          activeTargetStudentId: this.activeTarget?.studentId,
+          activeTargetDayIndex: this.activeTarget?.dayIndex,
         });
       },
 
