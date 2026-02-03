@@ -35,45 +35,257 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
   // -----------------------------
   // Day View student column "slots"
   // -----------------------------
-  function normalizeDayViewSlots(slots, studentIds) {
-  const ids = Array.isArray(studentIds) ? studentIds.filter(Boolean) : [];
-  const existing = Array.isArray(slots) ? slots.slice(0, 5).map((v) => (v == null ? "" : String(v))) : [];
+  function normalizeDayViewSlots(slots, studentsOrIds) {
+    const desired = 5;
+    const studentIds = Array.isArray(studentsOrIds)
+      ? studentsOrIds
+          .map((s) => (typeof s === "string" ? s : s?.id))
+          .filter(Boolean)
+      : [];
 
-  // Keep only valid ids, preserve order, and de-dupe.
-  const seen = new Set();
-  let out = existing.map((sid) => (ids.includes(sid) ? sid : "")).map((sid) => {
-    if (!sid) return "";
-    if (seen.has(sid)) return "";
-    seen.add(sid);
-    return sid;
-  });
+    // If slots are missing or obviously placeholder-ish, seed from available students.
+    const incoming = Array.isArray(slots) ? slots.slice(0, desired) : [];
+    const cleaned = incoming.map((v) => (typeof v === "string" ? v : "").trim()).filter((v, i) => i < desired);
 
-  // Pad to 5
-  while (out.length < 5) out.push("");
-  out = out.slice(0, 5);
+    // Drop invalid ids.
+    const valid = cleaned.map((id) => (studentIds.includes(id) ? id : ""));
 
-  // Fill empty slots with any remaining students not already used.
-  const remaining = ids.filter((sid) => !seen.has(sid));
-  if (remaining.length) {
-    for (let i = 0; i < out.length && remaining.length; i++) {
-      if (!out[i]) {
-        const next = remaining.shift();
-        if (next) {
-          out[i] = next;
-          seen.add(next);
-        }
-      }
+    // If we have no valid selections yet, auto-seed sequentially from known students.
+    const hasAny = valid.some(Boolean);
+    let seeded = valid;
+    if (!hasAny && studentIds.length) {
+      seeded = studentIds.slice(0, desired);
     }
+
+    // Pad to fixed size.
+    while (seeded.length < desired) seeded.push("");
+
+    // If duplicates exist, de-dupe by keeping first occurrence and clearing the rest.
+    const seen = new Set();
+    seeded = seeded.map((id) => {
+      if (!id) return "";
+      if (seen.has(id)) return "";
+      seen.add(id);
+      return id;
+    });
+
+    return seeded;
   }
 
-  // If still nothing selected at all, default to first N students.
-  const hasAny = out.some(Boolean);
-  if (!hasAny) {
-    out = ids.slice(0, 5);
-    while (out.length < 5) out.push("");
+  // -----------------------------
+  // Planner state (shared with course list / book list)
+  // -----------------------------
+  function getPlannerStateKey() {
+    // app.js declares PLANNER_STATE_KEY and APP_CACHE_VERSION as top-level consts
+    // (not always on window), so use typeof checks.
+    try {
+      if (typeof PLANNER_STATE_KEY === "string" && PLANNER_STATE_KEY) return PLANNER_STATE_KEY;
+    } catch {}
+    try {
+      if (typeof APP_CACHE_VERSION === "string" && APP_CACHE_VERSION) return `alveary_planner_${APP_CACHE_VERSION}`;
+    } catch {}
+    return "alveary_planner_v1";
   }
 
-  return out;
+  function loadPlannerState() {
+    const key = getPlannerStateKey();
+    return loadKey(key) || { students: [], courses: {}, topics: {} };
+  }
+
+  function plannerStudents(planner) {
+    const arr = Array.isArray(planner?.students) ? planner.students : [];
+    return arr
+      .map((s, idx) => ({
+        id: s?.id || `S${idx + 1}`,
+        name: (s?.name || s?.label || `Student ${idx + 1}`).trim(),
+      }))
+      .filter((s) => s.id && s.name);
+  }
+
+  function plannerHasBookmarkedCourse(planner, courseKey) {
+    const rec = planner?.courses?.[courseKey];
+    return !!(rec && rec.isBookmarked);
+  }
+
+  function plannerHasBookmarkedTopic(planner, topicId) {
+    const topics = planner?.topics || {};
+    for (const k of Object.keys(topics)) {
+      if (k.endsWith(`::${topicId}`) && topics[k]?.isBookmarked) return true;
+    }
+    return false;
+  }
+
+  function plannerCourseAssignedToStudent(planner, courseKey, studentId) {
+    const rec = planner?.courses?.[courseKey];
+    const list = Array.isArray(rec?.students) ? rec.students : [];
+    return list.includes(studentId);
+  }
+
+  function plannerTopicAssignedToStudent(planner, topicId, studentId) {
+    const topics = planner?.topics || {};
+    for (const k of Object.keys(topics)) {
+      if (!k.endsWith(`::${topicId}`)) continue;
+      const list = Array.isArray(topics[k]?.students) ? topics[k].students : [];
+      if (list.includes(studentId)) return true;
+    }
+    return false;
+  }
+
+  // -----------------------------
+  // UI state (existing)
+  // -----------------------------
+  function defaultUiState() {
+    return {
+      view: "track",
+      visibleDays: [0, 1, 2, 3, 4],
+      panels: [
+        { slot: "P1", studentId: "S1" },
+        { slot: "P2", studentId: "S2" },
+      ],
+      dayViewPanels: [
+        { slot: "D1", dayIdx: 0 }, // Mon
+        { slot: "D2", dayIdx: 1 }, // Tue
+      ],
+      dayViewStudentSlots: ["S1", "S2", "S3", "S4", "S5"],
+      // Left rail UI
+      railTopCollapsed: false,
+      showCompleted: false,
+      // Rail filters (affect rail ONLY — never the schedule columns)
+      railGradeFilter: "", // "" = all; otherwise "G1".."G12"
+      railMyCoursesOnly: false,
+      railStudentAssignedOnly: false,
+      railSearch: "", // rail title search
+
+    };
+  }
+
+  function normalizeUiState(state, allStudentIds) {
+    const d = defaultUiState();
+
+    const view = typeof state?.view === "string" ? state.view : d.view;
+
+    let visibleDays = Array.isArray(state?.visibleDays)
+      ? state.visibleDays.slice()
+      : d.visibleDays.slice();
+
+    visibleDays = visibleDays
+      .map((n) => Number(n))
+      .filter((n) => Number.isInteger(n) && n >= 0 && n <= 4);
+
+    if (!visibleDays.length) visibleDays = d.visibleDays.slice();
+    visibleDays = Array.from(new Set(visibleDays)).sort((a, b) => a - b);
+
+    let panels = Array.isArray(state?.panels) ? state.panels.slice() : d.panels.slice();
+
+    panels = panels
+      .map((p, idx) => {
+        const slot = p?.slot || (idx === 1 ? "P2" : "P1");
+        let studentId = p?.studentId || (slot === "P2" ? "S2" : "S1");
+
+        if (Array.isArray(allStudentIds) && allStudentIds.length) {
+          if (!allStudentIds.includes(studentId)) {
+            studentId = slot === "P2"
+              ? (allStudentIds[1] || allStudentIds[0])
+              : allStudentIds[0];
+          }
+        }
+
+        return { slot, studentId };
+      })
+      .slice(0, 2);
+
+    if (panels.length < 2) panels = d.panels.slice();
+
+    if (panels[0].studentId === panels[1].studentId) {
+      const fallback = panels[0].studentId === "S1" ? "S2" : "S1";
+      panels[1].studentId = fallback;
+    }
+
+    const railTopCollapsed = typeof state?.railTopCollapsed === 'boolean' ? state.railTopCollapsed : d.railTopCollapsed;
+    const showCompleted = typeof state?.showCompleted === 'boolean' ? state.showCompleted : d.showCompleted;
+
+    // Rail filters (rail ONLY)
+    const railGradeFilterRaw = typeof state?.railGradeFilter === 'string' ? state.railGradeFilter : d.railGradeFilter;
+    const railGradeFilter = (/^G([1-9]|1[0-2])$/).test(railGradeFilterRaw) ? railGradeFilterRaw : "";
+    const railMyCoursesOnly = typeof state?.railMyCoursesOnly === 'boolean' ? state.railMyCoursesOnly : d.railMyCoursesOnly;
+    const railStudentAssignedOnly = typeof state?.railStudentAssignedOnly === 'boolean' ? state.railStudentAssignedOnly : d.railStudentAssignedOnly;
+
+    // -----------------------------
+    // Day View state
+    // -----------------------------
+    let dayViewPanels = Array.isArray(state?.dayViewPanels)
+      ? state.dayViewPanels.slice()
+      : (Array.isArray(d.dayViewPanels) ? d.dayViewPanels.slice() : []);
+
+    // Normalize day panels: exactly 2 panels, dayIdx in 0..4, no duplicates
+    dayViewPanels = dayViewPanels
+      .map((p, idx) => {
+        const slot = p?.slot || (idx === 1 ? "D2" : "D1");
+        let dayIdx = Number(p?.dayIdx);
+
+        if (!Number.isInteger(dayIdx) || dayIdx < 0 || dayIdx > 4) {
+          dayIdx = idx === 1 ? 1 : 0; // default: Mon, Tue
+        }
+
+        return { slot, dayIdx };
+      })
+      .slice(0, 2);
+
+    if (dayViewPanels.length < 2) {
+      dayViewPanels = [
+        { slot: "D1", dayIdx: 0 },
+        { slot: "D2", dayIdx: 1 },
+      ];
+    }
+
+    if (dayViewPanels[0].dayIdx === dayViewPanels[1].dayIdx) {
+      const fallbackDay = [0, 1, 2, 3, 4].find((d) => d !== dayViewPanels[0].dayIdx) ?? 1;
+      dayViewPanels[1].dayIdx = fallbackDay;
+    }
+
+    const dayViewStudentSlots = normalizeDayViewSlots(state?.dayViewStudentSlots, allStudentIds);
+return {
+      view,
+      visibleDays,
+      panels,
+      dayViewPanels,
+      dayViewStudentSlots,
+      railTopCollapsed,
+      showCompleted,
+      railGradeFilter,
+      railMyCoursesOnly,
+      railStudentAssignedOnly,
+    };
+  }
+
+  // -----------------------------
+  // Cards state (Phase 2.5)
+  // -----------------------------
+  function defaultCardsState() {
+    return {
+      // template catalog (official sample + user custom templates)
+      templatesById: {},
+      // ordered placement per student/day: placements[studentId][dayIndex] = [instanceId...]
+      placements: {},
+      // all instances by id: instanceId -> { instanceId, templateId, createdAt }
+      instancesById: {},
+      // preferences/choices that affect which templates are active
+      choices: {
+        // per-course option selections (scales to multiple “banded” courses)
+        courseOptions: {
+          "picture-study": "g1-3",
+        },
+      },
+    };
+  }
+
+  function uid(prefix = "i") {
+    return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+  }
+
+  function pad2(n) {
+  const x = Number(n || 0);
+  return String(x).padStart(2, "0");
 }
 
   function normGradeList(arr) {
@@ -507,6 +719,69 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
         this.dayViewStudentSlots = normalizedUi.dayViewStudentSlots;
         this.openStudentMenu = null;
 
+        // --------------------------------------------------
+        // Live-update students when planner state changes
+        // (e.g., Course List adds/removes students)
+        // --------------------------------------------------
+        this._plannerSig = JSON.stringify((this.students || []).map(s => [s.id, s.name]));
+
+        const applyPlannerUpdate = (nextPlanner) => {
+          const kids = plannerStudents(nextPlanner);
+          if (!kids || kids.length === 0) return;
+          const sig = JSON.stringify(kids.map(s => [s.id, s.name]));
+          if (sig === this._plannerSig) return;
+
+          this._plannerSig = sig;
+          this._planner = nextPlanner;
+          this.students = kids;
+
+          const ids = kids.map(s => s.id);
+
+          // Re-normalize any UI pieces that depend on student IDs
+          const uiNow = {
+            view: this.view,
+            visibleDays: this.visibleDays,
+            panels: this.visibleStudentPanels,
+            dayViewPanels: this.dayViewPanels,
+            dayViewStudentSlots: this.dayViewStudentSlots,
+            railTopCollapsed: this.railTopCollapsed,
+            showCompleted: this.showCompleted,
+            railGradeFilter: this.railGradeFilter,
+            railMyCoursesOnly: this.railMyCoursesOnly,
+            railStudentAssignedOnly: this.railStudentAssignedOnly,
+            railSearch: this.railSearch,
+          };
+          const uiNorm = normalizeUiState(uiNow, ids);
+          this.visibleStudentPanels = uiNorm.panels;
+          this.dayViewPanels = uiNorm.dayViewPanels;
+          this.dayViewStudentSlots = uiNorm.dayViewStudentSlots;
+
+          // If the currently targeted student no longer exists, pick a sane default
+          if (this.activeTarget && this.activeTarget.studentId && !ids.includes(this.activeTarget.studentId)) {
+            const first = (this.visibleStudentPanels && this.visibleStudentPanels[0] && this.visibleStudentPanels[0].studentId) || ids[0];
+            this.activeTarget.studentId = first || null;
+          }
+
+          // Ensure placements exist for any newly-added students
+          ids.forEach((sid) => this.ensureStudent(sid));
+
+          this.persistUi();
+        };
+
+        this._plannerPoll = () => applyPlannerUpdate(loadPlannerState());
+
+        // Changes from another tab trigger the storage event
+        this._onStorage = (e) => {
+          try {
+            if (e && e.key === getPlannerStateKey()) this._plannerPoll();
+          } catch (_) {}
+        };
+        window.addEventListener("storage", this._onStorage);
+
+        // Poll as a fallback (covers same-tab changes and missed storage events)
+        this._plannerPollTimer = window.setInterval(this._plannerPoll, 1500);
+
+
         // workspace resizer (rail + schedule board height)
         requestAnimationFrame(() => this.initWorkspaceResizer());
 
@@ -633,62 +908,6 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
         // persist normalized
         this.persistUi();
         this.persistCards();
-
-        // Watch for student list changes coming from other pages (planner state in localStorage)
-        this.startPlannerWatch();
-      },
-
-
-      startPlannerWatch() {
-        if (this._plannerWatchStarted) return;
-        this._plannerWatchStarted = true;
-
-        this._plannerRaw = localStorage.getItem(getPlannerStateKey()) || "";
-
-        const tick = () => this.refreshPlannerFromStorage(false);
-
-        // Catch changes from other tabs/windows
-        window.addEventListener("storage", (e) => {
-          if (e && e.key === getPlannerStateKey()) tick();
-        });
-
-        // Catch changes after navigating back to this tab
-        window.addEventListener("focus", tick);
-
-        // Catch same-tab updates (most common): poll lightly
-        this._plannerPoll = window.setInterval(tick, 1000);
-      },
-
-      refreshPlannerFromStorage(force = false) {
-        const key = getPlannerStateKey();
-        const raw = localStorage.getItem(key) || "";
-        if (!force && raw === this._plannerRaw) return false;
-
-        this._plannerRaw = raw;
-
-        const nextPlanner = loadPlannerState();
-        const nextStudents = Array.isArray(nextPlanner.students) ? nextPlanner.students : [];
-        const nextIds = nextStudents.map((s) => String(s?.id || "")).filter(Boolean);
-
-        this.planner = nextPlanner;
-        this.students = nextStudents;
-
-        // Update dependent state so Day View slots + placements can react immediately.
-        if (this.cardsState && this.templatesById && Object.keys(this.templatesById).length) {
-          this.cardsState = normalizeCardsState(this.cardsState, nextIds, this.templatesById);
-        }
-
-        if (this.uiState) {
-          this.uiState = normalizeUiState(this.uiState, nextIds);
-        }
-
-        this.dayViewStudentSlots = normalizeDayViewSlots(this.dayViewStudentSlots, nextIds);
-
-        this.persistUi();
-        this.persistCards();
-        this.render();
-
-        return true;
       },
 
       persistUi() {
@@ -912,9 +1131,6 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
 
         this.persistUi();
         this.persistCards();
-
-        // Watch for student list changes coming from other pages (planner state in localStorage)
-        this.startPlannerWatch();
       },
 
       // -----------------------------
@@ -1008,9 +1224,6 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
         this.ensureStudent(studentId); // keep placements safe
         this.persistUi();
         this.persistCards();
-
-        // Watch for student list changes coming from other pages (planner state in localStorage)
-        this.startPlannerWatch();
       },
       
       dayViewCanPrev() {
