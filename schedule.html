@@ -168,7 +168,17 @@
     </div>
 
     <!-- Manage Students (same UI as Courses/Books) -->
-    <div
+<div class="schedule-student-tools">
+  <button
+              type="button"
+              class="manage-students-toggle"
+              @click.stop="toggleStudentsOpen()"
+              :aria-expanded="studentsOpen ? 'true' : 'false'"
+            >
+              Manage Students
+            </button>
+
+            <div
               class="student-manager"
               x-show="studentsOpen"
               x-transition
@@ -183,7 +193,6 @@
                 <template x-for="s in students" :key="s.id">
                   <div>
                     <div class="student-row">
-                      <!-- Color square (click to open swatches) -->
                       <button
                         type="button"
                         class="student-color-btn"
@@ -192,7 +201,7 @@
                         aria-label="Choose student color"
                         title="Choose color"
                       ></button>
-                    
+
                       <input
                         class="student-name-input"
                         type="text"
@@ -200,8 +209,7 @@
                         :value="s.name"
                         @input="updateStudentName(s.id, $event.target.value)"
                       />
-                    
-                      <!-- Subtle X remove -->
+
                       <button
                         type="button"
                         class="student-remove-x"
@@ -244,6 +252,7 @@
                 >Add</button>
               </div>
             </div>
+</div>
 
 <div class="schedule-grid mt-6 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6">
           
