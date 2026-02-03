@@ -1844,7 +1844,13 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
           for (let d = 0; d <= 4; d++) {
             const arr = daysObj?.[d];
             if (!Array.isArray(arr)) continue;
-            this.placements[studentId][d] = 
+            this.placements[studentId][d] = arr.filter((id) => !doomedInstanceIds.includes(id));
+          }
+        }
+      
+        this.persistCards();
+      },
+
       // -----------------------------
       // Workspace height (rail + board)
       // -----------------------------
@@ -1923,12 +1929,6 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
             commit();
           }
         });
-      },
-arr.filter((id) => !doomedInstanceIds.includes(id));
-          }
-        }
-      
-        this.persistCards();
       },
       
     };
