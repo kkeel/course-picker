@@ -356,6 +356,7 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
       id,
       sortKey: `${sourceKey}::${pad2(variantSort || bandSort || 0)}`,
       courseKey: sourceKey,             // used for grouping gradeband choices
+      sourceType: isCourse ? "course" : "topic", // for rail filters (my courses / student assigned)
       courseLabel,
       variantKey: String(rule.variantKey || ""),
       variantSort: variantSort || 0,
@@ -1277,22 +1278,40 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
         // "My courses" = bookmarked in Course List planner state
         if (this.railMyCoursesOnly) {
           templates = templates.filter((t) => {
-            const key = t.courseKey; // courseId for courses, Topic_ID for topics
-            if (t.sourceType === "course") return plannerHasBookmarkedCourse(planner, key);
-            if (t.sourceType === "topic") return plannerHasBookmarkedTopic(planner, key);
-            return true;
+            const key = t.courseKey || ""; // courseId for courses, Topic_ID for topics
+            // Be resilient: older cached templates may not have sourceType yet.
+            const looksLikeCourse =
+              t.sourceType === "course" ||
+              (planner?.courses && Object.prototype.hasOwnProperty.call(planner.courses, key));
+
+            if (looksLikeCourse) return plannerHasBookmarkedCourse(planner, key);
+
+            // topic (or unknown): keep if it's bookmarked as a topic (or a course, just in case)
+            return (
+              plannerHasBookmarkedTopic(planner, key) ||
+              plannerHasBookmarkedCourse(planner, key)
+            );
           });
         }
 
         // "Student assignments" = assigned in planner state for selected student
         if (this.railStudentAssignedOnly && activeStudentId) {
           templates = templates.filter((t) => {
-            const key = t.courseKey;
-            if (t.sourceType === "course")
+            const key = t.courseKey || "";
+            // Be resilient: older cached templates may not have sourceType yet.
+            const looksLikeCourse =
+              t.sourceType === "course" ||
+              (planner?.courses && Object.prototype.hasOwnProperty.call(planner.courses, key));
+
+            if (looksLikeCourse) {
               return plannerCourseAssignedToStudent(planner, key, activeStudentId);
-            if (t.sourceType === "topic")
-              return plannerTopicAssignedToStudent(planner, key, activeStudentId);
-            return true;
+            }
+
+            // topic (or unknown): keep if assigned as a topic (or as a course, just in case)
+            return (
+              plannerTopicAssignedToStudent(planner, key, activeStudentId) ||
+              plannerCourseAssignedToStudent(planner, key, activeStudentId)
+            );
           });
         }
       
