@@ -98,6 +98,7 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
       .map((s, idx) => ({
         id: s?.id || `S${idx + 1}`,
         name: (s?.name || s?.label || `Student ${idx + 1}`).trim(),
+        color: s?.color || s?.hex || s?.colour || null,
       }))
       .filter((s) => s.id && s.name);
   }
@@ -637,12 +638,28 @@ return {
       dayViewStudentSlots: ["S1", "S2", "S3", "S4", "S5"],
       openDayMenu: null,
       openDayStudentMenu: null,
+      // Students (from planner state)
+      students: plannerStudents(),
 
-      // placeholder students (until wired)
-      students: Array.from({ length: 15 }, (_, i) => {
-        const n = i + 1;
-        return { id: `S${n}`, name: `Student ${n}` };
-      }),
+      // Color picker state (matches Course/Book pages)
+      colorPickerFor: null,
+      studentColorPalette: [
+        "#5b6f5d",
+        "#7a4f72",
+        "#3f7f8c",
+        "#b07234",
+        "#5a6fa8",
+        "#8a8d3f",
+        "#b35b70",
+        "#4d8a68",
+        "#7c6b55",
+        "#3a6b8a",
+        "#6c3f7f",
+        "#8a5d3f",
+        "#4f7a72",
+        "#7f3f3f",
+        "#3f7f55",
+      ],
 
       openStudentMenu: null,
       // -----------------------------
@@ -1113,6 +1130,32 @@ return {
         this.studentsOpen = !this.studentsOpen;
       },
 
+      toggleColorPicker(studentId) {
+        this.colorPickerFor = (this.colorPickerFor === studentId) ? null : studentId;
+      },
+      isColorPickerOpen(studentId) {
+        return this.colorPickerFor === studentId;
+      },
+      closeColorPicker() {
+        this.colorPickerFor = null;
+      },
+      setStudentColor(studentId, color) {
+        const idx = this.students.findIndex((s) => s.id === studentId);
+        if (idx === -1) return;
+        this.students[idx].color = color;
+
+        const planner = loadPlannerState();
+        const pIdx = (planner.students || []).findIndex((s) => (s.id || '').toString() === studentId);
+        if (pIdx !== -1) {
+          planner.students[pIdx].color = color;
+        }
+        savePlannerState(planner);
+
+        // keep day-view dropdown labels + rail header in sync
+        try { this.refreshStudentsEverywhere?.(); } catch (e) {}
+        this.closeColorPicker();
+      },
+
       addStudent() {
         const name = String(this.newStudentName || "").trim();
         if (!name) return;
@@ -1129,7 +1172,10 @@ return {
           return;
         }
 
-        const student = { id: "s_" + Date.now(), name };
+        const palette = this.studentColorPalette || [];
+        const used = new Set((students || []).map((s) => s.color).filter(Boolean));
+        const nextColor = palette.find((c) => !used.has(c)) || palette[0] || "#5b6f5d";
+        const student = { id: "s_" + Date.now(), name, color: nextColor };
         students.push(student);
         planner.students = students;
 
