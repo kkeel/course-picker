@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -164,6 +165,63 @@
           <img class="av-play-icon" src="img/icons/play-button.svg" alt="" aria-hidden="true" />
           <span class="av-video-text">Planning App Tutorials</span>
         </a>
+      </div>
+    </div>
+
+    <!-- Manage Students (same UI/behavior as Courses/Books pages) -->
+    <div class="student-tools-row">
+      <button
+        class="manage-students-toggle"
+        type="button"
+        @click="toggleStudentsOpen()"
+        :aria-expanded="studentsOpen ? 'true' : 'false'"
+      >
+        Manage students
+        <svg
+          class="manage-students-chevron"
+          :class="{ 'open': studentsOpen }"
+          width="16"
+          height="16"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="student-manager" x-show="studentsOpen" x-transition.opacity>
+        <div class="student-manager-inner">
+          <div class="student-manager-title">Students</div>
+
+          <div class="student-add-row">
+            <input
+              class="student-add-input"
+              type="text"
+              placeholder="New student name"
+              x-model="newStudentName"
+              @keydown.enter.prevent="addStudent()"
+            />
+            <button class="student-add-btn" type="button" @click="addStudent()">Add</button>
+          </div>
+
+          <div class="student-list" role="list">
+            <template x-for="s in students" :key="s.id">
+              <div class="student-row" role="listitem">
+                <div class="student-name" x-text="s.name"></div>
+                <button
+                  class="student-remove-btn"
+                  type="button"
+                  title="Remove student"
+                  @click="removeStudent(s.id)"
+                >
+                  Remove
+                </button>
+              </div>
+            </template>
+          </div>
+        </div>
       </div>
     </div>
 
