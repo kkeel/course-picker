@@ -92,6 +92,11 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
     return loadKey(key) || { students: [], courses: {}, topics: {} };
   }
 
+  function savePlannerState(planner) {
+    const key = getPlannerStateKey();
+    saveKey(key, planner || {});
+  }
+
   function plannerStudents(planner) {
     const arr = Array.isArray(planner?.students) ? planner.students : [];
     return arr
@@ -288,19 +293,6 @@ return {
   const x = Number(n || 0);
   return String(x).padStart(2, "0");
 }
-
-  function savePlannerState(nextState) {
-    const key = getPlannerStateKey();
-    setLS(key, nextState);
-  }
-
-  function updatePlannerState(mutatorFn) {
-    const current = loadPlannerState();
-    const next = mutatorFn(structuredClone ? structuredClone(current) : JSON.parse(JSON.stringify(current)));
-    savePlannerState(next);
-    return next;
-  }
-
 
   function normGradeList(arr) {
     if (!Array.isArray(arr)) return [];
@@ -636,8 +628,6 @@ return {
       // -----------------------------
       studentsOpen: false,
       newStudentName: "",
-      colorPickerFor: null,
-      studentColorPalette: [],
       dayShortLabels: ["M","T","W","Th","F"],
       dayLongLabels: ["Monday","Tuesday","Wednesday","Thursday","Friday"],
 
@@ -658,23 +648,7 @@ return {
 
       // Color picker state (matches Course/Book pages)
       colorPickerFor: null,
-      studentColorPalette: [
-        "#5b6f5d",
-        "#7a4f72",
-        "#3f7f8c",
-        "#b07234",
-        "#5a6fa8",
-        "#8a8d3f",
-        "#b35b70",
-        "#4d8a68",
-        "#7c6b55",
-        "#3a6b8a",
-        "#6c3f7f",
-        "#8a5d3f",
-        "#4f7a72",
-        "#7f3f3f",
-        "#3f7f55",
-      ],
+      studentColorPalette: (typeof buildStudentColorPalette === 'function') ? buildStudentColorPalette() : ["#5b6f5d","#7a4f72","#3f7f8c","#b07234","#5a6fa8","#8a8d3f","#b35b70","#4d8a68","#7c6b55","#3a6b8a","#6c3f7f","#8a5d3f"],
 
       openStudentMenu: null,
       // -----------------------------
@@ -728,112 +702,7 @@ return {
       // -----------------------------
       // init + persistence
       // -----------------------------
-      
-      buildStudentColorPalette() {
-        // Match courses/books palette
-        return [
-          "#596e5e", "#45818e", "#0c343d", "#adb58f", "#d2d6d2",
-          "#8e7d66", "#b0836a", "#c84a4a", "#d9a441", "#4f7cac",
-          "#7c4d9a", "#2d6a4f", "#6c757d", "#a3b18a", "#e9c46a"
-        ];
-      },
-
-      studentColorBtnClass(studentId, color) {
-        const s = (this.students || []).find(x => x.id === studentId);
-        return {
-          "is-selected": !!s && s.color === color
-        };
-      },
-
-      refreshStudentsFromPlanner() {
-        const p = loadPlannerState();
-        this.students = Array.isArray(p.students) ? p.students : [];
-        // Keep dropdowns in sync
-        if (typeof this.refreshStudentDropdownOptions === 'function') this.refreshStudentDropdownOptions();
-        if (typeof this.refreshDayViewStudentDropdowns === 'function') this.refreshDayViewStudentDropdowns();
-      },
-
-      canAddStudent() {
-        return this.newStudentName && this.newStudentName.trim().length > 0 && (this.students || []).length < 15;
-      },
-
-      addStudent() {
-        const name = (this.newStudentName || "").trim();
-        if (!name) return;
-
-        const next = updatePlannerState((p) => {
-          p.students = Array.isArray(p.students) ? p.students : [];
-          if (p.students.length >= 15) return p;
-
-          const id = "s_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8);
-          // pick first unused palette color, else default
-          const used = new Set(p.students.map(s => s.color).filter(Boolean));
-          const palette = this.studentColorPalette && this.studentColorPalette.length ? this.studentColorPalette : this.buildStudentColorPalette();
-          const color = palette.find(c => !used.has(c)) || "#adb58f";
-
-          p.students.push({ id, name, color });
-          return p;
-        });
-
-        this.newStudentName = "";
-        this.colorPickerFor = null;
-        this.students = next.students || [];
-        this.refreshStudentsFromPlanner();
-      },
-
-      removeStudent(studentId) {
-        const next = updatePlannerState((p) => {
-          p.students = Array.isArray(p.students) ? p.students : [];
-          p.students = p.students.filter(s => s.id !== studentId);
-
-          // Also clear any day-view slot assignments pointing to removed student
-          if (p.scheduleUi && p.scheduleUi.dayViewSlots) {
-            Object.keys(p.scheduleUi.dayViewSlots).forEach(dayKey => {
-              const slots = p.scheduleUi.dayViewSlots[dayKey];
-              if (Array.isArray(slots)) {
-                p.scheduleUi.dayViewSlots[dayKey] = slots.map(id => (id === studentId ? "" : id));
-              }
-            });
-          }
-          return p;
-        });
-
-        this.colorPickerFor = (this.colorPickerFor === studentId) ? null : this.colorPickerFor;
-        this.students = next.students || [];
-        this.refreshStudentsFromPlanner();
-      },
-
-      updateStudentName(studentId, newName) {
-        const name = (newName || "").trim();
-        updatePlannerState((p) => {
-          p.students = Array.isArray(p.students) ? p.students : [];
-          const s = p.students.find(x => x.id === studentId);
-          if (s) s.name = name || s.name;
-          return p;
-        });
-        this.refreshStudentsFromPlanner();
-      },
-
-      toggleStudentColorPicker(studentId) {
-        this.colorPickerFor = (this.colorPickerFor === studentId) ? null : studentId;
-      },
-
-      setStudentColor(studentId, color) {
-        updatePlannerState((p) => {
-          p.students = Array.isArray(p.students) ? p.students : [];
-          const s = p.students.find(x => x.id === studentId);
-          if (s) s.color = color;
-          return p;
-        });
-        this.colorPickerFor = null;
-        this.refreshStudentsFromPlanner();
-      },
-
-init() {
-        // Student manager setup (shared with courses/books)
-        this.studentColorPalette = this.buildStudentColorPalette();
-        this.refreshStudentsFromPlanner();
-
+      init() {
         // load UI
         const savedUi = loadKey(UI_STORAGE_KEY);
 
