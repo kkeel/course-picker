@@ -168,93 +168,82 @@
     </div>
 
     <!-- Manage Students (same UI as Courses/Books) -->
-<div class="schedule-student-tools">
-  <button
-    type="button"
-    class="manage-students-toggle"
-    @click.stop="toggleStudentsOpen()"
-    :aria-expanded="studentsOpen ? 'true' : 'false'"
-  >
-    Manage students
-    <span class="manage-students-chevron" :class="studentsOpen ? 'open' : ''">▾</span>
-  </button>
+    <div
+              class="student-manager"
+              x-show="studentsOpen"
+              x-transition
+              x-cloak
+              @click.stop
+            >
+              <p class="student-manager-help">
+                Add up to 15 students. Click color buttons to change student colors.
+              </p>
 
-  <div
-    class="student-manager schedule-student-manager"
-    x-show="studentsOpen"
-    x-cloak
-    @click.away="studentsOpen = false"
-  >
-    <div class="student-manager-body">
-      <p class="student-manager-help">
-        Add up to 15 students. Click color buttons to change student colors.
-      </p>
+              <div class="student-list">
+                <template x-for="s in students" :key="s.id">
+                  <div>
+                    <div class="student-row">
+                      <!-- Color square (click to open swatches) -->
+                      <button
+                        type="button"
+                        class="student-color-btn"
+                        :style="{ backgroundColor: s.color }"
+                        @click.stop="toggleStudentColorPicker(s.id)"
+                        aria-label="Choose student color"
+                        title="Choose color"
+                      ></button>
+                    
+                      <input
+                        class="student-name-input"
+                        type="text"
+                        placeholder="Student name"
+                        :value="s.name"
+                        @input="updateStudentName(s.id, $event.target.value)"
+                      />
+                    
+                      <!-- Subtle X remove -->
+                      <button
+                        type="button"
+                        class="student-remove-x"
+                        @click.stop="removeStudent(s.id)"
+                        aria-label="Remove student"
+                        title="Remove"
+                      >×</button>
+                    </div>
 
-      <div class="student-list">
-        <template x-for="s in students" :key="s.id">
-          <div class="student-row">
-            <div class="student-row-top">
-              <button
-                type="button"
-                class="student-color-chip"
-                :style="{ backgroundColor: s.color || '#596e5e' }"
-                @click="toggleColorPicker(s.id)"
-                :aria-label="`Pick color for ${s.name}`"
-                title="Change color"
-              ></button>
+                    <div class="student-swatches" x-show="colorPickerFor === s.id" x-transition>
+                      <template x-for="c in studentColorPalette" :key="c">
+                        <button
+                          type="button"
+                          class="student-swatch"
+                          :class="s.color === c ? 'student-swatch--selected' : ''"
+                          :style="{ backgroundColor: c }"
+                          @click="setStudentColor(s.id, c)"
+                          :aria-label="`Set color ${c}`"
+                          title="Set color"
+                        ></button>
+                      </template>
+                    </div>
+                  </div>
+                </template>
+              </div>
 
-              <input
-                class="student-name-input"
-                type="text"
-                :value="s.name"
-                @input="updateStudentName(s.id, $event.target.value)"
-              />
-
-              <!-- Subtle X remove -->
-              <button
-                type="button"
-                class="student-remove-x"
-                @click.stop="removeStudent(s.id)"
-                aria-label="Remove student"
-                title="Remove"
-              >×</button>
-            </div>
-
-            <div class="student-swatches" x-show="colorPickerFor === s.id" x-transition>
-              <template x-for="c in studentColorPalette" :key="c">
+              <div class="student-add-row">
+                <input
+                  class="student-name-input"
+                  type="text"
+                  placeholder="Add a student…"
+                  x-model="newStudentName"
+                  @keydown.enter.prevent="addStudent()"
+                />
                 <button
                   type="button"
-                  class="student-swatch"
-                  :class="s.color === c ? 'student-swatch--selected' : ''"
-                  :style="{ backgroundColor: c }"
-                  @click="setStudentColor(s.id, c)"
-                  :aria-label="`Set color ${c}`"
-                  title="Set color"
-                ></button>
-              </template>
+                  class="student-row-btn"
+                  @click="addStudent()"
+                  :disabled="!canAddStudent"
+                >Add</button>
+              </div>
             </div>
-          </div>
-        </template>
-      </div>
-
-      <div class="student-add-row">
-        <input
-          class="student-name-input"
-          type="text"
-          placeholder="Add a student…"
-          x-model="newStudentName"
-          @keydown.enter.prevent="addStudent()"
-        />
-        <button
-          type="button"
-          class="student-row-btn"
-          @click="addStudent()"
-          :disabled="!canAddStudent"
-        >Add</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="schedule-grid mt-6 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6">
           
