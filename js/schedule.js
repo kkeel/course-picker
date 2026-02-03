@@ -34,6 +34,65 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
   }
 
   // -----------------------------
+  // Planner state (shared with course list / book list)
+  // -----------------------------
+  function getPlannerStateKey() {
+    // app.js declares PLANNER_STATE_KEY and APP_CACHE_VERSION as top-level consts
+    // (not always on window), so use typeof checks.
+    try {
+      if (typeof PLANNER_STATE_KEY === "string" && PLANNER_STATE_KEY) return PLANNER_STATE_KEY;
+    } catch {}
+    try {
+      if (typeof APP_CACHE_VERSION === "string" && APP_CACHE_VERSION) return `alveary_planner_${APP_CACHE_VERSION}`;
+    } catch {}
+    return "alveary_planner_v1";
+  }
+
+  function loadPlannerState() {
+    const key = getPlannerStateKey();
+    return loadKey(key) || { students: [], courses: {}, topics: {} };
+  }
+
+  function plannerStudents(planner) {
+    const arr = Array.isArray(planner?.students) ? planner.students : [];
+    return arr
+      .map((s, idx) => ({
+        id: s?.id || `S${idx + 1}`,
+        name: (s?.name || s?.label || `Student ${idx + 1}`).trim(),
+      }))
+      .filter((s) => s.id && s.name);
+  }
+
+  function plannerHasBookmarkedCourse(planner, courseKey) {
+    const rec = planner?.courses?.[courseKey];
+    return !!(rec && rec.isBookmarked);
+  }
+
+  function plannerHasBookmarkedTopic(planner, topicId) {
+    const topics = planner?.topics || {};
+    for (const k of Object.keys(topics)) {
+      if (k.endsWith(`::${topicId}`) && topics[k]?.isBookmarked) return true;
+    }
+    return false;
+  }
+
+  function plannerCourseAssignedToStudent(planner, courseKey, studentId) {
+    const rec = planner?.courses?.[courseKey];
+    const list = Array.isArray(rec?.students) ? rec.students : [];
+    return list.includes(studentId);
+  }
+
+  function plannerTopicAssignedToStudent(planner, topicId, studentId) {
+    const topics = planner?.topics || {};
+    for (const k of Object.keys(topics)) {
+      if (!k.endsWith(`::${topicId}`)) continue;
+      const list = Array.isArray(topics[k]?.students) ? topics[k].students : [];
+      if (list.includes(studentId)) return true;
+    }
+    return false;
+  }
+
+  // -----------------------------
   // UI state (existing)
   // -----------------------------
   function defaultUiState() {
@@ -626,8 +685,16 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
       init() {
         // load UI
         const savedUi = loadKey(UI_STORAGE_KEY);
+
+        // Pull students from the shared planner state (Course List) when available.
+        const planner = loadPlannerState();
+        const plannerKids = plannerStudents(planner);
+        if (plannerKids.length) this.students = plannerKids;
+        this._planner = planner;
+
         const allIds = (this.students || []).map((s) => s.id);
         const normalizedUi = normalizeUiState(savedUi || defaultUiState(), allIds);
+
 
         // Restore left-rail UI toggles
         this.railTopCollapsed = !!normalizedUi.railTopCollapsed;
@@ -1185,7 +1252,38 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
 
       // rail sorting: match course list order via sortKey
       railEntries() {
-        const templates = Object.values(this.templatesById || {}).filter(Boolean);
+        const allTemplates = Object.values(this.templatesById || {}).filter(Boolean);
+
+        // Apply Rail filters (grade, search, My courses, Student assignments)
+        const gradeFilter = this.ui?.railGradeFilter || "all";
+        const q = (this.ui?.railSearch || "").trim().toLowerCase();
+        const planner = this._planner || loadPlannerState();
+        const activeStudentId = this.activeTarget?.studentId;
+
+        let templates = allTemplates.slice();
+
+        if (gradeFilter !== "all") {
+          templates = templates.filter((t) => t.grade === gradeFilter);
+        }
+        if (q) {
+          templates = templates.filter((t) => (t.title || "").toLowerCase().includes(q));
+        }
+        if (this.ui?.railMyCoursesOnly) {
+          templates = templates.filter((t) => {
+            if (t.sourceType === "course") return plannerHasBookmarkedCourse(planner, t.courseKey);
+            if (t.sourceType === "topic") return plannerHasBookmarkedTopic(planner, t.courseKey);
+            return true;
+          });
+        }
+        if (this.ui?.railStudentAssignedOnly && activeStudentId) {
+          templates = templates.filter((t) => {
+            if (t.sourceType === "course")
+              return plannerCourseAssignedToStudent(planner, t.courseKey, activeStudentId);
+            if (t.sourceType === "topic")
+              return plannerTopicAssignedToStudent(planner, t.courseKey, activeStudentId);
+            return true;
+          });
+        }
       
         // group templates by courseKey when they have meta.choiceGroup
         const byCourse = new Map();
