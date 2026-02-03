@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -942,7 +941,8 @@
                         <div class="schedule-board">
                           <div class="schedule-columns schedule-columns--nowrap">
               
-                            <template x-for="(studentId, sIdx) in (dayViewStudentSlots || [])" :key="'dv-col-' + panel.slot + '-' + sIdx">
+                            <!-- Only render day columns for slots that have a selected student -->
+                            <template x-for="(studentId, sIdx) in (dayViewActiveSlots() || [])" :key="'dv-col-' + panel.slot + '-' + sIdx">
                               <section class="schedule-col">
                                 <div class="schedule-col-head">
                                   <div class="schedule-col-title" x-text="getStudentName(studentId)"></div>
