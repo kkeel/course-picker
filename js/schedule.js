@@ -616,6 +616,12 @@ return {
       view: "track",
       visibleDays: [0, 1, 2, 3, 4],
       dayLabels: ["Mon","Tue","Wed","Thu","Fri"],
+
+      // -----------------------------
+      // Manage students (matches Courses/Books pages)
+      // -----------------------------
+      studentsOpen: false,
+      newStudentName: "",
       dayShortLabels: ["M","T","W","Th","F"],
       dayLongLabels: ["Monday","Tuesday","Wednesday","Thursday","Friday"],
 
@@ -1098,6 +1104,51 @@ return {
 
       closeStudentMenu() {
         this.openStudentMenu = null;
+      },
+
+      // -----------------------------
+      // Manage Students
+      // -----------------------------
+      toggleStudentsOpen() {
+        this.studentsOpen = !this.studentsOpen;
+      },
+
+      addStudent() {
+        const name = String(this.newStudentName || "").trim();
+        if (!name) return;
+
+        // Update shared planner state (same store used across pages)
+        const key = getPlannerStateKey() || "alveary_planner_local_v1";
+        const planner = loadPlannerState() || { version: "local", students: [] };
+        const students = Array.isArray(planner.students) ? planner.students.slice() : [];
+
+        // Prevent duplicates by name (case-insensitive)
+        const exists = students.some((s) => String(s?.name || "").toLowerCase() === name.toLowerCase());
+        if (exists) {
+          this.newStudentName = "";
+          return;
+        }
+
+        const student = { id: "s_" + Date.now(), name };
+        students.push(student);
+        planner.students = students;
+
+        saveKey(key, planner);
+        this.newStudentName = "";
+
+        // Immediately refresh this page (the poll will also keep it in sync)
+        if (typeof this._plannerPoll === "function") this._plannerPoll();
+      },
+
+      removeStudent(id) {
+        if (!id) return;
+        const key = getPlannerStateKey() || "alveary_planner_local_v1";
+        const planner = loadPlannerState() || { version: "local", students: [] };
+        const students = Array.isArray(planner.students) ? planner.students.slice() : [];
+        planner.students = students.filter((s) => s && s.id !== id);
+        saveKey(key, planner);
+
+        if (typeof this._plannerPoll === "function") this._plannerPoll();
       },
 
       getStudentName(studentId) {
