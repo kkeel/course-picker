@@ -115,6 +115,8 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
       railGradeFilter: "", // "" = all; otherwise "G1".."G12"
       railMyCoursesOnly: false,
       railStudentAssignedOnly: false,
+      railSearch: "", // rail title search
+
     };
   }
 
@@ -702,6 +704,7 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
         this.railGradeFilter = normalizedUi.railGradeFilter || "";
         this.railMyCoursesOnly = !!normalizedUi.railMyCoursesOnly;
         this.railStudentAssignedOnly = !!normalizedUi.railStudentAssignedOnly;
+        this.railSearch = String(normalizedUi.railSearch || "");
 
         this.view = normalizedUi.view;
         this.visibleDays = normalizedUi.visibleDays;
@@ -851,6 +854,7 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
           railGradeFilter: this.railGradeFilter,
           railMyCoursesOnly: this.railMyCoursesOnly,
           railStudentAssignedOnly: this.railStudentAssignedOnly,
+          railSearch: this.railSearch,
           dayViewPanels: (this.dayViewPanels || []).map(p => ({ slot: p.slot, dayIdx: p.dayIdx })),
           dayViewStudentSlots: (this.dayViewStudentSlots || []).slice(0, 5),
         });
@@ -1255,32 +1259,40 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
         const allTemplates = Object.values(this.templatesById || {}).filter(Boolean);
 
         // Apply Rail filters (grade, search, My courses, Student assignments)
-        const gradeFilter = this.ui?.railGradeFilter || "all";
-        const q = (this.ui?.railSearch || "").trim().toLowerCase();
+        const gradeKey = String(this.railGradeFilter || "").trim(); // "" = all
+        const q = String(this.railSearch || "").trim().toLowerCase();
         const planner = this._planner || loadPlannerState();
         const activeStudentId = this.activeTarget?.studentId;
 
         let templates = allTemplates.slice();
 
-        if (gradeFilter !== "all") {
-          templates = templates.filter((t) => t.grade === gradeFilter);
+        // Grade filter affects RAIL ONLY (never the scheduled board)
+        if (gradeKey) {
+          templates = templates.filter((t) => Array.isArray(t.gradeFilter) && t.gradeFilter.includes(gradeKey));
         }
+
         if (q) {
           templates = templates.filter((t) => (t.title || "").toLowerCase().includes(q));
         }
-        if (this.ui?.railMyCoursesOnly) {
+
+        // "My courses" = bookmarked in Course List planner state
+        if (this.railMyCoursesOnly) {
           templates = templates.filter((t) => {
-            if (t.sourceType === "course") return plannerHasBookmarkedCourse(planner, t.courseKey);
-            if (t.sourceType === "topic") return plannerHasBookmarkedTopic(planner, t.courseKey);
+            const key = t.courseKey; // courseId for courses, Topic_ID for topics
+            if (t.sourceType === "course") return plannerHasBookmarkedCourse(planner, key);
+            if (t.sourceType === "topic") return plannerHasBookmarkedTopic(planner, key);
             return true;
           });
         }
-        if (this.ui?.railStudentAssignedOnly && activeStudentId) {
+
+        // "Student assignments" = assigned in planner state for selected student
+        if (this.railStudentAssignedOnly && activeStudentId) {
           templates = templates.filter((t) => {
+            const key = t.courseKey;
             if (t.sourceType === "course")
-              return plannerCourseAssignedToStudent(planner, t.courseKey, activeStudentId);
+              return plannerCourseAssignedToStudent(planner, key, activeStudentId);
             if (t.sourceType === "topic")
-              return plannerTopicAssignedToStudent(planner, t.courseKey, activeStudentId);
+              return plannerTopicAssignedToStudent(planner, key, activeStudentId);
             return true;
           });
         }
