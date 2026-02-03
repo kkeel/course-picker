@@ -33,6 +33,46 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
   }
 
   // -----------------------------
+  // Day View student column "slots"
+  // -----------------------------
+  function normalizeDayViewSlots(slots, studentsOrIds) {
+    const desired = 5;
+    const studentIds = Array.isArray(studentsOrIds)
+      ? studentsOrIds
+          .map((s) => (typeof s === "string" ? s : s?.id))
+          .filter(Boolean)
+      : [];
+
+    // If slots are missing or obviously placeholder-ish, seed from available students.
+    const incoming = Array.isArray(slots) ? slots.slice(0, desired) : [];
+    const cleaned = incoming.map((v) => (typeof v === "string" ? v : "").trim()).filter((v, i) => i < desired);
+
+    // Drop invalid ids.
+    const valid = cleaned.map((id) => (studentIds.includes(id) ? id : ""));
+
+    // If we have no valid selections yet, auto-seed sequentially from known students.
+    const hasAny = valid.some(Boolean);
+    let seeded = valid;
+    if (!hasAny && studentIds.length) {
+      seeded = studentIds.slice(0, desired);
+    }
+
+    // Pad to fixed size.
+    while (seeded.length < desired) seeded.push("");
+
+    // If duplicates exist, de-dupe by keeping first occurrence and clearing the rest.
+    const seen = new Set();
+    seeded = seeded.map((id) => {
+      if (!id) return "";
+      if (seen.has(id)) return "";
+      seen.add(id);
+      return id;
+    });
+
+    return seeded;
+  }
+
+  // -----------------------------
   // Planner state (shared with course list / book list)
   // -----------------------------
   function getPlannerStateKey() {
@@ -170,76 +210,40 @@ const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
     const railMyCoursesOnly = typeof state?.railMyCoursesOnly === 'boolean' ? state.railMyCoursesOnly : d.railMyCoursesOnly;
     const railStudentAssignedOnly = typeof state?.railStudentAssignedOnly === 'boolean' ? state.railStudentAssignedOnly : d.railStudentAssignedOnly;
 
-        // -----------------------------
-        // Day View state (Phase 3)
-        // -----------------------------
-        let dayViewPanels = Array.isArray(state?.dayViewPanels)
-          ? state.dayViewPanels.slice()
-          : (Array.isArray(d.dayViewPanels) ? d.dayViewPanels.slice() : []);
-    
-        // Ensure we have a usable student list for defaults
-        const studentIds = (Array.isArray(allStudentIds) && allStudentIds.length)
-          ? allStudentIds.slice()
-          : ["S1", "S2", "S3", "S4", "S5"];
-    
-        // Normalize day panels: exactly 2 panels, dayIdx in 0..4, no duplicates
-        dayViewPanels = dayViewPanels
-          .map((p, idx) => {
-            const slot = p?.slot || (idx === 1 ? "D2" : "D1");
-            let dayIdx = Number(p?.dayIdx);
-    
-            if (!Number.isInteger(dayIdx) || dayIdx < 0 || dayIdx > 4) {
-              dayIdx = idx === 1 ? 1 : 0; // default: Mon, Tue
-            }
-    
-            return { slot, dayIdx };
-          })
-          .slice(0, 2);
-    
-        if (dayViewPanels.length < 2) {
-          dayViewPanels = [
-            { slot: "D1", dayIdx: 0 },
-            { slot: "D2", dayIdx: 1 },
-          ];
-        }
-    
-        if (dayViewPanels[0].dayIdx === dayViewPanels[1].dayIdx) {
-          const fallbackDay = [0, 1, 2, 3, 4].find((d) => d !== dayViewPanels[0].dayIdx) ?? 1;
-          dayViewPanels[1].dayIdx = fallbackDay;
-        }
-    
-                // Normalize dayViewStudentSlots
-        // - If you have fewer than 5 students, we show only that many columns (no duplicates).
-        // - If you have 0 students loaded, keep 5 placeholder columns.
-        const targetSlots = studentIds.length ? Math.min(5, studentIds.length) : 5;
+    // -----------------------------
+    // Day View state
+    // -----------------------------
+    let dayViewPanels = Array.isArray(state?.dayViewPanels)
+      ? state.dayViewPanels.slice()
+      : (Array.isArray(d.dayViewPanels) ? d.dayViewPanels.slice() : []);
 
-        dayViewStudentSlots = Array.isArray(dayViewStudentSlots) ? dayViewStudentSlots : [];
-        // Keep any existing choices that are still valid; otherwise fall back to first student / placeholder
-        dayViewStudentSlots = dayViewStudentSlots.map((id, i) =>
-          studentIds.includes(id) ? id : (studentIds[i] || studentIds[0] || "S1")
-        );
+    // Normalize day panels: exactly 2 panels, dayIdx in 0..4, no duplicates
+    dayViewPanels = dayViewPanels
+      .map((p, idx) => {
+        const slot = p?.slot || (idx === 1 ? "D2" : "D1");
+        let dayIdx = Number(p?.dayIdx);
 
-        // Trim to target count, then (if needed) pad up to target count.
-        dayViewStudentSlots = dayViewStudentSlots.slice(0, targetSlots);
-        while (dayViewStudentSlots.length < targetSlots) {
-          dayViewStudentSlots.push(studentIds[dayViewStudentSlots.length] || studentIds[0] || `S${dayViewStudentSlots.length + 1}`);
+        if (!Number.isInteger(dayIdx) || dayIdx < 0 || dayIdx > 4) {
+          dayIdx = idx === 1 ? 1 : 0; // default: Mon, Tue
         }
 
-        // De-dupe while preserving order (only within the target count)
-        const seen = new Set();
-        dayViewStudentSlots = dayViewStudentSlots.map((id) => {
-          if (!seen.has(id)) {
-            seen.add(id);
-            return id;
-          }
-          const repl = studentIds.find((sid) => !seen.has(sid));
-          if (repl) {
-            seen.add(repl);
-            return repl;
-          }
-          // If we can't find a replacement (e.g., fewer unique students than slots), keep the id.
-          return id;
-        });
+        return { slot, dayIdx };
+      })
+      .slice(0, 2);
+
+    if (dayViewPanels.length < 2) {
+      dayViewPanels = [
+        { slot: "D1", dayIdx: 0 },
+        { slot: "D2", dayIdx: 1 },
+      ];
+    }
+
+    if (dayViewPanels[0].dayIdx === dayViewPanels[1].dayIdx) {
+      const fallbackDay = [0, 1, 2, 3, 4].find((d) => d !== dayViewPanels[0].dayIdx) ?? 1;
+      dayViewPanels[1].dayIdx = fallbackDay;
+    }
+
+    const dayViewStudentSlots = normalizeDayViewSlots(state?.dayViewStudentSlots, allStudentIds);
 return {
       view,
       visibleDays,
@@ -819,18 +823,15 @@ return {
           if (!tpl.weeklyTarget) tpl.weeklyTarget = 1;
           this.templatesById[id] = tpl;
         }
-        
+        this.instancesById = normalizedCards.instancesById || {};
+        this.placements = normalizedCards.placements || {};
+        this.choices = normalizedCards.choices || { courseOptions: { "picture-study": "g1-3" } };
+        if (!this.choices.courseOptions) this.choices.courseOptions = { "picture-study": "g1-3" };
+
         // ensure default selection exists
         if (!this.choices.courseOptions["picture-study"]) {
           this.choices.courseOptions["picture-study"] = "g1-3";
         }
-
-        this.instancesById = normalizedCards.instancesById || {};
-        this.placements = normalizedCards.placements || {};
-        this.choices = normalizedCards.choices || {
-          courseOptions: { "picture-study": "g1-3" },
-        };
-        if (!this.choices.courseOptions) this.choices.courseOptions = { "picture-study": "g1-3" };
 
         // ensure placements buckets for currently visible panel students
         this.visibleStudentPanels.forEach((p) => this.ensureStudent(p.studentId));
@@ -1095,6 +1096,11 @@ return {
       // -----------------------------
       // Day View helpers (Phase 3)
       // -----------------------------
+      dayViewActiveSlots() {
+        const slots = Array.isArray(this.dayViewStudentSlots) ? this.dayViewStudentSlots : [];
+        return slots.filter((s) => !!s);
+      },
+
       toggleDayMenu(idx) {
         this.openDayMenu = this.openDayMenu === idx ? null : idx;
       },
@@ -1126,7 +1132,15 @@ return {
         if (!Array.isArray(this.dayViewStudentSlots)) return;
         if (slotIdx < 0 || slotIdx >= this.dayViewStudentSlots.length) return;
       
+        // Allow clearing a slot (hides that column)
         const allIds = (this.students || []).map((s) => s.id);
+        if (!studentId) {
+          const next = this.dayViewStudentSlots.slice();
+          next[slotIdx] = "";
+          this.dayViewStudentSlots = next;
+          this.persistUi();
+          return;
+        }
         if (!allIds.includes(studentId)) return;
       
         const next = this.dayViewStudentSlots.slice();
@@ -1135,11 +1149,12 @@ return {
         // optional: de-dupe (don’t allow the same student in multiple slots)
         const seen = new Set();
         for (let i = 0; i < next.length; i++) {
+          if (!next[i]) continue;
           if (seen.has(next[i])) {
-            const repl = allIds.find((id) => !seen.has(id)) || next[i];
+            const repl = allIds.find((id) => !seen.has(id)) || "";
             next[i] = repl;
           }
-          seen.add(next[i]);
+          if (next[i]) seen.add(next[i]);
         }
       
         this.dayViewStudentSlots = next;
