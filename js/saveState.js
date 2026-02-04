@@ -48,6 +48,49 @@ function simpleHash(str) {
   return h >>> 0;
 }
 
+// ---------------------------
+// Planner state helpers
+// ---------------------------
+// app.js stores the global planner state (including student roster) in localStorage
+// under PLANNER_STATE_KEY. Schedule rendering depends on that roster existing.
+function getPlannerState() {
+  try {
+    const key = window.PLANNER_STATE_KEY;
+    if (!key) return {};
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function setPlannerState(next) {
+  try {
+    const key = window.PLANNER_STATE_KEY;
+    if (!key) return;
+    localStorage.setItem(key, JSON.stringify(next || {}));
+  } catch {
+    // ignore
+  }
+}
+
+function mergeStudentRosterIntoPlanner(roster) {
+  if (!Array.isArray(roster) || roster.length === 0) return;
+
+  const cur = getPlannerState();
+  const existing = Array.isArray(cur.students) ? cur.students : [];
+
+  // Merge by id, preferring existing values where present.
+  const byId = new Map(existing.map((s) => [s?.id, s]));
+  for (const s of roster) {
+    if (!s || !s.id) continue;
+    if (!byId.has(s.id)) byId.set(s.id, s);
+  }
+
+  const merged = Array.from(byId.values()).filter(Boolean);
+  setPlannerState({ ...cur, students: merged });
+}
+
 
 function getLocalLastSeenCloud() {
   return parseAirtableLastUpdated(localStorage.getItem(LOCAL_LAST_SEEN_CLOUD_KEY));
@@ -176,6 +219,12 @@ export function getLocalScheduleState() {
   const ui = safeParse(localStorage.getItem(UI_STORAGE_KEY) || "", null);
   const fullCards = readFullCardsState();
 
+  // Student roster is global planner state, but schedule needs it to render.
+  // Include it as a small snapshot so a new browser/device can restore
+  // schedule *and* its student dropdowns.
+  const planner = getPlannerState();
+  const students = Array.isArray(planner.students) ? planner.students : [];
+
   const cards = fullCards && typeof fullCards === "object"
     ? {
         // Only persist what we *must* recreate the user's board:
@@ -188,7 +237,7 @@ export function getLocalScheduleState() {
 
   // Back-compat: if something expects the old shape, it can still read .ui
   // from this object.
-  return { ui, cards };
+  return { ui, cards, students };
 }
 
 export function setLocalScheduleState(incoming) {
@@ -198,6 +247,7 @@ export function setLocalScheduleState(incoming) {
     // Accept either the new composed object, or the old "ui only" object.
     const uiState = incoming.ui && typeof incoming.ui === "object" ? incoming.ui : incoming;
     const cardsPart = incoming.cards && typeof incoming.cards === "object" ? incoming.cards : null;
+    const studentsPart = Array.isArray(incoming.students) ? incoming.students : null;
 
     // 1) UI
     if (uiState && typeof uiState === "object") {
@@ -228,6 +278,30 @@ export function setLocalScheduleState(incoming) {
       }
 
       writeFullCardsState(full);
+    }
+
+    // 3) Students (merge into planner global state)
+    if (studentsPart) {
+      const planner = getPlannerState();
+      const existing = Array.isArray(planner.students) ? planner.students : [];
+      const byId = new Map(existing.map((s) => [s && s.id, s]));
+
+      for (const s of studentsPart) {
+        if (!s || typeof s !== "object") continue;
+        if (!s.id || typeof s.id !== "string") continue;
+        // Prefer incoming name/color if present
+        const prev = byId.get(s.id) || {};
+        byId.set(s.id, {
+          ...prev,
+          ...s,
+          id: s.id,
+        });
+      }
+
+      planner.students = Array.from(byId.values());
+      // Keep cursor if app.js uses it for color assignment
+      if (typeof planner.studentColorCursor !== "number") planner.studentColorCursor = 0;
+      setPlannerState(planner);
     }
 
     return true;
