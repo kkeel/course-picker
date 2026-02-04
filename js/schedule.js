@@ -997,6 +997,12 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         // persist normalized
         this.persistUi();
         this.persistCards();
+        // Keep the "assign cards to student" selector persistent even if the DOM handler changes.
+        if (typeof this.$watch === "function") {
+          this.$watch("activeTarget.studentId", () => this.persistUi());
+          this.$watch("activeTarget.dayIndex", () => this.persistUi());
+        }
+
       },
 
       persistUi() {
