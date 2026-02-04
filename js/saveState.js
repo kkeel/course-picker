@@ -2,14 +2,10 @@
    CONFIG -----  saveState.js (SECTIONED MIGRATION STARTER)
    ============================================================ */
 
-const SECTIONED_AUTH_BASE =
-  "https://alveary-planning-api-sectioned.kim-b5d.workers.dev/api";
-
-// Local storage key for schedule page state.
-// (If your schedule page already uses a different key, change it here.)
-const STORAGE_KEY = "alveary_schedule_ui_v1";
-
-// Cloud state schema version for your new sectioned blob (feel free to rename)
+const SECTIONED_AUTH_BASE = "https://alveary-planning-api-sectioned.kim-b5d.workers.dev/api";
+const UI_STORAGE_KEY = "alveary_schedule_ui_v1";
+const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
+const CARDS_STORAGE_KEY = "alveary_schedule_cards_v1";
 const SECTIONED_STATE_VERSION = 1;
 
 /* ============================================================
@@ -116,20 +112,24 @@ async function sectionedSetState(state) {
    LOCAL SCHEDULE STATE
    ============================================================ */
 
-export function getLocalScheduleState() {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) return null;
-  return safeParse(raw, null);
-}
-
-export function setLocalScheduleState(stateObj) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(stateObj || {}));
-    return true;
-  } catch {
-    return false;
-  }
-}
+   export function getLocalScheduleState() {
+     return {
+       ui: safeParse(localStorage.getItem(UI_STORAGE_KEY) || "", null),
+       workspaceH: safeParse(localStorage.getItem(WORKSPACE_H_KEY) || "", null),
+       cards: safeParse(localStorage.getItem(CARDS_STORAGE_KEY) || "", null),
+     };
+   }
+   
+   export function setLocalScheduleState(bundle) {
+     try {
+       if (bundle?.ui) localStorage.setItem(UI_STORAGE_KEY, JSON.stringify(bundle.ui));
+       if (bundle?.workspaceH) localStorage.setItem(WORKSPACE_H_KEY, JSON.stringify(bundle.workspaceH));
+       if (bundle?.cards) localStorage.setItem(CARDS_STORAGE_KEY, JSON.stringify(bundle.cards));
+       return true;
+     } catch {
+       return false;
+     }
+   }
 
 /* ============================================================
    SECTIONED STATE SHAPE (cloud)
@@ -331,7 +331,9 @@ export async function initScheduleSectionedSave({
   // Expose a tiny debug surface for testing
   window.SectionedScheduleState = {
     SECTIONED_AUTH_BASE,
-    STORAGE_KEY,
+    UI_STORAGE_KEY,
+    WORKSPACE_H_KEY,
+    CARDS_STORAGE_KEY,
     whoami: sectionedWhoami,
     getCloud: sectionedGetState,
     setCloud: sectionedSetState,
