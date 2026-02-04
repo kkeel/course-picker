@@ -112,6 +112,22 @@
         </div>
         <span x-text="editMode ? 'Edit Mode' : 'Published'"></span>
       </div>
+
+      <!-- Schedule-only: cloud save -->
+      <div class="schedule-cloud-save flex items-center gap-3">
+        <span id="scheduleGateStatus" class="text-xs opacity-70"></span>
+      
+        <button
+          id="scheduleSaveToAccountBtn"
+          type="button"
+          class="text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
+          title="Save schedule to your account (cross-device)"
+        >
+          Save
+        </button>
+      
+        <span id="scheduleCloudStatus" class="text-xs opacity-70"></span>
+      </div>
     
       <!-- navigation (stepper + menu) -->
       <div id="app-step-nav" class="app-step-nav"></div>
