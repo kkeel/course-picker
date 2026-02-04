@@ -846,15 +846,21 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
             this.activeTarget.dayIndex = Number.isInteger(Number(uiNorm.activeTargetDayIndex))
               ? Number(uiNorm.activeTargetDayIndex)
               : (this.visibleDays?.[0] ?? 0);
+
             if (!this.visibleDays.includes(this.activeTarget.dayIndex)) {
               this.activeTarget.dayIndex = this.visibleDays?.[0] ?? 0;
             }
+
+            // Keep the bound rail selector values in sync
+            this.activeTargetStudentId = this.activeTarget.studentId;
+            this.activeTargetDayIndex = this.activeTarget.dayIndex;
           }
 
           // If the currently targeted student no longer exists, pick a sane default
           if (this.activeTarget && this.activeTarget.studentId && !ids.includes(this.activeTarget.studentId)) {
             const first = (this.visibleStudentPanels && this.visibleStudentPanels[0] && this.visibleStudentPanels[0].studentId) || ids[0];
             this.activeTarget.studentId = first || null;
+            this.activeTargetStudentId = this.activeTarget.studentId;
           }
 
           // Ensure placements exist for any newly-added students
