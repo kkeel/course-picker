@@ -274,7 +274,7 @@ if (Array.isArray(allStudentIds) && allStudentIds.length) {
 }
 
 if (!activeTargetStudentId) {
-  activeTargetStudentId = (panels && panels[0] && panels[0].studentId) ? panels[0].studentId : "S1";
+  activeTargetStudentId = (panels && panels[0] && panels[0].studentId) ? panels[0].studentId : "";
 }
 
 let activeTargetDayIndex = Number(state?.activeTargetDayIndex);
@@ -800,6 +800,13 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           this.students = kids;
 
           const ids = kids.map(s => s.id);
+
+          // If we don't have students yet (planner state not hydrated), do NOT
+          // normalize/persist UI state that depends on student IDs. This prevents
+          // the rail target student from snapping back to a default on refresh.
+          if (!ids.length) {
+            return;
+          }
 
           // Re-normalize any UI pieces that depend on student IDs
           const uiNow = {
