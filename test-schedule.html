@@ -286,7 +286,7 @@
                   <select
                     class="sched-target-select sched-target-select--compact"
                     x-model="activeTarget.studentId"
-                    @change="ensureStudent(activeTarget.studentId); persistCards()"
+                    @change="ensureStudent(activeTarget.studentId); persistUi(); persistCards()"
                     aria-label="Assign cards to student"
                   >
                     <template x-for="s in students" :key="s.id">
