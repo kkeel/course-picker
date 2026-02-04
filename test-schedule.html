@@ -286,8 +286,6 @@
                   <select
                     class="sched-target-select sched-target-select--compact"
                     x-model="activeTargetStudentId"
-                    x-effect="$nextTick(() => { $el.value = activeTargetStudentId || "" })"
-                    x-effect="$nextTick(() => { $el.value = activeTargetStudentId || \"\" })"
                     @change="ensureStudent(activeTargetStudentId); activeTarget.studentId = activeTargetStudentId; persistUi(); persistCards()"
                     aria-label="Assign cards to student"
                   >
