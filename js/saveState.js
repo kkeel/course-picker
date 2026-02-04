@@ -4,7 +4,12 @@
 
 const SECTIONED_AUTH_BASE = "https://alveary-planning-api-sectioned.kim-b5d.workers.dev/api";
 const UI_STORAGE_KEY = "alveary_schedule_ui_v1";
+
 const SECTIONED_STATE_VERSION = 1;
+
+// Used only for client-side sync behavior (NOT stored in Airtable JSON)
+const LOCAL_LAST_SEEN_CLOUD_KEY = "alveary_schedule_cloud_last_seen_v1";
+const SESSION_APPLIED_CLOUD_KEY = "alveary_schedule_cloud_applied_v1";
 
 /* ============================================================
    UTILS
@@ -24,8 +29,29 @@ function setStatus(el, msg, kind = "") {
   el.dataset.kind = kind; // optional hook for CSS
 }
 
+function parseAirtableLastUpdated(value) {
+  // Airtable Last Modified Time often comes as an ISO-ish string.
+  const t = Date.parse(value || "");
+  return Number.isFinite(t) ? t : null;
+}
+
+function getLocalLastSeenCloud() {
+  return parseAirtableLastUpdated(localStorage.getItem(LOCAL_LAST_SEEN_CLOUD_KEY));
+}
+
+function setLocalLastSeenCloudFromRemote(remoteLastUpdated) {
+  // Store the remote timestamp if available; otherwise store "now".
+  const iso =
+    typeof remoteLastUpdated === "string" && remoteLastUpdated.trim()
+      ? remoteLastUpdated.trim()
+      : new Date().toISOString();
+  try {
+    localStorage.setItem(LOCAL_LAST_SEEN_CLOUD_KEY, iso);
+  } catch {}
+}
+
 /* ============================================================
-   MEMBERSTACK HELPERS (minimal – mirrors auth.js approach)
+   MEMBERSTACK HELPERS (minimal)
    ============================================================ */
 
 async function getMemberstackDom({ timeoutMs = 4000 } = {}) {
@@ -68,7 +94,6 @@ async function sectionedWhoami() {
     return { ok: false, role: "public", reason: json?.reason || `http_${res.status}` };
   }
 
-  // Worker returns role already lowercased.
   const role = String(json.role || "member").toLowerCase();
   return { ok: true, role, user: json.user || {} };
 }
@@ -106,7 +131,6 @@ async function sectionedSetState(state) {
    ============================================================ */
 
 export function getLocalScheduleState() {
-  // schedule.js persists dropdowns / filters / view toggles here.
   return safeParse(localStorage.getItem(UI_STORAGE_KEY) || "", null);
 }
 
@@ -147,7 +171,7 @@ function normalizeSections(base) {
   }
 }
 
-function mergeScheduleIntoSectionedState(existingState, scheduleUiState, meta = {}) {
+function mergeScheduleIntoSectionedState(existingState, scheduleUiState) {
   const base =
     existingState && typeof existingState === "object" ? existingState : makeEmptySectionedState();
 
@@ -156,8 +180,7 @@ function mergeScheduleIntoSectionedState(existingState, scheduleUiState, meta = 
 
   // Only touch the schedule section.
   base.sections.schedule = {
-    source: meta.source || "schedule",
-    // Store ONLY schedule UI/filter state.
+    source: "schedule",
     state: scheduleUiState || {},
   };
 
@@ -165,7 +188,7 @@ function mergeScheduleIntoSectionedState(existingState, scheduleUiState, meta = 
 }
 
 /* ============================================================
-   DEV GATE (Developer-only)
+   DEV GATE (Developer-only while testing)
    ============================================================ */
 
 export async function requireDeveloperForSchedule({ onDenied = null, statusEl = null } = {}) {
@@ -213,7 +236,7 @@ export async function saveScheduleSectionToCloud({ statusEl = null } = {}) {
     return { ok: false, reason: remote?.reason || "get_failed", detail: remote?.detail };
   }
 
-  const next = mergeScheduleIntoSectionedState(remote.state, localUi, { source: "schedule" });
+  const next = mergeScheduleIntoSectionedState(remote.state, localUi);
 
   // 2) Set merged state
   const saved = await sectionedSetState(next);
@@ -223,44 +246,64 @@ export async function saveScheduleSectionToCloud({ statusEl = null } = {}) {
     return { ok: false, reason: saved?.reason || "set_failed", detail: saved?.detail };
   }
 
-  // (Display-only timestamp is fine; it is NOT stored in Airtable JSON.)
-  setStatus(statusEl, `Saved ✓ (${new Date().toLocaleString()})`, "ok");
+  // Update local marker so we don't immediately "pull" over our own changes.
+  setLocalLastSeenCloudFromRemote(remote?.lastUpdated || null);
+
+  setStatus(statusEl, `Saved ✓`, "ok");
   return { ok: true, saved };
 }
 
-export async function loadScheduleSectionFromCloud({ statusEl = null } = {}) {
-  setStatus(statusEl, "Loading schedule filters from account…");
+/* ============================================================
+   AUTO-SYNC ON LOAD / FOCUS
+   ============================================================ */
 
+async function maybeHydrateFromCloud({ statusEl = null, reloadIfApplied = true } = {}) {
   const remote = await sectionedGetState();
-  if (!remote?.ok) {
-    setStatus(statusEl, `Load failed: ${remote?.reason || "unknown"}`, "error");
-    return { ok: false, reason: remote?.reason || "get_failed", detail: remote?.detail };
-  }
+  if (!remote?.ok) return { ok: false, reason: remote?.reason || "get_failed" };
 
   const schedUi = remote?.state?.sections?.schedule?.state;
-  if (!schedUi || typeof schedUi !== "object") {
-    setStatus(statusEl, "No saved schedule filters found in account yet.", "warn");
-    return { ok: true, empty: true, remote };
-  }
+  if (!schedUi || typeof schedUi !== "object") return { ok: true, empty: true };
+
+  const remoteTs = parseAirtableLastUpdated(remote?.lastUpdated);
+  const localTs = getLocalLastSeenCloud();
+
+  // If we can't compare timestamps, be conservative and only apply once per session.
+  const appliedMarker = sessionStorage.getItem(SESSION_APPLIED_CLOUD_KEY);
+
+  const shouldApply =
+    (remoteTs && (!localTs || remoteTs > localTs)) || (!remoteTs && !appliedMarker);
+
+  if (!shouldApply) return { ok: true, skipped: true };
 
   setLocalScheduleState(schedUi);
-  setStatus(statusEl, `Loaded ✓ (${new Date().toLocaleString()})`, "ok");
-  return { ok: true, remote };
+  setLocalLastSeenCloudFromRemote(remote?.lastUpdated || null);
+
+  // Prevent reload loops
+  sessionStorage.setItem(SESSION_APPLIED_CLOUD_KEY, String(remote?.lastUpdated || Date.now()));
+
+  if (reloadIfApplied) {
+    setStatus(statusEl, "Updated from account — refreshing…", "ok");
+    window.location.reload();
+  } else {
+    setStatus(statusEl, "Updated from account.", "ok");
+  }
+
+  return { ok: true, applied: true, remote };
 }
 
 /* ============================================================
-   WIRING (button hooks)
+   WIRING (Schedule page only)
    ============================================================ */
 
 export async function initScheduleSectionedSave({
   saveBtnId = "scheduleSaveToAccountBtn",
-  loadBtnId = "scheduleLoadFromAccountBtn",
   statusId = "scheduleCloudStatus",
   gateStatusId = "scheduleGateStatus",
   devOnly = true,
+  autoLoadOnInit = true,
+  autoCheckOnFocus = true,
 } = {}) {
   const saveBtn = document.getElementById(saveBtnId);
-  const loadBtn = document.getElementById(loadBtnId);
   const statusEl = document.getElementById(statusId);
   const gateEl = document.getElementById(gateStatusId);
 
@@ -270,13 +313,17 @@ export async function initScheduleSectionedSave({
       statusEl: gateEl,
       onDenied: () => {
         if (saveBtn) saveBtn.disabled = true;
-        if (loadBtn) loadBtn.disabled = true;
       },
     });
-
     if (!gate.ok) return gate;
   }
 
+  // Auto-load cloud state (so refresh matches Airtable)
+  if (autoLoadOnInit) {
+    await maybeHydrateFromCloud({ statusEl, reloadIfApplied: true });
+  }
+
+  // Wire Save button
   if (saveBtn) {
     saveBtn.addEventListener("click", async () => {
       saveBtn.disabled = true;
@@ -288,18 +335,20 @@ export async function initScheduleSectionedSave({
     });
   }
 
-  if (loadBtn) {
-    loadBtn.addEventListener("click", async () => {
-      loadBtn.disabled = true;
-      try {
-        await loadScheduleSectionFromCloud({ statusEl });
-      } finally {
-        loadBtn.disabled = false;
+  // Check cloud when tab/window regains focus (helps when saving from another device)
+  if (autoCheckOnFocus) {
+    window.addEventListener("focus", () => {
+      maybeHydrateFromCloud({ statusEl, reloadIfApplied: true }).catch(() => {});
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        maybeHydrateFromCloud({ statusEl, reloadIfApplied: true }).catch(() => {});
       }
     });
   }
 
-  // Tiny debug surface for testing
+  // Debug surface
   window.SectionedScheduleState = {
     SECTIONED_AUTH_BASE,
     UI_STORAGE_KEY,
@@ -309,7 +358,6 @@ export async function initScheduleSectionedSave({
     getLocal: getLocalScheduleState,
     setLocal: setLocalScheduleState,
     save: () => saveScheduleSectionToCloud({ statusEl }),
-    load: () => loadScheduleSectionFromCloud({ statusEl }),
   };
 
   return { ok: true };
