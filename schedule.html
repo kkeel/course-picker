@@ -1209,14 +1209,33 @@
     </div>
   </div>
 
-  <script type="module" src="js/auth.js"></script>
-  <script src="js/app.js"></script>
+<!-- Auth first (module) -->
+<script type="module" src="js/auth.js"></script>
 
-  <!-- Schedule page scripts -->
-  <script src="js/schedule.js"></script>
+<!-- Shared app nav, etc. -->
+<script src="js/app.js"></script>
 
-  <!-- ✅ Alpine -->
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<!-- Schedule page logic -->
+<script src="js/schedule.js"></script>
+
+<!-- Alpine -->
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<!-- Sectioned cloud save/load wiring (module) -->
+<script type="module">
+  import { initScheduleSectionedSave } from "./js/saveState.js";
+
+  // Wait until the DOM is ready (buttons/status elements exist)
+  window.addEventListener("DOMContentLoaded", async () => {
+    try {
+      await initScheduleSectionedSave({
+        devOnly: true, // keep it safe while testing
+      });
+    } catch (e) {
+      console.error("initScheduleSectionedSave failed", e);
+    }
+  });
+</script>
 
   <!-- Print-only page numbers (Paged.js loads only when printing) -->
   <script>
