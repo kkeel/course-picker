@@ -35,6 +35,17 @@ function parseAirtableLastUpdated(value) {
   return Number.isFinite(t) ? t : null;
 }
 
+function simpleHash(str) {
+  // small non-crypto hash (FNV-1a 32-bit)
+  let h = 0x811c9dc5;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = (h * 0x01000193) >>> 0;
+  }
+  return h >>> 0;
+}
+
+
 function getLocalLastSeenCloud() {
   return parseAirtableLastUpdated(localStorage.getItem(LOCAL_LAST_SEEN_CLOUD_KEY));
 }
@@ -264,22 +275,24 @@ async function maybeHydrateFromCloud({ statusEl = null, reloadIfApplied = true }
   const schedUi = remote?.state?.sections?.schedule?.state;
   if (!schedUi || typeof schedUi !== "object") return { ok: true, empty: true };
 
-  const remoteTs = parseAirtableLastUpdated(remote?.lastUpdated);
-  const localTs = getLocalLastSeenCloud();
+  const localUi = getLocalScheduleState();
+  const remoteStr = JSON.stringify(schedUi);
+  const localStr = JSON.stringify(localUi || null);
 
-  // If we can't compare timestamps, be conservative and only apply once per session.
+  // Prevent reload loops across this session: only apply once per distinct remote payload.
+  const remoteKey = String(simpleHash(remoteStr));
   const appliedMarker = sessionStorage.getItem(SESSION_APPLIED_CLOUD_KEY);
 
-  const shouldApply =
-    (remoteTs && (!localTs || remoteTs > localTs)) || (!remoteTs && !appliedMarker);
+  if (appliedMarker === remoteKey) return { ok: true, skipped: true };
 
-  if (!shouldApply) return { ok: true, skipped: true };
+  // If identical, just mark as seen and move on.
+  if (remoteStr === localStr) {
+    sessionStorage.setItem(SESSION_APPLIED_CLOUD_KEY, remoteKey);
+    return { ok: true, upToDate: true };
+  }
 
   setLocalScheduleState(schedUi);
-  setLocalLastSeenCloudFromRemote(remote?.lastUpdated || null);
-
-  // Prevent reload loops
-  sessionStorage.setItem(SESSION_APPLIED_CLOUD_KEY, String(remote?.lastUpdated || Date.now()));
+  sessionStorage.setItem(SESSION_APPLIED_CLOUD_KEY, remoteKey);
 
   if (reloadIfApplied) {
     setStatus(statusEl, "Updated from account — refreshing…", "ok");
