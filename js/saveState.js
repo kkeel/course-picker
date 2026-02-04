@@ -4,6 +4,9 @@
 
 const SECTIONED_AUTH_BASE = "https://alveary-planning-api-sectioned.kim-b5d.workers.dev/api";
 const UI_STORAGE_KEY = "alveary_schedule_ui_v1";
+// Cards are persisted separately by schedule.js. For cloud saves we store only
+// the *user-authored* + *user-placed* data (NOT the full catalog).
+const CARDS_STORAGE_KEY = "alveary_schedule_cards_v1";
 
 const SECTIONED_STATE_VERSION = 1;
 
@@ -138,17 +141,95 @@ async function sectionedSetState(state) {
 }
 
 /* ============================================================
-   LOCAL SCHEDULE STATE (UI/FILTERS ONLY)
+   LOCAL SCHEDULE STATE
+   - UI/FILTERS live in UI_STORAGE_KEY
+   - Scheduled cards/custom cards live in CARDS_STORAGE_KEY
+   For cloud saves we *compose* a single object that includes:
+     { ui: <uiState>, cards: { placements, instancesById, choices, customTemplatesById } }
    ============================================================ */
 
-export function getLocalScheduleState() {
-  return safeParse(localStorage.getItem(UI_STORAGE_KEY) || "", null);
+function pickCustomTemplates(templatesById) {
+  const out = {};
+  if (!templatesById || typeof templatesById !== "object") return out;
+  for (const [id, tpl] of Object.entries(templatesById)) {
+    // Convention used in schedule.js: custom templates are "u:*".
+    if (typeof id === "string" && id.startsWith("u:")) out[id] = tpl;
+  }
+  return out;
 }
 
-export function setLocalScheduleState(uiState) {
+function readFullCardsState() {
+  return safeParse(localStorage.getItem(CARDS_STORAGE_KEY) || "", null);
+}
+
+function writeFullCardsState(full) {
   try {
-    if (!uiState || typeof uiState !== "object") return false;
-    localStorage.setItem(UI_STORAGE_KEY, JSON.stringify(uiState));
+    if (!full || typeof full !== "object") return false;
+    localStorage.setItem(CARDS_STORAGE_KEY, JSON.stringify(full));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function getLocalScheduleState() {
+  const ui = safeParse(localStorage.getItem(UI_STORAGE_KEY) || "", null);
+  const fullCards = readFullCardsState();
+
+  const cards = fullCards && typeof fullCards === "object"
+    ? {
+        // Only persist what we *must* recreate the user's board:
+        placements: fullCards.placements || {},
+        instancesById: fullCards.instancesById || {},
+        choices: fullCards.choices || {},
+        customTemplatesById: pickCustomTemplates(fullCards.templatesById),
+      }
+    : null;
+
+  // Back-compat: if something expects the old shape, it can still read .ui
+  // from this object.
+  return { ui, cards };
+}
+
+export function setLocalScheduleState(incoming) {
+  try {
+    if (!incoming || typeof incoming !== "object") return false;
+
+    // Accept either the new composed object, or the old "ui only" object.
+    const uiState = incoming.ui && typeof incoming.ui === "object" ? incoming.ui : incoming;
+    const cardsPart = incoming.cards && typeof incoming.cards === "object" ? incoming.cards : null;
+
+    // 1) UI
+    if (uiState && typeof uiState === "object") {
+      localStorage.setItem(UI_STORAGE_KEY, JSON.stringify(uiState));
+    }
+
+    // 2) Cards (merge custom templates into the existing full cards state)
+    if (cardsPart) {
+      const full = readFullCardsState() || {};
+      full.templatesById = full.templatesById && typeof full.templatesById === "object" ? full.templatesById : {};
+
+      if (cardsPart.customTemplatesById && typeof cardsPart.customTemplatesById === "object") {
+        for (const [id, tpl] of Object.entries(cardsPart.customTemplatesById)) {
+          if (typeof id === "string" && id.startsWith("u:")) full.templatesById[id] = tpl;
+        }
+      }
+
+      if (cardsPart.instancesById && typeof cardsPart.instancesById === "object") {
+        full.instancesById = cardsPart.instancesById;
+      }
+
+      if (cardsPart.placements && typeof cardsPart.placements === "object") {
+        full.placements = cardsPart.placements;
+      }
+
+      if (cardsPart.choices && typeof cardsPart.choices === "object") {
+        full.choices = cardsPart.choices;
+      }
+
+      writeFullCardsState(full);
+    }
+
     return true;
   } catch {
     return false;
@@ -231,14 +312,17 @@ export async function requireDeveloperForSchedule({ onDenied = null, statusEl = 
    ============================================================ */
 
 export async function saveScheduleSectionToCloud({ statusEl = null } = {}) {
-  const localUi = getLocalScheduleState();
+  const localSchedule = getLocalScheduleState();
 
-  if (!localUi || typeof localUi !== "object") {
-    setStatus(statusEl, "Nothing to save (no local schedule UI state).", "warn");
-    return { ok: false, reason: "no_local_ui_state" };
+  const hasUi = !!(localSchedule?.ui && typeof localSchedule.ui === "object");
+  const hasCards = !!(localSchedule?.cards && typeof localSchedule.cards === "object");
+
+  if (!hasUi && !hasCards) {
+    setStatus(statusEl, "Nothing to save (no local schedule state).", "warn");
+    return { ok: false, reason: "no_local_schedule_state" };
   }
 
-  setStatus(statusEl, "Saving schedule filters to account…");
+  setStatus(statusEl, "Saving schedule to account…");
 
   // 1) Get existing sectioned state
   const remote = await sectionedGetState();
@@ -247,7 +331,7 @@ export async function saveScheduleSectionToCloud({ statusEl = null } = {}) {
     return { ok: false, reason: remote?.reason || "get_failed", detail: remote?.detail };
   }
 
-  const next = mergeScheduleIntoSectionedState(remote.state, localUi);
+  const next = mergeScheduleIntoSectionedState(remote.state, localSchedule);
 
   // 2) Set merged state
   const saved = await sectionedSetState(next);
