@@ -121,7 +121,7 @@ window.addEventListener("orientationchange", setAppHeaderHeightVar, { passive: t
     "https://youtube.com/playlist?list=PLvg0fKfOahKR84TV79NMDkZYEuWy0HoAO&si=fYkD8-4dFOdnTQUH";
 
   const TUTORIALS_URL =
-    "https://www.youtube.com/playlist?list=YOUR_TUTORIALS_PLAYLIST_ID";
+    "https://www.youtube.com/playlist?list=PLvg0fKfOahKSx9EEHrcnpAiodF7RNqmi7";
 
   function wireUp() {
     // If the floating video markup isn't on this page, exit quietly.
