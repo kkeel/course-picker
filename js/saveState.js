@@ -1,11 +1,9 @@
 /* ============================================================
-   CONFIG -----  saveState.js (SECTIONED MIGRATION STARTER)
+   saveState.js — Sectioned Planner State (Schedule first)
    ============================================================ */
 
 const SECTIONED_AUTH_BASE = "https://alveary-planning-api-sectioned.kim-b5d.workers.dev/api";
 const UI_STORAGE_KEY = "alveary_schedule_ui_v1";
-const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
-const CARDS_STORAGE_KEY = "alveary_schedule_cards_v1";
 const SECTIONED_STATE_VERSION = 1;
 
 /* ============================================================
@@ -20,14 +18,10 @@ function safeParse(raw, fallback = null) {
   }
 }
 
-function nowIso() {
-  return new Date().toISOString();
-}
-
 function setStatus(el, msg, kind = "") {
   if (!el) return;
   el.textContent = msg || "";
-  el.dataset.kind = kind; // optional hook for CSS if you want
+  el.dataset.kind = kind; // optional hook for CSS
 }
 
 /* ============================================================
@@ -74,9 +68,8 @@ async function sectionedWhoami() {
     return { ok: false, role: "public", reason: json?.reason || `http_${res.status}` };
   }
 
-  // IMPORTANT: Your worker returns role already lowercased.
+  // Worker returns role already lowercased.
   const role = String(json.role || "member").toLowerCase();
-
   return { ok: true, role, user: json.user || {} };
 }
 
@@ -91,7 +84,7 @@ async function sectionedGetState() {
   });
 
   const json = await res.json().catch(() => ({}));
-  return res.ok ? json : { ok: false, reason: json?.reason || `http_${res.status}` };
+  return res.ok ? json : { ok: false, reason: json?.reason || `http_${res.status}`, detail: json };
 }
 
 async function sectionedSetState(state) {
@@ -105,31 +98,27 @@ async function sectionedSetState(state) {
   });
 
   const json = await res.json().catch(() => ({}));
-  return res.ok ? json : { ok: false, reason: json?.reason || `http_${res.status}` };
+  return res.ok ? json : { ok: false, reason: json?.reason || `http_${res.status}`, detail: json };
 }
 
 /* ============================================================
-   LOCAL SCHEDULE STATE
+   LOCAL SCHEDULE STATE (UI/FILTERS ONLY)
    ============================================================ */
 
-   export function getLocalScheduleState() {
-     return {
-       ui: safeParse(localStorage.getItem(UI_STORAGE_KEY) || "", null),
-       workspaceH: safeParse(localStorage.getItem(WORKSPACE_H_KEY) || "", null),
-       cards: safeParse(localStorage.getItem(CARDS_STORAGE_KEY) || "", null),
-     };
-   }
-   
-   export function setLocalScheduleState(bundle) {
-     try {
-       if (bundle?.ui) localStorage.setItem(UI_STORAGE_KEY, JSON.stringify(bundle.ui));
-       if (bundle?.workspaceH) localStorage.setItem(WORKSPACE_H_KEY, JSON.stringify(bundle.workspaceH));
-       if (bundle?.cards) localStorage.setItem(CARDS_STORAGE_KEY, JSON.stringify(bundle.cards));
-       return true;
-     } catch {
-       return false;
-     }
-   }
+export function getLocalScheduleState() {
+  // schedule.js persists dropdowns / filters / view toggles here.
+  return safeParse(localStorage.getItem(UI_STORAGE_KEY) || "", null);
+}
+
+export function setLocalScheduleState(uiState) {
+  try {
+    if (!uiState || typeof uiState !== "object") return false;
+    localStorage.setItem(UI_STORAGE_KEY, JSON.stringify(uiState));
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 /* ============================================================
    SECTIONED STATE SHAPE (cloud)
@@ -138,7 +127,6 @@ async function sectionedSetState(state) {
 function makeEmptySectionedState() {
   return {
     version: SECTIONED_STATE_VERSION,
-    updatedAt: nowIso(),
     sections: {
       schedule: null,
       courses: null,
@@ -148,13 +136,7 @@ function makeEmptySectionedState() {
   };
 }
 
-function mergeScheduleIntoSectionedState(existingState, scheduleState, meta = {}) {
-  const base =
-    existingState && typeof existingState === "object"
-      ? existingState
-      : makeEmptySectionedState();
-
-  // Normalize structure if older/blank
+function normalizeSections(base) {
   if (!base.sections || typeof base.sections !== "object") {
     base.sections = {
       schedule: null,
@@ -163,15 +145,20 @@ function mergeScheduleIntoSectionedState(existingState, scheduleState, meta = {}
       atAGlance: null,
     };
   }
+}
 
+function mergeScheduleIntoSectionedState(existingState, scheduleUiState, meta = {}) {
+  const base =
+    existingState && typeof existingState === "object" ? existingState : makeEmptySectionedState();
+
+  normalizeSections(base);
   base.version = base.version || SECTIONED_STATE_VERSION;
-  base.updatedAt = nowIso();
 
+  // Only touch the schedule section.
   base.sections.schedule = {
-    savedAt: nowIso(),
     source: meta.source || "schedule",
-    // Put the entire schedule local state here
-    state: scheduleState || {},
+    // Store ONLY schedule UI/filter state.
+    state: scheduleUiState || {},
   };
 
   return base;
@@ -181,22 +168,17 @@ function mergeScheduleIntoSectionedState(existingState, scheduleState, meta = {}
    DEV GATE (Developer-only)
    ============================================================ */
 
-export async function requireDeveloperForSchedule({
-  onDenied = null,
-  statusEl = null,
-} = {}) {
+export async function requireDeveloperForSchedule({ onDenied = null, statusEl = null } = {}) {
   setStatus(statusEl, "Checking developer access…");
 
   const who = await sectionedWhoami();
 
-  // If not logged in, treat as denied
   if (!who.ok) {
     setStatus(statusEl, "Not signed in.", "error");
     if (typeof onDenied === "function") onDenied(who);
     return { ok: false, reason: who.reason || "not_signed_in" };
   }
 
-  // Developer-only
   const role = String(who.role || "").toLowerCase();
   const isDeveloper = role === "developer";
 
@@ -215,51 +197,53 @@ export async function requireDeveloperForSchedule({
    ============================================================ */
 
 export async function saveScheduleSectionToCloud({ statusEl = null } = {}) {
-  const local = getLocalScheduleState();
+  const localUi = getLocalScheduleState();
 
-  if (!local || typeof local !== "object") {
-    setStatus(statusEl, "Nothing to save (no local schedule state).", "warn");
-    return { ok: false, reason: "no_local_state" };
+  if (!localUi || typeof localUi !== "object") {
+    setStatus(statusEl, "Nothing to save (no local schedule UI state).", "warn");
+    return { ok: false, reason: "no_local_ui_state" };
   }
 
-  setStatus(statusEl, "Saving schedule to account…");
+  setStatus(statusEl, "Saving schedule filters to account…");
 
   // 1) Get existing sectioned state
   const remote = await sectionedGetState();
   if (!remote?.ok) {
     setStatus(statusEl, `Save failed (get): ${remote?.reason || "unknown"}`, "error");
-    return { ok: false, reason: remote?.reason || "get_failed" };
+    return { ok: false, reason: remote?.reason || "get_failed", detail: remote?.detail };
   }
 
-  const next = mergeScheduleIntoSectionedState(remote.state, local, { source: "schedule" });
+  const next = mergeScheduleIntoSectionedState(remote.state, localUi, { source: "schedule" });
 
   // 2) Set merged state
   const saved = await sectionedSetState(next);
   if (!saved?.ok) {
+    console.error("Sectioned save failed:", saved);
     setStatus(statusEl, `Save failed (set): ${saved?.reason || "unknown"}`, "error");
-    return { ok: false, reason: saved?.reason || "set_failed" };
+    return { ok: false, reason: saved?.reason || "set_failed", detail: saved?.detail };
   }
 
+  // (Display-only timestamp is fine; it is NOT stored in Airtable JSON.)
   setStatus(statusEl, `Saved ✓ (${new Date().toLocaleString()})`, "ok");
   return { ok: true, saved };
 }
 
 export async function loadScheduleSectionFromCloud({ statusEl = null } = {}) {
-  setStatus(statusEl, "Loading schedule from account…");
+  setStatus(statusEl, "Loading schedule filters from account…");
 
   const remote = await sectionedGetState();
   if (!remote?.ok) {
     setStatus(statusEl, `Load failed: ${remote?.reason || "unknown"}`, "error");
-    return { ok: false, reason: remote?.reason || "get_failed" };
+    return { ok: false, reason: remote?.reason || "get_failed", detail: remote?.detail };
   }
 
-  const sched = remote?.state?.sections?.schedule?.state;
-  if (!sched || typeof sched !== "object") {
-    setStatus(statusEl, "No saved schedule found in account yet.", "warn");
+  const schedUi = remote?.state?.sections?.schedule?.state;
+  if (!schedUi || typeof schedUi !== "object") {
+    setStatus(statusEl, "No saved schedule filters found in account yet.", "warn");
     return { ok: true, empty: true, remote };
   }
 
-  setLocalScheduleState(sched);
+  setLocalScheduleState(schedUi);
   setStatus(statusEl, `Loaded ✓ (${new Date().toLocaleString()})`, "ok");
   return { ok: true, remote };
 }
@@ -268,14 +252,6 @@ export async function loadScheduleSectionFromCloud({ statusEl = null } = {}) {
    WIRING (button hooks)
    ============================================================ */
 
-/**
- * Call this from schedule.html (after DOM loads).
- *
- * Expected markup (you can rename ids; pass options):
- *  - <button id="scheduleSaveToAccountBtn">Save to Account</button>
- *  - <button id="scheduleLoadFromAccountBtn">Load from Account</button> (optional)
- *  - <span id="scheduleCloudStatus"></span>
- */
 export async function initScheduleSectionedSave({
   saveBtnId = "scheduleSaveToAccountBtn",
   loadBtnId = "scheduleLoadFromAccountBtn",
@@ -293,7 +269,6 @@ export async function initScheduleSectionedSave({
     const gate = await requireDeveloperForSchedule({
       statusEl: gateEl,
       onDenied: () => {
-        // Disable controls if present
         if (saveBtn) saveBtn.disabled = true;
         if (loadBtn) loadBtn.disabled = true;
       },
@@ -302,7 +277,6 @@ export async function initScheduleSectionedSave({
     if (!gate.ok) return gate;
   }
 
-  // Wire buttons
   if (saveBtn) {
     saveBtn.addEventListener("click", async () => {
       saveBtn.disabled = true;
@@ -319,21 +293,16 @@ export async function initScheduleSectionedSave({
       loadBtn.disabled = true;
       try {
         await loadScheduleSectionFromCloud({ statusEl });
-        // Optional: after loading, you may need to refresh the UI.
-        // If your schedule page has a known rerender hook, call it here.
-        // e.g. window.Schedule?.render?.()
       } finally {
         loadBtn.disabled = false;
       }
     });
   }
 
-  // Expose a tiny debug surface for testing
+  // Tiny debug surface for testing
   window.SectionedScheduleState = {
     SECTIONED_AUTH_BASE,
     UI_STORAGE_KEY,
-    WORKSPACE_H_KEY,
-    CARDS_STORAGE_KEY,
     whoami: sectionedWhoami,
     getCloud: sectionedGetState,
     setCloud: sectionedSetState,
