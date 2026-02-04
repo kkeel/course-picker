@@ -719,6 +719,12 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         dayIndex: 0,
       },
 
+
+      // Single source of truth for rail "target student" selector persistence
+      // (UI binds to this; activeTarget stays in sync for existing logic)
+      activeTargetStudentId: "S1",
+      activeTargetDayIndex: 0,
+
       // Rail list: show/hide completed cards (per active rail student)
       showCompleted: false,
       railTopCollapsed: false,
@@ -773,11 +779,16 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         this.openStudentMenu = null;
 
         // Restore rail header "Add target" selector (student/day)
+        this.activeTargetStudentId =
+          normalizedUi.activeTargetStudentId || this.visibleStudentPanels?.[0]?.studentId || "S1";
+        this.activeTargetDayIndex = Number.isInteger(Number(normalizedUi.activeTargetDayIndex))
+          ? Number(normalizedUi.activeTargetDayIndex)
+          : (this.visibleDays?.[0] ?? 0);
+
+        // Keep existing logic working
         this.activeTarget = {
-          studentId: normalizedUi.activeTargetStudentId || this.visibleStudentPanels?.[0]?.studentId || "S1",
-          dayIndex: Number.isInteger(Number(normalizedUi.activeTargetDayIndex))
-            ? Number(normalizedUi.activeTargetDayIndex)
-            : (this.visibleDays?.[0] ?? 0),
+          studentId: this.activeTargetStudentId,
+          dayIndex: this.activeTargetDayIndex,
         };
         if (!this.visibleDays.includes(this.activeTarget.dayIndex)) {
           this.activeTarget.dayIndex = this.visibleDays?.[0] ?? 0;
@@ -821,8 +832,8 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
             railMyCoursesOnly: this.railMyCoursesOnly,
             railStudentAssignedOnly: this.railStudentAssignedOnly,
             railSearch: this.railSearch,
-            activeTargetStudentId: this.activeTarget?.studentId,
-            activeTargetDayIndex: this.activeTarget?.dayIndex,
+            activeTargetStudentId: this.activeTargetStudentId || this.activeTarget?.studentId,
+            activeTargetDayIndex: Number.isInteger(Number(this.activeTargetDayIndex)) ? Number(this.activeTargetDayIndex) : this.activeTarget?.dayIndex,
           };
           const uiNorm = normalizeUiState(uiNow, ids);
           this.visibleStudentPanels = uiNorm.panels;
@@ -1006,8 +1017,24 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         this.persistCards();
         // Keep the "assign cards to student" selector persistent even if the DOM handler changes.
         if (typeof this.$watch === "function") {
-          this.$watch("activeTarget.studentId", () => this.persistUi());
-          this.$watch("activeTarget.dayIndex", () => this.persistUi());
+          this.$watch("activeTargetStudentId", (v) => {
+            if (this.activeTarget?.studentId !== v) this.activeTarget.studentId = v;
+            this.persistUi();
+          });
+          this.$watch("activeTarget.studentId", (v) => {
+            if (this.activeTargetStudentId !== v) this.activeTargetStudentId = v;
+            this.persistUi();
+          });
+          this.$watch("activeTargetDayIndex", (v) => {
+            const n = Number(v);
+            if (Number.isInteger(n) && this.activeTarget?.dayIndex !== n) this.activeTarget.dayIndex = n;
+            this.persistUi();
+          });
+          this.$watch("activeTarget.dayIndex", (v) => {
+            const n = Number(v);
+            if (Number.isInteger(n) && Number(this.activeTargetDayIndex) !== n) this.activeTargetDayIndex = n;
+            this.persistUi();
+          });
         }
 
       },
@@ -1025,8 +1052,8 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           railSearch: this.railSearch,
           dayViewPanels: (this.dayViewPanels || []).map(p => ({ slot: p.slot, dayIdx: p.dayIdx })),
           dayViewStudentSlots: (this.dayViewStudentSlots || []).slice(0, 5),
-          activeTargetStudentId: this.activeTarget?.studentId,
-          activeTargetDayIndex: this.activeTarget?.dayIndex,
+          activeTargetStudentId: this.activeTargetStudentId || this.activeTarget?.studentId,
+          activeTargetDayIndex: Number.isInteger(Number(this.activeTargetDayIndex)) ? Number(this.activeTargetDayIndex) : this.activeTarget?.dayIndex,
         });
       },
 
