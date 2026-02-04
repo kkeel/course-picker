@@ -285,8 +285,8 @@
                   <!-- Always-visible assignment target -->
                   <select
                     class="sched-target-select sched-target-select--compact"
-                    x-model="activeTarget.studentId"
-                    @change="ensureStudent(activeTarget.studentId); persistUi(); persistCards()"
+                    x-model="activeTargetStudentId"
+                    @change="ensureStudent(activeTargetStudentId); activeTarget.studentId = activeTargetStudentId; persistUi(); persistCards()"
                     aria-label="Assign cards to student"
                   >
                     <template x-for="s in students" :key="s.id">
