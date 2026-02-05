@@ -95,35 +95,15 @@ async function getCurrentMember() {
 
 async function sectionedWhoami() {
   try {
-    // Memberstack can lag right after login (especially in incognito). Retry briefly
-    // instead of throwing, so we don't break the rest of the page (students, etc.).
-    let member = null;
-    for (let i = 0; i < 20; i++) {
-      member = await getCurrentMember();
-      if (member && (member.id || member.data?.id)) break;
-      await new Promise((r) => setTimeout(r, 150));
+    if (window.AlvearyAuth && typeof window.AlvearyAuth.whoami === "function") {
+      // Returns {ok:true, user:{...}} or {ok:false,...}
+      return await window.AlvearyAuth.whoami({ force: true });
     }
-
-    if (!member) return { ok: false, reason: "missing_identifier" };
-
-    const token = await getMemberstackSessionToken();
-    if (!token) return { ok: false, reason: "missing_token" };
-
-    const res = await fetch(`${SECTIONED_AUTH_BASE}/api/whoami`, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    if (!res.ok) return { ok: false, reason: "whoami_failed", status: res.status };
-
-    const json = await res.json();
-    return json && typeof json === "object"
-      ? { ok: true, ...json }
-      : { ok: false, reason: "bad_response" };
   } catch (err) {
-    console.error("sectionedWhoami error:", err);
-    return { ok: false, reason: "whoami_error" };
+    console.warn("sectionedWhoami via AlvearyAuth failed", err);
   }
+  // Fallback: if auth isn't ready yet, treat as not signed in.
+  return { ok: false, error: "auth_not_ready" };
 }
 
 async function sectionedGetState() {
