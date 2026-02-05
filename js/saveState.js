@@ -53,9 +53,28 @@ function simpleHash(str) {
 // ---------------------------
 // app.js stores the global planner state (including student roster) in localStorage
 // under PLANNER_STATE_KEY. Schedule rendering depends on that roster existing.
+function resolvePlannerKey() {
+  // Prefer a globally-exposed key (if app.js sets it), otherwise auto-detect.
+  try {
+    if (window.PLANNER_STATE_KEY) return window.PLANNER_STATE_KEY;
+  } catch {}
+  try {
+    const keys = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith("alveary_planner_")) keys.push(k);
+    }
+    // Newest-ish key last lexicographically because it embeds a version/date.
+    keys.sort();
+    return keys.length ? keys[keys.length - 1] : null;
+  } catch {
+    return null;
+  }
+}
+
 function getPlannerState() {
   try {
-    const key = window.PLANNER_STATE_KEY;
+    const key = resolvePlannerKey();
     if (!key) return {};
     const raw = localStorage.getItem(key);
     return raw ? JSON.parse(raw) : {};
@@ -66,7 +85,7 @@ function getPlannerState() {
 
 function setPlannerState(next) {
   try {
-    const key = window.PLANNER_STATE_KEY;
+    const key = resolvePlannerKey();
     if (!key) return;
     localStorage.setItem(key, JSON.stringify(next || {}));
   } catch {
