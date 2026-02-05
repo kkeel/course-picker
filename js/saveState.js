@@ -1,565 +1,436 @@
-/* ============================================================
-   saveState.js — Sectioned Planner State (Schedule first)
-   ============================================================ */
+// saveState.js
+// Sectioned save/load for planner state (cloud + local)
+// V1: schedule section only, safely merges into shared Sectioned_Planner_State_JSON
+// Adds a schedule-owned students snapshot so Schedule works even if app.js storage isn’t present
+// (we are not replacing app.js everywhere yet — just giving schedule a safe fallback)
 
-const SECTIONED_AUTH_BASE = "https://alveary-planning-api-sectioned.kim-b5d.workers.dev/api";
-const UI_STORAGE_KEY = "alveary_schedule_ui_v1";
-// Cards are persisted separately by schedule.js. For cloud saves we store only
-// the *user-authored* + *user-placed* data (NOT the full catalog).
-const CARDS_STORAGE_KEY = "alveary_schedule_cards_v1";
+const SECTIONED_AUTH_BASE =
+  window.SECTIONED_AUTH_BASE || "https://alveary-planning-api-sectioned.kim-b5d.workers.dev/api";
 
-// Students are still owned by the "planner" global state today (app.js).
-// Schedule needs access to them even on a fresh device/incognito, so we mirror
-// the student roster into Sectioned_Planner_State_JSON as a dedicated section.
-const PLANNER_STATE_KEY_PREFIX = "alveary_planner_";
+const STORAGE_KEY = "alveary_schedule_ui_v1"; // schedule local UI cache
+const CLOUD_CACHE_KEY = "alveary_schedule_cloud_cache_v1"; // keeps last cloud state we loaded
 
-const SECTIONED_STATE_VERSION = 1;
-
-// Used only for client-side sync behavior (NOT stored in Airtable JSON)
-const LOCAL_LAST_SEEN_CLOUD_KEY = "alveary_schedule_cloud_last_seen_v1";
-const SESSION_APPLIED_CLOUD_KEY = "alveary_schedule_cloud_applied_v1";
-
-/* ============================================================
-   UTILS
-   ============================================================ */
-
-function safeParse(raw, fallback = null) {
+function safeParse(raw) {
   try {
     return JSON.parse(raw);
-  } catch {
-    return fallback;
-  }
-}
-
-function getPlannerStateKey() {
-  // app.js versions this key (alveary_planner_<version>). We want the newest
-  // one present in this browser/profile.
-  const matches = [];
-  for (let i = 0; i < localStorage.length; i++) {
-    const k = localStorage.key(i);
-    if (k && k.startsWith(PLANNER_STATE_KEY_PREFIX)) matches.push(k);
-  }
-
-  if (!matches.length) return null;
-
-  // If the canonical current key exists, prefer it.
-  const canonical = `${PLANNER_STATE_KEY_PREFIX}2025-12-09-v1`;
-  if (localStorage.getItem(canonical)) return canonical;
-
-  // Otherwise pick lexicographically last; the version strings are date-like.
-  matches.sort();
-  return matches[matches.length - 1];
-}
-
-function getPlannerState() {
-  const key = getPlannerStateKey();
-  if (!key) return null;
-  return safeParse(localStorage.getItem(key), null);
-}
-
-function setPlannerState(next) {
-  const key = getPlannerStateKey();
-  if (!key) return false;
-  try {
-    localStorage.setItem(key, JSON.stringify(next));
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-function getStudentsFromPlanner() {
-  const ps = getPlannerState();
-  return {
-    students: Array.isArray(ps?.students) ? ps.students : [],
-    studentColorCursor: Number.isFinite(ps?.studentColorCursor) ? ps.studentColorCursor : 0,
-    studentColorPalette: Array.isArray(ps?.studentColorPalette) ? ps.studentColorPalette : [],
-  };
-}
-
-function mergeStudentsIntoPlannerRoster(studentsSectionState) {
-  if (!studentsSectionState || typeof studentsSectionState !== "object") return false;
-
-  const incomingStudents = Array.isArray(studentsSectionState.students)
-    ? studentsSectionState.students
-    : [];
-
-  // If there's nothing meaningful to merge, bail.
-  if (!incomingStudents.length) return false;
-
-  const ps = getPlannerState() || {};
-  const currentStudents = Array.isArray(ps.students) ? ps.students : [];
-
-  // If planner already has students, we do NOT overwrite.
-  if (currentStudents.length) return false;
-
-  const next = {
-    ...ps,
-    students: incomingStudents,
-    studentColorCursor: Number.isFinite(studentsSectionState.studentColorCursor)
-      ? studentsSectionState.studentColorCursor
-      : ps.studentColorCursor,
-    studentColorPalette: Array.isArray(studentsSectionState.studentColorPalette)
-      ? studentsSectionState.studentColorPalette
-      : ps.studentColorPalette,
-  };
-
-  return setPlannerState(next);
-}
-
-function setStatus(el, msg, kind = "") {
-  if (!el) return;
-  el.textContent = msg || "";
-  el.dataset.kind = kind; // optional hook for CSS
-}
-
-function parseAirtableLastUpdated(value) {
-  // Airtable Last Modified Time often comes as an ISO-ish string.
-  const t = Date.parse(value || "");
-  return Number.isFinite(t) ? t : null;
-}
-
-function simpleHash(str) {
-  // small non-crypto hash (FNV-1a 32-bit)
-  let h = 0x811c9dc5;
-  for (let i = 0; i < str.length; i++) {
-    h ^= str.charCodeAt(i);
-    h = (h * 0x01000193) >>> 0;
-  }
-  return h >>> 0;
-}
-
-
-function getLocalLastSeenCloud() {
-  return parseAirtableLastUpdated(localStorage.getItem(LOCAL_LAST_SEEN_CLOUD_KEY));
-}
-
-function setLocalLastSeenCloudFromRemote(remoteLastUpdated) {
-  // Store the remote timestamp if available; otherwise store "now".
-  const iso =
-    typeof remoteLastUpdated === "string" && remoteLastUpdated.trim()
-      ? remoteLastUpdated.trim()
-      : new Date().toISOString();
-  try {
-    localStorage.setItem(LOCAL_LAST_SEEN_CLOUD_KEY, iso);
-  } catch {}
-}
-
-/* ============================================================
-   MEMBERSTACK HELPERS (minimal)
-   ============================================================ */
-
-async function getMemberstackDom({ timeoutMs = 4000 } = {}) {
-  const start = Date.now();
-  while (Date.now() - start < timeoutMs) {
-    if (typeof window !== "undefined" && window.$memberstackDom) return window.$memberstackDom;
-    await new Promise((r) => setTimeout(r, 50));
-  }
-  return null;
-}
-
-async function getCurrentMember() {
-  const dom = await getMemberstackDom();
-  if (!dom || typeof dom.getCurrentMember !== "function") return null;
-
-  try {
-    const res = await dom.getCurrentMember();
-    return res?.data || null;
   } catch {
     return null;
   }
 }
 
-/* ============================================================
-   SECTIONED WORKER CALLS
-   ============================================================ */
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
 
-async function sectionedWhoami() {
-  const member = await getCurrentMember();
-  if (!member?.id) return { ok: false, role: "public", reason: "no_memberstack_session" };
+/**
+ * Read member identity from auth.js (Memberstack) OR from the existing auth payload.
+ * This must match what your worker expects: { memberstackId, email }
+ */
+async function getAuthIdentity() {
+  // auth.js sets window.AlvearyAuth / window.AlvearyUser (depending on page)
+  // We try multiple known shapes so we don’t break if one page differs.
 
-  const res = await fetch(`${SECTIONED_AUTH_BASE}/whoami`, {
+  // 1) If auth.js provides a function, use it.
+  if (window.AlvearyAuth?.getIdentity) {
+    return await window.AlvearyAuth.getIdentity();
+  }
+
+  // 2) If auth.js has already cached identity
+  const cached =
+    window.AlvearyAuth?.identity ||
+    window.AlvearyUser?.identity ||
+    window.AlvearyUser ||
+    window.user ||
+    null;
+
+  const memberstackId =
+    cached?.memberstackId ||
+    cached?.memberstack_id ||
+    cached?.member?.id ||
+    cached?.id ||
+    null;
+
+  const email = cached?.email || cached?.member?.email || null;
+
+  // 3) Try Memberstack global if present
+  const ms = window.MemberStack || window.memberstack || null;
+  if ((!memberstackId || !email) && ms?.onReady) {
+    try {
+      const m = await ms.onReady;
+      const mem = await m.getCurrentMember?.();
+      const msId = mem?.data?.id || mem?.id || null;
+      const msEmail = mem?.data?.email || mem?.email || null;
+      return { memberstackId: msId || memberstackId, email: msEmail || email };
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  return { memberstackId, email };
+}
+
+async function postJson(path, payload) {
+  const res = await fetch(`${SECTIONED_AUTH_BASE}${path}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ memberstackId: String(member.id) }),
+    body: JSON.stringify(payload),
   });
 
   const json = await res.json().catch(() => ({}));
+  return { res, json };
+}
+
+/**
+ * Load sectioned state from cloud and cache it locally.
+ */
+async function loadSectionFromCloud(sectionName) {
+  const identity = await getAuthIdentity();
+
+  const { res, json } = await postJson("/state/get", identity);
+
   if (!res.ok || !json?.ok) {
-    return { ok: false, role: "public", reason: json?.reason || `http_${res.status}` };
+    return { ok: false, reason: json?.reason || "state_get_failed", detail: json };
   }
 
-  const role = String(json.role || "member").toLowerCase();
-  return { ok: true, role, user: json.user || {} };
-}
+  // json.state is the full Sectioned Planner State object
+  const cloudState = json.state || null;
 
-async function sectionedGetState() {
-  const member = await getCurrentMember();
-  if (!member?.id) return { ok: false, reason: "no_memberstack_session" };
+  // cache so we can merge without re-fetching each time
+  localStorage.setItem(CLOUD_CACHE_KEY, JSON.stringify(cloudState));
 
-  const res = await fetch(`${SECTIONED_AUTH_BASE}/state/get`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ memberstackId: String(member.id) }),
-  });
+  const section = cloudState?.sections?.[sectionName] || null;
 
-  const json = await res.json().catch(() => ({}));
-  return res.ok ? json : { ok: false, reason: json?.reason || `http_${res.status}`, detail: json };
-}
-
-async function sectionedSetState(state) {
-  const member = await getCurrentMember();
-  if (!member?.id) return { ok: false, reason: "no_memberstack_session" };
-
-  const res = await fetch(`${SECTIONED_AUTH_BASE}/state/set`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ memberstackId: String(member.id), state }),
-  });
-
-  const json = await res.json().catch(() => ({}));
-  return res.ok ? json : { ok: false, reason: json?.reason || `http_${res.status}`, detail: json };
-}
-
-/* ============================================================
-   LOCAL SCHEDULE STATE
-   - UI/FILTERS live in UI_STORAGE_KEY
-   - Scheduled cards/custom cards live in CARDS_STORAGE_KEY
-   For cloud saves we *compose* a single object that includes:
-     { ui: <uiState>, cards: { placements, instancesById, choices, customTemplatesById } }
-   ============================================================ */
-
-function pickCustomTemplates(templatesById) {
-  const out = {};
-  if (!templatesById || typeof templatesById !== "object") return out;
-  for (const [id, tpl] of Object.entries(templatesById)) {
-    // Convention used in schedule.js: custom templates are "u:*".
-    if (typeof id === "string" && id.startsWith("u:")) out[id] = tpl;
-  }
-  return out;
-}
-
-function readFullCardsState() {
-  return safeParse(localStorage.getItem(CARDS_STORAGE_KEY) || "", null);
-}
-
-function writeFullCardsState(full) {
-  try {
-    if (!full || typeof full !== "object") return false;
-    localStorage.setItem(CARDS_STORAGE_KEY, JSON.stringify(full));
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-export function getLocalScheduleState() {
-  const ui = safeParse(localStorage.getItem(UI_STORAGE_KEY) || "", null);
-  const fullCards = readFullCardsState();
-
-  const cards = fullCards && typeof fullCards === "object"
-    ? {
-        // Only persist what we *must* recreate the user's board:
-        placements: fullCards.placements || {},
-        instancesById: fullCards.instancesById || {},
-        choices: fullCards.choices || {},
-        customTemplatesById: pickCustomTemplates(fullCards.templatesById),
-      }
-    : null;
-
-  // Back-compat: if something expects the old shape, it can still read .ui
-  // from this object.
-  return { ui, cards };
-}
-
-export function setLocalScheduleState(incoming) {
-  try {
-    if (!incoming || typeof incoming !== "object") return false;
-
-    // Accept either the new composed object, or the old "ui only" object.
-    const uiState = incoming.ui && typeof incoming.ui === "object" ? incoming.ui : incoming;
-    const cardsPart = incoming.cards && typeof incoming.cards === "object" ? incoming.cards : null;
-
-    // 1) UI
-    if (uiState && typeof uiState === "object") {
-      localStorage.setItem(UI_STORAGE_KEY, JSON.stringify(uiState));
-    }
-
-    // 2) Cards (merge custom templates into the existing full cards state)
-    if (cardsPart) {
-      const full = readFullCardsState() || {};
-      full.templatesById = full.templatesById && typeof full.templatesById === "object" ? full.templatesById : {};
-
-      if (cardsPart.customTemplatesById && typeof cardsPart.customTemplatesById === "object") {
-        for (const [id, tpl] of Object.entries(cardsPart.customTemplatesById)) {
-          if (typeof id === "string" && id.startsWith("u:")) full.templatesById[id] = tpl;
-        }
-      }
-
-      if (cardsPart.instancesById && typeof cardsPart.instancesById === "object") {
-        full.instancesById = cardsPart.instancesById;
-      }
-
-      if (cardsPart.placements && typeof cardsPart.placements === "object") {
-        full.placements = cardsPart.placements;
-      }
-
-      if (cardsPart.choices && typeof cardsPart.choices === "object") {
-        full.choices = cardsPart.choices;
-      }
-
-      writeFullCardsState(full);
-    }
-
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-/* ============================================================
-   SECTIONED STATE SHAPE (cloud)
-   ============================================================ */
-
-function makeEmptySectionedState() {
   return {
-    version: SECTIONED_STATE_VERSION,
+    ok: true,
+    plannerId: json.plannerId,
+    state: section?.state || null,
+    full: cloudState,
+    lastUpdated: json.lastUpdated || null,
+  };
+}
+
+function getCachedCloudState() {
+  const raw = localStorage.getItem(CLOUD_CACHE_KEY);
+  return raw ? safeParse(raw) : null;
+}
+
+/**
+ * Merge schedule section into the full sectioned object without clobbering other sections.
+ * Schema:
+ * {
+ *   version: 1,
+ *   sections: {
+ *     schedule: { source:'schedule', state: {...} },
+ *     courses:  { ... },
+ *     books:    { ... },
+ *     atAGlance:{ ... }
+ *   }
+ * }
+ */
+function mergeSection(fullState, sectionName, sectionState) {
+  const base = fullState && typeof fullState === "object" ? fullState : {};
+  const version = base.version || 1;
+  const sections = base.sections && typeof base.sections === "object" ? base.sections : {};
+
+  return {
+    version,
     sections: {
-      schedule: null,
-      students: null,
-      courses: null,
-      books: null,
-      atAGlance: null,
+      ...sections,
+      [sectionName]: {
+        source: sectionName,
+        state: sectionState,
+      },
     },
   };
 }
 
-function normalizeSections(base) {
-  if (!base.sections || typeof base.sections !== "object") {
-    base.sections = {
-      schedule: null,
-      students: null,
-      courses: null,
-      books: null,
-      atAGlance: null,
-    };
-  }
+/**
+ * Read schedule local UI from STORAGE_KEY
+ */
+function getLocalScheduleUi() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  return raw ? safeParse(raw) : null;
 }
 
-function mergeScheduleIntoSectionedState(existingState, scheduleUiState) {
-  const base =
-    existingState && typeof existingState === "object" ? existingState : makeEmptySectionedState();
+/**
+ * Save schedule local UI to STORAGE_KEY
+ */
+function setLocalScheduleUi(nextUi) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(nextUi));
+}
 
-  normalizeSections(base);
-  base.version = base.version || SECTIONED_STATE_VERSION;
+/**
+ * --- Students snapshot (schedule-owned) ---
+ * We are NOT removing app.js storage yet.
+ * But schedule must work if the "planner local" keys aren’t present (incognito/new device).
+ *
+ * Strategy:
+ * - On Save: try to read current students from the schedule runtime, fall back to app.js local, then store into sectioned JSON.
+ * - On Load: if app.js local has no students, hydrate from sectioned JSON (schedule.students).
+ */
 
-  // Only touch the schedule section.
-  base.sections.schedule = {
-    source: "schedule",
-    state: scheduleUiState || {},
+// Try to read the students from schedule runtime
+function readStudentsFromScheduleRuntime() {
+  // schedule.js may store students on Alpine data or on a global helper.
+  // We try safe options:
+  // 1) window.ScheduleState or similar
+  const ss = window.ScheduleState || window.AlvearySchedule || null;
+  if (ss?.students && Array.isArray(ss.students)) return ss.students;
+
+  // 2) If schedule uses Alpine store
+  try {
+    const store = window.Alpine?.store?.("schedule");
+    if (store?.students && Array.isArray(store.students)) return store.students;
+  } catch {}
+
+  // 3) If schedule exposes a getter
+  if (window.getScheduleStudents) {
+    try {
+      const st = window.getScheduleStudents();
+      if (Array.isArray(st)) return st;
+    } catch {}
+  }
+
+  return null;
+}
+
+// Try to read students from app.js local planner state
+function readStudentsFromAppLocal() {
+  // Your older app uses per-planner keys like "alveary_planner_<PlannerID>" or similar.
+  // We’ll scan localStorage for a likely planner key and check known student shapes.
+
+  const keys = Object.keys(localStorage || {});
+  const plannerKey =
+    keys.find((k) => k.startsWith("alveary_planner_")) ||
+    keys.find((k) => k.startsWith("alveary-planner_")) ||
+    keys.find((k) => k.includes("planner") && k.includes("alveary")) ||
+    null;
+
+  if (!plannerKey) return null;
+
+  const raw = localStorage.getItem(plannerKey);
+  const parsed = safeParse(raw);
+  if (!parsed) return null;
+
+  // common shapes:
+  // - { students: [...] }
+  // - { studentList: [...] }
+  // - { planner: { students: [...] } }
+  const students =
+    (Array.isArray(parsed.students) && parsed.students) ||
+    (Array.isArray(parsed.studentList) && parsed.studentList) ||
+    (Array.isArray(parsed?.planner?.students) && parsed.planner.students) ||
+    null;
+
+  return students || null;
+}
+
+// Write students into app.js local planner state IF needed (hydration)
+function writeStudentsIntoAppLocal(students) {
+  if (!Array.isArray(students) || students.length === 0) return false;
+
+  const keys = Object.keys(localStorage || {});
+  const plannerKey =
+    keys.find((k) => k.startsWith("alveary_planner_")) ||
+    keys.find((k) => k.startsWith("alveary-planner_")) ||
+    keys.find((k) => k.includes("planner") && k.includes("alveary")) ||
+    null;
+
+  if (!plannerKey) return false;
+
+  const raw = localStorage.getItem(plannerKey);
+  const parsed = safeParse(raw) || {};
+
+  // Don’t overwrite if it already has students
+  if (Array.isArray(parsed.students) && parsed.students.length) return true;
+
+  parsed.students = students;
+  localStorage.setItem(plannerKey, JSON.stringify(parsed));
+  return true;
+}
+
+/**
+ * Build the schedule section state we want to store:
+ * {
+ *   ui: { ...filters/panels/dayview/activeTarget... }   (NO big catalog data)
+ *   cards: { placements, instancesById, choices, customTemplatesById }  (these are required)
+ *   students: [ { id, name, color }, ... ] (needed for new device/incognito)
+ * }
+ */
+function buildScheduleSectionStateFromRuntime() {
+  // schedule.js should expose getters or globals by now.
+  // We assume these exist (you already had placements saving):
+  const ui = window.getScheduleUiState?.() || null;
+  const cards = window.getScheduleCardsState?.() || null;
+
+  // students: runtime > app local > null
+  const students = readStudentsFromScheduleRuntime() || readStudentsFromAppLocal() || null;
+
+  return {
+    ui: ui || null,
+    cards: cards || null,
+    students: Array.isArray(students) ? students : null,
   };
-
-  // Also mirror the student roster so schedule can render students
-  // on a fresh device/incognito without depending on legacy app.js sync.
-  const planner = readPlannerState();
-  if (planner && Array.isArray(planner.students)) {
-    base.sections.students = {
-      source: "planner",
-      state: {
-        students: planner.students,
-        studentColorCursor: planner.studentColorCursor ?? 0,
-        studentColorPalette: planner.studentColorPalette ?? null,
-      },
-    };
-  }
-
-  return base;
 }
 
-/* ============================================================
-   DEV GATE (Developer-only while testing)
-   ============================================================ */
+/**
+ * Apply schedule section state into runtime:
+ * - hydrate students (so manager + dropdowns work)
+ * - apply ui
+ * - apply cards
+ */
+async function applyScheduleSectionStateToRuntime(sectionState) {
+  if (!sectionState || typeof sectionState !== "object") return;
 
-export async function requireDeveloperForSchedule({ onDenied = null, statusEl = null } = {}) {
-  setStatus(statusEl, "Checking developer access…");
+  // 1) Students: hydrate app local if missing
+  if (Array.isArray(sectionState.students) && sectionState.students.length) {
+    writeStudentsIntoAppLocal(sectionState.students);
 
-  const who = await sectionedWhoami();
-
-  if (!who.ok) {
-    setStatus(statusEl, "Not signed in.", "error");
-    if (typeof onDenied === "function") onDenied(who);
-    return { ok: false, reason: who.reason || "not_signed_in" };
-  }
-
-  const role = String(who.role || "").toLowerCase();
-  const isDeveloper = role === "developer";
-
-  if (!isDeveloper) {
-    setStatus(statusEl, "Developer access required for this page.", "error");
-    if (typeof onDenied === "function") onDenied({ ...who, denied: true });
-    return { ok: false, reason: "not_developer", role };
-  }
-
-  setStatus(statusEl, "Developer access granted.", "ok");
-  return { ok: true, role, user: who.user || {} };
-}
-
-/* ============================================================
-   CLOUD SAVE / LOAD (Schedule section only)
-   ============================================================ */
-
-export async function saveScheduleSectionToCloud({ statusEl = null } = {}) {
-  const localSchedule = getLocalScheduleState();
-
-  const hasUi = !!(localSchedule?.ui && typeof localSchedule.ui === "object");
-  const hasCards = !!(localSchedule?.cards && typeof localSchedule.cards === "object");
-
-  if (!hasUi && !hasCards) {
-    setStatus(statusEl, "Nothing to save (no local schedule state).", "warn");
-    return { ok: false, reason: "no_local_schedule_state" };
-  }
-
-  setStatus(statusEl, "Saving schedule to account…");
-
-  // 1) Get existing sectioned state
-  const remote = await sectionedGetState();
-  if (!remote?.ok) {
-    setStatus(statusEl, `Save failed (get): ${remote?.reason || "unknown"}`, "error");
-    return { ok: false, reason: remote?.reason || "get_failed", detail: remote?.detail };
-  }
-
-  const next = mergeScheduleIntoSectionedState(remote.state, localSchedule);
-
-  // 2) Set merged state
-  const saved = await sectionedSetState(next);
-  if (!saved?.ok) {
-    console.error("Sectioned save failed:", saved);
-    setStatus(statusEl, `Save failed (set): ${saved?.reason || "unknown"}`, "error");
-    return { ok: false, reason: saved?.reason || "set_failed", detail: saved?.detail };
-  }
-
-  // Update local marker so we don't immediately "pull" over our own changes.
-  setLocalLastSeenCloudFromRemote(remote?.lastUpdated || null);
-
-  setStatus(statusEl, `Saved ✓`, "ok");
-  return { ok: true, saved };
-}
-
-/* ============================================================
-   AUTO-SYNC ON LOAD / FOCUS
-   ============================================================ */
-
-async function maybeHydrateFromCloud({ statusEl = null, reloadIfApplied = true } = {}) {
-  const remote = await sectionedGetState();
-  if (!remote?.ok) return { ok: false, reason: remote?.reason || "get_failed" };
-
-  // Students: hydrate regardless of whether schedule UI changed.
-  // This allows a fresh browser/incognito to render the roster.
-  const remoteStudents = remote?.state?.sections?.students?.state;
-  if (remoteStudents && typeof remoteStudents === "object") {
-    mergeStudentRosterIntoPlanner(remoteStudents);
-  }
-
-  const schedUi = remote?.state?.sections?.schedule?.state;
-  if (!schedUi || typeof schedUi !== "object") return { ok: true, empty: true };
-
-  const localUi = getLocalScheduleState();
-  const remoteStr = JSON.stringify(schedUi);
-  const localStr = JSON.stringify(localUi || null);
-
-  // Prevent reload loops across this session: only apply once per distinct remote payload.
-  const remoteKey = String(simpleHash(remoteStr));
-  const appliedMarker = sessionStorage.getItem(SESSION_APPLIED_CLOUD_KEY);
-
-  if (appliedMarker === remoteKey) return { ok: true, skipped: true };
-
-  // If identical, just mark as seen and move on.
-  if (remoteStr === localStr) {
-    sessionStorage.setItem(SESSION_APPLIED_CLOUD_KEY, remoteKey);
-    return { ok: true, upToDate: true };
-  }
-
-  setLocalScheduleState(schedUi);
-  sessionStorage.setItem(SESSION_APPLIED_CLOUD_KEY, remoteKey);
-
-  if (reloadIfApplied) {
-    setStatus(statusEl, "Updated from account — refreshing…", "ok");
-    window.location.reload();
-  } else {
-    setStatus(statusEl, "Updated from account.", "ok");
-  }
-
-  return { ok: true, applied: true, remote };
-}
-
-/* ============================================================
-   WIRING (Schedule page only)
-   ============================================================ */
-
-export async function initScheduleSectionedSave({
-  saveBtnId = "scheduleSaveToAccountBtn",
-  statusId = "scheduleCloudStatus",
-  gateStatusId = "scheduleGateStatus",
-  devOnly = true,
-  autoLoadOnInit = true,
-  autoCheckOnFocus = true,
-} = {}) {
-  const saveBtn = document.getElementById(saveBtnId);
-  const statusEl = document.getElementById(statusId);
-  const gateEl = document.getElementById(gateStatusId);
-
-  // Gate first
-  if (devOnly) {
-    const gate = await requireDeveloperForSchedule({
-      statusEl: gateEl,
-      onDenied: () => {
-        if (saveBtn) saveBtn.disabled = true;
-      },
-    });
-    if (!gate.ok) return gate;
-  }
-
-  // Auto-load cloud state (so refresh matches Airtable)
-  if (autoLoadOnInit) {
-    await maybeHydrateFromCloud({ statusEl, reloadIfApplied: true });
-  }
-
-  // Wire Save button
-  if (saveBtn) {
-    saveBtn.addEventListener("click", async () => {
-      saveBtn.disabled = true;
+    // also try to push into schedule runtime if it has a setter
+    if (window.setScheduleStudents) {
       try {
-        await saveScheduleSectionToCloud({ statusEl });
-      } finally {
-        saveBtn.disabled = false;
+        window.setScheduleStudents(sectionState.students);
+      } catch {}
+    }
+
+    // Alpine store
+    try {
+      const store = window.Alpine?.store?.("schedule");
+      if (store && Array.isArray(store.students) === false) {
+        store.students = sectionState.students;
       }
-    });
+    } catch {}
   }
 
-  // Check cloud when tab/window regains focus (helps when saving from another device)
-  if (autoCheckOnFocus) {
-    window.addEventListener("focus", () => {
-      maybeHydrateFromCloud({ statusEl, reloadIfApplied: true }).catch(() => {});
-    });
-
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible") {
-        maybeHydrateFromCloud({ statusEl, reloadIfApplied: true }).catch(() => {});
-      }
-    });
+  // 2) Cards
+  if (sectionState.cards && window.applyScheduleCardsState) {
+    try {
+      window.applyScheduleCardsState(sectionState.cards);
+    } catch (e) {
+      console.warn("applyScheduleCardsState failed", e);
+    }
   }
 
-  // Debug surface
-  window.SectionedScheduleState = {
-    SECTIONED_AUTH_BASE,
-    UI_STORAGE_KEY,
-    whoami: sectionedWhoami,
-    getCloud: sectionedGetState,
-    setCloud: sectionedSetState,
-    getLocal: getLocalScheduleState,
-    setLocal: setLocalScheduleState,
-    save: () => saveScheduleSectionToCloud({ statusEl }),
+  // 3) UI filters/panels/etc
+  if (sectionState.ui) {
+    // Update local cache so refresh uses it even before cloud load finishes
+    setLocalScheduleUi(sectionState.ui);
+
+    if (window.applyScheduleUiState) {
+      try {
+        window.applyScheduleUiState(sectionState.ui);
+      } catch (e) {
+        console.warn("applyScheduleUiState failed", e);
+      }
+    }
+  }
+
+  // give Alpine a tick
+  await sleep(0);
+}
+
+/**
+ * Save ONLY schedule section to cloud, merging with other sections.
+ */
+async function saveScheduleSectionToCloud() {
+  const identity = await getAuthIdentity();
+
+  // Pull the latest cached cloud state (or load once if none)
+  let cached = getCachedCloudState();
+  if (!cached) {
+    const loaded = await loadSectionFromCloud("schedule");
+    cached = loaded.full || null;
+  }
+
+  const scheduleState = buildScheduleSectionStateFromRuntime();
+
+  const merged = mergeSection(cached, "schedule", scheduleState);
+
+  const { res, json } = await postJson("/state/set", {
+    ...identity,
+    state: merged,
+  });
+
+  if (!res.ok || !json?.ok) {
+    return { ok: false, reason: json?.reason || "state_set_failed", detail: json };
+  }
+
+  // Update cache
+  localStorage.setItem(CLOUD_CACHE_KEY, JSON.stringify(merged));
+
+  return { ok: true, plannerId: json.plannerId, updatedAt: json.updatedAt };
+}
+
+/**
+ * Public init: wire up save button + initial load (cloud -> runtime)
+ */
+export async function initScheduleSectionedSave({ devOnly = true } = {}) {
+  // 1) gate by role if devOnly
+  if (devOnly) {
+    const identity = await getAuthIdentity();
+    const { res, json } = await postJson("/whoami", identity);
+    if (!res.ok || !json?.ok) throw new Error(json?.reason || "whoami_failed");
+
+    const role = (json.role || "").toLowerCase();
+    const okRole = role === "developer" || role === "staff"; // adjust later
+    if (!okRole) throw new Error("not_authorized");
+  }
+
+  // 2) Load from cloud
+  const loaded = await loadSectionFromCloud("schedule");
+  if (loaded.ok && loaded.state) {
+    await applyScheduleSectionStateToRuntime(loaded.state);
+  }
+
+  // 3) Wire save button
+  const btn = document.getElementById("schedule-save-btn");
+  const status = document.getElementById("schedule-save-status");
+
+  const setStatus = (txt) => {
+    if (status) status.textContent = txt || "";
   };
 
-  return { ok: true };
+  if (btn) {
+    btn.addEventListener("click", async () => {
+      try {
+        setStatus("Saving schedule to account…");
+        btn.disabled = true;
+
+        const result = await saveScheduleSectionToCloud();
+        if (!result.ok) {
+          console.error("Save failed", result);
+          setStatus(`Save failed (set): ${result.reason}`);
+          return;
+        }
+
+        setStatus("Saved ✓");
+        await sleep(800);
+        setStatus("");
+      } catch (e) {
+        console.error("Save error", e);
+        setStatus("Save failed (exception)");
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  } else {
+    console.warn("schedule-save-btn not found");
+  }
+
+  // 4) Expose helpers for console testing
+  window.SectionedScheduleState = {
+    whoami: async () => {
+      const identity = await getAuthIdentity();
+      const { res, json } = await postJson("/whoami", identity);
+      return json;
+    },
+    getCloud: async () => {
+      const loaded = await loadSectionFromCloud("schedule");
+      return loaded;
+    },
+    setCloud: async () => {
+      return await saveScheduleSectionToCloud();
+    },
+    getLocal: () => getLocalScheduleUi(),
+  };
 }
