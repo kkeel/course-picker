@@ -2459,9 +2459,6 @@ function coursePlanner() {
     
     enforceAccessGate() {
       // ✅ Allow headless PDF generation links to run without member login.
-      // GitHub Actions uses URLs like:
-      //   courses.html?autoprint=1&pdf=1&grade=G3
-      //   courses.html?autoprint=1&pdf=1&master=1
       const params = new URLSearchParams(window.location.search);
       const isAutoPdf = params.get("autoprint") === "1" && params.get("pdf") === "1";
       if (isAutoPdf) {
@@ -2469,27 +2466,34 @@ function coursePlanner() {
         return true;
       }
     
-      // Public users can open the Course List page, but they should only see a sign-in prompt.
-      // Members+staff can see the full Course List.
       const path = window.location.pathname || "";
+    
       const onCourseList =
         path.endsWith("/index.html") ||
         path.endsWith("/") ||
         path.endsWith("/index") ||
         path.endsWith("/courses.html");
-
+    
       const onYearAtAGlance =
         path.endsWith("/year-at-a-glance.html") ||
         path.endsWith("/year-at-a-glance");
-
+    
       const onSchedule =
         path.endsWith("/schedule.html") ||
         path.endsWith("/schedule");
+        // If you also have a dev URL:
+        // || path.endsWith("/test-schedule.html");
     
-      const authorized = (this.isMember || this.isStaff);
+      const authorizedCore = (this.isMember || this.isStaff);
+    
+      // For now: schedule is STAFF-ONLY until "developer" is real in whoami/app.js
+      const authorizedSchedule = this.isStaff;
     
       // Soft gate: do NOT redirect; just toggle what the page displays.
-      this.courseGate = !!((onCourseList || onYearAtAGlance || onSchedule) && !authorized);
+      this.courseGate = !!(
+        ((onCourseList || onYearAtAGlance) && !authorizedCore) ||
+        (onSchedule && !authorizedSchedule)
+      );
     
       return true;
     },
