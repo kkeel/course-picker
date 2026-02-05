@@ -449,6 +449,7 @@ export async function initScheduleSectionedSave({
     getLocal: getLocalScheduleState,
     setLocal: setLocalScheduleState,
     save: () => saveScheduleSectionToCloud({ statusEl }),
+    initScheduleSectionedSave: (opts) => initScheduleSectionedSave(opts),
   };
 
   return { ok: true };
