@@ -2516,7 +2516,23 @@ function coursePlanner() {
         remoteState._cloudUpdatedAt = remote.lastUpdated || null;
     
         // Write to localStorage so existing load/apply logic works unchanged
-        localStorage.setItem(PLANNER_STATE_KEY, JSON.stringify(remoteState));
+        try {
+          localStorage.setItem(PLANNER_STATE_KEY, JSON.stringify(remoteState));
+        } catch (e) {
+          console.warn("[planner] Failed to write planner state to localStorage", e);
+          return;
+        }
+    
+        // 🔔 Tell other components (Schedule) that planner core is now ready
+        try {
+          window.dispatchEvent(
+            new CustomEvent("planner:hydrated", {
+              detail: { key: PLANNER_STATE_KEY, source: "cloud" },
+            })
+          );
+        } catch (e) {
+          console.warn("[planner] planner:hydrated dispatch failed", e);
+        }
       } catch (e) {
         console.warn("[planner] Failed to sync state from cloud", e);
       }
