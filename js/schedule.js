@@ -752,17 +752,16 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       init() {
         // load UI
         const savedUi = loadKey(UI_STORAGE_KEY);
-
+      
         // Pull students from the shared planner state (Course List) when available.
         const planner = loadPlannerState();
         const plannerKids = plannerStudents(planner);
         if (plannerKids.length) this.students = plannerKids;
         this._planner = planner;
-
+      
         const allIds = (this.students || []).map((s) => s.id);
         const normalizedUi = normalizeUiState(savedUi || defaultUiState(), allIds);
-
-
+      
         // Restore left-rail UI toggles
         this.railTopCollapsed = !!normalizedUi.railTopCollapsed;
         this.showCompleted = !!normalizedUi.showCompleted;
@@ -770,21 +769,21 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         this.railMyCoursesOnly = !!normalizedUi.railMyCoursesOnly;
         this.railStudentAssignedOnly = !!normalizedUi.railStudentAssignedOnly;
         this.railSearch = String(normalizedUi.railSearch || "");
-
+      
         this.view = normalizedUi.view;
         this.visibleDays = normalizedUi.visibleDays;
         this.visibleStudentPanels = normalizedUi.panels;
         this.dayViewPanels = normalizedUi.dayViewPanels;
         this.dayViewStudentSlots = normalizedUi.dayViewStudentSlots;
         this.openStudentMenu = null;
-
+      
         // Restore rail header "Add target" selector (student/day)
         this.activeTargetStudentId =
           normalizedUi.activeTargetStudentId || this.visibleStudentPanels?.[0]?.studentId || "S1";
         this.activeTargetDayIndex = Number.isInteger(Number(normalizedUi.activeTargetDayIndex))
           ? Number(normalizedUi.activeTargetDayIndex)
           : (this.visibleDays?.[0] ?? 0);
-
+      
         // Keep existing logic working
         this.activeTarget = {
           studentId: this.activeTargetStudentId,
@@ -793,32 +792,33 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         if (!this.visibleDays.includes(this.activeTarget.dayIndex)) {
           this.activeTarget.dayIndex = this.visibleDays?.[0] ?? 0;
         }
-
+      
         // --------------------------------------------------
         // Live-update students when planner state changes
         // (e.g., Course List adds/removes students)
         // --------------------------------------------------
         this._plannerSig = JSON.stringify((this.students || []).map(s => [s.id, s.name]));
-
+      
         const applyPlannerUpdate = (nextPlanner) => {
           const kids = plannerStudents(nextPlanner);
           if (!kids || kids.length === 0) return;
+      
           const sig = JSON.stringify(kids.map(s => [s.id, s.name]));
           if (sig === this._plannerSig) return;
-
+      
           this._plannerSig = sig;
           this._planner = nextPlanner;
           this.students = kids;
-
+      
           const ids = kids.map(s => s.id);
-
+      
           // If we don't have students yet (planner state not hydrated), do NOT
           // normalize/persist UI state that depends on student IDs. This prevents
           // the rail target student from snapping back to a default on refresh.
           if (!ids.length) {
             return;
           }
-
+      
           // Re-normalize any UI pieces that depend on student IDs
           const uiNow = {
             view: this.view,
@@ -833,44 +833,64 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
             railStudentAssignedOnly: this.railStudentAssignedOnly,
             railSearch: this.railSearch,
             activeTargetStudentId: this.activeTargetStudentId || this.activeTarget?.studentId,
-            activeTargetDayIndex: Number.isInteger(Number(this.activeTargetDayIndex)) ? Number(this.activeTargetDayIndex) : this.activeTarget?.dayIndex,
+            activeTargetDayIndex: Number.isInteger(Number(this.activeTargetDayIndex))
+              ? Number(this.activeTargetDayIndex)
+              : this.activeTarget?.dayIndex,
           };
+      
           const uiNorm = normalizeUiState(uiNow, ids);
           this.visibleStudentPanels = uiNorm.panels;
           this.dayViewPanels = uiNorm.dayViewPanels;
           this.dayViewStudentSlots = uiNorm.dayViewStudentSlots;
-
+      
           // Keep rail "target" selector stable as students change
           if (this.activeTarget) {
-            this.activeTarget.studentId = uiNorm.activeTargetStudentId || this.visibleStudentPanels?.[0]?.studentId || ids[0] || "S1";
+            this.activeTarget.studentId =
+              uiNorm.activeTargetStudentId ||
+              this.visibleStudentPanels?.[0]?.studentId ||
+              ids[0] ||
+              "S1";
+      
             this.activeTarget.dayIndex = Number.isInteger(Number(uiNorm.activeTargetDayIndex))
               ? Number(uiNorm.activeTargetDayIndex)
               : (this.visibleDays?.[0] ?? 0);
-
+      
             if (!this.visibleDays.includes(this.activeTarget.dayIndex)) {
               this.activeTarget.dayIndex = this.visibleDays?.[0] ?? 0;
             }
-
+      
             // Keep the bound rail selector values in sync
             this.activeTargetStudentId = this.activeTarget.studentId;
             this.activeTargetDayIndex = this.activeTarget.dayIndex;
           }
-
+      
           // If the currently targeted student no longer exists, pick a sane default
           if (this.activeTarget && this.activeTarget.studentId && !ids.includes(this.activeTarget.studentId)) {
-            const first = (this.visibleStudentPanels && this.visibleStudentPanels[0] && this.visibleStudentPanels[0].studentId) || ids[0];
+            const first =
+              (this.visibleStudentPanels && this.visibleStudentPanels[0] && this.visibleStudentPanels[0].studentId) ||
+              ids[0];
             this.activeTarget.studentId = first || null;
             this.activeTargetStudentId = this.activeTarget.studentId;
           }
-
+      
           // Ensure placements exist for any newly-added students
           ids.forEach((sid) => this.ensureStudent(sid));
-
+      
           this.persistUi();
         };
-
+      
         this._plannerPoll = () => applyPlannerUpdate(loadPlannerState());
-
+      
+        // ✅ NEW: When app.js finishes cloud → localStorage hydration, refresh immediately.
+        if (!this._plannerHydrateListenerAdded) {
+          this._plannerHydrateListenerAdded = true;
+          window.addEventListener("planner:hydrated", () => {
+            try {
+              this._plannerPoll();
+            } catch (_) {}
+          });
+        }
+      
         // Changes from another tab trigger the storage event
         this._onStorage = (e) => {
           try {
@@ -878,48 +898,47 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           } catch (_) {}
         };
         window.addEventListener("storage", this._onStorage);
-
+      
         // Poll as a fallback (covers same-tab changes and missed storage events)
         this._plannerPollTimer = window.setInterval(this._plannerPoll, 1500);
-
-
+      
         // workspace resizer (rail + schedule board height)
         requestAnimationFrame(() => this.initWorkspaceResizer());
-
+      
         // load cards
         const savedCards = loadKey(CARDS_STORAGE_KEY);
         const normalizedCards = normalizeCardsState(savedCards || defaultCardsState(), allIds);
-
+      
         // Start with whatever was saved
         this.templatesById = { ...(normalizedCards.templatesById || {}) };
-        
+      
         // If empty (first run), seed with samples so the page isn't blank
         if (!this.templatesById || Object.keys(this.templatesById).length === 0) {
           this.templatesById = { ...buildSampleTemplates() };
         }
-        
+      
         // Load REAL catalog in the background and swap it in safely
         Promise.all([fetchJson(MA_COURSES_URL), fetchJson(MA_SCHED_URL)])
           .then(([maCourses, maScheduling]) => {
             const real = buildTemplatesFromJson(maCourses, maScheduling);
             if (!real || Object.keys(real).length === 0) return;
-        
+      
             // Keep custom templates + keep any user-edited values if they exist
             const merged = { ...this.templatesById };
-        
+      
             // Remove sample templates once real loads
             for (const id of Object.keys(merged)) {
               if (String(id).startsWith("a:")) delete merged[id];
             }
-        
+      
             for (const [id, realTpl] of Object.entries(real)) {
               const existing = merged[id];
-        
+      
               if (!existing) {
                 merged[id] = { ...realTpl };
                 continue;
               }
-        
+      
               // Preserve user edits, but pull in any missing real fields
               merged[id] = {
                 ...realTpl,
@@ -931,14 +950,14 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
                 title: (existing.title ?? "").trim() ? existing.title : realTpl.title,
               };
             }
-        
+      
             // Ensure 12-box tracker baseline stays true
             for (const [id, tpl] of Object.entries(merged)) {
               if (!tpl) continue;
               if (!tpl.trackingCount || tpl.trackingCount < 12) tpl.trackingCount = 12;
               if (!tpl.weeklyTarget) tpl.weeklyTarget = 1;
             }
-        
+      
             // Ensure default gradeband selections exist for any grouped courseKey
             if (!this.choices) this.choices = {};
             if (!this.choices.courseOptions) this.choices.courseOptions = {};
@@ -950,18 +969,18 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
                 this.choices.courseOptions[courseKey] = tpl.meta.option;
               }
             }
-        
+      
             this.templatesById = merged;
             this.persistCards();
           })
           .catch((err) => {
             console.warn("MA catalog load failed; staying on sample/saved catalog.", err);
           });
-
+      
         // --- MIGRATION: ensure “choiceGroup” metadata exists for older cached templates ---
         for (const [id, tpl] of Object.entries(this.templatesById || {})) {
           if (!tpl || tpl.courseKey !== "picture-study") continue;
-        
+      
           // If old saved template lacks choiceGroup metadata, reconstruct it from variantKey
           if (!tpl.meta || !tpl.meta.choiceGroup) {
             const option = tpl.variantKey || (id.split(":").pop() || "g1-3");
@@ -973,10 +992,9 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
               optionLabel: labelMap[option] || option,
             };
             this.templatesById[id] = tpl;
-
           }
         }
-
+      
         // MIGRATION (v1.2): ensure ALL cached custom templates use a 12-block tracker.
         // This must not be scoped to picture-study templates.
         for (const [id, tpl] of Object.entries(this.templatesById || {})) {
@@ -987,18 +1005,20 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           if (!tpl.weeklyTarget) tpl.weeklyTarget = 1;
           this.templatesById[id] = tpl;
         }
+      
         this.instancesById = normalizedCards.instancesById || {};
         this.placements = normalizedCards.placements || {};
         this.choices = normalizedCards.choices || { courseOptions: { "picture-study": "g1-3" } };
         if (!this.choices.courseOptions) this.choices.courseOptions = { "picture-study": "g1-3" };
-
+      
         // ensure default selection exists
         if (!this.choices.courseOptions["picture-study"]) {
           this.choices.courseOptions["picture-study"] = "g1-3";
         }
-
+      
         // ensure placements buckets for currently visible panel students
         this.visibleStudentPanels.forEach((p) => this.ensureStudent(p.studentId));
+      
         // set a sane active target (prefer saved rail selector)
         {
           const ids = (this.students || []).map((s) => s.id);
@@ -1006,7 +1026,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           if (!studentId || (ids.length && !ids.includes(studentId))) {
             studentId = this.visibleStudentPanels?.[0]?.studentId || ids[0] || "S1";
           }
-
+      
           let dayIndex = Number(this.activeTarget?.dayIndex);
           if (!Number.isInteger(dayIndex) || dayIndex < 0 || dayIndex > 4) {
             dayIndex = this.visibleDays?.[0] ?? 0;
@@ -1014,13 +1034,18 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           if (!this.visibleDays.includes(dayIndex)) {
             dayIndex = this.visibleDays?.[0] ?? 0;
           }
-
+      
           this.activeTarget = { studentId, dayIndex };
         }
-
-        // persist normalized
-        this.persistUi();
+      
+        // ✅ CHANGED: only persist UI now if we have real student ids.
+        // Otherwise we risk locking in "S1" defaults before planner hydration finishes.
+        if ((this.students || []).map(s => s.id).length) {
+          this.persistUi();
+        }
+      
         this.persistCards();
+      
         // Keep the "assign cards to student" selector persistent even if the DOM handler changes.
         if (typeof this.$watch === "function") {
           this.$watch("activeTargetStudentId", (v) => {
@@ -1042,7 +1067,6 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
             this.persistUi();
           });
         }
-
       },
 
       persistUi() {
