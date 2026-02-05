@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1226,7 +1227,7 @@
   </div>
 
 <!-- Auth first (module) -->
-<script defer src="js/auth.js"></script>
+<script type="module" src="js/auth.js"></script>
 
 <!-- Shared app nav, etc. -->
 <script defer src="js/app.js"></script>
@@ -1237,15 +1238,16 @@
 <!-- Alpine -->
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-<!-- Sectioned cloud save/load wiring (module) -->
-<script type="module">
-  import { initScheduleSectionedSave } from "./js/saveState.js";
-
+<!-- Sectioned cloud save/load wiring -->
+<script defer src="js/saveState.js"></script>
+<script>
   window.addEventListener("DOMContentLoaded", async () => {
     try {
-      await initScheduleSectionedSave({
-        devOnly: true, // keep it safe while testing
-      });
+      if (window.SectionedScheduleState && typeof window.SectionedScheduleState.initScheduleSectionedSave === "function") {
+        await window.SectionedScheduleState.initScheduleSectionedSave({ devOnly: true });
+      } else {
+        console.warn("SectionedScheduleState not available");
+      }
     } catch (e) {
       console.error("initScheduleSectionedSave failed", e);
     }
