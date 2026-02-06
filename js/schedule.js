@@ -160,11 +160,22 @@
       railGradeFilter: "", // "" = all; otherwise "G1".."G12"
       railMyCoursesOnly: false,
       railStudentAssignedOnly: false,
+
+      // Schedule board card style (Phase 1 persistence only)
+      boardAddSymbols: true,
+      boardAddTracking: true,
+      boardScaleByTime: false,
+
       railSearch: "", // rail title search
 
       // Rail header "target student" selector (persists across refresh)
       activeTargetStudentId: "S1",
       activeTargetDayIndex: 0,
+
+      // Schedule board card style (Phase 1 persistence only)
+      boardAddSymbols: true,
+      boardAddTracking: true,
+      boardScaleByTime: false,
     };
   }
 
@@ -222,6 +233,14 @@
     // -----------------------------
     // Day View state
     const railSearch = typeof state?.railSearch === "string" ? state.railSearch : (d.railSearch || "");
+
+    // -----------------------------
+    // Schedule board card style (Phase 1 persistence only)
+    // -----------------------------
+    const boardAddSymbols = typeof state?.boardAddSymbols === "boolean" ? state.boardAddSymbols : !!d.boardAddSymbols;
+    const boardAddTracking = typeof state?.boardAddTracking === "boolean" ? state.boardAddTracking : !!d.boardAddTracking;
+    const boardScaleByTime = typeof state?.boardScaleByTime === "boolean" ? state.boardScaleByTime : !!d.boardScaleByTime;
+
 
     // -----------------------------
     // Day View state
@@ -300,6 +319,12 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       railMyCoursesOnly,
       railStudentAssignedOnly,
       railSearch,
+
+      // Schedule board card style
+      boardAddSymbols,
+      boardAddTracking,
+      boardScaleByTime,
+
       activeTargetStudentId,
       activeTargetDayIndex,
     };
@@ -769,6 +794,12 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         this.railMyCoursesOnly = !!normalizedUi.railMyCoursesOnly;
         this.railStudentAssignedOnly = !!normalizedUi.railStudentAssignedOnly;
         this.railSearch = String(normalizedUi.railSearch || "");
+
+        // Schedule board card style (board only; rail unaffected)
+        this.boardAddSymbols = (typeof normalizedUi.boardAddSymbols === "boolean") ? normalizedUi.boardAddSymbols : true;
+        this.boardAddTracking = (typeof normalizedUi.boardAddTracking === "boolean") ? normalizedUi.boardAddTracking : true;
+        this.boardScaleByTime = (typeof normalizedUi.boardScaleByTime === "boolean") ? normalizedUi.boardScaleByTime : false;
+
       
         this.view = normalizedUi.view;
         this.visibleDays = normalizedUi.visibleDays;
@@ -832,6 +863,15 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
             railMyCoursesOnly: this.railMyCoursesOnly,
             railStudentAssignedOnly: this.railStudentAssignedOnly,
             railSearch: this.railSearch,
+
+          // Schedule board card style
+          boardAddSymbols: this.boardAddSymbols,
+          boardAddTracking: this.boardAddTracking,
+          boardScaleByTime: this.boardScaleByTime,
+            boardAddSymbols: this.boardAddSymbols,
+            boardAddTracking: this.boardAddTracking,
+            boardScaleByTime: this.boardScaleByTime,
+
             activeTargetStudentId: this.activeTargetStudentId || this.activeTarget?.studentId,
             activeTargetDayIndex: Number.isInteger(Number(this.activeTargetDayIndex))
               ? Number(this.activeTargetDayIndex)
