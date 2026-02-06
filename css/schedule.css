@@ -2789,3 +2789,16 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   width: 16px;
   height: 16px;
 }
+/* =========================================================
+   Schedule Card Style Modal – Checkbox color
+   ========================================================= */
+
+/* Modern browsers (Chrome, Edge, Firefox, Safari 15+) */
+.sched-modal input[type="checkbox"] {
+  accent-color: #adb58f;
+}
+
+/* Fallback / hover polish */
+.sched-modal input[type="checkbox"]:hover {
+  filter: brightness(0.95);
+}
