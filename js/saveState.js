@@ -390,7 +390,7 @@ export async function initScheduleSectionedSave({
   saveBtnId = "scheduleSaveToAccountBtn",
   statusId = "scheduleCloudStatus",
   gateStatusId = "scheduleGateStatus",
-  devOnly = true,
+  devOnly = false,
   autoLoadOnInit = true,
   autoCheckOnFocus = true,
 } = {}) {
