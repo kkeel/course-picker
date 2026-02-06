@@ -837,9 +837,14 @@
                 </div>
           
                 <!-- Density placeholder -->
-                <div class="schedule-view-placeholder text-xs opacity-70">
-                  Comfortable
-                </div>
+                <button
+                  type="button"
+                  class="schedule-cardstyle-trigger"
+                  @click="openCardStyleModal()"
+                >
+                  <span class="schedule-cardstyle-icon" aria-hidden="true">✏️</span>
+                  <span>Card Style</span>
+                </button>
               </div>
             </div>
           
@@ -1373,6 +1378,63 @@
       <div class="card">
         <p class="title"><span class="dot"></span>Preparing your Book List print…</p>
         <p class="sub">Loading cover images and building page numbers. This window will close automatically after printing.</p>
+      </div>
+    </div>
+    <!-- Schedule Card Styles Modal (Phase 2) -->
+    <div
+      class="sched-modal-overlay"
+      x-show="cardStyleModalOpen"
+      x-cloak
+      @keydown.escape.window="closeCardStyleModal()"
+    >
+      <div class="sched-modal-backdrop" @click="closeCardStyleModal()"></div>
+    
+      <div
+        class="sched-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Schedule Card Styles"
+        @click.stop
+      >
+        <div class="sched-modal-head">
+          <div class="sched-modal-title">Schedule Card Styles</div>
+          <button
+            type="button"
+            class="sched-modal-close"
+            @click="closeCardStyleModal()"
+            aria-label="Close"
+          >✕</button>
+        </div>
+    
+        <div class="sched-modal-body">
+          <div class="cardstyle-base">
+            <div class="cardstyle-base-title">Title &amp; time</div>
+            <div class="cardstyle-base-sub">(Always shown)</div>
+          </div>
+    
+          <div class="cardstyle-options">
+            <label class="cardstyle-option">
+              <input type="checkbox" x-model="boardAddSymbols">
+              <span>Add symbols</span>
+            </label>
+    
+            <label class="cardstyle-option">
+              <input type="checkbox" x-model="boardAddTracking">
+              <span>Add tracking boxes</span>
+            </label>
+    
+            <label class="cardstyle-option">
+              <input type="checkbox" x-model="boardScaleByTime">
+              <span>Scale cards by time</span>
+            </label>
+          </div>
+        </div>
+    
+        <div class="sched-modal-actions">
+          <button type="button" class="sched-modal-btn sched-modal-btn-primary" @click="closeCardStyleModal()">
+            Done
+          </button>
+        </div>
       </div>
     </div>
   </body>
