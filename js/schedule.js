@@ -1591,23 +1591,26 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         }
 
         // "My courses" = bookmarked in Course List planner state
-        if (this.railMyCoursesOnly) {
-          templates = templates.filter((t) => {
-            const key = t.courseKey || ""; // courseId for courses, Topic_ID for topics
-            // Be resilient: older cached templates may not have sourceType yet.
-            const looksLikeCourse =
-              t.sourceType === "course" ||
-              (planner?.courses && Object.prototype.hasOwnProperty.call(planner.courses, key));
-
-            if (looksLikeCourse) return plannerHasBookmarkedCourse(planner, key);
-
-            // topic (or unknown): keep if it's bookmarked as a topic (or a course, just in case)
-            return (
-              plannerHasBookmarkedTopic(planner, key) ||
-              plannerHasBookmarkedCourse(planner, key)
-            );
-          });
-        }
+          if (this.railMyCoursesOnly) {
+            templates = templates.filter((t) => {
+              // ✅ Always include custom cards in "My courses"
+              if (String(t?.id || "").startsWith("u:")) return true;
+          
+              const key = t.courseKey || ""; // courseId for courses, Topic_ID for topics
+              // Be resilient: older cached templates may not have sourceType yet.
+              const looksLikeCourse =
+                t.sourceType === "course" ||
+                (planner?.courses && Object.prototype.hasOwnProperty.call(planner.courses, key));
+          
+              if (looksLikeCourse) return plannerHasBookmarkedCourse(planner, key);
+          
+              // topic (or unknown): keep if it's bookmarked as a topic (or a course, just in case)
+              return (
+                plannerHasBookmarkedTopic(planner, key) ||
+                plannerHasBookmarkedCourse(planner, key)
+              );
+            });
+          }
 
         // "Student assignments" = assigned in planner state for selected student
         if (this.railStudentAssignedOnly && activeStudentId) {
@@ -1643,20 +1646,25 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       
         // helper: sort templates the same way you were sorting before
         const sortTpl = (a, b) => {
+          // ✅ Custom templates (u:...) always appear at the top of the rail
+          const aCustom = String(a?.id || "").startsWith("u:") ? 0 : 1;
+          const bCustom = String(b?.id || "").startsWith("u:") ? 0 : 1;
+          if (aCustom !== bCustom) return aCustom - bCustom;
+        
           const ak = String(a.sortKey || "");
           const bk = String(b.sortKey || "");
           if (ak < bk) return -1;
           if (ak > bk) return 1;
-      
+        
           const ac = String(a.courseLabel || "");
           const bc = String(b.courseLabel || "");
           if (ac < bc) return -1;
           if (ac > bc) return 1;
-      
+        
           const av = Number(a.variantSort || 0);
           const bv = Number(b.variantSort || 0);
           if (av !== bv) return av - bv;
-      
+        
           return String(a.title || "").localeCompare(String(b.title || ""));
         };
       
