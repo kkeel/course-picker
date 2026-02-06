@@ -947,6 +947,7 @@
                                         'is-drag-source': dragState.dragging && dragState.instanceId === inst.instanceId
                                       }"
                                       class="sched-card"
+                                      :style="boardCardInlineStyle(inst)"
                                       draggable="true"
                                       :data-inst-id="inst.instanceId"
                                       @dragstart="onDragStart($event, panel.studentId, i, inst.instanceId)"
@@ -963,9 +964,9 @@
                                         <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
                                       </div>
                                   
-                                      <div class="sched-card-sub" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
+                                      <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
                                   
-                                      <div class="sched-card-trackline"
+                                      <div class="sched-card-trackline" x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
                                            x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"></div>
                                   
                                       <button
@@ -1076,6 +1077,7 @@
                                   <template x-for="inst in instancesFor(studentId, panel.dayIdx)" :key="inst.instanceId">
                                     <article
                                       class="sched-card"
+                                      :style="boardCardInlineStyle(inst)"
                                       draggable="true"
                                       :data-inst-id="inst.instanceId"
                                       @dragstart="onDragStart($event, studentId, panel.dayIdx, inst.instanceId)"
@@ -1092,9 +1094,9 @@
                                         <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
                                       </div>
               
-                                      <div class="sched-card-sub" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
+                                      <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
               
-                                      <div class="sched-card-trackline"
+                                      <div class="sched-card-trackline" x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
                                            x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"></div>
               
                                       <button
