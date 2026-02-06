@@ -6,7 +6,7 @@
   // Storage keys
   // -----------------------------
   const UI_STORAGE_KEY = "alveary_schedule_ui_v1";
-const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
+  const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
   const CARDS_STORAGE_KEY = "alveary_schedule_cards_v1";
   const MA_COURSES_URL = "data/MA_Courses.json";
   const MA_SCHED_URL = "data/MA_Scheduling.json";
@@ -1597,6 +1597,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
               if (String(t?.id || "").startsWith("u:")) return true;
           
               const key = t.courseKey || ""; // courseId for courses, Topic_ID for topics
+          
               // Be resilient: older cached templates may not have sourceType yet.
               const looksLikeCourse =
                 t.sourceType === "course" ||
@@ -1615,6 +1616,8 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         // "Student assignments" = assigned in planner state for selected student
         if (this.railStudentAssignedOnly && activeStudentId) {
           templates = templates.filter((t) => {
+            // ✅ Always keep custom templates in the rail, even under "Student assignments"
+            if (String(t?.id || "").startsWith("u:")) return true;
             const key = t.courseKey || "";
             // Be resilient: older cached templates may not have sourceType yet.
             const looksLikeCourse =
@@ -1742,6 +1745,9 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         if (!grade) return true;
 
         if (entry?.type === "single") {
+          // ✅ Custom templates are always visible regardless of grade filter
+          if (String(entry?.templateId || "").startsWith("u:")) return true;
+        
           const tpl = this.templatesById?.[entry.templateId];
           const gf = Array.isArray(tpl?.gradeFilter) ? tpl.gradeFilter : [];
           return gf.includes(grade);
@@ -1750,6 +1756,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         if (entry?.type === "group") {
           const opts = Array.isArray(entry.options) ? entry.options : [];
           for (const o of opts) {
+            if (String(o?.templateId || "").startsWith("u:")) return true; // ✅
             const tpl = this.templatesById?.[o.templateId];
             const gf = Array.isArray(tpl?.gradeFilter) ? tpl.gradeFilter : [];
             if (gf.includes(grade)) return true;
