@@ -1583,7 +1583,13 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
 
         // Grade filter affects RAIL ONLY (never the scheduled board)
         if (gradeKey) {
-          templates = templates.filter((t) => Array.isArray(t.gradeFilter) && t.gradeFilter.includes(gradeKey));
+          templates = templates.filter((t) => {
+            // ✅ Custom templates always visible regardless of grade filter
+            if (String(t?.id || "").startsWith("u:")) return true;
+        
+            const gf = Array.isArray(t?.gradeFilter) ? t.gradeFilter : [];
+            return gf.includes(gradeKey);
+          });
         }
 
         if (q) {
