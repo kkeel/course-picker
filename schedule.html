@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1239,7 +1238,18 @@
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- Sectioned cloud save/load wiring -->
-<script type="module" src="js/saveState.js"></script>
+<script type="module">
+  import { initScheduleSectionedSave } from "./js/saveState.js";
+
+  window.addEventListener("DOMContentLoaded", async () => {
+    try {
+      await initScheduleSectionedSave({ devOnly: true });
+    } catch (e) {
+      console.error("initScheduleSectionedSave failed", e);
+    }
+  });
+</script>
+
 <script>
   window.addEventListener("DOMContentLoaded", async () => {
     try {
