@@ -758,6 +758,14 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       railMyCoursesOnly: false,
       railStudentAssignedOnly: false,
 
+      cardStyleModalOpen: false,
+      openCardStyleModal() {
+      this.cardStyleModalOpen = true;
+        },
+        closeCardStyleModal() {
+          this.cardStyleModalOpen = false;
+        },
+
       // -----------------------------
       // Drag reorder state (Phase 1)
       // -----------------------------
