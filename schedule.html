@@ -1250,20 +1250,6 @@
   });
 </script>
 
-<script>
-  window.addEventListener("DOMContentLoaded", async () => {
-    try {
-      if (window.SectionedScheduleState && typeof window.SectionedScheduleState.initScheduleSectionedSave === "function") {
-        await window.SectionedScheduleState.initScheduleSectionedSave({ devOnly: true });
-      } else {
-        console.warn("SectionedScheduleState not available");
-      }
-    } catch (e) {
-      console.error("initScheduleSectionedSave failed", e);
-    }
-  });
-</script>
-
   <!-- Print-only page numbers (Paged.js loads only when printing) -->
   <script>
     // Tell Paged.js: do NOT auto-run on page load
