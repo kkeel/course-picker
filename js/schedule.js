@@ -2304,24 +2304,28 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
 
       // Inline style helper for schedule board cards (Phase 1 for time-scaled cards)
       // Used by schedule.html: :style="boardCardInlineStyle(inst)"
+      // Board card style helper (Scaled-time)
       boardCardInlineStyle(inst) {
-        try {
-          if (!this.boardScaleByTime) return null;
-          const tpl = this.templateForInstance(inst);
-          const minutes = Math.max(0, Number(tpl?.minutes || 0));
-          if (!minutes) return null;
-
-          // Base: 5 minutes = base height; add steps per 5 minutes
-          const stepMin = 5;
-          const basePx = 72;        // keeps small cards readable
-          const pxPerStep = 10;     // gentle growth
-          const steps = Math.max(0, Math.round(minutes / stepMin) - 1);
-          const h = Math.min(360, basePx + steps * pxPerStep);
-
-          return `min-height: ${h}px;`;
-        } catch (e) {
-          return null;
-        }
+        if (!this.boardScaleByTime) return "";
+      
+        const tpl = this.templateForInstance ? (this.templateForInstance(inst) || {}) : {};
+        const mRaw = Number(tpl.minutes || 0);
+        const minutes = Math.max(5, Number.isFinite(mRaw) ? mRaw : 5);
+      
+        // 5-minute slots
+        const slotMins = 5;
+        const slots = Math.max(1, Math.round(minutes / slotMins)); // 10m=2, 15m=3, 30m=6, etc.
+      
+        // Tune these two numbers to get your visual density right.
+        // basePx = the “5 minute” card height (must fit 2-line title comfortably)
+        // stepPx = how much height each additional 5 minutes adds
+        const basePx = 86;
+        const stepPx = 14;
+      
+        const h = basePx + (slots - 1) * stepPx;
+      
+        // Fixed height so content can't change the math
+        return `height:${h}px; min-height:${h}px; max-height:${h}px;`;
       },
 
       dayTotalMinutes(studentId, dayIndex) {
