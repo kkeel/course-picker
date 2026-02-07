@@ -2786,3 +2786,38 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 .sched-modal input[type="checkbox"]:hover {
   filter: brightness(0.95);
 }
+
+/* --------------------------------------------------
+   Scaled-time mode: lock card internals so height math holds
+   -------------------------------------------------- */
+.sched-card {
+  box-sizing: border-box;
+}
+
+.sched-card[style*="max-height"] {
+  overflow: hidden;              /* prevent content from increasing height */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Title should never expand height beyond its reserved 2 lines */
+.sched-card[style*="max-height"] .sched-card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Symbols: keep to a single line in scaled mode */
+.sched-card[style*="max-height"] .sched-card-sub {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Tracking row: keep to one line in scaled mode */
+.sched-card[style*="max-height"] .sched-card-trackline {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+}
