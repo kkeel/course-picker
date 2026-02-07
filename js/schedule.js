@@ -1114,6 +1114,11 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
             if (Number.isInteger(n) && Number(this.activeTargetDayIndex) !== n) this.activeTargetDayIndex = n;
             this.persistUi();
           });
+
+          // Persist schedule board card style options
+          this.$watch("boardAddSymbols", () => this.persistUi());
+          this.$watch("boardAddTracking", () => this.persistUi());
+          this.$watch("boardScaleByTime", () => this.persistUi());
         }
       },
 
@@ -1128,6 +1133,11 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           railMyCoursesOnly: this.railMyCoursesOnly,
           railStudentAssignedOnly: this.railStudentAssignedOnly,
           railSearch: this.railSearch,
+
+          // Schedule board card style (board only)
+          boardAddSymbols: !!this.boardAddSymbols,
+          boardAddTracking: !!this.boardAddTracking,
+          boardScaleByTime: !!this.boardScaleByTime,
           dayViewPanels: (this.dayViewPanels || []).map(p => ({ slot: p.slot, dayIdx: p.dayIdx })),
           dayViewStudentSlots: (this.dayViewStudentSlots || []).slice(0, 5),
           activeTargetStudentId: this.activeTargetStudentId || this.activeTarget?.studentId,
@@ -2290,6 +2300,28 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
 
       templateForInstance(inst) {
         return inst ? this.templatesById?.[inst.templateId] : null;
+      },
+
+      // Inline style helper for schedule board cards (Phase 1 for time-scaled cards)
+      // Used by schedule.html: :style="boardCardInlineStyle(inst)"
+      boardCardInlineStyle(inst) {
+        try {
+          if (!this.boardScaleByTime) return null;
+          const tpl = this.templateForInstance(inst);
+          const minutes = Math.max(0, Number(tpl?.minutes || 0));
+          if (!minutes) return null;
+
+          // Base: 5 minutes = base height; add steps per 5 minutes
+          const stepMin = 5;
+          const basePx = 72;        // keeps small cards readable
+          const pxPerStep = 10;     // gentle growth
+          const steps = Math.max(0, Math.round(minutes / stepMin) - 1);
+          const h = Math.min(360, basePx + steps * pxPerStep);
+
+          return `min-height: ${h}px;`;
+        } catch (e) {
+          return null;
+        }
       },
 
       dayTotalMinutes(studentId, dayIndex) {
