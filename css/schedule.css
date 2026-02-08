@@ -2904,3 +2904,49 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   overflow-x: visible;
   overflow-y: hidden;
 }
+
+/* =========================================================
+   Expanded mode (V1): let the board grow wider than the panel
+   so you can see all 5 columns, and scroll horizontally at the
+   page/schedule level (not inside each panel)
+   ========================================================= */
+
+.sched-expanded .sched-work{
+  height: auto;
+  max-height: none;
+  overflow: visible;
+}
+
+.sched-expanded .sched-work .schedule-panels{
+  overflow: visible;
+}
+
+/* Put the horizontal scrollbar on the overall schedule area */
+.sched-expanded .schedule-grid{
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* In expanded mode, stack panels vertically (each gets full width) */
+.sched-expanded .schedule-panel-row{
+  grid-template-columns: 1fr;
+}
+
+/* Allow content to extend beyond the panel body */
+.sched-expanded .schedule-panel-body{
+  overflow: visible;
+}
+
+/* Stop the board from being its own horizontal scroller */
+.sched-expanded .schedule-board{
+  overflow: visible;
+  max-width: none;
+  width: max-content;      /* board becomes as wide as its columns */
+  padding-bottom: 0;       /* no internal scrollbar space needed */
+}
+
+/* Ensure the columns row can size to its content width */
+.sched-expanded .schedule-columns{
+  min-width: unset;
+  width: max-content;
+}
