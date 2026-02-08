@@ -2834,3 +2834,15 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 .is-time-scaled .schedule-dropzone .sched-card + .sched-card{
   border-top: none;
 }
+
+.is-time-scaled .sched-card{
+  display: flex;
+  flex-direction: column;
+}
+
+.is-time-scaled .sched-card-sub,
+.is-time-scaled .sched-card-trackline{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
