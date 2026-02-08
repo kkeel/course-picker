@@ -2821,3 +2821,16 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   overflow: hidden;
   text-overflow: clip;
 }
+
+/* Time-scaled mode: remove stack gaps so 10+20=30 visually */
+.is-time-scaled .schedule-dropzone{
+  gap: 0 !important;
+}
+
+/* Optional: add a tiny divider without affecting spacing math */
+.is-time-scaled .schedule-dropzone .sched-card{
+  border-radius: 14px;
+}
+.is-time-scaled .schedule-dropzone .sched-card + .sched-card{
+  border-top: none;
+}
