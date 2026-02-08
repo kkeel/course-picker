@@ -2313,19 +2313,18 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         const minutes = Math.max(5, Number.isFinite(mRaw) ? mRaw : 5);
       
         // 5-minute slots
-        const slotMins = 5;
-        const slots = Math.max(1, Math.round(minutes / slotMins)); // 10m=2, 15m=3, 30m=6, etc.
+        const slots = Math.max(1, Math.round(minutes / 5)); // 10m=2, 15m=3, 30m=6
       
-        // Tune these two numbers to get your visual density right.
-        // basePx = the “5 minute” card height (must fit 2-line title comfortably)
-        // stepPx = how much height each additional 5 minutes adds
-        const basePx = 86;
-        const stepPx = 14;
+        // TUNE THESE TWO NUMBERS:
+        // basePx = height for a 5-minute card (must fit 2-line title)
+        // stepPx = added height per extra 5 minutes
+        const basePx = 110;
+        const stepPx = 18;
       
         const h = basePx + (slots - 1) * stepPx;
       
-        // Fixed height so content can't change the math
-        return `height:${h}px; min-height:${h}px; max-height:${h}px;`;
+        // Fixed height so stack math holds
+        return `height:${h}px; min-height:${h}px; max-height:${h}px; overflow:hidden;`;
       },
 
       dayTotalMinutes(studentId, dayIndex) {
