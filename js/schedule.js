@@ -161,21 +161,21 @@
       railMyCoursesOnly: false,
       railStudentAssignedOnly: false,
 
-      // Schedule board card style (Phase 1)
+      // Schedule board card style (Phase 1 persistence only)
       boardAddSymbols: true,
       boardAddTracking: true,
       boardScaleByTime: false,
 
       railSearch: "", // rail title search
 
-      // Schedule board card style (Phase 1 persistence)
-      boardAddSymbols: true,
-      boardAddTracking: true,
-      boardScaleByTime: false,
-
       // Rail header "target student" selector (persists across refresh)
       activeTargetStudentId: "S1",
       activeTargetDayIndex: 0,
+
+      // Schedule board card style (Phase 1 persistence only)
+      boardAddSymbols: true,
+      boardAddTracking: true,
+      boardScaleByTime: false,
     };
   }
 
@@ -235,11 +235,12 @@
     const railSearch = typeof state?.railSearch === "string" ? state.railSearch : (d.railSearch || "");
 
     // -----------------------------
-    // Schedule board card style (Phase 1)
+    // Schedule board card style (Phase 1 persistence only)
     // -----------------------------
-    const boardAddSymbols = typeof state?.boardAddSymbols === "boolean" ? state.boardAddSymbols : d.boardAddSymbols;
-    const boardAddTracking = typeof state?.boardAddTracking === "boolean" ? state.boardAddTracking : d.boardAddTracking;
-    const boardScaleByTime = typeof state?.boardScaleByTime === "boolean" ? state.boardScaleByTime : d.boardScaleByTime;
+    const boardAddSymbols = typeof state?.boardAddSymbols === "boolean" ? state.boardAddSymbols : !!d.boardAddSymbols;
+    const boardAddTracking = typeof state?.boardAddTracking === "boolean" ? state.boardAddTracking : !!d.boardAddTracking;
+    const boardScaleByTime = typeof state?.boardScaleByTime === "boolean" ? state.boardScaleByTime : !!d.boardScaleByTime;
+
 
     // -----------------------------
     // Day View state
@@ -318,9 +319,12 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       railMyCoursesOnly,
       railStudentAssignedOnly,
       railSearch,
+
+      // Schedule board card style
       boardAddSymbols,
       boardAddTracking,
       boardScaleByTime,
+
       activeTargetStudentId,
       activeTargetDayIndex,
     };
@@ -754,11 +758,13 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       railMyCoursesOnly: false,
       railStudentAssignedOnly: false,
 
-      // Schedule board card style (Phase 1)
-      boardAddSymbols: true,
-      boardAddTracking: true,
-      boardScaleByTime: false,
-
+      cardStyleModalOpen: false,
+      openCardStyleModal() {
+      this.cardStyleModalOpen = true;
+        },
+        closeCardStyleModal() {
+          this.cardStyleModalOpen = false;
+        },
 
       // -----------------------------
       // Drag reorder state (Phase 1)
@@ -796,6 +802,12 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         this.railMyCoursesOnly = !!normalizedUi.railMyCoursesOnly;
         this.railStudentAssignedOnly = !!normalizedUi.railStudentAssignedOnly;
         this.railSearch = String(normalizedUi.railSearch || "");
+
+        // Schedule board card style (board only; rail unaffected)
+        this.boardAddSymbols = (typeof normalizedUi.boardAddSymbols === "boolean") ? normalizedUi.boardAddSymbols : true;
+        this.boardAddTracking = (typeof normalizedUi.boardAddTracking === "boolean") ? normalizedUi.boardAddTracking : true;
+        this.boardScaleByTime = (typeof normalizedUi.boardScaleByTime === "boolean") ? normalizedUi.boardScaleByTime : false;
+
       
         this.view = normalizedUi.view;
         this.visibleDays = normalizedUi.visibleDays;
@@ -859,9 +871,15 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
             railMyCoursesOnly: this.railMyCoursesOnly,
             railStudentAssignedOnly: this.railStudentAssignedOnly,
             railSearch: this.railSearch,
+
+          // Schedule board card style
           boardAddSymbols: this.boardAddSymbols,
           boardAddTracking: this.boardAddTracking,
           boardScaleByTime: this.boardScaleByTime,
+            boardAddSymbols: this.boardAddSymbols,
+            boardAddTracking: this.boardAddTracking,
+            boardScaleByTime: this.boardScaleByTime,
+
             activeTargetStudentId: this.activeTargetStudentId || this.activeTarget?.studentId,
             activeTargetDayIndex: Number.isInteger(Number(this.activeTargetDayIndex))
               ? Number(this.activeTargetDayIndex)
@@ -1070,36 +1088,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       
         // ✅ CHANGED: only persist UI now if we have real student ids.
         // Otherwise we risk locking in "S1" defaults before planner hydration finishes.
-        if ((this.students || []).map(s => 
-      // Board card style helper (Phase 3 wiring)
-      boardCardInlineStyle(inst) {
-        if (!this.boardScaleByTime) return "";
-
-        const tpl = this.templateForInstance ? (this.templateForInstance(inst) || {}) : {};
-        const mRaw = Number(tpl.minutes || 0);
-        const minutes = Math.max(5, Number.isFinite(mRaw) ? mRaw : 5);
-
-        // 5-minute slots (always round UP so 6m -> 10m block)
-        const slots = Math.max(1, Math.ceil(minutes / 5)); // 10m=2, 15m=3, 30m=6
-
-        // Base height for ONE 5-minute slot (must fit 2-line title + (optional) symbols + tracking)
-        // Tunable via CSS: :root { --sched-scale-5min: 120px; }
-        let basePx = 120;
-        try {
-          const v = getComputedStyle(document.documentElement)
-            .getPropertyValue("--sched-scale-5min")
-            .trim();
-          const n = parseFloat(v);
-          if (Number.isFinite(n) && n > 0) basePx = n;
-        } catch (_) {}
-
-        // True proportional sizing: 10m = 2x, 15m = 3x, 20m = 4x, etc.
-        const h = slots * basePx;
-
-        return `height:${h}px; min-height:${h}px; max-height:${h}px;`;
-      },
-
-s.id).length) {
+        if ((this.students || []).map(s => s.id).length) {
           this.persistUi();
         }
       
@@ -1120,10 +1109,6 @@ s.id).length) {
             if (Number.isInteger(n) && this.activeTarget?.dayIndex !== n) this.activeTarget.dayIndex = n;
             this.persistUi();
           });
-
-          this.$watch("boardAddSymbols", () => this.persistUi());
-          this.$watch("boardAddTracking", () => this.persistUi());
-          this.$watch("boardScaleByTime", () => this.persistUi());
           this.$watch("activeTarget.dayIndex", (v) => {
             const n = Number(v);
             if (Number.isInteger(n) && Number(this.activeTargetDayIndex) !== n) this.activeTargetDayIndex = n;
@@ -1143,9 +1128,6 @@ s.id).length) {
           railMyCoursesOnly: this.railMyCoursesOnly,
           railStudentAssignedOnly: this.railStudentAssignedOnly,
           railSearch: this.railSearch,
-          boardAddSymbols: this.boardAddSymbols,
-          boardAddTracking: this.boardAddTracking,
-          boardScaleByTime: this.boardScaleByTime,
           dayViewPanels: (this.dayViewPanels || []).map(p => ({ slot: p.slot, dayIdx: p.dayIdx })),
           dayViewStudentSlots: (this.dayViewStudentSlots || []).slice(0, 5),
           activeTargetStudentId: this.activeTargetStudentId || this.activeTarget?.studentId,
@@ -2310,7 +2292,24 @@ s.id).length) {
         return inst ? this.templatesById?.[inst.templateId] : null;
       },
 
-      dayTotalMinutes(studentId, dayIndex) {
+      
+      // Inline style helper for schedule board cards
+      // Used by schedule.html: :style="boardCardInlineStyle(inst)"
+      // When time-scaled mode is ON, we set a CSS variable that drives exact 5-minute slot heights.
+      boardCardInlineStyle(inst) {
+        if (!this.boardScaleByTime) return "";
+        const tpl = this.templateForInstance(inst) || {};
+        const mRaw = Number(tpl.minutes || 0);
+        const minutes = Number.isFinite(mRaw) ? mRaw : 0;
+
+        // 5-minute slots (5m => 1, 10m => 2, 15m => 3, etc.)
+        const slots = Math.max(1, Math.ceil(Math.max(5, minutes) / 5));
+
+        // CSS will do: height = slots * var(--time-slot-h)
+        return `--time-slots:${slots};`;
+      },
+
+dayTotalMinutes(studentId, dayIndex) {
         const list = this.instancesFor(studentId, dayIndex);
         let total = 0;
         for (const inst of list) {
