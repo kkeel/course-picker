@@ -171,7 +171,13 @@
       </div>
     </section>
 
-    <div x-show="!courseGate" x-cloak x-data="scheduleBuilder()" x-init="init()">
+    <div
+      x-show="!courseGate"
+      x-cloak
+      x-data="scheduleBuilder()"
+      x-init="init()"
+      :class="expandedMode ? 'sched-expanded' : ''"
+    >
      <div class="schedule-head">
       <h2 class="section-title">TESTING Schedule (staff only-no save)</h2>
     
@@ -833,6 +839,15 @@
                     @click="setView('day')"
                   >
                     Day View
+                  </button>
+                  <button
+                    type="button"
+                    class="schedule-pill"
+                    :class="expandedMode ? 'schedule-pill--on' : ''"
+                    @click="toggleExpanded()"
+                    :aria-pressed="expandedMode"
+                  >
+                    Expanded
                   </button>
                 </div>
           
