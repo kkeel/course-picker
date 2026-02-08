@@ -2996,3 +2996,37 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   width: max-content;
   min-width: max-content;      /* important: don't clamp to 100% */
 }
+
+:root{
+  /* Letter portrait printable width with 0.5" margins on both sides */
+  --sched-print-w: 7.5in;
+
+  /* These match the existing schedule-columns padding + gap you’re using */
+  --sched-col-gap: 12px;
+  --sched-cols-pad: 12px;
+
+  /* Expanded mode: compute a column width so 5 columns fit perfectly in 7.5in */
+  --sched-col-w-expanded: calc(
+    (var(--sched-print-w) - (var(--sched-cols-pad) * 2) - (var(--sched-col-gap) * 4)) / 5
+  );
+}
+
+/* Expanded mode: each student panel matches printable width */
+.sched-expanded .schedule-panel{
+  width: var(--sched-print-w);
+  min-width: var(--sched-print-w);
+  max-width: var(--sched-print-w);
+}
+
+/* Expanded mode: make 5 columns fit inside the printable width */
+.sched-expanded .schedule-columns{
+  gap: var(--sched-col-gap);
+  grid-auto-columns: var(--sched-col-w-expanded);
+  padding: var(--sched-cols-pad);
+}
+
+/* Expanded mode: board should not be max-content wider than the panel */
+.sched-expanded .schedule-board{
+  width: 100%;
+  max-width: 100%;
+}
