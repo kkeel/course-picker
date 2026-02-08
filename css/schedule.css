@@ -3,6 +3,7 @@
    ========================================================= */
 
 :root{
+  --sched-scale-5min: 120px;
   --rail-head-bg: #dee1d2; /* brand light green */
   --sched-col-w: 260px;
 }
@@ -2196,7 +2197,7 @@ body.sched-dragging .sched-card{
   color: rgba(38,43,38,0.72) !important;
 }
 
-/* 5) Toggle row: keep style */
+/* 5) Toggle row: keep styleÂ */
 .sched-rail-filter-toggles .toggle{
   color: rgba(89,110,94,0.82) !important;
   font-weight: 600;
@@ -2774,7 +2775,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   height: 16px;
 }
 /* =========================================================
-   Schedule Card Style Modal â€“ Checkbox color
+   Schedule Card Style Modal Ã¢â‚¬â€œ Checkbox color
    ========================================================= */
 
 /* Modern browsers (Chrome, Edge, Firefox, Safari 15+) */
@@ -2826,6 +2827,17 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 .is-time-scaled .schedule-dropzone{
   gap: 0 !important;
 }
+
+/* Keep cards visually separated WITHOUT affecting the math (shadow doesn't take space) */
+.is-time-scaled .schedule-dropzone .sched-card{
+  box-shadow: 0 0 0 8px #f6f7f3;
+}
+
+/* Optional: tighten typography a touch so 5m base can stay reasonable */
+.is-time-scaled .sched-card-title{ font-size: 14px; line-height: 1.15; }
+.is-time-scaled .sched-card-minutes{ font-size: 13px; }
+.is-time-scaled .sched-card-symbolline{ font-size: 12px; }
+.is-time-scaled .sched-card-trackline{ font-size: 11px; }
 
 /* Optional: add a tiny divider without affecting spacing math */
 .is-time-scaled .schedule-dropzone .sched-card{
