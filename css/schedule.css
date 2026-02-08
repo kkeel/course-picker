@@ -2865,3 +2865,42 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 .is-time-scaled .sched-card-remove{
   margin-top: auto;
 }
+/* =========================================================
+   Expanded mode (Phase 1)
+   Goal: NO horizontal scrolling inside each panel.
+   Instead, make the whole builder scroll horizontally.
+   ========================================================= */
+
+:root{
+  /* Width needed to show Mon–Fri columns without internal scroll */
+  --sched-week-min-w: calc((var(--sched-col-w) * 5) + (12px * 4) + (12px * 2));
+}
+
+/* In expanded mode, the builder can scroll sideways */
+.sched-expanded .sched-work{
+  overflow-x: auto;
+  overflow-y: hidden; /* keep your current vertical behavior unchanged for now */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Make the panel row content-width (so it can exceed viewport) */
+.sched-expanded .schedule-panel-row{
+  grid-template-columns: repeat(2, max-content);
+}
+
+/* Force each student/day panel wide enough to fit all 5 columns */
+.sched-expanded .schedule-panel{
+  min-width: var(--sched-week-min-w);
+}
+
+/* Remove the panel-level horizontal scroll container */
+.sched-expanded .schedule-board{
+  overflow-x: visible;
+  padding-bottom: 0; /* no internal scrollbar space */
+}
+
+/* Allow horizontal overflow to escape the panel body (vertical stays controlled by dropzones) */
+.sched-expanded .schedule-panel-body{
+  overflow-x: visible;
+  overflow-y: hidden;
+}
