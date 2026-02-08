@@ -143,6 +143,7 @@
   function defaultUiState() {
     return {
       view: "track",
+      expanded: true,
       visibleDays: [0, 1, 2, 3, 4],
       panels: [
         { slot: "P1", studentId: "S1" },
@@ -183,6 +184,8 @@
     const d = defaultUiState();
 
     const view = typeof state?.view === "string" ? state.view : d.view;
+
+    const expanded = (typeof state?.expanded === "boolean") ? state.expanded : !!d.expanded;
 
     let visibleDays = Array.isArray(state?.visibleDays)
       ? state.visibleDays.slice()
@@ -309,6 +312,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
 
     return {
       view,
+      expanded,
       visibleDays,
       panels,
       dayViewPanels,
@@ -689,6 +693,10 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       visibleDays: [0, 1, 2, 3, 4],
       dayLabels: ["Mon","Tue","Wed","Thu","Fri"],
 
+      // Layout mode
+      expanded: true,
+      railOverlayOpen: false,
+
       // -----------------------------
       // Manage students (matches Courses/Books pages)
       // -----------------------------
@@ -795,6 +803,10 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         const allIds = (this.students || []).map((s) => s.id);
         const normalizedUi = normalizeUiState(savedUi || defaultUiState(), allIds);
       
+        // Restore layout mode
+        this.expanded = (typeof normalizedUi.expanded === "boolean") ? normalizedUi.expanded : true;
+        this.railOverlayOpen = false;
+
         // Restore left-rail UI toggles
         this.railTopCollapsed = !!normalizedUi.railTopCollapsed;
         this.showCompleted = !!normalizedUi.showCompleted;
@@ -861,6 +873,8 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           // Re-normalize any UI pieces that depend on student IDs
           const uiNow = {
             view: this.view,
+            expanded: !!this.expanded,
+          expanded: !!this.expanded,
             visibleDays: this.visibleDays,
             panels: this.visibleStudentPanels,
             dayViewPanels: this.dayViewPanels,
@@ -1147,6 +1161,34 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       // -----------------------------
       // UI controls
       // -----------------------------
+toggleExpanded() {
+  this.expanded = !this.expanded;
+
+  // Closing overlay when switching modes keeps everything predictable
+  this.railOverlayOpen = false;
+
+  // If we just entered expanded mode, the rail is now an overlay.
+  // Ensure the active target stays sane.
+  try {
+    const ids = (this.students || []).map(s => s.id);
+    if (this.activeTarget && this.activeTarget.studentId && ids.length && !ids.includes(this.activeTarget.studentId)) {
+      this.activeTarget.studentId = ids[0] || "S1";
+    }
+  } catch (_) {}
+
+  this.persistUi();
+},
+
+toggleRailOverlay() {
+  // Overlay is only meaningful in expanded mode
+  if (!this.expanded) return;
+  this.railOverlayOpen = !this.railOverlayOpen;
+},
+
+closeRailOverlay() {
+  this.railOverlayOpen = false;
+},
+
       setView(next) {
         this.view = next;
         this.persistUi();
