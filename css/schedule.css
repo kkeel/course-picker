@@ -2865,59 +2865,36 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 .is-time-scaled .sched-card-remove{
   margin-top: auto;
 }
+
 /* =========================================================
-   Expanded mode (Phase 1)
-   Goal: NO horizontal scrolling inside each panel.
-   Instead, make the whole builder scroll horizontally.
+   Expanded mode (Print-width panels)
+   - Each student panel = Letter portrait content width (7.5in)
+   - 5 day columns fit inside the panel
+   - Horizontal scrolling happens at the schedule area level
    ========================================================= */
 
 :root{
-  /* Width needed to show Mon–Fri columns without internal scroll */
-  --sched-week-min-w: calc((var(--sched-col-w) * 5) + (12px * 4) + (12px * 2));
+  /* Letter portrait printable width with 0.5" margins (8.5 - 1.0 = 7.5) */
+  --sched-print-w: 7.5in;
+
+  /* Keep these aligned with your existing schedule-columns spacing */
+  --sched-col-gap: 12px;
+  --sched-cols-pad: 12px;
+
+  /* Column width so 5 columns fit perfectly inside 7.5in */
+  --sched-col-w-expanded: calc(
+    (var(--sched-print-w) - (var(--sched-cols-pad) * 2) - (var(--sched-col-gap) * 4)) / 5
+  );
 }
 
-/* In expanded mode, the builder can scroll sideways */
-.sched-expanded .sched-work{
-  overflow-x: auto;
-  overflow-y: hidden; /* keep your current vertical behavior unchanged for now */
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Make the panel row content-width (so it can exceed viewport) */
-.sched-expanded .schedule-panel-row{
-  grid-template-columns: repeat(2, max-content);
-}
-
-/* Force each student/day panel wide enough to fit all 5 columns */
-.sched-expanded .schedule-panel{
-  min-width: var(--sched-week-min-w);
-}
-
-/* Remove the panel-level horizontal scroll container */
-.sched-expanded .schedule-board{
-  overflow-x: visible;
-  padding-bottom: 0; /* no internal scrollbar space */
-}
-
-/* Allow horizontal overflow to escape the panel body (vertical stays controlled by dropzones) */
-.sched-expanded .schedule-panel-body{
-  overflow-x: visible;
-  overflow-y: hidden;
-}
-
-/* =========================================================
-   Expanded mode (V1): let the board grow wider than the panel
-   so you can see all 5 columns, and scroll horizontally at the
-   page/schedule level (not inside each panel)
-   ========================================================= */
-
+/* In expanded mode, remove the height lock so layout can size naturally */
 .sched-expanded .sched-work{
   height: auto;
   max-height: none;
   overflow: visible;
 }
 
-.sched-expanded .sched-work .schedule-panels{
+.sched-expanded .schedule-panels{
   overflow: visible;
 }
 
@@ -2927,106 +2904,40 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   -webkit-overflow-scrolling: touch;
 }
 
-/* In expanded mode, stack panels vertically (each gets full width) */
-.sched-expanded .schedule-panel-row{
-  grid-template-columns: 1fr;
-}
-
-/* Allow content to extend beyond the panel body */
-.sched-expanded .schedule-panel-body{
-  overflow: visible;
-}
-
-/* Stop the board from being its own horizontal scroller */
-.sched-expanded .schedule-board{
-  overflow: visible;
-  max-width: none;
-  width: max-content;      /* board becomes as wide as its columns */
-  padding-bottom: 0;       /* no internal scrollbar space needed */
-}
-
-/* Ensure the columns row can size to its content width */
-.sched-expanded .schedule-columns{
-  min-width: unset;
-  width: max-content;
-}
-
-/* =========================================================
-   Expanded Mode — page-level horizontal scroll + panels wrap 5 columns
-   ========================================================= */
-
-.sched-expanded .sched-work{
-  /* stop locking the right side to a fixed viewport height */
-  max-height: none;
-  height: auto;
-  overflow: visible;
-}
-
-.sched-expanded .schedule-panels{
-  overflow: visible;
-}
-
-/* Replace the 2-up grid constraint with a row that can grow to content width */
+/* Use a single horizontal row of panels that can overflow and scroll */
 .sched-expanded .schedule-panel-row{
   display: flex;
   align-items: stretch;
   gap: 12px;
-  width: max-content;          /* <-- THIS makes the row grow to the full columns width */
+  width: max-content;      /* row becomes as wide as all panels together */
 }
 
-/* Each panel should wrap its board width (instead of being forced to 1fr) */
+/* Each student panel = print width and NEVER shrinks/overlaps */
 .sched-expanded .schedule-panel{
-  width: max-content;          /* wraps the board */
-  max-width: none;
-}
-
-.sched-expanded .schedule-panel-body{
-  overflow: visible;           /* allow full board to be visible inside */
-}
-
-/* The board + columns should size to their content (5 columns) */
-.sched-expanded .schedule-board{
-  width: max-content;
-  max-width: none;
-  overflow: visible;           /* no inner horizontal scroll in expanded mode */
-  padding-bottom: 0;
-}
-
-.sched-expanded .schedule-columns{
-  width: max-content;
-  min-width: max-content;      /* important: don't clamp to 100% */
-}
-
-:root{
-  /* Letter portrait printable width with 0.5" margins on both sides */
-  --sched-print-w: 7.5in;
-
-  /* These match the existing schedule-columns padding + gap you’re using */
-  --sched-col-gap: 12px;
-  --sched-cols-pad: 12px;
-
-  /* Expanded mode: compute a column width so 5 columns fit perfectly in 7.5in */
-  --sched-col-w-expanded: calc(
-    (var(--sched-print-w) - (var(--sched-cols-pad) * 2) - (var(--sched-col-gap) * 4)) / 5
-  );
-}
-
-/* Expanded mode: each student panel matches printable width */
-.sched-expanded .schedule-panel{
+  flex: 0 0 auto;
   width: var(--sched-print-w);
   min-width: var(--sched-print-w);
   max-width: var(--sched-print-w);
 }
 
-/* Expanded mode: make 5 columns fit inside the printable width */
-.sched-expanded .schedule-columns{
-  gap: var(--sched-col-gap);
-  grid-auto-columns: var(--sched-col-w-expanded);
-  padding: var(--sched-cols-pad);
+/* Allow board content to be fully visible inside the panel */
+.sched-expanded .schedule-panel-body{
+  overflow: visible;
 }
 
-/* Expanded mode: board should not be max-content wider than the panel */
+/* Board should fill the panel, not become max-content wider than it */
 .sched-expanded .schedule-board{
   width: 100%;
   max-width: 100%;
+  overflow: visible;       /* no inner horizontal scroll in expanded */
+  padding-bottom: 0;
+}
+
+/* Force 5 equal columns inside the print width */
+.sched-expanded .schedule-columns{
+  width: 100%;
+  min-width: 100%;
+  padding: var(--sched-cols-pad);
+  gap: var(--sched-col-gap);
+  grid-auto-columns: var(--sched-col-w-expanded);
 }
