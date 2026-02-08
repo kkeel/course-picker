@@ -176,6 +176,8 @@
       boardAddSymbols: true,
       boardAddTracking: true,
       boardScaleByTime: false,
+
+      expandedMode: false,
     };
   }
 
@@ -233,6 +235,10 @@
     // -----------------------------
     // Day View state
     const railSearch = typeof state?.railSearch === "string" ? state.railSearch : (d.railSearch || "");
+
+    // -----------------------------
+    // Expanded View state
+    const expandedMode = (typeof state?.expandedMode === "boolean") ? state.expandedMode : !!d.expandedMode;
 
     // -----------------------------
     // Schedule board card style (Phase 1 persistence only)
@@ -327,6 +333,8 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
 
       activeTargetStudentId,
       activeTargetDayIndex,
+      
+      expandedMode,
     };
   }
 
@@ -767,6 +775,16 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         },
 
       // -----------------------------
+      // Expanded Mode
+      // -----------------------------
+      expandedMode: false,
+        
+        toggleExpanded() {
+          this.expandedMode = !this.expandedMode;
+          this.persistUi();
+        },
+
+      // -----------------------------
       // Drag reorder state (Phase 1)
       // -----------------------------
       dragState: {
@@ -822,6 +840,8 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         this.activeTargetDayIndex = Number.isInteger(Number(normalizedUi.activeTargetDayIndex))
           ? Number(normalizedUi.activeTargetDayIndex)
           : (this.visibleDays?.[0] ?? 0);
+
+        this.expandedMode = !!normalizedUi.expandedMode;
       
         // Keep existing logic working
         this.activeTarget = {
@@ -871,6 +891,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
             railMyCoursesOnly: this.railMyCoursesOnly,
             railStudentAssignedOnly: this.railStudentAssignedOnly,
             railSearch: this.railSearch,
+            expandedMode: this.expandedMode,
 
           // Schedule board card style
           boardAddSymbols: this.boardAddSymbols,
@@ -1132,6 +1153,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           dayViewStudentSlots: (this.dayViewStudentSlots || []).slice(0, 5),
           activeTargetStudentId: this.activeTargetStudentId || this.activeTarget?.studentId,
           activeTargetDayIndex: Number.isInteger(Number(this.activeTargetDayIndex)) ? Number(this.activeTargetDayIndex) : this.activeTarget?.dayIndex,
+          expandedMode: this.expandedMode,
         });
       },
 
