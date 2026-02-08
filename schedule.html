@@ -915,7 +915,7 @@
               
                       <!-- Panel body: week columns -->
                       <div class="schedule-panel-body">
-                        <div class="schedule-board">
+                        <div class="schedule-board" :class="{ 'is-time-scaled': boardScaleByTime }">
                           <div class="schedule-columns schedule-columns--nowrap">
                             <template x-for="i in visibleDays" :key="i">
                               <section class="schedule-col" :aria-label="dayLabel(i)">
