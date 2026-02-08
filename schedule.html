@@ -171,7 +171,7 @@
       </div>
     </section>
 
-    <div x-show="!courseGate" x-cloak x-data="scheduleBuilder()" x-init="init()">
+    <div x-show="!courseGate" x-cloak x-data="scheduleBuilder()" x-init="init()" :class="expanded ? \'sched-expanded\' : \'sched-compact\'">
      <div class="schedule-head">
       <h2 class="section-title">TESTING Schedule (staff only-no save)</h2>
     
@@ -270,11 +270,17 @@
             </div>
 </div>
 
+  <!-- Expanded mode: rail overlay backdrop -->
+  <div class="sched-overlay-backdrop" x-show="expanded && railOverlayOpen" x-transition.opacity x-cloak @click="closeRailOverlay()"></div>
+
 <div class="schedule-grid mt-6 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6">
           
           <!-- Left card rail (Phase 2.5) -->
           <div
             class="sched-rail p-4 rounded-lg border border-[#e5e8e5] bg-white"
+            :class="expanded ? (railOverlayOpen ? 'sched-rail--overlay is-open' : 'sched-rail--overlay') : ''"
+            x-show="!expanded || railOverlayOpen"
+            x-cloak
           >
             <!-- Sticky / collapsible rail header -->
             <div class="sched-rail-top">
@@ -293,6 +299,16 @@
                       <option :value="s.id" x-text="s.name"></option>
                     </template>
                   </select>
+<button
+  type="button"
+  class="sched-rail-overlay-close"
+  x-show="expanded"
+  x-cloak
+  @click="closeRailOverlay()"
+  aria-label="Close cards"
+  title="Close"
+>✕</button>
+
                 </div>
 
               </div>
@@ -835,6 +851,32 @@
                     Day View
                   </button>
                 </div>
+
+<!-- Layout toggle + rail overlay -->
+<div class="schedule-layout-actions">
+  <button
+    type="button"
+    class="schedule-pill schedule-pill--ghost"
+    :class="expanded ? 'schedule-pill--ghost-on' : ''"
+    @click="toggleExpanded()"
+    :title="expanded ? 'Switch to compact layout' : 'Switch to expanded layout'"
+  >
+    <span x-text="expanded ? 'Expanded' : 'Compact'"></span>
+  </button>
+
+  <button
+    type="button"
+    class="schedule-pill schedule-pill--ghost"
+    x-show="expanded"
+    x-cloak
+    @click="toggleRailOverlay()"
+    :aria-expanded="railOverlayOpen.toString()"
+    title="Open scheduling cards"
+  >
+    Cards
+  </button>
+</div>
+
           
                 <!-- Density placeholder -->
                 <button
