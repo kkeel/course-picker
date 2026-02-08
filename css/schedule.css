@@ -2950,3 +2950,49 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   min-width: unset;
   width: max-content;
 }
+
+/* =========================================================
+   Expanded Mode — page-level horizontal scroll + panels wrap 5 columns
+   ========================================================= */
+
+.sched-expanded .sched-work{
+  /* stop locking the right side to a fixed viewport height */
+  max-height: none;
+  height: auto;
+  overflow: visible;
+}
+
+.sched-expanded .schedule-panels{
+  overflow: visible;
+}
+
+/* Replace the 2-up grid constraint with a row that can grow to content width */
+.sched-expanded .schedule-panel-row{
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  width: max-content;          /* <-- THIS makes the row grow to the full columns width */
+}
+
+/* Each panel should wrap its board width (instead of being forced to 1fr) */
+.sched-expanded .schedule-panel{
+  width: max-content;          /* wraps the board */
+  max-width: none;
+}
+
+.sched-expanded .schedule-panel-body{
+  overflow: visible;           /* allow full board to be visible inside */
+}
+
+/* The board + columns should size to their content (5 columns) */
+.sched-expanded .schedule-board{
+  width: max-content;
+  max-width: none;
+  overflow: visible;           /* no inner horizontal scroll in expanded mode */
+  padding-bottom: 0;
+}
+
+.sched-expanded .schedule-columns{
+  width: max-content;
+  min-width: max-content;      /* important: don't clamp to 100% */
+}
