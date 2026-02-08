@@ -3,7 +3,6 @@
    ========================================================= */
 
 :root{
-  --sched-scale-5min: 120px;
   --rail-head-bg: #dee1d2; /* brand light green */
   --sched-col-w: 260px;
 }
@@ -2789,72 +2788,80 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 }
 
 /* --------------------------------------------------
-   Scaled-time mode: lock card internals so height math holds
+   Scaled-time mode
+   --------------------------------------------------
+   Goal: make cards consume exact vertical "time slots" so:
+     10m + 20m visually equals 30m, etc.
+
+   Implementation:
+   - JS sets --time-slots on each .sched-card when boardScaleByTime is ON
+     via :style="boardCardInlineStyle(inst)" returning: "--time-slots:N;"
+   - CSS defines --time-slot-h as the height of ONE 5-minute slot.
+   - Card height = calc(var(--time-slots) * var(--time-slot-h))
+
+   Tune:
+   - Adjust --time-slot-h to change the overall compression/expansion.
    -------------------------------------------------- */
-.sched-card {
-  box-sizing: border-box;
+
+.sched-card { box-sizing: border-box; }
+
+/* In time-scaled mode, remove stacking gaps so the math is clean */
+.is-time-scaled .schedule-dropzone{
+  gap: 0 !important;
 }
 
-.sched-card[style*="max-height"] {
-  overflow: hidden;              /* prevent content from increasing height */
+/* Slot height for ONE 5-minute block */
+.is-time-scaled{
+  --time-slot-h: 56px; /* <-- adjust to taste */
+}
+
+/* Lock card height to the time math */
+.is-time-scaled .sched-card{
+  height: calc(var(--time-slots, 1) * var(--time-slot-h));
+  min-height: calc(var(--time-slots, 1) * var(--time-slot-h));
+  max-height: calc(var(--time-slots, 1) * var(--time-slot-h));
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-/* Title should never expand height beyond its reserved 2 lines */
-.sched-card[style*="max-height"] .sched-card-title {
+/* Compact internals in scaled mode so the 5-minute base can stay small */
+.is-time-scaled .sched-card-top{
+  padding: 10px 12px 8px;
+}
+
+.is-time-scaled .sched-card-title{
+  font-size: 15px;
+  line-height: 1.15;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 2;          /* always reserve 2 lines */
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-/* Symbols: keep to a single line in scaled mode */
-.sched-card[style*="max-height"] .sched-card-sub {
+.is-time-scaled .sched-card-min{
+  font-size: 13px;
+}
+
+.is-time-scaled .sched-card-sub{
+  font-size: 12px;
+  line-height: 1.1;
+  padding: 0 12px 6px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* Tracking row: keep to one line in scaled mode */
-.sched-card[style*="max-height"] .sched-card-trackline {
+.is-time-scaled .sched-card-trackline{
+  font-size: 11px;
+  line-height: 1.05;
+  padding: 0 12px 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: clip;
 }
 
-/* Time-scaled mode: remove stack gaps so 10+20=30 visually */
-.is-time-scaled .schedule-dropzone{
-  gap: 0 !important;
-}
-
-/* Keep cards visually separated WITHOUT affecting the math (shadow doesn't take space) */
-.is-time-scaled .schedule-dropzone .sched-card{
-  box-shadow: 0 0 0 8px #f6f7f3;
-}
-
-/* Optional: tighten typography a touch so 5m base can stay reasonable */
-.is-time-scaled .sched-card-title{ font-size: 14px; line-height: 1.15; }
-.is-time-scaled .sched-card-minutes{ font-size: 13px; }
-.is-time-scaled .sched-card-symbolline{ font-size: 12px; }
-.is-time-scaled .sched-card-trackline{ font-size: 11px; }
-
-/* Optional: add a tiny divider without affecting spacing math */
-.is-time-scaled .schedule-dropzone .sched-card{
-  border-radius: 14px;
-}
-.is-time-scaled .schedule-dropzone .sched-card + .sched-card{
-  border-top: none;
-}
-
-.is-time-scaled .sched-card{
-  display: flex;
-  flex-direction: column;
-}
-
-.is-time-scaled .sched-card-sub,
-.is-time-scaled .sched-card-trackline{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* Keep remove icon anchored and not expanding layout */
+.is-time-scaled .sched-card-remove{
+  margin-top: auto;
 }
