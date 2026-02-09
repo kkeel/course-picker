@@ -2874,8 +2874,8 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
    ========================================================= */
 
 .sched-expanded{
-  /* Letter portrait printable content width with 0.5" margins (8.5 - 1.0 = 7.5) */
-  --sched-print-w: 7.5in;
+  /* Letter portrait printable content width with 0.5" margins (8.5 - 1.0 = 7.5, --9.5 for screens) */
+  --sched-print-w: 9.5in;
 
   /* Make columns â€œedge to edgeâ€ */
   --sched-cols-pad: 0px;     /* remove the big inner padding */
