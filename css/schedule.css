@@ -2196,7 +2196,7 @@ body.sched-dragging .sched-card{
   color: rgba(38,43,38,0.72) !important;
 }
 
-/* 5) Toggle row: keep styleÃƒâ€šÃ‚Â */
+/* 5) Toggle row: keep styleÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â */
 .sched-rail-filter-toggles .toggle{
   color: rgba(89,110,94,0.82) !important;
   font-weight: 600;
@@ -2774,7 +2774,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   height: 16px;
 }
 /* =========================================================
-   Schedule Card Style Modal ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Checkbox color
+   Schedule Card Style Modal ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Checkbox color
    ========================================================= */
 
 /* Modern browsers (Chrome, Edge, Firefox, Safari 15+) */
@@ -2877,7 +2877,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   /* Letter portrait printable content width with 0.5" margins (8.5 - 1.0 = 7.5, --9.5 for screens) */
   --sched-print-w: 9.5in;
 
-  /* Make columns â€œedge to edgeâ€ */
+  /* Make columns Ã¢â‚¬Å“edge to edgeÃ¢â‚¬Â */
   --sched-cols-pad: 0px;     /* remove the big inner padding */
   --sched-col-gap: 0px;      /* remove horizontal gaps between columns */
 
@@ -2936,6 +2936,10 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   border-bottom-right-radius: 16px !important;
   overflow: visible !important;
   background: #fbfbf9;
+
+  /* ensure the board stretches so bottom edges align across panels */
+  display: flex;
+  flex-direction: column;
 }
 
 /* Board fills panel; no inner scrollbars in Expanded */
@@ -2944,7 +2948,8 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   max-width: 100%;
   overflow: visible !important;
   padding-bottom: 0 !important;
-  height: auto;
+  height: 100%;
+  flex: 1;
 }
 
 /* Columns fill the panel width exactly */
@@ -2955,20 +2960,54 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   gap: var(--sched-col-gap) !important;
   grid-auto-columns: var(--sched-col-w) !important;
   align-items: stretch;
-  height: auto;
+  height: 100% !important;
+
+  /* single bottom edge for the whole week (aligns across panels) */
+  border-bottom: 1px solid #e5e8e5;
 }
 
 /* Make columns full-height look (no rounded corners, no horizontal spacing) */
 .sched-expanded .schedule-col{
   border-radius: 0 !important;
 
-  /* turn the â€œgapsâ€ into simple divider lines */
+  /* turn the Ã¢â‚¬Å“gapsÃ¢â‚¬Â into simple divider lines */
   border-top: 1px solid #e5e8e5;
-  border-bottom: 1px solid #e5e8e5;
+  /* bottom edge should be owned by the panel/row, not double-stroked */
+  border-bottom: 0;
   border-right: 1px solid #e5e8e5;
   border-left: 0;
 
   background: #fbfbf9;
+}
+
+/* In Expanded mode, the single bottom edge should be the panel edge (not doubled) */
+.sched-expanded .schedule-panel{
+  border-bottom-color: transparent !important;
+}
+
+/* Hide the workspace-resize handle in Expanded mode (it floats in a weird spot) */
+.sched-expanded .sched-workspace-resize{
+  display: none !important;
+}
+
+/* Expanded mode should let the rail match the board height (no independent lock) */
+.sched-expanded .sched-rail,
+.sched-expanded .sched-work{
+  height: auto !important;
+  max-height: none !important;
+}
+
+/* In Expanded mode, let the rail grow with the board (no internal scrolling) */
+.sched-expanded .sched-rail{
+  overflow: visible !important;
+}
+.sched-expanded .sched-rail-body{
+  overflow: visible !important;
+}
+
+/* Ensure the 2-column grid stretches both sides to the same height */
+.sched-expanded .schedule-grid{
+  align-items: stretch;
 }
 
 /* Left edge of the grid gets the left border */
