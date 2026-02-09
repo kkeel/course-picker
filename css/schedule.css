@@ -2941,3 +2941,57 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   gap: var(--sched-col-gap);
   grid-auto-columns: var(--sched-col-w-expanded);
 }
+
+/* =========================================================
+   Expanded mode — Print-width student panels (Letter portrait, 0.5" margins)
+   Panel width = 7.5in (printable content width)
+   Columns auto-fit to 5 days inside the panel (no overlap)
+   ========================================================= */
+
+.sched-expanded{
+  --sched-print-w: 7.5in;
+  --sched-cols-pad: 12px;
+  --sched-col-gap: 12px;
+
+  /* Force 5 columns to fit inside panel width:
+     panel width - left/right padding - 4 gaps, divided by 5 */
+  --sched-col-w: calc(
+    (var(--sched-print-w) - (2 * var(--sched-cols-pad)) - (4 * var(--sched-col-gap))) / 5
+  );
+}
+
+/* Make each student panel exactly “print page content width” */
+.sched-expanded .schedule-panel{
+  width: var(--sched-print-w) !important;
+  min-width: var(--sched-print-w) !important;
+  max-width: var(--sched-print-w) !important;
+}
+
+/* Lay panels in a horizontal row, page scroll handles overflow */
+.sched-expanded .schedule-panel-row{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 12px !important;
+  align-items: stretch;
+}
+
+/* Board should not create its own horizontal scroll in Expanded */
+.sched-expanded .schedule-panel .schedule-board{
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+}
+
+/* Force columns to fit panel width (this is the key fix) */
+.sched-expanded .schedule-panel .schedule-columns{
+  gap: var(--sched-col-gap) !important;
+  padding: var(--sched-cols-pad) !important;
+  width: 100% !important;
+  min-width: 0 !important;
+
+  grid-auto-columns: var(--sched-col-w) !important;
+}
+
+/* Safety: prevent any internal min-width from forcing overflow */
+.sched-expanded .schedule-panel .schedule-col{
+  min-width: 0 !important;
+}
