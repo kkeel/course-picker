@@ -2875,7 +2875,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 
 :root{
   /* Letter portrait printable width with 0.5" margins (8.5 - 1.0 = 7.5) */
-  --sched-print-w: 7.5in;
+  --sched-print-w: 9.5in;
 
   /* Keep these aligned with your existing schedule-columns spacing */
   --sched-col-gap: 12px;
@@ -2949,7 +2949,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
    ========================================================= */
 
 .sched-expanded{
-  --sched-print-w: 7.5in;
+  --sched-print-w: 9.5in;
   --sched-cols-pad: 12px;
   --sched-col-gap: 12px;
 
