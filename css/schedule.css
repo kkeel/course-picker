@@ -2901,6 +2901,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 /* Put the horizontal scrollbar on the overall schedule area */
 .sched-expanded .schedule-grid{
   overflow-x: auto;
+  overflow-y: visible;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -2943,16 +2944,18 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 }
 
 /* Board fills panel; no inner scrollbars in Expanded */
+/* Board fills panel; in Expanded mode it should grow with content (no internal scroll) */
 .sched-expanded .schedule-board{
   width: 100%;
   max-width: 100%;
   overflow: visible !important;
   padding-bottom: 0 !important;
-  height: 100%;
-  flex: 1;
+  height: auto !important;
+  flex: 0 0 auto !important;
 }
 
 /* Columns fill the panel width exactly */
+/* Columns fill the panel width exactly and grow vertically with their content */
 .sched-expanded .schedule-columns{
   width: 100% !important;
   min-width: 100% !important;
@@ -2960,7 +2963,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   gap: var(--sched-col-gap) !important;
   grid-auto-columns: var(--sched-col-w) !important;
   align-items: stretch;
-  height: 100% !important;
+  height: auto !important;
 
   /* single bottom edge for the whole week (aligns across panels) */
   border-bottom: 1px solid #e5e8e5;
@@ -2990,8 +2993,16 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   display: none !important;
 }
 
-/* Expanded mode should let the rail match the board height (no independent lock) */
-.sched-expanded .sched-rail,
+/* Expanded mode: rail height should follow the schedule board height (NOT the rail content).
+   JS will set --sched-expanded-h based on the schedule board. */
+.sched-expanded .sched-rail{
+  height: var(--sched-expanded-h, auto) !important;
+  max-height: var(--sched-expanded-h, none) !important;
+}
+.sched-expanded .sched-rail-body{
+  overflow: auto;
+  min-height: 0;
+}
 .sched-expanded .sched-work{
   height: auto !important;
   max-height: none !important;
@@ -3007,7 +3018,9 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 
 /* Ensure the 2-column grid stretches both sides to the same height */
 .sched-expanded .schedule-grid{
-  align-items: stretch;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Left edge of the grid gets the left border */
@@ -3025,47 +3038,3 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 .sched-expanded .schedule-dropzone{
   overflow: visible !important;
 }
-
-/* =========================================================
-   Expanded mode: cap the workspace height by the BOARD area
-   (rail must never create infinite page height)
-   ========================================================= */
-
-/* Make the whole schedule area a fixed-height viewport window */
-.sched-expanded .schedule-grid{
-  height: var(--sched-workspace-h) !important;
-  max-height: var(--sched-workspace-h) !important;
-  overflow-x: auto !important;   /* keep horizontal scroll */
-  overflow-y: auto !important;   /* vertical scroll for the workspace */
-  align-items: stretch;
-}
-
-/* Both left (rail) and right (board) columns must fill that window */
-.sched-expanded .sched-rail,
-.sched-expanded .sched-work{
-  height: 100% !important;
-  max-height: 100% !important;
-}
-
-/* Rail should NOT expand the page; it scrolls internally */
-.sched-expanded .sched-rail{
-  overflow: hidden !important;
-  display: flex;
-  flex-direction: column;
-}
-
-.sched-expanded .sched-rail-body{
-  flex: 1 1 auto;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-}
-
-/* Right side should not add its own vertical scrollbars */
-.sched-expanded .sched-work{
-  overflow: hidden !important;
-}
-
-.sched-expanded .schedule-panels{
-  height: 100% !important;
-}
-
