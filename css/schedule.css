@@ -188,20 +188,19 @@
 }
 
 /* Right builder: fixed-ish height with internal scrolling in panels/columns */
+/* Right builder: grow to content (page scroll), do NOT clamp to --sched-workspace-h */
 .sched-work{
-  max-height: var(--sched-workspace-h);
-  height: var(--sched-workspace-h);
-  overflow: hidden;         /* important: prevents the whole builder from growing */
-  display: flex;
-  flex-direction: column;
+  max-height: none;
+  height: auto;
+  overflow: visible;
+  display: block;
   min-height: 0;
 }
 
-/* Let the panels area take remaining height under the topbar */
 .sched-work .schedule-panels{
-  flex: 1;
+  flex: initial;
   min-height: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* =========================================================
@@ -997,7 +996,12 @@
 .sched-rail {
   display: flex;
   flex-direction: column;
-  min-height: 0; /* critical for nested scrolling */
+  min-height: 0; /* keep */
+
+  /* NEW: cap rail to the viewport and let the inner list scroll */
+  height: calc(100vh - var(--sched-rail-vh-offset, 210px));
+  max-height: calc(100vh - var(--sched-rail-vh-offset, 210px));
+  overflow: hidden;
 }
 
 /* sticky top area */
