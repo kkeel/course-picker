@@ -3035,3 +3035,51 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 .sched-expanded .schedule-dropzone{
   overflow: visible !important;
 }
+/* =========================================================
+   Expanded mode: BOARD grows with content (page scroll),
+   RAIL is viewport-height and scrolls internally.
+   ========================================================= */
+
+/* Board side should be natural height */
+.sched-expanded .sched-work{
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.sched-expanded .schedule-panels{
+  overflow: visible !important;
+}
+
+/* IMPORTANT: stop any “100% height” forcing blank space */
+.sched-expanded .schedule-panel-body,
+.sched-expanded .schedule-board,
+.sched-expanded .schedule-columns{
+  height: auto !important;
+  max-height: none !important;
+}
+
+/* Rail should NEVER expand the page */
+.sched-expanded .sched-rail{
+  height: var(--sched-workspace-h) !important;      /* this is your 100vh-260px */
+  max-height: var(--sched-workspace-h) !important;
+  overflow: hidden !important;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Rail list is the only scroller */
+.sched-expanded .sched-rail-body{
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* If you have any rail “scroll wrapper” class, keep it from breaking */
+.sched-expanded .sched-rail-scroll{
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  min-height: 0;
+}
