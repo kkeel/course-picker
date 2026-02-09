@@ -778,6 +778,28 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       // Expanded Mode
       // -----------------------------
       expandedMode: false,
+
+      // Keep rail height matched to the schedule board (NOT the rail list).
+      // In Expanded mode we let the board grow to its full content height,
+      // then constrain the rail to that same height and scroll its body.
+      syncExpandedHeights() {
+        try {
+          if (!this.expandedMode) {
+            document.documentElement.style.removeProperty("--sched-expanded-h");
+            return;
+          }
+
+          const work = document.querySelector(".sched-work");
+          if (!work) return;
+
+          // scrollHeight reflects the full height of the schedule board content.
+          // Add a tiny buffer so borders don't clip.
+          const h = Math.max(0, work.scrollHeight + 2);
+          if (h) document.documentElement.style.setProperty("--sched-expanded-h", `${h}px`);
+        } catch (_) {
+          // ignore
+        }
+      },
         
         toggleExpanded() {
           this.expandedMode = !this.expandedMode;
@@ -975,6 +997,9 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       
         // workspace resizer (rail + schedule board height)
         requestAnimationFrame(() => this.initWorkspaceResizer());
+
+        // Ensure Expanded mode starts with correct measured heights.
+        this.$nextTick(() => this.syncExpandedHeights());
 
         // Keep the expanded rail height in sync with the schedule board
         window.addEventListener("resize", () => {
