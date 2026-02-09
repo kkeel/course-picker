@@ -2869,21 +2869,21 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 /* =========================================================
    Expanded mode (Print-width panels)
    - Each student panel = Letter portrait content width (7.5in)
-   - 5 day columns fit inside the panel
-   - Horizontal scrolling happens at the schedule area level
+   - Columns fill the full panel width (minimal gutters)
+   - No rounded corners, no internal column scrolling
    ========================================================= */
 
-:root{
-  /* Letter portrait printable width with 0.5" margins (8.5 - 1.0 = 7.5) */
-  --sched-print-w: 9.5in;
+.sched-expanded{
+  /* Letter portrait printable content width with 0.5" margins (8.5 - 1.0 = 7.5) */
+  --sched-print-w: 7.5in;
 
-  /* Keep these aligned with your existing schedule-columns spacing */
-  --sched-col-gap: 12px;
-  --sched-cols-pad: 12px;
+  /* Make columns “edge to edge” */
+  --sched-cols-pad: 0px;     /* remove the big inner padding */
+  --sched-col-gap: 0px;      /* remove horizontal gaps between columns */
 
-  /* Column width so 5 columns fit perfectly inside 7.5in */
-  --sched-col-w-expanded: calc(
-    (var(--sched-print-w) - (var(--sched-cols-pad) * 2) - (var(--sched-col-gap) * 4)) / 5
+  /* 5 equal columns fit exactly inside the panel */
+  --sched-col-w: calc(
+    (var(--sched-print-w) - (2 * var(--sched-cols-pad)) - (4 * var(--sched-col-gap))) / 5
   );
 }
 
@@ -2904,42 +2904,88 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   -webkit-overflow-scrolling: touch;
 }
 
-/* Use a single horizontal row of panels that can overflow and scroll */
+/* Panels become a single horizontal row */
 .sched-expanded .schedule-panel-row{
-  display: flex;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 12px !important;          /* keep a little space BETWEEN student panels */
   align-items: stretch;
-  gap: 12px;
-  width: max-content;      /* row becomes as wide as all panels together */
+  width: max-content;
 }
 
-/* Each student panel = print width and NEVER shrinks/overlaps */
+/* Each student panel = print width and never shrinks */
 .sched-expanded .schedule-panel{
   flex: 0 0 auto;
-  width: var(--sched-print-w);
-  min-width: var(--sched-print-w);
-  max-width: var(--sched-print-w);
+  width: var(--sched-print-w) !important;
+  min-width: var(--sched-print-w) !important;
+  max-width: var(--sched-print-w) !important;
+
+  /* square it off */
+  border-radius: 0 !important;
 }
 
-/* Allow board content to be fully visible inside the panel */
+/* Header stays tinted but squared */
+.sched-expanded .schedule-panel-head{
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+/* Minimal space between header and columns */
 .sched-expanded .schedule-panel-body{
-  overflow: visible;
+  padding: 8px 0 0 !important;      /* small top breathing room only */
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  overflow: visible !important;
+  background: #fbfbf9;
 }
 
-/* Board should fill the panel, not become max-content wider than it */
+/* Board fills panel; no inner scrollbars in Expanded */
 .sched-expanded .schedule-board{
   width: 100%;
   max-width: 100%;
-  overflow: visible;       /* no inner horizontal scroll in expanded */
-  padding-bottom: 0;
+  overflow: visible !important;
+  padding-bottom: 0 !important;
+  height: auto;
 }
 
-/* Force 5 equal columns inside the print width */
+/* Columns fill the panel width exactly */
 .sched-expanded .schedule-columns{
-  width: 100%;
-  min-width: 100%;
-  padding: var(--sched-cols-pad);
-  gap: var(--sched-col-gap);
-  grid-auto-columns: var(--sched-col-w-expanded);
+  width: 100% !important;
+  min-width: 100% !important;
+  padding: var(--sched-cols-pad) !important;
+  gap: var(--sched-col-gap) !important;
+  grid-auto-columns: var(--sched-col-w) !important;
+  align-items: stretch;
+  height: auto;
+}
+
+/* Make columns full-height look (no rounded corners, no horizontal spacing) */
+.sched-expanded .schedule-col{
+  border-radius: 0 !important;
+
+  /* turn the “gaps” into simple divider lines */
+  border-top: 1px solid #e5e8e5;
+  border-bottom: 1px solid #e5e8e5;
+  border-right: 1px solid #e5e8e5;
+  border-left: 0;
+
+  background: #fbfbf9;
+}
+
+/* Left edge of the grid gets the left border */
+.sched-expanded .schedule-col:first-child{
+  border-left: 1px solid #e5e8e5;
+}
+
+/* Square column headers */
+.sched-expanded .schedule-col-head{
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+/* No internal scrolling inside columns in Expanded mode */
+.sched-expanded .schedule-dropzone{
+  overflow: visible !important;
 }
 
 /* =========================================================
