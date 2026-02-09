@@ -2196,7 +2196,7 @@ body.sched-dragging .sched-card{
   color: rgba(38,43,38,0.72) !important;
 }
 
-/* 5) Toggle row: keep styleÃ‚Â */
+/* 5) Toggle row: keep styleÃƒâ€šÃ‚Â */
 .sched-rail-filter-toggles .toggle{
   color: rgba(89,110,94,0.82) !important;
   font-weight: 600;
@@ -2774,7 +2774,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   height: 16px;
 }
 /* =========================================================
-   Schedule Card Style Modal ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Checkbox color
+   Schedule Card Style Modal ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Checkbox color
    ========================================================= */
 
 /* Modern browsers (Chrome, Edge, Firefox, Safari 15+) */
@@ -2877,7 +2877,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   /* Letter portrait printable content width with 0.5" margins (8.5 - 1.0 = 7.5) */
   --sched-print-w: 7.5in;
 
-  /* Make columns “edge to edge” */
+  /* Make columns â€œedge to edgeâ€ */
   --sched-cols-pad: 0px;     /* remove the big inner padding */
   --sched-col-gap: 0px;      /* remove horizontal gaps between columns */
 
@@ -2919,22 +2919,21 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   width: var(--sched-print-w) !important;
   min-width: var(--sched-print-w) !important;
   max-width: var(--sched-print-w) !important;
-
-  /* square it off */
-  border-radius: 0 !important;
+  /* keep the student panel rounded */
+  border-radius: 16px !important;
 }
 
 /* Header stays tinted but squared */
 .sched-expanded .schedule-panel-head{
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
+  border-top-left-radius: 16px !important;
+  border-top-right-radius: 16px !important;
 }
 
 /* Minimal space between header and columns */
 .sched-expanded .schedule-panel-body{
-  padding: 8px 0 0 !important;      /* small top breathing room only */
-  border-bottom-left-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
+  padding: 10px 0 0 !important; /* small top breathing room only */
+  border-bottom-left-radius: 16px !important;
+  border-bottom-right-radius: 16px !important;
   overflow: visible !important;
   background: #fbfbf9;
 }
@@ -2963,7 +2962,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 .sched-expanded .schedule-col{
   border-radius: 0 !important;
 
-  /* turn the “gaps” into simple divider lines */
+  /* turn the â€œgapsâ€ into simple divider lines */
   border-top: 1px solid #e5e8e5;
   border-bottom: 1px solid #e5e8e5;
   border-right: 1px solid #e5e8e5;
@@ -2986,58 +2985,4 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 /* No internal scrolling inside columns in Expanded mode */
 .sched-expanded .schedule-dropzone{
   overflow: visible !important;
-}
-
-/* =========================================================
-   Expanded mode — Print-width student panels (Letter portrait, 0.5" margins)
-   Panel width = 7.5in (printable content width)
-   Columns auto-fit to 5 days inside the panel (no overlap)
-   ========================================================= */
-
-.sched-expanded{
-  --sched-print-w: 9.5in;
-  --sched-cols-pad: 12px;
-  --sched-col-gap: 12px;
-
-  /* Force 5 columns to fit inside panel width:
-     panel width - left/right padding - 4 gaps, divided by 5 */
-  --sched-col-w: calc(
-    (var(--sched-print-w) - (2 * var(--sched-cols-pad)) - (4 * var(--sched-col-gap))) / 5
-  );
-}
-
-/* Make each student panel exactly “print page content width” */
-.sched-expanded .schedule-panel{
-  width: var(--sched-print-w) !important;
-  min-width: var(--sched-print-w) !important;
-  max-width: var(--sched-print-w) !important;
-}
-
-/* Lay panels in a horizontal row, page scroll handles overflow */
-.sched-expanded .schedule-panel-row{
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  gap: 12px !important;
-  align-items: stretch;
-}
-
-/* Board should not create its own horizontal scroll in Expanded */
-.sched-expanded .schedule-panel .schedule-board{
-  overflow-x: hidden !important;
-  overflow-y: hidden !important;
-}
-
-/* Force columns to fit panel width (this is the key fix) */
-.sched-expanded .schedule-panel .schedule-columns{
-  gap: var(--sched-col-gap) !important;
-  padding: var(--sched-cols-pad) !important;
-  width: 100% !important;
-  min-width: 0 !important;
-
-  grid-auto-columns: var(--sched-col-w) !important;
-}
-
-/* Safety: prevent any internal min-width from forcing overflow */
-.sched-expanded .schedule-panel .schedule-col{
-  min-width: 0 !important;
 }
