@@ -782,6 +782,8 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         toggleExpanded() {
           this.expandedMode = !this.expandedMode;
           this.persistUi();
+          // When entering/leaving expanded mode, re-measure so the rail can match the board.
+          this.$nextTick(() => this.syncExpandedHeights());
         },
 
       // -----------------------------
@@ -973,6 +975,23 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       
         // workspace resizer (rail + schedule board height)
         requestAnimationFrame(() => this.initWorkspaceResizer());
+
+        // Keep the expanded rail height in sync with the schedule board
+        window.addEventListener("resize", () => {
+          clearTimeout(this._expandedSyncT);
+          this._expandedSyncT = setTimeout(() => this.syncExpandedHeights(), 80);
+        });
+
+        // Observe schedule DOM changes so heights stay correct as cards are added/removed.
+        const row = document.querySelector(".schedule-panel-row");
+        if (row) {
+          const obs = new MutationObserver(() => {
+            clearTimeout(this._expandedSyncMO);
+            this._expandedSyncMO = setTimeout(() => this.syncExpandedHeights(), 50);
+          });
+          obs.observe(row, { childList: true, subtree: true, attributes: true });
+        }
+
       
         // load cards
         const savedCards = loadKey(CARDS_STORAGE_KEY);
@@ -2412,15 +2431,17 @@ dayTotalMinutes(studentId, dayIndex) {
       },
 
       getWorkspaceHeightPx() {
-        const rail = document.querySelector(".sched-rail");
-        if (!rail) return 0;
-        return Math.round(rail.getBoundingClientRect().height || 0);
+        // IMPORTANT: workspace height should be driven by the schedule board area,
+        // not the rail list (the rail can be "endless" when unfiltered).
+        const work = document.querySelector(".sched-work");
+        if (!work) return 0;
+        return Math.round(work.getBoundingClientRect().height || 0);
       },
 
       initWorkspaceResizer() {
         const handle = document.getElementById("schedWorkspaceResize");
-        const rail = document.querySelector(".sched-rail");
-        if (!handle || !rail) return;
+        const work = document.querySelector(".sched-work");
+        if (!handle || !work) return;
 
         // restore saved height if available
         const saved = window.localStorage ? localStorage.getItem(WORKSPACE_H_KEY) : null;
@@ -2460,7 +2481,7 @@ dayTotalMinutes(studentId, dayIndex) {
           if (e.button !== undefined && e.button !== 0) return;
           e.preventDefault();
           startY = e.clientY;
-          startH = this.getWorkspaceHeightPx() || Math.round(rail.getBoundingClientRect().height || 0);
+          startH = this.getWorkspaceHeightPx() || Math.round(work.getBoundingClientRect().height || 0);
           document.body.classList.add("is-resizing-workspace");
           window.addEventListener("pointermove", onMove);
           window.addEventListener("pointerup", onUp, { once: true });
