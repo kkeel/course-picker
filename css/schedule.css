@@ -2200,7 +2200,7 @@ body.sched-dragging .sched-card{
   color: rgba(38,43,38,0.72) !important;
 }
 
-/* 5) Toggle row: keep styleÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â */
+/* 5) Toggle row: keep styleÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â */
 .sched-rail-filter-toggles .toggle{
   color: rgba(89,110,94,0.82) !important;
   font-weight: 600;
@@ -2778,7 +2778,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   height: 16px;
 }
 /* =========================================================
-   Schedule Card Style Modal ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Checkbox color
+   Schedule Card Style Modal ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Checkbox color
    ========================================================= */
 
 /* Modern browsers (Chrome, Edge, Firefox, Safari 15+) */
@@ -2881,7 +2881,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   /* Letter portrait printable content width with 0.5" margins (8.5 - 1.0 = 7.5, --9.5 for screens) */
   --sched-print-w: 9.5in;
 
-  /* Make columns Ã¢â‚¬Å“edge to edgeÃ¢â‚¬Â */
+  /* Make columns ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œedge to edgeÃƒÂ¢Ã¢â€šÂ¬Ã‚Â */
   --sched-cols-pad: 0px;     /* remove the big inner padding */
   --sched-col-gap: 0px;      /* remove horizontal gaps between columns */
 
@@ -2974,7 +2974,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 .sched-expanded .schedule-col{
   border-radius: 0 !important;
 
-  /* turn the Ã¢â‚¬Å“gapsÃ¢â‚¬Â into simple divider lines */
+  /* turn the ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œgapsÃƒÂ¢Ã¢â€šÂ¬Ã‚Â into simple divider lines */
   border-top: 1px solid #e5e8e5;
   /* bottom edge should be owned by the panel/row, not double-stroked */
   border-bottom: 0;
@@ -2996,7 +2996,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 
 /* Expanded mode: rail height matches the schedule board height.
    The board is allowed to grow to its full content height; the rail body scrolls inside that same height
-   so the rail list never forces an â€œendless pageâ€. */
+   so the rail list never forces an Ã¢â‚¬Å“endless pageÃ¢â‚¬Â. */
 .sched-expanded{
   --sched-expanded-h: auto;
 }
@@ -3051,7 +3051,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   overflow: visible !important;
 }
 
-/* IMPORTANT: stop any “100% height” forcing blank space */
+/* IMPORTANT: stop any â€œ100% heightâ€ forcing blank space */
 .sched-expanded .schedule-panel-body,
 .sched-expanded .schedule-board,
 .sched-expanded .schedule-columns{
@@ -3077,9 +3077,109 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   overflow-x: hidden !important;
 }
 
-/* If you have any rail “scroll wrapper” class, keep it from breaking */
+/* If you have any rail â€œscroll wrapperâ€ class, keep it from breaking */
 .sched-expanded .sched-rail-scroll{
   overflow-y: auto !important;
   overflow-x: hidden !important;
   min-height: 0;
+}
+
+
+/* =========================================================
+   Docked (frozen) Scheduling Cards rail
+   - Keeps the rail visible during BOTH vertical + horizontal scrolling
+   - Collapses to a skinny "handle" when closed
+   ========================================================= */
+
+:root{
+  --sched-rail-open-w: 360px;     /* open width */
+  --sched-rail-collapsed-w: 44px; /* closed width */
+  --sched-rail-gap: 16px;         /* space between rail + board */
+  --sched-rail-top: 120px;        /* below app header */
+  --sched-rail-left: 24px;        /* page padding on small screens */
+}
+
+/* match the larger page padding on desktop */
+@media (min-width: 1024px){
+  :root{ --sched-rail-left: 64px; }
+}
+
+/* visually-hidden helper (if not already in global styles) */
+.sr-only{
+  position:absolute!important;
+  width:1px!important;
+  height:1px!important;
+  padding:0!important;
+  margin:-1px!important;
+  overflow:hidden!important;
+  clip:rect(0,0,0,0)!important;
+  white-space:nowrap!important;
+  border:0!important;
+}
+
+.sched-rail-dock-handle{ display:none; }
+
+.schedule-grid.rail-docked{
+  /* rail becomes fixed so the grid column no longer makes sense */
+  grid-template-columns: 1fr !important;
+}
+
+.schedule-grid.rail-docked .sched-rail{
+  position: fixed;
+  top: var(--sched-rail-top);
+  left: var(--sched-rail-left);
+  width: var(--sched-rail-open-w);
+  height: calc(100vh - var(--sched-rail-top) - 16px);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-grid.rail-docked .sched-rail-dock-handle{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  color: #596e5e;
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+.schedule-grid.rail-docked .sched-rail-dock-icon{
+  width: 18px;
+  height: 18px;
+}
+
+/* the schedule workspace shifts right to make room for the fixed rail */
+.schedule-grid.rail-docked .sched-work{
+  margin-left: calc(var(--sched-rail-open-w) + var(--sched-rail-gap));
+}
+
+/* CLOSED (collapsed) */
+.schedule-grid.rail-docked.rail-docked--collapsed .sched-rail{
+  width: var(--sched-rail-collapsed-w);
+  padding: 10px 6px !important;
+}
+
+.schedule-grid.rail-docked.rail-docked--collapsed .sched-work{
+  margin-left: calc(var(--sched-rail-collapsed-w) + var(--sched-rail-gap));
+}
+
+/* hide all rail content when collapsed (keep only the handle button) */
+.schedule-grid.rail-docked.rail-docked--collapsed .sched-rail-head,
+.schedule-grid.rail-docked.rail-docked--collapsed .sched-rail-top,
+.schedule-grid.rail-docked.rail-docked--collapsed .sched-rail-list,
+.schedule-grid.rail-docked.rail-docked--collapsed .sched-rail-footer{
+  display: none !important;
+}
+
+/* flip the chevron when collapsed */
+.schedule-grid.rail-docked.rail-docked--collapsed .sched-rail-dock-icon{
+  transform: rotate(180deg);
 }
