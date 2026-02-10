@@ -155,6 +155,7 @@
       dayViewStudentSlots: ["S1", "S2", "S3", "S4", "S5"],
       // Left rail UI
       railTopCollapsed: false,
+    railDockCollapsed: false,
       showCompleted: false,
       // Rail filters (affect rail ONLY — never the schedule columns)
       railGradeFilter: "", // "" = all; otherwise "G1".."G12"
@@ -839,6 +840,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       
         // Restore left-rail UI toggles
         this.railTopCollapsed = !!normalizedUi.railTopCollapsed;
+        this.railDockCollapsed = !!normalizedUi.railDockCollapsed;
         this.showCompleted = !!normalizedUi.showCompleted;
         this.railGradeFilter = normalizedUi.railGradeFilter || "";
         this.railMyCoursesOnly = !!normalizedUi.railMyCoursesOnly;
@@ -910,6 +912,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
             dayViewPanels: this.dayViewPanels,
             dayViewStudentSlots: this.dayViewStudentSlots,
             railTopCollapsed: this.railTopCollapsed,
+        railDockCollapsed: this.railDockCollapsed,
             showCompleted: this.showCompleted,
             railGradeFilter: this.railGradeFilter,
             railMyCoursesOnly: this.railMyCoursesOnly,
@@ -2049,6 +2052,24 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       this.railTopCollapsed = !this.railTopCollapsed;
       this.persistUi();
     },
+toggleRailDock() {
+      this.railDockCollapsed = !this.railDockCollapsed;
+      // when opening, ensure the rail list scroll is at top so it feels intentional
+      this.$nextTick(() => {
+        if (!this.railDockCollapsed) {
+          const list = document.querySelector('.sched-rail-list');
+          if (list) list.scrollTop = 0;
+        }
+      });
+      this.persistUi();
+    },    updateRailDockMetrics() {
+      const header = document.querySelector('.app-header');
+      const h = header ? header.getBoundingClientRect().height : 0;
+      document.documentElement.style.setProperty('--sched-rail-top', `${Math.round(h + 16)}px`);
+    },
+
+
+
 
       completedRailLabel() {
         return this.showCompleted ? "Hide completed" : "Show completed";
