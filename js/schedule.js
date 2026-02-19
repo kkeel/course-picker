@@ -163,11 +163,6 @@
       railMyCoursesOnly: false,
       railStudentAssignedOnly: false,
 
-      // Schedule board card style (Phase 1 persistence only)
-      boardAddSymbols: true,
-      boardAddTracking: true,
-      boardScaleByTime: false,
-
       railSearch: "", // rail title search
 
       // Rail header "target student" selector (persists across refresh)
@@ -854,6 +849,8 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         this.railMyCoursesOnly = !!normalizedUi.railMyCoursesOnly;
         this.railStudentAssignedOnly = !!normalizedUi.railStudentAssignedOnly;
         this.railSearch = String(normalizedUi.railSearch || "");
+        this.railDockOpen = (typeof normalizedUi.railDockOpen === "boolean") ? normalizedUi.railDockOpen : true;
+        this.railDockCollapsed = (typeof normalizedUi.railDockCollapsed === "boolean") ? normalizedUi.railDockCollapsed : false;
 
         // Schedule board card style (board only; rail unaffected)
         this.boardAddSymbols = (typeof normalizedUi.boardAddSymbols === "boolean") ? normalizedUi.boardAddSymbols : true;
