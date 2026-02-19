@@ -154,8 +154,9 @@
       ],
       dayViewStudentSlots: ["S1", "S2", "S3", "S4", "S5"],
       // Left rail UI
+      railDockOpen: true,
       railTopCollapsed: false,
-    railDockCollapsed: false,
+      railDockCollapsed: false,
       showCompleted: false,
       // Rail filters (affect rail ONLY — never the schedule columns)
       railGradeFilter: "", // "" = all; otherwise "G1".."G12"
@@ -226,6 +227,7 @@
 
     const railTopCollapsed = typeof state?.railTopCollapsed === 'boolean' ? state.railTopCollapsed : d.railTopCollapsed;
     const showCompleted = typeof state?.showCompleted === 'boolean' ? state.showCompleted : d.showCompleted;
+    const railDockOpen = typeof state?.railDockOpen === "boolean" ? state.railDockOpen : d.railDockOpen;
 
     // Rail filters (rail ONLY)
     const railGradeFilterRaw = typeof state?.railGradeFilter === 'string' ? state.railGradeFilter : d.railGradeFilter;
@@ -774,6 +776,12 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         closeCardStyleModal() {
           this.cardStyleModalOpen = false;
         },
+
+      toggleRailDock() {
+        this.ui.railDockOpen = !this.ui.railDockOpen;
+        this.persistUi?.(); // or whatever your current UI-save function is named
+        this.$nextTick?.(() => window.dispatchEvent(new Event("resize")));
+      },
 
       // -----------------------------
       // Expanded Mode
