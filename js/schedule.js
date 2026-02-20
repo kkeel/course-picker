@@ -45,7 +45,9 @@
 
     // If slots are missing or obviously placeholder-ish, seed from available students.
     const incoming = Array.isArray(slots) ? slots.slice(0, desired) : [];
-    const cleaned = incoming.map((v) => (typeof v === "string" ? v : "").trim()).filter((v, i) => i < desired);
+    const cleaned = incoming
+      .map((v) => (typeof v === "string" ? v : "").trim())
+      .filter(Boolean);
 
     // Drop invalid ids.
     const valid = cleaned.map((id) => (studentIds.includes(id) ? id : ""));
@@ -318,6 +320,10 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       dayViewPanels,
       dayViewStudentSlots,
       railTopCollapsed,
+      railDockOpen,
+      railDockCollapsed: (typeof state?.railDockCollapsed === "boolean")
+        ? state.railDockCollapsed
+        : d.railDockCollapsed,
       showCompleted,
       railGradeFilter,
       railMyCoursesOnly,
@@ -716,7 +722,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       openDayMenu: null,
       openDayStudentMenu: null,
       // Students (from planner state)
-      students: plannerStudents(),
+      students: [],
 
       // Color picker state (matches Course/Book pages)
       colorPickerFor: null,
@@ -759,10 +765,13 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       // Rail list: show/hide completed cards (per active rail student)
       showCompleted: false,
       railTopCollapsed: false,
+      railDockOpen: true,
+      railDockCollapsed: false,
       // Rail filters (affect rail ONLY)
       railGradeFilter: "",
       railMyCoursesOnly: false,
       railStudentAssignedOnly: false,
+      railSearch: "",
 
       cardStyleModalOpen: false,
       openCardStyleModal() {
@@ -772,16 +781,13 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           this.cardStyleModalOpen = false;
         },
 
-      toggleRailDock() {
-        this.ui.railDockOpen = !this.ui.railDockOpen;
-        this.persistUi?.(); // or whatever your current UI-save function is named
-        this.$nextTick?.(() => window.dispatchEvent(new Event("resize")));
-      },
-
       // -----------------------------
       // Expanded Mode
       // -----------------------------
       expandedMode: false,
+      boardAddSymbols: true,
+      boardAddTracking: true,
+      boardScaleByTime: false,
 
       // Keep rail height matched to the schedule board (NOT the rail list).
       // In Expanded mode we let the board grow to its full content height,
@@ -843,7 +849,6 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       
         // Restore left-rail UI toggles
         this.railTopCollapsed = !!normalizedUi.railTopCollapsed;
-        this.railDockCollapsed = !!normalizedUi.railDockCollapsed;
         this.showCompleted = !!normalizedUi.showCompleted;
         this.railGradeFilter = normalizedUi.railGradeFilter || "";
         this.railMyCoursesOnly = !!normalizedUi.railMyCoursesOnly;
@@ -917,7 +922,8 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
             dayViewPanels: this.dayViewPanels,
             dayViewStudentSlots: this.dayViewStudentSlots,
             railTopCollapsed: this.railTopCollapsed,
-        railDockCollapsed: this.railDockCollapsed,
+            railDockOpen: this.railDockOpen,
+            railDockCollapsed: this.railDockCollapsed,
             showCompleted: this.showCompleted,
             railGradeFilter: this.railGradeFilter,
             railMyCoursesOnly: this.railMyCoursesOnly,
@@ -925,10 +931,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
             railSearch: this.railSearch,
             expandedMode: this.expandedMode,
 
-          // Schedule board card style
-          boardAddSymbols: this.boardAddSymbols,
-          boardAddTracking: this.boardAddTracking,
-          boardScaleByTime: this.boardScaleByTime,
+            // Schedule board card style
             boardAddSymbols: this.boardAddSymbols,
             boardAddTracking: this.boardAddTracking,
             boardScaleByTime: this.boardScaleByTime,
@@ -1157,6 +1160,10 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           }
       
           this.activeTarget = { studentId, dayIndex };
+          
+          // ✅ keep rail selector fields in sync immediately (don’t rely on watchers firing)
+          this.activeTargetStudentId = studentId;
+          this.activeTargetDayIndex = dayIndex;
         }
       
         // ✅ CHANGED: only persist UI now if we have real student ids.
@@ -1166,6 +1173,9 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         }
       
         this.persistCards();
+
+        this.$nextTick(() => this.updateRailDockMetrics());
+        window.addEventListener("resize", () => this.updateRailDockMetrics());
       
         // Keep the "assign cards to student" selector persistent even if the DOM handler changes.
         if (typeof this.$watch === "function") {
@@ -1196,6 +1206,8 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           visibleDays: this.visibleDays,
           panels: this.visibleStudentPanels.map((p) => ({ slot: p.slot, studentId: p.studentId })),
           railTopCollapsed: this.railTopCollapsed,
+          railDockOpen: this.railDockOpen,
+          railDockCollapsed: this.railDockCollapsed,
           showCompleted: this.showCompleted,
           railGradeFilter: this.railGradeFilter,
           railMyCoursesOnly: this.railMyCoursesOnly,
@@ -1205,6 +1217,9 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           dayViewStudentSlots: (this.dayViewStudentSlots || []).slice(0, 5),
           activeTargetStudentId: this.activeTargetStudentId || this.activeTarget?.studentId,
           activeTargetDayIndex: Number.isInteger(Number(this.activeTargetDayIndex)) ? Number(this.activeTargetDayIndex) : this.activeTarget?.dayIndex,
+          boardAddSymbols: this.boardAddSymbols,
+          boardAddTracking: this.boardAddTracking,
+          boardScaleByTime: this.boardScaleByTime,
           expandedMode: this.expandedMode,
         });
       },
@@ -1241,6 +1256,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         // keep active day valid
         if (!this.visibleDays.includes(this.activeTarget.dayIndex)) {
           this.activeTarget.dayIndex = this.visibleDays[0];
+          this.activeTargetDayIndex = this.activeTarget.dayIndex;
         }
 
         this.persistUi();
@@ -1421,7 +1437,6 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         if (!name) return;
 
         // Update shared planner state (same store used across pages)
-        const key = getPlannerStateKey() || "alveary_planner_local_v1";
         const planner = loadPlannerState() || { version: "local", students: [] };
         const students = Array.isArray(planner.students) ? planner.students.slice() : [];
 
@@ -1439,7 +1454,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         students.push(student);
         planner.students = students;
 
-        saveKey(key, planner);
+        savePlannerState(planner);
         this.newStudentName = "";
 
         // Immediately refresh this page (the poll will also keep it in sync)
@@ -1448,11 +1463,10 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
 
       removeStudent(id) {
         if (!id) return;
-        const key = getPlannerStateKey() || "alveary_planner_local_v1";
         const planner = loadPlannerState() || { version: "local", students: [] };
         const students = Array.isArray(planner.students) ? planner.students.slice() : [];
         planner.students = students.filter((s) => s && s.id !== id);
-        saveKey(key, planner);
+        savePlannerState(planner);
 
         if (typeof this._plannerPoll === "function") this._plannerPoll();
       },
@@ -2048,7 +2062,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         });
       },
 
-      toggleCompletedRail() {
+    toggleCompletedRail() {
       this.showCompleted = !this.showCompleted;
       this.persistUi();
     },
@@ -2057,7 +2071,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       this.railTopCollapsed = !this.railTopCollapsed;
       this.persistUi();
     },
-toggleRailDock() {
+    toggleRailDockCollapsed() {
       this.railDockCollapsed = !this.railDockCollapsed;
       // when opening, ensure the rail list scroll is at top so it feels intentional
       this.$nextTick(() => {
@@ -2067,7 +2081,13 @@ toggleRailDock() {
         }
       });
       this.persistUi();
-    },    updateRailDockMetrics() {
+    },
+    toggleRailDockOpen() {
+      this.railDockOpen = !this.railDockOpen;
+      this.$nextTick(() => window.dispatchEvent(new Event("resize")));
+      this.persistUi();
+    },
+    updateRailDockMetrics() {
       const header = document.querySelector('.app-header');
       const h = header ? header.getBoundingClientRect().height : 0;
       document.documentElement.style.setProperty('--sched-rail-top', `${Math.round(h + 16)}px`);
@@ -2088,7 +2108,11 @@ toggleRailDock() {
 
       // active target (click a column to set)
       setActiveTarget(studentId, dayIndex) {
-        this.activeTarget = { studentId, dayIndex: Number(dayIndex) };
+        const d = Number(dayIndex);
+        this.activeTarget = { studentId, dayIndex: d };
+        this.activeTargetStudentId = studentId;
+        this.activeTargetDayIndex = d;
+        this.persistUi();
       },
 
       activeTargetLabel() {
@@ -2432,7 +2456,8 @@ dayTotalMinutes(studentId, dayIndex) {
 
       // Picture Study choice
       setPictureStudyBand(band) {
-        this.choices.pictureStudyBand = band;
+        if (!this.choices.courseOptions) this.choices.courseOptions = {};
+        this.choices.courseOptions["picture-study"] = band;
         this.persistCards();
       },
 
