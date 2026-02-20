@@ -3183,3 +3183,70 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 .schedule-grid.rail-docked.rail-docked--collapsed .sched-rail-dock-icon{
   transform: rotate(180deg);
 }
+
+/* =========================================================
+   Rail layout: sticky header + scrollable body
+   ========================================================= */
+
+.sched-rail{
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* critical when inside a grid */
+}
+
+/* keep the top/header from shrinking */
+.sched-rail-top{
+  flex: 0 0 auto;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #fff; /* so it doesn't show scrolled cards underneath */
+  padding-bottom: 10px;
+}
+
+/* this is the scroll container */
+.sched-rail-body{
+  flex: 1 1 auto;
+  min-height: 0;      /* critical so overflow works */
+  overflow: auto;
+  padding-right: 4px; /* tiny gutter so scrollbar doesn't sit on content */
+}
+
+/* =========================================================
+   Rail dock: open/closed widths
+   ========================================================= */
+
+@media (min-width: 1024px){
+  .schedule-grid--rail{
+    display: grid;
+    grid-template-columns: var(--rail-w, 380px) 1fr;
+  }
+  .schedule-grid--rail.rail-open{  --rail-w: 380px; }
+  .schedule-grid--rail.rail-closed{ --rail-w: 48px; }
+}
+
+.sched-rail-dock-btn{
+  border: 1px solid #e5e8e5;
+  background: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #596e5e;
+  opacity: .85;
+}
+.sched-rail-dock-btn:hover{ opacity: 1; }
+
+/* When closed: keep header visible, hide the heavy content */
+.sched-rail--closed .sched-rail-top-controls,
+.sched-rail--closed .sched-rail-body{
+  display: none;
+}
+
+/* Optional: tighten padding when closed so it looks intentional */
+.sched-rail--closed{
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
