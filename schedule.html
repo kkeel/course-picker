@@ -276,14 +276,13 @@
             </div>
 </div>
 
-<div class="schedule-grid mt-6 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6"
-     :class="expandedMode ? (railDockCollapsed ? 'rail-docked rail-docked--collapsed' : 'rail-docked') : ''">
+<div class="schedule-grid schedule-grid--rail mt-6 grid items-stretch grid-cols-1 gap-6"
+     :class="railDockOpen ? 'rail-open' : 'rail-closed'">
           
           <!-- Left card rail (Phase 2.5) -->
           
-<div
-            class="sched-rail p-4 rounded-lg border border-[#e5e8e5] bg-white"
-          >
+        <div class="sched-rail p-4 rounded-lg border border-[#e5e8e5] bg-white"
+             :class="railDockOpen ? 'sched-rail--open' : 'sched-rail--closed'">
             <!-- Docked rail open/close handle (always visible) -->
             <button
               type="button"
@@ -300,11 +299,28 @@
 
             <!-- Sticky / collapsible rail header -->
             <div class="sched-rail-top">
-              <div class="sched-rail-head">
-                <div class="text-sm font-semibold">Scheduling Cards</div>
+              <div class="sched-rail-head flex items-center justify-between">
+
+                <!-- Left side: Dock button + Title -->
+                <div class="flex items-center gap-2">
               
+                  <!-- Dock Toggle Button -->
+                  <button type="button"
+                          class="sched-rail-dock-btn"
+                          @click="toggleRailDockOpen()"
+                          :aria-expanded="railDockOpen.toString()"
+                          :title="railDockOpen ? 'Collapse rail' : 'Expand rail'">
+                    <span x-text="railDockOpen ? '⟨' : '⟩'"></span>
+                  </button>
+              
+                  <div class="text-sm font-semibold">
+                    Scheduling Cards
+                  </div>
+              
+                </div>
+              
+                <!-- Right side: Student selector -->
                 <div class="sched-rail-head-actions">
-                  <!-- Always-visible assignment target -->
                   <select
                     class="sched-target-select sched-target-select--compact"
                     x-model="activeTargetStudentId"
@@ -316,7 +332,7 @@
                     </template>
                   </select>
                 </div>
-
+              
               </div>
                 <!-- Always-visible summary of rail filters (does NOT affect schedule columns) -->
                 <div class="sched-rail-summary-row">
