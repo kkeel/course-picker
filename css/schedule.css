@@ -3059,23 +3059,16 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   max-height: none !important;
 }
 
-/* Rail should NEVER expand the page */
-.sched-expanded .sched-rail{
-  height: var(--sched-workspace-h) !important;      /* this is your 100vh-260px */
-  max-height: var(--sched-workspace-h) !important;
-  overflow: hidden !important;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-}
+  /* Rail should match the board height when the page scrolls (same as .sched-work). */
+  .sched-expanded .sched-rail {
+    height: auto;
+    max-height: none;
+  }
 
-/* Rail list is the only scroller */
-.sched-expanded .sched-rail-body{
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-}
+  /* Let the rail contents contribute to height like the board does. */
+  .sched-expanded .sched-rail-body {
+    overflow: visible;
+  }
 
 /* If you have any rail â€œscroll wrapperâ€ class, keep it from breaking */
 .sched-expanded .sched-rail-scroll{
@@ -3119,6 +3112,17 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   .schedule-grid--rail{
     display: grid;
     grid-template-columns: var(--rail-w, 380px) 1fr;
+    align-items: stretch;
+
+    /* Horizontal scroll container */
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+  /* Freeze the rail while panels scroll horizontally */
+  .schedule-grid--rail .sched-rail{
+    position: sticky;
+    left: 0;
+    z-index: 20;
   }
   .schedule-grid--rail.rail-open{  --rail-w: 380px; }
   .schedule-grid--rail.rail-closed{ --rail-w: 48px; }
