@@ -3084,106 +3084,6 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   min-height: 0;
 }
 
-
-/* =========================================================
-   Docked (frozen) Scheduling Cards rail
-   - Keeps the rail visible during BOTH vertical + horizontal scrolling
-   - Collapses to a skinny "handle" when closed
-   ========================================================= */
-
-:root{
-  --sched-rail-open-w: 360px;     /* open width */
-  --sched-rail-collapsed-w: 44px; /* closed width */
-  --sched-rail-gap: 16px;         /* space between rail + board */
-  --sched-rail-top: 120px;        /* below app header */
-  --sched-rail-left: 24px;        /* page padding on small screens */
-}
-
-/* match the larger page padding on desktop */
-@media (min-width: 1024px){
-  :root{ --sched-rail-left: 64px; }
-}
-
-/* visually-hidden helper (if not already in global styles) */
-.sr-only{
-  position:absolute!important;
-  width:1px!important;
-  height:1px!important;
-  padding:0!important;
-  margin:-1px!important;
-  overflow:hidden!important;
-  clip:rect(0,0,0,0)!important;
-  white-space:nowrap!important;
-  border:0!important;
-}
-
-.sched-rail-dock-handle{ display:none; }
-
-.schedule-grid.rail-docked{
-  /* rail becomes fixed so the grid column no longer makes sense */
-  grid-template-columns: 1fr !important;
-}
-
-.schedule-grid.rail-docked .sched-rail{
-  position: fixed;
-  top: var(--sched-rail-top);
-  left: var(--sched-rail-left);
-  width: var(--sched-rail-open-w);
-  height: calc(100vh - var(--sched-rail-top) - 16px);
-  z-index: 60;
-  display: flex;
-  flex-direction: column;
-}
-
-.schedule-grid.rail-docked .sched-rail-dock-handle{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 32px;
-  height: 32px;
-  border-radius: 999px;
-  border: 1px solid #d2d6d2;
-  background: #fff;
-  color: #596e5e;
-  box-shadow: 0 2px 10px rgba(0,0,0,.08);
-}
-
-.schedule-grid.rail-docked .sched-rail-dock-icon{
-  width: 18px;
-  height: 18px;
-}
-
-/* the schedule workspace shifts right to make room for the fixed rail */
-.schedule-grid.rail-docked .sched-work{
-  margin-left: calc(var(--sched-rail-open-w) + var(--sched-rail-gap));
-}
-
-/* CLOSED (collapsed) */
-.schedule-grid.rail-docked.rail-docked--collapsed .sched-rail{
-  width: var(--sched-rail-collapsed-w);
-  padding: 10px 6px !important;
-}
-
-.schedule-grid.rail-docked.rail-docked--collapsed .sched-work{
-  margin-left: calc(var(--sched-rail-collapsed-w) + var(--sched-rail-gap));
-}
-
-/* hide all rail content when collapsed (keep only the handle button) */
-.schedule-grid.rail-docked.rail-docked--collapsed .sched-rail-head,
-.schedule-grid.rail-docked.rail-docked--collapsed .sched-rail-top,
-.schedule-grid.rail-docked.rail-docked--collapsed .sched-rail-list,
-.schedule-grid.rail-docked.rail-docked--collapsed .sched-rail-footer{
-  display: none !important;
-}
-
-/* flip the chevron when collapsed */
-.schedule-grid.rail-docked.rail-docked--collapsed .sched-rail-dock-icon{
-  transform: rotate(180deg);
-}
-
 /* =========================================================
    Rail layout: sticky header + scrollable body
    ========================================================= */
@@ -3248,4 +3148,11 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 .sched-rail--closed{
   padding-left: 8px !important;
   padding-right: 8px !important;
+}
+
+/* Prevent the board side from overflowing the grid column */
+@media (min-width: 1024px){
+  .schedule-grid--rail .sched-work{
+    min-width: 0;
+  }
 }
