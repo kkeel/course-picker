@@ -1009,7 +1009,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background: #fff;
+
   padding-bottom: 12px;
   border-bottom: 1px solid #e5e8e5;
 }
@@ -3200,7 +3200,6 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   position: sticky;
   top: 0;
   z-index: 5;
-  background: #fff; /* so it doesn't show scrolled cards underneath */
   padding-bottom: 10px;
 }
 
