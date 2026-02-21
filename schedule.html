@@ -276,26 +276,15 @@
             </div>
 </div>
 
-<div class="schedule-grid schedule-grid--rail mt-6 grid items-stretch grid-cols-1 gap-6"
-     :class="railDockOpen ? 'rail-open' : 'rail-closed'">
+  <div
+    class="schedule-grid schedule-grid--rail mt-6 items-stretch gap-6"
+    :class="railDockOpen ? 'rail-open' : 'rail-closed'"
+  >
           
           <!-- Left card rail (Phase 2.5) -->
           
         <div class="sched-rail p-4 rounded-lg border border-[#e5e8e5] bg-white"
              :class="railDockOpen ? 'sched-rail--open' : 'sched-rail--closed'">
-            <!-- Docked rail open/close handle (always visible) -->
-            <button
-              type="button"
-              class="sched-rail-dock-handle"
-              @click="toggleRailDock()"
-              :aria-expanded="(!railDockCollapsed).toString()"
-              :title="railDockCollapsed ? 'Open Scheduling Cards' : 'Collapse Scheduling Cards'"
-            >
-              <svg class="sched-rail-dock-icon" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <span class="sr-only" x-text="railDockCollapsed ? 'Open Scheduling Cards' : 'Collapse Scheduling Cards'"></span>
-            </button>
 
             <!-- Sticky / collapsible rail header -->
             <div class="sched-rail-top">
