@@ -3249,9 +3249,21 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   overflow: hidden; /* ✅ contain everything by default */
 }
 
-/* In Expanded mode, the board becomes the horizontal scroller */
+/* In Expanded mode, keep a shared workspace height so the rail can't
+   make the whole page taller than the student panels */
 .sched-expanded .schedule-grid--rail{
-  height: auto; /* board can grow vertically */
+  height: var(--sched-workspace-h);
+}
+
+/* Rail must never expand the page; it scrolls internally */
+.schedule-grid--rail .sched-rail{
+  overflow: hidden;
+}
+
+.schedule-grid--rail .sched-rail-body{
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 /* Collapsed rail styling */
@@ -3309,3 +3321,51 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 .sched-expanded .schedule-panel-row{
   padding-right: 12px !important;
 }
+
+/* =========================================================
+   Rail header cleanup (open + closed)
+   ========================================================= */
+
+/* Header row should always align cleanly */
+.sched-rail-top .sched-rail-head{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Keep the title from jumping around */
+.sched-rail-top .sched-rail-head .text-sm{
+  white-space: nowrap;
+}
+
+/* Make the collapsed label truly “the only thing” besides the chevron */
+.sched-rail--closed .sched-rail-top{
+  display: flex;
+  flex-direction: column;
+}
+
+.sched-rail--closed .sched-rail-head{
+  justify-content: center;
+  padding: 10px 6px;
+}
+
+.sched-rail--closed .sched-rail-head .text-sm,
+.sched-rail--closed .sched-rail-head-actions{
+  display: none !important;
+}
+
+.sched-rail--closed .sched-rail-collapsed-label{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(var(--sched-workspace-h) - 24px);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: rgba(38,43,38,.70);
+}
+
+/* Only show the summary row when open */
+.sched-rail-summary-row{ display: none; }
+.sched-rail--open .sched-rail-summary-row{ display: flex; }
