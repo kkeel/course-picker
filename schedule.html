@@ -288,30 +288,27 @@
 
             <!-- Sticky / collapsible rail header -->
             <div class="sched-rail-top">
-              <div class="sched-rail-head flex items-center justify-between">
-
-                <!-- Left side: Dock button + Title -->
-                <div class="flex items-center gap-2">
+              <div class="sched-rail-head">
+                <button
+                  class="sched-rail-collapse-btn"
+                  type="button"
+                  @click="toggleRailDockCollapsed()"
+                  :title="railDockCollapsed ? 'Expand rail' : 'Collapse rail'"
+                  aria-label="Collapse rail"
+                >
+                  <span x-text="railDockCollapsed ? '›' : '‹'"></span>
+                </button>
               
-                  <!-- Dock Toggle Button -->
-                  <button type="button"
-                          class="sched-rail-dock-btn"
-                          @click="toggleRailDockOpen()"
-                          :aria-expanded="railDockOpen.toString()"
-                          :title="railDockOpen ? 'Collapse rail' : 'Expand rail'">
-                    <span x-text="railDockOpen ? '⟨' : '⟩'"></span>
-                  </button>
-              
-                  <div class="text-sm font-semibold">
-                    Scheduling Cards
-                  </div>
-              
+                <div class="sched-rail-title text-sm font-semibold">
+                  <span x-show="!railDockCollapsed">Scheduling Cards</span>
+                  <span x-show="railDockCollapsed">Cards</span>
                 </div>
               
-                <!-- Right side: Student selector -->
                 <div class="sched-rail-head-actions">
+                  <!-- Always-visible assignment target (hidden when collapsed) -->
                   <select
                     class="sched-target-select sched-target-select--compact"
+                    x-show="!railDockCollapsed"
                     x-model="activeTargetStudentId"
                     @change="ensureStudent(activeTargetStudentId); activeTarget.studentId = activeTargetStudentId; persistUi(); persistCards()"
                     aria-label="Assign cards to student"
@@ -321,7 +318,6 @@
                     </template>
                   </select>
                 </div>
-              
               </div>
                 <!-- Always-visible summary of rail filters (does NOT affect schedule columns) -->
                 <div class="sched-rail-summary-row">
