@@ -3299,3 +3299,13 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 .sched-rail-collapse-btn:hover{
   background: rgba(255,255,255,0.9);
 }
+
+/* Give the student-panel row a little breathing room on the right */
+.schedule-panel-row{
+  padding-right: 12px;
+}
+
+/* Expanded (horizontal scroll) still needs that right buffer */
+.sched-expanded .schedule-panel-row{
+  padding-right: 12px !important;
+}
