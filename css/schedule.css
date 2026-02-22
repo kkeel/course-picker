@@ -3144,16 +3144,71 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 }
 .sched-rail-dock-btn:hover{ opacity: 1; }
 
-/* When closed: keep header visible, hide the heavy content */
+/* =========================================================
+   Rail dock (left ↔ right collapse)
+   ========================================================= */
+
+/* When dock is CLOSED: hide *everything inside* except the dock button + the vertical label */
 .sched-rail--closed .sched-rail-top-controls,
+.sched-rail--closed .sched-rail-summary-row,
+.sched-rail--closed .sched-target,
+.sched-rail--closed .sched-rail-scroll,
 .sched-rail--closed .sched-rail-body{
-  display: none;
+  display: none !important;
 }
 
-/* Optional: tighten padding when closed so it looks intentional */
+/* Closed rail container styling */
 .sched-rail--closed{
-  padding-left: 8px !important;
-  padding-right: 8px !important;
+  padding: 10px 8px !important;
+  background: #d8ddcf !important;       /* matches your UI tint */
+  border-color: #c7cec0 !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Vertical “Scheduling Cards” label (only visible when closed) */
+.sched-rail-collapsed-label{
+  display: none;                         /* default hidden */
+}
+
+.sched-rail--closed .sched-rail-collapsed-label{
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  transform-origin: center;
+  white-space: nowrap;
+
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #596e5e;
+  opacity: .95;
+}
+
+/* Make the dock toggle button usable in closed state */
+.sched-rail-dock-btn{
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid #c7cec0;
+  background: rgba(255,255,255,.65);
+  color: #596e5e;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sched-rail-dock-btn:hover{
+  background: rgba(255,255,255,.9);
 }
 
 /* Prevent the board side from overflowing the grid column */
