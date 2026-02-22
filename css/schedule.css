@@ -3369,3 +3369,31 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 /* Only show the summary row when open */
 .sched-rail-summary-row{ display: none; }
 .sched-rail--open .sched-rail-summary-row{ display: flex; }
+
+.sched-rail-dock-btn{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  transform: none;
+  z-index: 5;
+}
+
+.schedule-grid--rail{
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  /* Let student panels / board content drive height */
+  height: auto;
+}
+
+.schedule-grid--rail .sched-rail,
+.schedule-grid--rail .sched-work{
+  height: auto;
+  min-height: 0;
+}
+
+.schedule-grid--rail .sched-work{
+  overflow-x: auto;
+  overflow-y: visible;   /* allow height to expand with student panels */
+  padding-right: 12px;   /* adds the missing right margin you mentioned */
+}
