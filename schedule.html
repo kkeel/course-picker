@@ -289,26 +289,24 @@
             <!-- Sticky / collapsible rail header -->
             <div class="sched-rail-top">
               <div class="sched-rail-head">
-                <button
-                  class="sched-rail-collapse-btn"
-                  type="button"
-                  @click="toggleRailDockCollapsed()"
-                  :title="railDockCollapsed ? 'Expand rail' : 'Collapse rail'"
-                  aria-label="Collapse rail"
-                >
-                  <span x-text="railDockCollapsed ? '›' : '‹'"></span>
+                <!-- Dock toggle (THIS now controls railDockOpen, which drives the width + open/closed class) -->
+                <button class="sched-rail-dock-btn"
+                        @click="toggleRailDockOpen()"
+                        :aria-label="railDockOpen ? 'Collapse rail' : 'Expand rail'">
+                  <span x-show="railDockOpen">‹</span>
+                  <span x-show="!railDockOpen">›</span>
                 </button>
               
-                <div class="sched-rail-title text-sm font-semibold">
-                  <span x-show="!railDockCollapsed">Scheduling Cards</span>
-                  <span x-show="railDockCollapsed">Cards</span>
-                </div>
+                <!-- Title (only when open) -->
+                <div class="text-sm font-semibold" x-show="railDockOpen">Scheduling Cards</div>
               
-                <div class="sched-rail-head-actions">
-                  <!-- Always-visible assignment target (hidden when collapsed) -->
+                <!-- Collapsed label (only when closed) -->
+                <div class="sched-rail-collapsed-label" x-show="!railDockOpen">Scheduling Cards</div>
+              
+                <!-- Actions only when open -->
+                <div class="sched-rail-head-actions" x-show="railDockOpen">
                   <select
                     class="sched-target-select sched-target-select--compact"
-                    x-show="!railDockCollapsed"
                     x-model="activeTargetStudentId"
                     @change="ensureStudent(activeTargetStudentId); activeTarget.studentId = activeTargetStudentId; persistUi(); persistCards()"
                     aria-label="Assign cards to student"
@@ -320,7 +318,7 @@
                 </div>
               </div>
                 <!-- Always-visible summary of rail filters (does NOT affect schedule columns) -->
-                <div class="sched-rail-summary-row">
+                <div class="sched-rail-summary-row" x-show="railDockOpen">
                   <div class="sched-rail-summary" x-text="railFilterSummary()"></div>
                 
                   <!-- Collapse toggle (moved here so it aligns with the summary row) -->
@@ -390,10 +388,10 @@
 
                 </div>
               </div>
-</div>
+            </div>
 
             <!-- Scrollable rail content -->
-            <div class="sched-rail-body">
+            <div class="sched-rail-body" x-show="railDockOpen">
 
               <div class="sched-rail-section-head">Need to schedule:</div>
 
