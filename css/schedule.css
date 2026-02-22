@@ -3397,3 +3397,89 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   overflow-y: visible;   /* allow height to expand with student panels */
   padding-right: 12px;   /* adds the missing right margin you mentioned */
 }
+
+.sched-rail-dock-btn{
+  border: 1px solid rgba(38,43,38,.18);
+  background: transparent;            /* ✅ removes “lighter patch” look */
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #596e5e;
+  opacity: .85;
+
+  position: static;                   /* ✅ inline when open */
+  transform: none;
+  flex: 0 0 auto;
+}
+
+/* ✅ When CLOSED: pin the button in the upper-left */
+.sched-rail--closed .sched-rail-dock-btn{
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+.sched-rail-head{
+  position: relative;          /* needed for closed-state absolute positioning */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sched-rail-title{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* keep the student select pushed to the right */
+.sched-rail-head .sched-student-select{
+  margin-left: auto;
+}
+
+/* Collapsed rail label (ONLY visible when rail is closed) */
+.sched-rail-collapsed-label{ display:none; }
+
+.sched-rail--closed .sched-rail-collapsed-label{
+  display:block;
+  position:absolute;
+  left:50%;
+  top: 86px;                           /* ✅ moved toward top */
+  transform: translateX(-50%) rotate(-90deg);
+  transform-origin:center;
+  white-space:nowrap;
+  font-size:12px;
+  font-weight:750;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color: rgba(38,43,38,.70);
+}
+
+.sched-work{
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+
+  height: auto;          /* ✅ panels can define height */
+  overflow: visible;     /* ✅ no clipping */
+}
+
+.schedule-board{
+  width: 100%;
+  max-width: 100%;
+
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+
+  height: auto;          /* ✅ content drives height */
+  min-height: 0;
+
+  padding-right: 12px;   /* ✅ right gutter like your left spacing */
+  padding-bottom: 8px;   /* ✅ scrollbar breathing room */
+}
