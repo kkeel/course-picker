@@ -335,7 +335,7 @@
                   </button>
                 </div>
               
-              <div class="sched-rail-top-controls" x-show="!railTopCollapsed" x-transition>
+              <div class="sched-rail-top-controls" x-show="railDockOpen && !railTopCollapsed" x-transition>
 
                 <!-- Filters (rail only) -->
 <div class="sched-rail-filter-row mt-2">
@@ -747,7 +747,7 @@
             </div>
 
             <!-- Rail footer actions (create custom cards) -->
-            <div class="sched-rail-bottom">
+            <div class="sched-rail-bottom" x-show="railDockOpen">
               <button type="button" class="sched-rail-btn sched-rail-btn--full" @click="openCustomCardModal('create')">
                 + Custom Card
               </button>
