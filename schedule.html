@@ -286,6 +286,23 @@
         <div class="sched-rail p-4 rounded-lg border border-[#e5e8e5] bg-white"
              :class="railDockOpen ? 'sched-rail--open' : 'sched-rail--closed'">
 
+            <!-- Dock toggle: always visible -->
+            <button
+              type="button"
+              class="sched-rail-dock-btn"
+              @click="toggleRailDockOpen()"
+              :aria-expanded="railDockOpen.toString()"
+              :title="railDockOpen ? 'Collapse rail' : 'Expand rail'"
+            >
+              <span x-show="railDockOpen">‹</span>
+              <span x-show="!railDockOpen">›</span>
+            </button>
+          
+            <!-- Closed-state vertical label -->
+            <div class="sched-rail-collapsed-label" x-show="!railDockOpen">
+              Scheduling Cards
+            </div>
+
             <!-- Sticky / collapsible rail header -->
             <div class="sched-rail-top">
               <div class="sched-rail-head">
