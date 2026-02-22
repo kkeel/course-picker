@@ -49,8 +49,9 @@
 
 /* Left rail: scroll internally when it gets long */
 .sched-rail{
-  max-height: var(--sched-workspace-h);
-  height: var(--sched-workspace-h);
+  height: auto;
+  max-height: none;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -3482,4 +3483,79 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 
   padding-right: 12px;   /* ✅ right gutter like your left spacing */
   padding-bottom: 8px;   /* ✅ scrollbar breathing room */
+}
+
+/* Rail height: let student panels/page drive height (no internal clipping) */
+.sched-rail{
+  height: auto;
+  max-height: none;
+  overflow: visible;
+}
+
+/* =========================================================
+   FINAL Rail Dock Polish (bottom-of-file overrides)
+   Fixes:
+   - dock button clipping + weird light patch
+   - dock button overlapping header text when open
+   - collapsed label moved toward top (not vertically centered)
+   ========================================================= */
+
+.sched-rail--closed{
+  /* give the top area room so the circle button never clips */
+  padding-top: 56px !important;
+
+  /* allow the circle button to visually sit in the rounded top */
+  overflow: visible !important;
+
+  /* keep the closed rail one solid color */
+  background: #d9dfd3 !important;
+}
+
+/* OPEN state: header is a normal row (button left of title) */
+.sched-rail--open .sched-rail-head{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+}
+
+/* Ensure the dock button is NOT absolute in open state */
+.sched-rail-dock-btn{
+  position: static !important;
+  flex: 0 0 auto !important;
+}
+
+/* CLOSED state: dock button is pinned top-left, no “light spot” */
+.sched-rail--closed .sched-rail-dock-btn{
+  position: absolute !important;
+  top: 12px !important;
+  left: 12px !important;
+
+  background: transparent !important;   /* removes the weird light patch */
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+/* If any earlier rule added a pseudo background/halo, kill it */
+.sched-rail--closed .sched-rail-dock-btn::before,
+.sched-rail--closed .sched-rail-dock-btn::after{
+  content: none !important;
+}
+
+/* Move collapsed label toward the top (not centered vertically) */
+.sched-rail--closed .sched-rail-collapsed-label{
+  display: block !important;
+
+  position: absolute !important;
+  top: 86px !important;                /* <- adjust this up/down if you want */
+  left: 50% !important;
+
+  transform: translateX(-50%) rotate(180deg) !important;
+  writing-mode: vertical-rl !important;
+
+  /* keep it readable */
+  font-weight: 800 !important;
+  letter-spacing: .14em !important;
+  opacity: .9 !important;
+  pointer-events: none !important;
 }
