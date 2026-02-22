@@ -2895,7 +2895,8 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 .sched-expanded .sched-work{
   height: auto;
   max-height: none;
-  overflow: visible;
+  overflow-x: auto !important;
+  overflow-y: visible !important;
 }
 
 .sched-expanded .schedule-panels{
@@ -3044,7 +3045,8 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 .sched-expanded .sched-work{
   height: auto !important;
   max-height: none !important;
-  overflow: visible !important;
+  overflow-x: auto !important;
+  overflow-y: visible !important;
 }
 
 .sched-expanded .schedule-panels{
@@ -3159,4 +3161,86 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   .schedule-grid--rail .sched-work{
     min-width: 0;
   }
+}
+
+/* Rail column (left of schedule board) */
+.schedule-grid--rail{
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  height: var(--sched-workspace-h); /* ✅ rail == board height */
+  min-height: 0;
+}
+
+.schedule-grid--rail.rail-open{  --rail-w: 380px; }
+.schedule-grid--rail.rail-closed{ --rail-w: 56px; }
+
+/* Rail itself */
+.schedule-grid--rail .sched-rail{
+  flex: 0 0 var(--rail-w);
+  min-width: var(--rail-w);
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Board area */
+.schedule-grid--rail .sched-work{
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden; /* ✅ contain everything by default */
+}
+
+/* In Expanded mode, the board becomes the horizontal scroller */
+.sched-expanded .schedule-grid--rail{
+  height: auto; /* board can grow vertically */
+}
+
+/* Collapsed rail styling */
+.sched-rail.is-collapsed{
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.sched-rail.is-collapsed .sched-rail-head{
+  padding: 10px 8px;
+  justify-content: center;
+  gap: 8px;
+}
+
+.sched-rail.is-collapsed .sched-rail-head-actions{
+  display: none; /* hide student dropdown */
+}
+
+.sched-rail-title{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sched-rail.is-collapsed .sched-rail-title{
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  opacity: 0.9;
+}
+
+.sched-rail-collapse-btn{
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.65);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.sched-rail-collapse-btn:hover{
+  background: rgba(255,255,255,0.9);
 }
