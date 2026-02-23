@@ -2248,6 +2248,31 @@ body.is-resizing-workspace{
   font-size: 12px;
 }
 
+/* Collapsed rail: stack the dock button ABOVE the vertical label */
+.sched-rail--closed .sched-rail-head{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding-top: 2px;
+}
+
+/* Make sure the button stays on top and doesn't get overlapped */
+.sched-rail--closed .sched-rail-dock-btn{
+  flex: 0 0 auto;
+}
+
+/* Vertical label should sit UNDER the button and be fully readable */
+.sched-rail--closed .sched-rail-collapsed-label{
+  display: block !important;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg); /* makes the text read bottom-to-top */
+  line-height: 1.05;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+}
 
 :root{
   --rail-head-bg: #dee1d2;
