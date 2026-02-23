@@ -2089,21 +2089,23 @@ body.is-resizing-workspace{
   display: flex;
 }
 
-.schedule-grid--rail{
-  /* Base: mobile/tablet stays stacked naturally */
-  position: relative;
-  min-height: 0;
-  display: block;
-  overflow: visible;
-}
+@media (max-width: 899px){
+  .schedule-grid--rail{
+    /* Base: mobile/tablet stays stacked naturally */
+    position: relative;
+    min-height: 0;
+    display: block;
+    overflow: visible;
+  }
 
-.schedule-grid--rail .sched-rail,
-.schedule-grid--rail .sched-work{
-  min-height: 0;
-}
+  .schedule-grid--rail .sched-rail,
+  .schedule-grid--rail .sched-work{
+    min-height: 0;
+  }
 
-.schedule-grid--rail .sched-work{
-  min-width: 0;
+  .schedule-grid--rail .sched-work{
+    min-width: 0;
+  }
 }
 
 .sched-rail-head{
@@ -2194,8 +2196,8 @@ body.is-resizing-workspace{
   display: flex;
   flex-direction: column;
 
-  /* Rail should scroll internally when content is long */
-  overflow: hidden;
+  /* Let the dock button/label breathe — scrolling happens in the body */
+  overflow: visible;
 }
 
 .sched-rail-dock-btn{
