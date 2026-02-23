@@ -1897,22 +1897,24 @@ body.is-resizing-workspace{
 }
 
 .sched-rail-body{
-  padding-top: 14px;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 14px 16px 16px;
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: auto;
   padding-right: 4px;
 }
 
 @media (min-width: 1024px){
+  /* Desktop: true 2-column layout (rail + work) */
   .schedule-grid--rail{
-    /* Rail is positioned inside this container */
     position: relative;
-    display: block;
+    display: grid;
+    grid-template-columns: var(--rail-w) minmax(0, 1fr);
+    column-gap: 16px;
+    align-items: stretch; /* rail matches the work area height */
     overflow: visible;
+    min-height: 0;
   }
 
   .schedule-grid--rail.rail-open{
@@ -1923,20 +1925,20 @@ body.is-resizing-workspace{
     --rail-w: 56px;
   }
 
-  /* Workspace area reserves room for the rail */
-  .schedule-grid--rail .sched-work{
-    margin-left: calc(var(--rail-w) + 16px); /* 16px = prior gap */
-    min-width: 0;
+  .schedule-grid--rail .sched-rail{
+    grid-column: 1;
+    width: var(--rail-w);
+    min-height: 0;
+    height: auto;        /* stretch controls height */
+    max-height: none;
+    position: relative;  /* no absolute positioning */
+    z-index: 40;
   }
 
-  /* Rail is removed from layout so it can never control page height */
-  .schedule-grid--rail .sched-rail{
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;          /* THIS is the key: rail height == sched-work height */
-    width: var(--rail-w);
-    z-index: 40;
+  .schedule-grid--rail .sched-work{
+    grid-column: 2;
+    min-width: 0;
+    margin-left: 0;      /* IMPORTANT: grid handles placement */
   }
 }
 
@@ -2151,12 +2153,14 @@ body.is-resizing-workspace{
 }
 
 .sched-rail--closed{
-  padding: 10px 8px !important;
+  padding: 12px 8px !important;
   border-color: #c7cec0 !important;
   position: relative;
-  padding-top: 56px !important;
   overflow: visible !important;
   background: var(--rail-head-bg) !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .sched-rail--closed .sched-rail-head{
