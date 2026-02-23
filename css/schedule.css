@@ -1863,11 +1863,12 @@ body.is-resizing-workspace{
 }
 
 .sched-expanded .sched-rail{
-  overflow: hidden !important;
   display: flex;
   flex-direction: column;
-  height: auto;
-  max-height: none;
+  min-height: 0;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden !important;
 }
 
 .sched-expanded .sched-rail-body{
