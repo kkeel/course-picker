@@ -2507,8 +2507,15 @@ dayTotalMinutes(studentId, dayIndex) {
       },
 
       getWorkspaceHeightPx() {
-        // IMPORTANT: workspace height should be driven by the schedule board area,
+        // IMPORTANT: workspace height should be driven by the schedule BOARD content,
         // not the rail list (the rail can be "endless" when unfiltered).
+        const board = document.querySelector(".schedule-board");
+        if (board) {
+          // scrollHeight captures the full content height of the board columns
+          return Math.round(board.scrollHeight || board.getBoundingClientRect().height || 0);
+        }
+
+        // fallback
         const work = document.querySelector(".sched-work");
         if (!work) return 0;
         return Math.round(work.getBoundingClientRect().height || 0);
