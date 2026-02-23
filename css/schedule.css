@@ -3559,3 +3559,89 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   opacity: .9 !important;
   pointer-events: none !important;
 }
+
+.schedule-grid--rail .sched-rail{
+  position: sticky;
+  left: 0;
+  z-index: 40;
+
+  /* IMPORTANT: do NOT clip the dock button / collapsed label */
+  overflow: visible;
+}
+
+/* Dock button: inline by default (OPEN state) */
+.sched-rail-dock-btn{
+  border: 1px solid rgba(38,43,38,.18);
+  background: transparent;  /* prevents the “lighter patch” */
+  box-shadow: none;
+
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #596e5e;
+  opacity: .9;
+
+  position: static;         /* OPEN state = not absolute */
+  transform: none;
+  flex: 0 0 auto;
+}
+
+/* CLOSED state: pin top-left */
+.sched-rail--closed .sched-rail-dock-btn{
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 5;
+}
+
+.sched-rail--closed .sched-rail-collapsed-label{
+  display: block;
+  position: absolute;
+
+  /* Move label toward the top (not vertically centered) */
+  top: 64px;
+  left: 50%;
+
+  transform: translateX(-50%) rotate(-90deg);
+  transform-origin: center;
+
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(38,43,38,.70);
+
+  pointer-events: none; /* never blocks clicking */
+}
+
+/* =========================================================
+   Height rules: let student panels drive the layout height
+   (override older workspace-height / clipping rules)
+   ========================================================= */
+
+:root{
+  /* Neutralize old “fixed workspace” height behavior */
+  --sched-workspace-h: auto;
+}
+
+.schedule-grid--rail .sched-work{
+  height: auto !important;
+  max-height: none !important;
+  overflow-y: visible !important;
+}
+
+.schedule-board{
+  height: auto !important;
+  max-height: none !important;
+  overflow-y: visible !important;
+}
+
+.schedule-panel-body{
+  overflow: visible !important;
+}
