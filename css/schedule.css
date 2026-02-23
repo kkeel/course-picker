@@ -26,7 +26,7 @@
 
 .schedule-grid{
   position: relative;
-  align-items: stretch;
+  align-items: flex-start;
 }
 
 .sched-rail-filter-btn.is-on{
@@ -225,7 +225,7 @@
   padding: 12px;
   min-width: 100%;
   height: 100%;
-  align-items: stretch;
+  align-items: flex-start;
 }
 
 .schedule-columns--nowrap{
@@ -1317,7 +1317,7 @@ body.sched-dragging .sched-card{
   grid-auto-flow: column;
   grid-auto-columns: minmax(var(--sched-col-w), 1fr);
   gap: 12px;
-  align-items: stretch;
+  align-items: flex-start;
 }
 
 .sched-rail-btn--full{
@@ -1330,7 +1330,7 @@ body.sched-dragging .sched-card{
 .sched-rail-filter-row{
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: flex-start;
   gap: 10px;
 }
 
@@ -1788,7 +1788,7 @@ body.is-resizing-workspace{
   padding: var(--sched-cols-pad) !important;
   gap: var(--sched-col-gap) !important;
   grid-auto-columns: var(--sched-col-w) !important;
-  align-items: stretch;
+  align-items: flex-start;
   height: 100% !important;
   border-bottom: 1px solid #e5e8e5;
 }
@@ -1828,7 +1828,7 @@ body.is-resizing-workspace{
 .sched-expanded .schedule-grid{
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  align-items: stretch;
+  align-items: flex-start;
 }
 
 .sched-expanded .schedule-col:first-child{
@@ -1911,7 +1911,7 @@ body.is-resizing-workspace{
   .schedule-grid--rail{
     display: grid;
     grid-template-columns: var(--rail-w, 380px) 1fr;
-    align-items: stretch;
+    align-items: flex-start;
     overflow-x: auto;
     overflow-y: visible;
   }
@@ -1959,7 +1959,7 @@ body.is-resizing-workspace{
 }
 
 .sched-expanded .schedule-grid--rail{
-  height: var(--sched-workspace-h);
+  height: auto;
 }
 
 .schedule-grid--rail .sched-rail-body{
@@ -2018,12 +2018,11 @@ body.is-resizing-workspace{
 }
 
 .schedule-panel-row{
-  flex: 1;
-  min-height: 0;
+  /* let content determine height */
   display: grid;
   grid-template-columns: repeat(2, minmax(380px, 1fr));
   gap: 12px;
-  align-items: stretch;
+  align-items: flex-start;
   padding-right: 12px;
 }
 
@@ -2031,7 +2030,7 @@ body.is-resizing-workspace{
   display: flex !important;
   flex-wrap: nowrap !important;
   gap: 12px !important;
-  align-items: stretch;
+  align-items: flex-start;
   width: max-content;
   padding-right: 12px !important;
 }
@@ -2079,7 +2078,7 @@ body.is-resizing-workspace{
 .schedule-grid--rail{
   min-height: 0;
   display: flex;
-  align-items: stretch;
+  align-items: flex-start;
   gap: 16px;
   height: auto;
 }
@@ -2142,7 +2141,7 @@ body.is-resizing-workspace{
   position: relative;
   padding-top: 56px !important;
   overflow: visible !important;
-  background: #d9dfd3 !important;
+  background: var(--rail-head-bg) !important;
 }
 
 .sched-rail--open .sched-rail-head{
@@ -2200,26 +2199,31 @@ body.is-resizing-workspace{
   z-index: 5;
 }
 
+/* In OPEN state, keep the dock button to the left of the title (no overlap) */
+.sched-rail--open .sched-rail-dock-btn{
+  position: static !important;
+  margin-right: 10px;
+  flex: 0 0 auto;
+}
+
+
 .sched-rail--closed .sched-rail-collapsed-label{
-  align-items: center;
-  justify-content: center;
-  height: calc(var(--sched-workspace-h) - 24px);
-  writing-mode: vertical-rl !important;
-  opacity: .9 !important;
   display: block;
   position: absolute;
-  top: 64px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-90deg);
-  transform-origin: center;
-  white-space: nowrap;
-  font-size: 12px;
-  font-weight: 750;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: rgba(38,43,38,.70);
+  top: 78px;               /* below the dock button */
+  left: 20px;
+  right: 20px;
+  height: auto;
+
+  opacity: .9 !important;
   pointer-events: none;
+
+  /* rotate text so it reads normally */
+  white-space: nowrap;
+  transform: rotate(-90deg);
+  transform-origin: top left;
 }
+
 
 :root{
   --rail-head-bg: #dee1d2;
