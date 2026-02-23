@@ -1909,17 +1909,10 @@ body.is-resizing-workspace{
 
 @media (min-width: 1024px){
   .schedule-grid--rail{
-    display: grid;
-    grid-template-columns: var(--rail-w, 380px) 1fr;
-    align-items: flex-start;
-    overflow-x: auto;
-    overflow-y: visible;
-  }
-
-  .schedule-grid--rail .sched-rail{
-    position: sticky;
-    left: 0;
-    z-index: 20;
+    /* Rail is positioned inside this container */
+    position: relative;
+    display: block;
+    overflow: visible;
   }
 
   .schedule-grid--rail.rail-open{
@@ -1927,7 +1920,23 @@ body.is-resizing-workspace{
   }
 
   .schedule-grid--rail.rail-closed{
-    --rail-w: 48px;
+    --rail-w: 56px;
+  }
+
+  /* Workspace area reserves room for the rail */
+  .schedule-grid--rail .sched-work{
+    margin-left: calc(var(--rail-w) + 16px); /* 16px = prior gap */
+    min-width: 0;
+  }
+
+  /* Rail is removed from layout so it can never control page height */
+  .schedule-grid--rail .sched-rail{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;          /* THIS is the key: rail height == sched-work height */
+    width: var(--rail-w);
+    z-index: 40;
   }
 }
 
@@ -2039,6 +2048,7 @@ body.is-resizing-workspace{
   display: flex;
   align-items: center;
   gap: 10px;
+  min-height: 44px;
 }
 
 .sched-rail-top .sched-rail-head .text-sm{
@@ -2051,6 +2061,8 @@ body.is-resizing-workspace{
 .sched-rail--closed .sched-rail-top{
   display: flex;
   flex-direction: column;
+  border-bottom: 0 !important;
+  box-shadow: none !important;
 }
 
 .sched-rail--closed .sched-rail-head{
@@ -2076,12 +2088,11 @@ body.is-resizing-workspace{
 }
 
 .schedule-grid--rail{
-  /* Two-column grid so rail height is driven by sched-work (student panels) */
+  /* Base: mobile/tablet stays stacked naturally */
+  position: relative;
   min-height: 0;
-  display: grid;
-  grid-template-columns: var(--rail-w) minmax(0, 1fr);
-  gap: 16px;
-  align-items: stretch;
+  display: block;
+  overflow: visible;
 }
 
 .schedule-grid--rail .sched-rail,
@@ -2173,17 +2184,13 @@ body.is-resizing-workspace{
 }
 
 .schedule-grid--rail .sched-rail{
-  flex: 0 0 var(--rail-w);
-  min-width: var(--rail-w);
-  height: 100%;
+  /* Default (mobile/tablet): normal block */
+  width: 100%;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  position: sticky;
-  left: 0;
-  z-index: 40;
 
-  /* IMPORTANT: match student-panel height; scroll inside rail instead of growing forever */
+  /* Rail should scroll internally when content is long */
   overflow: hidden;
 }
 
@@ -2220,18 +2227,17 @@ body.is-resizing-workspace{
 .sched-rail--closed .sched-rail-collapsed-label{
   display: block;
   position: absolute;
-  top: 78px;               /* below the dock button */
-  left: 20px;
-  right: 20px;
-  height: auto;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  transform-origin: center;
+  white-space: nowrap;
 
   opacity: .9 !important;
   pointer-events: none;
 
-  /* rotate text so it reads normally */
-  white-space: nowrap;
-  transform: rotate(-90deg);
-  transform-origin: top left;
+  /* keeps it from being cut off by padding/rounding */
+  max-width: none;
 }
 
 
