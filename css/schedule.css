@@ -2296,3 +2296,84 @@ body.is-resizing-workspace{
   border-bottom-right-radius: 16px;
   overflow: visible !important;
 }
+
+/* =========================================================
+   FINAL OVERRIDES — Rail dock behavior + height syncing
+   (pasted at bottom so it wins)
+   ========================================================= */
+
+/* 1) The workspace height var should control the 2-column area (rail + work)
+   so they always match in non-expanded mode */
+#scheduleGridRail{
+  height: var(--sched-workspace-h);
+  min-height: 0;
+  align-items: stretch;
+}
+
+/* 2) Make the work column actually honor the workspace height
+   (your CSS currently forces height:auto in a few places) */
+#scheduleGridRail .sched-work{
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow-x: auto !important;
+  overflow-y: visible !important; /* board can grow inside; page scroll handles vertical */
+}
+
+/* 3) Rail should never be allowed to "make the grid taller".
+   It must stay at the same height as the work area, and the rail BODY scrolls. */
+#scheduleGridRail .sched-rail{
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important; /* header visible, body scrolls */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Your rail body is the scroll container */
+#scheduleGridRail .sched-rail-body{
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* 4) Header layout: when OPEN, the dock button must sit LEFT of the title.
+   Right now the button is absolutely positioned, so we override that in open state. */
+.sched-rail--open .sched-rail-dock-btn{
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+}
+
+/* When CLOSED, keep the button pinned at the top center (your existing behavior) */
+.sched-rail--closed .sched-rail-dock-btn{
+  position: absolute !important;
+  top: 12px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+/* 5) Closed state: show the rotated label under the button (you already have this,
+   but this ensures it always wins if earlier rules fight it) */
+.sched-rail--closed .sched-rail-collapsed-label{
+  display: block !important;
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) rotate(-90deg) !important;
+  transform-origin: center !important;
+  white-space: nowrap !important;
+  pointer-events: none !important;
+}
+
+/* 6) Expanded mode: DO NOT force the var-height (let it grow naturally) */
+.sched-expanded #scheduleGridRail{
+  height: auto !important;
+}
+.sched-expanded #scheduleGridRail .sched-work{
+  height: auto !important;
+}
+.sched-expanded #scheduleGridRail .sched-rail{
+  height: auto !important;
+}
