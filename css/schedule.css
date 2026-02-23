@@ -2,21 +2,16 @@
    Schedule
    ========================================================= */
 
-:root{
-  --rail-head-bg: #dee1d2; /* brand light green */
-  --sched-col-w: 260px;
-}
+/* Cleaned schedule.css (duplicates merged). Generated 2026-02-22. */
 
-/* Schedule header row: title left, tutorial right */
 .schedule-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-  flex-wrap:wrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-/* prevent the tutorial button from stretching */
 .schedule-head .av-video-inline{
   flex: 0 0 auto;
   width: auto !important;
@@ -25,146 +20,18 @@
   margin-left: auto;
 }
 
-/* Schedule: allow this pages workspace to use full screen width */
 .main-content.schedule-main{
   max-width: none;
 }
 
-/* =========================================================
-   Workspace sizing (do NOT lock the page)
-   ========================================================= */
-
-:root{
-  /* Tune this number if needed (it represents header + padding above the grid) */
-  --sched-workspace-max-h: calc(100vh - 260px);
-  --sched-workspace-h: var(--sched-workspace-max-h);
-}
-
-
-/* The 2-column area should not grow forever */
 .schedule-grid{
   position: relative;
-  align-items: stretch; /* prevents weird stretching behavior */
-}
-
-/* Left rail: scroll internally when it gets long */
-.sched-rail{
-  height: auto;
-  max-height: none;
-  overflow: visible;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-
-  /* IMPORTANT: the rail itself should NOT scroll */
-  overflow: hidden;
-}
-
-/* Top area stays visible because only the body scrolls */
-.sched-rail-top{
-  flex: 0 0 auto;
-  z-index: 5;
-  background: #f6f7f3; 
-
-  /* keep full width inside */
-  margin: -16px -16px 0;
-  padding: 16px 16px 12px;
-
-  border-bottom: 1px solid #e5e8e5;
-
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-}
-
-.sched-rail-top .sched-target{
-  padding: 0;
-  border: 0;
-  background: transparent;
-}
-
-/* Slightly tighten spacing so it reads like one header block */
-.sched-rail-top .sched-rail-sub{
-  margin-top: 6px;
-}
-
-/* Optional: make the header buttons sit nicely on the tint */
-.sched-rail-top .sched-rail-btn{
-  background: #fff;
-}
-
-/* The body is the ONLY scroll container */
-.sched-rail-body{
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-top: 14px;
-}
-
-/* Give the very first section label a tiny breathing room */
-.sched-rail-body > .sched-rail-section-head{
-  margin-top: 0;
-  padding-top: 2px;
-}
-
-.sched-rail-head-actions{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* Rail filter summary (always visible) */
-.sched-rail-summary{
-  margin-top: 6px;
-  font-size: 12px;
-  color: rgba(38, 43, 38, 0.65);
-}
-
-/* Collapsible filter row */
-.sched-rail-filter-row{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.sched-rail-filter-toggles{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.sched-rail-filter-btn{
-  border: 1px solid #d2d6d2;
-  background: #fff;
-  color: #596e5e;
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-size: 12px;
-  line-height: 1;
-  cursor: pointer;
+  align-items: stretch;
 }
 
 .sched-rail-filter-btn.is-on{
   background: rgba(89, 110, 94, 0.12);
   border-color: rgba(89, 110, 94, 0.45);
-}
-
-.sched-rail-collapse-btn{
-  border: none;
-  background: transparent;
-  padding: 2px 4px;
-  border-radius: 10px;
-  color: #596e5e;
-  line-height: 1;
-  cursor: pointer;
-
-  width: auto;
-  height: auto;
-}
-
-.sched-rail-collapse-btn:hover{
-  background: rgba(89,110,94,.08);
 }
 
 .sched-rail-collapse-icon{
@@ -174,28 +41,8 @@
   transition: transform 140ms ease;
 }
 
-/* rotate when collapsed */
 .sched-rail-collapse-btn[aria-expanded="false"] .sched-rail-collapse-icon{
   transform: rotate(-90deg);
-}
-
-/* Optional: visually de-emphasize completed */
-.sched-rail-complete-wrap .sched-rail-item{
-  opacity: .68;
-}
-
-.sched-rail-complete-wrap .sched-rail-item:hover{
-  opacity: .85;
-}
-
-/* Right builder: fixed-ish height with internal scrolling in panels/columns */
-/* Right builder: grow to content (page scroll), do NOT clamp to --sched-workspace-h */
-.sched-work{
-  max-height: none;
-  height: auto;
-  overflow: visible;
-  display: block;
-  min-height: 0;
 }
 
 .sched-work .schedule-panels{
@@ -204,38 +51,34 @@
   overflow: visible;
 }
 
-/* =========================================================
-   Topbar (view toggle + chips)
-   ========================================================= */
-
 .schedule-topbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   margin-bottom: 8px;
 }
 
 .schedule-topbar-left{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
   min-width: 0;
 }
 
 .schedule-topbar-right{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-  justify-content:flex-start;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .schedule-view-toggle{
-  display:flex;
-  align-items:center;
-  gap:8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .schedule-pill{
@@ -255,14 +98,13 @@
   border-color: #596e5e;
 }
 
-/* Global day chips (in header) */
 .schedule-days-global,
 .schedule-students-global{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
-  justify-content:flex-start;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .schedule-days-global-label{
@@ -295,12 +137,10 @@
   font-weight: 600;
 }
 
-/* Student chips can be a tiny bit tighter */
 .schedule-student-chip{
   padding: 6px 9px;
 }
 
-/* Chevron pager buttons (match app chevron feel) */
 .schedule-chev-btn{
   border: none;
   background: transparent;
@@ -309,18 +149,20 @@
   color: #596e5e;
   line-height: 1;
 }
-.schedule-chev-btn:hover{ background: rgba(89,110,94,.08); }
-.schedule-chev-btn:active{ background: rgba(89,110,94,.12); }
+
+.schedule-chev-btn:hover{
+  background: rgba(89,110,94,.08);
+}
+
+.schedule-chev-btn:active{
+  background: rgba(89,110,94,.12);
+}
 
 .schedule-chev{
   width: 20px;
   height: 20px;
-  display:block;
+  display: block;
 }
-
-/* =========================================================
-   Panels (Student View)
-   ========================================================= */
 
 .schedule-panels{
   width: 100%;
@@ -329,121 +171,51 @@
   min-height: 0;
 }
 
-.schedule-panel-row{
-  flex: 1;
-  min-height: 0;
-
-  display: grid;
-  grid-template-columns: repeat(2, minmax(380px, 1fr));
-  gap: 12px;
-
-  align-items: stretch;
+@media (max-width: 1024px){
+  .schedule-panel-row{
+    grid-template-columns: 1fr;
+  }
 }
 
-/* Panel becomes a flex column so header stays fixed and body can flex */
 .schedule-panel{
   display: flex;
   flex-direction: column;
   min-height: 0;
-}
-
-/* Body fills remaining height (instead of expanding the whole page) */
-.schedule-panel-body{
-  flex: 1;
-  min-height: 0;
-}
-
-/* Board inherits the body height (keeps your horizontal scroll working) */
-.schedule-board{
-  height: 100%;
-  min-height: 0;
-}
-
-/* On smaller screens, stack panels */
-@media (max-width: 1024px){
-  .schedule-panel-row{ grid-template-columns: 1fr; }
-}
-
-/* Panel shell */
-.schedule-panel{
   border: 1px solid #e5e8e5;
   border-radius: 16px;
   background: #fff;
-  overflow: visible; /* dropdown can overflow */
+  overflow: visible;
 }
 
-/* Panel header: slim + clean */
 .schedule-panel-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 12px;
   padding: 8px 12px;
-  background: #fff;
   border-bottom: 1px solid #e5e8e5;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   overflow: visible;
-}
-
-/* =========================================================
-   Right side visual anchor (match rail header tint)
-   ========================================================= */
-
-/* Reuse the same tint as the Scheduling Cards header */
-.schedule-panel-head{
   background: var(--rail-head-bg);
 }
 
-/* Slightly improve contrast on the tinted header */
-.schedule-panel-range{
-  color: #465146; /* was lighter; this reads better on the tint */
-}
-
 .schedule-panel-title{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  width:100%;
-  min-width:0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
   overflow: visible;
 }
 
 .schedule-panel-range{
-  margin-left:auto;
+  margin-left: auto;
   font-size: 12px;
   color: #6b756b;
   white-space: nowrap;
 }
-
-/* Panel body: keep internals clipped and corners clean */
-.schedule-panel-body{
-  padding: 12px;
-  background: #fbfbf9;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
-  overflow: hidden;
-}
-
-/* =========================================================
-   Week Builder Board (RESTORED + FIXED)
-   ========================================================= */
-
-/* This is the scroll container */
-.schedule-board{
-  width: 100%;
-  max-width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 8px; /* room for scrollbar */
-}
-
-/* =========================================================
-   Schedule columns layout (Student View + Day View)
-   Use GRID to prevent column overlap and keep scrolling stable
-   ========================================================= */
 
 .schedule-columns{
   display: grid;
@@ -451,8 +223,6 @@
   grid-auto-columns: var(--sched-col-w);
   gap: 12px;
   padding: 12px;
-
-  /* keep a single horizontal row + allow horizontal scroll */
   min-width: 100%;
   height: 100%;
   align-items: stretch;
@@ -473,17 +243,14 @@
 }
 
 .schedule-col-head{
-  display:flex;
+  display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 10px;
   padding: 12px 12px 10px;
   border-bottom: 1px solid #e5e8e5;
-
-  /* Subtle tint so weekday headers don't get lost among cards */
   background: #bdc5bf;
   box-shadow: inset 0 -1px 0 #e5e8e5;
-
   border-top-left-radius: 14px;
   border-top-right-radius: 14px;
 }
@@ -517,21 +284,6 @@
   overflow-x: hidden;
 }
 
-.schedule-empty{
-  font-size: 12px;
-  color: #666d66;
-  opacity: .7;
-  border: 1px dashed #d2d6d2;
-  border-radius: 12px;
-  padding: 12px;
-  text-align: center;
-  background: rgba(255,255,255,.6);
-}
-
-/* =========================================================
-   Student dropdown (final)
-   ========================================================= */
-
 .student-select{
   position: relative;
   display: inline-block;
@@ -541,16 +293,14 @@
 }
 
 .student-select-trigger{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
   padding: 6px 8px;
   border: none;
   border-radius: 10px;
   background: transparent;
-
   font-size: 13px;
   font-weight: 650;
   color: #262b26;
@@ -567,10 +317,10 @@
 }
 
 .student-select-label{
-  display:block;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   max-width: 220px;
 }
 
@@ -581,43 +331,35 @@
   flex: 0 0 auto;
 }
 
-/* Menu */
 .student-select-menu{
-  position:absolute;
+  position: absolute;
   top: calc(100% + 8px);
   left: 0;
   width: 320px;
   max-width: min(320px, 80vw);
-
-  background:#fff;
+  background: #fff;
   border: none;
   border-radius: 14px;
   box-shadow: 0 14px 34px rgba(0,0,0,.12);
-
   padding: 6px;
   z-index: 9999;
-
   max-height: 280px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-/* Options */
 .student-select-option{
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-
-  text-align:left;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: left;
   padding: 10px 10px;
   border-radius: 12px;
-
   background: transparent;
   border: 0;
   cursor: pointer;
-
   font-size: 13px;
   color: #262b26;
 }
@@ -632,30 +374,12 @@
   color: #596e5e;
 }
 
-/* =========================================================
-   Schedule Cards (static for now)
-   ========================================================= */
-
-.sched-card{
-  border: 1px solid #e5e8e5;
-  border-radius: 14px;
-  background: #fff;
-  padding: 10px 10px 9px;
-  box-shadow: 0 1px 0 rgba(0,0,0,.03);
-}
-
 .sched-card-top{
-  display:flex;
-  align-items: baseline;
+  display: flex;
   justify-content: space-between;
   gap: 10px;
   margin-bottom: 4px;
-}
-
-.sched-card-title{
-  font-weight: 650;
-  font-size: 13px;
-  color: #262b26;
+  align-items: flex-start;
 }
 
 .sched-card-min{
@@ -663,61 +387,8 @@
   color: #596e5e;
   font-weight: 650;
   white-space: nowrap;
-}
-
-.sched-card-sub{
-  font-size: 12px;
-  color: #666d66;
-}
-.sched-card-trackline{
-  font-size: 12px;
-  color: #666d66;
-  line-height: 1.2;
-  min-height: 16px; /* reserves space even when blank */
-  margin-top: auto; /* pushes tracker area to bottom for consistent heights */
-}
-
-/* =========================================================
-   Schedule Cards long title handling
-   ========================================================= */
-
-/* Make the top row behave nicely when titles are long */
-.sched-card-top{
-  align-items: flex-start; /* instead of baseline */
-}
-
-/* Title: clamp to 2 lines and ellipsis */
-.sched-card-title{
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;     /* <- change to 1 or 3 if you prefer */
-  overflow: hidden;
-
-  line-height: 1.2;
-  min-height: calc(1.2em * 2);
-  max-width: 100%;
-}
-
-/* Minutes: keep it pinned to the right, never wrap */
-.sched-card-min{
   flex: 0 0 auto;
   margin-left: 10px;
-}
-
-/* Optional: smaller subtext if title wraps */
-.sched-card-sub{
-  margin-top: 2px;
-}
-
-/* =========================================================
-   Phase 2.5 Card rail + minor card controls
-   ========================================================= */
-
-.sched-rail-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
 }
 
 .sched-rail-btn{
@@ -744,68 +415,28 @@
 }
 
 .sched-rail-choice-row{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
-
-/* Grade-band chips (Picture Study) */
-.sched-rail-chip--sm {
-  padding: 3px 8px;         
-  font-size: 11px;          
-  line-height: 1.2;
-  border-width: 1px;       
-  border-radius: 999px;     
-  min-height: 24px;
-  background: #f5f7f4;
-}
-
 
 .sched-rail-chip--on{
   background: #e8efe9;
   border-color: #596e5e;
 }
 
-.sched-rail-item{
-  border: 1px solid #e5e8e5;
-  border-radius: 14px;
-  background: #fbfbf9;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.sched-rail-item-top{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:10px;
-}
-
-/* Top line right-side group: tracker + minutes */
 .sched-rail-item-top-right{
-  display:flex;
-  align-items:center;
-  gap:8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   flex: 0 0 auto;
 }
 
-/* Custom card bottom-left controls */
 .sched-rail-custom-actions{
   margin-top: 6px;
-  display:flex;
-  gap:8px;
-  justify-content:flex-start;
-}
-
-.sched-rail-item-title{
-  font-size: 13px;
-  font-weight: 650;
-  color: #262b26;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-  line-height: 1.2;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
 }
 
 .sched-rail-item-min{
@@ -816,25 +447,8 @@
   margin-left: 8px;
 }
 
-.sched-rail-item-sub{
-  font-size: 12px;
-  color: #666d66;
-  margin-top: 4px;
-}
-
-.sched-rail-actions{
-  margin-top: 8px;
-  display:flex;
-  justify-content:flex-start;
-}
-
-/* Remove button on placed cards */
-.sched-card{
-  position: relative;
-}
-
 .sched-card-remove{
-  position:absolute;
+  position: absolute;
   top: auto;
   bottom: 6px;
   right: 6px;
@@ -853,76 +467,53 @@
   opacity: .9;
 }
 
-/* =========================================================
-   Rail target picker + compact option chips
-   ========================================================= */
-
 .sched-target{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   padding: 10px;
   border: 1px solid #e5e8e5;
   border-radius: 14px;
   background: #fbfbf9;
 }
 
-.sched-target-select{
-  width: 100%;
-  border: 1px solid #d2d6d2;
-  border-radius: 12px;
-  padding: 8px 10px;
-  font-size: 13px;
-  font-weight: 650;
-  color: #262b26;
-  background:#fff;
-}
-
 .sched-target-days{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .sched-target-day{
   border: 1px solid #d2d6d2;
-  background:#fff;
+  background: #fff;
   border-radius: 999px;
   padding: 6px 10px;
   font-size: 12px;
   font-weight: 650;
-  color:#596e5e;
-  line-height:1;
+  color: #596e5e;
+  line-height: 1;
 }
 
 .sched-target-day--on{
   background: rgba(89,110,94,.10);
-  border-color:#596e5e;
+  border-color: #596e5e;
 }
 
 .sched-rail-inline-choices{
   margin-top: 8px;
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .sched-rail-chip--sm{
+  line-height: 1.2;
+  border-width: 1px;
+  border-radius: 999px;
+  min-height: 24px;
+  background: #f5f7f4;
   padding: 5px 9px;
   font-size: 12px;
-}
-
-.sched-rail-actions{
-  gap: 8px;
-  align-items: center;
-}
-
-
-/* Footer actions (edit/delete) */
-.sched-rail-actions{
-  display:flex;
-  align-items:center;
-  gap:6px;
 }
 
 .sched-rail-action-btn{
@@ -935,38 +526,22 @@
   color: #666d66;
   font-size: 12px;
   line-height: 1;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sched-rail-action-btn:hover{
   background: rgba(0,0,0,.06);
 }
 
-.sched-rail-icon-btn{
-  border: 1px solid #d2d6d2;
-  background: #fff;
-  border-radius: 12px;
-  padding: 6px 10px;
-  font-size: 12px;
-  font-weight: 750;
-  color: #666d66;
-  line-height: 1;
-}
-
-.sched-rail-icon-btn:hover{
-  background: rgba(0,0,0,.06);
-}
-
 .sched-rail-daytoggles{
-  display:flex;
-  gap:4px;
-  align-items:center;
-  margin-left:auto;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin-left: auto;
 }
 
-/* Smaller MTWThF toggles */
 .sched-rail-daytoggle{
   height: 18px;
   min-width: 20px;
@@ -978,78 +553,39 @@
   color: #596e5e;
   font-size: 11px;
   line-height: 1;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sched-rail-daytoggle--on{
   border-color: #596e5e;
-  background: rgba(89,110,94,.10); /* filled ON state */
+  background: rgba(89,110,94,.10);
   color: #596e5e;
   font-weight: 700;
 }
 
-/* =========================
-   Rail: sticky controls + clearer sections
-   ========================= */
-
-.sched-rail {
-  display: flex;
-  flex-direction: column;
-  min-height: 0; /* keep */
-
-  /* NEW: cap rail to the viewport and let the inner list scroll */
-  height: calc(100vh - var(--sched-rail-vh-offset, 210px));
-  max-height: calc(100vh - var(--sched-rail-vh-offset, 210px));
-  overflow: hidden;
-}
-
-/* sticky top area */
-.sched-rail-top {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-
-  padding-bottom: 12px;
-  border-bottom: 1px solid #e5e8e5;
-}
-
-/* scrolling list area */
-.sched-rail-scroll {
+.sched-rail-scroll{
   min-height: 0;
   overflow: auto;
   padding-top: 12px;
 }
 
-.sched-rail-block {
+.sched-rail-block{
   border-radius: 14px;
   padding: 10px;
   margin-top: 10px;
 }
 
-/* Need = slightly warmer tint + gentle left rail */
-.sched-rail-block--need {
+.sched-rail-block--need{
   background: rgba(89, 110, 94, 0.05);
   border: 1px solid rgba(210, 214, 210, 0.9);
 }
 
-.sched-rail-block--complete {
+.sched-rail-block--complete{
   background: rgba(102, 109, 102, 0.04);
   border: 1px solid rgba(210, 214, 210, 0.8);
 }
-
-/* section labels pop a bit more */
-.sched-rail-section-head {
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-size: 12px;
-  opacity: 0.75;
-}
-
-/* =========================================================
-   Custom modal (replaces browser confirm/prompt)
-   ========================================================= */
 
 .sched-modal-overlay{
   position: fixed;
@@ -1058,8 +594,8 @@
 }
 
 .sched-modal-backdrop{
-  position:absolute;
-  inset:0;
+  position: absolute;
+  inset: 0;
   background: rgba(0,0,0,0.28);
 }
 
@@ -1077,18 +613,18 @@
 }
 
 .sched-modal-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   padding: 14px 16px;
   border-bottom: 1px solid #e5e8e5;
-  background:#fff;
+  background: #fff;
 }
 
 .sched-modal-title{
   font-weight: 700;
-  color:#262b26;
+  color: #262b26;
   font-size: 14px;
 }
 
@@ -1097,20 +633,23 @@
   background: transparent;
   padding: 6px 8px;
   border-radius: 12px;
-  color:#666d66;
+  color: #666d66;
 }
-.sched-modal-close:hover{ background: rgba(0,0,0,.06); }
+
+.sched-modal-close:hover{
+  background: rgba(0,0,0,.06);
+}
 
 .sched-modal-body{
   padding: 14px 16px;
-  background:#fbfbf9;
+  background: #fbfbf9;
 }
 
 .sched-modal-label{
-  display:block;
+  display: block;
   font-size: 12px;
   font-weight: 650;
-  color:#262b26;
+  color: #262b26;
   margin-top: 2px;
 }
 
@@ -1121,7 +660,7 @@
   border-radius: 12px;
   padding: 10px 12px;
   font-size: 13px;
-  background:#fff;
+  background: #fff;
 }
 
 .sched-modal-error{
@@ -1132,55 +671,58 @@
 }
 
 .sched-modal-actions{
-  display:flex;
-  justify-content:flex-start;
-  gap:10px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
   padding: 12px 16px;
   border-top: 1px solid #e5e8e5;
-  background:#fff;
+  background: #fff;
 }
 
 .sched-modal-btn{
   border: 1px solid #d2d6d2;
-  background:#fff;
+  background: #fff;
   border-radius: 12px;
   padding: 8px 12px;
   font-size: 12px;
   font-weight: 700;
-  color:#596e5e;
+  color: #596e5e;
 }
 
-.sched-modal-btn:hover{ background: rgba(89,110,94,.06); }
+.sched-modal-btn:hover{
+  background: rgba(89,110,94,.06);
+}
 
 .sched-modal-btn-primary{
-  border-color:#596e5e;
-  background:#596e5e;
-  color:#fff;
+  border-color: #596e5e;
+  background: #596e5e;
+  color: #fff;
 }
-.sched-modal-btn-primary:hover{ background:#506550; }
+
+.sched-modal-btn-primary:hover{
+  background: #506550;
+}
 
 .sched-modal-btn-danger{
-  border-color:#b42318;
-  background:#b42318;
-  color:#fff;
+  border-color: #b42318;
+  background: #b42318;
+  color: #fff;
 }
-.sched-modal-btn-danger:hover{ background:#991b13; }
 
-/* =========================================================
-   Rail compact layout + + button
-   ========================================================= */
+.sched-modal-btn-danger:hover{
+  background: #991b13;
+}
 
-/* Rail section labels + separators */
 .sched-rail-sep{
-  margin: 12px -16px 10px;      /* full-width inside p-4 rail */
+  margin: 12px -16px 10px;
   border-top: 1px solid #e5e8e5;
 }
 
 .sched-rail-section-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .sched-rail-section-head{
@@ -1191,11 +733,11 @@
   color: #666d66;
   opacity: .8;
   margin: 0 0 8px;
-  line-height: 1.35; 
+  line-height: 1.35;
 }
 
 .sched-rail-toggle{
-  appearance:none;
+  appearance: none;
   background: transparent;
   border: none;
   padding: 0;
@@ -1206,30 +748,16 @@
   cursor: pointer;
   line-height: 1;
 }
-.sched-rail-toggle:hover{ opacity: 1; }
+
+.sched-rail-toggle:hover{
+  opacity: 1;
+}
 
 .sched-rail-complete-wrap{
   margin-top: 10px;
 }
 
-.sched-rail-item{
-  padding: 10px;
-}
-
-.sched-rail-item-sub{
-  margin-top: 2px;
-}
-
-/* keep symbols + controls on one row */
-.sched-rail-actions{
-  margin-top: 6px;
-  display:flex;
-  justify-content:flex-start;
-  align-items:center;
-  gap:8px;
-}
-
-.sched-rail-add {
+.sched-rail-add{
   width: 24px;
   height: 24px;
   border-radius: 6px;
@@ -1244,48 +772,30 @@
   cursor: pointer;
 }
 
-.sched-rail-add:hover {
+.sched-rail-add:hover{
   background: #f7f8f7;
 }
 
-/* =========================================================
-   Group option band (chips in a bottom band)
-   ========================================================= */
-
-/* Picture Study band footer */
-.sched-rail-band{
-  margin-top: 8px;
-
-  /* pull the band to the card edges (matches .sched-rail-item padding) */
-  margin-left: -10px;
-  margin-right: -10px;
-  margin-bottom: -8px;
-
-  padding: 10px 10px;
-  border-top: 1px solid #e5e8e5;
-  background: #f3f4ef;
-  border-radius: 0 0 14px 14px;
-}
-
-.sched-rail-band-chips{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-
-/* --- Rail card tightening --- */
-.sched-rail-item {
+.sched-rail-item{
+  border: 1px solid #e5e8e5;
+  border-radius: 14px;
+  background: #fbfbf9;
+  margin-bottom: 10px;
   padding: 10px 10px 0;
   overflow: hidden;
 }
 
-/* Title + minutes line */
-.sched-rail-item-top {
+.sched-rail-item-top{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
   margin-bottom: 2px;
 }
 
-/* Symbols row becomes flex */
-.sched-rail-item-sub {
+.sched-rail-item-sub{
+  color: #666d66;
+  margin-top: 2px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1295,30 +805,20 @@
   line-height: 1.2;
 }
 
-/* Reduce rail list spacing */
-.sched-rail-list {
+.sched-rail-list{
   gap: 6px;
 }
 
-.sched-rail-item + .sched-rail-item {
+.sched-rail-item + .sched-rail-item{
   margin-top: 6px;
 }
 
-.sched-rail-item-title {
-  font-size: 13px;
-  line-height: 1.25;
-}
-
-/* =========================================================
-   Rail: symbols + actions row (under minutes)
-   ========================================================= */
-
 .sched-rail-meta{
   margin-top: 4px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .sched-rail-symbols{
@@ -1328,73 +828,60 @@
   min-width: 0;
 }
 
-/* Left side of the meta row: symbols + grade tag */
 .sched-rail-meta-left{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  min-width:0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
 }
 
-/* Custom (user) card inline controls next to symbols */
 .sched-rail-custom-inline{
-  display:flex;
-  align-items:center;
-  gap:6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* Grade text shown inline with symbols (no pill) */
 .sched-rail-grade{
   font-size: 12px;
   font-weight: 500;
-  color: #666d66;       /* same family as symbols */
+  color: #666d66;
   line-height: 1.2;
   white-space: nowrap;
 }
 
-/* keep buttons tight + aligned under minutes */
 .sched-rail-actions{
-  margin-top: 0;          /* override older rules */
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  gap:8px;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
 }
 
-/* Make edit/delete match the + button feel/size */
 .sched-rail-icon-btn{
+  font-weight: 750;
   width: 24px;
   height: 24px;
   border-radius: 6px;
   border: 1px solid #e5e8e5;
-  background:#fff;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0;
   font-size: 13px;
   line-height: 1;
-  color:#666d66;
+  color: #666d66;
 }
-.sched-rail-icon-btn:hover{ background:#f7f8f7; }
 
-/* =========================================================
-   Picture Study footer: compact + darker + full-width
-   ========================================================= */
-
-.sched-rail-band{
-  margin-top: 8px;
-  padding: 8px 10px;
-  border-top: 1px solid #e5e8e5;
-  background: rgba(89,110,94,.06); /* slightly darker footer strip */
-  border-radius: 0 0 14px 14px;   /* match card radius */
+.sched-rail-icon-btn:hover{
+  background: #f7f8f7;
 }
 
 .sched-rail-band-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .sched-rail-band-label{
@@ -1406,24 +893,23 @@
 }
 
 .sched-rail-band-chips{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  justify-content:flex-start;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
-/* Tracking chip on rail title line */
 .sched-rail-trackchip{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 34px;
-  height: 24px;                 /* match + button height */
+  height: 24px;
   padding: 0 6px;
-  border: 1px solid #e5e8e5;    /* match + button */
-  border-radius: 6px;          /* match + button */
-  background: #fff;            /* match + button */
-  color: #596e5e;              /* match + button */
+  border: 1px solid #e5e8e5;
+  border-radius: 6px;
+  background: #fff;
+  color: #596e5e;
   font-size: 12px;
   font-weight: 650;
   line-height: 1;
@@ -1431,50 +917,39 @@
 
 .sched-rail-trackchip--done{
   border-color: #d2d6d2;
-  color: #596e5e; 
+  color: #596e5e;
 }
 
-.sched-rail-check{
-  width: 16px;
-  height: 16px;
-  display:block;
-}
-
-
-/* =========================================================
-   Option C rail layout (rows + footer)
-   ========================================================= */
 .sched-rail-row1{
-  display:flex;
-  align-items:baseline;
-  justify-content:space-between;
-  gap:10px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .sched-rail-row1-right{
-  display:flex;
-  align-items:baseline;
-  gap:8px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
 }
 
 .sched-rail-row2{
   margin-top: 4px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
-/* tracker/check lives on row 2 (right) */
 .sched-rail-track{
-  display:inline-flex;
-  align-items:center;
-  justify-content:flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
   min-width: 34px;
   height: 18px;
   font-size: 12px;
   font-weight: 650;
-  color:#596e5e;
+  color: #596e5e;
   opacity: .9;
 }
 
@@ -1485,69 +960,54 @@
 .sched-rail-check{
   width: 16px;
   height: 16px;
-  display:block;
+  display: block;
 }
 
-/* Footer strip on every card */
 .sched-rail-footer{
   margin-top: 8px;
   padding: 8px 10px;
   border-top: 1px solid #e5e8e5;
   background: rgba(89,110,94,.06);
   border-radius: 0 0 14px 14px;
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  gap:10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
   margin-left: -10px;
   margin-right: -10px;
 }
 
-/* When grade options exist, they sit on the left side of the footer */
 .sched-rail-footer-left{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  gap:6px;
+  display: flex;
+  gap: 6px;
   align-items: center;
   margin-right: auto;
 }
 
-/* Make grade option chips match weekday toggle scale */
 .sched-rail-footer-left .sched-rail-chip--sm{
   height: 26px;
   padding: 0 10px;
   border-radius: 14px;
 }
 
-/* Remove older spacing if still present anywhere */
-.sched-rail-band{ display:none; }
-
-/* Grade-band dropdown (replaces chip row) */
-.sched-rail-grade-select{
-  height: 18px;                 /* match weekday toggle height */
-  border: 1px solid #d2d6d2;
-  border-radius: 10px;
-  padding: 0 22px 0 8px;        /* extra right padding for caret */
-  background: #fff;
-  color: #596e5e;
-  font-size: 12px;
-  line-height: 18px;
-  font-weight: 500;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  cursor: pointer;
+.sched-rail-band{
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-bottom: -8px;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-top: 1px solid #e5e8e5;
+  background: rgba(89,110,94,.06);
+  border-radius: 0 0 14px 14px;
+  display: none;
 }
 
-/* Grade selector wrapper */
 .sched-rail-grade-select-wrap{
   position: relative;
   display: inline-flex;
   align-items: center;
 }
 
-/* Grade-band dropdown */
 .sched-rail-grade-select{
   height: 18px;
   border: 1px solid #d2d6d2;
@@ -1564,7 +1024,6 @@
   cursor: pointer;
 }
 
-/* Chevron icon (matches other dropdowns) */
 .sched-rail-grade-chevron{
   position: absolute;
   right: 6px;
@@ -1574,10 +1033,6 @@
   pointer-events: none;
 }
 
-/* =========================================================
-   Drag reorder (Phase 1)
-   ========================================================= */
-
 .sched-card[draggable="true"]{
   cursor: grab;
 }
@@ -1586,33 +1041,22 @@ body.sched-dragging .sched-card[draggable="true"]{
   cursor: grabbing;
 }
 
-/* While dragging, slightly mute non-dragged cards (keeps it calm) */
 body.sched-dragging .sched-card{
   opacity: 0.92;
 }
-
-/* =========================================================
-   Drag reorder: visual drop indicator
-   ========================================================= */
 
 .sched-card.is-drag-source{
   opacity: 0.65;
 }
 
-/* Subtle highlight on the card you're hovering over */
 .sched-card.is-drop-target{
   box-shadow: 0 0 0 3px rgba(89,110,94,.12);
-}
-
-/* Insertion line (top/bottom) draw INSIDE the card
-   (prevents clipping inside overflow-y:auto columns) */
-.sched-card.is-drop-target{
   position: relative;
 }
 
 .sched-card.is-drop-target::before{
-  content:"";
-  position:absolute;
+  content: "";
+  position: absolute;
   left: 10px;
   right: 10px;
   height: 3px;
@@ -1623,45 +1067,17 @@ body.sched-dragging .sched-card{
   pointer-events: none;
 }
 
-/* Show line at the very top edge (inside) */
 .sched-card.is-drop-target[data-drop-pos="above"]::before{
   top: 0;
   opacity: 1;
 }
 
-/* Show line at the very bottom edge (inside) */
 .sched-card.is-drop-target[data-drop-pos="below"]::before{
   top: auto;
   bottom: 0;
   opacity: 1;
 }
 
-/* =========================================================
-   Rail header: light-tint sticky (matches chip ON fill)
-   ========================================================= */
-
-.sched-rail{
-  border-radius: 16px;
-}
-
-/* Sticky top area */
-.sched-rail-top{
-  position: sticky;
-  top: 0;
-  z-index: 10;
-
-  /* Light tint */
-  background: rgba(89,110,94,.10);
-
-  /* Pull the header to the card edges (because the rail uses p-4 = 16px) */
-  margin: -16px -16px 0;
-  padding: 16px 16px 14px;
-  border-bottom: 1px solid #e5e8e5;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-}
-
-/* Header text stays dark on the light tint */
 .sched-rail-top,
 .sched-rail-top .text-sm,
 .sched-rail-top .sched-rail-sub{
@@ -1669,6 +1085,7 @@ body.sched-dragging .sched-card{
 }
 
 .sched-rail-top .sched-rail-sub{
+  margin-top: 6px;
   opacity: .75;
 }
 
@@ -1678,249 +1095,143 @@ body.sched-dragging .sched-card{
   background: transparent;
 }
 
-/* Buttons sit nicely on the tint */
 .sched-rail-top .sched-rail-btn{
   background: #fff;
 }
 
-/* Chevron button: no circle background by default (only subtle hover) */
-.sched-rail-collapse-btn{
-  border: none;
-  background: transparent;
-  padding: 2px 4px;
-  border-radius: 10px;
-  color: #596e5e;
-  line-height: 1;
-  cursor: pointer;
-}
-.sched-rail-collapse-btn:hover{
-  background: rgba(89,110,94,.08);
-}
-/* =========================================================
-   Rail header: fix white strip + remove transparency
-   (place at VERY BOTTOM of schedule.css)
-   ========================================================= */
-
-/* Let the sticky header truly seal to the rounded corners */
-.sched-rail{
-  padding: 0 !important;          /* overrides Tailwind p-4 */
-  border-radius: 16px;
-  overflow: hidden;               /* prevents any white sliver at top corners */
-}
-
-/* Sticky top area (OPAQUE, not rgba) */
-.sched-rail-top{
-  position: sticky;
-  top: 0;
-  z-index: 10;
-
-  /* OPAQUE tint that matches the "on" chip feel but doesn't show cards through it */
-  background: #eef1ee;
-
-  /* Now that the rail has no padding, we don't need negative margins */
-  margin: 0;
-  padding: 16px 16px 14px;
-
-  border-bottom: 1px solid #e5e8e5;
-}
-
-/* Keep header text readable */
-.sched-rail-top,
-.sched-rail-top .text-sm,
-.sched-rail-top .sched-rail-sub{
-  color: #262b26;
-}
-.sched-rail-top .sched-rail-sub{ opacity: .75; }
-
-/* Remove inner box styling in the header */
-.sched-rail-top .sched-target{
-  padding: 0;
-  border: 0;
-  background: transparent;
-}
-
-/* Buttons sit nicely on the tint */
-.sched-rail-top .sched-rail-btn{
-  background: #fff;
-}
-
-/* Chevron: no circle background unless hover */
-.sched-rail-collapse-btn{
-  border: none;
-  background: transparent;
-  padding: 2px 4px;
-  border-radius: 10px;
-  color: #596e5e;
-  line-height: 1;
-  cursor: pointer;
-}
-.sched-rail-collapse-btn:hover{
-  background: rgba(89,110,94,.08);
-}
-
-/* The body is the ONLY scroll container, with real breathing room */
-.sched-rail-body{
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  /* This fixes the "Need to schedule" label feeling clipped/tight */
-  padding: 14px 16px 16px;
-}
-
-/* Make sure the first section label never hugs the header border */
 .sched-rail-body > .sched-rail-section-head{
   margin-top: 0;
   padding-top: 2px;
 }
 
-/* Rail shell */
-.sched-rail{
-  border-radius: 16px !important; /* <- force over Tailwind rounded-lg */
-  overflow: hidden;              /* ensures header bg clips to corners */
-  background: #fff;              /* rail body stays white */
-}
-
-/* Sticky header block */
-.sched-rail-top{
-  background: var(--rail-head-bg);
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-}
-/* =========================================================
-   Rail clarity: Need stands out, Complete recedes
-   ========================================================= */
-
-/* NEED list only:
-   targets the first rail list (the one right after "Need to schedule:") */
 .sched-rail-body > .sched-rail-section-head + .sched-rail-list .sched-rail-item{
-  background: #ffffff;                 
-  border-left: 4px solid #596e5e;      /* brand accent */
+  background: #ffffff;
+  border-left: 4px solid #596e5e;
   box-shadow: 0 1px 0 rgba(0,0,0,.04);
 }
 
-/* Slightly strengthen NEED titles so your eye finds them faster */
 .sched-rail-body > .sched-rail-section-head + .sched-rail-list .sched-rail-item-title{
   color: #1f241f;
 }
 
-/* COMPLETE list only (already muted, just a touch more) */
 .sched-rail-complete-wrap .sched-rail-item{
-  opacity: .55;                       /* was ~.68 in your file */
+  opacity: .55;
   filter: grayscale(.18);
-  background: #fbfbf9;                /* keep it calm */
-  border-left: 0;                     
+  background: #fbfbf9;
+  border-left: 0;
   box-shadow: none;
 }
 
-/* On hover, let completed items come forward slightly (nice usability) */
 .sched-rail-complete-wrap .sched-rail-item:hover{
   opacity: .75;
   filter: grayscale(.05);
 }
 
-/* Schedule board cards */
 .sched-card-title{
+  font-weight: 650;
+  font-size: 13px;
+  color: #262b26;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  min-height: calc(1.2em * 2);
+  max-width: 100%;
   line-height: 1.25;
-  /* Reserve exactly 2 lines of title space even if the title is short */
   height: 2.5em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .sched-rail-item-title{
+  font-weight: 650;
+  color: #262b26;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 13px;
   line-height: 1.25;
   height: 2.5em;
   overflow: hidden;
 }
 
-/* =========================================================
-   Card height consistency (custom cards too)
-   - Reserve space for symbols/sub row even when empty
-   - Keep tracker row height consistent
-   ========================================================= */
-
-/* Some custom cards have no symbols/subtext; reserve the same vertical space */
 .sched-card-sub{
+  font-size: 12px;
+  color: #666d66;
+  margin-top: 2px;
   line-height: 1.2;
-  min-height: 16px; /* matches the visual height of the symbol row */
+  min-height: 16px;
 }
 
-/* Tracker row: slightly taller so the 12-box tracker and blanks match */
 .sched-card-trackline{
+  font-size: 12px;
+  color: #666d66;
+  line-height: 1.2;
+  margin-top: auto;
   min-height: 18px;
 }
 
-/* =========================================================
-   Day View (Phase 3 scaffold)
-   ========================================================= */
 .sched-dayview{
   height: 100%;
-  display:flex;
-  flex-direction:column;
-  min-height:0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
-.sched-dayview-topbar{ display:none; }
+
+.sched-dayview-topbar{
+  display: none;
+}
 
 .sched-dayview-grid{
   flex: 1;
   min-height: 0;
-
   display: grid;
-  grid-template-columns: repeat(2, minmax(380px, 1fr)); /* MATCH student panels */
+  grid-template-columns: repeat(2, minmax(380px, 1fr));
   gap: 12px;
-
   overflow: hidden;
 }
 
 @media (max-width: 1024px){
-  .sched-dayview-grid{ grid-template-columns: 1fr; }
+  .sched-dayview-grid{
+    grid-template-columns: 1fr;
+  }
 }
 
 .sched-dayview-day{
   background: #fff;
   border: 1px solid #e5e8e5;
-  border-radius: 16px; /* match student panels */
+  border-radius: 16px;
   overflow: hidden;
-
-  display:flex;
-  flex-direction:column;
-  min-height:0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .sched-dayview-dayhead{
-  background: #dfe3d7; /* matches schedule header tone */
+  background: #dfe3d7;
   padding: 8px 12px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid #e5e8e5;
 }
 
-/* KEY CHANGE: lanes become COLUMNS (like day columns in student view) */
 .sched-dayview-lanes{
   flex: 1;
   min-height: 0;
-
   padding: 12px;
-
-  /* let .schedule-columns / .schedule-columns--nowrap control the layout */
   overflow-x: auto;
   overflow-y: hidden;
   height: 100%;
 }
-
 
 .sched-dayview-lane{
   border: 1px solid #e5e8e5;
   border-radius: 16px;
   overflow: hidden;
   background: #fbfbfa;
-
-  display:flex;
-  flex-direction:column;
-  min-height:0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .sched-dayview-lanehead{
@@ -1930,18 +1241,15 @@ body.sched-dragging .sched-card{
   color: #596e5e;
   background: rgba(89,110,94,.08);
   border-bottom: 1px solid #e5e8e5;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-/* lane body scrolls (like a column dropzone area) */
 .sched-dayview-lanebody{
   flex: 1;
   min-height: 0;
   overflow: auto;
-
   padding: 10px;
   display: grid;
   gap: 10px;
@@ -1957,19 +1265,6 @@ body.sched-dragging .sched-card{
   flex-direction: column;
 }
 
-/* Chip-style triggers for the Day View "Show students" dropdowns */
-.student-select-trigger.schedule-day-chip{
-  border: 1px solid #d2d6d2;
-  background: #fff;
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-size: 12px;
-  color: #596e5e;
-  font-weight: 650;
-  line-height: 1;
-}
-
-/* When a chip-trigger is "on", match the active day-chip styling */
 .student-select-trigger.schedule-day-chip.schedule-day-chip--on{
   background: rgba(89,110,94,.10);
   border-color: #596e5e;
@@ -1984,8 +1279,15 @@ body.sched-dragging .sched-card{
   box-shadow: 0 0 0 3px rgba(89,110,94,.12);
 }
 
-/* Tighten caret + internal spacing so it matches chip proportions */
 .student-select-trigger.schedule-day-chip{
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: #596e5e;
+  font-weight: 650;
+  line-height: 1;
   gap: 8px;
 }
 
@@ -1995,63 +1297,27 @@ body.sched-dragging .sched-card{
   opacity: .85;
 }
 
-/* =========================================================
-   Empty schedule column placeholder (Student + Day View)
-   ========================================================= */
 .schedule-empty{
+  opacity: .7;
   border: 2px dashed #d2d6d2;
   border-radius: 14px;
-
   padding: 18px 16px;
   margin: 4px 0;
-
   font-size: 14px;
   line-height: 1.4;
   color: #8a908a;
   text-align: center;
-
   background: transparent;
-
-  pointer-events: none; /* important: never blocks drag/drop */
+  pointer-events: none;
 }
 
 .schedule-columns,
 .schedule-columns--nowrap{
   display: grid;
   grid-auto-flow: column;
-
-  /* key: columns have a minimum width, but can grow to fill available space */
   grid-auto-columns: minmax(var(--sched-col-w), 1fr);
-
   gap: 12px;
   align-items: stretch;
-}
-
-/* =========================================================
-   Rail header + footer controls (layout plan)
-   ========================================================= */
-
-/* compact select used in the rail header row */
-.sched-target-select--compact{
-  width: auto;
-  min-width: 150px;
-  max-width: 220px;
-  height: 34px;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 650;
-}
-
-/* rail footer area (below the scrollable rail list) */
-.sched-rail-bottom{
-  flex: 0 0 auto;
-  margin: 12px -16px -16px;
-  padding: 12px 16px 16px;
-  border-top: 1px solid #e5e8e5;
-  background: #fff;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
 }
 
 .sched-rail-btn--full{
@@ -2061,325 +1327,79 @@ body.sched-dragging .sched-card{
   font-size: 13px;
 }
 
-/* =========================================================
-   OVERRIDES Rail header student dropdown + toggle layout
-   (keep at bottom of schedule.css)
-   ========================================================= */
-
-/* 1) Student dropdown in rail header: rectangular (4px) */
-.sched-target-select--compact{
-  border-radius: 4px !important;
-  height: 34px;
-  padding: 6px 10px;
-  min-width: 160px;
-  max-width: 240px;
-  background: #fff;
-}
-
-/* 2) Grade dropdown row: stack toggles UNDER the dropdown */
 .sched-rail-filter-row{
+  display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 10px;
 }
 
-/* Toggles row sits under dropdown and aligns left */
-.sched-rail-filter-toggles{
-  width: 100%;
-  justify-content: flex-start;
-}
-
-/* Optional: make toggle buttons visually consistent when stacked */
 .sched-rail-filter-btn{
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  color: #596e5e;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
   align-self: flex-start;
 }
 
-/* =========================================================
-   Rail filter toggles match Course / Book List switches
-   ========================================================= */
-
-.sched-rail-filter-toggles {
+.sched-rail-filter-toggles{
+  align-items: center;
+  width: 100%;
+  justify-content: flex-start;
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
 }
 
-/* reuse global toggle styling but scale it slightly */
-.sched-rail-filter-toggles .toggle {
+.sched-rail-filter-toggles .toggle--on .toggle-switch-knob{
+  transform: translateX(16px);
+}
+
+.sched-rail-filter-toggles .toggle:hover{
+  opacity: 0.9;
+}
+
+.sched-rail-top-controls .sched-target-select{
+  font-weight: 600;
+}
+
+.sched-rail-filter-toggles .toggle{
   display: inline-flex;
   align-items: center;
   gap: 8px;
-
   font-size: 12px;
-  font-weight: 600;
-  color: #596e5e;
-
   cursor: pointer;
   user-select: none;
+  color: rgba(89,110,94,.82) !important;
+  font-weight: 600;
 }
 
-/* switch track */
-.sched-rail-filter-toggles .toggle-switch {
+.sched-rail-filter-toggles .toggle-switch{
   width: 34px;
   height: 18px;
-  background: #d2d6d2;
   border-radius: 999px;
   position: relative;
   transition: background 160ms ease;
+  background: rgba(38,43,38,.12) !important;
 }
 
-/* switch knob */
-.sched-rail-filter-toggles .toggle-switch-knob {
+.sched-rail-filter-toggles .toggle-switch-knob{
   position: absolute;
   top: 2px;
   left: 2px;
   width: 14px;
   height: 14px;
-  background: #fff;
   border-radius: 50%;
   transition: transform 160ms ease;
-}
-
-/* ON state */
-.sched-rail-filter-toggles .toggle--on .toggle-switch {
-  background: #596e5e;
-}
-
-.sched-rail-filter-toggles .toggle--on .toggle-switch-knob {
-  transform: translateX(16px);
-}
-
-/* subtle hover */
-.sched-rail-filter-toggles .toggle:hover {
-  opacity: 0.9;
-}
-
-/* =========================================================
-   Quiet rail header (KEEP existing green background)
-   Paste at VERY BOTTOM of schedule.css
-   ========================================================= */
-
-/* 1) Calm the title + reduce overall ink */
-.sched-rail-top .sched-rail-head .text-sm{
-  font-weight: 700;                 /* slightly less shouty */
-  letter-spacing: 0.01em;
-  color: rgba(38,43,38,0.88);
-}
-
-.sched-rail-summary{
-  color: rgba(38,43,38,0.55) !important;
-  font-size: 12px;
-}
-
-/* 3) Inputs: less bright than pure white, softer borders */
-.sched-target-select,
-.sched-target-select--compact{
-  background: rgba(255,255,255,0.78) !important;   /* keeps your green showing through */
-  border: 1px solid rgba(38,43,38,0.14) !important;
-  color: rgba(38,43,38,0.90);
-}
-
-/* Subtle hover (still calm) */
-.sched-target-select:hover,
-.sched-target-select--compact:hover{
-  background: rgba(255,255,255,0.84) !important;
-  border-color: rgba(38,43,38,0.18) !important;
-}
-
-/* Softer focus ring (no bright blue) */
-.sched-target-select:focus,
-.sched-target-select--compact:focus{
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(89,110,94,0.12) !important;
-}
-
-/* 4) Chevron button: reduce contrast so it feels like a control, not a focal point */
-.sched-rail-collapse-btn{
-  color: rgba(38,43,38,0.58) !important;
-}
-.sched-rail-collapse-btn:hover{
-  color: rgba(38,43,38,0.72) !important;
-}
-
-/* 5) Toggle row: keep styleÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â */
-.sched-rail-filter-toggles .toggle{
-  color: rgba(89,110,94,0.82) !important;
-  font-weight: 600;
-}
-
-/* Toggle track: softer off-state */
-.sched-rail-filter-toggles .toggle-switch{
-  background: rgba(210,214,210,0.78) !important;
-}
-
-/* Toggle on-state: slightly less saturated than full green */
-.sched-rail-filter-toggles .toggle--on .toggle-switch{
-  background: rgba(89,110,94,0.86) !important;
-}
-
-/* Optional: slightly tighter vertical rhythm without moving layout */
-.sched-rail-summary{
-  margin-top: 6px !important;
-}
-
-/* Optional: make filter dropdown text slightly lighter than the student dropdown */
-.sched-rail-top-controls .sched-target-select{
-  font-weight: 600;
-}
-
-/* =========================================================
-   Rail header quieter controls + matching dropdowns
-   (PASTE AT VERY BOTTOM of schedule.css)
-   ========================================================= */
-
-:root{
-  --rail-control-bg: rgba(255,255,255,.55);
-  --rail-control-bg-hover: rgba(255,255,255,.66);
-  --rail-control-border: rgba(38,43,38,.14);
-  --rail-control-border-hover: rgba(38,43,38,.18);
-}
-
-/* 1) Calm the title + hierarchy */
-.sched-rail-top .sched-rail-head .text-sm{
-  font-weight: 700;
-  letter-spacing: .01em;
-  color: rgba(38,43,38,.86);
-}
-
-.sched-rail-summary{
-  color: rgba(38,43,38,.52) !important;
-  font-size: 12px;
-}
-
-/* 2) Make BOTH dropdowns match: same radius, padding, text rhythm */
-.sched-target-select,
-.sched-target-select--compact{
-  border-radius: 12px !important;        /* match grade dropdown */
-  padding: 8px 12px !important;          /* match the softer student feel */
-  font-size: 13px !important;
-  line-height: 1.1 !important;
-
-  background: var(--rail-control-bg) !important;
-  border: 1px solid var(--rail-control-border) !important;
-  color: rgba(38,43,38,.90) !important;
-}
-
-/* Student dropdown can stay slightly stronger than grade if you want */
-.sched-target-select--compact{
-  font-weight: 650 !important;
-}
-
-/* Grade dropdown slightly lighter so it doesn't compete with title row */
-.sched-target-select{
-  font-weight: 600 !important;
-}
-
-/* Hover + focus stay calm */
-.sched-target-select:hover,
-.sched-target-select--compact:hover{
-  background: var(--rail-control-bg-hover) !important;
-  border-color: var(--rail-control-border-hover) !important;
-}
-
-.sched-target-select:focus,
-.sched-target-select--compact:focus{
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(89,110,94,.12) !important;
-}
-
-/* 3) Chevron collapse button */
-.sched-rail-collapse-btn{
-  color: rgba(38,43,38,.55) !important;
-}
-.sched-rail-collapse-btn:hover{
-  color: rgba(38,43,38,.70) !important;
-}
-
-/* 4) Toggles: match the new control surface */
-.sched-rail-filter-toggles .toggle{
-  color: rgba(89,110,94,.82) !important;
-  font-weight: 600;
-}
-
-/* Off track matches the dropdown surface (slightly darker than it) */
-.sched-rail-filter-toggles .toggle-switch{
-  background: rgba(38,43,38,.12) !important;
-}
-
-/* Knob stays white for clarity */
-.sched-rail-filter-toggles .toggle-switch-knob{
   background: rgba(255,255,255,.95) !important;
 }
 
-/* On state: still green, but not super saturated */
 .sched-rail-filter-toggles .toggle--on .toggle-switch{
   background: rgba(89,110,94,.86) !important;
-}
-
-
-/* =========================================================
-   Rail selects "baked in" style like student panel trigger
-   (paste at VERY BOTTOM of schedule.css)
-   ========================================================= */
-
-/* shared chevron (SVG) */
-:root{
-  --rail-select-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 20 20'%3E%3Cpath d='M6.5 8.0l3.5 3.8L13.5 8.0' fill='none' stroke='%23596e5e' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-}
-
-/* Make BOTH selects feel like inline triggers */
-.sched-target-select,
-.sched-target-select--compact{
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-
-  /* typography similar to panel trigger */
-  font-size: 13px !important;
-  line-height: 1.1 !important;
-  color: #262b26 !important;
-
-  /* tight trigger-like padding */
-  padding: 6px 28px 6px 8px !important;
-
-  /* keep it from looking like a pill/button */
-  border-radius: 10px !important;
-
-  /* hide native arrow + use our own */
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  background-image: var(--rail-select-caret) !important;
-  background-repeat: no-repeat !important;
-  background-size: 18px 18px !important;
-
-  /* chevron close to text (matches panel) */
-  background-position: right 6px center !important;
-
-  cursor: pointer;
-}
-
-/* Slightly stronger weight for Student select, lighter for Grade select */
-.sched-target-select--compact{
-  font-weight: 650 !important;
-}
-.sched-target-select{
-  font-weight: 600 !important;
-  color: rgba(38,43,38,0.88) !important; /* slightly quieter than student */
-}
-
-/* Hover/focus like the panel trigger */
-.sched-target-select:hover,
-.sched-target-select--compact:hover{
-  background-color: rgba(89,110,94,.06) !important;
-}
-
-.sched-target-select:focus,
-.sched-target-select--compact:focus{
-  outline: none !important;
-  background-color: rgba(89,110,94,.06) !important;
-  box-shadow: 0 0 0 3px rgba(89,110,94,.12) !important;
 }
 
 @supports (-webkit-touch-callout: none){
@@ -2388,225 +1408,116 @@ body.sched-dragging .sched-card{
     background-color: transparent !important;
   }
 }
-/* =========================================================
-   Rail selects final calming pass
-   ========================================================= */
 
-/* Shared surface color (matches panel column headers) */
-:root{
-  --rail-select-bg: #bdc5bf;
-  --rail-select-bg-hover: #c7cec9;
-}
-
-/* Student + Grade selects: match panel header surface */
 .sched-target-select,
 .sched-target-select--compact{
+  background: transparent !important;
+  font-size: 13px !important;
+  line-height: 1.1 !important;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
   background-color: var(--rail-select-bg) !important;
   border: none !important;
   box-shadow: none !important;
-
   padding: 6px 28px 6px 8px !important;
   border-radius: 10px !important;
-
   background-image: var(--rail-select-caret) !important;
   background-repeat: no-repeat !important;
   background-size: 18px 18px !important;
   background-position: right 6px center !important;
-
   color: #262b26 !important;
 }
 
-/* Hover/focus stays very soft */
 .sched-target-select:hover,
 .sched-target-select--compact:hover{
+  background: var(--rail-control-bg-hover) !important;
+  border-color: var(--rail-control-border-hover) !important;
   background-color: var(--rail-select-bg-hover) !important;
 }
 
 .sched-target-select:focus,
 .sched-target-select--compact:focus{
+  background-color: rgba(89,110,94,.06) !important;
   outline: none !important;
   box-shadow: 0 0 0 3px rgba(89,110,94,0.14) !important;
 }
 
-/* Student dropdown: primary control */
-.sched-target-select--compact{
-  font-size: 13px !important;
-  font-weight: 650 !important;
-}
-
-/* Grade dropdown: quieter, matches toggle labels */
 .sched-target-select{
-  font-size: 12px !important;      /* match toggle text */
+  width: 100%;
+  border: 1px solid #d2d6d2;
+  border-radius: 12px;
+  padding: 8px 10px;
+  background: #fff;
+  font-size: 12px !important;
   font-weight: 600 !important;
-  color: rgba(38,43,38,0.88) !important; /* SAME color, just lighter weight */
+  color: rgba(38,43,38,0.88) !important;
 }
 
-/* =========================================================
-   Rail header: separate collapse chevron from student dropdown
-   ========================================================= */
-
-/* Make the rail header a positioning context */
-.sched-rail-top{
-  position: relative;
-}
-
-/* Visually move collapse chevron down to the summary row */
-.sched-rail-collapse-btn{
-  position: absolute;
-  right: 12px;
-
-  /* This aligns it with the text */
-  top: 44px;
-
-  /* Quiet it slightly so it reads as a container affordance */
-  opacity: 0.65;
-}
-
-.sched-rail-collapse-btn:hover{
-  opacity: 0.9;
-}
-
-/* Optional: ensure the student dropdown row keeps its spacing */
-.sched-rail-head-actions{
-  padding-right: 28px; /* prevents visual crowding on narrow screens */
-}
-
-/* =========================================================
-   Rail collapse chevron align with Showing summary row
-   ========================================================= */
-
-/* Ensure the top header is the positioning context */
-.sched-rail-top{ position: relative; }
-
-/* Place the collapse chevron relative to the summary line */
-.sched-rail-collapse-btn{
-  position: absolute;
-  right: 12px;
-
-  /* Align vertically to the summary text */
-  top: 0;
-  transform: translateY(0);
-
-  /* We'll compute a more reliable offset using the summary padding */
-}
-
-/* Match the summary row's baseline by referencing its spacing */
-.sched-rail-summary{
-  position: relative;
-  padding-right: 34px; /* makes room so text never runs under chevron */
-}
-
-/* Put the chevron at the same vertical position as the summary text */
 .sched-rail-summary::after{
   content: "";
 }
 
-/* Override chevron placement to summary row baseline */
 .sched-rail-top .sched-rail-collapse-btn{
-  /* This number should match the distance from the top of .sched-rail-top
-     to the summary text line. It's smaller than before because padding changed. */
   top: 50px;
 }
 
-/* =========================================================
-   Rail header: summary row + collapse chevron alignment
-   ========================================================= */
-
-.sched-rail-summary-row{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-/* remove any previous absolute positioning attempts */
-.sched-rail-collapse-btn{
-  position: static !important;
-  right: auto !important;
-  top: auto !important;
-  transform: none !important;
-  opacity: .72;
-}
-
-.sched-rail-collapse-btn:hover{
-  opacity: .95;
-}
-
-/* summary should not reserve space for a chevron anymore */
 .sched-rail-summary{
+  margin-top: 6px !important;
+  color: rgba(38,43,38,.52) !important;
+  font-size: 12px;
+  position: relative;
   padding-right: 0 !important;
 }
 
-/* =========================================================
-   Rail header alignment tweaks (student select + summary row)
-   ========================================================= */
-
-/* 1) Let the Student dropdown reach the true right padding edge */
 .sched-rail-head-actions{
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-left: auto;
-  padding-right: 0 !important; /* overrides older 28px safety padding */
-}
-
-.sched-target-select--compact{
-  margin-left: auto; /* keeps it hugged to the right */
-}
-
-.sched-rail-summary-row{
-  padding-top: 2px;  /* tiny nudge down */
+  padding-right: 0 !important;
 }
 
 .sched-rail-summary-row .sched-rail-collapse-btn{
-  margin-top: 2px;   /* keeps the chevron baseline matching the text */
+  margin-top: 2px;
 }
 
-/* =========================================================
-   Rail header: Student dropdown matches active day chips
-   ========================================================= */
-
-/* Student dropdown in rail header only (compact select) */
 .sched-target-select--compact{
-  /* Match .schedule-day-chip--on */
+  width: auto;
+  min-width: 160px;
+  max-width: 240px;
+  margin-left: auto;
   background: rgba(89,110,94,.10) !important;
   border: 1px solid #596e5e !important;
   color: #596e5e !important;
-
   border-radius: 999px !important;
-  padding: 6px 34px 6px 12px !important; /* keep room for chevron */
+  padding: 6px 34px 6px 12px !important;
   height: auto !important;
-
   font-size: 12px !important;
   font-weight: 650 !important;
   line-height: 1 !important;
-
-  /* Keep your custom caret close + consistent */
   background-image: var(--rail-select-caret) !important;
   background-repeat: no-repeat !important;
   background-size: 18px 18px !important;
   background-position: right 10px center !important;
 }
 
-/* Hover = same family as chips */
 .sched-target-select--compact:hover{
   background: rgba(89,110,94,.06) !important;
 }
 
-/* Focus ring = same as the rest of your UI */
 .sched-target-select--compact:focus{
   outline: none !important;
   box-shadow: 0 0 0 3px rgba(89,110,94,.12) !important;
 }
 
-/* =========================================================
-   Rail footer: make "+ Custom Card" become the footer
-   (matches active day chips)
-   ========================================================= */
-
 .sched-rail-bottom{
-  /* remove the "extra footer bar" look */
+  flex: 0 0 auto;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
   border-top: none !important;
   background: transparent !important;
-
-  /* keep spacing consistent with rail padding */
   margin: 0 !important;
   padding: 12px 16px 16px !important;
 }
@@ -2614,17 +1525,13 @@ body.sched-dragging .sched-card{
 .sched-rail-bottom .sched-rail-btn{
   width: 100%;
   border-radius: 999px !important;
-
-  /* match: .schedule-day-chip--on */
   background: rgba(89,110,94,.10) !important;
   border: 1px solid #596e5e !important;
   color: #596e5e !important;
-
   font-size: 12px !important;
   font-weight: 650 !important;
   line-height: 1 !important;
-
-  padding: 10px 14px !important; 
+  padding: 10px 14px !important;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2640,9 +1547,7 @@ body.sched-dragging .sched-card{
   box-shadow: 0 0 0 3px rgba(89,110,94,.12) !important;
 }
 
-
-/* ===== Workspace resizer (Option B) ===== */
-.sched-workspace-resize {
+.sched-workspace-resize{
   position: absolute;
   right: 12px;
   bottom: 12px;
@@ -2677,54 +1582,48 @@ body.sched-dragging .sched-card{
   outline-offset: 2px;
 }
 
-body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
+body.is-resizing-workspace{
+  cursor: ns-resize;
+  user-select: none;
+}
 
-
-/* =========================================================
-   Manage Students (Schedule page placement)
-   ========================================================= */
-
-/* Keep the Manage students control left-aligned under the page title,
-   visually sitting above the left rail. */
 .schedule-student-tools{
   position: relative;
-  width: 380px;           /* matches rail column */
+  width: 380px;
   max-width: 100%;
   margin: 8px 0 14px;
 }
 
-/* The global student-manager defaults to right-aligned dropdown.
-   On Schedule we want it to open directly under the link, left-aligned. */
 .schedule-student-tools .student-manager{
   right: auto;
   left: 0;
   z-index: 50;
 }
 
-/* Slightly tighten the toggle so it reads like an inline control */
 .schedule-student-tools .manage-students-toggle{
   justify-content: flex-start;
   padding-left: 0;
 }
 
-/* Optional: keep the chevron aligned */
 .manage-students-chevron{
   margin-left: 6px;
   transition: transform .15s ease;
 }
+
 .manage-students-chevron.open{
   transform: rotate(180deg);
 }
 
 @media (max-width: 980px){
-  .schedule-student-tools{ width: 100%; }
+  .schedule-student-tools{
+    width: 100%;
+  }
 }
 
-/* Card Style trigger (muted clickable text) */
 .schedule-cardstyle-trigger{
-  display:flex;
-  align-items:center;
-  gap:6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   border: 0;
   background: transparent;
   color: #596e5e;
@@ -2736,16 +1635,18 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   cursor: pointer;
   opacity: .78;
 }
+
 .schedule-cardstyle-trigger:hover{
   opacity: 1;
   text-decoration: underline;
 }
+
 .schedule-cardstyle-icon{
   font-size: 13px;
   line-height: 1;
   transform: translateY(-.5px);
 }
-/* Card Styles modal content */
+
 .cardstyle-base{
   padding: 10px 12px;
   border: 1px solid #e5e8e5;
@@ -2753,10 +1654,12 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   background: #fafbfa;
   margin-bottom: 12px;
 }
+
 .cardstyle-base-title{
   font-weight: 700;
   color: #2e3a33;
 }
+
 .cardstyle-base-sub{
   margin-top: 2px;
   font-size: 12px;
@@ -2764,63 +1667,49 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 }
 
 .cardstyle-options{
-  display:flex;
+  display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 .cardstyle-option{
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   gap: 10px;
   font-size: 14px;
 }
+
 .cardstyle-option input[type="checkbox"]{
   width: 16px;
   height: 16px;
 }
-/* =========================================================
-   Schedule Card Style Modal ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Checkbox color
-   ========================================================= */
 
-/* Modern browsers (Chrome, Edge, Firefox, Safari 15+) */
-.sched-modal input[type="checkbox"] {
+.sched-modal input[type="checkbox"]{
   accent-color: #adb58f;
 }
 
-/* Fallback / hover polish */
-.sched-modal input[type="checkbox"]:hover {
+.sched-modal input[type="checkbox"]:hover{
   filter: brightness(0.95);
 }
 
-/* --------------------------------------------------
-   Scaled-time mode
-   --------------------------------------------------
-   Goal: make cards consume exact vertical "time slots" so:
-     10m + 20m visually equals 30m, etc.
+.sched-card{
+  border: 1px solid #e5e8e5;
+  border-radius: 14px;
+  background: #fff;
+  padding: 10px 10px 9px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.03);
+  position: relative;
+  box-sizing: border-box;
+}
 
-   Implementation:
-   - JS sets --time-slots on each .sched-card when boardScaleByTime is ON
-     via :style="boardCardInlineStyle(inst)" returning: "--time-slots:N;"
-   - CSS defines --time-slot-h as the height of ONE 5-minute slot.
-   - Card height = calc(var(--time-slots) * var(--time-slot-h))
-
-   Tune:
-   - Adjust --time-slot-h to change the overall compression/expansion.
-   -------------------------------------------------- */
-
-.sched-card { box-sizing: border-box; }
-
-/* In time-scaled mode, remove stacking gaps so the math is clean */
 .is-time-scaled .schedule-dropzone{
   gap: 0 !important;
 }
 
-/* Slot height for ONE 5-minute block */
 .is-time-scaled{
-  --time-slot-h: 56px; /* <-- adjust to taste */
+  --time-slot-h: 56px;
 }
 
-/* Lock card height to the time math */
 .is-time-scaled .sched-card{
   height: calc(var(--time-slots, 1) * var(--time-slot-h));
   min-height: calc(var(--time-slots, 1) * var(--time-slot-h));
@@ -2830,7 +1719,6 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   flex-direction: column;
 }
 
-/* Compact internals in scaled mode so the 5-minute base can stay small */
 .is-time-scaled .sched-card-top{
   padding: 10px 12px 8px;
 }
@@ -2839,7 +1727,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   font-size: 15px;
   line-height: 1.15;
   display: -webkit-box;
-  -webkit-line-clamp: 2;          /* always reserve 2 lines */
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -2866,89 +1754,25 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   text-overflow: clip;
 }
 
-/* Keep remove icon anchored and not expanding layout */
 .is-time-scaled .sched-card-remove{
   margin-top: auto;
 }
 
-/* =========================================================
-   Expanded mode (Print-width panels)
-   - Each student panel = Letter portrait content width (7.5in)
-   - Columns fill the full panel width (minimal gutters)
-   - No rounded corners, no internal column scrolling
-   ========================================================= */
-
-.sched-expanded{
-  /* Letter portrait printable content width with 0.5" margins (8.5 - 1.0 = 7.5, --9.5 for screens) */
-  --sched-print-w: 9.5in;
-
-  /* Make columns ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œedge to edgeÃƒÂ¢Ã¢â€šÂ¬Ã‚Â */
-  --sched-cols-pad: 0px;     /* remove the big inner padding */
-  --sched-col-gap: 0px;      /* remove horizontal gaps between columns */
-
-  /* 5 equal columns fit exactly inside the panel */
-  --sched-col-w: calc(
-    (var(--sched-print-w) - (2 * var(--sched-cols-pad)) - (4 * var(--sched-col-gap))) / 5
-  );
-}
-
-/* In expanded mode, remove the height lock so layout can size naturally */
-.sched-expanded .sched-work{
-  height: auto;
-  max-height: none;
-  overflow-x: auto !important;
-  overflow-y: visible !important;
-}
-
-.sched-expanded .schedule-panels{
-  overflow: visible;
-}
-
-/* Put the horizontal scrollbar on the overall schedule area */
-.sched-expanded .schedule-grid{
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Panels become a single horizontal row */
-.sched-expanded .schedule-panel-row{
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  gap: 12px !important;          /* keep a little space BETWEEN student panels */
-  align-items: stretch;
-  width: max-content;
-}
-
-/* Each student panel = print width and never shrinks */
-.sched-expanded .schedule-panel{
-  flex: 0 0 auto;
-  width: var(--sched-print-w) !important;
-  min-width: var(--sched-print-w) !important;
-  max-width: var(--sched-print-w) !important;
-  /* keep the student panel rounded */
-  border-radius: 16px !important;
-}
-
-/* Header stays tinted but squared */
 .sched-expanded .schedule-panel-head{
   border-top-left-radius: 16px !important;
   border-top-right-radius: 16px !important;
 }
 
-/* Minimal space between header and columns */
 .sched-expanded .schedule-panel-body{
-  padding: 10px 0 0 !important; /* small top breathing room only */
+  padding: 10px 0 0 !important;
   border-bottom-left-radius: 16px !important;
   border-bottom-right-radius: 16px !important;
   overflow: visible !important;
   background: #fbfbf9;
-
-  /* ensure the board stretches so bottom edges align across panels */
   display: flex;
   flex-direction: column;
 }
 
-/* Board fills panel; no inner scrollbars in Expanded */
 .sched-expanded .schedule-board{
   width: 100%;
   max-width: 100%;
@@ -2958,7 +1782,6 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   flex: 1;
 }
 
-/* Columns fill the panel width exactly */
 .sched-expanded .schedule-columns{
   width: 100% !important;
   min-width: 100% !important;
@@ -2967,82 +1790,60 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   grid-auto-columns: var(--sched-col-w) !important;
   align-items: stretch;
   height: 100% !important;
-
-  /* single bottom edge for the whole week (aligns across panels) */
   border-bottom: 1px solid #e5e8e5;
 }
 
-/* Make columns full-height look (no rounded corners, no horizontal spacing) */
 .sched-expanded .schedule-col{
   border-radius: 0 !important;
-
-  /* turn the ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œgapsÃƒÂ¢Ã¢â€šÂ¬Ã‚Â into simple divider lines */
   border-top: 1px solid #e5e8e5;
-  /* bottom edge should be owned by the panel/row, not double-stroked */
   border-bottom: 0;
   border-right: 1px solid #e5e8e5;
   border-left: 0;
-
   background: #fbfbf9;
 }
 
-/* In Expanded mode, the single bottom edge should be the panel edge (not doubled) */
 .sched-expanded .schedule-panel{
+  flex: 0 0 auto;
+  width: var(--sched-print-w) !important;
+  min-width: var(--sched-print-w) !important;
+  max-width: var(--sched-print-w) !important;
+  border-radius: 16px !important;
   border-bottom-color: transparent !important;
 }
 
-/* Hide the workspace-resize handle in Expanded mode (it floats in a weird spot) */
 .sched-expanded .sched-workspace-resize{
   display: none !important;
 }
 
-/* Expanded mode: rail height matches the schedule board height.
-   The board is allowed to grow to its full content height; the rail body scrolls inside that same height
-   so the rail list never forces an Ã¢â‚¬Å“endless pageÃ¢â‚¬Â. */
 .sched-expanded{
+  --sched-print-w: 9.5in;
+  --sched-cols-pad: 0px;
+  --sched-col-gap: 0px;
+  --sched-col-w: calc(
+    (var(--sched-print-w) - (2 * var(--sched-cols-pad)) - (4 * var(--sched-col-gap))) / 5
+  );
   --sched-expanded-h: auto;
 }
 
-.sched-expanded .sched-rail{
-  height: var(--sched-expanded-h) !important;
-  max-height: var(--sched-expanded-h) !important;
-  overflow: hidden !important;
-  display: flex;
-  flex-direction: column;
-}
-
-.sched-expanded .sched-rail-body{
-  overflow: auto !important;
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
-/* Ensure the 2-column grid stretches both sides to the same height */
 .sched-expanded .schedule-grid{
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   align-items: stretch;
 }
 
-/* Left edge of the grid gets the left border */
 .sched-expanded .schedule-col:first-child{
   border-left: 1px solid #e5e8e5;
 }
 
-/* Square column headers */
 .sched-expanded .schedule-col-head{
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
 }
 
-/* No internal scrolling inside columns in Expanded mode */
 .sched-expanded .schedule-dropzone{
   overflow: visible !important;
 }
-/* =========================================================
-   Expanded mode: BOARD grows with content (page scroll),
-   RAIL is viewport-height and scrolls internally.
-   ========================================================= */
 
-/* Board side should be natural height */
 .sched-expanded .sched-work{
   height: auto !important;
   max-height: none !important;
@@ -3054,7 +1855,6 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   overflow: visible !important;
 }
 
-/* IMPORTANT: stop any â€œ100% heightâ€ forcing blank space */
 .sched-expanded .schedule-panel-body,
 .sched-expanded .schedule-board,
 .sched-expanded .schedule-columns{
@@ -3062,36 +1862,33 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   max-height: none !important;
 }
 
-  /* Rail should match the board height when the page scrolls (same as .sched-work). */
-  .sched-expanded .sched-rail {
-    height: auto;
-    max-height: none;
-  }
+.sched-expanded .sched-rail{
+  overflow: hidden !important;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  max-height: none;
+}
 
-  /* Let the rail contents contribute to height like the board does. */
-  .sched-expanded .sched-rail-body {
-    overflow: visible;
-  }
+.sched-expanded .sched-rail-body{
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: visible;
+}
 
-/* If you have any rail â€œscroll wrapperâ€ class, keep it from breaking */
 .sched-expanded .sched-rail-scroll{
   overflow-y: auto !important;
   overflow-x: hidden !important;
   min-height: 0;
 }
 
-/* =========================================================
-   Rail layout: sticky header + scrollable body
-   ========================================================= */
-
-.sched-rail{
-  display: flex;
-  flex-direction: column;
-  min-height: 0; /* critical when inside a grid */
-}
-
-/* keep the top/header from shrinking */
 .sched-rail-top{
+  margin: 0;
+  padding: 16px 16px 14px;
+  border-bottom: 1px solid #e5e8e5;
+  background: var(--rail-head-bg);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   flex: 0 0 auto;
   position: sticky;
   top: 0;
@@ -3099,57 +1896,41 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   padding-bottom: 10px;
 }
 
-/* this is the scroll container */
 .sched-rail-body{
+  padding-top: 14px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 14px 16px 16px;
   flex: 1 1 auto;
-  min-height: 0;      /* critical so overflow works */
+  min-height: 0;
   overflow: auto;
-  padding-right: 4px; /* tiny gutter so scrollbar doesn't sit on content */
+  padding-right: 4px;
 }
-
-/* =========================================================
-   Rail dock: open/closed widths
-   ========================================================= */
 
 @media (min-width: 1024px){
   .schedule-grid--rail{
     display: grid;
     grid-template-columns: var(--rail-w, 380px) 1fr;
     align-items: stretch;
-
-    /* Horizontal scroll container */
     overflow-x: auto;
     overflow-y: visible;
   }
-  /* Freeze the rail while panels scroll horizontally */
+
   .schedule-grid--rail .sched-rail{
     position: sticky;
     left: 0;
     z-index: 20;
   }
-  .schedule-grid--rail.rail-open{  --rail-w: 380px; }
-  .schedule-grid--rail.rail-closed{ --rail-w: 48px; }
+
+  .schedule-grid--rail.rail-open{
+    --rail-w: 380px;
+  }
+
+  .schedule-grid--rail.rail-closed{
+    --rail-w: 48px;
+  }
 }
 
-.sched-rail-dock-btn{
-  border: 1px solid #e5e8e5;
-  background: #fff;
-  width: 28px;
-  height: 28px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #596e5e;
-  opacity: .85;
-}
-.sched-rail-dock-btn:hover{ opacity: 1; }
-
-/* =========================================================
-   Rail dock (left ↔ right collapse)
-   ========================================================= */
-
-/* When dock is CLOSED: hide *everything inside* except the dock button + the vertical label */
 .sched-rail--closed .sched-rail-top-controls,
 .sched-rail--closed .sched-rail-summary-row,
 .sched-rail--closed .sched-target,
@@ -3158,107 +1939,27 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   display: none !important;
 }
 
-/* Closed rail container styling */
-.sched-rail--closed{
-  padding: 10px 8px !important;
-  background: #d8ddcf !important;       /* matches your UI tint */
-  border-color: #c7cec0 !important;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Vertical “Scheduling Cards” label (only visible when closed) */
-.sched-rail-collapsed-label{
-  display: none;                         /* default hidden */
-}
-
-.sched-rail--closed .sched-rail-collapsed-label{
-  display: block;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(-90deg);
-  transform-origin: center;
-  white-space: nowrap;
-
-  font-size: 12px;
-  font-weight: 750;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: #596e5e;
-  opacity: .95;
-}
-
-/* Make the dock toggle button usable in closed state */
-.sched-rail-dock-btn{
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-
-  width: 30px;
-  height: 30px;
-  border-radius: 999px;
-  border: 1px solid #c7cec0;
-  background: rgba(255,255,255,.65);
-  color: #596e5e;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .sched-rail-dock-btn:hover{
+  opacity: 1;
   background: rgba(255,255,255,.9);
 }
 
-/* Prevent the board side from overflowing the grid column */
 @media (min-width: 1024px){
   .schedule-grid--rail .sched-work{
     min-width: 0;
   }
 }
 
-/* Rail column (left of schedule board) */
-.schedule-grid--rail{
-  display: flex;
-  gap: 12px;
-  align-items: stretch;
-  height: var(--sched-workspace-h); /* ✅ rail == board height */
-  min-height: 0;
+.schedule-grid--rail.rail-open{
+  --rail-w: 380px;
 }
 
-.schedule-grid--rail.rail-open{  --rail-w: 380px; }
-.schedule-grid--rail.rail-closed{ --rail-w: 56px; }
-
-/* Rail itself */
-.schedule-grid--rail .sched-rail{
-  flex: 0 0 var(--rail-w);
-  min-width: var(--rail-w);
-  height: 100%;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
+.schedule-grid--rail.rail-closed{
+  --rail-w: 56px;
 }
 
-/* Board area */
-.schedule-grid--rail .sched-work{
-  flex: 1 1 auto;
-  min-width: 0;
-  height: 100%;
-  min-height: 0;
-  overflow: hidden; /* ✅ contain everything by default */
-}
-
-/* In Expanded mode, keep a shared workspace height so the rail can't
-   make the whole page taller than the student panels */
 .sched-expanded .schedule-grid--rail{
   height: var(--sched-workspace-h);
-}
-
-/* Rail must never expand the page; it scrolls internally */
-.schedule-grid--rail .sched-rail{
-  overflow: hidden;
 }
 
 .schedule-grid--rail .sched-rail-body{
@@ -3267,7 +1968,6 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   overflow-y: auto;
 }
 
-/* Collapsed rail styling */
 .sched-rail.is-collapsed{
   border-radius: 18px;
   overflow: hidden;
@@ -3280,13 +1980,7 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 }
 
 .sched-rail.is-collapsed .sched-rail-head-actions{
-  display: none; /* hide student dropdown */
-}
-
-.sched-rail-title{
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: none;
 }
 
 .sched-rail.is-collapsed .sched-rail-title{
@@ -3298,6 +1992,14 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 }
 
 .sched-rail-collapse-btn{
+  padding: 2px 4px;
+  line-height: 1;
+  color: rgba(38,43,38,.55) !important;
+  position: static !important;
+  right: auto !important;
+  top: auto !important;
+  transform: none !important;
+  opacity: .72;
   width: 28px;
   height: 28px;
   border-radius: 999px;
@@ -3310,36 +2012,43 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 }
 
 .sched-rail-collapse-btn:hover{
+  color: rgba(38,43,38,.70) !important;
+  opacity: .95;
   background: rgba(255,255,255,0.9);
 }
 
-/* Give the student-panel row a little breathing room on the right */
 .schedule-panel-row{
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(380px, 1fr));
+  gap: 12px;
+  align-items: stretch;
   padding-right: 12px;
 }
 
-/* Expanded (horizontal scroll) still needs that right buffer */
 .sched-expanded .schedule-panel-row{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 12px !important;
+  align-items: stretch;
+  width: max-content;
   padding-right: 12px !important;
 }
 
-/* =========================================================
-   Rail header cleanup (open + closed)
-   ========================================================= */
-
-/* Header row should always align cleanly */
 .sched-rail-top .sched-rail-head{
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-/* Keep the title from jumping around */
 .sched-rail-top .sched-rail-head .text-sm{
+  font-weight: 700;
+  letter-spacing: .01em;
+  color: rgba(38,43,38,.86);
   white-space: nowrap;
 }
 
-/* Make the collapsed label truly “the only thing” besides the chevron */
 .sched-rail--closed .sched-rail-top{
   display: flex;
   flex-direction: column;
@@ -3355,35 +2064,23 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   display: none !important;
 }
 
-.sched-rail--closed .sched-rail-collapsed-label{
-  display: flex;
+.sched-rail-summary-row{
   align-items: center;
-  justify-content: center;
-  height: calc(var(--sched-workspace-h) - 24px);
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-weight: 700;
-  letter-spacing: .08em;
-  color: rgba(38,43,38,.70);
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 2px;
+  display: none;
 }
 
-/* Only show the summary row when open */
-.sched-rail-summary-row{ display: none; }
-.sched-rail--open .sched-rail-summary-row{ display: flex; }
-
-.sched-rail-dock-btn{
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  transform: none;
-  z-index: 5;
+.sched-rail--open .sched-rail-summary-row{
+  display: flex;
 }
 
 .schedule-grid--rail{
+  min-height: 0;
   display: flex;
   align-items: stretch;
   gap: 16px;
-  /* Let student panels / board content drive height */
   height: auto;
 }
 
@@ -3393,38 +2090,9 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   min-height: 0;
 }
 
-.schedule-grid--rail .sched-work{
-  overflow-x: auto;
-  overflow-y: visible;   /* allow height to expand with student panels */
-  padding-right: 12px;   /* adds the missing right margin you mentioned */
-}
-
-.sched-rail-dock-btn{
-  border: 1px solid rgba(38,43,38,.18);
-  background: transparent;            /* ✅ removes “lighter patch” look */
-  width: 28px;
-  height: 28px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #596e5e;
-  opacity: .85;
-
-  position: static;                   /* ✅ inline when open */
-  transform: none;
-  flex: 0 0 auto;
-}
-
-/* ✅ When CLOSED: pin the button in the upper-left */
-.sched-rail--closed .sched-rail-dock-btn{
-  position: absolute;
-  top: 12px;
-  left: 12px;
-}
-
 .sched-rail-head{
-  position: relative;          /* needed for closed-state absolute positioning */
+  justify-content: space-between;
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -3438,80 +2106,45 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   min-width: 0;
 }
 
-/* keep the student select pushed to the right */
 .sched-rail-head .sched-student-select{
   margin-left: auto;
 }
 
-/* Collapsed rail label (ONLY visible when rail is closed) */
-.sched-rail-collapsed-label{ display:none; }
-
-.sched-rail--closed .sched-rail-collapsed-label{
-  display:block;
-  position:absolute;
-  left:50%;
-  top: 86px;                           /* ✅ moved toward top */
-  transform: translateX(-50%) rotate(-90deg);
-  transform-origin:center;
-  white-space:nowrap;
-  font-size:12px;
-  font-weight:750;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color: rgba(38,43,38,.70);
+.sched-rail-collapsed-label{
+  display: none;
 }
 
 .sched-work{
+  max-height: none;
+  display: block;
   flex: 1 1 auto;
   min-width: 0;
   min-height: 0;
-
-  height: auto;          /* ✅ panels can define height */
-  overflow: visible;     /* ✅ no clipping */
+  height: auto;
+  overflow: visible;
 }
 
-.schedule-board{
-  width: 100%;
-  max-width: 100%;
-
-  overflow-x: auto;
-  overflow-y: visible;
-  -webkit-overflow-scrolling: touch;
-
-  height: auto;          /* ✅ content drives height */
-  min-height: 0;
-
-  padding-right: 12px;   /* ✅ right gutter like your left spacing */
-  padding-bottom: 8px;   /* ✅ scrollbar breathing room */
-}
-
-/* Rail height: let student panels/page drive height (no internal clipping) */
 .sched-rail{
+  padding: 0 !important;
+  border-radius: 16px !important;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   height: auto;
   max-height: none;
   overflow: visible;
 }
 
-/* =========================================================
-   FINAL Rail Dock Polish (bottom-of-file overrides)
-   Fixes:
-   - dock button clipping + weird light patch
-   - dock button overlapping header text when open
-   - collapsed label moved toward top (not vertically centered)
-   ========================================================= */
-
 .sched-rail--closed{
-  /* give the top area room so the circle button never clips */
+  padding: 10px 8px !important;
+  border-color: #c7cec0 !important;
+  position: relative;
   padding-top: 56px !important;
-
-  /* allow the circle button to visually sit in the rounded top */
   overflow: visible !important;
-
-  /* keep the closed rail one solid color */
   background: #d9dfd3 !important;
 }
 
-/* OPEN state: header is a normal row (button left of title) */
 .sched-rail--open .sched-rail-head{
   display: flex !important;
   align-items: center !important;
@@ -3519,80 +2152,48 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
   gap: 12px !important;
 }
 
-/* Ensure the dock button is NOT absolute in open state */
-.sched-rail-dock-btn{
-  position: static !important;
-  flex: 0 0 auto !important;
-}
-
-/* CLOSED state: dock button is pinned top-left, no “light spot” */
-.sched-rail--closed .sched-rail-dock-btn{
-  position: absolute !important;
-  top: 12px !important;
-  left: 12px !important;
-
-  background: transparent !important;   /* removes the weird light patch */
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
-
-/* If any earlier rule added a pseudo background/halo, kill it */
 .sched-rail--closed .sched-rail-dock-btn::before,
 .sched-rail--closed .sched-rail-dock-btn::after{
   content: none !important;
 }
 
-/* Move collapsed label toward the top (not centered vertically) */
-.sched-rail--closed .sched-rail-collapsed-label{
-  display: block !important;
-
-  position: absolute !important;
-  top: 86px !important;                /* <- adjust this up/down if you want */
-  left: 50% !important;
-
-  transform: translateX(-50%) rotate(180deg) !important;
-  writing-mode: vertical-rl !important;
-
-  /* keep it readable */
-  font-weight: 800 !important;
-  letter-spacing: .14em !important;
-  opacity: .9 !important;
-  pointer-events: none !important;
-}
-
 .schedule-grid--rail .sched-rail{
+  flex: 0 0 var(--rail-w);
+  min-width: var(--rail-w);
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
   position: sticky;
   left: 0;
   z-index: 40;
-
-  /* IMPORTANT: do NOT clip the dock button / collapsed label */
   overflow: visible;
 }
 
-/* Dock button: inline by default (OPEN state) */
 .sched-rail-dock-btn{
+  top: 10px;
+  left: 10px;
+  z-index: 5;
   border: 1px solid rgba(38,43,38,.18);
-  background: transparent;  /* prevents the “lighter patch” */
+  background: transparent;
   box-shadow: none;
-
   width: 28px;
   height: 28px;
   border-radius: 999px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   color: #596e5e;
   opacity: .9;
-
-  position: static;         /* OPEN state = not absolute */
+  position: static;
   transform: none;
   flex: 0 0 auto;
 }
 
-/* CLOSED state: pin top-left */
 .sched-rail--closed .sched-rail-dock-btn{
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
   position: absolute;
   top: 12px;
   left: 12px;
@@ -3600,48 +2201,71 @@ body.is-resizing-workspace{cursor: ns-resize; user-select:none;}
 }
 
 .sched-rail--closed .sched-rail-collapsed-label{
+  align-items: center;
+  justify-content: center;
+  height: calc(var(--sched-workspace-h) - 24px);
+  writing-mode: vertical-rl !important;
+  opacity: .9 !important;
   display: block;
   position: absolute;
-
-  /* Move label toward the top (not vertically centered) */
   top: 64px;
   left: 50%;
-
   transform: translateX(-50%) rotate(-90deg);
   transform-origin: center;
-
   white-space: nowrap;
   font-size: 12px;
   font-weight: 750;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: rgba(38,43,38,.70);
-
-  pointer-events: none; /* never blocks clicking */
+  pointer-events: none;
 }
 
-/* =========================================================
-   Height rules: let student panels drive the layout height
-   (override older workspace-height / clipping rules)
-   ========================================================= */
-
 :root{
-  /* Neutralize old “fixed workspace” height behavior */
+  --rail-head-bg: #dee1d2;
+  --sched-col-w: 260px;
+  --sched-workspace-max-h: calc(100vh - 260px);
+  --rail-control-bg: rgba(255,255,255,.55);
+  --rail-control-bg-hover: rgba(255,255,255,.66);
+  --rail-control-border: rgba(38,43,38,.14);
+  --rail-control-border-hover: rgba(38,43,38,.18);
+  --rail-select-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 20 20'%3E%3Cpath d='M6.5 8.0l3.5 3.8L13.5 8.0' fill='none' stroke='%23596e5e' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --rail-select-bg: #bdc5bf;
+  --rail-select-bg-hover: #c7cec9;
   --sched-workspace-h: auto;
 }
 
 .schedule-grid--rail .sched-work{
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  overflow-x: auto;
+  padding-right: 12px;
   height: auto !important;
   max-height: none !important;
   overflow-y: visible !important;
 }
 
 .schedule-board{
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  min-height: 0;
+  padding-right: 12px;
+  padding-bottom: 8px;
   height: auto !important;
   max-height: none !important;
   overflow-y: visible !important;
 }
 
 .schedule-panel-body{
+  flex: 1;
+  min-height: 0;
+  padding: 12px;
+  background: #fbfbf9;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
   overflow: visible !important;
 }
