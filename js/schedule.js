@@ -798,13 +798,15 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
             document.documentElement.style.removeProperty("--sched-expanded-h");
             return;
           }
-
-          const work = document.querySelector(".sched-work");
-          if (!work) return;
-
-          // scrollHeight reflects the full height of the schedule board content.
+      
+          // IMPORTANT: height should be driven by the schedule BOARD columns,
+          // not by the rail list.
+          const board = document.querySelector(".schedule-board");
+          if (!board) return;
+      
+          // scrollHeight captures the full content height of the board columns
           // Add a tiny buffer so borders don't clip.
-          const h = Math.max(0, work.scrollHeight + 2);
+          const h = Math.max(0, board.scrollHeight + 2);
           if (h) document.documentElement.style.setProperty("--sched-expanded-h", `${h}px`);
         } catch (_) {
           // ignore
