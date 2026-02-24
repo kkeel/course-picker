@@ -2126,7 +2126,10 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       railGradeLabel(g) {
         const v = String(g || "");
         const m = v.match(/^G([1-9]|1[0-2])$/);
-        if (!m) return "All grades";
+      
+        // If "All grades" / blank, return empty so it doesn't show in summary
+        if (!m) return "";
+      
         return `Grade ${m[1]}`;
       },
 
@@ -2135,9 +2138,14 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       },
 
       railFilterValue() {
-        const parts = [this.railGradeLabel(this.railGradeFilter)];
+        const parts = [];
+      
+        const gradePart = this.railGradeLabel(this.railGradeFilter);
+        if (gradePart) parts.push(gradePart);
+      
         if (this.railMyCoursesOnly) parts.push("My courses");
         if (this.railStudentAssignedOnly) parts.push("Student assignments");
+      
         return parts.join(" • ");
       },
 
