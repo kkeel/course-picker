@@ -2150,11 +2150,10 @@ body.is-resizing-workspace{
 /* CLOSED rail: vertical label that starts just under the button */
 .sched-rail--closed .sched-rail-collapsed-label{
   display: block !important;
-  position: absolute;
-  left: 50%;
-  top: 56px;                 /* <-- label starts under the button */
-  transform: translateX(-50%) rotate(180deg);
-  transform-origin: top center;
+
+  position: static !important;
+  transform: rotate(180deg);
+  transform-origin: center;
 
   writing-mode: vertical-rl;
   text-orientation: mixed;
@@ -2166,8 +2165,8 @@ body.is-resizing-workspace{
   letter-spacing: .08em;
   font-size: 12px;
   line-height: 1.05;
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .sched-work{
@@ -2238,6 +2237,23 @@ body.is-resizing-workspace{
   overflow: visible;
 }
 
+/* Dock stack container (button + vertical label) */
+.sched-rail-dock-stack{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Closed: stack vertically, centered */
+.sched-rail--closed .sched-rail-dock-stack{
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding-top: 2px;
+}
+
+/* Dock button (NOT absolute — it sits in normal flow now) */
 .sched-rail-dock-btn{
   width: 34px;
   height: 34px;
@@ -2248,11 +2264,7 @@ body.is-resizing-workspace{
   place-items: center;
   cursor: pointer;
   flex: 0 0 auto;
-
-  /* pinned within the rail head */
-  position: absolute;
-  top: 12px;
-  left: 12px;
+  position: static; /* critical: prevents overlap wars */
   z-index: 6;
 }
 
@@ -2260,12 +2272,6 @@ body.is-resizing-workspace{
   background: transparent !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
-
-  position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 6;
 }
 
 /* Collapsed rail: stack the dock button ABOVE the vertical label */
@@ -2335,71 +2341,47 @@ body.is-resizing-workspace{
 }
 
 /* =========================================================
-   FINAL OVERRIDES — Rail dock behavior + height syncing
+   FINAL OVERRIDES — Rail dock behavior + FIXED rail height
    (pasted at bottom so it wins)
    ========================================================= */
 
-/* 1) The workspace height var should control the 2-column area (rail + work)
-   so they always match in non-expanded mode */
-#scheduleGridRail{
-  height: var(--sched-workspace-h);
-  min-height: 0;
-  align-items: stretch;
+/* Pick a rail height that feels right on desktop.
+   You can tweak the 260px if you want “more rail, less page”. */
+:root{
+  --sched-rail-fixed-h: calc(100vh - 260px);
 }
 
-/* 2) Make the work column actually honor the workspace height
-   (your CSS currently forces height:auto in a few places) */
+/* Let the workspace height be driven by the schedule board (NOT the rail) */
+#scheduleGridRail{
+  height: auto !important;
+  min-height: 0;
+  align-items: flex-start;
+}
+
+/* Work column behaves normally */
 #scheduleGridRail .sched-work{
-  height: 100% !important;
+  height: auto !important;
   min-height: 0 !important;
   overflow-x: auto !important;
-  overflow-y: visible !important; /* board can grow inside; page scroll handles vertical */
+  overflow-y: visible !important;
 }
 
-/* 3) Rail should never be allowed to "make the grid taller".
-   It must stay at the same height as the work area, and the rail BODY scrolls. */
+/* Rail is hard-capped, and scroll happens inside the body */
 #scheduleGridRail .sched-rail{
-  height: 100% !important;
+  height: var(--sched-rail-fixed-h) !important;
+  max-height: var(--sched-rail-fixed-h) !important;
   min-height: 0 !important;
-  overflow: hidden !important; /* header visible, body scrolls */
+  overflow: hidden !important;
   display: flex;
   flex-direction: column;
 }
 
-/* Your rail body is the scroll container */
+/* Body scrolls */
 #scheduleGridRail .sched-rail-body{
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto !important;
   overflow-x: hidden !important;
-}
-
-/* 4) Header layout: when OPEN, the dock button must sit LEFT of the title.
-   Right now the button is absolutely positioned, so we override that in open state. */
-.sched-rail--open .sched-rail-dock-btn{
-  position: static !important;
-  top: auto !important;
-  left: auto !important;
-  transform: none !important;
-}
-
-/* When CLOSED, keep the button pinned at the top center (your existing behavior) */
-.sched-rail--closed .sched-rail-dock-btn{
-  position: absolute !important;
-  top: 12px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-}
-
-/* 6) Expanded mode: DO NOT force the var-height (let it grow naturally) */
-.sched-expanded #scheduleGridRail{
-  height: auto !important;
-}
-.sched-expanded #scheduleGridRail .sched-work{
-  height: auto !important;
-}
-.sched-expanded #scheduleGridRail .sched-rail{
-  height: auto !important;
 }
 
 /* Keep rail under the main nav/header stacking context */
