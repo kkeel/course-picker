@@ -2535,6 +2535,13 @@ dayTotalMinutes(studentId, dayIndex) {
           if (Number.isFinite(px) && px > 0) this.setWorkspaceHeight(px);
         }
 
+        setTimeout(() => {
+          try {
+            const px = this.getWorkspaceHeightPx();
+            if (px) this.setWorkspaceHeight(px);
+          } catch (e) {}
+        }, 0);
+
         const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
         const commit = () => {
