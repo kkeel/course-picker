@@ -1469,6 +1469,26 @@ body.sched-dragging .sched-card{
   font-size: 12px;
   position: relative;
   padding-right: 0 !important;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.sched-rail-summary-label{
+  font-size: 13px;
+  font-weight: 700;
+  color: #596e5e;
+  white-space: nowrap;
+}
+
+.sched-rail-summary-value{
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(38,43,38,.60); /* muted */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sched-rail-head-actions{
@@ -2042,6 +2062,13 @@ body.is-resizing-workspace{
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.sched-rail-collapse-text{
+  font-size: 12px;
+  font-weight: 600;
+  color: #596e5e;
+  opacity: .85;
 }
 
 .sched-rail-collapse-btn:hover{
