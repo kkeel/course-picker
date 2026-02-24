@@ -295,8 +295,22 @@
                   <button class="sched-rail-dock-btn"
                           @click="toggleRailDockOpen()"
                           :aria-label="railDockOpen ? 'Collapse rail' : 'Expand rail'">
-                    <span x-show="railDockOpen">‹</span>
-                    <span x-show="!railDockOpen">›</span>
+
+                    <!-- quieter chevron icon -->
+                    <svg class="sched-rail-dock-icon" viewBox="0 0 20 20" aria-hidden="true">
+                      <path
+                        x-show="railDockOpen"
+                        d="M12.5 5.75L8 10.25l4.5 4.5"
+                        fill="none" stroke="currentColor" stroke-width="1.9"
+                        stroke-linecap="round" stroke-linejoin="round"></path>
+
+                      <path
+                        x-show="!railDockOpen"
+                        d="M7.5 5.75L12 10.25l-4.5 4.5"
+                        fill="none" stroke="currentColor" stroke-width="1.9"
+                        stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+
                   </button>
               
                   <!-- Collapsed label (only when closed) -->
