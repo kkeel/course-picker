@@ -2147,25 +2147,27 @@ body.is-resizing-workspace{
   white-space: nowrap;
 }
 
-/* CLOSED rail label — single source of truth */
+/* CLOSED rail: vertical label that starts just under the button */
 .sched-rail--closed .sched-rail-collapsed-label{
   display: block !important;
-  position: static !important;   /* IMPORTANT: do not absolute-position */
-  margin: 0 !important;
-  padding: 0 !important;
+  position: absolute;
+  left: 50%;
+  top: 56px;                 /* <-- label starts under the button */
+  transform: translateX(-50%) rotate(180deg);
+  transform-origin: top center;
 
-  /* vertical label */
   writing-mode: vertical-rl;
-  transform: rotate(180deg);     /* readable bottom-to-top */
   text-orientation: mixed;
 
-  /* styling */
-  font-size: 12px;
-  letter-spacing: .08em;
-  line-height: 1.05;
   white-space: nowrap;
-  opacity: .9;
   pointer-events: none;
+  opacity: .9 !important;
+
+  letter-spacing: .08em;
+  font-size: 12px;
+  line-height: 1.05;
+  margin: 0;
+  padding: 0;
 }
 
 .sched-work{
@@ -2274,6 +2276,8 @@ body.is-resizing-workspace{
   justify-content: flex-start;
   gap: 10px;
   padding-top: 2px;
+  position: relative;
+  height: 100%;
 }
 
 /* Make sure the button stays on top and doesn't get overlapped */
