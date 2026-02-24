@@ -1970,8 +1970,16 @@ body.is-resizing-workspace{
   --rail-w: 56px;
 }
 
+/* Expanded mode height should follow the measured BOARD height */
 .sched-expanded .schedule-grid--rail{
-  height: var(--sched-workspace-h) !important;
+  height: var(--sched-expanded-h, var(--sched-workspace-h)) !important;
+}
+
+/* Make the rail + work area actually respect the grid height */
+.sched-expanded .schedule-grid--rail .sched-rail,
+.sched-expanded .schedule-grid--rail .sched-work{
+  height: 100%;
+  min-height: 0;
 }
 
 .schedule-grid--rail .sched-rail-body{
