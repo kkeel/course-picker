@@ -290,19 +290,21 @@
             <!-- Sticky / collapsible rail header -->
             <div class="sched-rail-top">
               <div class="sched-rail-head">
-                <!-- Dock toggle (THIS now controls railDockOpen, which drives the width + open/closed class) -->
-                <button class="sched-rail-dock-btn"
-                        @click="toggleRailDockOpen()"
-                        :aria-label="railDockOpen ? 'Collapse rail' : 'Expand rail'">
-                  <span x-show="railDockOpen">‹</span>
-                  <span x-show="!railDockOpen">›</span>
-                </button>
+                <!-- Dock stack (button + collapsed label live together) -->
+                <div class="sched-rail-dock-stack">
+                  <button class="sched-rail-dock-btn"
+                          @click="toggleRailDockOpen()"
+                          :aria-label="railDockOpen ? 'Collapse rail' : 'Expand rail'">
+                    <span x-show="railDockOpen">‹</span>
+                    <span x-show="!railDockOpen">›</span>
+                  </button>
+              
+                  <!-- Collapsed label (only when closed) -->
+                  <div class="sched-rail-collapsed-label" x-show="!railDockOpen">Scheduling Cards</div>
+                </div>
               
                 <!-- Title (only when open) -->
                 <div class="text-sm font-semibold" x-show="railDockOpen">Scheduling Cards</div>
-              
-                <!-- Collapsed label (only when closed) -->
-                <div class="sched-rail-collapsed-label" x-show="!railDockOpen">Scheduling Cards</div>
               
                 <!-- Actions only when open -->
                 <div class="sched-rail-head-actions" x-show="railDockOpen">
