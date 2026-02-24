@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-23T09:05:40.271Z",
+  "lastUpdated": "2026-02-24T09:06:07.576Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -14302,8 +14302,11 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
+      "sharedTextR3": "General Lit.: Grades 9-10\nGeneral Lit.: Grades 11-12",
+      "sharedLinesR3": [
+        "General Lit.: Grades 9-10",
+        "General Lit.: Grades 11-12"
+      ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recOGMsLG43gBsvN4?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -19097,7 +19100,7 @@
       "resourceId": "recj4Gq2c9BzAopg7",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.003.001",
       "scopeText": "Term 1",
       "terms": [
         "T1"
@@ -19123,20 +19126,19 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recvgYTB1CAmd95Rc?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "reclbGsqcEh41h2LQ",
+      "assignmentId": "recD941mIvDHTa9Gp",
       "targetId": "recvgYTB1CAmd95Rc",
-      "resourceId": "recXhOEqXsDwMQlvg",
+      "resourceId": "recytZRsUSyyVb2eS",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1\nTerm 2",
+      "resourceKey": "001.003.002",
+      "scopeText": "Term 1",
       "terms": [
-        "T1",
-        "T2"
+        "T1"
       ],
       "termNotes": {
-        "T1": "The Count of Monte Cristo",
-        "T2": "The Count of Monte Cristo",
+        "T1": "The Souls of Black Folk",
+        "T2": "",
         "T3": ""
       },
       "gradeText": "G11, G12, G11, G12,",
@@ -19146,8 +19148,11 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
+      "sharedTextR3": "General Lit.: Grades 9-10\nGeneral Lit.: Grades 11-12",
+      "sharedLinesR3": [
+        "General Lit.: Grades 9-10",
+        "General Lit.: Grades 11-12"
+      ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recvgYTB1CAmd95Rc?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -19156,7 +19161,7 @@
       "resourceId": "reczCr29zRWEiJ53Q",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.003.003",
       "scopeText": "Term 1",
       "terms": [
         "T1"
@@ -19178,6 +19183,34 @@
         "General Lit.: Grades 9-10",
         "General Lit.: Grades 11-12"
       ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recvgYTB1CAmd95Rc?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "reclbGsqcEh41h2LQ",
+      "targetId": "recvgYTB1CAmd95Rc",
+      "resourceId": "recXhOEqXsDwMQlvg",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.003.004",
+      "scopeText": "Term 1\nTerm 2",
+      "terms": [
+        "T1",
+        "T2"
+      ],
+      "termNotes": {
+        "T1": "The Count of Monte Cristo",
+        "T2": "The Count of Monte Cristo",
+        "T3": ""
+      },
+      "gradeText": "G11, G12, G11, G12,",
+      "grades": [
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recvgYTB1CAmd95Rc?home=pag8nmiUVfXJRZFLW"
     },
     {
