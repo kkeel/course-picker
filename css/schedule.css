@@ -2130,7 +2130,34 @@ body.is-resizing-workspace{
 }
 
 .sched-rail-collapsed-label{
-  display: none;
+  display: none; /* default: hidden (shown only when rail is closed) */
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: rgba(38,43,38,.82);
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* CLOSED rail label — single source of truth */
+.sched-rail--closed .sched-rail-collapsed-label{
+  display: block !important;
+  position: static !important;   /* IMPORTANT: do not absolute-position */
+  margin: 0 !important;
+  padding: 0 !important;
+
+  /* vertical label */
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);     /* readable bottom-to-top */
+  text-orientation: mixed;
+
+  /* styling */
+  font-size: 12px;
+  letter-spacing: .08em;
+  line-height: 1.05;
+  white-space: nowrap;
+  opacity: .9;
+  pointer-events: none;
 }
 
 .sched-work{
@@ -2231,23 +2258,6 @@ body.is-resizing-workspace{
   z-index: 6;
 }
 
-.sched-rail--closed .sched-rail-collapsed-label{
-  display: block;
-  position: absolute;
-  left: 50%;
-  top: 58px;
-  transform: translateX(-50%);
-  transform-origin: top center;
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: .9 !important;
-
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  letter-spacing: .08em;
-  font-size: 12px;
-}
-
 /* Collapsed rail: stack the dock button ABOVE the vertical label */
 .sched-rail--closed .sched-rail-head{
   display: flex;
@@ -2261,17 +2271,6 @@ body.is-resizing-workspace{
 /* Make sure the button stays on top and doesn't get overlapped */
 .sched-rail--closed .sched-rail-dock-btn{
   flex: 0 0 auto;
-}
-
-/* Vertical label should sit UNDER the button and be fully readable */
-.sched-rail--closed .sched-rail-collapsed-label{
-  display: block !important;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg); /* makes the text read bottom-to-top */
-  line-height: 1.05;
-  white-space: nowrap;
-  margin: 0;
-  padding: 0;
 }
 
 :root{
@@ -2378,19 +2377,6 @@ body.is-resizing-workspace{
   top: 12px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-}
-
-/* 5) Closed state: show the rotated label under the button (you already have this,
-   but this ensures it always wins if earlier rules fight it) */
-.sched-rail--closed .sched-rail-collapsed-label{
-  display: block !important;
-  position: absolute !important;
-  left: 50% !important;
-  top: 50% !important;
-  transform: translate(-50%, -50%) rotate(-90deg) !important;
-  transform-origin: center !important;
-  white-space: nowrap !important;
-  pointer-events: none !important;
 }
 
 /* 6) Expanded mode: DO NOT force the var-height (let it grow naturally) */
