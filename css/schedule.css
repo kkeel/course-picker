@@ -1476,15 +1476,17 @@ body.sched-dragging .sched-card{
 }
 
 .sched-rail-summary-label{
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 750;
   color: #596e5e;
   white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: .08em;
 }
 
 .sched-rail-summary-value{
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
   color: rgba(38,43,38,.60); /* muted */
   white-space: nowrap;
   overflow: hidden;
@@ -1973,7 +1975,7 @@ body.is-resizing-workspace{
 
 .sched-rail-dock-btn:hover{
   opacity: 1;
-  background: rgba(255,255,255,.9);
+  background: rgba(89,110,94,.08);
 }
 
 .sched-rail-dock-icon{
@@ -2045,36 +2047,32 @@ body.is-resizing-workspace{
 }
 
 .sched-rail-collapse-btn{
-  padding: 2px 4px;
+  padding: 0 !important;
   line-height: 1;
-  color: rgba(38,43,38,.55) !important;
-  position: static !important;
-  right: auto !important;
-  top: auto !important;
-  transform: none !important;
-  opacity: .72;
-  width: 28px;
-  height: 28px;
-  border-radius: 999px;
-  border: 1px solid rgba(0,0,0,0.15);
-  background: rgba(255,255,255,0.65);
+  border: 0 !important;
+  background: transparent !important;
+
+  width: auto !important;
+  height: auto !important;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
+  opacity: .70;
 }
 
 .sched-rail-collapse-text{
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 650;
   color: #596e5e;
   opacity: .85;
 }
 
 .sched-rail-collapse-btn:hover{
-  color: rgba(38,43,38,.70) !important;
   opacity: .95;
-  background: rgba(255,255,255,0.9);
+  background: transparent !important;
 }
 
 .schedule-panel-row{
@@ -2299,7 +2297,10 @@ body.is-resizing-workspace{
   height: 34px;
   border-radius: 999px;
   border: 1px solid #cfd8c6;
-  background: rgba(255,255,255,0.65);
+
+  /* match the “closed” look even when open */
+  background: transparent;
+
   display: grid;
   place-items: center;
   cursor: pointer;
