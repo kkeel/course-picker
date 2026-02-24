@@ -2348,7 +2348,7 @@ body.is-resizing-workspace{
 /* Pick a rail height that feels right on desktop.
    You can tweak the 260px if you want “more rail, less page”. */
 :root{
-  --sched-rail-fixed-h: calc(100vh - 260px);
+  --sched-rail-fixed-h: calc(100vh - 200px);
 }
 
 /* Let the workspace height be driven by the schedule board (NOT the rail) */
