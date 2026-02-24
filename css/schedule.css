@@ -1956,6 +1956,19 @@ body.is-resizing-workspace{
   background: rgba(255,255,255,.9);
 }
 
+.sched-rail-dock-icon{
+  width: 18px;
+  height: 18px;
+  display: block;
+  color: #596e5e;
+  opacity: .55;                 /* quieter default */
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+
+.sched-rail-dock-btn:hover .sched-rail-dock-icon{
+  opacity: .95;                 /* stronger on hover */
+}
+
 @media (min-width: 1024px){
   .schedule-grid--rail .sched-work{
     min-width: 0;
