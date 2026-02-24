@@ -1971,7 +1971,7 @@ body.is-resizing-workspace{
 }
 
 .sched-expanded .schedule-grid--rail{
-  height: auto;
+  height: var(--sched-workspace-h) !important;
 }
 
 .schedule-grid--rail .sched-rail-body{
@@ -2402,4 +2402,10 @@ body.is-resizing-workspace{
 }
 .sched-expanded #scheduleGridRail .sched-rail{
   height: auto !important;
+}
+
+/* Keep rail under the main nav/header stacking context */
+#scheduleGridRail,
+#scheduleGridRail .sched-rail{
+  z-index: 1 !important;
 }
