@@ -2130,11 +2130,15 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         return `Grade ${m[1]}`;
       },
 
-      railFilterSummary() {
+      railFilterLabel() {
+        return "Filtered by:";
+      },
+
+      railFilterValue() {
         const parts = [this.railGradeLabel(this.railGradeFilter)];
         if (this.railMyCoursesOnly) parts.push("My courses");
         if (this.railStudentAssignedOnly) parts.push("Student assignments");
-        return `Showing: ${parts.join(" • ")}`;
+        return parts.join(" • ");
       },
 
       setRailGradeFilter(val) {
