@@ -2166,7 +2166,8 @@ body.is-resizing-workspace{
   display: grid;
   grid-template-columns: repeat(var(--daypanel-count, 2), minmax(380px, 1fr));
   gap: 12px;
-  align-items: flex-start;
+  /* IMPORTANT: stretch so all student panels match the tallest panel */
+  align-items: stretch;
   padding-right: 12px;
 }
 
@@ -2174,9 +2175,19 @@ body.is-resizing-workspace{
   display: flex !important;
   flex-wrap: nowrap !important;
   gap: 12px !important;
-  align-items: flex-start;
+  /* IMPORTANT: stretch so all student panels match the tallest panel */
+  align-items: stretch;
   width: max-content;
   padding-right: 12px !important;
+}
+
+/* When rows stretch, make sure the panel itself can stretch too */
+.schedule-panel{
+  height: 100%;
+}
+
+.sched-expanded .schedule-panel{
+  align-self: stretch;
 }
 
 .sched-rail-top .sched-rail-head{
