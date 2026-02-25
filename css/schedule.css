@@ -2464,3 +2464,9 @@ body.is-resizing-workspace{
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+/* If any ancestor uses transform, sticky can break.
+   This forces the work area to be the scroll context. */
+#schedWork{
+  overflow: visible;     /* keep sticky working */
+}
