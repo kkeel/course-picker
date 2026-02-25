@@ -43,8 +43,10 @@
           .filter(Boolean)
       : [];
 
-    // If slots are missing or obviously placeholder-ish, seed from available students.
-    const incoming = Array.isArray(slots) ? slots.slice(0, desired) : [];
+    // If slots are missing, seed from available students.
+    // If slots ARE provided (even if blank), respect them (so the user can clear slots to show fewer columns).
+    const slotsProvided = Array.isArray(slots);
+    const incoming = slotsProvided ? slots.slice(0, desired) : [];
     const cleaned = incoming
       .map((v) => (typeof v === "string" ? v : "").trim())
       .filter(Boolean);
@@ -52,10 +54,11 @@
     // Drop invalid ids.
     const valid = cleaned.map((id) => (studentIds.includes(id) ? id : ""));
 
-    // If we have no valid selections yet, auto-seed sequentially from known students.
+    // If we have no valid selections yet, only auto-seed when nothing was provided at all.
+    // (Keeps Day View usable on first load, but allows clearing later.)
     const hasAny = valid.some(Boolean);
     let seeded = valid;
-    if (!hasAny && studentIds.length) {
+    if (!slotsProvided && !hasAny && studentIds.length) {
       seeded = studentIds.slice(0, desired);
     }
 
