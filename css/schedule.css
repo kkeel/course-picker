@@ -1962,12 +1962,19 @@ body.is-resizing-workspace{
 }
 
 .sched-expanded .schedule-panel-body,
-.sched-expanded .schedule-board,
-.sched-expanded .schedule-columns{
+.sched-expanded .schedule-board{
   height: auto !important;
   max-height: none !important;
   /* keep all panels the same visual height (driven by JS) */
   min-height: var(--sched-expanded-h, 0px) !important;
+}
+
+/* Ensure the column grid fills the panel height so column backgrounds align */
+.sched-expanded .schedule-columns{
+  height: 100% !important;
+  min-height: var(--sched-expanded-h, 0px) !important;
+  align-items: stretch !important;
+  align-content: stretch !important;
 }
 
 .sched-expanded .sched-rail{
