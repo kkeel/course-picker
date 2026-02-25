@@ -826,32 +826,32 @@ syncExpandedHeights() {
     if (!this.expandedMode) {
       root.style.removeProperty("--sched-expanded-h");
       // also clear any inline min-heights we may have set
-      document.querySelectorAll(".schedule-panel-body").forEach(el => {
+      document.querySelectorAll(".schedule-panel, .schedule-panel-body").forEach(el => {
         el.style.removeProperty("min-height");
       });
       return;
     }
 
-    // Drive the shared height from the tallest *visible* panel body
-    const panelBodies = Array.from(document.querySelectorAll(".schedule-panel"))
-      .filter(p => p && p.offsetParent !== null)
-      .map(p => p.querySelector(".schedule-panel-body"))
-      .filter(Boolean);
+    // Drive the shared height from the tallest *visible* panel (head + body)
+    const panels = Array.from(document.querySelectorAll(".schedule-panel"))
+      .filter(p => p && p.offsetParent !== null);
 
-    if (!panelBodies.length) return;
+    if (!panels.length) return;
 
     let maxH = 0;
-    panelBodies.forEach(body => {
-      maxH = Math.max(maxH, body.scrollHeight || 0);
+    panels.forEach(panel => {
+      maxH = Math.max(maxH, panel.scrollHeight || 0);
     });
 
     // Tiny buffer so borders don't clip
     const h = Math.max(0, maxH + 2);
     root.style.setProperty("--sched-expanded-h", `${h}px`);
 
-    // Safety: also set inline min-height so this works even if CSS is overridden elsewhere
-    panelBodies.forEach(body => {
-      body.style.minHeight = `${h}px`;
+    // Safety: also set inline min-heights so this works even if CSS is overridden elsewhere
+    panels.forEach(panel => {
+      panel.style.minHeight = `${h}px`;
+      const body = panel.querySelector(".schedule-panel-body");
+      if (body) body.style.minHeight = `${Math.max(0, h - (panel.querySelector(".schedule-panel-head")?.offsetHeight || 0))}px`;
     });
   } catch (_) {
     // ignore
