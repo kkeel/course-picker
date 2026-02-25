@@ -2444,3 +2444,23 @@ body.is-resizing-workspace{
   border-bottom: 1px solid rgba(229,232,229,.9);
   padding: 10px 0;
 }
+
+/* =========================================================
+   Schedule — Freeze top controls for BOTH vertical + horizontal scroll
+   (Student View / Day View / Card Style + Show days/students chips)
+   ========================================================= */
+
+#schedWork .schedule-topbar{
+  position: sticky;
+  top: 0;           /* stays visible when scrolling vertically */
+  left: 0;          /* stays visible when scrolling horizontally */
+  z-index: 80;
+
+  /* important: give it a solid surface so content doesn’t show through */
+  background: #fff;
+  border-bottom: 1px solid rgba(229,232,229,0.9);
+
+  /* small padding so the border doesn’t touch content */
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
