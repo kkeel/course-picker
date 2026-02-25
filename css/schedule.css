@@ -2430,3 +2430,17 @@ body.is-resizing-workspace{
 #scheduleGridRail .sched-rail{
   z-index: 1 !important;
 }
+
+/* =========================================================
+   Sticky top controls (keep view toggles + Show days/students visible)
+   ========================================================= */
+
+.schedule-topbar{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(229,232,229,.9);
+  padding: 10px 0;
+}
