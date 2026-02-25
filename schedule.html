@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1109,7 +1108,7 @@
               
                       <!-- Body matches Student View: board -> columns -> column headers -> dropzones -->
                       <div class="sched-dayview-daybody">
-                        <div class="schedule-board">
+                        <div class="schedule-board" :class="{ 'is-time-scaled': boardScaleByTime }">
                           <div class="schedule-columns schedule-columns--nowrap">
               
                             <!-- Only render day columns for slots that have a selected student -->
