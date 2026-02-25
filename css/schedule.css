@@ -1218,7 +1218,8 @@ body.sched-dragging .sched-card{
   display: flex;
   flex-wrap: nowrap;
   gap: 12px;
-  align-items: flex-start;
+  /* IMPORTANT: stretch so all day panels match the tallest panel */
+  align-items: stretch;
   width: max-content;
   overflow: visible;
   padding-right: 12px;
@@ -1238,6 +1239,8 @@ body.sched-dragging .sched-card{
   width: var(--sched-print-w, 9.5in);
   min-width: var(--sched-print-w, 9.5in);
   max-width: var(--sched-print-w, 9.5in);
+  /* IMPORTANT: allow equal-height stretching inside the horizontal flex row */
+  align-self: stretch;
 }
 
 .sched-dayview-dayhead{
@@ -1886,7 +1889,7 @@ body.is-resizing-workspace{
   align-content: stretch;
    
   height: 100% !important;
-  border-bottom: none;
+  border-bottom: 1px solid #e5e8e5;
 }
 
 .sched-expanded .schedule-col{
@@ -1896,6 +1899,11 @@ body.is-resizing-workspace{
   border-right: 1px solid #e5e8e5;
   border-left: 0;
   background: #fbfbf9;
+}
+
+/* In expanded mode, avoid a double border against the panel edge */
+.sched-expanded .schedule-columns > .schedule-col:last-child{
+  border-right: 0;
 }
 
 .sched-expanded .schedule-panel{
@@ -1954,7 +1962,7 @@ body.is-resizing-workspace{
 .sched-expanded .schedule-panel-body,
 .sched-expanded .schedule-board,
 .sched-expanded .schedule-columns{
-  height: 100% !important;
+  height: auto !important;
   max-height: none !important;
 }
 
@@ -2154,7 +2162,7 @@ body.is-resizing-workspace{
   display: grid;
   grid-template-columns: repeat(var(--daypanel-count, 2), minmax(380px, 1fr));
   gap: 12px;
-  align-items: stretch;
+  align-items: flex-start;
   padding-right: 12px;
 }
 
@@ -2162,7 +2170,7 @@ body.is-resizing-workspace{
   display: flex !important;
   flex-wrap: nowrap !important;
   gap: 12px !important;
-  align-items: stretch;
+  align-items: flex-start;
   width: max-content;
   padding-right: 12px !important;
 }
