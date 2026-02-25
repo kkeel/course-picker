@@ -2526,12 +2526,13 @@ body.is-resizing-workspace{
   border-left: 0;
 }
 
-.schedule-panelcount-label {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  color: #596e5e;
+.schedule-panelcount-label{
+  all: unset;
+  display: inline-block;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
 }
 
 .schedule-panelcount-num{
