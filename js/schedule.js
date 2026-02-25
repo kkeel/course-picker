@@ -822,37 +822,66 @@ syncExpandedHeights() {
   try {
     const root = document.documentElement;
 
+    // Keep separate cached heights per view because Track uses x-if (DOM removed)
+    // and Day uses x-show (DOM persists). When switching views, we want BOTH
+    // views to keep their own “tallest panel” height.
+    if (!this._expandedHeights) this._expandedHeights = { track: 0, day: 0 };
+
     // Clear when not in expanded mode
     if (!this.expandedMode) {
       root.style.removeProperty("--sched-expanded-h");
-      // also clear any inline min-heights we may have set
-      document.querySelectorAll(".schedule-panel-body").forEach(el => {
+      root.style.removeProperty("--sched-expanded-h-track");
+      root.style.removeProperty("--sched-expanded-h-day");
+      document.querySelectorAll(".schedule-panel-body, .sched-dayview-daybody").forEach((el) => {
         el.style.removeProperty("min-height");
       });
+      this._expandedHeights.track = 0;
+      this._expandedHeights.day = 0;
       return;
     }
 
-    // Drive the shared height from the tallest *visible* panel body
-    const panelBodies = Array.from(document.querySelectorAll(".schedule-panel"))
-      .filter(p => p && p.offsetParent !== null)
-      .map(p => p.querySelector(".schedule-panel-body"))
-      .filter(Boolean);
+    const measureMaxScrollHeight = (els) => {
+      let maxH = 0;
+      els.forEach((el) => {
+        const h = el ? (el.scrollHeight || 0) : 0;
+        if (h > maxH) maxH = h;
+      });
+      return maxH;
+    };
 
-    if (!panelBodies.length) return;
+    // 1) Track / Student View (panels use .schedule-panel-body)
+    const trackBodies = Array.from(document.querySelectorAll(".schedule-panel-body"))
+      .filter((b) => b && b.offsetParent !== null);
 
-    let maxH = 0;
-    panelBodies.forEach(body => {
-      maxH = Math.max(maxH, body.scrollHeight || 0);
-    });
+    if (trackBodies.length) {
+      const maxTrack = measureMaxScrollHeight(trackBodies);
+      const hTrack = Math.max(0, maxTrack + 2);
+      this._expandedHeights.track = hTrack;
+      root.style.setProperty("--sched-expanded-h-track", `${hTrack}px`);
+      trackBodies.forEach((b) => {
+        b.style.minHeight = `${hTrack}px`;
+      });
+    }
 
-    // Tiny buffer so borders don't clip
-    const h = Math.max(0, maxH + 2);
-    root.style.setProperty("--sched-expanded-h", `${h}px`);
+    // 2) Day View panels (panels use .sched-dayview-daybody)
+    const dayBodies = Array.from(document.querySelectorAll(".sched-dayview-daybody"))
+      .filter((b) => b && b.offsetParent !== null);
 
-    // Safety: also set inline min-height so this works even if CSS is overridden elsewhere
-    panelBodies.forEach(body => {
-      body.style.minHeight = `${h}px`;
-    });
+    if (dayBodies.length) {
+      const maxDay = measureMaxScrollHeight(dayBodies);
+      const hDay = Math.max(0, maxDay + 2);
+      this._expandedHeights.day = hDay;
+      root.style.setProperty("--sched-expanded-h-day", `${hDay}px`);
+      dayBodies.forEach((b) => {
+        b.style.minHeight = `${hDay}px`;
+      });
+    }
+
+    // 3) The overall workspace/rail height should follow the ACTIVE view.
+    const active = (this.view === "day") ? this._expandedHeights.day : this._expandedHeights.track;
+    if (active && active > 0) {
+      root.style.setProperty("--sched-expanded-h", `${active}px`);
+    }
   } catch (_) {
     // ignore
   }
@@ -1079,7 +1108,7 @@ queueExpandedSync() {
         requestAnimationFrame(() => this.initWorkspaceResizer());
 
         // Ensure Expanded mode starts with correct measured heights.
-        this.$nextTick(() => this.syncExpandedHeights());
+        this.$nextTick(() => this.queueExpandedSync());
 
         // Keep the expanded rail height in sync with the schedule board
         window.addEventListener("resize", () => {
@@ -1319,6 +1348,8 @@ queueExpandedSync() {
       setView(next) {
         this.view = next;
         this.persistUi();
+        // Track view uses x-if (DOM is destroyed/recreated), so re-measure after the swap.
+        try { this.queueExpandedSync(); } catch (_) {}
       },
 
       isDayVisible(i) {
