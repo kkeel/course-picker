@@ -1027,6 +1027,13 @@
                                       @dragover.prevent="onDragOver($event, panel.studentId, i, inst.instanceId)"
                                       @drop.prevent="onDrop($event, panel.studentId, i, inst.instanceId)"
                                     >
+                                      <!-- Tracker row (when enabled) should sit ABOVE title/time -->
+                                      <div
+                                        class="sched-card-trackline"
+                                        x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
+                                        x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"
+                                      ></div>
+
                                       <div class="sched-card-top">
                                         <div
                                           class="sched-card-title"
@@ -1037,9 +1044,6 @@
                                       </div>
                                   
                                       <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
-                                  
-                                      <div class="sched-card-trackline" x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
-                                           x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"></div>
                                   
                                       <button
                                         type="button"
@@ -1157,6 +1161,13 @@
                                       @dragover.prevent="onDragOver($event, studentId, panel.dayIdx, inst.instanceId)"
                                       @drop.prevent="onDrop($event, studentId, panel.dayIdx, inst.instanceId)"
                                     >
+                                      <!-- Tracker row (when enabled) should sit ABOVE title/time -->
+                                      <div
+                                        class="sched-card-trackline"
+                                        x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
+                                        x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"
+                                      ></div>
+
                                       <div class="sched-card-top">
                                         <div
                                           class="sched-card-title"
@@ -1167,9 +1178,6 @@
                                       </div>
               
                                       <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
-              
-                                      <div class="sched-card-trackline" x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
-                                           x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"></div>
               
                                       <button
                                         type="button"
