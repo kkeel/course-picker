@@ -483,10 +483,10 @@
   background: transparent;
   color: #666d66;
   opacity: .65;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1;
-  padding: 4px 6px;
-  border-radius: 10px;
+  padding: 2px 4px;
+  border-radius: 8px;
 }
 
 .sched-card-remove:hover{
@@ -1193,7 +1193,9 @@ body.sched-dragging .sched-card{
   font-size: 12px;
   color: #666d66;
   line-height: 1.2;
-  margin-top: auto;
+  /* Track row now lives ABOVE title/time */
+  margin-top: 0;
+  margin-bottom: 6px;
   min-height: 18px;
 }
 
@@ -1297,7 +1299,7 @@ body.sched-dragging .sched-card{
 }
 
 
-/* Day View: student columns should fill the panel width (1ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“5 students) */
+/* Day View: student columns should fill the panel width (1ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ5 students) */
 .sched-dayview .schedule-columns--dayfill{
   grid-auto-columns: minmax(0, 1fr);
 }
@@ -1811,7 +1813,8 @@ body.is-resizing-workspace{
 }
 
 .is-time-scaled .sched-card-title{
-  font-size: 15px;
+  /* Match rail title scale (smaller, cleaner in tight time slots) */
+  font-size: 13px;
   line-height: 1.15;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1835,7 +1838,9 @@ body.is-resizing-workspace{
 .is-time-scaled .sched-card-trackline{
   font-size: 11px;
   line-height: 1.05;
-  padding: 0 12px 10px;
+  /* Track row is above title/time in the board */
+  padding: 0 12px 6px;
+  margin: 0 0 6px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: clip;
