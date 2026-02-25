@@ -2257,7 +2257,7 @@ setDayPanel(idx, dayIdx) {
       },
 
       railFilterLabel() {
-        return "Filtered by:";
+        return "Filtered by";
       },
 
       railFilterValue() {
