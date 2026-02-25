@@ -828,12 +828,13 @@
                       >
                         <button
                           type="button"
-                          class="student-select-trigger schedule-day-chip schedule-day-chip--mini schedule-day-chip--on schedule-student-chip"
+                          class="student-select-trigger schedule-day-chip schedule-day-chip--mini schedule-student-chip"
+                          :class="studentId ? 'schedule-day-chip--on' : 'schedule-day-chip--ghost'"
                           @click.stop.prevent="openDayStudentMenu = (openDayStudentMenu === sIdx ? null : sIdx)"
                           :aria-expanded="openDayStudentMenu === sIdx"
                           :aria-controls="`day-student-top-menu-${sIdx}`"
                         >
-                          <span class="student-select-label" x-text="getStudentName(studentId)"></span>
+                          <span class="student-select-label" x-text="studentId ? getStudentName(studentId) : 'Select'"></span>
                   
                           <!-- chevron to match the rest of the app -->
                           <svg class="student-select-caret" viewBox="0 0 24 24" aria-hidden="true">
@@ -849,6 +850,16 @@
                           x-transition
                           @click.stop
                         >
+                          <!-- Clear slot (lets you show fewer student columns in Day View) -->
+                          <button
+                            type="button"
+                            class="student-select-option"
+                            @click="setDayViewSlotStudent(sIdx, null); openDayStudentMenu = null;"
+                          >
+                            <span>— None —</span>
+                            <span class="student-select-check" x-show="!studentId">✓</span>
+                          </button>
+
                           <template x-for="s in (students || [])" :key="'dv-top-opt-' + sIdx + '-' + s.id">
                             <button
                               type="button"
