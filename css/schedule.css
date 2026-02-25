@@ -1962,19 +1962,28 @@ body.is-resizing-workspace{
 }
 
 .sched-expanded .schedule-panel-body,
-.sched-expanded .schedule-board{
+.sched-expanded .schedule-board,
+.sched-expanded .schedule-columns{
   height: auto !important;
   max-height: none !important;
-  /* keep all panels the same visual height (driven by JS) */
-  min-height: var(--sched-expanded-h, 0px) !important;
 }
 
-/* Ensure the column grid fills the panel height so column backgrounds align */
-.sched-expanded .schedule-columns{
-  height: 100% !important;
-  min-height: var(--sched-expanded-h, 0px) !important;
-  align-items: stretch !important;
-  align-content: stretch !important;
+/*
+  Expanded mode: keep Track and Day views independent.
+  Track (Student View) uses .schedule-panel-body.
+  Day View uses .sched-dayview-daybody.
+
+  JS sets:
+   - --sched-expanded-h-track  (Track)
+   - --sched-expanded-h-day    (Day)
+   - --sched-expanded-h        (active view, used for workspace/rail)
+*/
+.sched-expanded .schedule-panel-body{
+  min-height: var(--sched-expanded-h-track, 0px) !important;
+}
+
+.sched-expanded .sched-dayview-daybody{
+  min-height: var(--sched-expanded-h-day, 0px) !important;
 }
 
 .sched-expanded .sched-rail{
