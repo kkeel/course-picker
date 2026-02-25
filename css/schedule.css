@@ -1295,6 +1295,22 @@ body.sched-dragging .sched-card{
   flex-direction: column;
 }
 
+
+/* Day View: student columns should fill the panel width (1â€“5 students) */
+.sched-dayview .schedule-columns--dayfill{
+  grid-auto-columns: minmax(0, 1fr);
+}
+
+.sched-dayview .schedule-col{
+  min-width: 0;
+}
+
+.sched-dayview .schedule-col-title{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .student-select-trigger.schedule-day-chip.schedule-day-chip--on{
   background: rgba(89,110,94,.10);
   border-color: #596e5e;
@@ -2319,7 +2335,6 @@ body.is-resizing-workspace{
   display: flex;
   flex-direction: column;
 
-  /* Let the dock button/label breathe ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â scrolling happens in the body */
   overflow: visible;
 }
 
@@ -2339,14 +2354,12 @@ body.is-resizing-workspace{
   padding-top: 2px;
 }
 
-/* Dock button (NOT absolute ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â it sits in normal flow now) */
 .sched-rail-dock-btn{
   width: 34px;
   height: 34px;
   border-radius: 999px;
   border: 1px solid #cfd8c6;
 
-  /* match the ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“closedÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â look even when open */
   background: transparent;
 
   display: grid;
@@ -2432,12 +2445,11 @@ body.is-resizing-workspace{
 }
 
 /* =========================================================
-   FINAL OVERRIDES ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Rail dock behavior + FIXED rail height
+   Rail dock behavior + FIXED rail height
    (pasted at bottom so it wins)
    ========================================================= */
 
-/* Pick a rail height that feels right on desktop.
-   You can tweak the 260px if you want ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“more rail, less pageÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â. */
+/* Pick a rail height that feels right on desktop */
 :root{
   --sched-rail-fixed-h: calc(100vh - 200px);
 }
@@ -2496,7 +2508,7 @@ body.is-resizing-workspace{
 }
 
 /* =========================================================
-   Schedule ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Freeze top controls for BOTH vertical + horizontal scroll
+   Freeze top controls for BOTH vertical + horizontal scroll
    (Student View / Day View / Card Style + Show days/students chips)
    ========================================================= */
 
@@ -2506,11 +2518,9 @@ body.is-resizing-workspace{
   left: 0;          /* stays visible when scrolling horizontally */
   z-index: 80;
 
-  /* important: give it a solid surface so content doesnÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢t show through */
   background: #fff;
   border-bottom: 1px solid rgba(229,232,229,0.9);
 
-  /* small padding so the border doesnÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢t touch content */
   padding-top: 10px;
   padding-bottom: 10px;
 }
