@@ -1297,7 +1297,7 @@ body.sched-dragging .sched-card{
 }
 
 
-/* Day View: student columns should fill the panel width (1Ã¢â‚¬â€œ5 students) */
+/* Day View: student columns should fill the panel width (1ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“5 students) */
 .sched-dayview .schedule-columns--dayfill{
   grid-auto-columns: minmax(0, 1fr);
 }
