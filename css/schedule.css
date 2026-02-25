@@ -2527,12 +2527,13 @@ body.is-resizing-workspace{
 }
 
 .schedule-panelcount-label{
-  all: unset;
-  display: inline-block;
-  font: inherit;
-  color: inherit;
-  letter-spacing: inherit;
-  text-transform: inherit;
+  font-size: 12px;
+  color: #666d66;
+  opacity: .8;
+  margin-right: 2px;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 .schedule-panelcount-num{
