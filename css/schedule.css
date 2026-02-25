@@ -1210,17 +1210,16 @@ body.sched-dragging .sched-card{
 .sched-dayview-grid{
   flex: 1;
   min-height: 0;
-  display: grid;
-  grid-template-columns: repeat(var(--panel-count, 2), minmax(380px, 1fr));
+  /* Match Student View behavior: full-width "page" panels, side-by-side, horizontal scroll */
+  display: flex;
+  flex-wrap: nowrap;
   gap: 12px;
-  overflow: hidden;
+  align-items: flex-start;
+  width: max-content;
+  overflow: visible;
+  padding-right: 12px;
 }
 
-@media (max-width: 1024px){
-  .sched-dayview-grid{
-    grid-template-columns: 1fr;
-  }
-}
 
 .sched-dayview-day{
   background: #fff;
@@ -1230,6 +1229,11 @@ body.sched-dragging .sched-card{
   display: flex;
   flex-direction: column;
   min-height: 0;
+  /* Same "printed page" width as Student View panels */
+  flex: 0 0 auto;
+  width: var(--sched-print-w, 9.5in);
+  min-width: var(--sched-print-w, 9.5in);
+  max-width: var(--sched-print-w, 9.5in);
 }
 
 .sched-dayview-dayhead{
@@ -2315,7 +2319,7 @@ body.is-resizing-workspace{
   display: flex;
   flex-direction: column;
 
-  /* Let the dock button/label breathe ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â scrolling happens in the body */
+  /* Let the dock button/label breathe ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â scrolling happens in the body */
   overflow: visible;
 }
 
@@ -2335,14 +2339,14 @@ body.is-resizing-workspace{
   padding-top: 2px;
 }
 
-/* Dock button (NOT absolute ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â it sits in normal flow now) */
+/* Dock button (NOT absolute ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â it sits in normal flow now) */
 .sched-rail-dock-btn{
   width: 34px;
   height: 34px;
   border-radius: 999px;
   border: 1px solid #cfd8c6;
 
-  /* match the ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œclosedÃƒÂ¢Ã¢â€šÂ¬Ã‚Â look even when open */
+  /* match the ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“closedÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â look even when open */
   background: transparent;
 
   display: grid;
@@ -2378,6 +2382,8 @@ body.is-resizing-workspace{
 
 :root{
   --rail-head-bg: #dee1d2;
+  /* "Printed page" panel width (used by Day View and Expanded Student View) */
+  --sched-print-w: 9.5in;
   --sched-col-w: 260px;
   --sched-workspace-max-h: calc(100vh - 260px);
   --rail-control-bg: rgba(255,255,255,.55);
@@ -2426,12 +2432,12 @@ body.is-resizing-workspace{
 }
 
 /* =========================================================
-   FINAL OVERRIDES ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Rail dock behavior + FIXED rail height
+   FINAL OVERRIDES ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Rail dock behavior + FIXED rail height
    (pasted at bottom so it wins)
    ========================================================= */
 
 /* Pick a rail height that feels right on desktop.
-   You can tweak the 260px if you want ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œmore rail, less pageÃƒÂ¢Ã¢â€šÂ¬Ã‚Â. */
+   You can tweak the 260px if you want ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“more rail, less pageÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â. */
 :root{
   --sched-rail-fixed-h: calc(100vh - 200px);
 }
@@ -2490,7 +2496,7 @@ body.is-resizing-workspace{
 }
 
 /* =========================================================
-   Schedule ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Freeze top controls for BOTH vertical + horizontal scroll
+   Schedule ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Freeze top controls for BOTH vertical + horizontal scroll
    (Student View / Day View / Card Style + Show days/students chips)
    ========================================================= */
 
@@ -2500,11 +2506,11 @@ body.is-resizing-workspace{
   left: 0;          /* stays visible when scrolling horizontally */
   z-index: 80;
 
-  /* important: give it a solid surface so content doesnÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢t show through */
+  /* important: give it a solid surface so content doesnÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢t show through */
   background: #fff;
   border-bottom: 1px solid rgba(229,232,229,0.9);
 
-  /* small padding so the border doesnÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢t touch content */
+  /* small padding so the border doesnÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢t touch content */
   padding-top: 10px;
   padding-bottom: 10px;
 }
