@@ -1302,8 +1302,6 @@ body.sched-dragging .sched-card{
   flex-direction: column;
 }
 
-
-/* Day View: student columns should fill the panel width (1ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ5 students) */
 .sched-dayview .schedule-columns--dayfill{
   grid-auto-columns: minmax(0, 1fr);
 }
@@ -1901,6 +1899,10 @@ body.is-resizing-workspace{
   background: #fbfbf9;
 }
 
+.sched-expanded .schedule-columns .schedule-col:last-child{
+  border-right: 0 !important;
+}
+
 /* In expanded mode, avoid a double border against the panel edge */
 .sched-expanded .schedule-columns > .schedule-col:last-child{
   border-right: 0;
@@ -1964,6 +1966,8 @@ body.is-resizing-workspace{
 .sched-expanded .schedule-columns{
   height: auto !important;
   max-height: none !important;
+  /* keep all panels the same visual height (driven by JS) */
+  min-height: var(--sched-expanded-h, 0px) !important;
 }
 
 .sched-expanded .sched-rail{
