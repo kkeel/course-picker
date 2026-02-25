@@ -817,26 +817,46 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       // Keep rail height matched to the schedule board (NOT the rail list).
       // In Expanded mode we let the board grow to its full content height,
       // then constrain the rail to that same height and scroll its body.
-      syncExpandedHeights() {
-        try {
-          if (!this.expandedMode) {
-            document.documentElement.style.removeProperty("--sched-expanded-h");
-            return;
-          }
       
-          // IMPORTANT: height should be driven by the schedule BOARD columns,
-          // not by the rail list.
-          const board = document.querySelector(".schedule-board");
-          if (!board) return;
-      
-          // scrollHeight captures the full content height of the board columns
-          // Add a tiny buffer so borders don't clip.
-          const h = Math.max(0, board.scrollHeight + 2);
-          if (h) document.documentElement.style.setProperty("--sched-expanded-h", `${h}px`);
-        } catch (_) {
-          // ignore
-        }
-      },
+syncExpandedHeights() {
+  try {
+    const root = document.documentElement;
+
+    // Clear when not in expanded mode
+    if (!this.expandedMode) {
+      root.style.removeProperty("--sched-expanded-h");
+      // also clear any inline min-heights we may have set
+      document.querySelectorAll(".schedule-panel-body").forEach(el => {
+        el.style.removeProperty("min-height");
+      });
+      return;
+    }
+
+    // Drive the shared height from the tallest *visible* panel body
+    const panelBodies = Array.from(document.querySelectorAll(".schedule-panel"))
+      .filter(p => p && p.offsetParent !== null)
+      .map(p => p.querySelector(".schedule-panel-body"))
+      .filter(Boolean);
+
+    if (!panelBodies.length) return;
+
+    let maxH = 0;
+    panelBodies.forEach(body => {
+      maxH = Math.max(maxH, body.scrollHeight || 0);
+    });
+
+    // Tiny buffer so borders don't clip
+    const h = Math.max(0, maxH + 2);
+    root.style.setProperty("--sched-expanded-h", `${h}px`);
+
+    // Safety: also set inline min-height so this works even if CSS is overridden elsewhere
+    panelBodies.forEach(body => {
+      body.style.minHeight = `${h}px`;
+    });
+  } catch (_) {
+    // ignore
+  }
+},
         
         toggleExpanded() {
           this.expandedMode = !this.expandedMode;
