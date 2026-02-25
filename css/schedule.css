@@ -114,6 +114,15 @@
   margin-right: 2px;
 }
 
+/* Visual separator in the top control bar */
+.schedule-topbar-sep{
+  font-size: 12px;
+  color: rgba(38,43,38,.28);
+  margin: 0 2px;
+  user-select: none;
+}
+
+
 .schedule-day-chip{
   border: 1px solid #d2d6d2;
   background: #fff;
@@ -124,6 +133,23 @@
   font-weight: 650;
   line-height: 1;
 }
+
+/* Compact day chips (match rail M/T/W/Th/F size) */
+.schedule-day-chip--mini{
+  height: 18px;
+  min-width: 20px;
+  padding: 0 4px;
+  border-radius: 5px;
+  font-size: 11px;
+  letter-spacing: .01em;
+}
+
+/* If the mini chip is used for "All", allow it to be a little wider */
+.schedule-day-chip--mini.schedule-day-chip--ghost{
+  padding: 0 6px;
+  min-width: auto;
+}
+
 
 .schedule-day-chip--on{
   background: rgba(89,110,94,.10);
@@ -2271,7 +2297,7 @@ body.is-resizing-workspace{
   display: flex;
   flex-direction: column;
 
-  /* Let the dock button/label breathe â€” scrolling happens in the body */
+  /* Let the dock button/label breathe Ã¢â‚¬â€ scrolling happens in the body */
   overflow: visible;
 }
 
@@ -2291,14 +2317,14 @@ body.is-resizing-workspace{
   padding-top: 2px;
 }
 
-/* Dock button (NOT absolute â€” it sits in normal flow now) */
+/* Dock button (NOT absolute Ã¢â‚¬â€ it sits in normal flow now) */
 .sched-rail-dock-btn{
   width: 34px;
   height: 34px;
   border-radius: 999px;
   border: 1px solid #cfd8c6;
 
-  /* match the â€œclosedâ€ look even when open */
+  /* match the Ã¢â‚¬Å“closedÃ¢â‚¬Â look even when open */
   background: transparent;
 
   display: grid;
@@ -2382,12 +2408,12 @@ body.is-resizing-workspace{
 }
 
 /* =========================================================
-   FINAL OVERRIDES â€” Rail dock behavior + FIXED rail height
+   FINAL OVERRIDES Ã¢â‚¬â€ Rail dock behavior + FIXED rail height
    (pasted at bottom so it wins)
    ========================================================= */
 
 /* Pick a rail height that feels right on desktop.
-   You can tweak the 260px if you want â€œmore rail, less pageâ€. */
+   You can tweak the 260px if you want Ã¢â‚¬Å“more rail, less pageÃ¢â‚¬Â. */
 :root{
   --sched-rail-fixed-h: calc(100vh - 200px);
 }
@@ -2446,7 +2472,7 @@ body.is-resizing-workspace{
 }
 
 /* =========================================================
-   Schedule â€” Freeze top controls for BOTH vertical + horizontal scroll
+   Schedule Ã¢â‚¬â€ Freeze top controls for BOTH vertical + horizontal scroll
    (Student View / Day View / Card Style + Show days/students chips)
    ========================================================= */
 
@@ -2456,11 +2482,11 @@ body.is-resizing-workspace{
   left: 0;          /* stays visible when scrolling horizontally */
   z-index: 80;
 
-  /* important: give it a solid surface so content doesnâ€™t show through */
+  /* important: give it a solid surface so content doesnÃ¢â‚¬â„¢t show through */
   background: #fff;
   border-bottom: 1px solid rgba(229,232,229,0.9);
 
-  /* small padding so the border doesnâ€™t touch content */
+  /* small padding so the border doesnÃ¢â‚¬â„¢t touch content */
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -2477,9 +2503,9 @@ body.is-resizing-workspace{
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 0 8px;
-  border-left: 1px solid rgba(210,214,210,.7);
-  margin-left: 6px;
+  padding: 0;
+  margin-left: 0;
+  border-left: 0;
 }
 
 .schedule-panelcount-label{
@@ -2498,13 +2524,15 @@ body.is-resizing-workspace{
 }
 
 .schedule-panelcount-btn{
-  width: 26px;
-  height: 26px;
-  border-radius: 999px;
+  height: 18px;
+  min-width: 20px;
+  padding: 0 6px;
+  border-radius: 5px;
   border: 1px solid #d2d6d2;
   background: #fff;
   color: #596e5e;
   font-weight: 800;
+  font-size: 12px;
   line-height: 1;
   display: inline-flex;
   align-items: center;
