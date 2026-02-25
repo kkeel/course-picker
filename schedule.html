@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -789,22 +788,31 @@
                   <template x-for="(label, i) in dayLabels" :key="i">
                     <button
                       type="button"
-                      class="schedule-day-chip"
+                      class="schedule-day-chip schedule-day-chip--mini"
                       :class="visibleDays.includes(i) ? 'schedule-day-chip--on' : ''"
                       @click="toggleDay(i)"
                       :aria-pressed="visibleDays.includes(i)"
-                      x-text="label"
+                      x-text="dayShortLabels[i]"
                     ></button>
                   </template>
                 
                   <button
                     type="button"
-                    class="schedule-day-chip schedule-day-chip--ghost"
+                    class="schedule-day-chip schedule-day-chip--mini schedule-day-chip--ghost"
                     @click="showAllDays()"
                     aria-label="Show all days"
                   >
-                    Show all
+                    All
                   </button>
+
+                  <span class="schedule-topbar-sep" aria-hidden="true">|</span>
+
+                  <!-- Panel count controls (max 5) -->
+                  <div class="schedule-panelcount" x-cloak>
+                    <button type="button" class="schedule-panelcount-btn" title="Remove panel" @click="removeStudentPanel()" :disabled="(visibleStudentPanels||[]).length <= 1" aria-label="Remove panel">−</button>
+                    <span class="schedule-panelcount-num" x-text="(visibleStudentPanels||[]).length"></span>
+                    <button type="button" class="schedule-panelcount-btn" title="Add panel" @click="addStudentPanel()" :disabled="(visibleStudentPanels||[]).length >= 5" aria-label="Add panel">+</button>
+                  </div>
                 </div>
                   <!-- Global visible students (Day View columns) -->
                   <div class="schedule-days-global" x-show="view === 'day'">
@@ -853,6 +861,16 @@
                         </div>
                       </div>
                     </template>
+
+                    <span class="schedule-topbar-sep" aria-hidden="true">|</span>
+
+                    <!-- Panel count controls (max 5) -->
+                    <div class="schedule-panelcount" x-cloak>
+                      <button type="button" class="schedule-panelcount-btn" title="Remove panel" @click="removeDayPanel()" :disabled="(dayViewStudentSlots||[]).length <= 1" aria-label="Remove panel">−</button>
+                      <span class="schedule-panelcount-num" x-text="(dayViewStudentSlots||[]).length"></span>
+                      <button type="button" class="schedule-panelcount-btn" title="Add panel" @click="addDayPanel()" :disabled="(dayViewStudentSlots||[]).length >= 5" aria-label="Add panel">+</button>
+                    </div>
+
                   </div>
               </div>
             
@@ -875,47 +893,6 @@
                   >
                     Day View
                   </button>
-                
-
-<!-- Panel count controls -->
-<div class="schedule-panelcount" x-show="view === 'track'" x-cloak>
-  <span class="schedule-panelcount-label">Panels</span>
-  <button
-    type="button"
-    class="schedule-panelcount-btn"
-    title="Remove panel"
-    @click="removeStudentPanel()"
-    :disabled="(visibleStudentPanels||[]).length <= 1"
-  >−</button>
-  <span class="schedule-panelcount-num" x-text="(visibleStudentPanels||[]).length"></span>
-  <button
-    type="button"
-    class="schedule-panelcount-btn"
-    title="Add panel"
-    @click="addStudentPanel()"
-    :disabled="(visibleStudentPanels||[]).length >= 5"
-  >+</button>
-</div>
-
-<div class="schedule-panelcount" x-show="view === 'day'" x-cloak>
-  <span class="schedule-panelcount-label">Panels</span>
-  <button
-    type="button"
-    class="schedule-panelcount-btn"
-    title="Remove day panel"
-    @click="removeDayPanel()"
-    :disabled="(dayViewPanels||[]).length <= 1"
-  >−</button>
-  <span class="schedule-panelcount-num" x-text="(dayViewPanels||[]).length"></span>
-  <button
-    type="button"
-    class="schedule-panelcount-btn"
-    title="Add day panel"
-    @click="addDayPanel()"
-    :disabled="(dayViewPanels||[]).length >= 5"
-  >+</button>
-</div>
-
                 </div>
           
                 <!-- Density placeholder -->
