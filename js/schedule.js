@@ -196,31 +196,46 @@
     if (!visibleDays.length) visibleDays = d.visibleDays.slice();
     visibleDays = Array.from(new Set(visibleDays)).sort((a, b) => a - b);
 
-    let panels = Array.isArray(state?.panels) ? state.panels.slice() : d.panels.slice();
+    
+let panels = Array.isArray(state?.panels) ? state.panels.slice() : d.panels.slice();
 
-    panels = panels
-      .map((p, idx) => {
-        const slot = p?.slot || (idx === 1 ? "P2" : "P1");
-        let studentId = p?.studentId || (slot === "P2" ? "S2" : "S1");
+// Normalize student panels: 1..5 panels, valid studentIds, no duplicates
+const maxPanels = 5;
+const minPanels = 1;
 
-        if (Array.isArray(allStudentIds) && allStudentIds.length) {
-          if (!allStudentIds.includes(studentId)) {
-            studentId = slot === "P2"
-              ? (allStudentIds[1] || allStudentIds[0])
-              : allStudentIds[0];
-          }
-        }
+const defaultPanels = Array.isArray(d.panels) ? d.panels.slice() : [{ slot: "P1", studentId: "S1" }, { slot: "P2", studentId: "S2" }];
+const studentIds = (Array.isArray(allStudentIds) && allStudentIds.length) ? allStudentIds.slice() : ["S1","S2","S3","S4","S5"];
 
-        return { slot, studentId };
-      })
-      .slice(0, 2);
+panels = panels
+  .map((p, idx) => {
+    const slot = p?.slot || `P${idx + 1}`;
+    let studentId = p?.studentId || studentIds[idx] || studentIds[0] || "S1";
 
-    if (panels.length < 2) panels = d.panels.slice();
-
-    if (panels[0].studentId === panels[1].studentId) {
-      const fallback = panels[0].studentId === "S1" ? "S2" : "S1";
-      panels[1].studentId = fallback;
+    if (!studentIds.includes(studentId)) {
+      studentId = studentIds[idx] || studentIds[0] || "S1";
     }
+
+    return { slot, studentId };
+  })
+  .slice(0, maxPanels);
+
+// Ensure at least one panel; default remains 2-panels for first-time users
+if (panels.length < minPanels) panels = defaultPanels.slice();
+
+// Re-slot sequentially (P1..Pn) so saved states stay predictable
+panels = panels.map((p, idx) => ({ ...p, slot: `P${idx + 1}` }));
+
+// De-dupe studentIds across panels
+const used = new Set();
+panels = panels.map((p) => {
+  if (!p.studentId || used.has(p.studentId)) {
+    const nextId = studentIds.find((id) => !used.has(id)) || studentIds[0] || "S1";
+    used.add(nextId);
+    return { ...p, studentId: nextId };
+  }
+  used.add(p.studentId);
+  return p;
+});
 
     const railTopCollapsed = typeof state?.railTopCollapsed === 'boolean' ? state.railTopCollapsed : d.railTopCollapsed;
     const showCompleted = typeof state?.showCompleted === 'boolean' ? state.showCompleted : d.showCompleted;
@@ -251,35 +266,42 @@
     // -----------------------------
     // Day View state
     // -----------------------------
-    let dayViewPanels = Array.isArray(state?.dayViewPanels)
-      ? state.dayViewPanels.slice()
-      : (Array.isArray(d.dayViewPanels) ? d.dayViewPanels.slice() : []);
+    
+let dayViewPanels = Array.isArray(state?.dayViewPanels)
+  ? state.dayViewPanels.slice()
+  : (Array.isArray(d.dayViewPanels) ? d.dayViewPanels.slice() : []);
 
-    // Normalize day panels: exactly 2 panels, dayIdx in 0..4, no duplicates
-    dayViewPanels = dayViewPanels
-      .map((p, idx) => {
-        const slot = p?.slot || (idx === 1 ? "D2" : "D1");
-        let dayIdx = Number(p?.dayIdx);
+// Normalize day panels: 1..5 panels, dayIdx in 0..4, no duplicates
+const maxDayPanels = 5;
+const minDayPanels = 1;
 
-        if (!Number.isInteger(dayIdx) || dayIdx < 0 || dayIdx > 4) {
-          dayIdx = idx === 1 ? 1 : 0; // default: Mon, Tue
-        }
+dayViewPanels = dayViewPanels
+  .map((p, idx) => {
+    const slot = p?.slot || `D${idx + 1}`;
+    let dayIdx = Number(p?.dayIdx);
+    if (!Number.isInteger(dayIdx) || dayIdx < 0 || dayIdx > 4) dayIdx = idx % 5;
+    return { slot, dayIdx };
+  })
+  .slice(0, maxDayPanels);
 
-        return { slot, dayIdx };
-      })
-      .slice(0, 2);
+if (dayViewPanels.length < minDayPanels) {
+  dayViewPanels = [{ slot: "D1", dayIdx: 0 }, { slot: "D2", dayIdx: 1 }];
+}
 
-    if (dayViewPanels.length < 2) {
-      dayViewPanels = [
-        { slot: "D1", dayIdx: 0 },
-        { slot: "D2", dayIdx: 1 },
-      ];
-    }
+// Re-slot sequentially (D1..Dn)
+dayViewPanels = dayViewPanels.map((p, idx) => ({ ...p, slot: `D${idx + 1}` }));
 
-    if (dayViewPanels[0].dayIdx === dayViewPanels[1].dayIdx) {
-      const fallbackDay = [0, 1, 2, 3, 4].find((d) => d !== dayViewPanels[0].dayIdx) ?? 1;
-      dayViewPanels[1].dayIdx = fallbackDay;
-    }
+// De-dupe days
+const usedDays = new Set();
+dayViewPanels = dayViewPanels.map((p) => {
+  if (!Number.isInteger(p.dayIdx) || usedDays.has(p.dayIdx)) {
+    const nextDay = [0,1,2,3,4].find((d) => !usedDays.has(d)) ?? 0;
+    usedDays.add(nextDay);
+    return { ...p, dayIdx: nextDay };
+  }
+  usedDays.add(p.dayIdx);
+  return p;
+});
 
     const dayViewStudentSlots = normalizeDayViewSlots(state?.dayViewStudentSlots, allStudentIds);
 // -----------------------------
@@ -1478,33 +1500,119 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         return s ? s.name : "Student";
       },
 
-      setPanelStudent(idx, studentId) {
-        if (!Array.isArray(this.visibleStudentPanels)) return;
-        if (!this.visibleStudentPanels[idx]) return;
+      
+setPanelStudent(idx, studentId) {
+  if (!Array.isArray(this.visibleStudentPanels)) return;
+  if (!this.visibleStudentPanels[idx]) return;
 
-        const next = this.visibleStudentPanels.map((p, i) =>
-          i === idx ? { ...p, studentId } : { ...p }
-        );
+  const allIds = (this.students || []).map((s) => s.id);
+  if (allIds.length && !allIds.includes(studentId)) return;
 
-        if (next[0].studentId === next[1].studentId) {
-          const allIds = (this.students || []).map((s) => s.id);
-          const fallback = allIds.find((id) => id !== next[0].studentId) || "S1";
-          next[1].studentId = fallback;
-        }
+  let next = this.visibleStudentPanels.map((p, i) =>
+    i === idx ? { ...p, studentId } : { ...p }
+  );
 
-        this.visibleStudentPanels = next;
+  // De-dupe across ANY number of panels (keep chosen id; fix the others)
+  const used = new Set();
+  next = next.map((p, i) => {
+    const isSelectedPanel = i === idx;
+    if (isSelectedPanel) {
+      used.add(p.studentId);
+      return p;
+    }
+    if (!p.studentId || used.has(p.studentId)) {
+      const fallback = allIds.find((id) => !used.has(id) && id !== studentId) || allIds.find((id) => !used.has(id)) || studentId || "S1";
+      used.add(fallback);
+      return { ...p, studentId: fallback };
+    }
+    used.add(p.studentId);
+    return p;
+  });
 
-        // ensure placements exist for new student
-        this.ensureStudent(studentId);
+  // Re-slot sequentially just in case (P1..Pn)
+  next = next.map((p, i) => ({ ...p, slot: `P${i + 1}` }));
 
-        // if active target was on the swapped panel, keep it aligned
-        if (this.activeTarget.studentId !== next[0].studentId && this.activeTarget.studentId !== next[1].studentId) {
-          this.activeTarget.studentId = next[0].studentId;
-        }
+  this.visibleStudentPanels = next;
 
-        this.persistUi();
-        this.persistCards();
-      },
+  // ensure placements exist for new student
+  this.ensureStudent(studentId);
+
+  // If active target is no longer visible, snap it to the first panel
+  const visibleIds = new Set(next.map((p) => p.studentId));
+  if (!visibleIds.has(this.activeTarget.studentId)) {
+    this.activeTarget.studentId = next[0].studentId;
+  }
+
+  this.persistUi();
+  this.persistCards();
+},
+
+
+addStudentPanel() {
+  const maxPanels = 5;
+  if (!Array.isArray(this.visibleStudentPanels)) this.visibleStudentPanels = [];
+  if (this.visibleStudentPanels.length >= maxPanels) return;
+
+  const allIds = (this.students || []).map((s) => s.id);
+  const used = new Set(this.visibleStudentPanels.map((p) => p.studentId).filter(Boolean));
+  const nextId = allIds.find((id) => !used.has(id)) || allIds[0] || "S1";
+
+  const next = this.visibleStudentPanels
+    .slice()
+    .map((p, i) => ({ ...p, slot: `P${i + 1}` }));
+
+  next.push({ slot: `P${next.length + 1}`, studentId: nextId });
+
+  this.visibleStudentPanels = next;
+
+  this.ensureStudent(nextId);
+
+  // keep active target visible
+  if (!this.activeTarget?.studentId) this.activeTarget = { studentId: next[0].studentId, dayIdx: 0 };
+
+  this.persistUi();
+  this.persistCards();
+},
+
+removeStudentPanel() {
+  if (!Array.isArray(this.visibleStudentPanels)) return;
+  if (this.visibleStudentPanels.length <= 1) return;
+
+  const next = this.visibleStudentPanels.slice(0, -1).map((p, i) => ({ ...p, slot: `P${i + 1}` }));
+  this.visibleStudentPanels = next;
+
+  // If active target was on a removed panel, snap to first remaining
+  const visibleIds = new Set(next.map((p) => p.studentId));
+  if (!visibleIds.has(this.activeTarget.studentId)) {
+    this.activeTarget.studentId = next[0].studentId;
+  }
+
+  this.persistUi();
+  this.persistCards();
+},
+
+addDayPanel() {
+  const maxPanels = 5;
+  if (!Array.isArray(this.dayViewPanels)) this.dayViewPanels = [];
+  if (this.dayViewPanels.length >= maxPanels) return;
+
+  const used = new Set(this.dayViewPanels.map((p) => p.dayIdx));
+  const nextDay = [0,1,2,3,4].find((d) => !used.has(d)) ?? 0;
+
+  const next = this.dayViewPanels.slice().map((p, i) => ({ ...p, slot: `D${i + 1}` }));
+  next.push({ slot: `D${next.length + 1}`, dayIdx: nextDay });
+
+  this.dayViewPanels = next;
+  this.persistUi();
+},
+
+removeDayPanel() {
+  if (!Array.isArray(this.dayViewPanels)) return;
+  if (this.dayViewPanels.length <= 1) return;
+
+  this.dayViewPanels = this.dayViewPanels.slice(0, -1).map((p, i) => ({ ...p, slot: `D${i + 1}` }));
+  this.persistUi();
+},
 
       // -----------------------------
       // Display helpers
@@ -1544,25 +1652,40 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         this.openDayMenu = null;
       },
       
-      setDayPanel(idx, dayIdx) {
-        const n = Number(dayIdx);
-        if (!Number.isInteger(n) || n < 0 || n > 4) return;
-        if (!Array.isArray(this.dayViewPanels)) return;
-        if (!this.dayViewPanels[idx]) return;
       
-        const next = this.dayViewPanels.map((p, i) =>
-          i === idx ? { ...p, dayIdx: n } : { ...p }
-        );
-      
-        // prevent duplicates (keep it simple like student panels)
-        if (next[0].dayIdx === next[1].dayIdx) {
-          const fallback = [0,1,2,3,4].find((d) => d !== next[0].dayIdx) ?? 0;
-          next[1].dayIdx = fallback;
-        }
-      
-        this.dayViewPanels = next;
-        this.persistUi();
-      },
+setDayPanel(idx, dayIdx) {
+  const n = Number(dayIdx);
+  if (!Number.isInteger(n) || n < 0 || n > 4) return;
+  if (!Array.isArray(this.dayViewPanels)) return;
+  if (!this.dayViewPanels[idx]) return;
+
+  let next = this.dayViewPanels.map((p, i) =>
+    i === idx ? { ...p, dayIdx: n } : { ...p }
+  );
+
+  // De-dupe across any number of day panels
+  const usedDays = new Set();
+  next = next.map((p, i) => {
+    const isSelected = i === idx;
+    if (isSelected) {
+      usedDays.add(p.dayIdx);
+      return p;
+    }
+    if (!Number.isInteger(p.dayIdx) || usedDays.has(p.dayIdx)) {
+      const fallback = [0,1,2,3,4].find((d) => !usedDays.has(d) && d !== n) ?? [0,1,2,3,4].find((d) => !usedDays.has(d)) ?? 0;
+      usedDays.add(fallback);
+      return { ...p, dayIdx: fallback };
+    }
+    usedDays.add(p.dayIdx);
+    return p;
+  });
+
+  // Re-slot sequentially (D1..Dn)
+  next = next.map((p, i) => ({ ...p, slot: `D${i + 1}` }));
+
+  this.dayViewPanels = next;
+  this.persistUi();
+},
       
       setDayViewSlotStudent(slotIdx, studentId) {
         if (!Array.isArray(this.dayViewStudentSlots)) return;
