@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -179,7 +180,7 @@
       :class="expandedMode ? 'sched-expanded' : ''"
     >
      <div class="schedule-head">
-      <h2 class="section-title">TESTING Schedule (staff only-no save)</h2>
+      <h2 class="section-title">DEMO Schedule</h2>
     
       <div class="av-video-inline">
         <a id="avTutorialsInlineLink" class="av-video-row" href="#" target="_blank" rel="noopener">
@@ -783,7 +784,7 @@
 
                 <!-- Global visible days (Student View columns) -->
                 <div class="schedule-days-global" x-show="view === 'track'">
-                  <div class="schedule-days-global-label">Show days:</div>
+                  <div class="schedule-days-global-label">Days</div>
                 
                   <template x-for="(label, i) in dayLabels" :key="i">
                     <button
@@ -809,6 +810,7 @@
 
                   <!-- Panel count controls (max 5) -->
                   <div class="schedule-panelcount" x-cloak>
+                    <span class="schedule-panelcount-label">Panels</span>
                     <button type="button" class="schedule-panelcount-btn" title="Remove panel" @click="removeStudentPanel()" :disabled="(visibleStudentPanels||[]).length <= 1" aria-label="Remove panel">−</button>
                     <span class="schedule-panelcount-num" x-text="(visibleStudentPanels||[]).length"></span>
                     <button type="button" class="schedule-panelcount-btn" title="Add panel" @click="addStudentPanel()" :disabled="(visibleStudentPanels||[]).length >= 5" aria-label="Add panel">+</button>
@@ -816,7 +818,7 @@
                 </div>
                   <!-- Global visible students (Day View columns) -->
                   <div class="schedule-days-global" x-show="view === 'day'">
-                    <div class="schedule-days-global-label">Show students:</div>
+                    <div class="schedule-days-global-label">Students</div>
                   
                     <template x-for="(studentId, sIdx) in (dayViewStudentSlots || [])" :key="'dv-top-slot-' + sIdx">
                       <div
@@ -827,7 +829,7 @@
                       >
                         <button
                           type="button"
-                          class="student-select-trigger schedule-day-chip schedule-day-chip--on schedule-student-chip"
+                          class="student-select-trigger schedule-day-chip schedule-day-chip--mini schedule-day-chip--on schedule-student-chip"
                           @click.stop.prevent="openDayStudentMenu = (openDayStudentMenu === sIdx ? null : sIdx)"
                           :aria-expanded="openDayStudentMenu === sIdx"
                           :aria-controls="`day-student-top-menu-${sIdx}`"
@@ -866,9 +868,10 @@
 
                     <!-- Panel count controls (max 5) -->
                     <div class="schedule-panelcount" x-cloak>
-                      <button type="button" class="schedule-panelcount-btn" title="Remove panel" @click="removeDayPanel()" :disabled="(dayViewStudentSlots||[]).length <= 1" aria-label="Remove panel">−</button>
-                      <span class="schedule-panelcount-num" x-text="(dayViewStudentSlots||[]).length"></span>
-                      <button type="button" class="schedule-panelcount-btn" title="Add panel" @click="addDayPanel()" :disabled="(dayViewStudentSlots||[]).length >= 5" aria-label="Add panel">+</button>
+                      <span class="schedule-panelcount-label">Panels</span>
+                      <button type="button" class="schedule-panelcount-btn" title="Remove panel" @click="removeDayPanel()" :disabled="(dayViewPanels||[]).length <= 1" aria-label="Remove panel">−</button>
+                      <span class="schedule-panelcount-num" x-text="(dayViewPanels||[]).length"></span>
+                      <button type="button" class="schedule-panelcount-btn" title="Add panel" @click="addDayPanel()" :disabled="(dayViewPanels||[]).length >= 5" aria-label="Add panel">+</button>
                     </div>
 
                   </div>
