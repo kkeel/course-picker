@@ -1185,7 +1185,7 @@ body.sched-dragging .sched-card{
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: repeat(2, minmax(380px, 1fr));
+  grid-template-columns: repeat(var(--panel-count, 2), minmax(380px, 1fr));
   gap: 12px;
   overflow: hidden;
 }
@@ -2078,7 +2078,7 @@ body.is-resizing-workspace{
 .schedule-panel-row{
   /* let content determine height */
   display: grid;
-  grid-template-columns: repeat(2, minmax(380px, 1fr));
+  grid-template-columns: repeat(var(--daypanel-count, 2), minmax(380px, 1fr));
   gap: 12px;
   align-items: flex-start;
   padding-right: 12px;
@@ -2271,7 +2271,7 @@ body.is-resizing-workspace{
   display: flex;
   flex-direction: column;
 
-  /* Let the dock button/label breathe — scrolling happens in the body */
+  /* Let the dock button/label breathe â€” scrolling happens in the body */
   overflow: visible;
 }
 
@@ -2291,14 +2291,14 @@ body.is-resizing-workspace{
   padding-top: 2px;
 }
 
-/* Dock button (NOT absolute — it sits in normal flow now) */
+/* Dock button (NOT absolute â€” it sits in normal flow now) */
 .sched-rail-dock-btn{
   width: 34px;
   height: 34px;
   border-radius: 999px;
   border: 1px solid #cfd8c6;
 
-  /* match the “closed” look even when open */
+  /* match the â€œclosedâ€ look even when open */
   background: transparent;
 
   display: grid;
@@ -2382,12 +2382,12 @@ body.is-resizing-workspace{
 }
 
 /* =========================================================
-   FINAL OVERRIDES — Rail dock behavior + FIXED rail height
+   FINAL OVERRIDES â€” Rail dock behavior + FIXED rail height
    (pasted at bottom so it wins)
    ========================================================= */
 
 /* Pick a rail height that feels right on desktop.
-   You can tweak the 260px if you want “more rail, less page”. */
+   You can tweak the 260px if you want â€œmore rail, less pageâ€. */
 :root{
   --sched-rail-fixed-h: calc(100vh - 200px);
 }
@@ -2446,7 +2446,7 @@ body.is-resizing-workspace{
 }
 
 /* =========================================================
-   Schedule — Freeze top controls for BOTH vertical + horizontal scroll
+   Schedule â€” Freeze top controls for BOTH vertical + horizontal scroll
    (Student View / Day View / Card Style + Show days/students chips)
    ========================================================= */
 
@@ -2456,11 +2456,11 @@ body.is-resizing-workspace{
   left: 0;          /* stays visible when scrolling horizontally */
   z-index: 80;
 
-  /* important: give it a solid surface so content doesn’t show through */
+  /* important: give it a solid surface so content doesnâ€™t show through */
   background: #fff;
   border-bottom: 1px solid rgba(229,232,229,0.9);
 
-  /* small padding so the border doesn’t touch content */
+  /* small padding so the border doesnâ€™t touch content */
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -2469,4 +2469,54 @@ body.is-resizing-workspace{
    This forces the work area to be the scroll context. */
 #schedWork{
   overflow: visible;     /* keep sticky working */
+}
+
+
+/* Panel count (+ / -) controls */
+.schedule-panelcount{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  border-left: 1px solid rgba(210,214,210,.7);
+  margin-left: 6px;
+}
+
+.schedule-panelcount-label{
+  font-size: 11px;
+  font-weight: 650;
+  color: rgba(38,43,38,.62);
+  letter-spacing: .02em;
+}
+
+.schedule-panelcount-num{
+  min-width: 16px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #596e5e;
+}
+
+.schedule-panelcount-btn{
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  color: #596e5e;
+  font-weight: 800;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.schedule-panelcount-btn:hover{
+  background: rgba(89,110,94,.08);
+}
+
+.schedule-panelcount-btn:disabled{
+  opacity: .45;
+  cursor: not-allowed;
 }
