@@ -246,7 +246,7 @@
 .schedule-columns{
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: var(--sched-col-w);
+  grid-auto-columns: minmax(var(--sched-col-w), 1fr);
   gap: 12px;
   padding: 12px;
   min-width: 100%;
@@ -255,7 +255,7 @@
 }
 
 .schedule-columns--nowrap{
-  grid-auto-columns: var(--sched-col-w);
+  grid-auto-columns: minmax(var(--sched-col-w), 1fr);
 }
 
 .schedule-col{
@@ -266,6 +266,7 @@
   flex-direction: column;
   min-height: 0;
   height: 100%;
+  min-width: 0;
 }
 
 .schedule-col-head{
@@ -1296,7 +1297,7 @@ body.sched-dragging .sched-card{
 }
 
 
-/* Day View: student columns should fill the panel width (1â€“5 students) */
+/* Day View: student columns should fill the panel width (1Ã¢â‚¬â€œ5 students) */
 .sched-dayview .schedule-columns--dayfill{
   grid-auto-columns: minmax(0, 1fr);
 }
@@ -1873,7 +1874,7 @@ body.is-resizing-workspace{
   min-width: 100% !important;
   padding: var(--sched-cols-pad) !important;
   gap: var(--sched-col-gap) !important;
-  grid-auto-columns: var(--sched-col-w) !important;
+  grid-auto-columns: minmax(var(--sched-col-w), 1fr) !important;
   align-items: flex-start;
   height: 100% !important;
   border-bottom: 1px solid #e5e8e5;
