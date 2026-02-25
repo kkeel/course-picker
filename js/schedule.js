@@ -826,37 +826,59 @@ syncExpandedHeights() {
     if (!this.expandedMode) {
       root.style.removeProperty("--sched-expanded-h");
       // also clear any inline min-heights we may have set
-      document.querySelectorAll(".schedule-panel, .schedule-panel-body").forEach(el => {
+      document.querySelectorAll(".schedule-panel-body").forEach(el => {
         el.style.removeProperty("min-height");
       });
       return;
     }
 
-    // Drive the shared height from the tallest *visible* panel (head + body)
-    const panels = Array.from(document.querySelectorAll(".schedule-panel"))
-      .filter(p => p && p.offsetParent !== null);
+    // Drive the shared height from the tallest *visible* panel body
+    const panelBodies = Array.from(document.querySelectorAll(".schedule-panel"))
+      .filter(p => p && p.offsetParent !== null)
+      .map(p => p.querySelector(".schedule-panel-body"))
+      .filter(Boolean);
 
-    if (!panels.length) return;
+    if (!panelBodies.length) return;
 
     let maxH = 0;
-    panels.forEach(panel => {
-      maxH = Math.max(maxH, panel.scrollHeight || 0);
+    panelBodies.forEach(body => {
+      maxH = Math.max(maxH, body.scrollHeight || 0);
     });
 
     // Tiny buffer so borders don't clip
     const h = Math.max(0, maxH + 2);
     root.style.setProperty("--sched-expanded-h", `${h}px`);
 
-    // Safety: also set inline min-heights so this works even if CSS is overridden elsewhere
-    panels.forEach(panel => {
-      panel.style.minHeight = `${h}px`;
-      const body = panel.querySelector(".schedule-panel-body");
-      if (body) body.style.minHeight = `${Math.max(0, h - (panel.querySelector(".schedule-panel-head")?.offsetHeight || 0))}px`;
+    // Safety: also set inline min-height so this works even if CSS is overridden elsewhere
+    panelBodies.forEach(body => {
+      body.style.minHeight = `${h}px`;
     });
   } catch (_) {
     // ignore
   }
-},
+}
+,
+queueExpandedSync() {
+  // When switching views Alpine may re-create panel DOM, which clears inline min-heights.
+  // Queue the measurement after DOM paint (sometimes needs two frames).
+  if (this._expandedSyncQueued) return;
+  this._expandedSyncQueued = true;
+
+  const run = () => {
+    this._expandedSyncQueued = false;
+    try { this.syncExpandedHeights(); } catch (e) {}
+  };
+
+  // Prefer Alpine timing if available
+  if (this.$nextTick) {
+    this.$nextTick(() => {
+      requestAnimationFrame(() => requestAnimationFrame(run));
+    });
+  } else {
+    requestAnimationFrame(() => requestAnimationFrame(run));
+  }
+}
+,
         
         toggleExpanded() {
           this.expandedMode = !this.expandedMode;
@@ -1066,13 +1088,24 @@ syncExpandedHeights() {
         });
 
         // Observe schedule DOM changes so heights stay correct as cards are added/removed.
-        const row = document.querySelector(".schedule-panel-row");
-        if (row) {
+        // Important: view switching can re-create panel DOM, so observe the Alpine root.
+        if (this.$root) {
           const obs = new MutationObserver(() => {
             clearTimeout(this._expandedSyncMO);
-            this._expandedSyncMO = setTimeout(() => this.syncExpandedHeights(), 50);
+            this._expandedSyncMO = setTimeout(() => this.queueExpandedSync(), 40);
           });
-          obs.observe(row, { childList: true, subtree: true, attributes: true });
+          obs.observe(this.$root, { childList: true, subtree: true, attributes: true });
+          this._expandedHeightObserver = obs;
+        }
+
+        // Re-measure expanded heights when switching between Student/Day views (DOM can be re-created).
+        if (this.$watch) {
+          this.$watch('view', () => this.queueExpandedSync());
+          this.$watch('expandedMode', () => this.queueExpandedSync());
+          this.$watch('visibleDays', () => this.queueExpandedSync());
+          this.$watch('visibleStudentPanels', () => this.queueExpandedSync());
+          this.$watch('dayViewPanels', () => this.queueExpandedSync());
+          this.$watch('dayViewStudentSlots', () => this.queueExpandedSync());
         }
 
       
