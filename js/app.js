@@ -10,6 +10,10 @@ const COURSES_CACHE_KEY = `alveary_courses_${APP_CACHE_VERSION}`;
 const UI_STATE_KEY      = `alveary_ui_${APP_CACHE_VERSION}`;
 const PLANNER_STATE_KEY = `alveary_planner_${APP_CACHE_VERSION}`;
 
+// Expose keys globally so module scripts (saveState.js) can read them
+try { window.APP_CACHE_VERSION = APP_CACHE_VERSION; } catch (e) {}
+try { window.PLANNER_STATE_KEY = PLANNER_STATE_KEY; } catch (e) {}
+
 // ---------------- SHARED COURSE/TOPIC TITLE HELPER ----------------
 function withSharedPrefix(title, shared) {
   return shared === "↔" ? `↔ ${title}` : title;
