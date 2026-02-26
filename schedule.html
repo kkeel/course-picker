@@ -1037,6 +1037,8 @@
                                       <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
                                       </div>
 
+                                      <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
+
                                       <div
                                         class="sched-card-trackline"
                                         x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
@@ -1044,7 +1046,7 @@
                                       ></div>
 
                                   
-                                      <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
+                                      
                                   
                                       <button
                                         type="button"
@@ -1172,6 +1174,8 @@
                                       <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
                                       </div>
 
+                                      <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
+
                                       <div
                                         class="sched-card-trackline"
                                         x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
@@ -1179,7 +1183,7 @@
                                       ></div>
 
               
-                                      <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
+                                      
               
                                       <button
                                         type="button"
