@@ -1863,7 +1863,7 @@ body.is-resizing-workspace{
 }
 
 .sched-expanded .schedule-panel-body{
-  padding: 10px 0 0 !important;
+  padding: 10px 1px 1px !important;
   border-bottom-left-radius: 16px !important;
   border-bottom-right-radius: 16px !important;
   overflow: visible !important;
@@ -1922,7 +1922,7 @@ body.is-resizing-workspace{
   min-width: var(--sched-print-w) !important;
   max-width: var(--sched-print-w) !important;
   border-radius: 16px !important;
-  border-bottom-color: transparent !important;
+  border-bottom-color: #e5e8e5 !important;
 }
 
 .sched-expanded .sched-workspace-resize{
@@ -1988,6 +1988,13 @@ body.is-resizing-workspace{
 
 .sched-expanded .sched-dayview-daybody{
   min-height: var(--sched-expanded-h-day, 0px) !important;
+
+  /* Match Track view: no inset padding that creates side margins/cropping */
+  padding: 10px 1px 1px !important;
+  overflow: visible !important;
+  background: #fbfbf9;
+  display: flex;
+  flex-direction: column;
 }
 
 .sched-expanded .sched-rail{
