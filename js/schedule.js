@@ -841,13 +841,24 @@ syncExpandedHeights() {
     }
 
     const measureMaxScrollHeight = (els) => {
-      let maxH = 0;
-      els.forEach((el) => {
-        const h = el ? (el.scrollHeight || 0) : 0;
-        if (h > maxH) maxH = h;
-      });
-      return maxH;
-    };
+  // IMPORTANT: if we have previously applied a min-height, scrollHeight can reflect
+  // that forced height. Clear min-height first to measure the *natural* content height,
+  // otherwise we can get a feedback loop where the height slowly grows.
+  els.forEach((el) => {
+    if (!el) return;
+    el.style.removeProperty("min-height");
+  });
+
+  // Force a reflow so scrollHeight reflects the cleared min-heights
+  void root.offsetHeight;
+
+  let maxH = 0;
+  els.forEach((el) => {
+    const h = el ? (el.scrollHeight || 0) : 0;
+    if (h > maxH) maxH = h;
+  });
+  return maxH;
+};
 
     // 1) Track / Student View (panels use .schedule-panel-body)
     const trackBodies = Array.from(document.querySelectorAll(".schedule-panel-body"))
@@ -1123,7 +1134,7 @@ queueExpandedSync() {
             clearTimeout(this._expandedSyncMO);
             this._expandedSyncMO = setTimeout(() => this.queueExpandedSync(), 40);
           });
-          obs.observe(this.$root, { childList: true, subtree: true, attributes: true });
+          obs.observe(this.$root, { childList: true, subtree: true });
           this._expandedHeightObserver = obs;
         }
 
