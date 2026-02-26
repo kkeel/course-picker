@@ -98,9 +98,12 @@
   }
 
   function savePlannerState(planner) {
-    const key = getPlannerStateKey();
-    saveKey(key, planner || {});
-  }
+  const key = getPlannerStateKey();
+  saveKey(key, planner || {});
+
+  // Notify same-tab listeners (storage event doesn't fire in same tab)
+  try { window.dispatchEvent(new CustomEvent("alveary:planner-updated")); } catch (e) {}
+}
 
   function plannerStudents(planner) {
     const arr = Array.isArray(planner?.students) ? planner.students : [];
