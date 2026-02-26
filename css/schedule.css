@@ -1882,20 +1882,23 @@ body.is-resizing-workspace{
   padding: var(--sched-cols-pad) !important;
   gap: var(--sched-col-gap) !important;
   grid-auto-columns: minmax(var(--sched-col-w), 1fr) !important;
-   
+
   align-items: stretch;
   align-content: stretch;
-   
+
   height: 100% !important;
-  border-bottom: 1px solid #e5e8e5;
+  border-bottom: 0;
 }
 
 .sched-expanded .schedule-col{
   border-radius: 0 !important;
-  border-top: 1px solid #e5e8e5;
+
+  /* Only show inner column dividers */
+  border-top: 0;
   border-bottom: 0;
-  border-right: 1px solid #e5e8e5;
   border-left: 0;
+  border-right: 1px solid #e5e8e5;
+
   background: #fbfbf9;
 }
 
@@ -1935,10 +1938,6 @@ body.is-resizing-workspace{
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   align-items: flex-start;
-}
-
-.sched-expanded .schedule-col:first-child{
-  border-left: 1px solid #e5e8e5;
 }
 
 .sched-expanded .schedule-col-head{
