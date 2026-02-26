@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1027,20 +1028,21 @@
                                       @dragover.prevent="onDragOver($event, panel.studentId, i, inst.instanceId)"
                                       @drop.prevent="onDrop($event, panel.studentId, i, inst.instanceId)"
                                     >
-                                      <!-- Tracker row (when enabled) should sit ABOVE title/time -->
-                                      <div
-                                        class="sched-card-trackline"
-                                        x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
-                                        x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"
-                                      ></div>
-
                                       <div class="sched-card-top">
                                         <div
                                           class="sched-card-title"
                                           :title="(templateForInstance(inst) || {}).title || ''"
                                           x-text="(templateForInstance(inst) || {}).title || 'Card'"
                                         ></div>
-                                        <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
+
+                                      <!-- Tracker row (when enabled) sits between title/time and symbols -->
+                                      <div
+                                        class="sched-card-trackline"
+                                        x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
+                                        x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"
+                                      ></div>
+
+<div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
                                       </div>
                                   
                                       <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
@@ -1161,20 +1163,21 @@
                                       @dragover.prevent="onDragOver($event, studentId, panel.dayIdx, inst.instanceId)"
                                       @drop.prevent="onDrop($event, studentId, panel.dayIdx, inst.instanceId)"
                                     >
-                                      <!-- Tracker row (when enabled) should sit ABOVE title/time -->
-                                      <div
-                                        class="sched-card-trackline"
-                                        x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
-                                        x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"
-                                      ></div>
-
                                       <div class="sched-card-top">
                                         <div
                                           class="sched-card-title"
                                           :title="(templateForInstance(inst) || {}).title || ''"
                                           x-text="(templateForInstance(inst) || {}).title || 'Card'"
                                         ></div>
-                                        <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
+
+                                      <!-- Tracker row (when enabled) sits between title/time and symbols -->
+                                      <div
+                                        class="sched-card-trackline"
+                                        x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
+                                        x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"
+                                      ></div>
+
+<div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
                                       </div>
               
                                       <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
