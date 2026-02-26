@@ -971,6 +971,11 @@ queueExpandedSync() {
         this.boardAddTracking = (typeof normalizedUi.boardAddTracking === "boolean") ? normalizedUi.boardAddTracking : true;
         this.boardScaleByTime = (typeof normalizedUi.boardScaleByTime === "boolean") ? normalizedUi.boardScaleByTime : false;
 
+        // Auto-persist board card style toggles (so refresh restores correctly)
+        this.$watch("boardAddSymbols",  () => this.persistUi());
+        this.$watch("boardAddTracking", () => this.persistUi());
+        this.$watch("boardScaleByTime", () => this.persistUi());
+
       
         this.view = normalizedUi.view;
         this.visibleDays = normalizedUi.visibleDays;
