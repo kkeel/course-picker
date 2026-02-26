@@ -1243,6 +1243,11 @@ body.sched-dragging .sched-card{
   align-self: stretch;
 }
 
+.schedule-panel,
+.sched-dayview-day {
+  border-bottom: 1px solid #e5e8e5;
+}
+
 .sched-dayview-dayhead{
   background: #dfe3d7;
   padding: 8px 12px;
