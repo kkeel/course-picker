@@ -2385,6 +2385,33 @@ function coursePlanner() {
         console.warn("Could not merge existing planner extras", e);
       }
 
+      // ✅ Preserve/merge STUDENT roster across pages
+      // Schedule can update students via schedule.js; if coursePlanner saves later,
+      // it must not accidentally overwrite that roster with an older copy.
+      try {
+        const existingRaw = localStorage.getItem(PLANNER_STATE_KEY);
+        if (existingRaw) {
+          const existing = JSON.parse(existingRaw);
+          const existingStudents = Array.isArray(existing?.students) ? existing.students : [];
+          const stateStudents = Array.isArray(state?.students) ? state.students : [];
+      
+          // If this save didn't include students, carry forward existing students
+          if (stateStudents.length === 0 && existingStudents.length > 0) {
+            state.students = existingStudents;
+          }
+      
+          // If both exist, merge by id (prefer current save's version for same id)
+          if (stateStudents.length > 0 && existingStudents.length > 0) {
+            const byId = new Map();
+            for (const s of existingStudents) if (s?.id) byId.set(String(s.id), s);
+            for (const s of stateStudents) if (s?.id) byId.set(String(s.id), s);
+            state.students = Array.from(byId.values());
+          }
+        }
+      } catch (e) {
+        console.warn("Could not merge existing planner students", e);
+      }
+
       try {
         localStorage.setItem(PLANNER_STATE_KEY, JSON.stringify(state));
       } catch (err) {
