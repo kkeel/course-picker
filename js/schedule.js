@@ -81,28 +81,14 @@
   // Planner state (shared with course list / book list)
   // -----------------------------
   function getPlannerStateKey() {
-    // Prefer globally-exposed key if present
-    try {
-      if (window.PLANNER_STATE_KEY) return window.PLANNER_STATE_KEY;
-    } catch {}
-  
-    // Fall back to top-level const (non-window global)
+    // app.js declares PLANNER_STATE_KEY and APP_CACHE_VERSION as top-level consts
+    // (not always on window), so use typeof checks.
     try {
       if (typeof PLANNER_STATE_KEY === "string" && PLANNER_STATE_KEY) return PLANNER_STATE_KEY;
     } catch {}
-  
-    // Auto-detect newest planner key
     try {
-      const keys = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const k = localStorage.key(i);
-        if (k && k.startsWith("alveary_planner_")) keys.push(k);
-      }
-      keys.sort();
-      if (keys.length) return keys[keys.length - 1];
+      if (typeof APP_CACHE_VERSION === "string" && APP_CACHE_VERSION) return `alveary_planner_${APP_CACHE_VERSION}`;
     } catch {}
-  
-    // Last-resort fallback
     return "alveary_planner_v1";
   }
 
