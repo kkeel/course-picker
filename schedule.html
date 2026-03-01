@@ -172,6 +172,16 @@
     </section>
 
     <div x-show="!courseGate" x-cloak>
+      <div class="schedule-head">
+      <h2 class="section-title">DEMO Schedule</h2>
+    
+      <div class="av-video-inline">
+        <a id="avTutorialsInlineLink" class="av-video-row" href="#" target="_blank" rel="noopener">
+          <img class="av-play-icon" src="img/icons/play-button.svg" alt="" aria-hidden="true" />
+          <span class="av-video-text">Planning App Tutorials</span>
+        </a>
+      </div>
+    </div>
 
       <!-- ✅ Shared Manage Students (uses coursePlanner, not scheduleBuilder) -->
       <div class="schedule-student-tools">
@@ -266,16 +276,6 @@
         x-init="init()"
         :class="expandedMode ? 'sched-expanded' : ''"
       >
-     <div class="schedule-head">
-      <h2 class="section-title">DEMO Schedule</h2>
-    
-      <div class="av-video-inline">
-        <a id="avTutorialsInlineLink" class="av-video-row" href="#" target="_blank" rel="noopener">
-          <img class="av-play-icon" src="img/icons/play-button.svg" alt="" aria-hidden="true" />
-          <span class="av-video-text">Planning App Tutorials</span>
-        </a>
-      </div>
-    </div>
 
     <div
       id="scheduleGridRail"
