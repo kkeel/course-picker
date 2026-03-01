@@ -171,27 +171,11 @@
       </div>
     </section>
 
-    <div
-      x-show="!courseGate"
-      x-cloak
-      x-data="scheduleBuilder()"
-      x-init="init()"
-      :class="expandedMode ? 'sched-expanded' : ''"
-    >
-     <div class="schedule-head">
-      <h2 class="section-title">DEMO Schedule</h2>
-    
-      <div class="av-video-inline">
-        <a id="avTutorialsInlineLink" class="av-video-row" href="#" target="_blank" rel="noopener">
-          <img class="av-play-icon" src="img/icons/play-button.svg" alt="" aria-hidden="true" />
-          <span class="av-video-text">Planning App Tutorials</span>
-        </a>
-      </div>
-    </div>
+    <div x-show="!courseGate" x-cloak>
 
-    <!-- Manage Students (same UI as Courses/Books) -->
-<div class="schedule-student-tools">
-  <button
+      <!-- ✅ Shared Manage Students (uses coursePlanner, not scheduleBuilder) -->
+      <div class="schedule-student-tools">
+        <button
               type="button"
               class="manage-students-toggle"
               @click.stop="toggleStudentsOpen()"
@@ -273,8 +257,25 @@
                   :disabled="!canAddStudent"
                 >Add</button>
               </div>
-            </div>
-</div>
+          </div>
+      </div>
+    
+      <!-- Schedule Builder -->
+      <div
+        x-data="scheduleBuilder()"
+        x-init="init()"
+        :class="expandedMode ? 'sched-expanded' : ''"
+      >
+     <div class="schedule-head">
+      <h2 class="section-title">DEMO Schedule</h2>
+    
+      <div class="av-video-inline">
+        <a id="avTutorialsInlineLink" class="av-video-row" href="#" target="_blank" rel="noopener">
+          <img class="av-play-icon" src="img/icons/play-button.svg" alt="" aria-hidden="true" />
+          <span class="av-video-text">Planning App Tutorials</span>
+        </a>
+      </div>
+    </div>
 
     <div
       id="scheduleGridRail"
@@ -1338,7 +1339,7 @@
 </div> <!-- Schedule Space (grid) closer -->
         </div> <!-- scheduleBuilder() closer -->
         
-    </section>
+    </div> <!-- closes x-show="!courseGate" wrapper -->
 
   </main>
 
