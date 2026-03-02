@@ -639,7 +639,7 @@ function coursePlanner() {
             setTimeout(() => focusInput(), 0);
           }
         } catch (e) {}
-      }
+      },
 
       addStudent() {
         const name = (this.newStudentName || "").trim();
