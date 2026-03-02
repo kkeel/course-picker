@@ -183,7 +183,7 @@
       </div>
     </div>
 
-      <!-- ✅ Shared Manage Students (uses coursePlanner, not scheduleBuilder) -->
+      <!-- ✅ Shared Manage Students -->
       <div class="schedule-student-tools">
         <button
               type="button"
@@ -195,12 +195,13 @@
             </button>
 
             <div
-              class="student-manager"
-              x-show="studentsOpen"
-              x-transition
-              x-cloak
-              @click.stop
-            >
+                class="student-manager"
+                x-ref="studentManager"
+                x-show="studentsOpen"
+                x-transition
+                x-cloak
+                @click.stop
+              >
               <p class="student-manager-help">
                 Add up to 15 students. Click color buttons to change student colors.
               </p>
