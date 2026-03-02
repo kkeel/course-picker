@@ -443,6 +443,15 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
     // If we can't resolve the source, skip it for now
     if (!source) continue;
 
+    if (sourceId === "recJOkNvdiyWNEvhn" || sourceId === "recc7G1pOR69hhyYk") {
+      console.log("DEBUG schedule source", {
+        sourceId,
+        kind,
+        isCourseGuess: !!(source.title && source.courseId),
+        source
+      });
+    }
+
     const isCourse = !!(source.title && source.courseId);
     const sourceKey = isCourse
       ? (source.courseId || source.id || id)
