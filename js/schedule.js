@@ -1925,7 +1925,10 @@ setDayPanel(idx, dayIdx) {
       
         // Rail should feel like ONE card:
         // Title stays “Picture Study” (course label), and the band is a secondary line.
-        const baseTitle = active.courseLabel || active.title || "";
+        const baseTitle =
+          (active.sourceType === "topic")
+            ? (active.title || "")
+            : (active.courseLabel || active.title || "");
         const bandLabel = selectedMeta?.label || active?.meta?.optionLabel || "";
       
         return {
