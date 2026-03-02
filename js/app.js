@@ -615,29 +615,31 @@ function coursePlanner() {
 
       promptStudentsOnScheduleIfEmpty() {
         try {
-          const path = (window.location && window.location.pathname) ? window.location.pathname : "";
-          const isSchedulePage = path.includes("schedule");
-          if (!isSchedulePage) return;
+          const path = (window.location.pathname || "").toLowerCase();
+          const isSchedule = path.includes("schedule");
+          if (!isSchedule) return;
       
           const hasStudents = Array.isArray(this.students) && this.students.length > 0;
           if (hasStudents) return;
       
-          // Open the manager
+          // Open the manager (no scrolling — it's already at the top)
           this.studentsOpen = true;
       
-          // Scroll to it after Alpine updates the DOM
+          // Optional: focus the “Add a student…” field so the page feels "guided"
+          const focusInput = () => {
+            const input = this.$refs?.studentManager?.querySelector?.(
+              '.student-add-row input.student-name-input'
+            );
+            if (input) input.focus({ preventScroll: true });
+          };
+      
           if (typeof this.$nextTick === "function") {
-            this.$nextTick(() => {
-              try {
-                const el = this.$refs && this.$refs.studentManager;
-                if (el && typeof el.scrollIntoView === "function") {
-                  el.scrollIntoView({ behavior: "smooth", block: "start" });
-                }
-              } catch (e) {}
-            });
+            this.$nextTick(() => focusInput());
+          } else {
+            setTimeout(() => focusInput(), 0);
           }
         } catch (e) {}
-      },
+      }
 
       addStudent() {
         const name = (this.newStudentName || "").trim();
