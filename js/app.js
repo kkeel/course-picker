@@ -613,6 +613,32 @@ function coursePlanner() {
         return pal[idx];
       },
 
+      promptStudentsOnScheduleIfEmpty() {
+        try {
+          const path = (window.location && window.location.pathname) ? window.location.pathname : "";
+          const isSchedulePage = path.includes("schedule");
+          if (!isSchedulePage) return;
+      
+          const hasStudents = Array.isArray(this.students) && this.students.length > 0;
+          if (hasStudents) return;
+      
+          // Open the manager
+          this.studentsOpen = true;
+      
+          // Scroll to it after Alpine updates the DOM
+          if (typeof this.$nextTick === "function") {
+            this.$nextTick(() => {
+              try {
+                const el = this.$refs && this.$refs.studentManager;
+                if (el && typeof el.scrollIntoView === "function") {
+                  el.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+              } catch (e) {}
+            });
+          }
+        } catch (e) {}
+      },
+
       addStudent() {
         const name = (this.newStudentName || "").trim();
         if (!name) return;
@@ -2593,6 +2619,7 @@ function coursePlanner() {
     
       // 2a) Load course data (from cache if available, then refresh from network)
       await this.loadCoursesFromJson();
+      this.promptStudentsOnScheduleIfEmpty?.();
 
       // 2b) if URL has grade/master params, apply them now
       // (Skip if we're in autoprint mode, because autoprint handles its own filtering)
