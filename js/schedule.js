@@ -466,12 +466,22 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
     const trackingCount = Number(rule.termTracking || 0);
     const minutes = Number(rule.min || 0);
 
-    // Symbols: keep simple + consistent (we can enhance later)
-    const symbols = [
-      source.shared ? "↔" : "",
-      trackingCount ? "*" : "",
-      rule.teach ? "🅃" : "",
-    ].filter(Boolean).join(" ");
+    // Symbols: use Airtable-provided cardText so grade-band choices show the right icons (⬔ vs ☐, ↔, *)
+    const symbols = (() => {
+      const ct = String(rule.cardText || "").trim();        // e.g. "↔ * ⬔ (Grades 7-9)"
+      if (ct) {
+        // keep only the symbol portion (before the "(Grades ...)" bit)
+        const beforeParen = ct.split("(")[0].trim();       // "↔ * ⬔"
+        return beforeParen.replace(/\s+/g, " ");           // normalize spacing
+      }
+    
+      // fallback if cardText is missing for any reason
+      return [
+        source.shared ? "↔" : "",
+        trackingCount ? "*" : "",
+        rule.teach ? "🅃" : "",
+      ].filter(Boolean).join(" ");
+    })();
 
     const variantSort = Number(rule.variantSort || 0);
     const bandSort = Number(rule.gradeBandSort || 0);
