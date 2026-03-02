@@ -505,6 +505,16 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
     }
 
     templates[id] = tpl;
+    
+    if (id === "recFMBa4U75aGK7sH" || id === "rec5XUa2W0wjQbEWR") {
+      console.log("DEBUG tpl built", {
+        id,
+        title: tpl.title,
+        courseLabel: tpl.courseLabel,
+        courseKey: tpl.courseKey,
+        sourceType: tpl.sourceType
+      });
+    }
   }
 
   return templates;
@@ -1886,6 +1896,14 @@ setDayPanel(idx, dayIdx) {
       },
 
       railEntryDisplay(entry) {
+        if (entry?.courseKey === "014.002.002.002" || entry?.courseKey === "004.007.001.001") {
+          console.log("DEBUG railEntryDisplay", {
+            entry,
+            chosen: (this?.choices?.courseOptions || {})[entry.courseKey],
+            activeTemplateId: entry?.activeTemplateId,
+            active: this.templatesById?.[entry?.activeTemplateId],
+          });
+        }
         if (!entry) return { title: "", sub: "", minutes: 0, symbols: "" };
       
         // SINGLE template
