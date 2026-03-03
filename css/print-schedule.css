@@ -1,0 +1,124 @@
+/* =========================================================
+   Schedule Print Styles
+   - 1 panel per page width
+   - cards can continue onto additional pages (column spills)
+   - minimal color (mostly grayscale)
+   ========================================================= */
+
+@page {
+  size: Letter;
+  margin: 0.5in;
+}
+
+@media print {
+
+  /* --- Hide screen-only UI --- */
+  #auth-button,
+  .auth-button,
+  #app-step-nav,
+  .app-step-nav,
+  .toggle,
+  .filter-state-wrapper,
+  .schedule-top-bar,
+  .sched-rail,
+  .sched-rail-toggle,
+  .sched-rail-handle,
+  .schedule-student-tools,
+  .student-manager,
+  .print-tip-overlay {
+    display: none !important;
+  }
+
+  /* Keep print header/footer (already in schedule.html) visible */
+  .print-header,
+  .print-footer {
+    display: flex !important;
+  }
+
+  /* Remove extra padding that’s great for screen but wastes print space */
+  .main-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* --- Make the schedule area full-width (no rail column) --- */
+  .schedule-grid--rail,
+  .sched-shell {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* If your schedule board is inside a wrapper that scrolls, un-scroll it */
+  .sched-work,
+  .sched-board,
+  .sched-board-scroll,
+  .schedule-panels {
+    overflow: visible !important;
+  }
+
+  /* --- 1 panel per page (Student view or Day view) --- */
+  .schedule-panels {
+    display: block !important;
+  }
+
+  /* Common “panel” containers (covers student panels + day panels) */
+  .schedule-panel,
+  .sched-dayview-day {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+
+    /* each panel starts on a fresh printed page */
+    break-after: page;
+    page-break-after: always;
+
+    /* clean white page */
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+
+  /* The last one doesn’t need to force a blank trailing page */
+  .schedule-panel:last-child,
+  .sched-dayview-day:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  /* --- Minimal color / clean lines --- */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Lighten heavy UI backgrounds */
+  .schedule-panel-header,
+  .sched-dayview-header,
+  .sched-col-head,
+  .sched-row-head {
+    background: #fff !important;
+    color: #111 !important;
+    border-color: #d9d9d9 !important;
+  }
+
+  /* Reduce card decoration for print */
+  .sched-card,
+  .sched-card-inner,
+  .schedule-card {
+    box-shadow: none !important;
+    border-color: #d9d9d9 !important;
+  }
+
+  /* Avoid chopping a card in half when the column flows onto next page */
+  .sched-card,
+  .schedule-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* If any container is using sticky, disable it for print */
+  .sticky,
+  [style*="position: sticky"],
+  [style*="position:sticky"] {
+    position: static !important;
+  }
+}
