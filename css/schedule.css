@@ -1328,11 +1328,12 @@ body.sched-dragging .sched-card{
 
 .sched-dayview-empty{
   position: absolute;
-  inset: 12px;
+  inset: 20px 12px 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none; /* don't block clicks to the top toolbar */
+  padding-top: 6px;
+  pointer-events: none;
 }
 
 .sched-dayview-empty-card{
