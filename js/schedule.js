@@ -466,16 +466,21 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
     const trackingCount = Number(rule.termTracking || 0);
     const minutes = Number(rule.min || 0);
 
-    // Symbols: use Airtable-provided cardText so grade-band choices show the right icons (⬔ vs ☐, ↔, *)
+    // Symbols: use the Airtable-provided symbol line EXACTLY (including "(Grades ...)")
+    // Prefer rule.cardText. If it’s missing/blank, fall back to the 2nd line of rule.scheduleCard.
     const symbols = (() => {
       const ct = String(rule.cardText || "").trim();        // e.g. "↔ * ⬔ (Grades 7-9)"
-      if (ct) {
-        // keep only the symbol portion (before the "(Grades ...)" bit)
-        const beforeParen = ct.split("(")[0].trim();       // "↔ * ⬔"
-        return beforeParen.replace(/\s+/g, " ");           // normalize spacing
+      if (ct) return ct.replace(/\s+/g, " ");
+
+      const sc = String(rule.scheduleCard || "").trim();    // e.g. "30 Title...\n↔ * ⬔ (Grades 7-9)"
+      if (sc) {
+        const lines = sc.split("\n").map(s => s.trim()).filter(Boolean);
+        // Usually the symbol line is the LAST non-empty line
+        const last = lines.length ? lines[lines.length - 1] : "";
+        if (last) return last.replace(/\s+/g, " ");
       }
-    
-      // fallback if cardText is missing for any reason
+
+      // last-resort fallback (should rarely be used once your JSON is consistent)
       return [
         source.shared ? "↔" : "",
         trackingCount ? "*" : "",
@@ -510,7 +515,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       tpl.meta = {
         choiceGroup: "gradeBand",
         option: bandKey,
-        optionLabel: guessBandLabel(bandKey),
+        optionLabel: String(rule.gradeNote || "").trim() || guessBandLabel(bandKey),
       };
     }
 
