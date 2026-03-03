@@ -194,14 +194,27 @@
               Manage Students
             </button>
 
-            <div
-                class="student-manager"
-                x-ref="studentManager"
-                x-show="studentsOpen"
-                x-transition
-                x-cloak
-                @click.stop
-              >
+            <!-- Print (same style as other pages) -->
+            <button
+              type="button"
+              class="btn-pill btn-secondary print-btn schedule-print-btn"
+              @click="openPrintTip()"
+            >
+              <span class="btn-pill-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="5" y="9" width="14" height="9" rx="1.5" ry="1.5"
+                        fill="none" stroke="currentColor" stroke-width="1.8" />
+                  <path d="M8 9V5h8v4"
+                        fill="none" stroke="currentColor" stroke-width="1.8" />
+                  <rect x="9" y="13" width="6" height="4"
+                        fill="none" stroke="currentColor" stroke-width="1.5" />
+                  <circle cx="17" cy="12" r="0.9" fill="currentColor" />
+                </svg>
+              </span>
+              <span>Print</span>
+            </button>
+
+            <div class="student-manager" x-show="studentsOpen" x-transition x-cloak @click.stop>
               <p class="student-manager-help">
                 Add up to 15 students. Click color buttons to change student colors.
               </p>
