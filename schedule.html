@@ -1303,62 +1303,136 @@
           </button>
 
             <!-- Schedule Card Styles Modal -->
-  <div
-    class="sched-modal-overlay"
-    x-show="cardStyleModalOpen"
-    x-cloak
-    @keydown.escape.window="closeCardStyleModal()"
-  >
-    <div class="sched-modal-backdrop" @click="closeCardStyleModal()"></div>
-
-    <div
-      class="sched-modal"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Schedule Card Styles"
-      @click.stop
-    >
-      <div class="sched-modal-head">
-        <div class="sched-modal-title">Schedule Card Styles</div>
-        <button
-          type="button"
-          class="sched-modal-close"
-          @click="closeCardStyleModal()"
-          aria-label="Close"
-        >✕</button>
-      </div>
-
-      <div class="sched-modal-body">
-        <div class="cardstyle-base">
-          <div class="cardstyle-base-title">Title &amp; time</div>
-          <div class="cardstyle-base-sub">(Always shown)</div>
-        </div>
-
-        <div class="cardstyle-options">
-          <label class="cardstyle-option">
-            <input type="checkbox" x-model="boardAddSymbols">
-            <span>Add symbols</span>
-          </label>
-
-          <label class="cardstyle-option">
-            <input type="checkbox" x-model="boardAddTracking">
-            <span>Add tracking boxes</span>
-          </label>
-
-          <label class="cardstyle-option">
-            <input type="checkbox" x-model="boardScaleByTime">
-            <span>Scale cards by time</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="sched-modal-actions">
-        <button type="button" class="sched-modal-btn sched-modal-btn-primary" @click="closeCardStyleModal()">
-          Done
-        </button>
-      </div>
-    </div>
-  </div>
+            <div
+              class="sched-modal-overlay"
+              x-show="cardStyleModalOpen"
+              x-cloak
+              @keydown.escape.window="closeCardStyleModal()"
+            >
+              <div class="sched-modal-backdrop" @click="closeCardStyleModal()"></div>
+          
+              <div
+                class="sched-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Schedule Card Styles"
+                @click.stop
+              >
+                <div class="sched-modal-head">
+                  <div class="sched-modal-title">Schedule Card Styles</div>
+                  <button
+                    type="button"
+                    class="sched-modal-close"
+                    @click="closeCardStyleModal()"
+                    aria-label="Close"
+                  >✕</button>
+                </div>
+          
+                <div class="sched-modal-body">
+                  <div class="cardstyle-base">
+                    <div class="cardstyle-base-title">Title &amp; time</div>
+                    <div class="cardstyle-base-sub">(Always shown)</div>
+                  </div>
+          
+                  <div class="cardstyle-options">
+                    <label class="cardstyle-option">
+                      <input type="checkbox" x-model="boardAddSymbols">
+                      <span>Add symbols</span>
+                    </label>
+          
+                    <label class="cardstyle-option">
+                      <input type="checkbox" x-model="boardAddTracking">
+                      <span>Add tracking boxes</span>
+                    </label>
+          
+                    <label class="cardstyle-option">
+                      <input type="checkbox" x-model="boardScaleByTime">
+                      <span>Scale cards by time</span>
+                    </label>
+                  </div>
+                </div>
+          
+                <div class="sched-modal-actions">
+                  <button type="button" class="sched-modal-btn sched-modal-btn-primary" @click="closeCardStyleModal()">
+                    Done
+                  </button>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Schedule Print Picker (screen-only) -->
+          <div
+            x-show="printPickerOpen"
+            x-cloak
+            class="print-tip-overlay"
+            @keydown.escape.window="closePrintPicker()"
+          >
+            <div class="print-tip-backdrop" @click="closePrintPicker()"></div>
+          
+            <div class="print-tip-modal" role="dialog" aria-modal="true" aria-label="Choose what to print" @click.stop>
+              <div class="print-tip-title">Choose what to print</div>
+          
+              <!-- Student View -->
+              <div x-show="printPickMode === 'track'" class="print-tip-body">
+                <div class="print-tip-row">
+                  <div class="print-tip-label">Student panel</div>
+                  <select class="print-tip-select" x-model="printPickStudentId">
+                    <template x-for="p in visibleStudentPanels" :key="p.slot">
+                      <option :value="p.studentId" x-text="getStudentName(p.studentId)"></option>
+                    </template>
+                  </select>
+                </div>
+          
+                <div class="print-tip-row">
+                  <div class="print-tip-label">Days</div>
+                  <div class="print-tip-chips">
+                    <template x-for="(lbl, idx) in dayLongLabels" :key="idx">
+                      <label class="print-tip-chip">
+                        <input type="checkbox" :value="idx" x-model="printPickDays">
+                        <span x-text="lbl"></span>
+                      </label>
+                    </template>
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Day View -->
+              <div x-show="printPickMode === 'day'" class="print-tip-body">
+                <div class="print-tip-row">
+                  <div class="print-tip-label">Day panel</div>
+                  <select class="print-tip-select" x-model.number="printPickDayIdx">
+                    <template x-for="(lbl, idx) in dayLongLabels" :key="idx">
+                      <option :value="idx" x-text="lbl"></option>
+                    </template>
+                  </select>
+                </div>
+          
+                <div class="print-tip-row">
+                  <div class="print-tip-label">Students (up to 5)</div>
+                  <div class="print-tip-chips">
+                    <template x-for="s in students" :key="s.id">
+                      <label class="print-tip-chip">
+                        <input
+                          type="checkbox"
+                          :value="s.id"
+                          x-model="printPickStudents"
+                          :disabled="printPickStudents.length >= 5 && !printPickStudents.includes(s.id)"
+                        >
+                        <span x-text="s.name"></span>
+                      </label>
+                    </template>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="print-tip-actions">
+                <button type="button" class="print-tip-btn" @click="closePrintPicker()">Cancel</button>
+                <button type="button" class="print-tip-btn print-tip-btn-primary" @click="confirmPrintPickerAndContinue()">
+                  Continue
+                </button>
+              </div>
+            </div>
+          </div>
 
 </div> <!-- Schedule Space (grid) closer -->
         </div> <!-- scheduleBuilder() closer -->
