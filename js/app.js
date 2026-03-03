@@ -440,14 +440,6 @@ function coursePlanner() {
         return st;
       },
 
-      // TODO(cleanup): LEGACY student assignment storage (plannerState-based).
-      // We are transitioning to `item.studentIds` as the single source of truth,
-      // matching how Planning Tags store on `item.planningTags`.
-      // Once student chips + persistence are verified, delete:
-      // - _getAssignedStudentIds
-      // - _setAssignedStudentIds
-      // - _ensurePlannerCourseState / _ensurePlannerTopicState (if only used for students)
-      // - plannerState.globalTopicStudents union logic (unless we re-add as "ghost suggestions")
       _getAssignedStudentIds(item) {
         if (this._isCourseItem(item)) {
           const st = this._ensurePlannerCourseState(item);
@@ -980,6 +972,17 @@ function coursePlanner() {
           if (v) return v;
         } catch (e) {}
         return this.gradePrintLabel();
+      },
+
+      // Schedule page: opens the schedule-specific print picker first.
+      // (schedule.js listens for this event and shows the picker modal.)
+      openSchedulePrintPicker() {
+        try {
+          window.dispatchEvent(new CustomEvent("alveary:schedule-open-print-picker"));
+        } catch (e) {
+          // Fallback: at least allow printing
+          this.openPrintTip();
+        }
       },
 
       // --- Year-At-A-Glance helpers ---
