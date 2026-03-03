@@ -1130,6 +1130,16 @@
                       <div class="sched-dayview-daybody">
                         <div class="schedule-board" :class="{ 'is-time-scaled': boardScaleByTime }">
                           <div class="schedule-columns schedule-columns--nowrap schedule-columns--dayfill">
+
+                            <!-- Empty state: no students chosen for Day View yet -->
+                            <div class="sched-dayview-empty" x-show="dayViewActiveSlots().length === 0" x-cloak>
+                              <div class="sched-dayview-empty-card">
+                                <div class="sched-dayview-empty-title">Choose students above</div>
+                                <div class="sched-dayview-empty-text">
+                                  Use the <strong>Students</strong> dropdowns in the toolbar to select which students appear in Day View (and their order).
+                                </div>
+                              </div>
+                            </div>
               
                             <!-- Only render day columns for slots that have a selected student -->
                             <template x-for="(studentId, sIdx) in (dayViewActiveSlots() || [])" :key="'dv-col-' + panel.slot + '-' + sIdx">
