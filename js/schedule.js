@@ -755,6 +755,16 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       dayLabels: ["Mon","Tue","Wed","Thu","Fri"],
 
       // -----------------------------
+      // Print picker (Schedule only)
+      // -----------------------------
+      printPickerOpen: false,
+      printPickMode: "track", // "track" | "day"
+      printPickStudentId: "",
+      printPickDays: [0, 1, 2, 3, 4],
+      printPickDayIdx: 0,
+      printPickStudents: [],
+
+      // -----------------------------
       // Manage students (matches Courses/Books pages)
       // -----------------------------
       studentsOpen: false,
@@ -833,6 +843,128 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         closeCardStyleModal() {
           this.cardStyleModalOpen = false;
         },
+
+      // -----------------------------
+      // Print picker flow
+      // -----------------------------
+      openPrintPicker() {
+        // Mode depends on current view
+        this.printPickMode = (this.view === "day") ? "day" : "track";
+      
+        // Seed defaults from the current UI
+        if (this.printPickMode === "track") {
+          const firstPanel = Array.isArray(this.visibleStudentPanels) ? this.visibleStudentPanels[0] : null;
+          const sid = firstPanel?.studentId || this.students?.[0]?.id || "S1";
+          this.printPickStudentId = sid;
+          this.printPickDays = Array.isArray(this.visibleDays) && this.visibleDays.length
+            ? this.visibleDays.slice()
+            : [0,1,2,3,4];
+        } else {
+          const firstDay = Array.isArray(this.dayViewPanels) ? this.dayViewPanels[0] : null;
+          const didx = Number.isInteger(Number(firstDay?.dayIdx)) ? Number(firstDay.dayIdx) : 0;
+          this.printPickDayIdx = didx;
+          const seeded = Array.isArray(this.dayViewStudentSlots)
+            ? this.dayViewStudentSlots.filter(Boolean).slice(0, 5)
+            : [];
+          this.printPickStudents = seeded.length ? seeded : (this.students || []).map(s => s.id).slice(0, 5);
+        }
+      
+        this.printPickerOpen = true;
+      },
+      
+      closePrintPicker() {
+        this.printPickerOpen = false;
+      },
+      
+      _captureStateForPrint() {
+        return {
+          view: this.view,
+          visibleDays: Array.isArray(this.visibleDays) ? this.visibleDays.slice() : [0,1,2,3,4],
+          visibleStudentPanels: Array.isArray(this.visibleStudentPanels) ? this.visibleStudentPanels.map(p => ({...p})) : [],
+          dayViewPanels: Array.isArray(this.dayViewPanels) ? this.dayViewPanels.map(p => ({...p})) : [],
+          dayViewStudentSlots: Array.isArray(this.dayViewStudentSlots) ? this.dayViewStudentSlots.slice() : ["S1","S2","S3","S4","S5"],
+          expandedMode: !!this.expandedMode,
+        };
+      },
+      
+      _restoreStateAfterPrint() {
+        if (!this._printRestore) return;
+      
+        const s = this._printRestore;
+        this.view = s.view;
+        this.visibleDays = s.visibleDays;
+        this.visibleStudentPanels = s.visibleStudentPanels;
+        this.dayViewPanels = s.dayViewPanels;
+        this.dayViewStudentSlots = s.dayViewStudentSlots;
+        this.expandedMode = !!s.expandedMode;
+      
+        this._printRestore = null;
+      
+        try { delete document.documentElement.dataset.schedulePrintLabel; } catch (e) {}
+      
+        // Re-sync expanded heights if needed
+        try {
+          if (this.expandedMode) this.queueExpandedSync?.();
+        } catch (e) {}
+      },
+      
+      confirmPrintPickerAndContinue() {
+        // Save current UI so we can restore it after printing
+        this._printRestore = this._captureStateForPrint();
+      
+        // Apply print-only view changes (do NOT persist)
+        if (this.printPickMode === "track") {
+          const sid = String(this.printPickStudentId || "").trim();
+          const days = (Array.isArray(this.printPickDays) ? this.printPickDays : [])
+            .map(n => Number(n))
+            .filter(n => Number.isInteger(n) && n >= 0 && n <= 4);
+          const uniqueDays = Array.from(new Set(days.length ? days : [0,1,2,3,4])).sort((a,b)=>a-b);
+      
+          this.view = "track";
+          this.visibleDays = uniqueDays;
+          this.visibleStudentPanels = [{ slot: "P1", studentId: sid || (this.students?.[0]?.id || "S1") }];
+      
+          const label = this.getStudentName?.(sid) || this.students?.find(s => s.id === sid)?.name || "Student";
+          try { document.documentElement.dataset.schedulePrintLabel = label; } catch (e) {}
+        } else {
+          const dayIdx = Number(this.printPickDayIdx);
+          const didx = (Number.isInteger(dayIdx) && dayIdx >= 0 && dayIdx <= 4) ? dayIdx : 0;
+      
+          // Up to 5 students
+          const chosen = (Array.isArray(this.printPickStudents) ? this.printPickStudents : [])
+            .map(String)
+            .filter(Boolean);
+          const seen = new Set();
+          const deduped = chosen.filter(id => (seen.has(id) ? false : (seen.add(id), true))).slice(0, 5);
+      
+          const slots = deduped.slice();
+          while (slots.length < 5) slots.push("");
+      
+          this.view = "day";
+          this.dayViewPanels = [{ slot: "D1", dayIdx: didx }];
+          this.dayViewStudentSlots = slots;
+      
+          const label = this.dayLongLabels?.[didx] || this.dayLabels?.[didx] || "Day";
+          try { document.documentElement.dataset.schedulePrintLabel = label; } catch (e) {}
+        }
+      
+        this.printPickerOpen = false;
+      
+        // Restore after print (only attach once)
+        try {
+          if (!this._afterPrintAttached) {
+            this._afterPrintAttached = true;
+            window.addEventListener("afterprint", () => {
+              try { this._restoreStateAfterPrint(); } catch (e) {}
+            });
+          }
+        } catch (e) {}
+      
+        // Wait for DOM paint, then open the standard Print Tip modal
+        this.$nextTick(() => {
+          try { window.dispatchEvent(new CustomEvent("alveary:open-print-tip")); } catch (e) {}
+        });
+      },
 
       // -----------------------------
       // Expanded Mode
@@ -972,6 +1104,18 @@ queueExpandedSync() {
       // init + persistence
       // -----------------------------
       init() {
+
+        // Allow app.js (Print button outside this component) to open the print picker.
+        try {
+          window.__scheduleBuilder = this;
+          if (!this._printPickerListenerAttached) {
+            this._printPickerListenerAttached = true;
+            window.addEventListener("alveary:schedule-open-print-picker", () => {
+              try { this.openPrintPicker(); } catch (e) {}
+            });
+          }
+        } catch (e) {}
+        
         // load UI
         const savedUi = loadKey(UI_STORAGE_KEY);
       
