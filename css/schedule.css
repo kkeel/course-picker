@@ -1328,7 +1328,7 @@ body.sched-dragging .sched-card{
 
 .sched-dayview-empty{
   position: absolute;
-  inset: 20px 12px 18px;
+  inset: 20px 12px 28px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1345,6 +1345,7 @@ body.sched-dragging .sched-card{
   padding: 16px 18px;
   text-align: center;
   box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+  transform: translateY(-4px);
 }
 
 .sched-dayview-empty-title{
