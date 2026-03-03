@@ -1947,17 +1947,19 @@ setDayPanel(idx, dayIdx) {
         const selectedMeta =
           (entry.options || []).find((o) => o.option === selectedOpt) || (entry.options || [])[0];
       
-        // Rail should feel like ONE card:
-        // Title stays “Picture Study” (course label), and the band is a secondary line.
+        // Rail should feel like ONE card
         const baseTitle =
           (active.sourceType === "topic")
             ? (active.title || "")
             : (active.courseLabel || active.title || "");
+        
         const bandLabel = selectedMeta?.label || active?.meta?.optionLabel || "";
-      
+        const hasGradesInSymbols = /\(Grades/i.test(String(active.symbols || ""));
+        const subLine = (!hasGradesInSymbols && bandLabel) ? `Grades ${bandLabel}` : "";
+        
         return {
-          title: baseTitle,                // "Picture Study"
-          sub: bandLabel ? `Grades ${bandLabel}` : "", // "Grades 1–3"
+          title: baseTitle,
+          sub: subLine,
           minutes: Number(active.minutes || 0),
           symbols: active.symbols || "",
         };
