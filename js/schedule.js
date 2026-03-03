@@ -1226,15 +1226,24 @@ queueExpandedSync() {
               }
       
               // Preserve user edits, but pull in any missing real fields
-              merged[id] = {
-                ...realTpl,
-                weeklyTarget: existing.weeklyTarget ?? realTpl.weeklyTarget,
-                trackingCount: existing.trackingCount ?? realTpl.trackingCount,
-                symbols: (existing.symbols ?? "").trim() ? existing.symbols : realTpl.symbols,
-                minutes: existing.minutes ?? realTpl.minutes,
-                sortKey: (existing.sortKey ?? "").trim() ? existing.sortKey : realTpl.sortKey,
-                title: (existing.title ?? "").trim() ? existing.title : realTpl.title,
-              };
+              const isUserCustom = String(id).startsWith("u:");
+
+              merged[id] = isUserCustom
+                ? { ...existing } // custom cards: keep exactly what the user made
+                : {
+                    // catalog cards: always use the real data from JSON for identity + display
+                    ...realTpl,
+              
+                    // but keep the user's adjustable settings if they changed them
+                    weeklyTarget: existing.weeklyTarget ?? realTpl.weeklyTarget,
+                    trackingCount: existing.trackingCount ?? realTpl.trackingCount,
+                    minutes: existing.minutes ?? realTpl.minutes,
+              
+                    // ✅ ALWAYS take symbols/title/sortKey from real JSON templates
+                    symbols: realTpl.symbols,
+                    title: realTpl.title,
+                    sortKey: realTpl.sortKey,
+                  };
             }
       
             // Ensure 12-box tracker baseline stays true
