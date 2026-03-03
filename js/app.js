@@ -972,6 +972,16 @@ function coursePlanner() {
         return `Grades ${stripped.join(", ")}`;
       },
 
+      // Schedule page only: print subtitle under "Alveary".
+      // Uses a dataset value set by schedule.js right before printing.
+      schedulePrintLabel() {
+        try {
+          const v = (document.documentElement?.dataset?.schedulePrintLabel || "").trim();
+          if (v) return v;
+        } catch (e) {}
+        return this.gradePrintLabel();
+      },
+
       // --- Year-At-A-Glance helpers ---
       termLines(value) {
         if (!value) return [];
