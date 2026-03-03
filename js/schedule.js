@@ -169,7 +169,7 @@
       // Rail filters (affect rail ONLY — never the schedule columns)
       railGradeFilter: "", // "" = all; otherwise "G1".."G12"
       railMyCoursesOnly: false,
-      railStudentAssignedOnly: false,
+      railStudentAssignedOnly: true,
 
       railSearch: "", // rail title search
 
@@ -313,21 +313,12 @@ dayViewPanels = dayViewPanels.map((p) => {
 // -----------------------------
 // Rail "Add target" (student/day)
 // -----------------------------
+// ALWAYS reset to the first student (even after refresh).
 let activeTargetStudentId = "";
-if (typeof state?.activeTargetStudentId === "string") activeTargetStudentId = state.activeTargetStudentId;
-if (!activeTargetStudentId && typeof state?.activeTarget?.studentId === "string") activeTargetStudentId = state.activeTarget.studentId;
-
 if (Array.isArray(allStudentIds) && allStudentIds.length) {
-  if (!allStudentIds.includes(activeTargetStudentId)) {
-    activeTargetStudentId =
-      (panels && panels[0] && panels[0].studentId)
-        ? panels[0].studentId
-        : allStudentIds[0];
-  }
-}
-
-if (!activeTargetStudentId) {
-  activeTargetStudentId = (panels && panels[0] && panels[0].studentId) ? panels[0].studentId : "";
+  activeTargetStudentId = allStudentIds[0];
+} else {
+  activeTargetStudentId = "S1";
 }
 
 let activeTargetDayIndex = Number(state?.activeTargetDayIndex);
