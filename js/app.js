@@ -2624,6 +2624,18 @@ function coursePlanner() {
 
       // Pull saved planner state from Airtable BEFORE we load/apply state
       await this.syncPlannerStateFromCloud();
+
+      // ---------------------------------------------------------
+      // Schedule print flow: allow schedule.js to open the Print Tip
+      // ---------------------------------------------------------
+      try {
+        if (!this._schedulePrintTipListenerAttached) {
+          this._schedulePrintTipListenerAttached = true;
+          window.addEventListener("alveary:open-print-tip", () => {
+            try { this.openPrintTip(); } catch (e) {}
+          });
+        }
+      } catch (e) {}
     
       // 1) Restore filters/search/toggles from previous visit
       this.loadUiState();
