@@ -207,8 +207,8 @@
      - keep headers colored (do not set background here)
      ========================================================= */
   .schedule-columns{
-     width: calc(100% - 26px) !important;
-     max-width: calc(100% - 26px) !important;
+     width: calc(100% - 8px) !important;
+     max-width: calc(100% - 8px) !important;
      min-width: 0 !important;
    
      display: grid !important;
@@ -336,8 +336,8 @@
    }
    
    .sched-expanded .schedule-columns{
-     width: calc(100% - 26px) !important;
-     max-width: calc(100% - 26px) !important;
+     width: calc(100% - 8px) !important;
+     max-width: calc(100% - 8px) !important;
      min-width: 0 !important;
    
      padding: 0 !important;
