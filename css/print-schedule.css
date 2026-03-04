@@ -326,11 +326,30 @@
     padding: 4px 6px !important;
   }
 
-  .schedule-columns{
-    outline: 6px solid red !important;
-    background: rgba(255,0,0,0.06) !important;
-    width: 60% !important;
-    max-width: 60% !important;
-  }
+  /* =========================================================
+   PRINT OVERRIDES FOR EXPANDED MODE
+   Expanded screen CSS uses !important and can override print sizing,
+   causing the 5th column/right border to shave off.
+   ========================================================= */
+   .sched-expanded .schedule-panel-body{
+     padding: 0 !important;       /* kills the 1px right padding */
+   }
+   
+   .sched-expanded .schedule-columns{
+     /* override expanded-mode width/min-width/padding/gap that use !important */
+     width: 100% !important;
+     max-width: 100% !important;
+     min-width: 0 !important;
+   
+     padding: 0 !important;
+     gap: 0 !important;
+   
+     display: grid !important;
+     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+   
+     /* keep whatever “fit” method you’re currently using */
+     /* if you’re using zoom in the clean file, keep it here too */
+     zoom: 0.955 !important;
+   }
 
 }
