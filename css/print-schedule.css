@@ -648,4 +648,41 @@
      padding-right: 0 !important;
      margin-right: 0 !important;
    }
+
+     /* =========================================================
+     FINAL WIDTH FIX (5th column clipping)
+     Cause: <main> has Tailwind px-6 / lg:px-16 padding in print,
+            which steals width and clips the last column.
+     ========================================================= */
+
+  /* Kill ALL horizontal padding on the main content (beats Tailwind utilities) */
+  main.main-content,
+  .schedule-main{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Tailwind utility classes used on the <main> tag in schedule.html:
+     <main class="main-content schedule-main px-6 lg:px-16 ...">  :contentReference[oaicite:1]{index=1}
+  */
+  .px-6,
+  .lg\:px-16{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Ensure borders/padding are INCLUDED in the grid’s width math (prevents 1–3px overflow) */
+  .schedule-columns,
+  .schedule-col,
+  .schedule-col *{
+    box-sizing: border-box !important;
+  }
+
+  /* Override any earlier calc() shaves so we’re not fighting ourselves */
+  .schedule-columns{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 }
