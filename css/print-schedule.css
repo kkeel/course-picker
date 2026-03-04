@@ -160,6 +160,32 @@
      box-shadow: none !important;
    }
 
+     /* =========================================================
+     FIX: last column clipping (remove screen padding/border/gaps)
+     ========================================================= */
+  #scheduleGridRail{
+    gap: 0 !important;              /* overrides the screen "gap-6" */
+  }
+
+  #schedWork.sched-work{
+    padding: 0 !important;          /* overrides the screen "p-4" */
+    border: none !important;        /* overrides the screen border */
+    background: transparent !important;
+  }
+
+  /* In case any wrapper is still adding side padding */
+  .schedule-main,
+  .main-content{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Keep width math honest */
+  html, body{
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
   /* ----------------------------
      5 COLUMN FIT (Student View)
      ---------------------------- */
@@ -365,6 +391,17 @@
   /* Optional: slightly tighten padding so tall scaled cards use space better */
   .is-time-scaled .sched-card-inner{
     padding: 6px 6px !important;
+  }
+
+     /* =========================================================
+     FIX: when time-scaled cards are tall, "avoid" forces ALL cards
+     to get pushed to page 2 if the first one can't fit under header.
+     Allow time-scaled cards to split so content starts on page 1.
+     ========================================================= */
+  .is-time-scaled .sched-card,
+  .is-time-scaled .sched-card-inner{
+    break-inside: auto !important;
+    page-break-inside: auto !important;
   }
 
   /* =========================================================
