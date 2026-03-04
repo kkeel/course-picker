@@ -352,4 +352,30 @@
      zoom: 0.955 !important;
    }
 
+   /* ===========================
+   DEBUG: which selector wins?
+   Remove after testing.
+   =========================== */
+
+   /* Outline the page content wrappers so we can see what is being clipped */
+   main.main-content{ outline: 6px solid blue !important; outline-offset: -6px !important; }
+   #schedWork{ outline: 6px solid purple !important; outline-offset: -6px !important; }
+   .schedule-panel-body{ outline: 6px solid orange !important; outline-offset: -6px !important; }
+   
+   /* Base grid */
+   .schedule-columns{
+     outline: 8px solid red !important;
+     outline-offset: -8px !important;
+     width: 50% !important;              /* VERY obvious */
+     max-width: 50% !important;
+   }
+   
+   /* Expanded-mode grid */
+   .sched-expanded .schedule-columns{
+     outline: 8px solid lime !important;
+     outline-offset: -8px !important;
+     width: 80% !important;              /* VERY obvious */
+     max-width: 80% !important;
+   }
+
 }
