@@ -610,7 +610,8 @@
    /* 3) Keep the 5 columns fitting WITHOUT transform.
          zoom paginates correctly in Chrome print. */
    .schedule-columns{
-     zoom: 0.975 !important;        /* keep your “fit” amount */
+     zoom: 0.965 !important;        /* keep your “fit” amount */
+     width: calc(100% - 3px) !important;
    }
    
    /* 4) Since you don’t care if cards split, allow it fully */
