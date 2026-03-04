@@ -1,20 +1,20 @@
 /* =========================================================
-   print-schedule.css (Portrait, 5 columns fit, keep color)
-   Goal:
-   - Portrait (Letter)
-   - All 5 day columns fit the page width
-   - Keep colored column headers like Schedule screen UI
-   - Time-scaled cards stay time-scaled, but page breaks behave
-   - True footer at bottom w/ page numbers (via @page)
+   print-schedule.css (CLEANED)
+   - Portrait Letter, 0.5in margins
+   - 5 column grid forced
+   - Keep colored column headers (screen styles)
+   - Print footer via @page margin boxes
+   - Print flow/pagination working
+   - Remove duplicate/competing "final" blocks
    ========================================================= */
 
 @media print {
 
-  /* ----------------------------
-     PAGE SETUP (Portrait + footer)
-     ---------------------------- */
+  /* =========================================================
+     1) PAGE SETUP
+     ========================================================= */
   @page {
-    size: 8.5in 11in;                 /* Letter portrait */
+    size: 8.5in 11in;
     margin: 0.5in;
 
     @bottom-left {
@@ -23,14 +23,12 @@
       color: #4b544b;
       white-space: nowrap;
     }
-
     @bottom-center {
       content: "©2026 Charlotte Mason Institute® All rights reserved.";
       font-size: 8pt;
       color: #4b544b;
       white-space: nowrap;
     }
-
     @bottom-right {
       content: "p." counter(page);
       font-size: 8pt;
@@ -39,299 +37,284 @@
     }
   }
 
-  /* Keep color fills for headers/chips etc */
+  /* Keep color fills (so column headers keep their screen color) */
   *{
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    box-sizing: border-box !important;
   }
 
-  /* ----------------------------
-     HIDE SCREEN-ONLY UI
-     ---------------------------- */
+  html, body{
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  /* =========================================================
+     2) HIDE SCREEN-ONLY UI
+     ========================================================= */
   #auth-button,
   .auth-button,
   #app-step-nav,
   .app-step-nav,
 
-  /* schedule page controls */
   .schedule-topbar,
   .schedule-top-bar,
   .schedule-student-tools,
   .student-manager,
   .print-tip-overlay,
 
-  /* rail */
   .sched-rail,
   .sched-rail-toggle,
   .sched-rail-handle,
 
-  /* cloud save (SAVE BUTTON + status) */
   .schedule-cloud-save,
   #scheduleSaveToAccountBtn,
   #scheduleGateStatus,
-  #scheduleCloudStatus {
-    display: none !important;
-  }
+  #scheduleCloudStatus,
 
-  /* Hide instructional helper text inside empty columns (print only) */
-   .schedule-empty,
-   .schedule-empty-state,
-   .schedule-dropzone-empty,
-   .schedule-col-empty,
-   .schedule-dropzone .empty-state,
-   .schedule-dropzone .drop-hint,
-   .schedule-dropzone .assign-hint{
-     display: none !important;
-   }
-
-  /* Keep print header visible */
-  .print-header-title-block {
-    display: flex !important;
-  }
-
-  /* Do NOT print DOM footer (it can float to top); use @page footer instead */
   .print-footer {
     display: none !important;
   }
 
-  /* Tighten main content margins */
-  .main-content {
-    padding: 0 !important;
+  /* Hide empty “assign cards…” helper content in print */
+  .schedule-empty,
+  .schedule-empty-state,
+  .schedule-dropzone-empty,
+  .schedule-col-empty,
+  .schedule-dropzone .empty-state,
+  .schedule-dropzone .drop-hint,
+  .schedule-dropzone .assign-hint{
+    display: none !important;
   }
 
-  /* ----------------------------
-     LAYOUT: ONE PANEL, FULL WIDTH
-     ---------------------------- */
+  /* Keep print header visible */
+  .print-header-title-block{
+    display: flex !important;
+  }
+
+  /* =========================================================
+     3) REMOVE WIDTH-STEALING PADDING/GAPS FROM WRAPPERS
+     (This is where clipping usually comes from.)
+     ========================================================= */
+
+  /* main has Tailwind padding on screen; kill it in print */
+  main.main-content,
+  .schedule-main{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Tailwind utilities present on <main> in schedule.html */
+  .px-6,
+  .lg\:px-16{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* outer schedule container spacing */
+  #scheduleGridRail{
+    gap: 0 !important;     /* overrides screen gap */
+  }
+
+  #schedWork.sched-work{
+    padding: 0 !important; /* overrides screen p-4 */
+    border: none !important;
+    background: transparent !important;
+  }
+
+  .schedule-grid,
+  .schedule-board{
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* some layouts add right padding on panel rows/day view grid */
+  .schedule-panel-row,
+  .sched-dayview-grid{
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;       /* overrides width:max-content behaviors */
+    max-width: 100% !important;
+  }
+
+  /* =========================================================
+     4) LAYOUT: ONE PANEL, FULL WIDTH + NO CLIPPING
+     ========================================================= */
 
   /* No rail column in print */
   .schedule-grid--rail,
-  .sched-shell {
+  .sched-shell{
     grid-template-columns: 1fr !important;
   }
 
-  /* Important: remove scroll clipping */
+  /* Remove scroll clipping + allow natural flow */
   .sched-work,
   .schedule-grid,
   .schedule-board,
   .schedule-panels,
   .schedule-panel-body,
+  .schedule-panel-body-inner,
   .schedule-dropzone,
   .sched-dayview,
   .sched-dayview-grid,
   .sched-dayview-daybody,
-  .sched-dayview-lanes {
+  .sched-dayview-lanes{
     overflow: visible !important;
     height: auto !important;
     max-height: none !important;
+    min-height: 0 !important;
   }
 
-  /* Panel chrome: keep it clean */
+  /* Remove “frame” chrome */
+  .schedule-board,
+  .schedule-panel-body,
+  .schedule-panel-body-inner,
+  .schedule-panels,
+  .schedule-grid,
+  .sched-work{
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Panel chrome */
   .schedule-panel,
-  .sched-dayview-day {
+  .sched-dayview-day{
     width: 100% !important;
     max-width: none !important;
     min-width: 0 !important;
-
     background: #fff !important;
     box-shadow: none !important;
     border: none !important;
     border-radius: 0 !important;
   }
 
-  /* Hide the panel header inside the board (student/day label)
-     because that label belongs in the print header. */
+  /* Hide the in-board panel header (student/day label belongs in print header) */
   .schedule-panel-head,
-  .sched-dayview-dayhead {
+  .sched-dayview-dayhead{
     display: none !important;
   }
 
-  /* Remove the “frame” container that steals width */
-   .schedule-board,
-   .schedule-panel-body,
-   .schedule-panel-body-inner,
-   .schedule-panels,
-   .schedule-grid,
-   .sched-work{
-     padding: 0 !important;
-     margin: 0 !important;
-     border: none !important;
-     border-radius: 0 !important;
-     background: transparent !important;
-     box-shadow: none !important;
-   }
-
-     /* =========================================================
-     FIX: last column clipping (remove screen padding/border/gaps)
+  /* =========================================================
+     5) THE 5-COLUMN GRID (Student view)
+     - single source of truth (no duplicates)
+     - keep headers colored (do not set background here)
      ========================================================= */
-  #scheduleGridRail{
-    gap: 0 !important;              /* overrides the screen "gap-6" */
-  }
-
-  #schedWork.sched-work{
-    padding: 0 !important;          /* overrides the screen "p-4" */
-    border: none !important;        /* overrides the screen border */
-    background: transparent !important;
-  }
-
-  /* In case any wrapper is still adding side padding */
-  .schedule-main,
-  .main-content{
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-  /* Keep width math honest */
-  html, body{
-    width: 100% !important;
-    overflow: visible !important;
-  }
-
-  /* ----------------------------
-     5 COLUMN FIT (Student View)
-     ---------------------------- */
-
-  /* ✅ FORCE THE PRINT CONTENT TO USE REAL PAGE WIDTH (kills max-content layouts) */
-   html, body{
-     width: 100% !important;
-     max-width: 100% !important;
-   }
-   
-   *{
-     box-sizing: border-box !important;
-   }
-   
-   /* These wrappers often stay “max-content” from the live schedule layout */
-   .schedule-panels,
-   .sched-dayview-grid,
-   .schedule-board,
-   .schedule-panel-body,
-   .schedule-panel-body-inner{
-     width: 100% !important;
-     max-width: 100% !important;
-     min-width: 0 !important;
-   }
-   
-   /* If any of these are flex/max-content, force normal block flow for print */
-   .schedule-panels,
-   .sched-dayview-grid{
-     display: block !important;
-   }
-   
-   /* ✅ THE GRID ITSELF MUST ALSO BE WIDTH:100% */
-   .schedule-columns{
-     width: 100% !important;
-     max-width: 100% !important;
-     min-width: 0 !important;
-   
-     display: grid !important;
-     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-     gap: 0 !important;
-     padding: 0 !important;
-   }
-   
-   /* HARD SHRINK: allow true compression everywhere */
-   .schedule-columns,
-   .schedule-col,
-   .schedule-col-head,
-   .schedule-col-body,
-   .schedule-dropzone,
-   .schedule-col *{
-     min-width: 0 !important;
-     max-width: none !important;
-   }
-   
-   /* ✅ NARROWER HEADER + TIGHTER TYPE (only as much as needed to fit 5 cols) */
-   .schedule-col-head{
-     padding: 2px 2px !important;     /* tighter than current */
-   }
-   
-   /* Column body uses zero padding so we don’t waste width */
-   .schedule-col-body,
-   .schedule-dropzone{
-     padding: 0 !important;
-   }
-   
-   /* Slightly smaller than your current 9px (this is usually the final “fit” lever) */
-   .schedule-columns,
-   .schedule-col,
-   .schedule-dropzone,
-   .sched-card,
-   .sched-card *{
-     font-size: 8.5px !important;
-     line-height: 1.12 !important;
-   }
-   
-   /* Make cards consume less horizontal space */
-   .sched-card,
-   .sched-card-inner{
-     border-radius: 0 !important;
-   }
-
-  /* Force the day columns wrapper to be 5 equal columns */
   .schedule-columns{
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+
     display: grid !important;
     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-    gap: 0px !important;                 /* small gap so 5 fit */
+
+    gap: 0 !important;
     padding: 0 !important;
-    border: none !important;
+    margin: 0 !important;
+
+    /* Keep the behavior you ended up with:
+       - No transform scaling (transform caused pagination weirdness earlier)
+       - Use zoom for fit (Chrome prints it predictably)
+    */
+    transform: none !important;
+    zoom: 0.955 !important;
   }
 
-  /* HARD SHRINK: ensure grid items are allowed to compress */
-   .schedule-columns,
-   .schedule-col,
-   .schedule-col-head,
-   .schedule-col-body,
-   .schedule-dropzone,
-   .schedule-col *{
-     min-width: 0 !important;
-     max-width: none !important;
-   }
+  /* Let everything shrink inside the grid */
+  .schedule-col,
+  .schedule-col-head,
+  .schedule-col-body,
+  .schedule-dropzone,
+  .schedule-col *{
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
 
-  /* Remove column borders so we don’t waste width */
+  /* No borders/rounded corners consuming width */
   .schedule-col{
     border: none !important;
     border-radius: 0 !important;
     background: transparent !important;
-    min-width: 0 !important;
   }
 
-  /* Keep ONLY day headers colored; everything else should be white/transparent */
-   .schedule-col-body,
-   .schedule-dropzone,
-   .schedule-col,
-   .schedule-columns,
-   .sched-dayview-lane,
-   .sched-dayview-lanes,
-   .sched-dayview-daybody{
-     background: transparent !important;
-   }
+  /* Keep ONLY the column header bar colored (screen styles), make everything else transparent/white */
+  .schedule-col-body,
+  .schedule-dropzone,
+  .schedule-columns{
+    background: transparent !important;
+  }
 
-  /* Keep colored headers from the live schedule page.
-     (Do NOT force white background here.) */
+  /* Tight header/body spacing */
   .schedule-col-head{
     border: none !important;
-    padding: 2px 3px !important;         /* tighten header height */
+    padding: 2px 2px !important;
   }
-
-  /* Tighten the column body padding */
   .schedule-col-body,
   .schedule-dropzone{
-    padding: 0px !important;
+    padding: 0 !important;
   }
 
-  /* Global print typography shrink (this is what makes 5 columns feasible in portrait) */
+  /* =========================================================
+     6) TYPOGRAPHY (single source of truth)
+     ========================================================= */
   .schedule-columns,
-  .schedule-col,
-  .schedule-dropzone,
-  .sched-card,
-  .sched-card *{
-    font-size: 9px !important;
+  .schedule-columns *{
+    font-size: 10px !important;
     line-height: 1.15 !important;
   }
 
-  /* ----------------------------
-     Day View fit (also tighten lanes)
-     ---------------------------- */
+  /* =========================================================
+     7) PAGE BREAKS / FLOW
+     (Keep what is currently working: start on page 1, flow to page 2+)
+     ========================================================= */
+  .schedule-panel,
+  .sched-dayview-day,
+  .schedule-board,
+  .schedule-panels,
+  .schedule-panel-body,
+  .schedule-panel-body-inner,
+  .schedule-columns,
+  .schedule-col,
+  .schedule-col-body,
+  .schedule-dropzone,
+  .sched-card,
+  .sched-card-inner{
+    break-before: auto !important;
+    page-break-before: auto !important;
+    break-after: auto !important;
+    page-break-after: auto !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  /* Cards: allow splitting if needed (you said you don’t care) */
+  .sched-card,
+  .sched-card-inner{
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* Time-scaled: keep time scaling but prevent clipping */
+  .is-time-scaled .sched-card,
+  .is-time-scaled .sched-card-inner,
+  .is-time-scaled .sched-card-body,
+  .is-time-scaled .sched-card-content,
+  .is-time-scaled .schedule-dropzone,
+  .is-time-scaled .schedule-col-body{
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+  }
+
+  /* =========================================================
+     8) DAY VIEW TIGHTENING (kept from earlier, not duplicated)
+     ========================================================= */
   .sched-dayview-lanes{
     padding: 0 !important;
     gap: 4px !important;
@@ -347,342 +330,4 @@
     padding: 4px 6px !important;
   }
 
-  /* ----------------------------
-     PAGE BREAK BEHAVIOR
-     - Let columns continue naturally across pages
-     - Keep individual cards intact
-     ---------------------------- */
-
-  /* Do NOT force columns to stay together (that causes “push to one side” behavior) */
-  .schedule-col,
-  .schedule-dropzone,
-  .sched-dayview-lane {
-    break-inside: auto !important;
-    page-break-inside: auto !important;
-  }
-
-  /* Keep each card intact (don’t split a card) */
-  .sched-card,
-  .sched-card-inner{
-    break-inside: avoid !important;
-    page-break-inside: avoid !important;
-    box-shadow: none !important;
-  }
-
-  /* ----------------------------
-     TIME-SCALED CARDS (keep time scaling!)
-     But prevent clipping/cutoff.
-     ---------------------------- */
-
-  /* The cutoff you were seeing is almost always overflow clipping somewhere.
-     Keep time scaling, but guarantee containers don’t hide overflow. */
-  .is-time-scaled .sched-card{
-    overflow: visible !important;
-  }
-
-  /* If any inner wrapper is overflow hidden, kill it in print */
-  .is-time-scaled .sched-card-inner,
-  .is-time-scaled .sched-card-body,
-  .is-time-scaled .sched-card-content{
-    overflow: visible !important;
-    max-height: none !important;
-  }
-
-  /* Optional: slightly tighten padding so tall scaled cards use space better */
-  .is-time-scaled .sched-card-inner{
-    padding: 6px 6px !important;
-  }
-
-     /* =========================================================
-     FIX: when time-scaled cards are tall, "avoid" forces ALL cards
-     to get pushed to page 2 if the first one can't fit under header.
-     Allow time-scaled cards to split so content starts on page 1.
-     ========================================================= */
-  .is-time-scaled .sched-card,
-  .is-time-scaled .sched-card-inner{
-    break-inside: auto !important;
-    page-break-inside: auto !important;
-  }
-
-  /* =========================================================
-   FINAL OVERRIDES (wins over earlier duplicates)
-   Fixes:
-   - last column tiny cutoff
-   - content starting on page 2 (panel treated as “too tall”)
-   - keep 5 columns in portrait with 0.5in margins
-   ========================================================= */
-
-   /* --- Make sure the board can start under the header and flow across pages --- */
-   .print-header-title-block,
-   .print-header{
-     break-after: auto !important;
-     page-break-after: auto !important;
-     break-inside: auto !important;
-     page-break-inside: auto !important;
-   }
-   
-   .schedule-panel,
-   .sched-dayview-day,
-   .schedule-panel-body,
-   .schedule-panel-body-inner,
-   .schedule-board,
-   .schedule-panels,
-   .sched-work{
-     height: auto !important;
-     max-height: none !important;
-     min-height: 0 !important;
-   
-     /* key: allow the browser to break these blocks */
-     break-inside: auto !important;
-     page-break-inside: auto !important;
-   
-     /* avoid any hidden clipping */
-     overflow: visible !important;
-   }
-   
-   /* --- Hard force the 5-column grid to actually fit the printable box --- */
-   .schedule-columns{
-     width: 100% !important;
-     max-width: 100% !important;
-     min-width: 0 !important;
-   
-     display: grid !important;
-     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-   
-     gap: 0 !important;
-     padding: 0 !important;
-     margin: 0 !important;
-   
-     /* tiny scale avoids the “last column clipped by 1–3px” issue in Chrome print */
-     transform: scale(0.975) !important;
-     transform-origin: top left !important;
-   }
-   
-   /* ensure every grid child is allowed to shrink */
-   .schedule-col,
-   .schedule-col-head,
-   .schedule-col-body,
-   .schedule-dropzone,
-   .schedule-col *{
-     min-width: 0 !important;
-     max-width: 100% !important;
-   }
-   
-   /* --- Make columns narrower (this is the “we NEED narrow columns” lever) --- */
-   .schedule-col-head{
-     padding: 2px 2px !important;
-   }
-   .schedule-col-body,
-   .schedule-dropzone{
-     padding: 0 !important;
-   }
-   
-   /* Smaller type ONLY in the board area */
-   .schedule-columns,
-   .schedule-columns *{
-     font-size: 8px !important;
-     line-height: 1.12 !important;
-   }
-   
-   /* Keep ONLY header bars colored; everything else transparent/white */
-   .schedule-col,
-   .schedule-col-body,
-   .schedule-dropzone{
-     background: transparent !important;
-   }
-   
-   /* --- Cards: don’t push the entire column to next page; cards can flow --- */
-   .sched-card,
-   .sched-card-inner{
-     box-shadow: none !important;
-     border-radius: 0 !important;
-     break-inside: avoid !important;
-     page-break-inside: avoid !important;
-   }
-   
-   /* Time-scaled mode: allow containers to flow without clipping */
-   .is-time-scaled .schedule-dropzone,
-   .is-time-scaled .schedule-col-body{
-     overflow: visible !important;
-     height: auto !important;
-     max-height: none !important;
-   }
-
-   /* =========================================================
-   FINAL FINAL OVERRIDES
-   - Start grid immediately under print header (no "page 2" punt)
-   - Keep 5-col width unchanged
-   - Allow flow across page breaks
-   - Then we can safely increase font size
-   ========================================================= */
-
-   /* 1) Force the schedule grid to start on the same page as the header */
-   .schedule-board,
-   .schedule-panels,
-   .schedule-panel,
-   .schedule-panel-body,
-   .schedule-panel-body-inner,
-   .schedule-columns{
-     break-before: auto !important;
-     page-break-before: auto !important;
-   }
-   
-   /* 2) If ANY wrapper has a hidden break rule, neutralize it */
-   .schedule-board,
-   .schedule-panels,
-   .schedule-panel-body,
-   .schedule-panel-body-inner{
-     break-after: auto !important;
-     page-break-after: auto !important;
-   }
-   
-   /* 3) Let the COLUMN contents break naturally across pages */
-   .schedule-col,
-   .schedule-col-body,
-   .schedule-dropzone{
-     break-inside: auto !important;
-     page-break-inside: auto !important;
-   }
-   
-   /* 4) Cards: prefer not to split, BUT allow splitting when needed
-         (this is what prevents "everything gets pushed to page 2") */
-   .sched-card,
-   .sched-card-inner{
-     break-inside: auto !important;
-     page-break-inside: auto !important;
-   }
-   
-   /* 5) Keep 5-col width exactly the same (do NOT change columns),
-         but restore slightly larger text */
-   .schedule-columns,
-   .schedule-columns *{
-     font-size: 10px !important;       /* bigger than 8px */
-     line-height: 1.15 !important;
-   }
-   
-   /* 6) Keep your existing "fit" scale so last column stays visible */
-   .schedule-columns{
-     transform: scale(0.975) !important;
-     transform-origin: top left !important;
-   }
-
-   /* Optional: keep most cards intact, but allow very tall cards to split */
-   @supports (break-inside: avoid) {
-     .sched-card{
-       break-inside: avoid !important;
-       page-break-inside: avoid !important;
-     }
-     /* If a card is very tall (time-scaled), let it split */
-     .is-time-scaled .sched-card{
-       break-inside: auto !important;
-       page-break-inside: auto !important;
-     }
-   }
-
-   /* =========================================================
-   PAGINATION FIX: start content on page 1 + flow to page 2+
-   Key idea: DO NOT use transform scaling in print.
-   Use zoom instead so Chrome can paginate the grid normally.
-   ========================================================= */
-
-   /* 1) Make sure nothing forces the schedule to a new page */
-   .schedule-panel,
-   .sched-dayview-day,
-   .schedule-board,
-   .schedule-panels,
-   .schedule-panel-body,
-   .schedule-panel-body-inner,
-   .schedule-columns{
-     break-before: auto !important;
-     page-break-before: auto !important;
-     break-after: auto !important;
-     page-break-after: auto !important;
-     break-inside: auto !important;
-     page-break-inside: auto !important;
-   }
-   
-   /* 2) Remove transform scaling (it often causes Chrome to push the grid to page 2) */
-   .schedule-columns{
-     transform: none !important;
-     transform-origin: initial !important;
-   }
-   
-   /* 3) Keep the 5 columns fitting WITHOUT transform.
-         zoom paginates correctly in Chrome print. */
-   .schedule-columns{
-     zoom: 0.955 !important;        /* keep your “fit” amount */
-     width: calc(100% - 3px) !important;
-   }
-   
-   /* 4) Since you don’t care if cards split, allow it fully */
-   .sched-card,
-   .sched-card-inner{
-     break-inside: auto !important;
-     page-break-inside: auto !important;
-   }
-   
-   /* 5) Keep your current font ratio but slightly bigger (width stays the same because zoom stays) */
-   .schedule-columns,
-   .schedule-columns *{
-     font-size: 10px !important;
-     line-height: 1.15 !important;
-   }
-
-   /* FINAL FIT: shave a few pixels so the last column never clips */
-   .schedule-columns{
-     width: calc(100% - 20px) !important;
-     max-width: calc(100% - 20px) !important;
-   }
-
-   /* FIX: wrappers add right padding (12px) that clips the 5th column in print */
-   .schedule-panel-row,
-   .sched-dayview-grid{
-     padding-right: 0 !important;
-     margin-right: 0 !important;
-     width: 100% !important;       /* overrides width:max-content in day view */
-     max-width: 100% !important;
-   }
-
-   .schedule-grid,
-   .schedule-board{
-     padding-right: 0 !important;
-     margin-right: 0 !important;
-   }
-
-     /* =========================================================
-     FINAL WIDTH FIX (5th column clipping)
-     Cause: <main> has Tailwind px-6 / lg:px-16 padding in print,
-            which steals width and clips the last column.
-     ========================================================= */
-
-  /* Kill ALL horizontal padding on the main content (beats Tailwind utilities) */
-  main.main-content,
-  .schedule-main{
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  /* Tailwind utility classes used on the <main> tag in schedule.html:
-     <main class="main-content schedule-main px-6 lg:px-16 ...">  :contentReference[oaicite:1]{index=1}
-  */
-  .px-6,
-  .lg\:px-16{
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-  /* Ensure borders/padding are INCLUDED in the grid’s width math (prevents 1–3px overflow) */
-  .schedule-columns,
-  .schedule-col,
-  .schedule-col *{
-    box-sizing: border-box !important;
-  }
-
-  /* Override any earlier calc() shaves so we’re not fighting ourselves */
-  .schedule-columns{
-    width: 100% !important;
-    max-width: 100% !important;
-  }
 }
