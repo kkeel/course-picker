@@ -327,55 +327,29 @@
   }
 
   /* =========================================================
-   PRINT OVERRIDES FOR EXPANDED MODE
-   Expanded screen CSS uses !important and can override print sizing,
-   causing the 5th column/right border to shave off.
+   EXPANDED MODE (print)
+   - Do NOT reintroduce width:100% or zoom (causes right-edge shaving)
+   - Match the same "fit" width as non-expanded
    ========================================================= */
    .sched-expanded .schedule-panel-body{
-     padding: 0 !important;       /* kills the 1px right padding */
+     padding: 0 !important; /* kills the 1px right padding from expanded screen CSS */
    }
    
    .sched-expanded .schedule-columns{
-     /* override expanded-mode width/min-width/padding/gap that use !important */
-     width: 100% !important;
-     max-width: 100% !important;
+     width: calc(100% - 18px) !important;
+     max-width: calc(100% - 18px) !important;
      min-width: 0 !important;
    
      padding: 0 !important;
      gap: 0 !important;
+     margin: 0 !important;
+     margin-right: auto !important;
    
      display: grid !important;
      grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
    
-     /* keep whatever “fit” method you’re currently using */
-     /* if you’re using zoom in the clean file, keep it here too */
-     zoom: 0.955 !important;
-   }
-
-   /* ===========================
-   DEBUG: which selector wins?
-   Remove after testing.
-   =========================== */
-
-   /* Outline the page content wrappers so we can see what is being clipped */
-   main.main-content{ outline: 6px solid blue !important; outline-offset: -6px !important; }
-   #schedWork{ outline: 6px solid purple !important; outline-offset: -6px !important; }
-   .schedule-panel-body{ outline: 6px solid orange !important; outline-offset: -6px !important; }
-   
-   /* Base grid */
-   .schedule-columns{
-     outline: 8px solid red !important;
-     outline-offset: -8px !important;
-     width: 50% !important;              /* VERY obvious */
-     max-width: 50% !important;
-   }
-   
-   /* Expanded-mode grid */
-   .sched-expanded .schedule-columns{
-     outline: 8px solid lime !important;
-     outline-offset: -8px !important;
-     width: 80% !important;              /* VERY obvious */
-     max-width: 80% !important;
+     zoom: 1 !important;
+     transform: none !important;
    }
 
 }
