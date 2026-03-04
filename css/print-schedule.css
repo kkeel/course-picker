@@ -157,7 +157,7 @@
   .schedule-columns{
     display: grid !important;
     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-    gap: 4px !important;                 /* small gap so 5 fit */
+    gap: 2px !important;                 /* small gap so 5 fit */
     padding: 0 !important;
     border: none !important;
   }
@@ -191,7 +191,7 @@
   /* Tighten the column body padding */
   .schedule-col-body,
   .schedule-dropzone{
-    padding: 4px !important;
+    padding: 2px !important;
   }
 
   /* Global print typography shrink (this is what makes 5 columns feasible in portrait) */
@@ -200,7 +200,7 @@
   .schedule-dropzone,
   .sched-card,
   .sched-card *{
-    font-size: 10px !important;
+    font-size: 9px !important;
     line-height: 1.15 !important;
   }
 
