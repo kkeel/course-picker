@@ -471,4 +471,62 @@
      max-height: none !important;
    }
 
+   /* =========================================================
+   FINAL FINAL OVERRIDES
+   - Start grid immediately under print header (no "page 2" punt)
+   - Keep 5-col width unchanged
+   - Allow flow across page breaks
+   - Then we can safely increase font size
+   ========================================================= */
+
+   /* 1) Force the schedule grid to start on the same page as the header */
+   .schedule-board,
+   .schedule-panels,
+   .schedule-panel,
+   .schedule-panel-body,
+   .schedule-panel-body-inner,
+   .schedule-columns{
+     break-before: auto !important;
+     page-break-before: auto !important;
+   }
+   
+   /* 2) If ANY wrapper has a hidden break rule, neutralize it */
+   .schedule-board,
+   .schedule-panels,
+   .schedule-panel-body,
+   .schedule-panel-body-inner{
+     break-after: auto !important;
+     page-break-after: auto !important;
+   }
+   
+   /* 3) Let the COLUMN contents break naturally across pages */
+   .schedule-col,
+   .schedule-col-body,
+   .schedule-dropzone{
+     break-inside: auto !important;
+     page-break-inside: auto !important;
+   }
+   
+   /* 4) Cards: prefer not to split, BUT allow splitting when needed
+         (this is what prevents "everything gets pushed to page 2") */
+   .sched-card,
+   .sched-card-inner{
+     break-inside: auto !important;
+     page-break-inside: auto !important;
+   }
+   
+   /* 5) Keep 5-col width exactly the same (do NOT change columns),
+         but restore slightly larger text */
+   .schedule-columns,
+   .schedule-columns *{
+     font-size: 9px !important;       /* bigger than 8px */
+     line-height: 1.15 !important;
+   }
+   
+   /* 6) Keep your existing "fit" scale so last column stays visible */
+   .schedule-columns{
+     transform: scale(0.975) !important;
+     transform-origin: top left !important;
+   }
+   
 }
