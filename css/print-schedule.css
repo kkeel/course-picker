@@ -633,4 +633,19 @@
      width: calc(100% - 20px) !important;
      max-width: calc(100% - 20px) !important;
    }
+
+   /* FIX: wrappers add right padding (12px) that clips the 5th column in print */
+   .schedule-panel-row,
+   .sched-dayview-grid{
+     padding-right: 0 !important;
+     margin-right: 0 !important;
+     width: 100% !important;       /* overrides width:max-content in day view */
+     max-width: 100% !important;
+   }
+
+   .schedule-grid,
+   .schedule-board{
+     padding-right: 0 !important;
+     margin-right: 0 !important;
+   }
 }
