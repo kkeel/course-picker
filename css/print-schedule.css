@@ -326,4 +326,11 @@
     padding: 4px 6px !important;
   }
 
+  .schedule-columns{
+    outline: 6px solid red !important;
+    background: rgba(255,0,0,0.06) !important;
+    width: 60% !important;
+    max-width: 60% !important;
+  }
+
 }
