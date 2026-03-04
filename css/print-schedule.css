@@ -1,124 +1,225 @@
 /* =========================================================
-   Schedule Print Styles
-   - 1 panel per page width
-   - cards can continue onto additional pages (column spills)
-   - minimal color (mostly grayscale)
+   print-schedule.css
+   Goal:
+   - Print only the chosen panel
+   - Under the print header: ONLY day columns + cards
+   - No wasted space on borders
+   - Prevent time-scaled cards from being cut off
+   - True footer at bottom with page numbers (via @page)
    ========================================================= */
-
-@page {
-  size: Letter;
-  margin: 0.5in;
-}
 
 @media print {
 
-  /* --- Hide screen-only UI --- */
+  /* ----------------------------
+     PAGE SETUP (landscape + footer)
+     ---------------------------- */
+  @page {
+    size: 11in 8.5in;                 /* Letter landscape */
+    margin: 0.35in 0.30in 0.60in;     /* top | left/right | bottom */
+
+    @bottom-left {
+      content: "Alveary Schedule";
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+
+    @bottom-center {
+      content: "©2026 Charlotte Mason Institute® All rights reserved.";
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+
+    @bottom-right {
+      content: "p." counter(page);
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+  }
+
+  /* ----------------------------
+     HIDE SCREEN-ONLY UI
+     ---------------------------- */
   #auth-button,
   .auth-button,
   #app-step-nav,
   .app-step-nav,
-  .toggle,
-  .filter-state-wrapper,
+
+  /* schedule page controls */
+  .schedule-topbar,
   .schedule-top-bar,
+  .schedule-student-tools,
+  .student-manager,
+  .print-tip-overlay,
+
+  /* rail */
   .sched-rail,
   .sched-rail-toggle,
   .sched-rail-handle,
-  .schedule-student-tools,
-  .student-manager,
-  .print-tip-overlay {
+
+  /* cloud save (SAVE BUTTON + status) */
+  .schedule-cloud-save,
+  #scheduleSaveToAccountBtn,
+  #scheduleGateStatus,
+  #scheduleCloudStatus {
     display: none !important;
   }
 
-  /* Keep print header/footer (already in schedule.html) visible */
-  .print-header,
-  .print-footer {
+  /* Print header stays (Schedule + Grade line in header) */
+  .print-header-title-block {
     display: flex !important;
   }
 
-  /* Remove extra padding that’s great for screen but wastes print space */
+  /* IMPORTANT: Do NOT print the DOM footer (it’s why it appears at the top).
+     Use the @page footer above instead. */
+  .print-footer {
+    display: none !important;
+  }
+
+  /* Remove extra padding that wastes print space */
   .main-content {
     padding-left: 0 !important;
     padding-right: 0 !important;
     padding-bottom: 0 !important;
   }
 
-  /* --- Make the schedule area full-width (no rail column) --- */
+  /* ----------------------------
+     LAYOUT: ONE PANEL, FULL WIDTH
+     ---------------------------- */
+
+  /* No rail column in print */
   .schedule-grid--rail,
   .sched-shell {
     grid-template-columns: 1fr !important;
   }
 
-  /* If your schedule board is inside a wrapper that scrolls, un-scroll it */
+  /* Make the panel truly span printable width */
+  .sched-expanded{
+    --sched-print-w: 100% !important;
+    --sched-cols-pad: 0px !important;
+    --sched-col-gap: 0px !important;
+  }
+
+  /* Ensure scrolling containers don’t clip content in print */
   .sched-work,
-  .sched-board,
-  .sched-board-scroll,
-  .schedule-panels {
+  .schedule-grid,
+  .schedule-board,
+  .schedule-panels,
+  .schedule-panel-body,
+  .schedule-dropzone,
+  .sched-dayview,
+  .sched-dayview-grid,
+  .sched-dayview-daybody,
+  .sched-dayview-lanes {
     overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
   }
 
-  /* --- 1 panel per page (Student view or Day view) --- */
-  .schedule-panels {
-    display: block !important;
-  }
-
-  /* Common “panel” containers (covers student panels + day panels) */
+  /* Panels should be full-width and clean */
   .schedule-panel,
   .sched-dayview-day {
     width: 100% !important;
     max-width: none !important;
     min-width: 0 !important;
 
-    /* each panel starts on a fresh printed page */
-    break-after: page;
-    page-break-after: always;
-
-    /* clean white page */
     background: #fff !important;
     box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
   }
 
-  /* The last one doesn’t need to force a blank trailing page */
+  /* If multiple panels somehow exist, separate them cleanly */
+  .schedule-panel,
+  .sched-dayview-day {
+    break-after: page;
+    page-break-after: always;
+  }
   .schedule-panel:last-child,
   .sched-dayview-day:last-child {
     break-after: auto;
     page-break-after: auto;
   }
 
-  /* --- Minimal color / clean lines --- */
-  * {
+  /* ----------------------------
+     UNDER HEADER: SHOW ONLY COLUMNS + CARDS
+     (Hide the in-board panel header that repeats “Student/Day”)
+     ---------------------------- */
+  .schedule-panel-head,
+  .sched-dayview-dayhead {
+    display: none !important;
+  }
+
+  /* ----------------------------
+     COLUMNS: NO BORDERS, NO WASTED SPACE
+     ---------------------------- */
+  .schedule-columns{
+    padding: 0 !important;
+    gap: 0 !important;
+    border: none !important;
+  }
+
+  .schedule-col{
+    border: none !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+  }
+
+  .schedule-col-head{
+    background: #fff !important;
+    border: none !important;
+    color: #111 !important;
+  }
+
+  /* Day-view lanes: remove borders/padding so you gain width */
+  .sched-dayview-lanes{
+    padding: 0 !important;
+  }
+  .sched-dayview-lane{
+    border: none !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+  }
+
+  /* ----------------------------
+     CARDS: prevent cutoffs + avoid splitting cards
+     ---------------------------- */
+
+  /* Print engines often cut off overflow-hidden elements. */
+  .sched-card,
+  .sched-card-inner{
+    box-shadow: none !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* ✅ KEY FIX: Time-scaled cards use fixed height + overflow hidden on screen.
+     In print, disable that so cards can flow and won’t get chopped. */
+  .is-time-scaled .sched-card{
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .is-time-scaled .sched-card-title,
+  .is-time-scaled .sched-card-sub,
+  .is-time-scaled .sched-card-trackline{
+    overflow: visible !important;
+    -webkit-line-clamp: unset !important;
+    white-space: normal !important;
+  }
+
+  /* Don’t let any dropzone clip its children */
+  .schedule-dropzone{
+    overflow: visible !important;
+  }
+
+  /* Ensure we keep grayscale/clean output */
+  *{
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
-  }
-
-  /* Lighten heavy UI backgrounds */
-  .schedule-panel-header,
-  .sched-dayview-header,
-  .sched-col-head,
-  .sched-row-head {
-    background: #fff !important;
-    color: #111 !important;
-    border-color: #d9d9d9 !important;
-  }
-
-  /* Reduce card decoration for print */
-  .sched-card,
-  .sched-card-inner,
-  .schedule-card {
-    box-shadow: none !important;
-    border-color: #d9d9d9 !important;
-  }
-
-  /* Avoid chopping a card in half when the column flows onto next page */
-  .sched-card,
-  .schedule-card {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
-  /* If any container is using sticky, disable it for print */
-  .sticky,
-  [style*="position: sticky"],
-  [style*="position:sticky"] {
-    position: static !important;
   }
 }
