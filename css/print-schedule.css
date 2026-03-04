@@ -541,5 +541,53 @@
        page-break-inside: auto !important;
      }
    }
+
+   /* =========================================================
+   PAGINATION FIX: start content on page 1 + flow to page 2+
+   Key idea: DO NOT use transform scaling in print.
+   Use zoom instead so Chrome can paginate the grid normally.
+   ========================================================= */
+
+   /* 1) Make sure nothing forces the schedule to a new page */
+   .schedule-panel,
+   .sched-dayview-day,
+   .schedule-board,
+   .schedule-panels,
+   .schedule-panel-body,
+   .schedule-panel-body-inner,
+   .schedule-columns{
+     break-before: auto !important;
+     page-break-before: auto !important;
+     break-after: auto !important;
+     page-break-after: auto !important;
+     break-inside: auto !important;
+     page-break-inside: auto !important;
+   }
+   
+   /* 2) Remove transform scaling (it often causes Chrome to push the grid to page 2) */
+   .schedule-columns{
+     transform: none !important;
+     transform-origin: initial !important;
+   }
+   
+   /* 3) Keep the 5 columns fitting WITHOUT transform.
+         zoom paginates correctly in Chrome print. */
+   .schedule-columns{
+     zoom: 0.975 !important;        /* keep your “fit” amount */
+   }
+   
+   /* 4) Since you don’t care if cards split, allow it fully */
+   .sched-card,
+   .sched-card-inner{
+     break-inside: auto !important;
+     page-break-inside: auto !important;
+   }
+   
+   /* 5) Keep your current font ratio but slightly bigger (width stays the same because zoom stays) */
+   .schedule-columns,
+   .schedule-columns *{
+     font-size: 9px !important;
+     line-height: 1.15 !important;
+   }
    
 }
