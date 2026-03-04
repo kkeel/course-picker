@@ -207,8 +207,8 @@
      - keep headers colored (do not set background here)
      ========================================================= */
   .schedule-columns{
-     width: calc(100% - 14px) !important;
-     max-width: calc(100% - 14px) !important;
+     width: calc(100% - 18px) !important;
+     max-width: calc(100% - 18px) !important;
      min-width: 0 !important;
    
      display: grid !important;
