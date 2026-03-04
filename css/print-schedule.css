@@ -367,4 +367,108 @@
     padding: 6px 6px !important;
   }
 
+  /* =========================================================
+   FINAL OVERRIDES (wins over earlier duplicates)
+   Fixes:
+   - last column tiny cutoff
+   - content starting on page 2 (panel treated as “too tall”)
+   - keep 5 columns in portrait with 0.5in margins
+   ========================================================= */
+
+   /* --- Make sure the board can start under the header and flow across pages --- */
+   .print-header-title-block,
+   .print-header{
+     break-after: auto !important;
+     page-break-after: auto !important;
+     break-inside: auto !important;
+     page-break-inside: auto !important;
+   }
+   
+   .schedule-panel,
+   .sched-dayview-day,
+   .schedule-panel-body,
+   .schedule-panel-body-inner,
+   .schedule-board,
+   .schedule-panels,
+   .sched-work{
+     height: auto !important;
+     max-height: none !important;
+     min-height: 0 !important;
+   
+     /* key: allow the browser to break these blocks */
+     break-inside: auto !important;
+     page-break-inside: auto !important;
+   
+     /* avoid any hidden clipping */
+     overflow: visible !important;
+   }
+   
+   /* --- Hard force the 5-column grid to actually fit the printable box --- */
+   .schedule-columns{
+     width: 100% !important;
+     max-width: 100% !important;
+     min-width: 0 !important;
+   
+     display: grid !important;
+     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+   
+     gap: 0 !important;
+     padding: 0 !important;
+     margin: 0 !important;
+   
+     /* tiny scale avoids the “last column clipped by 1–3px” issue in Chrome print */
+     transform: scale(0.985) !important;
+     transform-origin: top left !important;
+   }
+   
+   /* ensure every grid child is allowed to shrink */
+   .schedule-col,
+   .schedule-col-head,
+   .schedule-col-body,
+   .schedule-dropzone,
+   .schedule-col *{
+     min-width: 0 !important;
+     max-width: 100% !important;
+   }
+   
+   /* --- Make columns narrower (this is the “we NEED narrow columns” lever) --- */
+   .schedule-col-head{
+     padding: 2px 2px !important;
+   }
+   .schedule-col-body,
+   .schedule-dropzone{
+     padding: 0 !important;
+   }
+   
+   /* Smaller type ONLY in the board area */
+   .schedule-columns,
+   .schedule-columns *{
+     font-size: 8px !important;
+     line-height: 1.12 !important;
+   }
+   
+   /* Keep ONLY header bars colored; everything else transparent/white */
+   .schedule-col,
+   .schedule-col-body,
+   .schedule-dropzone{
+     background: transparent !important;
+   }
+   
+   /* --- Cards: don’t push the entire column to next page; cards can flow --- */
+   .sched-card,
+   .sched-card-inner{
+     box-shadow: none !important;
+     border-radius: 0 !important;
+     break-inside: avoid !important;
+     page-break-inside: avoid !important;
+   }
+   
+   /* Time-scaled mode: allow containers to flow without clipping */
+   .is-time-scaled .schedule-dropzone,
+   .is-time-scaled .schedule-col-body{
+     overflow: visible !important;
+     height: auto !important;
+     max-height: none !important;
+   }
+
 }
