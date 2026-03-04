@@ -15,7 +15,7 @@
      ---------------------------- */
   @page {
     size: 8.5in 11in;                 /* Letter portrait */
-    margin: 0.38in 0.12in 0.62in;     /* top | L/R | bottom (tight to fit 5 cols) */
+    margin: 0.5in;
 
     @bottom-left {
       content: "Alveary Schedule";
@@ -72,6 +72,17 @@
   #scheduleCloudStatus {
     display: none !important;
   }
+
+  /* Hide instructional helper text inside empty columns (print only) */
+   .schedule-empty,
+   .schedule-empty-state,
+   .schedule-dropzone-empty,
+   .schedule-col-empty,
+   .schedule-dropzone .empty-state,
+   .schedule-dropzone .drop-hint,
+   .schedule-dropzone .assign-hint{
+     display: none !important;
+   }
 
   /* Keep print header visible */
   .print-header-title-block {
@@ -157,10 +168,21 @@
   .schedule-columns{
     display: grid !important;
     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-    gap: 2px !important;                 /* small gap so 5 fit */
+    gap: 0px !important;                 /* small gap so 5 fit */
     padding: 0 !important;
     border: none !important;
   }
+
+  /* HARD SHRINK: ensure grid items are allowed to compress */
+   .schedule-columns,
+   .schedule-col,
+   .schedule-col-head,
+   .schedule-col-body,
+   .schedule-dropzone,
+   .schedule-col *{
+     min-width: 0 !important;
+     max-width: none !important;
+   }
 
   /* Remove column borders so we don’t waste width */
   .schedule-col{
@@ -185,13 +207,13 @@
      (Do NOT force white background here.) */
   .schedule-col-head{
     border: none !important;
-    padding: 4px 6px !important;         /* tighten header height */
+    padding: 2px 3px !important;         /* tighten header height */
   }
 
   /* Tighten the column body padding */
   .schedule-col-body,
   .schedule-dropzone{
-    padding: 2px !important;
+    padding: 0px !important;
   }
 
   /* Global print typography shrink (this is what makes 5 columns feasible in portrait) */
@@ -200,7 +222,7 @@
   .schedule-dropzone,
   .sched-card,
   .sched-card *{
-    font-size: 9px !important;
+    font-size: 8px !important;
     line-height: 1.15 !important;
   }
 
