@@ -519,7 +519,7 @@
          but restore slightly larger text */
    .schedule-columns,
    .schedule-columns *{
-     font-size: 9px !important;       /* bigger than 8px */
+     font-size: 10px !important;       /* bigger than 8px */
      line-height: 1.15 !important;
    }
    
@@ -527,6 +527,19 @@
    .schedule-columns{
      transform: scale(0.975) !important;
      transform-origin: top left !important;
+   }
+
+   /* Optional: keep most cards intact, but allow very tall cards to split */
+   @supports (break-inside: avoid) {
+     .sched-card{
+       break-inside: avoid !important;
+       page-break-inside: avoid !important;
+     }
+     /* If a card is very tall (time-scaled), let it split */
+     .is-time-scaled .sched-card{
+       break-inside: auto !important;
+       page-break-inside: auto !important;
+     }
    }
    
 }
