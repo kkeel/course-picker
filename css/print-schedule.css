@@ -630,7 +630,7 @@
 
    /* FINAL FIT: shave a few pixels so the last column never clips */
    .schedule-columns{
-     width: calc(100% - 16px) !important;
-     max-width: calc(100% - 16px) !important;
+     width: calc(100% - 20px) !important;
+     max-width: calc(100% - 20px) !important;
    }
 }
