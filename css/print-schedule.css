@@ -352,4 +352,31 @@
      transform: none !important;
    }
 
+   /* =========================================================
+   FIX: Expanded mode uses a fixed 9.5in “printed page” panel width
+   and max-content rows, which will ALWAYS overflow a 7.5in
+   printable area (Letter portrait with 0.5in margins).
+   We must neutralize that in PRINT.
+   ========================================================= */
+
+   /* Kill the fixed 9.5in panel sizing + max-content row behavior */
+   .sched-expanded{
+     --sched-print-w: auto !important;      /* overrides 9.5in var */
+   }
+   
+   /* The row is what becomes max-content and causes clipping */
+   .sched-expanded .schedule-panel-row{
+     display: block !important;            /* stop horizontal flex scroller */
+     width: 100% !important;
+     max-width: 100% !important;
+     padding-right: 0 !important;          /* remove the extra right shove */
+   }
+   
+   /* The panel itself must not be fixed-width */
+   .sched-expanded .schedule-panel{
+     width: 100% !important;
+     max-width: 100% !important;
+     min-width: 0 !important;
+   }
+
 }
