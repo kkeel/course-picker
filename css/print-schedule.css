@@ -164,6 +164,83 @@
      5 COLUMN FIT (Student View)
      ---------------------------- */
 
+  /* ✅ FORCE THE PRINT CONTENT TO USE REAL PAGE WIDTH (kills max-content layouts) */
+   html, body{
+     width: 100% !important;
+     max-width: 100% !important;
+   }
+   
+   *{
+     box-sizing: border-box !important;
+   }
+   
+   /* These wrappers often stay “max-content” from the live schedule layout */
+   .schedule-panels,
+   .sched-dayview-grid,
+   .schedule-board,
+   .schedule-panel-body,
+   .schedule-panel-body-inner{
+     width: 100% !important;
+     max-width: 100% !important;
+     min-width: 0 !important;
+   }
+   
+   /* If any of these are flex/max-content, force normal block flow for print */
+   .schedule-panels,
+   .sched-dayview-grid{
+     display: block !important;
+   }
+   
+   /* ✅ THE GRID ITSELF MUST ALSO BE WIDTH:100% */
+   .schedule-columns{
+     width: 100% !important;
+     max-width: 100% !important;
+     min-width: 0 !important;
+   
+     display: grid !important;
+     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+     gap: 0 !important;
+     padding: 0 !important;
+   }
+   
+   /* HARD SHRINK: allow true compression everywhere */
+   .schedule-columns,
+   .schedule-col,
+   .schedule-col-head,
+   .schedule-col-body,
+   .schedule-dropzone,
+   .schedule-col *{
+     min-width: 0 !important;
+     max-width: none !important;
+   }
+   
+   /* ✅ NARROWER HEADER + TIGHTER TYPE (only as much as needed to fit 5 cols) */
+   .schedule-col-head{
+     padding: 2px 2px !important;     /* tighter than current */
+   }
+   
+   /* Column body uses zero padding so we don’t waste width */
+   .schedule-col-body,
+   .schedule-dropzone{
+     padding: 0 !important;
+   }
+   
+   /* Slightly smaller than your current 9px (this is usually the final “fit” lever) */
+   .schedule-columns,
+   .schedule-col,
+   .schedule-dropzone,
+   .sched-card,
+   .sched-card *{
+     font-size: 8.5px !important;
+     line-height: 1.12 !important;
+   }
+   
+   /* Make cards consume less horizontal space */
+   .sched-card,
+   .sched-card-inner{
+     border-radius: 0 !important;
+   }
+
   /* Force the day columns wrapper to be 5 equal columns */
   .schedule-columns{
     display: grid !important;
