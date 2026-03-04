@@ -417,7 +417,7 @@
      margin: 0 !important;
    
      /* tiny scale avoids the “last column clipped by 1–3px” issue in Chrome print */
-     transform: scale(0.985) !important;
+     transform: scale(0.975) !important;
      transform-origin: top left !important;
    }
    
