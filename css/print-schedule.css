@@ -207,24 +207,20 @@
      - keep headers colored (do not set background here)
      ========================================================= */
   .schedule-columns{
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-
-    display: grid !important;
-    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-
-    gap: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-
-    /* Keep the behavior you ended up with:
-       - No transform scaling (transform caused pagination weirdness earlier)
-       - Use zoom for fit (Chrome prints it predictably)
-    */
-    transform: none !important;
-    zoom: 0.955 !important;
-  }
+     width: calc(100% - 14px) !important;
+     max-width: calc(100% - 14px) !important;
+     min-width: 0 !important;
+   
+     display: grid !important;
+     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+   
+     gap: 0 !important;
+     padding: 0 !important;
+     margin: 0 !important;
+     margin-right: auto !important;
+   
+     transform: none !important;
+   }
 
   /* Let everything shrink inside the grid */
   .schedule-col,
