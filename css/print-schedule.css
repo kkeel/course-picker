@@ -610,7 +610,7 @@
    /* 3) Keep the 5 columns fitting WITHOUT transform.
          zoom paginates correctly in Chrome print. */
    .schedule-columns{
-     zoom: 0.965 !important;        /* keep your “fit” amount */
+     zoom: 0.955 !important;        /* keep your “fit” amount */
      width: calc(100% - 3px) !important;
    }
    
@@ -624,7 +624,7 @@
    /* 5) Keep your current font ratio but slightly bigger (width stays the same because zoom stays) */
    .schedule-columns,
    .schedule-columns *{
-     font-size: 9px !important;
+     font-size: 10px !important;
      line-height: 1.15 !important;
    }
    
