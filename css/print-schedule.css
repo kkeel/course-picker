@@ -15,7 +15,7 @@
      ---------------------------- */
   @page {
     size: 8.5in 11in;                 /* Letter portrait */
-    margin: 0.38in 0.22in 0.62in;     /* top | L/R | bottom (tight to fit 5 cols) */
+    margin: 0.38in 0.12in 0.62in;     /* top | L/R | bottom (tight to fit 5 cols) */
 
     @bottom-left {
       content: "Alveary Schedule";
@@ -134,6 +134,21 @@
     display: none !important;
   }
 
+  /* Remove the “frame” container that steals width */
+   .schedule-board,
+   .schedule-panel-body,
+   .schedule-panel-body-inner,
+   .schedule-panels,
+   .schedule-grid,
+   .sched-work{
+     padding: 0 !important;
+     margin: 0 !important;
+     border: none !important;
+     border-radius: 0 !important;
+     background: transparent !important;
+     box-shadow: none !important;
+   }
+
   /* ----------------------------
      5 COLUMN FIT (Student View)
      ---------------------------- */
@@ -154,6 +169,17 @@
     background: transparent !important;
     min-width: 0 !important;
   }
+
+  /* Keep ONLY day headers colored; everything else should be white/transparent */
+   .schedule-col-body,
+   .schedule-dropzone,
+   .schedule-col,
+   .schedule-columns,
+   .sched-dayview-lane,
+   .sched-dayview-lanes,
+   .sched-dayview-daybody{
+     background: transparent !important;
+   }
 
   /* Keep colored headers from the live schedule page.
      (Do NOT force white background here.) */
