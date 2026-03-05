@@ -93,6 +93,18 @@
     display: flex !important;
   }
 
+   /* =========================================================
+   PRINT: hide remove (✕) controls on cards
+   ========================================================= */
+   .sched-card-remove,
+   .sched-card .sched-card-remove,
+   .sched-card button.sched-card-remove,
+   .sched-card [aria-label="Remove"],
+   .sched-card [title="Remove"]{
+     display: none !important;
+     visibility: hidden !important;
+   }
+
   /* =========================================================
      3) REMOVE WIDTH-STEALING PADDING/GAPS FROM WRAPPERS
      (This is where clipping usually comes from.)
@@ -256,6 +268,31 @@
     padding: 0 !important;
   }
 
+   /* =========================================================
+   PRINT: non-scaled cards should pack like a grid (no gaps)
+   and avoid double lines between cards.
+   ========================================================= */
+
+   /* The column body stack: remove any gap that might exist */
+   .schedule-board:not(.is-time-scaled) .schedule-dropzone{
+     display: flex !important;
+     flex-direction: column !important;
+     gap: 0 !important;
+   }
+   
+   /* Remove outer spacing so cards butt up cleanly */
+   .schedule-board:not(.is-time-scaled) .sched-card{
+     margin: 0 !important;
+     border-radius: 0 !important;
+     box-shadow: none !important;
+     border: none !important; /* we'll add a single divider line below */
+   }
+   
+   /* Single divider line ONLY between cards (prevents double lines) */
+   .schedule-board:not(.is-time-scaled) .schedule-dropzone .sched-card + .sched-card{
+     border-top: 1px solid rgba(0,0,0,0.10) !important;
+   }
+
   /* =========================================================
      6) TYPOGRAPHY (single source of truth)
      ========================================================= */
@@ -405,6 +442,79 @@
      width: 100% !important;
      max-width: 100% !important;
      min-width: 0 !important;
+   }
+
+   /* =========================================================
+   PRINT: heavier top header block
+   ========================================================= */
+   .print-header-title-block{
+     padding: 10px 0 8px !important;
+     margin: 0 0 8px !important;
+     border-bottom: 2px solid rgba(0,0,0,0.15) !important;
+   }
+   
+   .print-header-title-block .print-header-title{
+     font-size: 18px !important;
+     font-weight: 700 !important;
+     line-height: 1.1 !important;
+   }
+   
+   .print-header-title-block .print-header-subtitle{
+     font-size: 12px !important;
+     font-weight: 600 !important;
+     margin-top: 4px !important;
+   }
+
+   /* =========================================================
+   PRINT: repeat column headers across page breaks (Student view)
+   Turn the columns container into a "table" for pagination.
+   ========================================================= */
+
+   .schedule-columns{
+     display: table !important;
+     table-layout: fixed !important;
+     width: 100% !important;
+     border-collapse: collapse !important;
+   }
+   
+   .schedule-col{
+     display: table-cell !important;
+     vertical-align: top !important;
+     width: 20% !important;            /* 5 equal columns */
+     border: none !important;
+   }
+   
+   /* The header portion repeats */
+   .schedule-col-head{
+     display: table-header-group !important;
+   }
+   
+   /* The body flows naturally */
+   .schedule-col-body{
+     display: table-row-group !important;
+   }
+
+   /* =========================================================
+   PRINT: repeat lane headers across page breaks (Day view)
+   ========================================================= */
+   .sched-dayview-lanes{
+     display: table !important;
+     table-layout: fixed !important;
+     width: 100% !important;
+     border-collapse: collapse !important;
+   }
+   
+   .sched-dayview-lane{
+     display: table-cell !important;
+     vertical-align: top !important;
+   }
+   
+   .sched-dayview-lanehead{
+     display: table-header-group !important;
+   }
+   
+   .sched-dayview-lanebody{
+     display: table-row-group !important;
    }
 
 }
