@@ -154,11 +154,13 @@
       visibleDays: [0, 1, 2, 3, 4],
       panels: [
         { slot: "P1", studentId: "S1" },
-        { slot: "P2", studentId: "S2" },
       ],
       dayViewPanels: [
         { slot: "D1", dayIdx: 0 }, // Mon
         { slot: "D2", dayIdx: 1 }, // Tue
+        { slot: "D3", dayIdx: 2 }, // Wed
+        { slot: "D4", dayIdx: 3 }, // Thu
+        { slot: "D5", dayIdx: 4 }, // Fri
       ],
       dayViewStudentSlots: ["S1", "S2", "S3", "S4", "S5"],
       // Left rail UI
@@ -291,7 +293,13 @@ dayViewPanels = dayViewPanels
   .slice(0, maxDayPanels);
 
 if (dayViewPanels.length < minDayPanels) {
-  dayViewPanels = [{ slot: "D1", dayIdx: 0 }, { slot: "D2", dayIdx: 1 }];
+  dayViewPanels = [
+    { slot: "D1", dayIdx: 0 },
+    { slot: "D2", dayIdx: 1 },
+    { slot: "D3", dayIdx: 2 },
+    { slot: "D4", dayIdx: 3 },
+    { slot: "D5", dayIdx: 4 },
+  ];
 }
 
 // Re-slot sequentially (D1..Dn)
