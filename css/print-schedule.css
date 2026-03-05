@@ -261,10 +261,23 @@
    
    .schedule-col-body{
      flex: 0 0 auto !important;
+     width: 100% !important;
    }
    
    .schedule-dropzone{
      align-self: start !important;
+     width: 100% !important;
+     box-sizing: border-box !important;
+   }
+
+   .schedule-col{
+     width: 100% !important;
+     box-sizing: border-box !important;
+   }
+
+   main.main-content{
+     padding-top: 0 !important;
+     padding-bottom: 0 !important;
    }
    
    /* =========================================================
@@ -540,6 +553,43 @@
    .schedule-panel-body-inner,
    .schedule-columns{
      margin-top: 0 !important;
+   }
+
+   /* ============================
+   PRINT: header cleanup (Schedule title back to the right)
+   ============================ */
+
+   header.app-header{
+     /* Force the desktop row header in print (Tailwind md:* doesn't apply) */
+     display: flex !important;
+     flex-direction: row !important;
+     align-items: flex-start !important;
+     gap: 12px !important;
+   
+     /* Kill extra vertical whitespace */
+     margin-bottom: 6px !important;
+     padding-top: 0 !important;
+     padding-bottom: 6px !important;
+   
+     /* Remove the line under the header (comes from base header styling) */
+     border-bottom: none !important;
+     box-shadow: none !important;
+   }
+   
+   /* Hide schedule-only save UI in print */
+   header.app-header .schedule-cloud-save{
+     display: none !important;
+   }
+   
+   /* Keep the print title block locked to the right edge */
+   header.app-header .print-header-title-block{
+     margin-left: auto !important;
+     align-items: flex-end !important;
+   }
+   
+   /* Tighten logo block spacing a bit */
+   header.app-header .logo-link{
+     margin-bottom: 0 !important;
    }
 
 }
