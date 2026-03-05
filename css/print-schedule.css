@@ -212,7 +212,7 @@
      min-width: 0 !important;
    
      display: grid !important;
-     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+     grid-template-columns: repeat(var(--sched-print-cols, 5), minmax(0, 1fr)) !important;
    
      gap: 0 !important;
      padding: 0 !important;
@@ -346,7 +346,7 @@
      margin-right: auto !important;
    
      display: grid !important;
-     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+     grid-template-columns: repeat(var(--sched-print-cols, 5), minmax(0, 1fr)) !important;
    
      zoom: 1 !important;
      transform: none !important;
