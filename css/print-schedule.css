@@ -312,9 +312,6 @@
   .schedule-col-head{
      /* thicker header block */
      padding: 6px 6px !important;
-   
-     /* add a bottom rule to separate header from cards */
-     border: none !important;
      border-bottom: 1px solid rgba(0,0,0,0.14) !important;
    }
   .schedule-col-body,
@@ -519,6 +516,30 @@
    .schedule-dropzone{
      flex: 0 0 auto !important;     /* overrides flex:1 */
      align-self: start !important;
+   }
+
+   /* =========================================================
+   PRINT: tighten the top header area to maximize usable space
+   ========================================================= */
+   .print-header-title-block{
+     border: none !important;          /* remove any bottom rule */
+     box-shadow: none !important;
+     padding: 0 !important;
+     margin: 0 0 6px 0 !important;     /* small gap before columns */
+   }
+   
+   /* If there is an <hr> or divider element in the print header */
+   .print-header-title-block hr,
+   .print-header-title-block .divider,
+   .print-header-title-block .rule{
+     display: none !important;
+   }
+   
+   /* Nudge the schedule grid up (in case any wrapper adds spacing) */
+   .schedule-panel-body,
+   .schedule-panel-body-inner,
+   .schedule-columns{
+     margin-top: 0 !important;
    }
 
 }
