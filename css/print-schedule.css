@@ -311,6 +311,34 @@
   /* =========================================================
      8) DAY VIEW TIGHTENING (kept from earlier, not duplicated)
      ========================================================= */
+   /* --- Day View: remove non-header background slabs + extra inset --- */
+   .sched-dayview,
+   .sched-dayview-grid,
+   .sched-dayview-daybody,
+   .sched-dayview-lanes,
+   .sched-dayview-lane,
+   .sched-dayview-lanebody{
+     background: transparent !important;
+     box-shadow: none !important;
+     padding: 0 !important;
+     margin: 0 !important;
+   }
+   
+   /* Keep the printed “page” clean white */
+   html, body{
+     background: #fff !important;
+   }
+   
+   /* If the day container itself has a tint, force it white */
+   .sched-dayview-day{
+     background: #fff !important;
+   }
+   
+   /* Optional: if you still see a faint border around lanes */
+   .sched-dayview-lane,
+   .sched-dayview-lanebody{
+     border: none !important;
+   }
   .sched-dayview-lanes{
     padding: 0 !important;
     gap: 4px !important;
