@@ -232,6 +232,7 @@
      margin-right: auto !important;
    
      transform: none !important;
+     align-items: start !important;
    }
 
   /* Let everything shrink inside the grid */
@@ -249,6 +250,21 @@
      border: none !important;
      border-radius: 0 !important;
      background: transparent !important;
+   }
+
+   /* Make each column content-height, not track-height */
+   .schedule-col{
+     align-self: start !important;
+     display: flex !important;
+     flex-direction: column !important;
+   }
+   
+   .schedule-col-body{
+     flex: 0 0 auto !important;
+   }
+   
+   .schedule-dropzone{
+     align-self: start !important;
    }
    
    /* =========================================================
