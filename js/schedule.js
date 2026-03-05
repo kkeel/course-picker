@@ -763,6 +763,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       printPickDays: [0, 1, 2, 3, 4],
       printPickDayIdx: 0,
       printPickStudents: [],
+      printSubtitle: "",
 
       // -----------------------------
       // Manage students (matches Courses/Books pages)
@@ -899,6 +900,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         this.expandedMode = !!s.expandedMode;
       
         this._printRestore = null;
+        this.printSubtitle = "";
       
         try { delete document.documentElement.dataset.schedulePrintLabel; } catch (e) {}
         try { document.documentElement.style.removeProperty("--sched-print-cols"); } catch (e) {}
@@ -929,6 +931,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       
           const label = this.getStudentName?.(sid) || this.students?.find(s => s.id === sid)?.name || "Student";
           try { document.documentElement.dataset.schedulePrintLabel = label; } catch (e) {}
+          this.printSubtitle = label;
         } else {
           const dayIdx = Number(this.printPickDayIdx);
           const didx = (Number.isInteger(dayIdx) && dayIdx >= 0 && dayIdx <= 4) ? dayIdx : 0;
@@ -951,6 +954,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       
           const label = this.dayLongLabels?.[didx] || this.dayLabels?.[didx] || "Day";
           try { document.documentElement.dataset.schedulePrintLabel = label; } catch (e) {}
+          this.printSubtitle = label;
         }
       
         this.printPickerOpen = false;
