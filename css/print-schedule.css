@@ -444,25 +444,4 @@
      min-width: 0 !important;
    }
 
-   /* =========================================================
-   PRINT: heavier top header block
-   ========================================================= */
-   .print-header-title-block{
-     padding: 10px 0 8px !important;
-     margin: 0 0 8px !important;
-     border-bottom: 2px solid rgba(0,0,0,0.15) !important;
-   }
-   
-   .print-header-title-block .print-header-title{
-     font-size: 18px !important;
-     font-weight: 700 !important;
-     line-height: 1.1 !important;
-   }
-   
-   .print-header-title-block .print-header-subtitle{
-     font-size: 12px !important;
-     font-weight: 600 !important;
-     margin-top: 4px !important;
-   }
-
 }
