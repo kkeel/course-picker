@@ -1161,12 +1161,10 @@ body.sched-dragging .sched-card{
   color: #262b26;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   line-height: 1.15;
   max-width: 100%;
-  /* Let the title take 1 line when short (no reserved second line),
-     but still clamp at 2 lines when long. */
-  max-height: calc(1.15em * 2);
+  max-height: calc(1.15em * 3);
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -1176,7 +1174,7 @@ body.sched-dragging .sched-card{
   color: #262b26;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   font-size: 13px;
   line-height: 1.25;
   height: 2.5em;
@@ -1838,6 +1836,35 @@ body.is-resizing-workspace{
   box-sizing: border-box;
 }
 
+/* =========================================================
+   Card layout consistency
+   - Non-time-scaled: one fixed height; tracking aligned to bottom
+   - Time-scaled: stays flowy (handled below)
+   ========================================================= */
+
+   .schedule-board:not(.is-time-scaled) .sched-card{
+     /* one consistent height in regular/grid mode */
+     height: var(--sched-card-fixed-h, 108px);
+     display: flex;
+     flex-direction: column;
+   }
+   
+   /* Keep symbols right under the title (no reserved blank space) */
+   .schedule-board:not(.is-time-scaled) .sched-card-sub{
+     margin-top: 4px;
+   }
+   
+   /* Pin tracking to the bottom in regular/grid mode */
+   .schedule-board:not(.is-time-scaled) .sched-card-trackline{
+     margin-top: auto;   /* <- this is the key */
+   }
+   
+   /* Prevent the remove button from colliding with bottom-aligned tracking */
+   .schedule-board:not(.is-time-scaled) .sched-card-remove{
+     top: 8px;
+     bottom: auto;
+   }
+
 .is-time-scaled .schedule-dropzone{
   gap: 0 !important;
 }
@@ -1864,7 +1891,7 @@ body.is-resizing-workspace{
   font-size: 12px;
   line-height: 1.15;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: var(--sched-title-lines, 3);
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
