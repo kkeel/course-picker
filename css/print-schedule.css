@@ -251,14 +251,38 @@
      background: transparent !important;
    }
    
-   /* Outer frame for the whole 5-col grid */
-   .schedule-columns{
-     border: 1px solid rgba(0,0,0,0.14) !important;
+   /* =========================================================
+   Per-column framing (stops at last card)
+   - Borders are applied to the header + dropzone content only
+   - Avoids tall-column borders running into empty space
+   ========================================================= */
+
+   /* Top frame on headers */
+   .schedule-col-head{
+     border-top: 1px solid rgba(0,0,0,0.14) !important;
    }
    
-   /* Vertical divider between columns (single line) */
-   .schedule-col + .schedule-col{
+   /* Left frame on first column (header + body) */
+   .schedule-col:first-child .schedule-col-head,
+   .schedule-col:first-child .schedule-dropzone{
      border-left: 1px solid rgba(0,0,0,0.14) !important;
+   }
+   
+   /* Right frame on last column (header + body) */
+   .schedule-col:last-child .schedule-col-head,
+   .schedule-col:last-child .schedule-dropzone{
+     border-right: 1px solid rgba(0,0,0,0.14) !important;
+   }
+   
+   /* Vertical dividers (only across header + actual cards height) */
+   .schedule-col + .schedule-col .schedule-col-head,
+   .schedule-col + .schedule-col .schedule-dropzone{
+     border-left: 1px solid rgba(0,0,0,0.14) !important;
+   }
+   
+   /* Bottom frame sits right under last card in each column */
+   .schedule-dropzone{
+     border-bottom: 1px solid rgba(0,0,0,0.14) !important;
    }
 
   /* Keep ONLY the column header bar colored (screen styles), make everything else transparent/white */
