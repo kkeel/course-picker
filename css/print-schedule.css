@@ -152,6 +152,16 @@
     max-width: 100% !important;
   }
 
+   /* Kill Tailwind vertical stacking gaps in print */
+   .space-y-10 > :not([hidden]) ~ :not([hidden]){
+     margin-top: 0 !important;
+   }
+   
+   /* #scheduleGridRail has mt-6 on the page; remove it for print */
+   #scheduleGridRail{
+     margin-top: 0 !important;
+   }
+
   /* =========================================================
      4) LAYOUT: ONE PANEL, FULL WIDTH + NO CLIPPING
      ========================================================= */
@@ -291,15 +301,15 @@
      border-top: 1px solid rgba(0,0,0,0.14) !important;
    }
    
-   /* Left frame on first column (header + body) */
-   .schedule-col:first-child .schedule-col-head,
-   .schedule-col:first-child .schedule-dropzone{
+   /* Left frame on first *actual* column (header + body) */
+   .schedule-columns > .schedule-col:first-of-type .schedule-col-head,
+   .schedule-columns > .schedule-col:first-of-type .schedule-dropzone{
      border-left: 1px solid rgba(0,0,0,0.14) !important;
    }
    
-   /* Right frame on last column (header + body) */
-   .schedule-col:last-child .schedule-col-head,
-   .schedule-col:last-child .schedule-dropzone{
+   /* Right frame on last *actual* column (header + body) */
+   .schedule-columns > .schedule-col:last-of-type .schedule-col-head,
+   .schedule-columns > .schedule-col:last-of-type .schedule-dropzone{
      border-right: 1px solid rgba(0,0,0,0.14) !important;
    }
    
