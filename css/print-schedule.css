@@ -296,32 +296,10 @@
    - Avoids tall-column borders running into empty space
    ========================================================= */
 
-   /* Top frame on headers */
-   .schedule-col-head{
-     border-top: 1px solid rgba(0,0,0,0.14) !important;
-   }
-   
-   /* Left frame on first *actual* column (header + body) */
-   .schedule-columns > .schedule-col:first-of-type .schedule-col-head,
-   .schedule-columns > .schedule-col:first-of-type .schedule-dropzone{
-     border-left: 1px solid rgba(0,0,0,0.14) !important;
-   }
-   
-   /* Right frame on last *actual* column (header + body) */
-   .schedule-columns > .schedule-col:last-of-type .schedule-col-head,
-   .schedule-columns > .schedule-col:last-of-type .schedule-dropzone{
-     border-right: 1px solid rgba(0,0,0,0.14) !important;
-   }
-   
-   /* Vertical dividers (only across header + actual cards height) */
-   .schedule-col + .schedule-col .schedule-col-head,
-   .schedule-col + .schedule-col .schedule-dropzone{
-     border-left: 1px solid rgba(0,0,0,0.14) !important;
-   }
-   
-   /* Bottom frame sits right under last card in each column */
-   .schedule-dropzone{
-     border-bottom: 1px solid rgba(0,0,0,0.14) !important;
+   /* Non-scaled: header caps match the card grid */
+   .schedule-board:not(.is-time-scaled) .schedule-col-head{
+     border: 1px solid rgba(0,0,0,0.14) !important;
+     border-bottom: 0 !important; /* connects to first card border */
    }
 
   /* Keep ONLY the column header bar colored (screen styles), make everything else transparent/white */
@@ -354,19 +332,37 @@
      gap: 0 !important;
    }
    
-   /* Remove outer spacing so cards butt up cleanly */
+   /* =========================================================
+   PRINT (Non-scaled): true grid borders on cards
+   - no gaps between cards
+   - no double-thick lines (collapse by -1px overlap)
+   ========================================================= */
+
+   .schedule-board:not(.is-time-scaled) .schedule-dropzone{
+     display: flex !important;
+     flex-direction: column !important;
+     gap: 0 !important;
+     padding: 0 !important;
+   }
+   
+   /* Each card draws the grid */
    .schedule-board:not(.is-time-scaled) .sched-card{
      margin: 0 !important;
      border-radius: 0 !important;
      box-shadow: none !important;
    
-     /* give cards a subtle boundary without doubling */
-     border: 0 !important;
+     border: 1px solid rgba(0,0,0,0.14) !important;
+     background: #fff !important;
    }
    
-   /* Single divider line ONLY between cards (prevents double lines) */
-   .schedule-board:not(.is-time-scaled) .schedule-dropzone .sched-card + .sched-card{
-     border-top: 1px solid rgba(0,0,0,0.10) !important;
+   /* Collapse shared borders between touching cards */
+   .schedule-board:not(.is-time-scaled) .sched-card + .sched-card{
+     margin-top: -1px !important;  /* <- prevents “double line” */
+   }
+   
+   /* Connect first card to header cap (no double line at the seam) */
+   .schedule-board:not(.is-time-scaled) .schedule-dropzone .sched-card:first-child{
+     margin-top: -1px !important;  /* overlaps the header border */
    }
 
   /* =========================================================
@@ -548,7 +544,7 @@
      border: none !important;          /* remove any bottom rule */
      box-shadow: none !important;
      padding: 0 !important;
-     margin: 0 0 6px 0 !important;     /* small gap before columns */
+     margin: 0 0 3px 0 !important;     /* small gap before columns */
    }
    
    /* If there is an <hr> or divider element in the print header */
@@ -577,9 +573,9 @@
      gap: 12px !important;
    
      /* Kill extra vertical whitespace */
-     margin-bottom: 6px !important;
+     margin-bottom: 3px !important;
      padding-top: 0 !important;
-     padding-bottom: 6px !important;
+     padding-bottom: 3px !important;
    
      /* Remove the line under the header (comes from base header styling) */
      border-bottom: none !important;
