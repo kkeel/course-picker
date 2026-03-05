@@ -1844,7 +1844,7 @@ body.is-resizing-workspace{
 
    .schedule-board:not(.is-time-scaled) .sched-card{
      /* one consistent height in regular/grid mode */
-     height: var(--sched-card-fixed-h, 108px);
+     height: var(--sched-card-fixed-h, 90px);
      display: flex;
      flex-direction: column;
    }
