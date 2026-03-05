@@ -500,4 +500,25 @@
      min-width: 0 !important;
    }
 
+   /* =========================================================
+   FIX: stop columns/dropzones from stretching to tallest column
+   (screen CSS uses height:100% and flex:1; override for print)
+   ========================================================= */
+
+   .schedule-columns{
+     align-items: start !important; /* overrides stretch behavior */
+   }
+   
+   .schedule-col{
+     height: auto !important;       /* overrides height:100% */
+     min-height: 0 !important;
+     align-self: start !important;
+   }
+   
+   /* This is the KEY: screen CSS sets flex:1 on dropzone */
+   .schedule-dropzone{
+     flex: 0 0 auto !important;     /* overrides flex:1 */
+     align-self: start !important;
+   }
+
 }
