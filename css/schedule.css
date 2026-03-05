@@ -5,19 +5,50 @@
 /* Cleaned schedule.css (duplicates merged). Generated 2026-02-22. */
 
 .schedule-head{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
+  display: block;
 }
 
-.schedule-head .av-video-inline{
-  flex: 0 0 auto;
-  width: auto !important;
-  max-width: 340px;
-  min-width: 260px;
-  margin-left: auto;
+.schedule-intro-row{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+  margin-top: 8px;
+}
+
+.schedule-intro-text{
+  max-width: 980px;
+  width: 100%;
+  flex: 1 1 auto;
+}
+
+.schedule-intro-side{
+  flex: 0 0 320px;
+  width: 320px;
+  max-width: 100%;
+}
+
+.schedule-intro-side .av-video-inline{
+  width: 100% !important;
+  max-width: none;
+  min-width: 0;
+  margin-left: 0;
+}
+
+@media (max-width: 1024px){
+  .schedule-intro-row{
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .schedule-intro-text{
+    max-width: none;
+  }
+
+  .schedule-intro-side{
+    flex: 0 0 auto;
+    width: 100%;
+  }
 }
 
 .main-content.schedule-main{
