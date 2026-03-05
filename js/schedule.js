@@ -887,6 +887,15 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           expandedMode: !!this.expandedMode,
         };
       },
+
+      _setPrintSubtitleText(label) {
+        const txt = String(label || "").trim();
+        try {
+          document.querySelectorAll(".print-header-grade, .print-footer-grade").forEach((el) => {
+            el.textContent = txt;
+          });
+        } catch (e) {}
+      },
       
       _restoreStateAfterPrint() {
         if (!this._printRestore) return;
@@ -901,6 +910,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       
         this._printRestore = null;
         this.printSubtitle = "";
+        this._setPrintSubtitleText("");
       
         try { delete document.documentElement.dataset.schedulePrintLabel; } catch (e) {}
         try { document.documentElement.style.removeProperty("--sched-print-cols"); } catch (e) {}
@@ -932,6 +942,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           const label = this.getStudentName?.(sid) || this.students?.find(s => s.id === sid)?.name || "Student";
           try { document.documentElement.dataset.schedulePrintLabel = label; } catch (e) {}
           this.printSubtitle = label;
+          this._setPrintSubtitleText(label);
         } else {
           const dayIdx = Number(this.printPickDayIdx);
           const didx = (Number.isInteger(dayIdx) && dayIdx >= 0 && dayIdx <= 4) ? dayIdx : 0;
@@ -955,6 +966,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           const label = this.dayLongLabels?.[didx] || this.dayLabels?.[didx] || "Day";
           try { document.documentElement.dataset.schedulePrintLabel = label; } catch (e) {}
           this.printSubtitle = label;
+          this._setPrintSubtitleText(label);
         }
       
         this.printPickerOpen = false;
