@@ -901,6 +901,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         this._printRestore = null;
       
         try { delete document.documentElement.dataset.schedulePrintLabel; } catch (e) {}
+        try { document.documentElement.style.removeProperty("--sched-print-cols"); } catch (e) {}
       
         // Re-sync expanded heights if needed
         try {
@@ -919,6 +920,8 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
             .map(n => Number(n))
             .filter(n => Number.isInteger(n) && n >= 0 && n <= 4);
           const uniqueDays = Array.from(new Set(days.length ? days : [0,1,2,3,4])).sort((a,b)=>a-b);
+
+          document.documentElement.style.setProperty("--sched-print-cols", String(uniqueDays.length || 5));
       
           this.view = "track";
           this.visibleDays = uniqueDays;
@@ -936,6 +939,8 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
             .filter(Boolean);
           const seen = new Set();
           const deduped = chosen.filter(id => (seen.has(id) ? false : (seen.add(id), true))).slice(0, 5);
+
+          document.documentElement.style.setProperty("--sched-print-cols", String((deduped.filter(Boolean).length || 5)));
       
           const slots = deduped.slice();
           while (slots.length < 5) slots.push("");
