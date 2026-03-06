@@ -2362,75 +2362,95 @@ setDayPanel(idx, dayIdx) {
 
       // ---- Day-toggle helpers (Rail) ----
 
-      // Returns an instanceId if entry is already placed on that day for that student, else null
-      instanceIdForEntryOnDay(studentId, dayIndex, entry) {
+      entryTemplateMatchesEntry(templateId, entry) {
+        if (!templateId || !entry) return false;
+
+        const tpl = this.templatesById?.[templateId];
+        if (!tpl) return false;
+
+        if (entry.type === "single") {
+          return templateId === entry.templateId;
+        }
+
+        if (entry.type === "group") {
+          return tpl.courseKey === entry.courseKey;
+        }
+
+        return false;
+      },
+
+      entryDayCount(studentId, dayIndex, entry) {
         const ids = this.placements?.[studentId]?.[dayIndex];
-        if (!Array.isArray(ids) || !entry) return null;
-      
+        if (!Array.isArray(ids) || !entry) return 0;
+
+        let count = 0;
         for (const instId of ids) {
           const inst = this.instancesById?.[instId];
           if (!inst) continue;
-      
-          const tpl = this.templatesById?.[inst.templateId];
-          if (!tpl) continue;
-      
-          if (entry.type === "single") {
-            if (inst.templateId === entry.templateId) return instId;
-          } else if (entry.type === "group") {
-            // count/toggle by courseKey (any grade-band counts as “Picture Study”)
-            if (tpl.courseKey === entry.courseKey) return instId;
-          }
+          if (this.entryTemplateMatchesEntry(inst.templateId, entry)) count++;
         }
-      
+        return count;
+      },
+
+      isEntryOnDay(studentId, dayIndex, entry) {
+        return this.entryDayCount(studentId, dayIndex, entry) > 0;
+      },
+
+      resolveEntryTemplateId(entry) {
+        if (!entry) return null;
+
+        if (entry.type === "single") {
+          return entry.templateId || null;
+        }
+
+        if (entry.type === "group") {
+          const selected = this.choices?.courseOptions?.[entry.courseKey];
+          const opt = (entry.options || []).find((o) => o.option === selected) || entry.options?.[0];
+          return opt?.templateId || entry.activeTemplateId || null;
+        }
+
         return null;
       },
-      
-      isEntryOnDay(studentId, dayIndex, entry) {
-        return !!this.instanceIdForEntryOnDay(studentId, dayIndex, entry);
-      },
-      
-      toggleEntryOnDay(entry, dayIndex) {
+
+      addEntryOnDay(entry, dayIndex) {
         const studentId = this.activeTarget?.studentId;
         dayIndex = Number(dayIndex);
-      
+
         if (!studentId || !Number.isInteger(dayIndex) || dayIndex < 0 || dayIndex > 4) return;
-      
+
         this.ensureStudent(studentId);
-      
-        const existingId = this.instanceIdForEntryOnDay(studentId, dayIndex, entry);
-      
-        // If already placed, remove it
-        if (existingId) {
-          this.removeInstance(studentId, dayIndex, existingId);
-          return;
-        }
-      
-        // Otherwise add it (respect group selection)
-        let templateId = null;
-      
-        if (entry.type === "single") {
-          templateId = entry.templateId;
-        } else if (entry.type === "group") {
-          const selectedOpt = this.choices?.courseOptions?.[entry.courseKey];
-          const match = (entry.options || []).find(o => o.option === selectedOpt);
-          templateId = (match && match.templateId) || entry.activeTemplateId;
-        }
-      
+
+        const templateId = this.resolveEntryTemplateId(entry);
         if (!templateId) return;
-      
-        // Add to *that* day (not activeTarget.dayIndex)
-        const tpl = this.templatesById?.[templateId];
-        if (!tpl) return;
-      
-        const instanceId = uid("inst");
-        this.instancesById[instanceId] = {
-          instanceId,
-          templateId,
-          createdAt: Date.now(),
-        };
-      
-        this.placements[studentId][dayIndex].push(instanceId);
-        this.persistCards();
+
+        this.addInstance(studentId, dayIndex, templateId);
+      },
+
+      removeMostRecentEntryOnDay(entry, dayIndex) {
+        const studentId = this.activeTarget?.studentId;
+        dayIndex = Number(dayIndex);
+
+        if (!studentId || !Number.isInteger(dayIndex) || dayIndex < 0 || dayIndex > 4) return;
+
+        this.ensureStudent(studentId);
+
+        const ids = this.placements?.[studentId]?.[dayIndex];
+        if (!Array.isArray(ids) || !ids.length) return;
+
+        for (let idx = ids.length - 1; idx >= 0; idx--) {
+          const instId = ids[idx];
+          const inst = this.instancesById?.[instId];
+          if (!inst) continue;
+
+          if (this.entryTemplateMatchesEntry(inst.templateId, entry)) {
+            this.removeInstance(studentId, dayIndex, instId);
+            return;
+          }
+        }
+      },
+
+      toggleEntryOnDay(entry, dayIndex) {
+        this.addEntryOnDay(entry, dayIndex);
       },
 
       weeklyTargetForEntry(entry) {
