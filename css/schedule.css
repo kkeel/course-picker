@@ -635,6 +635,14 @@
   line-height: 1;
   opacity: .55;
   transition: opacity .15s ease;
+  cursor: pointer !important;
+}
+
+.sched-card-remove *,
+.sched-card-remove:hover,
+.sched-card-remove:focus,
+.sched-card-remove:active{
+  cursor: pointer !important;
 }
 
 .sched-card-remove:hover{
@@ -1273,6 +1281,13 @@ body.sched-dragging .sched-card[draggable="true"]{
 
 body.sched-dragging .sched-card[draggable="true"] *{
   cursor: inherit;
+}
+
+.sched-card[draggable="true"] .sched-card-remove,
+.sched-card[draggable="true"] .sched-card-remove *,
+body.sched-dragging .sched-card[draggable="true"] .sched-card-remove,
+body.sched-dragging .sched-card[draggable="true"] .sched-card-remove *{
+  cursor: pointer !important;
 }
 
 body.sched-dragging .sched-card{
