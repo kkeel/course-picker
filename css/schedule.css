@@ -333,6 +333,26 @@
   line-height: 1.1;
 }
 
+.schedule-col-head-main{
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.schedule-col-head-totals{
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.schedule-col-total--morning{
+  display: inline-flex;
+  align-items: baseline;
+}
+
 .schedule-dropzone{
   flex: 1;
   padding: 6px;
