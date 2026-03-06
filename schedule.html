@@ -204,17 +204,9 @@
         </div>
       </div>
 
-      <!-- ✅ Shared Manage Students -->
+      <!-- Tools buttons -->
         <div class="schedule-student-tools">
           <div class="schedule-student-tools-row">
-            <button
-                type="button"
-                class="manage-students-toggle"
-                @click.stop="toggleStudentsOpen()"
-                :aria-expanded="studentsOpen ? 'true' : 'false'"
-                x-text="studentsOpen ? 'Hide Students' : 'Manage Students'"
-              ></button>
-  
             <!-- Print (same style as other pages) -->
             <button
               type="button"
@@ -234,6 +226,14 @@
               </span>
               <span>Print</span>
             </button>
+            <!-- Manage Students -->
+            <button
+                type="button"
+                class="manage-students-toggle"
+                @click.stop="toggleStudentsOpen()"
+                :aria-expanded="studentsOpen ? 'true' : 'false'"
+                x-text="studentsOpen ? 'Hide Students' : 'Manage Students'"
+              ></button>
           </div>
   
           <div class="student-manager" x-show="studentsOpen" x-transition x-cloak @click.stop>
