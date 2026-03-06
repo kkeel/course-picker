@@ -625,9 +625,8 @@
                 class="manage-students-toggle"
                 @click.stop="toggleStudentsOpen()"
                 :aria-expanded="studentsOpen ? 'true' : 'false'"
-              >
-                Manage Students
-              </button>
+                x-text="studentsOpen ? 'Hide Students' : 'Manage Students'"
+              ></button>
               <!-- List View (Full / Compact / Minimal) -->
               <div class="list-view-controls" role="group" aria-label="List view">
                 <span class="list-view-label">List view:</span>
