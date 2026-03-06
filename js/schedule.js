@@ -1607,6 +1607,7 @@ queueExpandedSync() {
           this._boardCache = {
             instancesFor: new Map(),
             dayTotalMinutes: new Map(),
+            cardDisplay: new Map(),
           };
         }
         return this._boardCache;
@@ -1647,17 +1648,7 @@ queueExpandedSync() {
         if (this._boardCache) {
           this._boardCache.instancesFor.clear();
           this._boardCache.dayTotalMinutes.clear();
-        }
-      },
-
-      boardLaneCacheKey(studentId, dayIndex) {
-        return `${String(studentId || "")}::${Number(dayIndex)}`;
-      },
-
-      invalidateBoardCaches() {
-        if (this._boardCache) {
-          this._boardCache.instancesFor.clear();
-          this._boardCache.dayTotalMinutes.clear();
+          this._boardCache.cardDisplay.clear();
         }
       },
 
@@ -3077,15 +3068,47 @@ setDayPanel(idx, dayIdx) {
         return inst ? this.templatesById?.[inst.templateId] : null;
       },
 
+      cardDisplayData(inst) {
+        if (!inst) {
+          return {
+            title: "",
+            minutes: 0,
+            symbols: "",
+            trackingCount: 0,
+            tpl: null,
+          };
+        }
+
+        const cache = this.ensureBoardCaches();
+        const key = `${String(inst.instanceId || "")}::${String(inst.templateId || "")}`;
+
+        if (cache.cardDisplay.has(key)) {
+          return cache.cardDisplay.get(key);
+        }
+
+        const tpl = this.templateForInstance(inst) || null;
+
+        const data = {
+          title: String(tpl?.title || ""),
+          minutes: Number(tpl?.minutes || 0),
+          symbols: String(tpl?.symbols || ""),
+          trackingCount: Number(tpl?.trackingCount || 0),
+          tpl,
+        };
+
+        cache.cardDisplay.set(key, data);
+        return data;
+      },
+
       
       // Inline style helper for schedule board cards
       // Used by schedule.html: :style="boardCardInlineStyle(inst)"
       // When time-scaled mode is ON, we set a CSS variable that drives exact 5-minute slot heights.
       boardCardInlineStyle(inst) {
         if (!this.boardScaleByTime) return "";
-        const tpl = this.templateForInstance(inst) || {};
-        const mRaw = Number(tpl.minutes || 0);
-        const minutes = Number.isFinite(mRaw) ? mRaw : 0;
+
+        const card = this.cardDisplayData(inst);
+        const minutes = Number.isFinite(Number(card.minutes)) ? Number(card.minutes) : 0;
 
         // 5-minute slots (5m => 1, 10m => 2, 15m => 3, etc.)
         const slots = Math.max(1, Math.ceil(Math.max(5, minutes) / 5));
@@ -3093,7 +3116,7 @@ setDayPanel(idx, dayIdx) {
         // Tight case: 5-minute lesson AND (symbols or tracking enabled) => clamp title to 2 lines.
         // Otherwise allow up to 3 lines in time-scaled mode.
         const hasSymbols = !!this.boardAddSymbols;
-        const hasTracking = !!this.boardAddTracking && Number(tpl.trackingCount || 0) > 0;
+        const hasTracking = !!this.boardAddTracking && Number(card.trackingCount || 0) > 0;
         const isTight5 = slots === 1 && (hasSymbols || hasTracking);
         const titleLines = isTight5 ? 2 : 3;
         
