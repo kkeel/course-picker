@@ -1216,19 +1216,19 @@
                                           <div class="sched-card-top">
                                             <div
                                               class="sched-card-title"
-                                              :title="(templateForInstance(inst) || {}).title || ''"
-                                              x-text="(templateForInstance(inst) || {}).title || 'Card'"
+                                              :title="cardDisplayData(inst).title || ''"
+                                              x-text="cardDisplayData(inst).title || 'Card'"
                                             ></div>
                                 
-                                            <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
+                                            <div class="sched-card-min" x-text="`${cardDisplayData(inst).minutes || 0}m`"></div>
                                           </div>
                                 
-                                          <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
+                                          <div class="sched-card-sub" x-show="boardAddSymbols" x-text="cardDisplayData(inst).symbols || ''"></div>
                                 
                                           <div
                                             class="sched-card-trackline"
-                                            x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
-                                            x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"
+                                            x-show="boardAddTracking && ((cardDisplayData(inst).trackingCount || 0) > 0)"
+                                            x-text="((cardDisplayData(inst).trackingCount || 0) > 0) ? trackingBlocks(cardDisplayData(inst).tpl) : ''"
                                           ></div>
                                 
                                           <button
@@ -1386,19 +1386,19 @@
                                           <div class="sched-card-top">
                                             <div
                                               class="sched-card-title"
-                                              :title="(templateForInstance(inst) || {}).title || ''"
-                                              x-text="(templateForInstance(inst) || {}).title || 'Card'"
+                                              :title="cardDisplayData(inst).title || ''"
+                                              x-text="cardDisplayData(inst).title || 'Card'"
                                             ></div>
                                 
-                                            <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
+                                            <div class="sched-card-min" x-text="`${cardDisplayData(inst).minutes || 0}m`"></div>
                                           </div>
                                 
-                                          <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
+                                          <div class="sched-card-sub" x-show="boardAddSymbols" x-text="cardDisplayData(inst).symbols || ''"></div>
                                 
                                           <div
                                             class="sched-card-trackline"
-                                            x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
-                                            x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"
+                                            x-show="boardAddTracking && ((cardDisplayData(inst).trackingCount || 0) > 0)"
+                                            x-text="((cardDisplayData(inst).trackingCount || 0) > 0) ? trackingBlocks(cardDisplayData(inst).tpl) : ''"
                                           ></div>
                                 
                                           <button
