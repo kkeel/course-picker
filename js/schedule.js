@@ -1602,6 +1602,48 @@ queueExpandedSync() {
         });
       },
 
+      queuePersistCards(delay = 90) {
+        try {
+          clearTimeout(this._persistCardsTimer);
+        } catch (e) {}
+
+        this._persistCardsTimer = setTimeout(() => {
+          this.persistCards();
+        }, delay);
+      },
+
+      flushPersistCards() {
+        try {
+          if (this._persistCardsTimer) {
+            clearTimeout(this._persistCardsTimer);
+            this._persistCardsTimer = null;
+          }
+        } catch (e) {}
+
+        this.persistCards();
+      },
+
+      resetDragState() {
+        this.dragState.dragging = false;
+        this.dragState.studentId = null;
+        this.dragState.dayIndex = null;
+        this.dragState.instanceId = null;
+        this.dragState.overInstanceId = null;
+        this.dragState.overPos = null;
+
+        try {
+          if (this.dragState.overEl) {
+            this.dragState.overEl.removeAttribute("data-drop-pos");
+          }
+        } catch (e) {}
+
+        this.dragState.overEl = null;
+
+        try {
+          document.body.classList.remove("sched-dragging", "sched-drop-above", "sched-drop-below");
+        } catch (e) {}
+      },
+
       // -----------------------------
       // UI controls
       // -----------------------------
@@ -2724,7 +2766,7 @@ setDayPanel(idx, dayIdx) {
           (entry) => placementEntryInstanceId(entry) !== instanceId
         );
         // keep instance in instancesById for now (safe); can GC later
-        this.persistCards();
+        this.queuePersistCards();
       },
 
       moveInstance(studentId, dayIndex, fromIndex, toIndex) {
@@ -2747,7 +2789,7 @@ setDayPanel(idx, dayIdx) {
         next.splice(toIndex, 0, moved);
       
         this.placements[studentId][dayIndex] = next;
-        this.persistCards();
+        this.queuePersistCards();
       },
 
       moveInstanceAcrossDays(studentId, fromDayIndex, toDayIndex, fromIndex, toIndex) {
@@ -2780,42 +2822,39 @@ setDayPanel(idx, dayIdx) {
         this.placements[studentId][fromDay] = fromList;
         this.placements[studentId][toDay] = toList;
       
-        this.persistCards();
+        this.queuePersistCards();
       },
 
       onDragStart(evt, studentId, dayIndex, instanceId) {
+        this.resetDragState();
+
         this.dragState.dragging = true;
         this.dragState.studentId = studentId;
         this.dragState.dayIndex = Number(dayIndex);
         this.dragState.instanceId = instanceId;
-        this.dragState.overInstanceId = null;
-        this.dragState.overPos = null;
-        this.dragState.overEl = null;
       
         // Required for Safari/Firefox: set some drag data
         try {
           evt.dataTransfer.effectAllowed = "move";
           evt.dataTransfer.setData("text/plain", String(instanceId));
         } catch (e) {}
+
+        try {
+          if (evt.currentTarget) evt.currentTarget.classList.add("is-drag-source");
+        } catch (e) {}
       
-        // optional: add a class to body for styling while dragging
         try { document.body.classList.add("sched-dragging"); } catch (e) {}
       },
       
-      onDragEnd() {
-        this.dragState.dragging = false;
-        this.dragState.overInstanceId = null;
-        this.dragState.overPos = null;
-      
-        // ✅ remove per-card drop marker
+      onDragEnd(evt) {
         try {
-          if (this.dragState.overEl) this.dragState.overEl.removeAttribute("data-drop-pos");
+          if (evt?.currentTarget) evt.currentTarget.classList.remove("is-drag-source");
         } catch (e) {}
-        this.dragState.overEl = null;
-      
-        try {
-          document.body.classList.remove("sched-dragging", "sched-drop-above", "sched-drop-below");
-        } catch (e) {}
+
+        this.resetDragState();
+
+        // make sure the debounced save actually lands right after the drag settles
+        this.flushPersistCards();
       },
       
       onDragOver(evt, studentId, dayIndex, overInstanceId) {
@@ -2892,12 +2931,7 @@ setDayPanel(idx, dayIdx) {
         this.moveInstanceAcrossDays(sid, fromDay, toDay, fromIndex, toIndex);
       
         // cleanup
-        this.dragState.overInstanceId = null;
-        this.dragState.overPos = null;
-      
-        try {
-          document.body.classList.remove("sched-drop-above", "sched-drop-below");
-        } catch (e) {}
+        this.resetDragState();
       },
       
       onDrop(evt, studentId, dayIndex, dropOnInstanceId) {
@@ -2934,12 +2968,7 @@ setDayPanel(idx, dayIdx) {
         this.moveInstanceAcrossDays(sid, fromDay, toDay, fromIndex, insertAt);
       
         // cleanup
-        this.dragState.overInstanceId = null;
-        this.dragState.overPos = null;
-      
-        try {
-          document.body.classList.remove("sched-drop-above", "sched-drop-below");
-        } catch (e) {}
+        this.resetDragState();
       },
 
       // Render helpers
