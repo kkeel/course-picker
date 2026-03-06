@@ -1643,8 +1643,8 @@ queueExpandedSync() {
           return;
         }
 
-        if (!Number.isFinite(weeklyTarget) || weeklyTarget < 0 || weeklyTarget > 5) {
-          this.customModalError = "Days per week must be a number between 0 and 5.";
+        if (!Number.isFinite(weeklyTarget) || weeklyTarget < 0 || weeklyTarget > 10) {
+          this.customModalError = "Days per week must be a number between 0 and 10.";
           return;
         }
       
