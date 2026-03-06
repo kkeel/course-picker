@@ -1320,9 +1320,6 @@ queueExpandedSync() {
       
         // Poll as a fallback (covers same-tab changes and missed storage events)
         this._plannerPollTimer = window.setInterval(this._plannerPoll, 1500);
-      
-        // workspace resizer (rail + schedule board height)
-        requestAnimationFrame(() => this.initWorkspaceResizer());
 
         // Ensure Expanded mode starts with correct measured heights.
         this.$nextTick(() => this.queueExpandedSync());
@@ -3000,103 +2997,6 @@ dayTotalMinutes(studentId, dayIndex) {
       
         this.persistCards();
       },
-
-      // -----------------------------
-      // Workspace height (rail + board)
-      // -----------------------------
-      setWorkspaceHeight(px) {
-        const h = Math.round(Number(px) || 0);
-        if (!h) return;
-        document.documentElement.style.setProperty("--sched-workspace-h", `${h}px`);
-      },
-
-      getWorkspaceHeightPx() {
-        // IMPORTANT: workspace height should be driven by the schedule BOARD content,
-        // not the rail list (the rail can be "endless" when unfiltered).
-        const board = document.querySelector(".schedule-board");
-        if (board) {
-          // scrollHeight captures the full content height of the board columns
-          return Math.round(board.scrollHeight || board.getBoundingClientRect().height || 0);
-        }
-
-        // fallback
-        const work = document.querySelector(".sched-work");
-        if (!work) return 0;
-        return Math.round(work.getBoundingClientRect().height || 0);
-      },
-
-      initWorkspaceResizer() {
-        const handle = document.getElementById("schedWorkspaceResize");
-        const work = document.querySelector(".sched-work");
-        if (!handle || !work) return;
-
-        // restore saved height if available
-        const saved = window.localStorage ? localStorage.getItem(WORKSPACE_H_KEY) : null;
-        if (saved) {
-          const px = parseInt(saved, 10);
-          if (Number.isFinite(px) && px > 0) this.setWorkspaceHeight(px);
-        }
-
-        setTimeout(() => {
-          try {
-            const px = this.getWorkspaceHeightPx();
-            if (px) this.setWorkspaceHeight(px);
-          } catch (e) {}
-        }, 0);
-
-        const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
-
-        const commit = () => {
-          try {
-            const px = this.getWorkspaceHeightPx();
-            if (px) localStorage.setItem(WORKSPACE_H_KEY, String(px));
-          } catch (e) {}
-        };
-
-        // pointer drag (vertical)
-        let startY = 0;
-        let startH = 0;
-
-        const onMove = (e) => {
-          const dy = e.clientY - startY;
-          const next = clamp(startH + dy, 420, 2600);
-          this.setWorkspaceHeight(next);
-        };
-
-        const onUp = () => {
-          document.body.classList.remove("is-resizing-workspace");
-          window.removeEventListener("pointermove", onMove);
-          window.removeEventListener("pointerup", onUp);
-          commit();
-        };
-
-        handle.addEventListener("pointerdown", (e) => {
-          // only left click / primary touch
-          if (e.button !== undefined && e.button !== 0) return;
-          e.preventDefault();
-          startY = e.clientY;
-          startH = this.getWorkspaceHeightPx() || Math.round(work.getBoundingClientRect().height || 0);
-          document.body.classList.add("is-resizing-workspace");
-          window.addEventListener("pointermove", onMove);
-          window.addEventListener("pointerup", onUp, { once: true });
-        });
-
-        // keyboard nudge (accessibility)
-        handle.addEventListener("keydown", (e) => {
-          const step = e.shiftKey ? 60 : 20;
-          if (e.key === "ArrowDown") {
-            e.preventDefault();
-            this.setWorkspaceHeight(clamp(this.getWorkspaceHeightPx() + step, 420, 2600));
-            commit();
-          }
-          if (e.key === "ArrowUp") {
-            e.preventDefault();
-            this.setWorkspaceHeight(clamp(this.getWorkspaceHeightPx() - step, 420, 2600));
-            commit();
-          }
-        });
-      },
-      
     };
   };
 })();
