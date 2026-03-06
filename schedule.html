@@ -205,15 +205,16 @@
       </div>
 
       <!-- ✅ Shared Manage Students -->
-      <div class="schedule-student-tools">
-        <button
-            type="button"
-            class="manage-students-toggle"
-            @click.stop="toggleStudentsOpen()"
-            :aria-expanded="studentsOpen ? 'true' : 'false'"
-            x-text="studentsOpen ? 'Hide Students' : 'Manage Students'"
-          ></button>
-
+        <div class="schedule-student-tools">
+          <div class="schedule-student-tools-row">
+            <button
+                type="button"
+                class="manage-students-toggle"
+                @click.stop="toggleStudentsOpen()"
+                :aria-expanded="studentsOpen ? 'true' : 'false'"
+                x-text="studentsOpen ? 'Hide Students' : 'Manage Students'"
+              ></button>
+  
             <!-- Print (same style as other pages) -->
             <button
               type="button"
@@ -233,8 +234,9 @@
               </span>
               <span>Print</span>
             </button>
-
-            <div class="student-manager" x-show="studentsOpen" x-transition x-cloak @click.stop>
+          </div>
+  
+          <div class="student-manager" x-show="studentsOpen" x-transition x-cloak @click.stop>
               <p class="student-manager-help">
                 Add up to 15 students. Click color buttons to change student colors.
               </p>
