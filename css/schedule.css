@@ -380,6 +380,8 @@
 .schedule-col-zone--afternoon{
   flex: 0 0 auto;
   min-height: 0;
+  border-top: 1px solid #e5e8e5;
+  background: #fbfbf9;
 }
 
 .schedule-dropzone{
@@ -398,10 +400,63 @@
 }
 
 .schedule-dropzone--afternoon{
-  min-height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+  min-height: 88px;
+  padding: 0 6px 10px;
   overflow: hidden;
+}
+
+.schedule-afternoon-divider{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px 6px;
+}
+
+.schedule-afternoon-divider::before{
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 50%;
+  height: 1px;
+  background: #d7dcd3;
+  transform: translateY(-50%);
+}
+
+.schedule-afternoon-divider-label{
+  position: relative;
+  z-index: 1;
+  padding: 0 10px;
+  background: #fbfbf9;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: #666d66;
+}
+
+.schedule-col-subtotal{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 12px 8px;
+}
+
+.schedule-col-subtotal-text{
+  font-size: 12px;
+  color: #596e5e;
+  font-weight: 700;
+  line-height: 1.1;
+  opacity: .75;
+}
+
+.schedule-afternoon-empty{
+  min-height: 56px;
+  border: 1px dashed #d2d6d2;
+  border-radius: 12px;
+  background: transparent;
 }
 
 .student-select{
