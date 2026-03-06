@@ -1764,46 +1764,6 @@ body.sched-dragging .sched-card{
   box-shadow: 0 0 0 3px rgba(89,110,94,.12) !important;
 }
 
-.sched-workspace-resize{
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  border: 1px solid rgba(0,0,0,0.10);
-  background: rgba(255,255,255,0.55);
-  backdrop-filter: blur(2px);
-  display: grid;
-  place-items: center;
-  cursor: ns-resize;
-  z-index: 20;
-}
-
-.sched-workspace-resize:hover{
-  background: rgba(255,255,255,0.80);
-}
-
-.sched-workspace-resize:active{
-  transform: translateY(1px);
-}
-
-.sched-workspace-resize svg{
-  width: 18px;
-  height: 18px;
-  opacity: 0.75;
-}
-
-.sched-workspace-resize:focus-visible{
-  outline: 2px solid #596e5e;
-  outline-offset: 2px;
-}
-
-body.is-resizing-workspace{
-  cursor: ns-resize;
-  user-select: none;
-}
-
 .schedule-student-tools{
   position: relative;
   width: 380px;
