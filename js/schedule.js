@@ -376,7 +376,8 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
     return {
       // template catalog (official sample + user custom templates)
       templatesById: {},
-      // ordered placement per student/day: placements[studentId][dayIndex] = [instanceId...]
+      // ordered placement per student/day:
+      // placements[studentId][dayIndex] = [{ instanceId, section }]
       placements: {},
       // all instances by id: instanceId -> { instanceId, templateId, createdAt }
       instancesById: {},
@@ -751,7 +752,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       ? state.templatesById
       : {};
 
-    const placements = (state.placements && typeof state.placements === "object")
+    const rawPlacements = (state.placements && typeof state.placements === "object")
       ? state.placements
       : {};
 
@@ -762,6 +763,21 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
     const choices = (state.choices && typeof state.choices === "object")
       ? { ...d.choices, ...state.choices }
       : { ...d.choices };
+
+    const placements = {};
+
+    for (const [studentId, daysObj] of Object.entries(rawPlacements)) {
+      const nextDays = { 0: [], 1: [], 2: [], 3: [], 4: [] };
+
+      for (let d = 0; d <= 4; d++) {
+        const arr = daysObj?.[d];
+        nextDays[d] = Array.isArray(arr)
+          ? arr.map((entry) => normalizePlacementEntry(entry)).filter(Boolean)
+          : [];
+      }
+
+      placements[studentId] = nextDays;
+    }
 
     const next = { templatesById, placements, instancesById, choices };
 
@@ -836,7 +852,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       // -----------------------------
       templatesById: {},      // catalog
       instancesById: {},      // instanceId -> instance
-      placements: {},         // studentId -> dayIndex -> [instanceId...]
+      placements: {},         // studentId -> dayIndex -> [{ instanceId, section }]
       choices: {
         courseOptions: {
           "picture-study": "g1-3",
