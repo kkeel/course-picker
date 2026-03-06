@@ -442,15 +442,6 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
     // If we can't resolve the source, skip it for now
     if (!source) continue;
 
-    if (sourceId === "recJOkNvdiyWNEvhn" || sourceId === "recc7G1pOR69hhyYk") {
-      console.log("DEBUG schedule source", {
-        sourceId,
-        kind,
-        isCourseGuess: !!(source.title && source.courseId),
-        source
-      });
-    }
-
     const isCourse = !!(source.title && source.courseId);
     const sourceKey = isCourse
       ? (source.courseId || source.id || id)
@@ -519,15 +510,6 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
     }
 
     templates[id] = tpl;
-    
-    if (id === "recFMBa4U75aGK7sH" || id === "rec5XUa2W0wjQbEWR") {
-      console.log("DEBUG tpl built", {
-        id,
-        title: tpl.title,
-        courseLabel: tpl.courseLabel,
-        courseKey: tpl.courseKey,
-        sourceType: tpl.sourceType
-      });
     }
   }
 
@@ -584,6 +566,36 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         instanceId,
         section: placementEntrySection(entry),
       };
+    }
+
+    function placementEntryWithSection(instanceId, section = "morning") {
+      const id = String(instanceId || "").trim();
+      if (!id) return null;
+
+      return {
+        instanceId: id,
+        section: section === "afternoon" ? "afternoon" : "morning",
+      };
+    }
+
+    function placementEntryIndex(list, instanceId) {
+      if (!Array.isArray(list) || !instanceId) return -1;
+      return list.findIndex((entry) => placementEntryInstanceId(entry) === instanceId);
+    }
+
+    function placementEntryWithSection(instanceId, section = "morning") {
+      const id = String(instanceId || "").trim();
+      if (!id) return null;
+
+      return {
+        instanceId: id,
+        section: section === "afternoon" ? "afternoon" : "morning",
+      };
+    }
+
+    function placementEntryIndex(list, instanceId) {
+      if (!Array.isArray(list) || !instanceId) return -1;
+      return list.findIndex((entry) => placementEntryInstanceId(entry) === instanceId);
     }
 
   // Sample catalog that demonstrates complexity:
@@ -1739,7 +1751,9 @@ queueExpandedSync() {
           for (let d = 0; d <= 4; d++) {
             const arr = daysObj?.[d];
             if (!Array.isArray(arr)) continue;
-            this.placements[studentId][d] = arr.filter((id) => !doomedInstanceIds.includes(id));
+            this.placements[studentId][d] = arr.filter(
+              (entry) => !doomedInstanceIds.includes(placementEntryInstanceId(entry))
+            );
           }
         }
       
@@ -2079,7 +2093,11 @@ setDayPanel(idx, dayIdx) {
       getLaneInstanceIds(studentId, dayIndex) {
         const d = Number(dayIndex);
         const arr = this.placements?.[studentId]?.[d];
-        return Array.isArray(arr) ? arr : [];
+        if (!Array.isArray(arr)) return [];
+
+        return arr
+          .map((entry) => placementEntryInstanceId(entry))
+          .filter(Boolean);
       },
 
       setCourseOption(courseKey, option) {
@@ -2106,14 +2124,6 @@ setDayPanel(idx, dayIdx) {
       },
 
       railEntryDisplay(entry) {
-        if (entry?.courseKey === "014.002.002.002" || entry?.courseKey === "004.007.001.001") {
-          console.log("DEBUG railEntryDisplay", {
-            entry,
-            chosen: (this?.choices?.courseOptions || {})[entry.courseKey],
-            activeTemplateId: entry?.activeTemplateId,
-            active: this.templatesById?.[entry?.activeTemplateId],
-          });
-        }
         if (!entry) return { title: "", sub: "", minutes: 0, symbols: "" };
       
         // SINGLE template
@@ -2463,7 +2473,10 @@ setDayPanel(idx, dayIdx) {
           createdAt: Date.now(),
         };
 
-        this.placements[studentId][dayIndex].push(instanceId);
+        const placement = placementEntryWithSection(instanceId, "morning");
+        if (!placement) return;
+
+        this.placements[studentId][dayIndex].push(placement);
         this.persistCards();
       },
 
@@ -2522,10 +2535,13 @@ setDayPanel(idx, dayIdx) {
         let used = 0;
       
         for (let d = 0; d <= 4; d++) {
-          const ids = daysObj?.[d];
-          if (!Array.isArray(ids)) continue;
+          const placements = daysObj?.[d];
+          if (!Array.isArray(placements)) continue;
       
-          for (const instId of ids) {
+          for (const placement of placements) {
+            const instId = placementEntryInstanceId(placement);
+            if (!instId) continue;
+
             const inst = this.instancesById?.[instId];
             if (!inst) continue;
       
@@ -2693,7 +2709,10 @@ setDayPanel(idx, dayIdx) {
           createdAt: Date.now(),
         };
 
-        this.placements[studentId][dayIndex].push(instanceId);
+        const placement = placementEntryWithSection(instanceId, "morning");
+        if (!placement) return;
+
+        this.placements[studentId][dayIndex].push(placement);
         this.persistCards();
       },
 
@@ -2701,7 +2720,9 @@ setDayPanel(idx, dayIdx) {
       removeInstance(studentId, dayIndex, instanceId) {
         this.ensureStudent(studentId);
         const arr = this.placements[studentId][dayIndex] || [];
-        this.placements[studentId][dayIndex] = arr.filter((id) => id !== instanceId);
+        this.placements[studentId][dayIndex] = arr.filter(
+          (entry) => placementEntryInstanceId(entry) !== instanceId
+        );
         // keep instance in instancesById for now (safe); can GC later
         this.persistCards();
       },
@@ -2862,7 +2883,7 @@ setDayPanel(idx, dayIdx) {
         if (!Array.isArray(fromList) || !Array.isArray(toList)) return;
       
         const fromId = this.dragState.instanceId;
-        const fromIndex = fromList.indexOf(fromId);
+        const fromIndex = placementEntryIndex(fromList, fromId);
         if (fromIndex === -1) return;
       
         // Dropzone drop = append to end of target column
@@ -2897,8 +2918,8 @@ setDayPanel(idx, dayIdx) {
         const fromId = this.dragState.instanceId;
         const toId = dropOnInstanceId;
       
-        const fromIndex = fromList.indexOf(fromId);
-        const hoverIndex = toList.indexOf(toId);
+        const fromIndex = placementEntryIndex(fromList, fromId);
+        const hoverIndex = placementEntryIndex(toList, toId);
       
         if (fromIndex === -1 || hoverIndex === -1) return;
       
@@ -3034,7 +3055,9 @@ dayTotalMinutes(studentId, dayIndex) {
           for (let d = 0; d <= 4; d++) {
             const arr = daysObj?.[d];
             if (!Array.isArray(arr)) continue;
-            this.placements[studentId][d] = arr.filter((id) => !doomedInstanceIds.includes(id));
+            this.placements[studentId][d] = arr.filter(
+              (entry) => !doomedInstanceIds.includes(placementEntryInstanceId(entry))
+            );
           }
         }
       
