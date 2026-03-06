@@ -1594,8 +1594,6 @@ queueExpandedSync() {
       },
 
       persistCards() {
-        this.invalidateBoardCaches();
-
         saveKey(CARDS_STORAGE_KEY, {
           templatesById: this.templatesById,
           placements: this.placements,
@@ -1612,6 +1610,44 @@ queueExpandedSync() {
           };
         }
         return this._boardCache;
+      },
+
+      boardLaneCacheKey(studentId, dayIndex) {
+        return `${String(studentId || "")}::${Number(dayIndex)}`;
+      },
+
+      invalidateBoardLane(studentId, dayIndex) {
+        const cache = this._boardCache;
+        if (!cache) return;
+
+        const key = this.boardLaneCacheKey(studentId, dayIndex);
+        cache.instancesFor.delete(key);
+        cache.dayTotalMinutes.delete(key);
+      },
+
+      invalidateBoardLanes(lanes) {
+        if (!Array.isArray(lanes) || !lanes.length) return;
+
+        const seen = new Set();
+
+        for (const lane of lanes) {
+          const studentId = lane?.studentId;
+          const dayIndex = Number(lane?.dayIndex);
+          if (!studentId || !Number.isInteger(dayIndex)) continue;
+
+          const key = this.boardLaneCacheKey(studentId, dayIndex);
+          if (seen.has(key)) continue;
+          seen.add(key);
+
+          this.invalidateBoardLane(studentId, dayIndex);
+        }
+      },
+
+      invalidateBoardCaches() {
+        if (this._boardCache) {
+          this._boardCache.instancesFor.clear();
+          this._boardCache.dayTotalMinutes.clear();
+        }
       },
 
       boardLaneCacheKey(studentId, dayIndex) {
@@ -1793,6 +1829,7 @@ queueExpandedSync() {
           };
         }
 
+        this.invalidateBoardCaches();
         this.persistCards();
         this.closeCustomCardModal();
       },
@@ -1822,6 +1859,7 @@ queueExpandedSync() {
           }
         }
       
+        this.invalidateBoardCaches();
         this.persistCards();
         this.closeCustomCardModal();
       },
@@ -2542,6 +2580,7 @@ setDayPanel(idx, dayIdx) {
         if (!placement) return;
 
         this.placements[studentId][dayIndex].push(placement);
+        this.invalidateBoardLane(studentId, dayIndex);
         this.persistCards();
       },
 
@@ -2778,6 +2817,7 @@ setDayPanel(idx, dayIdx) {
         if (!placement) return;
 
         this.placements[studentId][dayIndex].push(placement);
+        this.invalidateBoardLane(studentId, dayIndex);
         this.persistCards();
       },
 
@@ -2789,6 +2829,7 @@ setDayPanel(idx, dayIdx) {
           (entry) => placementEntryInstanceId(entry) !== instanceId
         );
         // keep instance in instancesById for now (safe); can GC later
+        this.invalidateBoardLane(studentId, dayIndex);
         this.queuePersistCards();
       },
 
@@ -2812,6 +2853,7 @@ setDayPanel(idx, dayIdx) {
         next.splice(toIndex, 0, moved);
       
         this.placements[studentId][dayIndex] = next;
+        this.invalidateBoardLane(studentId, dayIndex);
         this.queuePersistCards();
       },
 
@@ -2844,6 +2886,11 @@ setDayPanel(idx, dayIdx) {
         // write back (keeps reactivity predictable)
         this.placements[studentId][fromDay] = fromList;
         this.placements[studentId][toDay] = toList;
+
+        this.invalidateBoardLanes([
+          { studentId, dayIndex: fromDay },
+          { studentId, dayIndex: toDay },
+        ]);
       
         this.queuePersistCards();
       },
@@ -3134,6 +3181,7 @@ setDayPanel(idx, dayIdx) {
           }
         }
       
+        this.invalidateBoardCaches();
         this.persistCards();
       },
     };
