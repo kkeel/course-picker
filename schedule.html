@@ -1328,17 +1328,17 @@
                               <section class="schedule-col">
                                 <div class="schedule-col-head">
                                   <div class="schedule-col-head-main">
-                                    <div class="schedule-col-title" x-text="dayLabel(i)"></div>
+                                    <div class="schedule-col-title" x-text="getStudentName(studentId)"></div>
                                   </div>
-                                
+                              
                                   <div class="schedule-col-head-totals">
                                     <div
                                       class="schedule-col-total schedule-col-total--morning"
-                                      x-text="formatMinutes(dayTotalMinutes(panel.studentId, i))"
+                                      x-text="formatMinutes(dayTotalMinutes(studentId, panel.dayIdx))"
                                     ></div>
                                   </div>
                                 </div>
-              
+                              
                                 <div
                                   class="schedule-dropzone"
                                   :data-student="studentId"
