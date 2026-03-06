@@ -561,6 +561,31 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
     }
   }
 
+    function placementEntryInstanceId(entry) {
+      if (typeof entry === "string") return entry;
+      if (entry && typeof entry === "object" && typeof entry.instanceId === "string") {
+        return entry.instanceId;
+      }
+      return "";
+    }
+  
+    function placementEntrySection(entry) {
+      if (entry && typeof entry === "object" && entry.section === "afternoon") {
+        return "afternoon";
+      }
+      return "morning";
+    }
+  
+    function normalizePlacementEntry(entry) {
+      const instanceId = placementEntryInstanceId(entry);
+      if (!instanceId) return null;
+  
+      return {
+        instanceId,
+        section: placementEntrySection(entry),
+      };
+    }
+
   // Sample catalog that demonstrates complexity:
   // - multi-rule course (Grammar has two rules)
   // - shared topic duplicates (Church History for Bible G1 vs Bible G2)
@@ -2377,13 +2402,17 @@ setDayPanel(idx, dayIdx) {
       },
 
       entryDayCount(studentId, dayIndex, entry) {
-        const ids = this.placements?.[studentId]?.[dayIndex];
-        if (!Array.isArray(ids) || !entry) return 0;
+        const placements = this.placements?.[studentId]?.[dayIndex];
+        if (!Array.isArray(placements) || !entry) return 0;
 
         let count = 0;
-        for (const instId of ids) {
+        for (const placement of placements) {
+          const instId = placementEntryInstanceId(placement);
+          if (!instId) continue;
+
           const inst = this.instancesById?.[instId];
           if (!inst) continue;
+
           if (this.entryTemplateMatchesEntry(inst.templateId, entry)) count++;
         }
         return count;
@@ -2446,11 +2475,13 @@ setDayPanel(idx, dayIdx) {
 
         this.ensureStudent(studentId);
 
-        const ids = this.placements?.[studentId]?.[dayIndex];
-        if (!Array.isArray(ids) || !ids.length) return;
+        const placements = this.placements?.[studentId]?.[dayIndex];
+        if (!Array.isArray(placements) || !placements.length) return;
 
-        for (let idx = ids.length - 1; idx >= 0; idx--) {
-          const instId = ids[idx];
+        for (let idx = placements.length - 1; idx >= 0; idx--) {
+          const instId = placementEntryInstanceId(placements[idx]);
+          if (!instId) continue;
+
           const inst = this.instancesById?.[instId];
           if (!inst) continue;
 
@@ -2891,10 +2922,22 @@ setDayPanel(idx, dayIdx) {
       },
 
       // Render helpers
+      placementsFor(studentId, dayIndex) {
+        this.ensureStudent(studentId);
+        const placements = this.placements?.[studentId]?.[dayIndex] || [];
+
+        return placements
+          .map((placement) => normalizePlacementEntry(placement))
+          .filter(Boolean);
+      },
+
       instancesFor(studentId, dayIndex) {
         this.ensureStudent(studentId);
-        const ids = this.placements[studentId][dayIndex] || [];
-        return ids
+        const placements = this.placements?.[studentId]?.[dayIndex] || [];
+
+        return placements
+          .map((placement) => placementEntryInstanceId(placement))
+          .filter(Boolean)
           .map((id) => this.instancesById[id])
           .filter(Boolean);
       },
