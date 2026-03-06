@@ -359,6 +359,29 @@
   white-space: nowrap;
 }
 
+.schedule-col-body{
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-col-zone{
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-col-zone--morning{
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.schedule-col-zone--afternoon{
+  flex: 0 0 auto;
+  min-height: 0;
+}
+
 .schedule-dropzone{
   flex: 1;
   padding: 6px;
@@ -368,6 +391,17 @@
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.schedule-dropzone--morning{
+  min-height: 0;
+}
+
+.schedule-dropzone--afternoon{
+  min-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow: hidden;
 }
 
 .student-select{
