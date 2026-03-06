@@ -517,9 +517,13 @@
                                 <button
                                   type="button"
                                   class="sched-rail-daytoggle"
-                                  :class="entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : ''"
+                                  :class="[
+                                    entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : '',
+                                    entryDayCount(activeTarget.studentId, i, entry) >= 3 ? 'sched-rail-daytoggle--max' : ''
+                                  ]"
                                   @click="addEntryOnDay(entry, i)"
-                                  :title="`Add to ${label}`"
+                                  :disabled="entryDayCount(activeTarget.studentId, i, entry) >= 3"
+                                  :title="entryDayCount(activeTarget.studentId, i, entry) >= 3 ? `${label} already has 3 scheduled` : `Add to ${label}`"
                                 >
                                   <span x-text="dayShortLabels[i]"></span>
                                 </button>
@@ -642,9 +646,13 @@
                                 <button
                                   type="button"
                                   class="sched-rail-daytoggle"
-                                  :class="entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : ''"
+                                  :class="[
+                                    entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : '',
+                                    entryDayCount(activeTarget.studentId, i, entry) >= 3 ? 'sched-rail-daytoggle--max' : ''
+                                  ]"
                                   @click="addEntryOnDay(entry, i)"
-                                  :title="`Add to ${label}`"
+                                  :disabled="entryDayCount(activeTarget.studentId, i, entry) >= 3"
+                                  :title="entryDayCount(activeTarget.studentId, i, entry) >= 3 ? `${label} already has 3 scheduled` : `Add to ${label}`"
                                 >
                                   <span x-text="dayShortLabels[i]"></span>
                                 </button>
@@ -759,9 +767,13 @@
                                       <button
                                         type="button"
                                         class="sched-rail-daytoggle"
-                                        :class="entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : ''"
+                                        :class="[
+                                          entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : '',
+                                          entryDayCount(activeTarget.studentId, i, entry) >= 3 ? 'sched-rail-daytoggle--max' : ''
+                                        ]"
                                         @click="addEntryOnDay(entry, i)"
-                                        :title="`Add to ${label}`"
+                                        :disabled="entryDayCount(activeTarget.studentId, i, entry) >= 3"
+                                        :title="entryDayCount(activeTarget.studentId, i, entry) >= 3 ? `${label} already has 3 scheduled` : `Add to ${label}`"
                                       >
                                         <span x-text="dayShortLabels[i]"></span>
                                       </button>
@@ -877,9 +889,13 @@
                                       <button
                                         type="button"
                                         class="sched-rail-daytoggle"
-                                        :class="entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : ''"
+                                        :class="[
+                                          entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : '',
+                                          entryDayCount(activeTarget.studentId, i, entry) >= 3 ? 'sched-rail-daytoggle--max' : ''
+                                        ]"
                                         @click="addEntryOnDay(entry, i)"
-                                        :title="`Add to ${label}`"
+                                        :disabled="entryDayCount(activeTarget.studentId, i, entry) >= 3"
+                                        :title="entryDayCount(activeTarget.studentId, i, entry) >= 3 ? `${label} already has 3 scheduled` : `Add to ${label}`"
                                       >
                                         <span x-text="dayShortLabels[i]"></span>
                                       </button>
