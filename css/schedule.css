@@ -1760,15 +1760,27 @@ body.is-resizing-workspace{
   margin: 8px 0 14px;
 }
 
+.schedule-student-tools-row{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
 .schedule-student-tools .student-manager{
   right: auto;
   left: 0;
   z-index: 50;
+  margin-top: 10px;
 }
 
 .schedule-student-tools .manage-students-toggle{
   justify-content: flex-start;
   padding-left: 0;
+}
+
+.schedule-student-tools .schedule-print-btn{
+  margin-left: 0;
 }
 
 .manage-students-chevron{
