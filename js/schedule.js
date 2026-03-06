@@ -2420,6 +2420,10 @@ setDayPanel(idx, dayIdx) {
 
         this.ensureStudent(studentId);
 
+        // Cap this specific entry to 3 instances per day
+        const dayCount = this.entryDayCount(studentId, dayIndex, entry);
+        if (dayCount >= 3) return;
+
         const templateId = this.resolveEntryTemplateId(entry);
         if (!templateId) return;
 
