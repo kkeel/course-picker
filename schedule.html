@@ -513,14 +513,11 @@
 
                           <div class="sched-rail-daytoggles" aria-label="Scheduled days">
                             <template x-for="(label, i) in dayLabels" :key="i">
-                              <div
-                                class="sched-rail-daytoggle"
-                                :class="entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : ''"
-                                :title="`${label}: ${entryDayCount(activeTarget.studentId, i, entry)} scheduled`"
-                              >
+                              <div class="sched-rail-daystack">
                                 <button
                                   type="button"
-                                  class="sched-rail-daytoggle-main"
+                                  class="sched-rail-daytoggle"
+                                  :class="entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : ''"
                                   @click="addEntryOnDay(entry, i)"
                                   :title="`Add to ${label}`"
                                 >
@@ -529,25 +526,30 @@
                           
                                 <button
                                   type="button"
-                                  class="sched-rail-daytoggle-markers"
+                                  class="sched-rail-dayremove"
+                                  x-show="entryDayCount(activeTarget.studentId, i, entry) > 0"
                                   @click.stop="removeMostRecentEntryOnDay(entry, i)"
-                                  :disabled="entryDayCount(activeTarget.studentId, i, entry) === 0"
-                                  :title="entryDayCount(activeTarget.studentId, i, entry) > 0 ? `Remove most recent from ${label}` : `Nothing scheduled on ${label}`"
-                                  :aria-label="entryDayCount(activeTarget.studentId, i, entry) > 0 ? `Remove most recent ${label} instance` : `No ${label} instances to remove`"
+                                  :title="`Remove most recent from ${label}`"
+                                  :aria-label="`Remove most recent ${label} instance`"
                                 >
                                   <span
-                                    class="sched-rail-daytoggle-marker"
+                                    class="sched-rail-dayremove-marker"
                                     :class="entryDayCount(activeTarget.studentId, i, entry) >= 1 ? 'is-on' : ''"
                                   ></span>
                                   <span
-                                    class="sched-rail-daytoggle-marker"
+                                    class="sched-rail-dayremove-marker"
                                     :class="entryDayCount(activeTarget.studentId, i, entry) >= 2 ? 'is-on' : ''"
                                   ></span>
                                   <span
-                                    class="sched-rail-daytoggle-marker"
+                                    class="sched-rail-dayremove-marker"
                                     :class="entryDayCount(activeTarget.studentId, i, entry) >= 3 ? 'is-on' : ''"
                                   ></span>
                                 </button>
+                          
+                                <div
+                                  class="sched-rail-dayremove-placeholder"
+                                  x-show="entryDayCount(activeTarget.studentId, i, entry) === 0"
+                                ></div>
                               </div>
                             </template>
                           </div>
@@ -636,14 +638,11 @@
 
                           <div class="sched-rail-daytoggles" aria-label="Scheduled days">
                             <template x-for="(label, i) in dayLabels" :key="i">
-                              <div
-                                class="sched-rail-daytoggle"
-                                :class="entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : ''"
-                                :title="`${label}: ${entryDayCount(activeTarget.studentId, i, entry)} scheduled`"
-                              >
+                              <div class="sched-rail-daystack">
                                 <button
                                   type="button"
-                                  class="sched-rail-daytoggle-main"
+                                  class="sched-rail-daytoggle"
+                                  :class="entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : ''"
                                   @click="addEntryOnDay(entry, i)"
                                   :title="`Add to ${label}`"
                                 >
@@ -652,25 +651,30 @@
                           
                                 <button
                                   type="button"
-                                  class="sched-rail-daytoggle-markers"
+                                  class="sched-rail-dayremove"
+                                  x-show="entryDayCount(activeTarget.studentId, i, entry) > 0"
                                   @click.stop="removeMostRecentEntryOnDay(entry, i)"
-                                  :disabled="entryDayCount(activeTarget.studentId, i, entry) === 0"
-                                  :title="entryDayCount(activeTarget.studentId, i, entry) > 0 ? `Remove most recent from ${label}` : `Nothing scheduled on ${label}`"
-                                  :aria-label="entryDayCount(activeTarget.studentId, i, entry) > 0 ? `Remove most recent ${label} instance` : `No ${label} instances to remove`"
+                                  :title="`Remove most recent from ${label}`"
+                                  :aria-label="`Remove most recent ${label} instance`"
                                 >
                                   <span
-                                    class="sched-rail-daytoggle-marker"
+                                    class="sched-rail-dayremove-marker"
                                     :class="entryDayCount(activeTarget.studentId, i, entry) >= 1 ? 'is-on' : ''"
                                   ></span>
                                   <span
-                                    class="sched-rail-daytoggle-marker"
+                                    class="sched-rail-dayremove-marker"
                                     :class="entryDayCount(activeTarget.studentId, i, entry) >= 2 ? 'is-on' : ''"
                                   ></span>
                                   <span
-                                    class="sched-rail-daytoggle-marker"
+                                    class="sched-rail-dayremove-marker"
                                     :class="entryDayCount(activeTarget.studentId, i, entry) >= 3 ? 'is-on' : ''"
                                   ></span>
                                 </button>
+                          
+                                <div
+                                  class="sched-rail-dayremove-placeholder"
+                                  x-show="entryDayCount(activeTarget.studentId, i, entry) === 0"
+                                ></div>
                               </div>
                             </template>
                           </div>
@@ -751,14 +755,11 @@
 
                                 <div class="sched-rail-daytoggles" aria-label="Scheduled days">
                                   <template x-for="(label, i) in dayLabels" :key="i">
-                                    <div
-                                      class="sched-rail-daytoggle"
-                                      :class="entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : ''"
-                                      :title="`${label}: ${entryDayCount(activeTarget.studentId, i, entry)} scheduled`"
-                                    >
+                                    <div class="sched-rail-daystack">
                                       <button
                                         type="button"
-                                        class="sched-rail-daytoggle-main"
+                                        class="sched-rail-daytoggle"
+                                        :class="entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : ''"
                                         @click="addEntryOnDay(entry, i)"
                                         :title="`Add to ${label}`"
                                       >
@@ -767,25 +768,30 @@
                                 
                                       <button
                                         type="button"
-                                        class="sched-rail-daytoggle-markers"
+                                        class="sched-rail-dayremove"
+                                        x-show="entryDayCount(activeTarget.studentId, i, entry) > 0"
                                         @click.stop="removeMostRecentEntryOnDay(entry, i)"
-                                        :disabled="entryDayCount(activeTarget.studentId, i, entry) === 0"
-                                        :title="entryDayCount(activeTarget.studentId, i, entry) > 0 ? `Remove most recent from ${label}` : `Nothing scheduled on ${label}`"
-                                        :aria-label="entryDayCount(activeTarget.studentId, i, entry) > 0 ? `Remove most recent ${label} instance` : `No ${label} instances to remove`"
+                                        :title="`Remove most recent from ${label}`"
+                                        :aria-label="`Remove most recent ${label} instance`"
                                       >
                                         <span
-                                          class="sched-rail-daytoggle-marker"
+                                          class="sched-rail-dayremove-marker"
                                           :class="entryDayCount(activeTarget.studentId, i, entry) >= 1 ? 'is-on' : ''"
                                         ></span>
                                         <span
-                                          class="sched-rail-daytoggle-marker"
+                                          class="sched-rail-dayremove-marker"
                                           :class="entryDayCount(activeTarget.studentId, i, entry) >= 2 ? 'is-on' : ''"
                                         ></span>
                                         <span
-                                          class="sched-rail-daytoggle-marker"
+                                          class="sched-rail-dayremove-marker"
                                           :class="entryDayCount(activeTarget.studentId, i, entry) >= 3 ? 'is-on' : ''"
                                         ></span>
                                       </button>
+                                
+                                      <div
+                                        class="sched-rail-dayremove-placeholder"
+                                        x-show="entryDayCount(activeTarget.studentId, i, entry) === 0"
+                                      ></div>
                                     </div>
                                   </template>
                                 </div>
@@ -867,14 +873,11 @@
 
                                 <div class="sched-rail-daytoggles" aria-label="Scheduled days">
                                   <template x-for="(label, i) in dayLabels" :key="i">
-                                    <div
-                                      class="sched-rail-daytoggle"
-                                      :class="entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : ''"
-                                      :title="`${label}: ${entryDayCount(activeTarget.studentId, i, entry)} scheduled`"
-                                    >
+                                    <div class="sched-rail-daystack">
                                       <button
                                         type="button"
-                                        class="sched-rail-daytoggle-main"
+                                        class="sched-rail-daytoggle"
+                                        :class="entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : ''"
                                         @click="addEntryOnDay(entry, i)"
                                         :title="`Add to ${label}`"
                                       >
@@ -883,25 +886,30 @@
                                 
                                       <button
                                         type="button"
-                                        class="sched-rail-daytoggle-markers"
+                                        class="sched-rail-dayremove"
+                                        x-show="entryDayCount(activeTarget.studentId, i, entry) > 0"
                                         @click.stop="removeMostRecentEntryOnDay(entry, i)"
-                                        :disabled="entryDayCount(activeTarget.studentId, i, entry) === 0"
-                                        :title="entryDayCount(activeTarget.studentId, i, entry) > 0 ? `Remove most recent from ${label}` : `Nothing scheduled on ${label}`"
-                                        :aria-label="entryDayCount(activeTarget.studentId, i, entry) > 0 ? `Remove most recent ${label} instance` : `No ${label} instances to remove`"
+                                        :title="`Remove most recent from ${label}`"
+                                        :aria-label="`Remove most recent ${label} instance`"
                                       >
                                         <span
-                                          class="sched-rail-daytoggle-marker"
+                                          class="sched-rail-dayremove-marker"
                                           :class="entryDayCount(activeTarget.studentId, i, entry) >= 1 ? 'is-on' : ''"
                                         ></span>
                                         <span
-                                          class="sched-rail-daytoggle-marker"
+                                          class="sched-rail-dayremove-marker"
                                           :class="entryDayCount(activeTarget.studentId, i, entry) >= 2 ? 'is-on' : ''"
                                         ></span>
                                         <span
-                                          class="sched-rail-daytoggle-marker"
+                                          class="sched-rail-dayremove-marker"
                                           :class="entryDayCount(activeTarget.studentId, i, entry) >= 3 ? 'is-on' : ''"
                                         ></span>
                                       </button>
+                                
+                                      <div
+                                        class="sched-rail-dayremove-placeholder"
+                                        x-show="entryDayCount(activeTarget.studentId, i, entry) === 0"
+                                      ></div>
                                     </div>
                                   </template>
                                 </div>
