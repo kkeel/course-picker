@@ -2423,7 +2423,18 @@ setDayPanel(idx, dayIdx) {
         const templateId = this.resolveEntryTemplateId(entry);
         if (!templateId) return;
 
-        this.addInstance(studentId, dayIndex, templateId);
+        const tpl = this.templatesById?.[templateId];
+        if (!tpl) return;
+
+        const instanceId = uid("inst");
+        this.instancesById[instanceId] = {
+          instanceId,
+          templateId,
+          createdAt: Date.now(),
+        };
+
+        this.placements[studentId][dayIndex].push(instanceId);
+        this.persistCards();
       },
 
       removeMostRecentEntryOnDay(entry, dayIndex) {
