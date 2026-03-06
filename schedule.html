@@ -207,13 +207,12 @@
       <!-- ✅ Shared Manage Students -->
       <div class="schedule-student-tools">
         <button
-              type="button"
-              class="manage-students-toggle"
-              @click.stop="toggleStudentsOpen()"
-              :aria-expanded="studentsOpen ? 'true' : 'false'"
-            >
-              Manage Students
-            </button>
+            type="button"
+            class="manage-students-toggle"
+            @click.stop="toggleStudentsOpen()"
+            :aria-expanded="studentsOpen ? 'true' : 'false'"
+            x-text="studentsOpen ? 'Hide Students' : 'Manage Students'"
+          ></button>
 
             <!-- Print (same style as other pages) -->
             <button
