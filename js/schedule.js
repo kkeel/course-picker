@@ -511,7 +511,6 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
 
     templates[id] = tpl;
     }
-  }
 
   return templates;
 }
@@ -566,21 +565,6 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         instanceId,
         section: placementEntrySection(entry),
       };
-    }
-
-    function placementEntryWithSection(instanceId, section = "morning") {
-      const id = String(instanceId || "").trim();
-      if (!id) return null;
-
-      return {
-        instanceId: id,
-        section: section === "afternoon" ? "afternoon" : "morning",
-      };
-    }
-
-    function placementEntryIndex(list, instanceId) {
-      if (!Array.isArray(list) || !instanceId) return -1;
-      return list.findIndex((entry) => placementEntryInstanceId(entry) === instanceId);
     }
 
     function placementEntryWithSection(instanceId, section = "morning") {
