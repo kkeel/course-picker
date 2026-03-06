@@ -1263,8 +1263,16 @@
   cursor: grab;
 }
 
+.sched-card[draggable="true"] *{
+  cursor: inherit;
+}
+
 body.sched-dragging .sched-card[draggable="true"]{
-  cursor: grabbing;
+  cursor: grab;
+}
+
+body.sched-dragging .sched-card[draggable="true"] *{
+  cursor: inherit;
 }
 
 body.sched-dragging .sched-card{
@@ -1273,6 +1281,11 @@ body.sched-dragging .sched-card{
 
 .sched-card.is-drag-source{
   opacity: 0.65;
+  cursor: grabbing !important;
+}
+
+.sched-card.is-drag-source *{
+  cursor: grabbing !important;
 }
 
 .sched-card.is-drop-target{
