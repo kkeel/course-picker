@@ -1594,12 +1594,35 @@ queueExpandedSync() {
       },
 
       persistCards() {
+        this.invalidateBoardCaches();
+
         saveKey(CARDS_STORAGE_KEY, {
           templatesById: this.templatesById,
           placements: this.placements,
           instancesById: this.instancesById,
           choices: this.choices,
         });
+      },
+
+      ensureBoardCaches() {
+        if (!this._boardCache) {
+          this._boardCache = {
+            instancesFor: new Map(),
+            dayTotalMinutes: new Map(),
+          };
+        }
+        return this._boardCache;
+      },
+
+      boardLaneCacheKey(studentId, dayIndex) {
+        return `${String(studentId || "")}::${Number(dayIndex)}`;
+      },
+
+      invalidateBoardCaches() {
+        if (this._boardCache) {
+          this._boardCache.instancesFor.clear();
+          this._boardCache.dayTotalMinutes.clear();
+        }
       },
 
       queuePersistCards(delay = 90) {
@@ -2983,13 +3006,24 @@ setDayPanel(idx, dayIdx) {
 
       instancesFor(studentId, dayIndex) {
         this.ensureStudent(studentId);
+
+        const cache = this.ensureBoardCaches();
+        const key = this.boardLaneCacheKey(studentId, dayIndex);
+
+        if (cache.instancesFor.has(key)) {
+          return cache.instancesFor.get(key);
+        }
+
         const placements = this.placements?.[studentId]?.[dayIndex] || [];
 
-        return placements
+        const list = placements
           .map((placement) => placementEntryInstanceId(placement))
           .filter(Boolean)
           .map((id) => this.instancesById[id])
           .filter(Boolean);
+
+        cache.instancesFor.set(key, list);
+        return list;
       },
 
       templateForInstance(inst) {
@@ -3019,14 +3053,24 @@ setDayPanel(idx, dayIdx) {
         return `--time-slots:${slots};--sched-title-lines:${titleLines};`;
       },
 
-dayTotalMinutes(studentId, dayIndex) {
+      dayTotalMinutes(studentId, dayIndex) {
+        const cache = this.ensureBoardCaches();
+        const key = this.boardLaneCacheKey(studentId, dayIndex);
+
+        if (cache.dayTotalMinutes.has(key)) {
+          return cache.dayTotalMinutes.get(key);
+        }
+
         const list = this.instancesFor(studentId, dayIndex);
         let total = 0;
+
         for (const inst of list) {
           const tpl = this.templateForInstance(inst);
           const m = Number(tpl?.minutes || 0);
           if (Number.isFinite(m)) total += m;
         }
+
+        cache.dayTotalMinutes.set(key, total);
         return total;
       },
 
