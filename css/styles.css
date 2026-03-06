@@ -463,6 +463,14 @@ body {
   background: #ffffff;
   padding: 12px;
   margin-bottom: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  /* Cap the overall open manager height */
+  max-height: min(420px, calc(100vh - 180px));
+  overflow: hidden;
 }
 
 .student-manager-help{
@@ -474,10 +482,17 @@ body {
 }
 
 .student-list{
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 0;
+
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding-right: 4px;
 }
 
 .student-row{
@@ -560,9 +575,14 @@ body {
 }
 
 .student-add-row{
-  display:flex;
+  display: flex;
   gap: 10px;
-  align-items:center;
+  align-items: center;
+
+  flex: 0 0 auto;
+  padding-top: 4px;
+  border-top: 1px solid #eef1ea;
+  background: #ffffff;
 }
 
 .student-add-row input{
