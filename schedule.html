@@ -1180,69 +1180,75 @@
                                   </div>
                                 </div>
                                 
-                                <div
-                                  class="schedule-dropzone"
-                                  @click="setActiveTarget(panel.studentId, i)"
-                                  @dragover.prevent="onDropzoneDragOver($event, panel.studentId, i)"
-                                  @drop.prevent="onDropzoneDrop($event, panel.studentId, i)"
-                                >
-
-                                  <!-- Empty column placeholder (hide once first card exists) -->
-                                  <div
-                                    class="schedule-empty"
-                                    x-show="instancesFor(panel.studentId, i).length === 0"
-                                  >
-                                    Assign schedule cards from the list to this day by clicking a day button on a scheduling card.
-                                  </div>
-                                  
-                                  <!-- placed instances (Phase 2.5) -->
-                                  <template x-for="inst in instancesFor(panel.studentId, i)" :key="inst.instanceId">
-                                    <article
-                                      :class="{
-                                        'is-drop-target': dragState.dragging && dragState.overInstanceId === inst.instanceId,
-                                        'is-drag-source': dragState.dragging && dragState.instanceId === inst.instanceId
-                                      }"
-                                      class="sched-card"
-                                      :style="boardCardInlineStyle(inst)"
-                                      draggable="true"
-                                      :data-inst-id="inst.instanceId"
-                                      @dragstart="onDragStart($event, panel.studentId, i, inst.instanceId)"
-                                      @dragend="onDragEnd($event)"
-                                      @dragover.prevent="onDragOver($event, panel.studentId, i, inst.instanceId)"
-                                      @drop.prevent="onDrop($event, panel.studentId, i, inst.instanceId)"
+                                <div class="schedule-col-body">
+                                  <div class="schedule-col-zone schedule-col-zone--morning">
+                                    <div
+                                      class="schedule-dropzone schedule-dropzone--morning"
+                                      @click="setActiveTarget(panel.studentId, i)"
+                                      @dragover.prevent="onDropzoneDragOver($event, panel.studentId, i)"
+                                      @drop.prevent="onDropzoneDrop($event, panel.studentId, i)"
                                     >
-                                      <div class="sched-card-top">
-                                        <div
-                                          class="sched-card-title"
-                                          :title="(templateForInstance(inst) || {}).title || ''"
-                                          x-text="(templateForInstance(inst) || {}).title || 'Card'"
-                                        ></div>
-
-                                      <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
-                                      </div>
-
-                                      <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
-
+                                
+                                      <!-- Empty column placeholder (hide once first card exists) -->
                                       <div
-                                        class="sched-card-trackline"
-                                        x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
-                                        x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"
-                                      ></div>
-
-                                  
-                                      
-                                  
-                                      <button
-                                        type="button"
-                                        class="sched-card-remove"
-                                        title="Remove"
-                                        @click.stop="removeInstance(panel.studentId, i, inst.instanceId)"
+                                        class="schedule-empty"
+                                        x-show="instancesFor(panel.studentId, i).length === 0"
                                       >
-                                        ✕
-                                      </button>
-                                    </article>
-                                  </template>
-
+                                        Assign schedule cards from the list to this day by clicking a day button on a scheduling card.
+                                      </div>
+                                      
+                                      <!-- placed instances (Phase 2.5) -->
+                                      <template x-for="inst in instancesFor(panel.studentId, i)" :key="inst.instanceId">
+                                        <article
+                                          :class="{
+                                            'is-drop-target': dragState.dragging && dragState.overInstanceId === inst.instanceId,
+                                            'is-drag-source': dragState.dragging && dragState.instanceId === inst.instanceId
+                                          }"
+                                          class="sched-card"
+                                          :style="boardCardInlineStyle(inst)"
+                                          draggable="true"
+                                          :data-inst-id="inst.instanceId"
+                                          @dragstart="onDragStart($event, panel.studentId, i, inst.instanceId)"
+                                          @dragend="onDragEnd($event)"
+                                          @dragover.prevent="onDragOver($event, panel.studentId, i, inst.instanceId)"
+                                          @drop.prevent="onDrop($event, panel.studentId, i, inst.instanceId)"
+                                        >
+                                          <div class="sched-card-top">
+                                            <div
+                                              class="sched-card-title"
+                                              :title="(templateForInstance(inst) || {}).title || ''"
+                                              x-text="(templateForInstance(inst) || {}).title || 'Card'"
+                                            ></div>
+                                
+                                            <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
+                                          </div>
+                                
+                                          <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
+                                
+                                          <div
+                                            class="sched-card-trackline"
+                                            x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
+                                            x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"
+                                          ></div>
+                                
+                                          <button
+                                            type="button"
+                                            class="sched-card-remove"
+                                            title="Remove"
+                                            @click.stop="removeInstance(panel.studentId, i, inst.instanceId)"
+                                          >
+                                            ✕
+                                          </button>
+                                        </article>
+                                      </template>
+                                
+                                    </div>
+                                  </div>
+                                
+                                  <div class="schedule-col-zone schedule-col-zone--afternoon" aria-hidden="true">
+                                    <div class="schedule-dropzone schedule-dropzone--afternoon">
+                                    </div>
+                                  </div>
                                 </div>
 
                               </section>
@@ -1339,64 +1345,69 @@
                                   </div>
                                 </div>
                               
-                                <div
-                                  class="schedule-dropzone"
-                                  :data-student="studentId"
-                                  :data-day="panel.dayIdx"
-                                  @click="setActiveTarget(studentId, panel.dayIdx)"
-                                  @dragover.prevent="onDropzoneDragOver($event, studentId, panel.dayIdx)"
-                                  @drop.prevent="onDropzoneDrop($event, studentId, panel.dayIdx)"
-                                >
-                                  <!-- Empty column placeholder -->
-                                  <div
-                                    class="schedule-empty"
-                                    x-show="instancesFor(studentId, panel.dayIdx).length === 0"
-                                  >
-                                    Assign schedule cards from the list to this day by clicking a day button on a scheduling card.
-                                  </div>
-
-                                  <template x-for="inst in instancesFor(studentId, panel.dayIdx)" :key="inst.instanceId">
-                                    <article
-                                      class="sched-card"
-                                      :style="boardCardInlineStyle(inst)"
-                                      draggable="true"
-                                      :data-inst-id="inst.instanceId"
-                                      @dragstart="onDragStart($event, studentId, panel.dayIdx, inst.instanceId)"
-                                      @dragend="onDragEnd($event)"
-                                      @dragover.prevent="onDragOver($event, studentId, panel.dayIdx, inst.instanceId)"
-                                      @drop.prevent="onDrop($event, studentId, panel.dayIdx, inst.instanceId)"
+                                <div class="schedule-col-body">
+                                  <div class="schedule-col-zone schedule-col-zone--morning">
+                                    <div
+                                      class="schedule-dropzone schedule-dropzone--morning"
+                                      :data-student="studentId"
+                                      :data-day="panel.dayIdx"
+                                      @click="setActiveTarget(studentId, panel.dayIdx)"
+                                      @dragover.prevent="onDropzoneDragOver($event, studentId, panel.dayIdx)"
+                                      @drop.prevent="onDropzoneDrop($event, studentId, panel.dayIdx)"
                                     >
-                                      <div class="sched-card-top">
-                                        <div
-                                          class="sched-card-title"
-                                          :title="(templateForInstance(inst) || {}).title || ''"
-                                          x-text="(templateForInstance(inst) || {}).title || 'Card'"
-                                        ></div>
-
-                                      <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
-                                      </div>
-
-                                      <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
-
+                                      <!-- Empty column placeholder -->
                                       <div
-                                        class="sched-card-trackline"
-                                        x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
-                                        x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"
-                                      ></div>
-
-              
-                                      
-              
-                                      <button
-                                        type="button"
-                                        class="sched-card-remove"
-                                        title="Remove"
-                                        @click.stop="removeInstance(studentId, panel.dayIdx, inst.instanceId)"
+                                        class="schedule-empty"
+                                        x-show="instancesFor(studentId, panel.dayIdx).length === 0"
                                       >
-                                        ✕
-                                      </button>
-                                    </article>
-                                  </template>
+                                        Assign schedule cards from the list to this day by clicking a day button on a scheduling card.
+                                      </div>
+                                
+                                      <template x-for="inst in instancesFor(studentId, panel.dayIdx)" :key="inst.instanceId">
+                                        <article
+                                          class="sched-card"
+                                          :style="boardCardInlineStyle(inst)"
+                                          draggable="true"
+                                          :data-inst-id="inst.instanceId"
+                                          @dragstart="onDragStart($event, studentId, panel.dayIdx, inst.instanceId)"
+                                          @dragend="onDragEnd($event)"
+                                          @dragover.prevent="onDragOver($event, studentId, panel.dayIdx, inst.instanceId)"
+                                          @drop.prevent="onDrop($event, studentId, panel.dayIdx, inst.instanceId)"
+                                        >
+                                          <div class="sched-card-top">
+                                            <div
+                                              class="sched-card-title"
+                                              :title="(templateForInstance(inst) || {}).title || ''"
+                                              x-text="(templateForInstance(inst) || {}).title || 'Card'"
+                                            ></div>
+                                
+                                            <div class="sched-card-min" x-text="`${(templateForInstance(inst) || {}).minutes || 0}m`"></div>
+                                          </div>
+                                
+                                          <div class="sched-card-sub" x-show="boardAddSymbols" x-text="(templateForInstance(inst) || {}).symbols || ''"></div>
+                                
+                                          <div
+                                            class="sched-card-trackline"
+                                            x-show="boardAddTracking && (((templateForInstance(inst) || {}).trackingCount || 0) > 0)"
+                                            x-text="(((templateForInstance(inst) || {}).trackingCount || 0) > 0) ? trackingBlocks(templateForInstance(inst)) : ''"
+                                          ></div>
+                                
+                                          <button
+                                            type="button"
+                                            class="sched-card-remove"
+                                            title="Remove"
+                                            @click.stop="removeInstance(studentId, panel.dayIdx, inst.instanceId)"
+                                          >
+                                            ✕
+                                          </button>
+                                        </article>
+                                      </template>
+                                    </div>
+                                  </div>
+                                
+                                  <div class="schedule-col-zone schedule-col-zone--afternoon" aria-hidden="true">
+                                    <div class="schedule-dropzone schedule-dropzone--afternoon"></div>
+                                  </div>
                                 </div>
                               </section>
                             </template>
