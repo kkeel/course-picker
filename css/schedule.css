@@ -597,23 +597,33 @@
 
 .sched-rail-daytoggles{
   display: flex;
-  gap: 4px;
+  gap: 6px;
   align-items: flex-end;
   margin-left: auto;
 }
 
+.sched-rail-daystack{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
 .sched-rail-daytoggle{
-  width: 20px;
-  min-width: 20px;
   height: 18px;
+  min-width: 20px;
+  padding: 0 4px;
   border-radius: 5px;
+  letter-spacing: .01em;
   border: 1px solid #d2d6d2;
   background: #fff;
   color: #596e5e;
-  overflow: hidden;
+  font-size: 11px;
+  line-height: 1;
   display: inline-flex;
-  flex-direction: column;
-  justify-content: stretch;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
 }
 
 .sched-rail-daytoggle--on{
@@ -622,57 +632,38 @@
   color: #596e5e;
 }
 
-.sched-rail-daytoggle-main{
-  flex: 1 1 auto;
-  min-height: 0;
-  border: 0;
-  background: transparent;
-  color: inherit;
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: .01em;
+.sched-rail-dayremove{
+  min-width: 20px;
+  height: 6px;
+  padding: 0 2px;
+  border-radius: 999px;
+  border: 1px solid rgba(89,110,94,.18);
+  background: rgba(89,110,94,.05);
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-.sched-rail-daytoggle-main:hover{
-  background: rgba(89,110,94,.06);
-}
-
-.sched-rail-daytoggle-markers{
-  height: 5px;
-  min-height: 5px;
-  border: 0;
-  border-top: 1px solid rgba(89,110,94,.08);
-  background: transparent;
-  padding: 0 2px 1px;
-  display: flex;
-  align-items: flex-end;
   justify-content: center;
   gap: 1px;
   cursor: pointer;
 }
 
-.sched-rail-daytoggle-markers:disabled{
-  cursor: default;
+.sched-rail-dayremove:hover{
+  background: rgba(89,110,94,.10);
+  border-color: rgba(89,110,94,.28);
 }
 
-.sched-rail-daytoggle-markers:hover:not(:disabled){
-  background: rgba(89,110,94,.06);
+.sched-rail-dayremove-placeholder{
+  min-width: 20px;
+  height: 6px;
 }
 
-.sched-rail-daytoggle-marker{
+.sched-rail-dayremove-marker{
   width: 3px;
   height: 1px;
   border-radius: 999px;
   background: transparent;
-  opacity: .95;
 }
 
-.sched-rail-daytoggle-marker.is-on{
+.sched-rail-dayremove-marker.is-on{
   background: #596e5e;
 }
 
