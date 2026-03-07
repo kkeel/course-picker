@@ -3004,3 +3004,23 @@ body.sched-dragging .sched-card{
   min-height: 0;
   margin-top: 0;
 }
+
+.schedule-dropzone.is-dropzone-target{
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 2px rgba(89,110,94,.28);
+  background: rgba(89,110,94,.05);
+}
+
+.schedule-dropzone--morning.is-dropzone-target{
+  background: rgba(89,110,94,.05);
+}
+
+.schedule-dropzone--afternoon.is-dropzone-target{
+  background: rgba(89,110,94,.06);
+}
+
+.schedule-dropzone.is-dropzone-target .schedule-empty,
+.schedule-dropzone.is-dropzone-target .schedule-afternoon-empty{
+  border-color: rgba(89,110,94,.45);
+  background: rgba(89,110,94,.06);
+}
