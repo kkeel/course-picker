@@ -1621,9 +1621,15 @@ queueExpandedSync() {
         const cache = this._boardCache;
         if (!cache) return;
 
-        const key = this.boardLaneCacheKey(studentId, dayIndex);
-        cache.instancesFor.delete(key);
-        cache.dayTotalMinutes.delete(key);
+        const baseKey = this.boardLaneCacheKey(studentId, dayIndex);
+
+        // section-aware instance caches
+        cache.instancesFor.delete(`${baseKey}::morning`);
+        cache.instancesFor.delete(`${baseKey}::afternoon`);
+
+        // section-aware total caches
+        cache.dayTotalMinutes.delete(`${baseKey}::total::morning`);
+        cache.dayTotalMinutes.delete(`${baseKey}::total::afternoon`);
       },
 
       invalidateBoardLanes(lanes) {
