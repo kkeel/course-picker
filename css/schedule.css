@@ -3001,5 +3001,5 @@ body.sched-dragging .sched-card{
 /* Afternoon section should sit after the flexible morning area */
 .schedule-col-zone--afternoon{
   flex: 0 0 auto;
-  margin-top: auto;
+  margin-top: 0;
 }
