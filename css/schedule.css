@@ -3024,3 +3024,17 @@ body.sched-dragging .sched-card{
   border-color: rgba(89,110,94,.45);
   background: rgba(89,110,94,.06);
 }
+
+.schedule-drop-tail{
+  min-height: 30px;
+  margin-top: 2px;
+  border: 1px dashed #d7dcd3;
+  border-radius: 12px;
+  background: rgba(255,255,255,.18);
+  transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease;
+}
+
+.schedule-dropzone.is-dropzone-target .schedule-drop-tail{
+  border-color: rgba(89,110,94,.45);
+  background: rgba(89,110,94,.06);
+}
