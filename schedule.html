@@ -1184,9 +1184,10 @@
                                   <div class="schedule-col-zone schedule-col-zone--morning">
                                     <div
                                       class="schedule-dropzone schedule-dropzone--morning"
+                                      data-section="morning"
                                       @click="setActiveTarget(panel.studentId, i)"
-                                      @dragover.prevent="onDropzoneDragOver($event, panel.studentId, i)"
-                                      @drop.prevent="onDropzoneDrop($event, panel.studentId, i)"
+                                      @dragover.prevent="onDropzoneDragOver($event, panel.studentId, i, 'morning')"
+                                      @drop.prevent="onDropzoneDrop($event, panel.studentId, i, 'morning')"
                                     >
                                 
                                       <!-- Empty column placeholder (hide once first card exists) -->
@@ -1204,10 +1205,10 @@
                                           :style="boardCardInlineStyle(inst)"
                                           draggable="true"
                                           :data-inst-id="inst.instanceId"
-                                          @dragstart="onDragStart($event, panel.studentId, i, inst.instanceId)"
+                                          @dragstart="onDragStart($event, panel.studentId, i, inst.instanceId, 'morning')"
                                           @dragend="onDragEnd($event)"
-                                          @dragover.prevent="onDragOver($event, panel.studentId, i, inst.instanceId)"
-                                          @drop.prevent="onDrop($event, panel.studentId, i, inst.instanceId)"
+                                          @dragover.prevent="onDragOver($event, panel.studentId, i, inst.instanceId, 'morning')"
+                                          @drop.prevent="onDrop($event, panel.studentId, i, inst.instanceId, 'morning')"
                                         >
                                           <div class="sched-card-top">
                                             <div
@@ -1253,7 +1254,13 @@
                                       ></span>
                                     </div>
                                   
-                                    <div class="schedule-dropzone schedule-dropzone--afternoon">
+                                    <div
+                                      class="schedule-dropzone schedule-dropzone--afternoon"
+                                      data-section="afternoon"
+                                      @click="setActiveTarget(panel.studentId, i)"
+                                      @dragover.prevent="onDropzoneDragOver($event, panel.studentId, i, 'afternoon')"
+                                      @drop.prevent="onDropzoneDrop($event, panel.studentId, i, 'afternoon')"
+                                    >
                                       <div
                                         class="schedule-afternoon-empty"
                                         x-show="instancesForSection(panel.studentId, i, 'afternoon').length === 0"
@@ -1265,10 +1272,10 @@
                                           :style="boardCardInlineStyle(inst)"
                                           draggable="true"
                                           :data-inst-id="inst.instanceId"
-                                          @dragstart="onDragStart($event, panel.studentId, i, inst.instanceId)"
+                                          @dragstart="onDragStart($event, panel.studentId, i, inst.instanceId, 'afternoon')"
                                           @dragend="onDragEnd($event)"
-                                          @dragover.prevent="onDragOver($event, panel.studentId, i, inst.instanceId)"
-                                          @drop.prevent="onDrop($event, panel.studentId, i, inst.instanceId)"
+                                          @dragover.prevent="onDragOver($event, panel.studentId, i, inst.instanceId, 'afternoon')"
+                                          @drop.prevent="onDrop($event, panel.studentId, i, inst.instanceId, 'afternoon')"
                                         >
                                           <div class="sched-card-top">
                                             <div
@@ -1402,9 +1409,10 @@
                                       class="schedule-dropzone schedule-dropzone--morning"
                                       :data-student="studentId"
                                       :data-day="panel.dayIdx"
+                                      data-section="morning"
                                       @click="setActiveTarget(studentId, panel.dayIdx)"
-                                      @dragover.prevent="onDropzoneDragOver($event, studentId, panel.dayIdx)"
-                                      @drop.prevent="onDropzoneDrop($event, studentId, panel.dayIdx)"
+                                      @dragover.prevent="onDropzoneDragOver($event, studentId, panel.dayIdx, 'morning')"
+                                      @drop.prevent="onDropzoneDrop($event, studentId, panel.dayIdx, 'morning')"
                                     >
                                       <!-- Empty column placeholder -->
                                       <div
@@ -1420,10 +1428,10 @@
                                           :style="boardCardInlineStyle(inst)"
                                           draggable="true"
                                           :data-inst-id="inst.instanceId"
-                                          @dragstart="onDragStart($event, studentId, panel.dayIdx, inst.instanceId)"
+                                          @dragstart="onDragStart($event, studentId, panel.dayIdx, inst.instanceId, 'morning')"
                                           @dragend="onDragEnd($event)"
-                                          @dragover.prevent="onDragOver($event, studentId, panel.dayIdx, inst.instanceId)"
-                                          @drop.prevent="onDrop($event, studentId, panel.dayIdx, inst.instanceId)"
+                                          @dragover.prevent="onDragOver($event, studentId, panel.dayIdx, inst.instanceId, 'morning')"
+                                          @drop.prevent="onDrop($event, studentId, panel.dayIdx, inst.instanceId, 'morning')"
                                         >
                                           <div class="sched-card-top">
                                             <div
@@ -1468,7 +1476,15 @@
                                       ></span>
                                     </div>
                                   
-                                    <div class="schedule-dropzone schedule-dropzone--afternoon">
+                                    <div
+                                      class="schedule-dropzone schedule-dropzone--afternoon"
+                                      :data-student="studentId"
+                                      :data-day="panel.dayIdx"
+                                      data-section="afternoon"
+                                      @click="setActiveTarget(studentId, panel.dayIdx)"
+                                      @dragover.prevent="onDropzoneDragOver($event, studentId, panel.dayIdx, 'afternoon')"
+                                      @drop.prevent="onDropzoneDrop($event, studentId, panel.dayIdx, 'afternoon')"
+                                    >
                                       <div
                                         class="schedule-afternoon-empty"
                                         x-show="instancesForSection(studentId, panel.dayIdx, 'afternoon').length === 0"
@@ -1480,10 +1496,10 @@
                                           :style="boardCardInlineStyle(inst)"
                                           draggable="true"
                                           :data-inst-id="inst.instanceId"
-                                          @dragstart="onDragStart($event, studentId, panel.dayIdx, inst.instanceId)"
+                                          @dragstart="onDragStart($event, studentId, panel.dayIdx, inst.instanceId, 'afternoon')"
                                           @dragend="onDragEnd($event)"
-                                          @dragover.prevent="onDragOver($event, studentId, panel.dayIdx, inst.instanceId)"
-                                          @drop.prevent="onDrop($event, studentId, panel.dayIdx, inst.instanceId)"
+                                          @dragover.prevent="onDragOver($event, studentId, panel.dayIdx, inst.instanceId, 'afternoon')"
+                                          @drop.prevent="onDrop($event, studentId, panel.dayIdx, inst.instanceId, 'afternoon')"
                                         >
                                           <div class="sched-card-top">
                                             <div
