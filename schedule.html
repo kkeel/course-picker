@@ -1241,7 +1241,12 @@
                                           </button>
                                         </article>
                                       </template>
-                                
+                                      <div
+                                        class="schedule-drop-tail"
+                                        x-show="instancesForSection(panel.studentId, i, 'morning').length > 0"
+                                        @dragover.prevent="onDropzoneDragOver($event, panel.studentId, i, 'morning')"
+                                        @drop.prevent="onDropzoneDrop($event, panel.studentId, i, 'morning')"
+                                      ></div>
                                     </div>
                                   </div>
                                 
@@ -1308,6 +1313,12 @@
                                           </button>
                                         </article>
                                       </template>
+                                      <div
+                                        class="schedule-drop-tail"
+                                        x-show="instancesForSection(panel.studentId, i, 'afternoon').length > 0"
+                                        @dragover.prevent="onDropzoneDragOver($event, panel.studentId, i, 'afternoon')"
+                                        @drop.prevent="onDropzoneDrop($event, panel.studentId, i, 'afternoon')"
+                                      ></div>
                                     </div>
                                   </div>
                                 </div>
@@ -1470,6 +1481,12 @@
                                           </button>
                                         </article>
                                       </template>
+                                      <div
+                                        class="schedule-drop-tail"
+                                        x-show="instancesForSection(studentId, panel.dayIdx, 'morning').length > 0"
+                                        @dragover.prevent="onDropzoneDragOver($event, studentId, panel.dayIdx, 'morning')"
+                                        @drop.prevent="onDropzoneDrop($event, studentId, panel.dayIdx, 'morning')"
+                                      ></div>
                                     </div>
                                   </div>
                                 
@@ -1540,6 +1557,12 @@
                                       </template>
                                     </div>
                                   </div>
+                                  <div
+                                    class="schedule-drop-tail"
+                                    x-show="instancesForSection(studentId, panel.dayIdx, 'afternoon').length > 0"
+                                    @dragover.prevent="onDropzoneDragOver($event, studentId, panel.dayIdx, 'afternoon')"
+                                    @drop.prevent="onDropzoneDrop($event, studentId, panel.dayIdx, 'afternoon')"
+                                  ></div>
                                 </div>
                               </section>
                             </template>
