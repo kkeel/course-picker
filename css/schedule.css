@@ -3057,7 +3057,6 @@ body.sched-dragging .sched-card{
   display: inline-flex;
   align-items: stretch;
   height: 18px;
-  border: 1px solid #d2d6d2;
   border-radius: 999px;
   background: #fff;
   overflow: hidden;
@@ -3067,8 +3066,8 @@ body.sched-dragging .sched-card{
 .sched-rail-placement-btn{
   min-width: 24px;
   padding: 0 8px;
-  border: 0;
-  background: transparent;
+  border: 1px solid #d2d6d2;
+  background: #fff;
   color: #666d66;
   font-size: 11px;
   line-height: 18px;
@@ -3077,24 +3076,30 @@ body.sched-dragging .sched-card{
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  position: relative;
+}
+
+.sched-rail-placement-btn:first-child{
+  border-right: 0;
+  border-radius: 999px 0 0 999px;
+}
+
+.sched-rail-placement-btn:last-child{
+  border-left: 0;
+  border-radius: 0 999px 999px 0;
 }
 
 .sched-rail-placement-btn:hover{
   color: #596e5e;
 }
 
-/* Active side should match the active day buttons */
 .sched-rail-placement-btn.is-active{
+  border-color: #596e5e;
   background: rgba(89,110,94,.10);
   color: #596e5e;
+  z-index: 1;
 }
 
-/* Whole pill outline matches active day buttons when either side is active */
-.sched-rail-placement-toggle:has(.sched-rail-placement-btn.is-active){
-  border-color: #596e5e;
-}
-
-/* Divider stays visible and darker than the fill */
 .sched-rail-placement-divider{
   width: 1px;
   align-self: stretch;
@@ -3102,8 +3107,12 @@ body.sched-dragging .sched-card{
   flex: 0 0 auto;
 }
 
-.sched-rail-placement-toggle:has(.sched-rail-placement-btn.is-active) .sched-rail-placement-divider{
-  background: rgba(89,110,94,.28);
+.sched-rail-placement-btn.is-active + .sched-rail-placement-divider{
+  background: rgba(89,110,94,.32);
+}
+
+.sched-rail-placement-toggle:has(.sched-rail-placement-btn--aft.is-active) .sched-rail-placement-divider{
+  background: rgba(89,110,94,.32);
 }
 
 /* Lift the afternoon symbol so it reads like "_" without sitting too low */
