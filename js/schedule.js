@@ -3065,11 +3065,14 @@ setDayPanel(idx, dayIdx) {
         this.dragState.overEl = null;
       
         try {
-          if (this.dragState.overZoneEl && this.dragState.overZoneEl !== evt.currentTarget) {
+          const zoneEl = evt.currentTarget.closest(".schedule-dropzone") || evt.currentTarget;
+      
+          if (this.dragState.overZoneEl && this.dragState.overZoneEl !== zoneEl) {
             this.dragState.overZoneEl.classList.remove("is-dropzone-target");
           }
-          evt.currentTarget.classList.add("is-dropzone-target");
-          this.dragState.overZoneEl = evt.currentTarget;
+      
+          zoneEl.classList.add("is-dropzone-target");
+          this.dragState.overZoneEl = zoneEl;
         } catch (e) {}
       },
       
