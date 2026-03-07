@@ -1875,10 +1875,23 @@ body.sched-dragging .sched-card{
   flex: 0 0 auto;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
-  border-top: none !important;
-  background: transparent !important;
+  border-top: 1px solid #e5e8e5 !important;
+  background: #fff !important;
   margin: 0 !important;
   padding: 12px 16px 16px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sched-rail-btn--completed{
+  background: #fff !important;
+  border: 1px solid #d2d6d2 !important;
+  color: #596e5e !important;
+}
+
+.sched-rail-btn--completed:hover{
+  background: rgba(89,110,94,.06) !important;
 }
 
 .sched-rail-bottom .sched-rail-btn{
