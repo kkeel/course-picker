@@ -500,7 +500,7 @@
                                       @click="openCustomCardModal('adjust', railEntryTemplateId(entry))">
                                 ✎
                               </button>
-
+                        
                               <button type="button"
                                       class="sched-rail-action-btn"
                                       title="Remove custom card"
@@ -510,54 +510,77 @@
                               </button>
                             </div>
                           </div>
-
-                          <div class="sched-rail-daytoggles" aria-label="Scheduled days">
-                            <template x-for="(label, i) in dayLabels" :key="i">
-                              <div class="sched-rail-daystack">
-                                <button
-                                  type="button"
-                                  class="sched-rail-daytoggle"
-                                  :class="[
-                                    entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : '',
-                                    entryDayCount(activeTarget.studentId, i, entry) >= 3 ? 'sched-rail-daytoggle--max' : ''
-                                  ]"
-                                  @click="addEntryOnDay(entry, i)"
-                                  :disabled="entryDayCount(activeTarget.studentId, i, entry) >= 3"
-                                  :title="entryDayCount(activeTarget.studentId, i, entry) >= 3 ? `${label} already has 3 scheduled` : `Add to ${label}`"
-                                >
-                                  <span x-text="dayShortLabels[i]"></span>
-                                </button>
-                          
-                                <button
-                                  type="button"
-                                  class="sched-rail-dayremove"
-                                  x-show="entryDayCount(activeTarget.studentId, i, entry) > 0"
-                                  @click.stop="removeMostRecentEntryOnDay(entry, i)"
-                                  :title="`Remove most recent from ${label}`"
-                                  :aria-label="`Remove most recent ${label} instance`"
-                                >
-                                  <span
-                                    class="sched-rail-dayremove-marker"
-                                    :class="entryDayCount(activeTarget.studentId, i, entry) >= 1 ? 'is-on' : ''"
-                                  ></span>
-                                  <span
-                                    class="sched-rail-dayremove-marker"
-                                    :class="entryDayCount(activeTarget.studentId, i, entry) >= 2 ? 'is-on' : ''"
-                                  ></span>
-                                  <span
-                                    class="sched-rail-dayremove-marker"
-                                    :class="entryDayCount(activeTarget.studentId, i, entry) >= 3 ? 'is-on' : ''"
-                                  ></span>
-                                </button>
-                          
-                                <div
-                                  class="sched-rail-dayremove-placeholder"
-                                  x-show="entryDayCount(activeTarget.studentId, i, entry) === 0"
-                                ></div>
-                              </div>
-                            </template>
+                        
+                          <div class="sched-rail-daycontrols">
+                            <div class="sched-rail-placement-toggle" aria-label="Placement section">
+                              <button
+                                type="button"
+                                class="sched-rail-placement-btn"
+                                :class="railPlacementSection === 'morning' ? 'is-active' : ''"
+                                @click="railPlacementSection = 'morning'; persistUi()"
+                                title="Add to Morning"
+                                aria-label="Add to Morning"
+                              >*</button>
+                        
+                              <button
+                                type="button"
+                                class="sched-rail-placement-btn"
+                                :class="railPlacementSection === 'afternoon' ? 'is-active' : ''"
+                                @click="railPlacementSection = 'afternoon'; persistUi()"
+                                title="Add to Afternoon"
+                                aria-label="Add to Afternoon"
+                              >_</button>
+                            </div>
+                        
+                            <div class="sched-rail-daytoggles" aria-label="Scheduled days">
+                              <template x-for="(label, i) in dayLabels" :key="i">
+                                <div class="sched-rail-daystack">
+                                  <button
+                                    type="button"
+                                    class="sched-rail-daytoggle"
+                                    :class="[
+                                      entryDayCount(activeTarget.studentId, i, entry) > 0 ? 'sched-rail-daytoggle--on' : '',
+                                      entryDayCount(activeTarget.studentId, i, entry) >= 3 ? 'sched-rail-daytoggle--max' : ''
+                                    ]"
+                                    @click="addEntryOnDay(entry, i)"
+                                    :disabled="entryDayCount(activeTarget.studentId, i, entry) >= 3"
+                                    :title="entryDayCount(activeTarget.studentId, i, entry) >= 3 ? `${label} already has 3 scheduled` : `Add to ${label}`"
+                                  >
+                                    <span x-text="dayShortLabels[i]"></span>
+                                  </button>
+                        
+                                  <button
+                                    type="button"
+                                    class="sched-rail-dayremove"
+                                    x-show="entryDayCount(activeTarget.studentId, i, entry) > 0"
+                                    @click.stop="removeMostRecentEntryOnDay(entry, i)"
+                                    :title="`Remove most recent from ${label}`"
+                                    :aria-label="`Remove most recent ${label} instance`"
+                                  >
+                                    <span
+                                      class="sched-rail-dayremove-marker"
+                                      :class="entryDayCount(activeTarget.studentId, i, entry) >= 1 ? 'is-on' : ''"
+                                    ></span>
+                                    <span
+                                      class="sched-rail-dayremove-marker"
+                                      :class="entryDayCount(activeTarget.studentId, i, entry) >= 2 ? 'is-on' : ''"
+                                    ></span>
+                                    <span
+                                      class="sched-rail-dayremove-marker"
+                                      :class="entryDayCount(activeTarget.studentId, i, entry) >= 3 ? 'is-on' : ''"
+                                    ></span>
+                                  </button>
+                        
+                                  <div
+                                    class="sched-rail-dayremove-placeholder"
+                                    x-show="entryDayCount(activeTarget.studentId, i, entry) === 0"
+                                  ></div>
+                                </div>
+                              </template>
+                            </div>
                           </div>
                         </div>
+                        
                       </div>
                     </template>
 
@@ -739,28 +762,28 @@
                                   </template>
                                 </div>
                               </div>
-
                               
-                              <div class="sched-rail-footer">
-                                <div class="sched-rail-footer-left">
-                                  <div class="sched-rail-actions">
-                                    <button type="button"
-                                            class="sched-rail-action-btn"
-                                            title="Edit card settings"
-                                            @click="openCustomCardModal('adjust', railEntryTemplateId(entry))">
-                                      ✎
-                                    </button>
-
-                                    <button type="button"
-                                            class="sched-rail-action-btn"
-                                            title="Remove custom card"
-                                            x-show="String(railEntryTemplateId(entry) || '').startsWith('u:')"
-                                            @click="openCustomCardModal('delete', railEntryTemplateId(entry))">
-                                      ✕
-                                    </button>
-                                  </div>
+                              <div class="sched-rail-daycontrols">
+                                <div class="sched-rail-placement-toggle" aria-label="Placement section">
+                                  <button
+                                    type="button"
+                                    class="sched-rail-placement-btn"
+                                    :class="railPlacementSection === 'morning' ? 'is-active' : ''"
+                                    @click="railPlacementSection = 'morning'; persistUi()"
+                                    title="Add to Morning"
+                                    aria-label="Add to Morning"
+                                  >*</button>
+                              
+                                  <button
+                                    type="button"
+                                    class="sched-rail-placement-btn"
+                                    :class="railPlacementSection === 'afternoon' ? 'is-active' : ''"
+                                    @click="railPlacementSection = 'afternoon'; persistUi()"
+                                    title="Add to Afternoon"
+                                    aria-label="Add to Afternoon"
+                                  >_</button>
                                 </div>
-
+                              
                                 <div class="sched-rail-daytoggles" aria-label="Scheduled days">
                                   <template x-for="(label, i) in dayLabels" :key="i">
                                     <div class="sched-rail-daystack">
@@ -777,7 +800,7 @@
                                       >
                                         <span x-text="dayShortLabels[i]"></span>
                                       </button>
-                                
+                              
                                       <button
                                         type="button"
                                         class="sched-rail-dayremove"
@@ -799,7 +822,7 @@
                                           :class="entryDayCount(activeTarget.studentId, i, entry) >= 3 ? 'is-on' : ''"
                                         ></span>
                                       </button>
-                                
+                              
                                       <div
                                         class="sched-rail-dayremove-placeholder"
                                         x-show="entryDayCount(activeTarget.studentId, i, entry) === 0"
@@ -808,6 +831,7 @@
                                   </template>
                                 </div>
                               </div>
+                              
                             </div>
                           </template>
 
