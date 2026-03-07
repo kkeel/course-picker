@@ -163,27 +163,32 @@
         { slot: "D5", dayIdx: 4 }, // Fri
       ],
       dayViewStudentSlots: ["S1", "S2", "S3", "S4", "S5"],
+  
       // Left rail UI
       railDockOpen: true,
       railTopCollapsed: false,
       railDockCollapsed: false,
       showCompleted: false,
+  
       // Rail filters (affect rail ONLY — never the schedule columns)
       railGradeFilter: "", // "" = all; otherwise "G1".."G12"
       railMyCoursesOnly: false,
       railStudentAssignedOnly: true,
-
       railSearch: "", // rail title search
-
+  
+      // NEW: rail add placement target (Phase 5)
+      // morning remains the default
+      railPlacementSection: "morning",
+  
       // Rail header "target student" selector (persists across refresh)
       activeTargetStudentId: "S1",
       activeTargetDayIndex: 0,
-
+  
       // Schedule board card style (Phase 1 persistence only)
       boardAddSymbols: true,
       boardAddTracking: true,
       boardScaleByTime: false,
-
+  
       expandedMode: false,
     };
   }
@@ -245,19 +250,20 @@ panels = panels.map((p) => {
   return p;
 });
 
-    const railTopCollapsed = typeof state?.railTopCollapsed === 'boolean' ? state.railTopCollapsed : d.railTopCollapsed;
-    const showCompleted = typeof state?.showCompleted === 'boolean' ? state.showCompleted : d.showCompleted;
+    const railTopCollapsed = typeof state?.railTopCollapsed === "boolean" ? state.railTopCollapsed : d.railTopCollapsed;
+    const showCompleted = typeof state?.showCompleted === "boolean" ? state.showCompleted : d.showCompleted;
     const railDockOpen = typeof state?.railDockOpen === "boolean" ? state.railDockOpen : d.railDockOpen;
-
+    
     // Rail filters (rail ONLY)
-    const railGradeFilterRaw = typeof state?.railGradeFilter === 'string' ? state.railGradeFilter : d.railGradeFilter;
+    const railGradeFilterRaw = typeof state?.railGradeFilter === "string" ? state.railGradeFilter : d.railGradeFilter;
     const railGradeFilter = (/^G([1-9]|1[0-2])$/).test(railGradeFilterRaw) ? railGradeFilterRaw : "";
-    const railMyCoursesOnly = typeof state?.railMyCoursesOnly === 'boolean' ? state.railMyCoursesOnly : d.railMyCoursesOnly;
-    const railStudentAssignedOnly = typeof state?.railStudentAssignedOnly === 'boolean' ? state.railStudentAssignedOnly : d.railStudentAssignedOnly;
-
-    // -----------------------------
-    // Day View state
+    const railMyCoursesOnly = typeof state?.railMyCoursesOnly === "boolean" ? state.railMyCoursesOnly : d.railMyCoursesOnly;
+    const railStudentAssignedOnly = typeof state?.railStudentAssignedOnly === "boolean" ? state.railStudentAssignedOnly : d.railStudentAssignedOnly;
     const railSearch = typeof state?.railSearch === "string" ? state.railSearch : (d.railSearch || "");
+    
+    // NEW: rail add placement target (Phase 5)
+    const railPlacementSection =
+      state?.railPlacementSection === "afternoon" ? "afternoon" : "morning";
 
     // -----------------------------
     // Expanded View state
@@ -356,15 +362,16 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       railMyCoursesOnly,
       railStudentAssignedOnly,
       railSearch,
-
+      railPlacementSection,
+    
       // Schedule board card style
       boardAddSymbols,
       boardAddTracking,
       boardScaleByTime,
-
+    
       activeTargetStudentId,
       activeTargetDayIndex,
-      
+    
       expandedMode,
     };
   }
@@ -881,6 +888,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       railMyCoursesOnly: false,
       railStudentAssignedOnly: false,
       railSearch: "",
+      railPlacementSection: "morning",
 
       cardStyleModalOpen: false,
       openCardStyleModal() {
@@ -1263,6 +1271,9 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         this.railMyCoursesOnly = !!normalizedUi.railMyCoursesOnly;
         this.railStudentAssignedOnly = !!normalizedUi.railStudentAssignedOnly;
         this.railSearch = String(normalizedUi.railSearch || "");
+        this.railPlacementSection = (normalizedUi.railPlacementSection === "afternoon")
+          ? "afternoon"
+          : "morning";
         this.railDockOpen = (typeof normalizedUi.railDockOpen === "boolean") ? normalizedUi.railDockOpen : true;
         this.railDockCollapsed = (typeof normalizedUi.railDockCollapsed === "boolean") ? normalizedUi.railDockCollapsed : false;
 
@@ -1644,6 +1655,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           railMyCoursesOnly: this.railMyCoursesOnly,
           railStudentAssignedOnly: this.railStudentAssignedOnly,
           railSearch: this.railSearch,
+          railPlacementSection: this.railPlacementSection === "afternoon" ? "afternoon" : "morning",
           dayViewPanels: (this.dayViewPanels || []).map(p => ({ slot: p.slot, dayIdx: p.dayIdx })),
           dayViewStudentSlots: (this.dayViewStudentSlots || []).slice(0, 5),
           activeTargetStudentId: this.activeTargetStudentId || this.activeTarget?.studentId,
