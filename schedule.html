@@ -755,13 +755,7 @@
                 <div class="sched-rail-complete-wrap">
                   <div class="sched-rail-sep"></div>
 
-                  <div class="sched-rail-section-row">
-                    <div class="sched-rail-section-head">Complete:</div>
-                    <button type="button"
-                            class="sched-rail-toggle"
-                            @click="toggleCompletedRail()"
-                            x-text="completedRailLabel()"></button>
-                  </div>
+                  <div class="sched-rail-section-head" x-show="showCompleted">Complete:</div>
 
                   <template x-if="showCompleted">
                     <div class="sched-rail-list mt-2">
@@ -1057,7 +1051,20 @@
 
             <!-- Rail footer actions (create custom cards) -->
             <div class="sched-rail-bottom" x-show="railDockOpen">
-              <button type="button" class="sched-rail-btn sched-rail-btn--full" @click="openCustomCardModal('create')">
+              <template x-if="railEntriesComplete().length">
+                <button
+                  type="button"
+                  class="sched-rail-btn sched-rail-btn--full sched-rail-btn--completed"
+                  @click="toggleCompletedRail()"
+                  x-text="completedRailLabel()"
+                ></button>
+              </template>
+            
+              <button
+                type="button"
+                class="sched-rail-btn sched-rail-btn--full"
+                @click="openCustomCardModal('create')"
+              >
                 + Custom Card
               </button>
             </div>
