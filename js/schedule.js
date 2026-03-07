@@ -1684,7 +1684,6 @@ queueExpandedSync() {
         try {
           if (this.dragState.overEl) {
             this.dragState.overEl.removeAttribute("data-drop-pos");
-            this.dragState.overEl.classList.remove("is-drop-target");
           }
         } catch (e) {}
 
@@ -2936,19 +2935,13 @@ setDayPanel(idx, dayIdx) {
         try {
           if (this.dragState.overEl && this.dragState.overEl !== evt.currentTarget) {
             this.dragState.overEl.removeAttribute("data-drop-pos");
-            this.dragState.overEl.classList.remove("is-drop-target");
           }
         } catch (e) {}
-
+      
         // Mark current hovered card with drop position
         try {
-          if (pos) {
-            evt.currentTarget.setAttribute("data-drop-pos", pos);
-            evt.currentTarget.classList.add("is-drop-target");
-          } else {
-            evt.currentTarget.removeAttribute("data-drop-pos");
-            evt.currentTarget.classList.remove("is-drop-target");
-          }
+          if (pos) evt.currentTarget.setAttribute("data-drop-pos", pos);
+          else evt.currentTarget.removeAttribute("data-drop-pos");
           this.dragState.overEl = evt.currentTarget;
         } catch (e) {}
       
@@ -2958,20 +2951,19 @@ setDayPanel(idx, dayIdx) {
 
       onDropzoneDragOver(evt, studentId, dayIndex) {
         if (!this.dragState.dragging) return;
+        // Phase 2 scope: same student only (for now)
         if (this.dragState.studentId !== studentId) return;
       
+        // allow drop
         try { evt.dataTransfer.dropEffect = "move"; } catch (e) {}
       
+        // clear card-target visuals when hovering empty space
         this.dragState.overInstanceId = null;
         this.dragState.overPos = null;
-
+      
         try {
-          if (this.dragState.overEl) {
-            this.dragState.overEl.removeAttribute("data-drop-pos");
-            this.dragState.overEl.classList.remove("is-drop-target");
-          }
+          if (this.dragState.overEl) this.dragState.overEl.removeAttribute("data-drop-pos");
         } catch (e) {}
-
         this.dragState.overEl = null;
       },
       
