@@ -1180,8 +1180,11 @@
                                   </div>
                                 </div>
                                 
-                                <div class="schedule-col-body">
-                                  <div class="schedule-col-zone schedule-col-zone--morning">
+                                <div class="schedule-col-body" data-morning-sync-body>
+                                  <div
+                                    class="schedule-col-zone schedule-col-zone--morning"
+                                    data-morning-sync-zone
+                                  >
                                     <div
                                       class="schedule-dropzone schedule-dropzone--morning"
                                       data-section="morning"
@@ -1375,7 +1378,10 @@
                       <!-- Body matches Student View: board -> columns -> column headers -> dropzones -->
                       <div class="sched-dayview-daybody">
                         <div class="schedule-board" :class="{ 'is-time-scaled': boardScaleByTime }">
-                          <div class="schedule-columns schedule-columns--nowrap schedule-columns--dayfill">
+                          <div
+                            class="schedule-columns schedule-columns--nowrap schedule-columns--dayfill"
+                            data-morning-sync-group
+                          >
 
                             <!-- Empty state: no students chosen for Day View yet -->
                             <div class="sched-dayview-empty" x-show="dayViewActiveSlots().length === 0" x-cloak>
@@ -1389,7 +1395,7 @@
               
                             <!-- Only render day columns for slots that have a selected student -->
                             <template x-for="(studentId, sIdx) in (dayViewActiveSlots() || [])" :key="'dv-col-' + panel.slot + '-' + sIdx">
-                              <section class="schedule-col">
+                              <section class="schedule-col" data-morning-sync-col>
                                 <div class="schedule-col-head">
                                   <div class="schedule-col-head-main">
                                     <div class="schedule-col-title" x-text="getStudentName(studentId)"></div>
@@ -1403,8 +1409,11 @@
                                   </div>
                                 </div>
                               
-                                <div class="schedule-col-body">
-                                  <div class="schedule-col-zone schedule-col-zone--morning">
+                                <div class="schedule-col-body" data-morning-sync-body>
+                                  <div
+                                    class="schedule-col-zone schedule-col-zone--morning"
+                                    data-morning-sync-zone
+                                  >
                                     <div
                                       class="schedule-dropzone schedule-dropzone--morning"
                                       :data-student="studentId"
