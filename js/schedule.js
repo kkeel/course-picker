@@ -864,6 +864,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         courseOptions: {
           "picture-study": "g1-3",
         },
+        railPlacementByEntry: {},
       },
 
       // where “Add” goes (click a column to set target)
@@ -888,7 +889,6 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       railMyCoursesOnly: false,
       railStudentAssignedOnly: false,
       railSearch: "",
-      railPlacementSection: "morning",
 
       cardStyleModalOpen: false,
       openCardStyleModal() {
@@ -1271,9 +1271,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         this.railMyCoursesOnly = !!normalizedUi.railMyCoursesOnly;
         this.railStudentAssignedOnly = !!normalizedUi.railStudentAssignedOnly;
         this.railSearch = String(normalizedUi.railSearch || "");
-        this.railPlacementSection = (normalizedUi.railPlacementSection === "afternoon")
-          ? "afternoon"
-          : "morning";
+       
         this.railDockOpen = (typeof normalizedUi.railDockOpen === "boolean") ? normalizedUi.railDockOpen : true;
         this.railDockCollapsed = (typeof normalizedUi.railDockCollapsed === "boolean") ? normalizedUi.railDockCollapsed : false;
 
@@ -1576,6 +1574,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         this.placements = normalizedCards.placements || {};
         this.choices = normalizedCards.choices || { courseOptions: { "picture-study": "g1-3" } };
         if (!this.choices.courseOptions) this.choices.courseOptions = { "picture-study": "g1-3" };
+        if (!this.choices.railPlacementByEntry) this.choices.railPlacementByEntry = {};
       
         // ensure default selection exists
         if (!this.choices.courseOptions["picture-study"]) {
@@ -1655,7 +1654,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           railMyCoursesOnly: this.railMyCoursesOnly,
           railStudentAssignedOnly: this.railStudentAssignedOnly,
           railSearch: this.railSearch,
-          railPlacementSection: this.railPlacementSection === "afternoon" ? "afternoon" : "morning",
+        
           dayViewPanels: (this.dayViewPanels || []).map(p => ({ slot: p.slot, dayIdx: p.dayIdx })),
           dayViewStudentSlots: (this.dayViewStudentSlots || []).slice(0, 5),
           activeTargetStudentId: this.activeTargetStudentId || this.activeTarget?.studentId,
@@ -2657,7 +2656,8 @@ setDayPanel(idx, dayIdx) {
           createdAt: Date.now(),
         };
 
-        const placement = placementEntryWithSection(instanceId, "morning");
+        const section = this.railPlacementForEntry(entry);
+        const placement = placementEntryWithSection(instanceId, section);
         if (!placement) return;
 
         this.placements[studentId][dayIndex].push(placement);
@@ -2692,6 +2692,41 @@ setDayPanel(idx, dayIdx) {
 
       toggleEntryOnDay(entry, dayIndex) {
         this.addEntryOnDay(entry, dayIndex);
+      },
+
+      railPlacementKey(entry) {
+        if (!entry) return "";
+      
+        if (entry.type === "single") {
+          return `single:${String(entry.templateId || "").trim()}`;
+        }
+      
+        if (entry.type === "group") {
+          return `group:${String(entry.courseKey || "").trim()}`;
+        }
+      
+        return "";
+      },
+      
+      railPlacementForEntry(entry) {
+        const key = this.railPlacementKey(entry);
+        if (!key) return "morning";
+      
+        const map = this.choices?.railPlacementByEntry || {};
+        return map[key] === "afternoon" ? "afternoon" : "morning";
+      },
+      
+      setRailPlacementForEntry(entry, section) {
+        const key = this.railPlacementKey(entry);
+        if (!key) return;
+      
+        if (!this.choices) this.choices = {};
+        if (!this.choices.railPlacementByEntry) this.choices.railPlacementByEntry = {};
+      
+        this.choices.railPlacementByEntry[key] =
+          section === "afternoon" ? "afternoon" : "morning";
+      
+        this.persistCards();
       },
 
       weeklyTargetForEntry(entry) {
