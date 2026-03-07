@@ -1044,107 +1044,166 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       // In Expanded mode we let the board grow to its full content height,
       // then constrain the rail to that same height and scroll its body.
       
-syncExpandedHeights() {
-  try {
-    const root = document.documentElement;
-
-    // Keep separate cached heights per view because Track uses x-if (DOM removed)
-    // and Day uses x-show (DOM persists). When switching views, we want BOTH
-    // views to keep their own “tallest panel” height.
-    if (!this._expandedHeights) this._expandedHeights = { track: 0, day: 0 };
-
-    // Clear when not in expanded mode
-    if (!this.expandedMode) {
-      root.style.removeProperty("--sched-expanded-h");
-      root.style.removeProperty("--sched-expanded-h-track");
-      root.style.removeProperty("--sched-expanded-h-day");
-      document.querySelectorAll(".schedule-panel-body, .sched-dayview-daybody").forEach((el) => {
-        el.style.removeProperty("min-height");
-      });
-      this._expandedHeights.track = 0;
-      this._expandedHeights.day = 0;
-      return;
-    }
-
-    const measureMaxScrollHeight = (els) => {
-  // IMPORTANT: if we have previously applied a min-height, scrollHeight can reflect
-  // that forced height. Clear min-height first to measure the *natural* content height,
-  // otherwise we can get a feedback loop where the height slowly grows.
-  els.forEach((el) => {
-    if (!el) return;
-    el.style.removeProperty("min-height");
-  });
-
-  // Force a reflow so scrollHeight reflects the cleared min-heights
-  void root.offsetHeight;
-
-  let maxH = 0;
-  els.forEach((el) => {
-    const h = el ? (el.scrollHeight || 0) : 0;
-    if (h > maxH) maxH = h;
-  });
-  return maxH;
-};
-
-    // 1) Track / Student View (panels use .schedule-panel-body)
-    const trackBodies = Array.from(document.querySelectorAll(".schedule-panel-body"))
-      .filter((b) => b && b.offsetParent !== null);
-
-    if (trackBodies.length) {
-      const maxTrack = measureMaxScrollHeight(trackBodies);
-      const hTrack = Math.max(0, maxTrack + 2);
-      this._expandedHeights.track = hTrack;
-      root.style.setProperty("--sched-expanded-h-track", `${hTrack}px`);
-      trackBodies.forEach((b) => {
-        b.style.minHeight = `${hTrack}px`;
-      });
-    }
-
-    // 2) Day View panels (panels use .sched-dayview-daybody)
-    const dayBodies = Array.from(document.querySelectorAll(".sched-dayview-daybody"))
-      .filter((b) => b && b.offsetParent !== null);
-
-    if (dayBodies.length) {
-      const maxDay = measureMaxScrollHeight(dayBodies);
-      const hDay = Math.max(0, maxDay + 2);
-      this._expandedHeights.day = hDay;
-      root.style.setProperty("--sched-expanded-h-day", `${hDay}px`);
-      dayBodies.forEach((b) => {
-        b.style.minHeight = `${hDay}px`;
-      });
-    }
-
-    // 3) The overall workspace/rail height should follow the ACTIVE view.
-    const active = (this.view === "day") ? this._expandedHeights.day : this._expandedHeights.track;
-    if (active && active > 0) {
-      root.style.setProperty("--sched-expanded-h", `${active}px`);
-    }
-  } catch (_) {
-    // ignore
-  }
-}
-,
-queueExpandedSync() {
-  // When switching views Alpine may re-create panel DOM, which clears inline min-heights.
-  // Queue the measurement after DOM paint (sometimes needs two frames).
-  if (this._expandedSyncQueued) return;
-  this._expandedSyncQueued = true;
-
-  const run = () => {
-    this._expandedSyncQueued = false;
-    try { this.syncExpandedHeights(); } catch (e) {}
-  };
-
-  // Prefer Alpine timing if available
-  if (this.$nextTick) {
-    this.$nextTick(() => {
-      requestAnimationFrame(() => requestAnimationFrame(run));
-    });
-  } else {
-    requestAnimationFrame(() => requestAnimationFrame(run));
-  }
-}
-,
+        syncExpandedHeights() {
+          try {
+            const root = document.documentElement;
+        
+            // Keep separate cached heights per view because Track uses x-if (DOM removed)
+            // and Day uses x-show (DOM persists). When switching views, we want BOTH
+            // views to keep their own “tallest panel” height.
+            if (!this._expandedHeights) this._expandedHeights = { track: 0, day: 0 };
+        
+            // Clear when not in expanded mode
+            if (!this.expandedMode) {
+              root.style.removeProperty("--sched-expanded-h");
+              root.style.removeProperty("--sched-expanded-h-track");
+              root.style.removeProperty("--sched-expanded-h-day");
+              document.querySelectorAll(".schedule-panel-body, .sched-dayview-daybody").forEach((el) => {
+                el.style.removeProperty("min-height");
+              });
+              this._expandedHeights.track = 0;
+              this._expandedHeights.day = 0;
+              return;
+            }
+        
+            const measureMaxScrollHeight = (els) => {
+          // IMPORTANT: if we have previously applied a min-height, scrollHeight can reflect
+          // that forced height. Clear min-height first to measure the *natural* content height,
+          // otherwise we can get a feedback loop where the height slowly grows.
+          els.forEach((el) => {
+            if (!el) return;
+            el.style.removeProperty("min-height");
+          });
+        
+          // Force a reflow so scrollHeight reflects the cleared min-heights
+          void root.offsetHeight;
+        
+          let maxH = 0;
+          els.forEach((el) => {
+            const h = el ? (el.scrollHeight || 0) : 0;
+            if (h > maxH) maxH = h;
+          });
+          return maxH;
+        };
+        
+            // 1) Track / Student View (panels use .schedule-panel-body)
+            const trackBodies = Array.from(document.querySelectorAll(".schedule-panel-body"))
+              .filter((b) => b && b.offsetParent !== null);
+        
+            if (trackBodies.length) {
+              const maxTrack = measureMaxScrollHeight(trackBodies);
+              const hTrack = Math.max(0, maxTrack + 2);
+              this._expandedHeights.track = hTrack;
+              root.style.setProperty("--sched-expanded-h-track", `${hTrack}px`);
+              trackBodies.forEach((b) => {
+                b.style.minHeight = `${hTrack}px`;
+              });
+            }
+        
+            // 2) Day View panels (panels use .sched-dayview-daybody)
+            const dayBodies = Array.from(document.querySelectorAll(".sched-dayview-daybody"))
+              .filter((b) => b && b.offsetParent !== null);
+        
+            if (dayBodies.length) {
+              const maxDay = measureMaxScrollHeight(dayBodies);
+              const hDay = Math.max(0, maxDay + 2);
+              this._expandedHeights.day = hDay;
+              root.style.setProperty("--sched-expanded-h-day", `${hDay}px`);
+              dayBodies.forEach((b) => {
+                b.style.minHeight = `${hDay}px`;
+              });
+            }
+        
+            // 3) The overall workspace/rail height should follow the ACTIVE view.
+            const active = (this.view === "day") ? this._expandedHeights.day : this._expandedHeights.track;
+            if (active && active > 0) {
+              root.style.setProperty("--sched-expanded-h", `${active}px`);
+            }
+          } catch (_) {
+            // ignore
+          }
+        },
+        syncMorningZoneHeights() {
+          try {
+            const root = this.$root || document;
+            const groups = Array.from(root.querySelectorAll("[data-morning-sync-group]"))
+              .filter((el) => el && el.offsetParent !== null);
+        
+            if (!groups.length) return;
+        
+            // Clear previous inline min-heights first so we measure natural content height
+            groups.forEach((group) => {
+              const zones = Array.from(group.querySelectorAll("[data-morning-sync-zone]"));
+              zones.forEach((zone) => {
+                zone.style.removeProperty("min-height");
+              });
+            });
+        
+            // Force reflow after clearing heights
+            void document.documentElement.offsetHeight;
+        
+            groups.forEach((group) => {
+              const zones = Array.from(group.querySelectorAll("[data-morning-sync-zone]"))
+                .filter((el) => el && el.offsetParent !== null);
+        
+              if (!zones.length) return;
+        
+              let maxHeight = 0;
+        
+              zones.forEach((zone) => {
+                const dropzone = zone.querySelector(".schedule-dropzone--morning");
+        
+                const zoneHeight = Math.ceil(
+                  Math.max(
+                    zone.scrollHeight || 0,
+                    zone.getBoundingClientRect?.().height || 0
+                  )
+                );
+        
+                const dropzoneHeight = dropzone
+                  ? Math.ceil(
+                      Math.max(
+                        dropzone.scrollHeight || 0,
+                        dropzone.getBoundingClientRect?.().height || 0
+                      )
+                    )
+                  : 0;
+        
+                maxHeight = Math.max(maxHeight, zoneHeight, dropzoneHeight);
+              });
+        
+              if (maxHeight > 0) {
+                zones.forEach((zone) => {
+                  zone.style.minHeight = `${maxHeight}px`;
+                });
+              }
+            });
+          } catch (e) {
+            // ignore layout sync errors
+          }
+        },
+              
+        queueExpandedSync() {
+          // When switching views Alpine may re-create panel DOM, which clears inline sizes.
+          // Queue the measurement after DOM paint (sometimes needs two frames).
+          if (this._expandedSyncQueued) return;
+          this._expandedSyncQueued = true;
+        
+          const run = () => {
+            this._expandedSyncQueued = false;
+            try { this.syncExpandedHeights(); } catch (e) {}
+            try { this.syncMorningZoneHeights(); } catch (e) {}
+          };
+        
+          // Prefer Alpine timing if available
+          if (this.$nextTick) {
+            this.$nextTick(() => {
+              requestAnimationFrame(() => requestAnimationFrame(run));
+            });
+          } else {
+            requestAnimationFrame(() => requestAnimationFrame(run));
+          }
+        },
         
         toggleExpanded() {
           this.expandedMode = !this.expandedMode;
