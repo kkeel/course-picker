@@ -1224,6 +1224,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         overInstanceId: null,
         overPos: null,
         overEl: null,
+        overZoneEl: null,
         overSection: null,
       },
 
@@ -1753,10 +1754,18 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         try {
           if (this.dragState.overEl) {
             this.dragState.overEl.removeAttribute("data-drop-pos");
+            this.dragState.overEl.classList.remove("is-drop-target");
+          }
+        } catch (e) {}
+      
+        try {
+          if (this.dragState.overZoneEl) {
+            this.dragState.overZoneEl.classList.remove("is-dropzone-target");
           }
         } catch (e) {}
       
         this.dragState.overEl = null;
+        this.dragState.overZoneEl = null;
       
         try {
           document.body.classList.remove("sched-dragging", "sched-drop-above", "sched-drop-below");
@@ -3039,21 +3048,29 @@ setDayPanel(idx, dayIdx) {
 
       onDropzoneDragOver(evt, studentId, dayIndex, section = "morning") {
         if (!this.dragState.dragging) return;
-        // keep same-student scope for now
         if (this.dragState.studentId !== studentId) return;
       
-        // allow drop
         try { evt.dataTransfer.dropEffect = "move"; } catch (e) {}
       
-        // clear card-target visuals when hovering empty space
         this.dragState.overInstanceId = null;
         this.dragState.overPos = null;
         this.dragState.overSection = section === "afternoon" ? "afternoon" : "morning";
       
         try {
-          if (this.dragState.overEl) this.dragState.overEl.removeAttribute("data-drop-pos");
+          if (this.dragState.overEl) {
+            this.dragState.overEl.removeAttribute("data-drop-pos");
+            this.dragState.overEl.classList.remove("is-drop-target");
+          }
         } catch (e) {}
         this.dragState.overEl = null;
+      
+        try {
+          if (this.dragState.overZoneEl && this.dragState.overZoneEl !== evt.currentTarget) {
+            this.dragState.overZoneEl.classList.remove("is-dropzone-target");
+          }
+          evt.currentTarget.classList.add("is-dropzone-target");
+          this.dragState.overZoneEl = evt.currentTarget;
+        } catch (e) {}
       },
       
       onDropzoneDrop(evt, studentId, dayIndex, section = "morning") {
@@ -3074,13 +3091,27 @@ setDayPanel(idx, dayIdx) {
         const fromIndex = placementEntryIndex(fromList, fromId);
         if (fromIndex === -1) return;
       
-        // Dropzone drop = append to end of target zone
-        const targetZoneLength = this.placementsForSection(sid, toDay, toSection).length;
-        const toIndex = toList.length;
+        // Drop into empty space = append to the END of the hovered SECTION,
+        // not just the end of the whole day list.
+        let insertAt = toList.length;
       
-        this.moveInstanceAcrossDays(sid, fromDay, toDay, fromIndex, toIndex, fromSection, toSection);
+        if (toSection === "morning") {
+          insertAt = toList.findIndex((entry) => placementEntrySection(entry) === "afternoon");
+          if (insertAt === -1) insertAt = toList.length;
+        } else {
+          insertAt = toList.length;
+        }
       
-        // cleanup
+        this.moveInstanceAcrossDays(
+          sid,
+          fromDay,
+          toDay,
+          fromIndex,
+          insertAt,
+          fromSection,
+          toSection
+        );
+      
         this.resetDragState();
       },
       
