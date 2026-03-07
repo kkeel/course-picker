@@ -512,24 +512,30 @@
                           </div>
                         
                           <div class="sched-rail-daycontrols">
-                            <div class="sched-rail-placement-toggle" aria-label="Placement section">
-                              <button
-                                type="button"
-                                class="sched-rail-placement-btn"
-                                :class="railPlacementSection === 'morning' ? 'is-active' : ''"
-                                @click="railPlacementSection = 'morning'; persistUi()"
-                                title="Add to Morning"
-                                aria-label="Add to Morning"
-                              >*</button>
-                        
-                              <button
-                                type="button"
-                                class="sched-rail-placement-btn"
-                                :class="railPlacementSection === 'afternoon' ? 'is-active' : ''"
-                                @click="railPlacementSection = 'afternoon'; persistUi()"
-                                title="Add to Afternoon"
-                                aria-label="Add to Afternoon"
-                              >_</button>
+                            <div class="sched-rail-placement-wrap">
+                              <div class="sched-rail-placement-toggle" aria-label="Placement section">
+                                <button
+                                  type="button"
+                                  class="sched-rail-placement-btn"
+                                  :class="railPlacementForEntry(entry) === 'morning' ? 'is-active' : ''"
+                                  @click="setRailPlacementForEntry(entry, 'morning')"
+                                  title="Add to Morning"
+                                  aria-label="Add to Morning"
+                                >*</button>
+                            
+                                <span class="sched-rail-placement-divider" aria-hidden="true"></span>
+                            
+                                <button
+                                  type="button"
+                                  class="sched-rail-placement-btn"
+                                  :class="railPlacementForEntry(entry) === 'afternoon' ? 'is-active' : ''"
+                                  @click="setRailPlacementForEntry(entry, 'afternoon')"
+                                  title="Add to Afternoon"
+                                  aria-label="Add to Afternoon"
+                                >_</button>
+                              </div>
+                            
+                              <div class="sched-rail-placement-help">Morn./Afternoon</div>
                             </div>
                         
                             <div class="sched-rail-daytoggles" aria-label="Scheduled days">
@@ -764,24 +770,30 @@
                               </div>
                               
                               <div class="sched-rail-daycontrols">
-                                <div class="sched-rail-placement-toggle" aria-label="Placement section">
-                                  <button
-                                    type="button"
-                                    class="sched-rail-placement-btn"
-                                    :class="railPlacementSection === 'morning' ? 'is-active' : ''"
-                                    @click="railPlacementSection = 'morning'; persistUi()"
-                                    title="Add to Morning"
-                                    aria-label="Add to Morning"
-                                  >*</button>
-                              
-                                  <button
-                                    type="button"
-                                    class="sched-rail-placement-btn"
-                                    :class="railPlacementSection === 'afternoon' ? 'is-active' : ''"
-                                    @click="railPlacementSection = 'afternoon'; persistUi()"
-                                    title="Add to Afternoon"
-                                    aria-label="Add to Afternoon"
-                                  >_</button>
+                                <div class="sched-rail-placement-wrap">
+                                  <div class="sched-rail-placement-toggle" aria-label="Placement section">
+                                    <button
+                                      type="button"
+                                      class="sched-rail-placement-btn"
+                                      :class="railPlacementForEntry(entry) === 'morning' ? 'is-active' : ''"
+                                      @click="setRailPlacementForEntry(entry, 'morning')"
+                                      title="Add to Morning"
+                                      aria-label="Add to Morning"
+                                    >*</button>
+                                
+                                    <span class="sched-rail-placement-divider" aria-hidden="true"></span>
+                                
+                                    <button
+                                      type="button"
+                                      class="sched-rail-placement-btn"
+                                      :class="railPlacementForEntry(entry) === 'afternoon' ? 'is-active' : ''"
+                                      @click="setRailPlacementForEntry(entry, 'afternoon')"
+                                      title="Add to Afternoon"
+                                      aria-label="Add to Afternoon"
+                                    >_</button>
+                                  </div>
+                                
+                                  <div class="sched-rail-placement-help">Morn./Afternoon</div>
                                 </div>
                               
                                 <div class="sched-rail-daytoggles" aria-label="Scheduled days">
