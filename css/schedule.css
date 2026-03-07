@@ -3107,12 +3107,9 @@ body.sched-dragging .sched-card{
   flex: 0 0 auto;
 }
 
-.sched-rail-placement-btn.is-active + .sched-rail-placement-divider{
-  background: rgba(89,110,94,.32);
-}
-
-.sched-rail-placement-toggle:has(.sched-rail-placement-btn--aft.is-active) .sched-rail-placement-divider{
-  background: rgba(89,110,94,.32);
+/* Dark divider whenever either side is active, so the active half feels fully enclosed */
+.sched-rail-placement-toggle:has(.sched-rail-placement-btn.is-active) .sched-rail-placement-divider{
+  background: #596e5e;
 }
 
 /* Lift the afternoon symbol so it reads like "_" without sitting too low */
