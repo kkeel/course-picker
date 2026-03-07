@@ -1175,7 +1175,7 @@
                                   <div class="schedule-col-head-totals">
                                     <div
                                       class="schedule-col-total schedule-col-total--morning"
-                                      x-text="formatMinutes(dayTotalMinutes(panel.studentId, i))"
+                                      x-text="formatMinutes(dayTotalMinutes(panel.studentId, i, 'morning'))"
                                     ></div>
                                   </div>
                                 </div>
@@ -1192,13 +1192,13 @@
                                       <!-- Empty column placeholder (hide once first card exists) -->
                                       <div
                                         class="schedule-empty"
-                                        x-show="instancesFor(panel.studentId, i).length === 0"
+                                        x-show="instancesForSection(panel.studentId, i, 'morning').length === 0"
                                       >
                                         Assign schedule cards from the list to this day by clicking a day button on a scheduling card.
                                       </div>
                                       
                                       <!-- placed instances (Phase 2.5) -->
-                                      <template x-for="inst in instancesFor(panel.studentId, i)" :key="inst.instanceId">
+                                      <template x-for="inst in instancesForSection(panel.studentId, i, 'morning')" :key="inst.instanceId">
                                         <article
                                           class="sched-card"
                                           :style="boardCardInlineStyle(inst)"
@@ -1345,7 +1345,7 @@
                                   <div class="schedule-col-head-totals">
                                     <div
                                       class="schedule-col-total schedule-col-total--morning"
-                                      x-text="formatMinutes(dayTotalMinutes(studentId, panel.dayIdx))"
+                                      x-text="formatMinutes(dayTotalMinutes(studentId, panel.dayIdx, 'morning'))"
                                     ></div>
                                   </div>
                                 </div>
@@ -1363,12 +1363,12 @@
                                       <!-- Empty column placeholder -->
                                       <div
                                         class="schedule-empty"
-                                        x-show="instancesFor(studentId, panel.dayIdx).length === 0"
+                                        x-show="instancesForSection(studentId, panel.dayIdx, 'morning').length === 0"
                                       >
                                         Assign schedule cards from the list to this day by clicking a day button on a scheduling card.
                                       </div>
                                 
-                                      <template x-for="inst in instancesFor(studentId, panel.dayIdx)" :key="inst.instanceId">
+                                      <template x-for="inst in instancesForSection(studentId, panel.dayIdx, 'morning')" :key="inst.instanceId">
                                         <article
                                           class="sched-card"
                                           :style="boardCardInlineStyle(inst)"
