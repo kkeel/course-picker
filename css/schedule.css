@@ -373,7 +373,7 @@
 }
 
 .schedule-col-zone--morning{
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   min-height: 0;
 }
 
@@ -385,7 +385,7 @@
 }
 
 .schedule-dropzone{
-  flex: 1;
+  flex: 0 0 auto;
   padding: 6px;
   display: flex;
   flex-direction: column;
@@ -2986,7 +2986,7 @@ body.sched-dragging .sched-card{
 
 /* Morning zone grows; afternoon section stays pinned lower */
 .schedule-col-zone--morning{
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   min-height: 0;
   display: flex;
   flex-direction: column;
@@ -2994,12 +2994,13 @@ body.sched-dragging .sched-card{
 
 /* Let the morning dropzone expand so shorter columns leave blank space above divider */
 .schedule-col-zone--morning > .schedule-dropzone{
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   min-height: 0;
 }
 
 /* Afternoon section should sit after the flexible morning area */
 .schedule-col-zone--afternoon{
   flex: 0 0 auto;
+  min-height: 0;
   margin-top: 0;
 }
