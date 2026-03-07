@@ -1160,10 +1160,12 @@ queueExpandedSync() {
         dragging: false,
         studentId: null,
         dayIndex: null,
+        section: "morning",
         instanceId: null,
         overInstanceId: null,
         overPos: null,
-        overEl: null, 
+        overEl: null,
+        overSection: null,
       },
 
       // -----------------------------
@@ -1683,18 +1685,20 @@ queueExpandedSync() {
         this.dragState.dragging = false;
         this.dragState.studentId = null;
         this.dragState.dayIndex = null;
+        this.dragState.section = "morning";
         this.dragState.instanceId = null;
         this.dragState.overInstanceId = null;
         this.dragState.overPos = null;
-
+        this.dragState.overSection = null;
+      
         try {
           if (this.dragState.overEl) {
             this.dragState.overEl.removeAttribute("data-drop-pos");
           }
         } catch (e) {}
-
+      
         this.dragState.overEl = null;
-
+      
         try {
           document.body.classList.remove("sched-dragging", "sched-drop-above", "sched-drop-below");
         } catch (e) {}
@@ -2854,36 +2858,53 @@ setDayPanel(idx, dayIdx) {
         this.queuePersistCards();
       },
 
-      moveInstanceAcrossDays(studentId, fromDayIndex, toDayIndex, fromIndex, toIndex) {
+      moveInstanceAcrossDays(studentId, fromDayIndex, toDayIndex, fromIndex, toIndex, fromSection = "morning", toSection = "morning") {
         this.ensureStudent(studentId);
       
         const fromDay = Number(fromDayIndex);
         const toDay = Number(toDayIndex);
-      
-        if (fromDay === toDay) {
-          // fall back to existing reorder
-          return this.moveInstance(studentId, fromDay, fromIndex, toIndex);
-        }
+        const nextSection = toSection === "afternoon" ? "afternoon" : "morning";
       
         const fromList = this.placements?.[studentId]?.[fromDay];
         const toList = this.placements?.[studentId]?.[toDay];
       
         if (!Array.isArray(fromList) || !Array.isArray(toList)) return;
-      
         if (fromIndex < 0 || fromIndex >= fromList.length) return;
       
+        // same day + same section + same position = no-op
+        if (
+          fromDay === toDay &&
+          (fromSection === "afternoon" ? "afternoon" : "morning") === nextSection &&
+          (fromIndex === toIndex || fromIndex === Math.max(0, Math.min(Number(toIndex), toList.length)))
+        ) {
+          return;
+        }
+      
         // Clamp target index to [0..toList.length]
-        const insertAt = Math.max(0, Math.min(Number(toIndex), toList.length));
+        let insertAt = Math.max(0, Math.min(Number(toIndex), toList.length));
       
         const [moved] = fromList.splice(fromIndex, 1);
         if (!moved) return;
       
-        toList.splice(insertAt, 0, moved);
+        const normalizedMoved = normalizePlacementEntry(moved);
+        if (!normalizedMoved) return;
+      
+        const updatedMoved = {
+          ...normalizedMoved,
+          section: nextSection,
+        };
+      
+        // same-list reorder adjustment after removal
+        if (fromDay === toDay && fromList === toList && fromIndex < insertAt) {
+          insertAt = Math.max(0, insertAt - 1);
+        }
+      
+        toList.splice(insertAt, 0, updatedMoved);
       
         // write back (keeps reactivity predictable)
         this.placements[studentId][fromDay] = fromList;
         this.placements[studentId][toDay] = toList;
-
+      
         this.invalidateBoardLanes([
           { studentId, dayIndex: fromDay },
           { studentId, dayIndex: toDay },
@@ -2892,12 +2913,13 @@ setDayPanel(idx, dayIdx) {
         this.queuePersistCards();
       },
 
-      onDragStart(evt, studentId, dayIndex, instanceId) {
+      onDragStart(evt, studentId, dayIndex, instanceId, section = "morning") {
         this.resetDragState();
-
+      
         this.dragState.dragging = true;
         this.dragState.studentId = studentId;
         this.dragState.dayIndex = Number(dayIndex);
+        this.dragState.section = section === "afternoon" ? "afternoon" : "morning";
         this.dragState.instanceId = instanceId;
       
         // Required for Safari/Firefox: set some drag data
@@ -2905,7 +2927,7 @@ setDayPanel(idx, dayIdx) {
           evt.dataTransfer.effectAllowed = "move";
           evt.dataTransfer.setData("text/plain", String(instanceId));
         } catch (e) {}
-
+      
         try {
           if (evt.currentTarget) evt.currentTarget.classList.add("is-drag-source");
         } catch (e) {}
@@ -2921,11 +2943,12 @@ setDayPanel(idx, dayIdx) {
         this.resetDragState();
       },
       
-      onDragOver(evt, studentId, dayIndex, overInstanceId) {
+      onDragOver(evt, studentId, dayIndex, overInstanceId, section = "morning") {
         if (!this.dragState.dragging) return;
         if (this.dragState.studentId !== studentId) return;
       
         this.dragState.overInstanceId = overInstanceId;
+        this.dragState.overSection = section === "afternoon" ? "afternoon" : "morning";
       
         // Determine above/below midpoint
         let pos = null;
@@ -2955,9 +2978,9 @@ setDayPanel(idx, dayIdx) {
         try { evt.dataTransfer.dropEffect = "move"; } catch (e) {}
       },
 
-      onDropzoneDragOver(evt, studentId, dayIndex) {
+      onDropzoneDragOver(evt, studentId, dayIndex, section = "morning") {
         if (!this.dragState.dragging) return;
-        // Phase 2 scope: same student only (for now)
+        // keep same-student scope for now
         if (this.dragState.studentId !== studentId) return;
       
         // allow drop
@@ -2966,6 +2989,7 @@ setDayPanel(idx, dayIdx) {
         // clear card-target visuals when hovering empty space
         this.dragState.overInstanceId = null;
         this.dragState.overPos = null;
+        this.dragState.overSection = section === "afternoon" ? "afternoon" : "morning";
       
         try {
           if (this.dragState.overEl) this.dragState.overEl.removeAttribute("data-drop-pos");
@@ -2973,13 +2997,15 @@ setDayPanel(idx, dayIdx) {
         this.dragState.overEl = null;
       },
       
-      onDropzoneDrop(evt, studentId, dayIndex) {
+      onDropzoneDrop(evt, studentId, dayIndex, section = "morning") {
         if (!this.dragState.dragging) return;
         if (this.dragState.studentId !== studentId) return;
       
         const sid = studentId;
         const fromDay = Number(this.dragState.dayIndex);
         const toDay = Number(dayIndex);
+        const fromSection = this.dragState.section === "afternoon" ? "afternoon" : "morning";
+        const toSection = section === "afternoon" ? "afternoon" : "morning";
       
         const fromList = this.placements?.[sid]?.[fromDay];
         const toList = this.placements?.[sid]?.[toDay];
@@ -2989,25 +3015,27 @@ setDayPanel(idx, dayIdx) {
         const fromIndex = placementEntryIndex(fromList, fromId);
         if (fromIndex === -1) return;
       
-        // Dropzone drop = append to end of target column
+        // Dropzone drop = append to end of target zone
+        const targetZoneLength = this.placementsForSection(sid, toDay, toSection).length;
         const toIndex = toList.length;
       
-        this.moveInstanceAcrossDays(sid, fromDay, toDay, fromIndex, toIndex);
+        this.moveInstanceAcrossDays(sid, fromDay, toDay, fromIndex, toIndex, fromSection, toSection);
       
         // cleanup
         this.resetDragState();
       },
       
-      onDrop(evt, studentId, dayIndex, dropOnInstanceId) {
+      onDrop(evt, studentId, dayIndex, dropOnInstanceId, section = "morning") {
         if (!this.dragState.dragging) return;
       
-        // Same student only (Phase 2 scope)
+        // keep same-student scope for now
         if (this.dragState.studentId !== studentId) return;
       
         const sid = studentId;
-      
         const fromDay = Number(this.dragState.dayIndex);
         const toDay = Number(dayIndex);
+        const fromSection = this.dragState.section === "afternoon" ? "afternoon" : "morning";
+        const toSection = section === "afternoon" ? "afternoon" : "morning";
       
         const fromList = this.placements?.[sid]?.[fromDay];
         const toList = this.placements?.[sid]?.[toDay];
@@ -3024,12 +3052,12 @@ setDayPanel(idx, dayIdx) {
         // Insert ABOVE or BELOW the hovered card
         let insertAt = hoverIndex + (this.dragState.overPos === "below" ? 1 : 0);
       
-        // If moving within the same list, removing first shifts indices
+        // If moving within the same underlying list, removing first shifts indices
         if (fromDay === toDay && fromIndex < insertAt) {
           insertAt = Math.max(0, insertAt - 1);
         }
       
-        this.moveInstanceAcrossDays(sid, fromDay, toDay, fromIndex, insertAt);
+        this.moveInstanceAcrossDays(sid, fromDay, toDay, fromIndex, insertAt, fromSection, toSection);
       
         // cleanup
         this.resetDragState();
