@@ -176,10 +176,6 @@
       railStudentAssignedOnly: true,
       railSearch: "", // rail title search
   
-      // NEW: rail add placement target (Phase 5)
-      // morning remains the default
-      railPlacementSection: "morning",
-  
       // Rail header "target student" selector (persists across refresh)
       activeTargetStudentId: "S1",
       activeTargetDayIndex: 0,
@@ -260,10 +256,6 @@ panels = panels.map((p) => {
     const railMyCoursesOnly = typeof state?.railMyCoursesOnly === "boolean" ? state.railMyCoursesOnly : d.railMyCoursesOnly;
     const railStudentAssignedOnly = typeof state?.railStudentAssignedOnly === "boolean" ? state.railStudentAssignedOnly : d.railStudentAssignedOnly;
     const railSearch = typeof state?.railSearch === "string" ? state.railSearch : (d.railSearch || "");
-    
-    // NEW: rail add placement target (Phase 5)
-    const railPlacementSection =
-      state?.railPlacementSection === "afternoon" ? "afternoon" : "morning";
 
     // -----------------------------
     // Expanded View state
@@ -362,7 +354,6 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       railMyCoursesOnly,
       railStudentAssignedOnly,
       railSearch,
-      railPlacementSection,
     
       // Schedule board card style
       boardAddSymbols,
