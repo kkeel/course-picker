@@ -1164,9 +1164,9 @@
                       <!-- Panel body: week columns -->
                       <div class="schedule-panel-body">
                         <div class="schedule-board" :class="{ 'is-time-scaled': boardScaleByTime }">
-                          <div class="schedule-columns schedule-columns--nowrap">
+                          <div class="schedule-columns schedule-columns--nowrap" data-morning-sync-group>
                             <template x-for="i in visibleDays" :key="i">
-                              <section class="schedule-col" :aria-label="dayLabel(i)">
+                              <section class="schedule-col" :aria-label="dayLabel(i)" data-morning-sync-col>
                                 <div class="schedule-col-head">
                                   <div class="schedule-col-head-main">
                                     <div class="schedule-col-title" x-text="dayLabelLong(i)"></div>
