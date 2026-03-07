@@ -3039,19 +3039,25 @@ setDayPanel(idx, dayIdx) {
           .filter(Boolean);
       },
 
-      instancesFor(studentId, dayIndex) {
+      placementsForSection(studentId, dayIndex, section = "morning") {
+        const wanted = section === "afternoon" ? "afternoon" : "morning";
+
+        return this.placementsFor(studentId, dayIndex)
+          .filter((placement) => placement.section === wanted);
+      },
+
+      instancesForSection(studentId, dayIndex, section = "morning") {
+        const wanted = section === "afternoon" ? "afternoon" : "morning";
         this.ensureStudent(studentId);
 
         const cache = this.ensureBoardCaches();
-        const key = this.boardLaneCacheKey(studentId, dayIndex);
+        const key = `${this.boardLaneCacheKey(studentId, dayIndex)}::${wanted}`;
 
         if (cache.instancesFor.has(key)) {
           return cache.instancesFor.get(key);
         }
 
-        const placements = this.placements?.[studentId]?.[dayIndex] || [];
-
-        const list = placements
+        const list = this.placementsForSection(studentId, dayIndex, wanted)
           .map((placement) => placementEntryInstanceId(placement))
           .filter(Boolean)
           .map((id) => this.instancesById[id])
@@ -3059,6 +3065,10 @@ setDayPanel(idx, dayIdx) {
 
         cache.instancesFor.set(key, list);
         return list;
+      },
+
+      instancesFor(studentId, dayIndex) {
+        return this.instancesForSection(studentId, dayIndex, "morning");
       },
 
       templateForInstance(inst) {
@@ -3120,15 +3130,16 @@ setDayPanel(idx, dayIdx) {
         return `--time-slots:${slots};--sched-title-lines:${titleLines};`;
       },
 
-      dayTotalMinutes(studentId, dayIndex) {
+      dayTotalMinutes(studentId, dayIndex, section = "morning") {
+        const wanted = section === "afternoon" ? "afternoon" : "morning";
         const cache = this.ensureBoardCaches();
-        const key = this.boardLaneCacheKey(studentId, dayIndex);
+        const key = `${this.boardLaneCacheKey(studentId, dayIndex)}::total::${wanted}`;
 
         if (cache.dayTotalMinutes.has(key)) {
           return cache.dayTotalMinutes.get(key);
         }
 
-        const list = this.instancesFor(studentId, dayIndex);
+        const list = this.instancesForSection(studentId, dayIndex, wanted);
         let total = 0;
 
         for (const inst of list) {
