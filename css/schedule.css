@@ -3241,9 +3241,9 @@ body.sched-dragging .sched-card{
 /* Panel-level divider row */
 .schedule-panel-afternoon-divider{
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: center;
   gap: 12px;
   padding: 8px 12px 6px;
   margin: 2px 0 0;
@@ -3272,14 +3272,16 @@ body.sched-dragging .sched-card{
   letter-spacing: .08em;
   text-transform: uppercase;
   color: #7b837b;
+  justify-self: center;
 }
 
 .schedule-panel-afternoon-toggle{
   position: relative;
   z-index: 1;
+  justify-self: start;
   border: none;
   background: #fbfbf9;
-  padding: 0 2px 0 8px;
+  padding: 0 8px 0 2px;
   font-size: 12px;
   line-height: 1.1;
   font-weight: 500;
