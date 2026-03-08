@@ -164,6 +164,11 @@
       ],
       dayViewStudentSlots: ["S1", "S2", "S3", "S4", "S5"],
   
+      // Panel-level Afternoon Work visibility
+      // key = panel.slot ("P1", "P2", "D1", etc.)
+      // missing key => visible by default
+      afternoonOpenByPanel: {},
+  
       // Left rail UI
       railDockOpen: true,
       railTopCollapsed: false,
@@ -315,7 +320,18 @@ dayViewPanels = dayViewPanels.map((p) => {
   return p;
 });
 
-    const dayViewStudentSlots = normalizeDayViewSlots(state?.dayViewStudentSlots, allStudentIds);
+const dayViewStudentSlots = normalizeDayViewSlots(state?.dayViewStudentSlots, allStudentIds);
+const rawAfternoonOpenByPanel =
+  state?.afternoonOpenByPanel && typeof state.afternoonOpenByPanel === "object"
+    ? state.afternoonOpenByPanel
+    : d.afternoonOpenByPanel;
+
+const afternoonOpenByPanel = {};
+for (const [key, value] of Object.entries(rawAfternoonOpenByPanel || {})) {
+  const slot = String(key || "").trim();
+  if (!slot) continue;
+  afternoonOpenByPanel[slot] = (value !== false);
+}
 // -----------------------------
 // Rail "Add target" (student/day)
 // -----------------------------
@@ -344,6 +360,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       panels,
       dayViewPanels,
       dayViewStudentSlots,
+      afternoonOpenByPanel,
       railTopCollapsed,
       railDockOpen,
       railDockCollapsed: (typeof state?.railDockCollapsed === "boolean")
@@ -826,6 +843,11 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         { slot: "D2", dayIdx: 1 },
       ],
       dayViewStudentSlots: ["S1", "S2", "S3", "S4", "S5"],
+      
+      // Panel-level Afternoon Work visibility
+      // key = panel.slot ("P1", "P2", "D1", etc.)
+      afternoonOpenByPanel: {},
+      
       openDayMenu: null,
       openDayStudentMenu: null,
       // Students (from planner state)
@@ -1210,6 +1232,42 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           // When entering/leaving expanded mode, re-measure so the rail can match the board.
           this.$nextTick(() => this.syncExpandedHeights());
         },
+      panelAfternoonKey(panel) {
+        const slot = String(panel?.slot || "").trim();
+        return slot || "";
+      },
+      
+      isAfternoonOpen(panel) {
+        const key = this.panelAfternoonKey(panel);
+        if (!key) return true;
+        return this.afternoonOpenByPanel?.[key] !== false;
+      },
+      
+      toggleAfternoonOpen(panel) {
+        const key = this.panelAfternoonKey(panel);
+        if (!key) return;
+      
+        if (!this.afternoonOpenByPanel || typeof this.afternoonOpenByPanel !== "object") {
+          this.afternoonOpenByPanel = {};
+        }
+      
+        const next = this.isAfternoonOpen(panel) ? false : true;
+        this.afternoonOpenByPanel = {
+          ...this.afternoonOpenByPanel,
+          [key]: next,
+        };
+      
+        this.persistUi();
+      
+        // layout changes when afternoon opens/closes
+        this.$nextTick(() => {
+          try { this.queueExpandedSync(); } catch (e) {}
+        });
+      },
+      
+      afternoonToggleLabel(panel) {
+        return this.isAfternoonOpen(panel) ? "Hide Afternoon Work" : "Show Afternoon Work";
+      },
 
       // -----------------------------
       // Drag reorder state (Phase 1)
@@ -1282,6 +1340,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         this.visibleStudentPanels = normalizedUi.panels;
         this.dayViewPanels = normalizedUi.dayViewPanels;
         this.dayViewStudentSlots = normalizedUi.dayViewStudentSlots;
+        this.afternoonOpenByPanel = { ...(normalizedUi.afternoonOpenByPanel || {}) };
         this.openStudentMenu = null;
       
         // Restore rail header "Add target" selector (student/day)
@@ -1645,9 +1704,13 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           railMyCoursesOnly: this.railMyCoursesOnly,
           railStudentAssignedOnly: this.railStudentAssignedOnly,
           railSearch: this.railSearch,
-        
+      
           dayViewPanels: (this.dayViewPanels || []).map(p => ({ slot: p.slot, dayIdx: p.dayIdx })),
           dayViewStudentSlots: (this.dayViewStudentSlots || []).slice(0, 5),
+      
+          // panel-level Afternoon Work visibility
+          afternoonOpenByPanel: { ...(this.afternoonOpenByPanel || {}) },
+      
           activeTargetStudentId: this.activeTargetStudentId || this.activeTarget?.studentId,
           activeTargetDayIndex: Number.isInteger(Number(this.activeTargetDayIndex)) ? Number(this.activeTargetDayIndex) : this.activeTarget?.dayIndex,
           boardAddSymbols: this.boardAddSymbols,
