@@ -3214,3 +3214,103 @@ body.sched-dragging .sched-card{
 .sched-rail:has(.sched-rail-complete-drawer){
   --sched-complete-gap: 0px;
 }
+
+/* =========================================================
+   Phase 7 — Panel-level Afternoon Work divider + visibility
+   ========================================================= */
+
+.schedule-panel-body .schedule-board,
+.sched-dayview-daybody .schedule-board{
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  gap: 0;
+}
+
+/* Keep the second row of columns attached cleanly under the divider */
+.schedule-columns--afternoon{
+  margin-top: 0;
+}
+
+/* Afternoon-only columns no longer have their own day header */
+.schedule-col--afternoononly{
+  background: #fbfbf9;
+  border-top: 0;
+}
+
+/* Panel-level divider row */
+.schedule-panel-afternoon-divider{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px 12px 6px;
+  margin: 2px 0 0;
+}
+
+.schedule-panel-afternoon-divider::before{
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 50%;
+  height: 1px;
+  background: #dde2d5;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.schedule-panel-afternoon-divider-label{
+  position: relative;
+  z-index: 1;
+  padding: 0 10px;
+  background: #fbfbf9;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #7b837b;
+}
+
+.schedule-panel-afternoon-toggle{
+  position: relative;
+  z-index: 1;
+  border: none;
+  background: #fbfbf9;
+  padding: 0 2px 0 8px;
+  font-size: 12px;
+  line-height: 1.1;
+  font-weight: 500;
+  color: #666d66;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.schedule-panel-afternoon-toggle:hover{
+  color: #596e5e;
+  text-decoration: underline;
+}
+
+.schedule-panel-afternoon-toggle:focus{
+  outline: none;
+  color: #596e5e;
+}
+
+/* Afternoon columns should begin with subtotal, not extra divider spacing */
+.schedule-col--afternoononly .schedule-col-subtotal{
+  padding-top: 0;
+}
+
+/* Keep afternoon dropzones visually calm */
+.schedule-col--afternoononly .schedule-dropzone--afternoon{
+  min-height: 74px;
+  padding: 0 6px 10px;
+  overflow: hidden;
+}
+
+/* Remove the old per-column divider if any old markup remains during transition */
+.schedule-col-zone--afternoon .schedule-afternoon-divider{
+  display: none !important;
+}
