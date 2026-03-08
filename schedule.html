@@ -1284,7 +1284,7 @@
                       <div class="schedule-panel-body">
                         <div class="schedule-board" :class="{ 'is-time-scaled': boardScaleByTime }">
                       
-                          <!-- MORNING -->
+                          <!-- STUDNET VIEW MORNING -->
                           <div class="schedule-columns schedule-columns--nowrap" data-morning-sync-group>
                             <template x-for="i in visibleDays" :key="i">
                               <section class="schedule-col" :aria-label="dayLabel(i)" data-morning-sync-col>
@@ -1373,7 +1373,7 @@
                             </template>
                           </div>
                       
-                          <!-- PANEL-LEVEL AFTERNOON DIVIDER -->
+                          <!-- STUDENT VIEW PANEL-LEVEL AFTERNOON DIVIDER -->
                           <div
                             class="schedule-panel-afternoon-divider"
                             role="separator"
@@ -1390,10 +1390,10 @@
                             ></button>
                           </div>
                       
-                          <!-- AFTERNOON -->
+                          <!-- STUDENT VIEW AFTERNOON -->
                           <div
                             class="schedule-columns schedule-columns--nowrap schedule-columns--afternoon"
-                            x-show="isAfternoonOpen(panel)"
+                            x-show.important="isAfternoonOpen(panel)"
                             x-transition
                           >
                             <template x-for="i in visibleDays" :key="'aft-' + i">
@@ -1534,7 +1534,7 @@
                       <div class="sched-dayview-daybody">
                         <div class="schedule-board" :class="{ 'is-time-scaled': boardScaleByTime }">
                       
-                          <!-- MORNING -->
+                          <!-- DAY VIEW MORNING -->
                           <div
                             class="schedule-columns schedule-columns--nowrap schedule-columns--dayfill"
                             data-morning-sync-group
@@ -1637,7 +1637,7 @@
                             </template>
                           </div>
                       
-                          <!-- PANEL-LEVEL AFTERNOON DIVIDER -->
+                          <!-- DAY VIEW PANEL-LEVEL AFTERNOON DIVIDER -->
                           <div
                             class="schedule-panel-afternoon-divider"
                             role="separator"
@@ -1654,10 +1654,10 @@
                             ></button>
                           </div>
                       
-                          <!-- AFTERNOON -->
+                          <!-- DAY VIEW AFTERNOON -->
                           <div
                             class="schedule-columns schedule-columns--nowrap schedule-columns--dayfill schedule-columns--afternoon"
-                            x-show="isAfternoonOpen(panel)"
+                            x-show.important="isAfternoonOpen(panel)"
                             x-transition
                           >
                             <template x-for="(studentId, sIdx) in (dayViewActiveSlots() || [])" :key="'dv-aft-col-' + panel.slot + '-' + sIdx">
