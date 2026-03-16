@@ -609,8 +609,8 @@
 
   /* Keep divider label clean in print */
   .schedule-panel-afternoon-divider{
-    padding: 8px 0 6px !important;
-    margin: 4px 0 0 !important;
+    padding: 14px 0 10px !important;
+    margin: 12px 0 6px !important;
     background: transparent !important;
   }
 
@@ -694,5 +694,9 @@
     min-height: 0 !important;
     padding: 0 !important;
   }
+
+   .schedule-col-subtotal--afternoon:first-of-type{
+     border-top: 1px solid rgba(0,0,0,0.14) !important;
+   }
 
 }
