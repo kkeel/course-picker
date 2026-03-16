@@ -1863,81 +1863,147 @@
             </div>
           
             <!-- Schedule Print Picker (screen-only) -->
-          <div
-            x-show="printPickerOpen"
-            x-cloak
-            class="print-tip-overlay"
-            @keydown.escape.window="closePrintPicker()"
-          >
-            <div class="print-tip-backdrop" @click="closePrintPicker()"></div>
-          
-            <div class="print-tip-modal" role="dialog" aria-modal="true" aria-label="Choose what to print" @click.stop>
-              <div class="print-tip-title">Choose what to print</div>
-          
-              <!-- Student View -->
-              <div x-show="printPickMode === 'track'" class="print-tip-body">
-                <div class="print-tip-row">
-                  <div class="print-tip-label">Student panel</div>
-                  <select class="print-tip-select" x-model="printPickStudentId">
-                    <template x-for="p in visibleStudentPanels" :key="p.slot">
-                      <option :value="p.studentId" x-text="getStudentName(p.studentId)"></option>
-                    </template>
-                  </select>
-                </div>
-          
-                <div class="print-tip-row">
-                  <div class="print-tip-label">Days</div>
-                  <div class="print-tip-chips">
-                    <template x-for="(lbl, idx) in dayLongLabels" :key="idx">
-                      <label class="print-tip-chip">
-                        <input type="checkbox" :value="idx" x-model="printPickDays">
-                        <span x-text="lbl"></span>
-                      </label>
-                    </template>
+             <div
+              x-show="printPickerOpen"
+              x-cloak
+              class="print-tip-overlay"
+              @keydown.escape.window="closePrintPicker()"
+            >
+              <div class="print-tip-backdrop" @click="closePrintPicker()"></div>
+            
+              <div class="print-tip-modal print-tip-modal--schedule" role="dialog" aria-modal="true" aria-label="Choose what to print" @click.stop>
+                <div class="print-tip-title">Choose what to print</div>
+            
+                <!-- Student View -->
+                <div x-show="printPickMode === 'track'" class="print-tip-body">
+                  <div class="print-tip-row">
+                    <div class="print-tip-label">Student panel</div>
+                    <select class="print-tip-select" x-model="printPickStudentId">
+                      <template x-for="p in visibleStudentPanels" :key="p.slot">
+                        <option :value="p.studentId" x-text="getStudentName(p.studentId)"></option>
+                      </template>
+                    </select>
+                  </div>
+            
+                  <div class="print-tip-row">
+                    <div class="print-tip-label">Days</div>
+                    <div class="print-tip-chips">
+                      <template x-for="(lbl, idx) in dayLongLabels" :key="idx">
+                        <label class="print-tip-chip print-tip-chip--toggle">
+                          <input type="checkbox" :value="idx" x-model="printPickDays">
+                          <span x-text="lbl"></span>
+                        </label>
+                      </template>
+                    </div>
+                  </div>
+            
+                  <div class="print-tip-row">
+                    <div class="print-tip-label">Print sections</div>
+                    <div class="print-tip-segmented" role="radiogroup" aria-label="Print sections">
+                      <button
+                        type="button"
+                        class="print-tip-segment"
+                        :class="printPickSection === 'both' ? 'is-on' : ''"
+                        @click="printPickSection = 'both'"
+                        :aria-pressed="printPickSection === 'both'"
+                      >
+                        Both
+                      </button>
+                      <button
+                        type="button"
+                        class="print-tip-segment"
+                        :class="printPickSection === 'morning' ? 'is-on' : ''"
+                        @click="printPickSection = 'morning'"
+                        :aria-pressed="printPickSection === 'morning'"
+                      >
+                        Morning only
+                      </button>
+                      <button
+                        type="button"
+                        class="print-tip-segment"
+                        :class="printPickSection === 'afternoon' ? 'is-on' : ''"
+                        @click="printPickSection = 'afternoon'"
+                        :aria-pressed="printPickSection === 'afternoon'"
+                      >
+                        Afternoon only
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-          
-              <!-- Day View -->
-              <div x-show="printPickMode === 'day'" class="print-tip-body">
-                <div class="print-tip-row">
-                  <div class="print-tip-label">Day panel</div>
-                  <select class="print-tip-select" x-model.number="printPickDayIdx">
-                    <template x-for="(lbl, idx) in dayLongLabels" :key="idx">
-                      <option :value="idx" x-text="lbl"></option>
-                    </template>
-                  </select>
-                </div>
-          
-                <div class="print-tip-row">
-                  <div class="print-tip-label">Students (up to 5)</div>
-                  <div class="print-tip-chips">
-                    <template x-for="s in students" :key="s.id">
-                      <label class="print-tip-chip">
-                        <input
-                          type="checkbox"
-                          :value="s.id"
-                          x-model="printPickStudents"
-                          :disabled="printPickStudents.length >= 5 && !printPickStudents.includes(s.id)"
-                        >
-                        <span x-text="s.name"></span>
-                      </label>
-                    </template>
+            
+                <!-- Day View -->
+                <div x-show="printPickMode === 'day'" class="print-tip-body">
+                  <div class="print-tip-row">
+                    <div class="print-tip-label">Day panel</div>
+                    <select class="print-tip-select" x-model.number="printPickDayIdx">
+                      <template x-for="(lbl, idx) in dayLongLabels" :key="idx">
+                        <option :value="idx" x-text="lbl"></option>
+                      </template>
+                    </select>
+                  </div>
+            
+                  <div class="print-tip-row">
+                    <div class="print-tip-label">Students (up to 5)</div>
+                    <div class="print-tip-chips">
+                      <template x-for="s in students" :key="s.id">
+                        <label class="print-tip-chip print-tip-chip--toggle">
+                          <input
+                            type="checkbox"
+                            :value="s.id"
+                            x-model="printPickStudents"
+                            :disabled="printPickStudents.length >= 5 && !printPickStudents.includes(s.id)"
+                          >
+                          <span x-text="s.name"></span>
+                        </label>
+                      </template>
+                    </div>
+                  </div>
+            
+                  <div class="print-tip-row">
+                    <div class="print-tip-label">Print sections</div>
+                    <div class="print-tip-segmented" role="radiogroup" aria-label="Print sections">
+                      <button
+                        type="button"
+                        class="print-tip-segment"
+                        :class="printPickSection === 'both' ? 'is-on' : ''"
+                        @click="printPickSection = 'both'"
+                        :aria-pressed="printPickSection === 'both'"
+                      >
+                        Both
+                      </button>
+                      <button
+                        type="button"
+                        class="print-tip-segment"
+                        :class="printPickSection === 'morning' ? 'is-on' : ''"
+                        @click="printPickSection = 'morning'"
+                        :aria-pressed="printPickSection === 'morning'"
+                      >
+                        Morning only
+                      </button>
+                      <button
+                        type="button"
+                        class="print-tip-segment"
+                        :class="printPickSection === 'afternoon' ? 'is-on' : ''"
+                        @click="printPickSection = 'afternoon'"
+                        :aria-pressed="printPickSection === 'afternoon'"
+                      >
+                        Afternoon only
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-          
-              <div class="print-tip-actions">
-                <button type="button" class="print-tip-btn" @click="closePrintPicker()">Cancel</button>
-                <button type="button" class="print-tip-btn print-tip-btn-primary" @click="confirmPrintPickerAndContinue()">
-                  Continue
-                </button>
+            
+                <div class="print-tip-actions">
+                  <button type="button" class="print-tip-btn" @click="closePrintPicker()">Cancel</button>
+                  <button type="button" class="print-tip-btn print-tip-btn-primary" @click="confirmPrintPickerAndContinue()">
+                    Continue
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
 
-</div> <!-- Schedule Space (grid) closer -->
-        </div> <!-- scheduleBuilder() closer -->
+      </div> <!-- Schedule Space (grid) closer -->
+      </div> <!-- scheduleBuilder() closer -->
         
     </div> <!-- closes x-show="!courseGate" wrapper -->
 
