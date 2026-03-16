@@ -823,6 +823,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       printPickDays: [0, 1, 2, 3, 4],
       printPickDayIdx: 0,
       printPickStudents: [],
+      printPickSection: "both", // "both" | "morning" | "afternoon"
       printSubtitle: "",
 
       // -----------------------------
@@ -917,6 +918,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       openPrintPicker() {
         // Mode depends on current view
         this.printPickMode = (this.view === "day") ? "day" : "track";
+        this.printPickSection = "both";
       
         // Seed defaults from the current UI
         if (this.printPickMode === "track") {
@@ -979,6 +981,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         this._setPrintSubtitleText("");
       
         try { delete document.documentElement.dataset.schedulePrintLabel; } catch (e) {}
+        try { delete document.documentElement.dataset.schedulePrintSection; } catch (e) {}
         try { document.documentElement.style.removeProperty("--sched-print-cols"); } catch (e) {}
       
         // Re-sync expanded heights if needed
@@ -1007,6 +1010,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       
           const label = this.getStudentName?.(sid) || this.students?.find(s => s.id === sid)?.name || "Student";
           try { document.documentElement.dataset.schedulePrintLabel = label; } catch (e) {}
+          try { document.documentElement.dataset.schedulePrintSection = this.printPickSection || "both"; } catch (e) {}
           this.printSubtitle = label;
           this._setPrintSubtitleText(label);
         } else {
@@ -1031,6 +1035,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       
           const label = this.dayLongLabels?.[didx] || this.dayLabels?.[didx] || "Day";
           try { document.documentElement.dataset.schedulePrintLabel = label; } catch (e) {}
+          try { document.documentElement.dataset.schedulePrintSection = this.printPickSection || "both"; } catch (e) {}
           this.printSubtitle = label;
           this._setPrintSubtitleText(label);
         }
