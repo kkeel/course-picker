@@ -699,4 +699,21 @@
      border-top: 1px solid rgba(0,0,0,0.14) !important;
    }
 
+   /* =========================================================
+     10) PRINT SECTION FILTERING
+   ========================================================= */
+
+  html[data-schedule-print-section="morning"] .schedule-columns--afternoon,
+  html[data-schedule-print-section="morning"] .schedule-panel-afternoon-divider{
+    display: none !important;
+  }
+
+  html[data-schedule-print-section="afternoon"] .schedule-board > .schedule-columns:not(.schedule-columns--afternoon){
+    display: none !important;
+  }
+
+  html[data-schedule-print-section="afternoon"] .schedule-panel-afternoon-divider{
+    display: none !important;
+  }
+
 }
