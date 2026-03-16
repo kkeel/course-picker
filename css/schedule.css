@@ -3304,3 +3304,136 @@ body.sched-dragging .sched-card{
 .schedule-col-zone--afternoon .schedule-afternoon-divider{
   display: none !important;
 }
+
+/* =========================================================
+   Schedule print picker polish
+   ========================================================= */
+
+.print-tip-modal--schedule{
+  max-width: 760px;
+  margin-top: 10vh;
+  border-radius: 22px;
+  padding: 28px 28px 24px;
+}
+
+.print-tip-modal--schedule .print-tip-title{
+  font-size: 22px;
+  line-height: 1.15;
+  margin-bottom: 22px;
+}
+
+.print-tip-modal--schedule .print-tip-body{
+  display: grid;
+  gap: 22px;
+}
+
+.print-tip-modal--schedule .print-tip-row{
+  display: grid;
+  gap: 10px;
+}
+
+.print-tip-modal--schedule .print-tip-label{
+  font-size: 14px;
+  font-weight: 700;
+  color: #262b26;
+}
+
+.print-tip-modal--schedule .print-tip-select{
+  width: 100%;
+  max-width: 320px;
+  border: 1px solid #d2d6d2;
+  border-radius: 14px;
+  background: #fff;
+  padding: 11px 14px;
+  font-size: 14px;
+  color: #262b26;
+}
+
+.print-tip-modal--schedule .print-tip-chips{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.print-tip-modal--schedule .print-tip-chip{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid #d2d6d2;
+  border-radius: 999px;
+  background: #fff;
+  color: #596e5e;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.print-tip-modal--schedule .print-tip-chip input[type="checkbox"]{
+  accent-color: #596e5e;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.print-tip-modal--schedule .print-tip-chip:has(input[type="checkbox"]:checked){
+  background: rgba(89,110,94,.10);
+  border-color: #596e5e;
+  color: #596e5e;
+}
+
+.print-tip-modal--schedule .print-tip-chip:has(input[type="checkbox"]:disabled){
+  opacity: .5;
+}
+
+.print-tip-modal--schedule .print-tip-segmented{
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.print-tip-modal--schedule .print-tip-segment{
+  border: 1px solid #d2d6d2;
+  background: #fff;
+  color: #596e5e;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.print-tip-modal--schedule .print-tip-segment.is-on{
+  background: #596e5e;
+  border-color: #596e5e;
+  color: #fff;
+}
+
+.print-tip-modal--schedule .print-tip-actions{
+  margin-top: 26px;
+}
+
+.print-tip-modal--schedule .print-tip-btn{
+  min-width: 140px;
+  min-height: 48px;
+  font-size: 16px;
+  border-radius: 999px;
+}
+
+@media (max-width: 680px){
+  .print-tip-modal--schedule{
+    margin: 6vh 14px 0;
+    padding: 22px 20px 20px;
+  }
+
+  .print-tip-modal--schedule .print-tip-title{
+    font-size: 20px;
+  }
+
+  .print-tip-modal--schedule .print-tip-btn{
+    min-width: 120px;
+    min-height: 44px;
+    font-size: 15px;
+  }
+}
