@@ -3231,8 +3231,8 @@ body.sched-dragging .sched-card{
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 12px 8px;
-  margin: 6px 0 0;
+  padding: 14px 0 10px !important;
+  margin: 12px 0 6px !important;
 }
 
 .schedule-panel-afternoon-divider::before{
