@@ -598,4 +598,101 @@
      margin-bottom: 0 !important;
    }
 
+     /* =========================================================
+     9) FINAL PRINT CLEANUP — schedule section polish
+     ========================================================= */
+
+  /* Hide panel-level show/hide control in print */
+  .schedule-panel-afternoon-toggle{
+    display: none !important;
+  }
+
+  /* Keep divider label clean in print */
+  .schedule-panel-afternoon-divider{
+    padding: 8px 0 6px !important;
+    margin: 4px 0 0 !important;
+    background: transparent !important;
+  }
+
+  .schedule-panel-afternoon-divider::before{
+    left: 0 !important;
+    right: 0 !important;
+    background: #d8ddd5 !important;
+  }
+
+  .schedule-panel-afternoon-divider-label{
+    background: #fff !important;
+    color: #6f786f !important;
+    opacity: 1 !important;
+    padding: 0 10px !important;
+  }
+
+  /* Printed time rows should feel like real grid rows */
+  .schedule-col-subtotal{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    min-height: 20px !important;
+    padding: 4px 6px !important;
+    margin: 0 !important;
+
+    background: #f6f7f3 !important;
+    border-left: 1px solid rgba(0,0,0,0.14) !important;
+    border-right: 1px solid rgba(0,0,0,0.14) !important;
+    border-bottom: 1px solid rgba(0,0,0,0.14) !important;
+    border-top: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .schedule-col-subtotal-text{
+    font-size: 10px !important;
+    font-weight: 650 !important;
+    color: #596e5e !important;
+    opacity: .9 !important;
+    text-align: left !important;
+  }
+
+  /* Afternoon subtotal should match morning exactly in print */
+  .schedule-col-subtotal--afternoon{
+    background: #f6f7f3 !important;
+    border-top: 0 !important;
+    border-bottom: 1px solid rgba(0,0,0,0.14) !important;
+    margin: 0 !important;
+  }
+
+  /* Remove extra tint/space from afternoon section in print */
+  .schedule-col--afternoononly,
+  .schedule-col-zone--afternoon,
+  .schedule-dropzone--afternoon{
+    background: transparent !important;
+  }
+
+  .schedule-col-zone--afternoon{
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  .schedule-col--afternoononly .schedule-col-subtotal{
+    padding-top: 4px !important;
+  }
+
+  .schedule-col--afternoononly .schedule-dropzone--afternoon{
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  /* Hide blank placeholder boxes and trailing empty drop targets */
+  .schedule-afternoon-empty,
+  .schedule-drop-tail{
+    display: none !important;
+  }
+
+  /* If a dropzone ends up empty after placeholders are hidden, collapse it */
+  .schedule-dropzone:has(> .schedule-afternoon-empty:only-child),
+  .schedule-dropzone:has(> .schedule-drop-tail:only-child){
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+
 }
