@@ -412,30 +412,30 @@
 
 .schedule-col-subtotal{
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
-  min-height: 28px;
-  padding: 6px 12px;
-  background: #dee1d2;
-  border-bottom: 1px solid #e5e8e5;
+  min-height: 24px;
+  padding: 5px 12px 4px;
+  background: #f3f4ef;
+  border-bottom: 1px solid #eceee8;
 }
 
 .schedule-col-subtotal-text{
   font-size: 11px;
   color: #596e5e;
-  font-weight: 700;
+  font-weight: 650;
   line-height: 1.1;
-  opacity: .82;
+  opacity: .68;
 }
 
 .schedule-col-subtotal--morning{
-  background: #dee1d2;
+  background: #f3f4ef;
 }
 
 .schedule-col-subtotal--afternoon{
-  background: #dee1d2;
+  background: #f3f4ef;
   border-bottom: 0;
-  border-top: 1px solid #e5e8e5;
+  border-top: 1px solid #eceee8;
 }
 
 .schedule-afternoon-empty{
@@ -2168,7 +2168,7 @@ body.sched-dragging .sched-card{
   border-top: 0;
   border-bottom: 0;
   border-left: 0;
-  border-right: 1px solid #e5e8e5;
+  border-right: 1px solid #eff1ec;
 
   background: #fbfbf9;
 }
@@ -3231,8 +3231,8 @@ body.sched-dragging .sched-card{
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 12px 6px;
-  margin: 2px 0 0;
+  padding: 12px 12px 8px;
+  margin: 6px 0 0;
 }
 
 .schedule-panel-afternoon-divider::before{
@@ -3251,14 +3251,15 @@ body.sched-dragging .sched-card{
   position: relative;
   z-index: 1;
   margin: 0 auto;
-  padding: 0 10px;
+  padding: 0 12px;
   background: #fbfbf9;
   font-size: 10px;
   line-height: 1;
   font-weight: 700;
-  letter-spacing: .08em;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  color: #7b837b;
+  color: #6f786f;
+  opacity: .9;
   justify-self: center;
 }
 
