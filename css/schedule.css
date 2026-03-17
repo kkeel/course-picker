@@ -3497,9 +3497,13 @@ body.sched-dragging .sched-card{
   }
 }
 
+.schedule-intro-text{
+  max-width: 880px;
+}
+
 .schedule-intro-side{
-  flex: 0 0 520px;
-  width: 520px;
+  flex: 0 0 500px;
+  width: 500px;
   max-width: 100%;
 }
 
@@ -3512,8 +3516,8 @@ body.sched-dragging .sched-card{
 
 .schedule-intro-side-stack{
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.94fr);
+  gap: 16px;
   align-items: start;
 }
 
@@ -3530,28 +3534,33 @@ body.sched-dragging .sched-card{
   border: 1px solid #d2d6d2;
   border-radius: 20px;
   background: transparent;
-  padding: 16px 18px;
+  padding: 12px 14px;
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--brand-text);
 }
 
 .schedule-time-guide-title{
-  font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  font-size: 0.75rem;
+  margin-bottom: 8px;
   color: var(--text-muted);
-  margin-bottom: 10px;
 }
 
 .schedule-time-guide-copy{
-  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 13px;
-  line-height: 1.35;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.45;
   color: var(--brand-text);
 }
 
 .schedule-time-guide-copy p{
-  margin: 0 0 12px;
+  margin: 0 0 8px;
 }
 
 .schedule-time-guide-copy p:last-child{
@@ -3560,19 +3569,16 @@ body.sched-dragging .sched-card{
 
 .schedule-time-guide-times{
   display: grid;
-  gap: 3px;
-  margin: 0 0 12px;
+  gap: 4px;
+  margin: 0 0 10px;
 }
 
 .schedule-time-guide-times div{
-  line-height: 1.28;
+  line-height: 1.35;
 }
 
-@media (max-width: 1280px){
-  .schedule-intro-side{
-    flex: 0 0 420px;
-    width: 420px;
-  }
+.schedule-time-guide-times strong{
+  font-weight: 600;
 }
 
 @media (max-width: 1024px){
@@ -3597,5 +3603,20 @@ body.sched-dragging .sched-card{
 
   .schedule-intro-side-stack > .av-video-inline{
     grid-column: auto;
+  }
+}
+
+@media (max-width: 1280px){
+  .schedule-intro-text{
+    max-width: 760px;
+  }
+
+  .schedule-intro-side{
+    flex: 0 0 440px;
+    width: 440px;
+  }
+
+  .schedule-intro-side-stack{
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 }
