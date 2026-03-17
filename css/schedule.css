@@ -3496,3 +3496,106 @@ body.sched-dragging .sched-card{
     width: 100%;
   }
 }
+
+.schedule-intro-side{
+  flex: 0 0 520px;
+  width: 520px;
+  max-width: 100%;
+}
+
+.schedule-intro-side .av-video-inline{
+  width: 100% !important;
+  max-width: none;
+  min-width: 0;
+  margin-left: 0;
+}
+
+.schedule-intro-side-stack{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.schedule-intro-side-stack > .av-video-inline{
+  grid-column: 1 / -1;
+}
+
+.schedule-intro-side-stack > .av-symbol-key,
+.schedule-intro-side-stack > .schedule-time-guide{
+  height: 100%;
+}
+
+.schedule-time-guide{
+  border: 1px solid #d2d6d2;
+  border-radius: 20px;
+  background: transparent;
+  padding: 16px 18px;
+}
+
+.schedule-time-guide-title{
+  font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.schedule-time-guide-copy{
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--brand-text);
+}
+
+.schedule-time-guide-copy p{
+  margin: 0 0 12px;
+}
+
+.schedule-time-guide-copy p:last-child{
+  margin-bottom: 0;
+}
+
+.schedule-time-guide-times{
+  display: grid;
+  gap: 3px;
+  margin: 0 0 12px;
+}
+
+.schedule-time-guide-times div{
+  line-height: 1.28;
+}
+
+@media (max-width: 1280px){
+  .schedule-intro-side{
+    flex: 0 0 420px;
+    width: 420px;
+  }
+}
+
+@media (max-width: 1024px){
+  .schedule-intro-row{
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .schedule-intro-text{
+    max-width: none;
+  }
+
+  .schedule-intro-side{
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .schedule-intro-side-stack{
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .schedule-intro-side-stack > .av-video-inline{
+    grid-column: auto;
+  }
+}
