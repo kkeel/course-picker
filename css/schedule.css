@@ -8,24 +8,15 @@
   display: block;
 }
 .schedule-intro-row{
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 32px;
-  margin-top: 8px;
-  margin-bottom: 22px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 28px;
+  align-items: start;
 }
 
 .schedule-intro-text{
-  max-width: 980px;
   width: 100%;
   flex: 1 1 auto;
-}
-
-.schedule-intro-side{
-  flex: 0 0 320px;
-  width: 320px;
-  max-width: 100%;
 }
 
 .schedule-intro-side .av-video-inline{
@@ -43,11 +34,6 @@
 
   .schedule-intro-text{
     max-width: none;
-  }
-
-  .schedule-intro-side{
-    flex: 0 0 auto;
-    width: 100%;
   }
 }
 
@@ -3497,16 +3483,6 @@ body.sched-dragging .sched-card{
   }
 }
 
-.schedule-intro-text{
-  max-width: 880px;
-}
-
-.schedule-intro-side{
-  flex: 0 0 500px;
-  width: 500px;
-  max-width: 100%;
-}
-
 .schedule-intro-side .av-video-inline{
   width: 100% !important;
   max-width: none;
@@ -3591,11 +3567,6 @@ body.sched-dragging .sched-card{
     max-width: none;
   }
 
-  .schedule-intro-side{
-    flex: 0 0 auto;
-    width: 100%;
-  }
-
   .schedule-intro-side-stack{
     grid-template-columns: 1fr;
     width: 100%;
@@ -3607,16 +3578,22 @@ body.sched-dragging .sched-card{
 }
 
 @media (max-width: 1280px){
-  .schedule-intro-text{
-    max-width: 760px;
-  }
-
-  .schedule-intro-side{
-    flex: 0 0 440px;
-    width: 440px;
-  }
 
   .schedule-intro-side-stack{
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.schedule-intro-text{
+  max-width: none;
+}
+
+.schedule-intro-side{
+  width: 100%;
+}
+
+@media (max-width: 900px){
+  .schedule-intro-row{
+    grid-template-columns: 1fr;
   }
 }
