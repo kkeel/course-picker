@@ -3437,3 +3437,62 @@ body.sched-dragging .sched-card{
     font-size: 15px;
   }
 }
+
+/* =========================================================
+   Schedule intro sidebar helpers
+   ========================================================= */
+
+.schedule-intro-side-stack{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Reuse the same visual language as the Course List symbol key */
+.schedule-time-guide{
+  border: 1px solid #d2d6d2;
+  border-radius: 20px;
+  background: transparent;
+  padding: 18px 20px;
+}
+
+.schedule-time-guide-title{
+  font-family: "Circular Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.schedule-time-guide-copy{
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--brand-text);
+}
+
+.schedule-time-guide-copy p{
+  margin: 0 0 14px;
+}
+
+.schedule-time-guide-copy p:last-child{
+  margin-bottom: 0;
+}
+
+.schedule-time-guide-times{
+  display: grid;
+  gap: 4px;
+  margin: 0 0 16px;
+}
+
+.schedule-time-guide-times div{
+  line-height: 1.35;
+}
+
+@media (max-width: 1024px){
+  .schedule-intro-side-stack{
+    width: 100%;
+  }
+}
