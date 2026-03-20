@@ -657,6 +657,25 @@ export async function requireDeveloperForSchedule({ onDenied = null, statusEl = 
   return { ok: true, role, user: who.user || {} };
 }
 
+async function savePlannerCoreToCloud() {
+  try {
+    if (!window.AlvearyAuth?.setPlannerState) {
+      return { ok: false, reason: "planner_api_unavailable" };
+    }
+
+    const planner = getPlannerState();
+    if (!planner || typeof planner !== "object") {
+      return { ok: false, reason: "no_local_planner_state" };
+    }
+
+    const res = await window.AlvearyAuth.setPlannerState(planner);
+    return res?.ok ? { ok: true, detail: res } : { ok: false, reason: res?.reason || "planner_set_failed", detail: res };
+  } catch (e) {
+    console.warn("[planner] Failed to save planner core from schedule save", e);
+    return { ok: false, reason: "planner_set_exception", detail: e };
+  }
+}
+
 /* ============================================================
    CLOUD SAVE / LOAD (Schedule section only)
    ============================================================ */
@@ -674,28 +693,49 @@ export async function saveScheduleSectionToCloud({ statusEl = null } = {}) {
 
   setStatus(statusEl, "Saving schedule to account…");
 
-  // 1) Get existing sectioned state
+  // 1) Save shared planner state too (students, assignments, notes, etc.)
+  const plannerSaved = await savePlannerCoreToCloud();
+  if (!plannerSaved?.ok) {
+    console.warn("[planner] Shared planner save from schedule page failed:", plannerSaved);
+  }
+
+  // 2) Get existing sectioned state
   const remote = await sectionedGetState();
   if (!remote?.ok) {
     setStatus(statusEl, `Save failed (get): ${remote?.reason || "unknown"}`, "error");
-    return { ok: false, reason: remote?.reason || "get_failed", detail: remote?.detail };
+    return {
+      ok: false,
+      reason: remote?.reason || "get_failed",
+      detail: remote?.detail,
+      plannerSaved,
+    };
   }
 
   const next = mergeScheduleIntoSectionedState(remote.state, localSchedule);
 
-  // 2) Set merged state
+  // 3) Set merged sectioned state
   const saved = await sectionedSetState(next);
   if (!saved?.ok) {
     console.error("Sectioned save failed:", saved);
     setStatus(statusEl, `Save failed (set): ${saved?.reason || "unknown"}`, "error");
-    return { ok: false, reason: saved?.reason || "set_failed", detail: saved?.detail };
+    return {
+      ok: false,
+      reason: saved?.reason || "set_failed",
+      detail: saved?.detail,
+      plannerSaved,
+    };
   }
 
   // Update local marker so we don't immediately "pull" over our own changes.
   setLocalLastSeenCloudFromRemote(remote?.lastUpdated || null);
 
-  setStatus(statusEl, `Saved ✓`, "ok");
-  return { ok: true, saved };
+  if (plannerSaved?.ok) {
+    setStatus(statusEl, `Saved ✓`, "ok");
+  } else {
+    setStatus(statusEl, `Saved schedule ✓ (shared planner save needs follow-up)`, "warn");
+  }
+
+  return { ok: true, saved, plannerSaved };
 }
 
 /* ============================================================
