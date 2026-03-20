@@ -1316,17 +1316,49 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
           }
         } catch (e) {}
         
-        // load UI
+                // load UI
         const savedUi = loadKey(UI_STORAGE_KEY);
-      
+
+        // Canonical read-first migration path:
+        // use unified shared + section state when available, but keep legacy fallback.
+        const canonical =
+          (typeof window.__loadCanonicalPlannerState === "function")
+            ? (window.__loadCanonicalPlannerState() || null)
+            : null;
+
+        const canonicalShared =
+          canonical && canonical.shared && typeof canonical.shared === "object"
+            ? canonical.shared
+            : {};
+
+        const canonicalSchedule =
+          canonical &&
+          canonical.sections &&
+          canonical.sections.schedule &&
+          typeof canonical.sections.schedule === "object"
+            ? canonical.sections.schedule
+            : {};
+
+        const canonicalUi =
+          canonicalSchedule &&
+          canonicalSchedule.state &&
+          canonicalSchedule.state.ui &&
+          typeof canonicalSchedule.state.ui === "object"
+            ? canonicalSchedule.state.ui
+            : null;
+
         // Pull students from the shared planner state (Course List) when available.
-        const planner = loadPlannerState();
+        const planner = {
+          ...(loadPlannerState() || {}),
+          ...canonicalShared,
+        };
+
         const plannerKids = plannerStudents(planner);
         if (plannerKids.length) this.students = plannerKids;
         this._planner = planner;
-      
+
         const allIds = (this.students || []).map((s) => s.id);
-        const normalizedUi = normalizeUiState(savedUi || defaultUiState(), allIds);
+        const normalizedUi = normalizeUiState(canonicalUi || savedUi || defaultUiState(), allIds);
       
         // Restore left-rail UI toggles
         this.railTopCollapsed = !!normalizedUi.railTopCollapsed;
