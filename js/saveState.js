@@ -232,6 +232,57 @@ function mergeStudentRosterIntoPlanner(roster) {
   });
 }
 
+function mergePlannerCoreIntoPlanner(snapshot) {
+  if (!snapshot || typeof snapshot !== "object") return false;
+
+  const cur = getPlannerState();
+  const next = { ...(cur || {}) };
+
+  if (typeof snapshot.version === "string" && snapshot.version.trim()) {
+    next.version = snapshot.version;
+  }
+
+  if (snapshot.globalTopicTags && typeof snapshot.globalTopicTags === "object") {
+    next.globalTopicTags = snapshot.globalTopicTags;
+  }
+
+  if (snapshot.globalTopicNotes && typeof snapshot.globalTopicNotes === "object") {
+    next.globalTopicNotes = snapshot.globalTopicNotes;
+  }
+
+  if (snapshot.globalTopicStudents && typeof snapshot.globalTopicStudents === "object") {
+    next.globalTopicStudents = snapshot.globalTopicStudents;
+  }
+
+  if (typeof snapshot.studentColorCursor === "number") {
+    next.studentColorCursor = snapshot.studentColorCursor;
+  }
+
+  if (snapshot.studentRailCollapsed && typeof snapshot.studentRailCollapsed === "object") {
+    next.studentRailCollapsed = snapshot.studentRailCollapsed;
+  }
+
+  if (snapshot.courses && typeof snapshot.courses === "object") {
+    next.courses = snapshot.courses;
+  }
+
+  if (snapshot.topics && typeof snapshot.topics === "object") {
+    next.topics = snapshot.topics;
+  }
+
+  if (snapshot.extras && typeof snapshot.extras === "object") {
+    next.extras = snapshot.extras;
+  }
+
+  if (Array.isArray(snapshot.students)) {
+    const { roster } = canonicalizeStudentRoster(snapshot.students);
+    next.students = roster;
+  }
+
+  setPlannerState(next);
+  return true;
+}
+
 function dispatchPlannerHydrated() {
   try {
     window.dispatchEvent(
@@ -387,7 +438,23 @@ export function getLocalScheduleState() {
         }))
     : [];
 
-  return { ui, cards, students };
+  const plannerCore = planner && typeof planner === "object"
+    ? {
+        version: typeof planner.version === "string" ? planner.version : "",
+        globalTopicTags: planner.globalTopicTags || {},
+        globalTopicNotes: planner.globalTopicNotes || {},
+        globalTopicStudents: planner.globalTopicStudents || {},
+        students,
+        studentColorCursor:
+          typeof planner.studentColorCursor === "number" ? planner.studentColorCursor : 0,
+        studentRailCollapsed: planner.studentRailCollapsed || {},
+        courses: planner.courses || {},
+        topics: planner.topics || {},
+        extras: planner.extras || {},
+      }
+    : null;
+
+  return { ui, cards, students, plannerCore };
 }
 
 export function setLocalScheduleState(incoming) {
@@ -404,14 +471,29 @@ export function setLocalScheduleState(incoming) {
         ? incoming.cards
         : null;
 
-    const rawStudents = Array.isArray(incoming.students) ? incoming.students : [];
+    const rawPlannerCore =
+      incoming.plannerCore && typeof incoming.plannerCore === "object"
+        ? incoming.plannerCore
+        : null;
+
+    const rawStudents = Array.isArray(rawPlannerCore?.students)
+      ? rawPlannerCore.students
+      : (Array.isArray(incoming.students) ? incoming.students : []);
+
     const { roster, aliasMap } = canonicalizeStudentRoster(rawStudents);
 
     const uiState = remapUiStudentIds(rawUiState, aliasMap);
     const cardsPart = remapCardsStudentIds(rawCardsPart, aliasMap);
 
-    // 1) Merge roster into planner state FIRST
-    if (roster.length) {
+    // 1) Merge full planner snapshot first when available
+    if (rawPlannerCore) {
+      const plannerCore = {
+        ...rawPlannerCore,
+        students: roster,
+      };
+      mergePlannerCoreIntoPlanner(plannerCore);
+      dispatchPlannerHydrated();
+    } else if (roster.length) {
       mergeStudentRosterIntoPlanner(roster);
       dispatchPlannerHydrated();
     }
