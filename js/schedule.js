@@ -335,18 +335,28 @@ for (const [key, value] of Object.entries(rawAfternoonOpenByPanel || {})) {
 // -----------------------------
 // Rail "Add target" (student/day)
 // -----------------------------
-// ALWAYS reset to the first student (even after refresh).
-let activeTargetStudentId = "";
+let activeTargetStudentId = String(
+  state?.activeTargetStudentId ||
+  state?.activeTarget?.studentId ||
+  ""
+).trim();
+
 if (Array.isArray(allStudentIds) && allStudentIds.length) {
-  activeTargetStudentId = allStudentIds[0];
+  if (!activeTargetStudentId || !allStudentIds.includes(activeTargetStudentId)) {
+    activeTargetStudentId = allStudentIds[0];
+  }
 } else {
   activeTargetStudentId = "S1";
 }
 
 let activeTargetDayIndex = Number(state?.activeTargetDayIndex);
-if (!Number.isInteger(activeTargetDayIndex)) activeTargetDayIndex = Number(state?.activeTarget?.dayIndex);
+if (!Number.isInteger(activeTargetDayIndex)) {
+  activeTargetDayIndex = Number(state?.activeTarget?.dayIndex);
+}
 if (!Number.isInteger(activeTargetDayIndex) || activeTargetDayIndex < 0 || activeTargetDayIndex > 4) {
-  activeTargetDayIndex = Number.isInteger(Number(d.activeTargetDayIndex)) ? Number(d.activeTargetDayIndex) : 0;
+  activeTargetDayIndex = Number.isInteger(Number(d.activeTargetDayIndex))
+    ? Number(d.activeTargetDayIndex)
+    : 0;
 }
 
 // Keep day target within visible days (if provided)
