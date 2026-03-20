@@ -6,6 +6,7 @@
   // Storage keys
   // -----------------------------
   const UI_STORAGE_KEY = "alveary_schedule_ui_v1";
+  const UI_LAYOUT_MIGRATION_KEY = "alveary_schedule_ui_layout_fix_20260320_v1";
   const WORKSPACE_H_KEY = "alveary_schedule_workspace_h_v1";
   const CARDS_STORAGE_KEY = "alveary_schedule_cards_v1";
   const MA_COURSES_URL = "data/MA_Courses.json";
@@ -29,6 +30,32 @@
       localStorage.setItem(key, JSON.stringify(value));
     } catch {
       // ignore (private mode, quota, etc.)
+    }
+  }
+
+    function migrateLegacyScheduleUi(rawUi) {
+    if (!rawUi || typeof rawUi !== "object") return rawUi;
+
+    try {
+      if (localStorage.getItem(UI_LAYOUT_MIGRATION_KEY) === "done") {
+        return rawUi;
+      }
+
+      const next = { ...rawUi };
+
+      // Force the newer full-width student-view layout once for older saved UI.
+      next.expandedMode = true;
+
+      // Preserve one-panel default when users were stuck on older narrow saved UI.
+      if (!Array.isArray(next.panels) || !next.panels.length) {
+        next.panels = [{ slot: "P1", studentId: "S1" }];
+      }
+
+      localStorage.setItem(UI_STORAGE_KEY, JSON.stringify(next));
+      localStorage.setItem(UI_LAYOUT_MIGRATION_KEY, "done");
+      return next;
+    } catch {
+      return rawUi;
     }
   }
 
@@ -1314,7 +1341,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
         } catch (e) {}
         
                 // load UI
-        const savedUi = loadKey(UI_STORAGE_KEY);
+                const savedUi = migrateLegacyScheduleUi(loadKey(UI_STORAGE_KEY));
 
         // Canonical read-first migration path:
         // use unified shared + section state when available, but keep legacy fallback.
