@@ -2110,7 +2110,16 @@
 
 <!-- Sectioned cloud save/load wiring -->
 <script type="module">
-  import { initScheduleSectionedSave } from "./js/saveState.js";
+  import {
+    initScheduleSectionedSave,
+    loadCanonicalPlannerState
+  } from "./js/saveState.js";
+
+  try {
+    window.__loadCanonicalPlannerState = loadCanonicalPlannerState;
+  } catch (e) {
+    console.error("Failed to expose loadCanonicalPlannerState", e);
+  }
 
   window.addEventListener("DOMContentLoaded", async () => {
     try {
