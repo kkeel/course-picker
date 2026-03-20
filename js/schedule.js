@@ -148,51 +148,48 @@
   // -----------------------------
   // UI state (existing)
   // -----------------------------
-  function defaultUiState() {
-    return {
-      view: "track",
-      visibleDays: [0, 1, 2, 3, 4],
-      panels: [
-        { slot: "P1", studentId: "S1" },
-      ],
-      dayViewPanels: [
-        { slot: "D1", dayIdx: 0 }, // Mon
-        { slot: "D2", dayIdx: 1 }, // Tue
-        { slot: "D3", dayIdx: 2 }, // Wed
-        { slot: "D4", dayIdx: 3 }, // Thu
-        { slot: "D5", dayIdx: 4 }, // Fri
-      ],
-      dayViewStudentSlots: ["S1", "S2", "S3", "S4", "S5"],
-  
-      // Panel-level Afternoon Work visibility
-      // key = panel.slot ("P1", "P2", "D1", etc.)
-      // missing key => visible by default
-      afternoonOpenByPanel: {},
-  
-      // Left rail UI
-      railDockOpen: true,
-      railTopCollapsed: false,
-      railDockCollapsed: false,
-      showCompleted: false,
-  
-      // Rail filters (affect rail ONLY — never the schedule columns)
-      railGradeFilter: "", // "" = all; otherwise "G1".."G12"
-      railMyCoursesOnly: false,
-      railStudentAssignedOnly: true,
-      railSearch: "", // rail title search
-  
-      // Rail header "target student" selector (persists across refresh)
-      activeTargetStudentId: "S1",
-      activeTargetDayIndex: 0,
-  
-      // Schedule board card style (Phase 1 persistence only)
-      boardAddSymbols: true,
-      boardAddTracking: true,
-      boardScaleByTime: false,
-  
-      expandedMode: false,
-    };
-  }
+    function defaultUiState() {
+      return {
+        view: "track",
+        visibleDays: [0, 1, 2, 3, 4],
+        panels: [
+          { slot: "P1", studentId: "S1" },
+        ],
+        dayViewPanels: [
+          { slot: "D1", dayIdx: 0 }, // Mon
+          { slot: "D2", dayIdx: 1 }, // Tue
+        ],
+        dayViewStudentSlots: ["S1", "S2", "S3", "S4", "S5"],
+    
+        // Panel-level Afternoon Work visibility
+        // key = panel.slot ("P1", "P2", "D1", etc.)
+        // missing key => visible by default
+        afternoonOpenByPanel: {},
+    
+        // Left rail UI
+        railDockOpen: true,
+        railTopCollapsed: false,
+        railDockCollapsed: false,
+        showCompleted: false,
+    
+        // Rail filters (affect rail ONLY — never the schedule columns)
+        railGradeFilter: "", // "" = all; otherwise "G1".."G12"
+        railMyCoursesOnly: false,
+        railStudentAssignedOnly: true,
+        railSearch: "", // rail title search
+    
+        // Rail header "target student" selector (persists across refresh)
+        activeTargetStudentId: "S1",
+        activeTargetDayIndex: 0,
+    
+        // Schedule board card style (Phase 1 persistence only)
+        boardAddSymbols: true,
+        boardAddTracking: true,
+        boardScaleByTime: false,
+    
+        expandedMode: true,
+      };
+    }
 
   function normalizeUiState(state, allStudentIds) {
     const d = defaultUiState();
@@ -1071,7 +1068,7 @@ if (Array.isArray(visibleDays) && visibleDays.length && !visibleDays.includes(ac
       // -----------------------------
       // Expanded Mode
       // -----------------------------
-      expandedMode: false,
+      expandedMode: true,
       boardAddSymbols: true,
       boardAddTracking: true,
       boardScaleByTime: false,
