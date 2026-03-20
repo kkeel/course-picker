@@ -48,6 +48,203 @@ function simpleHash(str) {
   return h >>> 0;
 }
 
+// ---------------------------
+// Planner state helpers
+// ---------------------------
+// app.js stores the global planner state (including student roster) in localStorage
+// under PLANNER_STATE_KEY. Schedule rendering depends on that roster existing.
+function resolvePlannerKey() {
+  try {
+    if (window.PLANNER_STATE_KEY) return window.PLANNER_STATE_KEY;
+  } catch {}
+
+  try {
+    const keys = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith("alveary_planner_")) keys.push(k);
+    }
+    keys.sort();
+    return keys.length ? keys[keys.length - 1] : null;
+  } catch {
+    return null;
+  }
+}
+
+function getPlannerState() {
+  try {
+    const key = resolvePlannerKey();
+    if (!key) return {};
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function setPlannerState(next) {
+  try {
+    const key = resolvePlannerKey();
+    if (!key) return;
+    localStorage.setItem(key, JSON.stringify(next || {}));
+  } catch {
+    // ignore
+  }
+}
+
+function canonicalStudentId(raw) {
+  const v = String(raw || "").trim();
+  if (!v) return "";
+
+  // already canonical
+  if (/^s_\d+(?:_[A-Za-z0-9]+)?$/.test(v)) return v;
+
+  // legacy compact format like s17737722896273df4cefc6225e
+  if (/^s[A-Za-z0-9]+$/.test(v)) {
+    const body = v.slice(1);
+    const digitPrefix = (body.match(/^\d+/) || [""])[0];
+
+    if (digitPrefix.length >= 13) {
+      const first = digitPrefix.slice(0, 13);
+      const rest = body.slice(13);
+      return rest ? `s_${first}_${rest}` : `s_${first}`;
+    }
+
+    if (digitPrefix.length > 0) {
+      const rest = body.slice(digitPrefix.length);
+      return rest ? `s_${digitPrefix}_${rest}` : `s_${digitPrefix}`;
+    }
+  }
+
+  return v;
+}
+
+function canonicalizeStudentRoster(roster) {
+  if (!Array.isArray(roster)) return { roster: [], aliasMap: {} };
+
+  const aliasMap = {};
+  const byId = new Map();
+
+  for (const s of roster) {
+    if (!s) continue;
+
+    const originalId = String(s.id || "").trim();
+    const nextId = canonicalStudentId(originalId);
+    if (!nextId) continue;
+
+    if (originalId && originalId !== nextId) {
+      aliasMap[originalId] = nextId;
+    }
+
+    if (!byId.has(nextId)) {
+      byId.set(nextId, {
+        ...s,
+        id: nextId,
+      });
+    }
+  }
+
+  return {
+    roster: Array.from(byId.values()),
+    aliasMap,
+  };
+}
+
+function remapStudentId(value, aliasMap) {
+  const v = String(value || "").trim();
+  if (!v) return "";
+  return aliasMap[v] || canonicalStudentId(v);
+}
+
+function remapUiStudentIds(ui, aliasMap) {
+  if (!ui || typeof ui !== "object") return ui;
+
+  const next = {
+    ...ui,
+    panels: Array.isArray(ui.panels)
+      ? ui.panels.map((p) => ({
+          ...p,
+          studentId: remapStudentId(p?.studentId, aliasMap),
+        }))
+      : ui.panels,
+
+    dayViewStudentSlots: Array.isArray(ui.dayViewStudentSlots)
+      ? ui.dayViewStudentSlots.map((id) => remapStudentId(id, aliasMap))
+      : ui.dayViewStudentSlots,
+
+    activeTargetStudentId: remapStudentId(ui.activeTargetStudentId, aliasMap),
+  };
+
+  if (ui.activeTarget && typeof ui.activeTarget === "object") {
+    next.activeTarget = {
+      ...ui.activeTarget,
+      studentId: remapStudentId(ui.activeTarget.studentId, aliasMap),
+    };
+  }
+
+  return next;
+}
+
+function remapCardsStudentIds(cards, aliasMap) {
+  if (!cards || typeof cards !== "object") return cards;
+
+  const nextPlacements = {};
+  const placements = cards.placements && typeof cards.placements === "object"
+    ? cards.placements
+    : {};
+
+  for (const [studentId, days] of Object.entries(placements)) {
+    const nextStudentId = remapStudentId(studentId, aliasMap);
+    if (!nextStudentId) continue;
+    nextPlacements[nextStudentId] = days;
+  }
+
+  return {
+    ...cards,
+    placements: nextPlacements,
+  };
+}
+
+function mergeStudentRosterIntoPlanner(roster) {
+  if (!Array.isArray(roster) || roster.length === 0) return;
+
+  const cur = getPlannerState();
+  const existing = Array.isArray(cur.students) ? cur.students : [];
+
+  const byId = new Map();
+
+  for (const s of existing) {
+    if (!s?.id) continue;
+    byId.set(String(s.id), s);
+  }
+
+  for (const s of roster) {
+    if (!s?.id) continue;
+    byId.set(String(s.id), {
+      ...(byId.get(String(s.id)) || {}),
+      ...s,
+    });
+  }
+
+  setPlannerState({
+    ...cur,
+    students: Array.from(byId.values()),
+  });
+}
+
+function dispatchPlannerHydrated() {
+  try {
+    window.dispatchEvent(
+      new CustomEvent("planner:hydrated", {
+        detail: {
+          key: resolvePlannerKey(),
+          source: "schedule_sectioned_state",
+        },
+      })
+    );
+  } catch {}
+}
+
 
 function getLocalLastSeenCloud() {
   return parseAirtableLastUpdated(localStorage.getItem(LOCAL_LAST_SEEN_CLOUD_KEY));
@@ -169,10 +366,10 @@ function writeFullCardsState(full) {
 export function getLocalScheduleState() {
   const ui = safeParse(localStorage.getItem(UI_STORAGE_KEY) || "", null);
   const fullCards = readFullCardsState();
+  const planner = getPlannerState();
 
   const cards = fullCards && typeof fullCards === "object"
     ? {
-        // Only persist what we *must* recreate the user's board:
         placements: fullCards.placements || {},
         instancesById: fullCards.instancesById || {},
         choices: fullCards.choices || {},
@@ -180,32 +377,63 @@ export function getLocalScheduleState() {
       }
     : null;
 
-  // Back-compat: if something expects the old shape, it can still read .ui
-  // from this object.
-  return { ui, cards };
+  const students = Array.isArray(planner?.students)
+    ? planner.students
+        .filter((s) => s && s.id)
+        .map((s) => ({
+          id: canonicalStudentId(s.id),
+          name: typeof s.name === "string" ? s.name : "",
+          color: typeof s.color === "string" ? s.color : "",
+        }))
+    : [];
+
+  return { ui, cards, students };
 }
 
 export function setLocalScheduleState(incoming) {
   try {
     if (!incoming || typeof incoming !== "object") return false;
 
-    // Accept either the new composed object, or the old "ui only" object.
-    const uiState = incoming.ui && typeof incoming.ui === "object" ? incoming.ui : incoming;
-    const cardsPart = incoming.cards && typeof incoming.cards === "object" ? incoming.cards : null;
+    const rawUiState =
+      incoming.ui && typeof incoming.ui === "object"
+        ? incoming.ui
+        : incoming;
 
-    // 1) UI
+    const rawCardsPart =
+      incoming.cards && typeof incoming.cards === "object"
+        ? incoming.cards
+        : null;
+
+    const rawStudents = Array.isArray(incoming.students) ? incoming.students : [];
+    const { roster, aliasMap } = canonicalizeStudentRoster(rawStudents);
+
+    const uiState = remapUiStudentIds(rawUiState, aliasMap);
+    const cardsPart = remapCardsStudentIds(rawCardsPart, aliasMap);
+
+    // 1) Merge roster into planner state FIRST
+    if (roster.length) {
+      mergeStudentRosterIntoPlanner(roster);
+      dispatchPlannerHydrated();
+    }
+
+    // 2) UI
     if (uiState && typeof uiState === "object") {
       localStorage.setItem(UI_STORAGE_KEY, JSON.stringify(uiState));
     }
 
-    // 2) Cards (merge custom templates into the existing full cards state)
+    // 3) Cards
     if (cardsPart) {
       const full = readFullCardsState() || {};
-      full.templatesById = full.templatesById && typeof full.templatesById === "object" ? full.templatesById : {};
+      full.templatesById =
+        full.templatesById && typeof full.templatesById === "object"
+          ? full.templatesById
+          : {};
 
       if (cardsPart.customTemplatesById && typeof cardsPart.customTemplatesById === "object") {
         for (const [id, tpl] of Object.entries(cardsPart.customTemplatesById)) {
-          if (typeof id === "string" && id.startsWith("u:")) full.templatesById[id] = tpl;
+          if (typeof id === "string" && id.startsWith("u:")) {
+            full.templatesById[id] = tpl;
+          }
         }
       }
 
