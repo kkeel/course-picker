@@ -458,6 +458,134 @@ export function setLocalScheduleState(incoming) {
   }
 }
 
+// =====================================
+// Canonical Planner State (read-only v1)
+// =====================================
+
+export const CANONICAL_STATE_VERSION = 2;
+
+function deepClone(value) {
+  try {
+    return value == null ? value : JSON.parse(JSON.stringify(value));
+  } catch {
+    return value;
+  }
+}
+
+function asObject(value) {
+  return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+}
+
+function asArray(value) {
+  return Array.isArray(value) ? value : [];
+}
+
+function emptyCanonicalState() {
+  return {
+    version: CANONICAL_STATE_VERSION,
+    shared: {
+      students: [],
+      studentColorCursor: 0,
+      studentRailCollapsed: {},
+      globalTopicTags: {},
+      globalTopicNotes: {},
+      globalTopicStudents: {},
+      courses: {},
+      topics: {},
+      extras: {},
+    },
+    sections: {
+      courses: {},
+      books: {},
+      schedule: {},
+      atAGlance: {},
+    },
+  };
+}
+
+/**
+ * Reads the current legacy planner state from local storage.
+ * This is the shared cross-page state currently managed by app.js.
+ */
+export function readLegacyPlannerState() {
+  try {
+    const planner = getPlannerState();
+    return asObject(planner);
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * Reads the current legacy sectioned state from local storage if present.
+ * Right now this is mainly being used by schedule cloud/local sync.
+ */
+export function readLegacySectionedState() {
+  try {
+    const raw =
+      localStorage.getItem("SECTIONED_PLANNER_STATE") ||
+      localStorage.getItem("sectioned_planner_state") ||
+      "";
+
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    return asObject(parsed);
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * Builds a canonical state object in memory using the current legacy shapes.
+ * This is read-only for now. We are NOT writing this shape yet.
+ */
+export function buildCanonicalPlannerState({
+  plannerState,
+  sectionedState,
+} = {}) {
+  const planner = asObject(plannerState || readLegacyPlannerState());
+  const sectioned = asObject(sectionedState || readLegacySectionedState());
+  const out = emptyCanonicalState();
+
+  // -----------------
+  // Shared planner data
+  // -----------------
+  out.shared.students = deepClone(asArray(planner.students));
+  out.shared.studentColorCursor =
+    Number.isFinite(Number(planner.studentColorCursor))
+      ? Number(planner.studentColorCursor)
+      : 0;
+
+  out.shared.studentRailCollapsed = deepClone(asObject(planner.studentRailCollapsed));
+  out.shared.globalTopicTags = deepClone(asObject(planner.globalTopicTags));
+  out.shared.globalTopicNotes = deepClone(asObject(planner.globalTopicNotes));
+  out.shared.globalTopicStudents = deepClone(asObject(planner.globalTopicStudents));
+  out.shared.courses = deepClone(asObject(planner.courses));
+  out.shared.topics = deepClone(asObject(planner.topics));
+  out.shared.extras = deepClone(asObject(planner.extras));
+
+  // -----------------
+  // Section data
+  // -----------------
+  const legacySections = asObject(sectioned.sections);
+
+  out.sections.courses = deepClone(asObject(legacySections.courses));
+  out.sections.books = deepClone(asObject(legacySections.books));
+  out.sections.schedule = deepClone(asObject(legacySections.schedule));
+  out.sections.atAGlance = deepClone(
+    asObject(legacySections.atAGlance || legacySections.aag)
+  );
+
+  return out;
+}
+
+/**
+ * Convenience helper used by pages later.
+ */
+export function loadCanonicalPlannerState() {
+  return buildCanonicalPlannerState();
+}
+
 /* ============================================================
    SECTIONED STATE SHAPE (cloud)
    ============================================================ */
