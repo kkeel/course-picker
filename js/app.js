@@ -2526,18 +2526,14 @@ function coursePlanner() {
       const onSchedule =
         path.endsWith("/schedule.html") ||
         path.endsWith("/schedule");
-        // If you also have a dev URL:
         // || path.endsWith("/test-schedule.html");
     
       const authorizedCore = (this.isMember || this.isStaff);
-    
-      // For now: schedule is STAFF-ONLY until "developer" is real in whoami/app.js
-      const authorizedSchedule = this.isStaff;
+      const authorizedSchedule = (this.isMember || this.isStaff);
     
       // Soft gate: do NOT redirect; just toggle what the page displays.
       this.courseGate = !!(
-        ((onCourseList || onYearAtAGlance) && !authorizedCore) ||
-        (onSchedule && !authorizedSchedule)
+        ((onCourseList || onYearAtAGlance || onSchedule) && !authorizedCore)
       );
     
       return true;
@@ -2782,16 +2778,16 @@ function coursePlanner() {
   // - "ready" steps must have an href (page exists)
   // - "soon" steps have href: null and are hidden from the menu until live
   const STEPS = [
-    { key: "intro", label: "Course Planning Intro", href: "index.html", status: "ready", icon: "course-planning-intro.svg" },
-    { key: "courses", label: "Courses", href: "courses.html", status: "ready", icon: "course-list.svg" },
-    { key: "schedule", label: "Schedule", href: null, status: "soon", icon: "schedule.svg" },
-    { key: "books", label: "Books", href: "books.html", status: "ready", icon: "book-list.svg" },
-    { key: "lesson-plans", label: "Lesson Plans", href: null, status: "soon", icon: "lesson-plans.svg" },
-    { key: "supplies", label: "Supplies", href: null, status: "soon", icon: "supplies.svg" },
-    { key: "exams", label: "Exams", href: null, status: "soon", icon: "exams.svg" },
-    { key: "ataglance", label: "Year At-A-Glance", href: "year-at-a-glance.html", status: "ready", icon: "at-a-glance.svg", group: "Other tools" },
-    { key: "budget", label: "Budget Planner", href: null, status: "soon", icon: "budget.svg", group: "Other tools" },
-  ];
+  { key: "intro", label: "Course Planning Intro", href: "index.html", status: "ready", icon: "course-planning-intro.svg" },
+  { key: "courses", label: "Courses", href: "courses.html", status: "ready", icon: "course-list.svg" },
+  { key: "schedule", label: "Schedule", href: "schedule.html", status: "ready", icon: "schedule.svg" },
+  { key: "books", label: "Books", href: "books.html", status: "ready", icon: "book-list.svg" },
+  { key: "lesson-plans", label: "Lesson Plans", href: null, status: "soon", icon: "lesson-plans.svg" },
+  { key: "supplies", label: "Supplies", href: null, status: "soon", icon: "supplies.svg" },
+  { key: "exams", label: "Exams", href: null, status: "soon", icon: "exams.svg" },
+  { key: "ataglance", label: "Year At-A-Glance", href: "year-at-a-glance.html", status: "ready", icon: "at-a-glance.svg", group: "Other tools" },
+  { key: "budget", label: "Budget Planner", href: null, status: "soon", icon: "budget.svg", group: "Other tools" },
+];
 
   function isLiveStep(s) {
     return !!(s && s.href);
