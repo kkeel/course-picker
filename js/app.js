@@ -352,6 +352,39 @@ function coursePlanner() {
       }
       return out;
     },
+
+        canonicalStudentId(raw) {
+      const v = String(raw || "").trim();
+      if (!v) return "";
+
+      if (/^s_\d+(?:_[A-Za-z0-9]+)?$/.test(v)) return v;
+
+      if (/^s[A-Za-z0-9]+$/.test(v)) {
+        const body = v.slice(1);
+        const digitPrefix = (body.match(/^\d+/) || [""])[0];
+
+        if (digitPrefix.length >= 13) {
+          const first = digitPrefix.slice(0, 13);
+          const rest = body.slice(13);
+          return rest ? `s_${first}_${rest}` : `s_${first}`;
+        }
+
+        if (digitPrefix.length > 0) {
+          const rest = body.slice(digitPrefix.length);
+          return rest ? `s_${digitPrefix}_${rest}` : `s_${digitPrefix}`;
+        }
+      }
+
+      return v;
+    },
+
+    canonicalStudentIdList(ids) {
+      return this._normalizeStudentIds(
+        (Array.isArray(ids) ? ids : [])
+          .map(id => this.canonicalStudentId(id))
+          .filter(Boolean)
+      );
+    },
     
     // Count ACTIVE assigned students on an item (ignores ghosts; de-duped; ignores unknown ids)
     assignedStudentCount(item) {
@@ -2181,6 +2214,54 @@ function coursePlanner() {
       }
       if (!state || state.version !== APP_CACHE_VERSION) return;
 
+      // --- migrate legacy student ids to canonical s_<timestamp>_<suffix> format ---
+      const studentAlias = new Map();
+
+      if (Array.isArray(state.students)) {
+        state.students = state.students
+          .filter(s => s && s.id)
+          .map(s => {
+            const oldId = String(s.id).trim();
+            const newId = this.canonicalStudentId(oldId);
+            if (oldId && newId && oldId !== newId) {
+              studentAlias.set(oldId, newId);
+            }
+            return {
+              ...s,
+              id: newId,
+            };
+          });
+      }
+
+      const remapList = (ids) =>
+        this.canonicalStudentIdList(
+          (Array.isArray(ids) ? ids : []).map(id => studentAlias.get(String(id)) || id)
+        );
+
+      if (state.globalTopicStudents && typeof state.globalTopicStudents === "object") {
+        for (const key of Object.keys(state.globalTopicStudents)) {
+          state.globalTopicStudents[key] = remapList(state.globalTopicStudents[key]);
+        }
+      }
+
+      if (state.courses && typeof state.courses === "object") {
+        for (const key of Object.keys(state.courses)) {
+          const rec = state.courses[key];
+          if (rec && Array.isArray(rec.students)) {
+            rec.students = remapList(rec.students);
+          }
+        }
+      }
+
+      if (state.topics && typeof state.topics === "object") {
+        for (const key of Object.keys(state.topics)) {
+          const rec = state.topics[key];
+          if (rec && Array.isArray(rec.students)) {
+            rec.students = remapList(rec.students);
+          }
+        }
+      }
+
       // Restore global topic-level notes and tags
       this.globalTopicTags  = state.globalTopicTags  || {};
       this.globalTopicNotes = state.globalTopicNotes || {};
@@ -2193,7 +2274,7 @@ function coursePlanner() {
         this.students = state.students
           .filter(s => s && s.id)
           .map(s => ({
-            id: String(s.id),
+            id: this.canonicalStudentId(s.id),
             name: typeof s.name === "string" ? s.name : "",
             color: typeof s.color === "string" && s.color ? s.color : "",
           }));
@@ -2321,7 +2402,11 @@ function coursePlanner() {
         globalTopicNotes: this.globalTopicNotes || {},
         globalTopicStudents: this.globalTopicStudents || {},
 
-        students: (this.students || []).slice(0, 15),
+        students: (this.students || []).slice(0, 15).map(s => ({
+          ...s,
+          id: this.canonicalStudentId(s?.id),
+        })),
+        
         studentColorCursor: this.studentColorCursor || 0,
         studentRailCollapsed: this.studentRailCollapsed || {},
 
@@ -2347,9 +2432,7 @@ function coursePlanner() {
             ? course.noteText
             : "";
           const tagIds       = tagIdsFromObjs(course.planningTags);
-          const studentIds   = Array.isArray(course.studentIds)
-            ? course.studentIds.map(String).map(s => s.trim()).filter(Boolean)
-            : [];
+          const studentIds = this.canonicalStudentIdList(course.studentIds);
 
           if (
             isBookmarked ||
@@ -2377,9 +2460,7 @@ function coursePlanner() {
               const instanceKey = `${courseKey}::${topicId}`;
               const tBookmarked = !!topic.isBookmarked;
               const tTagIds     = tagIdsFromObjs(topic.planningTags);
-              const tStudentIds = Array.isArray(topic.studentIds)
-                ? topic.studentIds.map(String).map(s => s.trim()).filter(Boolean)
-                : [];
+              const tStudentIds = this.canonicalStudentIdList(topic.studentIds);
 
               if (tBookmarked || tTagIds.length > 0 || tStudentIds.length > 0) {
                 state.topics[instanceKey] = {
