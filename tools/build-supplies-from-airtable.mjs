@@ -59,7 +59,9 @@ async function run() {
           qty: get("QTY", rec),
 
           // --- Links ---
+          linkText1: get("Link Text 1", rec),
           link1: get("URL 1", rec),
+          linkText2: get("Link Text 2", rec),
           link2: get("URL 2", rec),
 
           // --- Discount ---
