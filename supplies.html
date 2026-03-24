@@ -150,9 +150,9 @@
   <!-- Main content -->
   <main class="main-content px-6 lg:px-16 pb-16 space-y-10" :class="listViewModeClass()">
 
-    <!-- Book List -->
+    <!-- Supply List -->
     <section>
-      <h2 class="section-title">Supply List</h2>
+      <h2 class="section-title">Supply List (Still Building)</h2>
 
       <div class="av-intro-flex">
         <div class="av-intro-paragraphs">
@@ -882,7 +882,7 @@
                               </svg>
                             </button>
 
-                          <!-- Course bookmark (Book List = show only when active) -->
+                          <!-- Course bookmark (Supply List = show only when active) -->
                           <template x-if="(!course.topics || course.topics.length === 0) && isCourseBookmarked(course)">
                             <span class="bookmark-region">
                               <button
