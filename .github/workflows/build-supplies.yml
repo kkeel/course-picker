@@ -23,8 +23,8 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install Airtable dependency
+        run: npm install airtable
 
       - name: Build MA_Supplies.json from Airtable
         env:
