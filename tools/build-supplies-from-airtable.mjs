@@ -69,7 +69,7 @@ async function run() {
 
           // --- Scope / Cross-course text ---
           scope: get("Scope", rec),
-          usedInText: get("Used in: TEXT", rec),
+          usedInText: get("Shared_Supply(R3)", rec),
 
           // --- Subject ---
           subjects: arr("Subject(s)", rec),
