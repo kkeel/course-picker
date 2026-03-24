@@ -1,5 +1,5 @@
 /* =========================================================
-   print-books.css
+   print-supplies.css
    ========================================================= */
 
 @media print {
@@ -9,7 +9,7 @@
     margin: 0.5in;         /* 0.5" all sides */
 
     @bottom-left {
-      content: "Alveary Book List";
+      content: "Alveary Supply List";
       font-size: 8pt;
       color: #4b544b;
       white-space: nowrap;
@@ -31,7 +31,7 @@
   }
    
   /* ---------------------------------------------------------
-     BOOK LIST: Resource cards print sizing (9pt everywhere)
+     Supply List: Resource cards print sizing (9pt everywhere)
      --------------------------------------------------------- */
 
   /* 1) Make the resource card base 9pt, then inherit everywhere */
@@ -103,7 +103,7 @@
   }
 
    /* ===========================
-   BOOK LIST — PRINT TWEAKS
+   Supply List — PRINT TWEAKS
    (add at END of @media print)
    =========================== */
 
@@ -537,7 +537,7 @@ img.resource-img{
 }
 
 /* ===========================
-   BOOK LIST — PRINT TIGHTENING (Jan 5)
+   Supply List — PRINT TIGHTENING (Jan 5)
    Add at VERY END of print-books (15).css
    =========================== */
 
@@ -591,7 +591,7 @@ img.resource-img{
 }
 
 /* =========================================================
-   BOOK LIST — PRINT HARD OVERRIDES (Jan 5)
+   Supply List — PRINT HARD OVERRIDES (Jan 5)
    Put at the VERY END of print-books (16).css
    ========================================================= */
 
@@ -657,7 +657,7 @@ img.resource-img{
 }
 
 /* =========================================================
-   BOOK LIST — PRINT: AUTHORITATIVE TIGHTENING (put LAST)
+   Supply List — PRINT: AUTHORITATIVE TIGHTENING (put LAST)
    ========================================================= */
 @media print {
 
@@ -730,7 +730,7 @@ img.resource-img{
 }
 
 /* =========================================================
-   BOOK LIST — PRINT: FIX COVER COLUMN + TEXT WIDTH (PUT LAST)
+   Supply List — PRINT: FIX COVER COLUMN + TEXT WIDTH (PUT LAST)
    ========================================================= */
 @media print {
 
