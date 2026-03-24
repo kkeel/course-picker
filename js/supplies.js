@@ -5,8 +5,7 @@
   // If app.js didn't load for some reason, don't crash.
   if (typeof originalCoursePlanner !== "function") return;
 
-  const ASSIGNMENTS_URL = "data/MA_Assignments.json";
-  const RESOURCES_URL   = "data/MA_Resources.json";
+  const SUPPLIES_URL = "data/MA_Supplies.json";
 
   async function fetchJson(url) {
     const res = await fetch(url, { cache: "no-cache" });
@@ -39,6 +38,55 @@
 
     // Thumbnail URL returns actual image bytes (best for <img>)
     return `https://drive.google.com/thumbnail?id=${id}&sz=w400`;
+  }
+
+    function normalizeSupplyTargetName(value) {
+    return String(value || "")
+      .replace(/\r/g, "")
+      .split("\n")
+      .map(s => s.trim())
+      .filter(Boolean)
+      .join(" ");
+  }
+
+  function expandSupplyTargets(value) {
+    const input = Array.isArray(value) ? value : [value];
+    const out = [];
+
+    for (const item of input) {
+      String(item || "")
+        .replace(/\r/g, "")
+        .split("\n")
+        .map(s => s.trim())
+        .filter(Boolean)
+        .forEach(v => out.push(v));
+    }
+
+    return [...new Set(out)];
+  }
+
+  function plannerTargetName(item) {
+    if (!item) return "";
+
+    const candidates = [
+      item.title,
+      item.name,
+      item.label,
+      item.courseTitle,
+      item.courseName,
+      item.displayTitle,
+      item.recordTitle,
+      item.text,
+      item.recordID,
+      item.id,
+    ];
+
+    for (const candidate of candidates) {
+      const normalized = normalizeSupplyTargetName(candidate);
+      if (normalized) return normalized;
+    }
+
+    return "";
   }
 
   window.coursePlanner = function () {
@@ -117,8 +165,7 @@
       },
       
       visibleAssignmentsForCourse(course) {
-        const courseId = (course?.recordID || course?.id);
-        const tid = String(courseId || "");
+        const tid = plannerTargetName(course);
         const arr = this.assignmentsByTargetId?.[tid] || [];
         return this._visibleAssignmentsFilter(arr, (rid) =>
           this.myBooksInstanceKeyForCourse(tid, rid)
@@ -126,12 +173,9 @@
       },
       
       visibleAssignmentsForTopic(course, topic) {
-        const courseId = (course?.recordID || course?.id);
-        const topicId  = (topic?.recordID || topic?.id);
-      
-        const cid = String(courseId || "");
-        const tid = String(topicId  || "");
-      
+        const cid = plannerTargetName(course);
+        const tid = plannerTargetName(topic);
+
         const arr = this.assignmentsByTargetId?.[tid] || [];
         return this._visibleAssignmentsFilter(arr, (rid) =>
           this.myBooksInstanceKeyForTopic(cid, tid, rid)
@@ -152,52 +196,105 @@
           await originalInit.call(this);
         }
 
-        // Then load temporary duplicated Book List data (read-only for now)
-        await this.loadBookDataR3();
+        // Then load Supply List data (read-only for now)
+        await this.loadSuppliesData();
       },
 
-      async loadBookDataR3() {
+      async loadSuppliesData() {
         this.isLoadingBookData = true;
         this.bookDataError = "";
 
         try {
-          const [assignmentsJson, resourcesJson] = await Promise.all([
-            fetchJson(ASSIGNMENTS_URL),
-            fetchJson(RESOURCES_URL),
-          ]);
+          const suppliesJson = await fetchJson(SUPPLIES_URL);
+          const supplies = Array.isArray(suppliesJson)
+            ? suppliesJson
+            : (Array.isArray(suppliesJson?.supplies) ? suppliesJson.supplies : []);
 
-          this.assignmentsData = assignmentsJson;
-          this.resourcesData = resourcesJson;
+          this.suppliesData = supplies;
 
-          // Build resourcesById
           const resById = {};
-          for (const r of (resourcesJson?.resources || [])) {
-            if (r && r.resourceId) {
-              // normalize image URL so <img> gets real image bytes
-              r.imageViewLink = normalizeDriveImageUrl(r.imageViewLink);
-              resById[r.resourceId] = r;
-            }
-          }
-          this.resourcesById = resById;
+          const pseudoAssignments = [];
 
-          // Build assignments indexes
+          for (const s of supplies) {
+            if (!s) continue;
+
+            const rid = String(s.supplyId || s.id || "").trim();
+            if (!rid) continue;
+
+            const imageUrl =
+              normalizeDriveImageUrl(
+                s.image ||
+                s.imageFile?.[0]?.url ||
+                ""
+              );
+
+            resById[rid] = {
+              resourceId: rid,
+              title: String(s.title || "").trim(),
+              author: String(s.location || "").trim(),
+              authorText: String(s.location || "").trim(),
+              locationText: String(s.location || "").trim(),
+              isbnAsin: String(s.isbn || "").trim(),
+              isbn: String(s.isbn || "").trim(),
+              imageViewLink: imageUrl,
+              rationale: s.rationale || "",
+              rationaleText: s.rationale || "",
+              note: s.note || "",
+              noteText: s.note || "",
+              maySub: s.maySub || "",
+              maySubText: s.maySub || "",
+              qty: s.qty || "",
+              qtyText: s.qty || "",
+              scopeText: String(s.scope || "").trim(),
+              sharedTextR3: "",
+              resourceTagText: "",
+              flags: {
+                optional: !!s.optional,
+                chooseOne: false,
+              },
+              url1: s.link1 || "",
+              url2: s.link2 || "",
+              purchaseUrl1: s.link1 || "",
+              purchaseUrl2: s.link2 || "",
+              rawSupply: s,
+            };
+
+            const targets = expandSupplyTargets(
+              Array.isArray(s.programList) && s.programList.length
+                ? s.programList
+                : s.courses
+            );
+
+            const sortKeys = Array.isArray(s.sortId) ? s.sortId : [];
+
+            targets.forEach((targetName, idx) => {
+              pseudoAssignments.push({
+                targetId: normalizeSupplyTargetName(targetName),
+                resourceId: rid,
+                resourceKey: String(sortKeys[idx] || s.supplySort || s.termSort || idx || ""),
+                optional: !!s.optional,
+                scopeText: String(s.scope || "").trim(),
+                sharedTextR3: "",
+                editUrl: "",
+              });
+            });
+          }
+
           const byTarget = {};
           const byResource = {};
 
-          for (const a of (assignmentsJson?.assignments || [])) {
+          for (const a of pseudoAssignments) {
             if (!a) continue;
-          
-            // ✅ Normalize IDs once so lookups always match
-            a.targetId   = String(a.targetId || "").trim();
+
+            a.targetId = String(a.targetId || "").trim();
             a.resourceId = String(a.resourceId || "").trim();
-          
+
             if (!a.targetId || !a.resourceId) continue;
-          
+
             (byTarget[a.targetId] ||= []).push(a);
             (byResource[a.resourceId] ||= []).push(a);
           }
 
-          // Stable sort within each target by resourceKey then title
           for (const tid of Object.keys(byTarget)) {
             byTarget[tid].sort((x, y) => {
               const ak = (x.resourceKey || "").toString();
@@ -212,23 +309,35 @@
             });
           }
 
+          this.assignmentsData = {
+            assignments: pseudoAssignments,
+            source: "MA_Supplies.json",
+          };
+
+          this.resourcesData = {
+            resources: Object.values(resById),
+            source: "MA_Supplies.json",
+          };
+
+          this.resourcesById = resById;
           this.assignmentsByTargetId = byTarget;
           this.assignmentsByResourceId = byResource;
 
           console.log(
-            "[SupplyPageTempData] Loaded",
-            (assignmentsJson?.assignments || []).length,
-            "assignments and",
-            (resourcesJson?.resources || []).length,
-            "resources"
+            "[SuppliesData] Loaded",
+            supplies.length,
+            "supplies,",
+            pseudoAssignments.length,
+            "target links"
           );
         } catch (e) {
           console.warn(e);
-          this.bookDataError = e?.message || "Failed to load book data JSON.";
+          this.bookDataError = e?.message || "Failed to load supplies data JSON.";
         } finally {
           this.isLoadingBookData = false;
         }
       },
+        
       localCoverPath(resourceId) {
         if (!resourceId) return "img/placeholders/book.svg";
       
@@ -751,8 +860,7 @@ prepStatusColor(status) {
       },
       
       _bookTargetId(item) {
-        if (!item) return "";
-        return String(item.recordID || item.id || "").trim();
+        return plannerTargetName(item);
       },
 
       _hasAssignmentsForTargetId(targetId) {
