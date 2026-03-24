@@ -2591,32 +2591,38 @@ function coursePlanner() {
         this.courseGate = false;
         return true;
       }
-    
+
       const path = window.location.pathname || "";
-    
+
       const onCourseList =
         path.endsWith("/index.html") ||
         path.endsWith("/") ||
         path.endsWith("/index") ||
         path.endsWith("/courses.html");
-    
+
       const onYearAtAGlance =
         path.endsWith("/year-at-a-glance.html") ||
         path.endsWith("/year-at-a-glance");
-    
+
       const onSchedule =
         path.endsWith("/schedule.html") ||
         path.endsWith("/schedule");
-        // || path.endsWith("/test-schedule.html");
-    
+
+      const onSupplies =
+        path.endsWith("/supplies.html") ||
+        path.endsWith("/supplies");
+
       const authorizedCore = (this.isMember || this.isStaff);
       const authorizedSchedule = (this.isMember || this.isStaff);
-    
+      const authorizedSupplies = this.isStaff;
+
       // Soft gate: do NOT redirect; just toggle what the page displays.
       this.courseGate = !!(
-        ((onCourseList || onYearAtAGlance || onSchedule) && !authorizedCore)
+        ((onCourseList || onYearAtAGlance) && !authorizedCore) ||
+        (onSchedule && !authorizedSchedule) ||
+        (onSupplies && !authorizedSupplies)
       );
-    
+
       return true;
     },
 
@@ -2864,14 +2870,40 @@ function coursePlanner() {
   { key: "schedule", label: "Schedule", href: "schedule.html", status: "ready", icon: "schedule.svg" },
   { key: "books", label: "Books", href: "books.html", status: "ready", icon: "book-list.svg" },
   { key: "lesson-plans", label: "Lesson Plans", href: null, status: "soon", icon: "lesson-plans.svg" },
-  { key: "supplies", label: "Supplies", href: null, status: "soon", icon: "supplies.svg" },
+  { key: "supplies", label: "Supplies", href: "supplies.html", status: "ready", icon: "supplies.svg", audience: "staff" },
   { key: "exams", label: "Exams", href: null, status: "soon", icon: "exams.svg" },
   { key: "ataglance", label: "Year At-A-Glance", href: "year-at-a-glance.html", status: "ready", icon: "at-a-glance.svg", group: "Other tools" },
   { key: "budget", label: "Budget Planner", href: null, status: "soon", icon: "budget.svg", group: "Other tools" },
 ];
 
+  function getCachedAuthRole() {
+    try {
+      const raw = sessionStorage.getItem("alveary_auth_cache_v1");
+      if (!raw) return "public";
+
+      const parsed = JSON.parse(raw);
+      const role = String(parsed?.v?.role || "public").toLowerCase();
+
+      return role === "staff" ? "staff" : role === "member" ? "member" : "public";
+    } catch {
+      return "public";
+    }
+  }
+
+  function canSeeStep(s) {
+    if (!s || !s.href) return false;
+
+    const audience = String(s.audience || "all").toLowerCase();
+    const role = getCachedAuthRole();
+
+    if (audience === "staff") return role === "staff";
+    if (audience === "member") return role === "member" || role === "staff";
+
+    return true;
+  }
+
   function isLiveStep(s) {
-    return !!(s && s.href);
+    return canSeeStep(s);
   }
 
   function iconSvg(name) {
