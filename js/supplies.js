@@ -89,6 +89,19 @@
     return "";
   }
 
+  function supplyUsedInText(s) {
+    const values = Array.isArray(s?.programList) && s.programList.length
+      ? s.programList
+      : (Array.isArray(s?.courses) ? s.courses : []);
+
+    const lines = values
+      .flatMap(v => String(v || "").replace(/\r/g, "").split("\n"))
+      .map(v => v.trim())
+      .filter(Boolean);
+
+    return [...new Set(lines)].join("\n");
+  }
+
   window.coursePlanner = function () {
     const original = originalCoursePlanner();
     const originalInit = original.init;
@@ -216,6 +229,7 @@
           const pseudoAssignments = [];
 
           for (const s of supplies) {
+            if (!s || s.household) continue;
             if (!s) continue;
 
             const rid = String(s.supplyId || s.id || "").trim();
