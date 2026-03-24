@@ -270,6 +270,16 @@
               url2: s.link2 || "",
               purchaseUrl1: s.link1 || "",
               purchaseUrl2: s.link2 || "",
+              links: [
+                ...(s.link1 ? [{
+                  text: String(s.linkText1 || "Option 1").trim(),
+                  url: s.link1
+                }] : []),
+                ...(s.link2 ? [{
+                  text: String(s.linkText2 || "Option 2").trim(),
+                  url: s.link2
+                }] : []),
+              ],
               rawSupply: s,
             };
 
