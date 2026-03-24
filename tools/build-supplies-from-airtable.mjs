@@ -38,7 +38,7 @@ async function run() {
           id: rec.id,
 
           // --- Core ---
-          title: rec.name || get("Name", rec),
+          title: get("Supply", rec),
 
           image: get("Image_ViewLink", rec),
           imageFile: get("Image", rec),
@@ -52,9 +52,9 @@ async function run() {
           household: !!get("Household Supply", rec),
 
           // --- Content ---
-          rationale: get("RATIONALE:", rec),
-          note: get("NOTE:", rec),
-          maySub: get("MAY SUB", rec),
+          rationale: get("➜ RATIONALE:", rec),
+          note: get("➜ NOTE:", rec),
+          maySub: get("➜ MAY SUB", rec),
 
           qty: get("QTY", rec),
 
