@@ -104,13 +104,25 @@
 
 /* Image fills box, anchored at top */
 .resource-img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;   
+  width: auto;
+  height: auto;
+  max-width: 52px;
+  max-height: 72px;
   display: block;
-  padding: 6px;               
-  box-sizing: border-box;
+}
+
+.supplies-page .resource-img-wrap{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 64px;
+  height: 84px;
+  overflow: hidden;
+  background: #f6f7f4;
+}
+
+.supplies-page .resource-img{
+  margin-top: 2px;
 }
 
 /* -----------------------------
