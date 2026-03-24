@@ -4,7 +4,7 @@ import Airtable from "airtable";
 import fs from "fs/promises";
 
 const base = new Airtable({
-  apiKey: process.env.AIRTABLE_API_KEY,
+  apiKey: process.env.AIRTABLE_PAT,
 }).base(process.env.AIRTABLE_BASE_ID);
 
 // 🔑 TABLE NAME (matches your Airtable)
