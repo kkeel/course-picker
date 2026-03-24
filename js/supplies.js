@@ -260,7 +260,7 @@
               qty: s.qty || "",
               qtyText: s.qty || "",
               scopeText: String(s.scope || "").trim(),
-              sharedTextR3: "",
+              sharedTextR3: String(s.usedInText || "").trim(),
               resourceTagText: "",
               flags: {
                 optional: !!s.optional,
