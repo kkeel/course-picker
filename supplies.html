@@ -126,12 +126,6 @@
       <div class="print-header-title">Supply List</div>
       <div class="print-header-grade" x-text="gradePrintLabel()"></div>
     </div>
-  
-    <!-- PRINT-ONLY: QR to Book Previews playlist -->
-    <div class="print-qr-block" aria-hidden="true">
-      <img id="printBookPreviewQR" class="print-qr-img" alt="Book previews QR code" />
-      <div class="print-qr-label">View book previews</div>
-    </div>
   </div>
 
     
@@ -176,22 +170,12 @@
         <div class="av-intro-paragraphs">
           <p class="section-subtitle av-intro-text">
             Explore the Alveary 2026-27 supply list by grade or subject. Learn how supplies are used in the curriculum, see purchase options, and save selections for a personalized supply list.
+          </p>
         </div>
       
         <div class="av-intro-side">
           <div class="av-video-inline">
             <!-- Reuse the SAME working links that your floating box is already wiring up -->
-            <a
-              class="av-video-row"
-              href="#"
-              onclick="document.getElementById('avBookPreviewsLink')?.click(); return false;"
-            >
-              <span class="av-play-icon" aria-hidden="true">
-                <img src="./img/icons/play-button.svg" alt="" />
-              </span>
-              <span class="av-video-text">Book Previews</span>
-            </a>
-        
             <a
               class="av-video-row"
               href="#"
@@ -792,7 +776,7 @@
                   <div class="toggle-switch">
                     <div class="toggle-switch-knob"></div>
                   </div>
-                  <span>My Books</span>
+                  <span>My Supplies</span>
                 </div>
 
                 <div
@@ -1461,7 +1445,7 @@
                                             </button>
                               
                                             <div class="resource-bottom-head-text">
-                                              <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
+                                              <div class="resource-bottom-title">Supply Preparation &amp; Tracking</div>
                                             </div>
                                           </div>
                                         </div>
@@ -1565,7 +1549,7 @@
                                             </button>
                               
                                             <div class="resource-bottom-head-text">
-                                              <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
+                                              <div class="resource-bottom-title">Supply Preparation &amp; Tracking</div>
                                             </div>
                                           </div>
                                         </div>
@@ -1688,7 +1672,7 @@
                                           
                                                   <div class="resource-bottom-head-text">
                                                     <div class="resource-bottom-title">
-                                                      Resource Preparation &amp; Tracking
+                                                      Supply Preparation &amp; Tracking
                                                     </div>
                                                   </div>
                                                 </div>
@@ -1797,7 +1781,7 @@
                                           
                                                   <div class="resource-bottom-head-text">
                                                     <div class="resource-bottom-title">
-                                                      Resource Preparation &amp; Tracking
+                                                      Supply Preparation &amp; Tracking
                                                     </div>
                                                   </div>
                                                 </div>
@@ -2501,7 +2485,7 @@
                                                   </button>
                                     
                                                   <div class="resource-bottom-head-text">
-                                                    <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
+                                                    <div class="resource-bottom-title">Supply Preparation &amp; Tracking</div>
                                                   </div>
                                                 </div>
                                               </div>
@@ -2605,7 +2589,7 @@
                                                   </button>
                                     
                                                   <div class="resource-bottom-head-text">
-                                                    <div class="resource-bottom-title">Resource Preparation &amp; Tracking</div>
+                                                    <div class="resource-bottom-title">Supply Preparation &amp; Tracking</div>
                                                   </div>
                                                 </div>
                                               </div>
@@ -2731,7 +2715,7 @@
                                           
                                                   <div class="resource-bottom-head-text">
                                                     <div class="resource-bottom-title">
-                                                      Resource Preparation &amp; Tracking
+                                                      Supply Preparation &amp; Tracking
                                                     </div>
                                                   </div>
                                                 </div>
@@ -2844,7 +2828,7 @@
                                           
                                                   <div class="resource-bottom-head-text">
                                                     <div class="resource-bottom-title">
-                                                      Resource Preparation &amp; Tracking
+                                                      Supply Preparation &amp; Tracking
                                                     </div>
                                                   </div>
                                                 </div>
@@ -3309,13 +3293,6 @@
   <div id="videoLinks" class="av-video-links" aria-live="polite">
     <!-- Desktop floating box -->
     <div class="av-video-box" role="region" aria-label="Video links">
-      <a class="av-video-row" id="avBookPreviewsLink" href="#" target="_blank" rel="noopener">
-        <span class="av-play-icon" aria-hidden="true">
-          <img src="./img/icons/play-button.svg" alt="" />
-        </span>
-        <span class="av-video-text">Alveary 2026–27 Book Previews</span>
-      </a>
-  
       <a class="av-video-row" id="avTutorialsLink" href="#" target="_blank" rel="noopener">
         <span class="av-play-icon" aria-hidden="true">
           <img src="./img/icons/play-button.svg" alt="" />
@@ -3341,13 +3318,6 @@
       </div>
   
       <div class="av-video-modal-body">
-        <a class="av-video-row" id="avBookPreviewsLinkMobile" href="#" target="_blank" rel="noopener">
-          <span class="av-play-icon" aria-hidden="true">
-            <img src="./img/icons/play-button.svg" alt="" />
-          </span>
-          <span class="av-video-text">Alveary 2026–27 Book Previews</span>
-        </a>
-  
         <a class="av-video-row" id="avTutorialsLinkMobile" href="#" target="_blank" rel="noopener">
           <span class="av-play-icon" aria-hidden="true">
             <img src="./img/icons/play-button.svg" alt="" />
