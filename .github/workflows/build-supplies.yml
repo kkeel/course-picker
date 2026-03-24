@@ -1,0 +1,41 @@
+name: Build MA_Supplies.json from Airtable
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "20 8 * * *"   # daily at 8:20am UTC
+
+permissions:
+  contents: write
+
+jobs:
+  build-supplies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build MA_Supplies.json from Airtable
+        env:
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+        run: |
+          node tools/build-supplies-from-airtable.mjs
+
+      - name: Commit and push updated JSON file
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: "data/MA_Supplies.json"
+          message: "Nightly build: MA_Supplies.json"
+          default_author: github_actions
