@@ -1,4 +1,4 @@
-// ✅ Supply List data bootstrapping (Assignments + Resources JSON)
+// ✅ Supply List data bootstrapping (temporary duplicated Book List logic)
 (() => {
   const originalCoursePlanner = window.coursePlanner;
 
@@ -152,7 +152,7 @@
           await originalInit.call(this);
         }
 
-        // Then load supply list data (read-only for now)
+        // Then load temporary duplicated Book List data (read-only for now)
         await this.loadBookDataR3();
       },
 
@@ -216,7 +216,7 @@
           this.assignmentsByResourceId = byResource;
 
           console.log(
-            "[BookData] Loaded",
+            "[SupplyPageTempData] Loaded",
             (assignmentsJson?.assignments || []).length,
             "assignments and",
             (resourcesJson?.resources || []).length,
