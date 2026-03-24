@@ -81,6 +81,7 @@ async function run() {
           // --- Sorting ---
           sortId: get("Sort_ID (from Rotation_3)", rec),
           supplySort: get("Supply_Sort", rec),
+          supplyTermSortR3: get("Supply/Term_Sort(R3)", rec),
 
           // --- IDs ---
           supplyId: get("Supply ID", rec),
