@@ -1,0 +1,1383 @@
+/* =========================================================
+   print-books.css
+   ========================================================= */
+
+@media print {
+
+  @page {
+    size: 11in 8.5in;      /* Letter — Landscape */
+    margin: 0.5in;         /* 0.5" all sides */
+
+    @bottom-left {
+      content: "Alveary Book List";
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+
+    @bottom-center {
+      content: "©2026 Charlotte Mason Institute® All rights reserved.";
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+
+    @bottom-right {
+      content: "p." counter(page);
+      font-size: 8pt;
+      color: #4b544b;
+      white-space: nowrap;
+    }
+  }
+   
+  /* ---------------------------------------------------------
+     BOOK LIST: Resource cards print sizing (9pt everywhere)
+     --------------------------------------------------------- */
+
+  /* 1) Make the resource card base 9pt, then inherit everywhere */
+  .resource-card {
+    font-size: 9pt !important;
+    line-height: 1.25 !important;
+  }
+  .resource-card * {
+    font-size: inherit !important;
+  }
+
+  /* 2) Keep weights as-is (you asked to keep existing weights),
+        but normalize line-heights a bit so things don’t feel cramped */
+  .resource-title,
+  .resource-subline,
+  .resource-rationale,
+  .resource-meta-text,
+  .resource-bottom-title,
+  .resource-bottom-head-text,
+  .buy-links,
+  .resource-prep-body {
+    line-height: 1.25 !important;
+  }
+
+  /* 3) Make images smaller so they don’t dominate */
+  .resource-img-wrap {
+    width: 56px !important;
+    height: 74px !important;
+    flex: 0 0 56px !important;
+  }
+  .resource-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* 4) Buttons/inputs: force 9pt text, and keep them slim */
+  .buy-link-pill,
+  .prep-options-btn,
+  .prep-select,
+  .prep-option-remove {
+    font-size: 9pt !important;
+    line-height: 1.1 !important;
+  }
+
+  /* If any of these had fixed heights, loosen them so 9pt fits cleanly */
+  .buy-link-pill {
+    height: auto !important;
+    padding: 1px 6px !important;
+  }
+  .prep-select {
+    height: auto !important;
+    padding: 1px 4px !important;
+  }
+
+  /* 5) Tighten vertical spacing inside resource cards just a touch */
+  .resource-subline { margin-top: 2px !important; }
+  .resource-rationale { margin-top: 8px !important; }
+  .resource-meta-label,
+  .resource-bottom-title { margin-bottom: 2px !important; }
+
+  /* 6) Avoid print splitting weirdly inside a resource card */
+  .resource-card,
+  .resource-bottom-strip,
+  .resource-prep-body,
+  .buy-links {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+   /* ===========================
+   BOOK LIST — PRINT TWEAKS
+   (add at END of @media print)
+   =========================== */
+
+/* 1) Resource titles to 10pt */
+.resource-title,
+.resource-title * ,
+.resource-main-title,
+.resource-main-title * {
+  font-size: 10pt !important;
+  line-height: 1.15 !important;
+}
+
+/* 4) Hide "+ resource to my booklist" buttons (all states) */
+.bookmark-btn,
+.bookmark-btn * {
+  display: none !important;
+} /* buttons are .bookmark-btn--solid/--ghost/--empty in books.html */ /* :contentReference[oaicite:2]{index=2} */
+
+/* 6) Badges (optional / choose one / grade tags): white text, size 9 */
+.resource-badge,
+.badge,
+.badge * ,
+.resource-badge * {
+  color: #fff !important;
+  font-size: 9pt !important;
+  line-height: 1.05 !important;
+}
+
+/* 7) Make images smaller */
+.resource-img {
+  width: 44px !important;
+  height: auto !important;
+}
+.resource-img-wrap,
+.resource-cover,
+.resource-cover-wrap {
+  width: 44px !important;
+}
+
+/* 3) Remove colored backgrounds + card outlines/shadows.
+      Keep ONLY a single border under the purchase strip. */
+.resource-card {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+}
+.resource-card * {
+  box-shadow: none !important;
+}
+
+/* Keep only the bottom border under the purchase buttons strip.
+   (We DO NOT set a new color; we let your current border color apply.) */
+.resource-bottom-strip {
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom-width: 1px !important;
+  border-bottom-style: solid !important;
+}
+
+/* 5) Purchase buttons => bold underlined hyperlink text, #596e5e */
+.resource-buy-row a,
+.resource-buy-row button,
+.resource-buy-row .btn,
+.resource-buy-row .btn-pill,
+.resource-buy-row .buy-link-pill {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 10px 0 0 !important;
+  border-radius: 0 !important;
+
+  color: #596e5e !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+  box-shadow: none !important;
+}
+
+/* If any purchase buttons are actually <a> wrapping pills */
+.resource-buy-row a:link,
+.resource-buy-row a:visited {
+  color: #596e5e !important;
+}
+
+/* 2) Prep + Tracking:
+   - Hide header (title/chevron/+Add) when there are NO prep lines
+   - When there ARE prep lines: show TITLE + LINES only
+   - No chevron, no +Add, no remove-X, no dropdown styling
+*/
+
+/* Always hide chevron toggle + "+ Add" controls in print */
+.prep-collapse-btn { display: none !important; }               /* chevron */ /* :contentReference[oaicite:3]{index=3} */
+.prep-options-add-row,
+.prep-options-btn { display: none !important; }                /* + Add */   /* :contentReference[oaicite:4]{index=4} */
+.prep-option-remove { display: none !important; }              /* ✕ */       /* :contentReference[oaicite:5]{index=5} */
+
+/* Hide the whole prep header by default... */
+.resource-bottom-head { display: none !important; }
+
+/* ...but show it IF there is at least one prep line inside the body */
+.resource-prep-body:has(.prep-option-row) ~ * {}
+/* show the title row when options exist */
+.resource-bottom-head:has(+ .resource-prep-body .prep-option-row) {
+  display: flex !important;
+}
+
+/* Force the body OPEN in print (even if x-show closed it),
+   but ONLY when there are prep rows (prevents empty sections printing) */
+.resource-prep-body { display: none !important; }
+.resource-prep-body:has(.prep-option-row) {
+  display: block !important;
+}
+
+/* Make prep rows look like simple text lines (not dropdown chips) */
+.prep-option-row {
+  padding: 0 !important;
+  margin: 2px 0 !important;
+  gap: 6px !important;
+}
+
+/* De-dropdown the selects */
+.prep-select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  font-size: 9pt !important;
+  line-height: 1.1 !important;
+}
+
+/* Make sure the prep title is present but compact (no chevron anyway) */
+.resource-bottom-title {
+  font-weight: 700 !important;
+  font-size: 9pt !important;
+  margin: 4px 0 2px !important;
+}
+
+/* 8) Tighten vertical + horizontal spacing a bit */
+.resource-top-row,
+.resource-info-row,
+.resource-bottom-strip {
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+}
+.resource-info-row {
+  gap: 8px !important;
+}
+.resource-info-divider {
+  margin: 4px 0 !important;
+}
+.resource-subline,
+.resource-rationale,
+.resource-tipbox {
+  margin-top: 2px !important;
+}
+  
+/* =========================================================
+   PRINT TWEAKS (Jan 3): spacing, buy links as text, borders,
+   image fit, and better page-break behavior
+   ========================================================= */
+
+  /* 1) Rationale: add a *little* space before notes/may-sub box */
+  .resource-rationale{
+    margin-bottom: 8px !important;
+  }
+
+  /* 2) Notes / "may sub" box: slightly less padding, but keep readable */
+  .resource-tipbox{
+    padding: 4px 6px !important;
+    margin-top: 4px !important;   /* ensures separation from rationale */
+  }
+
+  /* 3) Remove background color from the purchase/options strip too */
+  .resource-bottom-strip,
+  .resource-bottom-inner,
+  .resource-bottom-row,
+  .resource-bottom-right,
+  .resource-buy-links{
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* 4) Images: smaller AND crop-fill the box so they don’t look tall/narrow */
+  img.resource-img{
+    width: 34px !important;
+    height: 48px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+  }
+ 
+  /* If there’s any wrapper controlling the thumbnail area, force it to match */
+  .resource-img-wrap,
+  .resource-img-col,
+  .resource-img-holder{
+    width: 34px !important;
+    height: 48px !important;
+    overflow: hidden !important;
+  }
+
+  /* 5) Purchase option “buttons” -> bold underlined hyperlink text */
+  .resource-buy-links a,
+  .resource-buy-links .buy-link-pill,
+  a.buy-link-pill{
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+    margin: 0 10px 0 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    color: #596e5e !important;
+    font-weight: 700 !important;
+    text-decoration: underline !important;
+    text-underline-offset: 2px !important;
+
+    display: inline !important; /* prevents “pill” layout */
+    line-height: 1.15 !important;
+  }
+
+  /* If your base CSS applies hover/focus styles that look button-like */
+  .resource-buy-links a:hover,
+  .resource-buy-links a:focus{
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  /* 6) Make the top-of-resource and bottom-of-purchase-strip borders visible and a tad thicker */
+  :root{
+    --print-resource-rule: #adb58f; /* fallback if the existing var isn’t available */
+  }
+
+  /* Top rule (use what exists in your structure: resource-top-row is typically the visible “top” area) */
+  .resource-top-row{
+    border-top: 2px solid var(--resource-border-color, var(--print-resource-rule)) !important;
+  }
+
+  /* Bottom rule (bottom of purchase strip) */
+  .resource-bottom-strip{
+    border-bottom: 2px solid var(--resource-border-color, var(--print-resource-rule)) !important;
+  }
+
+  /* 7) Tighten space between image and title/rationale column */
+  .resource-top-left{
+    gap: 8px !important;   /* was larger; reduces horizontal whitespace */
+  }
+  .resource-top-row{
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+  }
+
+  /* Also tighten the internal text block spacing a touch */
+  .resource-title{
+    margin: 0 0 2px 0 !important;
+  }
+  .resource-meta,
+  .resource-submeta{
+    margin-top: 1px !important;
+  }
+
+  /* 8) Keep the topic header + first resource together whenever possible
+        (avoid a page break immediately after the topic header block) */
+  .topic-card{
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+  }
+
+  /* And ensure resource blocks themselves don’t split internally (paged-friendly) */
+  .resource-top-row,
+  .resource-bottom-strip{
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+   /* ===========================
+   FINAL OVERRIDES (Jan 3)
+   =========================== */
+
+/* 1) RATIONALE spacing:
+   remove top space, add bottom space (between rationale and tipbox) */
+.resource-rationale{
+  margin-top: 0 !important;       /* kills the earlier margin-top:4px */
+  margin-bottom: 8px !important;  /* creates the desired separation below */
+}
+
+/* tipbox: keep a small top gap but not too much */
+.resource-tipbox{
+  margin-top: 0 !important;       /* rely on rationale bottom spacing instead */
+  padding: 3px 5px !important;    /* slightly less padding than current 4px 6px */
+}
+
+/* 2) Remove BOTTOM border of purchase options strip (too busy) */
+.resource-bottom-strip{
+  border-bottom: none !important; /* overrides earlier border-bottom:2px */
+}
+
+/* Keep ONLY the TOP rule on the resource (you liked that) */
+.resource-top-row{
+  border-top-width: 2px !important;   /* keep thickness */
+  border-top-style: solid !important;
+}
+
+/* 3) Tighten space between image and info more */
+.resource-top-left{
+  gap: 5px !important; /* was 8px */
+}
+
+/* If the right text column has its own padding/margin, tighten it too */
+.resource-info-right{
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* 4) Image: a tad shorter, width stays the same */
+img.resource-img{
+  width: 34px !important;
+  height: 44px !important;      /* was 48px */
+  object-fit: cover !important;
+}
+
+/* Keep wrapper in sync so we don’t get extra empty space */
+.resource-img-wrap,
+.resource-img-col,
+.resource-img-holder{
+  width: 34px !important;
+  height: 44px !important;
+}
+
+/* Print: purchase options now render in the TOP ROW (FULL view),
+   so hide the bottom-strip purchase section to avoid duplicates */
+.resource-bottom-buy {
+  display: none !important;
+}
+   
+}
+
+@media print{
+  /* Print should match desktop placement */
+  .purchase-block--top{ display: block !important; }
+  .purchase-block--bottom{ display: none !important; }
+
+  /* Print-friendly purchase links */
+  .buy-link-pill{
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    height: auto !important;
+    border-radius: 0 !important;
+
+    font-weight: 700 !important;
+    text-decoration: underline !important;
+    color: #596e5e !important;
+
+    display: inline !important;
+    white-space: nowrap !important;
+  }
+
+  .resource-buy-links{
+    gap: 25px !important;
+    flex-wrap: wrap !important; /* allows wrapping in print if needed */
+  }
+}
+
+@media print {
+
+  /* Pull Resource Prep into the main text flow */
+  .resource-bottom-strip {
+    margin-top: 4px !important;
+    padding-top: 0 !important;
+  }
+
+  /* Kill footer-like spacing */
+  .resource-bottom-inner,
+  .resource-bottom-row {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  /* Tighten the gap after notes / alt formats box */
+  .resource-tipbox {
+    margin-bottom: 4px !important;
+  }
+
+  /* Prep title should feel like a continuation, not a new section */
+  .resource-bottom-title {
+    margin-top: 2px !important;
+  }
+
+}
+
+@media print {
+
+  /* Authoritative print thumbnail size */
+  .resource-img-wrap,
+  .resource-img-col,
+  .resource-img-holder {
+    width: 34px !important;
+    height: 44px !important;
+    overflow: hidden !important;
+    background: transparent !important;
+  }
+
+  img.resource-img {
+    width: 34px !important;
+    height: 44px !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+}
+
+@media print {
+
+  /* Tighten image → text spacing */
+  .resource-top-left {
+    gap: 5px !important;
+  }
+
+  /* Remove any lingering indent on the text column */
+  .resource-info-right {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+
+}
+
+/* ===========================
+   BOOK LIST — PRINT TIGHTENING (Jan 5)
+   Add at VERY END of print-books (15).css
+   =========================== */
+
+/* A) Pull “Resource Preparation & Tracking” up tighter under the tipbox */
+.resource-bottom-strip{
+  margin-top: 4px !important;        /* was 10px */
+  padding-top: 6px !important;       /* was 10px */
+  padding-bottom: 6px !important;    /* was 10px */
+  margin-bottom: 0 !important;       /* stop the weird extra space/overlap in print */
+}
+
+/* Also reduce internal grid gap inside the bottom strip */
+.resource-bottom-row{
+  gap: 6px !important;              /* was 15px */
+}
+
+/* B) Tighten horizontal space between cover image and text column */
+.resource-top-left{
+  gap: 4px !important;               /* you had 5px; go a touch tighter */
+}
+
+/* C) Fix “grey space” under images in print by forcing wrapper + img to match */
+.resource-img-wrap,
+.resource-cover,
+.resource-cover-wrap{
+  height: auto !important;           /* overrides any fixed height from screen styles */
+  min-height: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+.resource-img{
+  display: block !important;
+  height: auto !important;
+  object-fit: cover !important;
+}
+
+/* D) Remove “reserved” blank space at the bottom of cards in print */
+.resource-card{
+  padding-bottom: 0 !important;
+  margin-bottom: 8px !important;     /* small consistent separation between cards */
+}
+
+/* E) If a tipbox exists but is truly empty, don’t print it */
+.resource-tipbox:empty{
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+/* =========================================================
+   BOOK LIST — PRINT HARD OVERRIDES (Jan 5)
+   Put at the VERY END of print-books (16).css
+   ========================================================= */
+
+@media print {
+
+  /* 1) Absolutely kill the “reserved” prep area when there are NO real prep rows */
+  .resource-bottom-strip { 
+    margin: 0 !important;
+  }
+
+  /* Hide the entire prep strip unless it contains at least one .prep-option-row */
+  .resource-bottom-strip { display: none !important; }
+  .resource-bottom-strip:has(.resource-prep-body .prep-option-row) {
+    display: block !important;
+    margin-top: 4px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Tighten the title + first line spacing when it *does* print */
+  .resource-bottom-title { margin: 6px 0 6px !important; }
+  .resource-prep-body { margin: 0 !important; padding: 0 !important; }
+
+  /* 2) Image wrapper + image MUST match exactly (prevents grey “tail” under covers) */
+  .resource-img-wrap,
+  .resource-cover,
+  .resource-cover-wrap,
+  .resource-img-col,
+  .resource-img-holder {
+    width: 34px !important;
+    height: 44px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    overflow: hidden !important;
+    line-height: 0 !important;  /* prevents inline-image baseline gaps */
+  }
+
+  img.resource-img,
+  .resource-img {
+    width: 34px !important;
+    height: 44px !important;
+    display: block !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    margin: 0 !important;
+  }
+
+  /* 3) The “gap” is not just gap — clamp all likely offenders */
+  .resource-top-left {
+    gap: 4px !important;
+    column-gap: 4px !important;
+  }
+  .resource-media,
+  .resource-img-col {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+  }
+  .resource-info-right {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+}
+
+/* =========================================================
+   BOOK LIST — PRINT: AUTHORITATIVE TIGHTENING (put LAST)
+   ========================================================= */
+@media print {
+
+  /* --- 0) Stop “rules fighting”: zero out bottom spacing on the big wrappers --- */
+  .resource-body,
+  .resource-top-row,
+  .resource-top-left,
+  .resource-top-right,
+  .resource-info-row,
+  .resource-info-left,
+  .resource-info-right {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    gap: 0px !important;
+    column-gap: 0px !important;
+  }
+
+  /* Keep the note/alt-formats box tight to whatever follows */
+  .resource-tipbox {
+    margin-bottom: 2px !important;
+  }
+
+  /* --- 1) Remove ALL reserved prep space unless there is a real prep row --- */
+  .resource-bottom-strip {
+    display: none !important;     /* default: no prep area at all */
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* If there’s at least one prep line, show it and keep it snug */
+  .resource-bottom-strip:has(.resource-prep-body .prep-option-row) {
+    display: block !important;
+    margin-top: 2px !important;   /* was visually much larger */
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Ensure the prep body only contributes height when it has rows */
+  .resource-prep-body { display: none !important; }
+  .resource-prep-body:has(.prep-option-row) {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* --- 2) Tighten image → text spacing (multiple wrappers can add space) --- */
+  .resource-top-left {
+    gap: 0px !important;
+    column-gap: 0px !important;
+  }
+
+  .resource-media,
+  .resource-img-col {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .resource-img-wrap,
+  .resource-img-holder {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 0 !important; /* prevents baseline “tail” gaps */
+  }
+
+  /* --- 3) If you still see bottom “dead space” between cards, clamp card spacing --- */
+  .resource-card {
+    padding-bottom: 0 !important;
+    margin-bottom: 0px !important;
+  }
+}
+
+/* =========================================================
+   BOOK LIST — PRINT: FIX COVER COLUMN + TEXT WIDTH (PUT LAST)
+   ========================================================= */
+@media print {
+
+  /* The gap is mostly the reserved GRID column (96px). Override it for print. */
+  .resource-card{
+    display: grid !important;
+    grid-template-columns: 34px minmax(0, 1fr) !important; /* cover | content */
+    column-gap: 10px !important; /* tighten the real gap */
+    row-gap: 0 !important;
+    align-items: start !important;
+  }
+
+  /* Make sure the cover truly lives in the first column */
+  .resource-media{
+    grid-column: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+  }
+
+  /* Make sure the body truly uses the full second column */
+  .resource-body{
+    grid-column: 2 !important;
+    min-width: 0 !important;     /* prevents “skinny column” min-content squeeze */
+    width: auto !important;
+  }
+
+  /* These often introduce phantom vertical space in print */
+  .resource-body,
+  .resource-top-row,
+  .resource-top-left,
+  .resource-top-right{
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+
+@media print {
+
+  /* Space between left content block and right (scope / purchase) */
+  .resource-top-row {
+    column-gap: 4px !important; /* try 16–20px range */
+  }
+
+}
+
+/* =========================================================
+   PRINT: Alt. Formats pills (smaller + quieter)
+   Put at VERY END of print-books.css
+   ========================================================= */
+@media print {
+
+  /* smaller pill */
+  .books-page .alt-format-pill{
+    height: 18px !important;          /* was 26px */
+    gap: 4px !important;              /* was 6px */
+
+    font-size: 9px !important;        /* was 12px */
+    font-weight: 600 !important;      /* keep readable but not loud */
+    line-height: 1 !important;
+
+    padding: 2px 7px !important;      /* was 4px 10px */
+    border-radius: 999px !important;
+
+    /* quieter look for print */
+    background: transparent !important;        /* remove the fill */
+    border-width: 0.75px !important;          /* lighter stroke */
+    color: #596e5e !important;                /* keep brand tone */
+  }
+
+  /* shrink icon */
+  .books-page .alt-format-pill::before{
+    width: 9px !important;            /* was 12px */
+    height: 9px !important;
+    flex: 0 0 9px !important;
+    -webkit-mask-size: contain !important;
+            mask-size: contain !important;
+  }
+
+  /* ensure the video triangle doesn’t pop bigger than others */
+  .books-page .alt-format-pill--video::before{
+    width: 9px !important;
+    height: 9px !important;
+    flex: 0 0 9px !important;
+    -webkit-mask-size: 100% !important;
+            mask-size: 100% !important;
+  }
+
+}
+/* =========================================================
+   PRINT: Fix badge overlap + align Scope/Purchase headers
+   + add space between Purchase links and Shared
+   Put at VERY END of print-books (20).css
+   ========================================================= */
+@media print {
+
+  /* 1) BADGES: stop negative-margin overlap in print */
+  .resource-card-badges{
+    margin-bottom: 6px !important;   /* overrides -4px from screen css */
+    position: relative !important;
+    z-index: 2 !important;
+  }
+
+  /* If any top rule/border is being drawn, keep it from colliding with badges */
+  .resource-top-row{
+    margin-top: 2px !important;
+  }
+
+  /* 2) ALIGN: Scope + Purchase Options titles should share the same baseline */
+  .resource-top-right{
+    padding-top: 0 !important; /* kills tiny drift between columns */
+    align-items: start !important;
+  }
+
+  .resource-top-actions-label{
+    margin: 0 0 4px 0 !important;   /* normalize label spacing */
+    padding: 0 !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Some browsers add small default margins inside blocks—clamp them */
+  .resource-top-scope,
+  .resource-top-shared,
+  .purchase-block--top{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* 3) SPACE: more breathing room between Purchase links and SHARED title */
+  .purchase-block--top
+    .resource-buy-links:has(+ .resource-meta-block--shared){
+    margin-bottom: 14px !important; /* was 10px in your print override */
+  }
+}
+/* =========================================================
+   PRINT: Align SCOPE + PURCHASE OPTIONS headers perfectly
+   (put at VERY END)
+   ========================================================= */
+@media print {
+
+  /* Make the entire right side a strict 2-col grid */
+  .resource-top-right{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    column-gap: 18px !important;   /* tweak 16–22 */
+    align-items: start !important;
+  }
+
+  /* Hard reset both blocks so neither can “sink” */
+  .resource-top-scope,
+  .purchase-block--top{
+    margin: 0 !important;
+    padding: 0 !important;
+    align-self: start !important;
+  }
+
+  /* Hard reset the actual labels in each block */
+  .resource-top-scope .resource-top-actions-label,
+  .purchase-block--top .resource-top-actions-label{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Add a little breathing room between Purchase links and SHARED title */
+  .purchase-block--top
+    .resource-buy-links:has(+ .resource-meta-block--shared){
+    margin-bottom: 16px !important; /* you can keep 14–18 */
+  }
+}
+/* =========================================================
+   PRINT — Align SCOPE + PURCHASE OPTIONS titles perfectly
+   (Scope uses .resource-meta-label, Purchase uses .resource-bottom-title)
+   Put at VERY END of print-books.css
+   ========================================================= */
+@media print {
+
+  /* Make sure the whole right column aligns content to the top */
+  .resource-top-right{
+    align-items: start !important;
+    align-content: start !important;
+  }
+
+  /* SCOPE title */
+  .resource-meta-block--scope .resource-meta-label{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    line-height: 1.1 !important;
+  }
+
+  /* PURCHASE OPTIONS title (different element/class) */
+  .purchase-block--top .resource-bottom-title{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    line-height: 1.1 !important;
+  }
+
+  /* In case the purchase block itself is being nudged down */
+  .purchase-block--top{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    align-self: start !important;
+  }
+}
+
+/* =========================================================
+   PRINT — Make cover corners consistent (all 4 corners)
+   ========================================================= */
+@media print {
+  .resource-media .resource-img-wrap,
+  .resource-cover-wrap,
+  .resource-cover,
+  img.resource-img,
+  .resource-img{
+    border-radius: 6px !important;
+  }
+
+  /* Ensure the wrapper clips the image corners */
+  .resource-media .resource-img-wrap,
+  .resource-cover-wrap,
+  .resource-cover{
+    overflow: hidden !important;
+  }
+}
+
+/* =========================================================
+   PRINT — HARD FIX: remove dead vertical space + tighten right cols
+   Put at VERY END of print-books.css
+   ========================================================= */
+@media print {
+
+  /* Make the BODY be the layout grid so PREP can sit under LEFT text
+     without waiting for the tall right column (Scope/Purchase/Shared). */
+  .resource-body{
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 320px !important; /* left | right */
+    column-gap: 12px !important; /* tighter than before */
+    row-gap: 0 !important;
+    align-items: start !important;
+  }
+
+  /* Let the children of .resource-top-row participate in the grid */
+  .resource-top-row{ display: contents !important; }
+
+  /* Hide the invisible divider that can steal space */
+  .resource-top-divider{ display: none !important; }
+
+  /* Place LEFT block in grid col 1 */
+  .resource-top-left{
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    min-width: 0 !important;
+  }
+
+  /* Place RIGHT block in grid col 2 and let it span down
+     (so it can be tall without pushing the left-bottom content down) */
+  .resource-top-right{
+    grid-column: 2 !important;
+    grid-row: 1 / span 2 !important;
+    align-self: start !important;
+
+    /* also tighten internal two-col gap between Scope and Purchase */
+    display: grid !important;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr) !important;
+    column-gap: 10px !important; /* tighten */
+    align-items: start !important;
+  }
+
+  /* Put PREP strip directly under LEFT content (col 1 row 2) */
+  .resource-bottom-strip{
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    align-self: start !important;
+
+    margin-top: 6px !important;
+    padding-top: 0 !important;
+  }
+
+  /* Ensure Scope + Purchase headers share the same top alignment */
+  .resource-meta-block--scope .resource-meta-label,
+  .purchase-block--top .resource-bottom-title{
+    margin: 0 0 4px 0 !important;
+    padding: 0 !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Tighten space between Purchase links and Shared heading */
+  .purchase-block--top .resource-buy-links{
+    margin-bottom: 10px !important;
+  }
+
+  /* If your right column still feels too wide/narrow, tweak 320px above */
+}
+
+@media print{
+  /* Give a little breathing room before the rationale */
+  .resource-rationale{
+    margin-top: 4px !important;
+  }
+}
+
+@media print{
+  .prep-status-dot{
+    display: inline-block !important;
+    width: 9px !important;
+    height: 9px !important;
+    border-radius: 999px !important;
+    flex: 0 0 9px !important;
+  }
+}
+
+/* =========================================================
+   PRINT FIX: grid placement for bottom strip + full-width top rule
+   (PUT AT VERY END of print-books.css)
+   ========================================================= */
+@media print {
+
+  /* 1) Define the grid explicitly (match your cover size) */
+  .resource-card{
+    display: grid !important;
+    grid-template-columns: 56px minmax(0, 1fr) !important; /* cover | content */
+    column-gap: 6px !important;
+    row-gap: 0 !important;
+    align-items: start !important;
+
+    /* full-width top rule per card */
+    border-top: 2px solid var(--resource-border-color, var(--print-resource-rule, #adb58f)) !important;
+    padding-top: 6px !important;
+  }
+
+  /* 2) Place the main pieces in the correct grid columns/rows */
+  .resource-media{
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    margin: 0 !important;
+  }
+
+  .resource-body{
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    min-width: 0 !important; /* prevents weird overflow/wrapping */
+  }
+
+  /* ✅ THIS is the overlap fix: bottom strip must live in column 2 */
+  .resource-bottom-strip{
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    margin-top: 8px !important;  /* spacing from note/rationale area */
+  }
+
+  /* 3) Don’t rely on .resource-top-row for the top border in print */
+  .resource-top-row{
+    border-top: none !important;
+    padding-top: 0 !important;
+  }
+
+  /* 4) Cover rounding: make ALL corners consistent */
+  .resource-img-wrap{
+    overflow: hidden !important;
+    border-radius: 6px !important;
+  }
+
+
+  .resource-img{
+    display: block !important;
+    border-radius: 6px !important;
+  }
+}
+@media print {
+
+  /* ================================
+     FIX 1: cover-to-text gap (match grid column to print thumbnail)
+     ================================ */
+
+  .resource-card{
+    /* Match the left grid column to the ACTUAL printed cover size */
+    grid-template-columns: 34px 1fr !important;
+
+    /* Tighten the space between cover + text */
+    column-gap: 8px !important;
+    gap: 8px !important;
+  }
+
+  /* Make sure the cover column doesn't add mystery padding/margins */
+  .resource-media{
+    margin: 0 !important;
+    padding: 0 !important;
+    justify-self: start !important;
+    align-self: start !important;
+  }
+
+  /* ================================
+     FIX 2: Prep strip alignment (stop using 64px+12px inset)
+     ================================ */
+
+  .resource-bottom-inner{
+    /* Must match the print grid math above: 34px cover + 8px gap */
+    margin-left: calc(34px + 8px) !important;
+    width: calc(100% - (34px + 8px)) !important;
+  }
+
+  /* Prep lines should align left like normal text */
+  .resource-bottom-left,
+  .resource-bottom-head-left,
+  .resource-prep-body,
+  .prep-option-row{
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+
+  /* ================================
+     FIX 3: Straight top rules (remove rounding that clips the border)
+     ================================ */
+
+  .resource-card,
+  .resource-top-row{
+    border-radius: 0 !important;
+  }
+
+  /* Covers were rounding top only — force consistent corners */
+  .resource-img-wrap,
+  img.resource-img{
+    border-radius: 0 !important;
+  }
+
+}
+@media print {
+
+  /* Badges should NOT overlay the cover in print */
+  .resource-card-badges{
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+
+    /* Put badges in the text column (same start as the title text) */
+    grid-column: 2 !important;
+
+    /* If your badges bar is NOT participating in the grid (depends on markup),
+       this margin-left guarantees it starts after cover+gap */
+    margin-left: calc(34px + 8px) !important;
+
+    /* Keep them tidy */
+    margin-top: 0 !important;
+    margin-bottom: 6px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    align-items: center !important;
+    z-index: 1 !important;
+  }
+
+  /* Ensure individual badges don't have negative margins pushing them back */
+  .resource-card-badges .resource-badge,
+  .resource-card-badges .badge{
+    margin: 0 !important;
+  }
+
+}
+@media print {
+
+  /* Make the cover column a vertical stack: badges then image */
+  .resource-media{
+    display: grid !important;
+    grid-template-rows: auto auto !important; /* badges row, cover row */
+    row-gap: 4px !important;
+    align-content: start !important;
+    justify-items: start !important;
+  }
+
+  /* Badges: normal flow (no overlap), sit ABOVE cover */
+  .resource-media .resource-card-badges{
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    align-items: center !important;
+
+    margin: 0 0 2px 0 !important;
+    padding: 0 !important;
+    width: max-content !important;
+    max-width: 100% !important;
+  }
+
+  /* If badges are NOT currently inside .resource-media in your HTML,
+     this moves them visually into the cover column without absolute positioning */
+  .resource-card{
+    /* ensure grid is active */
+    display: grid !important;
+    grid-template-columns: 34px 1fr !important;
+    column-gap: 8px !important;
+    align-items: start !important;
+  }
+
+  .resource-card > .resource-card-badges{
+    grid-column: 1 !important;   /* cover column */
+    grid-row: 1 !important;
+    margin: 0 0 4px 0 !important;
+    justify-self: start !important;
+    align-self: start !important;
+
+    position: static !important;
+    transform: none !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  /* Make sure the cover and body start on the next row */
+  .resource-media{ grid-column: 1 !important; grid-row: 2 !important; }
+  .resource-body { grid-column: 2 !important; grid-row: 1 / span 2 !important; }
+
+}
+/* =========================================================
+   PRINT — Badges on their own line ABOVE the cover (no overlap)
+   Put at VERY END of print-books.css
+   ========================================================= */
+@media print {
+
+  /* Ensure a simple 2-col grid with an explicit "badge row" on top */
+  .resource-card{
+    display: grid !important;
+    grid-template-columns: 34px minmax(0, 1fr) !important; /* cover | content */
+    grid-template-rows: auto auto !important;              /* badges | main */
+    column-gap: 8px !important;
+    row-gap: 4px !important;                               /* space between badges and cover/text */
+    align-items: start !important;
+  }
+
+  /* Badges get their OWN row (above everything), but stay aligned left */
+  .resource-card-badges{
+    grid-column: 1 / -1 !important;  /* spans full width */
+    grid-row: 1 !important;
+
+    position: static !important;     /* kill any absolute/floating behavior */
+    inset: auto !important;
+    transform: none !important;
+
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    align-items: center !important;
+
+    margin: 0 0 0 0 !important;      /* row-gap controls spacing */
+    padding: 0 !important;
+    justify-self: start !important;
+    align-self: start !important;
+    z-index: 0 !important;
+  }
+
+  /* Main content sits on row 2 */
+  .resource-media{
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .resource-body{
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    min-width: 0 !important;
+  }
+
+  /* Just in case any badge styles still have weird negative margins */
+  .resource-card-badges .resource-badge,
+  .resource-card-badges .badge{
+    margin: 0 !important;
+  }
+}
+@media print {
+  /* When prep strip is moved into .resource-top-left, make it behave like normal content */
+  .resource-top-left .resource-bottom-strip{
+    margin: 8px 0 0 0 !important;
+    padding: 0 !important;
+    border-top: none !important; /* keep it from looking like a new section */
+  }
+
+  /* If your prep strip had layout wrappers that assumed full-width */
+  .resource-top-left .resource-bottom-inner,
+  .resource-top-left .resource-bottom-row{
+    margin-left: 0 !important;
+    width: auto !important;
+    padding-left: 0 !important;
+  }
+
+  /* Keep it left-aligned, consistent with text column */
+  .resource-top-left .resource-bottom-left,
+  .resource-top-left .resource-prep-body,
+  .resource-top-left .prep-option-row{
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+}
+
+@media print {
+
+  /* Hide auth UI in print */
+  #auth-button,
+  .auth-button {
+    display: none !important;
+  }
+
+  /* Also hide any video UI (inline + floating) */
+  .av-video-links,
+  .av-intro-flex,
+  .av-video-inline,
+  .av-video-mobile-btn,
+  .av-video-modal,
+  .av-video-modal-backdrop {
+    display: none !important;
+  }
+
+  /* Print header: put QR to the RIGHT of title/grade */
+  .print-header-title-block{
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    justify-content: flex-end !important;
+    gap: 22px !important; /* <- this is your “more space” control */
+  }
+
+  .print-header-text{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+  }
+
+  .print-qr-block{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .print-qr-img{
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  .print-qr-label{
+    margin-top: 3px !important;
+    font-size: 8px !important;
+    line-height: 1.1 !important;
+    color: #666d66 !important;
+    text-align: center !important;
+    max-width: 90px !important;
+  }
+}
