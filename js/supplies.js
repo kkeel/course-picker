@@ -381,7 +381,7 @@
           ? `?v=${encodeURIComponent(this.resourcesData.lastUpdated)}`
           : "";
       
-        return `img/resources/${resourceId}.webp${v}`;
+        return `img/supplies/${resourceId}.webp${v}`;
       },
       
       placeholderCover() {
