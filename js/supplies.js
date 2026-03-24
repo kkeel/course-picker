@@ -264,6 +264,7 @@
               resourceTagText: "",
               flags: {
                 optional: !!s.optional,
+                groupSupply: !!s.groupSupply,
                 chooseOne: false,
               },
               url1: s.link1 || "",
@@ -403,6 +404,13 @@
         const resourceOptional = !!(this.resourcesById?.[rid]?.flags?.optional);
         const assignmentOptional = !!(a?.optional);
         return assignmentOptional || resourceOptional;
+      },
+
+      isGroupSupplyAssignment(a) {
+        const rid = a?.resourceId;
+        const resourceGroupSupply = !!(this.resourcesById?.[rid]?.flags?.groupSupply);
+        const assignmentGroupSupply = !!(a?.groupSupply);
+        return assignmentGroupSupply || resourceGroupSupply;
       },
 
       isChooseOneAssignment(a) {
