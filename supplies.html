@@ -4,7 +4,7 @@
   <!-- 1. Required basics -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Alveary – Book List</title>
+  <title>Alveary – Supply List</title>
 
   <!-- 2. PWA / App metadata -->
   <link rel="manifest" href="./manifest.webmanifest">
@@ -38,8 +38,8 @@
   
   <!-- 4. CSS -->
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/books.css">
-  <link rel="stylesheet" href="css/print-books.css">
+  <link rel="stylesheet" href="css/supplies.css">
+  <link rel="stylesheet" href="css/print-supplies.css">
 
   <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -48,7 +48,7 @@
 
 </head>
 
-<body class="books-page" x-data="coursePlanner()" x-init="init()">
+<body class="supplies-page" x-data="coursePlanner()" x-init="init()">
 
   <!-- Auth refresh overlay -->
   <div
@@ -63,7 +63,7 @@
         Sign in successful
       </div>
       <div class="text-sm opacity-70 mb-4">
-        Gathering your book list info…
+        Gathering your supply list info…
       </div>
       <div class="animate-pulse text-sm">
         Loading…
@@ -123,7 +123,7 @@
     <!-- PRINT-ONLY: Course List + grade/master label on the right -->
     <div class="print-header-title-block">
     <div class="print-header-text">
-      <div class="print-header-title">Book List</div>
+      <div class="print-header-title">Supply List</div>
       <div class="print-header-grade" x-text="gradePrintLabel()"></div>
     </div>
   
@@ -139,7 +139,7 @@
 
   <!-- PRINT-ONLY FOOTER -->
   <footer class="print-footer" aria-hidden="true">
-    <div class="print-footer-left">Alveary Book List</div>
+    <div class="print-footer-left">Alveary Supply List</div>
     <div class="print-footer-center">©2026 Charlotte Mason Institute® All rights reserved.</div>
     <div class="print-footer-right">
       <span class="print-footer-grade" x-text="gradePrintLabel()"></span>
@@ -152,12 +152,12 @@
 
     <!-- Book List -->
     <section>
-      <h2 class="section-title">Book List</h2>
+      <h2 class="section-title">Supply List</h2>
 
       <div class="av-intro-flex">
         <div class="av-intro-paragraphs">
           <p class="section-subtitle av-intro-text">
-            Explore the Alveary 2026-27 booklist by grade or subject. Learn how books are used in the curriculum, see format options, and click links for purchasing or accessing free resources. Add notes and save your selections for a personalized booklist.
+            Explore the Alveary 2026-27 supply list by grade or subject. Learn how supplies are used in the curriculum, see purchase options, and save selections for a personalized supply list.
         </div>
       
         <div class="av-intro-side">
@@ -3122,7 +3122,7 @@
   <!-- Auth helpers (sets window.AlvearyAuth.*) -->
   <script type="module" src="js/auth.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/books.js"></script>
+  <script src="js/supplies.js"></script>
 
   <!-- ✅ Alpine -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
