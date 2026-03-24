@@ -1,0 +1,151 @@
+import fs from "node:fs/promises";
+import path from "node:path";
+import url from "node:url";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
+
+const execFileAsync = promisify(execFile);
+
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
+
+const AIRTABLE_PAT     = process.env.AIRTABLE_PAT;
+const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
+
+if (!AIRTABLE_PAT || !AIRTABLE_BASE_ID) {
+  console.error("ERROR: Missing AIRTABLE_PAT or AIRTABLE_BASE_ID");
+  process.exit(1);
+}
+
+const API = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}`;
+const TABLE = "MA_Supplies";
+
+const OUT_DIR = path.join(__dirname, "..", "img", "supplies");
+const TMP_DIR = path.join(__dirname, "..", ".tmp-supply-images");
+const MANIFEST_PATH = path.join(OUT_DIR, `.thumb-manifest.json`);
+
+async function fetchAll(table) {
+  const out = [];
+  let offset;
+
+  do {
+    const params = new URLSearchParams();
+    if (offset) params.set("offset", offset);
+
+    const res = await fetch(`${API}/${table}?${params}`, {
+      headers: { Authorization: `Bearer ${AIRTABLE_PAT}` }
+    });
+
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      throw new Error(`Airtable fetch failed ${res.status}: ${body}`);
+    }
+
+    const json = await res.json();
+    out.push(...(json.records || []));
+    offset = json.offset;
+  } while (offset);
+
+  return out;
+}
+
+async function fileExists(p) {
+  try { await fs.access(p); return true; } catch { return false; }
+}
+
+async function readManifest() {
+  try {
+    const raw = await fs.readFile(MANIFEST_PATH, "utf8");
+    return JSON.parse(raw);
+  } catch {
+    return {};
+  }
+}
+
+async function writeManifest(manifest) {
+  await fs.mkdir(OUT_DIR, { recursive: true });
+  await fs.writeFile(MANIFEST_PATH, JSON.stringify(manifest, null, 2));
+}
+
+async function downloadTo(urlStr, destPath) {
+  const res = await fetch(urlStr);
+  if (!res.ok) throw new Error(`Download failed ${res.status}: ${urlStr}`);
+  const buf = Buffer.from(await res.arrayBuffer());
+  await fs.writeFile(destPath, buf);
+}
+
+async function convertToWebp(srcPath, outPath) {
+  await execFileAsync("convert", [
+    srcPath,
+    "-resize", "220x320>",
+    "-strip",
+    "-quality", "82",
+    outPath
+  ]);
+}
+
+async function main() {
+  await fs.mkdir(OUT_DIR, { recursive: true });
+  await fs.mkdir(TMP_DIR, { recursive: true });
+
+  const manifest = await readManifest();
+  const recs = await fetchAll(TABLE);
+
+  let created = 0;
+  let skipped = 0;
+  let noImage = 0;
+
+  for (const rec of recs) {
+    const f = rec.fields || {};
+    const supplyId = (f["Supply ID"] || rec.id).toString().trim();
+    const outFile = path.join(OUT_DIR, `${supplyId}.webp`);
+
+    const attachments = f.Image;
+    const att = Array.isArray(attachments) ? attachments[0] : null;
+    const attUrl = att && att.url;
+
+    if (!attUrl) {
+      noImage++;
+      continue;
+    }
+
+    const versionKey = att.id || attUrl;
+    const prevKey = manifest[supplyId]?.versionKey;
+    const haveFile = await fileExists(outFile);
+
+    if (haveFile && prevKey === versionKey) {
+      skipped++;
+      continue;
+    }
+
+    const tmpIn = path.join(TMP_DIR, `${supplyId}-in`);
+    const tmpOut = path.join(TMP_DIR, `${supplyId}.webp`);
+
+    try {
+      await downloadTo(attUrl, tmpIn);
+      await convertToWebp(tmpIn, tmpOut);
+      await fs.copyFile(tmpOut, outFile);
+
+      manifest[supplyId] = {
+        versionKey,
+        updatedAt: new Date().toISOString()
+      };
+
+      created++;
+      console.log(`✅ supply: ${supplyId}.webp`);
+    } catch (e) {
+      console.warn(`⚠️ supply failed for ${supplyId}: ${e.message}`);
+    } finally {
+      try { await fs.unlink(tmpIn); } catch {}
+      try { await fs.unlink(tmpOut); } catch {}
+    }
+  }
+
+  await writeManifest(manifest);
+
+  console.log(`Done. created=${created} skipped=${skipped} noImage=${noImage}`);
+}
+
+main().catch(err => {
+  console.error(err);
+  process.exit(1);
+});
