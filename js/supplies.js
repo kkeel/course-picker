@@ -1,4 +1,4 @@
-// ✅ Book List data bootstrapping (Assignments + Resources JSON)
+// ✅ Supply List data bootstrapping (Assignments + Resources JSON)
 (() => {
   const originalCoursePlanner = window.coursePlanner;
 
@@ -60,7 +60,7 @@
       assignmentsByResourceId: {}, // { [resourceId]: assignment[] }
       resourcesById: {},           // { [resourceId]: resource }
 
-      // ---- Book List view controls (UI only for now) ----
+      // ---- Supply List view controls (UI only for now) ----
       myBooksOnly: false,
       _hasSetMyBooksOnly: false,
       
@@ -152,7 +152,7 @@
           await originalInit.call(this);
         }
 
-        // Then load booklist data (read-only for now)
+        // Then load supply list data (read-only for now)
         await this.loadBookDataR3();
       },
 
@@ -734,7 +734,7 @@ prepStatusColor(status) {
       },
 
       // -----------------------------
-      // ✅ Book List: hide empty items in published view
+      // ✅ Supply List: hide empty items in published view
       // -----------------------------
 
       hasStudentsAssigned(a) {
@@ -798,7 +798,7 @@ prepStatusColor(status) {
         });
       },
 
-      // Override: subject -> courses map used by the Book List template
+      // Override: subject -> courses map used by the Supply List template
       visibleCourseGroups() {
         const groups =
           typeof original.visibleCourseGroups === "function"
