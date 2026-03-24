@@ -28,7 +28,7 @@ jobs:
 
       - name: Build MA_Supplies.json from Airtable
         env:
-          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+          AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
           AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
         run: |
           node tools/build-supplies-from-airtable.mjs
