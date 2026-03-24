@@ -286,13 +286,16 @@
 
               pseudoAssignments.push({
                 assignmentId: `${rid}__${tid}__${idx}`,
-
+              
                 targetId: tid,
                 resourceId: rid,
-
+              
                 resourceKey: String(s.supplyTermSortR3 || idx || ""),
+              
+                // ✅ needed for sorting
                 optional: !!s.optional,
-
+                groupSupply: !!s.groupSupply,
+              
                 scopeText: String(s.scope || "").trim(),
                 sharedTextR3: String(s.usedInText || "").trim(),
                 editUrl: "",
@@ -317,14 +320,27 @@
 
           for (const tid of Object.keys(byTarget)) {
             byTarget[tid].sort((x, y) => {
+          
+              // 1️⃣ Optional → bottom
+              const xo = !!x.optional;
+              const yo = !!y.optional;
+              if (xo !== yo) return xo ? 1 : -1;
+          
+              // 2️⃣ Group Supply → top
+              const xg = !!x.groupSupply;
+              const yg = !!y.groupSupply;
+              if (xg !== yg) return xg ? -1 : 1;
+          
+              // 3️⃣ Main sort (Supply/Term_Sort(R3))
               const ak = (x.resourceKey || "").toString();
               const bk = (y.resourceKey || "").toString();
               if (ak !== bk) return ak.localeCompare(bk);
-
+          
+              // 4️⃣ Stable fallback
               const at = (resById[x.resourceId]?.title || "").toString();
               const bt = (resById[y.resourceId]?.title || "").toString();
               if (at !== bt) return at.localeCompare(bt);
-
+          
               return (x.resourceId || "").localeCompare(y.resourceId || "");
             });
           }
