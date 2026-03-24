@@ -1,0 +1,1954 @@
+/* =========================================================
+   Book List Resource Cards (screen only)
+   ========================================================= */
+.student-rail-inline{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 10px; /* small breathing room after grade */
+}
+
+.resource-list {
+  margin-top: 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.resource-card {
+  border: 1px solid #e5e8e5;
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #fbfbf9;
+
+  /* Resource card layout: image left, content right (top aligned) */
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  grid-template-rows: auto auto; /* row 1 badges, row 2 content */
+  gap: 12px;
+  align-items: start;
+  position: relative;
+}
+
+.resource-card.has-bottom-strip{
+  position: relative;
+}
+
+/* =========================================================
+   Card badges row
+   ========================================================= */
+
+.resource-card-badges{
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: -4px; /* slightly tighten space before content */
+}
+
+/* Badge row (left of the title) */
+.resource-title-badges{
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  flex: none;
+}
+
+/* Badge */
+.resource-badge{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+
+  padding: 4px 10px;
+  border-radius: 999px;
+
+  background: #adb58f; /* OPTIONAL default */
+  color: #ffffff;
+  border: 1px solid #ffffff;
+
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.resource-badge--choose-one{
+  background: #596e5e;
+}
+
+.resource-badge--grade{
+  background: #262b26;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* =========================================================
+   Image
+   ========================================================= */
+
+.resource-img-wrap{
+  grid-row: 2;
+  position: relative;
+  width: 64px;
+  height: 84px;
+  border-radius: 10px;
+  overflow: visible;
+  background: #e5e8e5;
+  flex: none;
+}
+
+/* Image fills box, anchored at top */
+.resource-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+/* -----------------------------
+   Alternate Formats (under cover)
+----------------------------- */
+
+.alt-formats {
+  margin-top: 8px;
+}
+
+/* Colors per format */
+.alt-format-pill--ebook {
+  background: #6d7eaa;
+}
+
+.alt-format-pill--audiobook {
+  background: #9b5b7b;
+}
+
+.alt-format-pill--video {
+  background: #d1b358;
+}
+
+/* Left column wrapper so Alt Formats can expand card height */
+.resource-media {
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Image box stays fixed; content below should NOT overflow */
+.resource-media .resource-img-wrap{
+  height: 84px;
+  overflow: hidden;   /* IMPORTANT: prevents spill */
+  border-radius: 10px;
+  background: #e5e8e5;
+}
+
+/* Tight, single-line label that stays within image width */
+.alt-formats {
+  margin-top: 6px;
+}
+
+.alt-formats-title {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin-bottom: 4px;
+  color: #666d66;
+}
+
+/* Pills must not exceed image width */
+.alt-formats-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.alt-format-pill {
+  font-size: 11px;
+  line-height: 1;
+  padding: 3px 6px;
+  border-radius: 999px;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   Alt. Formats pills Ã¢â‚¬â€œ muted, outlined, with tiny icons
+   (Books only)
+   ========================================================= */
+
+.books-page .alt-format-pill{
+  box-sizing: border-box;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  /* muted look */
+  background: #f3f4f1;               /* match tipbox */
+  border: 1px solid currentColor;   /* outline uses the format color */
+  color: #666d66;                    /* default fallback */
+  font-weight: 600;
+
+  font-size: 12px !important;
+  line-height: 1 !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+  white-space: nowrap;
+}
+
+/* format colors now drive TEXT + OUTLINE (not fill) */
+.books-page .alt-format-pill--ebook     { color: #596e5e; }
+.books-page .alt-format-pill--audiobook { color: #596e5e; }
+.books-page .alt-format-pill--video     { color: #596e5e; }
+
+/* tiny icon before label (uses currentColor so it matches outline) */
+.books-page .alt-format-pill::before{
+  content: "";
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  flex: 0 0 12px;
+
+  background: currentColor;
+
+  /* mask defaults (icon set per format below) */
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+          mask-repeat: no-repeat;
+          mask-position: center;
+          mask-size: contain;
+}
+
+/* Ebook icon: book */
+.books-page .alt-format-pill--ebook::before{
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 4h11a2 2 0 0 1 2 2v14a1 1 0 0 1-1 1H7a3 3 0 0 1-3-3V6a2 2 0 0 1 2-2zm0 14a1 1 0 0 0 1 1h10V6H6v12zm1-9h8v2H7V9zm0 4h8v2H7v-2z'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 4h11a2 2 0 0 1 2 2v14a1 1 0 0 1-1 1H7a3 3 0 0 1-3-3V6a2 2 0 0 1 2-2zm0 14a1 1 0 0 0 1 1h10V6H6v12zm1-9h8v2H7V9zm0 4h8v2H7v-2z'/%3E%3C/svg%3E");
+}
+
+/* Audiobook icon: headphones */
+.books-page .alt-format-pill--audiobook::before{
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3a9 9 0 0 0-9 9v6a3 3 0 0 0 3 3h1v-8H6a2 2 0 0 0-2 2v-3a8 8 0 0 1 16 0v3a2 2 0 0 0-2-2h-1v8h1a3 3 0 0 0 3-3v-6a9 9 0 0 0-9-9zm-6 12h1v5H6a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2zm12 0h-1v5h1a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2z'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3a9 9 0 0 0-9 9v6a3 3 0 0 0 3 3h1v-8H6a2 2 0 0 0-2 2v-3a8 8 0 0 1 16 0v3a2 2 0 0 0-2-2h-1v8h1a3 3 0 0 0 3-3v-6a9 9 0 0 0-9-9zm-6 12h1v5H6a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2zm12 0h-1v5h1a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2z'/%3E%3C/svg%3E");
+}
+
+/* Video icon: big-looking triangle WITHOUT changing pill height */
+.books-page .alt-format-pill--video::before{
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+
+  display: inline-block;
+  background: currentColor;
+
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: 100%;
+          mask-repeat: no-repeat;
+          mask-position: center;
+          mask-size: 100%;
+
+  /* slightly larger triangle shape */
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 6.8v10.4L18 12 7 6.8z'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 6.8v10.4L18 12 7 6.8z'/%3E%3C/svg%3E");
+}
+
+.resource-media .resource-img-wrap{ overflow: hidden !important; }
+
+/* =========================================================
+   Text area
+   ========================================================= */
+
+.resource-body{
+  grid-row: 2;
+  min-width: 0; /* prevents overflow in grid */
+}
+
+.resource-title{
+  font-weight: 600;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Title row (title + edit pill) */
+.resource-title-row{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.resource-edit-pill{
+  flex: none;
+  white-space: nowrap;
+}
+
+/* Author + ISBN on one line with spacing */
+.resource-subline{
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  line-height: 1.35;
+}
+
+/* horizontal spacing only */
+.resource-author{
+  margin-right: 14px;
+  white-space: nowrap;
+}
+
+.resource-isbn{
+  white-space: nowrap;
+  opacity: 0.9;
+}
+
+.resource-reference {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #666d66;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   TOP row layout (Title/Buy/Plan row)
+   IMPORTANT: only change requested = make TOP match BOTTOM spacing
+   ========================================================= */
+
+/* CHANGE: match bottom row exactly (do NOT change bottom) */
+.resource-top-row{
+  display: grid;
+  grid-template-columns: 1.5fr 1px 1fr;  /* Left vs Right sides top */
+  gap: 15px;                             
+  align-items: start;
+}
+
+/* Invisible divider ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ keeps spacing identical */
+.resource-top-divider{
+  width: 1px;
+  align-self: stretch;
+  background: transparent; /* invisible */
+}
+
+/* left side just flows normally */
+.resource-top-left{}
+
+/* right side has two columns (Buy | Plan) */
+.resource-top-right{
+  padding-top: 2px;
+   
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr; /* Right side columns top */
+  column-gap: 15px;
+  row-gap: 0;
+  align-items: start;
+}
+
+/* tiny labels above the empty button areas */
+.resource-top-actions-label{
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #666d66;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+/* Align BUY / PLAN labels */
+.resource-top-scope,
+.resource-top-shared {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.resource-top-left,
+.resource-top-right{
+  min-width: 0;
+}
+
+/* placeholders so the spacing holds even before we add buttons */
+.resource-buy-row,
+.resource-plan-row{
+  min-height: 26px;
+}
+
+/* --- Resource Preparation label row (label + book button) --- */
+.resource-prep-label{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Resource Preparation chevron Ã¢â‚¬â€ icon only (no outline) */
+.prep-collapse-btn{
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  margin: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: #666d66;
+
+  cursor: pointer;
+}
+
+.prep-collapse-btn svg{
+  width: 18px;
+  height: 18px;
+  transition: transform 160ms ease;
+}
+
+/* closed = point RIGHT (matches course cards) */
+.prep-collapse-btn--closed svg{
+  transform: rotate(-90deg);
+}
+
+/* Collapsible body spacing */
+.resource-prep-body{
+  margin-top: 6px;
+}
+
+/* small bookmark variant for tight resource cards */
+.bookmark-btn--small{
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  position: relative;            /* ensure + can anchor correctly */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* make the icon feel bigger inside the same square */
+.bookmark-btn--small .bookmark-icon{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* small + chip (match course-list feel, but scaled down) */
+.bookmark-btn--small .bookmark-apply{
+  position: absolute;
+  top: -6px;
+  right: -6px;
+
+  width: 16px;
+  height: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+
+  border-width: 1px;
+}
+
+/* =========================================================
+   Rationale + Notes
+   ========================================================= */
+
+/* Rationale block under author / ISBN */
+.resource-rationale {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #262b26;
+}
+
+.resource-rationale-label {
+  font-weight: 600;
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
+/* NOTE + May sub (single combined box) */
+.resource-tipbox{
+  margin-top: 10px;
+  padding: 10px 12px;
+
+  background: #f3f4f1;
+  border: 1px solid #e5e8e5;
+  border-radius: 12px;
+
+  font-size: 13px;
+  line-height: 1.45;
+
+  color: #666d66;
+  font-weight: 100;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.resource-tipbox-label{
+  font-weight: 200;
+  margin-right: 2px;
+  color: #666d66;
+  opacity: 0.85;
+}
+
+.resource-tipbox-text{
+  color: inherit;
+}
+
+.resource-tipbox-item{
+  display: block;
+}
+
+/* Preserve Airtable line breaks for rationale + notes */
+.resource-rationale-text,
+.resource-tipbox-text{
+  white-space: pre-line;
+}
+
+.resource-tipbox-formats{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap; /* pills wrap nicely if needed */
+}
+
+.resource-tipbox-formats .alt-formats-title{
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #666d66; /* same muted label tone */
+}
+
+.resource-tipbox-formats .alt-formats-pills{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* --- Tipbox formats row (Alt. Formats) --- */
+.resource-tipbox-item--formats{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.resource-tipbox-formats .alt-format-pill{
+  /* inherit the books-page .alt-format-pill sizing */
+  white-space: nowrap;
+}
+
+.resource-tipbox-item--formats .resource-tipbox-label{
+  white-space: nowrap;  /* keeps Ã¢â‚¬Å“Alt. Formats:Ã¢â‚¬Â together */
+}
+
+.alt-formats-pills--in-tipbox{
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Pills (not constrained to 64px image width) */
+.alt-format-pill{
+  font-size: 12px;
+  line-height: 1;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   Resource card: 2-column info row (Left | divider | Right)
+   (THIS is your bottom row untouched)
+   ========================================================= */
+
+.resource-info-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1px 1fr; /* Left vs Right sides bottom */
+  gap: 15px;
+  align-items: start;
+  margin-top: 6px;
+}
+
+.resource-info-left .resource-rationale{
+  margin-top: 0;
+}
+
+.resource-info-right{
+  padding-top: 2px;
+
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr; /* Right side columns bottom */
+  column-gap: 15px;
+  row-gap: 0;
+  align-items: start;
+}
+
+/* Keep the 3-column grid, but make the divider invisible (spacing only) */
+.resource-info-divider{
+  width: 1px;
+  align-self: stretch;
+  background: transparent; /* no visible vertical line */
+}
+
+/* Force correct column placement even if DOM order changes */
+.resource-info-left{ grid-column: 1; }
+.resource-info-divider{ grid-column: 2; }
+.resource-info-right{ grid-column: 3; }
+
+.resource-meta-label{
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #666d66;
+  margin-bottom: 4px;
+}
+
+.resource-meta-text{
+  font-size: 13px;
+  line-height: 1.35;
+  color: #666d66;
+  white-space: pre-line;
+}
+
+.resource-meta-block--scope { grid-column: 1; }
+.resource-meta-block--shared { grid-column: 2; }
+
+/* =========================================================
+   Bottom strip (Resource Preparation & Tracking | Buy)
+   ========================================================= */
+
+.resource-bottom-strip{
+  /* make it feel like an attached strip at the bottom of the card */
+  margin-top: 10px;
+
+  /* stretch to the card edges (resource-card padding is 10px 12px) */
+  margin-left: -12px;
+  margin-right: -12px;
+  margin-bottom: -10px;
+
+  padding: 10px 12px;
+
+  background: #fbfbf9;            /* same as card */
+  border-radius: 0 0 12px 12px;   /* match card corners */
+  grid-column: 1 / -1;
+  border-top: 1px solid #e5e8e5;
+}
+
+.resource-bottom-row{
+  display: grid;
+  grid-template-columns: 1.5fr 1px 1fr; /* SAME as resource-info-row */
+  gap: 15px;
+  align-items: start;
+}
+
+.resource-bottom-divider{
+  width: 1px;
+  align-self: stretch;
+  background: transparent; /* invisible */
+  display: block;          
+}
+
+
+.resource-bottom-title{
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #666d66;
+  margin-bottom: 4px;
+}
+
+.resource-bottom-sub{
+  font-size: 13px;
+  line-height: 1.35;
+  color: #666d66;
+  position: relative;
+  padding-right: 22px;
+}
+
+.resource-bottom-sub::after{
+  content: "Ã¢â€ â€”";
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--brand-muted);
+}
+
+/* Right side matches the scope/shared internal two-column grid */
+.resource-bottom-right-grid{
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr; /* SAME as resource-info-right */
+  column-gap: 15px;
+  align-items: start;
+}
+
+.resource-bottom-buy{ grid-column: 2; }
+.resource-bottom-spacer{ grid-column: 1; }
+
+/* Force bottom-right column to EXACTLY match info-right width */
+.resource-bottom-right {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  column-gap: 15px;
+  align-items: start;
+}
+
+.resource-bottom-left{  grid-column: 1; }
+.resource-bottom-divider{ grid-column: 2; }
+.resource-bottom-right{ grid-column: 3; }
+
+/* Bottom strip needs to align with .resource-body (right column),
+   not the full card (which includes the cover image column). */
+.resource-bottom-inner{
+  /* image col (64px) + card grid gap (12px) */
+  margin-left: calc(64px + 12px);
+  width: calc(100% - (64px + 12px));
+}
+
+/* Mobile stacks anyway, so donÃ¢â‚¬â„¢t inset */
+@media (max-width: 640px){
+  .resource-bottom-inner{
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   Mobile: stack columns
+   ========================================================= */
+
+@media (max-width: 640px){
+  .resource-top-row{
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+  .resource-top-divider{
+    display: none;
+  }
+  .resource-top-right{
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+
+  .resource-info-row{
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+  .resource-info-divider{
+    display: none;
+  }
+  .resource-info-right{
+    grid-template-columns: 1fr;
+    row-gap: 14px;
+  }
+  /* Stack the bottom strip into a single column */
+  .resource-bottom-row{
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+
+  .resource-bottom-divider{
+    display: none;
+  }
+
+  /* Make right side internal grid stack too */
+  .resource-bottom-right,
+  .resource-bottom-right-grid{
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
+
+  /* Ã¢Å“â€¦ Reorder: Purchase Options first, then Prep/Tracking */
+  .resource-bottom-right{
+    order: 1;
+  }
+  .resource-bottom-left{
+    order: 2;
+  }
+
+  /* Prevent awkward overflow */
+  .resource-bottom-left,
+  .resource-bottom-right{
+    min-width: 0;
+  }
+}
+
+@media (max-width: 640px){
+  .resource-body{ padding-right: 2px; }
+}
+
+/* --- Book list: keep schedule/grade + students on one line, tags far right --- */
+.books-page .course-meta{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  line-height: 1.2;
+}
+
+.books-page .meta-students{
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  flex: 0 1 auto; /* donÃ¢â‚¬â„¢t steal the whole row */
+}
+
+/* When student rail sits in the meta row, remove the Ã¢â‚¬Å“below contentÃ¢â‚¬Â spacing */
+.books-page .meta-students .student-rail-toggle-row{
+  margin-top: 0;
+  min-height: 0;
+  flex: 0 0 auto;
+}
+
+/* DonÃ¢â‚¬â„¢t let chip row force the whole line wide */
+.books-page .meta-students .student-chip-row{
+  flex: 0 1 auto;
+  margin-left: 8px;
+}
+
+/* Spacer should be the thing that grows, not the student rail */
+.books-page .meta-flex-spacer{
+  flex: 1 1 auto;
+}
+
+/* --- Smooth vertical centering for meta row --- */
+.books-page .course-meta{
+  align-items: center;          /* already set, but keep explicit */
+  line-height: 1.2;             /* normalize text baseline */
+}
+
+/* Schedule + grade text */
+.books-page .course-meta span{
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Student rail container */
+.books-page .meta-students{
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Student rail button (icon) */
+.books-page .student-rail-toggle{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Student chips */
+.books-page .student-chip{
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;               /* pills look tighter + centered */
+}
+
+/* Small icons inside meta row */
+.books-page .course-meta svg{
+  vertical-align: middle;
+}
+
+/* =========================================================
+   Book List "+ Options" button
+   Like +Planning Tag shape, but matches NOTE/tipbox palette
+   ========================================================= */
+
+.prep-options-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 20px;
+  padding: 0 8px;
+
+  /* rectangular (not pill) */
+  border-radius: 4px;
+
+  /* MATCH NOTE/tipbox */
+  background: #f3f4f1;          /* same as .resource-tipbox */
+  border: 1px solid #e5e8e5;    /* same as .resource-tipbox border */
+  color: #666d66;               /* same as tipbox text */
+
+  font-size: 11px;
+  font-weight: 400;             /* closer to planning tag feel */
+  line-height: 1;
+  letter-spacing: 0.01em;
+
+  cursor: pointer;
+  user-select: none;
+
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.prep-options-btn--slim{
+  height: 18px;
+  padding: 0 8px;
+  font-size: 10.5px;
+}
+
+.prep-options-btn:hover{
+  background: #fbfbf9;          /* match card bg on hover */
+  border-color: #dde2d5;        /* slightly stronger edge */
+}
+
+.prep-options-btn:active{
+  transform: translateY(0.5px);
+}
+
+.prep-options-btn:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(173,181,143,0.35);
+}
+
+/* Prep option controls (Book List only) */
+.prep-select{
+  height: 22px;
+  border-radius: 8px;
+  border: 1px solid #e5e8e5;
+  background: #fbfbf9;     /* lighter so the row feels like text on page */
+  color: #666d66;
+  padding: 0 8px;
+  font-size: 12px;
+  line-height: 22px;
+}
+
+/* Narrow first dropdown: Digital / Physical */
+.prep-select--kind{
+  min-width: 92px;
+}
+
+.prep-select:focus{ outline: none; box-shadow: 0 0 0 2px rgba(157,168,159,.35); }
+
+.resource-bottom-head{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.resource-bottom-head-left{
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* Make each option feel like a simple line (not a chip/card) */
+.prep-option-row{
+  margin-top: 6px;
+  padding: 0;            
+  border: none;
+  background: transparent;
+  border-radius: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; 
+  gap: 6px;                   
+}
+
+
+.prep-status-dot{
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex: 0 0 12px;
+  display: inline-block;
+  opacity: 0.95;
+}
+
+
+/* + Options should stay at the bottom of the list */
+.prep-options-add-row{
+  margin-top: 8px;
+}
+
+.prep-option-label{
+  color: #666d66;
+  font-size: 12px;
+  line-height: 1.1;
+}
+
+.prep-dot{
+  margin: 0 6px;
+  opacity: 0.6;
+}
+
+.prep-option-remove{
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: #666d66;
+  opacity: 0.55;
+
+  font-size: 12px;
+  line-height: 12px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  padding: 0;
+}
+.prep-option-remove:hover{
+  opacity: 0.9;
+  color: #596e5e;
+}
+.prep-option-remove:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(173,181,143,0.35);
+  border-radius: 6px;
+}
+
+.prep-options-modal{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(560px, calc(100vw - 32px));
+  max-height: min(80vh, 640px);
+  overflow: auto;
+  background: #fbfbf9;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+}
+
+.prep-options-modal-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  padding-bottom: 8px;
+}
+
+.prep-options-modal-title{
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.prep-options-modal-close{
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: transparent;
+  line-height: 28px;
+}
+
+.prep-options-modal-subtitle{
+  font-size: 13px;
+  opacity: 0.8;
+  padding-bottom: 10px;
+}
+
+.prep-options-grid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.prep-options-choice{
+  border: 1px solid rgba(0,0,0,0.10);
+  background: rgba(89,110,94,0.08);
+  color: #0c343d;
+  border-radius: 10px;
+  padding: 10px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align:left;
+}
+
+.prep-options-current-title{
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.prep-options-empty{
+  font-size: 13px;
+  opacity: 0.7;
+  padding: 8px 0;
+}
+
+.prep-options-modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  padding-top: 12px;
+}
+
+.prep-options-done{
+  border: 1px solid rgba(0,0,0,0.10);
+  background: rgba(0,0,0,0.04);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+/* Top-right book icon (matches course bookmark placement) */
+.resource-card-bookmark-corner{
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 3;
+}
+
+.resource-bottom-head{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.resource-bottom-head-text{
+  min-width: 0;
+}
+
+/* =========================================================
+   Mobile: My Books icon lives INSIDE the title row grid
+   (do not use card-grid placement here)
+   ========================================================= */
+@media (max-width: 640px){
+  .resource-card-bookmark-corner{
+    position: static !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    justify-self: auto !important;
+    align-self: auto !important;
+    margin: 0 !important;
+    z-index: auto !important;
+  }
+}
+
+
+/* =========================================================
+   Book List Ã¢â‚¬â€ Buy link buttons (resource JSON links[])
+   ========================================================= */
+
+.resource-buy-links{
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+}
+
+.buy-link-pill{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 18px;
+  padding: 0 8px;
+  border-radius: 6px;
+
+  background: #bdc5bf;
+  color: #262b26;
+  border: 1px solid rgba(0,0,0,0.06);
+
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.buy-link-pill:hover{
+  background: #9da89f;
+}
+
+.buy-link-pill:active{
+  transform: translateY(0.5px);
+}
+
+.buy-link-pill:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(173,181,143,0.35);
+}
+
+/* =========================================================
+   Book List Read-only mode (screen only)
+   Keeps visibility, removes edit affordances.
+   Scoped to .books-page so course list is untouched.
+   ========================================================= */
+
+.books-page .filter-actions .toggle:has(span:contains("Descriptions")) { display: none !important; }
+.books-page .filter-actions .toggle:nth-child(1) { display: none !important; } /* (Descriptions & Tips is currently first) */
+
+.books-page .card-toggle { display: none !important; }
+
+.books-page .planning-tag-button { display: none !important; }
+
+.books-page .planning-tag-remove,
+.books-page .planning-tag-add,
+.books-page .planning-tag-apply {
+  display: none !important;
+}
+
+.books-page .planning-tag-pill { pointer-events: none !important; }
+
+.books-page [x-show="planningMenuOpen"] { display: none !important; }
+
+.books-page .student-rail-toggle-row .planning-tag-add { display: none !important; }
+
+.books-page .student-chip-remove,
+.books-page .student-chip-apply {
+  display: none !important;
+}
+
+.books-page .student-ghost-marker { display: none !important; }
+
+.books-page .planning-tag-pill--ghost {
+  display: none !important;
+}
+
+/* =========================================================
+   MOBILE: Book List resource cards should use FULL width
+   (do not affect desktop)
+   ========================================================= */
+@media (max-width: 640px){
+
+  /* 1) Make the card itself single-column so text can use full width */
+  .resource-card{
+  grid-template-columns: 96px 1fr !important; /* cover + content */
+  grid-template-rows: auto auto auto !important;
+  gap: 12px;
+  align-items: start;
+}
+
+  /* Badges stay on top */
+  .resource-card-badges{
+    grid-column: 1 / -1;
+    grid-row: 1;
+    margin-bottom: 0;
+  }
+
+  /* Cover becomes its own row (full width available) */
+  .resource-media{
+  grid-column: 1;
+  grid-row: 2;           /* header row */
+  width: auto;
+  display: block;        /* no need for flex here */
+}
+
+  /* Let the cover size be a bit larger on mobile (optional but nice) */
+  .resource-media .resource-img-wrap{
+    width: 84px;
+    height: 112px;
+    flex: 0 0 84px;
+  }
+
+  /* Body becomes full width under the cover row */
+  .resource-body{
+  grid-column: 2;
+  grid-row: 2;           /* same row as cover */
+  min-width: 0;
+}
+
+  /* 2) Title row becomes a 3-col grid: title | my-books | edit */
+  .resource-title-row{
+    display: grid !important;
+    grid-template-columns: 1fr auto auto;
+    align-items: start;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  /* My Books button: normal flow inside title row */
+  .resource-card-bookmark-corner{
+    position: static !important;
+    top: auto; right: auto;
+    margin: 0 !important;
+    z-index: auto;
+  }
+
+  /* Make sure title wraps and doesnÃ¢â‚¬â„¢t push icons offscreen */
+  .resource-title{
+    min-width: 0;
+  }
+
+  /* 3) Make TOP/INFO areas truly single column (full width) */
+  .resource-top-row,
+  .resource-info-row{
+    grid-template-columns: 1fr !important;
+    row-gap: 12px;
+  }
+  .resource-top-divider,
+  .resource-info-divider{
+    display: none !important;
+  }
+
+  .resource-info-right{
+    grid-template-columns: 1fr !important;
+    row-gap: 12px;
+  }
+
+  /* 4) Bottom strip must also be full width (no leftover inset math) */
+  .resource-bottom-inner{
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .resource-bottom-row{
+    grid-template-columns: 1fr !important;
+    row-gap: 12px;
+  }
+  .resource-bottom-divider{
+    display: none !important;
+  }
+
+  .resource-bottom-right,
+  .resource-bottom-right-grid{
+    grid-template-columns: 1fr !important;
+    row-gap: 10px;
+  }
+
+  /* Purchase first, then Prep (matches your desired stack order) */
+  .resource-bottom-right{ order: 1; }
+  .resource-bottom-left { order: 2; }
+}
+
+/* =========================================================
+   MOBILE (books page only): Force ALL resource sections to stack
+   This wins against nested grid defaults and Safari quirks.
+   ========================================================= */
+@media (max-width: 640px){
+
+  /* 0) Make sure the Ã¢â‚¬Å“right sideÃ¢â‚¬Â blocks are not trying to be multi-col */
+  .books-page .resource-info-row,
+  .books-page .resource-info-right,
+  .books-page .resource-top-row,
+  .books-page .resource-top-right,
+  .books-page .resource-bottom-row,
+  .books-page .resource-bottom-right,
+  .books-page .resource-bottom-right-grid{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  /* kill the invisible divider columns on mobile */
+  .books-page .resource-info-divider,
+  .books-page .resource-top-divider,
+  .books-page .resource-bottom-divider{
+    display: none !important;
+  }
+
+  /* 1) Ensure scope/shared blocks stretch full width (no Ã¢â‚¬Å“narrow columnÃ¢â‚¬Â feel) */
+  .books-page .resource-meta-block{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* 2) Bottom strip inset math must not apply on mobile */
+  .books-page .resource-bottom-inner{
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  /* 3) Buy links can wrap so they donÃ¢â‚¬â„¢t squish */
+  .books-page .resource-buy-links{
+    flex-wrap: wrap !important;
+  }
+}
+
+@media (max-width: 640px){
+  .resource-media .alt-formats{
+    margin-top: 8px;
+  }
+}
+
+/* =========================================================
+   Mobile: media + top-row share a row; info-row spans full width
+   Desktop remains unchanged
+   ========================================================= */
+@media (max-width: 640px){
+
+  /* Card grid for mobile header row */
+  .books-page .resource-card{
+    display: grid;
+    grid-template-columns: 96px 1fr;  /* cover + content */
+    grid-template-rows: auto auto auto; /* badges, header row, stack row */
+    gap: 12px;
+    align-items: start;
+  }
+
+  /* Badges stay full width at the top */
+  .books-page .resource-card-badges{
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  /* Cover stays left in the header row */
+  .books-page .resource-media{
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  /*
+    KEY MOVE:
+    On mobile only, remove the resource-body wrapper from layout
+    so its children can be positioned as grid items.
+  */
+  .books-page .resource-body{
+    display: contents !important;
+  }
+
+  /* Put the top-row (title/author/isbn/rationale block) in the right column */
+  .books-page .resource-top-row{
+    grid-column: 2;
+    grid-row: 2;
+    min-width: 0;
+  }
+
+  /* Make the info-row (note/maysub + scope + shared etc.) span full width under both */
+  .books-page .resource-info-row{
+    grid-column: 1 / -1;
+    grid-row: 3;
+    min-width: 0;
+  }
+
+  /* Remove the Ã¢â‚¬Å“invisible dividerÃ¢â‚¬Â columns on mobile so nothing is squeezed */
+  .books-page .resource-top-divider,
+  .books-page .resource-info-divider{
+    display: none !important;
+  }
+
+  /* Force the internal two/three-column layouts to become a clean vertical stack */
+  .books-page .resource-top-right,
+  .books-page .resource-info-right{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 640px) {
+
+  /* Tighten gap between title block and rationale */
+  .resource-body {
+    row-gap: 0.75rem; /* if it's grid */
+  }
+
+  .resource-top-row {
+    margin-bottom: 0.5rem; /* was effectively larger */
+  }
+
+  .resource-info-row {
+    margin-top: 0; /* override inherited spacing */
+  }
+
+}
+
+@media (max-width: 640px) {
+
+  .resource-top-divider,
+  .resource-info-divider {
+    height: 0;
+    min-height: 0;
+    margin: 0;
+  }
+
+}
+
+/* =========================================================
+   MOBILE (books page): Better wrapping for author + ISBN
+   and stabilize the "My Books" button placement
+   ========================================================= */
+@media (max-width: 640px){
+
+  /* Let the subline become a clean stacked block */
+  .books-page .resource-subline{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  /* Allow author to wrap */
+  .books-page .resource-author{
+    white-space: normal !important;
+    margin-right: 0 !important;
+    overflow-wrap: anywhere;
+  }
+
+  /* ISBN line: label + value can wrap gracefully */
+  .books-page .resource-isbn{
+    white-space: normal !important;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    opacity: 0.9;
+  }
+
+  .books-page .resource-isbn-label{
+    white-space: nowrap; /* keep Ã¢â‚¬Å“ISBN/ASIN:Ã¢â‚¬Â together */
+    flex: none;
+  }
+
+  .books-page .resource-isbn-value{
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* -----------------------------
+     Stabilize the "Add to Booklist" button
+     (prevents topic-level header reflow / jumping)
+  ----------------------------- */
+
+  /* Reserve a consistent slot for the book button */
+  .books-page .resource-card-bookmark-corner{
+    width: 28px;          /* fixed space so layout doesn't shift */
+    height: 28px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+
+  /* Ensure the title row always has the same column behavior */
+  .books-page .resource-title-row{
+    grid-template-columns: minmax(0, 1fr) 28px auto !important;
+    align-items: start;
+  }
+
+  /* If Edit is not present, this still keeps the bookmark slot stable */
+  .books-page .resource-edit-pill{
+    justify-self: end;
+  }
+}
+
+/* =========================================================
+   Mobile: tighten space between header row and RATIONALE row
+   (keep current wrap/stack behavior intact)
+   ========================================================= */
+@media (max-width: 640px){
+
+  /* reduce the vertical gap between grid rows (row2 Ã¢â€ â€™ row3) */
+  .books-page .resource-card{
+    row-gap: 8px !important;     /* was effectively larger */
+    column-gap: 12px;            /* keep horizontal spacing */
+  }
+
+  /* remove any bottom margin that the header content might have */
+  .books-page .resource-top-row{
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* sometimes the title block/subline adds spacing */
+  .books-page .resource-title-row{
+    margin-bottom: 4px !important;
+  }
+
+  .books-page .resource-subline{
+    margin-bottom: 0 !important;
+  }
+
+  /* remove any top margin/padding before the rationale stack */
+  .books-page .resource-info-row{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* if rationale block itself has a top margin */
+  .books-page .resource-rationale{
+    margin-top: 0 !important;
+  }
+}
+
+/* -----------------------------------------
+   Book List: List View controls (Full/Compact/Minimal)
+----------------------------------------- */
+
+/* --- Students (Manage + filter) + List View ---------------------------------- */
+.student-tools-row{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 8px;
+  align-items: center;
+  margin: 6px 0 14px;
+}
+
+/* Students dropdown sits under Grade */
+.student-tools-row > .relative{
+  grid-column: 1;
+  min-width: 0;
+}
+
+/* Manage Students under Subject */
+.student-tools-row .manage-students-toggle{
+  grid-column: 2;
+  justify-self: start;
+}
+
+/* KEY CHANGE:
+   Let List View span columns 3–4 (acts like one combined “wide” column) */
+.student-tools-row .list-view-controls{
+  grid-column: 3 / 5;        /* spans col 3 + col 4 */
+  justify-self: end;         /* right-align the whole block */
+  width: 100%;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end; /* right-justify contents inside */
+  gap: 14px;
+
+  flex-wrap: wrap;           /* wraps only when truly needed */
+  min-width: 0;
+  margin: 0;
+}
+
+/* --- List View styling (match filter box tone) --- */
+.student-tools-row .list-view-label{
+  color: var(--brand-muted);
+  font-size: 14px;
+  font-weight: 300;
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  white-space: nowrap;
+}
+
+.student-tools-row .list-view-radio{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--brand-muted);
+  font-size: 14px;
+  font-weight: 300;
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  white-space: nowrap;
+}
+
+.student-tools-row .list-view-radio input{
+  width: 14px;
+  height: 14px;
+  accent-color: #596e5e;
+}
+
+/* =========================================================
+   Book List: Compact-only “top strip”
+   ========================================================= */
+
+/* Default: hide the compact clone */
+.resource-bottom-inner--compact{
+  display: none;
+}
+
+/* Compact view: show the compact clone and hide the normal bottom strip */
+.listview-compact .resource-bottom-inner--compact{
+  display: block;
+}
+
+.listview-compact .resource-bottom-inner--main{
+  display: none;
+}
+
+/* -----------------------------------------
+   Book List: Compact-only "move Prep + Purchase up"
+   - Hide the normal bottom strip in Compact
+   - Show the compact replacement block only in Compact
+----------------------------------------- */
+
+/* Hidden by default (Full + Minimal) */
+.resource-bottom-inner--compact{
+  display: none;
+}
+
+/* Compact: show the moved-up block */
+.listview-compact .resource-bottom-inner--compact{
+  display: block;
+}
+
+/* Compact: hide the original bottom strip so we don't duplicate */
+.listview-compact .resource-bottom-strip{
+  display: none;
+}
+
+/* Compact moved-up strip (Booklist): hidden by default, shown in Compact */
+.resource-bottom-inner--compact{
+  display: none;
+}
+
+/* In Compact, show the moved-up strip and lay it out like a 2-col strip */
+.listview-compact .resource-bottom-inner--compact{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  column-gap: 28px;
+  row-gap: 10px;
+  margin-top: 10px;
+  align-items: start;
+}
+
+/* No divider inside the moved-up version */
+.listview-compact .resource-bottom-inner--compact .resource-bottom-divider{
+  display: none !important;
+}
+
+/* On smaller screens, stack prep above purchase options */
+@media (max-width: 900px){
+  .listview-compact .resource-bottom-inner--compact{
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================================
+   SMALL DESKTOP: switch 4-col → 3-col
+   ========================================================= */
+@media (max-width: 1180px){
+
+  .student-tools-row{
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .student-tools-row > .relative{
+    grid-column: 1 !important;
+  }
+
+  .student-tools-row .manage-students-toggle{
+    grid-column: 2 !important;
+    justify-self: start;
+  }
+
+  /* Now it’s just the 3rd column, still right-aligned */
+  .student-tools-row .list-view-controls{
+    grid-column: 3 !important;
+    justify-self: end;
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   MID WIDTH: 2 columns
+   ========================================================= */
+@media (max-width: 980px){
+
+  .student-tools-row{
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .student-tools-row > .relative{
+    grid-column: 1 !important;
+  }
+
+  .student-tools-row .list-view-controls{
+    grid-column: 2 !important;
+    justify-self: end;
+    width: 100%;
+  }
+
+  .student-tools-row .manage-students-toggle{
+    grid-column: 1 !important;
+    grid-row: 2;
+    justify-self: start;
+  }
+}
+
+/* =========================================================
+   MOBILE: stack cleanly
+   ========================================================= */
+@media (max-width: 640px){
+
+  .student-tools-row{
+    grid-template-columns: 1fr !important;
+    row-gap: 10px;
+  }
+
+  .student-tools-row > .relative{
+    grid-column: 1 !important;
+    width: 100%;
+  }
+
+  .student-tools-row .manage-students-toggle{
+    grid-column: 1 !important;
+    justify-self: start;
+  }
+
+  .student-tools-row .list-view-controls{
+    grid-column: 1 !important;
+    justify-self: start;
+    width: 100%;
+    justify-content: flex-start;
+
+    flex-wrap: wrap;
+    white-space: normal;
+    gap: 10px;
+  }
+
+  .student-tools-row .list-view-label,
+  .student-tools-row .list-view-radio{
+    white-space: normal !important;
+  }
+}
+
+/* =========================================================
+   MOBILE: Students + List View should stack cleanly
+   - Students becomes full width like other dropdowns
+   - List View wraps and does NOT slide off-screen
+   ========================================================= */
+@media (max-width: 640px){
+
+  /* Stack the entire "Students row" into a single column */
+  .student-tools-row{
+    grid-template-columns: 1fr !important;
+    row-gap: 10px;
+  }
+
+  /* Students dropdown wrapper should span full width */
+  .student-tools-row > .relative{
+    grid-column: 1 !important;
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* If Manage Students is present anywhere, keep it from causing layout issues */
+  .student-tools-row .manage-students-toggle{
+    grid-column: 1 !important;
+    justify-self: start;
+  }
+
+  /* List View should become its own full-width row and WRAP */
+  .student-tools-row .list-view-controls{
+    grid-column: 1 !important;
+    justify-self: start;
+    width: 100%;
+
+    /* allow wrapping instead of sliding off-screen */
+    flex-wrap: wrap;
+    white-space: normal;
+    gap: 10px;
+  }
+
+  /* Remove nowrap so label + radios can wrap naturally */
+  .student-tools-row .list-view-label,
+  .student-tools-row .list-view-radio{
+    white-space: normal !important;
+  }
+}
+
+/* -----------------------------------------
+   Book List: List View modes
+----------------------------------------- */
+
+/* Compact: hide rationale + note/may-sub + scope/shared column */
+.listview-compact .resource-rationale,
+.listview-compact .resource-tipbox {
+  display: none !important;
+}
+
+/* Minimal: everything in Compact + hide the prep/bottom strip */
+.listview-minimal .resource-rationale,
+.listview-minimal .resource-tipbox,
+.listview-minimal .resource-bottom-strip {
+  display: none !important;
+}
+
+/* FULL view: top-row purchase links should sit nicely in the shared column */
+.resource-buy-links--top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Do NOT let this new top-row purchase area interfere with mobile */
+@media (max-width: 720px) {
+  .resource-top-shared { display: none !important; }
+}
+
+/* =========================================================
+   Purchase Options location:
+   - Desktop/print/tablet: show TOP block
+   - Mobile: keep existing/bottom behavior untouched
+   ========================================================= */
+
+/* Desktop + print (anything above mobile breakpoint) */
+@media (min-width: 641px){
+  .books-page .purchase-block--top{ display: block !important; }
+  .books-page .purchase-block--bottom{ display: none !important; }
+}
+
+/* Mobile */
+@media (max-width: 640px){
+  .books-page .purchase-block--top{ display: none !important; }
+  .books-page .purchase-block--bottom{ display: block !important; }
+}
+
+/* =========================================================
+   Purchase Options placement rules:
+   - Desktop/tablet: show TOP (upper-right), hide BOTTOM strip
+   - Mobile: hide TOP, show BOTTOM (keeps current mobile layout)
+   ========================================================= */
+
+@media (min-width: 641px){
+  .purchase-block--top{ display: block !important; }
+  .purchase-block--bottom{ display: none !important; }
+}
+
+@media (max-width: 640px){
+  .purchase-block--top{ display: none !important; }
+  .purchase-block--bottom{ display: block !important; }
+}
+
+/* Only add space if Shared exists under Purchase Options */
+.purchase-block--top
+  .resource-buy-links:has(+ .resource-meta-block--shared){
+  margin-bottom: 20px; /* adjust as needed */
+}
+
+@media print {
+  .purchase-block--top
+    .resource-buy-links:has(+ .resource-meta-block--shared){
+    margin-bottom: 10px;
+  }
+}
+
+/* Prep status dot — authoritative */
+.prep-status-dot{
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  flex: 0 0 10px;
+  margin-right: 2px;
+}
