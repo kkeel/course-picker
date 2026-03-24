@@ -281,20 +281,20 @@
 
             const sortKeys = Array.isArray(s.sortId) ? s.sortId : [];
 
-            targets.forEach((targetName, idx) => {
+                        targets.forEach((targetName, idx) => {
               const tid = normalizeSupplyTargetName(targetName);
-            
+
               pseudoAssignments.push({
-                assignmentId: `${rid}__${tid}__${idx}`,   // ✅ FIX (unique key)
-            
+                assignmentId: `${rid}__${tid}__${idx}`,
+
                 targetId: tid,
                 resourceId: rid,
-            
+
                 resourceKey: String(sortKeys[idx] || s.supplySort || s.termSort || idx || ""),
                 optional: !!s.optional,
-            
+
                 scopeText: String(s.scope || "").trim(),
-                sharedTextR3: "",
+                sharedTextR3: String(s.usedInText || "").trim(),
                 editUrl: "",
               });
             });
