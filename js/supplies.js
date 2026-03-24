@@ -251,14 +251,23 @@
               isbnAsin: String(s.isbn || "").trim(),
               isbn: String(s.isbn || "").trim(),
               imageViewLink: imageUrl,
-              rationale: s.rationale || "",
-              rationaleText: s.rationale || "",
-              note: s.note || "",
-              noteText: s.note || "",
-              maySub: s.maySub || "",
-              maySubText: s.maySub || "",
-              qty: s.qty || "",
-              qtyText: s.qty || "",
+              rationale: String(s.rationale || "").trim(),
+              rationaleText: String(s.rationale || "").trim(),
+              note: String(s.note || "").trim(),
+              noteText: String(s.note || "").trim(),
+              maySub: String(s.maySub || "").trim(),
+              maySubText: String(s.maySub || "").trim(),
+              qty: String(s.qty || "").trim(),
+              qtyText: String(s.qty || "").trim(),
+                            discount: (
+                String(s.discount || "").trim() ||
+                String(s.discountCode || "").trim() ||
+                String(s.discountLink || "").trim()
+              ) ? {
+                text: String(s.discount || "").trim(),
+                code: String(s.discountCode || "").trim(),
+                link: String(s.discountLink || "").trim(),
+              } : null,
               scopeText: String(s.scope || "").trim(),
               sharedTextR3: String(s.usedInText || "").trim(),
               resourceTagText: "",
