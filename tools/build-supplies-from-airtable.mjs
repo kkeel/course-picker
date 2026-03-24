@@ -67,8 +67,9 @@ async function run() {
           discountCode: get("with code", rec),
           discountLink: get("using link", rec),
 
-          // --- Scope ---
+          // --- Scope / Cross-course text ---
           scope: get("Scope", rec),
+          usedInText: get("Used in: TEXT", rec),
 
           // --- Subject ---
           subjects: arr("Subject(s)", rec),
