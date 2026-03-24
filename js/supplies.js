@@ -290,7 +290,7 @@
                 targetId: tid,
                 resourceId: rid,
 
-                resourceKey: String(sortKeys[idx] || s.supplySort || s.termSort || idx || ""),
+                resourceKey: String(s.supplyTermSortR3 || idx || ""),
                 optional: !!s.optional,
 
                 scopeText: String(s.scope || "").trim(),
