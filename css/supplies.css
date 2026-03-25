@@ -543,6 +543,17 @@
   display: block;
 }
 
+.resource-tipbox-item--discount{
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+
+.resource-tipbox-text--discount{
+  white-space: normal;
+}
+
 /* Preserve Airtable line breaks for rationale + notes */
 .resource-rationale-text,
 .resource-tipbox-text{
