@@ -290,6 +290,7 @@
                   url: s.link2
                 }] : []),
               ],
+              recordEditLink: String(s.recordEditLink || "").trim(),
               rawSupply: s,
             };
 
