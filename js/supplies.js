@@ -169,7 +169,7 @@
       
           if (!this.isSupplyInMySupplies(rid)) return false;
       
-          const owners = (this._mySuppliesResourceIds?.[String(rid)] || []);
+          const owners = (this._mySuppliesOwnersByResourceId?.[String(rid)] || []);
           if (!owners.length) return true; // legacy/unscoped => treat as visible everywhere
       
           const instanceKey = typeof instanceKeyFn === "function" ? instanceKeyFn(rid) : "";
