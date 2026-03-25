@@ -1231,7 +1231,7 @@
                                         (
                                           !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                           isSupplyOwnedHere(
-                                            mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                            mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
                                           )
                                         )
                                       ">
@@ -1241,7 +1241,7 @@
                                           :style="{ backgroundColor: subjectColor(course.subject) || '#596e5e' }"
                                           @click.stop="toggleSupplyMySupplies(
                                             a.resourceId,
-                                            mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                            mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
                                           )"
                                           aria-label="Remove from My Supplies"
                                           title="In My Supplies"
@@ -1257,7 +1257,7 @@
                                       <!-- GHOST (in My Supplies elsewhere, not owned here yet) -->
                                       <template x-if="isSupplyGhostMySupplies(
                                         a.resourceId,
-                                        mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                        mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
                                       )">
                                         <button
                                           type="button"
@@ -1265,7 +1265,7 @@
                                           :style="{ backgroundColor: subjectColor(course.subject) || '#596e5e' }"
                                           @click.stop="applySupplyMySuppliesHere(
                                             a.resourceId,
-                                            mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                            mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
                                           )"
                                           aria-label="In My Supplies elsewhere — add here"
                                           title="In My Supplies elsewhere — add here"
@@ -1286,7 +1286,7 @@
                                           class="bookmark-btn bookmark-btn--empty"
                                           @click.stop="toggleSupplyMySupplies(
                                             a.resourceId,
-                                            mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                            mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
                                           )"
                                           aria-label="Add to My Supplies"
                                           title="Add to My Supplies"
@@ -1430,7 +1430,7 @@
                                       (
                                         !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                         isSupplyOwnedHere(
-                                          mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                          mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
                                         )
                                       )
                                     ">
@@ -1534,7 +1534,7 @@
                                       (
                                         !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                         isSupplyOwnedHere(
-                                          mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                          mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
                                         )
                                       )
                                     )">
@@ -1578,7 +1578,7 @@
                                               class="prep-options-btn prep-options-btn--slim"
                                               @click.stop="ensureMySuppliesOwnedForPrep(
                                                 a.resourceId,
-                                                mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                                mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
                                               )"
                                             >
                                               + Add
@@ -1655,7 +1655,7 @@
                                             (
                                               !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                               isSupplyOwnedHere(
-                                                mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                                mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
                                               )
                                             )
                                           ">
@@ -1765,7 +1765,7 @@
                                             (
                                               !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                               isSupplyOwnedHere(
-                                                mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                                mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
                                               )
                                             )
                                           )">
@@ -1811,7 +1811,7 @@
                                                     class="prep-options-btn prep-options-btn--slim"
                                                     @click.stop="ensureMySuppliesOwnedForPrep(
                                                       a.resourceId,
-                                                      mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                                      mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
                                                     )"
                                                   >
                                                     + Add
@@ -1830,27 +1830,6 @@
                                         <div class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--bottom"
                                            x-show="(resourcesById[a.resourceId]?.links || []).length && (listViewMode === 'compact' || listViewMode === 'minimal')"
                                               <div class="resource-bottom-title">Purchase Options</div>
-                                            
-                                              <!-- Buy links (from MA_Resources.json -> links[{text,url}]) -->
-                                              <div
-                                                class="resource-buy-links"
-                                                x-show="(resourcesById[a.resourceId]?.links || []).length"
-                                                x-cloak
-                                              >
-                                                <template
-                                                  x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])"
-                                                  :key="li"
-                                                >
-                                                  <a
-                                                    class="buy-link-pill"
-                                                    :href="lnk.url"
-                                                    target="_blank"
-                                                    rel="noopener"
-                                                    x-text="lnk.text || 'Link'"
-                                                  ></a>
-                                                </template>
-                                              </div>
-
                                             <div class="resource-bottom-spacer"><!-- reserved for later --></div>
                                         </div>
                                       </div> <!-- two -->
@@ -2265,8 +2244,8 @@
                                                 !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                                 isSupplyOwnedHere(
                                                   mySuppliesInstanceKeyForTopic(
-                                                    (course.recordID || course.id),
-                                                    (topic.recordID || topic.id),
+                                                    String(course.title || course.name || course.label || '').trim(),
+                                                    String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
                                                     a.resourceId
                                                   )
                                                 )
@@ -2279,8 +2258,8 @@
                                                 @click.stop="toggleSupplyMySupplies(
                                                   a.resourceId,
                                                   mySuppliesInstanceKeyForTopic(
-                                                    (course.recordID || course.id),
-                                                    (topic.recordID || topic.id),
+                                                    String(course.title || course.name || course.label || '').trim(),
+                                                    String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
                                                     a.resourceId
                                                   )
                                                 )"
@@ -2299,8 +2278,8 @@
                                             <template x-if="isSupplyGhostMySupplies(
                                               a.resourceId,
                                               mySuppliesInstanceKeyForTopic(
-                                                (course.recordID || course.id),
-                                                (topic.recordID || topic.id),
+                                                String(course.title || course.name || course.label || '').trim(),
+                                                String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
                                                 a.resourceId
                                               )
                                             )">
@@ -2311,8 +2290,8 @@
                                                 @click.stop="applySupplyMySuppliesHere(
                                                   a.resourceId,
                                                   mySuppliesInstanceKeyForTopic(
-                                                    (course.recordID || course.id),
-                                                    (topic.recordID || topic.id),
+                                                    String(course.title || course.name || course.label || '').trim(),
+                                                    String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
                                                     a.resourceId
                                                   )
                                                 )"
@@ -2336,8 +2315,8 @@
                                                 @click.stop="toggleSupplyMySupplies(
                                                   a.resourceId,
                                                   mySuppliesInstanceKeyForTopic(
-                                                    (course.recordID || course.id),
-                                                    (topic.recordID || topic.id),
+                                                    String(course.title || course.name || course.label || '').trim(),
+                                                    String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
                                                     a.resourceId
                                                   )
                                                 )"
@@ -2482,7 +2461,11 @@
                                             (
                                               !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                               isSupplyOwnedHere(
-                                                mySuppliesInstanceKeyForTopic((course.recordID||course.id),(topic.recordID||topic.id), a.resourceId)
+                                                mySuppliesInstanceKeyForTopic(
+                                                  String(course.title || course.name || course.label || '').trim(),
+                                                  String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                                  a.resourceId
+                                                )
                                               )
                                             )
                                           ">
@@ -2586,7 +2569,11 @@
                                             (
                                               !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                               isSupplyOwnedHere(
-                                                mySuppliesInstanceKeyForTopic((course.recordID||course.id),(topic.recordID||topic.id), a.resourceId)
+                                                mySuppliesInstanceKeyForTopic(
+                                                  String(course.title || course.name || course.label || '').trim(),
+                                                  String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                                  a.resourceId
+                                                )
                                               )
                                             )
                                           )">
@@ -2630,7 +2617,11 @@
                                                     class="prep-options-btn prep-options-btn--slim"
                                                     @click.stop="ensureMySuppliesOwnedForPrep(
                                                       a.resourceId,
-                                                      mySuppliesInstanceKeyForTopic((course.recordID||course.id),(topic.recordID||topic.id), a.resourceId)
+                                                      mySuppliesInstanceKeyForTopic(
+                                                        String(course.title || course.name || course.label || '').trim(),
+                                                        String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                                        a.resourceId
+                                                      )
                                                     )"
                                                   >
                                                     + Add
@@ -2707,8 +2698,8 @@
                                               !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                               isSupplyOwnedHere(
                                                 mySuppliesInstanceKeyForTopic(
-                                                  (course.recordID || course.id),
-                                                  (topic.recordID || topic.id),
+                                                  String(course.title || course.name || course.label || '').trim(),
+                                                  String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
                                                   a.resourceId
                                                 )
                                               )
@@ -2821,8 +2812,8 @@
                                               !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                               isSupplyOwnedHere(
                                                 mySuppliesInstanceKeyForTopic(
-                                                  (course.recordID || course.id),
-                                                  (topic.recordID || topic.id),
+                                                  String(course.title || course.name || course.label || '').trim(),
+                                                  String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
                                                   a.resourceId
                                                 )
                                               )
@@ -2871,8 +2862,8 @@
                                                     @click.stop="ensureMySuppliesOwnedForPrep(
                                                       a.resourceId,
                                                       mySuppliesInstanceKeyForTopic(
-                                                        (course.recordID || course.id),
-                                                        (topic.recordID || topic.id),
+                                                        String(course.title || course.name || course.label || '').trim(),
+                                                        String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
                                                         a.resourceId
                                                       )
                                                     )"
@@ -2890,29 +2881,6 @@
                                     
                                         <!-- RIGHT (narrow): mirrors scope/shared width -->
                                         <div class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--bottom"
-                                             x-show="(resourcesById[a.resourceId]?.links || []).length && (listViewMode === 'compact' || listViewMode === 'minimal')"
-                                              <div class="resource-bottom-title">Purchase Options</div>
-                                            
-                                              <!-- Buy links (from MA_Resources.json -> links[{text,url}]) -->
-                                              <div
-                                                class="resource-buy-links"
-                                                x-show="(resourcesById[a.resourceId]?.links || []).length"
-                                                x-cloak
-                                              >
-                                                <template
-                                                  x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])"
-                                                  :key="li"
-                                                >
-                                                  <a
-                                                    class="buy-link-pill"
-                                                    :href="lnk.url"
-                                                    target="_blank"
-                                                    rel="noopener"
-                                                    x-text="lnk.text || 'Link'"
-                                                  ></a>
-                                                </template>
-                                              </div>
-
                                             <div class="resource-bottom-spacer"><!-- reserved for later --></div>
                                         </div>
                                       </div> <!-- two -->
