@@ -1243,18 +1243,18 @@
                                             a.resourceId,
                                             myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                           )"
-                                          aria-label="Remove from My Books"
-                                          title="In My Books"
+                                          aria-label="Remove from My Supplies"
+                                          title="In My Supplies"
                                         >
                                           <img
-                                            src="img/icons/book-icon-active.png"
+                                            src="img/icons/supply-icon-active.png"
                                             alt=""
                                             class="bookmark-icon"
                                           />
                                         </button>
                                       </template>
                                     
-                                      <!-- GHOST (in My Books elsewhere, not owned here yet) -->
+                                      <!-- GHOST (in My Supplies elsewhere, not owned here yet) -->
                                       <template x-if="isResourceGhostMyBooks(
                                         a.resourceId,
                                         myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
@@ -1267,11 +1267,11 @@
                                             a.resourceId,
                                             myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                           )"
-                                          aria-label="In My Books elsewhere — add here"
-                                          title="In My Books elsewhere — add here"
+                                          aria-label="In My Supplies elsewhere — add here"
+                                          title="In My Supplies elsewhere — add here"
                                         >
                                           <img
-                                            src="img/icons/book-icon-active.png"
+                                            src="img/icons/supply-icon-active.png"
                                             alt=""
                                             class="bookmark-icon"
                                           />
@@ -1279,7 +1279,7 @@
                                         </button>
                                       </template>
                                     
-                                      <!-- EMPTY (not in My Books anywhere) -->
+                                      <!-- EMPTY (not in My Supplies anywhere) -->
                                       <template x-if="!isResourceInMyBooks(a.resourceId)">
                                         <button
                                           type="button"
@@ -1288,11 +1288,11 @@
                                             a.resourceId,
                                             myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                           )"
-                                          aria-label="Add to My Books"
-                                          title="Add to My Books"
+                                          aria-label="Add to My Supplies"
+                                          title="Add to My Supplies"
                                         >
                                           <img
-                                            src="img/icons/book-icon-inactive.png"
+                                            src="img/icons/supply-icon-inactive.png"
                                             alt=""
                                             class="bookmark-icon"
                                           />
@@ -2284,18 +2284,18 @@
                                                     a.resourceId
                                                   )
                                                 )"
-                                                aria-label="Remove from My Books"
-                                                title="In My Books"
+                                                aria-label="Remove from My Supplies"
+                                                title="In My Supplies"
                                               >
                                                 <img
-                                                  src="img/icons/book-icon-active.png"
+                                                  src="img/icons/supply-icon-active.png"
                                                   alt=""
                                                   class="bookmark-icon"
                                                 />
                                               </button>
                                             </template>
                                           
-                                            <!-- GHOST (in My Books elsewhere, not owned here yet) -->
+                                            <!-- GHOST (in My Supplies elsewhere, not owned here yet) -->
                                             <template x-if="isResourceGhostMyBooks(
                                               a.resourceId,
                                               myBooksInstanceKeyForTopic(
@@ -2316,11 +2316,11 @@
                                                     a.resourceId
                                                   )
                                                 )"
-                                                aria-label="In My Books elsewhere — add here"
-                                                title="In My Books elsewhere — add here"
+                                                aria-label="In My Supplies elsewhere — add here"
+                                                title="In My Supplies elsewhere — add here"
                                               >
                                                 <img
-                                                  src="img/icons/book-icon-active.png"
+                                                  src="img/icons/supply-icon-active.png"
                                                   alt=""
                                                   class="bookmark-icon"
                                                 />
@@ -2328,7 +2328,7 @@
                                               </button>
                                             </template>
                                           
-                                            <!-- EMPTY (not in My Books anywhere) -->
+                                            <!-- EMPTY (not in My Supplies anywhere) -->
                                             <template x-if="!isResourceInMyBooks(a.resourceId)">
                                               <button
                                                 type="button"
@@ -2341,11 +2341,11 @@
                                                     a.resourceId
                                                   )
                                                 )"
-                                                aria-label="Add to My Books"
-                                                title="Add to My Books"
+                                                aria-label="Add to My Supplies"
+                                                title="Add to My Supplies"
                                               >
                                                 <img
-                                                  src="img/icons/book-icon-inactive.png"
+                                                  src="img/icons/supply-icon-inactive.png"
                                                   alt=""
                                                   class="bookmark-icon"
                                                 />
