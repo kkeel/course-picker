@@ -123,14 +123,14 @@
 
       // ---- Supply List view controls (UI only for now) ----
       mySuppliesOnly: false,
-      _hasSetmySuppliesOnly: false,
+      _hasSetMySuppliesOnly: false,
       
       listViewMode: "full",
       _hasSetListViewMode: false,
       
-      togglemySuppliesOnly() {
+      toggleMySuppliesOnly() {
         this.mySuppliesOnly = !this.mySuppliesOnly;
-        this._hasSetmySuppliesOnly = true;
+        this._hasSetMySuppliesOnly = true;
         if (typeof this.persistPlannerStateDebounced === "function") {
           this.persistPlannerStateDebounced();
         }
@@ -431,22 +431,11 @@
       },
 
       // --------------------------------------------------
-      // Resource Preparation: My Books (V2 – instance-aware + ghost support)
-      //
-      // Global: resourceId is "in My Books somewhere"
-      // Instance:
-      //   - Course-level: C:<courseId>:R:<resourceId>
-      //   - Topic-level : C:<courseId>:T:<topicId>:R:<resourceId>
-      //
-      // Notes:
-      // - We keep _mySuppliesResourceIds for fast global checks.
-      // - We store instance owners in _mySuppliesResourceIds.
-      // - Legacy saves that only have mySupplies[] will behave like "unscoped" (solid everywhere)
-      //   until the user interacts, at which point we begin tracking per-instance owners.
+      // Supply Preparation: My Supplies (V2 – instance-aware + ghost support)
       // --------------------------------------------------
       
       _mySuppliesResourceIds: new Set(),
-      _mySuppliesResourceIds: {}, // { [resourceId]: string[] instanceKeys }
+      _mySuppliesOwnersByResourceId: {}, // { [resourceId]: string[] instanceKeys }
       _mySuppliesOwnedInstanceKeys: new Set(), // derived cache (owners flattened)
 
       mySuppliesInstanceKeyForCourse(courseId, resourceId) {
@@ -464,8 +453,8 @@
         return `C:${c}:T:${t}:R:${r}`;
       },
 
-      _rebuildmySuppliesOwnedInstanceCache() {
-        const map = this._mySuppliesResourceIds || {};
+      _rebuildMySuppliesOwnedInstanceCache() {
+        const map = this._mySuppliesOwnersByResourceId || {};
         const flat = new Set();
         Object.keys(map).forEach(rid => {
           const owners = Array.isArray(map[rid]) ? map[rid] : [];
@@ -484,102 +473,77 @@
         return this._mySuppliesOwnedInstanceKeys.has(String(instanceKey));
       },
 
-      // "Ghost" means: globally in My Books, AND we have scoped owners for this resource,
-      // but this specific instanceKey is NOT one of them.
       isSupplyGhostMySupplies(resourceId, instanceKey) {
         if (!resourceId || !instanceKey) return false;
         const rid = String(resourceId);
         if (!this.isSupplyInMySupplies(rid)) return false;
 
-        const owners = (this._mySuppliesResourceIds && Array.isArray(this._mySuppliesResourceIds[rid]))
-          ? this._mySuppliesResourceIds[rid]
+        const owners = (this._mySuppliesOwnersByResourceId && Array.isArray(this._mySuppliesOwnersByResourceId[rid]))
+          ? this._mySuppliesOwnersByResourceId[rid]
           : [];
 
-        // Legacy/unscoped: treat as not-ghost anywhere
         if (!owners.length) return false;
 
         return !owners.includes(String(instanceKey));
       },
 
-      // Apply a global ("ghost") resource to THIS specific instance (adds an owner)
       applySupplyMySuppliesHere(resourceId, instanceKey) {
         if (!resourceId || !instanceKey) return;
 
         const rid = String(resourceId);
         const key = String(instanceKey);
 
-        // Ensure global
         if (!this._mySuppliesResourceIds) this._mySuppliesResourceIds = new Set();
         this._mySuppliesResourceIds.add(rid);
 
-        // Ensure owners map
-        if (!this._mySuppliesResourceIds) this._mySuppliesResourceIds = {};
-        const owners = Array.isArray(this._mySuppliesResourceIds[rid]) ? this._mySuppliesResourceIds[rid] : [];
+        if (!this._mySuppliesOwnersByResourceId) this._mySuppliesOwnersByResourceId = {};
+        const owners = Array.isArray(this._mySuppliesOwnersByResourceId[rid]) ? this._mySuppliesOwnersByResourceId[rid] : [];
         if (!owners.includes(key)) owners.push(key);
-        this._mySuppliesResourceIds[rid] = owners;
+        this._mySuppliesOwnersByResourceId[rid] = owners;
 
-        // Update flattened cache
-        this._rebuildmySuppliesOwnedInstanceCache();
-
-        // ✅ persist (same mechanism as bookmarks/students/tags)
+        this._rebuildMySuppliesOwnedInstanceCache();
         this.persistPlannerStateDebounced();
       },
 
-      // For ghost/empty prep "+ Add": ensure this instance becomes OWNED,
-      // force the prep section open, and only add the first prep line if none exist yet.
       ensureMySuppliesOwnedForPrep(resourceId, instanceKey) {
         if (!resourceId) return;
 
         const rid = String(resourceId);
         const key = String(instanceKey || "");
 
-        // 1) Ensure OWNERSHIP for this instance
         if (key) {
-          // Ghost -> owned
           if (this.isSupplyGhostMySupplies(rid, key)) {
             this.applySupplyMySuppliesHere(rid, key);
-          }
-          // Empty -> owned (instance-aware add)
-          else if (!this.isSupplyInMySupplies(rid)) {
+          } else if (!this.isSupplyInMySupplies(rid)) {
             this.toggleSupplyMySupplies(rid, key);
-          }
-          // Global exists but not owned here (extra safety)
-          else if (!this.isSupplyOwnedHere(key) && ((this._mySuppliesResourceIds?.[rid] || []).length)) {
+          } else if (!this.isSupplyOwnedHere(key) && ((this._mySuppliesOwnersByResourceId?.[rid] || []).length)) {
             this.applySupplyMySuppliesHere(rid, key);
           }
-          // Legacy/unscoped (owners empty): do nothing here; it behaves "owned everywhere"
         } else {
-          // Fallback: legacy global add
           if (!this.isSupplyInMySupplies(rid)) this.toggleSupplyMySupplies(rid);
         }
 
-        // 2) Force prep open
         if (!this._prepOpenByResourceId) this._prepOpenByResourceId = {};
         this._prepOpenByResourceId[rid] = true;
 
-        // 3) If there are no prep lines yet, create the first line (old behavior)
         const existing = this.getPrepOptions(rid);
         if (!existing.length) {
-          this.addPrepOption(rid); // adds one default row
+          this.addPrepOption(rid);
         } else {
-          // Still persist the "open" state + ownership change
           this.persistPlannerStateDebounced();
         }
       },
 
-      // Toggle "My Books" for THIS instance.
-      // If instanceKey isn't provided, this behaves like the legacy global toggle.
       toggleSupplyMySupplies(resourceId, instanceKey = "") {
         if (!resourceId) return;
         const rid = String(resourceId);
         const key = String(instanceKey || "");
 
-        // Legacy/global toggle (no instance info)
         if (!key) {
           if (this._mySuppliesResourceIds.has(rid)) {
             this._mySuppliesResourceIds.delete(rid);
-            if (this._mySuppliesResourceIds) delete this._mySuppliesResourceIds[rid];
-            this._rebuildmySuppliesOwnedInstanceCache();
+            if (this._mySuppliesOwnersByResourceId) delete this._mySuppliesOwnersByResourceId[rid];
+            this._rebuildMySuppliesOwnedInstanceCache();
           } else {
             this._mySuppliesResourceIds.add(rid);
           }
@@ -587,45 +551,100 @@
           return;
         }
 
-        // Instance-aware toggle
-        if (!this._mySuppliesResourceIds) this._mySuppliesResourceIds = {};
-        const owners = Array.isArray(this._mySuppliesResourceIds[rid]) ? this._mySuppliesResourceIds[rid] : [];
+        if (!this._mySuppliesOwnersByResourceId) this._mySuppliesOwnersByResourceId = {};
+        const owners = Array.isArray(this._mySuppliesOwnersByResourceId[rid]) ? this._mySuppliesOwnersByResourceId[rid] : [];
 
-        // If resource isn't in My Books yet, add and scope ownership to THIS instance immediately
         if (!this._mySuppliesResourceIds.has(rid)) {
           this._mySuppliesResourceIds.add(rid);
-          this._mySuppliesResourceIds[rid] = [key];
-          this._rebuildmySuppliesOwnedInstanceCache();
+          this._mySuppliesOwnersByResourceId[rid] = [key];
+          this._rebuildMySuppliesOwnedInstanceCache();
           this.persistPlannerStateDebounced();
           return;
         }
 
-        // If unscoped legacy (no owners), start scoping by making THIS instance the first owner
         if (!owners.length) {
-          this._mySuppliesResourceIds[rid] = [key];
-          this._rebuildmySuppliesOwnedInstanceCache();
+          this._mySuppliesOwnersByResourceId[rid] = [key];
+          this._rebuildMySuppliesOwnedInstanceCache();
           this.persistPlannerStateDebounced();
           return;
         }
 
-        // Scoped: toggle this key within owners
         const nextOwners = owners.filter(k => String(k) !== key);
         if (nextOwners.length === owners.length) {
-          nextOwners.push(key); // wasn't present → add
+          nextOwners.push(key);
         }
 
         if (!nextOwners.length) {
-          // No owners left → remove global membership too
-          delete this._mySuppliesResourceIds[rid];
+          delete this._mySuppliesOwnersByResourceId[rid];
           this._mySuppliesResourceIds.delete(rid);
         } else {
-          this._mySuppliesResourceIds[rid] = nextOwners;
+          this._mySuppliesOwnersByResourceId[rid] = nextOwners;
         }
 
-        this._rebuildmySuppliesOwnedInstanceCache();
-
-        // ✅ persist
+        this._rebuildMySuppliesOwnedInstanceCache();
         this.persistPlannerStateDebounced();
+      },
+
+      collectPlannerExtras() {
+        const extras = {
+          supplies: {
+            mySupplies: Array.from(this._mySuppliesResourceIds || []),
+            mySuppliesOwnersByResourceId: this._mySuppliesOwnersByResourceId || {},
+            prepOpenByResourceId: this._prepOpenByResourceId || {},
+            optionsByResourceId: this._optionsByResourceId || {},
+          }
+        };
+
+        if (this._hasSetMySuppliesOnly || this._hasSetListViewMode) {
+          extras.supplies.view = {};
+
+          if (this._hasSetMySuppliesOnly) extras.supplies.view.mySuppliesOnly = !!this.mySuppliesOnly;
+          if (this._hasSetListViewMode) extras.supplies.view.listViewMode = this.listViewMode;
+        }
+
+        return extras;
+      },
+      
+      applyPlannerExtras(extras) {
+        const r = extras?.supplies;
+        if (!r) return;
+
+        const ids = Array.isArray(r.mySupplies) ? r.mySupplies : [];
+        this._mySuppliesResourceIds = new Set(ids.map(String));
+
+        const owners = (r.mySuppliesOwnersByResourceId && typeof r.mySuppliesOwnersByResourceId === "object")
+          ? r.mySuppliesOwnersByResourceId
+          : {};
+        this._mySuppliesOwnersByResourceId = { ...owners };
+
+        const prepOpen = (r.prepOpenByResourceId && typeof r.prepOpenByResourceId === "object")
+          ? r.prepOpenByResourceId
+          : {};
+        this._prepOpenByResourceId = { ...prepOpen };
+
+        const opts = (r.optionsByResourceId && typeof r.optionsByResourceId === "object")
+          ? r.optionsByResourceId
+          : {};
+        this._optionsByResourceId = { ...opts };
+
+        if (typeof this._rebuildMySuppliesOwnedInstanceCache === "function") {
+          this._rebuildMySuppliesOwnedInstanceCache();
+        }
+
+        const view = (r.view && typeof r.view === "object") ? r.view : null;
+        if (view) {
+          if (typeof view.mySuppliesOnly === "boolean") {
+            this.mySuppliesOnly = view.mySuppliesOnly;
+            this._hasSetMySuppliesOnly = true;
+          }
+          if (typeof view.listViewMode === "string") {
+            const v = (view.listViewMode === "full" || view.listViewMode === "compact" || view.listViewMode === "minimal")
+              ? view.listViewMode
+              : "full";
+            this.listViewMode = v;
+            this._hasSetListViewMode = true;
+          }
+        }
       },
 
       // --------------------------------------------------
@@ -772,78 +791,6 @@ prepStatusColor(status) {
       
       closePrepOptionsModal() {
         this.prepOptionsModalOpen = false;
-      },
-
-      collectPlannerExtras() {
-        const extras = {
-          resources: {
-            mySupplies: Array.from(this._mySuppliesResourceIds || []),
-
-            // ✅ NEW: instance owners for ghost behavior
-            mySuppliesOwnersByResourceId: this._mySuppliesResourceIds || {},
-
-            prepOpenByResourceId: this._prepOpenByResourceId || {},
-            optionsByResourceId: this._optionsByResourceId || {},
-          }
-        };
-
-        // Persist view settings ONLY after the user explicitly changes them
-        if (this._hasSetmySuppliesOnly || this._hasSetListViewMode) {
-          extras.resources.view = {};
-
-          if (this._hasSetmySuppliesOnly) extras.resources.view.mySuppliesOnly = !!this.mySuppliesOnly;
-          if (this._hasSetListViewMode) extras.resources.view.listViewMode = this.listViewMode;
-        }
-
-        return extras;
-      },
-      
-      applyPlannerExtras(extras) {
-        const r = extras?.resources;
-        if (!r) return;
-      
-        // Restore My Books (global)
-        const ids = Array.isArray(r.mySupplies) ? r.mySupplies : [];
-        this._mySuppliesResourceIds = new Set(ids.map(String));
-      
-        // ✅ Restore instance owners (if present; otherwise legacy/unscoped)
-        const owners = (r.mySuppliesOwnersByResourceId && typeof r.mySuppliesOwnersByResourceId === "object")
-          ? r.mySuppliesOwnersByResourceId
-          : {};
-        this._mySuppliesResourceIds = { ...owners };
-      
-        // ✅ Restore prep tracking open/closed state
-        const prepOpen = (r.prepOpenByResourceId && typeof r.prepOpenByResourceId === "object")
-          ? r.prepOpenByResourceId
-          : {};
-        this._prepOpenByResourceId = { ...prepOpen };
-      
-        // ✅ Restore prep tracking option rows (physical/digital, acquisition, status, etc.)
-        const opts = (r.optionsByResourceId && typeof r.optionsByResourceId === "object")
-          ? r.optionsByResourceId
-          : {};
-        this._optionsByResourceId = { ...opts };
-      
-        // Rebuild flattened cache used by ghost checks
-        if (typeof this._rebuildmySuppliesOwnedInstanceCache === "function") {
-          this._rebuildmySuppliesOwnedInstanceCache();
-        }
-      
-        // Restore view settings (only if they were ever saved)
-        const view = (r.view && typeof r.view === "object") ? r.view : null;
-        if (view) {
-          if (typeof view.mySuppliesOnly === "boolean") {
-            this.mySuppliesOnly = view.mySuppliesOnly;
-            this._hasSetmySuppliesOnly = true;
-          }
-          if (typeof view.listViewMode === "string") {
-            const v = (view.listViewMode === "full" || view.listViewMode === "compact" || view.listViewMode === "minimal")
-              ? view.listViewMode
-              : "full";
-            this.listViewMode = v;
-            this._hasSetListViewMode = true;
-          }
-        }
       },
 
       altFormatsForAssignment(a) {
