@@ -1386,25 +1386,17 @@
                                         resourcesById[a.resourceId]?.discount?.code ||
                                         resourcesById[a.resourceId]?.discount?.link
                                       )">
-                                        <div class="resource-tipbox-item">
+                                        <div class="resource-tipbox-item resource-tipbox-item--discount">
                                           <span class="resource-tipbox-label">Discount:</span>
-                                          <span class="resource-tipbox-text">
-                                            <span x-text="resourcesById[a.resourceId]?.discount?.text"></span>
-                                            
-                                            <template x-if="resourcesById[a.resourceId]?.discount?.code">
-                                              <span>
-                                                <span> with code </span>
-                                                <strong x-text="resourcesById[a.resourceId]?.discount?.code"></strong>
-                                              </span>
-                                            </template>
                                       
-                                            <template x-if="resourcesById[a.resourceId]?.discount?.link">
-                                              <span>
-                                                <span> using link </span>
-                                                <span x-text="resourcesById[a.resourceId]?.discount?.link"></span>
-                                              </span>
-                                            </template>
-                                          </span>
+                                          <span
+                                            class="resource-tipbox-text resource-tipbox-text--discount"
+                                            x-text="
+                                              (resourcesById[a.resourceId]?.discount?.text || '') +
+                                              (resourcesById[a.resourceId]?.discount?.code ? ' with code ' + resourcesById[a.resourceId].discount.code : '') +
+                                              (resourcesById[a.resourceId]?.discount?.link ? ' using link ' + resourcesById[a.resourceId].discount.link : '')
+                                            "
+                                          ></span>
                                         </div>
                                       </template>
                               
@@ -2446,25 +2438,17 @@
                                               resourcesById[a.resourceId]?.discount?.code ||
                                               resourcesById[a.resourceId]?.discount?.link
                                             )">
-                                              <div class="resource-tipbox-item">
+                                              <div class="resource-tipbox-item resource-tipbox-item--discount">
                                                 <span class="resource-tipbox-label">Discount:</span>
-                                                <span class="resource-tipbox-text">
-                                                  <span x-text="resourcesById[a.resourceId]?.discount?.text"></span>
-                                                  
-                                                  <template x-if="resourcesById[a.resourceId]?.discount?.code">
-                                                    <span>
-                                                      <span> with code </span>
-                                                      <strong x-text="resourcesById[a.resourceId]?.discount?.code"></strong>
-                                                    </span>
-                                                  </template>
                                             
-                                                  <template x-if="resourcesById[a.resourceId]?.discount?.link">
-                                                    <span>
-                                                      <span> using link </span>
-                                                      <span x-text="resourcesById[a.resourceId]?.discount?.link"></span>
-                                                    </span>
-                                                  </template>
-                                                </span>
+                                                <span
+                                                  class="resource-tipbox-text resource-tipbox-text--discount"
+                                                  x-text="
+                                                    (resourcesById[a.resourceId]?.discount?.text || '') +
+                                                    (resourcesById[a.resourceId]?.discount?.code ? ' with code ' + resourcesById[a.resourceId].discount.code : '') +
+                                                    (resourcesById[a.resourceId]?.discount?.link ? ' using link ' + resourcesById[a.resourceId].discount.link : '')
+                                                  "
+                                                ></span>
                                               </div>
                                             </template>
                                     
