@@ -770,8 +770,8 @@
 
                 <div
                   class="toggle"
-                  :class="myBooksOnly ? 'toggle--on' : ''"
-                  @click="toggleMyBooksOnly()"
+                  :class="mySuppliesOnly ? 'toggle--on' : ''"
+                  @click="togglemySuppliesOnly()"
                 >
                   <div class="toggle-switch">
                     <div class="toggle-switch-knob"></div>
@@ -1227,11 +1227,11 @@
                                     <span class="bookmark-region">
                                       <!-- SOLID (owned here OR legacy-unscoped) -->
                                       <template x-if="
-                                        isResourceInMyBooks(a.resourceId) &&
+                                        isSupplyInMySupplies(a.resourceId) &&
                                         (
                                           !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
-                                          isResourceOwnedHere(
-                                            myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                          isSupplyOwnedHere(
+                                            mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                           )
                                         )
                                       ">
@@ -1239,9 +1239,9 @@
                                           type="button"
                                           class="bookmark-btn bookmark-btn--solid"
                                           :style="{ backgroundColor: subjectColor(course.subject) || '#596e5e' }"
-                                          @click.stop="toggleResourceMyBooks(
+                                          @click.stop="toggleSupplyMySupplies(
                                             a.resourceId,
-                                            myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                            mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                           )"
                                           aria-label="Remove from My Supplies"
                                           title="In My Supplies"
@@ -1255,17 +1255,17 @@
                                       </template>
                                     
                                       <!-- GHOST (in My Supplies elsewhere, not owned here yet) -->
-                                      <template x-if="isResourceGhostMyBooks(
+                                      <template x-if="isSupplyGhostMySupplies(
                                         a.resourceId,
-                                        myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                        mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                       )">
                                         <button
                                           type="button"
                                           class="bookmark-btn bookmark-btn--ghost"
                                           :style="{ backgroundColor: subjectColor(course.subject) || '#596e5e' }"
-                                          @click.stop="applyResourceMyBooksHere(
+                                          @click.stop="applySupplyMySuppliesHere(
                                             a.resourceId,
-                                            myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                            mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                           )"
                                           aria-label="In My Supplies elsewhere — add here"
                                           title="In My Supplies elsewhere — add here"
@@ -1280,13 +1280,13 @@
                                       </template>
                                     
                                       <!-- EMPTY (not in My Supplies anywhere) -->
-                                      <template x-if="!isResourceInMyBooks(a.resourceId)">
+                                      <template x-if="!isSupplyInMySupplies(a.resourceId)">
                                         <button
                                           type="button"
                                           class="bookmark-btn bookmark-btn--empty"
-                                          @click.stop="toggleResourceMyBooks(
+                                          @click.stop="toggleSupplyMySupplies(
                                             a.resourceId,
-                                            myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                            mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                           )"
                                           aria-label="Add to My Supplies"
                                           title="Add to My Supplies"
@@ -1426,11 +1426,11 @@
                               
                                     <!-- Owned (solid): show full prep UI -->
                                     <template x-if="
-                                      isResourceInMyBooks(a.resourceId) &&
+                                      isSupplyInMySupplies(a.resourceId) &&
                                       (
                                         !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
-                                        isResourceOwnedHere(
-                                          myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                        isSupplyOwnedHere(
+                                          mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                         )
                                       )
                                     ">
@@ -1530,11 +1530,11 @@
                               
                                     <!-- Ghost / Empty: show header + open body with only + Add -->
                                     <template x-if="!(
-                                      isResourceInMyBooks(a.resourceId) &&
+                                      isSupplyInMySupplies(a.resourceId) &&
                                       (
                                         !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
-                                        isResourceOwnedHere(
-                                          myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                        isSupplyOwnedHere(
+                                          mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                         )
                                       )
                                     )">
@@ -1576,9 +1576,9 @@
                                             <button
                                               type="button"
                                               class="prep-options-btn prep-options-btn--slim"
-                                              @click.stop="ensureMyBooksOwnedForPrep(
+                                              @click.stop="ensureMySuppliesOwnedForPrep(
                                                 a.resourceId,
-                                                myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                                mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                               )"
                                             >
                                               + Add
@@ -1651,11 +1651,11 @@
                                         <div class="resource-bottom-left">
                                           <!-- Owned (solid): show full prep UI -->
                                           <template x-if="
-                                            isResourceInMyBooks(a.resourceId) &&
+                                            isSupplyInMySupplies(a.resourceId) &&
                                             (
                                               !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
-                                              isResourceOwnedHere(
-                                                myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                              isSupplyOwnedHere(
+                                                mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                               )
                                             )
                                           ">
@@ -1761,11 +1761,11 @@
                                           
                                           <!-- Ghost / Empty: show header + (open) body with ONLY bottom + Add -->
                                           <template x-if="!(
-                                            isResourceInMyBooks(a.resourceId) &&
+                                            isSupplyInMySupplies(a.resourceId) &&
                                             (
                                               !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
-                                              isResourceOwnedHere(
-                                                myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                              isSupplyOwnedHere(
+                                                mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                               )
                                             )
                                           )">
@@ -1809,9 +1809,9 @@
                                                   <button
                                                     type="button"
                                                     class="prep-options-btn prep-options-btn--slim"
-                                                    @click.stop="ensureMyBooksOwnedForPrep(
+                                                    @click.stop="ensureMySuppliesOwnedForPrep(
                                                       a.resourceId,
-                                                      myBooksInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
+                                                      mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                                     )"
                                                   >
                                                     + Add
@@ -2260,11 +2260,11 @@
                                           <span class="bookmark-region">
                                             <!-- SOLID (owned here OR legacy-unscoped) -->
                                             <template x-if="
-                                              isResourceInMyBooks(a.resourceId) &&
+                                              isSupplyInMySupplies(a.resourceId) &&
                                               (
                                                 !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
-                                                isResourceOwnedHere(
-                                                  myBooksInstanceKeyForTopic(
+                                                isSupplyOwnedHere(
+                                                  mySuppliesInstanceKeyForTopic(
                                                     (course.recordID || course.id),
                                                     (topic.recordID || topic.id),
                                                     a.resourceId
@@ -2276,9 +2276,9 @@
                                                 type="button"
                                                 class="bookmark-btn bookmark-btn--solid"
                                                 :style="{ backgroundColor: subjectColor(course.subject) || '#596e5e' }"
-                                                @click.stop="toggleResourceMyBooks(
+                                                @click.stop="toggleSupplyMySupplies(
                                                   a.resourceId,
-                                                  myBooksInstanceKeyForTopic(
+                                                  mySuppliesInstanceKeyForTopic(
                                                     (course.recordID || course.id),
                                                     (topic.recordID || topic.id),
                                                     a.resourceId
@@ -2296,9 +2296,9 @@
                                             </template>
                                           
                                             <!-- GHOST (in My Supplies elsewhere, not owned here yet) -->
-                                            <template x-if="isResourceGhostMyBooks(
+                                            <template x-if="isSupplyGhostMySupplies(
                                               a.resourceId,
-                                              myBooksInstanceKeyForTopic(
+                                              mySuppliesInstanceKeyForTopic(
                                                 (course.recordID || course.id),
                                                 (topic.recordID || topic.id),
                                                 a.resourceId
@@ -2308,9 +2308,9 @@
                                                 type="button"
                                                 class="bookmark-btn bookmark-btn--ghost"
                                                 :style="{ backgroundColor: subjectColor(course.subject) || '#596e5e' }"
-                                                @click.stop="applyResourceMyBooksHere(
+                                                @click.stop="applySupplyMySuppliesHere(
                                                   a.resourceId,
-                                                  myBooksInstanceKeyForTopic(
+                                                  mySuppliesInstanceKeyForTopic(
                                                     (course.recordID || course.id),
                                                     (topic.recordID || topic.id),
                                                     a.resourceId
@@ -2329,13 +2329,13 @@
                                             </template>
                                           
                                             <!-- EMPTY (not in My Supplies anywhere) -->
-                                            <template x-if="!isResourceInMyBooks(a.resourceId)">
+                                            <template x-if="!isSupplyInMySupplies(a.resourceId)">
                                               <button
                                                 type="button"
                                                 class="bookmark-btn bookmark-btn--empty"
-                                                @click.stop="toggleResourceMyBooks(
+                                                @click.stop="toggleSupplyMySupplies(
                                                   a.resourceId,
-                                                  myBooksInstanceKeyForTopic(
+                                                  mySuppliesInstanceKeyForTopic(
                                                     (course.recordID || course.id),
                                                     (topic.recordID || topic.id),
                                                     a.resourceId
@@ -2478,11 +2478,11 @@
                                     
                                           <!-- Owned (solid): show full prep UI -->
                                           <template x-if="
-                                            isResourceInMyBooks(a.resourceId) &&
+                                            isSupplyInMySupplies(a.resourceId) &&
                                             (
                                               !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
-                                              isResourceOwnedHere(
-                                                myBooksInstanceKeyForTopic((course.recordID||course.id),(topic.recordID||topic.id), a.resourceId)
+                                              isSupplyOwnedHere(
+                                                mySuppliesInstanceKeyForTopic((course.recordID||course.id),(topic.recordID||topic.id), a.resourceId)
                                               )
                                             )
                                           ">
@@ -2582,11 +2582,11 @@
                                     
                                           <!-- Ghost / Empty: show header + open body with only + Add -->
                                           <template x-if="!(
-                                            isResourceInMyBooks(a.resourceId) &&
+                                            isSupplyInMySupplies(a.resourceId) &&
                                             (
                                               !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
-                                              isResourceOwnedHere(
-                                                myBooksInstanceKeyForTopic((course.recordID||course.id),(topic.recordID||topic.id), a.resourceId)
+                                              isSupplyOwnedHere(
+                                                mySuppliesInstanceKeyForTopic((course.recordID||course.id),(topic.recordID||topic.id), a.resourceId)
                                               )
                                             )
                                           )">
@@ -2628,9 +2628,9 @@
                                                   <button
                                                     type="button"
                                                     class="prep-options-btn prep-options-btn--slim"
-                                                    @click.stop="ensureMyBooksOwnedForPrep(
+                                                    @click.stop="ensureMySuppliesOwnedForPrep(
                                                       a.resourceId,
-                                                      myBooksInstanceKeyForTopic((course.recordID||course.id),(topic.recordID||topic.id), a.resourceId)
+                                                      mySuppliesInstanceKeyForTopic((course.recordID||course.id),(topic.recordID||topic.id), a.resourceId)
                                                     )"
                                                   >
                                                     + Add
@@ -2702,11 +2702,11 @@
                                         <div class="resource-bottom-left">
                                           <!-- Owned (solid): show full prep UI -->
                                           <template x-if="
-                                            isResourceInMyBooks(a.resourceId) &&
+                                            isSupplyInMySupplies(a.resourceId) &&
                                             (
                                               !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
-                                              isResourceOwnedHere(
-                                                myBooksInstanceKeyForTopic(
+                                              isSupplyOwnedHere(
+                                                mySuppliesInstanceKeyForTopic(
                                                   (course.recordID || course.id),
                                                   (topic.recordID || topic.id),
                                                   a.resourceId
@@ -2816,11 +2816,11 @@
                                           
                                           <!-- Ghost / Empty: show header + (open) body with ONLY bottom + Add -->
                                           <template x-if="!(
-                                            isResourceInMyBooks(a.resourceId) &&
+                                            isSupplyInMySupplies(a.resourceId) &&
                                             (
                                               !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
-                                              isResourceOwnedHere(
-                                                myBooksInstanceKeyForTopic(
+                                              isSupplyOwnedHere(
+                                                mySuppliesInstanceKeyForTopic(
                                                   (course.recordID || course.id),
                                                   (topic.recordID || topic.id),
                                                   a.resourceId
@@ -2868,9 +2868,9 @@
                                                   <button
                                                     type="button"
                                                     class="prep-options-btn prep-options-btn--slim"
-                                                    @click.stop="ensureMyBooksOwnedForPrep(
+                                                    @click.stop="ensureMySuppliesOwnedForPrep(
                                                       a.resourceId,
-                                                      myBooksInstanceKeyForTopic(
+                                                      mySuppliesInstanceKeyForTopic(
                                                         (course.recordID || course.id),
                                                         (topic.recordID || topic.id),
                                                         a.resourceId
