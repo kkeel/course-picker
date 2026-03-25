@@ -1828,7 +1828,7 @@
                                     
                                         <!-- RIGHT (narrow): mirrors scope/shared width -->
                                         <div class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--bottom"
-                                           x-show="(a.buyLinks || []).length && (listViewMode === 'compact' || listViewMode === 'minimal')">
+                                           x-show="(resourcesById[a.resourceId]?.links || []).length && (listViewMode === 'compact' || listViewMode === 'minimal')"
                                               <div class="resource-bottom-title">Purchase Options</div>
                                             
                                               <!-- Buy links (from MA_Resources.json -> links[{text,url}]) -->
@@ -2890,7 +2890,7 @@
                                     
                                         <!-- RIGHT (narrow): mirrors scope/shared width -->
                                         <div class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--bottom"
-                                             x-show="(a.buyLinks || []).length && (listViewMode === 'compact' || listViewMode === 'minimal')">
+                                             x-show="(resourcesById[a.resourceId]?.links || []).length && (listViewMode === 'compact' || listViewMode === 'minimal')"
                                               <div class="resource-bottom-title">Purchase Options</div>
                                             
                                               <!-- Buy links (from MA_Resources.json -> links[{text,url}]) -->
