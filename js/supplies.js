@@ -122,15 +122,15 @@
       resourcesById: {},           // { [resourceId]: resource }
 
       // ---- Supply List view controls (UI only for now) ----
-      myBooksOnly: false,
-      _hasSetMyBooksOnly: false,
+      mySuppliesOnly: false,
+      _hasSetmySuppliesOnly: false,
       
       listViewMode: "full",
       _hasSetListViewMode: false,
       
-      toggleMyBooksOnly() {
-        this.myBooksOnly = !this.myBooksOnly;
-        this._hasSetMyBooksOnly = true;
+      togglemySuppliesOnly() {
+        this.mySuppliesOnly = !this.mySuppliesOnly;
+        this._hasSetmySuppliesOnly = true;
         if (typeof this.persistPlannerStateDebounced === "function") {
           this.persistPlannerStateDebounced();
         }
@@ -156,24 +156,24 @@
         const list = Array.isArray(arr) ? arr : [];
       
         // Normal mode = show all assignments (current behavior)
-        if (!this.myBooksOnly) {
+        if (!this.mySuppliesOnly) {
           return list.filter(a => String(a?.resourceId || "").trim());
         }
       
-        // My Books mode:
-        // - must be in My Books
-        // - must be owned here if the resource has owners
+        // My Supplies mode:
+        // - must be in My Supplies
+        // - must be owned here if the supply has owners
         return list.filter(a => {
           const rid = String(a?.resourceId || "").trim();
           if (!rid) return false;
       
-          if (!this.isResourceInMyBooks(rid)) return false;
+          if (!this.isSupplyInMySupplies(rid)) return false;
       
-          const owners = (this._myBooksOwnersByResourceId?.[String(rid)] || []);
+          const owners = (this._mySuppliesResourceIds?.[String(rid)] || []);
           if (!owners.length) return true; // legacy/unscoped => treat as visible everywhere
       
           const instanceKey = typeof instanceKeyFn === "function" ? instanceKeyFn(rid) : "";
-          return !!instanceKey && this.isResourceOwnedHere(instanceKey);
+          return !!instanceKey && this.isSupplyOwnedHere(instanceKey);
         });
       },
       
@@ -181,7 +181,7 @@
         const tid = plannerTargetName(course);
         const arr = this.assignmentsByTargetId?.[tid] || [];
         return this._visibleAssignmentsFilter(arr, (rid) =>
-          this.myBooksInstanceKeyForCourse(tid, rid)
+          this.mySuppliesInstanceKeyForCourse(tid, rid)
         );
       },
       
@@ -191,7 +191,7 @@
 
         const arr = this.assignmentsByTargetId?.[tid] || [];
         return this._visibleAssignmentsFilter(arr, (rid) =>
-          this.myBooksInstanceKeyForTopic(cid, tid, rid)
+          this.mySuppliesInstanceKeyForTopic(cid, tid, rid)
         );
       },
       
@@ -439,24 +439,24 @@
       //   - Topic-level : C:<courseId>:T:<topicId>:R:<resourceId>
       //
       // Notes:
-      // - We keep _myBooksResourceIds for fast global checks.
-      // - We store instance owners in _myBooksOwnersByResourceId.
-      // - Legacy saves that only have myBooks[] will behave like "unscoped" (solid everywhere)
+      // - We keep _mySuppliesResourceIds for fast global checks.
+      // - We store instance owners in _mySuppliesResourceIds.
+      // - Legacy saves that only have mySupplies[] will behave like "unscoped" (solid everywhere)
       //   until the user interacts, at which point we begin tracking per-instance owners.
       // --------------------------------------------------
       
-      _myBooksResourceIds: new Set(),
-      _myBooksOwnersByResourceId: {}, // { [resourceId]: string[] instanceKeys }
-      _myBooksOwnedInstanceKeys: new Set(), // derived cache (owners flattened)
+      _mySuppliesResourceIds: new Set(),
+      _mySuppliesResourceIds: {}, // { [resourceId]: string[] instanceKeys }
+      _mySuppliesOwnedInstanceKeys: new Set(), // derived cache (owners flattened)
 
-      myBooksInstanceKeyForCourse(courseId, resourceId) {
+      mySuppliesInstanceKeyForCourse(courseId, resourceId) {
         const c = String(courseId || "").trim();
         const r = String(resourceId || "").trim();
         if (!c || !r) return "";
         return `C:${c}:R:${r}`;
       },
 
-      myBooksInstanceKeyForTopic(courseId, topicId, resourceId) {
+      mySuppliesInstanceKeyForTopic(courseId, topicId, resourceId) {
         const c = String(courseId || "").trim();
         const t = String(topicId || "").trim();
         const r = String(resourceId || "").trim();
@@ -464,35 +464,35 @@
         return `C:${c}:T:${t}:R:${r}`;
       },
 
-      _rebuildMyBooksOwnedInstanceCache() {
-        const map = this._myBooksOwnersByResourceId || {};
+      _rebuildmySuppliesOwnedInstanceCache() {
+        const map = this._mySuppliesResourceIds || {};
         const flat = new Set();
         Object.keys(map).forEach(rid => {
           const owners = Array.isArray(map[rid]) ? map[rid] : [];
           owners.forEach(k => { if (k) flat.add(String(k)); });
         });
-        this._myBooksOwnedInstanceKeys = flat;
+        this._mySuppliesOwnedInstanceKeys = flat;
       },
 
-      isResourceInMyBooks(resourceId) {
+      isSupplyInMySupplies(resourceId) {
         if (!resourceId) return false;
-        return this._myBooksResourceIds.has(String(resourceId));
+        return this._mySuppliesResourceIds.has(String(resourceId));
       },
 
-      isResourceOwnedHere(instanceKey) {
+      isSupplyOwnedHere(instanceKey) {
         if (!instanceKey) return false;
-        return this._myBooksOwnedInstanceKeys.has(String(instanceKey));
+        return this._mySuppliesOwnedInstanceKeys.has(String(instanceKey));
       },
 
       // "Ghost" means: globally in My Books, AND we have scoped owners for this resource,
       // but this specific instanceKey is NOT one of them.
-      isResourceGhostMyBooks(resourceId, instanceKey) {
+      isSupplyGhostMySupplies(resourceId, instanceKey) {
         if (!resourceId || !instanceKey) return false;
         const rid = String(resourceId);
-        if (!this.isResourceInMyBooks(rid)) return false;
+        if (!this.isSupplyInMySupplies(rid)) return false;
 
-        const owners = (this._myBooksOwnersByResourceId && Array.isArray(this._myBooksOwnersByResourceId[rid]))
-          ? this._myBooksOwnersByResourceId[rid]
+        const owners = (this._mySuppliesResourceIds && Array.isArray(this._mySuppliesResourceIds[rid]))
+          ? this._mySuppliesResourceIds[rid]
           : [];
 
         // Legacy/unscoped: treat as not-ghost anywhere
@@ -502,24 +502,24 @@
       },
 
       // Apply a global ("ghost") resource to THIS specific instance (adds an owner)
-      applyResourceMyBooksHere(resourceId, instanceKey) {
+      applySupplyMySuppliesHere(resourceId, instanceKey) {
         if (!resourceId || !instanceKey) return;
 
         const rid = String(resourceId);
         const key = String(instanceKey);
 
         // Ensure global
-        if (!this._myBooksResourceIds) this._myBooksResourceIds = new Set();
-        this._myBooksResourceIds.add(rid);
+        if (!this._mySuppliesResourceIds) this._mySuppliesResourceIds = new Set();
+        this._mySuppliesResourceIds.add(rid);
 
         // Ensure owners map
-        if (!this._myBooksOwnersByResourceId) this._myBooksOwnersByResourceId = {};
-        const owners = Array.isArray(this._myBooksOwnersByResourceId[rid]) ? this._myBooksOwnersByResourceId[rid] : [];
+        if (!this._mySuppliesResourceIds) this._mySuppliesResourceIds = {};
+        const owners = Array.isArray(this._mySuppliesResourceIds[rid]) ? this._mySuppliesResourceIds[rid] : [];
         if (!owners.includes(key)) owners.push(key);
-        this._myBooksOwnersByResourceId[rid] = owners;
+        this._mySuppliesResourceIds[rid] = owners;
 
         // Update flattened cache
-        this._rebuildMyBooksOwnedInstanceCache();
+        this._rebuildmySuppliesOwnedInstanceCache();
 
         // ✅ persist (same mechanism as bookmarks/students/tags)
         this.persistPlannerStateDebounced();
@@ -527,7 +527,7 @@
 
       // For ghost/empty prep "+ Add": ensure this instance becomes OWNED,
       // force the prep section open, and only add the first prep line if none exist yet.
-      ensureMyBooksOwnedForPrep(resourceId, instanceKey) {
+      ensureMySuppliesOwnedForPrep(resourceId, instanceKey) {
         if (!resourceId) return;
 
         const rid = String(resourceId);
@@ -536,21 +536,21 @@
         // 1) Ensure OWNERSHIP for this instance
         if (key) {
           // Ghost -> owned
-          if (this.isResourceGhostMyBooks(rid, key)) {
-            this.applyResourceMyBooksHere(rid, key);
+          if (this.isSupplyGhostMySupplies(rid, key)) {
+            this.applySupplyMySuppliesHere(rid, key);
           }
           // Empty -> owned (instance-aware add)
-          else if (!this.isResourceInMyBooks(rid)) {
-            this.toggleResourceMyBooks(rid, key);
+          else if (!this.isSupplyInMySupplies(rid)) {
+            this.toggleSupplyMySupplies(rid, key);
           }
           // Global exists but not owned here (extra safety)
-          else if (!this.isResourceOwnedHere(key) && ((this._myBooksOwnersByResourceId?.[rid] || []).length)) {
-            this.applyResourceMyBooksHere(rid, key);
+          else if (!this.isSupplyOwnedHere(key) && ((this._mySuppliesResourceIds?.[rid] || []).length)) {
+            this.applySupplyMySuppliesHere(rid, key);
           }
           // Legacy/unscoped (owners empty): do nothing here; it behaves "owned everywhere"
         } else {
           // Fallback: legacy global add
-          if (!this.isResourceInMyBooks(rid)) this.toggleResourceMyBooks(rid);
+          if (!this.isSupplyInMySupplies(rid)) this.toggleSupplyMySupplies(rid);
         }
 
         // 2) Force prep open
@@ -569,41 +569,41 @@
 
       // Toggle "My Books" for THIS instance.
       // If instanceKey isn't provided, this behaves like the legacy global toggle.
-      toggleResourceMyBooks(resourceId, instanceKey = "") {
+      toggleSupplyMySupplies(resourceId, instanceKey = "") {
         if (!resourceId) return;
         const rid = String(resourceId);
         const key = String(instanceKey || "");
 
         // Legacy/global toggle (no instance info)
         if (!key) {
-          if (this._myBooksResourceIds.has(rid)) {
-            this._myBooksResourceIds.delete(rid);
-            if (this._myBooksOwnersByResourceId) delete this._myBooksOwnersByResourceId[rid];
-            this._rebuildMyBooksOwnedInstanceCache();
+          if (this._mySuppliesResourceIds.has(rid)) {
+            this._mySuppliesResourceIds.delete(rid);
+            if (this._mySuppliesResourceIds) delete this._mySuppliesResourceIds[rid];
+            this._rebuildmySuppliesOwnedInstanceCache();
           } else {
-            this._myBooksResourceIds.add(rid);
+            this._mySuppliesResourceIds.add(rid);
           }
           this.persistPlannerStateDebounced();
           return;
         }
 
         // Instance-aware toggle
-        if (!this._myBooksOwnersByResourceId) this._myBooksOwnersByResourceId = {};
-        const owners = Array.isArray(this._myBooksOwnersByResourceId[rid]) ? this._myBooksOwnersByResourceId[rid] : [];
+        if (!this._mySuppliesResourceIds) this._mySuppliesResourceIds = {};
+        const owners = Array.isArray(this._mySuppliesResourceIds[rid]) ? this._mySuppliesResourceIds[rid] : [];
 
         // If resource isn't in My Books yet, add and scope ownership to THIS instance immediately
-        if (!this._myBooksResourceIds.has(rid)) {
-          this._myBooksResourceIds.add(rid);
-          this._myBooksOwnersByResourceId[rid] = [key];
-          this._rebuildMyBooksOwnedInstanceCache();
+        if (!this._mySuppliesResourceIds.has(rid)) {
+          this._mySuppliesResourceIds.add(rid);
+          this._mySuppliesResourceIds[rid] = [key];
+          this._rebuildmySuppliesOwnedInstanceCache();
           this.persistPlannerStateDebounced();
           return;
         }
 
         // If unscoped legacy (no owners), start scoping by making THIS instance the first owner
         if (!owners.length) {
-          this._myBooksOwnersByResourceId[rid] = [key];
-          this._rebuildMyBooksOwnedInstanceCache();
+          this._mySuppliesResourceIds[rid] = [key];
+          this._rebuildmySuppliesOwnedInstanceCache();
           this.persistPlannerStateDebounced();
           return;
         }
@@ -616,13 +616,13 @@
 
         if (!nextOwners.length) {
           // No owners left → remove global membership too
-          delete this._myBooksOwnersByResourceId[rid];
-          this._myBooksResourceIds.delete(rid);
+          delete this._mySuppliesResourceIds[rid];
+          this._mySuppliesResourceIds.delete(rid);
         } else {
-          this._myBooksOwnersByResourceId[rid] = nextOwners;
+          this._mySuppliesResourceIds[rid] = nextOwners;
         }
 
-        this._rebuildMyBooksOwnedInstanceCache();
+        this._rebuildmySuppliesOwnedInstanceCache();
 
         // ✅ persist
         this.persistPlannerStateDebounced();
@@ -682,9 +682,9 @@
         if (!id) return;
       
         // ✅ If user adds a prep option, automatically add the resource to My Books
-        if (!this._myBooksResourceIds) this._myBooksResourceIds = new Set();
-        if (!this._myBooksResourceIds.has(id)) {
-          this._myBooksResourceIds.add(id);
+        if (!this._mySuppliesResourceIds) this._mySuppliesResourceIds = new Set();
+        if (!this._mySuppliesResourceIds.has(id)) {
+          this._mySuppliesResourceIds.add(id);
         }
       
         // Keep the prep section open when adding
@@ -752,7 +752,7 @@ prepStatusColor(status) {
         if (!id) return;
       
         // Only allow if in My Books (keeps UI logic consistent)
-        if (!this.isResourceInMyBooks(id)) return;
+        if (!this.isSupplyInMySupplies(id)) return;
       
         this.prepOptionsModalResourceId = id;
         this.prepOptionsModalSubject = String(subject || "");
@@ -777,10 +777,10 @@ prepStatusColor(status) {
       collectPlannerExtras() {
         const extras = {
           resources: {
-            myBooks: Array.from(this._myBooksResourceIds || []),
+            mySupplies: Array.from(this._mySuppliesResourceIds || []),
 
             // ✅ NEW: instance owners for ghost behavior
-            myBooksOwnersByResourceId: this._myBooksOwnersByResourceId || {},
+            mySuppliesOwnersByResourceId: this._mySuppliesResourceIds || {},
 
             prepOpenByResourceId: this._prepOpenByResourceId || {},
             optionsByResourceId: this._optionsByResourceId || {},
@@ -788,10 +788,10 @@ prepStatusColor(status) {
         };
 
         // Persist view settings ONLY after the user explicitly changes them
-        if (this._hasSetMyBooksOnly || this._hasSetListViewMode) {
+        if (this._hasSetmySuppliesOnly || this._hasSetListViewMode) {
           extras.resources.view = {};
 
-          if (this._hasSetMyBooksOnly) extras.resources.view.myBooksOnly = !!this.myBooksOnly;
+          if (this._hasSetmySuppliesOnly) extras.resources.view.mySuppliesOnly = !!this.mySuppliesOnly;
           if (this._hasSetListViewMode) extras.resources.view.listViewMode = this.listViewMode;
         }
 
@@ -803,14 +803,14 @@ prepStatusColor(status) {
         if (!r) return;
       
         // Restore My Books (global)
-        const ids = Array.isArray(r.myBooks) ? r.myBooks : [];
-        this._myBooksResourceIds = new Set(ids.map(String));
+        const ids = Array.isArray(r.mySupplies) ? r.mySupplies : [];
+        this._mySuppliesResourceIds = new Set(ids.map(String));
       
         // ✅ Restore instance owners (if present; otherwise legacy/unscoped)
-        const owners = (r.myBooksOwnersByResourceId && typeof r.myBooksOwnersByResourceId === "object")
-          ? r.myBooksOwnersByResourceId
+        const owners = (r.mySuppliesOwnersByResourceId && typeof r.mySuppliesOwnersByResourceId === "object")
+          ? r.mySuppliesOwnersByResourceId
           : {};
-        this._myBooksOwnersByResourceId = { ...owners };
+        this._mySuppliesResourceIds = { ...owners };
       
         // ✅ Restore prep tracking open/closed state
         const prepOpen = (r.prepOpenByResourceId && typeof r.prepOpenByResourceId === "object")
@@ -825,16 +825,16 @@ prepStatusColor(status) {
         this._optionsByResourceId = { ...opts };
       
         // Rebuild flattened cache used by ghost checks
-        if (typeof this._rebuildMyBooksOwnedInstanceCache === "function") {
-          this._rebuildMyBooksOwnedInstanceCache();
+        if (typeof this._rebuildmySuppliesOwnedInstanceCache === "function") {
+          this._rebuildmySuppliesOwnedInstanceCache();
         }
       
         // Restore view settings (only if they were ever saved)
         const view = (r.view && typeof r.view === "object") ? r.view : null;
         if (view) {
-          if (typeof view.myBooksOnly === "boolean") {
-            this.myBooksOnly = view.myBooksOnly;
-            this._hasSetMyBooksOnly = true;
+          if (typeof view.mySuppliesOnly === "boolean") {
+            this.mySuppliesOnly = view.mySuppliesOnly;
+            this._hasSetmySuppliesOnly = true;
           }
           if (typeof view.listViewMode === "string") {
             const v = (view.listViewMode === "full" || view.listViewMode === "compact" || view.listViewMode === "minimal")
@@ -964,7 +964,7 @@ prepStatusColor(status) {
 
         // Published view: keep only topics with at least one assignment
         return topics.filter(t => {
-          return this.myBooksOnly
+          return this.mySuppliesOnly
             ? this._hasVisibleAssignmentsForTopic(course, t)
             : this._bookHasAssignments(t);
         });
@@ -990,7 +990,7 @@ prepStatusColor(status) {
             const hasTopics = Array.isArray(course?.topics) && course.topics.length > 0;
 
             // Course-level assignments (course itself as target)
-            const courseHas = this.myBooksOnly
+            const courseHas = this.mySuppliesOnly
               ? this._hasVisibleAssignmentsForCourse(course)
               : this._bookHasAssignments(course);
 
