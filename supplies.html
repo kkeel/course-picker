@@ -1229,7 +1229,7 @@
                                       <template x-if="
                                         isSupplyInMySupplies(a.resourceId) &&
                                         (
-                                          !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
+                                          !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                           isSupplyOwnedHere(
                                             mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                           )
@@ -1428,7 +1428,7 @@
                                     <template x-if="
                                       isSupplyInMySupplies(a.resourceId) &&
                                       (
-                                        !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
+                                        !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                         isSupplyOwnedHere(
                                           mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                         )
@@ -1532,7 +1532,7 @@
                                     <template x-if="!(
                                       isSupplyInMySupplies(a.resourceId) &&
                                       (
-                                        !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
+                                        !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                         isSupplyOwnedHere(
                                           mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                         )
@@ -1653,7 +1653,7 @@
                                           <template x-if="
                                             isSupplyInMySupplies(a.resourceId) &&
                                             (
-                                              !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
+                                              !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                               isSupplyOwnedHere(
                                                 mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                               )
@@ -1763,7 +1763,7 @@
                                           <template x-if="!(
                                             isSupplyInMySupplies(a.resourceId) &&
                                             (
-                                              !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
+                                              !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                               isSupplyOwnedHere(
                                                 mySuppliesInstanceKeyForCourse((course.recordID || course.id), a.resourceId)
                                               )
@@ -2262,7 +2262,7 @@
                                             <template x-if="
                                               isSupplyInMySupplies(a.resourceId) &&
                                               (
-                                                !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
+                                                !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                                 isSupplyOwnedHere(
                                                   mySuppliesInstanceKeyForTopic(
                                                     (course.recordID || course.id),
@@ -2480,7 +2480,7 @@
                                           <template x-if="
                                             isSupplyInMySupplies(a.resourceId) &&
                                             (
-                                              !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
+                                              !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                               isSupplyOwnedHere(
                                                 mySuppliesInstanceKeyForTopic((course.recordID||course.id),(topic.recordID||topic.id), a.resourceId)
                                               )
@@ -2584,7 +2584,7 @@
                                           <template x-if="!(
                                             isSupplyInMySupplies(a.resourceId) &&
                                             (
-                                              !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
+                                              !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                               isSupplyOwnedHere(
                                                 mySuppliesInstanceKeyForTopic((course.recordID||course.id),(topic.recordID||topic.id), a.resourceId)
                                               )
@@ -2704,7 +2704,7 @@
                                           <template x-if="
                                             isSupplyInMySupplies(a.resourceId) &&
                                             (
-                                              !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
+                                              !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                               isSupplyOwnedHere(
                                                 mySuppliesInstanceKeyForTopic(
                                                   (course.recordID || course.id),
@@ -2818,7 +2818,7 @@
                                           <template x-if="!(
                                             isSupplyInMySupplies(a.resourceId) &&
                                             (
-                                              !((_myBooksOwnersByResourceId[String(a.resourceId)] || []).length) ||
+                                              !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                               isSupplyOwnedHere(
                                                 mySuppliesInstanceKeyForTopic(
                                                   (course.recordID || course.id),
