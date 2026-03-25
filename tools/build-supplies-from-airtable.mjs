@@ -85,9 +85,10 @@ async function run() {
           supplySort: get("Supply_Sort", rec),
           supplyTermSortR3: get("Supply/Term_Sort(R3)", rec),
 
-          // --- IDs ---
+          // --- IDs / Edit ---
           supplyId: get("Supply ID", rec),
           termSort: get("Term_Sort", rec),
+          recordEditLink: get("Record Edit Link", rec),
         });
       }
 
