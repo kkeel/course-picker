@@ -1304,9 +1304,9 @@
                             
                                   <a
                                     class="edit-pill resource-edit-pill"
-                                    x-show="isStaff && editMode && resourcesById[a.resourceId]?.bookEditUrl"
+                                    x-show="isStaff && editMode && resourcesById[a.resourceId]?.recordEditLink"
                                     x-cloak
-                                    :href="resourcesById[a.resourceId]?.bookEditUrl"
+                                    :href="resourcesById[a.resourceId]?.recordEditLink"
                                     target="_blank"
                                     rel="noopener"
                                     @click.stop
@@ -2357,9 +2357,9 @@
                                   
                                         <a
                                           class="edit-pill resource-edit-pill"
-                                          x-show="isStaff && editMode && resourcesById[a.resourceId]?.bookEditUrl"
+                                          x-show="isStaff && editMode && resourcesById[a.resourceId]?.recordEditLink"
                                           x-cloak
-                                          :href="resourcesById[a.resourceId]?.bookEditUrl"
+                                          :href="resourcesById[a.resourceId]?.recordEditLink"
                                           target="_blank"
                                           rel="noopener"
                                           @click.stop
