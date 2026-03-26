@@ -1347,7 +1347,7 @@
                                     <!-- RATIONALE -->
                                     <div
                                       class="resource-rationale"
-                                      x-show="resourcesById[a.resourceId]?.rationale"
+                                      x-show="String(resourcesById[a.resourceId]?.rationale || '').trim().length"
                                       x-cloak
                                     >
                                       <span class="resource-rationale-label">➜ RATIONALE:</span>
@@ -1366,14 +1366,14 @@
                                         altFormatsForAssignment(a).length"
                                       x-cloak
                                     >
-                                      <template x-if="(resourcesById[a.resourceId]?.note || a.noteText)">
+                                      <template x-if="String(resourcesById[a.resourceId]?.note || a.noteText || '').trim().length">
                                         <div class="resource-tipbox-item">
                                           <span class="resource-tipbox-label">NOTE:</span>
                                           <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.note || a.noteText"></span>
                                         </div>
                                       </template>
                     
-                                      <template x-if="(resourcesById[a.resourceId]?.maySub || a.maySubText)">
+                                      <template x-if="String(resourcesById[a.resourceId]?.maySub || a.maySubText || '').trim().length">
                                         <div class="resource-tipbox-item">
                                           <span class="resource-tipbox-label">➜ May sub:</span>
                                           <span class="resource-tipbox-text" x-text="resourcesById[a.resourceId]?.maySub || a.maySubText"></span>
