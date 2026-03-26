@@ -1332,7 +1332,7 @@
                                 
                                 <div
                                   class="resource-subline resource-subline--qty"
-                                  x-show="resourcesById[a.resourceId]?.qty || resourcesById[a.resourceId]?.qtyText"
+                                  x-show="String(resourcesById[a.resourceId]?.qty || resourcesById[a.resourceId]?.qtyText || '').trim().length"
                                   x-cloak
                                 >
                                   <span class="resource-isbn">
@@ -2364,7 +2364,7 @@
                                       
                                       <div
                                         class="resource-subline resource-subline--qty"
-                                        x-show="resourcesById[a.resourceId]?.qty || resourcesById[a.resourceId]?.qtyText"
+                                        x-show="String(resourcesById[a.resourceId]?.qty || resourcesById[a.resourceId]?.qtyText || '').trim().length"
                                         x-cloak
                                       >
                                         <span class="resource-isbn">
