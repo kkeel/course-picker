@@ -6,11 +6,58 @@
   if (typeof originalCoursePlanner !== "function") return;
 
   const SUPPLIES_URL = "data/MA_Supplies.json";
+  const SUPPLIES_COURSES_URL = "data/MA_Supplies_Courses.json";
 
   async function fetchJson(url) {
     const res = await fetch(url, { cache: "no-cache" });
     if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
     return await res.json();
+  }
+
+  function mergeCoursesBySubject(baseGroups, extraGroups) {
+    const merged = { ...(baseGroups || {}) };
+
+    Object.entries(extraGroups || {}).forEach(([subject, extraCourses]) => {
+      const existing = Array.isArray(merged[subject]) ? merged[subject] : [];
+      const extras = Array.isArray(extraCourses) ? extraCourses : [];
+
+      const existingIds = new Set(
+        existing.map(c => String(c?.id || c?.courseId || c?.recordID || "").trim()).filter(Boolean)
+      );
+
+      const dedupedExtras = extras.filter(c => {
+        const id = String(c?.id || c?.courseId || c?.recordID || "").trim();
+        if (!id) return true;
+        if (existingIds.has(id)) return false;
+        existingIds.add(id);
+        return true;
+      });
+
+      merged[subject] = [...existing, ...dedupedExtras];
+    });
+
+    return merged;
+  }
+
+  function buildSubjectOptions(baseOptions, allCoursesBySubject) {
+    const ordered = [];
+    const seen = new Set();
+
+    (Array.isArray(baseOptions) ? baseOptions : []).forEach(subject => {
+      const name = String(subject || "").trim();
+      if (!name || seen.has(name)) return;
+      seen.add(name);
+      ordered.push(name);
+    });
+
+    Object.keys(allCoursesBySubject || {}).forEach(subject => {
+      const name = String(subject || "").trim();
+      if (!name || seen.has(name)) return;
+      seen.add(name);
+      ordered.push(name);
+    });
+
+    return ordered;
   }
 
     function normalizeDriveImageUrl(url) {
@@ -209,8 +256,37 @@
           await originalInit.call(this);
         }
 
-        // Then load Supply List data (read-only for now)
+        // Merge Supplies-page-only course data into the already-loaded shared tree
+        await this.loadSuppliesPageCourseData();
+
+        // Then load Supply List data
         await this.loadSuppliesData();
+      },
+
+      async loadSuppliesPageCourseData() {
+        try {
+          const extraJson = await fetchJson(SUPPLIES_COURSES_URL);
+          const extraGroups =
+            extraJson && typeof extraJson === "object" && !Array.isArray(extraJson)
+              ? extraJson
+              : {};
+
+          if (!Object.keys(extraGroups).length) return;
+
+          this.allCoursesBySubject = mergeCoursesBySubject(
+            this.allCoursesBySubject || {},
+            extraGroups
+          );
+
+          this.subjectOptions = buildSubjectOptions(
+            this.subjectOptions || [],
+            this.allCoursesBySubject || {}
+          );
+
+          this.applyFilters();
+        } catch (e) {
+          console.warn("[SuppliesCourses] Failed to load supplies-page course data", e);
+        }
       },
 
       async loadSuppliesData() {
