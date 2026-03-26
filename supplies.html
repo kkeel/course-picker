@@ -1335,10 +1335,13 @@
                                   x-show="String(resourcesById[a.resourceId]?.qty || resourcesById[a.resourceId]?.qtyText || '').trim().length"
                                   x-cloak
                                 >
-                                  <span class="resource-isbn">
-                                    <span class="resource-isbn-label">QTY:</span>
-                                    <span class="resource-isbn-value" x-text="resourcesById[a.resourceId]?.qty || resourcesById[a.resourceId]?.qtyText"></span>
-                                  </span>
+                                  <div class="resource-qty-line">
+                                    <div class="resource-isbn-label">QTY:</div>
+                                    <div
+                                      class="resource-isbn-value"
+                                      x-text="formattedQtyText(a.resourceId)"
+                                    ></div>
+                                  </div>
                                 </div>
                                 
                                 <!-- FULL / MINIMAL: rationale + tipbox -->
@@ -2367,10 +2370,13 @@
                                         x-show="String(resourcesById[a.resourceId]?.qty || resourcesById[a.resourceId]?.qtyText || '').trim().length"
                                         x-cloak
                                       >
-                                        <span class="resource-isbn">
-                                          <span class="resource-isbn-label">QTY:</span>
-                                          <span class="resource-isbn-value" x-text="resourcesById[a.resourceId]?.qty || resourcesById[a.resourceId]?.qtyText"></span>
-                                        </span>
+                                        <div class="resource-qty-line">
+                                          <div class="resource-isbn-label">QTY:</div>
+                                          <div
+                                            class="resource-isbn-value"
+                                            x-text="formattedQtyText(a.resourceId)"
+                                          ></div>
+                                        </div>
                                       </div>
                                       
                                       <!-- FULL / MINIMAL: rationale + tipbox -->
