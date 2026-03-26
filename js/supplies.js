@@ -922,9 +922,9 @@ prepStatusColor(status) {
         return out;
       },
 
-      formattedQtyText(resourceId) {
+      qtyStartsOnNewLine(resourceId) {
         const rid = String(resourceId || "").trim();
-        if (!rid) return "";
+        if (!rid) return false;
 
         const raw = String(
           this.resourcesById?.[rid]?.qty ??
@@ -932,12 +932,30 @@ prepStatusColor(status) {
           ""
         ).replace(/\r/g, "");
 
-        // Keep real internal line breaks, but remove blank lines
-        // accidentally sitting before or after the actual content.
-        return raw
-          .replace(/^[\t ]*\n+/, "")
-          .replace(/\n+[\t ]*$/, "")
-          .trimEnd();
+        return /^[\t ]*\n/.test(raw);
+      },
+
+      formattedQtyText(resourceId) {
+        const rid = String(resourceId || "").trim();
+        if (!rid) return "";
+
+        let raw = String(
+          this.resourcesById?.[rid]?.qty ??
+          this.resourcesById?.[rid]?.qtyText ??
+          ""
+        ).replace(/\r/g, "");
+
+        // If Airtable starts the field with a blank line, use that
+        // to switch to stacked layout, but remove the leading blank
+        // line itself so it does not create an oversized gap.
+        if (/^[\t ]*\n/.test(raw)) {
+          raw = raw.replace(/^[\t ]*\n+/, "");
+        }
+
+        // Remove only trailing blank lines/spaces.
+        raw = raw.replace(/\n+[\t ]*$/, "").trimEnd();
+
+        return raw;
       },
 
       assignmentSharedR3Text(a) {
