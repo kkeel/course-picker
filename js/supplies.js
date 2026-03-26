@@ -40,8 +40,17 @@
   }
 
   function buildSubjectOptions(baseOptions, allCoursesBySubject) {
+    const preferredFirst = ["Basic Supplies"];
     const ordered = [];
     const seen = new Set();
+
+    preferredFirst.forEach(subject => {
+      const name = String(subject || "").trim();
+      if (!name || seen.has(name)) return;
+      if (!(name in (allCoursesBySubject || {}))) return;
+      seen.add(name);
+      ordered.push(name);
+    });
 
     (Array.isArray(baseOptions) ? baseOptions : []).forEach(subject => {
       const name = String(subject || "").trim();
@@ -277,6 +286,19 @@
             this.allCoursesBySubject || {},
             extraGroups
           );
+
+          if (this.allCoursesBySubject["Basic Supplies"]) {
+            const reordered = {
+              "Basic Supplies": this.allCoursesBySubject["Basic Supplies"],
+            };
+
+            Object.keys(this.allCoursesBySubject).forEach(subject => {
+              if (subject === "Basic Supplies") return;
+              reordered[subject] = this.allCoursesBySubject[subject];
+            });
+
+            this.allCoursesBySubject = reordered;
+          }
 
           this.subjectOptions = buildSubjectOptions(
             this.subjectOptions || [],
