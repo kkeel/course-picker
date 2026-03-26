@@ -922,6 +922,24 @@ prepStatusColor(status) {
         return out;
       },
 
+      formattedQtyText(resourceId) {
+        const rid = String(resourceId || "").trim();
+        if (!rid) return "";
+
+        const raw = String(
+          this.resourcesById?.[rid]?.qty ??
+          this.resourcesById?.[rid]?.qtyText ??
+          ""
+        ).replace(/\r/g, "");
+
+        // Keep real internal line breaks, but remove blank lines
+        // accidentally sitting before or after the actual content.
+        return raw
+          .replace(/^[\t ]*\n+/, "")
+          .replace(/\n+[\t ]*$/, "")
+          .trimEnd();
+      },
+
       assignmentSharedR3Text(a) {
         if (!a) return "";
       
