@@ -26,16 +26,19 @@ jobs:
       - name: Install Airtable dependency
         run: npm install airtable
 
-      - name: Build MA_Supplies.json from Airtable
+      - name: Build supply JSON files from Airtable
         env:
           AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
           AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+          ROTATION: ${{ secrets.ROTATION }}
         run: |
           node tools/build-supplies-from-airtable.mjs
 
-      - name: Commit and push updated JSON file
+      - name: Commit and push updated JSON files
         uses: EndBug/add-and-commit@v9
         with:
-          add: "data/MA_Supplies.json"
-          message: "Nightly build: MA_Supplies.json"
+          add: |
+            data/MA_Supplies.json
+            data/MA_Supplies_Courses.json
+          message: "Nightly build: MA_Supplies.json + MA_Supplies_Courses.json"
           default_author: github_actions
