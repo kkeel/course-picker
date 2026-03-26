@@ -328,24 +328,37 @@
   display: block;
 }
 
-.resource-qty-line{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
+.resource-subline--qty .resource-isbn{
+  display: block;
+  margin-right: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .resource-subline--qty .resource-isbn-label{
-  display: block;
+  display: inline;
+  margin-right: 6px;
   white-space: nowrap;
   opacity: 0.9;
+  vertical-align: top;
 }
 
 .resource-subline--qty .resource-isbn-value{
-  display: block;
+  display: inline;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   word-break: break-word;
+}
+
+.resource-subline--qty .resource-isbn--stacked .resource-isbn-label{
+  display: block;
+  margin-right: 0;
+  margin-bottom: 2px;
+}
+
+.resource-subline--qty .resource-isbn--stacked .resource-isbn-value{
+  display: block;
 }
 
 /* horizontal spacing only */
