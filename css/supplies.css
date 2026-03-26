@@ -344,6 +344,14 @@
   margin-right: 0;
 }
 
+/* Preserve Airtable line breaks in QTY text too */
+.resource-subline--qty,
+.resource-subline--qty .resource-author,
+.resource-subline--qty .resource-isbn,
+.resource-subline--qty .resource-reference{
+  white-space: pre-wrap;
+}
+
 /* horizontal spacing only */
 .resource-author{
   margin-right: 14px;
@@ -571,10 +579,10 @@
   white-space: normal;
 }
 
-/* Preserve Airtable line breaks for rationale + notes */
+/* Preserve Airtable line breaks and intentional blank lines */
 .resource-rationale-text,
 .resource-tipbox-text{
-  white-space: pre-line;
+  white-space: pre-wrap;
 }
 
 /* Preserve Airtable line breaks and intentional blank lines */
