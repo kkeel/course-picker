@@ -355,8 +355,8 @@
               noteText: String(s.note || "").trim(),
               maySub: String(s.maySub || "").trim(),
               maySubText: String(s.maySub || "").trim(),
-              qty: String(s.qty || "").trim(),
-              qtyText: String(s.qty || "").trim(),
+              qty: String(s.qty || ""),
+              qtyText: String(s.qty || ""),
                             discount: (
                 String(s.discount || "").trim() ||
                 String(s.discountCode || "").trim() ||
