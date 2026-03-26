@@ -327,6 +327,23 @@
   margin-top: 2px;
 }
 
+/* Supply List: allow long QTY lines to wrap cleanly */
+.resource-subline--qty{
+  display: block;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.resource-subline--qty .resource-author,
+.resource-subline--qty .resource-isbn,
+.resource-subline--qty .resource-reference{
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  margin-right: 0;
+}
+
 /* horizontal spacing only */
 .resource-author{
   margin-right: 14px;
