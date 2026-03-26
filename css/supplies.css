@@ -325,31 +325,27 @@
 
 .resource-subline--qty{
   margin-top: 2px;
-}
-
-/* Supply List: allow long QTY lines to wrap cleanly */
-.resource-subline--qty{
   display: block;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  word-break: break-word;
 }
 
-.resource-subline--qty .resource-author,
-.resource-subline--qty .resource-isbn,
-.resource-subline--qty .resource-reference{
-  white-space: normal;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  margin-right: 0;
+.resource-qty-line{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
 }
 
-/* Preserve Airtable line breaks in QTY text too */
-.resource-subline--qty,
-.resource-subline--qty .resource-author,
-.resource-subline--qty .resource-isbn,
-.resource-subline--qty .resource-reference{
+.resource-subline--qty .resource-isbn-label{
+  display: block;
+  white-space: nowrap;
+  opacity: 0.9;
+}
+
+.resource-subline--qty .resource-isbn-value{
+  display: block;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* horizontal spacing only */
