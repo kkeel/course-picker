@@ -577,6 +577,12 @@
   white-space: pre-line;
 }
 
+/* Preserve Airtable line breaks and intentional blank lines */
+.supplies-page .resource-rationale-text,
+.supplies-page .resource-tipbox-text{
+  white-space: pre-wrap;
+}
+
 .resource-tipbox-formats{
   display: flex;
   align-items: center;
