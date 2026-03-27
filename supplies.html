@@ -1479,34 +1479,36 @@
                                               <span class="prep-status-dot" :style="`background-color:${prepStatusColor(opt.status)}`" aria-hidden="true"></span>
                               
                                               <select class="prep-select prep-select--kind"
-                                                :value="opt.kind || 'physical'"
+                                                :value="opt.kind || 'supply'"
                                                 @change.stop="updatePrepOption(a.resourceId, idx, { kind: $event.target.value })"
-                                                aria-label="Format"
+                                                aria-label="Type"
                                               >
-                                                <option value="physical">📖 Physical</option>
+                                                <option value="supply">✂️ Supply</option>
                                                 <option value="digital">💻 Digital</option>
+                                                <option value="printable">🖨️ Printable</option>
                                               </select>
                               
                                               <select class="prep-select"
                                                 :value="opt.mode || 'purchase'"
                                                 @change.stop="updatePrepOption(a.resourceId, idx, { mode: $event.target.value })"
+                                                aria-label="Plan"
                                               >
                                                 <option value="save">Save (digital)</option>
                                                 <option value="print">Print</option>
                                                 <option value="purchase">Purchase</option>
-                                                <option value="library">Library</option>
-                                                <option value="ebook">Ebook</option>
-                                                <option value="audiobook">Audiobook</option>
                                                 <option value="own">Already Own</option>
+                                                <option value="gather">Gather</option>
+                                                <option value="prepare">Prepare</option>
                                               </select>
                               
                                               <select class="prep-select"
                                                 :value="opt.status || 'not_ready'"
                                                 @change.stop="updatePrepOption(a.resourceId, idx, { status: $event.target.value })"
+                                                aria-label="Status"
                                               >
                                                 <option value="not_ready">Not Ready</option>
                                                 <option value="ordered">Ordered</option>
-                                                <option value="requested">Requested</option>
+                                                <option value="in_progress">In Progress</option>
                                                 <option value="received">Received</option>
                                                 <option value="ready">Ready to Use</option>
                                               </select>
@@ -1706,37 +1708,38 @@
                                                 <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
                                                   <div class="prep-option-row">
                                                     <span class="prep-status-dot" :style="`background-color:${prepStatusColor(opt.status)}`" aria-hidden="true"></span>
-                                          
-                                                    <!-- Digital / Physical -->
+                                    
                                                     <select class="prep-select prep-select--kind"
-                                                      :value="opt.kind || 'physical'"
+                                                      :value="opt.kind || 'supply'"
                                                       @change.stop="updatePrepOption(a.resourceId, idx, { kind: $event.target.value })"
-                                                      aria-label="Format"
+                                                      aria-label="Type"
                                                     >
-                                                      <option value="physical">📖 Physical</option>
+                                                      <option value="supply">✂️ Supply</option>
                                                       <option value="digital">💻 Digital</option>
+                                                      <option value="printable">🖨️ Printable</option>
                                                     </select>
-                                          
+                                    
                                                     <select class="prep-select"
                                                       :value="opt.mode || 'purchase'"
                                                       @change.stop="updatePrepOption(a.resourceId, idx, { mode: $event.target.value })"
+                                                      aria-label="Plan"
                                                     >
                                                       <option value="save">Save (digital)</option>
                                                       <option value="print">Print</option>
                                                       <option value="purchase">Purchase</option>
-                                                      <option value="library">Library</option>
-                                                      <option value="ebook">Ebook</option>
-                                                      <option value="audiobook">Audiobook</option>
                                                       <option value="own">Already Own</option>
+                                                      <option value="gather">Gather</option>
+                                                      <option value="prepare">Prepare</option>
                                                     </select>
-                                          
+                                    
                                                     <select class="prep-select"
                                                       :value="opt.status || 'not_ready'"
                                                       @change.stop="updatePrepOption(a.resourceId, idx, { status: $event.target.value })"
+                                                      aria-label="Status"
                                                     >
                                                       <option value="not_ready">Not Ready</option>
                                                       <option value="ordered">Ordered</option>
-                                                      <option value="requested">Requested</option>
+                                                      <option value="in_progress">In Progress</option>
                                                       <option value="received">Received</option>
                                                       <option value="ready">Ready to Use</option>
                                                     </select>
@@ -2520,34 +2523,36 @@
                                                     <span class="prep-status-dot" :style="`background-color:${prepStatusColor(opt.status)}`" aria-hidden="true"></span>
                                     
                                                     <select class="prep-select prep-select--kind"
-                                                      :value="opt.kind || 'physical'"
+                                                      :value="opt.kind || 'supply'"
                                                       @change.stop="updatePrepOption(a.resourceId, idx, { kind: $event.target.value })"
-                                                      aria-label="Format"
+                                                      aria-label="Type"
                                                     >
-                                                      <option value="physical">📖 Physical</option>
+                                                      <option value="supply">✂️ Supply</option>
                                                       <option value="digital">💻 Digital</option>
+                                                      <option value="printable">🖨️ Printable</option>
                                                     </select>
                                     
                                                     <select class="prep-select"
                                                       :value="opt.mode || 'purchase'"
                                                       @change.stop="updatePrepOption(a.resourceId, idx, { mode: $event.target.value })"
+                                                      aria-label="Plan"
                                                     >
                                                       <option value="save">Save (digital)</option>
                                                       <option value="print">Print</option>
                                                       <option value="purchase">Purchase</option>
-                                                      <option value="library">Library</option>
-                                                      <option value="ebook">Ebook</option>
-                                                      <option value="audiobook">Audiobook</option>
                                                       <option value="own">Already Own</option>
+                                                      <option value="gather">Gather</option>
+                                                      <option value="prepare">Prepare</option>
                                                     </select>
                                     
                                                     <select class="prep-select"
                                                       :value="opt.status || 'not_ready'"
                                                       @change.stop="updatePrepOption(a.resourceId, idx, { status: $event.target.value })"
+                                                      aria-label="Status"
                                                     >
                                                       <option value="not_ready">Not Ready</option>
                                                       <option value="ordered">Ordered</option>
-                                                      <option value="requested">Requested</option>
+                                                      <option value="in_progress">In Progress</option>
                                                       <option value="received">Received</option>
                                                       <option value="ready">Ready to Use</option>
                                                     </select>
@@ -2758,37 +2763,38 @@
                                                 <template x-for="(opt, idx) in getPrepOptions(a.resourceId)" :key="idx">
                                                   <div class="prep-option-row">
                                                     <span class="prep-status-dot" :style="`background-color:${prepStatusColor(opt.status)}`" aria-hidden="true"></span>
-                                          
-                                                    <!-- Digital / Physical -->
+                                    
                                                     <select class="prep-select prep-select--kind"
-                                                      :value="opt.kind || 'physical'"
+                                                      :value="opt.kind || 'supply'"
                                                       @change.stop="updatePrepOption(a.resourceId, idx, { kind: $event.target.value })"
-                                                      aria-label="Format"
+                                                      aria-label="Type"
                                                     >
-                                                      <option value="physical">📖 Physical</option>
+                                                      <option value="supply">✂️ Supply</option>
                                                       <option value="digital">💻 Digital</option>
+                                                      <option value="printable">🖨️ Printable</option>
                                                     </select>
-                                          
+                                    
                                                     <select class="prep-select"
                                                       :value="opt.mode || 'purchase'"
                                                       @change.stop="updatePrepOption(a.resourceId, idx, { mode: $event.target.value })"
+                                                      aria-label="Plan"
                                                     >
                                                       <option value="save">Save (digital)</option>
                                                       <option value="print">Print</option>
                                                       <option value="purchase">Purchase</option>
-                                                      <option value="library">Library</option>
-                                                      <option value="ebook">Ebook</option>
-                                                      <option value="audiobook">Audiobook</option>
                                                       <option value="own">Already Own</option>
+                                                      <option value="gather">Gather</option>
+                                                      <option value="prepare">Prepare</option>
                                                     </select>
-                                          
+                                    
                                                     <select class="prep-select"
                                                       :value="opt.status || 'not_ready'"
                                                       @change.stop="updatePrepOption(a.resourceId, idx, { status: $event.target.value })"
+                                                      aria-label="Status"
                                                     >
                                                       <option value="not_ready">Not Ready</option>
                                                       <option value="ordered">Ordered</option>
-                                                      <option value="requested">Requested</option>
+                                                      <option value="in_progress">In Progress</option>
                                                       <option value="received">Received</option>
                                                       <option value="ready">Ready to Use</option>
                                                     </select>
@@ -3028,27 +3034,24 @@
       
           <!-- Quick add buttons -->
           <div class="prep-options-grid">
-            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'physical', 'purchase')">
-              Physical · Purchase
+            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'supply', 'purchase')">
+              ✂️ Supply · Purchase
             </button>
-            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'physical', 'library')">
-              Physical · Library
+            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'supply', 'own')">
+              ✂️ Supply · Already Own
             </button>
-            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'physical', 'own')">
-              Physical · Own
+            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'supply', 'gather')">
+              ✂️ Supply · Gather
             </button>
-      
+            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'supply', 'prepare')">
+              ✂️ Supply · Prepare
+            </button>
+
+            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'printable', 'print')">
+              🖨️ Printable · Print
+            </button>
             <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'digital', 'save')">
-              Digital · Save
-            </button>
-            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'digital', 'ebook')">
-              Digital · eBook
-            </button>
-            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'digital', 'audiobook')">
-              Digital · Audiobook
-            </button>
-            <button type="button" class="prep-options-choice" @click="addPrepOption(prepOptionsModalResourceId, 'digital', 'video')">
-              Digital · Video
+              💻 Digital · Save
             </button>
           </div>
       
