@@ -786,15 +786,74 @@
       prepOptionsModalResourceId: "",
       prepOptionsModalSubject: "",
       prepOptionsModalResourceTitle: "",
+
+      normalizeSupplyPrepKind(kind, mode = "") {
+        const k = String(kind || "").toLowerCase().trim();
+        const m = String(mode || "").toLowerCase().trim();
+
+        if (k === "supply" || k === "digital" || k === "printable") return k;
+
+        if (k === "physical") {
+          if (m === "print") return "printable";
+          return "supply";
+        }
+
+        return "supply";
+      },
+
+      normalizeSupplyPrepMode(mode, kind = "supply") {
+        const m = String(mode || "").toLowerCase().trim();
+        const k = this.normalizeSupplyPrepKind(kind, mode);
+
+        const allowed = new Set([
+          "save",
+          "print",
+          "purchase",
+          "own",
+          "gather",
+          "prepare"
+        ]);
+        if (allowed.has(m)) return m;
+
+        if (m === "library") return "own";
+        if (m === "ebook" || m === "audiobook" || m === "video") return "save";
+
+        return k === "digital" ? "save" : "purchase";
+      },
+
+      normalizeSupplyPrepStatus(status) {
+        const s = String(status || "").toLowerCase().trim();
+
+        if (s === "not_ready") return "not_ready";
+        if (s === "ordered") return "ordered";
+        if (s === "in_progress") return "in_progress";
+        if (s === "received") return "received";
+        if (s === "ready") return "ready";
+
+        if (s === "requested") return "in_progress";
+
+        return "not_ready";
+      },
       
       getPrepOptions(resourceId) {
         const id = String(resourceId || "");
         const map = this._optionsByResourceId || {};
         const arr = map[id];
-        return Array.isArray(arr) ? arr : [];
+
+        if (!Array.isArray(arr)) return [];
+
+        return arr.map(opt => {
+          const kind = this.normalizeSupplyPrepKind(opt?.kind, opt?.mode);
+          return {
+            ...opt,
+            kind,
+            mode: this.normalizeSupplyPrepMode(opt?.mode, kind),
+            status: this.normalizeSupplyPrepStatus(opt?.status),
+          };
+        });
       },
       
-      addPrepOption(resourceId, kind = "physical", mode = "purchase", status = "not_ready") {
+      addPrepOption(resourceId, kind = "supply", mode = "purchase", status = "not_ready") {
         const id = String(resourceId || "").trim();
         if (!id) return;
       
@@ -811,10 +870,12 @@
         if (!this._optionsByResourceId) this._optionsByResourceId = {};
         if (!Array.isArray(this._optionsByResourceId[id])) this._optionsByResourceId[id] = [];
       
+        const normalizedKind = this.normalizeSupplyPrepKind(kind, mode);
+
         this._optionsByResourceId[id].push({
-          kind: (kind === "digital") ? "digital" : "physical",
-          mode: String(mode || "purchase"),
-          status: String(status || "not_ready")
+          kind: normalizedKind,
+          mode: this.normalizeSupplyPrepMode(mode, normalizedKind),
+          status: this.normalizeSupplyPrepStatus(status)
         });
       
         this.persistPlannerStateDebounced();
@@ -841,7 +902,15 @@
         const arr = this._optionsByResourceId[id];
         if (!Array.isArray(arr) || !arr[index]) return;
       
-        arr[index] = { ...arr[index], ...(patch || {}) };
+        const next = { ...arr[index], ...(patch || {}) };
+        const normalizedKind = this.normalizeSupplyPrepKind(next.kind, next.mode);
+
+        arr[index] = {
+          ...next,
+          kind: normalizedKind,
+          mode: this.normalizeSupplyPrepMode(next.mode, normalizedKind),
+          status: this.normalizeSupplyPrepStatus(next.status),
+        };
         this._optionsByResourceId[id] = arr;
       
         this.persistPlannerStateDebounced();
@@ -849,15 +918,14 @@
 
 // Prep status -> color for the small leading dot
 prepStatusColor(status) {
-  const s = String(status || "").toLowerCase().trim();
+  const s = this.normalizeSupplyPrepStatus(status);
 
-  // Subtle, brand-safe colors (avoid fighting subject chips)
   const map = {
-    not_ready: "#b7bdb8",  // neutral soft grey
-    ordered:   "#c2a84a",  // warm muted gold
-    requested: "#7A5CCB",  // purple
-    received:  "#2F78C4",  // distinct blue
-    ready:     "#4f8f6f"   // confident green
+    not_ready:  "#b7bdb8",
+    ordered:    "#c2a84a",
+    in_progress:"#7A5CCB",
+    received:   "#2F78C4",
+    ready:      "#4f8f6f"
   };
 
   return map[s] || map.not_ready;
