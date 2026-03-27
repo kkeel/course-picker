@@ -1015,9 +1015,9 @@
   line-height: 22px;
 }
 
-/* Narrow first dropdown: Digital / Physical */
+/* First dropdown: Supply / Digital / Printable */
 .prep-select--kind{
-  min-width: 92px;
+  min-width: 116px;
 }
 
 .prep-select:focus{ outline: none; box-shadow: 0 0 0 2px rgba(157,168,159,.35); }
