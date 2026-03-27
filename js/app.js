@@ -2074,6 +2074,7 @@ function coursePlanner() {
       coursesBySubject: {},    // filtered view
 
       subjectColors: {
+        "Basic Supplies": "#5A5D66",
         "Architecture": "#a0a6be",
         "Art": "#907061",
         "Bible": "#964945",
