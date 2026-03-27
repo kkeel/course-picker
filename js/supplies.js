@@ -921,11 +921,11 @@ prepStatusColor(status) {
   const s = this.normalizeSupplyPrepStatus(status);
 
   const map = {
-    not_ready:  "#b7bdb8",
-    ordered:    "#c2a84a",
-    in_progress:"#7A5CCB",
-    received:   "#2F78C4",
-    ready:      "#4f8f6f"
+    not_ready:  "#a0a6be",
+    ordered:    "#d1b358",
+    in_progress:"#c07669",
+    received:   "#7F3A82",
+    ready:      "#6db4b2"
   };
 
   return map[s] || map.not_ready;
