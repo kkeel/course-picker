@@ -596,6 +596,13 @@ function coursePlanner() {
       // color palette follows SUBJECT order (unique colors only)
       studentColorPalette: [],
       studentColorCursor: 0,
+      extraStudentColors: [
+        "#556F8C",
+        "#7F3A82",
+        "#C67894",
+        "#B9355C",
+        "#5A5D66"
+      ],
 
       get canAddStudent() {
         return (
@@ -620,6 +627,14 @@ function coursePlanner() {
 
         (this.subjectOptions || []).forEach(subj => {
           const c = this.subjectColor(subj);
+          if (!c) return;
+          const key = String(c).toLowerCase();
+          if (seen.has(key)) return;
+          seen.add(key);
+          uniq.push(c);
+        });
+
+        (this.extraStudentColors || []).forEach(c => {
           if (!c) return;
           const key = String(c).toLowerCase();
           if (seen.has(key)) return;
