@@ -21,7 +21,7 @@ const base = new Airtable({
 // Source tables / views
 const SUPPLIES_TABLE = "MA_Supplies";
 const ROTATION_TABLE = `Rotation_${ROTATION}`;
-const SUPPLIES_VIEW = "Grid view";
+const SUPPLIES_VIEW = "R3 – Supplies JSON";
 const SUPPLIES_PAGE_VIEW = `R${ROTATION} – Supplies Page JSON`;
 
 // Output files
