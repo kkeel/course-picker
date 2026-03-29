@@ -2204,3 +2204,21 @@
     gap: 5px;
   }
 }
+
+/* Read-only course/topic planning tags shown on supply page */
+.supplies-page .planning-tag-region--readonly .planning-tag-selected-row{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.supplies-page .planning-tag-pill--readonly{
+  pointer-events: none;
+}
+
+.supplies-page .planning-tag-pill--readonly .planning-tag-img{
+  width: 28px;
+  height: 28px;
+  display: block;
+}
