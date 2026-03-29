@@ -1381,3 +1381,75 @@ img.resource-img{
     max-width: 90px !important;
   }
 }
+
+/* =========================================================
+   PRINT — Supply tags cleanup
+   - hide add/edit affordances
+   - keep only actual supply tag icons
+   - align tags all the way right since bookmarks do not print
+   ========================================================= */
+@media print {
+
+  /* Hide the "+ Supply tag" button when no tags exist */
+  .supplies-page .planning-tag-button--supply{
+    display: none !important;
+  }
+
+  /* Hide the interactive little controls on printed tags */
+  .supplies-page .planning-tag-remove,
+  .supplies-page .planning-tag-add,
+  .supplies-page .planning-tag-apply{
+    display: none !important;
+  }
+
+  /* Hide ghost tags in print — only show tags actually applied here */
+  .supplies-page .planning-tag-pill--ghost{
+    display: none !important;
+  }
+
+  /* Keep the tag row, but align it all the way right */
+  .supplies-page .resource-action-tags{
+    position: absolute !important;
+    top: 10px !important;
+    right: 12px !important;
+    z-index: 5 !important;
+
+    width: auto !important;
+    max-width: 360px !important;
+
+    display: flex !important;
+    justify-content: flex-end !important;
+    margin: 0 !important;
+  }
+
+  .supplies-page .resource-action-tags .planning-tag-region,
+  .supplies-page .resource-action-tags .planning-tag-selected-row{
+    display: inline-flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    max-width: 360px !important;
+  }
+
+  /* Printed supply tag icons only */
+  .supplies-page .planning-tag-pill{
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .supplies-page .planning-tag-img{
+    width: 22px !important;
+    height: 22px !important;
+    display: block !important;
+    object-fit: contain !important;
+  }
+
+  /* Since bookmark + add UI are hidden in print, remove old reserved width */
+  .supplies-page .resource-title-actions,
+  .supplies-page .resource-action-stack,
+  .supplies-page .resource-action-top{
+    width: 0 !important;
+    min-width: 0 !important;
+  }
+}
