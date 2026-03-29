@@ -2036,19 +2036,6 @@
   gap: 10px;
 }
 
-.resource-action-tags{
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
-
-.resource-action-tags .planning-tag-region{
-  display: inline-flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
 /* Show the add button again on supplies page */
 .supplies-page .planning-tag-button{
   display: inline-flex !important;
@@ -2265,16 +2252,39 @@
   min-width: max-content;
 }
 
-.supplies-page .resource-action-tags{
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
+/* =========================================================
+   Desktop only: place supply tags directly under the
+   supply bookmark area without moving the bookmark/edit pills
+   ========================================================= */
+@media (min-width: 641px){
 
-.supplies-page .resource-action-tags .planning-tag-region{
-  display: inline-flex;
-  justify-content: flex-end;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
+  .supplies-page .resource-card{
+    position: relative;
+  }
+
+  .supplies-page .resource-action-tags{
+    position: absolute;
+    top: 44px;
+    right: 12px;
+    z-index: 5;
+
+    width: auto !important;
+    max-width: 220px;
+
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+  }
+
+  .supplies-page .resource-action-tags .planning-tag-region{
+    display: inline-flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .supplies-page .resource-action-tags .planning-tag-selected-row{
+    justify-content: flex-end;
+  }
 }
