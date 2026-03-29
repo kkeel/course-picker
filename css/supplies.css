@@ -2016,25 +2016,37 @@
    ========================================================= */
 
 .resource-title-actions{
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
   flex: none;
 }
 
-.resource-priority-row{
-  margin-top: 8px;
+.resource-action-stack{
   display: flex;
-  align-items: center;
-  min-height: 24px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
 }
 
-.supplies-page .resource-priority-row .planning-tag-region{
+.resource-action-top{
   display: inline-flex;
   align-items: center;
+  gap: 10px;
+}
+
+.resource-action-tags{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.resource-action-tags .planning-tag-region{
+  display: inline-flex;
+  justify-content: flex-end;
   flex-wrap: wrap;
   gap: 6px;
-  min-width: 0;
 }
 
 /* Show the add button again on supplies page */
