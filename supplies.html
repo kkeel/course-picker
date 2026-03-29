@@ -1967,9 +1967,12 @@
                                         <!-- DIVIDER -->
                                         <div class="resource-bottom-divider" aria-hidden="true"></div>
                                     
-                                        <!-- RIGHT (narrow): mirrors scope/shared width -->
-                                        <div class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--bottom"
-                                           x-show="(resourcesById[a.resourceId]?.links || []).length && (listViewMode === 'compact' || listViewMode === 'minimal')"
+                                          <!-- RIGHT (narrow): mirrors scope/shared width -->
+                                          <div
+                                            class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--bottom"
+                                            x-show="(resourcesById[a.resourceId]?.links || []).length && (listViewMode === 'compact' || listViewMode === 'minimal')"
+                                            x-cloak
+                                          >
                                               <div class="resource-bottom-title">Purchase Options</div>
                                             <div class="resource-bottom-spacer"><!-- reserved for later --></div>
                                         </div>
@@ -3170,8 +3173,12 @@
                                         <!-- DIVIDER -->
                                         <div class="resource-bottom-divider" aria-hidden="true"></div>
                                     
-                                        <!-- RIGHT (narrow): mirrors scope/shared width -->
-                                        <div class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--bottom"
+                                          <!-- RIGHT (narrow): mirrors scope/shared width -->
+                                          <div
+                                            class="resource-meta-block resource-meta-block--shared purchase-block purchase-block--bottom"
+                                            x-show="(resourcesById[a.resourceId]?.links || []).length && (listViewMode === 'compact' || listViewMode === 'minimal')"
+                                            x-cloak
+                                          >
                                             <div class="resource-bottom-spacer"><!-- reserved for later --></div>
                                         </div>
                                       </div> <!-- two -->
