@@ -2234,3 +2234,47 @@
   height: 28px;
   display: block;
 }
+
+/* Supply card right-side action stack:
+   keep bookmark IN FLOW so supply tags can sit directly underneath it */
+.supplies-page .resource-title-actions .resource-card-bookmark-corner{
+  position: static !important;
+  top: auto !important;
+  right: auto !important;
+  z-index: auto !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.supplies-page .resource-action-top{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 10px;
+  width: 100%;
+}
+
+.supplies-page .resource-action-stack{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  min-width: max-content;
+}
+
+.supplies-page .resource-action-tags{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.supplies-page .resource-action-tags .planning-tag-region{
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
