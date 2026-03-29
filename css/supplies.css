@@ -2222,39 +2222,9 @@
   display: block;
 }
 
-/* Supply card right-side action stack:
-   keep bookmark IN FLOW so supply tags can sit directly underneath it */
-.supplies-page .resource-title-actions .resource-card-bookmark-corner{
-  position: static !important;
-  top: auto !important;
-  right: auto !important;
-  z-index: auto !important;
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin: 0;
-}
-
-.supplies-page .resource-action-top{
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  gap: 10px;
-  width: 100%;
-}
-
-.supplies-page .resource-action-stack{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
-  min-width: max-content;
-}
-
 /* =========================================================
-   Desktop only: place supply tags directly under the
-   supply bookmark area without moving the bookmark/edit pills
+   Desktop only: keep bookmark in upper-right corner,
+   and place supply tags directly underneath it
    ========================================================= */
 @media (min-width: 641px){
 
@@ -2262,9 +2232,19 @@
     position: relative;
   }
 
+  /* bookmark stays in its original upper-right spot */
+  .supplies-page .resource-card .resource-card-bookmark-corner{
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    z-index: 6;
+    margin: 0;
+  }
+
+  /* supply tags sit directly underneath bookmark */
   .supplies-page .resource-action-tags{
     position: absolute;
-    top: 44px;
+    top: 48px;
     right: 12px;
     z-index: 5;
 
@@ -2286,5 +2266,17 @@
 
   .supplies-page .resource-action-tags .planning-tag-selected-row{
     justify-content: flex-end;
+  }
+
+  /* prevent the old title-row stack from influencing layout */
+  .supplies-page .resource-title-actions{
+    width: 0;
+    min-width: 0;
+  }
+
+  .supplies-page .resource-action-stack,
+  .supplies-page .resource-action-top{
+    width: 0;
+    min-width: 0;
   }
 }
