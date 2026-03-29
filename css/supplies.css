@@ -1286,10 +1286,6 @@
 
 .supplies-page .card-toggle { display: none !important; }
 
-.supplies-page .planning-tag-pill { pointer-events: none !important; }
-
-.supplies-page [x-show="planningMenuOpen"] { display: none !important; }
-
 .supplies-page .student-rail-toggle-row .planning-tag-add { display: none !important; }
 
 .supplies-page .student-chip-remove,
@@ -1298,10 +1294,6 @@
 }
 
 .supplies-page .student-ghost-marker { display: none !important; }
-
-.supplies-page .planning-tag-pill--ghost {
-  display: none !important;
-}
 
 /* =========================================================
    MOBILE: Supply List resource cards should use FULL width
