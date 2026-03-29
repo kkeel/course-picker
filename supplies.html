@@ -1319,9 +1319,8 @@
                                   <span class="planning-tag-region">
                                     <!-- If no local priority tags yet -->
                                     <template x-if="supplyPriorityTagsForInstance(
-                                      mySuppliesInstanceKeyForTopic(
+                                      mySuppliesInstanceKeyForCourse(
                                         String(course.title || course.name || course.label || '').trim(),
-                                        String(topic.Topic || topic.title || topic.name || '').trim(),
                                         a.resourceId
                                       )
                                     ).length === 0">
@@ -1332,9 +1331,8 @@
                                         @click.stop="openSupplyPriorityMenu(
                                           $event,
                                           a.resourceId,
-                                          mySuppliesInstanceKeyForTopic(
+                                          mySuppliesInstanceKeyForCourse(
                                             String(course.title || course.name || course.label || '').trim(),
-                                            String(topic.Topic || topic.title || topic.name || '').trim(),
                                             a.resourceId
                                           )
                                         )"
@@ -1345,16 +1343,14 @@
                                 
                                     <!-- If local tags OR ghost tags exist -->
                                     <template x-if="supplyPriorityTagsForInstance(
-                                      mySuppliesInstanceKeyForTopic(
+                                      mySuppliesInstanceKeyForCourse(
                                         String(course.title || course.name || course.label || '').trim(),
-                                        String(topic.Topic || topic.title || topic.name || '').trim(),
                                         a.resourceId
                                       )
                                     ).length > 0 || missingGlobalPriorityTagsForSupply(
                                       a.resourceId,
-                                      mySuppliesInstanceKeyForTopic(
+                                      mySuppliesInstanceKeyForCourse(
                                         String(course.title || course.name || course.label || '').trim(),
-                                        String(topic.Topic || topic.title || topic.name || '').trim(),
                                         a.resourceId
                                       )
                                     ).length > 0">
@@ -1362,9 +1358,8 @@
                                         <!-- REAL / LOCAL TAGS -->
                                         <template
                                           x-for="tag in supplyPriorityTagsForInstance(
-                                            mySuppliesInstanceKeyForTopic(
+                                            mySuppliesInstanceKeyForCourse(
                                               String(course.title || course.name || course.label || '').trim(),
-                                              String(topic.Topic || topic.title || topic.name || '').trim(),
                                               a.resourceId
                                             )
                                           )"
@@ -1381,9 +1376,8 @@
                                               class="planning-tag-remove"
                                               @click.stop="removeSupplyPriorityTag(
                                                 a.resourceId,
-                                                mySuppliesInstanceKeyForTopic(
+                                                mySuppliesInstanceKeyForCourse(
                                                   String(course.title || course.name || course.label || '').trim(),
-                                                  String(topic.Topic || topic.title || topic.name || '').trim(),
                                                   a.resourceId
                                                 ),
                                                 tag.id
@@ -1399,9 +1393,8 @@
                                         <template
                                           x-for="tagId in missingGlobalPriorityTagsForSupply(
                                             a.resourceId,
-                                            mySuppliesInstanceKeyForTopic(
+                                            mySuppliesInstanceKeyForCourse(
                                               String(course.title || course.name || course.label || '').trim(),
-                                              String(topic.Topic || topic.title || topic.name || '').trim(),
                                               a.resourceId
                                             )
                                           )"
@@ -1418,9 +1411,8 @@
                                               class="planning-tag-apply"
                                               @click.stop="applyGlobalPriorityTagToSupply(
                                                 a.resourceId,
-                                                mySuppliesInstanceKeyForTopic(
+                                                mySuppliesInstanceKeyForCourse(
                                                   String(course.title || course.name || course.label || '').trim(),
-                                                  String(topic.Topic || topic.title || topic.name || '').trim(),
                                                   a.resourceId
                                                 ),
                                                 tagId
@@ -1440,9 +1432,8 @@
                                           @click.stop="openSupplyPriorityMenu(
                                             $event,
                                             a.resourceId,
-                                            mySuppliesInstanceKeyForTopic(
+                                            mySuppliesInstanceKeyForCourse(
                                               String(course.title || course.name || course.label || '').trim(),
-                                              String(topic.Topic || topic.title || topic.name || '').trim(),
                                               a.resourceId
                                             )
                                           )"
@@ -2394,7 +2385,11 @@
                                                 (
                                                   !((_mySuppliesOwnersByResourceId[String(a.resourceId)] || []).length) ||
                                                   isSupplyOwnedHere(
-                                                    mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
+                                                    mySuppliesInstanceKeyForTopic(
+                                                      String(course.title || course.name || course.label || '').trim(),
+                                                      String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                                      a.resourceId
+                                                    )
                                                   )
                                                 )
                                               ">
@@ -2404,7 +2399,11 @@
                                                   :style="{ backgroundColor: subjectColor(course.subject) || '#596e5e' }"
                                                   @click.stop="toggleSupplyMySupplies(
                                                     a.resourceId,
-                                                    mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
+                                                    mySuppliesInstanceKeyForTopic(
+                                                      String(course.title || course.name || course.label || '').trim(),
+                                                      String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                                      a.resourceId
+                                                    )
                                                   )"
                                                   aria-label="Remove from My Supplies"
                                                   title="In My Supplies"
@@ -2420,7 +2419,11 @@
                                               <!-- GHOST (in My Supplies elsewhere, not owned here yet) -->
                                               <template x-if="isSupplyGhostMySupplies(
                                                 a.resourceId,
-                                                mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
+                                                mySuppliesInstanceKeyForTopic(
+                                                  String(course.title || course.name || course.label || '').trim(),
+                                                  String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                                  a.resourceId
+                                                )
                                               )">
                                                 <button
                                                   type="button"
@@ -2428,7 +2431,11 @@
                                                   :style="{ backgroundColor: subjectColor(course.subject) || '#596e5e' }"
                                                   @click.stop="applySupplyMySuppliesHere(
                                                     a.resourceId,
-                                                    mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
+                                                    mySuppliesInstanceKeyForTopic(
+                                                      String(course.title || course.name || course.label || '').trim(),
+                                                      String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                                      a.resourceId
+                                                    )
                                                   )"
                                                   aria-label="In My Supplies elsewhere — add here"
                                                   title="In My Supplies elsewhere — add here"
@@ -2449,7 +2456,11 @@
                                                   class="bookmark-btn bookmark-btn--empty"
                                                   @click.stop="toggleSupplyMySupplies(
                                                     a.resourceId,
-                                                    mySuppliesInstanceKeyForCourse(String(course.title || course.name || course.label || '').trim(), a.resourceId)
+                                                    mySuppliesInstanceKeyForTopic(
+                                                      String(course.title || course.name || course.label || '').trim(),
+                                                      String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                                      a.resourceId
+                                                    )
                                                   )"
                                                   aria-label="Add to My Supplies"
                                                   title="Add to My Supplies"
@@ -2475,6 +2486,145 @@
                                             @click.stop
                                           >Edit ↗</a>
                                         </div>
+                                      </div>
+
+                                      <div class="resource-priority-row" @click.stop>
+                                        <span class="planning-tag-region">
+                                          <!-- If no local priority tags yet -->
+                                          <template x-if="supplyPriorityTagsForInstance(
+                                            mySuppliesInstanceKeyForTopic(
+                                              String(course.title || course.name || course.label || '').trim(),
+                                              String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                              a.resourceId
+                                            )
+                                          ).length === 0">
+                                            <button
+                                              type="button"
+                                              class="planning-tag-button planning-tag-button--supply"
+                                              aria-label="Add priority tag"
+                                              @click.stop="openSupplyPriorityMenu(
+                                                $event,
+                                                a.resourceId,
+                                                mySuppliesInstanceKeyForTopic(
+                                                  String(course.title || course.name || course.label || '').trim(),
+                                                  String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                                  a.resourceId
+                                                )
+                                              )"
+                                            >
+                                              <span class="planning-tag-label">+ Priority tag</span>
+                                            </button>
+                                          </template>
+                                      
+                                          <!-- If local tags OR ghost tags exist -->
+                                          <template x-if="supplyPriorityTagsForInstance(
+                                            mySuppliesInstanceKeyForTopic(
+                                              String(course.title || course.name || course.label || '').trim(),
+                                              String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                              a.resourceId
+                                            )
+                                          ).length > 0 || missingGlobalPriorityTagsForSupply(
+                                            a.resourceId,
+                                            mySuppliesInstanceKeyForTopic(
+                                              String(course.title || course.name || course.label || '').trim(),
+                                              String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                              a.resourceId
+                                            )
+                                          ).length > 0">
+                                            <div class="planning-tag-selected-row">
+                                              <!-- REAL / LOCAL TAGS -->
+                                              <template
+                                                x-for="tag in supplyPriorityTagsForInstance(
+                                                  mySuppliesInstanceKeyForTopic(
+                                                    String(course.title || course.name || course.label || '').trim(),
+                                                    String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                                    a.resourceId
+                                                  )
+                                                )"
+                                                :key="'local-' + tag.id"
+                                              >
+                                                <div class="planning-tag-pill">
+                                                  <img
+                                                    class="planning-tag-img"
+                                                    :src="tag.img"
+                                                    :alt="tag.label"
+                                                  />
+                                                  <button
+                                                    type="button"
+                                                    class="planning-tag-remove"
+                                                    @click.stop="removeSupplyPriorityTag(
+                                                      a.resourceId,
+                                                      mySuppliesInstanceKeyForTopic(
+                                                        String(course.title || course.name || course.label || '').trim(),
+                                                        String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                                        a.resourceId
+                                                      ),
+                                                      tag.id
+                                                    )"
+                                                    aria-label="Remove priority tag"
+                                                  >
+                                                    ×
+                                                  </button>
+                                                </div>
+                                              </template>
+                                      
+                                              <!-- GHOST TAGS -->
+                                              <template
+                                                x-for="tagId in missingGlobalPriorityTagsForSupply(
+                                                  a.resourceId,
+                                                  mySuppliesInstanceKeyForTopic(
+                                                    String(course.title || course.name || course.label || '').trim(),
+                                                    String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                                    a.resourceId
+                                                  )
+                                                )"
+                                                :key="'ghost-' + tagId"
+                                              >
+                                                <div class="planning-tag-pill planning-tag-pill--ghost">
+                                                  <img
+                                                    class="planning-tag-img planning-tag-img-ghost"
+                                                    :src="priorityTagImage(tagId)"
+                                                    :alt="priorityTagLabel(tagId)"
+                                                  />
+                                                  <button
+                                                    type="button"
+                                                    class="planning-tag-apply"
+                                                    @click.stop="applyGlobalPriorityTagToSupply(
+                                                      a.resourceId,
+                                                      mySuppliesInstanceKeyForTopic(
+                                                        String(course.title || course.name || course.label || '').trim(),
+                                                        String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                                        a.resourceId
+                                                      ),
+                                                      tagId
+                                                    )"
+                                                    aria-label="Apply priority tag here"
+                                                  >
+                                                    +
+                                                  </button>
+                                                </div>
+                                              </template>
+                                      
+                                              <!-- ADD MORE BUTTON -->
+                                              <button
+                                                type="button"
+                                                class="planning-tag-add"
+                                                aria-label="Add more priority tags"
+                                                @click.stop="openSupplyPriorityMenu(
+                                                  $event,
+                                                  a.resourceId,
+                                                  mySuppliesInstanceKeyForTopic(
+                                                    String(course.title || course.name || course.label || '').trim(),
+                                                    String(topic.Topic || topic.title || topic.name || topic.label || '').trim(),
+                                                    a.resourceId
+                                                  )
+                                                )"
+                                              >
+                                                +
+                                              </button>
+                                            </div>
+                                          </template>
+                                        </span>
                                       </div>
                                   
                                       <div class="resource-subline">
