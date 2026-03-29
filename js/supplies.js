@@ -183,6 +183,29 @@
       
       listViewMode: "full",
       _hasSetListViewMode: false,
+
+      // ---- Supply Priority Tags ----
+      supplyPriorityMenuOpen: false,
+      supplyPriorityMenuX: 0,
+      supplyPriorityMenuY: 0,
+      supplyPriorityMenuResourceId: "",
+      supplyPriorityMenuInstanceKey: "",
+
+      priorityTagOptions: [
+        { id: "upgrade", label: "Upgrade", img: "img/Upgrade.png" },
+        { id: "gift",    label: "Gift", img: "img/Gift.png" },
+        { id: "low",     label: "Low Priority", img: "img/Low.png" },
+        { id: "medium",  label: "Medium Priority", img: "img/Medium.png" },
+        { id: "high",    label: "High Priority", img: "img/High.png" },
+      ],
+
+      // Global memory by resourceId
+      // Example: { "SUP123": ["gift", "high"] }
+      _globalSupplyPriorityTagsByResourceId: {},
+
+      // Local applied tags by instance key
+      // Example: { "C:Technology:R:SUP123": ["gift"] }
+      _supplyPriorityTagsByInstance: {},
       
       toggleMySuppliesOnly() {
         this.mySuppliesOnly = !this.mySuppliesOnly;
@@ -199,6 +222,165 @@
         if (typeof this.persistPlannerStateDebounced === "function") {
           this.persistPlannerStateDebounced();
         }
+      },
+
+      openSupplyPriorityMenu(evt, resourceId, instanceKey) {
+        const rect = evt.currentTarget.getBoundingClientRect();
+        const menuWidth = 260;
+        const margin = 16;
+
+        let x = rect.right - menuWidth;
+        if (x < margin) x = margin;
+        if (x + menuWidth > window.innerWidth - margin) {
+          x = window.innerWidth - margin - menuWidth;
+        }
+
+        let y = rect.bottom + 8;
+        const maxY = window.innerHeight - margin - 260;
+        if (y > maxY) y = maxY;
+        if (y < margin) y = margin;
+
+        this.supplyPriorityMenuX = x;
+        this.supplyPriorityMenuY = y;
+        this.supplyPriorityMenuResourceId = String(resourceId || "").trim();
+        this.supplyPriorityMenuInstanceKey = String(instanceKey || "").trim();
+        this.supplyPriorityMenuOpen = true;
+      },
+
+      closeSupplyPriorityMenu() {
+        this.supplyPriorityMenuOpen = false;
+        this.supplyPriorityMenuResourceId = "";
+        this.supplyPriorityMenuInstanceKey = "";
+      },
+
+      priorityTagLabel(id) {
+        const found = (this.priorityTagOptions || []).find(o => o.id === id);
+        return found ? found.label : id;
+      },
+
+      priorityTagImage(id) {
+        const found = (this.priorityTagOptions || []).find(o => o.id === id);
+        return found ? found.img : "";
+      },
+
+      supplyPriorityTagsForInstance(instanceKey) {
+        const key = String(instanceKey || "").trim();
+        if (!key) return [];
+
+        const ids = Array.isArray(this._supplyPriorityTagsByInstance?.[key])
+          ? this._supplyPriorityTagsByInstance[key]
+          : [];
+
+        return ids
+          .map(id => {
+            const opt = (this.priorityTagOptions || []).find(o => o.id === id);
+            return opt ? { id: opt.id, label: opt.label, img: opt.img } : null;
+          })
+          .filter(Boolean);
+      },
+
+      missingGlobalPriorityTagsForSupply(resourceId, instanceKey) {
+        const rid = String(resourceId || "").trim();
+        const key = String(instanceKey || "").trim();
+        if (!rid || !key) return [];
+
+        const globalIds = Array.isArray(this._globalSupplyPriorityTagsByResourceId?.[rid])
+          ? this._globalSupplyPriorityTagsByResourceId[rid].map(String)
+          : [];
+
+        const localIds = Array.isArray(this._supplyPriorityTagsByInstance?.[key])
+          ? this._supplyPriorityTagsByInstance[key].map(String)
+          : [];
+
+        const localSet = new Set(localIds);
+        return globalIds.filter(id => !localSet.has(id));
+      },
+
+      toggleSupplyPriorityTag(resourceId, instanceKey, opt) {
+        const rid = String(resourceId || "").trim();
+        const key = String(instanceKey || "").trim();
+        if (!rid || !key || !opt?.id) return;
+
+        if (!this._supplyPriorityTagsByInstance) this._supplyPriorityTagsByInstance = {};
+        if (!this._globalSupplyPriorityTagsByResourceId) this._globalSupplyPriorityTagsByResourceId = {};
+
+        const local = Array.isArray(this._supplyPriorityTagsByInstance[key])
+          ? [...this._supplyPriorityTagsByInstance[key]]
+          : [];
+
+        const idx = local.indexOf(opt.id);
+
+        if (idx === -1) {
+          local.push(opt.id);
+        } else {
+          local.splice(idx, 1);
+        }
+
+        if (local.length) this._supplyPriorityTagsByInstance[key] = local;
+        else delete this._supplyPriorityTagsByInstance[key];
+
+        this.recomputeGlobalSupplyPriorityTags(rid);
+        this.closeSupplyPriorityMenu();
+        this.persistPlannerStateDebounced();
+      },
+
+      removeSupplyPriorityTag(resourceId, instanceKey, tagId) {
+        const rid = String(resourceId || "").trim();
+        const key = String(instanceKey || "").trim();
+        const tid = String(tagId || "").trim();
+        if (!rid || !key || !tid) return;
+
+        const local = Array.isArray(this._supplyPriorityTagsByInstance?.[key])
+          ? this._supplyPriorityTagsByInstance[key].filter(id => String(id) !== tid)
+          : [];
+
+        if (local.length) this._supplyPriorityTagsByInstance[key] = local;
+        else delete this._supplyPriorityTagsByInstance[key];
+
+        this.recomputeGlobalSupplyPriorityTags(rid);
+        this.persistPlannerStateDebounced();
+      },
+
+      applyGlobalPriorityTagToSupply(resourceId, instanceKey, tagId) {
+        const rid = String(resourceId || "").trim();
+        const key = String(instanceKey || "").trim();
+        const tid = String(tagId || "").trim();
+        if (!rid || !key || !tid) return;
+
+        if (!this._supplyPriorityTagsByInstance) this._supplyPriorityTagsByInstance = {};
+
+        const local = Array.isArray(this._supplyPriorityTagsByInstance[key])
+          ? [...this._supplyPriorityTagsByInstance[key]]
+          : [];
+
+        if (!local.includes(tid)) local.push(tid);
+
+        this._supplyPriorityTagsByInstance[key] = local;
+        this.recomputeGlobalSupplyPriorityTags(rid);
+        this.persistPlannerStateDebounced();
+      },
+
+      recomputeGlobalSupplyPriorityTags(resourceId) {
+        const rid = String(resourceId || "").trim();
+        if (!rid) return;
+
+        const union = new Set();
+        const all = this._supplyPriorityTagsByInstance || {};
+
+        Object.keys(all).forEach(instanceKey => {
+          if (!instanceKey.includes(`R:${rid}`)) return;
+
+          const ids = Array.isArray(all[instanceKey]) ? all[instanceKey] : [];
+          ids.map(String).forEach(id => union.add(id));
+        });
+
+        if (!this._globalSupplyPriorityTagsByResourceId) {
+          this._globalSupplyPriorityTagsByResourceId = {};
+        }
+
+        const arr = Array.from(union);
+        if (arr.length) this._globalSupplyPriorityTagsByResourceId[rid] = arr;
+        else delete this._globalSupplyPriorityTagsByResourceId[rid];
       },
 
       listViewModeClass() {
@@ -690,6 +872,9 @@
             mySuppliesOwnersByResourceId: this._mySuppliesOwnersByResourceId || {},
             prepOpenByResourceId: this._prepOpenByResourceId || {},
             optionsByResourceId: this._optionsByResourceId || {},
+
+            globalSupplyPriorityTagsByResourceId: this._globalSupplyPriorityTagsByResourceId || {},
+            supplyPriorityTagsByInstance: this._supplyPriorityTagsByInstance || {},
           }
         };
 
@@ -724,6 +909,16 @@
           ? r.optionsByResourceId
           : {};
         this._optionsByResourceId = { ...opts };
+
+        const globalPriority = (r.globalSupplyPriorityTagsByResourceId && typeof r.globalSupplyPriorityTagsByResourceId === "object")
+          ? r.globalSupplyPriorityTagsByResourceId
+          : {};
+        this._globalSupplyPriorityTagsByResourceId = { ...globalPriority };
+
+        const localPriority = (r.supplyPriorityTagsByInstance && typeof r.supplyPriorityTagsByInstance === "object")
+          ? r.supplyPriorityTagsByInstance
+          : {};
+        this._supplyPriorityTagsByInstance = { ...localPriority };
 
         if (typeof this._rebuildMySuppliesOwnedInstanceCache === "function") {
           this._rebuildMySuppliesOwnedInstanceCache();
