@@ -2223,8 +2223,10 @@
 }
 
 /* =========================================================
-   Desktop only: keep bookmark in upper-right corner,
-   and place supply tags directly underneath it
+   Desktop only:
+   bookmark = upper-right
+   resource edit pill = directly under bookmark
+   supply tags = to the left of bookmark
    ========================================================= */
 @media (min-width: 641px){
 
@@ -2232,24 +2234,34 @@
     position: relative;
   }
 
-  /* bookmark stays in its original upper-right spot */
+  /* bookmark stays in upper-right */
   .supplies-page .resource-card .resource-card-bookmark-corner{
     position: absolute;
     top: 10px;
     right: 12px;
-    z-index: 6;
+    z-index: 7;
     margin: 0;
   }
 
-  /* supply tags sit directly underneath bookmark */
+  /* resource edit pill sits under bookmark */
+  .supplies-page .resource-title-actions .resource-edit-pill{
+    position: absolute;
+    top: 52px;
+    right: 12px;
+    z-index: 6;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  /* supply tags sit to the left of bookmark */
   .supplies-page .resource-action-tags{
     position: absolute;
-    top: 48px;
-    right: 12px;
+    top: 10px;
+    right: 58px;
     z-index: 5;
 
     width: auto !important;
-    max-width: 220px;
+    max-width: 360px;
 
     display: flex;
     justify-content: flex-end;
@@ -2262,13 +2274,19 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 6px;
+    max-width: 360px;
   }
 
   .supplies-page .resource-action-tags .planning-tag-selected-row{
+    display: inline-flex;
     justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-width: 360px;
   }
 
-  /* prevent the old title-row stack from influencing layout */
+  /* keep old title-row stack from reserving visible width */
   .supplies-page .resource-title-actions{
     width: 0;
     min-width: 0;
