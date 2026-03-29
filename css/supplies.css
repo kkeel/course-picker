@@ -1286,14 +1286,6 @@
 
 .supplies-page .card-toggle { display: none !important; }
 
-.supplies-page .planning-tag-button { display: none !important; }
-
-.supplies-page .planning-tag-remove,
-.supplies-page .planning-tag-add,
-.supplies-page .planning-tag-apply {
-  display: none !important;
-}
-
 .supplies-page .planning-tag-pill { pointer-events: none !important; }
 
 .supplies-page [x-show="planningMenuOpen"] { display: none !important; }
@@ -2024,4 +2016,199 @@
   border-radius: 999px;
   flex: 0 0 10px;
   margin-right: 2px;
+}
+
+/* =========================================================
+   Supply Priority Tags
+   Reuse planning-tag visual language on supply cards
+   ========================================================= */
+
+.resource-title-actions{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+}
+
+.resource-priority-row{
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+}
+
+.supplies-page .resource-priority-row .planning-tag-region{
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+
+/* Show the add button again on supplies page */
+.supplies-page .planning-tag-button{
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.supplies-page .planning-tag-button--supply{
+  min-height: 20px;
+  padding: 0 8px;
+  border-radius: 4px;
+
+  background: #f3f4f1;
+  border: 1px solid #e5e8e5;
+  color: #666d66;
+
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+.supplies-page .planning-tag-button--supply:hover{
+  background: #fbfbf9;
+  border-color: #dde2d5;
+}
+
+.supplies-page .planning-tag-selected-row{
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.supplies-page .planning-tag-pill{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+}
+
+.supplies-page .planning-tag-img{
+  width: 24px;
+  height: 24px;
+  display: block;
+  object-fit: contain;
+}
+
+/* ghost tag image */
+.supplies-page .planning-tag-img-ghost{
+  opacity: 0.42;
+  filter: grayscale(0.1);
+}
+
+/* remove old hidden behavior */
+.supplies-page .planning-tag-remove,
+.supplies-page .planning-tag-add,
+.supplies-page .planning-tag-apply{
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+/* tiny remove x */
+.supplies-page .planning-tag-remove{
+  position: absolute;
+  top: -4px;
+  right: -4px;
+
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+
+  background: #ffffff;
+  color: #666d66;
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.06);
+}
+
+.supplies-page .planning-tag-remove:hover{
+  color: #262b26;
+}
+
+/* small + button after selected tags */
+.supplies-page .planning-tag-add{
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 1px solid #e5e8e5;
+  border-radius: 4px;
+
+  background: #f3f4f1;
+  color: #666d66;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.supplies-page .planning-tag-add:hover{
+  background: #fbfbf9;
+  border-color: #dde2d5;
+}
+
+/* ghost apply + */
+.supplies-page .planning-tag-apply{
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+
+  background: #ffffff;
+  color: #666d66;
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.06);
+}
+
+.supplies-page .planning-tag-apply:hover{
+  color: #262b26;
+}
+
+/* ghost wrapper */
+.supplies-page .planning-tag-pill--ghost{
+  opacity: 0.9;
+}
+
+/* floating menu overlay */
+.planning-tag-menu-overlay{
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+}
+
+/* supplies page should still use the same menu shell */
+.supplies-page .planning-tag-menu{
+  position: fixed;
+  z-index: 61;
+}
+
+@media (max-width: 640px){
+  .resource-title-actions{
+    gap: 8px;
+  }
+
+  .resource-priority-row{
+    margin-top: 6px;
+  }
+
+  .supplies-page .planning-tag-selected-row{
+    gap: 5px;
+  }
 }
