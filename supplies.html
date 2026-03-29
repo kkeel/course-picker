@@ -1080,57 +1080,7 @@
                         <!-- spacer pushes planning tag area to far right -->
                         <span class="meta-flex-spacer"></span>
 
-                        <!-- right: planning tag UI (courses *without* topics only) -->
-                        
-                          <span 
-                            class="planning-tag-region"
-                            x-show="!course.topics || course.topics.length === 0"
-                            x-cloak
-                            >
-                            <!-- If no tags yet: show "+ Planning tag" button -->
-                            <template x-if="!course.planningTags || course.planningTags.length === 0">
-                              <button
-                                type="button"
-                                class="planning-tag-button"
-                                aria-label="Add planning tag to course"
-                                @click.stop="openPlanningMenu($event, course)"
-                              >
-                                <span class="planning-tag-label">+ Planning tag</span>
-                              </button>
-                            </template>
-
-                            <!-- If tags exist: show images + small "+" square -->
-                            <template x-if="course.planningTags && course.planningTags.length > 0">
-                              <div class="planning-tag-selected-row">
-                                <template x-for="tag in course.planningTags" :key="tag.id">
-                                  <div class="planning-tag-pill">
-                                    <img
-                                      class="planning-tag-img"
-                                      :src="tag.img"
-                                      :alt="tag.label"
-                                    />
-                                    <button
-                                      type="button"
-                                      class="planning-tag-remove"
-                                      @click.stop="removePlanningTag(course, tag.id)"
-                                      aria-label="Remove planning tag"
-                                    >
-                                      ×
-                                    </button>
-                                  </div>
-                                </template>
-
-                                <button
-                                  type="button"
-                                  class="planning-tag-add"
-                                  aria-label="Add more planning tags"
-                                  @click.stop="openPlanningMenu($event, course)"
-                                >
-                                  +
-                                </button>
-                              </div>
-                            </template>
-                          </span>
+                        <!-- right side intentionally left empty on supplies page -->
                        
                       </div>
 
@@ -1337,7 +1287,7 @@
                                           )
                                         )"
                                       >
-                                        <span class="planning-tag-label">+ Priority tag</span>
+                                        <span class="planning-tag-label">+ Supply tag</span>
                                       </button>
                                     </template>
                                 
@@ -2219,79 +2169,7 @@
                                 <!-- spacer pushes controls to the right -->
                                 <span class="meta-flex-spacer"></span>
                               
-                                <!-- right: planning tag UI (topics always can have tags) -->
-                                <span class="planning-tag-region">
-                                  <!-- No tags yet -->
-                                  <template x-if="!topic.planningTags || topic.planningTags.length === 0">
-                                    <button
-                                      type="button"
-                                      class="planning-tag-button"
-                                      aria-label="Add planning tag to topic"
-                                      @click.stop="openPlanningMenu($event, topic)"
-                                    >
-                                      <span class="planning-tag-label">+ Planning tag</span>
-                                    </button>
-                                  </template>
-                              
-                                  <!-- Tags selected -->
-                                  <template x-if="topic.planningTags && topic.planningTags.length > 0">
-                                    <div class="planning-tag-selected-row">
-                                      <template x-for="tag in topic.planningTags" :key="tag.id">
-                                        <div class="planning-tag-pill">
-                                          <img
-                                            class="planning-tag-img"
-                                            :src="tag.img"
-                                            :alt="tag.label"
-                                          />
-                                          <button
-                                            type="button"
-                                            class="planning-tag-remove"
-                                            @click.stop="removePlanningTag(topic, tag.id)"
-                                            aria-label="Remove planning tag"
-                                          >
-                                            ×
-                                          </button>
-                                        </div>
-                                      </template>
-                              
-                                      <button
-                                        type="button"
-                                        class="planning-tag-add"
-                                        aria-label="Add more planning tags"
-                                        @click.stop="openPlanningMenu($event, topic)"
-                                      >
-                                        +
-                                      </button>
-                                    </div>
-                                  </template>
-                              
-                                  <!-- Ghost tags from previous use of this topic elsewhere -->
-                                  <template x-if="missingGlobalTagsForTopic(topic).length > 0">
-                                    <div class="planning-tag-selected-row">
-                                      <template
-                                        x-for="tagId in missingGlobalTagsForTopic(topic)"
-                                        :key="'ghost-' + tagId"
-                                      >
-                                        <div class="planning-tag-pill planning-tag-pill--ghost">
-                                          <img
-                                            class="planning-tag-img planning-tag-img-ghost"
-                                            :src="planningTagImage(tagId)"
-                                            :alt="planningTagLabel(tagId)"
-                                          />
-                                          <button
-                                            type="button"
-                                            class="planning-tag-apply"
-                                            @click.stop="applyGlobalTagToTopic(topic, tagId)"
-                                            :aria-label="`Apply ${planningTagLabel(tagId)} here`"
-                                            title="Add previous tag"
-                                          >
-                                            +
-                                          </button>
-                                        </div>
-                                      </template>
-                                    </div>
-                                  </template>
-                                </span>
+                                <!-- right side intentionally left empty on supplies page -->
                               </div>
                             
                             <!-- Topic notes panel (moved ABOVE books) -->
@@ -2515,7 +2393,7 @@
                                                 )
                                               )"
                                             >
-                                              <span class="planning-tag-label">+ Priority tag</span>
+                                              <span class="planning-tag-label">+ Supply tag</span>
                                             </button>
                                           </template>
                                       
