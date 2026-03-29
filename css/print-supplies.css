@@ -1407,30 +1407,31 @@ img.resource-img{
     display: none !important;
   }
 
-  /* Keep the tag row, but align it all the way right */
-  .supplies-page .resource-action-tags{
-    position: absolute !important;
-    top: 10px !important;
-    right: 12px !important;
-    z-index: 5 !important;
+  /* Keep the tag row, but align it with the course/topic tags
+   and give a little more breathing room above Purchase Options */
+.supplies-page .resource-action-tags{
+  position: absolute !important;
+  top: 4px !important;
+  right: 20px !important;
+  z-index: 5 !important;
 
-    width: auto !important;
-    max-width: 360px !important;
+  width: auto !important;
+  max-width: 360px !important;
 
-    display: flex !important;
-    justify-content: flex-end !important;
-    margin: 0 !important;
-  }
+  display: flex !important;
+  justify-content: flex-end !important;
+  margin: 0 !important;
+}
 
-  .supplies-page .resource-action-tags .planning-tag-region,
-  .supplies-page .resource-action-tags .planning-tag-selected-row{
-    display: inline-flex !important;
-    justify-content: flex-end !important;
-    align-items: center !important;
-    flex-wrap: wrap !important;
-    gap: 6px !important;
-    max-width: 360px !important;
-  }
+.supplies-page .resource-action-tags .planning-tag-region,
+.supplies-page .resource-action-tags .planning-tag-selected-row{
+  display: inline-flex !important;
+  justify-content: flex-end !important;
+  align-items: flex-start !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+  max-width: 360px !important;
+}
 
   /* Printed supply tag icons only */
   .supplies-page .planning-tag-pill{
