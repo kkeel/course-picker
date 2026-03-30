@@ -1958,14 +1958,15 @@ function coursePlanner() {
 
       // Share-link behavior: also reset "My ..." toggles so we don’t stack filters
       // (pre-filtered grade links should show the full list for that grade by default)
-      if ("myCoursesOnly" in this) this.myCoursesOnly = false;
-      if ("myNotesOpen"   in this) this.myNotesOpen   = false;
-      if ("myBooksOnly"   in this) this.myBooksOnly   = false;
+      if ("myCoursesOnly"   in this) this.myCoursesOnly   = false;
+      if ("myNotesOpen"     in this) this.myNotesOpen     = false;
+      if ("myBooksOnly"     in this) this.myBooksOnly     = false;
+      if ("mySuppliesOnly"  in this) this.mySuppliesOnly  = false;
       
-      // If you track "hasSet" flags to control whether view settings persist, reset those too
-      if ("_hasSetMyCoursesOnly" in this) this._hasSetMyCoursesOnly = false;
-      if ("_hasSetMyNotesOpen"   in this) this._hasSetMyNotesOpen   = false;
-      if ("_hasSetMyBooksOnly"   in this) this._hasSetMyBooksOnly   = false;
+      if ("_hasSetMyCoursesOnly"  in this) this._hasSetMyCoursesOnly  = false;
+      if ("_hasSetMyNotesOpen"    in this) this._hasSetMyNotesOpen    = false;
+      if ("_hasSetMyBooksOnly"    in this) this._hasSetMyBooksOnly    = false;
+      if ("_hasSetMySuppliesOnly" in this) this._hasSetMySuppliesOnly = false;
 
       if (typeof this.saveUIState === "function") this.saveUIState();
     
@@ -2008,25 +2009,34 @@ function coursePlanner() {
     
         // Ensure we generate a stable, complete view for PDFs
         // (only affects this run; does not persist unless you want it to)
-        this.courseListViewMode = "full";
-        this.showAllDetails = true;
-    
+        // Ensure we generate a stable, complete view for PDFs
+        if ("courseListViewMode" in this) this.courseListViewMode = "full";
+        if ("listViewMode" in this) this.listViewMode = "full";
+        if ("showAllDetails" in this) this.showAllDetails = true;
+        
         // Start from a clean slate so "Master" truly means EVERYTHING
         this.clearAllFilters();
-    
+        
         // Apply grade filter (or leave empty for Master)
         if (!isMaster) {
           this.selectedGrades = [grade];
         } else {
           this.selectedGrades = [];
         }
-    
+        
         // Build filtered dataset
         this.applyFilters();
-    
-        // Set a helpful title (often becomes the default PDF filename in headless printing)
-        const label = this.gradePrintLabel(); // "Grade 1" or "Master"
-        document.title = `Alveary Course List — ${label}`;
+        
+        // Set a page-appropriate title
+        const label = this.gradePrintLabel();
+        const path = (window.location.pathname || "").toLowerCase();
+        
+        let listName = "Course List";
+        if (path.includes("books.html")) listName = "Book List";
+        if (path.includes("supplies.html")) listName = "Supply List";
+        if (path.includes("year-at-a-glance")) listName = "Year At-A-Glance";
+        
+        document.title = `Alveary ${listName} — ${label}`;
     
         // Let DOM settle (filters + layout) before print snapshot
         await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
