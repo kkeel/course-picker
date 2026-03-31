@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required basics -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alveary – Supply Planning Intro</title>
+
+  <!-- PWA / App metadata (matches other pages) -->
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="theme-color" content="#596e5e">
+
+  <!-- iOS support -->
+  <link rel="apple-touch-icon" href="./img/icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <!-- MemberStack (kept for consistent header auth button) -->
+  <script>
+    window.memberstackConfig = {
+      useCookies: true,
+      setCookieOnRootDomain: true
+    };
+  </script>
+  <script
+    data-memberstack-app="app_clbb9rspy00160ujl6tsxbsrj"
+    src="https://static.memberstack.com/scripts/v1/memberstack.js"
+    type="text/javascript">
+  </script>
+
+  <!-- Fonts (matches other pages) -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+  />
+
+  <!-- Shared app styling + page styling -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/index.css">
+
+  <!-- Tailwind via CDN (matches other pages) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="icon" type="image/png" href="img/Alveary%20Lt.%20Green.png">
+</head>
+
+<body x-data="indexPlanner()" x-init="init()">
+  <!-- Header / app shell (matches courses/books) -->
+  <header class="app-header mb-8 px-6 md:px-16 py-4 md:py-6 flex flex-col md:flex-row md:items-center gap-4">
+    <a href="https://www.alveary.org/alveary-2026-2027/dashboard" class="logo-link flex items-center gap-3" aria-label="Go to Alveary dashboard">
+      <img
+        src="img/Alveary%20Lt.%20Green.png"
+        alt="Alveary logo"
+        class="object-contain"
+        style="height: 40px; width: 40px;"
+      />
+      <div class="logo-text-block">
+        <span class="logo-title">Alveary</span>
+        <span class="print-year-left">2026–2027</span>
+      </div>
+    </a>
+
+    <div class="mt-3 md:mt-0 md:ml-auto flex items-center justify-end gap-6 text-sm">
+      <button
+        id="auth-button"
+        x-cloak
+        class="auth-button text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
+        x-show="!isAuthed"
+        @click="openAuth()"
+      >
+        Sign in
+      </button>
+
+      <div id="app-step-nav" class="app-step-nav"></div>
+    </div>
+  </header>
+
+  <main class="main-content px-6 lg:px-16 pb-16 space-y-10">
+    <!-- Title + subtitle (matches courses/books typography) -->
+    <section class="index-top">
+      <div class="index-top-grid">
+        <div>
+          <h1 class="section-title">Course Planning Intro</h1>
+          <p class="section-subtitle">
+            The guidance below is designed to help you plan your year with intention and grace.
+            <span class="index-sub-ital">
+              A Charlotte Mason education should fit the child, not force the child to fit the curriculum.
+            </span>
+          </p>
+
+          <div class="index-cta-row">
+            <a class="btn-pill index-btn-primary" href="courses.html">
+              <span>Start Planning</span>
+              <span class="index-cta-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <!-- Print (matches courses/books) -->
+            <button
+              type="button"
+              class="btn-pill btn-secondary print-btn"
+              @click="openPrintTip()"
+            >
+              <span class="btn-pill-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="5" y="9" width="14" height="9" rx="1.5" ry="1.5"
+                        fill="none" stroke="currentColor" stroke-width="1.8" />
+                  <path d="M8 9V5h8v4"
+                        fill="none" stroke="currentColor" stroke-width="1.8" />
+                  <rect x="9" y="13" width="6" height="4"
+                        fill="none" stroke="currentColor" stroke-width="1.5" />
+                  <circle cx="17" cy="12" r="0.9" fill="currentColor" />
+                </svg>
+              </span>
+              <span>Print</span>
+            </button>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- Guide sections (PDF-style boxes with right-side images) -->
+    <section class="guide-section" id="core">
+      <h2 class="guide-title">Core Subjects</h2>
+      <div class="guide-bar guide-bar-dark"></div>
+
+      <div class="guide-grid">
+        <div class="guide-text">
+          <p>
+            Start by focusing on the core subjects required by your state or those you consider nonnegotiable,
+            such as Bible, History, Geography, English/Reading, Literature, Science, and Math.
+          </p>
+
+          <p>
+            If you plan to modify a subject—such as focusing on only one stream of History (e.g., World, Ancient,
+            or US/Canadian for grades 4+)—make a note of it. Similarly, if you intend to combine students into a
+            single grade level for a subject (e.g., 2nd and 3rd graders sharing a 3rd-grade Science course), make
+            note of that too.
+          </p>
+
+          <p class="guide-last">
+            Refer to our tips on
+            <a
+              href="https://www.alveary.org/whats-new/tips-for-combining-students"
+              target="_blank"
+              rel="noopener"
+            >
+              combining students
+            </a>
+            for additional guidance.
+          </p>
+
+        </div>
+
+        <div class="guide-image">
+          <img src="img/Core%20Subjects.png" alt="Core Subjects icon" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section" id="high-interest">
+      <h2 class="guide-title">High Interest Subjects</h2>
+      <div class="guide-bar"></div>
+
+      <div class="guide-grid">
+        <div class="guide-text">
+          <p>
+            Next, choose a few subjects that spark high interest for each child or that your whole family would
+            enjoy together.
+          </p>
+
+          <p>
+            You can focus on the same subject throughout the year or rotate topics to explore a variety. For example,
+            you might dedicate one term each to Shakespeare, Plutarch, and Composer Study if you don’t have room for a
+            full year of each. If you prefer a slower pace, consider spreading a term’s worth of lessons across two terms.
+          </p>
+
+          <p class="guide-last">
+            This approach works well for subjects such as Art Instruction or Singing, giving you the flexibility
+            to adjust to your students’ needs.
+          </p>
+        </div>
+
+        <div class="guide-image">
+          <img src="img/High%20Interest%20Subjects.png" alt="High Interest Subjects icon" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section" id="additional">
+      <h2 class="guide-title">Additional Subjects</h2>
+      <div class="guide-bar"></div>
+
+      <div class="guide-grid">
+        <div class="guide-text">
+          <p>
+            Review the remaining subjects and choose one or two that feel especially important to include,
+            especially if they haven’t been covered yet. Consider options that:
+          </p>
+
+          <ul class="guide-list">
+            <li>•   Fulfill high school credit requirements.</li>
+            <li>•   Reflect your family’s priorities or interests.</li>
+            <li>•   Align with your child’s passions or future goals.</li>
+          </ul>
+
+          <p class="guide-last">
+            These could also be subjects where Alveary offers resources without daily lesson plans
+            (e.g., cooking or car maintenance) or areas where you can incorporate non-Alveary resources,
+            such as co-op classes or ACT prep courses.
+          </p>
+        </div>
+
+        <div class="guide-image">
+          <img src="img/Additional%20Subjects.png" alt="Additional Subjects icon" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section" id="plan">
+      <h2 class="guide-title">Plan Your Year</h2>
+      <div class="guide-bar guide-bar-cream"></div>
+
+      <div class="guide-grid">
+        <div class="guide-text">
+          <p>
+            Now that you’ve identified your subjects you are ready to create a schedule using Alveary’s scheduling tools.
+            This is a great starting point for your school year.
+          </p>
+
+          <p>
+            If you have room for additional subjects—or think you might later—make a list of what you’d like to include
+            and why each is important. Consider adding these subjects when time allows.
+          </p>
+
+          <p class="guide-last">For guidance, refer to these Alveary resources:</p>
+
+          <ul class="guide-list">
+            <li><a href="https://www.alveary.org/whats-new/a-relational-education">∞   Relational Education (which subjects are intertwined)</a></li>
+            <li><a href="https://www.alveary.org/whats-new/balancing-the-feast">∞   Balancing the Feast (often overlooked subjects)</a></li>
+            <li><a href="https://www.alveary.org/whats-new/tips-for-combining-students">∞   Tips for Combining Students</a></li>
+          </ul>
+        </div>
+
+        <div class="guide-image">
+          <img src="img/Plan%20Your%20Year.png" alt="Plan Your Year icon" loading="lazy">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Print Tip Modal (screen-only) -->
+  <div
+    x-show="printTipOpen"
+    x-cloak
+    class="print-tip-overlay"
+    @keydown.escape.window="closePrintTip()"
+  >
+    <div class="print-tip-backdrop" @click="closePrintTip()"></div>
+
+    <div class="print-tip-modal" role="dialog" aria-modal="true" aria-label="Print tips" @click.stop>
+      <div class="print-tip-title">Best print settings</div>
+
+      <div class="print-tip-body">
+        <p><strong>For the cleanest print/PDF:</strong></p>
+        <ul>
+          <li>Set <strong>Margins</strong> to <strong>Custom: 0.5"</strong> on all sides</li>
+          <li>Turn <strong>Headers and footers</strong> <strong>OFF</strong></li>
+        </ul>
+      </div>
+
+      <label class="print-tip-checkbox">
+        <input type="checkbox" x-model="printTipDontShowAgain" />
+        Don’t show this again
+      </label>
+
+      <div class="print-tip-actions">
+        <button type="button" class="print-tip-btn" @click="closePrintTip()">Cancel</button>
+        <button type="button" class="print-tip-btn print-tip-btn-primary" @click="continueToPrint()">
+          Continue to Print
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <!-- Minimal Alpine controller for this page (auth-only; avoids loading app.js) -->
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('indexPlanner', () => ({
+        authRole: 'public',
+        isAuthed: false,
+        isMember: false,
+        isStaff: false,
+        authRefreshing: false,
+
+        // Print tip modal (matches courses/books)
+        printTipOpen: false,
+        printTipDontShowAgain: false,
+
+        pdfPreviewOpen: false,
+        pdfUrl: "",
+
+        async init() {
+          await this.refreshAuth();
+        },
+
+        async refreshAuth(force = false) {
+          this.authRefreshing = true;
+          try {
+            const info = await (window.AlvearyAuth?.whoami ? window.AlvearyAuth.whoami({ force }) : Promise.resolve({ ok: false, role: 'public' }));
+            const role = (info?.role || 'public');
+            this.authRole = role;
+            this.isAuthed = role !== 'public';
+            this.isMember = role === 'member';
+            this.isStaff = role === 'staff';
+          } catch (e) {
+            this.authRole = 'public';
+            this.isAuthed = false;
+            this.isMember = false;
+            this.isStaff = false;
+          } finally {
+            this.authRefreshing = false;
+          }
+        },
+
+        async openAuth(mode = 'LOGIN') {
+          try {
+            await window.AlvearyAuth?.openAuth?.(mode);
+          } finally {
+            // Always re-check auth (fresh) after the modal closes
+            await this.refreshAuth(true);
+          }
+        },
+        
+        // ---- Printing (PDF) ----
+        openPrintTip() {
+          // iOS home-screen app: never open PDF viewer / never trap user
+          if (this.isIos() && this.isStandalonePwa()) {
+            this.mobilePdfShareOrFallback();
+            return;
+          }
+        
+          // regular mobile (optional: either share or download)
+          if (this.isMobileDevice()) {
+            this.mobilePdfShareOrFallback();
+            return;
+          }
+        
+          // desktop: keep your existing Print Tip modal flow
+          try {
+            if (localStorage.getItem("ALVEARY_HIDE_PRINT_TIP") === "1") {
+              this.openPlanningPdfFlow();
+              return;
+            }
+          } catch (_) {}
+        
+          this.printTipDontShowAgain = false;
+          this.printTipOpen = true;
+        },
+        
+        closePrintTip() {
+          this.printTipOpen = false;
+        },
+        
+        continueToPrint() {
+          try {
+            if (this.printTipDontShowAgain) localStorage.setItem('ALVEARY_HIDE_PRINT_TIP', '1');
+          } catch (_) {}
+        
+          this.printTipOpen = false;
+          this.openPlanningPdfFlow();
+        },
+        
+        openPlanningPdfFlow() {
+          const pdfUrl = "pdf/course-planning.pdf";
+        
+          // Mobile / PWA-safe: show an in-app preview overlay instead of navigating away
+          if (this.isMobileDevice()) {
+            this.pdfUrl = pdfUrl;
+            this.pdfPreviewOpen = true;
+            return;
+          }
+        
+          // Desktop: open PDF in a new tab (user prints from there)
+          const win = window.open(pdfUrl, "_blank", "noopener,noreferrer");
+          if (win) win.focus();
+        },
+        
+        isMobileDevice() {
+          // robust-enough heuristic for your use case
+          return window.matchMedia("(max-width: 900px)").matches ||
+                 /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        },
+
+        downloadPdf() {
+          const pdfUrl = "pdf/course-planning.pdf";
+          const a = document.createElement("a");
+          a.href = pdfUrl;
+          a.download = "course-planning.pdf"; // filename users get
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        },
+
+        isIos() {
+          return /iPad|iPhone|iPod/.test(navigator.userAgent);
+        },
+        isStandalonePwa() {
+          // iOS home-screen app: navigator.standalone === true
+          // Other PWAs: display-mode: standalone
+          return (window.navigator.standalone === true) ||
+                 window.matchMedia("(display-mode: standalone)").matches;
+        },
+        absoluteUrl(path) {
+          return new URL(path, window.location.href).toString();
+        },
+
+        async mobilePdfShareOrFallback() {
+          const pdfPath = "pdf/course-planning.pdf";
+          const pdfAbs = new URL(pdfPath, window.location.href).toString();
+        
+          // 1) Try sharing the actual PDF FILE (best chance to show Print / Books)
+          try {
+            if (navigator.share && navigator.canShare) {
+              const res = await fetch(pdfAbs, { cache: "no-store" });
+              const blob = await res.blob();
+        
+              const file = new File([blob], "course-planning.pdf", {
+                type: "application/pdf",
+              });
+        
+              if (navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                  title: "Course Planning",
+                  files: [file],
+                });
+                return;
+              }
+            }
+          } catch (e) {
+            // fall through
+          }
+        
+          // 2) Fallback: show your in-app overlay (with a Back button)
+          this.pdfUrl = pdfPath;
+          this.pdfPreviewOpen = true;
+        },
+
+      }));
+    });
+  </script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
