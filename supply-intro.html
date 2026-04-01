@@ -309,11 +309,6 @@
 
         async init() {
           await this.refreshAuth();
-        
-          if (!this.isStaff) {
-            window.location.href = "index.html";
-            return;
-          }
         },
 
         async refreshAuth(force = false) {
