@@ -2640,13 +2640,11 @@ function coursePlanner() {
 
       const authorizedCore = (this.isMember || this.isStaff);
       const authorizedSchedule = (this.isMember || this.isStaff);
-      const authorizedSupplies = this.isStaff;
 
       // Soft gate: do NOT redirect; just toggle what the page displays.
       this.courseGate = !!(
         ((onCourseList || onYearAtAGlance) && !authorizedCore) ||
-        (onSchedule && !authorizedSchedule) ||
-        (onSupplies && !authorizedSupplies)
+        (onSchedule && !authorizedSchedule)
       );
 
       return true;
@@ -2896,8 +2894,8 @@ function coursePlanner() {
   { key: "schedule", label: "Schedule", href: "schedule.html", status: "ready", icon: "schedule.svg" },
   { key: "books", label: "Books", href: "books.html", status: "ready", icon: "book-list.svg" },
   { key: "lesson-plans", label: "Lesson Plans", href: null, status: "soon", icon: "lesson-plans.svg" },
-  { key: "supply-intro", label: "Supply Planning Intro", href: "supply-intro.html", status: "ready", icon: "course-planning-intro.svg", audience: "staff" },
-  { key: "supplies", label: "Supplies", href: "supplies.html", status: "ready", icon: "supplies.svg", audience: "staff" },
+  { key: "supply-intro", label: "Supply Planning Intro", href: "supply-intro.html", status: "ready", icon: "course-planning-intro.svg" },
+  { key: "supplies", label: "Supplies", href: "supplies.html", status: "ready", icon: "supplies.svg" },
   { key: "exams", label: "Exams", href: null, status: "soon", icon: "exams.svg" },
   { key: "ataglance", label: "Year At-A-Glance", href: "year-at-a-glance.html", status: "ready", icon: "at-a-glance.svg", group: "Other tools" },
   { key: "budget", label: "Budget Planner", href: null, status: "soon", icon: "budget.svg", group: "Other tools" },
