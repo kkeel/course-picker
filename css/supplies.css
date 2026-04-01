@@ -2298,3 +2298,10 @@
     min-width: 0;
   }
 }
+
+.affiliate-disclaimer {
+  font-size: 12px;
+  color: #6b7280; /* soft gray */
+  margin-top: 6px;
+  line-height: 1.4;
+}
