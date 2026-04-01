@@ -2896,6 +2896,7 @@ function coursePlanner() {
   { key: "schedule", label: "Schedule", href: "schedule.html", status: "ready", icon: "schedule.svg" },
   { key: "books", label: "Books", href: "books.html", status: "ready", icon: "book-list.svg" },
   { key: "lesson-plans", label: "Lesson Plans", href: null, status: "soon", icon: "lesson-plans.svg" },
+  { key: "supply-intro", label: "Supply Planning Intro", href: "supply-intro.html", status: "ready", icon: "course-planning-intro.svg", audience: "staff" },
   { key: "supplies", label: "Supplies", href: "supplies.html", status: "ready", icon: "supplies.svg", audience: "staff" },
   { key: "exams", label: "Exams", href: null, status: "soon", icon: "exams.svg" },
   { key: "ataglance", label: "Year At-A-Glance", href: "year-at-a-glance.html", status: "ready", icon: "at-a-glance.svg", group: "Other tools" },
