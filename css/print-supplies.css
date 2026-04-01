@@ -1454,3 +1454,27 @@ img.resource-img{
     min-width: 0 !important;
   }
 }
+
+@media print {
+
+  /* Hide ALL purchase links/sections */
+  .resource-buy-links,
+  .resource-buy-row,
+  .resource-bottom-buy,
+  .purchase-block--top,
+  .purchase-block--bottom,
+  .buy-link-pill,
+  .resource-buy-links * {
+    display: none !important;
+  }
+
+}
+
+@media print {
+
+  .resource-bottom-title:has(+ .resource-buy-links),
+  .purchase-block--top .resource-bottom-title {
+    display: none !important;
+  }
+
+}
