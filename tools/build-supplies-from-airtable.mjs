@@ -180,8 +180,13 @@ async function buildSuppliesJson() {
       // --- Links ---
       linkText1: get("Link Text 1", rec),
       link1: get("URL 1", rec),
+      link1MemberOnly: !!get("Link 1 memberONLY", rec),
+      link1MemberstackId: get("Link 1 Memberstack ID", rec),
+      
       linkText2: get("Link Text 2", rec),
       link2: get("URL 2", rec),
+      link2MemberOnly: !!get("Link 2 memberONLY", rec),
+      link2MemberstackId: get("Link 2 Memberstack ID", rec),
 
       // --- Discount ---
       discount: !!get("Discount", rec),
