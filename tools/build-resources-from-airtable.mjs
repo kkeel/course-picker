@@ -107,13 +107,17 @@ async function main() {
       links: [
         {
           text: asString(f["Link Text 1"]).trim(),
-          url:  asString(f["URL 1"]).trim()
+          url: asString(f["URL 1"]).trim(),
+          memberOnly: asBool(f["Link 1 memberONLY"]),
+          memberstackId: asString(f["Link 1 Memberstack ID"]).trim()
         },
         {
           text: asString(f["Link Text 2"]).trim(),
-          url:  asString(f["URL 2"]).trim()
+          url: asString(f["URL 2"]).trim(),
+          memberOnly: asBool(f["Link 2 memberONLY"]),
+          memberstackId: asString(f["Link 2 Memberstack ID"]).trim()
         }
-      ].filter(x => x.text || x.url),
+      ].filter(x => x.text && (x.url || x.memberstackId)),
 
       flags: {
         save:      asBool(f["SAVE"]),
