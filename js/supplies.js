@@ -561,13 +561,18 @@
               purchaseUrl1: s.link1 || "",
               purchaseUrl2: s.link2 || "",
               links: [
-                ...(s.link1 ? [{
+                ...((s.link1 || s.link1MemberstackId) ? [{
                   text: String(s.linkText1 || "Option 1").trim(),
-                  url: s.link1
+                  url: String(s.link1 || "").trim(),
+                  memberOnly: !!s.link1MemberOnly,
+                  memberstackId: String(s.link1MemberstackId || "").trim()
                 }] : []),
-                ...(s.link2 ? [{
+              
+                ...((s.link2 || s.link2MemberstackId) ? [{
                   text: String(s.linkText2 || "Option 2").trim(),
-                  url: s.link2
+                  url: String(s.link2 || "").trim(),
+                  memberOnly: !!s.link2MemberOnly,
+                  memberstackId: String(s.link2MemberstackId || "").trim()
                 }] : []),
               ],
               recordEditLink: String(s.recordEditLink || "").trim(),
