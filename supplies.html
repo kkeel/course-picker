@@ -1738,7 +1738,7 @@
                                       <a
                                         class="buy-link-pill"
                                         :href="lnk.url || '#'"
-                                        x-bind:data-ms-content="(lnk.memberOnly && lnk.memberstackId) ? lnk.memberstackId : null"
+                                        x-bind:data-ms-secure-link="(lnk.memberOnly && lnk.memberstackId) ? lnk.memberstackId : null"
                                         :target="(lnk.memberOnly && lnk.memberstackId) ? null : '_blank'"
                                         :rel="(lnk.memberOnly && lnk.memberstackId) ? null : 'noopener'"
                                         x-text="lnk.text || 'Link'"
@@ -2884,7 +2884,7 @@
                                             <a
                                               class="buy-link-pill"
                                               :href="lnk.url || '#'"
-                                              x-bind:data-ms-content="(lnk.memberOnly && lnk.memberstackId) ? lnk.memberstackId : null"
+                                              x-bind:data-ms-secure-link="(lnk.memberOnly && lnk.memberstackId) ? lnk.memberstackId : null"
                                               :target="(lnk.memberOnly && lnk.memberstackId) ? null : '_blank'"
                                               :rel="(lnk.memberOnly && lnk.memberstackId) ? null : 'noopener'"
                                               x-text="lnk.text || 'Link'"
