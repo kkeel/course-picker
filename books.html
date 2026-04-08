@@ -1608,6 +1608,18 @@
                                      x-show="(resourcesById[a.resourceId]?.links || []).length"
                                      x-cloak>
                                   <div class="resource-bottom-title">Purchase Options</div>
+
+                                  <template x-if="isStaff && editMode">
+                                    <div class="resource-buy-links mb-2">
+                                      <a
+                                        class="buy-link-pill"
+                                        href="https://www.alveary.org/login"
+                                        data-ms-secure-link="our-work-g1-2"
+                                      >
+                                        Staff Test Secure Link
+                                      </a>
+                                    </div>
+                                  </template>
                                 
                                   <div class="resource-buy-links">
                                     <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
