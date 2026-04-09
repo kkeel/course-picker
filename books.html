@@ -1622,37 +1622,48 @@
                                   </template>
                                 
                                   <div class="resource-buy-links">
-                                    <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
-                                      <div>
-                                        <template x-if="!lnk.memberOnly">
-                                          <a
-                                            class="buy-link-pill"
-                                            :href="lnk.url || '#'"
-                                            target="_blank"
-                                            rel="noopener"
-                                            x-text="lnk.text || 'Link'"
-                                          ></a>
-                                        </template>
+                                    <!-- Always show public links -->
+                                    <template
+                                      x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || []).filter(lnk => !lnk.memberOnly)"
+                                      :key="'public-' + li"
+                                    >
+                                      <a
+                                        class="buy-link-pill"
+                                        :href="lnk.url || '#'"
+                                        target="_blank"
+                                        rel="noopener"
+                                        x-text="lnk.text || 'Link'"
+                                      ></a>
+                                    </template>
                                   
-                                        <template x-if="lnk.memberOnly && isAuthed">
-                                          <a
-                                            class="buy-link-pill"
-                                            :href="lnk.url || '#'"
-                                            :data-ms-secure-link="lnk.memberstackId || null"
-                                            x-text="lnk.text || 'Link'"
-                                          ></a>
-                                        </template>
+                                    <!-- Show member-only secure links only when logged in -->
+                                    <template
+                                      x-if="isAuthed && (resourcesById[a.resourceId]?.links || []).some(lnk => lnk.memberOnly)"
+                                    >
+                                      <template
+                                        x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || []).filter(lnk => lnk.memberOnly)"
+                                        :key="'member-' + li"
+                                      >
+                                        <a
+                                          class="buy-link-pill"
+                                          :href="lnk.url || '#'"
+                                          :data-ms-secure-link="lnk.memberstackId || null"
+                                          x-text="lnk.text || 'Link'"
+                                        ></a>
+                                      </template>
+                                    </template>
                                   
-                                        <template x-if="lnk.memberOnly && !isAuthed">
-                                          <button
-                                            type="button"
-                                            class="auth-button text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
-                                            @click="openAuth()"
-                                          >
-                                            Sign in to view
-                                          </button>
-                                        </template>
-                                      </div>
+                                    <!-- Show one sign-in button total when logged out and member-only links exist -->
+                                    <template
+                                      x-if="!isAuthed && (resourcesById[a.resourceId]?.links || []).some(lnk => lnk.memberOnly)"
+                                    >
+                                      <button
+                                        type="button"
+                                        class="auth-button text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
+                                        @click="openAuth()"
+                                      >
+                                        Sign in to view
+                                      </button>
                                     </template>
                                   </div>
                                   
@@ -2685,37 +2696,48 @@
                                         <div class="resource-bottom-title">Purchase Options</div>
                                       
                                         <div class="resource-buy-links">
-                                          <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
-                                            <div>
-                                              <template x-if="!lnk.memberOnly">
-                                                <a
-                                                  class="buy-link-pill"
-                                                  :href="lnk.url || '#'"
-                                                  target="_blank"
-                                                  rel="noopener"
-                                                  x-text="lnk.text || 'Link'"
-                                                ></a>
-                                              </template>
+                                          <!-- Always show public links -->
+                                          <template
+                                            x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || []).filter(lnk => !lnk.memberOnly)"
+                                            :key="'public-' + li"
+                                          >
+                                            <a
+                                              class="buy-link-pill"
+                                              :href="lnk.url || '#'"
+                                              target="_blank"
+                                              rel="noopener"
+                                              x-text="lnk.text || 'Link'"
+                                            ></a>
+                                          </template>
                                         
-                                              <template x-if="lnk.memberOnly && isAuthed">
-                                                <a
-                                                  class="buy-link-pill"
-                                                  :href="lnk.url || '#'"
-                                                  :data-ms-secure-link="lnk.memberstackId || null"
-                                                  x-text="lnk.text || 'Link'"
-                                                ></a>
-                                              </template>
+                                          <!-- Show member-only secure links only when logged in -->
+                                          <template
+                                            x-if="isAuthed && (resourcesById[a.resourceId]?.links || []).some(lnk => lnk.memberOnly)"
+                                          >
+                                            <template
+                                              x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || []).filter(lnk => lnk.memberOnly)"
+                                              :key="'member-' + li"
+                                            >
+                                              <a
+                                                class="buy-link-pill"
+                                                :href="lnk.url || '#'"
+                                                :data-ms-secure-link="lnk.memberstackId || null"
+                                                x-text="lnk.text || 'Link'"
+                                              ></a>
+                                            </template>
+                                          </template>
                                         
-                                              <template x-if="lnk.memberOnly && !isAuthed">
-                                                <button
-                                                  type="button"
-                                                  class="auth-button text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
-                                                  @click="openAuth()"
-                                                >
-                                                  Sign in to view
-                                                </button>
-                                              </template>
-                                            </div>
+                                          <!-- Show one sign-in button total when logged out and member-only links exist -->
+                                          <template
+                                            x-if="!isAuthed && (resourcesById[a.resourceId]?.links || []).some(lnk => lnk.memberOnly)"
+                                          >
+                                            <button
+                                              type="button"
+                                              class="auth-button text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
+                                              @click="openAuth()"
+                                            >
+                                              Sign in to view
+                                            </button>
                                           </template>
                                         </div>
                                         
