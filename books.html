@@ -1623,14 +1623,36 @@
                                 
                                   <div class="resource-buy-links">
                                     <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
-                                      <a
-                                        class="buy-link-pill"
-                                        :href="lnk.url || '#'"
-                                        x-bind:data-ms-secure-link="(lnk.memberOnly && lnk.memberstackId) ? lnk.memberstackId : null"
-                                        :target="(lnk.memberOnly && lnk.memberstackId) ? null : '_blank'"
-                                        :rel="(lnk.memberOnly && lnk.memberstackId) ? null : 'noopener'"
-                                        x-text="lnk.text || 'Link'"
-                                      ></a>
+                                  
+                                      <template x-if="!lnk.memberOnly">
+                                        <a
+                                          class="buy-link-pill"
+                                          :href="lnk.url || '#'"
+                                          target="_blank"
+                                          rel="noopener"
+                                          x-text="lnk.text || 'Link'"
+                                        ></a>
+                                      </template>
+                                  
+                                      <template x-if="lnk.memberOnly && isAuthed">
+                                        <a
+                                          class="buy-link-pill"
+                                          :href="lnk.url || '#'"
+                                          :data-ms-secure-link="lnk.memberstackId || null"
+                                          x-text="lnk.text || 'Link'"
+                                        ></a>
+                                      </template>
+                                  
+                                      <template x-if="lnk.memberOnly && !isAuthed">
+                                        <button
+                                          type="button"
+                                          class="auth-button text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
+                                          @click="openAuth()"
+                                        >
+                                          Sign in to view
+                                        </button>
+                                      </template>
+                                  
                                     </template>
                                   </div>
                                   
@@ -2664,14 +2686,36 @@
                                       
                                         <div class="resource-buy-links">
                                           <template x-for="(lnk, li) in (resourcesById[a.resourceId]?.links || [])" :key="li">
-                                            <a
-                                              class="buy-link-pill"
-                                              :href="lnk.url || '#'"
-                                              x-bind:data-ms-secure-link="(lnk.memberOnly && lnk.memberstackId) ? lnk.memberstackId : null"
-                                              :target="(lnk.memberOnly && lnk.memberstackId) ? null : '_blank'"
-                                              :rel="(lnk.memberOnly && lnk.memberstackId) ? null : 'noopener'"
-                                              x-text="lnk.text || 'Link'"
-                                            ></a>
+                                        
+                                            <template x-if="!lnk.memberOnly">
+                                              <a
+                                                class="buy-link-pill"
+                                                :href="lnk.url || '#'"
+                                                target="_blank"
+                                                rel="noopener"
+                                                x-text="lnk.text || 'Link'"
+                                              ></a>
+                                            </template>
+                                        
+                                            <template x-if="lnk.memberOnly && isAuthed">
+                                              <a
+                                                class="buy-link-pill"
+                                                :href="lnk.url || '#'"
+                                                :data-ms-secure-link="lnk.memberstackId || null"
+                                                x-text="lnk.text || 'Link'"
+                                              ></a>
+                                            </template>
+                                        
+                                            <template x-if="lnk.memberOnly && !isAuthed">
+                                              <button
+                                                type="button"
+                                                class="auth-button text-sm px-3 py-1.5 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
+                                                @click="openAuth()"
+                                              >
+                                                Sign in to view
+                                              </button>
+                                            </template>
+                                        
                                           </template>
                                         </div>
                                         
