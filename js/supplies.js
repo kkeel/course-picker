@@ -446,12 +446,26 @@
         if (typeof originalInit === "function") {
           await originalInit.call(this);
         }
-
+      
         // Merge Supplies-page-only course data into the already-loaded shared tree
         await this.loadSuppliesPageCourseData();
-
+      
         // Then load Supply List data
         await this.loadSuppliesData();
+      
+        // TEMP TEST: after Alpine has rendered the dynamic links,
+        // reload Memberstack once so it can process data-ms-secure-link elements
+        setTimeout(() => {
+          const existing = document.querySelector('script[data-memberstack-app]');
+          if (!existing) return;
+      
+          const clone = document.createElement("script");
+          clone.setAttribute("data-memberstack-app", existing.getAttribute("data-memberstack-app") || "");
+          clone.src = existing.src;
+          clone.type = "text/javascript";
+      
+          existing.parentNode.insertBefore(clone, existing.nextSibling);
+        }, 1200);
       },
 
       async loadSuppliesPageCourseData() {
