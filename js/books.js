@@ -151,9 +151,23 @@
         if (typeof originalInit === "function") {
           await originalInit.call(this);
         }
-
-        // Then load booklist data (read-only for now)
+      
+        // Then load booklist data
         await this.loadBookDataR3();
+      
+        // TEMP TEST: after Alpine has rendered the dynamic links,
+        // reload Memberstack once so it can process data-ms-secure-link elements
+        setTimeout(() => {
+          const existing = document.querySelector('script[data-memberstack-app]');
+          if (!existing) return;
+      
+          const clone = document.createElement("script");
+          clone.setAttribute("data-memberstack-app", existing.getAttribute("data-memberstack-app") || "");
+          clone.src = existing.src;
+          clone.type = "text/javascript";
+      
+          existing.parentNode.insertBefore(clone, existing.nextSibling);
+        }, 1200);
       },
 
       async loadBookDataR3() {
