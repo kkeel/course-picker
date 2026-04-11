@@ -1474,7 +1474,7 @@
                                       x-show="
                                         (resourcesById[a.resourceId]?.note || a.noteText) ||
                                         (resourcesById[a.resourceId]?.maySub || a.maySubText) ||
-                                        (resourcesById[a.resourceId]?.discount?.text || resourcesById[a.resourceId]?.discount?.code) ||
+                                        (isAuthed && (resourcesById[a.resourceId]?.discount?.text || resourcesById[a.resourceId]?.discount?.code || resourcesById[a.resourceId]?.discount?.link)) ||
                                         altFormatsForAssignment(a).length"
                                       x-cloak
                                     >
@@ -1493,7 +1493,7 @@
                                         </div>
                                       </template>
 
-                                      <template x-if="(
+                                      <template x-if="isAuthed && (
                                         resourcesById[a.resourceId]?.discount?.text ||
                                         resourcesById[a.resourceId]?.discount?.code ||
                                         resourcesById[a.resourceId]?.discount?.link
@@ -2646,7 +2646,7 @@
                                             x-show="
                                               (resourcesById[a.resourceId]?.note || a.noteText) ||
                                               (resourcesById[a.resourceId]?.maySub || a.maySubText) ||
-                                              (resourcesById[a.resourceId]?.discount?.text || resourcesById[a.resourceId]?.discount?.code) ||
+                                              (isAuthed && (resourcesById[a.resourceId]?.discount?.text || resourcesById[a.resourceId]?.discount?.code || resourcesById[a.resourceId]?.discount?.link)) ||
                                               altFormatsForAssignment(a).length"
                                             x-cloak
                                           >
@@ -2664,7 +2664,7 @@
                                               </div>
                                             </template>
                                     
-                                            <template x-if="(
+                                            <template x-if="isAuthed && (
                                               resourcesById[a.resourceId]?.discount?.text ||
                                               resourcesById[a.resourceId]?.discount?.code ||
                                               resourcesById[a.resourceId]?.discount?.link
