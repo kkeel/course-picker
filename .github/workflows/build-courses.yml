@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install Airtable dependency
+        run: npm install airtable
+
       - name: Build course JSON files
         env:
           AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
