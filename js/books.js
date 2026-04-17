@@ -5,8 +5,9 @@
   // If app.js didn't load for some reason, don't crash.
   if (typeof originalCoursePlanner !== "function") return;
 
-  const ASSIGNMENTS_URL = "data/MA_Assignments.json";
-  const RESOURCES_URL   = "data/MA_Resources.json";
+  const ASSIGNMENTS_URL      = "data/MA_Assignments.json";
+  const RESOURCES_URL        = "data/MA_Resources.json";
+  const BOOKLIST_COURSES_URL = "data/MA_BookList_Courses.json";
 
   async function fetchJson(url) {
     const res = await fetch(url, { cache: "no-cache" });
@@ -146,6 +147,71 @@
         return this.visibleAssignmentsForTopic(course, topic).length > 0;
       },
 
+      mergeBookListCourses(baseGroups, extraGroups) {
+        const merged = {};
+        const base = (baseGroups && typeof baseGroups === "object") ? baseGroups : {};
+        const extra = (extraGroups && typeof extraGroups === "object") ? extraGroups : {};
+
+        for (const [subject, courses] of Object.entries(base)) {
+          merged[subject] = Array.isArray(courses) ? [...courses] : [];
+        }
+
+        for (const [subject, courses] of Object.entries(extra)) {
+          if (!merged[subject]) merged[subject] = [];
+          merged[subject].push(...(Array.isArray(courses) ? courses : []));
+        }
+
+        const ordered = {};
+        const subjects = Object.keys(merged).sort((a, b) => {
+          if (a === "Suggested Resources") return 1;
+          if (b === "Suggested Resources") return -1;
+          return a.localeCompare(b);
+        });
+
+        for (const subject of subjects) {
+          ordered[subject] = merged[subject];
+        }
+
+        return ordered;
+      },
+
+      filterCourseTreeToAssignedOnly(groups) {
+        const out = {};
+        const source = (groups && typeof groups === "object") ? groups : {};
+
+        for (const [subject, courses] of Object.entries(source)) {
+          const keptCourses = [];
+
+          for (const course of (Array.isArray(courses) ? courses : [])) {
+            if (!course) continue;
+
+            const courseTargetId = String(course?.recordID || course?.id || "").trim();
+            const courseAssignments = this.assignmentsByTargetId?.[courseTargetId] || [];
+            const hasCourseAssignments = courseAssignments.length > 0;
+
+            const originalTopics = Array.isArray(course.topics) ? course.topics : [];
+            const keptTopics = originalTopics.filter((topic) => {
+              const topicTargetId = String(topic?.recordID || topic?.Topic_ID || topic?.id || "").trim();
+              const topicAssignments = this.assignmentsByTargetId?.[topicTargetId] || [];
+              return topicAssignments.length > 0;
+            });
+
+            if (hasCourseAssignments || keptTopics.length > 0) {
+              keptCourses.push({
+                ...course,
+                topics: keptTopics,
+              });
+            }
+          }
+
+          if (keptCourses.length > 0) {
+            out[subject] = keptCourses;
+          }
+        }
+
+        return out;
+      },
+
       async init() {
         // Run your normal init first (courses/topics load, auth wrapper, etc.)
         if (typeof originalInit === "function") {
@@ -175,9 +241,10 @@
         this.bookDataError = "";
 
         try {
-          const [assignmentsJson, resourcesJson] = await Promise.all([
+          const [assignmentsJson, resourcesJson, bookListCoursesJson] = await Promise.all([
             fetchJson(ASSIGNMENTS_URL),
             fetchJson(RESOURCES_URL),
+            fetchJson(BOOKLIST_COURSES_URL).catch(() => ({})),
           ]);
 
           this.assignmentsData = assignmentsJson;
@@ -228,6 +295,14 @@
 
           this.assignmentsByTargetId = byTarget;
           this.assignmentsByResourceId = byResource;
+
+          const mergedAllCourses = this.mergeBookListCourses(
+            this.allCoursesBySubject,
+            bookListCoursesJson
+          );
+
+          this.allCoursesBySubject = mergedAllCourses;
+          this.coursesBySubject = this.filterCourseTreeToAssignedOnly(mergedAllCourses);
 
           console.log(
             "[BookData] Loaded",
