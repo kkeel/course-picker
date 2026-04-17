@@ -125,6 +125,8 @@
     if (!item) return "";
 
     const candidates = [
+      item.Topic,
+      item.topic,
       item.title,
       item.name,
       item.label,
