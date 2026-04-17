@@ -152,25 +152,55 @@
         const base = (baseGroups && typeof baseGroups === "object") ? baseGroups : {};
         const extra = (extraGroups && typeof extraGroups === "object") ? extraGroups : {};
 
+        // Start with base subjects in their original order
         for (const [subject, courses] of Object.entries(base)) {
           merged[subject] = Array.isArray(courses) ? [...courses] : [];
         }
 
+        // Append/merge extras
         for (const [subject, courses] of Object.entries(extra)) {
           if (!merged[subject]) merged[subject] = [];
           merged[subject].push(...(Array.isArray(courses) ? courses : []));
         }
 
+        // Book-list subject order:
+        // keep the normal shared order, then add Suggested Resources at the bottom
+        const preferredOrder = [
+          "Architecture",
+          "Art",
+          "Bible",
+          "Citizenship",
+          "English",
+          "Geography",
+          "History",
+          "Latin",
+          "Life Skills",
+          "Literature",
+          "Math",
+          "Modern Language",
+          "Music",
+          "Physical Education",
+          "Science",
+          "Alt. Science Options",
+          "Suggested Resources",
+        ];
+
         const ordered = {};
-        const subjects = Object.keys(merged).sort((a, b) => {
-          if (a === "Suggested Resources") return 1;
-          if (b === "Suggested Resources") return -1;
-          return a.localeCompare(b);
+        const seen = new Set();
+
+        // First: subjects in preferred order
+        preferredOrder.forEach((subject) => {
+          if (Object.prototype.hasOwnProperty.call(merged, subject)) {
+            ordered[subject] = merged[subject];
+            seen.add(subject);
+          }
         });
 
-        for (const subject of subjects) {
+        // Then: any unexpected subjects not in preferredOrder
+        Object.keys(merged).forEach((subject) => {
+          if (seen.has(subject)) return;
           ordered[subject] = merged[subject];
-        }
+        });
 
         return ordered;
       },
@@ -210,6 +240,42 @@
         }
 
         return out;
+      },
+
+      refreshBookSubjectOptions() {
+        const groups = (this.allCoursesBySubject && typeof this.allCoursesBySubject === "object")
+          ? this.allCoursesBySubject
+          : {};
+
+        const preferredOrder = [
+          "Architecture",
+          "Art",
+          "Bible",
+          "Citizenship",
+          "English",
+          "Geography",
+          "History",
+          "Latin",
+          "Life Skills",
+          "Literature",
+          "Math",
+          "Modern Language",
+          "Music",
+          "Physical Education",
+          "Science",
+          "Alt. Science Options",
+          "Suggested Resources",
+        ];
+
+        const present = new Set(Object.keys(groups));
+        const next = preferredOrder.filter((subject) => present.has(subject));
+
+        // Include any unexpected subjects just in case
+        Object.keys(groups).forEach((subject) => {
+          if (!next.includes(subject)) next.push(subject);
+        });
+
+        this.subjectOptions = next;
       },
 
       async init() {
@@ -302,6 +368,7 @@
           );
 
           this.allCoursesBySubject = mergedAllCourses;
+          this.refreshBookSubjectOptions();
           this.coursesBySubject = this.filterCourseTreeToAssignedOnly(mergedAllCourses);
 
           console.log(
