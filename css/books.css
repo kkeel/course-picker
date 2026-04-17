@@ -1959,3 +1959,46 @@
   margin-top: 6px;
   line-height: 1.4;
 }
+
+.av-video-row--featured {
+  align-items: flex-start;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.av-video-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.av-video-kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8e9770;
+  line-height: 1.1;
+}
+
+.av-video-text--featured {
+  font-weight: 600;
+}
+
+.av-video-subtext {
+  font-size: 0.9rem;
+  line-height: 1.35;
+  color: #6f6f6f;
+}
+
+.av-inline-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 500;
+}
+
+.av-inline-link:hover {
+  text-decoration-thickness: 2px;
+}
