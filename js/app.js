@@ -2349,7 +2349,7 @@ function coursePlanner() {
         for (const course of courses) {
           if (!course) continue;
 
-          const courseKey = course.courseId || course.id;
+          const courseKey = course.Sort_ID || course.courseId || course.id;
           const cState = courseKey && coursesState[courseKey];
           if (cState) {
             if (typeof cState.isBookmarked === "boolean") {
@@ -2450,7 +2450,7 @@ function coursePlanner() {
         for (const course of courses) {
           if (!course) continue;
 
-          const courseKey = course.courseId || course.id;
+          const courseKey = course.Sort_ID || course.courseId || course.id;
           if (!courseKey) continue;
 
           const isBookmarked = !!course.isBookmarked;
