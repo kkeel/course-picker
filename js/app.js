@@ -2724,14 +2724,15 @@ function coursePlanner() {
     async init() {
       await this.initAuth();
       this.enforceAccessGate?.();
-
-      // One delayed retry helps when Memberstack is a beat late on first page load.
-      if (!this.isAuthed) {
-        setTimeout(async () => {
-          await this.initAuth({ force: true });
-          this.enforceAccessGate?.();
-        }, 1200);
+    
+      // If first pass still looks public, give Memberstack one more chance
+      // to hydrate the current session before we stop the page.
+      if (this.courseGate || !this.isAuthed) {
+        await new Promise((r) => setTimeout(r, 1000));
+        await this.initAuth({ force: true });
+        this.enforceAccessGate?.();
       }
+    
       if (this.courseGate) {
         this._blockedByGate = true;
         return;
