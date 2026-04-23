@@ -367,9 +367,13 @@
             bookListCoursesJson
           );
 
-          this.allCoursesBySubject = mergedAllCourses;
+          // Book List should use the assigned-only tree as its actual dataset,
+          // then reapply whatever filters are already active (URL grade, saved UI, etc.)
+          const assignedOnlyCourses = this.filterCourseTreeToAssignedOnly(mergedAllCourses);
+
+          this.allCoursesBySubject = assignedOnlyCourses;
           this.refreshBookSubjectOptions();
-          this.coursesBySubject = this.filterCourseTreeToAssignedOnly(mergedAllCourses);
+          this.applyFilters();
 
           console.log(
             "[BookData] Loaded",
