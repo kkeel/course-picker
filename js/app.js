@@ -2724,6 +2724,14 @@ function coursePlanner() {
     async init() {
       await this.initAuth();
       this.enforceAccessGate?.();
+
+      // One delayed retry helps when Memberstack is a beat late on first page load.
+      if (!this.isAuthed) {
+        setTimeout(async () => {
+          await this.initAuth({ force: true });
+          this.enforceAccessGate?.();
+        }, 1200);
+      }
       if (this.courseGate) {
         this._blockedByGate = true;
         return;
