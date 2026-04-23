@@ -56,17 +56,26 @@ export async function getMemberstackDom({ timeoutMs = 4000 } = {}) {
   return null;
 }
 
-export async function getCurrentMember() {
-  const dom = await getMemberstackDom();
+export async function getCurrentMember({ timeoutMs = 3000, intervalMs = 200 } = {}) {
+  const dom = await getMemberstackDom({ timeoutMs });
   if (!dom || typeof dom.getCurrentMember !== "function") return null;
 
-  try {
-    const res = await dom.getCurrentMember();
-    // MemberStack DOM v1 shape: { data: { id, ... } } or { data: null }
-    return res?.data || null;
-  } catch {
-    return null;
+  const start = Date.now();
+
+  while (Date.now() - start < timeoutMs) {
+    try {
+      const res = await dom.getCurrentMember();
+      const member = res?.data || null;
+
+      if (member?.id) return member;
+    } catch {
+      // ignore and retry until timeout
+    }
+
+    await new Promise((r) => setTimeout(r, intervalMs));
   }
+
+  return null;
 }
 
 export async function openAuth(mode = "LOGIN") {
