@@ -96,9 +96,7 @@ export async function whoami({ force = false } = {}) {
 
   const member = await getCurrentMember();
   if (!member?.id) {
-    const out = { ok: false, role: "public", reason: "no_memberstack_session" };
-    writeCache(out);
-    return out;
+    return { ok: false, role: "public", reason: "no_memberstack_session" };
   }
 
   try {
@@ -111,13 +109,11 @@ export async function whoami({ force = false } = {}) {
     const json = await res.json().catch(() => ({}));
 
     if (!res.ok || !json?.ok) {
-      const out = {
+      return {
         ok: false,
         role: "public",
         reason: json?.reason || `http_${res.status}`,
       };
-      writeCache(out);
-      return out;
     }
 
     const role = String(json.role || "member").toLowerCase();
@@ -129,9 +125,7 @@ export async function whoami({ force = false } = {}) {
     writeCache(out);
     return out;
   } catch (err) {
-    const out = { ok: false, role: "public", reason: String(err) };
-    writeCache(out);
-    return out;
+    return { ok: false, role: "public", reason: String(err) };
   }
 }
 
