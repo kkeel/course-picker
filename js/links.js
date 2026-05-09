@@ -200,12 +200,14 @@
 
       state.data = await response.json();
 
-      els.subject.textContent = state.data.subject || "Lesson Links";
-      els.title.textContent = state.data.lessonSetName || state.data.title || "Lesson Links";
-      els.subtitle.textContent = [
-        state.data.gradeText,
-        "Only lessons with links are shown."
-      ].filter(Boolean).join(" • ");
+      els.subject.style.display = "none";
+
+      els.title.textContent =
+        state.data.lessonSetName ||
+        state.data.title ||
+        "Lesson Links";
+      
+      els.subtitle.style.display = "none";
 
       els.controls.hidden = false;
 
