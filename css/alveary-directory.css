@@ -133,6 +133,7 @@ a {
   gap: 12px;
 }
 
+.directory-card,
 .course-card,
 .topic-card {
   display: block;
@@ -143,6 +144,7 @@ a {
   transition: border-color 0.14s ease, transform 0.14s ease, box-shadow 0.14s ease;
 }
 
+.directory-card:hover,
 .course-card:hover,
 .topic-card:hover {
   border-color: rgba(89,110,94,0.42);
