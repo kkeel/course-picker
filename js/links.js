@@ -141,8 +141,9 @@
       return `
         <section class="link-term" data-term="${escapeHtml(term.termNumber)}">
           <h2 class="link-term-title">${escapeHtml(term.term || `Term ${term.termNumber}`)}</h2>
-
-          ${weeks.map(week => `
+      
+          <div class="link-term-card">
+            ${weeks.map(week => `
             <div class="link-week" data-week="${escapeHtml(week.weekNumber)}">
               <div class="link-week-label">${escapeHtml(week.weekLabel || `Week ${week.weekNumber}`)}</div>
 
@@ -162,8 +163,9 @@
               </div>
             </div>
           `).join("")}
-        </section>
-      `;
+        </div>
+      </section>
+    `;
     }).join("");
 
     requestAnimationFrame(scrollToHashIfNeeded);
