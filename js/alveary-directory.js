@@ -5,6 +5,7 @@ const state = {
   courses: [],
   topics: [],
   query: "",
+  activeView: "course",
 };
 
 function escapeHtml(value) {
@@ -129,6 +130,18 @@ function render() {
   topicGroupList.innerHTML = groupedHtml || `<div class="empty-state">No matching topics found.</div>`;
 }
 
+function setActiveView(view) {
+  state.activeView = view;
+
+  document.querySelectorAll(".directory-toggle-button").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.view === view);
+  });
+
+  document.querySelectorAll(".directory-view").forEach((panel) => {
+    panel.classList.toggle("is-active", panel.dataset.directoryView === view);
+  });
+}
+
 async function initDirectory() {
   try {
     const response = await fetch(DIRECTORY_INDEX_URL);
@@ -147,6 +160,13 @@ async function initDirectory() {
       render();
     });
 
+    document.querySelectorAll(".directory-toggle-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        setActiveView(button.dataset.view);
+      });
+    });
+
+    setActiveView("course");
     render();
   } catch (error) {
     document.getElementById("course-list").innerHTML =
