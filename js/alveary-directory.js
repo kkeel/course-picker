@@ -96,38 +96,54 @@ function render() {
 
   const topicsByCourseId = {};
 
-    for (const topic of visibleTopics) {
-      const key = topic.courseId || "uncategorized";
-    
-      if (!topicsByCourseId[key]) {
-        topicsByCourseId[key] = {
-          courseId: key,
-          courseTitle: topic.courseTitle || "Other Topics",
-          subject: topic.subject || "",
-          topics: [],
-        };
-      }
-    
-      topicsByCourseId[key].topics.push(topic);
+  for (const topic of visibleTopics) {
+    const key = topic.courseId || "uncategorized";
+
+    if (!topicsByCourseId[key]) {
+      topicsByCourseId[key] = {
+        courseId: key,
+        courseTitle: topic.courseTitle || "Other Topics",
+        subject: topic.subject || "",
+        topics: [],
+      };
     }
-    
-    const groupedHtml = state.courses
-      .filter((course) => topicsByCourseId[course.id])
-      .map((course) => topicsByCourseId[course.id])
-      .map((group) => `
-      <section class="topic-group">
-        <div class="topic-group-head">
-          <h3 class="topic-group-title">${escapeHtml(group.courseTitle)}</h3>
-          <div class="topic-group-grade">${escapeHtml(group.subject)}</div>
-        </div>
-        <div class="topic-items">
-          ${group.topics.map(renderTopicCard).join("")}
-        </div>
-      </section>
-    `)
+
+    topicsByCourseId[key].topics.push(topic);
+  }
+
+  const groupedHtml = visibleCourses
+    .map((course) => {
+      const topicGroup = topicsByCourseId[course.id];
+
+      if (topicGroup) {
+        return `
+          <section class="topic-group">
+            <div class="topic-group-head">
+              <h3 class="topic-group-title">${escapeHtml(course.lessonSetName || course.title || "")}</h3>
+              <div class="topic-group-grade">${escapeHtml(course.gradeText || "")}</div>
+            </div>
+            <div class="topic-items">
+              ${topicGroup.topics.map(renderTopicCard).join("")}
+            </div>
+          </section>
+        `;
+      }
+
+      return `
+        <section class="topic-group topic-group-course-only">
+          <div class="topic-group-head">
+            <h3 class="topic-group-title">${escapeHtml(course.lessonSetName || course.title || "")}</h3>
+            <div class="topic-group-grade">${escapeHtml(course.gradeText || "")}</div>
+          </div>
+          <div class="topic-items">
+            ${renderCourseCard(course)}
+          </div>
+        </section>
+      `;
+    })
     .join("");
 
-  topicGroupList.innerHTML = groupedHtml || `<div class="empty-state">No matching topics found.</div>`;
+  topicGroupList.innerHTML = groupedHtml || `<div class="empty-state">No matching courses or topics found.</div>`;
 }
 
 function setActiveView(view) {
