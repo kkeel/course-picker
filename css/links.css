@@ -1,20 +1,28 @@
 .links-page {
-  background: #f7f2e8;
-  color: #252b25;
+  background: var(--brand-bg);
+  color: var(--brand-text);
+}
+
+.links-hero,
+.links-controls,
+.links-status,
+.links-content {
+  max-width: 1188px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .links-hero {
-  max-width: 920px;
-  margin: 0 auto 2rem;
+  margin-bottom: 2rem;
 }
 
 .links-kicker {
-  color: #596e5e;
-  font-size: 0.78rem;
+  color: var(--brand-dark);
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.45rem;
 }
 
 .links-title {
@@ -26,22 +34,21 @@
 }
 
 .links-controls {
-  max-width: 920px;
-  margin: 0 auto 1.4rem;
-  padding: 0.85rem;
-  border: 1px solid #d7d8cf;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.55);
+  margin-bottom: 1.8rem;
+  padding: 14px;
+  border: 1px solid var(--divider-subtle);
+  border-radius: 4px;
+  background: transparent;
   display: flex;
   align-items: end;
-  gap: 0.75rem;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .links-filter-label {
   display: grid;
-  gap: 0.3rem;
-  color: #596e5e;
+  gap: 6px;
+  color: var(--brand-dark);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -49,47 +56,40 @@
 }
 
 .links-select {
-  min-width: 170px;
-  border: 1px solid #cfd4c9;
-  border-radius: 999px;
-  background: #fff;
-  color: #252b25;
-  padding: 0.45rem 0.8rem;
-  font-size: 0.9rem;
+  min-width: 180px;
+  border: 1px solid var(--divider-subtle);
+  border-radius: 4px;
+  background: #ffffff;
+  color: var(--brand-text);
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 300;
   text-transform: none;
   letter-spacing: normal;
-  font-weight: 500;
 }
 
 .links-clear-btn {
-  border: 1px solid #596e5e;
-  color: #596e5e;
+  border: 1px solid var(--brand-dark);
+  color: var(--brand-dark);
   border-radius: 999px;
-  padding: 0.45rem 0.9rem;
-  font-size: 0.85rem;
-  font-weight: 600;
+  padding: 7px 14px;
+  font-size: 14px;
+  font-weight: 300;
   background: transparent;
 }
 
 .links-clear-btn:hover {
-  background: #596e5e;
-  color: #fff;
+  background: var(--brand-dark);
+  color: #ffffff;
 }
 
 .links-status {
-  max-width: 920px;
-  margin: 0 auto;
-  padding: 1rem;
-  border: 1px solid #d7d8cf;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.6);
-  color: #596e5e;
+  padding: 18px;
+  border: 1px solid var(--divider-subtle);
+  border-radius: 4px;
+  background: #ffffff;
+  color: var(--brand-dark);
   font-size: 0.95rem;
-}
-
-.links-content {
-  max-width: 920px;
-  margin: 0 auto;
 }
 
 .link-term {
@@ -97,30 +97,39 @@
 }
 
 .link-term-title {
-  background: #adb58f;
-  color: #fff;
-  font-size: 1.35rem;
-  font-weight: 700;
-  padding: 0.55rem 0.9rem;
-  margin-bottom: 0.8rem;
+  font-family: "Plantin MT Pro", Georgia, "Times New Roman", serif;
+  color: var(--brand-text);
+  font-size: 32px;
+  font-weight: 200;
+  line-height: 1.25;
+  margin: 0 0 12px;
+}
+
+.link-term-card {
+  border: 1px solid var(--divider-subtle);
+  border-radius: 12px;
+  background: #ffffff;
+  overflow: hidden;
 }
 
 .link-week {
   display: grid;
-  grid-template-columns: 92px minmax(0, 1fr);
-  border-top: 1px solid #a8aca2;
+  grid-template-columns: 108px minmax(0, 1fr);
+  border-top: 1px solid #e5e8e5;
 }
 
-.link-week:last-child {
-  border-bottom: 1px solid #a8aca2;
+.link-week:first-child {
+  border-top: none;
 }
 
 .link-week-label {
-  padding: 0.7rem 0.7rem 0.7rem 0.25rem;
-  color: #596e5e;
+  padding: 14px 14px;
+  color: var(--brand-dark);
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+  background: #fbfbf9;
 }
 
 .link-week-lessons {
@@ -129,46 +138,49 @@
 
 .link-lesson {
   display: grid;
-  grid-template-columns: 105px minmax(0, 1fr);
-  min-height: 2.35rem;
-  border-bottom: 1px solid #a8aca2;
-  background: rgba(255, 255, 255, 0.45);
+  grid-template-columns: 120px minmax(0, 1fr);
+  min-height: 44px;
+  border-bottom: 1px solid #e5e8e5;
   scroll-margin-top: 110px;
 }
 
 .link-lesson:last-child {
-  border-bottom: 0;
-}
-
-.link-lesson:nth-child(even) {
-  background: rgba(244, 246, 250, 0.72);
+  border-bottom: none;
 }
 
 .link-lesson-label {
-  padding: 0.55rem 0.8rem;
-  color: #9eaa7b;
+  padding: 12px 14px;
+  color: #8e9770;
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: 0.84rem;
 }
 
 .link-list {
-  padding: 0.45rem 0.25rem;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
-  gap: 0.65rem 1.15rem;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .link-list a {
-  color: #0054bd;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  font-size: 0.88rem;
-  line-height: 1.15;
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #f3f4f1;
+  border: 1px solid #e5e8e5;
+  color: #596e5e;
+  text-decoration: none;
+  font-size: 0.86rem;
+  line-height: 1.2;
 }
 
 .link-list a:hover {
-  color: #596e5e;
+  background: #fbfbf9;
+  border-color: #adb58f;
+  color: #445a4c;
 }
 
 @media (max-width: 700px) {
@@ -187,7 +199,7 @@
   }
 
   .link-week-label {
-    padding: 0.8rem 0.25rem 0.35rem;
+    padding: 12px 14px 8px;
   }
 
   .link-lesson {
@@ -195,10 +207,10 @@
   }
 
   .link-lesson-label {
-    padding-bottom: 0.15rem;
+    padding: 10px 14px 2px;
   }
 
   .link-list {
-    padding: 0.2rem 0.8rem 0.65rem;
+    padding: 4px 14px 12px;
   }
 }
