@@ -31,7 +31,16 @@
       >
     </section>
 
-    <section class="directory-grid">
+    <section class="directory-toggle" aria-label="Directory view options">
+      <button class="directory-toggle-button is-active" type="button" data-view="course">
+        By Course
+      </button>
+      <button class="directory-toggle-button" type="button" data-view="topic">
+        By Topic
+      </button>
+    </section>
+    
+    <section class="directory-view is-active" id="course-view" data-directory-view="course">
       <div class="directory-panel">
         <div class="directory-panel-head">
           <h2 class="directory-panel-title">By Course</h2>
@@ -43,7 +52,9 @@
           </div>
         </div>
       </div>
-
+    </section>
+    
+    <section class="directory-view" id="topic-view" data-directory-view="topic">
       <div class="directory-panel">
         <div class="directory-panel-head">
           <h2 class="directory-panel-title">By Topic</h2>
