@@ -1,0 +1,49 @@
+{
+  "id": "recr2688p8npaWI6Y",
+  "title": "New Testament",
+  "lessonSetName": "New Testament: Grades 3-6",
+  "subject": "Bible",
+  "gradeText": "GRADE(S): 3-6",
+  "sortId": "004.003.001.002",
+  "rowType": "topic",
+  "hasTopics": false,
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [
+    "Bible: Grade 3",
+    "Bible: Grades 4-6"
+  ],
+  "topicConnectionNames": [],
+  "updatedAt": "2026-05-08T23:43:02.274Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recgk9O3zLPSjRmwv",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 0,
+              "lessonLabel": "Lesson 1",
+              "title": "20m New Testament: Grades 3-6 - Lesson 1",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Bible Project: Book of John (First Half)",
+                  "url": "https://bibleproject.com/videos/john-1-12/"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

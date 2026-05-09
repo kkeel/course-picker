@@ -1,0 +1,73 @@
+{
+  "id": "recyDETWFIqaxfz3x",
+  "title": "Old Testament",
+  "lessonSetName": "Old Testament: Grades 3-6",
+  "subject": "Bible",
+  "gradeText": "GRADE(S): 3-6",
+  "sortId": "004.003.001.001",
+  "rowType": "topic",
+  "hasTopics": false,
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [
+    "Bible: Grade 3",
+    "Bible: Grades 4-6"
+  ],
+  "topicConnectionNames": [],
+  "updatedAt": "2026-05-08T23:43:02.273Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 3,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "recIHZVBKAQqhogG1",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 3,
+              "weekLabel": "Week 3",
+              "sequence": 5,
+              "sort": 0,
+              "lessonLabel": "Lesson 5",
+              "title": "20m Old Testament: Grades 3-6 - Lesson 5",
+              "anchor": "term-1-week-3-lesson-5",
+              "links": [
+                {
+                  "text": "Sound of the Shofar",
+                  "url": "https://youtu.be/D_giFmfaA10"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 4,
+          "weekLabel": "Week 4",
+          "lessons": [
+            {
+              "lessonId": "recLKX8FSBUKnzEK5",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 4,
+              "weekLabel": "Week 4",
+              "sequence": 8,
+              "sort": 0,
+              "lessonLabel": "Lesson 8",
+              "title": "20m Old Testament: Grades 3-6 - Lesson 8",
+              "anchor": "term-1-week-4-lesson-8",
+              "links": [
+                {
+                  "text": "Joshua Commanding the Sun to Stand Still Upon Gibeon",
+                  "url": "https://www.nga.gov/artworks/129865-joshua-commanding-sun-stand-still-upon-gibeon"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

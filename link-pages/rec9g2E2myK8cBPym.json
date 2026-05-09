@@ -1,0 +1,106 @@
+{
+  "id": "rec9g2E2myK8cBPym",
+  "title": "Geography",
+  "lessonSetName": "Geography: Grade 12",
+  "subject": "Geography",
+  "gradeText": "GRADE(S): 12",
+  "sortId": "007.012.001.000",
+  "rowType": "course",
+  "hasTopics": false,
+  "isStandaloneCourse": true,
+  "courseConnectionNames": [],
+  "topicConnectionNames": [],
+  "updatedAt": "2026-05-08T23:43:02.408Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recK6wcutoUPEXZjG",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 0,
+              "lessonLabel": "Lesson 1",
+              "title": "40m Geography: Grade 12 - Lesson 1",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Blank Map",
+                  "url": "https://mapchart.net/usa-and-canada.html"
+                },
+                {
+                  "text": "Idaho Batholith",
+                  "url": "https://www.mtpr.org/post/batholiths-born-earths-giant-slow-motion-lava-lamps"
+                }
+              ]
+            },
+            {
+              "lessonId": "recXyT4oG4P63UmCC",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 2,
+              "sort": 0,
+              "lessonLabel": "Lesson 2",
+              "title": "40m Geography: Grade 12 - Lesson 2",
+              "anchor": "term-1-week-1-lesson-2",
+              "links": [
+                {
+                  "text": "Carving the Canoe",
+                  "url": "https://www.youtube.com/watch?v=CipwviRWeCU&list=PLB197405C3BF9B4B9&index=6"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 2,
+      "term": "Term 2",
+      "weeks": [
+        {
+          "weekNumber": 13,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "reczhVJjiwjFdkSXy",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 13,
+              "weekLabel": "Week 1",
+              "sequence": 25,
+              "sort": 0,
+              "lessonLabel": "Lesson 25",
+              "title": "40m Geography: Grade 12 - Lesson 25",
+              "anchor": "term-2-week-13-lesson-25",
+              "links": [
+                {
+                  "text": "Original manuscript of the book",
+                  "url": "https://archive.org/details/authenticnarrati00rile/page/n7/mode/2up?view=theater"
+                },
+                {
+                  "text": "Map included in the original book",
+                  "url": "https://www.loc.gov/resource/g8200.ct002739/?r=-0.173,-0.044,1.045,0.512,0"
+                },
+                {
+                  "text": "Current map of the region",
+                  "url": "https://www.britannica.com/place/North-Africa"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

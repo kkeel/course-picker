@@ -1,0 +1,75 @@
+{
+  "id": "recboVDjU5FjNV0na",
+  "title": "Science",
+  "lessonSetName": "Science: Physics",
+  "subject": "Science",
+  "gradeText": "GRADE(S): 11-12",
+  "sortId": "016.011.002.000",
+  "rowType": "course",
+  "hasTopics": true,
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [],
+  "topicConnectionNames": [
+    "Nature Notebook: Grades 9-12",
+    "Nature Walks & Scouting: Grades 9-12",
+    "Physics Lessons",
+    "Physics Labs"
+  ],
+  "updatedAt": "2026-05-08T23:43:02.625Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 3,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "recOGW5CZw1XrGqhh",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 3,
+              "weekLabel": "Week 3",
+              "sequence": 17,
+              "sort": 100305,
+              "lessonLabel": "",
+              "title": "45m Physics Lessons - Lesson 17",
+              "anchor": "term-1-week-3-lesson-17",
+              "links": [
+                {
+                  "text": "Frames of Reference",
+                  "url": "https://archive.org/details/frames_of_reference"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 11,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "recb0PLX0rGCL37j9",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 11,
+              "weekLabel": "Week 11",
+              "sequence": 61,
+              "sort": 101101,
+              "lessonLabel": "",
+              "title": "45m Physics Lessons - Lesson 61",
+              "anchor": "term-1-week-11-lesson-61",
+              "links": [
+                {
+                  "text": "Sample the lab Report",
+                  "url": "https://labwrite.ncsu.edu/res/labreport/res-sample-labrep1.html"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

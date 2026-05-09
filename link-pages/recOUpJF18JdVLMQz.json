@@ -1,0 +1,75 @@
+{
+  "id": "recOUpJF18JdVLMQz",
+  "title": "Citizenship",
+  "lessonSetName": "Citizenship: Grade 11 (U.S.)",
+  "subject": "Citizenship",
+  "gradeText": "GRADE(S): 11",
+  "sortId": "005.011.001.000",
+  "rowType": "course",
+  "hasTopics": true,
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [],
+  "topicConnectionNames": [
+    "Econ/Civics: Grade 11 (U.S.)",
+    "Ethics: Part 5",
+    "Current Events: Grades 9-12",
+    "Community Read Alouds: Grades 1-12"
+  ],
+  "updatedAt": "2026-05-08T23:43:02.322Z",
+  "terms": [
+    {
+      "termNumber": 3,
+      "term": "Term 3",
+      "weeks": [
+        {
+          "weekNumber": 25,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "reczsxo3g60LfQjGd",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 25,
+              "sort": 302502,
+              "lessonLabel": "",
+              "title": "40m Econ/Civics: Grade 11 (U.S.) - Lesson 25",
+              "anchor": "term-3-week-25-lesson-25",
+              "links": [
+                {
+                  "text": "Marginal Tax Rate (TaxEDU)",
+                  "url": "https://taxfoundation.org/tax-basics/marginal-tax-rate/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 31,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "recXloVDX8737oq52",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 31,
+              "weekLabel": "Week 7",
+              "sequence": 31,
+              "sort": 303102,
+              "lessonLabel": "",
+              "title": "40m Econ/Civics: Grade 11 (U.S.) - Lesson 31",
+              "anchor": "term-3-week-31-lesson-31",
+              "links": [
+                {
+                  "text": "What is Accounting? (Aplos)",
+                  "url": "https://www.aplos.com/training/courses/fund-accounting-101/lessons/what-is-accounting/"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

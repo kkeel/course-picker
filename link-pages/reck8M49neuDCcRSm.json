@@ -1,0 +1,335 @@
+{
+  "id": "reck8M49neuDCcRSm",
+  "title": "Science",
+  "lessonSetName": "Science: Introduction to Engineering",
+  "subject": "Alt. Science Options",
+  "gradeText": "GRADE(S): 9-12",
+  "sortId": "017.009.002.000",
+  "rowType": "course",
+  "hasTopics": true,
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [],
+  "topicConnectionNames": [
+    "Nature Notebook: Grades 9-12",
+    "Nature Walks & Scouting: Grades 9-12",
+    "Introduction to Engineering Lessons",
+    "Introduction to Engineering Labs"
+  ],
+  "updatedAt": "2026-05-08T23:43:02.634Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "rectSJusvh1OBfQq8",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 5,
+              "sort": 100105,
+              "lessonLabel": "",
+              "title": "45m Introduction to Engineering Lessons - Lesson 5",
+              "anchor": "term-1-week-1-lesson-5",
+              "links": [
+                {
+                  "text": "TEDEd",
+                  "url": "https://youtu.be/XNEHP6qFeCs"
+                },
+                {
+                  "text": "Science News Explores",
+                  "url": "https://www.snexplores.org/"
+                }
+              ]
+            },
+            {
+              "lessonId": "recIzGQTddTMfDmwx",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100106,
+              "lessonLabel": "",
+              "title": "60m Introduction to Engineering Labs - Lesson 1",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "The Leaning Tower of Pasta",
+                  "url": "https://www.sciencebuddies.org/science-fair-projects/project-ideas/MatlSci_p009/materials-science/build-pasta-tower"
+                },
+                {
+                  "text": "Science Buddies",
+                  "url": "https://www.sciencebuddies.org/science-fair-projects/science-projects/high-school"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 4,
+          "weekLabel": "Week 4",
+          "lessons": [
+            {
+              "lessonId": "recZp5DEOCs0LQlv3",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 4,
+              "weekLabel": "Week 4",
+              "sequence": 16,
+              "sort": 100401,
+              "lessonLabel": "",
+              "title": "45m Introduction to Engineering Lessons - Lesson 16",
+              "anchor": "term-1-week-4-lesson-16",
+              "links": [
+                {
+                  "text": "The Story of Radia Pearlman's Spanning Tree",
+                  "url": "https://hiddenheroes.netguru.com/radia-perlman"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 6,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recBBJJpIxxHnnCsa",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 6,
+              "weekLabel": "Week 6",
+              "sequence": 6,
+              "sort": 100606,
+              "lessonLabel": "",
+              "title": "60m Introduction to Engineering Labs - Lesson 6",
+              "anchor": "term-1-week-6-lesson-6",
+              "links": [
+                {
+                  "text": "Pounding Papyrus",
+                  "url": "https://www.sciencebuddies.org/science-fair-projects/project-ideas/MatlSci_p040/materials-science/how-to-make-papyrus"
+                },
+                {
+                  "text": "Science Buddies",
+                  "url": "https://www.sciencebuddies.org/science-fair-projects/science-projects/high-school"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 2,
+      "term": "Term 2",
+      "weeks": [
+        {
+          "weekNumber": 13,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recxXTXqVhMDRt0Yt",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 13,
+              "weekLabel": "Week 1",
+              "sequence": 13,
+              "sort": 201306,
+              "lessonLabel": "",
+              "title": "60m Introduction to Engineering Labs - Lesson 13",
+              "anchor": "term-2-week-13-lesson-13",
+              "links": [
+                {
+                  "text": "Choosing the Best Gear Ratio for Maximum Bike Speed",
+                  "url": "https://www.sciencebuddies.org/science-fair-projects/project-ideas/ApMech_p043/mechanical-engineering/biking-best-gear-ratio-for-speed"
+                },
+                {
+                  "text": "Science Buddies",
+                  "url": "https://www.sciencebuddies.org/science-fair-projects/science-projects/high-school"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 17,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "rec8stKdcvmAfUzOE",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 17,
+              "weekLabel": "Week 5",
+              "sequence": 84,
+              "sort": 201704,
+              "lessonLabel": "",
+              "title": "45m Introduction to Engineering Lessons - Lesson 84",
+              "anchor": "term-2-week-17-lesson-84",
+              "links": [
+                {
+                  "text": "Nature as Measure Part 1",
+                  "url": "https://youtu.be/lAyMSp2aqCk"
+                },
+                {
+                  "text": "Nature as Measure Part 2",
+                  "url": "https://youtu.be/ureq1kXndUU?si=kFOPrxo7-a2Jnu0I"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 18,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "rec8TjCfqDX9OENFM",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 18,
+              "weekLabel": "Week 6",
+              "sequence": 89,
+              "sort": 201804,
+              "lessonLabel": "",
+              "title": "45m Introduction to Engineering Lessons - Lesson 89",
+              "anchor": "term-2-week-18-lesson-89",
+              "links": [
+                {
+                  "text": "Nature as Measure Part 3",
+                  "url": "https://youtu.be/D72lsRKLNlQ?si=oQjgSWx6e31tivgj"
+                },
+                {
+                  "text": "Nature as Measure Part 4",
+                  "url": "https://youtu.be/99H_pb4TO1U?si=YrRVEBwrel928ddB"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 19,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "recnvoXPAd1VIWrfc",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 19,
+              "weekLabel": "Week 7",
+              "sequence": 94,
+              "sort": 201904,
+              "lessonLabel": "",
+              "title": "45m Introduction to Engineering Lessons - Lesson 94",
+              "anchor": "term-2-week-19-lesson-94",
+              "links": [
+                {
+                  "text": "Using Nature's Genius in Architecture",
+                  "url": "https://youtu.be/3QZp6smeSQA?si=748bS7r55_QX9RqV"
+                }
+              ]
+            },
+            {
+              "lessonId": "reckqILJeCvIePD5n",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 19,
+              "weekLabel": "Week 7",
+              "sequence": 19,
+              "sort": 201906,
+              "lessonLabel": "",
+              "title": "60m Introduction to Engineering Labs - Lesson 19",
+              "anchor": "term-2-week-19-lesson-19",
+              "links": [
+                {
+                  "text": "Make Your Own Low-Power AM Radio Transmitter",
+                  "url": "https://www.sciencebuddies.org/science-fair-projects/project-ideas/Elec_p024/electricity-electronics/make-your-own-low-power-am-radio-transmitter"
+                },
+                {
+                  "text": "Science Buddies",
+                  "url": "https://www.sciencebuddies.org/science-fair-projects/science-projects/high-school"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 3,
+      "term": "Term 3",
+      "weeks": [
+        {
+          "weekNumber": 25,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recQb8H57IQzuR87v",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 25,
+              "sort": 302506,
+              "lessonLabel": "",
+              "title": "60m Introduction to Engineering Labs - Lesson 25",
+              "anchor": "term-3-week-25-lesson-25",
+              "links": [
+                {
+                  "text": "Living Loom",
+                  "url": "https://www.sciencebuddies.org/science-fair-projects/project-ideas/MatlSci_p053/materials-science/living-loom-plants-clothing"
+                },
+                {
+                  "text": "Obstacle-Detecting Cane with Arduino",
+                  "url": "https://www.sciencebuddies.org/science-fair-projects/project-ideas/Elec_p107/electricity-electronics/obstacle-detecting-walking-stick"
+                },
+                {
+                  "text": "Science Buddies",
+                  "url": "https://www.sciencebuddies.org/science-fair-projects/science-projects/high-school"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 30,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "rec9dm6ZJkr88dve4",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 30,
+              "weekLabel": "Week 6",
+              "sequence": 30,
+              "sort": 303006,
+              "lessonLabel": "",
+              "title": "60m Introduction to Engineering Labs - Lesson 30",
+              "anchor": "term-3-week-30-lesson-30",
+              "links": [
+                {
+                  "text": "Design Your Own Sports Drink",
+                  "url": "https://www.sciencebuddies.org/science-fair-projects/project-ideas/Chem_p053/chemistry/electrolyte-challenge-orange-juice-vs-sports-drink"
+                },
+                {
+                  "text": "Build a Magnetic Pet Door with Arduino",
+                  "url": "https://www.sciencebuddies.org/science-fair-projects/project-ideas/Elec_p104/electricity-electronics/magnetic-pet-door"
+                },
+                {
+                  "text": "Science Buddies",
+                  "url": "https://www.sciencebuddies.org/science-fair-projects/science-projects/high-school"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

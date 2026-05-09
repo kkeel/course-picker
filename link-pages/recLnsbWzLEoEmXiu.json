@@ -1,0 +1,48 @@
+{
+  "id": "recLnsbWzLEoEmXiu",
+  "title": "Microbiology Labs",
+  "lessonSetName": "Microbiology Labs",
+  "subject": "Alt. Science Options",
+  "gradeText": "GRADE(S): 12",
+  "sortId": "017.012.007.002",
+  "rowType": "topic",
+  "hasTopics": false,
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [
+    "Science: Microbiology"
+  ],
+  "topicConnectionNames": [],
+  "updatedAt": "2026-05-08T23:43:02.659Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recQpTppBt07NPlUc",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 0,
+              "lessonLabel": "Lesson 1",
+              "title": "60m Microbiology Labs - Lesson 1",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Home Scientist",
+                  "url": "https://www.thehomescientist.com/e-commerce/biology"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

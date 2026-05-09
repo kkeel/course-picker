@@ -1,0 +1,109 @@
+{
+  "id": "recSrFAD9GNrlguZw",
+  "title": "Citizenship",
+  "lessonSetName": "Citizenship: Grade 4",
+  "subject": "Citizenship",
+  "gradeText": "GRADE(S): 4",
+  "sortId": "005.004.001.000",
+  "rowType": "course",
+  "hasTopics": true,
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [],
+  "topicConnectionNames": [
+    "First Citizen Stories",
+    "Community Read Alouds: Grades 1-12"
+  ],
+  "updatedAt": "2026-05-08T23:43:02.295Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 3,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "recqDsrIsZdfUKS6D",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 3,
+              "weekLabel": "Week 3",
+              "sequence": 3,
+              "sort": 100301,
+              "lessonLabel": "",
+              "title": "20m First Citizen Stories - Lesson 3",
+              "anchor": "term-1-week-3-lesson-3",
+              "links": [
+                {
+                  "text": "Combat...Curiatii",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Cavalier_d%27Arpino_-_Combat_of_the_Horatii_and_the_Curiatii_-_Google_Art_Project.jpg"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 2,
+      "term": "Term 2",
+      "weeks": [
+        {
+          "weekNumber": 17,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "recgYlrsxbcFKLS8r",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 17,
+              "weekLabel": "Week 5",
+              "sequence": 17,
+              "sort": 201701,
+              "lessonLabel": "",
+              "title": "20m First Citizen Stories - Lesson 17",
+              "anchor": "term-2-week-17-lesson-17",
+              "links": [
+                {
+                  "text": "Etruscan Civilization",
+                  "url": "https://www.worldhistory.org/image/119/etruscan-civilization/"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 3,
+      "term": "Term 3",
+      "weeks": [
+        {
+          "weekNumber": 29,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "rechoD7BihZ0GnlaN",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 29,
+              "weekLabel": "Week 5",
+              "sequence": 29,
+              "sort": 302901,
+              "lessonLabel": "",
+              "title": "20m First Citizen Stories - Lesson 29",
+              "anchor": "term-3-week-29-lesson-29",
+              "links": [
+                {
+                  "text": "Roman Conquest of Italy",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Roman_conquest_of_Italy.PNG"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

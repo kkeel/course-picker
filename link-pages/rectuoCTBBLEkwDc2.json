@@ -1,0 +1,70 @@
+{
+  "id": "rectuoCTBBLEkwDc2",
+  "title": "Story of Arithmetic",
+  "lessonSetName": "Story of Arithmetic: Part 2",
+  "subject": "Math",
+  "gradeText": "GRADE(S): 6",
+  "sortId": "012.019.006.000",
+  "rowType": "course",
+  "hasTopics": false,
+  "isStandaloneCourse": true,
+  "courseConnectionNames": [],
+  "topicConnectionNames": [],
+  "updatedAt": "2026-05-08T23:43:02.525Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 6,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recDffU3PevZ0KEUP",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 6,
+              "weekLabel": "Week 6",
+              "sequence": 6,
+              "sort": 0,
+              "lessonLabel": "Lesson 6",
+              "title": "15m Story of Arithmetic: Part 2 - Lesson 6",
+              "anchor": "term-1-week-6-lesson-6",
+              "links": [
+                {
+                  "text": "Lattice Multiplication",
+                  "url": "https://www.youtube.com/watch?v=N6maCFqpbI0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 11,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "rec2L5ajGXZPk05H9",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 11,
+              "weekLabel": "Week 11",
+              "sequence": 11,
+              "sort": 0,
+              "lessonLabel": "Lesson 11",
+              "title": "15m Story of Arithmetic: Part 2 - Lesson 11",
+              "anchor": "term-1-week-11-lesson-11",
+              "links": [
+                {
+                  "text": "Three Methods of Division",
+                  "url": "https://www.youtube.com/watch?v=q74RKq6M7eU"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "id": "recOy5TZnUA7x2ynP",
+  "title": "General Science",
+  "lessonSetName": "General Science: Grade 1",
+  "subject": "Science",
+  "gradeText": "GRADE(S): 1",
+  "sortId": "016.001.002.001",
+  "rowType": "topic",
+  "hasTopics": false,
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [
+    "Science: Grade 1"
+  ],
+  "topicConnectionNames": [],
+  "updatedAt": "2026-05-08T23:43:02.572Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 10,
+          "weekLabel": "Week 10",
+          "lessons": [
+            {
+              "lessonId": "recPh2zo2nQzEWSLn",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 10,
+              "weekLabel": "Week 10",
+              "sequence": 10,
+              "sort": 0,
+              "lessonLabel": "Lesson 10",
+              "title": "15m General Science: Grade 1 - Lesson 10",
+              "anchor": "term-1-week-10-lesson-10",
+              "links": [
+                {
+                  "text": "Salt Dough Recipe",
+                  "url": "https://wehavekids.com/education/salt-dough-maps"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 11,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "recuFUjyCjylK79cy",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 11,
+              "weekLabel": "Week 11",
+              "sequence": 11,
+              "sort": 0,
+              "lessonLabel": "Lesson 11",
+              "title": "15m General Science: Grade 1 - Lesson 11",
+              "anchor": "term-1-week-11-lesson-11",
+              "links": [
+                {
+                  "text": "Salt Dough Recipe",
+                  "url": "https://wehavekids.com/education/salt-dough-maps"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 2,
+      "term": "Term 2",
+      "weeks": [
+        {
+          "weekNumber": 14,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "recnfu4HrR74ih242",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 14,
+              "weekLabel": "Week 2",
+              "sequence": 14,
+              "sort": 0,
+              "lessonLabel": "Lesson 14",
+              "title": "15m General Science: Grade 1 - Lesson 14",
+              "anchor": "term-2-week-14-lesson-14",
+              "links": [
+                {
+                  "text": "Fun DIY Bird Feeders",
+                  "url": "https://www.birds.cornell.edu/k12/make-your-own-feeder/"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

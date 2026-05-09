@@ -1,0 +1,130 @@
+{
+  "id": "recOw8kwV7HWQGVw5",
+  "title": "Natural History",
+  "lessonSetName": "Natural History: Grade 8",
+  "subject": "Science",
+  "gradeText": "GRADE(S): 8",
+  "sortId": "016.008.002.002",
+  "rowType": "topic",
+  "hasTopics": false,
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [
+    "Science: Grade 8"
+  ],
+  "topicConnectionNames": [],
+  "updatedAt": "2026-05-08T23:43:02.608Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 2,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "recM1RFGLMFbE35OQ",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 2,
+              "sort": 0,
+              "lessonLabel": "Lesson 2",
+              "title": "30m Natural History: Grade 8 - Lesson 2",
+              "anchor": "term-1-week-2-lesson-2",
+              "links": [
+                {
+                  "text": "Cellular Diversity Slides",
+                  "url": "https://web.archive.org/web/20250915072554/https://www.luc.edu/biology/111lab/3-microscopyandcellulardiversity/"
+                },
+                {
+                  "text": "Pouring Agar Plates",
+                  "url": "https://youtu.be/FgAq6btxXF8"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 5,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "recv77WRn4jtS8IhQ",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 5,
+              "weekLabel": "Week 5",
+              "sequence": 5,
+              "sort": 0,
+              "lessonLabel": "Lesson 5",
+              "title": "30m Natural History: Grade 8 - Lesson 5",
+              "anchor": "term-1-week-5-lesson-5",
+              "links": [
+                {
+                  "text": "How Viruses (and other germs) Spread",
+                  "url": "https://youtu.be/UbQ9Kl9CqUU"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 6,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recTr3KlaJX5N0a5l",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 6,
+              "weekLabel": "Week 6",
+              "sequence": 6,
+              "sort": 0,
+              "lessonLabel": "Lesson 6",
+              "title": "30m Natural History: Grade 8 - Lesson 6",
+              "anchor": "term-1-week-6-lesson-6",
+              "links": [
+                {
+                  "text": "Natural Selection",
+                  "url": "https://thekidshouldseethis.com/post/evolution-101-how-natural-selection-works-nova-pbs"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 2,
+      "term": "Term 2",
+      "weeks": [
+        {
+          "weekNumber": 24,
+          "weekLabel": "Week 12",
+          "lessons": [
+            {
+              "lessonId": "recJmYyVBIgxpQlPJ",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 24,
+              "weekLabel": "Week 12",
+              "sequence": 24,
+              "sort": 0,
+              "lessonLabel": "Lesson 24",
+              "title": "30m Natural History: Grade 8 - Lesson 24",
+              "anchor": "term-2-week-24-lesson-24",
+              "links": [
+                {
+                  "text": "Pouring Agar Plates",
+                  "url": "https://youtu.be/FgAq6btxXF8"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

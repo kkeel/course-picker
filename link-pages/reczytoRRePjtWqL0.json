@@ -1,0 +1,72 @@
+{
+  "id": "reczytoRRePjtWqL0",
+  "title": "Physics Lessons",
+  "lessonSetName": "Physics Lessons",
+  "subject": "Science",
+  "gradeText": "GRADE(S): 11-12",
+  "sortId": "016.011.002.001",
+  "rowType": "topic",
+  "hasTopics": false,
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [
+    "Science: Physics"
+  ],
+  "topicConnectionNames": [],
+  "updatedAt": "2026-05-08T23:43:02.627Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 3,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "recMyI6TENASzZpUW",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 3,
+              "weekLabel": "Week 3",
+              "sequence": 17,
+              "sort": 0,
+              "lessonLabel": "Lesson 17",
+              "title": "45m Physics Lessons - Lesson 17",
+              "anchor": "term-1-week-3-lesson-17",
+              "links": [
+                {
+                  "text": "Frames of Reference",
+                  "url": "https://archive.org/details/frames_of_reference"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 11,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "rec6OywX5LhkQH9Qt",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 11,
+              "weekLabel": "Week 11",
+              "sequence": 61,
+              "sort": 0,
+              "lessonLabel": "Lesson 61",
+              "title": "45m Physics Lessons - Lesson 61",
+              "anchor": "term-1-week-11-lesson-61",
+              "links": [
+                {
+                  "text": "Sample the lab Report",
+                  "url": "https://labwrite.ncsu.edu/res/labreport/res-sample-labrep1.html"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

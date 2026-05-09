@@ -1,0 +1,50 @@
+{
+  "id": "recLvvAD3qwZTJey2",
+  "title": "World History",
+  "lessonSetName": "World History: Grades 10-12",
+  "subject": "History",
+  "gradeText": "GRADE(S): 10-12",
+  "sortId": "008.010.002.002",
+  "rowType": "topic",
+  "hasTopics": false,
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [
+    "History: Grade 10 (Canada)",
+    "History: Grades 11-12 (Canada)",
+    "History: Grades 10-12 (U.S.)"
+  ],
+  "topicConnectionNames": [],
+  "updatedAt": "2026-05-08T23:43:02.439Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 3,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "recGyuu98KpU5Z9tv",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 3,
+              "weekLabel": "Week 3",
+              "sequence": 3,
+              "sort": 0,
+              "lessonLabel": "Lesson 3",
+              "title": "30m World History: Grades 10-12 - Lesson 3",
+              "anchor": "term-1-week-3-lesson-3",
+              "links": [
+                {
+                  "text": "Primary Source and Secondary Source",
+                  "url": "https://www.youtube.com/watch?v=CPQ95B95bWE"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

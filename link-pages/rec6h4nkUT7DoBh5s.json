@@ -1,0 +1,78 @@
+{
+  "id": "rec6h4nkUT7DoBh5s",
+  "title": "Food Science Labs",
+  "lessonSetName": "Food Science Labs",
+  "subject": "Alt. Science Options",
+  "gradeText": "GRADE(S): 9-12",
+  "sortId": "017.009.001.002",
+  "rowType": "topic",
+  "hasTopics": false,
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [
+    "Science: Food Science"
+  ],
+  "topicConnectionNames": [],
+  "updatedAt": "2026-05-08T23:43:02.632Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "rec2VjuiSCKFqtMwf",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 0,
+              "lessonLabel": "Lesson 1",
+              "title": "60m Food Science Labs - Lesson 1",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Mayonnaise and the Science of Emulsions",
+                  "url": "https://youtu.be/aNVryE8SRgU?feature=shared"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 2,
+      "term": "Term 2",
+      "weeks": [
+        {
+          "weekNumber": 17,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "rec7Z8ytQ6idFcFfx",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 17,
+              "weekLabel": "Week 5",
+              "sequence": 17,
+              "sort": 0,
+              "lessonLabel": "Lesson 17",
+              "title": "60m Food Science Labs - Lesson 17",
+              "anchor": "term-2-week-17-lesson-17",
+              "links": [
+                {
+                  "text": "Food Conservation",
+                  "url": "https://conservefood.org/collaborate-inspire/be-a-citizen-scientist/"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

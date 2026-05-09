@@ -1,0 +1,126 @@
+{
+  "id": "recAVmSJ61vSdTrfR",
+  "title": "Labs",
+  "lessonSetName": "Labs: Grade 8",
+  "subject": "Science",
+  "gradeText": "GRADE(S): 8",
+  "sortId": "016.008.002.003",
+  "rowType": "topic",
+  "hasTopics": false,
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [
+    "Science: Grade 8"
+  ],
+  "topicConnectionNames": [],
+  "updatedAt": "2026-05-08T23:43:02.609Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 7,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "reciN7uqayPyUs6Uy",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 7,
+              "weekLabel": "Week 7",
+              "sequence": 7,
+              "sort": 0,
+              "lessonLabel": "Lesson 7",
+              "title": "45m Labs: Grade 8 - Lesson 7",
+              "anchor": "term-1-week-7-lesson-7",
+              "links": [
+                {
+                  "text": "Step 1b How-to",
+                  "url": "https://vimeo.com/877222367/fb6ea73d48?share=copy"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 3,
+      "term": "Term 3",
+      "weeks": [
+        {
+          "weekNumber": 25,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recnVtu3iSrrP3hrq",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 25,
+              "sort": 0,
+              "lessonLabel": "Lesson 25",
+              "title": "45m Labs: Grade 8 - Lesson 25",
+              "anchor": "term-3-week-25-lesson-25",
+              "links": [
+                {
+                  "text": "Photoelectric Effect",
+                  "url": "https://vimeo.com/926065398?share=copy"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 32,
+          "weekLabel": "Week 8",
+          "lessons": [
+            {
+              "lessonId": "recj2CU90xX1SPFq4",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 32,
+              "weekLabel": "Week 8",
+              "sequence": 32,
+              "sort": 0,
+              "lessonLabel": "Lesson 32",
+              "title": "45m Labs: Grade 8 - Lesson 32",
+              "anchor": "term-3-week-32-lesson-32",
+              "links": [
+                {
+                  "text": "Lab 4 Einstein",
+                  "url": "https://vimeo.com/941813553/21d052d8ce?share=copy"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 35,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "recwGMMppY0X9BJI1",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 35,
+              "weekLabel": "Week 11",
+              "sequence": 35,
+              "sort": 0,
+              "lessonLabel": "Lesson 35",
+              "title": "45m Labs: Grade 8 - Lesson 35",
+              "anchor": "term-3-week-35-lesson-35",
+              "links": [
+                {
+                  "text": "Lab 5 Einstein",
+                  "url": "https://vimeo.com/942033084/22f2657bff?share=copy"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
