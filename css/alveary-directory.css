@@ -356,3 +356,13 @@ a {
   background: var(--brand-accent);
   color: var(--brand-text);
 }
+
+.topic-group-course-only {
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.topic-group-course-only .directory-card {
+  margin: 0;
+}
