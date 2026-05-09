@@ -1,0 +1,29 @@
+name: Build Alveary Directory
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-directory:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build directory JSON
+        run: node tools/build-alveary-directory.js
+
+      - name: Commit updated directory files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Build Alveary directory JSON
+          file_pattern: data/alveary-directory-index.json data/book-views/**
