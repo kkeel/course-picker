@@ -131,13 +131,7 @@ function render() {
 
       return `
         <section class="topic-group topic-group-course-only">
-          <div class="topic-group-head">
-            <h3 class="topic-group-title">${escapeHtml(course.lessonSetName || course.title || "")}</h3>
-            <div class="topic-group-grade">${escapeHtml(course.gradeText || "")}</div>
-          </div>
-          <div class="topic-items">
-            ${renderCourseCard(course)}
-          </div>
+          ${renderCourseCard(course)}
         </section>
       `;
     })
