@@ -95,21 +95,25 @@ function render() {
 
   const topicsByCourseId = {};
 
-  for (const topic of visibleTopics) {
-    const key = topic.courseId || "uncategorized";
-    if (!topicsByCourseId[key]) {
-      topicsByCourseId[key] = {
-        courseTitle: topic.courseTitle || "Other Topics",
-        subject: topic.subject || "",
-        topics: [],
-      };
+    for (const topic of visibleTopics) {
+      const key = topic.courseId || "uncategorized";
+    
+      if (!topicsByCourseId[key]) {
+        topicsByCourseId[key] = {
+          courseId: key,
+          courseTitle: topic.courseTitle || "Other Topics",
+          subject: topic.subject || "",
+          topics: [],
+        };
+      }
+    
+      topicsByCourseId[key].topics.push(topic);
     }
-    topicsByCourseId[key].topics.push(topic);
-  }
-
-  const groupedHtml = Object.values(topicsByCourseId)
-    .sort((a, b) => a.courseTitle.localeCompare(b.courseTitle))
-    .map((group) => `
+    
+    const groupedHtml = state.courses
+      .filter((course) => topicsByCourseId[course.id])
+      .map((course) => topicsByCourseId[course.id])
+      .map((group) => `
       <section class="topic-group">
         <div class="topic-group-head">
           <h3 class="topic-group-title">${escapeHtml(group.courseTitle)}</h3>
