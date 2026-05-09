@@ -1,1 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alveary Directory</title>
+  <link rel="stylesheet" href="./css/alveary-directory.css">
+</head>
+<body>
+  <main class="directory-shell">
+    <section class="directory-hero">
+      <div class="directory-kicker">Alveary Directory</div>
 
+      <div class="directory-title-row">
+        <h1 class="directory-title">Course & Topic Directory</h1>
+        <span class="directory-pill" id="directory-count">Loading…</span>
+      </div>
+
+      <p class="directory-subtext">
+        Browse courses and topics, then open the simplified book details page for each course or topic.
+      </p>
+    </section>
+
+    <section class="directory-toolbar">
+      <label class="directory-search-label" for="directory-search">Search</label>
+      <input
+        id="directory-search"
+        class="directory-search"
+        type="search"
+        placeholder="Search courses, topics, subjects, or grades..."
+      >
+    </section>
+
+    <section class="directory-grid">
+      <div class="directory-panel">
+        <div class="directory-panel-head">
+          <h2 class="directory-panel-title">By Course</h2>
+          <p class="directory-panel-note">Course book-detail pages include course-level and topic-level books.</p>
+        </div>
+        <div class="directory-panel-body">
+          <div id="course-list" class="course-list">
+            <div class="empty-state">Loading course list…</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="directory-panel">
+        <div class="directory-panel-head">
+          <h2 class="directory-panel-title">By Topic</h2>
+          <p class="directory-panel-note">Topic book-detail pages show only that topic’s books.</p>
+        </div>
+        <div class="directory-panel-body">
+          <div id="topic-group-list" class="topic-group-list">
+            <div class="empty-state">Loading topic groups…</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./js/alveary-directory.js"></script>
+</body>
+</html>
