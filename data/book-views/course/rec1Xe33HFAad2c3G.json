@@ -1,0 +1,55 @@
+{
+  "view": "course",
+  "id": "rec1Xe33HFAad2c3G",
+  "rowType": "course",
+  "title": "Latin 1 (Video Course)",
+  "subject": "Latin",
+  "gradeText": "GRADE(S): 7+",
+  "sortId": "",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "course",
+      "id": "rec1Xe33HFAad2c3G",
+      "title": "Latin 1 (Video Course)",
+      "books": [
+        {
+          "resourceId": "recVj46H5U86mjRzm",
+          "instanceKey": "course:rec1Xe33HFAad2c3G:resource:recVj46H5U86mjRzm",
+          "title": "Alveary Exclusive Cambridge Latin Unit 1 Online Course",
+          "author": "Angela Reed",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recVj46H5U86mjRzm.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Video lessons taught by a master teacher.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "rec9bb4GaH8Ii0X9p",
+          "instanceKey": "course:rec1Xe33HFAad2c3G:resource:rec9bb4GaH8Ii0X9p",
+          "title": "North American Cambridge Latin Unit 1 5th Ed. Student Book",
+          "author": "Cambridge School Classics Project",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec9bb4GaH8Ii0X9p.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This program continues presenting narrative stories in Latin, grammar exercises, vocabulary, and historical notes in an engaging way.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Latin 1 (Independent Study)\nLatin 1 (Video Course)",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

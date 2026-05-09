@@ -1,0 +1,87 @@
+{
+  "view": "course",
+  "id": "recmP9cJzBYzOrJ3h",
+  "rowType": "course",
+  "title": "PE: Grades 1-3",
+  "subject": "Physical Education",
+  "gradeText": "GRADE(S): 1-3",
+  "sortId": "",
+  "bookCount": 3,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recAuJptpZmgrYS9m",
+      "title": "Playground Songs & Rhymes",
+      "books": [
+        {
+          "resourceId": "recZlQfkeOi88FxOK",
+          "instanceKey": "course:recmP9cJzBYzOrJ3h:topic:recAuJptpZmgrYS9m:resource:recZlQfkeOi88FxOK",
+          "title": "The Book of Playground Songs & Rhymes",
+          "author": "John Feierabend",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recZlQfkeOi88FxOK.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This book contains traditional children's songs and rhymes used to teach rhythm, jump rope, and hand-eye coordination.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Jump Rope\nPlayground Songs & Rhymes",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recJlZCpkXG6vSIdC",
+      "title": "Jump Rope",
+      "books": [
+        {
+          "resourceId": "recZlQfkeOi88FxOK",
+          "instanceKey": "course:recmP9cJzBYzOrJ3h:topic:recJlZCpkXG6vSIdC:resource:recZlQfkeOi88FxOK",
+          "title": "The Book of Playground Songs & Rhymes",
+          "author": "John Feierabend",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recZlQfkeOi88FxOK.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This book contains traditional children's songs and rhymes used to teach rhythm, jump rope, and hand-eye coordination.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Jump Rope\nPlayground Songs & Rhymes",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recAB9geLqGyqTDkg",
+      "title": "Folk Dancing",
+      "books": [
+        {
+          "resourceId": "reciobkv0sISyFiIz",
+          "instanceKey": "course:recmP9cJzBYzOrJ3h:topic:recAB9geLqGyqTDkg:resource:reciobkv0sISyFiIz",
+          "title": "The Book of Song Dances",
+          "author": "John Feierabend",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reciobkv0sISyFiIz.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This book uses traditional songs, rhymes, and dances to teach children basic dance steps.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

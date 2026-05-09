@@ -1,0 +1,123 @@
+{
+  "view": "course",
+  "id": "recq5GiLldMnyhmk8",
+  "rowType": "course",
+  "title": "Language Study: Grade 7",
+  "subject": "English",
+  "gradeText": "GRADE(S): 7",
+  "sortId": "",
+  "bookCount": 5,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recC44bP2oeAkcAkU",
+      "title": "Grammar/Comp: Grade 7",
+      "books": [
+        {
+          "resourceId": "rec7YiIdnVzoA4k8L",
+          "instanceKey": "course:recq5GiLldMnyhmk8:topic:recC44bP2oeAkcAkU:resource:rec7YiIdnVzoA4k8L",
+          "title": "Paragraph Town",
+          "author": "Michael Clay Thompson",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec7YiIdnVzoA4k8L.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This program brings story, delight, and ideas to the study of grammar. Paragraph Town gives children an entertaining and comprehensive introduction to the paragraph. With a narrative background, students explore the importance of organizing sentences into clear, orderly paragraphs with dialogue, description, comparison, punctuation, and grammar, as well as a look at the significance of the sounds of language. Structured exercises and assignments allow students to practice integrating these ideas into their writing.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recEx5DD52x56YiGs",
+          "instanceKey": "course:recq5GiLldMnyhmk8:topic:recC44bP2oeAkcAkU:resource:recEx5DD52x56YiGs",
+          "title": "Practice Town",
+          "author": "Michael Clay Thompson",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recEx5DD52x56YiGs.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This workbook accompanies Grammar Town and contains practice sentences.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Grammar: Grade 6\nGrammar/Comp: Grade 7",
+          "links": []
+        },
+        {
+          "resourceId": "recKxPfKgd4LT9wqz",
+          "instanceKey": "course:recq5GiLldMnyhmk8:topic:recC44bP2oeAkcAkU:resource:recKxPfKgd4LT9wqz",
+          "title": "Practice Town Teacher Manual (select pages)",
+          "author": "Michael Clay Thompson",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recKxPfKgd4LT9wqz.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Grammar: Grade 6\nGrammar/Comp: Grade 7",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "rec76wOGUwWCi0G01",
+      "title": "Dictation: Grade 7",
+      "books": [
+        {
+          "resourceId": "reczjR5Ti2xYJF1XT",
+          "instanceKey": "course:recq5GiLldMnyhmk8:topic:rec76wOGUwWCi0G01:resource:reczjR5Ti2xYJF1XT",
+          "title": "Grade 7 Copywork & Dictation Book",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reczjR5Ti2xYJF1XT.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Copywork and dictation passages taken from the books and poems from this year.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Copywork: Grade 7\nDictation: Grade 7",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recmmyaYj7XBNHmel",
+      "title": "Copywork: Grade 7",
+      "books": [
+        {
+          "resourceId": "reczjR5Ti2xYJF1XT",
+          "instanceKey": "course:recq5GiLldMnyhmk8:topic:recmmyaYj7XBNHmel:resource:reczjR5Ti2xYJF1XT",
+          "title": "Grade 7 Copywork & Dictation Book",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reczjR5Ti2xYJF1XT.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Copywork and dictation passages taken from the books and poems from this year.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Copywork: Grade 7\nDictation: Grade 7",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "view": "course",
+  "id": "rec9gyYrqX7Oeugm6",
+  "rowType": "course",
+  "title": "Science: Grade 7",
+  "subject": "Science",
+  "gradeText": "GRADE(S): 7",
+  "sortId": "",
+  "bookCount": 3,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "rec0dGYE4JfbHgtMM",
+      "title": "General Science: Grade 7",
+      "books": [
+        {
+          "resourceId": "recvcsBBJOzNPiZf1",
+          "instanceKey": "course:rec9gyYrqX7Oeugm6:topic:rec0dGYE4JfbHgtMM:resource:recvcsBBJOzNPiZf1",
+          "title": "The Story of Science: Aristotle Leads the Way",
+          "author": "Joy Hakim",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recvcsBBJOzNPiZf1.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "This series situates facts and theories within their historical, political, and cultural context.  The author tells the story of (physical) science as a process of developing knowledge that is intimately tied to human society. Ms. Hakim challenges readers to consider differing viewpoints, so as to understand science with uncommon wholeness.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recqkaSHIvH4dpBWk",
+      "title": "Natural History: Grade 7",
+      "books": [
+        {
+          "resourceId": "rec6TGftg4CSilmo5",
+          "instanceKey": "course:rec9gyYrqX7Oeugm6:topic:recqkaSHIvH4dpBWk:resource:rec6TGftg4CSilmo5",
+          "title": "The Girl Who Drew Butterflies: How Maria Merian's Art Changed Science",
+          "author": "Joyce Sidman",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec6TGftg4CSilmo5.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "One of the first naturalists to observe live insects directly, Maria Sibylla Merian was also one of the first to document the metamorphosis of the butterfly and the close relationships between insects and plants. In this richly illustrated nonfiction biography, readers meet the \"mother\" of ecology, a woman who flouted convention in the pursuit of knowledge.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recT561H8Zw38p89v",
+      "title": "Labs: Grade 7",
+      "books": [
+        {
+          "resourceId": "recqjGUmdZW03rnih",
+          "instanceKey": "course:rec9gyYrqX7Oeugm6:topic:recT561H8Zw38p89v:resource:recqjGUmdZW03rnih",
+          "title": "Science: Grade 7 Lab Book",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recqjGUmdZW03rnih.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This document contains all the labs for Grade 7, including instructions, procedures, and leveled guidance for analyses and using a lab notebook. The lab book builds upon those from Form 2 (Grades 4-6) but also supports those new to the program in Form 3 (Grades 7-8). It has been designed for a gentler transition to high school science, as well.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

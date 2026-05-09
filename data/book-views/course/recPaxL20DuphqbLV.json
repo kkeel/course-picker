@@ -1,0 +1,91 @@
+{
+  "view": "course",
+  "id": "recPaxL20DuphqbLV",
+  "rowType": "course",
+  "title": "Upper French: Level 1",
+  "subject": "Modern Language",
+  "gradeText": "GRADE(S): 7+",
+  "sortId": "",
+  "bookCount": 4,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recPaxL20DuphqbLV",
+      "title": "Upper French: Level 1",
+      "books": [
+        {
+          "resourceId": "recIUAUGnpcfosU6f",
+          "instanceKey": "course:recPaxL20DuphqbLV:resource:recIUAUGnpcfosU6f",
+          "title": "Primary French Course Part I",
+          "author": "Otto Siepmann",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recIUAUGnpcfosU6f.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This book teaches vocabulary and grammar through reading, writing, and spoken exercises.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Upper French: Level 1\nUpper French: Level 2\nUpper French: Level 3\nUpper French: Level 4",
+          "links": []
+        },
+        {
+          "resourceId": "recFWdDhTT1KrnqSc",
+          "instanceKey": "course:recPaxL20DuphqbLV:resource:recFWdDhTT1KrnqSc",
+          "title": "French: Level 1 SoundCloud Playlist",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recFWdDhTT1KrnqSc.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Audiobook",
+          "rationale": "Contains audio recordings of lesson readings, interactive readings, and spoken grammar exercises.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "reci94baKY9pb8aZM",
+          "instanceKey": "course:recPaxL20DuphqbLV:resource:reci94baKY9pb8aZM",
+          "title": "French: Level 1 Student Notebook",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reci94baKY9pb8aZM.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Contains markable copies of lesson readings, vocabulary lists, and more. Teacher edition includes answers to reading questions and grammar exercises.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "rec14CaZovaklt4J5",
+          "instanceKey": "course:recPaxL20DuphqbLV:resource:rec14CaZovaklt4J5",
+          "title": "Les plus belles fables de La Fontaine",
+          "author": "Jean de La Fontaine",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec14CaZovaklt4J5.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

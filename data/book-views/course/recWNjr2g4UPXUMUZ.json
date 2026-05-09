@@ -1,0 +1,105 @@
+{
+  "view": "course",
+  "id": "recWNjr2g4UPXUMUZ",
+  "rowType": "course",
+  "title": "Science: Grade 8",
+  "subject": "Science",
+  "gradeText": "GRADE(S): 8",
+  "sortId": "",
+  "bookCount": 4,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "reckqMDHssrGrXRnM",
+      "title": "General Science: Grade 8",
+      "books": [
+        {
+          "resourceId": "recHffB9SrAain2dT",
+          "instanceKey": "course:recWNjr2g4UPXUMUZ:topic:reckqMDHssrGrXRnM:resource:recHffB9SrAain2dT",
+          "title": "The Story of Science: Newton At the Center",
+          "author": "Joy Hakim",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recHffB9SrAain2dT.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "This series situates facts and theories within their historical, political, and cultural context.  The author tells the story of (physical) science as a process of developing knowledge that is intimately tied to human society. Ms. Hakim challenges readers to consider differing viewpoints, so as to understand science with uncommon wholeness.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recv5KqOdEeCxonij",
+          "instanceKey": "course:recWNjr2g4UPXUMUZ:topic:reckqMDHssrGrXRnM:resource:recv5KqOdEeCxonij",
+          "title": "The Story of Science: Einstein Adds a New Dimension",
+          "author": "Joy Hakim",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recv5KqOdEeCxonij.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "This series situates facts and theories within their historical, political, and cultural context.  The author tells the story of (physical) science as a process of developing knowledge that is intimately tied to human society. Ms. Hakim challenges readers to consider differing viewpoints, so as to understand science with uncommon wholeness.",
+          "notes": "",
+          "scopeText": "Term 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "rec1GA7WscJbTd61i",
+      "title": "Natural History: Grade 8",
+      "books": [
+        {
+          "resourceId": "recLDheT0FVaeTgRR",
+          "instanceKey": "course:recWNjr2g4UPXUMUZ:topic:rec1GA7WscJbTd61i:resource:recLDheT0FVaeTgRR",
+          "title": "Invincible Microbe",
+          "author": "Jim Murphy",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recLDheT0FVaeTgRR.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Murphy tells the story of an ancient and elusive microbe, weaving together ideas from science, history, and ethics. This author is a master storyteller, and we can't imagine a better way to continue our journey through natural history and into the very timely topic of microbiology and infectious disease.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recy9WbCqz2fs07iL",
+      "title": "Labs: Grade 8",
+      "books": [
+        {
+          "resourceId": "recYKUGOvi3S9a3YW",
+          "instanceKey": "course:recWNjr2g4UPXUMUZ:topic:recy9WbCqz2fs07iL:resource:recYKUGOvi3S9a3YW",
+          "title": "Science: Grade 8 Lab Book",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recYKUGOvi3S9a3YW.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This document contains all the labs for Grade 8, including instructions, procedures, and leveled guidance for analyses and using a lab notebook. The lab book is designed to provide a foundation for the high school disciplines.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

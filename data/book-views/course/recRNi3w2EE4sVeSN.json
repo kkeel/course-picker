@@ -1,0 +1,91 @@
+{
+  "view": "course",
+  "id": "recRNi3w2EE4sVeSN",
+  "rowType": "course",
+  "title": "Upper Spanish: Level 1",
+  "subject": "Modern Language",
+  "gradeText": "GRADE(S): 7+",
+  "sortId": "",
+  "bookCount": 4,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recRNi3w2EE4sVeSN",
+      "title": "Upper Spanish: Level 1",
+      "books": [
+        {
+          "resourceId": "rec2ZcWvxi3oeBNF8",
+          "instanceKey": "course:recRNi3w2EE4sVeSN:resource:rec2ZcWvxi3oeBNF8",
+          "title": "The Tree is Older Than You Are: A Bilingual Gathering of Poems & Stories from Mexico with Paintings by Mexican Artists",
+          "author": "Naomi Shihab Nye",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec2ZcWvxi3oeBNF8.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Contains poems in Spanish and English to give students deeper insight into the culture.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Upper Spanish: Level 1\nUpper Spanish: Level 2\nUpper Spanish: Level 3\nUpper Spanish: Level 4\nUpper Spanish: Level 5",
+          "links": []
+        },
+        {
+          "resourceId": "recvIZ8k425sk5T1z",
+          "instanceKey": "course:recRNi3w2EE4sVeSN:resource:recvIZ8k425sk5T1z",
+          "title": "The Harvest Birds/Los pájaros de la cosecha",
+          "author": "Blanca Lopez de Mariscal",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recvIZ8k425sk5T1z.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This is a story for beginning readers in Spanish that showcases the traditions of rural Mexico.",
+          "notes": "",
+          "scopeText": "Term 2 (Partial Term)\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recPaDnMglpf5AQiw",
+          "instanceKey": "course:recRNi3w2EE4sVeSN:resource:recPaDnMglpf5AQiw",
+          "title": "Spanish: Level 1 SoundCloud Playlist",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recPaDnMglpf5AQiw.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Audiobook",
+          "rationale": "Contains audio recordings of the vignette stories.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recLJbFpdXapVzj8X",
+          "instanceKey": "course:recRNi3w2EE4sVeSN:resource:recLJbFpdXapVzj8X",
+          "title": "Spanish: Level 1 Student Notebook",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recLJbFpdXapVzj8X.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Contains markable copies of lesson readings, vocabulary lists, and answers to reading questions and grammar exercises.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

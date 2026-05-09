@@ -1,0 +1,209 @@
+{
+  "view": "course",
+  "id": "recSKUZb0ksqYDJc1",
+  "rowType": "course",
+  "title": "Music: Level 4",
+  "subject": "Music",
+  "gradeText": "GRADE(S): 5+",
+  "sortId": "",
+  "bookCount": 9,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recSKUZb0ksqYDJc1",
+      "title": "Music: Level 4",
+      "books": [
+        {
+          "resourceId": "recpZeVli0urkjOFH",
+          "instanceKey": "course:recSKUZb0ksqYDJc1:resource:recpZeVli0urkjOFH",
+          "title": "Our Work: Grades 4-6",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recpZeVli0urkjOFH.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This is a compilation of the year's Recitation, Picture Study, Hymns, Spirituals, and Folk Songs. Line drawings of artifacts from the historical time period are also included to provide students with inspiration for their Book of Centuries. We recommend printing or purchasing a copy for each student.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Picture Study\nRecitation: Grades 4-6\nMusic: Level 3\nMusic: Level 4\nMusic: Level 5",
+          "links": []
+        },
+        {
+          "resourceId": "rectZLk9X7Vjlf8dG",
+          "instanceKey": "course:recSKUZb0ksqYDJc1:resource:rectZLk9X7Vjlf8dG",
+          "title": "Hymns, Spirituals, & Folk Songs PDF",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rectZLk9X7Vjlf8dG.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": true,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Selections are also included in Our Work packets for Grades 1-12. Audio lessons and other resources are available in lesson plans.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Music: Intro\nMusic: Level 1\nMusic: Level 2\nMusic: Level 3\nMusic: Level 4\nMusic: Level 5",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recc7G1pOR69hhyYk",
+      "title": "Composer Study",
+      "books": [
+        {
+          "resourceId": "recpKgqZdLHd9C6gr",
+          "instanceKey": "course:recSKUZb0ksqYDJc1:topic:recc7G1pOR69hhyYk:resource:recpKgqZdLHd9C6gr",
+          "title": "Playlist for the Year",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recpKgqZdLHd9C6gr.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Audiobook",
+          "rationale": "",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "rec4HK1TtsMfh9Dp0",
+          "instanceKey": "course:recSKUZb0ksqYDJc1:topic:recc7G1pOR69hhyYk:resource:rec4HK1TtsMfh9Dp0",
+          "title": "Mussorgsky's Pictures at an Exhibition",
+          "author": "Anna Harwell Celenza",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec4HK1TtsMfh9Dp0.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": true,
+          "chooseOne": true,
+          "formatTags": "Ebook",
+          "rationale": "This book tells the sad but touching story behind Mussorgysky's famous composition to honor his friend's paintings.",
+          "notes": "",
+          "scopeText": "Term 3 (Partial Term)",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recg3YhtkOzEkOEGt",
+          "instanceKey": "course:recSKUZb0ksqYDJc1:topic:recc7G1pOR69hhyYk:resource:recg3YhtkOzEkOEGt",
+          "title": "Song in a Rainstorm: The Story of Musical Prodigy Thomas \"Blind Tom\" Wiggins",
+          "author": "Glenda Armand",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recg3YhtkOzEkOEGt.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": true,
+          "formatTags": "Ebook",
+          "rationale": "\"Had he been born in our time,\" the author writes, \"he might have been called an autistic musical savant.\" Students will enjoy this picture book biography of an incredible American performer and composer during the last half of the 19th century.",
+          "notes": "",
+          "scopeText": "Term 3 (Partial Term)",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recd3yaMAQJpdn7CR",
+      "title": "Hymns & Spirituals",
+      "books": [
+        {
+          "resourceId": "recDLRBTspENoopYR",
+          "instanceKey": "course:recSKUZb0ksqYDJc1:topic:recd3yaMAQJpdn7CR:resource:recDLRBTspENoopYR",
+          "title": "Our Hymns, Our Heritage",
+          "author": "David & Barbara Leeman",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recDLRBTspENoopYR.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This student hymnal contains multi-denominational hymns organized by the church year, with brief histories of the music and lyrics, bios of the writers, related Scripture, and other ideas to meditate upon.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "rec3VWzJd0IeiTO7V",
+      "title": "Folk Songs",
+      "books": [
+        {
+          "resourceId": "recPb5gHeLu8G3EXl",
+          "instanceKey": "course:recSKUZb0ksqYDJc1:topic:rec3VWzJd0IeiTO7V:resource:recPb5gHeLu8G3EXl",
+          "title": "Like a Bird: The Art of the American Slave Song",
+          "author": "Cynthia Grady",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recPb5gHeLu8G3EXl.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This is a collection of African American spirituals, along with their stories and beautiful illustrations.",
+          "notes": "",
+          "scopeText": "Term 1",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "rechMtP1V1XgZ53pi",
+      "title": "Sol-fa: Level 4",
+      "books": [
+        {
+          "resourceId": "rec9qv7gi6P3lkl9t",
+          "instanceKey": "course:recSKUZb0ksqYDJc1:topic:rechMtP1V1XgZ53pi:resource:rec9qv7gi6P3lkl9t",
+          "title": "Sol-fa Level 4 Audio Lessons",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec9qv7gi6P3lkl9t.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Audiobook",
+          "rationale": "",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recFsxXQ19Hzb20n3",
+          "instanceKey": "course:recSKUZb0ksqYDJc1:topic:rechMtP1V1XgZ53pi:resource:recFsxXQ19Hzb20n3",
+          "title": "Fifty Steps in Sight-Singing",
+          "author": "Arthur Somervell",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recFsxXQ19Hzb20n3.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Classic text to teach sight-singing.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Sol-fa: Level 3\nSol-fa: Level 4\nSol-fa: Level 5",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "view": "topic",
+  "id": "reckqMDHssrGrXRnM",
+  "rowType": "topic",
+  "title": "General Science: Grade 8",
+  "subject": "Science",
+  "gradeText": "GRADE(S): 8",
+  "sortId": "",
+  "courseId": "recWNjr2g4UPXUMUZ",
+  "courseTitle": "Science: Grade 8",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "reckqMDHssrGrXRnM",
+      "title": "General Science: Grade 8",
+      "books": [
+        {
+          "resourceId": "recHffB9SrAain2dT",
+          "instanceKey": "course:recWNjr2g4UPXUMUZ:topic:reckqMDHssrGrXRnM:resource:recHffB9SrAain2dT",
+          "title": "The Story of Science: Newton At the Center",
+          "author": "Joy Hakim",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recHffB9SrAain2dT.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "This series situates facts and theories within their historical, political, and cultural context.  The author tells the story of (physical) science as a process of developing knowledge that is intimately tied to human society. Ms. Hakim challenges readers to consider differing viewpoints, so as to understand science with uncommon wholeness.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recv5KqOdEeCxonij",
+          "instanceKey": "course:recWNjr2g4UPXUMUZ:topic:reckqMDHssrGrXRnM:resource:recv5KqOdEeCxonij",
+          "title": "The Story of Science: Einstein Adds a New Dimension",
+          "author": "Joy Hakim",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recv5KqOdEeCxonij.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "This series situates facts and theories within their historical, political, and cultural context.  The author tells the story of (physical) science as a process of developing knowledge that is intimately tied to human society. Ms. Hakim challenges readers to consider differing viewpoints, so as to understand science with uncommon wholeness.",
+          "notes": "",
+          "scopeText": "Term 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "view": "topic",
+  "id": "recyAMOsJVfBdGg0r",
+  "rowType": "topic",
+  "title": "Church History: Grades 10-12",
+  "subject": "Bible",
+  "gradeText": "GRADE(S): 10-12",
+  "sortId": "",
+  "courseId": "recK4WumjdpFqO8pD",
+  "courseTitle": "Bible: Grades 10-11",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recyAMOsJVfBdGg0r",
+      "title": "Church History: Grades 10-12",
+      "books": [
+        {
+          "resourceId": "recDkUYOYpWCv6KlP",
+          "instanceKey": "course:recK4WumjdpFqO8pD:topic:recyAMOsJVfBdGg0r:resource:recDkUYOYpWCv6KlP",
+          "title": "When the Church Was Young: Voices of the Early Fathers",
+          "author": "Marcellino D'Ambrosio",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recDkUYOYpWCv6KlP.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "The first half of the book contains biographies from early church history covered in this rotation.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "rececmL6Rkxib8hs4",
+          "instanceKey": "course:recK4WumjdpFqO8pD:topic:recyAMOsJVfBdGg0r:resource:rececmL6Rkxib8hs4",
+          "title": "Turning Points in American Church History",
+          "author": "Elesha J. Coffman",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rececmL6Rkxib8hs4.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "An insightful look at some key moments leading up to, during, and following our current history rotation to give more context and perspective on how these events have impacted the American church.",
+          "notes": "",
+          "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)\nTerm 3 (Partial Term)",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

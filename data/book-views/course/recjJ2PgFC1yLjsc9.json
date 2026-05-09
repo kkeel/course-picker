@@ -1,0 +1,55 @@
+{
+  "view": "course",
+  "id": "recjJ2PgFC1yLjsc9",
+  "rowType": "course",
+  "title": "Shakespeare: Beginner Track",
+  "subject": "Literature",
+  "gradeText": "GRADE(S): 4-8",
+  "sortId": "",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recjJ2PgFC1yLjsc9",
+      "title": "Shakespeare: Beginner Track",
+      "books": [
+        {
+          "resourceId": "recBStS3hyQ2Ed7qR",
+          "instanceKey": "course:recjJ2PgFC1yLjsc9:resource:recBStS3hyQ2Ed7qR",
+          "title": "A Midsummer Night's Dream (Audio recording)",
+          "author": "Arkangel",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recBStS3hyQ2Ed7qR.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": true,
+          "chooseOne": false,
+          "formatTags": "Audiobook",
+          "rationale": "Hearing a play being performed often helps students with comprehension. These professional recordings are superb.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recYINXIQIeHIhvxC",
+          "instanceKey": "course:recjJ2PgFC1yLjsc9:resource:recYINXIQIeHIhvxC",
+          "title": "A Midsummer Night's Dream",
+          "author": "William Shakespeare",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recYINXIQIeHIhvxC.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "One of Shakespeare’s most popular plays, A Midsummer Night’s Dream is a comedy set in Greece during the 12th century. The magical setting of this play is the city of Athens and the nearby enchanted woods where fairies and their mischief reign in the moonlight.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

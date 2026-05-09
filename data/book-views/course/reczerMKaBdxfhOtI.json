@@ -1,0 +1,55 @@
+{
+  "view": "course",
+  "id": "reczerMKaBdxfhOtI",
+  "rowType": "course",
+  "title": "Citizenship: Grade 4",
+  "subject": "Citizenship",
+  "gradeText": "GRADE(S): 4",
+  "sortId": "",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recK6iLGNWoRKLZKj",
+      "title": "First Citizen Stories",
+      "books": [
+        {
+          "resourceId": "reca6JrCf4DtEZII1",
+          "instanceKey": "course:reczerMKaBdxfhOtI:topic:recK6iLGNWoRKLZKj:resource:reca6JrCf4DtEZII1",
+          "title": "Historical Atlas of the World 6th Ed.",
+          "author": "Rand McNally",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reca6JrCf4DtEZII1.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Presents important periods and turning points in 5,000 years of history. Thematic maps include literacy, languages, religions, and more. Used across curriculum.",
+          "notes": "",
+          "scopeText": "Term 1 (One Lesson)\nTerm 3 (One Lesson)",
+          "sharedText": "Resources: Grades 4-6\nResources: Grades 7-8\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nStory of Arithmetic: Part 1\nStory of Arithmetic: Part 2\nStory of Geometry: Part 1\nPlutarch: Grades 6-8\nFirst Citizen Stories",
+          "links": []
+        },
+        {
+          "resourceId": "recxfzP2djr76WzJM",
+          "instanceKey": "course:reczerMKaBdxfhOtI:topic:recK6iLGNWoRKLZKj:resource:recxfzP2djr76WzJM",
+          "title": "Stories From the History of Rome",
+          "author": "Emily Beesly",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recxfzP2djr76WzJM.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This is a narrative introduction to the stories students will read later in Plutarch's Lives.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

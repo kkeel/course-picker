@@ -1,0 +1,116 @@
+{
+  "view": "course",
+  "id": "recSV0InAnVRkUhG7",
+  "rowType": "course",
+  "title": "Science: Chemistry",
+  "subject": "Science",
+  "gradeText": "GRADE(S): 9-12+",
+  "sortId": "",
+  "bookCount": 5,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recBq9iEE2Yn8ZhJh",
+      "title": "Chemistry Lessons",
+      "books": [
+        {
+          "resourceId": "recfIZtA1mbEFnrmJ",
+          "instanceKey": "course:recSV0InAnVRkUhG7:topic:recBq9iEE2Yn8ZhJh:resource:recfIZtA1mbEFnrmJ",
+          "title": "HS Chem Intro",
+          "author": "Danielle Merritt-Sunseri",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recfIZtA1mbEFnrmJ.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Video",
+          "rationale": "",
+          "notes": "",
+          "scopeText": "",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "reccWaFe2ts34p39C",
+          "instanceKey": "course:recSV0InAnVRkUhG7:topic:recBq9iEE2Yn8ZhJh:resource:reccWaFe2ts34p39C",
+          "title": "Michael Faraday's The Chemical History of a Candle",
+          "author": "Bill Hammack & Don DeCoste",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reccWaFe2ts34p39C.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": true,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This book introduces modern readers to Michael Faraday’s great nineteenth-century lectures on \"The Chemical History of a Candle.\" Students will be watching the lectures on video, so this text is for teachers or for students who would like to follow along using the text.",
+          "notes": "",
+          "scopeText": "Term 1 (Partial Term)",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recDCnlgkFAGqBAI0",
+          "instanceKey": "course:recSV0InAnVRkUhG7:topic:recBq9iEE2Yn8ZhJh:resource:recDCnlgkFAGqBAI0",
+          "title": "Introductory Chemistry: A Foundation",
+          "author": "Steven S. Zumdahl & Donald J. DeCoste",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recDCnlgkFAGqBAI0.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "Masters at inspiring and engaging students, the authors of this best-selling text combine problem-solving strategies, early coverage of chemical reactions, accessible explanations and visualizations, and an emphasis on everyday applications to facilitate understanding.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recgQOYYOZx0SfBAI",
+          "instanceKey": "course:recSV0InAnVRkUhG7:topic:recBq9iEE2Yn8ZhJh:resource:recgQOYYOZx0SfBAI",
+          "title": "The Chemical Elements Coloring and Activity Book",
+          "author": "Ellen Johnston McHenry",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recgQOYYOZx0SfBAI.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "All 118 elements are included in coloring pages, with information about its discovery, examples of molecules it will form, and pictures of how the element might be used in industry, medicine, the military, research, and fine arts.  Also included are a personalizable periodic table and a variety of games.",
+          "notes": "",
+          "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "rechhPCTMCqWmtHv1",
+      "title": "Chemistry Labs",
+      "books": [
+        {
+          "resourceId": "recwCXT5N9KCDloNi",
+          "instanceKey": "course:recSV0InAnVRkUhG7:topic:rechhPCTMCqWmtHv1:resource:recwCXT5N9KCDloNi",
+          "title": "Alveary Chemistry Lab Book",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recwCXT5N9KCDloNi.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This document contains all of the instructions, procedures, and guidance needed to complete the laboratory component of High School Chemistry.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

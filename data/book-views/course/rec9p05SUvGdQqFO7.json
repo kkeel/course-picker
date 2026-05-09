@@ -1,0 +1,73 @@
+{
+  "view": "course",
+  "id": "rec9p05SUvGdQqFO7",
+  "rowType": "course",
+  "title": "Latin 2 (Video Course)",
+  "subject": "Latin",
+  "gradeText": "GRADE(S): 8+",
+  "sortId": "",
+  "bookCount": 3,
+  "sections": [
+    {
+      "type": "course",
+      "id": "rec9p05SUvGdQqFO7",
+      "title": "Latin 2 (Video Course)",
+      "books": [
+        {
+          "resourceId": "recaBiM7Fu8VUedfd",
+          "instanceKey": "course:rec9p05SUvGdQqFO7:resource:recaBiM7Fu8VUedfd",
+          "title": "Alveary Exclusive Cambridge Latin Unit 2 Online Course",
+          "author": "Angela Reed",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recaBiM7Fu8VUedfd.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Video course taught by a master teacher in our Alveary course platform.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recbZP18lAHr7w9XS",
+          "instanceKey": "course:rec9p05SUvGdQqFO7:resource:recbZP18lAHr7w9XS",
+          "title": "North American Cambridge Latin Unit 2 5th Ed. Student Book",
+          "author": "Cambridge School Classics Project",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recbZP18lAHr7w9XS.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Contains comic strips and narrative stories in Latin, grammar exercises, vocabulary, and historical notes.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Latin 2 (Independent Study)\nLatin 2 (Video Course)",
+          "links": []
+        },
+        {
+          "resourceId": "recjwj2WvsmAuZZ3r",
+          "instanceKey": "course:rec9p05SUvGdQqFO7:resource:recjwj2WvsmAuZZ3r",
+          "title": "Lars Romam Odit: A Latin Novella",
+          "author": "Andrew Olimpi",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recjwj2WvsmAuZZ3r.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": true,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Written with the novice-level reader of Latin in mind—low unique word count, a full glossary, and many illustrations--Lars Romam Odit is an ideal first encounter in an exciting period of Roman history.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

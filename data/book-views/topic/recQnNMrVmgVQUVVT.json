@@ -1,0 +1,57 @@
+{
+  "view": "topic",
+  "id": "recQnNMrVmgVQUVVT",
+  "rowType": "topic",
+  "title": "Music Appreciation",
+  "subject": "Music",
+  "gradeText": "GRADE(S): 1",
+  "sortId": "",
+  "courseId": "recGxKOwi4E5amNPe",
+  "courseTitle": "Music: Intro",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recQnNMrVmgVQUVVT",
+      "title": "Music Appreciation",
+      "books": [
+        {
+          "resourceId": "recwSXrQ9crAhXWV3",
+          "instanceKey": "course:recGxKOwi4E5amNPe:topic:recQnNMrVmgVQUVVT:resource:recwSXrQ9crAhXWV3",
+          "title": "A Child's Introduction to the Orchestra",
+          "author": "Wilder & Barer",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recwSXrQ9crAhXWV3.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Creative introduction to each instrument of the orchestra through song.",
+          "notes": "",
+          "scopeText": "Term 1",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recZIPkbviVxbx1TC",
+          "instanceKey": "course:recGxKOwi4E5amNPe:topic:recQnNMrVmgVQUVVT:resource:recZIPkbviVxbx1TC",
+          "title": "Playlist for Afternoon Listening and Selected Lessons",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recZIPkbviVxbx1TC.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Audiobook",
+          "rationale": "",
+          "notes": "",
+          "scopeText": "Term 2\nTerm 3 (Selections)",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

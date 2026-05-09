@@ -1,0 +1,73 @@
+{
+  "view": "course",
+  "id": "recaORDZdhOnlg6Vz",
+  "rowType": "course",
+  "title": "Story of Geometry: Part 1",
+  "subject": "Math",
+  "gradeText": "GRADE(S): 7",
+  "sortId": "",
+  "bookCount": 3,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recaORDZdhOnlg6Vz",
+      "title": "Story of Geometry: Part 1",
+      "books": [
+        {
+          "resourceId": "recCU98bl4JN1YdqG",
+          "instanceKey": "course:recaORDZdhOnlg6Vz:resource:recCU98bl4JN1YdqG",
+          "title": "String, Straight-Edge, and Shadow",
+          "author": "Julia Diggins",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recCU98bl4JN1YdqG.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Follows the development of geometry from the need to be able to engineer structures that would stand to the theoretical ideas of Pythagoras and Thales.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Story of Geometry: Part 1\nStory of Geometry: Part 2",
+          "links": []
+        },
+        {
+          "resourceId": "recg0MzdbBT0JchkF",
+          "instanceKey": "course:recaORDZdhOnlg6Vz:resource:recg0MzdbBT0JchkF",
+          "title": "The Student Bible Atlas, Revised Edition",
+          "author": "Tim Dowley",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recg0MzdbBT0JchkF.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This is a simple, inexpensive Bible atlas that provides full-page maps of the biblical lands of the Old and New Testaments. In Bible lessons, students will be directed to look at specific pages. This resource is for Grades 3-8 ONLY.",
+          "notes": "",
+          "scopeText": "Term 2 (One Lesson)\nTerm 3 (One Lesson)",
+          "sharedText": "Old Testament: Grades 3-6\nNew Testament: Grades 3-6\nNew Testament: Grades 7-8\nOld Testament: Grades 7-12\nStory of Arithmetic: Part 1\nStory of Geometry: Part 1",
+          "links": []
+        },
+        {
+          "resourceId": "reca6JrCf4DtEZII1",
+          "instanceKey": "course:recaORDZdhOnlg6Vz:resource:reca6JrCf4DtEZII1",
+          "title": "Historical Atlas of the World 6th Ed.",
+          "author": "Rand McNally",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reca6JrCf4DtEZII1.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Presents important periods and turning points in 5,000 years of history. Thematic maps include literacy, languages, religions, and more. Used across curriculum.",
+          "notes": "",
+          "scopeText": "Term 3 (One Lesson)",
+          "sharedText": "Resources: Grades 4-6\nResources: Grades 7-8\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nStory of Arithmetic: Part 1\nStory of Arithmetic: Part 2\nStory of Geometry: Part 1\nPlutarch: Grades 6-8\nFirst Citizen Stories",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

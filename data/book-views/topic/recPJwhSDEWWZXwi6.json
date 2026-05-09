@@ -1,0 +1,57 @@
+{
+  "view": "topic",
+  "id": "recPJwhSDEWWZXwi6",
+  "rowType": "topic",
+  "title": "Fairy Tales",
+  "subject": "Literature",
+  "gradeText": "GRADE(S): 1",
+  "sortId": "",
+  "courseId": "recQkVAkPcg3NKGnG",
+  "courseTitle": "Literature: Grade 1",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recPJwhSDEWWZXwi6",
+      "title": "Fairy Tales",
+      "books": [
+        {
+          "resourceId": "recAgpjTHZLXwXPgv",
+          "instanceKey": "course:recQkVAkPcg3NKGnG:topic:recPJwhSDEWWZXwi6:resource:recAgpjTHZLXwXPgv",
+          "title": "Tales from Grimm",
+          "author": "Wanda Gag",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recAgpjTHZLXwXPgv.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Mason had her youngest students read fairy tales from Grimm or Anderson. This retelling by Wanda Gag is gentler and less scary than many other translations, while still having good literary quality and simple English for students to practice reading themselves.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recZEkDPmuBucJpr1",
+          "instanceKey": "course:recQkVAkPcg3NKGnG:topic:recPJwhSDEWWZXwi6:resource:recZEkDPmuBucJpr1",
+          "title": "Around the World in 80 Tales",
+          "author": "Saviour Pirotta",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recZEkDPmuBucJpr1.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This book takes readers across six continents with short, entertaining folktales to stir our first graders' imaginations with tales from many lands.",
+          "notes": "",
+          "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

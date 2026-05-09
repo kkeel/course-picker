@@ -1,0 +1,62 @@
+{
+  "view": "course",
+  "id": "reckjXj6u4AumFRqU",
+  "rowType": "course",
+  "title": "Mathematics: Grade 12",
+  "subject": "Math",
+  "gradeText": "GRADE(S): 12",
+  "sortId": "",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recx9GYaBIsAr3FBg",
+      "title": "Pre-Calculus: Part 2",
+      "books": [
+        {
+          "resourceId": "recBToi9LtJZphztW",
+          "instanceKey": "course:reckjXj6u4AumFRqU:topic:recx9GYaBIsAr3FBg:resource:recBToi9LtJZphztW",
+          "title": "Home Study Companion: Precalculus",
+          "author": "Math Without Borders",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recBToi9LtJZphztW.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Video",
+          "rationale": "Video lessons to accompany Foerster's Precalculus",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2 (Partial Term)",
+          "sharedText": "Pre-Calculus: Part 1\nPre-Calculus: Part 2",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recEohsqHGUHTgrJP",
+      "title": "Calculus: Part 1",
+      "books": [
+        {
+          "resourceId": "recWxUYXUJvlXYpTX",
+          "instanceKey": "course:reckjXj6u4AumFRqU:topic:recEohsqHGUHTgrJP:resource:recWxUYXUJvlXYpTX",
+          "title": "Home Study Companion: Calculus",
+          "author": "Math Without Borders",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recWxUYXUJvlXYpTX.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Video",
+          "rationale": "Video lessons to accompany Foerster's Calculus",
+          "notes": "",
+          "scopeText": "Term 2 (Partial Term)\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

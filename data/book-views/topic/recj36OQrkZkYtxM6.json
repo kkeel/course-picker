@@ -1,0 +1,57 @@
+{
+  "view": "topic",
+  "id": "recj36OQrkZkYtxM6",
+  "rowType": "topic",
+  "title": "Physics Lessons",
+  "subject": "Science",
+  "gradeText": "GRADE(S): 11-12",
+  "sortId": "",
+  "courseId": "recgwYscXzqbmjffJ",
+  "courseTitle": "Science: Physics",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recj36OQrkZkYtxM6",
+      "title": "Physics Lessons",
+      "books": [
+        {
+          "resourceId": "recDMDo9ie5QCal7N",
+          "instanceKey": "course:recgwYscXzqbmjffJ:topic:recj36OQrkZkYtxM6:resource:recDMDo9ie5QCal7N",
+          "title": "Schaum's Outlines: College Physics",
+          "author": "Eugene Hecht, PhD",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recDMDo9ie5QCal7N.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This book is listed as a resource/supplement to the Math with Borders Physics video course.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recR6rSvSqo1XENOw",
+          "instanceKey": "course:recgwYscXzqbmjffJ:topic:recj36OQrkZkYtxM6:resource:recR6rSvSqo1XENOw",
+          "title": "Home Study Companion: Physics",
+          "author": "Math Without Borders",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recR6rSvSqo1XENOw.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Video",
+          "rationale": "This living lecture series teaches the basic concepts of physics by guiding students to mathematically analyze moving objects in the world around them.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

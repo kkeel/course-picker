@@ -1,0 +1,173 @@
+{
+  "view": "course",
+  "id": "recGxKOwi4E5amNPe",
+  "rowType": "course",
+  "title": "Music: Intro",
+  "subject": "Music",
+  "gradeText": "GRADE(S): 1+",
+  "sortId": "",
+  "bookCount": 7,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recGxKOwi4E5amNPe",
+      "title": "Music: Intro",
+      "books": [
+        {
+          "resourceId": "rectZLk9X7Vjlf8dG",
+          "instanceKey": "course:recGxKOwi4E5amNPe:resource:rectZLk9X7Vjlf8dG",
+          "title": "Hymns, Spirituals, & Folk Songs PDF",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rectZLk9X7Vjlf8dG.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": true,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Selections are also included in Our Work packets for Grades 1-12. Audio lessons and other resources are available in lesson plans.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Music: Intro\nMusic: Level 1\nMusic: Level 2\nMusic: Level 3\nMusic: Level 4\nMusic: Level 5",
+          "links": []
+        },
+        {
+          "resourceId": "recw7BBdhDZlQO2RS",
+          "instanceKey": "course:recGxKOwi4E5amNPe:resource:recw7BBdhDZlQO2RS",
+          "title": "Our Work: Grades 1-2",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recw7BBdhDZlQO2RS.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This is a compilation of the year's Recitation, Picture Study, Hymns, Spirituals, and Folk Songs. Line drawings of artifacts from the historical time period are also included to provide students with inspiration for their Book of Centuries. We recommend printing or purchasing a copy for each student.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Recitation: Grades 1-2\nPicture Study\nMusic: Intro\nMusic: Level 1",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recQnNMrVmgVQUVVT",
+      "title": "Music Appreciation",
+      "books": [
+        {
+          "resourceId": "recwSXrQ9crAhXWV3",
+          "instanceKey": "course:recGxKOwi4E5amNPe:topic:recQnNMrVmgVQUVVT:resource:recwSXrQ9crAhXWV3",
+          "title": "A Child's Introduction to the Orchestra",
+          "author": "Wilder & Barer",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recwSXrQ9crAhXWV3.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Creative introduction to each instrument of the orchestra through song.",
+          "notes": "",
+          "scopeText": "Term 1",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recZIPkbviVxbx1TC",
+          "instanceKey": "course:recGxKOwi4E5amNPe:topic:recQnNMrVmgVQUVVT:resource:recZIPkbviVxbx1TC",
+          "title": "Playlist for Afternoon Listening and Selected Lessons",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recZIPkbviVxbx1TC.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Audiobook",
+          "rationale": "",
+          "notes": "",
+          "scopeText": "Term 2\nTerm 3 (Selections)",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recd3yaMAQJpdn7CR",
+      "title": "Hymns & Spirituals",
+      "books": [
+        {
+          "resourceId": "recDLRBTspENoopYR",
+          "instanceKey": "course:recGxKOwi4E5amNPe:topic:recd3yaMAQJpdn7CR:resource:recDLRBTspENoopYR",
+          "title": "Our Hymns, Our Heritage",
+          "author": "David & Barbara Leeman",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recDLRBTspENoopYR.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This student hymnal contains multi-denominational hymns organized by the church year, with brief histories of the music and lyrics, bios of the writers, related Scripture, and other ideas to meditate upon.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "rec3VWzJd0IeiTO7V",
+      "title": "Folk Songs",
+      "books": [
+        {
+          "resourceId": "recPb5gHeLu8G3EXl",
+          "instanceKey": "course:recGxKOwi4E5amNPe:topic:rec3VWzJd0IeiTO7V:resource:recPb5gHeLu8G3EXl",
+          "title": "Like a Bird: The Art of the American Slave Song",
+          "author": "Cynthia Grady",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recPb5gHeLu8G3EXl.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This is a collection of African American spirituals, along with their stories and beautiful illustrations.",
+          "notes": "",
+          "scopeText": "Term 1",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "reclhERbHEXrGEJTn",
+      "title": "Sol-fa: Musical Games",
+      "books": [
+        {
+          "resourceId": "recoemutvxjrSGUVb",
+          "instanceKey": "course:recGxKOwi4E5amNPe:topic:reclhERbHEXrGEJTn:resource:recoemutvxjrSGUVb",
+          "title": "Musical Games Playlist",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recoemutvxjrSGUVb.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Audiobook",
+          "rationale": "",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

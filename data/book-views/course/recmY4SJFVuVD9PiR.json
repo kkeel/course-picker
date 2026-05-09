@@ -1,0 +1,105 @@
+{
+  "view": "course",
+  "id": "recmY4SJFVuVD9PiR",
+  "rowType": "course",
+  "title": "Mathematics: Grade 7",
+  "subject": "Math",
+  "gradeText": "GRADE(S): 7",
+  "sortId": "",
+  "bookCount": 4,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recDaqVPbcOCFqtPb",
+      "title": "Pre-Algebra",
+      "books": [
+        {
+          "resourceId": "recNiSkoMTSZuBmf6",
+          "instanceKey": "course:recmY4SJFVuVD9PiR:topic:recDaqVPbcOCFqtPb:resource:recNiSkoMTSZuBmf6",
+          "title": "Hands-On Equations Deluxe Home Set",
+          "author": "Hands-On Equations",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recNiSkoMTSZuBmf6.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": true,
+          "formatTags": "Video",
+          "rationale": "Hands-On Equations is a very concrete introduction to abstract algebraic concepts.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recrPKcvIhETygx8f",
+          "instanceKey": "course:recmY4SJFVuVD9PiR:topic:recDaqVPbcOCFqtPb:resource:recrPKcvIhETygx8f",
+          "title": "The Hands-On Equations Verbal Problems Book",
+          "author": "Hands-On Equations",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recrPKcvIhETygx8f.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Contains word problems wherein students apply what they learned in their lessons to real-world situations.",
+          "notes": "",
+          "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "rec98Rpi7iomq1qoc",
+      "title": "Geometry: Grade 7",
+      "books": [
+        {
+          "resourceId": "recGmBghw8V9pxfyC",
+          "instanceKey": "course:recmY4SJFVuVD9PiR:topic:rec98Rpi7iomq1qoc:resource:recGmBghw8V9pxfyC",
+          "title": "RightStart Mathematics Level G 2nd Ed. Book Bundle",
+          "author": "",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recGmBghw8V9pxfyC.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": true,
+          "formatTags": "",
+          "rationale": "RightStart is based on discovery, using a wide range of manipulatives. It is an up-to-date, spiraling program that uses methods that are heavily supported by current research. \n➜  Students new to Right Start will also need the G2S Math Set. Those who have the RS2 Math Set will need to order the G2S Set Short.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Geometry: Grade 7\nGeometry: Grade 8",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recqNQrKdVJQ5PxQP",
+      "title": "Math Games: Grades 1-8",
+      "books": [
+        {
+          "resourceId": "recvX4HmvwtODCrX3",
+          "instanceKey": "course:recmY4SJFVuVD9PiR:topic:recqNQrKdVJQ5PxQP:resource:recvX4HmvwtODCrX3",
+          "title": "Math Card Games Kit",
+          "author": "RightStart",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recvX4HmvwtODCrX3.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Kit is recommended for those who do not use RightStart Math; kit is included in the RS2 Math Set. \n➜  Additional recommended game titles will be listed with the Lesson Plans for each level of mathematics.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "view": "course",
+  "id": "recMUJaTJ67p5jVMY",
+  "rowType": "course",
+  "title": "Latin 4",
+  "subject": "Latin",
+  "gradeText": "GRADE(S): 10-12+",
+  "sortId": "",
+  "bookCount": 3,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recMUJaTJ67p5jVMY",
+      "title": "Latin 4",
+      "books": [
+        {
+          "resourceId": "rechDtEDByv2GufPk",
+          "instanceKey": "course:recMUJaTJ67p5jVMY:resource:rechDtEDByv2GufPk",
+          "title": "Cambridge Latin Unit 4 5th Ed.",
+          "author": "Cambridge School Classics Project",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rechDtEDByv2GufPk.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This is the student book. Includes a selection of original texts by Roman authors (adapted where necessary), including Catullus, Ovid, Pliny, Tacitus, and Virgil.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recJoSNMkK2CaFUT8",
+          "instanceKey": "course:recMUJaTJ67p5jVMY:resource:recJoSNMkK2CaFUT8",
+          "title": "Cambridge Latin Unit 4 Online Resources",
+          "author": "",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recJoSNMkK2CaFUT8.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": true,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Site contains free cultural background information. Elevate/Cambridge Go is a subscription service for online games and practice.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recHpEWdHnkOVtfCD",
+          "instanceKey": "course:recMUJaTJ67p5jVMY:resource:recHpEWdHnkOVtfCD",
+          "title": "Cambridge Latin Units 1-4 Teacher Manual (1 Year Digital Access)",
+          "author": "Cambridge School Classics Project",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recHpEWdHnkOVtfCD.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Contains important teaching tips.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Latin 1 (Independent Study)\nLatin 2 (Independent Study)\nLatin 3\nLatin 4",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "view": "course",
+  "id": "recYp9OvKiLhPcBLq",
+  "rowType": "course",
+  "title": "Upper French: Level 3",
+  "subject": "Modern Language",
+  "gradeText": "GRADE(S): 9+",
+  "sortId": "",
+  "bookCount": 3,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recYp9OvKiLhPcBLq",
+      "title": "Upper French: Level 3",
+      "books": [
+        {
+          "resourceId": "recIUAUGnpcfosU6f",
+          "instanceKey": "course:recYp9OvKiLhPcBLq:resource:recIUAUGnpcfosU6f",
+          "title": "Primary French Course Part I",
+          "author": "Otto Siepmann",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recIUAUGnpcfosU6f.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This book teaches vocabulary and grammar through reading, writing, and spoken exercises.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Upper French: Level 1\nUpper French: Level 2\nUpper French: Level 3\nUpper French: Level 4",
+          "links": []
+        },
+        {
+          "resourceId": "recAmD6yH2w6C3SwN",
+          "instanceKey": "course:recYp9OvKiLhPcBLq:resource:recAmD6yH2w6C3SwN",
+          "title": "French: Level 3 SoundCloud Playlist",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recAmD6yH2w6C3SwN.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Audiobook",
+          "rationale": "Contains audio recordings of lesson readings, interactive readings, and spoken grammar exercises.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recs2mn3z7D1h36IO",
+          "instanceKey": "course:recYp9OvKiLhPcBLq:resource:recs2mn3z7D1h36IO",
+          "title": "French: Level 3 Student Notebook",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recs2mn3z7D1h36IO.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Contains markable copies of lesson readings, vocabulary lists, and answers to reading questions and grammar exercises.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

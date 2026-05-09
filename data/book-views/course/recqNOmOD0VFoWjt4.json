@@ -1,0 +1,55 @@
+{
+  "view": "course",
+  "id": "recqNOmOD0VFoWjt4",
+  "rowType": "course",
+  "title": "Upper French: Level 5",
+  "subject": "Modern Language",
+  "gradeText": "GRADE(S): 11-12",
+  "sortId": "",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recqNOmOD0VFoWjt4",
+      "title": "Upper French: Level 5",
+      "books": [
+        {
+          "resourceId": "rec3q7fGGsKCEZaVD",
+          "instanceKey": "course:recqNOmOD0VFoWjt4:resource:rec3q7fGGsKCEZaVD",
+          "title": "Primary French Course Part 2",
+          "author": "Otto Siepmann",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec3q7fGGsKCEZaVD.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This book teaches vocabulary and grammar through reading, writing, and spoken exercises.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recXzM8ureEiS6KdO",
+          "instanceKey": "course:recqNOmOD0VFoWjt4:resource:recXzM8ureEiS6KdO",
+          "title": "French: Level 5 SoundCloud Playlist",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recXzM8ureEiS6KdO.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Audiobook",
+          "rationale": "Contains audio recordings of lesson readings, interactive readings, and spoken grammar exercises.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

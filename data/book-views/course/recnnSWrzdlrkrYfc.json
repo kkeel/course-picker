@@ -1,0 +1,62 @@
+{
+  "view": "course",
+  "id": "recnnSWrzdlrkrYfc",
+  "rowType": "course",
+  "title": "Mathematics: Grade 8 (Denison)",
+  "subject": "Math",
+  "gradeText": "GRADE(S): 8",
+  "sortId": "",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recOVyWcUzhhTFjCW",
+      "title": "Math Lessons: Grade 8 (Denison)",
+      "books": [
+        {
+          "resourceId": "recK943LQMKbepHEV",
+          "instanceKey": "course:recnnSWrzdlrkrYfc:topic:recOVyWcUzhhTFjCW:resource:recK943LQMKbepHEV",
+          "title": "Denison Algebra 1",
+          "author": "Denison",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recK943LQMKbepHEV.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": true,
+          "formatTags": "Video",
+          "rationale": "Denison offers a complete high school math program with video lessons taught by a veteran teacher and homeschool dad for Pre-Algebra through Algebra 2. Pre-algebra only requires familiarity with the four basic functions (add, subtract, multiply, and divide). After Pre-Algebra, the course splits into two tracks for Algebra, Geometry, and Algebra 2: a track for students who don't have significant struggles but aren't enjoying math, and a Success track for students who struggle with math and need shorter lessons with more scaffolding.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recqNQrKdVJQ5PxQP",
+      "title": "Math Games: Grades 1-8",
+      "books": [
+        {
+          "resourceId": "recvX4HmvwtODCrX3",
+          "instanceKey": "course:recnnSWrzdlrkrYfc:topic:recqNQrKdVJQ5PxQP:resource:recvX4HmvwtODCrX3",
+          "title": "Math Card Games Kit",
+          "author": "RightStart",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recvX4HmvwtODCrX3.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Kit is recommended for those who do not use RightStart Math; kit is included in the RS2 Math Set. \n➜  Additional recommended game titles will be listed with the Lesson Plans for each level of mathematics.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

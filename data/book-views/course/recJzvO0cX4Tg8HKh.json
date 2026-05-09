@@ -1,0 +1,55 @@
+{
+  "view": "course",
+  "id": "recJzvO0cX4Tg8HKh",
+  "rowType": "course",
+  "title": "Geography: Grade 9",
+  "subject": "Geography",
+  "gradeText": "GRADE(S): 9",
+  "sortId": "",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recJzvO0cX4Tg8HKh",
+      "title": "Geography: Grade 9",
+      "books": [
+        {
+          "resourceId": "recdpI4ahVVWp6pk9",
+          "instanceKey": "course:recJzvO0cX4Tg8HKh:resource:recdpI4ahVVWp6pk9",
+          "title": "Prisoners of Geography: Ten Maps That Explain Everything About the World",
+          "author": "Tim Marshall",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recdpI4ahVVWp6pk9.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "A fascinating look at several regions of the world and how geography, history, and politics are all interconnected.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recxIWRWjRxnwOFwE",
+          "instanceKey": "course:recJzvO0cX4Tg8HKh:resource:recxIWRWjRxnwOFwE",
+          "title": "Five Months on the Missouri River: Paddling a Dugout Canoe",
+          "author": "Thomas Elpel",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recxIWRWjRxnwOFwE.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "You are on the river with Thomas and crew as they explore the Missouri from source to St. Louis in the reverse footsteps of Lewis and Clark noting what has changed and what remains the same.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Geography: Grade 9\nGeography: Grade 10-11\nGeography: Grade 12",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

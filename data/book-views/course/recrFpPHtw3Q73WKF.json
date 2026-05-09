@@ -1,0 +1,37 @@
+{
+  "view": "course",
+  "id": "recrFpPHtw3Q73WKF",
+  "rowType": "course",
+  "title": "Sloyd: Level 7",
+  "subject": "Life Skills",
+  "gradeText": "GRADE(S): 8+",
+  "sortId": "",
+  "bookCount": 1,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recrFpPHtw3Q73WKF",
+      "title": "Sloyd: Level 7",
+      "books": [
+        {
+          "resourceId": "recMga8egg3Vcj9Rq",
+          "instanceKey": "course:recrFpPHtw3Q73WKF:resource:recMga8egg3Vcj9Rq",
+          "title": "Folding Techniques for Designers",
+          "author": "Paul Jackson",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recMga8egg3Vcj9Rq.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Students will use the illustrations and directions in the books to do the assigned work.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

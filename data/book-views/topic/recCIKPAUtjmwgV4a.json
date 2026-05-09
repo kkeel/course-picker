@@ -1,0 +1,75 @@
+{
+  "view": "topic",
+  "id": "recCIKPAUtjmwgV4a",
+  "rowType": "topic",
+  "title": "General Science: Grade 6",
+  "subject": "Science",
+  "gradeText": "GRADE(S): 6",
+  "sortId": "",
+  "courseId": "reczJaAXPgqwXQPsz",
+  "courseTitle": "Science: Grade 6",
+  "bookCount": 3,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recCIKPAUtjmwgV4a",
+      "title": "General Science: Grade 6",
+      "books": [
+        {
+          "resourceId": "recTmUqHMkE0WgkLh",
+          "instanceKey": "course:reczJaAXPgqwXQPsz:topic:recCIKPAUtjmwgV4a:resource:recTmUqHMkE0WgkLh",
+          "title": "Plate Tectonics",
+          "author": "Fiona Young-Brown",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recTmUqHMkE0WgkLh.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This text explores the field of plate tectonics from its early history to the current era.  Students will consider how such theories explain the natural phenomena that have contributed to the Earth's development, as well as events such as volcanoes and earthquakes.",
+          "notes": "",
+          "scopeText": "Term 1",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recuiC7B5gtKKOBWq",
+          "instanceKey": "course:reczJaAXPgqwXQPsz:topic:recCIKPAUtjmwgV4a:resource:recuiC7B5gtKKOBWq",
+          "title": "Phineas Gage",
+          "author": "John Fleischman",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recuiC7B5gtKKOBWq.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "In this classic story, readers hear the story of a man who suffers an horrific railroad accident.  The resulting brain injury forever changes his life and produces one the most fascinating case studies that neuroscience has ever seen. Note that the author associates social ability and success with human value. Discuss with students as appropriate.",
+          "notes": "",
+          "scopeText": "Term 2",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recy6L6dZaoXMcArp",
+          "instanceKey": "course:reczJaAXPgqwXQPsz:topic:recCIKPAUtjmwgV4a:resource:recy6L6dZaoXMcArp",
+          "title": "The Art of Construction",
+          "author": "Mario Salvadori",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recy6L6dZaoXMcArp.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "We love that this book provides hands-on activities for exploring the principles of engineering, allowing students to dip their toes into the engineering process with everyday materials.",
+          "notes": "",
+          "scopeText": "Term 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

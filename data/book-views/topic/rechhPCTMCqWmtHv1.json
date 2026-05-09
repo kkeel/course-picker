@@ -1,0 +1,39 @@
+{
+  "view": "topic",
+  "id": "rechhPCTMCqWmtHv1",
+  "rowType": "topic",
+  "title": "Chemistry Labs",
+  "subject": "Science",
+  "gradeText": "GRADE(S): 9-12+",
+  "sortId": "",
+  "courseId": "recSV0InAnVRkUhG7",
+  "courseTitle": "Science: Chemistry",
+  "bookCount": 1,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "rechhPCTMCqWmtHv1",
+      "title": "Chemistry Labs",
+      "books": [
+        {
+          "resourceId": "recwCXT5N9KCDloNi",
+          "instanceKey": "course:recSV0InAnVRkUhG7:topic:rechhPCTMCqWmtHv1:resource:recwCXT5N9KCDloNi",
+          "title": "Alveary Chemistry Lab Book",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recwCXT5N9KCDloNi.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This document contains all of the instructions, procedures, and guidance needed to complete the laboratory component of High School Chemistry.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

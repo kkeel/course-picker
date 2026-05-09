@@ -1,0 +1,37 @@
+{
+  "view": "course",
+  "id": "recmMn3pYICegCygi",
+  "rowType": "course",
+  "title": "Lettering: Level 3",
+  "subject": "Life Skills",
+  "gradeText": "GRADE(S): 9+",
+  "sortId": "",
+  "bookCount": 1,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recmMn3pYICegCygi",
+      "title": "Lettering: Level 3",
+      "books": [
+        {
+          "resourceId": "rec2DOed4yBUg6vJC",
+          "instanceKey": "course:recmMn3pYICegCygi:resource:rec2DOed4yBUg6vJC",
+          "title": "The Complete Book of Chalk Lettering",
+          "author": "Valerie McKeehan",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec2DOed4yBUg6vJC.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This book includes lessons on various styles of lettering, in addition to project design, and adding dimension using chalk.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Lettering: Level 1\nLettering: Level 2\nLettering: Level 3",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "view": "course",
+  "id": "recjbWhVcJf5Ouy3a",
+  "rowType": "course",
+  "title": "Geography: Grade 12",
+  "subject": "Geography",
+  "gradeText": "GRADE(S): 12",
+  "sortId": "",
+  "bookCount": 4,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recjbWhVcJf5Ouy3a",
+      "title": "Geography: Grade 12",
+      "books": [
+        {
+          "resourceId": "recPpoj6L1jUeCKYX",
+          "instanceKey": "course:recjbWhVcJf5Ouy3a:resource:recPpoj6L1jUeCKYX",
+          "title": "Across This Land",
+          "author": "John C Hudson",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recPpoj6L1jUeCKYX.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "This book provides a narrative regional study of North America for our high school students.",
+          "notes": "",
+          "scopeText": "Term 1",
+          "sharedText": "Geography: Grade 10-11\nGeography: Grade 12",
+          "links": []
+        },
+        {
+          "resourceId": "recxIWRWjRxnwOFwE",
+          "instanceKey": "course:recjbWhVcJf5Ouy3a:resource:recxIWRWjRxnwOFwE",
+          "title": "Five Months on the Missouri River: Paddling a Dugout Canoe",
+          "author": "Thomas Elpel",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recxIWRWjRxnwOFwE.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "You are on the river with Thomas and crew as they explore the Missouri from source to St. Louis in the reverse footsteps of Lewis and Clark noting what has changed and what remains the same.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Geography: Grade 9\nGeography: Grade 10-11\nGeography: Grade 12",
+          "links": []
+        },
+        {
+          "resourceId": "recYeQBekvdnlRqqi",
+          "instanceKey": "course:recjbWhVcJf5Ouy3a:resource:recYeQBekvdnlRqqi",
+          "title": "Sufferings in Africa: The Astonishing Account of a New England Sea Captain Enslaved by North African Arabs",
+          "author": "Captain James Riley",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recYeQBekvdnlRqqi.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "A true tale of shipwreck that a young Abraham Lincoln read.",
+          "notes": "",
+          "scopeText": "Term 2",
+          "sharedText": "Geography: Grade 10-11\nGeography: Grade 12",
+          "links": []
+        },
+        {
+          "resourceId": "recyTdfyRcbMebPU6",
+          "instanceKey": "course:recjbWhVcJf5Ouy3a:resource:recyTdfyRcbMebPU6",
+          "title": "A Brief History of the World in 47 Borders: Surprising Stories Behind the Lines on Our Maps",
+          "author": "John Elledge",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recyTdfyRcbMebPU6.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "A collection of interesting border histories and legacies that tie into the history rotations, citizenship discussions, and map making of the previous years.",
+          "notes": "",
+          "scopeText": "Term 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

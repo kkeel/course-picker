@@ -1,0 +1,98 @@
+{
+  "view": "course",
+  "id": "recytUN4F28M1mecV",
+  "rowType": "course",
+  "title": "Mathematics: Grade 10",
+  "subject": "Math",
+  "gradeText": "GRADE(S): 10",
+  "sortId": "",
+  "bookCount": 4,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recky33h72vyaCBmp",
+      "title": "Algebra 2/Trigonometry: Part 1",
+      "books": [
+        {
+          "resourceId": "recCiZ8KkqNCQdjfw",
+          "instanceKey": "course:recytUN4F28M1mecV:topic:recky33h72vyaCBmp:resource:recCiZ8KkqNCQdjfw",
+          "title": "Algebra and Trigonometry: Functions and Applications",
+          "author": "Paul Foerster",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recCiZ8KkqNCQdjfw.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": true,
+          "formatTags": "Ebook",
+          "rationale": "A master teacher guides you through the next level of algebra and trig.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Algebra 2/Trigonometry: Part 1\nAlgebra 2/Trigonometry: Part 2",
+          "links": []
+        },
+        {
+          "resourceId": "reciOSt8LIdiSw3P0",
+          "instanceKey": "course:recytUN4F28M1mecV:topic:recky33h72vyaCBmp:resource:reciOSt8LIdiSw3P0",
+          "title": "Algebra 2/Trig Ancillary Materials",
+          "author": "Math Without Borders",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reciOSt8LIdiSw3P0.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Solutions manual for Algebra 2/Trig",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Algebra 2/Trigonometry: Part 1\nAlgebra 2/Trigonometry: Part 2",
+          "links": []
+        },
+        {
+          "resourceId": "recPT7RAqxzUkKPHR",
+          "instanceKey": "course:recytUN4F28M1mecV:topic:recky33h72vyaCBmp:resource:recPT7RAqxzUkKPHR",
+          "title": "Home Study Companion: Algebra 2/Trigonometry",
+          "author": "Math Without Borders",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recPT7RAqxzUkKPHR.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": true,
+          "chooseOne": false,
+          "formatTags": "Video",
+          "rationale": "Video lessons which accompany Foerster's Algebra 2/Trig",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Algebra 2/Trigonometry: Part 1\nAlgebra 2/Trigonometry: Part 2",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recg9Vkxz0hlprVZy",
+      "title": "Geometry: Part 2",
+      "books": [
+        {
+          "resourceId": "rec21UKJaDd8DWlDr",
+          "instanceKey": "course:recytUN4F28M1mecV:topic:recg9Vkxz0hlprVZy:resource:rec21UKJaDd8DWlDr",
+          "title": "Geometry Curriculum Pack",
+          "author": "Harold Jacobs",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec21UKJaDd8DWlDr.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "A solid and interesting HS geometry course for all.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Geometry: Part 1\nGeometry: Part 2",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

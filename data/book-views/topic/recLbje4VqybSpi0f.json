@@ -1,0 +1,93 @@
+{
+  "view": "topic",
+  "id": "recLbje4VqybSpi0f",
+  "rowType": "topic",
+  "title": "Biology Lessons",
+  "subject": "Science",
+  "gradeText": "GRADE(S): 10-12+",
+  "sortId": "",
+  "courseId": "recpEmtJeBr6l5oV8",
+  "courseTitle": "Science: Biology",
+  "bookCount": 4,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recLbje4VqybSpi0f",
+      "title": "Biology Lessons",
+      "books": [
+        {
+          "resourceId": "recmN7LMD6XOgHxwB",
+          "instanceKey": "course:recpEmtJeBr6l5oV8:topic:recLbje4VqybSpi0f:resource:recmN7LMD6XOgHxwB",
+          "title": "The Biology Coloring Book",
+          "author": "Robert D. Griffin",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recmN7LMD6XOgHxwB.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "In The Biology Coloring Book, students learn about the basic processes of life and the interactions of living things within their environment.",
+          "notes": "",
+          "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recwsaVlueernp4Mx",
+          "instanceKey": "course:recpEmtJeBr6l5oV8:topic:recLbje4VqybSpi0f:resource:recwsaVlueernp4Mx",
+          "title": "General Biology, 2nd Edition",
+          "author": "Heather Ayala & Katie Rogstad",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recwsaVlueernp4Mx.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "In a conversational tone and with reverence, the authors of this general biology text clearly guide students from the molecules of biology to the complexities of the human body and evolution.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "rec2F5P6iQGTUOYrX",
+          "instanceKey": "course:recpEmtJeBr6l5oV8:topic:recLbje4VqybSpi0f:resource:rec2F5P6iQGTUOYrX",
+          "title": "The Fool and the Heretic",
+          "author": "Todd Wood & Darrel Falk",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec2F5P6iQGTUOYrX.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": true,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "Two scientists with differing perspectives dialogue respectfully about creation and evolution.  This is an excellent choice for students in contexts that perceive faith and science to be antagonistic, as well as those interested in learning to have healthy discussion with those of differing viewpoints.",
+          "notes": "",
+          "scopeText": "Term 3 (Partial Term)",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recqO478sMp9OEGwW",
+          "instanceKey": "course:recpEmtJeBr6l5oV8:topic:recLbje4VqybSpi0f:resource:recqO478sMp9OEGwW",
+          "title": "The Spirit of the Rainforest",
+          "author": "Dr. Rosa Vasquez Espinoza",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recqO478sMp9OEGwW.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": true,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "A leading scientist explores the synergy between indigenous knowledge and classical science in this courageous and deeply spiritual adventure. This is an excellent choice for students who are secure in the harmony between faith and science and would benefit from a living example in their modern world, as well as those interested in indigenous voices.",
+          "notes": "",
+          "scopeText": "Term 3 (Partial Term)",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

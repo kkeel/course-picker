@@ -1,0 +1,57 @@
+{
+  "view": "topic",
+  "id": "recst0aVIebKf7Sw7",
+  "rowType": "topic",
+  "title": "Algebra 1: Part 1",
+  "subject": "Math",
+  "gradeText": "GRADE(S): 8",
+  "sortId": "",
+  "courseId": "recvWaMgcOPtoe4WV",
+  "courseTitle": "Mathematics: Grade 8",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recst0aVIebKf7Sw7",
+      "title": "Algebra 1: Part 1",
+      "books": [
+        {
+          "resourceId": "rec53OxsCZTGCz2fd",
+          "instanceKey": "course:recvWaMgcOPtoe4WV:topic:recst0aVIebKf7Sw7:resource:rec53OxsCZTGCz2fd",
+          "title": "Elementary Algebra Teacher Guide (Revised Edition)",
+          "author": "Harold Jacobs",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec53OxsCZTGCz2fd.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Algebra 1: Part 1\nAlgebra 1: Part 2",
+          "links": []
+        },
+        {
+          "resourceId": "recYbTWGEGIOzLcgQ",
+          "instanceKey": "course:recvWaMgcOPtoe4WV:topic:recst0aVIebKf7Sw7:resource:recYbTWGEGIOzLcgQ",
+          "title": "Elementary Algebra Student Book",
+          "author": "Harold Jacobs",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recYbTWGEGIOzLcgQ.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": true,
+          "formatTags": "Ebook, Video",
+          "rationale": "This book uses inviting narrative and everyday problems to give an introduction to Algebraic concepts. Lots of practice problems are also included.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Algebra 1: Part 2\nAlgebra 1: Part 1",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

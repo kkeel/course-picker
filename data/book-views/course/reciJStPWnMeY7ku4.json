@@ -1,0 +1,80 @@
+{
+  "view": "course",
+  "id": "reciJStPWnMeY7ku4",
+  "rowType": "course",
+  "title": "Language Study: Grade 10",
+  "subject": "English",
+  "gradeText": "GRADE(S): 10",
+  "sortId": "",
+  "bookCount": 3,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recKpemaueL8hPyNj",
+      "title": "Grammar: Grade 10",
+      "books": [
+        {
+          "resourceId": "rec3MHBg7NmbinMh5",
+          "instanceKey": "course:reciJStPWnMeY7ku4:topic:recKpemaueL8hPyNj:resource:rec3MHBg7NmbinMh5",
+          "title": "Caesar's English II",
+          "author": "Michael Clay Thompson",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec3MHBg7NmbinMh5.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Studies in Latin stems, alongside typical classical and academic vocabulary words, will aid students in using, spelling and understanding these words in context.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recSpeTo7n6Gfobw5",
+          "instanceKey": "course:reciJStPWnMeY7ku4:topic:recKpemaueL8hPyNj:resource:recSpeTo7n6Gfobw5",
+          "title": "Bryson's Dictionary of Troublesome Words: A Writer's Guide to Getting It Right",
+          "author": "Bill Bryson",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recSpeTo7n6Gfobw5.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "A helpful resource for avoiding error and increasing clarity in composition.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recEP3zrR9MMA5GAp",
+      "title": "Composition: Grade 10",
+      "books": [
+        {
+          "resourceId": "recTDoFwbVufsDGsC",
+          "instanceKey": "course:reciJStPWnMeY7ku4:topic:recEP3zrR9MMA5GAp:resource:recTDoFwbVufsDGsC",
+          "title": "Style: The Basics of Clarity & Grace 5th ed.",
+          "author": "Joseph Williams, Joseph Bizup",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recTDoFwbVufsDGsC.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "This classic work covers elemental principles of writing that will help students diagnose the strengths and weaknesses of their prose quickly and revise effectively. The text is written in a conversational style, offering reason-based principles for clear writing.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

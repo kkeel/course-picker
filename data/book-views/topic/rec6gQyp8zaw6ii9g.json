@@ -1,0 +1,75 @@
+{
+  "view": "topic",
+  "id": "rec6gQyp8zaw6ii9g",
+  "rowType": "topic",
+  "title": "Natural History: Grade 4",
+  "subject": "Science",
+  "gradeText": "GRADE(S): 4",
+  "sortId": "",
+  "courseId": "recAooMLNY6bb34bg",
+  "courseTitle": "Science: Grade 4",
+  "bookCount": 3,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "rec6gQyp8zaw6ii9g",
+      "title": "Natural History: Grade 4",
+      "books": [
+        {
+          "resourceId": "recRoaA5IiM7dt1v8",
+          "instanceKey": "course:recAooMLNY6bb34bg:topic:rec6gQyp8zaw6ii9g:resource:recRoaA5IiM7dt1v8",
+          "title": "A World in a Drop of Water: Exploring with a Microscope",
+          "author": "Alvin and Virginia Silverstein",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recRoaA5IiM7dt1v8.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This book introduces students to the microscopic creatures that live in natural water. They will examine pond water under a microscope to see the hidden lives of single-celled organisms.",
+          "notes": "",
+          "scopeText": "Term 1",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "reco2a2kGq5C1tfcS",
+          "instanceKey": "course:recAooMLNY6bb34bg:topic:rec6gQyp8zaw6ii9g:resource:reco2a2kGq5C1tfcS",
+          "title": "The Octopus Scientists: Exploring the Mind of a Mollusk",
+          "author": "Sy Montgomery",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reco2a2kGq5C1tfcS.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "This book provides students with a closer look at a creature from the family Mollusca. With respect and persistence, the author pursues the mysterious and fascinating octopus - and shares all that she learns with us, of course!",
+          "notes": "",
+          "scopeText": "Term 2",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recjHCr0PzaAt8rew",
+          "instanceKey": "course:recAooMLNY6bb34bg:topic:rec6gQyp8zaw6ii9g:resource:recjHCr0PzaAt8rew",
+          "title": "Life on Surtsey: Iceland's Upstart Island",
+          "author": "Loree Griffin Burns",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recjHCr0PzaAt8rew.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "In 1963, a volcano erupted and created a new island off the coast of Iceland. This book tells the story of the scientists who are watching and recording life unfold through primary succession.",
+          "notes": "",
+          "scopeText": "Term 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

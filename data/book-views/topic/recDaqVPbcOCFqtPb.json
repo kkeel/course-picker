@@ -1,0 +1,57 @@
+{
+  "view": "topic",
+  "id": "recDaqVPbcOCFqtPb",
+  "rowType": "topic",
+  "title": "Pre-Algebra",
+  "subject": "Math",
+  "gradeText": "GRADE(S): 7",
+  "sortId": "",
+  "courseId": "recmY4SJFVuVD9PiR",
+  "courseTitle": "Mathematics: Grade 7",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recDaqVPbcOCFqtPb",
+      "title": "Pre-Algebra",
+      "books": [
+        {
+          "resourceId": "recNiSkoMTSZuBmf6",
+          "instanceKey": "course:recmY4SJFVuVD9PiR:topic:recDaqVPbcOCFqtPb:resource:recNiSkoMTSZuBmf6",
+          "title": "Hands-On Equations Deluxe Home Set",
+          "author": "Hands-On Equations",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recNiSkoMTSZuBmf6.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": true,
+          "formatTags": "Video",
+          "rationale": "Hands-On Equations is a very concrete introduction to abstract algebraic concepts.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recrPKcvIhETygx8f",
+          "instanceKey": "course:recmY4SJFVuVD9PiR:topic:recDaqVPbcOCFqtPb:resource:recrPKcvIhETygx8f",
+          "title": "The Hands-On Equations Verbal Problems Book",
+          "author": "Hands-On Equations",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recrPKcvIhETygx8f.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Contains word problems wherein students apply what they learned in their lessons to real-world situations.",
+          "notes": "",
+          "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

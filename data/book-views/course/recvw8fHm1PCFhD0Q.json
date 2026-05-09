@@ -1,0 +1,73 @@
+{
+  "view": "course",
+  "id": "recvw8fHm1PCFhD0Q",
+  "rowType": "course",
+  "title": "Language Study: Grade 12",
+  "subject": "English",
+  "gradeText": "GRADE(S): 12",
+  "sortId": "",
+  "bookCount": 3,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "rechkj2wbdVhgZVbF",
+      "title": "Composition: Grade 12",
+      "books": [
+        {
+          "resourceId": "recAwcA9L3GVqc8X5",
+          "instanceKey": "course:recvw8fHm1PCFhD0Q:topic:rechkj2wbdVhgZVbF:resource:recAwcA9L3GVqc8X5",
+          "title": "The Craft of Research",
+          "author": "Wayne C. Booth",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recAwcA9L3GVqc8X5.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "A practical guide to research and more advanced writing.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recTSSXcu9lvQsDJw",
+          "instanceKey": "course:recvw8fHm1PCFhD0Q:topic:rechkj2wbdVhgZVbF:resource:recTSSXcu9lvQsDJw",
+          "title": "Caring for Words in a Culture of Lies (2nd ed.)",
+          "author": "Marilyn McEntyre",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recTSSXcu9lvQsDJw.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "Thoughtful and relevant ideas on writing for today's students.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recunMit5ns4uKkuG",
+          "instanceKey": "course:recvw8fHm1PCFhD0Q:topic:rechkj2wbdVhgZVbF:resource:recunMit5ns4uKkuG",
+          "title": "Advanced Academic Writing II Teacher Manual",
+          "author": "Michael Clay Thompson",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recunMit5ns4uKkuG.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Advanced Academic Writing II helps students learn the basics of source integration, literary analysis, academic style, and the writing process. Only the teacher manual is required, as it includes the full text of the student book plus special boxes that contain extra tips and questions that students and instructors will reference.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Composition: Grade 11\nComposition: Grade 12",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

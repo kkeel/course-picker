@@ -1,0 +1,75 @@
+{
+  "view": "topic",
+  "id": "recky33h72vyaCBmp",
+  "rowType": "topic",
+  "title": "Algebra 2/Trigonometry: Part 1",
+  "subject": "Math",
+  "gradeText": "GRADE(S): 10",
+  "sortId": "",
+  "courseId": "recytUN4F28M1mecV",
+  "courseTitle": "Mathematics: Grade 10",
+  "bookCount": 3,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recky33h72vyaCBmp",
+      "title": "Algebra 2/Trigonometry: Part 1",
+      "books": [
+        {
+          "resourceId": "recCiZ8KkqNCQdjfw",
+          "instanceKey": "course:recytUN4F28M1mecV:topic:recky33h72vyaCBmp:resource:recCiZ8KkqNCQdjfw",
+          "title": "Algebra and Trigonometry: Functions and Applications",
+          "author": "Paul Foerster",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recCiZ8KkqNCQdjfw.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": true,
+          "formatTags": "Ebook",
+          "rationale": "A master teacher guides you through the next level of algebra and trig.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Algebra 2/Trigonometry: Part 1\nAlgebra 2/Trigonometry: Part 2",
+          "links": []
+        },
+        {
+          "resourceId": "reciOSt8LIdiSw3P0",
+          "instanceKey": "course:recytUN4F28M1mecV:topic:recky33h72vyaCBmp:resource:reciOSt8LIdiSw3P0",
+          "title": "Algebra 2/Trig Ancillary Materials",
+          "author": "Math Without Borders",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reciOSt8LIdiSw3P0.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Solutions manual for Algebra 2/Trig",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Algebra 2/Trigonometry: Part 1\nAlgebra 2/Trigonometry: Part 2",
+          "links": []
+        },
+        {
+          "resourceId": "recPT7RAqxzUkKPHR",
+          "instanceKey": "course:recytUN4F28M1mecV:topic:recky33h72vyaCBmp:resource:recPT7RAqxzUkKPHR",
+          "title": "Home Study Companion: Algebra 2/Trigonometry",
+          "author": "Math Without Borders",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recPT7RAqxzUkKPHR.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": true,
+          "chooseOne": false,
+          "formatTags": "Video",
+          "rationale": "Video lessons which accompany Foerster's Algebra 2/Trig",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Algebra 2/Trigonometry: Part 1\nAlgebra 2/Trigonometry: Part 2",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "view": "course",
+  "id": "recV8AeQe61SiWsp9",
+  "rowType": "course",
+  "title": "Language Study: Grade 2",
+  "subject": "English",
+  "gradeText": "GRADE(S): 2",
+  "sortId": "",
+  "bookCount": 4,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recW0CmfSrc3CfXE3",
+      "title": "Reading Level 2",
+      "books": [
+        {
+          "resourceId": "rec6e7QVfZGzKU3zj",
+          "instanceKey": "course:recV8AeQe61SiWsp9:topic:recW0CmfSrc3CfXE3:resource:rec6e7QVfZGzKU3zj",
+          "title": "Reading-Literature: First Reader",
+          "author": "Free and Treadwell",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec6e7QVfZGzKU3zj.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This is a great collection of folk tales and poems for a beginning reader. This book series lends itself well to Mason's approach to teaching children to read because of the repetitive pattern of the stories and the decodable text. Use with our Reading Lessons: Level 2.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recjLDUosVJ9kqLKb",
+          "instanceKey": "course:recV8AeQe61SiWsp9:topic:recW0CmfSrc3CfXE3:resource:recjLDUosVJ9kqLKb",
+          "title": "Reading Lessons: Level 2 (Revised 2025)",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recjLDUosVJ9kqLKb.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This program features 15-minute lessons focusing on phonics and high-frequency word recognition and utilizing classic stories and poems from the Free and Treadwell Readers. The lessons include spelling, copywork, dictation, and some grammar. This program reflects Mason's principles as well as recent research, especially the importance of phonological awareness and phonics.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recljSRvEqiPqYeT3",
+      "title": "Penmanship & Copywork: Grade 2",
+      "books": [
+        {
+          "resourceId": "rec6WKrYlYzjYnRR4",
+          "instanceKey": "course:recV8AeQe61SiWsp9:topic:recljSRvEqiPqYeT3:resource:rec6WKrYlYzjYnRR4",
+          "title": "Italics: Beautiful Handwriting for Children",
+          "author": "Penny Gardner",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec6WKrYlYzjYnRR4.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": true,
+          "formatTags": "Ebook",
+          "rationale": "We like this model because it is lovely, yet simple. Both the print and cursive models are in italic, making this a solid foundation for fine lettering later. Some may prefer a more traditional cursive model.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Penmanship & Copywork: Grade 1\nPenmanship & Copywork: Grade 2\nPenmanship & Copywork: Grade 3\nPenmanship & Copywork: Grade 4\nPenmanship & Copywork: Grade 5\nPenmanship & Copywork: Grade 6",
+          "links": []
+        },
+        {
+          "resourceId": "reccDekHFnb5e58PJ",
+          "instanceKey": "course:recV8AeQe61SiWsp9:topic:recljSRvEqiPqYeT3:resource:reccDekHFnb5e58PJ",
+          "title": "Getty-Dubay® Italic Handwriting Book C",
+          "author": "Handwriting Success",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reccDekHFnb5e58PJ.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": true,
+          "formatTags": "",
+          "rationale": "The simple transition to cursive italic is introduced. Basic writing practice themes include: modes of transportation (automobile through zeppelin), days of the week, months of the year, and sentences. Capitals practice: cities of the USA. Includes numerals.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "view": "course",
+  "id": "recvWaMgcOPtoe4WV",
+  "rowType": "course",
+  "title": "Mathematics: Grade 8",
+  "subject": "Math",
+  "gradeText": "GRADE(S): 8",
+  "sortId": "",
+  "bookCount": 4,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recst0aVIebKf7Sw7",
+      "title": "Algebra 1: Part 1",
+      "books": [
+        {
+          "resourceId": "rec53OxsCZTGCz2fd",
+          "instanceKey": "course:recvWaMgcOPtoe4WV:topic:recst0aVIebKf7Sw7:resource:rec53OxsCZTGCz2fd",
+          "title": "Elementary Algebra Teacher Guide (Revised Edition)",
+          "author": "Harold Jacobs",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec53OxsCZTGCz2fd.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Algebra 1: Part 1\nAlgebra 1: Part 2",
+          "links": []
+        },
+        {
+          "resourceId": "recYbTWGEGIOzLcgQ",
+          "instanceKey": "course:recvWaMgcOPtoe4WV:topic:recst0aVIebKf7Sw7:resource:recYbTWGEGIOzLcgQ",
+          "title": "Elementary Algebra Student Book",
+          "author": "Harold Jacobs",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recYbTWGEGIOzLcgQ.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": true,
+          "formatTags": "Ebook, Video",
+          "rationale": "This book uses inviting narrative and everyday problems to give an introduction to Algebraic concepts. Lots of practice problems are also included.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Algebra 1: Part 2\nAlgebra 1: Part 1",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recv5IVzMmUzic2Uj",
+      "title": "Geometry: Grade 8",
+      "books": [
+        {
+          "resourceId": "recGmBghw8V9pxfyC",
+          "instanceKey": "course:recvWaMgcOPtoe4WV:topic:recv5IVzMmUzic2Uj:resource:recGmBghw8V9pxfyC",
+          "title": "RightStart Mathematics Level G 2nd Ed. Book Bundle",
+          "author": "",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recGmBghw8V9pxfyC.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": true,
+          "formatTags": "",
+          "rationale": "RightStart is based on discovery, using a wide range of manipulatives. It is an up-to-date, spiraling program that uses methods that are heavily supported by current research. \n➜  Students new to Right Start will also need the G2S Math Set. Those who have the RS2 Math Set will need to order the G2S Set Short.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Geometry: Grade 7\nGeometry: Grade 8",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recqNQrKdVJQ5PxQP",
+      "title": "Math Games: Grades 1-8",
+      "books": [
+        {
+          "resourceId": "recvX4HmvwtODCrX3",
+          "instanceKey": "course:recvWaMgcOPtoe4WV:topic:recqNQrKdVJQ5PxQP:resource:recvX4HmvwtODCrX3",
+          "title": "Math Card Games Kit",
+          "author": "RightStart",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recvX4HmvwtODCrX3.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Kit is recommended for those who do not use RightStart Math; kit is included in the RS2 Math Set. \n➜  Additional recommended game titles will be listed with the Lesson Plans for each level of mathematics.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "view": "topic",
+  "id": "rec5wXA5KBcOmYuUn",
+  "rowType": "topic",
+  "title": "History of Lit: Grades 9-12",
+  "subject": "Literature",
+  "gradeText": "GRADE(S): 9-12",
+  "sortId": "",
+  "courseId": "rec0W9G7pHNhGaTjO",
+  "courseTitle": "Literature: Grade 9",
+  "bookCount": 3,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "rec5wXA5KBcOmYuUn",
+      "title": "History of Lit: Grades 9-12",
+      "books": [
+        {
+          "resourceId": "rec0oGsLUHcktbS7b",
+          "instanceKey": "course:rec0W9G7pHNhGaTjO:topic:rec5wXA5KBcOmYuUn:resource:rec0oGsLUHcktbS7b",
+          "title": "English Literature for Boys and Girls",
+          "author": "H.E. Marshall",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec0oGsLUHcktbS7b.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "A delightful introduction to the writers of English literature whose works hold the greatest appeal for the youthful reader. The life and personality of each author is given in outline, with enough material quoted from key works to give an idea of the text.",
+          "notes": "",
+          "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "rec0r9HNzoD6ModuC",
+          "instanceKey": "course:rec0W9G7pHNhGaTjO:topic:rec5wXA5KBcOmYuUn:resource:rec0r9HNzoD6ModuC",
+          "title": "History of Literature PDF",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec0r9HNzoD6ModuC.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Curated selections of readings on literary developments, significant authors, and primary sources from the 19th century. Students use this PDF along with selected links and readings in Marshall's and Long's spines to deepen their relationship with 19th-century literature.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "rec3R4IiED1XO1HFQ",
+          "instanceKey": "course:rec0W9G7pHNhGaTjO:topic:rec5wXA5KBcOmYuUn:resource:rec3R4IiED1XO1HFQ",
+          "title": "American Literature",
+          "author": "William Long",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec3R4IiED1XO1HFQ.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "A helpful chronological look at American Literature and authors.",
+          "notes": "",
+          "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

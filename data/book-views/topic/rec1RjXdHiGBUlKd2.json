@@ -1,0 +1,39 @@
+{
+  "view": "topic",
+  "id": "rec1RjXdHiGBUlKd2",
+  "rowType": "topic",
+  "title": "Dictation: Grade 6",
+  "subject": "English",
+  "gradeText": "GRADE(S): 6",
+  "sortId": "",
+  "courseId": "recVYrtvG5Zep6XCc",
+  "courseTitle": "Language Study: Grade 6",
+  "bookCount": 1,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "rec1RjXdHiGBUlKd2",
+      "title": "Dictation: Grade 6",
+      "books": [
+        {
+          "resourceId": "recAUDZpOAGF0JSEx",
+          "instanceKey": "course:recVYrtvG5Zep6XCc:topic:rec1RjXdHiGBUlKd2:resource:recAUDZpOAGF0JSEx",
+          "title": "Grade 6 Copywork & Dictation Book",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recAUDZpOAGF0JSEx.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Copywork and dictation passages taken from the books and poems from this year.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Penmanship & Copywork: Grade 6\nDictation: Grade 6",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

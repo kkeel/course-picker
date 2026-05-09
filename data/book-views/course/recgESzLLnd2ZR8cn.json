@@ -1,0 +1,37 @@
+{
+  "view": "course",
+  "id": "recgESzLLnd2ZR8cn",
+  "rowType": "course",
+  "title": "Sloyd: Level 4",
+  "subject": "Life Skills",
+  "gradeText": "GRADE(S): 5+",
+  "sortId": "",
+  "bookCount": 1,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recgESzLLnd2ZR8cn",
+      "title": "Sloyd: Level 4",
+      "books": [
+        {
+          "resourceId": "recXomXTY2RhzQP7K",
+          "instanceKey": "course:recgESzLLnd2ZR8cn:resource:recXomXTY2RhzQP7K",
+          "title": "Sloyd",
+          "author": "Everett Schwartz",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recXomXTY2RhzQP7K.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This book contains models of geometric solids that support the study of geometry.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Sloyd: Level 5\nSloyd: Level 6\nSloyd: Level 4",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

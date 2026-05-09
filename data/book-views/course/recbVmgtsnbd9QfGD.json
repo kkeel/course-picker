@@ -1,0 +1,73 @@
+{
+  "view": "course",
+  "id": "recbVmgtsnbd9QfGD",
+  "rowType": "course",
+  "title": "Latin 1 (Independent Study)",
+  "subject": "Latin",
+  "gradeText": "GRADE(S): 7+",
+  "sortId": "",
+  "bookCount": 3,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recbVmgtsnbd9QfGD",
+      "title": "Latin 1 (Independent Study)",
+      "books": [
+        {
+          "resourceId": "rec9bb4GaH8Ii0X9p",
+          "instanceKey": "course:recbVmgtsnbd9QfGD:resource:rec9bb4GaH8Ii0X9p",
+          "title": "North American Cambridge Latin Unit 1 5th Ed. Student Book",
+          "author": "Cambridge School Classics Project",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec9bb4GaH8Ii0X9p.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This program continues presenting narrative stories in Latin, grammar exercises, vocabulary, and historical notes in an engaging way.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Latin 1 (Independent Study)\nLatin 1 (Video Course)",
+          "links": []
+        },
+        {
+          "resourceId": "reco1AVxRQoX4LDCP",
+          "instanceKey": "course:recbVmgtsnbd9QfGD:resource:reco1AVxRQoX4LDCP",
+          "title": "Cambridge Latin Unit 1 Online Resources",
+          "author": "",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reco1AVxRQoX4LDCP.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": true,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Cambridge Go is a subscription service that includes a digital version of the student book, audios of the stories, online games, and practice. This is helpful for students who are learning Latin independently.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recHpEWdHnkOVtfCD",
+          "instanceKey": "course:recbVmgtsnbd9QfGD:resource:recHpEWdHnkOVtfCD",
+          "title": "Cambridge Latin Units 1-4 Teacher Manual (1 Year Digital Access)",
+          "author": "Cambridge School Classics Project",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recHpEWdHnkOVtfCD.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Contains important teaching tips.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Latin 1 (Independent Study)\nLatin 2 (Independent Study)\nLatin 3\nLatin 4",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "view": "course",
+  "id": "recR8JMqdSmRHsqIq",
+  "rowType": "course",
+  "title": "Art: Level 1",
+  "subject": "Art",
+  "gradeText": "GRADE(S): 1+",
+  "sortId": "",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recR8JMqdSmRHsqIq",
+      "title": "Art: Level 1",
+      "books": [
+        {
+          "resourceId": "reckOxbera0wklAAL",
+          "instanceKey": "course:recR8JMqdSmRHsqIq:resource:reckOxbera0wklAAL",
+          "title": "Drawing, Design, and Craft-Work",
+          "author": "Frederick J. Glass",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reckOxbera0wklAAL.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This is an excellent guide to art instruction, with suggestions for how to begin, materials to use, and the directions future work may take. This book is profusely illustrated with clear explanations.",
+          "notes": "",
+          "scopeText": "Term 1 (Selections)",
+          "sharedText": "Art: Level 1\nArt: Level 2\nArt: Level 3\nArt: Level 4\nArt: Level 5\nArt: Level 6\nArt: Level 8\nArt: Level 7\nArt: Fast Track\nArt: High School Fast Track",
+          "links": []
+        },
+        {
+          "resourceId": "reclKLlJyBA0R51tK",
+          "instanceKey": "course:recR8JMqdSmRHsqIq:resource:reclKLlJyBA0R51tK",
+          "title": "Brushwork: Elementary Brush-Forms",
+          "author": "Marion Hudson",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reclKLlJyBA0R51tK.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This book is perfect for those who are new to brush drawing. The exercises on gridded paper help students learn to mix colors and control the brush. Brushforms (\"blobs\") are used to create designs.",
+          "notes": "",
+          "scopeText": "Term 2 (Selections)",
+          "sharedText": "Art: Level 1\nArt: Level 2\nArt: Level 3\nArt: Fast Track\nArt: High School Fast Track",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

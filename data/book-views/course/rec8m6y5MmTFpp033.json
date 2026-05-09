@@ -1,0 +1,62 @@
+{
+  "view": "course",
+  "id": "rec8m6y5MmTFpp033",
+  "rowType": "course",
+  "title": "Mathematics: Grade 1",
+  "subject": "Math",
+  "gradeText": "GRADE(S): 1",
+  "sortId": "",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recSG4uIGMf0evGmf",
+      "title": "Math Lessons: Grade 1",
+      "books": [
+        {
+          "resourceId": "recQvstPzymVJNX0O",
+          "instanceKey": "course:rec8m6y5MmTFpp033:topic:recSG4uIGMf0evGmf:resource:recQvstPzymVJNX0O",
+          "title": "RightStart Mathematics Level A 2nd Ed. Book Bundle",
+          "author": "",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recQvstPzymVJNX0O.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Video",
+          "rationale": "RightStart is based on discovery using a wide range of manipulatives. It is an up-to-date, spiraling program that uses methods that are heavily supported by current research. \n➜  Students also need the RS2 Math Set.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recqNQrKdVJQ5PxQP",
+      "title": "Math Games: Grades 1-8",
+      "books": [
+        {
+          "resourceId": "recvX4HmvwtODCrX3",
+          "instanceKey": "course:rec8m6y5MmTFpp033:topic:recqNQrKdVJQ5PxQP:resource:recvX4HmvwtODCrX3",
+          "title": "Math Card Games Kit",
+          "author": "RightStart",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recvX4HmvwtODCrX3.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Kit is recommended for those who do not use RightStart Math; kit is included in the RS2 Math Set. \n➜  Additional recommended game titles will be listed with the Lesson Plans for each level of mathematics.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

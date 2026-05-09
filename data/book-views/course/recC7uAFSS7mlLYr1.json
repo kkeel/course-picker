@@ -1,0 +1,98 @@
+{
+  "view": "course",
+  "id": "recC7uAFSS7mlLYr1",
+  "rowType": "course",
+  "title": "Mathematics: Grade 11",
+  "subject": "Math",
+  "gradeText": "GRADE(S): 11",
+  "sortId": "",
+  "bookCount": 4,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "reczBM3lDoMDTujKt",
+      "title": "Algebra 2/Trigonometry: Part 2",
+      "books": [
+        {
+          "resourceId": "recCiZ8KkqNCQdjfw",
+          "instanceKey": "course:recC7uAFSS7mlLYr1:topic:reczBM3lDoMDTujKt:resource:recCiZ8KkqNCQdjfw",
+          "title": "Algebra and Trigonometry: Functions and Applications",
+          "author": "Paul Foerster",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recCiZ8KkqNCQdjfw.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": true,
+          "formatTags": "Ebook",
+          "rationale": "A master teacher guides you through the next level of algebra and trig.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2 (Partial Term)",
+          "sharedText": "Algebra 2/Trigonometry: Part 1\nAlgebra 2/Trigonometry: Part 2",
+          "links": []
+        },
+        {
+          "resourceId": "reciOSt8LIdiSw3P0",
+          "instanceKey": "course:recC7uAFSS7mlLYr1:topic:reczBM3lDoMDTujKt:resource:reciOSt8LIdiSw3P0",
+          "title": "Algebra 2/Trig Ancillary Materials",
+          "author": "Math Without Borders",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reciOSt8LIdiSw3P0.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Solutions manual for Algebra 2/Trig",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2 (Partial Term)",
+          "sharedText": "Algebra 2/Trigonometry: Part 1\nAlgebra 2/Trigonometry: Part 2",
+          "links": []
+        },
+        {
+          "resourceId": "recPT7RAqxzUkKPHR",
+          "instanceKey": "course:recC7uAFSS7mlLYr1:topic:reczBM3lDoMDTujKt:resource:recPT7RAqxzUkKPHR",
+          "title": "Home Study Companion: Algebra 2/Trigonometry",
+          "author": "Math Without Borders",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recPT7RAqxzUkKPHR.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": true,
+          "chooseOne": false,
+          "formatTags": "Video",
+          "rationale": "Video lessons which accompany Foerster's Algebra 2/Trig",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2 (Partial Term)",
+          "sharedText": "Algebra 2/Trigonometry: Part 1\nAlgebra 2/Trigonometry: Part 2",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recyYBZGLnHazDme6",
+      "title": "Pre-Calculus: Part 1",
+      "books": [
+        {
+          "resourceId": "recBToi9LtJZphztW",
+          "instanceKey": "course:recC7uAFSS7mlLYr1:topic:recyYBZGLnHazDme6:resource:recBToi9LtJZphztW",
+          "title": "Home Study Companion: Precalculus",
+          "author": "Math Without Borders",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recBToi9LtJZphztW.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Video",
+          "rationale": "Video lessons to accompany Foerster's Precalculus",
+          "notes": "",
+          "scopeText": "Term 2 (Partial Term)\nTerm 3",
+          "sharedText": "Pre-Calculus: Part 1\nPre-Calculus: Part 2",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

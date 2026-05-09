@@ -1,0 +1,141 @@
+{
+  "view": "course",
+  "id": "recqnSJpyczoUhkxf",
+  "rowType": "course",
+  "title": "Language Study: Grade 8",
+  "subject": "English",
+  "gradeText": "GRADE(S): 8",
+  "sortId": "",
+  "bookCount": 6,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recUsu8pR1gAT6SmN",
+      "title": "Grammar/Comp: Grade 8",
+      "books": [
+        {
+          "resourceId": "recim0ZAxuz3BnWRQ",
+          "instanceKey": "course:recqnSJpyczoUhkxf:topic:recUsu8pR1gAT6SmN:resource:recim0ZAxuz3BnWRQ",
+          "title": "Grammar Voyage",
+          "author": "Michael Clay Thompson",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recim0ZAxuz3BnWRQ.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Building on grammar concepts introduced in Grammar Island and Grammar Town, this book continues to help students explore the intricacies of grammar.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3 (Partial Term)",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recj1i1Qyn8S5kv9z",
+          "instanceKey": "course:recqnSJpyczoUhkxf:topic:recUsu8pR1gAT6SmN:resource:recj1i1Qyn8S5kv9z",
+          "title": "Grammar Voyage Teacher Manual (select pages)",
+          "author": "Michael Clay Thompson",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recj1i1Qyn8S5kv9z.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3 (Partial Term)",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recdDqzEBmeByYg2e",
+          "instanceKey": "course:recqnSJpyczoUhkxf:topic:recUsu8pR1gAT6SmN:resource:recdDqzEBmeByYg2e",
+          "title": "Practice Voyage",
+          "author": "Michael Clay Thompson",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recdDqzEBmeByYg2e.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This workbook accompanies Grammar Voyage and contains practice sentences.",
+          "notes": "",
+          "scopeText": "Term 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recWzVT4NVDo1FmpN",
+          "instanceKey": "course:recqnSJpyczoUhkxf:topic:recUsu8pR1gAT6SmN:resource:recWzVT4NVDo1FmpN",
+          "title": "Practice Voyage Teacher Manual (select pages)",
+          "author": "Michael Clay Thompson",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recWzVT4NVDo1FmpN.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "",
+          "notes": "",
+          "scopeText": "Term 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recOlXtr0sY7g0n9A",
+      "title": "Dictation: Grade 8",
+      "books": [
+        {
+          "resourceId": "rec6KhfiWqAzNZXzE",
+          "instanceKey": "course:recqnSJpyczoUhkxf:topic:recOlXtr0sY7g0n9A:resource:rec6KhfiWqAzNZXzE",
+          "title": "Grade 8 Copywork & Dictation Book",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec6KhfiWqAzNZXzE.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Copywork and dictation passages taken from the books and poems from this year.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Copywork: Grade 8\nDictation: Grade 8",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recMuKJeBsa2PYeAA",
+      "title": "Copywork: Grade 8",
+      "books": [
+        {
+          "resourceId": "rec6KhfiWqAzNZXzE",
+          "instanceKey": "course:recqnSJpyczoUhkxf:topic:recMuKJeBsa2PYeAA:resource:rec6KhfiWqAzNZXzE",
+          "title": "Grade 8 Copywork & Dictation Book",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec6KhfiWqAzNZXzE.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Copywork and dictation passages taken from the books and poems from this year.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Copywork: Grade 8\nDictation: Grade 8",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "view": "course",
+  "id": "rec6MBLqzC1D2dewf",
+  "rowType": "course",
+  "title": "Art: High School Fast Track",
+  "subject": "Art",
+  "gradeText": "GRADE(S): 9-12",
+  "sortId": "",
+  "bookCount": 4,
+  "sections": [
+    {
+      "type": "course",
+      "id": "rec6MBLqzC1D2dewf",
+      "title": "Art: High School Fast Track",
+      "books": [
+        {
+          "resourceId": "reckOxbera0wklAAL",
+          "instanceKey": "course:rec6MBLqzC1D2dewf:resource:reckOxbera0wklAAL",
+          "title": "Drawing, Design, and Craft-Work",
+          "author": "Frederick J. Glass",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reckOxbera0wklAAL.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This is an excellent guide to art instruction, with suggestions for how to begin, materials to use, and the directions future work may take. This book is profusely illustrated with clear explanations.",
+          "notes": "",
+          "scopeText": "Term 1",
+          "sharedText": "Art: Level 1\nArt: Level 2\nArt: Level 3\nArt: Level 4\nArt: Level 5\nArt: Level 6\nArt: Level 8\nArt: Level 7\nArt: Fast Track\nArt: High School Fast Track",
+          "links": []
+        },
+        {
+          "resourceId": "recDqaL6IXqwNBlne",
+          "instanceKey": "course:rec6MBLqzC1D2dewf:resource:recDqaL6IXqwNBlne",
+          "title": "Color: A Course in Mastering the Art of Mixing Colors",
+          "author": "Betty Edwards",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recDqaL6IXqwNBlne.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": true,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This is an optional resource for students who would like a resource guide for color theory and/or would want to learn more than what will be covered in lessons.",
+          "notes": "",
+          "scopeText": "Term 2",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "reclKLlJyBA0R51tK",
+          "instanceKey": "course:rec6MBLqzC1D2dewf:resource:reclKLlJyBA0R51tK",
+          "title": "Brushwork: Elementary Brush-Forms",
+          "author": "Marion Hudson",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reclKLlJyBA0R51tK.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This book is perfect for those who are new to brush drawing. The exercises on gridded paper help students learn to mix colors and control the brush. Brushforms (\"blobs\") are used to create designs.",
+          "notes": "",
+          "scopeText": "Term 2 (Partial Term)",
+          "sharedText": "Art: Level 1\nArt: Level 2\nArt: Level 3\nArt: Fast Track\nArt: High School Fast Track",
+          "links": []
+        },
+        {
+          "resourceId": "recwJkZ5CLtc1nVnK",
+          "instanceKey": "course:rec6MBLqzC1D2dewf:resource:recwJkZ5CLtc1nVnK",
+          "title": "Brush Drawing as Applied to Natural Forms and Common Objects",
+          "author": "May Mallam",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recwJkZ5CLtc1nVnK.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This is a complete guide to learning how to brush-draw. Exercises progress from simple lines to monochromatic value painting to painting in color. Techniques taught help students learn to \"see\" so that they can visually represent their observations.",
+          "notes": "",
+          "scopeText": "Term 3",
+          "sharedText": "Art: Level 4\nArt: Level 5\nArt: Level 6\nArt: Level 7\nArt: High School Fast Track",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

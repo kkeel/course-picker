@@ -1,0 +1,57 @@
+{
+  "view": "topic",
+  "id": "recPM5jXG1kesMguO",
+  "rowType": "topic",
+  "title": "Sol-fa: Level 5",
+  "subject": "Music",
+  "gradeText": "GRADE(S): 6-12",
+  "sortId": "",
+  "courseId": "recU2BFWNK9nliynJ",
+  "courseTitle": "Music: Level 5",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recPM5jXG1kesMguO",
+      "title": "Sol-fa: Level 5",
+      "books": [
+        {
+          "resourceId": "rec3kEuGDYChqpEYt",
+          "instanceKey": "course:recU2BFWNK9nliynJ:topic:recPM5jXG1kesMguO:resource:rec3kEuGDYChqpEYt",
+          "title": "Sol-fa Level 5 Audio Lessons",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec3kEuGDYChqpEYt.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Audiobook",
+          "rationale": "",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recFsxXQ19Hzb20n3",
+          "instanceKey": "course:recU2BFWNK9nliynJ:topic:recPM5jXG1kesMguO:resource:recFsxXQ19Hzb20n3",
+          "title": "Fifty Steps in Sight-Singing",
+          "author": "Arthur Somervell",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recFsxXQ19Hzb20n3.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Classic text to teach sight-singing.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Sol-fa: Level 3\nSol-fa: Level 4\nSol-fa: Level 5",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

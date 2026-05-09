@@ -1,0 +1,55 @@
+{
+  "view": "course",
+  "id": "recA4fE7pd3FiQRra",
+  "rowType": "course",
+  "title": "Art: Level 4",
+  "subject": "Art",
+  "gradeText": "GRADE(S): 4+",
+  "sortId": "",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recA4fE7pd3FiQRra",
+      "title": "Art: Level 4",
+      "books": [
+        {
+          "resourceId": "reckOxbera0wklAAL",
+          "instanceKey": "course:recA4fE7pd3FiQRra:resource:reckOxbera0wklAAL",
+          "title": "Drawing, Design, and Craft-Work",
+          "author": "Frederick J. Glass",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/reckOxbera0wklAAL.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This is an excellent guide to art instruction, with suggestions for how to begin, materials to use, and the directions future work may take. This book is profusely illustrated with clear explanations.",
+          "notes": "",
+          "scopeText": "Term 1 (Selections)",
+          "sharedText": "Art: Level 1\nArt: Level 2\nArt: Level 3\nArt: Level 4\nArt: Level 5\nArt: Level 6\nArt: Level 8\nArt: Level 7\nArt: Fast Track\nArt: High School Fast Track",
+          "links": []
+        },
+        {
+          "resourceId": "recwJkZ5CLtc1nVnK",
+          "instanceKey": "course:recA4fE7pd3FiQRra:resource:recwJkZ5CLtc1nVnK",
+          "title": "Brush Drawing as Applied to Natural Forms and Common Objects",
+          "author": "May Mallam",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recwJkZ5CLtc1nVnK.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This is a complete guide to learning how to brush-draw. Exercises progress from simple lines to monochromatic value painting to painting in color. Techniques taught help students learn to \"see\" so that they can visually represent their observations.",
+          "notes": "",
+          "scopeText": "Term 2 (Selections)",
+          "sharedText": "Art: Level 4\nArt: Level 5\nArt: Level 6\nArt: Level 7\nArt: High School Fast Track",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

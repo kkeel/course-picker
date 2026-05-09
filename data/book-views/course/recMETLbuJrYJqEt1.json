@@ -1,0 +1,87 @@
+{
+  "view": "course",
+  "id": "recMETLbuJrYJqEt1",
+  "rowType": "course",
+  "title": "PE: Grades 7-12",
+  "subject": "Physical Education",
+  "gradeText": "GRADE(S): 7-12",
+  "sortId": "",
+  "bookCount": 3,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recx2i8TLYVdU0pPc",
+      "title": "Playground Games",
+      "books": [
+        {
+          "resourceId": "recO7o2cHORX18JsY",
+          "instanceKey": "course:recMETLbuJrYJqEt1:topic:recx2i8TLYVdU0pPc:resource:recO7o2cHORX18JsY",
+          "title": "The Ultimate Homeschool Physical Education Game Book",
+          "author": "Guy Bailey",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recO7o2cHORX18JsY.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This book contains time-honored and newer playground games and skill-building activities for organized sports.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Playground Games\nSports",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "reckAZIlzzO3IwsSY",
+      "title": "Sports",
+      "books": [
+        {
+          "resourceId": "recO7o2cHORX18JsY",
+          "instanceKey": "course:recMETLbuJrYJqEt1:topic:reckAZIlzzO3IwsSY:resource:recO7o2cHORX18JsY",
+          "title": "The Ultimate Homeschool Physical Education Game Book",
+          "author": "Guy Bailey",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recO7o2cHORX18JsY.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This book contains time-honored and newer playground games and skill-building activities for organized sports.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Playground Games\nSports",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "reclZXm6TOqOcFHbV",
+      "title": "Free Play/ Circuits",
+      "books": [
+        {
+          "resourceId": "recavFDwkQjBdb9fc",
+          "instanceKey": "course:recMETLbuJrYJqEt1:topic:reclZXm6TOqOcFHbV:resource:recavFDwkQjBdb9fc",
+          "title": "303 Tween-Approved Exercises and Active Games",
+          "author": "Kimberly Wechsler",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recavFDwkQjBdb9fc.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This book provides a great list of exercises that includes strength training, flexibility exercises, and cardiovascular activities. This can be used in a group or with one student.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

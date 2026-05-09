@@ -1,0 +1,57 @@
+{
+  "view": "topic",
+  "id": "rec9nMxj7clnqmYXN",
+  "rowType": "topic",
+  "title": "Reading Level 1",
+  "subject": "English",
+  "gradeText": "GRADE(S): 1",
+  "sortId": "",
+  "courseId": "rec7VealMCWCQdr30",
+  "courseTitle": "Language Study: Grade 1",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "rec9nMxj7clnqmYXN",
+      "title": "Reading Level 1",
+      "books": [
+        {
+          "resourceId": "rec25ddXr2YSOI26L",
+          "instanceKey": "course:rec7VealMCWCQdr30:topic:rec9nMxj7clnqmYXN:resource:rec25ddXr2YSOI26L",
+          "title": "Reading Lessons: Level 1 (Revised 2025)",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec25ddXr2YSOI26L.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This program features 15-minute lessons focusing on phonics and high-frequency word recognition and utilizing classic stories and poems from the Free and Treadwell Readers. The lessons include spelling, copywork, dictation, and some grammar. This program reflects Mason's principles as well as recent research, especially the importance of phonological awareness and phonics.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "rec7EN9jEosk5Zy2r",
+          "instanceKey": "course:rec7VealMCWCQdr30:topic:rec9nMxj7clnqmYXN:resource:rec7EN9jEosk5Zy2r",
+          "title": "Reading-Literature: The Primer",
+          "author": "Free and Treadwell",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rec7EN9jEosk5Zy2r.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This is a great collection of folk tales and poems for a beginning reader. This book series lends itself well to Mason's approach to teaching children to read because of the repetitive pattern of the stories and the decodable text. Use with our Reading Lessons: Level 1.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

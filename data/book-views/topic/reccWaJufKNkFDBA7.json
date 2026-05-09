@@ -1,0 +1,57 @@
+{
+  "view": "topic",
+  "id": "reccWaJufKNkFDBA7",
+  "rowType": "topic",
+  "title": "Ancient History: Grades 7-9",
+  "subject": "History",
+  "gradeText": "GRADE(S): 7-9",
+  "sortId": "",
+  "courseId": "recXs7i6rqLlwkcyu",
+  "courseTitle": "History: Grades 7-8 (U.S.)",
+  "bookCount": 2,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "reccWaJufKNkFDBA7",
+      "title": "Ancient History: Grades 7-9",
+      "books": [
+        {
+          "resourceId": "recd40KytaKLQWL3Q",
+          "instanceKey": "course:recXs7i6rqLlwkcyu:topic:reccWaJufKNkFDBA7:resource:recd40KytaKLQWL3Q",
+          "title": "A Short History of Ancient Rome",
+          "author": "Pascal Hughes",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recd40KytaKLQWL3Q.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "This book charts the dramatic twists and turns of the Roman kingdom, the republic, the empire and its decline. Pascal Hughes writes the history in a popular form that is engaging and easy to understand. Students will walk away from the reading with a deep understanding of one of the most powerful nations in the world.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recLMSlmgZH9VBfHb",
+          "instanceKey": "course:recXs7i6rqLlwkcyu:topic:reccWaJufKNkFDBA7:resource:recLMSlmgZH9VBfHb",
+          "title": "The Witness of Early Christian Women: Mothers of the Church",
+          "author": "Mike Aquilina",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recLMSlmgZH9VBfHb.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Source documents/writings alongside short biographies of women and their impact in the early church.",
+          "notes": "",
+          "scopeText": "Term 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

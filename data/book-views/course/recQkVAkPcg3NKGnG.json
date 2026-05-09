@@ -1,0 +1,116 @@
+{
+  "view": "course",
+  "id": "recQkVAkPcg3NKGnG",
+  "rowType": "course",
+  "title": "Literature: Grade 1",
+  "subject": "Literature",
+  "gradeText": "GRADE(S): 1",
+  "sortId": "",
+  "bookCount": 5,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recPJwhSDEWWZXwi6",
+      "title": "Fairy Tales",
+      "books": [
+        {
+          "resourceId": "recAgpjTHZLXwXPgv",
+          "instanceKey": "course:recQkVAkPcg3NKGnG:topic:recPJwhSDEWWZXwi6:resource:recAgpjTHZLXwXPgv",
+          "title": "Tales from Grimm",
+          "author": "Wanda Gag",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recAgpjTHZLXwXPgv.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Mason had her youngest students read fairy tales from Grimm or Anderson. This retelling by Wanda Gag is gentler and less scary than many other translations, while still having good literary quality and simple English for students to practice reading themselves.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recZEkDPmuBucJpr1",
+          "instanceKey": "course:recQkVAkPcg3NKGnG:topic:recPJwhSDEWWZXwi6:resource:recZEkDPmuBucJpr1",
+          "title": "Around the World in 80 Tales",
+          "author": "Saviour Pirotta",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recZEkDPmuBucJpr1.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "This book takes readers across six continents with short, entertaining folktales to stir our first graders' imaginations with tales from many lands.",
+          "notes": "",
+          "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "rechdAl8LV3A6ohAz",
+      "title": "Tall Tales/ Fables",
+      "books": [
+        {
+          "resourceId": "recHLSd4DYDUKCKw4",
+          "instanceKey": "course:recQkVAkPcg3NKGnG:topic:rechdAl8LV3A6ohAz:resource:recHLSd4DYDUKCKw4",
+          "title": "Aesop's Favorite Fables",
+          "author": "Aesop, illus. by Milo Winter",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recHLSd4DYDUKCKw4.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Aesop's Fables have made learning life's lessons enjoyable for 2500 years. The illustrations by Milo Winter set this collection apart.",
+          "notes": "",
+          "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recgE9YlBVowDiYAM",
+          "instanceKey": "course:recQkVAkPcg3NKGnG:topic:rechdAl8LV3A6ohAz:resource:recgE9YlBVowDiYAM",
+          "title": "American Tall Tales",
+          "author": "Mary Pope Osborne",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recgE9YlBVowDiYAM.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "These larger-than-life stories capture something of America's personality. Mary Pope Osborne has retold these stories well, and the wood-carved illustrations are delightful.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recAYCiNb4mH6y06V",
+          "instanceKey": "course:recQkVAkPcg3NKGnG:topic:rechdAl8LV3A6ohAz:resource:recAYCiNb4mH6y06V",
+          "title": "The Spirit of Canada: Canada's Story in Legends, Fiction, Poems, and Songs",
+          "author": "Barbara Hehner",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recAYCiNb4mH6y06V.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Organized thematically, this beautiful anthology encompasses a wide variety of voices and stories that reflect Canada's past and present. It is an excellent accompaniment to Canadian history and literature, as it contains many different genres: poems, songs, letters, legends, stories, folk tales, historical accounts, and more.",
+          "notes": "",
+          "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+          "sharedText": "Canadian History: Grades 2-4\nTall Tales/ Fables",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

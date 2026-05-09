@@ -1,0 +1,37 @@
+{
+  "view": "course",
+  "id": "recRefBpDHe8bvBjF",
+  "rowType": "course",
+  "title": "Sloyd: Level 2",
+  "subject": "Life Skills",
+  "gradeText": "GRADE(S): 3+",
+  "sortId": "",
+  "bookCount": 1,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recRefBpDHe8bvBjF",
+      "title": "Sloyd: Level 2",
+      "books": [
+        {
+          "resourceId": "recDOxrwbokPqQmAn",
+          "instanceKey": "course:recRefBpDHe8bvBjF:resource:recDOxrwbokPqQmAn",
+          "title": "Paper Sloyd for Primary Grades",
+          "author": "Ednah Rich",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recDOxrwbokPqQmAn.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "This book begins with very simple models; difficulty increases gradually.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Sloyd: Level 1\nSloyd: Level 2\nSloyd: Level 3",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "view": "course",
+  "id": "recGPYJ8F20tJ77NJ",
+  "rowType": "course",
+  "title": "Handicrafts",
+  "subject": "Life Skills",
+  "gradeText": "GRADE(S): 2-12",
+  "sortId": "",
+  "bookCount": 1,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recGPYJ8F20tJ77NJ",
+      "title": "Handicrafts",
+      "books": [
+        {
+          "resourceId": "recBZIgHqJbgulcIt",
+          "instanceKey": "course:recGPYJ8F20tJ77NJ:resource:recBZIgHqJbgulcIt",
+          "title": "The Ultimate Sashiko Sourcebook",
+          "author": "Susan Briscoe",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recBZIgHqJbgulcIt.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": true,
+          "chooseOne": false,
+          "formatTags": "",
+          "rationale": "Students will use the illustrations and directions in the book to learn Sashiko techniques and designs.",
+          "notes": "",
+          "scopeText": "Term 2",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

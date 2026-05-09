@@ -1,0 +1,37 @@
+{
+  "view": "course",
+  "id": "recofNASItbLN2GCB",
+  "rowType": "course",
+  "title": "Sloyd: Intro",
+  "subject": "Life Skills",
+  "gradeText": "GRADE(S): 1+",
+  "sortId": "",
+  "bookCount": 1,
+  "sections": [
+    {
+      "type": "course",
+      "id": "recofNASItbLN2GCB",
+      "title": "Sloyd: Intro",
+      "books": [
+        {
+          "resourceId": "recr29aKYdyuM8fAF",
+          "instanceKey": "course:recofNASItbLN2GCB:resource:recr29aKYdyuM8fAF",
+          "title": "Paper Folding Video Lessons",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recr29aKYdyuM8fAF.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Video",
+          "rationale": "Teaches basic paper folding techniques and helps young students gain practice in fine motor skills.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "view": "course",
+  "id": "recc1whJbvhdYRqVf",
+  "rowType": "course",
+  "title": "Literature: Grade 3",
+  "subject": "Literature",
+  "gradeText": "GRADE(S): 3",
+  "sortId": "",
+  "bookCount": 4,
+  "sections": [
+    {
+      "type": "topic",
+      "id": "recDoQA8wNGbAHwcV",
+      "title": "Lit./Mythology: Grade 3",
+      "books": [
+        {
+          "resourceId": "rechRuS8zVr1DHOaD",
+          "instanceKey": "course:recc1whJbvhdYRqVf:topic:recDoQA8wNGbAHwcV:resource:rechRuS8zVr1DHOaD",
+          "title": "A Wonder Book for Girls and Boys",
+          "author": "Nathaniel Hawthorne",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/rechRuS8zVr1DHOaD.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook",
+          "rationale": "Nathaniel Hawthorne is a master storyteller. This collection of stories from Greek mythology is a great introduction for young children.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Mythology: Grade 2\nLit./Mythology: Grade 3",
+          "links": []
+        },
+        {
+          "resourceId": "recJGvkeytuYA6Noo",
+          "instanceKey": "course:recc1whJbvhdYRqVf:topic:recDoQA8wNGbAHwcV:resource:recJGvkeytuYA6Noo",
+          "title": "Pilgrim's Progress: Updated, Modern English",
+          "author": "John Bunyan",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recJGvkeytuYA6Noo.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "Mason's students read the original text, and some Alveary members choose to do the same. However, we find this retelling robust and beautiful, without the archaic vocabulary of the original, making the ideas more accessible to young children.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Classic Lit.: Grade 2\nLit./Mythology: Grade 3",
+          "links": []
+        }
+      ]
+    },
+    {
+      "type": "topic",
+      "id": "recSEbSNxFsgIUsga",
+      "title": "General Lit.: Grade 3",
+      "books": [
+        {
+          "resourceId": "recZr8l5ssEAbyQPx",
+          "instanceKey": "course:recc1whJbvhdYRqVf:topic:recSEbSNxFsgIUsga:resource:recZr8l5ssEAbyQPx",
+          "title": "Charlotte's Web",
+          "author": "E.B. White",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recZr8l5ssEAbyQPx.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "The classic tale is about a spider, a pig, and much more. This book was chosen not only for its enduring literary quality but also to provide opportunities in their lessons for young readers to read books themselves.",
+          "notes": "",
+          "scopeText": "Term 1\nTerm 2",
+          "sharedText": "",
+          "links": []
+        },
+        {
+          "resourceId": "recJiJYYGjlHgqOf7",
+          "instanceKey": "course:recc1whJbvhdYRqVf:topic:recSEbSNxFsgIUsga:resource:recJiJYYGjlHgqOf7",
+          "title": "Heart of a Samurai",
+          "author": "Margi Preus",
+          "isbn": "",
+          "asin": "",
+          "imagePath": "img/resources/recJiJYYGjlHgqOf7.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "formatTags": "Ebook, Audiobook",
+          "rationale": "Based on the true story of a Japanese boy who survived a shipwreck and was rescued by an American whaling ship, Heart of a Samurai functions as a transitional book between Grades 3-4. Starting in Grade 4, students study world history and read literature that increasingly coordinates with the time period. Set in both Japan and the US in the mid 19th century, this engaging narrative expands students' imaginations of the broader world which they will study in more detail in later years.",
+          "notes": "",
+          "scopeText": "Term 3",
+          "sharedText": "",
+          "links": []
+        }
+      ]
+    }
+  ]
+}
