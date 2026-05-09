@@ -1,1 +1,159 @@
+const DIRECTORY_INDEX_URL = "./data/alveary-directory-index.json";
 
+const state = {
+  rows: [],
+  courses: [],
+  topics: [],
+  query: "",
+};
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function normalizeSearch(value) {
+  return String(value || "").toLowerCase().trim();
+}
+
+function rowMatchesQuery(row, query) {
+  if (!query) return true;
+
+  const haystack = [
+    row.title,
+    row.lessonSetName,
+    row.subject,
+    row.gradeText,
+    row.courseTitle,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  return haystack.includes(query);
+}
+
+function renderCourseCard(item) {
+  return `
+    <article class="directory-card">
+      <div class="card-topline">
+        <h3 class="card-title">${escapeHtml(item.lessonSetName || item.title || "")}</h3>
+        <span class="card-mini">${escapeHtml(item.subject || "Course")}</span>
+      </div>
+
+      <div class="card-meta">${escapeHtml(item.gradeText || "")}</div>
+
+      <div class="card-actions">
+        <a class="card-button" href="./${escapeHtml(item.bookDetailsUrl || "#")}">
+          Book Details
+        </a>
+      </div>
+    </article>
+  `;
+}
+
+function renderTopicCard(item) {
+  return `
+    <article class="topic-card">
+      <div class="card-topline">
+        <h3 class="card-title">${escapeHtml(item.lessonSetName || item.title || "")}</h3>
+        <span class="card-mini">Topic</span>
+      </div>
+
+      <div class="card-meta">
+        ${escapeHtml(item.gradeText || "")}
+      </div>
+
+      <div class="card-actions">
+        <a class="card-button card-button-secondary" href="./${escapeHtml(item.bookDetailsUrl || "#")}">
+          Book Details
+        </a>
+      </div>
+    </article>
+  `;
+}
+
+function render() {
+  const query = normalizeSearch(state.query);
+
+  const visibleCourses = state.courses.filter((row) => rowMatchesQuery(row, query));
+  const visibleTopics = state.topics.filter((row) => rowMatchesQuery(row, query));
+
+  document.getElementById("directory-count").textContent =
+    `${visibleCourses.length} courses`;
+
+  const courseList = document.getElementById("course-list");
+  const topicGroupList = document.getElementById("topic-group-list");
+
+  courseList.innerHTML = visibleCourses.length
+    ? visibleCourses.map(renderCourseCard).join("")
+    : `<div class="empty-state">No matching courses found.</div>`;
+
+  const topicsByCourseId = {};
+
+  for (const topic of visibleTopics) {
+    const key = topic.courseId || "uncategorized";
+    if (!topicsByCourseId[key]) {
+      topicsByCourseId[key] = {
+        courseTitle: topic.courseTitle || "Other Topics",
+        subject: topic.subject || "",
+        topics: [],
+      };
+    }
+    topicsByCourseId[key].topics.push(topic);
+  }
+
+  const groupedHtml = Object.values(topicsByCourseId)
+    .sort((a, b) => a.courseTitle.localeCompare(b.courseTitle))
+    .map((group) => `
+      <section class="topic-group">
+        <div class="topic-group-head">
+          <h3 class="topic-group-title">${escapeHtml(group.courseTitle)}</h3>
+          <div class="topic-group-grade">${escapeHtml(group.subject)}</div>
+        </div>
+        <div class="topic-items">
+          ${group.topics.map(renderTopicCard).join("")}
+        </div>
+      </section>
+    `)
+    .join("");
+
+  topicGroupList.innerHTML = groupedHtml || `<div class="empty-state">No matching topics found.</div>`;
+}
+
+async function initDirectory() {
+  try {
+    const response = await fetch(DIRECTORY_INDEX_URL);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const index = await response.json();
+    const rows = Array.isArray(index.rows) ? index.rows : [];
+
+    state.rows = rows;
+    state.courses = rows.filter((row) => row.rowType === "course");
+    state.topics = rows.filter((row) => row.rowType === "topic");
+
+    const searchInput = document.getElementById("directory-search");
+    searchInput.addEventListener("input", (event) => {
+      state.query = event.target.value;
+      render();
+    });
+
+    render();
+  } catch (error) {
+    document.getElementById("course-list").innerHTML =
+      `<div class="empty-state">Could not load course list.</div>`;
+
+    document.getElementById("topic-group-list").innerHTML =
+      `<div class="empty-state">Could not load topic groups.</div>`;
+
+    document.getElementById("directory-count").textContent = "Load failed";
+    console.error(error);
+  }
+}
+
+initDirectory();
