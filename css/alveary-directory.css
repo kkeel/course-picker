@@ -311,7 +311,8 @@ a {
 }
 
 .directory-panel {
-  max-width: 760px;
+  width: 100%;
+  max-width: none;
 }
 
 .directory-search-label {
