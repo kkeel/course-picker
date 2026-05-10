@@ -1637,6 +1637,59 @@
     "linkPageUrl": "./links.html?id=recyw9Tjk8xQIKR3q"
   },
   {
+    "id": "recA9VwDfoL5rPGan",
+    "title": "History",
+    "lessonSetName": "History: Grades 7-8 (U.S.)",
+    "subject": "History",
+    "gradeText": "GRADE(S): 7-8",
+    "sortId": "008.007.001.000",
+    "rowType": "course",
+    "hasTopics": true,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [
+      "U.S. History: Grades 7-8",
+      "Ancient History: Grades 7-9"
+    ],
+    "linkPageUrl": "./links.html?id=recA9VwDfoL5rPGan"
+  },
+  {
+    "id": "rec35HIIi6CIj2I0T",
+    "title": "Ancient History",
+    "lessonSetName": "Ancient History: Grades 7-9",
+    "subject": "History",
+    "gradeText": "GRADE(S): 7-9",
+    "sortId": "008.007.001.006",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "History: Grades 7-8 (U.S.)",
+      "History: Grades 7-8 (Canada)",
+      "History: Grade 9 (U.S.)",
+      "History: Grade 9 (Canada)"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=rec35HIIi6CIj2I0T"
+  },
+  {
+    "id": "recyhrlHSPAxgxtxn",
+    "title": "History",
+    "lessonSetName": "History: Grades 7-8 (Canada)",
+    "subject": "History",
+    "gradeText": "GRADE(S): 7-8",
+    "sortId": "008.007.002.000",
+    "rowType": "course",
+    "hasTopics": true,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [
+      "Ancient History: Grades 7-9",
+      "Canadian History: Grades 7-8"
+    ],
+    "linkPageUrl": "./links.html?id=recyhrlHSPAxgxtxn"
+  },
+  {
     "id": "rec56vdLQLvCTX4LU",
     "title": "History",
     "lessonSetName": "History: Grade 9 (U.S.)",

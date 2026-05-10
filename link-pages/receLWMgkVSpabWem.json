@@ -12,7 +12,7 @@
     "Bible: Grades 10-11"
   ],
   "topicConnectionNames": [],
-  "updatedAt": "2026-05-09T13:11:09.429Z",
+  "updatedAt": "2026-05-10T07:52:29.895Z",
   "terms": [
     {
       "termNumber": 1,
@@ -153,20 +153,84 @@
       "term": "Term 2",
       "weeks": [
         {
-          "weekNumber": 18,
-          "weekLabel": "Week 6",
+          "weekNumber": 16,
+          "weekLabel": "Week 4",
           "lessons": [
             {
-              "lessonId": "recIzLPhW3F52qDsz",
+              "lessonId": "recouJb0AxyDVq6U4",
               "termNumber": 2,
               "termLabel": "Term 2",
-              "weekNumber": 18,
-              "weekLabel": "Week 6",
-              "sequence": 18,
+              "weekNumber": 16,
+              "weekLabel": "Week 4",
+              "sequence": 16,
               "sort": 0,
-              "lessonLabel": "Lesson 18",
-              "title": "30m Spiritual Formation: Grades 10-11 - Lesson 18",
-              "anchor": "term-2-week-18-lesson-18",
+              "lessonLabel": "Lesson 16",
+              "title": "30m Spiritual Formation: Grades 10-11 - Lesson 16",
+              "anchor": "term-2-week-16-lesson-16",
+              "links": [
+                {
+                  "text": "Bible Project, Episode 5, Plot",
+                  "url": "https://bibleproject.com/videos/plot-biblical-narrative/"
+                },
+                {
+                  "text": "Bible Project, Episode 6, Character",
+                  "url": "https://bibleproject.com/videos/character-biblical-narrative/"
+                },
+                {
+                  "text": "Bible Project, Episode 7, Setting",
+                  "url": "https://bibleproject.com/videos/setting-biblical-narrative/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 17,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "recdcQYTiOrFbINPs",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 17,
+              "weekLabel": "Week 5",
+              "sequence": 17,
+              "sort": 0,
+              "lessonLabel": "Lesson 17",
+              "title": "30m Spiritual Formation: Grades 10-11 - Lesson 17",
+              "anchor": "term-2-week-17-lesson-17",
+              "links": [
+                {
+                  "text": "Bible Project, Episode 5, Plot",
+                  "url": "https://bibleproject.com/videos/plot-biblical-narrative/"
+                },
+                {
+                  "text": "Bible Project, Episode 6, Character",
+                  "url": "https://bibleproject.com/videos/character-biblical-narrative/"
+                },
+                {
+                  "text": "Bible Project, Episode 7, Setting",
+                  "url": "https://bibleproject.com/videos/setting-biblical-narrative/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 19,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "recV9XQ68c97j89kX",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 19,
+              "weekLabel": "Week 7",
+              "sequence": 19,
+              "sort": 0,
+              "lessonLabel": "Lesson 19",
+              "title": "30m Spiritual Formation: Grades 10-11 - Lesson 19",
+              "anchor": "term-2-week-19-lesson-19",
               "links": [
                 {
                   "text": "Bible Project, Episode 9, Poetry",
@@ -175,6 +239,74 @@
                 {
                   "text": "Bible Project, Episode 10, Poetic Metaphor",
                   "url": "https://bibleproject.com/videos/metaphor-biblical-poetry/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 21,
+          "weekLabel": "Week 9",
+          "lessons": [
+            {
+              "lessonId": "recXyRF4DuoTIdS3l",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 21,
+              "weekLabel": "Week 9",
+              "sequence": 21,
+              "sort": 0,
+              "lessonLabel": "Lesson 21",
+              "title": "30m Spiritual Formation: Grades 10-11 - Lesson 21",
+              "anchor": "term-2-week-21-lesson-21",
+              "links": [
+                {
+                  "text": "Bible Project, Episode 17, New Testament Letters: Historical Context",
+                  "url": "https://bibleproject.com/videos/new-testament-letters-epistles-historical-context/"
+                },
+                {
+                  "text": "Bible Project, Episode 18, New Testament Letters: Literary Context",
+                  "url": "https://bibleproject.com/videos/new-testament-letters-literary-context/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 23,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "recpATqAkgYWtqU2A",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 23,
+              "weekLabel": "Week 11",
+              "sequence": 23,
+              "sort": 0,
+              "lessonLabel": "Lesson 23",
+              "title": "30m Spiritual Formation: Grades 10-11 - Lesson 23",
+              "anchor": "term-2-week-23-lesson-23",
+              "links": [
+                {
+                  "text": "Bible Project, Episode 11, The Book of the Psalms",
+                  "url": "https://bibleproject.com/videos/book-of-psalms/"
+                },
+                {
+                  "text": "Bible Project, Episode 12, The Prophets",
+                  "url": "https://bibleproject.com/videos/the-prophets/"
+                },
+                {
+                  "text": "Bible Project, Episode 13, Biblical Law",
+                  "url": "https://bibleproject.com/videos/reading-biblical-law/"
+                },
+                {
+                  "text": "Bible Project, Episode 15, The Gospel",
+                  "url": "https://bibleproject.com/videos/how-to-read-gospel/"
+                },
+                {
+                  "text": "Bible Project, Episode 19, Apocalyptic Literature",
+                  "url": "https://bibleproject.com/videos/apocalyptic-literature/"
                 }
               ]
             }
