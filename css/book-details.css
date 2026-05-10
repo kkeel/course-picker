@@ -266,3 +266,30 @@ a {
     justify-content: flex-start;
   }
 }
+
+.book-base-toggle {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--divider-subtle);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.6);
+}
+
+.book-base-button {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--brand-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 9px 16px;
+}
+
+.book-base-button.is-active {
+  background: var(--brand-dark);
+  color: #fff;
+}
