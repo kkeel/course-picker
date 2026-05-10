@@ -186,14 +186,13 @@ function populateCourseTopicFilters() {
   const courseSelect = document.getElementById("course-filter");
   const topicSelect = document.getElementById("topic-filter");
 
-  const items = state.data?.items || [];
+  const items = (state.data?.items || []).filter(itemMatchesTrack);
 
-  courseSelect.innerHTML = `
-    <option value="">All courses</option>
-    ${items.map((item) => `
-      <option value="${escapeHtml(item.id)}">${escapeHtml(item.title)}</option>
-    `).join("")}
-  `;
+  const courseStillExists = items.some((item) => item.id === state.course);
+  if (!courseStillExists) {
+    state.course = "";
+    state.topic = "";
+  }
 
   const selectedCourse = items.find((item) => item.id === state.course);
   const topicSourceItems = selectedCourse ? [selectedCourse] : items;
@@ -212,6 +211,16 @@ function populateCourseTopicFilters() {
     }
   }
 
+  const topicStillExists = topics.some((topic) => topic.id === state.topic);
+  if (!topicStillExists) state.topic = "";
+
+  courseSelect.innerHTML = `
+    <option value="">All courses</option>
+    ${items.map((item) => `
+      <option value="${escapeHtml(item.id)}">${escapeHtml(item.title)}</option>
+    `).join("")}
+  `;
+
   topicSelect.innerHTML = `
     <option value="">All topics</option>
     ${topics.map((topic) => `
@@ -222,10 +231,6 @@ function populateCourseTopicFilters() {
   `;
 
   courseSelect.value = state.course;
-
-  const topicStillExists = topics.some((topic) => topic.id === state.topic);
-  if (!topicStillExists) state.topic = "";
-
   topicSelect.value = state.topic;
 }
 
