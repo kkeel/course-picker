@@ -1,4 +1,5 @@
 const SUBJECTS = [
+  "All Subjects",
   "Architecture",
   "Art",
   "Bible",
@@ -18,13 +19,15 @@ const SUBJECTS = [
   "Suggested Resources",
 ];
 
-const GRADES = Array.from({ length: 12 }, (_, i) => `G${i + 1}`);
+const GRADES = ["All Grades", ...Array.from({ length: 12 }, (_, i) => `G${i + 1}`)];
+
+const DEFAULT_SUBJECT = "All Subjects";
+const DEFAULT_GRADE = "All Grades";
 
 const state = {
   data: null,
   base: "grade",
-  id: "G1",
-  display: "course-topic",
+  id: DEFAULT_GRADE,
   course: "",
   topic: "",
   query: "",
@@ -49,16 +52,20 @@ function slugSubject(subject) {
 }
 
 function viewPath(base, id) {
-  if (base === "subject") return `./data/book-views/subject/${slugSubject(id)}.json`;
+  if (base === "subject") {
+    if (id === DEFAULT_SUBJECT) return "./data/book-views/master.json";
+    return `./data/book-views/subject/${slugSubject(id)}.json`;
+  }
+
+  if (id === DEFAULT_GRADE) return "./data/book-views/master.json";
   return `./data/book-views/grade/${id}.json`;
 }
 
 function readParams() {
   const params = new URLSearchParams(window.location.search);
 
-  state.base = params.get("base") || params.get("view") || "grade";
-  state.id = params.get("id") || (state.base === "subject" ? "Science" : "G1");
-  state.display = params.get("display") || "course-topic";
+  state.base = params.get("base") || "grade";
+  state.id = params.get("id") || (state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE);
   state.course = params.get("course") || "";
   state.topic = params.get("topic") || "";
 }
@@ -68,7 +75,6 @@ function writeParams() {
 
   params.set("base", state.base);
   params.set("id", state.id);
-  params.set("display", state.display);
 
   if (state.course) params.set("course", state.course);
   if (state.topic) params.set("topic", state.topic);
@@ -99,7 +105,7 @@ function itemMatchesFilters(item) {
   if (state.course && item.id !== state.course) return false;
 
   if (state.topic) {
-    return item.sections.some((section) => section.id === state.topic);
+    return (item.sections || []).some((section) => section.id === state.topic);
   }
 
   return true;
@@ -132,17 +138,24 @@ function filteredItems() {
     .filter((item) => item.sections.length);
 }
 
-function populatePrimarySelectors() {
-  const gradeSelect = document.getElementById("grade-select");
-  const subjectSelect = document.getElementById("subject-select");
+function populatePrimarySelector() {
+  const primarySelect = document.getElementById("primary-select");
 
-  gradeSelect.innerHTML = GRADES.map((grade) => `
-    <option value="${grade}">Grade ${grade.replace("G", "")}</option>
+  const options = state.base === "subject"
+    ? SUBJECTS.map((subject) => ({
+        value: subject,
+        label: subject,
+      }))
+    : GRADES.map((grade) => ({
+        value: grade,
+        label: grade === DEFAULT_GRADE ? grade : `Grade ${grade.replace("G", "")}`,
+      }));
+
+  primarySelect.innerHTML = options.map((option) => `
+    <option value="${escapeHtml(option.value)}">${escapeHtml(option.label)}</option>
   `).join("");
 
-  subjectSelect.innerHTML = SUBJECTS.map((subject) => `
-    <option value="${escapeHtml(subject)}">${escapeHtml(subject)}</option>
-  `).join("");
+  primarySelect.value = state.id;
 }
 
 function populateCourseTopicFilters() {
@@ -158,9 +171,12 @@ function populateCourseTopicFilters() {
     `).join("")}
   `;
 
+  const selectedCourse = items.find((item) => item.id === state.course);
+  const topicSourceItems = selectedCourse ? [selectedCourse] : items;
+
   const topics = [];
 
-  for (const item of items) {
+  for (const item of topicSourceItems) {
     for (const section of item.sections || []) {
       if (section.type === "topic") {
         topics.push({
@@ -182,21 +198,20 @@ function populateCourseTopicFilters() {
   `;
 
   courseSelect.value = state.course;
+
+  const topicStillExists = topics.some((topic) => topic.id === state.topic);
+  if (!topicStillExists) state.topic = "";
+
   topicSelect.value = state.topic;
 }
 
 function syncControls() {
-  document.getElementById("base-select").value = state.base;
-  document.getElementById("display-select").value = state.display;
+  document.querySelectorAll(".book-base-button").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.base === state.base);
+  });
 
-  document.getElementById("grade-control").hidden = state.base !== "grade";
-  document.getElementById("subject-control").hidden = state.base !== "subject";
-
-  if (state.base === "grade") {
-    document.getElementById("grade-select").value = state.id;
-  } else {
-    document.getElementById("subject-select").value = state.id;
-  }
+  populatePrimarySelector();
+  populateCourseTopicFilters();
 }
 
 function renderBookCard(book) {
@@ -236,24 +251,6 @@ function renderBookCard(book) {
   `;
 }
 
-function renderCourseMode(items) {
-  return items.map((item) => {
-    const books = item.sections.flatMap((section) => section.books || []);
-
-    return `
-      <section class="book-course">
-        <div class="book-course-head">
-          <h2>${escapeHtml(item.title)}</h2>
-          <div>${escapeHtml(item.subject || "")} ${item.gradeText ? `• ${escapeHtml(item.gradeText)}` : ""}</div>
-        </div>
-        <div class="book-card-list">
-          ${books.map(renderBookCard).join("")}
-        </div>
-      </section>
-    `;
-  }).join("");
-}
-
 function renderCourseTopicMode(items) {
   return items.map((item) => `
     <section class="book-course">
@@ -285,8 +282,7 @@ function render() {
   );
 
   document.getElementById("book-title").textContent = title;
-  document.getElementById("book-summary").textContent =
-    `${bookCount} books shown`;
+  document.getElementById("book-summary").textContent = `${bookCount} books shown`;
 
   const results = document.getElementById("book-results");
 
@@ -295,9 +291,7 @@ function render() {
     return;
   }
 
-  results.innerHTML = state.display === "course"
-    ? renderCourseMode(items)
-    : renderCourseTopicMode(items);
+  results.innerHTML = renderCourseTopicMode(items);
 }
 
 async function loadView() {
@@ -309,45 +303,32 @@ async function loadView() {
 
   state.data = await response.json();
 
-  populateCourseTopicFilters();
   writeParams();
   render();
 }
 
 function bindControls() {
-  document.getElementById("base-select").addEventListener("change", async (event) => {
-    state.base = event.target.value;
-    state.id = state.base === "subject" ? "Science" : "G1";
-    state.course = "";
-    state.topic = "";
-    await loadView();
+  document.querySelectorAll(".book-base-button").forEach((button) => {
+    button.addEventListener("click", async () => {
+      state.base = button.dataset.base;
+      state.id = state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE;
+      state.course = "";
+      state.topic = "";
+      await loadView();
+    });
   });
 
-  document.getElementById("grade-select").addEventListener("change", async (event) => {
+  document.getElementById("primary-select").addEventListener("change", async (event) => {
     state.id = event.target.value;
     state.course = "";
     state.topic = "";
     await loadView();
-  });
-
-  document.getElementById("subject-select").addEventListener("change", async (event) => {
-    state.id = event.target.value;
-    state.course = "";
-    state.topic = "";
-    await loadView();
-  });
-
-  document.getElementById("display-select").addEventListener("change", (event) => {
-    state.display = event.target.value;
-    writeParams();
-    render();
   });
 
   document.getElementById("course-filter").addEventListener("change", (event) => {
     state.course = event.target.value;
-    if (state.course) state.topic = "";
+    state.topic = "";
     writeParams();
-    populateCourseTopicFilters();
     render();
   });
 
@@ -366,7 +347,6 @@ function bindControls() {
 async function init() {
   try {
     readParams();
-    populatePrimarySelectors();
     bindControls();
     await loadView();
   } catch (error) {
