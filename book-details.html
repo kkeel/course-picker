@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Details</title>
+  <link rel="stylesheet" href="./css/book-details.css">
+</head>
+<body>
+  <main class="book-shell">
+    <section class="book-hero">
+      <a class="back-link" href="./alveary-directory.html">← Alveary Directory</a>
+      <div class="book-kicker">Book Directory View</div>
+      <h1 id="book-title" class="book-title">Loading books…</h1>
+      <p id="book-summary" class="book-summary"></p>
+    </section>
+
+    <section class="book-controls">
+      <div class="control-group">
+        <label for="base-select">View by</label>
+        <select id="base-select">
+          <option value="grade">Grade</option>
+          <option value="subject">Subject</option>
+        </select>
+      </div>
+
+      <div class="control-group" id="grade-control">
+        <label for="grade-select">Grade</label>
+        <select id="grade-select"></select>
+      </div>
+
+      <div class="control-group" id="subject-control">
+        <label for="subject-select">Subject</label>
+        <select id="subject-select"></select>
+      </div>
+
+      <div class="control-group">
+        <label for="display-select">Display</label>
+        <select id="display-select">
+          <option value="course">Courses</option>
+          <option value="course-topic">Courses + Topics</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="course-filter">Course</label>
+        <select id="course-filter">
+          <option value="">All courses</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="topic-filter">Topic</label>
+        <select id="topic-filter">
+          <option value="">All topics</option>
+        </select>
+      </div>
+
+      <div class="control-group control-search">
+        <label for="book-search">Search</label>
+        <input id="book-search" type="search" placeholder="Search books, authors, notes...">
+      </div>
+    </section>
+
+    <section id="book-results" class="book-results">
+      <div class="empty-state">Loading book view…</div>
+    </section>
+  </main>
+
+  <script src="./js/book-details.js"></script>
+</body>
+</html>
