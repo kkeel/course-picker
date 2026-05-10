@@ -16,46 +16,34 @@
     </section>
 
     <section class="book-controls">
+      <div class="book-base-toggle" aria-label="Choose book view">
+        <button class="book-base-button is-active" type="button" data-base="grade">
+          By Grade
+        </button>
+        <button class="book-base-button" type="button" data-base="subject">
+          By Subject
+        </button>
+      </div>
+    
       <div class="control-group">
-        <label for="base-select">View by</label>
-        <select id="base-select">
-          <option value="grade">Grade</option>
-          <option value="subject">Subject</option>
-        </select>
+        <label for="primary-select">Choose one</label>
+        <select id="primary-select"></select>
       </div>
-
-      <div class="control-group" id="grade-control">
-        <label for="grade-select">Grade</label>
-        <select id="grade-select"></select>
-      </div>
-
-      <div class="control-group" id="subject-control">
-        <label for="subject-select">Subject</label>
-        <select id="subject-select"></select>
-      </div>
-
-      <div class="control-group">
-        <label for="display-select">Display</label>
-        <select id="display-select">
-          <option value="course">Courses</option>
-          <option value="course-topic">Courses + Topics</option>
-        </select>
-      </div>
-
+    
       <div class="control-group">
         <label for="course-filter">Course</label>
         <select id="course-filter">
           <option value="">All courses</option>
         </select>
       </div>
-
+    
       <div class="control-group">
         <label for="topic-filter">Topic</label>
         <select id="topic-filter">
           <option value="">All topics</option>
         </select>
       </div>
-
+    
       <div class="control-group control-search">
         <label for="book-search">Search</label>
         <input id="book-search" type="search" placeholder="Search books, authors, notes...">
