@@ -269,27 +269,49 @@ a {
 
 .book-base-toggle {
   display: inline-flex;
-  gap: 4px;
-  padding: 4px;
-  border: 1px solid var(--divider-subtle);
-  border-radius: 999px;
-  background: rgba(255,255,255,0.6);
+  gap: 6px;
+  align-self: end;
 }
 
 .book-base-button {
   appearance: none;
-  border: 0;
+  border: 1px solid var(--border-soft);
   border-radius: 999px;
-  background: transparent;
-  color: var(--brand-muted);
+  background: rgba(255,255,255,0.7);
+  color: var(--brand-dark);
   cursor: pointer;
   font: inherit;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  padding: 9px 16px;
+  padding: 8px 13px;
 }
 
 .book-base-button.is-active {
   background: var(--brand-dark);
+  border-color: var(--brand-dark);
   color: #fff;
+}
+
+.select-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px;
+  align-items: center;
+}
+
+.clear-select {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--divider-subtle);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--brand-muted);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.clear-select:hover {
+  border-color: var(--brand-dark);
+  color: var(--brand-dark);
 }
