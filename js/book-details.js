@@ -342,6 +342,34 @@ function bindControls() {
     state.query = event.target.value;
     render();
   });
+
+  document.querySelectorAll(".clear-select").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const clearType = button.dataset.clear;
+  
+      if (clearType === "primary") {
+        state.id = state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE;
+        state.course = "";
+        state.topic = "";
+        await loadView();
+        return;
+      }
+  
+      if (clearType === "course") {
+        state.course = "";
+        state.topic = "";
+        writeParams();
+        render();
+        return;
+      }
+  
+      if (clearType === "topic") {
+        state.topic = "";
+        writeParams();
+        render();
+      }
+    });
+  });
 }
 
 async function init() {
