@@ -39,14 +39,13 @@ function rowMatchesQuery(row, query) {
 }
 
 function bookDetailsUrl(item) {
-  const base = "subject";
-  const id = item.subject || "All Subjects";
-
   const params = new URLSearchParams();
-  params.set("base", base);
-  params.set("id", id);
+
+  params.set("base", "subject");
+  params.set("id", item.subject || "All Subjects");
 
   if (item.rowType === "topic") {
+    params.set("course", item.courseId || "");
     params.set("topic", item.id);
   } else {
     params.set("course", item.id);
