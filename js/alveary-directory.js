@@ -38,6 +38,23 @@ function rowMatchesQuery(row, query) {
   return haystack.includes(query);
 }
 
+function bookDetailsUrl(item) {
+  const base = "subject";
+  const id = item.subject || "All Subjects";
+
+  const params = new URLSearchParams();
+  params.set("base", base);
+  params.set("id", id);
+
+  if (item.rowType === "topic") {
+    params.set("topic", item.id);
+  } else {
+    params.set("course", item.id);
+  }
+
+  return `book-details.html?${params.toString()}`;
+}
+
 function renderCourseCard(item) {
   return `
     <article class="directory-card">
@@ -49,7 +66,7 @@ function renderCourseCard(item) {
       <div class="card-meta">${escapeHtml(item.gradeText || "")}</div>
 
       <div class="card-actions">
-        <a class="card-button" href="./${escapeHtml(item.bookDetailsUrl || "#")}">
+        <a class="card-button" href="./${escapeHtml(bookDetailsUrl(item))}">
           Book Details
         </a>
       </div>
@@ -70,7 +87,7 @@ function renderTopicCard(item) {
       </div>
 
       <div class="card-actions">
-        <a class="card-button card-button-secondary" href="./${escapeHtml(item.bookDetailsUrl || "#")}">
+        <a class="card-button card-button-secondary" href="./${escapeHtml(bookDetailsUrl(item))}">
           Book Details
         </a>
       </div>
