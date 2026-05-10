@@ -31,6 +31,7 @@ const state = {
   course: "",
   topic: "",
   query: "",
+  track: "",
 };
 
 function escapeHtml(value) {
@@ -68,6 +69,7 @@ function readParams() {
   state.id = params.get("id") || (state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE);
   state.course = params.get("course") || "";
   state.topic = params.get("topic") || "";
+  state.track = params.get("track") || "";
 }
 
 function writeParams() {
@@ -78,6 +80,7 @@ function writeParams() {
 
   if (state.course) params.set("course", state.course);
   if (state.topic) params.set("topic", state.topic);
+  if (state.track) params.set("track", state.track);
 
   window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
 }
@@ -101,7 +104,28 @@ function bookMatches(book, query) {
   return haystack.includes(query.toLowerCase());
 }
 
+function itemMatchesTrack(item) {
+  if (!state.track) return true;
+
+  const text = [
+    item.title,
+    item.subject,
+    item.gradeText,
+    ...(item.sections || []).map((section) => section.title),
+  ].join(" ").toLowerCase();
+
+  const isCanadian = text.includes("canadian") || text.includes("canada");
+  const isUS = text.includes("u.s.") || text.includes("us ") || text.includes("american");
+
+  if (state.track === "canadian") return isCanadian;
+  if (state.track === "us") return !isCanadian;
+
+  return true;
+}
+
 function itemMatchesFilters(item) {
+  if (!itemMatchesTrack(item)) return false;
+
   if (state.course && item.id !== state.course) return false;
 
   if (state.topic) {
@@ -209,6 +233,8 @@ function syncControls() {
   document.querySelectorAll(".book-base-button").forEach((button) => {
     button.classList.toggle("is-active", button.dataset.base === state.base);
   });
+
+  document.getElementById("track-filter").value = state.track;
 
   populatePrimarySelector();
   populateCourseTopicFilters();
@@ -323,6 +349,14 @@ function bindControls() {
     state.course = "";
     state.topic = "";
     await loadView();
+  });
+
+  document.getElementById("track-filter").addEventListener("change", (event) => {
+    state.track = event.target.value;
+    state.course = "";
+    state.topic = "";
+    writeParams();
+    render();
   });
 
   document.getElementById("course-filter").addEventListener("change", (event) => {
