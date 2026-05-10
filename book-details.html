@@ -27,21 +27,30 @@
     
       <div class="control-group">
         <label for="primary-select">Choose one</label>
-        <select id="primary-select"></select>
+        <div class="select-row">
+          <select id="primary-select"></select>
+          <button class="clear-select" type="button" data-clear="primary" aria-label="Reset main selection">×</button>
+        </div>
       </div>
     
       <div class="control-group">
         <label for="course-filter">Course</label>
-        <select id="course-filter">
-          <option value="">All courses</option>
-        </select>
+        <div class="select-row">
+          <select id="course-filter">
+            <option value="">All courses</option>
+          </select>
+          <button class="clear-select" type="button" data-clear="course" aria-label="Reset course">×</button>
+        </div>
       </div>
     
       <div class="control-group">
         <label for="topic-filter">Topic</label>
-        <select id="topic-filter">
-          <option value="">All topics</option>
-        </select>
+        <div class="select-row">
+          <select id="topic-filter">
+            <option value="">All topics</option>
+          </select>
+          <button class="clear-select" type="button" data-clear="topic" aria-label="Reset topic">×</button>
+        </div>
       </div>
     
       <div class="control-group control-search">
