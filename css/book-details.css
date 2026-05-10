@@ -1,0 +1,268 @@
+:root {
+  --brand-bg: #faf7ed;
+  --brand-dark: #596e5e;
+  --brand-text: #262b26;
+  --brand-muted: #6f746b;
+  --brand-accent: #adb58f;
+  --brand-surface: #ffffff;
+  --divider-subtle: #dde2d5;
+  --border-soft: rgba(89,110,94,0.25);
+  --shadow-soft: 0 10px 28px rgba(63, 62, 55, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--brand-bg);
+  color: var(--brand-text);
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 300;
+}
+
+a {
+  color: inherit;
+}
+
+.book-shell {
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 32px 24px 56px;
+}
+
+.back-link {
+  display: inline-flex;
+  margin-bottom: 18px;
+  color: var(--brand-dark);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.book-kicker {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-accent);
+  margin-bottom: 12px;
+}
+
+.book-title {
+  margin: 0;
+  font-family: "Plantin MT Pro", "Times New Roman", serif;
+  font-size: 48px;
+  font-weight: 200;
+  line-height: 1.06;
+}
+
+.book-summary {
+  margin: 10px 0 0;
+  color: var(--brand-muted);
+}
+
+.book-controls {
+  margin: 26px 0 24px;
+  padding: 16px;
+  border: 1px solid var(--divider-subtle);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.55);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(150px, 1fr));
+  gap: 14px;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-group label {
+  color: var(--brand-dark);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.control-group select,
+.control-group input {
+  width: 100%;
+  border: 1px solid var(--divider-subtle);
+  border-radius: 999px;
+  background: #fff;
+  padding: 10px 13px;
+  font: inherit;
+  color: var(--brand-text);
+}
+
+.control-search {
+  grid-column: span 2;
+}
+
+.book-results {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.book-course {
+  border: 1px solid var(--divider-subtle);
+  border-radius: 4px;
+  background: var(--brand-surface);
+  overflow: hidden;
+}
+
+.book-course-head {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--divider-subtle);
+  background: rgba(255,255,255,0.68);
+}
+
+.book-course-head h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.book-course-head div {
+  margin-top: 5px;
+  font-size: 13px;
+  color: var(--brand-muted);
+}
+
+.book-section {
+  padding: 16px;
+  border-top: 1px solid var(--divider-subtle);
+}
+
+.book-section:first-of-type {
+  border-top: 0;
+}
+
+.book-section h3 {
+  margin: 0 0 12px;
+  font-size: 17px;
+  color: var(--brand-dark);
+}
+
+.book-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+}
+
+.book-section .book-card-list {
+  padding: 0;
+}
+
+.book-card {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 16px;
+  padding: 14px;
+  border: 1px solid var(--divider-subtle);
+  border-radius: 4px;
+  background: #fff;
+}
+
+.book-cover-wrap {
+  width: 88px;
+  min-height: 116px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.book-cover {
+  max-width: 88px;
+  max-height: 126px;
+  object-fit: contain;
+}
+
+.book-card-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.book-author {
+  margin-top: 4px;
+  color: var(--brand-muted);
+  font-size: 14px;
+}
+
+.book-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.book-badges span {
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  background: rgba(173,181,143,0.14);
+  color: var(--brand-dark);
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.book-meta {
+  margin-top: 8px;
+  white-space: pre-line;
+  color: var(--brand-muted);
+  font-size: 13px;
+}
+
+.book-rationale,
+.book-notes {
+  margin: 10px 0 0;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.empty-state {
+  border: 1px dashed var(--divider-subtle);
+  border-radius: 4px;
+  padding: 16px;
+  background: rgba(255,255,255,0.55);
+  color: var(--brand-muted);
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .book-controls {
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .book-shell {
+    padding: 22px 16px 40px;
+  }
+
+  .book-title {
+    font-size: 34px;
+  }
+
+  .book-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .control-search {
+    grid-column: auto;
+  }
+
+  .book-card {
+    grid-template-columns: 1fr;
+  }
+
+  .book-cover-wrap {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
