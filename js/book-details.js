@@ -283,23 +283,44 @@ function renderBookCard(book) {
 }
 
 function renderCourseTopicMode(items) {
-  return items.map((item) => `
-    <section class="book-course">
-      <div class="book-course-head">
-        <h2>${escapeHtml(item.title)}</h2>
-        <div>${escapeHtml(item.subject || "")} ${item.gradeText ? `• ${escapeHtml(item.gradeText)}` : ""}</div>
-      </div>
+  return items.map((item) => {
 
-      ${(item.sections || []).map((section) => `
-        <section class="book-section">
-          <h3>${escapeHtml(section.title)}</h3>
-          <div class="book-card-list">
-            ${(section.books || []).map(renderBookCard).join("")}
-          </div>
-        </section>
-      `).join("")}
-    </section>
-  `).join("");
+    const visibleSections = (item.sections || []).filter((section) => {
+      const normalizedSection = (section.title || "").trim().toLowerCase();
+      const normalizedCourse = (item.title || "").trim().toLowerCase();
+
+      return normalizedSection !== normalizedCourse;
+    });
+
+    return `
+      <section class="book-course">
+        <div class="book-course-head">
+          <h2>${escapeHtml(item.title)}</h2>
+          <div>${escapeHtml(item.subject || "")} ${item.gradeText ? `• ${escapeHtml(item.gradeText)}` : ""}</div>
+        </div>
+
+        ${
+          visibleSections.length
+            ? visibleSections.map((section) => `
+                <section class="book-section">
+                  <h3>${escapeHtml(section.title)}</h3>
+
+                  <div class="book-card-list">
+                    ${(section.books || []).map(renderBookCard).join("")}
+                  </div>
+                </section>
+              `).join("")
+            : `
+              <section class="book-section">
+                <div class="book-card-list">
+                  ${(item.sections?.[0]?.books || []).map(renderBookCard).join("")}
+                </div>
+              </section>
+            `
+        }
+      </section>
+    `;
+  }).join("");
 }
 
 function render() {
