@@ -1,6 +1,6 @@
 {
   "title": "Alveary Directory",
-  "generatedAt": "2026-05-11T19:46:13.170Z",
+  "generatedAt": "2026-05-11T23:40:42.843Z",
   "rows": [
     {
       "id": "recbffM9zHurHapsq",
@@ -12977,6 +12977,8 @@
   ],
   "views": {
     "master": "data/book-views/master.json",
+    "byGrade": "data/book-views/by-grade.json",
+    "bySubject": "data/book-views/by-subject.json",
     "grades": {
       "G1": "data/book-views/grade/G1.json",
       "G2": "data/book-views/grade/G2.json",
