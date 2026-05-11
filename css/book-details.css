@@ -748,3 +748,20 @@ a {
   display: flex;
   align-items: flex-end;
 }
+
+.book-group {
+  margin-top: 34px;
+}
+
+.book-group:first-child {
+  margin-top: 0;
+}
+
+.book-group-title {
+  margin: 0 0 18px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(34px, 4vw, 52px);
+  line-height: 1;
+  font-weight: 400;
+  color: var(--brand-text);
+}
