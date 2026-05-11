@@ -1,25 +1,6 @@
-const SUBJECTS = [
-  "All Subjects",
-  "Architecture",
-  "Art",
-  "Bible",
-  "Citizenship",
-  "English",
-  "Geography",
-  "History",
-  "Latin",
-  "Life Skills",
-  "Literature",
-  "Math",
-  "Modern Language",
-  "Music",
-  "Physical Education",
-  "Science",
-  "Alt. Science Options",
-  "Suggested Resources",
-];
-
-const GRADES = ["All Grades", ...Array.from({ length: 12 }, (_, i) => `G${i + 1}`)];
+const SUBJECTS = window.ALVEARY_CONFIG.subjects;
+const GRADES = window.ALVEARY_CONFIG.grades;
+const SUBJECT_COLORS = window.ALVEARY_CONFIG.subjectColors;
 
 const DEFAULT_SUBJECT = "All Subjects";
 const DEFAULT_GRADE = "All Grades";
