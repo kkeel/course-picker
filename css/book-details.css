@@ -118,7 +118,7 @@ a {
 }
 
 .control-actions {
-  grid-column: 1 / -1;
+  align-self: end;
 }
 
 .book-controls.is-collapsed .book-controls-body {
@@ -730,12 +730,21 @@ a {
   }
 
   .control-view,
-  .control-search,
+  .control-search {
+    grid-column: 1;
+  }
+  
   .control-actions {
     grid-column: 1;
+    justify-self: start;
   }
 
   .book-base-toggle {
     flex-wrap: wrap;
   }
+}
+
+.control-actions {
+  display: flex;
+  align-items: flex-end;
 }
