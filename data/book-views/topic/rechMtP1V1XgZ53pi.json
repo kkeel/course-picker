@@ -22,34 +22,74 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/rec9qv7gi6P3lkl9t.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Audiobook",
+          "formatOptions": [
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "",
-          "notes": "",
+          "noteText": "These will also be linked in the lesson plans. These will be available June 1.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Playlist",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "sol-fa-level-4-audio-lessons"
+            }
+          ]
         },
         {
           "resourceId": "recFsxXQ19Hzb20n3",
           "instanceKey": "course:recSKUZb0ksqYDJc1:topic:rechMtP1V1XgZ53pi:resource:recFsxXQ19Hzb20n3",
           "title": "Fifty Steps in Sight-Singing",
           "author": "Arthur Somervell",
-          "isbn": "",
+          "isbn": "B0088OK172",
           "asin": "",
+          "isbnAsin": "B0088OK172",
           "imagePath": "img/resources/recFsxXQ19Hzb20n3.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Classic text to teach sight-singing.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Sol-fa: Level 3\nSol-fa: Level 4\nSol-fa: Level 5",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

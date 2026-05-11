@@ -20,18 +20,45 @@
           "instanceKey": "course:rec0W9G7pHNhGaTjO:topic:rec5wXA5KBcOmYuUn:resource:rec0oGsLUHcktbS7b",
           "title": "English Literature for Boys and Girls",
           "author": "H.E. Marshall",
-          "isbn": "",
+          "isbn": "978-1599150895",
           "asin": "",
+          "isbnAsin": "978-1599150895",
           "imagePath": "img/resources/rec0oGsLUHcktbS7b.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "A delightful introduction to the writers of English literature whose works hold the greatest appeal for the youthful reader. The life and personality of each author is given in outline, with enough material quoted from key works to give an idea of the text.",
-          "notes": "",
+          "noteText": "Selections used across multiple rotations.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "rec0r9HNzoD6ModuC",
@@ -40,34 +67,62 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/rec0r9HNzoD6ModuC.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Curated selections of readings on literary developments, significant authors, and primary sources from the 19th century. Students use this PDF along with selected links and readings in Marshall's and Long's spines to deepen their relationship with 19th-century literature.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": []
         },
         {
           "resourceId": "rec3R4IiED1XO1HFQ",
           "instanceKey": "course:rec0W9G7pHNhGaTjO:topic:rec5wXA5KBcOmYuUn:resource:rec3R4IiED1XO1HFQ",
           "title": "American Literature",
           "author": "William Long",
-          "isbn": "",
+          "isbn": "978-1314790955",
           "asin": "",
+          "isbnAsin": "978-1314790955",
           "imagePath": "img/resources/rec3R4IiED1XO1HFQ.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "A helpful chronological look at American Literature and authors.",
-          "notes": "",
+          "noteText": "Selections used across multiple rotations.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

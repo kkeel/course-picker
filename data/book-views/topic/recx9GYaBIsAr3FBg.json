@@ -22,16 +22,33 @@
           "author": "Math Without Borders",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recBToi9LtJZphztW.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Video",
+          "formatOptions": [
+            {
+              "type": "video",
+              "label": "Video"
+            }
+          ],
           "rationale": "Video lessons to accompany Foerster's Precalculus",
-          "notes": "",
+          "noteText": "Begin Precalculus when students finish Algebra 2/Trig.  Follow instructions to purchase textbook and materials in link.",
+          "maySubText": "an online course with derekowens.com",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2 (Partial Term)",
           "sharedText": "Pre-Calculus: Part 1\nPre-Calculus: Part 2",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

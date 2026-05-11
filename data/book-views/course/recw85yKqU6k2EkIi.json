@@ -18,36 +18,80 @@
           "instanceKey": "course:recw85yKqU6k2EkIi:topic:recTfs8xpxgUQ1ugj:resource:rec53OxsCZTGCz2fd",
           "title": "Elementary Algebra Teacher Guide (Revised Edition)",
           "author": "Harold Jacobs",
-          "isbn": "",
+          "isbn": "978-1683443254",
           "asin": "",
+          "isbnAsin": "978-1683443254",
           "imagePath": "img/resources/rec53OxsCZTGCz2fd.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Algebra 1: Part 1\nAlgebra 1: Part 2",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recYbTWGEGIOzLcgQ",
           "instanceKey": "course:recw85yKqU6k2EkIi:topic:recTfs8xpxgUQ1ugj:resource:recYbTWGEGIOzLcgQ",
           "title": "Elementary Algebra Student Book",
           "author": "Harold Jacobs",
-          "isbn": "",
+          "isbn": "978-1683442554",
           "asin": "",
+          "isbnAsin": "978-1683442554",
           "imagePath": "img/resources/recYbTWGEGIOzLcgQ.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Video",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "video",
+              "label": "Video"
+            }
+          ],
           "rationale": "This book uses inviting narrative and everyday problems to give an introduction to Algebraic concepts. Lots of practice problems are also included.",
-          "notes": "",
+          "noteText": "Choose this or Denison. The \"Playlist\" link will take you to a YouTube playlist where a teacher goes through the lessons.",
+          "maySubText": "Algebra 1: from derekowens.com if you prefer an online course.",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Algebra 1: Part 2\nAlgebra 1: Part 1",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Playlist",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     },
@@ -63,16 +107,28 @@
           "author": "Harold Jacobs",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/rec21UKJaDd8DWlDr.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "A solid and interesting HS geometry course for all.",
-          "notes": "",
+          "noteText": "May add an online class from derekowens.com if desired.",
+          "maySubText": "Geometry: A Guided Inquiry by Chakerian (mathwithoutborders.com/geometry/)",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Geometry: Part 1\nGeometry: Part 2",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

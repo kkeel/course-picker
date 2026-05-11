@@ -20,18 +20,41 @@
           "instanceKey": "course:recytUN4F28M1mecV:topic:recky33h72vyaCBmp:resource:recCiZ8KkqNCQdjfw",
           "title": "Algebra and Trigonometry: Functions and Applications",
           "author": "Paul Foerster",
-          "isbn": "",
+          "isbn": "978-0131657106",
           "asin": "",
+          "isbnAsin": "978-0131657106",
           "imagePath": "img/resources/recCiZ8KkqNCQdjfw.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "A master teacher guides you through the next level of algebra and trig.",
-          "notes": "",
+          "noteText": "Choose this or Denison.",
+          "maySubText": "earlier edition or online course with derekowens.com.",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Algebra 2/Trigonometry: Part 1\nAlgebra 2/Trigonometry: Part 2",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "reciOSt8LIdiSw3P0",
@@ -40,16 +63,33 @@
           "author": "Math Without Borders",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/reciOSt8LIdiSw3P0.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Solutions manual for Algebra 2/Trig",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Algebra 2/Trigonometry: Part 1\nAlgebra 2/Trigonometry: Part 2",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recPT7RAqxzUkKPHR",
@@ -58,16 +98,33 @@
           "author": "Math Without Borders",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recPT7RAqxzUkKPHR.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Video",
+          "formatOptions": [
+            {
+              "type": "video",
+              "label": "Video"
+            }
+          ],
           "rationale": "Video lessons which accompany Foerster's Algebra 2/Trig",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Algebra 2/Trigonometry: Part 1\nAlgebra 2/Trigonometry: Part 2",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

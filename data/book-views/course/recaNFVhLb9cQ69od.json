@@ -18,18 +18,41 @@
           "instanceKey": "course:recaNFVhLb9cQ69od:resource:rec96q2INy5TFyRuT",
           "title": "Sewing School",
           "author": "Andria Lisle and Amie Petronis Plumley",
-          "isbn": "",
+          "isbn": "978-1603425780",
           "asin": "",
+          "isbnAsin": "978-1603425780",
           "imagePath": "img/resources/rec96q2INy5TFyRuT.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This book teaches basic stitches and techniques and includes lots of simple sewing projects for the beginner.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

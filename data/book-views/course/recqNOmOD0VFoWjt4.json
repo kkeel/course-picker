@@ -18,18 +18,30 @@
           "instanceKey": "course:recqNOmOD0VFoWjt4:resource:rec3q7fGGsKCEZaVD",
           "title": "Primary French Course Part 2",
           "author": "Otto Siepmann",
-          "isbn": "",
+          "isbn": "978-1497515338",
           "asin": "",
+          "isbnAsin": "978-1497515338",
           "imagePath": "img/resources/rec3q7fGGsKCEZaVD.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This book teaches vocabulary and grammar through reading, writing, and spoken exercises.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recXzM8ureEiS6KdO",
@@ -38,16 +50,26 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recXzM8ureEiS6KdO.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Audiobook",
+          "formatOptions": [
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Contains audio recordings of lesson readings, interactive readings, and spoken grammar exercises.",
-          "notes": "",
+          "noteText": "Available with lesson plans.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": []
         }
       ]
     }

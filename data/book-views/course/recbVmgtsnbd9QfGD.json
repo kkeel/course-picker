@@ -18,18 +18,36 @@
           "instanceKey": "course:recbVmgtsnbd9QfGD:resource:rec9bb4GaH8Ii0X9p",
           "title": "North American Cambridge Latin Unit 1 5th Ed. Student Book",
           "author": "Cambridge School Classics Project",
-          "isbn": "",
+          "isbn": "978-1107690639",
           "asin": "",
+          "isbnAsin": "978-1107690639",
           "imagePath": "img/resources/rec9bb4GaH8Ii0X9p.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This program continues presenting narrative stories in Latin, grammar exercises, vocabulary, and historical notes in an engaging way.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Latin 1 (Independent Study)\nLatin 1 (Video Course)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "reco1AVxRQoX4LDCP",
@@ -38,34 +56,67 @@
           "author": "",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/reco1AVxRQoX4LDCP.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Cambridge Go is a subscription service that includes a digital version of the student book, audios of the stories, online games, and practice. This is helpful for students who are learning Latin independently.",
-          "notes": "",
+          "noteText": "If you are using an older edition of the text that does not have a code in the front of the book, you must email Cambridge in order to purchase Elevate/Cambridge Go. [cambridgeelevatehelp.cambridge.org/hc/en-gb/requests/ne](https://cambridgeelevatehelp.cambridge.org/hc/en-gb/requests/new)w",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recHpEWdHnkOVtfCD",
           "instanceKey": "course:recbVmgtsnbd9QfGD:resource:recHpEWdHnkOVtfCD",
           "title": "Cambridge Latin Units 1-4 Teacher Manual (1 Year Digital Access)",
           "author": "Cambridge School Classics Project",
-          "isbn": "",
+          "isbn": "9781316640487",
           "asin": "",
+          "isbnAsin": "9781316640487",
           "imagePath": "img/resources/recHpEWdHnkOVtfCD.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Contains important teaching tips.",
-          "notes": "",
+          "noteText": "Students using Unit 1 Companion course by Alveary do not need this book. Please call the Cambridge University Press Customer Service team at 1-800-872-7423 (toll-free) or email them at usschools@cambridge.org to purchase. There is also a 4 Year Digital Access option with ISBN 9781316640524.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Latin 1 (Independent Study)\nLatin 2 (Independent Study)\nLatin 3\nLatin 4",
-          "links": []
+          "purchaseOptions": []
         }
       ]
     }

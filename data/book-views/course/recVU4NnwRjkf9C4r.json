@@ -18,18 +18,41 @@
           "instanceKey": "course:recVU4NnwRjkf9C4r:topic:recZlVEv5UkShx7q9:resource:recUCjRu76tQczZuF",
           "title": "The Plutarch Project Volume Three (Revised)",
           "author": "Anne White",
-          "isbn": "",
+          "isbn": "978-1990258060",
           "asin": "",
+          "isbnAsin": "978-1990258060",
           "imagePath": "img/resources/recUCjRu76tQczZuF.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Students will read about the lives of Julius Caesar, Agis and Cleomenes, and the Gracchi. Anne White has broken up the Lives into reasonable sections with suitable omissions for length and content. She also included study helps to aid with understanding. Lesson plans will offer guidance as well.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 3",
           "sharedText": "Plutarch: Grades 6-8\nPlutarch/Government: Grade 9 (U.S.)\nPlutarch/Government: Grade 9 (Canada)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "reccvFARcG21ppLkY",
@@ -38,16 +61,21 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/reccvFARcG21ppLkY.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Students will learn about important historical documents developed between 1800-1900. Following the founding of the country, the framework of the nation begins to take shape. The Missouri Compromise sets the stage for the Civil War as new states join the nation; the federal government experiences internal conflict as the Executive Branch disregards the Judicial Branch over the sovereignty of tribal nations; and the Reconstruction Amendments are added to the Constitution.  A \"Reading PDF\" will be included in the lesson plans that provides accessible analysis integrated with relevant excerpts of Supreme Court decisions, legislative acts, and other texts as appropriate.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 2",
           "sharedText": "American Gov./ Economics: Grade 8\nPlutarch/Government: Grade 9 (U.S.)\nEcon/Civics: Grade 10 (U.S.)\nEcon/Civics: Grade 11 (U.S.)",
-          "links": []
+          "purchaseOptions": []
         }
       ]
     },
@@ -63,16 +91,43 @@
           "author": "Charlotte Mason",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recLHdhKMfjC9IAKG.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Mason emphasized that children are persons; this is the volume in which she defines that term. What characteristics do we, as Image-Bearers, have in common? What kinds of pitfalls should we anticipate? These are some of the profound questions Mason deals with in this, her only volume written directly to students.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "any edition.",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Ethics: Part 1\nEthics: Part 2\nEthics: Part 3",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

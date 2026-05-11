@@ -22,34 +22,69 @@
           "author": "Penny Gardner",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/rec6WKrYlYzjYnRR4.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "We like this model because it is lovely, yet simple. Both the print and cursive models are in italic, making this a solid foundation for fine lettering later. Some may prefer a more traditional cursive model.",
-          "notes": "",
+          "noteText": "Choose this OR Getty-Dubay Handwriting Series.",
+          "maySubText": "penmanship model of your choice or Getty-Dubay Handwriting Series",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Penmanship & Copywork: Grade 1\nPenmanship & Copywork: Grade 2\nPenmanship & Copywork: Grade 3\nPenmanship & Copywork: Grade 4\nPenmanship & Copywork: Grade 5\nPenmanship & Copywork: Grade 6",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recwEWIgKSxYvcOyx",
           "instanceKey": "course:rec7VealMCWCQdr30:topic:rechytOsXSZMpW9Lv:resource:recwEWIgKSxYvcOyx",
           "title": "Getty-Dubay® Italic Handwriting Book B",
           "author": "Handwriting Success",
-          "isbn": "",
+          "isbn": "978-0964921566",
           "asin": "",
+          "isbnAsin": "978-0964921566",
           "imagePath": "img/resources/recwEWIgKSxYvcOyx.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "For the beginning reader, this book presents lowercase, capitals and numerals. With a short word and lively sentence on each page, this book engages the student.",
-          "notes": "",
+          "noteText": "Choose this OR Italics by Penny Gardner. You do not need the Instruction Manual. Necessary instructions will be included in the lesson plans.",
+          "maySubText": "penmanship model of your choice or Penny Gardner",
+          "discountText": "Discount: 15%\nWith code: ALVEARYMEMBER",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

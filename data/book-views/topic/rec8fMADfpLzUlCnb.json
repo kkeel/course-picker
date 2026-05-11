@@ -20,54 +20,122 @@
           "instanceKey": "course:recwmIzmYdzWW44N9:topic:rec8fMADfpLzUlCnb:resource:recg0MzdbBT0JchkF",
           "title": "The Student Bible Atlas, Revised Edition",
           "author": "Tim Dowley",
-          "isbn": "",
+          "isbn": "978-1506400105",
           "asin": "",
+          "isbnAsin": "978-1506400105",
           "imagePath": "img/resources/recg0MzdbBT0JchkF.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This is a simple, inexpensive Bible atlas that provides full-page maps of the biblical lands of the Old and New Testaments. In Bible lessons, students will be directed to look at specific pages. This resource is for Grades 3-8 ONLY.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "other Bible atlas, though page numbers in lesson plans will not match.",
+          "discountText": "",
           "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
           "sharedText": "Old Testament: Grades 3-6\nNew Testament: Grades 3-6\nNew Testament: Grades 7-8\nOld Testament: Grades 7-12\nStory of Arithmetic: Part 1\nStory of Geometry: Part 1",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "rec01nkYbeecMfZgR",
           "instanceKey": "course:recwmIzmYdzWW44N9:topic:rec8fMADfpLzUlCnb:resource:rec01nkYbeecMfZgR",
           "title": "The New Manners and Customs of Bible Times",
           "author": "Ralph Gower",
-          "isbn": "",
+          "isbn": "978-0802459657",
           "asin": "",
+          "isbnAsin": "978-0802459657",
           "imagePath": "img/resources/rec01nkYbeecMfZgR.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Through illustrations, photos, and clear explanations, this best-selling reference book shows what life was like in Bible times and makes Scripture come to life as students imagine living in that time and place. We will assign certain sections before or after Bible readings that will help students understand the context of the passage and gain more insight into the culture and geography of Israel.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "New Testament: Grades 3-6\nOld Testament: Grades 3-6",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recsZKTv4JyW3fDXQ",
           "instanceKey": "course:recwmIzmYdzWW44N9:topic:rec8fMADfpLzUlCnb:resource:recsZKTv4JyW3fDXQ",
           "title": "ESV Large Print Bible",
           "author": "",
-          "isbn": "",
+          "isbn": "978-1433541537",
           "asin": "",
+          "isbnAsin": "978-1433541537",
           "imagePath": "img/resources/recsZKTv4JyW3fDXQ.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "This large-print ESV Bible uses 12-point type for ease of reading",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "a translation of your choice.",
+          "discountText": "",
           "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
           "sharedText": "Old Testament: Grade 2\nNew Testament: Grade 2\nOld Testament: Grades 3-6\nNew Testament: Grades 3-6",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

@@ -22,70 +22,146 @@
           "author": "Roseann Beggy Hanson",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/rec7FrmRjmju44ghI.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Explore the enriching world of nature journaling in an eight-week, self-guided “workshop in a book” from explorer, naturalist, and artist Roseann Hanson.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "Discount: 25%\nWith code: 26MASON25",
           "scopeText": "",
           "sharedText": "Afternoon Occupations: Grades 1-8 (Opt.)\nAfternoon Occupations: Grades 9-12 (Opt.)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recHNf1z51qlMlcFC",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:recHNf1z51qlMlcFC",
           "title": "The Naturalist's Notebook",
           "author": "Nathaniel T. Wheelwright & Bernd Heinrich",
-          "isbn": "",
+          "isbn": "978-1612128894",
           "asin": "",
+          "isbnAsin": "978-1612128894",
           "imagePath": "img/resources/recHNf1z51qlMlcFC.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Become a more attentive observer and deepen your appreciation for the natural world. The unique five-year calendar format of _The Naturalist’s Notebook_ helps you create a long-term record and point of comparison for memorable events.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "",
           "sharedText": "Afternoon Occupations: Grades 1-8 (Opt.)\nAfternoon Occupations: Grades 9-12 (Opt.)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recVQSYIeJgwzfi8t",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:recVQSYIeJgwzfi8t",
           "title": "Tasting History",
           "author": "Max Miller",
-          "isbn": "",
+          "isbn": "978-1982186180",
           "asin": "",
+          "isbnAsin": "978-1982186180",
           "imagePath": "img/resources/recVQSYIeJgwzfi8t.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Including the original recipe and Miller’s modern recreation, this cookbook is a must-have for any avid cook or history fan looking to experience delicious recipes from the past.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "",
           "sharedText": "Afternoon Occupations: Grades 1-8 (Opt.)\nAfternoon Occupations: Grades 9-12 (Opt.)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "rec04eRvhvggroDjV",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:rec04eRvhvggroDjV",
           "title": "Baking Class",
           "author": "Deanna Cook",
-          "isbn": "",
+          "isbn": "978-1612128559",
           "asin": "",
+          "isbnAsin": "978-1612128559",
           "imagePath": "img/resources/rec04eRvhvggroDjV.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This book teaches the secrets of great baking, using kid-friendly directions and recipes.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "rec3419MToh8bCYD9",
@@ -94,214 +170,448 @@
           "author": "Mrs. Curwen & Kelli Rummel",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/rec3419MToh8bCYD9.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Video",
+          "formatOptions": [
+            {
+              "type": "video",
+              "label": "Video"
+            }
+          ],
           "rationale": "These are free video piano lessons for beginners that use the Curwen method.",
-          "notes": "",
+          "noteText": "Preliminary and part of First Step lessons are available online; higher levels are incomplete.",
+          "maySubText": "local piano lessons. Curwen teacher preferred\n➜ May also sub Hoffman Academy",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "rec8XGWgtVYl2kw7Q",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:rec8XGWgtVYl2kw7Q",
           "title": "Salt, Fat, Acid, Heat: Mastering the Elements of Good Cooking",
           "author": "Samin Nosrat",
-          "isbn": "",
+          "isbn": "978-1476753836",
           "asin": "",
+          "isbnAsin": "978-1476753836",
           "imagePath": "img/resources/rec8XGWgtVYl2kw7Q.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Whether for afternoon occupations or High School Food Science, young cooks will be inspired by this well-written text with its engaging narrative and beautiful illustrations.  The author does a good job of introducing the basic ingredients of cooking without requiring a full chemistry course; students who have already taken chemistry will find additional connections to enhance their understanding even more.",
-          "notes": "",
+          "noteText": "Available on Kindle with enhanced typesetting and Audible.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Afternoon Occupations: Grades 1-8 (Opt.)\nAfternoon Occupations: Grades 9-12 (Opt.)\nFood Science Lessons",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "reccQQoToe9KkY0g8",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:reccQQoToe9KkY0g8",
           "title": "The LEGO® Architect",
           "author": "Tom Alphin",
-          "isbn": "",
+          "isbn": "978-1593276133",
           "asin": "",
+          "isbnAsin": "978-1593276133",
           "imagePath": "img/resources/reccQQoToe9KkY0g8.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Travel through the history of architecture in _The LEGO Architect_. Learn about styles like Art Deco, Modernism, and High-Tech, and find inspiration in galleries of LEGO models. Then take a turn building 12 models in a variety of styles.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Afternoon Occupations: Grades 1-8 (Opt.)\nAfternoon Occupations: Grades 9-12 (Opt.)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recEBypJx96RSE42l",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:recEBypJx96RSE42l",
           "title": "Woodshop 101 For Kids",
           "author": "Craig Stevens",
-          "isbn": "",
+          "isbn": "978-1494237943",
           "asin": "",
+          "isbnAsin": "978-1494237943",
           "imagePath": "img/resources/recEBypJx96RSE42l.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Twenty-one woodworking lessons that teach the basics of woodworking.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recG3QrhzqAlJQKbc",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:recG3QrhzqAlJQKbc",
           "title": "The LEGO® Engineer",
           "author": "Jeff Friesen",
-          "isbn": "",
+          "isbn": "978-1718502505",
           "asin": "",
+          "isbnAsin": "978-1718502505",
           "imagePath": "img/resources/recG3QrhzqAlJQKbc.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "LEGO® bricks meet _The Way Things Work_ in this fun, informative tour of the world of engineering, from the creative mind of expert LEGO® builder Jeff Friesen.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Afternoon Occupations: Grades 1-8 (Opt.)\nAfternoon Occupations: Grades 9-12 (Opt.)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recHGrGB4PQru1Ski",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:recHGrGB4PQru1Ski",
           "title": "Simply Clean: The Proven Method for Keeping Your Home Organized, Clean, and Beautiful in Just 10 Minutes a Day",
           "author": "Becky Rapinchuk",
-          "isbn": "",
+          "isbn": "978-1501158797",
           "asin": "",
+          "isbnAsin": "978-1501158797",
           "imagePath": "img/resources/recHGrGB4PQru1Ski.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "This is a resource for parents who would like some help developing a cleaning rhythm in their homes. It includes step-by-step instructions on how to clean and perform other household tasks.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recHJN3leFW23ymD7",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:recHJN3leFW23ymD7",
           "title": "Roots, Shoots, Buckets, & Boots: Activities to Do in the Garden",
           "author": "Sharon Lovejoy",
-          "isbn": "",
+          "isbn": "978-0761110569",
           "asin": "",
+          "isbnAsin": "978-0761110569",
           "imagePath": "img/resources/recHJN3leFW23ymD7.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This book includes lots of ideas for beginner gardeners that will be a joy to both you and your students.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "reciFJiw7cXRbFUr6",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:reciFJiw7cXRbFUr6",
           "title": "Cooking Class",
           "author": "Deanna Cook",
-          "isbn": "",
+          "isbn": "978-1612124001",
           "asin": "",
+          "isbnAsin": "978-1612124001",
           "imagePath": "img/resources/reciFJiw7cXRbFUr6.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This book teaches basic food preparation and cooking, using kid-friendly directions and recipes.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recj8DHUQVmANRix6",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:recj8DHUQVmANRix6",
           "title": "Coding for Kids: Python: Learn to Code with 50 Awesome Games and Activities",
           "author": "Adrienne Tacke",
-          "isbn": "",
+          "isbn": "978-1641521758",
           "asin": "",
+          "isbnAsin": "978-1641521758",
           "imagePath": "img/resources/recj8DHUQVmANRix6.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This book includes games and activities that teach kids to code with Python.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recKvJdwuSGhH3TBr",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:recKvJdwuSGhH3TBr",
           "title": "GeoPuzzles",
           "author": "",
-          "isbn": "",
+          "isbn": "B000K3A1JW",
           "asin": "",
+          "isbnAsin": "B000K3A1JW",
           "imagePath": "img/resources/recKvJdwuSGhH3TBr.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Kids will learn geography in a fun and engaging way, while discussing the different countries and how they are related.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Afternoon Occupations: Grades 1-8 (Opt.)\nAfternoon Occupations: Grades 9-12 (Opt.)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recLowlgPJuFVvvV4",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:recLowlgPJuFVvvV4",
           "title": "Coding & Logic STEM Activity Book for Kids",
           "author": "Bob Mather",
-          "isbn": "",
+          "isbn": "979-8399868523",
           "asin": "",
+          "isbnAsin": "979-8399868523",
           "imagePath": "img/resources/recLowlgPJuFVvvV4.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This book includes hours of education and outrageous fun through puzzles, engaging characters, and beginner coding activities.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recPgK5jyqXs6RD5t",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:recPgK5jyqXs6RD5t",
           "title": "Periodic Table of Elements 1000 Piece Puzzle",
           "author": "",
-          "isbn": "",
+          "isbn": "B0019N4ECM",
           "asin": "",
+          "isbnAsin": "B0019N4ECM",
           "imagePath": "img/resources/recPgK5jyqXs6RD5t.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Afternoon Occupations: Grades 1-8 (Opt.)\nAfternoon Occupations: Grades 9-12 (Opt.)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recsiFs8insUHd4vG",
@@ -310,16 +620,28 @@
           "author": "",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recsiFs8insUHd4vG.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This is a wonderful art teacher resource for students.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Afternoon Occupations: Grades 1-8 (Opt.)\nAfternoon Occupations: Grades 9-12 (Opt.)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recsTW44Zntfejgam",
@@ -328,52 +650,104 @@
           "author": "Joseph Hoffman",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recsTW44Zntfejgam.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "",
-          "notes": "",
+          "noteText": "Free piano lessons are available online; premium membership is available ($20.00/mo.).",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recTJRwNvPj81BwrW",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:recTJRwNvPj81BwrW",
           "title": "United States 1000 Piece Map Puzzle",
           "author": "",
-          "isbn": "",
+          "isbn": "B08F2TWFNS",
           "asin": "",
+          "isbnAsin": "B08F2TWFNS",
           "imagePath": "img/resources/recTJRwNvPj81BwrW.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Afternoon Occupations: Grades 1-8 (Opt.)\nAfternoon Occupations: Grades 9-12 (Opt.)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "rectSEEPN55FPBieo",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:rectSEEPN55FPBieo",
           "title": "Wood Shop: Handy Skills and Creative Building Projects for Kids",
           "author": "Margaret Larson",
-          "isbn": "",
+          "isbn": "978-1612129426",
           "asin": "",
+          "isbnAsin": "978-1612129426",
           "imagePath": "img/resources/rectSEEPN55FPBieo.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "With step-by-step photographs and clear instructions, aspiring woodworkers learn essential skills, such as how to drive a nail; use a power drill; “measure twice, cut once;” and saw correctly.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recy19Y1sbNewNKrn",
@@ -382,34 +756,69 @@
           "author": "Will Kemp",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recy19Y1sbNewNKrn.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This is a wonderful acrylic and oil art teacher resource for students.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Afternoon Occupations: Grades 1-8 (Opt.)\nAfternoon Occupations: Grades 9-12 (Opt.)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recY4pouldD3SHzLY",
           "instanceKey": "course:recwylUfZTi53KpDK:topic:recg2XrwqatEI3CcV:resource:recY4pouldD3SHzLY",
           "title": "Forest Craft: A Child's Guide to Whittling in the Woodland",
           "author": "Richard Irvine",
-          "isbn": "",
+          "isbn": "978-1784945008",
           "asin": "",
+          "isbnAsin": "978-1784945008",
           "imagePath": "img/resources/recY4pouldD3SHzLY.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This is a book that can be turned to time and time again, through the different seasons and over many years. The skills learned can be treasured and passed down through generations in time-honored traditions.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

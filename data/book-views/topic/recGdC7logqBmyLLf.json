@@ -20,18 +20,45 @@
           "instanceKey": "course:rec3ENdR6OOp4bNWw:topic:recGdC7logqBmyLLf:resource:recYWLOabfTEBdZpB",
           "title": "Economics in One Lesson",
           "author": "Henry Hazlitt",
-          "isbn": "",
+          "isbn": "978-0517548233",
           "asin": "",
+          "isbnAsin": "978-0517548233",
           "imagePath": "img/resources/recYWLOabfTEBdZpB.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "This classic guide to the basics of economic theory defends capitalism and the free market from economic myths that persist to this day.",
-          "notes": "",
+          "noteText": "Available on Learning Ally with Audio.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

@@ -22,16 +22,26 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/rec6KhfiWqAzNZXzE.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Copywork and dictation passages taken from the books and poems from this year.",
-          "notes": "",
+          "noteText": "Also included in the Grade 8 Bundles available with Alveary Printing store.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Copywork: Grade 8\nDictation: Grade 8",
-          "links": []
+          "purchaseOptions": []
         }
       ]
     }

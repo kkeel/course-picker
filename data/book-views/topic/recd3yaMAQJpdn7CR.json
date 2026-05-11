@@ -20,18 +20,41 @@
           "instanceKey": "course:recGxKOwi4E5amNPe:topic:recd3yaMAQJpdn7CR:resource:recDLRBTspENoopYR",
           "title": "Our Hymns, Our Heritage",
           "author": "David & Barbara Leeman",
-          "isbn": "",
+          "isbn": "978-0802429292",
           "asin": "",
+          "isbnAsin": "978-0802429292",
           "imagePath": "img/resources/recDLRBTspENoopYR.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This student hymnal contains multi-denominational hymns organized by the church year, with brief histories of the music and lyrics, bios of the writers, related Scripture, and other ideas to meditate upon.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

@@ -20,16 +20,39 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recYJHQP07uKDyMpq.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This is a compilation of the year's Recitation, Picture Study, Hymns, Spirituals, and Folk Songs. Line drawings of artifacts from the historical time period are also included to provide students with inspiration for their Book of Centuries. We recommend printing or purchasing a copy for each student.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "our-work-grade-3-hard-copy"
+            },
+            {
+              "label": "PDF",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "our-work-grade-3-pdf"
+            }
+          ]
         }
       ]
     }

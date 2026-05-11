@@ -20,36 +20,70 @@
           "instanceKey": "course:recq5GiLldMnyhmk8:topic:recC44bP2oeAkcAkU:resource:rec7YiIdnVzoA4k8L",
           "title": "Paragraph Town",
           "author": "Michael Clay Thompson",
-          "isbn": "",
+          "isbn": "978-0880926706",
           "asin": "",
+          "isbnAsin": "978-0880926706",
           "imagePath": "img/resources/rec7YiIdnVzoA4k8L.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This program brings story, delight, and ideas to the study of grammar. Paragraph Town gives children an entertaining and comprehensive introduction to the paragraph. With a narrative background, students explore the importance of organizing sentences into clear, orderly paragraphs with dialogue, description, comparison, punctuation, and grammar, as well as a look at the significance of the sounds of language. Structured exercises and assignments allow students to practice integrating these ideas into their writing.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recEx5DD52x56YiGs",
           "instanceKey": "course:recq5GiLldMnyhmk8:topic:recC44bP2oeAkcAkU:resource:recEx5DD52x56YiGs",
           "title": "Practice Town",
           "author": "Michael Clay Thompson",
-          "isbn": "",
+          "isbn": "978-0880926829",
           "asin": "",
+          "isbnAsin": "978-0880926829",
           "imagePath": "img/resources/recEx5DD52x56YiGs.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This workbook accompanies Grammar Town and contains practice sentences.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Grammar: Grade 6\nGrammar/Comp: Grade 7",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recKxPfKgd4LT9wqz",
@@ -58,16 +92,33 @@
           "author": "Michael Clay Thompson",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recKxPfKgd4LT9wqz.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "",
-          "notes": "",
+          "noteText": "Used with publisher permission.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Grammar: Grade 6\nGrammar/Comp: Grade 7",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "practice-town-teacher-manual"
+            }
+          ]
         }
       ]
     }

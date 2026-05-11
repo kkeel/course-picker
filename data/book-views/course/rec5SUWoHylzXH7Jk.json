@@ -18,18 +18,45 @@
           "instanceKey": "course:rec5SUWoHylzXH7Jk:topic:recRJCbr7FFMfauFa:resource:recbNOYkip20WsZsY",
           "title": "Hurlbut's Story of the Bible",
           "author": "Jesse Lyman Hurlbut",
-          "isbn": "",
+          "isbn": "978-1-59915-178-6",
           "asin": "",
+          "isbnAsin": "978-1-59915-178-6",
           "imagePath": "img/resources/recbNOYkip20WsZsY.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Contains stories from both the Old and New Testaments in a very engaging narrative; omits sections that are unsuitable for younger children. The author adheres to the Bible without embellishment, opinion, or doctrine, making this volume appropriate for any denomination.",
-          "notes": "",
+          "noteText": "The free online option has different page numbers than the lesson plans, but the chapter numbers are the same.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     },
@@ -43,36 +70,86 @@
           "instanceKey": "course:rec5SUWoHylzXH7Jk:topic:recwdjPJ19zLtMKB3:resource:recEwODkwJZNKwdhf",
           "title": "The Bandit of Ashley Downs: George Muller",
           "author": "Dave & Neta Jackson",
-          "isbn": "",
+          "isbn": "978-1939445094",
           "asin": "",
+          "isbnAsin": "978-1939445094",
           "imagePath": "img/resources/recEwODkwJZNKwdhf.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Through the fictionalized character of Curly Roddy, the reader is introduced to George Müller (1805-1898). Müller opened an orphanage in Bristol, England, with 30 children, but through faith and prayer never went into debt and helped over 10,000 orphans during his life.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2 (Partial Term)",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recF3TyjRbJFC4JyB",
           "instanceKey": "course:rec5SUWoHylzXH7Jk:topic:recwdjPJ19zLtMKB3:resource:recF3TyjRbJFC4JyB",
           "title": "Adoniram Judson: Danger on the Streets of Gold",
           "author": "Irene Howat",
-          "isbn": "",
+          "isbn": "978-1857926606",
           "asin": "",
+          "isbnAsin": "978-1857926606",
           "imagePath": "img/resources/recF3TyjRbJFC4JyB.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "The first missionary ever sent from America, Adoniram Judson (1788-1850), faced many challenges as he ministered in the country of Burma. Although he faced many personal trials and even imprisonment by the government, he rejoiced that his translation work and ministry to individuals reached people with the gospel of Jesus Christ.",
-          "notes": "",
+          "noteText": "Please use Option 1 to utilize the discount code.",
+          "maySubText": "",
+          "discountText": "Discount: 20%\nWith code: ALVEARY",
           "scopeText": "Term 2 (Partial Term)\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

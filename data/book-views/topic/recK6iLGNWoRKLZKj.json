@@ -20,36 +20,77 @@
           "instanceKey": "course:reczerMKaBdxfhOtI:topic:recK6iLGNWoRKLZKj:resource:reca6JrCf4DtEZII1",
           "title": "Historical Atlas of the World 6th Ed.",
           "author": "Rand McNally",
-          "isbn": "",
+          "isbn": "978-0528026553",
           "asin": "",
+          "isbnAsin": "978-0528026553",
           "imagePath": "img/resources/reca6JrCf4DtEZII1.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Presents important periods and turning points in 5,000 years of history. Thematic maps include literacy, languages, religions, and more. Used across curriculum.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1 (One Lesson)\nTerm 3 (One Lesson)",
           "sharedText": "Resources: Grades 4-6\nResources: Grades 7-8\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nStory of Arithmetic: Part 1\nStory of Arithmetic: Part 2\nStory of Geometry: Part 1\nPlutarch: Grades 6-8\nFirst Citizen Stories",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recxfzP2djr76WzJM",
           "instanceKey": "course:reczerMKaBdxfhOtI:topic:recK6iLGNWoRKLZKj:resource:recxfzP2djr76WzJM",
           "title": "Stories From the History of Rome",
           "author": "Emily Beesly",
-          "isbn": "",
+          "isbn": "978-1599152646",
           "asin": "",
+          "isbnAsin": "978-1599152646",
           "imagePath": "img/resources/recxfzP2djr76WzJM.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This is a narrative introduction to the stories students will read later in Plutarch's Lives.",
-          "notes": "",
+          "noteText": "Contains some violence that may be disturbing for sensitive children.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

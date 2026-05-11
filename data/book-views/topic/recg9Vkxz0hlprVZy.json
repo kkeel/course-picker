@@ -22,16 +22,28 @@
           "author": "Harold Jacobs",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/rec21UKJaDd8DWlDr.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "A solid and interesting HS geometry course for all.",
-          "notes": "",
+          "noteText": "May add an online class from derekowens.com if desired.",
+          "maySubText": "Geometry: A Guided Inquiry by Chakerian (mathwithoutborders.com/geometry/)",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Geometry: Part 1\nGeometry: Part 2",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

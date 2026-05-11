@@ -18,36 +18,86 @@
           "instanceKey": "course:recjJ2PgFC1yLjsc9:resource:recBStS3hyQ2Ed7qR",
           "title": "A Midsummer Night's Dream (Audio recording)",
           "author": "Arkangel",
-          "isbn": "",
+          "isbn": "B00K8FZAUC",
           "asin": "",
+          "isbnAsin": "B00K8FZAUC",
           "imagePath": "img/resources/recBStS3hyQ2Ed7qR.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Audiobook",
+          "formatOptions": [
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Hearing a play being performed often helps students with comprehension. These professional recordings are superb.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "Librivox recording.",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recYINXIQIeHIhvxC",
           "instanceKey": "course:recjJ2PgFC1yLjsc9:resource:recYINXIQIeHIhvxC",
           "title": "A Midsummer Night's Dream",
           "author": "William Shakespeare",
-          "isbn": "",
+          "isbn": "978-1501146213",
           "asin": "",
+          "isbnAsin": "978-1501146213",
           "imagePath": "img/resources/recYINXIQIeHIhvxC.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "One of Shakespeare’s most popular plays, A Midsummer Night’s Dream is a comedy set in Greece during the 12th century. The magical setting of this play is the city of Athens and the nearby enchanted woods where fairies and their mischief reign in the moonlight.",
-          "notes": "",
+          "noteText": "This is a good play for those who are newer to Shakespeare.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

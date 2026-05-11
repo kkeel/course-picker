@@ -20,36 +20,77 @@
           "instanceKey": "course:recQkVAkPcg3NKGnG:topic:recPJwhSDEWWZXwi6:resource:recAgpjTHZLXwXPgv",
           "title": "Tales from Grimm",
           "author": "Wanda Gag",
-          "isbn": "",
+          "isbn": "978-0816649365",
           "asin": "",
+          "isbnAsin": "978-0816649365",
           "imagePath": "img/resources/recAgpjTHZLXwXPgv.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Mason had her youngest students read fairy tales from Grimm or Anderson. This retelling by Wanda Gag is gentler and less scary than many other translations, while still having good literary quality and simple English for students to practice reading themselves.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recZEkDPmuBucJpr1",
           "instanceKey": "course:recQkVAkPcg3NKGnG:topic:recPJwhSDEWWZXwi6:resource:recZEkDPmuBucJpr1",
           "title": "Around the World in 80 Tales",
           "author": "Saviour Pirotta",
-          "isbn": "",
+          "isbn": "978-0753479858",
           "asin": "",
+          "isbnAsin": "978-0753479858",
           "imagePath": "img/resources/recZEkDPmuBucJpr1.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This book takes readers across six continents with short, entertaining folktales to stir our first graders' imaginations with tales from many lands.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

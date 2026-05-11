@@ -18,18 +18,41 @@
           "instanceKey": "course:reclZXJopMkaFIGIq:resource:recXomXTY2RhzQP7K",
           "title": "Sloyd",
           "author": "Everett Schwartz",
-          "isbn": "",
+          "isbn": "B0088EQHCU",
           "asin": "",
+          "isbnAsin": "B0088EQHCU",
           "imagePath": "img/resources/recXomXTY2RhzQP7K.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This book contains models of geometric solids that support the study of geometry.",
-          "notes": "",
+          "noteText": "Video tutorials for certain models provided with lesson plans. Students work independently on others.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Sloyd: Level 5\nSloyd: Level 6\nSloyd: Level 4",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

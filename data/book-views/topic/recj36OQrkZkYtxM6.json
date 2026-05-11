@@ -20,36 +20,70 @@
           "instanceKey": "course:recgwYscXzqbmjffJ:topic:recj36OQrkZkYtxM6:resource:recDMDo9ie5QCal7N",
           "title": "Schaum's Outlines: College Physics",
           "author": "Eugene Hecht, PhD",
-          "isbn": "",
+          "isbn": "978-1259587399",
           "asin": "",
+          "isbnAsin": "978-1259587399",
           "imagePath": "img/resources/recDMDo9ie5QCal7N.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This book is listed as a resource/supplement to the Math with Borders Physics video course.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recR6rSvSqo1XENOw",
           "instanceKey": "course:recgwYscXzqbmjffJ:topic:recj36OQrkZkYtxM6:resource:recR6rSvSqo1XENOw",
           "title": "Home Study Companion: Physics",
           "author": "Math Without Borders",
-          "isbn": "",
+          "isbn": "HSC-Physics",
           "asin": "",
+          "isbnAsin": "HSC-Physics",
           "imagePath": "img/resources/recR6rSvSqo1XENOw.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Video",
+          "formatOptions": [
+            {
+              "type": "video",
+              "label": "Video"
+            }
+          ],
           "rationale": "This living lecture series teaches the basic concepts of physics by guiding students to mathematically analyze moving objects in the world around them.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

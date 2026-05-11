@@ -20,54 +20,122 @@
           "instanceKey": "course:reczJaAXPgqwXQPsz:topic:recCIKPAUtjmwgV4a:resource:recTmUqHMkE0WgkLh",
           "title": "Plate Tectonics",
           "author": "Fiona Young-Brown",
-          "isbn": "",
+          "isbn": "978-1502643964",
           "asin": "",
+          "isbnAsin": "978-1502643964",
           "imagePath": "img/resources/recTmUqHMkE0WgkLh.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This text explores the field of plate tectonics from its early history to the current era.  Students will consider how such theories explain the natural phenomena that have contributed to the Earth's development, as well as events such as volcanoes and earthquakes.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recuiC7B5gtKKOBWq",
           "instanceKey": "course:reczJaAXPgqwXQPsz:topic:recCIKPAUtjmwgV4a:resource:recuiC7B5gtKKOBWq",
           "title": "Phineas Gage",
           "author": "John Fleischman",
-          "isbn": "",
+          "isbn": "978-0618494781",
           "asin": "",
+          "isbnAsin": "978-0618494781",
           "imagePath": "img/resources/recuiC7B5gtKKOBWq.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "In this classic story, readers hear the story of a man who suffers an horrific railroad accident.  The resulting brain injury forever changes his life and produces one the most fascinating case studies that neuroscience has ever seen. Note that the author associates social ability and success with human value. Discuss with students as appropriate.",
-          "notes": "",
+          "noteText": "Available on Kindle with enhanced typesetting and Learning Ally with VoiceText.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 2",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recy6L6dZaoXMcArp",
           "instanceKey": "course:reczJaAXPgqwXQPsz:topic:recCIKPAUtjmwgV4a:resource:recy6L6dZaoXMcArp",
           "title": "The Art of Construction",
           "author": "Mario Salvadori",
-          "isbn": "",
+          "isbn": "978-1556520808",
           "asin": "",
+          "isbnAsin": "978-1556520808",
           "imagePath": "img/resources/recy6L6dZaoXMcArp.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "We love that this book provides hands-on activities for exploring the principles of engineering, allowing students to dip their toes into the engineering process with everyday materials.",
-          "notes": "",
+          "noteText": "Available on Kindle with enhanced typesetting.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

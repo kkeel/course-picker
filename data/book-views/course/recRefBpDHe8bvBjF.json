@@ -18,18 +18,41 @@
           "instanceKey": "course:recRefBpDHe8bvBjF:resource:recDOxrwbokPqQmAn",
           "title": "Paper Sloyd for Primary Grades",
           "author": "Ednah Rich",
-          "isbn": "",
+          "isbn": "978-1633340930",
           "asin": "",
+          "isbnAsin": "978-1633340930",
           "imagePath": "img/resources/recDOxrwbokPqQmAn.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This book begins with very simple models; difficulty increases gradually.",
-          "notes": "",
+          "noteText": "Be sure to purchase the Yesterday's Classics edition, as other editions have issues with formatting and readability. Video tutorials are provided with lesson plans.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Sloyd: Level 1\nSloyd: Level 2\nSloyd: Level 3",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

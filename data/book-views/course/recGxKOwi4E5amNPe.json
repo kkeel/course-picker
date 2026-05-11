@@ -20,16 +20,33 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/rectZLk9X7Vjlf8dG.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Selections are also included in Our Work packets for Grades 1-12. Audio lessons and other resources are available in lesson plans.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Music: Intro\nMusic: Level 1\nMusic: Level 2\nMusic: Level 3\nMusic: Level 4\nMusic: Level 5",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "hymns-spirituals-folk-songs-pdf"
+            }
+          ]
         },
         {
           "resourceId": "recw7BBdhDZlQO2RS",
@@ -38,16 +55,39 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recw7BBdhDZlQO2RS.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This is a compilation of the year's Recitation, Picture Study, Hymns, Spirituals, and Folk Songs. Line drawings of artifacts from the historical time period are also included to provide students with inspiration for their Book of Centuries. We recommend printing or purchasing a copy for each student.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Recitation: Grades 1-2\nPicture Study\nMusic: Intro\nMusic: Level 1",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "our-work-g1-2-hard-copy"
+            },
+            {
+              "label": "PDF",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "our-work-g1-2"
+            }
+          ]
         }
       ]
     },
@@ -63,16 +103,33 @@
           "author": "Wilder & Barer",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recwSXrQ9crAhXWV3.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Creative introduction to each instrument of the orchestra through song.",
-          "notes": "",
+          "noteText": "Unavailable for purchase.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recZIPkbviVxbx1TC",
@@ -81,16 +138,33 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recZIPkbviVxbx1TC.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Audiobook",
+          "formatOptions": [
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 2\nTerm 3 (Selections)",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Playlist",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     },
@@ -104,18 +178,41 @@
           "instanceKey": "course:recGxKOwi4E5amNPe:topic:recd3yaMAQJpdn7CR:resource:recDLRBTspENoopYR",
           "title": "Our Hymns, Our Heritage",
           "author": "David & Barbara Leeman",
-          "isbn": "",
+          "isbn": "978-0802429292",
           "asin": "",
+          "isbnAsin": "978-0802429292",
           "imagePath": "img/resources/recDLRBTspENoopYR.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This student hymnal contains multi-denominational hymns organized by the church year, with brief histories of the music and lyrics, bios of the writers, related Scripture, and other ideas to meditate upon.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     },
@@ -129,18 +226,41 @@
           "instanceKey": "course:recGxKOwi4E5amNPe:topic:rec3VWzJd0IeiTO7V:resource:recPb5gHeLu8G3EXl",
           "title": "Like a Bird: The Art of the American Slave Song",
           "author": "Cynthia Grady",
-          "isbn": "",
+          "isbn": "978-1728466989",
           "asin": "",
+          "isbnAsin": "978-1728466989",
           "imagePath": "img/resources/recPb5gHeLu8G3EXl.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This is a collection of African American spirituals, along with their stories and beautiful illustrations.",
-          "notes": "",
+          "noteText": "1-2 songs from this book are chosen most years.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     },
@@ -156,16 +276,33 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recoemutvxjrSGUVb.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Audiobook",
+          "formatOptions": [
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Playlist",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

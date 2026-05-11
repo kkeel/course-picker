@@ -20,36 +20,90 @@
           "instanceKey": "course:rec6S4wufY691nsui:topic:recm2gFfuHCv4GF4r:resource:recQ27ovq0EVSNWEI",
           "title": "The Lion, the Witch and the Wardrobe",
           "author": "C. S. Lewis",
-          "isbn": "",
+          "isbn": "978-0064471046",
           "asin": "",
+          "isbnAsin": "978-0064471046",
           "imagePath": "img/resources/recQ27ovq0EVSNWEI.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "This piece of classic literature by C.S. Lewis was chosen to foster students' moral formation and love for a well-told story.",
-          "notes": "",
+          "noteText": "Available on Learning Ally with Audio.",
+          "maySubText": "another in the Narnia series or a title in adjacent grades if students have already read The Lion, the Witch, and the Wardrobe",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2 (Partial Term)",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recFKmcgde5dxKPMh",
           "instanceKey": "course:rec6S4wufY691nsui:topic:recm2gFfuHCv4GF4r:resource:recFKmcgde5dxKPMh",
           "title": "Hans Brinker or The Silver Skates",
           "author": "Mary Mapes Dodge",
-          "isbn": "",
+          "isbn": "978-0689849091",
           "asin": "",
+          "isbnAsin": "978-0689849091",
           "imagePath": "img/resources/recFKmcgde5dxKPMh.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Mary Mapes Dodge was recognized as one of the leading authors of children's literature during the 19th century, and Hans Brinker is her most famous work. With themes of perseverance and selflessness, Hans Brinker's heartwarming tale of two siblings delights, instructs, and expands the imagination.",
-          "notes": "",
+          "noteText": "Available on Learning Ally with Audio.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 2 (Partial Term)\nTerm 3",
           "sharedText": "General Lit.: Grade 4\nGeneral Lit.: Grades 5-6",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

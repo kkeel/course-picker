@@ -22,34 +22,62 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/reccvFARcG21ppLkY.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Students will learn about important historical documents developed between 1800-1900. Following the founding of the country, the framework of the nation begins to take shape. The Missouri Compromise sets the stage for the Civil War as new states join the nation; the federal government experiences internal conflict as the Executive Branch disregards the Judicial Branch over the sovereignty of tribal nations; and the Reconstruction Amendments are added to the Constitution.  A \"Reading PDF\" will be included in the lesson plans that provides accessible analysis integrated with relevant excerpts of Supreme Court decisions, legislative acts, and other texts as appropriate.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 2",
           "sharedText": "American Gov./ Economics: Grade 8\nPlutarch/Government: Grade 9 (U.S.)\nEcon/Civics: Grade 10 (U.S.)\nEcon/Civics: Grade 11 (U.S.)",
-          "links": []
+          "purchaseOptions": []
         },
         {
           "resourceId": "rec7v5wfeY2lC55Vq",
           "instanceKey": "course:recCQWoF8yby9Gstl:topic:rec46I88QSFQIJwng:resource:rec7v5wfeY2lC55Vq",
           "title": "Dollars and Sense: A Kid's Guide to Using - Not Losing - Money",
           "author": "Elaine Scott",
-          "isbn": "",
+          "isbn": "978-1580893961",
           "asin": "",
+          "isbnAsin": "978-1580893961",
           "imagePath": "img/resources/rec7v5wfeY2lC55Vq.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "In this introduction to Economics, students will learn about the history of money, the banking system, and personal finance.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 3",
           "sharedText": "American Gov./ Economics: Grade 8\nCanadian Gov./ Economics: Grade 8",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

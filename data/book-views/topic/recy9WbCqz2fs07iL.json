@@ -22,16 +22,26 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recYKUGOvi3S9a3YW.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This document contains all the labs for Grade 8, including instructions, procedures, and leveled guidance for analyses and using a lab notebook. The lab book is designed to provide a foundation for the high school disciplines.",
-          "notes": "",
+          "noteText": "Relevant supplies from the Grade 8 list are further detailed in the Table of Contents for the Lab Book. It is recommended that supplies are obtained either for the year or by term.  \n\nNOTE: Also included in Grade 8 Bundles with Alveary Printing store.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": []
         }
       ]
     }

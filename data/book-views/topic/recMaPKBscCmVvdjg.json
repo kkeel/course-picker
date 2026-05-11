@@ -20,36 +20,77 @@
           "instanceKey": "course:recK4WumjdpFqO8pD:topic:recMaPKBscCmVvdjg:resource:recoR5dUTNBS6Lg5R",
           "title": "Reading the Bible for a Change",
           "author": "Ray Lubeck",
-          "isbn": "",
+          "isbn": "978-1666765540",
           "asin": "",
+          "isbnAsin": "978-1666765540",
           "imagePath": "img/resources/recoR5dUTNBS6Lg5R.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Ray Lubeck’s Reading the Bible for a Change teaches readers how to approach the bible and how to relate it to our lives. Through careful study, a student will learn how to approach the various genres of the Old and New Testaments, as well as how to respond and apply them to one’s life.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recOkcmoS3kfkSJNV",
           "instanceKey": "course:recK4WumjdpFqO8pD:topic:recMaPKBscCmVvdjg:resource:recOkcmoS3kfkSJNV",
           "title": "God of All Things",
           "author": "Andrew Wilson",
-          "isbn": "",
+          "isbn": "978-0310109082",
           "asin": "",
+          "isbnAsin": "978-0310109082",
           "imagePath": "img/resources/recOkcmoS3kfkSJNV.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "In God of All Things, pastor and author Andrew Wilson invites you to rediscover God through ordinary, everyday things. He explores the idea of a material world and presents a variety of created marvels that reveal the gospel in everyday life and fuel worship and joy in God.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

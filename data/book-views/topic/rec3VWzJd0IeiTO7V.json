@@ -20,18 +20,41 @@
           "instanceKey": "course:recGxKOwi4E5amNPe:topic:rec3VWzJd0IeiTO7V:resource:recPb5gHeLu8G3EXl",
           "title": "Like a Bird: The Art of the American Slave Song",
           "author": "Cynthia Grady",
-          "isbn": "",
+          "isbn": "978-1728466989",
           "asin": "",
+          "isbnAsin": "978-1728466989",
           "imagePath": "img/resources/recPb5gHeLu8G3EXl.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This is a collection of African American spirituals, along with their stories and beautiful illustrations.",
-          "notes": "",
+          "noteText": "1-2 songs from this book are chosen most years.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

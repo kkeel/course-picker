@@ -22,16 +22,37 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/reckCyEXWqUvcQwa5.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Audiobook, Video",
+          "formatOptions": [
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            },
+            {
+              "type": "video",
+              "label": "Video"
+            }
+          ],
           "rationale": "",
-          "notes": "",
+          "noteText": "These will also be linked in the lesson plans. These will be available June 1.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Playlist",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "sol-fa-level-2-audio-video-lessons"
+            }
+          ]
         }
       ]
     }

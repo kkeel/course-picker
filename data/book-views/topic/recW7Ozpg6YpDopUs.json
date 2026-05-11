@@ -20,54 +20,126 @@
           "instanceKey": "course:recQMEi3IyNcsqebg:topic:recW7Ozpg6YpDopUs:resource:recCW1Ucx7oi7uus5",
           "title": "Buzztail and Leaper",
           "author": "Robert M. McClung",
-          "isbn": "",
+          "isbn": "978-1948959452",
           "asin": "",
+          "isbnAsin": "978-1948959452",
           "imagePath": "img/resources/recCW1Ucx7oi7uus5.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Two stories in one, this classic presents two very different animals in the context of their ecosystems. Students read about their habitats, biomes, food chains, life cycles, adaptations, and more.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1 (Partial Term)\nTerm 2\nTerm 3 (Partial Term)",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recM4XypWWS1uZmQY",
           "instanceKey": "course:recQMEi3IyNcsqebg:topic:recW7Ozpg6YpDopUs:resource:recM4XypWWS1uZmQY",
           "title": "Next Time You See a Cloud",
           "author": "Emily Morgan",
-          "isbn": "",
+          "isbn": "978-1938946363",
           "asin": "",
+          "isbnAsin": "978-1938946363",
           "imagePath": "img/resources/recM4XypWWS1uZmQY.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This beautiful picture book calls attention to physical features in the larger ecosystem: weather changes and the movement of water. It is a lovely addition to your bookshelf, but scheduling in the lesson plans is flexible for those using their library.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1 (Partial Term)",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "rec6q3iZ8glaNQlty",
           "instanceKey": "course:recQMEi3IyNcsqebg:topic:recW7Ozpg6YpDopUs:resource:rec6q3iZ8glaNQlty",
           "title": "Going Home",
           "author": "Marianne Berkes",
-          "isbn": "",
+          "isbn": "978-1584691273",
           "asin": "",
+          "isbnAsin": "978-1584691273",
           "imagePath": "img/resources/rec6q3iZ8glaNQlty.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook, Video",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            },
+            {
+              "type": "video",
+              "label": "Video"
+            }
+          ],
           "rationale": "This lovely picture book introduces students to animal migration as a global phenomenon.  It is a lovely addition to your bookshelf, but scheduling in the lesson plans is flexible for those using their library.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "any life-giving picture book preferred by the teacher that is about animal migration.",
+          "discountText": "",
           "scopeText": "Term 3 (Partial Term)",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

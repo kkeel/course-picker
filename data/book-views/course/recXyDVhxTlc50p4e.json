@@ -18,18 +18,41 @@
           "instanceKey": "course:recXyDVhxTlc50p4e:resource:recCU98bl4JN1YdqG",
           "title": "String, Straight-Edge, and Shadow",
           "author": "Julia Diggins",
-          "isbn": "",
+          "isbn": "978-1782504986",
           "asin": "",
+          "isbnAsin": "978-1782504986",
           "imagePath": "img/resources/recCU98bl4JN1YdqG.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Follows the development of geometry from the need to be able to engineer structures that would stand to the theoretical ideas of Pythagoras and Thales.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "previous edition.",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Story of Geometry: Part 1\nStory of Geometry: Part 2",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

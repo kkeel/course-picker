@@ -18,36 +18,72 @@
           "instanceKey": "course:recRNi3w2EE4sVeSN:resource:rec2ZcWvxi3oeBNF8",
           "title": "The Tree is Older Than You Are: A Bilingual Gathering of Poems & Stories from Mexico with Paintings by Mexican Artists",
           "author": "Naomi Shihab Nye",
-          "isbn": "",
+          "isbn": "978-0689820878",
           "asin": "",
+          "isbnAsin": "978-0689820878",
           "imagePath": "img/resources/rec2ZcWvxi3oeBNF8.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Contains poems in Spanish and English to give students deeper insight into the culture.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Upper Spanish: Level 1\nUpper Spanish: Level 2\nUpper Spanish: Level 3\nUpper Spanish: Level 4\nUpper Spanish: Level 5",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recvIZ8k425sk5T1z",
           "instanceKey": "course:recRNi3w2EE4sVeSN:resource:recvIZ8k425sk5T1z",
           "title": "The Harvest Birds/Los pájaros de la cosecha",
           "author": "Blanca Lopez de Mariscal",
-          "isbn": "",
+          "isbn": "978-0892391691",
           "asin": "",
+          "isbnAsin": "978-0892391691",
           "imagePath": "img/resources/recvIZ8k425sk5T1z.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This is a story for beginning readers in Spanish that showcases the traditions of rural Mexico.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 2 (Partial Term)\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recPaDnMglpf5AQiw",
@@ -56,16 +92,26 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recPaDnMglpf5AQiw.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Audiobook",
+          "formatOptions": [
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Contains audio recordings of the vignette stories.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": []
         },
         {
           "resourceId": "recLJbFpdXapVzj8X",
@@ -74,16 +120,33 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recLJbFpdXapVzj8X.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Contains markable copies of lesson readings, vocabulary lists, and answers to reading questions and grammar exercises.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "PDF",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "spanish-level-1-student-notebook"
+            }
+          ]
         }
       ]
     }

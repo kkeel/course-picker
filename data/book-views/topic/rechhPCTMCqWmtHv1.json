@@ -22,16 +22,26 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recwCXT5N9KCDloNi.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This document contains all of the instructions, procedures, and guidance needed to complete the laboratory component of High School Chemistry.",
-          "notes": "",
+          "noteText": "Relevant supplies from the Grade 9 list are further detailed in the Table of Contents for the Lab Book. It is recommended that supplies are obtained either for the year or by term.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": []
         }
       ]
     }

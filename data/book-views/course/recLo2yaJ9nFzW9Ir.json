@@ -18,18 +18,41 @@
           "instanceKey": "course:recLo2yaJ9nFzW9Ir:topic:rec0zdroSI7QgJY6v:resource:rechRuS8zVr1DHOaD",
           "title": "A Wonder Book for Girls and Boys",
           "author": "Nathaniel Hawthorne",
-          "isbn": "",
+          "isbn": "978-1599150925",
           "asin": "",
+          "isbnAsin": "978-1599150925",
           "imagePath": "img/resources/rechRuS8zVr1DHOaD.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Nathaniel Hawthorne is a master storyteller. This collection of stories from Greek mythology is a great introduction for young children.",
-          "notes": "",
+          "noteText": "Grade 3 students should read EITHER Pilgrim's Progress OR A Wonder Book.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Mythology: Grade 2\nLit./Mythology: Grade 3",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     },
@@ -43,18 +66,45 @@
           "instanceKey": "course:recLo2yaJ9nFzW9Ir:topic:rec7jlz4INbdwK5bW:resource:recJGvkeytuYA6Noo",
           "title": "Pilgrim's Progress: Updated, Modern English",
           "author": "John Bunyan",
-          "isbn": "",
+          "isbn": "978-1622452392",
           "asin": "",
+          "isbnAsin": "978-1622452392",
           "imagePath": "img/resources/recJGvkeytuYA6Noo.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Mason's students read the original text, and some Alveary members choose to do the same. However, we find this retelling robust and beautiful, without the archaic vocabulary of the original, making the ideas more accessible to young children.",
-          "notes": "",
+          "noteText": "Grade 3: Students should read EITHER Pilgrim's Progress OR A Wonder Book.",
+          "maySubText": "original text.",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Classic Lit.: Grade 2\nLit./Mythology: Grade 3",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

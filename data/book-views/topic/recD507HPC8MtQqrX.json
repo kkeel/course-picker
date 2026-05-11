@@ -20,18 +20,41 @@
           "instanceKey": "course:rec78NLw5eJC1IYVt:topic:recD507HPC8MtQqrX:resource:recHnNaWYDRO6RSft",
           "title": "The Word Made Fresh",
           "author": "Abram Van Engen",
-          "isbn": "",
+          "isbn": "978-0802883605",
           "asin": "",
+          "isbnAsin": "978-0802883605",
           "imagePath": "img/resources/recHnNaWYDRO6RSft.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Van Engen lays out a beautiful relational approach to poetry which resonates deeply with Mason. As he models a love for poetry and gives insights into how to enjoy, understand, and read poetry (or start on the journey!), students will continue growing their own delight. Lesson plans pair readings from the book with practical exercises.",
-          "notes": "",
+          "noteText": "The first section of the book (the more practical part) is scheduled in the lesson plans, but we recommend the whole book - which concludes with a theological reflection on the value of poetry - as a resource for parents and teachers.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Poetry Study: Grade 10\nPoetry Study: Grade 11",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recotFEF8hsyYtMqC",
@@ -40,16 +63,21 @@
           "author": "Various",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recotFEF8hsyYtMqC.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Students use a poetry anthology of their choice (in print or online) for the exercises accompanying readings in The Word Made Fresh. Suggestions are listed in Extra Helpings for the course, but any anthology with a wide variety of poems and poets is sufficient.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
           "sharedText": "Poetry Study: Grade 10\nPoetry Study: Grade 11",
-          "links": []
+          "purchaseOptions": []
         }
       ]
     }

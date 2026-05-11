@@ -18,18 +18,41 @@
           "instanceKey": "course:recphzOz02QtwWmTI:resource:recvU9fKQ6yED22ln",
           "title": "The Amazing Stitching Handbook for Kids: 17 Embroidery Stitches",
           "author": "Kristin Nicholas",
-          "isbn": "",
+          "isbn": "978-1607059738",
           "asin": "",
+          "isbnAsin": "978-1607059738",
           "imagePath": "img/resources/recvU9fKQ6yED22ln.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This book contains embroidery stitches that can be added to sewing projects.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "another sewing book.",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

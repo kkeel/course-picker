@@ -20,36 +20,82 @@
           "instanceKey": "course:recQWKDHT3t6U85uA:topic:recXw9HiIV6WGm6oO:resource:recUCjRu76tQczZuF",
           "title": "The Plutarch Project Volume Three (Revised)",
           "author": "Anne White",
-          "isbn": "",
+          "isbn": "978-1990258060",
           "asin": "",
+          "isbnAsin": "978-1990258060",
           "imagePath": "img/resources/recUCjRu76tQczZuF.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Students will read about the lives of Julius Caesar, Agis and Cleomenes, and the Gracchi. Anne White has broken up the Lives into reasonable sections with suitable omissions for length and content. She also included study helps to aid with understanding. Lesson plans will offer guidance as well.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 3",
           "sharedText": "Plutarch: Grades 6-8\nPlutarch/Government: Grade 9 (U.S.)\nPlutarch/Government: Grade 9 (Canada)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "rec3jFPfyFSqt2mGU",
           "instanceKey": "course:recQWKDHT3t6U85uA:topic:recXw9HiIV6WGm6oO:resource:rec3jFPfyFSqt2mGU",
           "title": "Canada's Constitutional Monarchy",
           "author": "Nathan Tidridge",
-          "isbn": "",
+          "isbn": "9781554889808",
           "asin": "",
+          "isbnAsin": "9781554889808",
           "imagePath": "img/resources/rec3jFPfyFSqt2mGU.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Brimming with photographs and archival images, this book, written by a high school history teacher, is an accessible and extensive account of the role played by the Crown in Canada's history, Constitution, system of parliamentary government, other institutions, and the day-to-day lives of all Canadians.",
-          "notes": "",
+          "noteText": "This book is used over two years (Grades 8 and 9).",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 2",
           "sharedText": "Canadian Gov./ Economics: Grade 8\nPlutarch/Government: Grade 9 (Canada)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

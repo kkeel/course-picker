@@ -20,90 +20,215 @@
           "instanceKey": "course:rec0W9G7pHNhGaTjO:topic:recOGMsLG43gBsvN4:resource:reciRGkxdaxMGvbhs",
           "title": "Frankenstein",
           "author": "Mary Shelley",
-          "isbn": "",
+          "isbn": "978-0486282114",
           "asin": "",
+          "isbnAsin": "978-0486282114",
           "imagePath": "img/resources/reciRGkxdaxMGvbhs.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "A famous gothic novel first published in 1818 and then revised in 1831, Frankenstein influenced the development of science fiction. This gripping story was composed as a result of a writing challenge when the author was only 19, and it revolves around personhood, conscience, and the ethics of scientific ambition, themes which are especially important for students to wrestle with in today's age of AI.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recj4Gq2c9BzAopg7",
           "instanceKey": "course:rec0W9G7pHNhGaTjO:topic:recOGMsLG43gBsvN4:resource:recj4Gq2c9BzAopg7",
           "title": "Narrative of the Life of Frederick Douglass",
           "author": "Frederick Douglass",
-          "isbn": "",
+          "isbn": "978-0486284996",
           "asin": "",
+          "isbnAsin": "978-0486284996",
           "imagePath": "img/resources/recj4Gq2c9BzAopg7.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Students read extended selections of this classic 19th century narrative which details the author's story from slavery to freedom. For US students, this text will enhance their reading of Lincoln & Douglass in US History.",
-          "notes": "",
+          "noteText": "GRADES 9+ should choose this OR Up From Slavery and Souls of Black Folk.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1",
           "sharedText": "General Lit: Grades 7-8\nGeneral Lit.: Grades 9-10\nGeneral Lit.: Grades 11-12",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recytZRsUSyyVb2eS",
           "instanceKey": "course:rec0W9G7pHNhGaTjO:topic:recOGMsLG43gBsvN4:resource:recytZRsUSyyVb2eS",
           "title": "The Souls of Black Folk",
           "author": "W.E.B. Dubois",
-          "isbn": "",
+          "isbn": "978-1985821101",
           "asin": "",
+          "isbnAsin": "978-1985821101",
           "imagePath": "img/resources/recytZRsUSyyVb2eS.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "This landmark text of American literature and sociology is paired with Up from Slavery by Booker T. Washington in the lesson plans. This pairing immerses students in the dialogues around the turn of the century as they read about Washington's life and aspirations and then consider Dubois's response.",
-          "notes": "",
+          "noteText": "Choose The Souls of Black Folk with Up from Slavery OR Narrative of a Life of Frederick Douglas.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1",
           "sharedText": "General Lit.: Grades 9-10\nGeneral Lit.: Grades 11-12",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "reczCr29zRWEiJ53Q",
           "instanceKey": "course:rec0W9G7pHNhGaTjO:topic:recOGMsLG43gBsvN4:resource:reczCr29zRWEiJ53Q",
           "title": "Up from Slavery",
           "author": "Booker T. Washington",
-          "isbn": "",
+          "isbn": "978-0486287386",
           "asin": "",
+          "isbnAsin": "978-0486287386",
           "imagePath": "img/resources/reczCr29zRWEiJ53Q.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "This is a first-person account of what it was like to be born on a slave plantation, live through the Civil War and Reconstruction, and make a new life as a free person. Washington's accomplishments and sense of hope are inspiring, and his founding of the Tuskegee Institute which continues as a historically black university and National Historic Site today is a remarkable achievement. Lesson plans pair Dubois's response to Washington to allow students a richer experience of the discussions of the times.",
-          "notes": "",
+          "noteText": "Choose The Souls of Black Folk with Up from Slavery OR Narrative of a Life of Frederick Douglas.\n\nAvailable on Learning Ally with Audio.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1 (Selections)",
           "sharedText": "General Lit.: Grades 9-10\nGeneral Lit.: Grades 11-12",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "rec1NKKmsNNGhM6XQ",
           "instanceKey": "course:rec0W9G7pHNhGaTjO:topic:recOGMsLG43gBsvN4:resource:rec1NKKmsNNGhM6XQ",
           "title": "Silas Marner",
           "author": "George Eliot (Mary Ann Evans)",
-          "isbn": "",
+          "isbn": "978-0141439754",
           "asin": "",
+          "isbnAsin": "978-0141439754",
           "imagePath": "img/resources/rec1NKKmsNNGhM6XQ.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Students spend two terms lingering with this nineteenth-century novel which depicts British village life while stretching the reader's moral imagination. Composition lessons build on these lessons by asking students to analyze characters, compare characters’ development during the two time periods of the novel, and use the events of the novel to discuss ethical questions.",
-          "notes": "",
+          "noteText": "Available on Learning Ally with Audio.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recRAjWrl2CLPferr",
@@ -112,16 +237,21 @@
           "author": "Various",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recRAjWrl2CLPferr.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Lesson plans curate a selection of writings from a variety of 19th century authors such as Pushkin, O.Henry, Tagore, and others to give students exposure to a broader range of genres, authors, and ideas.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 3",
           "sharedText": "Lit./Mythology: Grades 7-8\nGeneral Lit.: Grades 9-10\nGeneral Lit.: Grades 11-12",
-          "links": []
+          "purchaseOptions": []
         }
       ]
     }

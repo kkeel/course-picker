@@ -20,18 +20,39 @@
           "instanceKey": "course:reciJStPWnMeY7ku4:topic:recEP3zrR9MMA5GAp:resource:recTDoFwbVufsDGsC",
           "title": "Style: The Basics of Clarity & Grace 5th ed.",
           "author": "Joseph Williams, Joseph Bizup",
-          "isbn": "",
+          "isbn": "978-0321953308",
           "asin": "",
+          "isbnAsin": "978-0321953308",
           "imagePath": "img/resources/recTDoFwbVufsDGsC.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "This classic work covers elemental principles of writing that will help students diagnose the strengths and weaknesses of their prose quickly and revise effectively. The text is written in a conversational style, offering reason-based principles for clear writing.",
-          "notes": "",
+          "noteText": "The loose-leaf edition is the most affordable and allows students to put the book directly in a composition binder. Available on Learning Ally with Audio.",
+          "maySubText": "Another edition, but some content will not match exactly.",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

@@ -18,18 +18,41 @@
           "instanceKey": "course:recPaxL20DuphqbLV:resource:recIUAUGnpcfosU6f",
           "title": "Primary French Course Part I",
           "author": "Otto Siepmann",
-          "isbn": "",
+          "isbn": "978-1475234251",
           "asin": "",
+          "isbnAsin": "978-1475234251",
           "imagePath": "img/resources/recIUAUGnpcfosU6f.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This book teaches vocabulary and grammar through reading, writing, and spoken exercises.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Upper French: Level 1\nUpper French: Level 2\nUpper French: Level 3\nUpper French: Level 4",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recFWdDhTT1KrnqSc",
@@ -38,16 +61,26 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recFWdDhTT1KrnqSc.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Audiobook",
+          "formatOptions": [
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Contains audio recordings of lesson readings, interactive readings, and spoken grammar exercises.",
-          "notes": "",
+          "noteText": "Available with lesson plans",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": []
         },
         {
           "resourceId": "reci94baKY9pb8aZM",
@@ -56,34 +89,69 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/reci94baKY9pb8aZM.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Contains markable copies of lesson readings, vocabulary lists, and more. Teacher edition includes answers to reading questions and grammar exercises.",
-          "notes": "",
+          "noteText": "Hard copy available with French lessons in the Alveary print store.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "PDF",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "french-level-1-student-notebook"
+            }
+          ]
         },
         {
           "resourceId": "rec14CaZovaklt4J5",
           "instanceKey": "course:recPaxL20DuphqbLV:resource:rec14CaZovaklt4J5",
           "title": "Les plus belles fables de La Fontaine",
           "author": "Jean de La Fontaine",
-          "isbn": "",
+          "isbn": "978-1535366120",
           "asin": "",
+          "isbnAsin": "978-1535366120",
           "imagePath": "img/resources/rec14CaZovaklt4J5.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "PDF",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

@@ -22,34 +22,68 @@
           "author": "Michael Clay Thompson",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/rec5AEKHqzrhwpR9x.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "",
-          "notes": "",
+          "noteText": "Used with publisher permission.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "essay-voyage-teacher-manual"
+            }
+          ]
         },
         {
           "resourceId": "recJpC8zytMXRToMB",
           "instanceKey": "course:rec9h7PAcPcPasRGf:topic:recSrzME9wnhZuhfb:resource:recJpC8zytMXRToMB",
           "title": "Essay Voyage",
           "author": "Michael Clay Thompson",
-          "isbn": "",
+          "isbn": "978-0898247954",
           "asin": "",
+          "isbnAsin": "978-0898247954",
           "imagePath": "img/resources/recJpC8zytMXRToMB.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "The author's passion for writing comes through as he explains the ideas behind good essay writing.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

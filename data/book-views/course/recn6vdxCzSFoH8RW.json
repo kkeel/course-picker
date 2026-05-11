@@ -18,18 +18,41 @@
           "instanceKey": "course:recn6vdxCzSFoH8RW:resource:recIUAUGnpcfosU6f",
           "title": "Primary French Course Part I",
           "author": "Otto Siepmann",
-          "isbn": "",
+          "isbn": "978-1475234251",
           "asin": "",
+          "isbnAsin": "978-1475234251",
           "imagePath": "img/resources/recIUAUGnpcfosU6f.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This book teaches vocabulary and grammar through reading, writing, and spoken exercises.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Upper French: Level 1\nUpper French: Level 2\nUpper French: Level 3\nUpper French: Level 4",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recW5wjb32qFwPMwQ",
@@ -38,16 +61,26 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recW5wjb32qFwPMwQ.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Audiobook",
+          "formatOptions": [
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Contains audio recordings of lesson readings, interactive readings, and spoken grammar exercises.",
-          "notes": "",
+          "noteText": "Available with lesson plans.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": []
         },
         {
           "resourceId": "recUgRoPt3xmWSj7e",
@@ -56,16 +89,28 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recUgRoPt3xmWSj7e.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Contains markable copies of lesson readings, vocabulary lists, and answers to reading questions and grammar exercises.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "PDF",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "french-level-4-student-notebook"
+            }
+          ]
         }
       ]
     }

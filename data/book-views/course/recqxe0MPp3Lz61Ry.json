@@ -18,18 +18,41 @@
           "instanceKey": "course:recqxe0MPp3Lz61Ry:resource:rec2DOed4yBUg6vJC",
           "title": "The Complete Book of Chalk Lettering",
           "author": "Valerie McKeehan",
-          "isbn": "",
+          "isbn": "978-0761186113",
           "asin": "",
+          "isbnAsin": "978-0761186113",
           "imagePath": "img/resources/rec2DOed4yBUg6vJC.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This book includes lessons on various styles of lettering, in addition to project design, and adding dimension using chalk.",
-          "notes": "",
+          "noteText": "Video tutorials provided with lesson plans.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Lettering: Level 1\nLettering: Level 2\nLettering: Level 3",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

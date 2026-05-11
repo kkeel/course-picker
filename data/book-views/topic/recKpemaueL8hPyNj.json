@@ -20,36 +20,82 @@
           "instanceKey": "course:reciJStPWnMeY7ku4:topic:recKpemaueL8hPyNj:resource:rec3MHBg7NmbinMh5",
           "title": "Caesar's English II",
           "author": "Michael Clay Thompson",
-          "isbn": "",
+          "isbn": "978-0898248739",
           "asin": "",
+          "isbnAsin": "978-0898248739",
           "imagePath": "img/resources/rec3MHBg7NmbinMh5.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Studies in Latin stems, alongside typical classical and academic vocabulary words, will aid students in using, spelling and understanding these words in context.",
-          "notes": "",
+          "noteText": "We strongly recommend the print version of this book since it has extra resources which are sometimes mentioned in the lesson plans, but you can choose paperback or ebook, black & white or color.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recSpeTo7n6Gfobw5",
           "instanceKey": "course:reciJStPWnMeY7ku4:topic:recKpemaueL8hPyNj:resource:recSpeTo7n6Gfobw5",
           "title": "Bryson's Dictionary of Troublesome Words: A Writer's Guide to Getting It Right",
           "author": "Bill Bryson",
-          "isbn": "",
+          "isbn": "978-0767910439",
           "asin": "",
+          "isbnAsin": "978-0767910439",
           "imagePath": "img/resources/recSpeTo7n6Gfobw5.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "A helpful resource for avoiding error and increasing clarity in composition.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

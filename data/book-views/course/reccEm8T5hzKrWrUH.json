@@ -18,54 +18,107 @@
           "instanceKey": "course:reccEm8T5hzKrWrUH:resource:recgECwMa1pjs2VnL",
           "title": "The Kids Book of Canada",
           "author": "Barbara Greenwood",
-          "isbn": "",
+          "isbn": "978-1554532261",
           "asin": "",
+          "isbnAsin": "978-1554532261",
           "imagePath": "img/resources/recgECwMa1pjs2VnL.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This book gives an engaging overview of Canada's ten provinces and three territories and includes maps, geographical features, important facts, symbols, significant people, places, and events.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Geography: Grade 2 (Canada)\nGeography: Grade 3 (Canada)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recWe8BWvLumLf1DA",
           "instanceKey": "course:reccEm8T5hzKrWrUH:resource:recWe8BWvLumLf1DA",
           "title": "My Canada: An Illustrated Atlas",
           "author": "Katherine Dearlove",
-          "isbn": "",
+          "isbn": "978-1771473774",
           "asin": "",
+          "isbnAsin": "978-1771473774",
           "imagePath": "img/resources/recWe8BWvLumLf1DA.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "A visually appealing atlas for young learners, this fun book makes a good companion to studying the provinces in The Kids Book of Canada.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Geography: Grade 2 (Canada)\nGeography: Grade 3 (Canada)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recXRFY35nX9sYw2c",
           "instanceKey": "course:reccEm8T5hzKrWrUH:resource:recXRFY35nX9sYw2c",
           "title": "Canada Wild: Animals Found Nowhere Else on Earth",
           "author": "Maria Birmingham",
-          "isbn": "",
+          "isbn": "978-1774711132",
           "asin": "",
+          "isbnAsin": "978-1774711132",
           "imagePath": "img/resources/recXRFY35nX9sYw2c.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This colourful, illustrated guide to Canada's endemic species introduces young readers to twelve special animals that can only be found in Canada and who have much to teach us about the varied ecosystems that make up our country.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)\nTerm 3 (Partial Term)",
           "sharedText": "Geography: Grade 2 (Canada)\nGeography: Grade 3 (Canada)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

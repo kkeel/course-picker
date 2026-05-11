@@ -18,18 +18,41 @@
           "instanceKey": "course:recLgCbF51jHg5u4Q:topic:recXNvUndzlFnI497:resource:recgUVxPoomptWyyL",
           "title": "The Plutarch Project Primer: Publicola (Revised)",
           "author": "Anne White",
-          "isbn": "",
+          "isbn": "978-1990258220",
           "asin": "",
+          "isbnAsin": "978-1990258220",
           "imagePath": "img/resources/recgUVxPoomptWyyL.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Students will read about Publicola, one of the first consuls of the Roman Republic. The Plutarch Primer includes vocabulary, discussion questions, and other aids for students and parents/teachers, plus edited text for Plutarch's Life of Publicola. It is designed especially for those who are new to the study of Plutarch. Lesson plans will include additional guidance.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

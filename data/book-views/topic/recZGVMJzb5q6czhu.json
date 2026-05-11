@@ -20,18 +20,30 @@
           "instanceKey": "course:recjS0ICLL8DA93jm:topic:recZGVMJzb5q6czhu:resource:recn1sSUMLrB3cWd5",
           "title": "Reading-Literature: Second Reader",
           "author": "Free and Treadwell",
-          "isbn": "",
+          "isbn": "978-1599152660",
           "asin": "",
+          "isbnAsin": "978-1599152660",
           "imagePath": "img/resources/recn1sSUMLrB3cWd5.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This is a great collection of folk tales and poems for a beginning reader. This book series lends itself well to Mason's approach to teaching children to read because of the repetitive pattern of the stories and the decodable text. Use with our Reading Lessons: Level 3.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recnPzRUTwiN1pnp6",
@@ -40,16 +52,28 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recnPzRUTwiN1pnp6.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This program features 15-minute lessons focusing on phonics and high-frequency word recognition and utilizing classic stories and poems from the Free and Treadwell Readers. The lessons include spelling, copywork, dictation, and some grammar. This program reflects Mason's principles as well as recent research, especially the importance of phonological awareness and phonics.",
-          "notes": "",
+          "noteText": "Will also be available in Grade 3 Bundle with Alveary printing store after June 1st.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "PDF",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "reading-lessons-level-3"
+            }
+          ]
         }
       ]
     }

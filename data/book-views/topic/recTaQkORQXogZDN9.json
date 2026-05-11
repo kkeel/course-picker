@@ -22,16 +22,26 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recTwQ75ZKylB7WX9.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This document contains all the labs for Grade 4, including instructions, procedures, and leveled guidance for analyses and using a lab notebook. The teacher's primary role is teaching students to follow directions.",
-          "notes": "",
+          "noteText": "Relevant supplies from the Grade 4 list are further detailed in the Table of Contents for the Lab Book.  It is recommended that supplies are obtained either for the year or by term. \n\nNOTE: Also included in Grade 4 Bundles with Alveary Printing store.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": []
         }
       ]
     }

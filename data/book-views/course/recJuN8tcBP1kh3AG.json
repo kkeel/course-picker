@@ -20,34 +20,75 @@
           "author": "Jose-Luis Orozco",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recnAKZqzX8B3XJU5.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Audiobook",
+          "formatOptions": [
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "This is a collection of traditional songs in Spanish.",
-          "notes": "",
+          "noteText": "Option 1 is a link to stream with Spotify, or Option 2 is a link to purchase the CD.",
+          "maySubText": "favorite streaming service",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "rec2V72Up20pjQBbn",
           "instanceKey": "course:recJuN8tcBP1kh3AG:resource:rec2V72Up20pjQBbn",
           "title": "Diez Deditos and Other Play Rhymes and Action Songs from Latin America",
           "author": "José-Luis Orozco",
-          "isbn": "",
+          "isbn": "978-0142300879",
           "asin": "",
+          "isbnAsin": "978-0142300879",
           "imagePath": "img/resources/rec2V72Up20pjQBbn.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This is a collection of finger rhymes and action songs in Spanish.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recmlS0kgz4JEV3Aw",
@@ -56,52 +97,108 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recmlS0kgz4JEV3Aw.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Audiobook",
+          "formatOptions": [
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": []
         },
         {
           "resourceId": "recAnpVGNnqmhrDDQ",
           "instanceKey": "course:recJuN8tcBP1kh3AG:resource:recAnpVGNnqmhrDDQ",
           "title": "Fábulas de Esopo: Edición Clásica",
           "author": "Aesop",
-          "isbn": "",
+          "isbn": "978-1400349326",
           "asin": "",
+          "isbnAsin": "978-1400349326",
           "imagePath": "img/resources/recAnpVGNnqmhrDDQ.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Audiobook",
+          "formatOptions": [
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recDxxVOK09tos72V",
           "instanceKey": "course:recJuN8tcBP1kh3AG:resource:recDxxVOK09tos72V",
           "title": "Family Pictures/Cuadros de familia",
           "author": "Carmen Lomas Garza",
-          "isbn": "",
+          "isbn": "978-0892392070",
           "asin": "",
+          "isbnAsin": "978-0892392070",
           "imagePath": "img/resources/recDxxVOK09tos72V.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "The vibrant paintings and warm personal stories depict memories of the author growing up in a traditional Mexican-American family. This book is a great way to learn Spanish vocabulary during the picture study lessons.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recsOabaI6mTRal2Y",
@@ -110,16 +207,26 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recsOabaI6mTRal2Y.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This notebook contains markable copies of lesson readings, vocabulary lists, and answers to reading questions and grammar exercises.",
-          "notes": "",
+          "noteText": "This notebook is available as a hard copy with Spanish lessons in the Alveary print store.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": []
         }
       ]
     }

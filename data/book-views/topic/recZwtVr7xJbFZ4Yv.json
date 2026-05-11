@@ -20,54 +20,131 @@
           "instanceKey": "course:recq8k84Ven5CZX4C:topic:recZwtVr7xJbFZ4Yv:resource:recSPRcpZtX65krC9",
           "title": "The Hive Detectives: Chronicle of a Honey Bee Catastrophe",
           "author": "Loree Griffin Burns",
-          "isbn": "",
+          "isbn": "978-0544003262",
           "asin": "",
+          "isbnAsin": "978-0544003262",
           "imagePath": "img/resources/recSPRcpZtX65krC9.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "This book shows concepts from ecology, mathematics, and chemistry as it invites students into conversation on an important current issue.",
-          "notes": "",
+          "noteText": "Available on Kindle with advanced typesetting and Learning Ally with VoiceText.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recmBZd5aB0dIxWVV",
           "instanceKey": "course:recq8k84Ven5CZX4C:topic:recZwtVr7xJbFZ4Yv:resource:recmBZd5aB0dIxWVV",
           "title": "The Tornado Scientist",
           "author": "Mary Kay Carson",
-          "isbn": "",
+          "isbn": "978-0358743255",
           "asin": "",
+          "isbnAsin": "978-0358743255",
           "imagePath": "img/resources/recmBZd5aB0dIxWVV.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "In this captivating story, readers follow a tornado scientist, learn about her life, her work, and her passion to save lives by improving our understanding of the weather.",
-          "notes": "",
+          "noteText": "Available on Kindle with enhanced typesetting and Learning Ally with VoiceText.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 2",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recSd7TOpkUMei47Q",
           "instanceKey": "course:recq8k84Ven5CZX4C:topic:recZwtVr7xJbFZ4Yv:resource:recSd7TOpkUMei47Q",
           "title": "Mission to Pluto: The First Visit to an Ice Dwarf and the Kuiper Belt",
           "author": "Mary Kay Carson",
-          "isbn": "",
+          "isbn": "978-0358240273",
           "asin": "",
+          "isbnAsin": "978-0358240273",
           "imagePath": "img/resources/recSd7TOpkUMei47Q.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Students learn about the discovery of Pluto and join the scientists who are learning about our solar system. How do we learn about very big things and those that are very far away? We find out on a Mission to Pluto!",
-          "notes": "",
+          "noteText": "Available on Kindle with enhanced typesetting.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

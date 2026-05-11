@@ -18,54 +18,105 @@
           "instanceKey": "course:recaxw6Mq2gCdvmgM:resource:rec79eHxNjF5Uhcgx",
           "title": "Mapping the World with Art",
           "author": "Ellen Johnston McHenry",
-          "isbn": "",
+          "isbn": "978-0982537701",
           "asin": "",
+          "isbnAsin": "978-0982537701",
           "imagePath": "img/resources/rec79eHxNjF5Uhcgx.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Video",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "video",
+              "label": "Video"
+            }
+          ],
           "rationale": "This book is a blend of history, geography, and art. The text is about the history of cartography, from the earliest maps that were drawn on clay by the people of Mesopotamia to the exploration of the \"new world.\"  This book also includes map drawing lessons that take students step by step through the process of drawing maps of all the countries mentioned in the text.",
-          "notes": "",
+          "noteText": "We highly recommend purchasing the videos that guide students through the map drawings. The option linked includes a digital version of the book along with the video course, but you can also purchase the videos in DVD or USB format if you prefer a physical copy of the book. The discount code is valid for all products on the author's site.",
+          "maySubText": "",
+          "discountText": "Discount: 35%\nWith code: ALVEARYMAPPINGVIDEOSDISCOUNT",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Geography: Grade 7 (U.S.)\nGeography: Grade 7 (Canada)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Video",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recBS1xBXwAdbapNL",
           "instanceKey": "course:recaxw6Mq2gCdvmgM:resource:recBS1xBXwAdbapNL",
           "title": "Canadian Student Atlas",
           "author": "Collins Maps",
-          "isbn": "",
+          "isbn": "978-0007946952",
           "asin": "",
+          "isbnAsin": "978-0007946952",
           "imagePath": "img/resources/recBS1xBXwAdbapNL.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Used across the curriculum as a reference and as a text to read in some lessons. With interesting information and pictures, this is an economical reference for students.",
-          "notes": "",
+          "noteText": "For Canadian students only. Optional for Grade 1.",
+          "maySubText": "other atlas; however, map work and other lessons refer specifically to this one.",
+          "discountText": "",
           "scopeText": "Term 3 (Selections)",
           "sharedText": "Geography: Grade 8 (Canada)\nGeography: Grade 7 (Canada)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recARwZIQaVjMKy1s",
           "instanceKey": "course:recaxw6Mq2gCdvmgM:resource:recARwZIQaVjMKy1s",
           "title": "Exploring the Frozen North",
           "author": "Pierre Berton",
-          "isbn": "",
+          "isbn": "9781894856935",
           "asin": "",
+          "isbnAsin": "9781894856935",
           "imagePath": "img/resources/recARwZIQaVjMKy1s.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Pierre Berton's prose style and engaging narrative histories inspired generations of Canadians to treasure their nation's stories, and this compendium collects four of his books for younger readers in a single volume. The unknown coasts of the Arctic and the long-fabled Northwest Passage route to Asia loomed large in the nineteenth-century imagination, and this book introduces middle-grade readers to four important historical figures who shaped our modern knowledge of this region: William Edward Parry, Jane Franklin (Sir John Franklin's widow), Elisha Kent Kane, and Robert John McClure.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

@@ -20,18 +20,35 @@
           "instanceKey": "course:recJdR2afjp2M5Hli:topic:recayhhve7PyldjFx:resource:recfrEOvkt2AIpZTG",
           "title": "A World of Poetry: Student Book",
           "author": "Michael Clay Thompson",
-          "isbn": "",
+          "isbn": "978-0880927062",
           "asin": "",
+          "isbnAsin": "978-0880927062",
           "imagePath": "img/resources/recfrEOvkt2AIpZTG.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This volume helps students understand the elements of poetry that poets use to create meaning and beautiful language. Poetic devices are examined through the reading of classic and modern poems.",
-          "notes": "",
+          "noteText": "You do not need to purchase the Teacher's Manual. We will provide extra support and answers to the exercises in the lesson plans.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

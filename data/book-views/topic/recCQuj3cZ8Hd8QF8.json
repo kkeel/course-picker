@@ -20,18 +20,45 @@
           "instanceKey": "course:recGNjSnBxsRpw0L2:topic:recCQuj3cZ8Hd8QF8:resource:rectQeZOe9TstFr1x",
           "title": "The Lightning Dreamer: Cuba's Greatest Abolitionist",
           "author": "Margarita Engle",
-          "isbn": "",
+          "isbn": "978-0544541122",
           "asin": "",
+          "isbnAsin": "978-0544541122",
           "imagePath": "img/resources/rectQeZOe9TstFr1x.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "This book is a poetic fictionalized account of famous Cuban abolitionist and author Gertrudis Gómez Avellaneda (1814-1873). Since Avellaneda wrote in Spanish, this biography allows students to get a glimpse of a significant 19th century author outside the English canon. Engle's style also provides opportunities for students to consider the differences between poetry and prose and experiment with point of view in connected composition assignments.",
-          "notes": "",
+          "noteText": "Available on Learning Ally with Audio.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1",
           "sharedText": "Lit./Mythology: Grades 7-8\nPoetry Reading: Grades 9-12",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recmdnVHWuwjvjAHQ",
@@ -40,34 +67,72 @@
           "author": "Bharat Nalluri",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recmdnVHWuwjvjAHQ.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Video",
+          "formatOptions": [
+            {
+              "type": "video",
+              "label": "Video"
+            }
+          ],
           "rationale": "Movie based on the biographical novel by Les Standiford telling how A Christmas Carol was written.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 2",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recwAAsRvvVMG3mGV",
           "instanceKey": "course:recGNjSnBxsRpw0L2:topic:recCQuj3cZ8Hd8QF8:resource:recwAAsRvvVMG3mGV",
           "title": "A Christmas Carol",
           "author": "Charles Dickens",
-          "isbn": "",
+          "isbn": "978-9916732922",
           "asin": "",
+          "isbnAsin": "978-9916732922",
           "imagePath": "img/resources/recwAAsRvvVMG3mGV.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "As a famous work of 19th century literature, A Christmas Carol expands students' understanding of this historical period while also nourishing them with a thought-provoking tale about greed and generosity. It is scheduled in the mythology stream as Dicken's work has become a modern myth, shaping our conceptions of Christmas and more.",
-          "notes": "",
+          "noteText": "Available on Learning Ally with Audio.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 2 (Partial Term)",
           "sharedText": "Lit./Mythology: Grades 7-8\nLit./Mythology: Grade 5-6",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recRAjWrl2CLPferr",
@@ -76,16 +141,21 @@
           "author": "Various",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recRAjWrl2CLPferr.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Lesson plans curate a selection of writings from a variety of 19th century authors such as Pushkin, O.Henry, Tagore, and others to give students exposure to a broader range of genres, authors, and ideas.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 3",
           "sharedText": "Lit./Mythology: Grades 7-8\nGeneral Lit.: Grades 9-10\nGeneral Lit.: Grades 11-12",
-          "links": []
+          "purchaseOptions": []
         }
       ]
     }

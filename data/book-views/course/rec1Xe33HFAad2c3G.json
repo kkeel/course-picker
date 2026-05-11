@@ -20,34 +20,70 @@
           "author": "Angela Reed",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recVj46H5U86mjRzm.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Video lessons taught by a master teacher.",
-          "notes": "",
+          "noteText": "Students receive a year of access from the time they login to the course on our online platform.\n\nMaterials needed: Student book",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Sign Up",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "cambridge-latin-unit-1-online-course-sign-up"
+            },
+            {
+              "label": "Course Info",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "cambridge-latin-unit-1-online-course-course-info"
+            }
+          ]
         },
         {
           "resourceId": "rec9bb4GaH8Ii0X9p",
           "instanceKey": "course:rec1Xe33HFAad2c3G:resource:rec9bb4GaH8Ii0X9p",
           "title": "North American Cambridge Latin Unit 1 5th Ed. Student Book",
           "author": "Cambridge School Classics Project",
-          "isbn": "",
+          "isbn": "978-1107690639",
           "asin": "",
+          "isbnAsin": "978-1107690639",
           "imagePath": "img/resources/rec9bb4GaH8Ii0X9p.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This program continues presenting narrative stories in Latin, grammar exercises, vocabulary, and historical notes in an engaging way.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Latin 1 (Independent Study)\nLatin 1 (Video Course)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

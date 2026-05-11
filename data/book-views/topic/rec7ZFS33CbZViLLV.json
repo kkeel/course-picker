@@ -20,36 +20,86 @@
           "instanceKey": "course:recQaLjo9nTekdSYB:topic:rec7ZFS33CbZViLLV:resource:rec8oemEyLSCeLUEf",
           "title": "Little Women",
           "author": "Louisa May Alcott",
-          "isbn": "",
+          "isbn": "978-0147514011",
           "asin": "",
+          "isbnAsin": "978-0147514011",
           "imagePath": "img/resources/rec8oemEyLSCeLUEf.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "Audiobook",
+          "formatOptions": [
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "A beloved piece of 19th century literature, this story follows four sisters as they grow and learn to live full and happy lives. The story is loosely set during the American Civil War and has remained popular since it was first published.",
-          "notes": "",
+          "noteText": "Grades 7-8: Choose this OR Sir Gibbie.\nAvailable on Learning Ally with Audio.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2 (Partial Term)",
           "sharedText": "General Lit: Grades 7-8\nGeneral Lit.: Grades 5-6",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recFKmcgde5dxKPMh",
           "instanceKey": "course:recQaLjo9nTekdSYB:topic:rec7ZFS33CbZViLLV:resource:recFKmcgde5dxKPMh",
           "title": "Hans Brinker or The Silver Skates",
           "author": "Mary Mapes Dodge",
-          "isbn": "",
+          "isbn": "978-0689849091",
           "asin": "",
+          "isbnAsin": "978-0689849091",
           "imagePath": "img/resources/recFKmcgde5dxKPMh.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Mary Mapes Dodge was recognized as one of the leading authors of children's literature during the 19th century, and Hans Brinker is her most famous work. With themes of perseverance and selflessness, Hans Brinker's heartwarming tale of two siblings delights, instructs, and expands the imagination.",
-          "notes": "",
+          "noteText": "Available on Learning Ally with Audio.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 2 (Partial Term)\nTerm 3",
           "sharedText": "General Lit.: Grade 4\nGeneral Lit.: Grades 5-6",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

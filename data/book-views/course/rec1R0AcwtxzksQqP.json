@@ -20,16 +20,33 @@
           "author": "Denison Algebra",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/rec1T9YxCnEcGHRNK.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "Video",
+          "formatOptions": [
+            {
+              "type": "video",
+              "label": "Video"
+            }
+          ],
           "rationale": "Denison offers a complete high school math program with video lessons taught by a veteran teacher and homeschool dad for Pre-Algebra through Algebra 2. Pre-algebra only requires familiarity with the four basic functions (add, subtract, multiply, and divide). After Pre-Algebra, the course splits into two tracks for Algebra, Geometry, and Algebra 2: a track for students who don't have significant struggles but aren't enjoying math, and a Success track for students who struggle with math and need shorter lessons with more scaffolding.",
-          "notes": "",
+          "noteText": "Choose this or Hands-On Equations\nIf following the Denison track, you only need to purchase this text for 7th-grade math. Use this in place of Hands-On Equations AND RightStart Geometry.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     },
@@ -45,16 +62,28 @@
           "author": "RightStart",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recvX4HmvwtODCrX3.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Kit is recommended for those who do not use RightStart Math; kit is included in the RS2 Math Set. \n➜  Additional recommended game titles will be listed with the Lesson Plans for each level of mathematics.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "any games that allow students to practice math concepts and skills.",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

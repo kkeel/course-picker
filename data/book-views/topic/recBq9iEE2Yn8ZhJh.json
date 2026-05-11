@@ -22,70 +22,161 @@
           "author": "Danielle Merritt-Sunseri",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recfIZtA1mbEFnrmJ.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Video",
+          "formatOptions": [
+            {
+              "type": "video",
+              "label": "Video"
+            }
+          ],
           "rationale": "",
-          "notes": "",
+          "noteText": "Watch this introduction to glimpse our video companion lessons that accompany High School Chemistry.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Video",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "hs-chem-intro-video"
+            },
+            {
+              "label": "Course Info",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "hs-chem-intro-course-info"
+            }
+          ]
         },
         {
           "resourceId": "reccWaFe2ts34p39C",
           "instanceKey": "course:recSV0InAnVRkUhG7:topic:recBq9iEE2Yn8ZhJh:resource:reccWaFe2ts34p39C",
           "title": "Michael Faraday's The Chemical History of a Candle",
           "author": "Bill Hammack & Don DeCoste",
-          "isbn": "",
+          "isbn": "978-1945441004",
           "asin": "",
+          "isbnAsin": "978-1945441004",
           "imagePath": "img/resources/reccWaFe2ts34p39C.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": true,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This book introduces modern readers to Michael Faraday’s great nineteenth-century lectures on \"The Chemical History of a Candle.\" Students will be watching the lectures on video, so this text is for teachers or for students who would like to follow along using the text.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1 (Partial Term)",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recDCnlgkFAGqBAI0",
           "instanceKey": "course:recSV0InAnVRkUhG7:topic:recBq9iEE2Yn8ZhJh:resource:recDCnlgkFAGqBAI0",
           "title": "Introductory Chemistry: A Foundation",
           "author": "Steven S. Zumdahl & Donald J. DeCoste",
-          "isbn": "",
+          "isbn": "978-1337399425",
           "asin": "",
+          "isbnAsin": "978-1337399425",
           "imagePath": "img/resources/recDCnlgkFAGqBAI0.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Masters at inspiring and engaging students, the authors of this best-selling text combine problem-solving strategies, early coverage of chemical reactions, accessible explanations and visualizations, and an emphasis on everyday applications to facilitate understanding.",
-          "notes": "",
+          "noteText": "Available in print or eBook with enhanced typesetting and audio. Previous edition is acceptable.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recgQOYYOZx0SfBAI",
           "instanceKey": "course:recSV0InAnVRkUhG7:topic:recBq9iEE2Yn8ZhJh:resource:recgQOYYOZx0SfBAI",
           "title": "The Chemical Elements Coloring and Activity Book",
           "author": "Ellen Johnston McHenry",
-          "isbn": "",
+          "isbn": "978-1737476306",
           "asin": "",
+          "isbnAsin": "978-1737476306",
           "imagePath": "img/resources/recgQOYYOZx0SfBAI.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "All 118 elements are included in coloring pages, with information about its discovery, examples of molecules it will form, and pictures of how the element might be used in industry, medicine, the military, research, and fine arts.  Also included are a personalizable periodic table and a variety of games.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "Teachers may substitute any periodic table game/resource that they prefer, such as the board game Periodic or Theodore Gray's The Elements.",
+          "discountText": "",
           "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

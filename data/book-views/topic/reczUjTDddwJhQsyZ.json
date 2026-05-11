@@ -22,16 +22,33 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recyk15DUV99BZJcY.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Audiobook",
+          "formatOptions": [
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "",
-          "notes": "",
+          "noteText": "These will also be linked in the lesson plans and will be available June 1.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Playlist",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "sol-fa-level-1-audio-lessons"
+            }
+          ]
         }
       ]
     }

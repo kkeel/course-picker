@@ -18,36 +18,80 @@
           "instanceKey": "course:recvWaMgcOPtoe4WV:topic:recst0aVIebKf7Sw7:resource:rec53OxsCZTGCz2fd",
           "title": "Elementary Algebra Teacher Guide (Revised Edition)",
           "author": "Harold Jacobs",
-          "isbn": "",
+          "isbn": "978-1683443254",
           "asin": "",
+          "isbnAsin": "978-1683443254",
           "imagePath": "img/resources/rec53OxsCZTGCz2fd.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Algebra 1: Part 1\nAlgebra 1: Part 2",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recYbTWGEGIOzLcgQ",
           "instanceKey": "course:recvWaMgcOPtoe4WV:topic:recst0aVIebKf7Sw7:resource:recYbTWGEGIOzLcgQ",
           "title": "Elementary Algebra Student Book",
           "author": "Harold Jacobs",
-          "isbn": "",
+          "isbn": "978-1683442554",
           "asin": "",
+          "isbnAsin": "978-1683442554",
           "imagePath": "img/resources/recYbTWGEGIOzLcgQ.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Video",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "video",
+              "label": "Video"
+            }
+          ],
           "rationale": "This book uses inviting narrative and everyday problems to give an introduction to Algebraic concepts. Lots of practice problems are also included.",
-          "notes": "",
+          "noteText": "Choose this or Denison. The \"Playlist\" link will take you to a YouTube playlist where a teacher goes through the lessons.",
+          "maySubText": "Algebra 1: from derekowens.com if you prefer an online course.",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Algebra 1: Part 2\nAlgebra 1: Part 1",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Playlist",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     },
@@ -63,16 +107,34 @@
           "author": "",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recGmBghw8V9pxfyC.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "RightStart is based on discovery, using a wide range of manipulatives. It is an up-to-date, spiraling program that uses methods that are heavily supported by current research. \n➜  Students new to Right Start will also need the G2S Math Set. Those who have the RS2 Math Set will need to order the G2S Set Short.",
-          "notes": "",
+          "noteText": "Choose this or Denison. The \"Free\" link will take you to a YouTube playlist where a master teacher will walk you through how these lessons are structured and how to teach them.  Online class or Independent Video Class also available: https://store.rightstartmath.com/rightstart-mathematics-level-g-online-class/\n➜ eWorkbooks are available for multiple students.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Geometry: Grade 7\nGeometry: Grade 8",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Video",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     },
@@ -88,16 +150,28 @@
           "author": "RightStart",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recvX4HmvwtODCrX3.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Kit is recommended for those who do not use RightStart Math; kit is included in the RS2 Math Set. \n➜  Additional recommended game titles will be listed with the Lesson Plans for each level of mathematics.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "any games that allow students to practice math concepts and skills.",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

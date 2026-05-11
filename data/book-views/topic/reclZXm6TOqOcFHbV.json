@@ -20,18 +20,41 @@
           "instanceKey": "course:rec0hzDU71YgsZgiR:topic:reclZXm6TOqOcFHbV:resource:recavFDwkQjBdb9fc",
           "title": "303 Tween-Approved Exercises and Active Games",
           "author": "Kimberly Wechsler",
-          "isbn": "",
+          "isbn": "978-0897936200",
           "asin": "",
+          "isbnAsin": "978-0897936200",
           "imagePath": "img/resources/recavFDwkQjBdb9fc.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This book provides a great list of exercises that includes strength training, flexibility exercises, and cardiovascular activities. This can be used in a group or with one student.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

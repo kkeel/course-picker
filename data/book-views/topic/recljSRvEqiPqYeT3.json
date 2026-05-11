@@ -22,34 +22,69 @@
           "author": "Penny Gardner",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/rec6WKrYlYzjYnRR4.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "We like this model because it is lovely, yet simple. Both the print and cursive models are in italic, making this a solid foundation for fine lettering later. Some may prefer a more traditional cursive model.",
-          "notes": "",
+          "noteText": "Choose this OR Getty-Dubay Handwriting Series.",
+          "maySubText": "penmanship model of your choice or Getty-Dubay Handwriting Series",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Penmanship & Copywork: Grade 1\nPenmanship & Copywork: Grade 2\nPenmanship & Copywork: Grade 3\nPenmanship & Copywork: Grade 4\nPenmanship & Copywork: Grade 5\nPenmanship & Copywork: Grade 6",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "reccDekHFnb5e58PJ",
           "instanceKey": "course:recV8AeQe61SiWsp9:topic:recljSRvEqiPqYeT3:resource:reccDekHFnb5e58PJ",
           "title": "Getty-Dubay® Italic Handwriting Book C",
           "author": "Handwriting Success",
-          "isbn": "",
+          "isbn": "978-0982776209",
           "asin": "",
+          "isbnAsin": "978-0982776209",
           "imagePath": "img/resources/reccDekHFnb5e58PJ.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "The simple transition to cursive italic is introduced. Basic writing practice themes include: modes of transportation (automobile through zeppelin), days of the week, months of the year, and sentences. Capitals practice: cities of the USA. Includes numerals.",
-          "notes": "",
+          "noteText": "Choose this OR Italics by Penny Gardner. You do not need the Instruction Manual. Necessary instructions will be included in the lesson plans.",
+          "maySubText": "penmanship model of your choice or Penny Gardner",
+          "discountText": "Discount: 15%\nWith code: ALVEARYMEMBER",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

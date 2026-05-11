@@ -20,18 +20,45 @@
           "instanceKey": "course:rec5SUWoHylzXH7Jk:topic:recRJCbr7FFMfauFa:resource:recbNOYkip20WsZsY",
           "title": "Hurlbut's Story of the Bible",
           "author": "Jesse Lyman Hurlbut",
-          "isbn": "",
+          "isbn": "978-1-59915-178-6",
           "asin": "",
+          "isbnAsin": "978-1-59915-178-6",
           "imagePath": "img/resources/recbNOYkip20WsZsY.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Contains stories from both the Old and New Testaments in a very engaging narrative; omits sections that are unsuitable for younger children. The author adheres to the Bible without embellishment, opinion, or doctrine, making this volume appropriate for any denomination.",
-          "notes": "",
+          "noteText": "The free online option has different page numbers than the lesson plans, but the chapter numbers are the same.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

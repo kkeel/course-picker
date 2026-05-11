@@ -20,16 +20,33 @@
           "author": "Denison",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recxnDz0ki1uwmVJJ.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "Video",
+          "formatOptions": [
+            {
+              "type": "video",
+              "label": "Video"
+            }
+          ],
           "rationale": "Denison offers a complete high school math program with video lessons taught by a veteran teacher and homeschool dad for Pre-Algebra through Advanced Algebra/Trig. Pre-algebra only requires familiarity with the four basic functions (add, subtract, multiply, and divide). After Pre-Algebra, the course splits into two tracks for Algebra, Geometry, and Algebra 2: a track for students who don't have significant struggles but aren't enjoying math, and a Success track for students who struggle with math and need shorter lessons with more scaffolding.",
-          "notes": "",
+          "noteText": "Choose this or Paul Foerster/Math Without Borders.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

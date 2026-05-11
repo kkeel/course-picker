@@ -22,16 +22,43 @@
           "author": "Charlotte Mason",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recSGmJ0X1KxD75S1.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Mason emphasized that children are persons; this is the volume in which she defines that term. What characteristics do we, as Image-Bearers, have in common? What kinds of pitfalls should we anticipate? These are some of the profound questions Mason deals with in this, her only volume written directly to students.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "any edition.",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Ethics: Part 4\nEthics: Part 5",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

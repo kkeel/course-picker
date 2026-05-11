@@ -18,18 +18,41 @@
           "instanceKey": "course:recrFpPHtw3Q73WKF:resource:recMga8egg3Vcj9Rq",
           "title": "Folding Techniques for Designers",
           "author": "Paul Jackson",
-          "isbn": "",
+          "isbn": "978-1529419788",
           "asin": "",
+          "isbnAsin": "978-1529419788",
           "imagePath": "img/resources/recMga8egg3Vcj9Rq.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Students will use the illustrations and directions in the books to do the assigned work.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

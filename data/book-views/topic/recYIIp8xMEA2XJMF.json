@@ -20,18 +20,35 @@
           "instanceKey": "course:reciqxXCmGbHxO5Yi:topic:recYIIp8xMEA2XJMF:resource:recWHKr0AJK2hF7t2",
           "title": "Walks with a Naturalist: Living Nature Reader Volume 2",
           "author": "Melissa Dowland",
-          "isbn": "",
+          "isbn": "979-8995402312",
           "asin": "",
+          "isbnAsin": "979-8995402312",
           "imagePath": "img/resources/recWHKr0AJK2hF7t2.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Our nature reader brings learners alongside an experienced nature educator as she relates her stories with curiosity, delight, and humility.  Volume 2 explores insects, insect larvae, mammals, some aquatic species, and more.",
-          "notes": "",
+          "noteText": "The print book is formatted for easy reading; the eBook is formatted with enhanced typesetting (i.e. the print automatically adjusts to the device used to read it and the reader can adjust fonts, colors, etc).",
+          "maySubText": "another nature reader that provides accurate, living ideas across a variety of creatures; supplemental links and prompts may not apply to substituted reader",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

@@ -20,18 +20,41 @@
           "instanceKey": "course:reciCGI1usCHn3zuP:topic:receeKZBW7YRjLZv2:resource:recWObBLwgcbOjg1W",
           "title": "God’s Big Picture: Tracing the Storyline of the Bible",
           "author": "Vaughan Roberts",
-          "isbn": "",
+          "isbn": "978-0830853649",
           "asin": "",
+          "isbnAsin": "978-0830853649",
           "imagePath": "img/resources/recWObBLwgcbOjg1W.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Excellent overview of Bible history showing the outline of God's Kingdom plan from beginning to end.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

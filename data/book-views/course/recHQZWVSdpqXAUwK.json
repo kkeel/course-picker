@@ -18,54 +18,105 @@
           "instanceKey": "course:recHQZWVSdpqXAUwK:resource:recBS1xBXwAdbapNL",
           "title": "Canadian Student Atlas",
           "author": "Collins Maps",
-          "isbn": "",
+          "isbn": "978-0007946952",
           "asin": "",
+          "isbnAsin": "978-0007946952",
           "imagePath": "img/resources/recBS1xBXwAdbapNL.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Used across the curriculum as a reference and as a text to read in some lessons. With interesting information and pictures, this is an economical reference for students.",
-          "notes": "",
+          "noteText": "For Canadian students only. Optional for Grade 1.",
+          "maySubText": "other atlas; however, map work and other lessons refer specifically to this one.",
+          "discountText": "",
           "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
           "sharedText": "Geography: Grade 8 (Canada)\nGeography: Grade 7 (Canada)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "receUD7SFLN5RNZcX",
           "instanceKey": "course:recHQZWVSdpqXAUwK:resource:receUD7SFLN5RNZcX",
           "title": "Draw the Natural Wonders of Canada and Greenland: Geography Disguised as Fun",
           "author": "Kristin Draeger",
-          "isbn": "",
+          "isbn": "979-8878546386",
           "asin": "",
+          "isbnAsin": "979-8878546386",
           "imagePath": "img/resources/receUD7SFLN5RNZcX.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "After having mapped each of the Canadian provinces and territories - learning their boundaries, capitals, and major landmarks - students will then use this book for a more in-depth exploration of regional geography. Working from map templates, students will proceed to learn about and map the mountains, rivers, and lakes in Canada, and illustrate their maps with drawings of local flora and fauna.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recfUzI2Tz0Ywd4gq",
           "instanceKey": "course:recHQZWVSdpqXAUwK:resource:recfUzI2Tz0Ywd4gq",
           "title": "Vanished Beyond the Map",
           "author": "Adam Shoalts",
-          "isbn": "",
+          "isbn": "978-0735236868",
           "asin": "",
+          "isbnAsin": "978-0735236868",
           "imagePath": "img/resources/recfUzI2Tz0Ywd4gq.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Vanished Beyond the Map unfolds like a mystery novel: after first stumbling upon the name Hubert Darrell in an old encyclopedia, Adam Shoalts sets off on a journey through the arctic and the archives to discover as much as he can about this nearly-forgotten explorer, mapmaker and guide who disappeared in 1910. This book is remarkable for showing readers what is involved in trying to solve a historical mystery: where do you find clues? what kinds of questions do you ask? how much can we really know about the past? But it is also a book which situates Darrell within the wider world of geographers and explorers in the late-nineteenth century, who were attempting to complete the map of the world by charting the unknown lands of the arctic and antarctic.",
-          "notes": "",
+          "noteText": "This book is assigned for both Geography: Grade 8 (Canada) and History: Grade 9-10 (Canada). Note the possible overlap if you are combining students in either of these courses.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 2\nTerm 3",
           "sharedText": "Geography: Grade 8 (Canada)\nCanadian History: Grades 9-10",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

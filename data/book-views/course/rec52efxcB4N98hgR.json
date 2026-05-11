@@ -18,36 +18,77 @@
           "instanceKey": "course:rec52efxcB4N98hgR:topic:recNZjfwI3SeCuONn:resource:reca6JrCf4DtEZII1",
           "title": "Historical Atlas of the World 6th Ed.",
           "author": "Rand McNally",
-          "isbn": "",
+          "isbn": "978-0528026553",
           "asin": "",
+          "isbnAsin": "978-0528026553",
           "imagePath": "img/resources/reca6JrCf4DtEZII1.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Presents important periods and turning points in 5,000 years of history. Thematic maps include literacy, languages, religions, and more. Used across curriculum.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
           "sharedText": "Resources: Grades 4-6\nResources: Grades 7-8\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nStory of Arithmetic: Part 1\nStory of Arithmetic: Part 2\nStory of Geometry: Part 1\nPlutarch: Grades 6-8\nFirst Citizen Stories",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recUCjRu76tQczZuF",
           "instanceKey": "course:rec52efxcB4N98hgR:topic:recNZjfwI3SeCuONn:resource:recUCjRu76tQczZuF",
           "title": "The Plutarch Project Volume Three (Revised)",
           "author": "Anne White",
-          "isbn": "",
+          "isbn": "978-1990258060",
           "asin": "",
+          "isbnAsin": "978-1990258060",
           "imagePath": "img/resources/recUCjRu76tQczZuF.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Students will read about the lives of Julius Caesar, Agis and Cleomenes, and the Gracchi. Anne White has broken up the Lives into reasonable sections with suitable omissions for length and content. She also included study helps to aid with understanding. Lesson plans will offer guidance as well.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Plutarch: Grades 6-8\nPlutarch/Government: Grade 9 (U.S.)\nPlutarch/Government: Grade 9 (Canada)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

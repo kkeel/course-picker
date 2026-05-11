@@ -20,18 +20,45 @@
           "instanceKey": "course:rec9gyYrqX7Oeugm6:topic:recqkaSHIvH4dpBWk:resource:rec6TGftg4CSilmo5",
           "title": "The Girl Who Drew Butterflies: How Maria Merian's Art Changed Science",
           "author": "Joyce Sidman",
-          "isbn": "",
+          "isbn": "978-0544717138",
           "asin": "",
+          "isbnAsin": "978-0544717138",
           "imagePath": "img/resources/rec6TGftg4CSilmo5.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "One of the first naturalists to observe live insects directly, Maria Sibylla Merian was also one of the first to document the metamorphosis of the butterfly and the close relationships between insects and plants. In this richly illustrated nonfiction biography, readers meet the \"mother\" of ecology, a woman who flouted convention in the pursuit of knowledge.",
-          "notes": "",
+          "noteText": "Available on Audible and Kindle with enhanced typesetting and Learning Ally with VoiceText.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

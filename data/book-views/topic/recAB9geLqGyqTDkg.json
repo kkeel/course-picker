@@ -20,18 +20,36 @@
           "instanceKey": "course:recmP9cJzBYzOrJ3h:topic:recAB9geLqGyqTDkg:resource:reciobkv0sISyFiIz",
           "title": "The Book of Song Dances",
           "author": "John Feierabend",
-          "isbn": "",
+          "isbn": "978-1622776887",
           "asin": "",
+          "isbnAsin": "978-1622776887",
           "imagePath": "img/resources/reciobkv0sISyFiIz.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This book uses traditional songs, rhymes, and dances to teach children basic dance steps.",
-          "notes": "",
+          "noteText": "Instructional videos will be available June 1.",
+          "maySubText": "earlier edition, but some dances have different page numbers.",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

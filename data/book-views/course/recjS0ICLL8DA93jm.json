@@ -18,18 +18,30 @@
           "instanceKey": "course:recjS0ICLL8DA93jm:topic:recZGVMJzb5q6czhu:resource:recn1sSUMLrB3cWd5",
           "title": "Reading-Literature: Second Reader",
           "author": "Free and Treadwell",
-          "isbn": "",
+          "isbn": "978-1599152660",
           "asin": "",
+          "isbnAsin": "978-1599152660",
           "imagePath": "img/resources/recn1sSUMLrB3cWd5.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This is a great collection of folk tales and poems for a beginning reader. This book series lends itself well to Mason's approach to teaching children to read because of the repetitive pattern of the stories and the decodable text. Use with our Reading Lessons: Level 3.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recnPzRUTwiN1pnp6",
@@ -38,16 +50,28 @@
           "author": "Alveary",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recnPzRUTwiN1pnp6.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "This program features 15-minute lessons focusing on phonics and high-frequency word recognition and utilizing classic stories and poems from the Free and Treadwell Readers. The lessons include spelling, copywork, dictation, and some grammar. This program reflects Mason's principles as well as recent research, especially the importance of phonological awareness and phonics.",
-          "notes": "",
+          "noteText": "Will also be available in Grade 3 Bundle with Alveary printing store after June 1st.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "PDF",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "reading-lessons-level-3"
+            }
+          ]
         }
       ]
     },
@@ -61,18 +85,36 @@
           "instanceKey": "course:recjS0ICLL8DA93jm:topic:rec5rnTiExW1WHSTC:resource:rec66MFd5sIKfJzQY",
           "title": "Getty-Dubay® Italic Handwriting Book D",
           "author": "Handwriting Success",
-          "isbn": "",
+          "isbn": "978-0964921573",
           "asin": "",
+          "isbnAsin": "978-0964921573",
           "imagePath": "img/resources/rec66MFd5sIKfJzQY.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Writing practice for basic italic and cursive italic includes capitalization, vowel and consonant sounds, prefixes, suffixes, phonograms, homophones, tongue twisters, and six poem forms. Cursive capitals are introduced with historical development of each letter.",
-          "notes": "",
+          "noteText": "Choose this OR Italics by Penny Gardner. You do not need the Instruction Manual. Necessary instructions will be included in the lesson plans.",
+          "maySubText": "penmanship model of your choice or Penny Gardner",
+          "discountText": "Discount: 15%\nWith code: ALVEARYMEMBER",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "rec6WKrYlYzjYnRR4",
@@ -81,16 +123,33 @@
           "author": "Penny Gardner",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/rec6WKrYlYzjYnRR4.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "We like this model because it is lovely, yet simple. Both the print and cursive models are in italic, making this a solid foundation for fine lettering later. Some may prefer a more traditional cursive model.",
-          "notes": "",
+          "noteText": "Choose this OR Getty-Dubay Handwriting Series.",
+          "maySubText": "penmanship model of your choice or Getty-Dubay Handwriting Series",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Penmanship & Copywork: Grade 1\nPenmanship & Copywork: Grade 2\nPenmanship & Copywork: Grade 3\nPenmanship & Copywork: Grade 4\nPenmanship & Copywork: Grade 5\nPenmanship & Copywork: Grade 6",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

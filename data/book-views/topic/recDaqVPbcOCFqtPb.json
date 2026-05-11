@@ -22,34 +22,69 @@
           "author": "Hands-On Equations",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/recNiSkoMTSZuBmf6.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": true,
+          "gradeLevelTag": "",
           "formatTags": "Video",
+          "formatOptions": [
+            {
+              "type": "video",
+              "label": "Video"
+            }
+          ],
           "rationale": "Hands-On Equations is a very concrete introduction to abstract algebraic concepts.",
-          "notes": "",
+          "noteText": "Choose this or Denison.\nThe \"Free\" link will take you to a YouTube playlist where a master teacher goes through the first 22 lessons. \n➜ Manipulatives included.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Video",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recrPKcvIhETygx8f",
           "instanceKey": "course:recmY4SJFVuVD9PiR:topic:recDaqVPbcOCFqtPb:resource:recrPKcvIhETygx8f",
           "title": "The Hands-On Equations Verbal Problems Book",
           "author": "Hands-On Equations",
-          "isbn": "",
+          "isbn": "978-0-9618105-1-1",
           "asin": "",
+          "isbnAsin": "978-0-9618105-1-1",
           "imagePath": "img/resources/recrPKcvIhETygx8f.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "",
+          "formatOptions": [],
           "rationale": "Contains word problems wherein students apply what they learned in their lessons to real-world situations.",
-          "notes": "",
+          "noteText": "Must scroll down on site to purchase correct item.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

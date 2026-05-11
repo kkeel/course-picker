@@ -20,36 +20,82 @@
           "instanceKey": "course:rec3zUhQr36iadk2c:topic:rec8rP4OZOxbQrWlK:resource:rec3jFPfyFSqt2mGU",
           "title": "Canada's Constitutional Monarchy",
           "author": "Nathan Tidridge",
-          "isbn": "",
+          "isbn": "9781554889808",
           "asin": "",
+          "isbnAsin": "9781554889808",
           "imagePath": "img/resources/rec3jFPfyFSqt2mGU.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Brimming with photographs and archival images, this book, written by a high school history teacher, is an accessible and extensive account of the role played by the Crown in Canada's history, Constitution, system of parliamentary government, other institutions, and the day-to-day lives of all Canadians.",
-          "notes": "",
+          "noteText": "This book is used over two years (Grades 8 and 9).",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2 (Partial Term)",
           "sharedText": "Canadian Gov./ Economics: Grade 8\nPlutarch/Government: Grade 9 (Canada)",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "rec7v5wfeY2lC55Vq",
           "instanceKey": "course:rec3zUhQr36iadk2c:topic:rec8rP4OZOxbQrWlK:resource:rec7v5wfeY2lC55Vq",
           "title": "Dollars and Sense: A Kid's Guide to Using - Not Losing - Money",
           "author": "Elaine Scott",
-          "isbn": "",
+          "isbn": "978-1580893961",
           "asin": "",
+          "isbnAsin": "978-1580893961",
           "imagePath": "img/resources/rec7v5wfeY2lC55Vq.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "In this introduction to Economics, students will learn about the history of money, the banking system, and personal finance.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 3",
           "sharedText": "American Gov./ Economics: Grade 8\nCanadian Gov./ Economics: Grade 8",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

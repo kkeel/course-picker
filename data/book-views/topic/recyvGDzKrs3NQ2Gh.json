@@ -22,52 +22,103 @@
           "author": "Michael Clay Thompson",
           "isbn": "",
           "asin": "",
+          "isbnAsin": "",
           "imagePath": "img/resources/reccU99bZdaACFHLh.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "",
-          "notes": "",
+          "noteText": "Used with publisher's permission.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Grammar: Grade 4\nGrammar: Grade 5",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Free",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "practice-island-teacher-manual"
+            }
+          ]
         },
         {
           "resourceId": "recDIMibbBO5QhCKe",
           "instanceKey": "course:rec6FuB0jPUtQ0dZT:topic:recyvGDzKrs3NQ2Gh:resource:recDIMibbBO5QhCKe",
           "title": "Practice Island",
           "author": "Michael Clay Thompson",
-          "isbn": "",
+          "isbn": "978-0880928809",
           "asin": "",
+          "isbnAsin": "978-0880928809",
           "imagePath": "img/resources/recDIMibbBO5QhCKe.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "Practice Island is a workbook with practice sentences that is used in conjunction with Grammar Island.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Grammar: Grade 4\nGrammar: Grade 5",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recevCCZXrZTBk4Xb",
           "instanceKey": "course:rec6FuB0jPUtQ0dZT:topic:recyvGDzKrs3NQ2Gh:resource:recevCCZXrZTBk4Xb",
           "title": "Sentence Island",
           "author": "Michael Clay Thompson",
-          "isbn": "",
+          "isbn": "978-0880926300",
           "asin": "",
+          "isbnAsin": "978-0880926300",
           "imagePath": "img/resources/recevCCZXrZTBk4Xb.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
           "rationale": "This program brings story, delight, and ideas to the study of grammar. In this book, students focus on the science and art of forming a good sentence and learn the rules and concepts that are essential for formal writing.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2 (Partial Term)\nTerm 3 (Partial Term)",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

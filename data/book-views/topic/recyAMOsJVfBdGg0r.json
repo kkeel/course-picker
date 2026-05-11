@@ -20,36 +20,84 @@
           "instanceKey": "course:recK4WumjdpFqO8pD:topic:recyAMOsJVfBdGg0r:resource:recDkUYOYpWCv6KlP",
           "title": "When the Church Was Young: Voices of the Early Fathers",
           "author": "Marcellino D'Ambrosio",
-          "isbn": "",
+          "isbn": "978-1616367770",
           "asin": "",
+          "isbnAsin": "978-1616367770",
           "imagePath": "img/resources/recDkUYOYpWCv6KlP.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "The first half of the book contains biographies from early church history covered in this rotation.",
-          "notes": "",
+          "noteText": "ONLY Grades 10-12. Used over two years.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "rececmL6Rkxib8hs4",
           "instanceKey": "course:recK4WumjdpFqO8pD:topic:recyAMOsJVfBdGg0r:resource:rececmL6Rkxib8hs4",
           "title": "Turning Points in American Church History",
           "author": "Elesha J. Coffman",
-          "isbn": "",
+          "isbn": "978-0801097492",
           "asin": "",
+          "isbnAsin": "978-0801097492",
           "imagePath": "img/resources/rececmL6Rkxib8hs4.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "An insightful look at some key moments leading up to, during, and following our current history rotation to give more context and perspective on how these events have impacted the American church.",
-          "notes": "",
+          "noteText": "This book will be used in other history rotations.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)\nTerm 3 (Partial Term)",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }

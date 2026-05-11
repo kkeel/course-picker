@@ -20,54 +20,131 @@
           "instanceKey": "course:reczJaAXPgqwXQPsz:topic:recNsLgCgQ6qo59lq:resource:reclcRnF299kHLBzD",
           "title": "Tracking Trash",
           "author": "Loree Griffin Burns",
-          "isbn": "",
+          "isbn": "978-0547328607",
           "asin": "",
+          "isbnAsin": "978-0547328607",
           "imagePath": "img/resources/reclcRnF299kHLBzD.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Students follow a scientist who uses creative methods to better understand ocean currents and our impact on life within the sea.",
-          "notes": "",
+          "noteText": "Available on Kindle with enhanced typesetting and Learning Ally with VoiceText.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 1",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recL4XOk8qfUrQ5iI",
           "instanceKey": "course:reczJaAXPgqwXQPsz:topic:recNsLgCgQ6qo59lq:resource:recL4XOk8qfUrQ5iI",
           "title": "The Wolves and Moose of Isle Royale: Restoring an Island Ecosystem",
           "author": "Nancy F. Castaldo",
-          "isbn": "",
+          "isbn": "978-0358274230",
           "asin": "",
+          "isbnAsin": "978-0358274230",
           "imagePath": "img/resources/recL4XOk8qfUrQ5iI.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Ebook, Audiobook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            },
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Students discover the threatened predator-prey relationship that maintains the Isle Royale ecosystem in this fascinating story. Will scientists be able to restore the balance?  Let's follow this living laboratory experiment.",
-          "notes": "",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 2",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         },
         {
           "resourceId": "recYuxzYJhIPb3Agt",
           "instanceKey": "course:reczJaAXPgqwXQPsz:topic:recNsLgCgQ6qo59lq:resource:recYuxzYJhIPb3Agt",
           "title": "The Frog Scientist",
           "author": "Pamela Turner",
-          "isbn": "",
+          "isbn": "978-0547576985",
           "asin": "",
+          "isbnAsin": "978-0547576985",
           "imagePath": "img/resources/recYuxzYJhIPb3Agt.webp",
           "placeholderPath": "img/placeholders/book.svg",
           "optional": false,
           "chooseOne": false,
+          "gradeLevelTag": "",
           "formatTags": "Audiobook",
+          "formatOptions": [
+            {
+              "type": "audiobook",
+              "label": "Audiobook"
+            }
+          ],
           "rationale": "Scientists now know that frogs are particularly sensitive to pollution. Readers join the work of scientists who are learning just how chemical run-off affects their life cycle. This text is a particularly good example of the relationship between field and laboratory work and introduces important facets of excellent experimental design \"by-the-way.\"",
-          "notes": "",
+          "noteText": "Available on Learning Ally with VoiceText.",
+          "maySubText": "",
+          "discountText": "",
           "scopeText": "Term 3",
           "sharedText": "",
-          "links": []
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }
