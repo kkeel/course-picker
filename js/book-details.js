@@ -1,9 +1,27 @@
-const SUBJECTS = window.ALVEARY_CONFIG.subjects;
-const GRADES = window.ALVEARY_CONFIG.grades;
-const SUBJECT_COLORS = window.ALVEARY_CONFIG.subjectColors;
+const ALVEARY_CONFIG = window.ALVEARY_CONFIG || {};
+
+const SUBJECTS = ALVEARY_CONFIG.subjects || ["All Subjects"];
+const GRADES = ALVEARY_CONFIG.grades || ["All Grades"];
+const TRACKS = ALVEARY_CONFIG.tracks || [
+  { value: "", label: "US + Canadian" },
+  { value: "us", label: "US only" },
+  { value: "canadian", label: "Canadian only" },
+];
+
+const SUBJECT_COLORS = ALVEARY_CONFIG.subjectColors || {};
 
 const DEFAULT_SUBJECT = "All Subjects";
 const DEFAULT_GRADE = "All Grades";
+
+function subjectColor(name) {
+  if (!name) return "#dde2d5";
+
+  const key = Object.keys(SUBJECT_COLORS).find(
+    (subject) => subject.toLowerCase() === String(name).toLowerCase()
+  );
+
+  return key ? SUBJECT_COLORS[key] : "#dde2d5";
+}
 
 const state = {
   data: null,
@@ -274,7 +292,7 @@ function renderCourseTopicMode(items) {
     });
 
     return `
-      <section class="book-course">
+      <section class="book-course" style="--subject-color: ${subjectColor(item.subject)};">
         <div class="book-course-head">
           <h2>${escapeHtml(item.title)}</h2>
           <div>${escapeHtml(item.subject || "")} ${item.gradeText ? `• ${escapeHtml(item.gradeText)}` : ""}</div>
