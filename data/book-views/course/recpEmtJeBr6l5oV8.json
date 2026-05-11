@@ -5,6 +5,8 @@
   "title": "Science: Biology",
   "subject": "Science",
   "gradeText": "GRADE(S): 10-12+",
+  "schedText": "",
+  "shared": false,
   "sortId": "",
   "bookCount": 5,
   "sections": [
@@ -12,6 +14,9 @@
       "type": "topic",
       "id": "recLbje4VqybSpi0f",
       "title": "Biology Lessons",
+      "gradeText": "GRADE(S): 10-12+",
+      "schedText": "5 times/week 45 min *",
+      "shared": false,
       "books": [
         {
           "resourceId": "recmN7LMD6XOgHxwB",
@@ -175,6 +180,9 @@
       "type": "topic",
       "id": "recqs5CJX6rm4MnPJ",
       "title": "Biology Labs",
+      "gradeText": "GRADE(S): 10-12+",
+      "schedText": "1 time/week 60 min *or_",
+      "shared": false,
       "books": [
         {
           "resourceId": "recWGzD58m6EMYioZ",

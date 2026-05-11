@@ -10,11 +10,16 @@
       "title": "Art: Level 1",
       "subject": "Art",
       "gradeText": "GRADE(S): 1+",
+      "schedText": "2 times/week 20 min * 🅃",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recR8JMqdSmRHsqIq",
           "title": "Art: Level 1",
+          "gradeText": "GRADE(S): 1+",
+          "schedText": "2 times/week 20 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "reckOxbera0wklAAL",
@@ -108,11 +113,16 @@
       "title": "Picture Study",
       "subject": "Art",
       "gradeText": "GRADE(S): 1-12",
+      "schedText": "1 time/week 10 min * 🅃 (Grades 1-3)\n1 time/week 15 min * 🅃 (Grades 4-6)\n1 time/week 20 min * 🅃 (Grades 7-8)\n1 time/week 20 min *or_ 🅃 (Grades 9-12)",
+      "shared": true,
       "sections": [
         {
           "type": "course",
           "id": "recpmAVPZE4aoIEGv",
           "title": "Picture Study",
+          "gradeText": "GRADE(S): 1-12",
+          "schedText": "1 time/week 10 min * 🅃 (Grades 1-3)\n1 time/week 15 min * 🅃 (Grades 4-6)\n1 time/week 20 min * 🅃 (Grades 7-8)\n1 time/week 20 min *or_ 🅃 (Grades 9-12)",
+          "shared": true,
           "books": [
             {
               "resourceId": "recYUjgIWX49iwscL",
@@ -482,11 +492,16 @@
       "title": "Bible: Grade 1",
       "subject": "Bible",
       "gradeText": "GRADE(S): 1",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recRJCbr7FFMfauFa",
           "title": "Bible Stories",
+          "gradeText": "GRADE(S): 1",
+          "schedText": "4 times/week 20 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "recbNOYkip20WsZsY",
@@ -539,6 +554,9 @@
           "type": "topic",
           "id": "recwdjPJ19zLtMKB3",
           "title": "Church History: Grades 1-3",
+          "gradeText": "GRADE(S): 1-3",
+          "schedText": "1 time/week 20 min * 🅃",
+          "shared": true,
           "books": [
             {
               "resourceId": "recEwODkwJZNKwdhf",
@@ -636,11 +654,16 @@
       "title": "Language Study: Grade 1",
       "subject": "English",
       "gradeText": "GRADE(S): 1",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "rec9nMxj7clnqmYXN",
           "title": "Reading Level 1",
+          "gradeText": "GRADE(S): 1",
+          "schedText": "5 times/week 15 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec25ddXr2YSOI26L",
@@ -713,6 +736,9 @@
           "type": "topic",
           "id": "rechytOsXSZMpW9Lv",
           "title": "Penmanship & Copywork: Grade 1",
+          "gradeText": "GRADE(S): 1",
+          "schedText": "5 times/week 10 min * ⬔",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec6WKrYlYzjYnRR4",
@@ -795,11 +821,16 @@
       "title": "Recitation: Grades 1-2",
       "subject": "English",
       "gradeText": "GRADE(S): 1-2",
+      "schedText": "5 times/week 10 min * 🅃",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "rec8Foy62PwJsICp8",
           "title": "Recitation: Grades 1-2",
+          "gradeText": "GRADE(S): 1-2",
+          "schedText": "5 times/week 10 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "recw7BBdhDZlQO2RS",
@@ -852,11 +883,16 @@
       "title": "Geography: Grade 1",
       "subject": "Geography",
       "gradeText": "GRADE(S): 1",
+      "schedText": "2 times/week 15 min * 🅃",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "rec9fXNGxN5UAt46h",
           "title": "Geography: Grade 1",
+          "gradeText": "GRADE(S): 1",
+          "schedText": "2 times/week 15 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec3qRa2nl8pKXiYq",
@@ -1121,11 +1157,16 @@
       "title": "History: Grade 1 (U.S.)",
       "subject": "History",
       "gradeText": "GRADE(S): 1",
+      "schedText": "1 time/week 10 min * 🅃",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recCHapNtsJooytSB",
           "title": "History: Grade 1 (U.S.)",
+          "gradeText": "GRADE(S): 1",
+          "schedText": "1 time/week 10 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec1QwigivKnUmHHF",
@@ -1401,11 +1442,16 @@
       "title": "History: Grade 1 (Canada)",
       "subject": "History",
       "gradeText": "GRADE(S): 1",
+      "schedText": "1 time/week 10 min * 🅃",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "rec5q2mTTsX5J913g",
           "title": "History: Grade 1 (Canada)",
+          "gradeText": "GRADE(S): 1",
+          "schedText": "1 time/week 10 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "recOBhwtOuGXKi5Vt",
@@ -1678,11 +1724,16 @@
       "title": "Sloyd: Intro",
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 1+",
+      "schedText": "1 time/week 15 min * 🅃",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recofNASItbLN2GCB",
           "title": "Sloyd: Intro",
+          "gradeText": "GRADE(S): 1+",
+          "schedText": "1 time/week 15 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "recr29aKYdyuM8fAF",
@@ -1729,11 +1780,16 @@
       "title": "Sewing: Level 1",
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 1-3",
+      "schedText": "1 time/week 20 min * 🅃",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recaNFVhLb9cQ69od",
           "title": "Sewing: Level 1",
+          "gradeText": "GRADE(S): 1-3",
+          "schedText": "1 time/week 20 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec96q2INy5TFyRuT",
@@ -1786,11 +1842,16 @@
       "title": "Literature: Grade 1",
       "subject": "Literature",
       "gradeText": "GRADE(S): 1",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recPJwhSDEWWZXwi6",
           "title": "Fairy Tales",
+          "gradeText": "GRADE(S): 1",
+          "schedText": "1 time/week 15 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "recAgpjTHZLXwXPgv",
@@ -1875,6 +1936,9 @@
           "type": "topic",
           "id": "rechdAl8LV3A6ohAz",
           "title": "Tall Tales/ Fables",
+          "gradeText": "GRADE(S): 1",
+          "schedText": "1 time/week 15 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "recHLSd4DYDUKCKw4",
@@ -2008,11 +2072,16 @@
       "title": "Poetry: Grades 1-4",
       "subject": "Literature",
       "gradeText": "GRADE(S): 1-4",
+      "schedText": "5 times/week 5 min * 🅃",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recCKYMTFjpceB5Dg",
           "title": "Poetry: Grades 1-4",
+          "gradeText": "GRADE(S): 1-4",
+          "schedText": "5 times/week 5 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "recuzZNUCUmNMMlPv",
@@ -2188,11 +2257,16 @@
       "title": "Mathematics: Grade 1",
       "subject": "Math",
       "gradeText": "GRADE(S): 1",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recSG4uIGMf0evGmf",
           "title": "Math Lessons: Grade 1",
+          "gradeText": "GRADE(S): 1",
+          "schedText": "5 times/week 20 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "recQvstPzymVJNX0O",
@@ -2241,6 +2315,9 @@
           "type": "topic",
           "id": "recqNQrKdVJQ5PxQP",
           "title": "Math Games: Grades 1-8",
+          "gradeText": "GRADE(S): 1-8",
+          "schedText": "3 times/week 15 min+ _ 🅃",
+          "shared": true,
           "books": [
             {
               "resourceId": "recvX4HmvwtODCrX3",
@@ -2282,11 +2359,16 @@
       "title": "Lower French: Grades 1-6",
       "subject": "Modern Language",
       "gradeText": "GRADE(S): 1-6",
+      "schedText": "3 times/week 20 min * 🅃 (Grades 1-3)\n5 times/week 20 min * 🅃 (Grades 4-6)",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recoPQAbrD0LGdLmj",
           "title": "Lower French: Grades 1-6",
+          "gradeText": "GRADE(S): 1-6",
+          "schedText": "3 times/week 20 min * 🅃 (Grades 1-3)\n5 times/week 20 min * 🅃 (Grades 4-6)",
+          "shared": false,
           "books": [
             {
               "resourceId": "recOnBonPH4G0prbH",
@@ -2390,11 +2472,16 @@
       "title": "Lower Spanish: Grades 1-6",
       "subject": "Modern Language",
       "gradeText": "GRADE(S): 1-6",
+      "schedText": "3 times/week 20 min * 🅃 (Grades 1-3)\n5 times/week 20 min * 🅃 (Grades 4-6)",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recJuN8tcBP1kh3AG",
           "title": "Lower Spanish: Grades 1-6",
+          "gradeText": "GRADE(S): 1-6",
+          "schedText": "3 times/week 20 min * 🅃 (Grades 1-3)\n5 times/week 20 min * 🅃 (Grades 4-6)",
+          "shared": false,
           "books": [
             {
               "resourceId": "recnAKZqzX8B3XJU5",
@@ -2621,11 +2708,16 @@
       "title": "Music: Intro",
       "subject": "Music",
       "gradeText": "GRADE(S): 1+",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recGxKOwi4E5amNPe",
           "title": "Music: Intro",
+          "gradeText": "GRADE(S): 1+",
+          "schedText": "",
+          "shared": false,
           "books": [
             {
               "resourceId": "rectZLk9X7Vjlf8dG",
@@ -2709,6 +2801,9 @@
           "type": "topic",
           "id": "recQnNMrVmgVQUVVT",
           "title": "Music Appreciation",
+          "gradeText": "GRADE(S): 1",
+          "schedText": "1 time/week 10 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "recwSXrQ9crAhXWV3",
@@ -2786,6 +2881,9 @@
           "type": "topic",
           "id": "recd3yaMAQJpdn7CR",
           "title": "Hymns & Spirituals",
+          "gradeText": "GRADE(S): 1-12",
+          "schedText": "1 time/week 10 min * 🅃",
+          "shared": true,
           "books": [
             {
               "resourceId": "recDLRBTspENoopYR",
@@ -2834,6 +2932,9 @@
           "type": "topic",
           "id": "rec3VWzJd0IeiTO7V",
           "title": "Folk Songs",
+          "gradeText": "GRADE(S): 1-12",
+          "schedText": "1 time/week 10 min * 🅃",
+          "shared": true,
           "books": [
             {
               "resourceId": "recPb5gHeLu8G3EXl",
@@ -2882,6 +2983,9 @@
           "type": "topic",
           "id": "reclhERbHEXrGEJTn",
           "title": "Sol-fa: Musical Games",
+          "gradeText": "GRADE(S): 1",
+          "schedText": "1 time/week 10 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "recoemutvxjrSGUVb",
@@ -2928,11 +3032,16 @@
       "title": "PE: Grades 1-3",
       "subject": "Physical Education",
       "gradeText": "GRADE(S): 1-3",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recAuJptpZmgrYS9m",
           "title": "Playground Songs & Rhymes",
+          "gradeText": "GRADE(S): 1-3",
+          "schedText": "1 time/week 20 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "recZlQfkeOi88FxOK",
@@ -2976,6 +3085,9 @@
           "type": "topic",
           "id": "recJlZCpkXG6vSIdC",
           "title": "Jump Rope",
+          "gradeText": "GRADE(S): 1-3",
+          "schedText": "1 time/week 20 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "recZlQfkeOi88FxOK",
@@ -3019,6 +3131,9 @@
           "type": "topic",
           "id": "recAB9geLqGyqTDkg",
           "title": "Folk Dancing",
+          "gradeText": "GRADE(S): 1-6",
+          "schedText": "1 time/week 20 min * 🅃",
+          "shared": true,
           "books": [
             {
               "resourceId": "reciobkv0sISyFiIz",
@@ -3066,11 +3181,16 @@
       "title": "Science: Grade 1",
       "subject": "Science",
       "gradeText": "GRADE(S): 1",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recze3NFQFBQ9QtnB",
           "title": "General Science: Grade 1",
+          "gradeText": "GRADE(S): 1",
+          "schedText": "1 time/week 15 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "reciabsH6UTpXZ1tB",
@@ -3327,6 +3447,9 @@
           "type": "topic",
           "id": "recyJkGRi0eytNpYD",
           "title": "Natural History: Grade 1",
+          "gradeText": "GRADE(S): 1",
+          "schedText": "1 time/week 10 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "recugX6G65uu0dv8O",
@@ -3373,11 +3496,16 @@
       "title": "Resources: Grades 1-3",
       "subject": "Suggested Resources",
       "gradeText": "GRADE(S): 1-3",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recwylUfZTi53KpDK",
           "title": "Resources: Grades 1-3",
+          "gradeText": "GRADE(S): 1-3",
+          "schedText": "",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec2YtGq9kPH4HvWF",
@@ -3546,6 +3674,9 @@
           "type": "topic",
           "id": "recg2XrwqatEI3CcV",
           "title": "Afternoon Occupations: Grades 1-8 (Opt.)",
+          "gradeText": "GRADE(S): 1-8",
+          "schedText": "",
+          "shared": true,
           "books": [
             {
               "resourceId": "rec7FrmRjmju44ghI",

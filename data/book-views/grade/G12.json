@@ -10,11 +10,16 @@
       "title": "Architecture: Grades 9-12",
       "subject": "Architecture",
       "gradeText": "GRADE(S): 9-12",
+      "schedText": "1 time/week 30 min * ☐",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recbffM9zHurHapsq",
           "title": "Architecture: Grades 9-12",
+          "gradeText": "GRADE(S): 9-12",
+          "schedText": "1 time/week 30 min * ☐",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec7JegAwU8OPHU65",
@@ -98,11 +103,16 @@
       "title": "Art: Level 8",
       "subject": "Art",
       "gradeText": "GRADE(S): 8-12",
+      "schedText": "2 times/week 45 min _ ☐",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "rec73ywJXe1HmioMu",
           "title": "Art: Level 8",
+          "gradeText": "GRADE(S): 8-12",
+          "schedText": "2 times/week 45 min _ ☐",
+          "shared": false,
           "books": [
             {
               "resourceId": "reckOxbera0wklAAL",
@@ -155,11 +165,16 @@
       "title": "Art: High School Fast Track",
       "subject": "Art",
       "gradeText": "GRADE(S): 9-12",
+      "schedText": "2 times/week 45 min _",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "rec6MBLqzC1D2dewf",
           "title": "Art: High School Fast Track",
+          "gradeText": "GRADE(S): 9-12",
+          "schedText": "2 times/week 45 min _",
+          "shared": false,
           "books": [
             {
               "resourceId": "reckOxbera0wklAAL",
@@ -330,11 +345,16 @@
       "title": "Picture Study",
       "subject": "Art",
       "gradeText": "GRADE(S): 1-12",
+      "schedText": "1 time/week 10 min * 🅃 (Grades 1-3)\n1 time/week 15 min * 🅃 (Grades 4-6)\n1 time/week 20 min * 🅃 (Grades 7-8)\n1 time/week 20 min *or_ 🅃 (Grades 9-12)",
+      "shared": true,
       "sections": [
         {
           "type": "course",
           "id": "recpmAVPZE4aoIEGv",
           "title": "Picture Study",
+          "gradeText": "GRADE(S): 1-12",
+          "schedText": "1 time/week 10 min * 🅃 (Grades 1-3)\n1 time/week 15 min * 🅃 (Grades 4-6)\n1 time/week 20 min * 🅃 (Grades 7-8)\n1 time/week 20 min *or_ 🅃 (Grades 9-12)",
+          "shared": true,
           "books": [
             {
               "resourceId": "recYUjgIWX49iwscL",
@@ -704,11 +724,16 @@
       "title": "Art History",
       "subject": "Art",
       "gradeText": "GRADE(S): 9-12",
+      "schedText": "2 times/week 45 min *",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recIOls4bTrh0o2bL",
           "title": "Art History",
+          "gradeText": "GRADE(S): 9-12",
+          "schedText": "2 times/week 45 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec1aj7GOWk1fBlyu",
@@ -797,11 +822,16 @@
       "title": "Bible: Grade 12",
       "subject": "Bible",
       "gradeText": "GRADE(S): 12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recJOkNvdiyWNEvhn",
           "title": "Old Testament: Grades 7-12",
+          "gradeText": "GRADE(S): 7-12",
+          "schedText": "2 times/week 30 min * ⬔ (Grades 7-9)\n2 times/week 30 min * ☐ (Grades 10-12)",
+          "shared": true,
           "books": [
             {
               "resourceId": "rec1dkTRQiOlbkGqi",
@@ -968,6 +998,9 @@
           "type": "topic",
           "id": "recnlqVyRwJevCyvy",
           "title": "New Testament: Grade 12",
+          "gradeText": "GRADE(S): 12",
+          "schedText": "1 time/week 30 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec2dOHvUHjbSY3hp",
@@ -1102,6 +1135,9 @@
           "type": "topic",
           "id": "recyAMOsJVfBdGg0r",
           "title": "Church History: Grades 10-12",
+          "gradeText": "GRADE(S): 10-12",
+          "schedText": "1 time/week 30 min * ☐",
+          "shared": true,
           "books": [
             {
               "resourceId": "recDkUYOYpWCv6KlP",
@@ -1193,6 +1229,9 @@
           "type": "topic",
           "id": "recSOLOkJU4e0fEl7",
           "title": "Spiritual Formation: Grade 12",
+          "gradeText": "GRADE(S): 12",
+          "schedText": "1 time/week 30 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec45LFeRdU2fi2Xl",
@@ -1317,11 +1356,16 @@
       "title": "Citizenship: Grade 12",
       "subject": "Citizenship",
       "gradeText": "GRADE(S): 12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recGdC7logqBmyLLf",
           "title": "Economics: Grade 12",
+          "gradeText": "GRADE(S): 12",
+          "schedText": "1 time/week 40 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "recYWLOabfTEBdZpB",
@@ -1374,6 +1418,9 @@
           "type": "topic",
           "id": "recSaJvbIz1aBWS4B",
           "title": "Civics/Ethics: Grade 12",
+          "gradeText": "GRADE(S): 12",
+          "schedText": "1 time/week 40 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "recuVrolXxShuNSdj",
@@ -1516,11 +1563,16 @@
       "title": "Language Study: Grade 12",
       "subject": "English",
       "gradeText": "GRADE(S): 12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "rechkj2wbdVhgZVbF",
           "title": "Composition: Grade 12",
+          "gradeText": "GRADE(S): 12",
+          "schedText": "4 times/week 40 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "recAwcA9L3GVqc8X5",
@@ -1653,11 +1705,16 @@
       "title": "Recitation: Grade 12",
       "subject": "English",
       "gradeText": "GRADE(S): 12",
+      "schedText": "3 times/week 10 min *or_",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recnP198FoIW9MXSu",
           "title": "Recitation: Grade 12",
+          "gradeText": "GRADE(S): 12",
+          "schedText": "3 times/week 10 min *or_",
+          "shared": false,
           "books": [
             {
               "resourceId": "recsNwud3Tci78Te8",
@@ -1710,11 +1767,16 @@
       "title": "Geography: Grade 12",
       "subject": "Geography",
       "gradeText": "GRADE(S): 12",
+      "schedText": "2 times/week 40 min *",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recjbWhVcJf5Ouy3a",
           "title": "Geography: Grade 12",
+          "gradeText": "GRADE(S): 12",
+          "schedText": "2 times/week 40 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "recPpoj6L1jUeCKYX",
@@ -1891,11 +1953,16 @@
       "title": "History: Grades 10-12 (U.S.)",
       "subject": "History",
       "gradeText": "GRADE(S): 10-12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recql4aGlSESfbNWa",
           "title": "U.S. History: Grades 9-12",
+          "gradeText": "GRADE(S): 9-12",
+          "schedText": "1 time/week 40 min * \n1 time/week 30 min *",
+          "shared": true,
           "books": [
             {
               "resourceId": "rec0LGczNqRlOvRen",
@@ -2156,6 +2223,9 @@
           "type": "topic",
           "id": "recDY9EzpeC95AAcw",
           "title": "World History: Grades 10-12",
+          "gradeText": "GRADE(S): 10-12",
+          "schedText": "1 time/week 30 min *",
+          "shared": true,
           "books": [
             {
               "resourceId": "recTJd5zTm3syYIlP",
@@ -2298,6 +2368,9 @@
           "type": "topic",
           "id": "recZwW63MrJRv4YVe",
           "title": "Ancient History: Grades 10-12",
+          "gradeText": "GRADE(S): 10-12",
+          "schedText": "1 time/week 30 min * \n1 time/week 40 min *",
+          "shared": true,
           "books": [
             {
               "resourceId": "rec5xfKBz756Opt41",
@@ -2430,11 +2503,16 @@
       "title": "History: Grades 11-12 (Canada)",
       "subject": "History",
       "gradeText": "GRADE(S): 11-12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recv1Ssp8koxS4ejL",
           "title": "Canadian History: Grades 11-12",
+          "gradeText": "GRADE(S): 11-12",
+          "schedText": "1 time/week 40 min * \n1 time/week 30 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec1hAdhkVOxsRvsr",
@@ -2636,6 +2714,9 @@
           "type": "topic",
           "id": "recDY9EzpeC95AAcw",
           "title": "World History: Grades 10-12",
+          "gradeText": "GRADE(S): 10-12",
+          "schedText": "1 time/week 30 min *",
+          "shared": true,
           "books": [
             {
               "resourceId": "recTJd5zTm3syYIlP",
@@ -2778,6 +2859,9 @@
           "type": "topic",
           "id": "recZwW63MrJRv4YVe",
           "title": "Ancient History: Grades 10-12",
+          "gradeText": "GRADE(S): 10-12",
+          "schedText": "1 time/week 30 min * \n1 time/week 40 min *",
+          "shared": true,
           "books": [
             {
               "resourceId": "rec5xfKBz756Opt41",
@@ -2910,11 +2994,16 @@
       "title": "Latin 4",
       "subject": "Latin",
       "gradeText": "GRADE(S): 10-12+",
+      "schedText": "2 times/week 30 min+ *",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recMUJaTJ67p5jVMY",
           "title": "Latin 4",
+          "gradeText": "GRADE(S): 10-12+",
+          "schedText": "2 times/week 30 min+ *",
+          "shared": false,
           "books": [
             {
               "resourceId": "rechDtEDByv2GufPk",
@@ -3030,11 +3119,16 @@
       "title": "Health Elective (Beta)",
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 10-12",
+      "schedText": "3 times/week 45 min *or_ ⬔",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recZZNDbRzKrPaN5D",
           "title": "Health Elective (Beta)",
+          "gradeText": "GRADE(S): 10-12",
+          "schedText": "3 times/week 45 min *or_ ⬔",
+          "shared": false,
           "books": [
             {
               "resourceId": "recJTXFBabxJ0OLed",
@@ -3222,11 +3316,16 @@
       "title": "Handicrafts",
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 2-12",
+      "schedText": "1 time/week 20 min * 🅃 (Grades 2-3)\n1 time/week 30 min _ 🅃 (Grades 4-12)",
+      "shared": true,
       "sections": [
         {
           "type": "course",
           "id": "recGPYJ8F20tJ77NJ",
           "title": "Handicrafts",
+          "gradeText": "GRADE(S): 2-12",
+          "schedText": "1 time/week 20 min * 🅃 (Grades 2-3)\n1 time/week 30 min _ 🅃 (Grades 4-12)",
+          "shared": true,
           "books": [
             {
               "resourceId": "recBZIgHqJbgulcIt",
@@ -3274,11 +3373,16 @@
       "title": "Literature: Grade 12",
       "subject": "Literature",
       "gradeText": "GRADE(S): 12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recvgYTB1CAmd95Rc",
           "title": "General Lit.: Grades 11-12",
+          "gradeText": "GRADE(S): 11-12",
+          "schedText": "2 times/week 30 min *",
+          "shared": true,
           "books": [
             {
               "resourceId": "recj4Gq2c9BzAopg7",
@@ -3591,6 +3695,9 @@
           "type": "topic",
           "id": "rec5wXA5KBcOmYuUn",
           "title": "History of Lit: Grades 9-12",
+          "gradeText": "GRADE(S): 9-12",
+          "schedText": "1 time/week 30 min *",
+          "shared": true,
           "books": [
             {
               "resourceId": "rec0oGsLUHcktbS7b",
@@ -3707,6 +3814,9 @@
           "type": "topic",
           "id": "recWOVocAqR0UddsI",
           "title": "Plays: Grades 9-12",
+          "gradeText": "GRADE(S): 9-12",
+          "schedText": "1 time/week 30 min _",
+          "shared": true,
           "books": [
             {
               "resourceId": "rec3tqEcEYbMVNjBk",
@@ -3968,6 +4078,9 @@
           "type": "topic",
           "id": "rec3N3kFIZxbpKFYW",
           "title": "Poetry Reading: Grades 9-12",
+          "gradeText": "GRADE(S): 9-12",
+          "schedText": "2 times/week 15 min *or_",
+          "shared": true,
           "books": [
             {
               "resourceId": "recKbcZA9XmKjjn8b",
@@ -4174,11 +4287,16 @@
       "title": "Mathematics: Grade 12",
       "subject": "Math",
       "gradeText": "GRADE(S): 12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recx9GYaBIsAr3FBg",
           "title": "Pre-Calculus: Part 2",
+          "gradeText": "GRADE(S): 12",
+          "schedText": "5 times/week 40 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "recBToi9LtJZphztW",
@@ -4221,6 +4339,9 @@
           "type": "topic",
           "id": "recEohsqHGUHTgrJP",
           "title": "Calculus: Part 1",
+          "gradeText": "GRADE(S): 12",
+          "schedText": "5 times/week 40 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "recWxUYXUJvlXYpTX",
@@ -4267,11 +4388,16 @@
       "title": "Upper French: Level 5",
       "subject": "Modern Language",
       "gradeText": "GRADE(S): 11-12",
+      "schedText": "5 times/week 30 min *",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recqNOmOD0VFoWjt4",
           "title": "Upper French: Level 5",
+          "gradeText": "GRADE(S): 11-12",
+          "schedText": "5 times/week 30 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec3q7fGGsKCEZaVD",
@@ -4341,11 +4467,16 @@
       "title": "Upper Spanish: Level 5",
       "subject": "Modern Language",
       "gradeText": "GRADE(S): 11-12",
+      "schedText": "5 times/week 30 min *",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recHL4qMeuNntUQO7",
           "title": "Upper Spanish: Level 5",
+          "gradeText": "GRADE(S): 11-12",
+          "schedText": "5 times/week 30 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec161KeC2t6raqTC",
@@ -4528,11 +4659,16 @@
       "title": "Music: Level 5",
       "subject": "Music",
       "gradeText": "GRADE(S): 6-12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "recU2BFWNK9nliynJ",
           "title": "Music: Level 5",
+          "gradeText": "GRADE(S): 6-12",
+          "schedText": "",
+          "shared": false,
           "books": [
             {
               "resourceId": "rectZLk9X7Vjlf8dG",
@@ -4698,6 +4834,9 @@
           "type": "topic",
           "id": "recc7G1pOR69hhyYk",
           "title": "Composer Study",
+          "gradeText": "GRADE(S): 2-12",
+          "schedText": "1 time/week 10 min * ⬔ (Grades 2-4)\n1 time/week 15 min * ☐ (Grades 5-12)",
+          "shared": true,
           "books": [
             {
               "resourceId": "recpKgqZdLHd9C6gr",
@@ -4809,6 +4948,9 @@
           "type": "topic",
           "id": "recd3yaMAQJpdn7CR",
           "title": "Hymns & Spirituals",
+          "gradeText": "GRADE(S): 1-12",
+          "schedText": "1 time/week 10 min * 🅃",
+          "shared": true,
           "books": [
             {
               "resourceId": "recDLRBTspENoopYR",
@@ -4857,6 +4999,9 @@
           "type": "topic",
           "id": "rec3VWzJd0IeiTO7V",
           "title": "Folk Songs",
+          "gradeText": "GRADE(S): 1-12",
+          "schedText": "1 time/week 10 min * 🅃",
+          "shared": true,
           "books": [
             {
               "resourceId": "recPb5gHeLu8G3EXl",
@@ -4905,6 +5050,9 @@
           "type": "topic",
           "id": "recPM5jXG1kesMguO",
           "title": "Sol-fa: Level 5",
+          "gradeText": "GRADE(S): 6-12",
+          "schedText": "1 time/week 15 min * ⬔",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec3kEuGDYChqpEYt",
@@ -4992,11 +5140,16 @@
       "title": "PE: Grades 7-12",
       "subject": "Physical Education",
       "gradeText": "GRADE(S): 7-12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recx2i8TLYVdU0pPc",
           "title": "Playground Games",
+          "gradeText": "GRADE(S): 4-12",
+          "schedText": "1 time/week 20 min *or_ ⬔",
+          "shared": true,
           "books": [
             {
               "resourceId": "recO7o2cHORX18JsY",
@@ -5040,6 +5193,9 @@
           "type": "topic",
           "id": "reckAZIlzzO3IwsSY",
           "title": "Sports",
+          "gradeText": "GRADE(S): 4-12",
+          "schedText": "1 time/week 20 min *or_ ⬔",
+          "shared": true,
           "books": [
             {
               "resourceId": "recO7o2cHORX18JsY",
@@ -5083,6 +5239,9 @@
           "type": "topic",
           "id": "reclZXm6TOqOcFHbV",
           "title": "Free Play/ Circuits",
+          "gradeText": "GRADE(S): 4-12",
+          "schedText": "2 times/week 20 min *or_ ⬔",
+          "shared": true,
           "books": [
             {
               "resourceId": "recavFDwkQjBdb9fc",
@@ -5135,11 +5294,16 @@
       "title": "Science: Chemistry",
       "subject": "Science",
       "gradeText": "GRADE(S): 9-12+",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recBq9iEE2Yn8ZhJh",
           "title": "Chemistry Lessons",
+          "gradeText": "GRADE(S): 9-12+",
+          "schedText": "5 times/week 45 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "recfIZtA1mbEFnrmJ",
@@ -5310,6 +5474,9 @@
           "type": "topic",
           "id": "rechhPCTMCqWmtHv1",
           "title": "Chemistry Labs",
+          "gradeText": "GRADE(S): 9-12+",
+          "schedText": "1 time/week 60 min *or_",
+          "shared": false,
           "books": [
             {
               "resourceId": "recwCXT5N9KCDloNi",
@@ -5349,11 +5516,16 @@
       "title": "Science: Biology",
       "subject": "Science",
       "gradeText": "GRADE(S): 10-12+",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recLbje4VqybSpi0f",
           "title": "Biology Lessons",
+          "gradeText": "GRADE(S): 10-12+",
+          "schedText": "5 times/week 45 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "recmN7LMD6XOgHxwB",
@@ -5517,6 +5689,9 @@
           "type": "topic",
           "id": "recqs5CJX6rm4MnPJ",
           "title": "Biology Labs",
+          "gradeText": "GRADE(S): 10-12+",
+          "schedText": "1 time/week 60 min *or_",
+          "shared": false,
           "books": [
             {
               "resourceId": "recWGzD58m6EMYioZ",
@@ -5556,11 +5731,16 @@
       "title": "Science: Physics",
       "subject": "Science",
       "gradeText": "GRADE(S): 11-12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recj36OQrkZkYtxM6",
           "title": "Physics Lessons",
+          "gradeText": "GRADE(S): 11-12",
+          "schedText": "5 times/week 45 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "recDMDo9ie5QCal7N",
@@ -5642,11 +5822,16 @@
       "title": "Science: Food Science",
       "subject": "Alt. Science Options",
       "gradeText": "GRADE(S): 9-12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "rec2J7Uc3ixLHrIIw",
           "title": "Food Science Lessons",
+          "gradeText": "GRADE(S): 9-12",
+          "schedText": "5 times/week 45 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec8XGWgtVYl2kw7Q",
@@ -5984,11 +6169,16 @@
       "title": "Science: Introduction to Engineering",
       "subject": "Alt. Science Options",
       "gradeText": "GRADE(S): 9-12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recDeupYbqp2v4Hpz",
           "title": "Introduction to Engineering Lessons",
+          "gradeText": "GRADE(S): 9-12",
+          "schedText": "5 times/week 45 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "reclCiCAHqfLzR2iO",
@@ -6217,11 +6407,16 @@
       "title": "Science: Botany",
       "subject": "Alt. Science Options",
       "gradeText": "GRADE(S): 9-12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recykTvcJ3yoG8O1t",
           "title": "Botany Lessons",
+          "gradeText": "GRADE(S): 9-12",
+          "schedText": "5 times/week 45 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "recSc3kZ3GKY7zcnw",
@@ -6759,11 +6954,16 @@
       "title": "Science: Advanced Nature Study",
       "subject": "Alt. Science Options",
       "gradeText": "GRADE(S): 9-12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recFKiqo3isVdxq8e",
           "title": "Advanced Nature Study Lessons",
+          "gradeText": "GRADE(S): 9-12",
+          "schedText": "5 times/week 45 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "recYzoHi8SECZm9DH",
@@ -6805,11 +7005,16 @@
       "title": "Science: Geology",
       "subject": "Alt. Science Options",
       "gradeText": "GRADE(S): 11-12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "rechpxDJlfYNeYf26",
           "title": "Geology Lessons",
+          "gradeText": "GRADE(S): 11-12",
+          "schedText": "5 times/week 45 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "recEt26KRk57juKYO",
@@ -7065,11 +7270,16 @@
       "title": "Science: Astronomy",
       "subject": "Alt. Science Options",
       "gradeText": "GRADE(S): 11-12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recXTURkL3qi6QDwx",
           "title": "Astronomy Lessons",
+          "gradeText": "GRADE(S): 11-12",
+          "schedText": "5 times/week 45 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec0Kv3iVP2d80NNZ",
@@ -7324,11 +7534,16 @@
       "title": "Science: Microbiology",
       "subject": "Alt. Science Options",
       "gradeText": "GRADE(S): 12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recFovwuS7zeV6AkE",
           "title": "Microbiology Lessons",
+          "gradeText": "GRADE(S): 12",
+          "schedText": "5 times/week 45 min *",
+          "shared": false,
           "books": [
             {
               "resourceId": "recFNNRqwF5Zatz2j",
@@ -7643,6 +7858,9 @@
           "type": "topic",
           "id": "rec7sSt6jDa0Ogs9W",
           "title": "Microbiology Labs",
+          "gradeText": "GRADE(S): 12",
+          "schedText": "1 time/week 60 min *or_",
+          "shared": false,
           "books": [
             {
               "resourceId": "rec3l9V2jvKLEyrAJ",
@@ -7689,11 +7907,16 @@
       "title": "Resources: Grade 12",
       "subject": "Suggested Resources",
       "gradeText": "GRADE(S): 12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "course",
           "id": "rec4dlS5S8PVYawuL",
           "title": "Resources: Grade 12",
+          "gradeText": "GRADE(S): 12",
+          "schedText": "",
+          "shared": false,
           "books": [
             {
               "resourceId": "recqEtI9344LV8lQQ",
@@ -7844,6 +8067,9 @@
           "type": "topic",
           "id": "recgB0ahib5RbcrAz",
           "title": "Afternoon Occupations: Grades 9-12 (Opt.)",
+          "gradeText": "GRADE(S): 9-12",
+          "schedText": "",
+          "shared": true,
           "books": [
             {
               "resourceId": "rec7FrmRjmju44ghI",

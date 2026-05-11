@@ -5,6 +5,8 @@
   "title": "Mathematics: Grade 12",
   "subject": "Math",
   "gradeText": "GRADE(S): 12",
+  "schedText": "",
+  "shared": false,
   "sortId": "",
   "bookCount": 2,
   "sections": [
@@ -12,6 +14,9 @@
       "type": "topic",
       "id": "recx9GYaBIsAr3FBg",
       "title": "Pre-Calculus: Part 2",
+      "gradeText": "GRADE(S): 12",
+      "schedText": "5 times/week 40 min *",
+      "shared": false,
       "books": [
         {
           "resourceId": "recBToi9LtJZphztW",
@@ -54,6 +59,9 @@
       "type": "topic",
       "id": "recEohsqHGUHTgrJP",
       "title": "Calculus: Part 1",
+      "gradeText": "GRADE(S): 12",
+      "schedText": "5 times/week 40 min *",
+      "shared": false,
       "books": [
         {
           "resourceId": "recWxUYXUJvlXYpTX",

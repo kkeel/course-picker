@@ -5,6 +5,8 @@
   "title": "Bible: Grades 4-6",
   "subject": "Bible",
   "gradeText": "GRADE(S): 4-6",
+  "schedText": "",
+  "shared": false,
   "sortId": "",
   "bookCount": 8,
   "sections": [
@@ -12,6 +14,9 @@
       "type": "topic",
       "id": "recj6cQqX6s5LfVuZ",
       "title": "Old Testament: Grades 3-6",
+      "gradeText": "GRADE(S): 3-6",
+      "schedText": "2 times/week 20 min * 🅃",
+      "shared": true,
       "books": [
         {
           "resourceId": "recg0MzdbBT0JchkF",
@@ -141,6 +146,9 @@
       "type": "topic",
       "id": "rec8fMADfpLzUlCnb",
       "title": "New Testament: Grades 3-6",
+      "gradeText": "GRADE(S): 3-6",
+      "schedText": "2 times/week 20 min * 🅃",
+      "shared": true,
       "books": [
         {
           "resourceId": "recg0MzdbBT0JchkF",
@@ -270,6 +278,9 @@
       "type": "topic",
       "id": "recCOrbaUNGj2YrC8",
       "title": "Church History: Grades 4-6",
+      "gradeText": "GRADE(S): 4-6",
+      "schedText": "1 time/week 20 min * 🅃",
+      "shared": false,
       "books": [
         {
           "resourceId": "rec6thjeweXRTy0W4",

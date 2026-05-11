@@ -10,11 +10,16 @@
       "title": "PE: Grades 1-3",
       "subject": "Physical Education",
       "gradeText": "GRADE(S): 1-3",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recAuJptpZmgrYS9m",
           "title": "Playground Songs & Rhymes",
+          "gradeText": "GRADE(S): 1-3",
+          "schedText": "1 time/week 20 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "recZlQfkeOi88FxOK",
@@ -58,6 +63,9 @@
           "type": "topic",
           "id": "recJlZCpkXG6vSIdC",
           "title": "Jump Rope",
+          "gradeText": "GRADE(S): 1-3",
+          "schedText": "1 time/week 20 min * 🅃",
+          "shared": false,
           "books": [
             {
               "resourceId": "recZlQfkeOi88FxOK",
@@ -101,6 +109,9 @@
           "type": "topic",
           "id": "recAB9geLqGyqTDkg",
           "title": "Folk Dancing",
+          "gradeText": "GRADE(S): 1-6",
+          "schedText": "1 time/week 20 min * 🅃",
+          "shared": true,
           "books": [
             {
               "resourceId": "reciobkv0sISyFiIz",
@@ -148,11 +159,16 @@
       "title": "PE: Grades 4-6",
       "subject": "Physical Education",
       "gradeText": "GRADE(S): 4-6",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recx2i8TLYVdU0pPc",
           "title": "Playground Games",
+          "gradeText": "GRADE(S): 4-12",
+          "schedText": "1 time/week 20 min *or_ ⬔",
+          "shared": true,
           "books": [
             {
               "resourceId": "recO7o2cHORX18JsY",
@@ -196,6 +212,9 @@
           "type": "topic",
           "id": "reckAZIlzzO3IwsSY",
           "title": "Sports",
+          "gradeText": "GRADE(S): 4-12",
+          "schedText": "1 time/week 20 min *or_ ⬔",
+          "shared": true,
           "books": [
             {
               "resourceId": "recO7o2cHORX18JsY",
@@ -239,6 +258,9 @@
           "type": "topic",
           "id": "reclZXm6TOqOcFHbV",
           "title": "Free Play/ Circuits",
+          "gradeText": "GRADE(S): 4-12",
+          "schedText": "2 times/week 20 min *or_ ⬔",
+          "shared": true,
           "books": [
             {
               "resourceId": "recavFDwkQjBdb9fc",
@@ -287,6 +309,9 @@
           "type": "topic",
           "id": "recAB9geLqGyqTDkg",
           "title": "Folk Dancing",
+          "gradeText": "GRADE(S): 1-6",
+          "schedText": "1 time/week 20 min * 🅃",
+          "shared": true,
           "books": [
             {
               "resourceId": "reciobkv0sISyFiIz",
@@ -334,11 +359,16 @@
       "title": "PE: Grades 7-12",
       "subject": "Physical Education",
       "gradeText": "GRADE(S): 7-12",
+      "schedText": "",
+      "shared": false,
       "sections": [
         {
           "type": "topic",
           "id": "recx2i8TLYVdU0pPc",
           "title": "Playground Games",
+          "gradeText": "GRADE(S): 4-12",
+          "schedText": "1 time/week 20 min *or_ ⬔",
+          "shared": true,
           "books": [
             {
               "resourceId": "recO7o2cHORX18JsY",
@@ -382,6 +412,9 @@
           "type": "topic",
           "id": "reckAZIlzzO3IwsSY",
           "title": "Sports",
+          "gradeText": "GRADE(S): 4-12",
+          "schedText": "1 time/week 20 min *or_ ⬔",
+          "shared": true,
           "books": [
             {
               "resourceId": "recO7o2cHORX18JsY",
@@ -425,6 +458,9 @@
           "type": "topic",
           "id": "reclZXm6TOqOcFHbV",
           "title": "Free Play/ Circuits",
+          "gradeText": "GRADE(S): 4-12",
+          "schedText": "2 times/week 20 min *or_ ⬔",
+          "shared": true,
           "books": [
             {
               "resourceId": "recavFDwkQjBdb9fc",

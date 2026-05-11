@@ -5,6 +5,8 @@
   "title": "Music: Level 2",
   "subject": "Music",
   "gradeText": "GRADE(S): 3+",
+  "schedText": "",
+  "shared": false,
   "sortId": "",
   "bookCount": 7,
   "sections": [
@@ -12,6 +14,9 @@
       "type": "course",
       "id": "recaWyew9abtlktQB",
       "title": "Music: Level 2",
+      "gradeText": "GRADE(S): 3+",
+      "schedText": "",
+      "shared": false,
       "books": [
         {
           "resourceId": "rectZLk9X7Vjlf8dG",
@@ -54,6 +59,9 @@
       "type": "topic",
       "id": "recc7G1pOR69hhyYk",
       "title": "Composer Study",
+      "gradeText": "GRADE(S): 2-12",
+      "schedText": "1 time/week 10 min * ⬔ (Grades 2-4)\n1 time/week 15 min * ☐ (Grades 5-12)",
+      "shared": true,
       "books": [
         {
           "resourceId": "recpKgqZdLHd9C6gr",
@@ -165,6 +173,9 @@
       "type": "topic",
       "id": "recd3yaMAQJpdn7CR",
       "title": "Hymns & Spirituals",
+      "gradeText": "GRADE(S): 1-12",
+      "schedText": "1 time/week 10 min * 🅃",
+      "shared": true,
       "books": [
         {
           "resourceId": "recDLRBTspENoopYR",
@@ -213,6 +224,9 @@
       "type": "topic",
       "id": "rec3VWzJd0IeiTO7V",
       "title": "Folk Songs",
+      "gradeText": "GRADE(S): 1-12",
+      "schedText": "1 time/week 10 min * 🅃",
+      "shared": true,
       "books": [
         {
           "resourceId": "recPb5gHeLu8G3EXl",
@@ -261,6 +275,9 @@
       "type": "topic",
       "id": "recpGNmYUmRPSyd8C",
       "title": "Sol-fa: Level 2",
+      "gradeText": "GRADE(S): 3+",
+      "schedText": "1 time/week 10 min * 🅃",
+      "shared": false,
       "books": [
         {
           "resourceId": "reckCyEXWqUvcQwa5",

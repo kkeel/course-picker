@@ -5,6 +5,8 @@
   "title": "Literature: Grade 12",
   "subject": "Literature",
   "gradeText": "GRADE(S): 12",
+  "schedText": "",
+  "shared": false,
   "sortId": "",
   "bookCount": 22,
   "sections": [
@@ -12,6 +14,9 @@
       "type": "topic",
       "id": "recvgYTB1CAmd95Rc",
       "title": "General Lit.: Grades 11-12",
+      "gradeText": "GRADE(S): 11-12",
+      "schedText": "2 times/week 30 min *",
+      "shared": true,
       "books": [
         {
           "resourceId": "recj4Gq2c9BzAopg7",
@@ -324,6 +329,9 @@
       "type": "topic",
       "id": "rec5wXA5KBcOmYuUn",
       "title": "History of Lit: Grades 9-12",
+      "gradeText": "GRADE(S): 9-12",
+      "schedText": "1 time/week 30 min *",
+      "shared": true,
       "books": [
         {
           "resourceId": "rec0oGsLUHcktbS7b",
@@ -440,6 +448,9 @@
       "type": "topic",
       "id": "recWOVocAqR0UddsI",
       "title": "Plays: Grades 9-12",
+      "gradeText": "GRADE(S): 9-12",
+      "schedText": "1 time/week 30 min _",
+      "shared": true,
       "books": [
         {
           "resourceId": "rec3tqEcEYbMVNjBk",
@@ -701,6 +712,9 @@
       "type": "topic",
       "id": "rec3N3kFIZxbpKFYW",
       "title": "Poetry Reading: Grades 9-12",
+      "gradeText": "GRADE(S): 9-12",
+      "schedText": "2 times/week 15 min *or_",
+      "shared": true,
       "books": [
         {
           "resourceId": "recKbcZA9XmKjjn8b",

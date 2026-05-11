@@ -5,6 +5,8 @@
   "title": "Health Elective (Beta)",
   "subject": "Life Skills",
   "gradeText": "GRADE(S): 10-12",
+  "schedText": "3 times/week 45 min *or_ ⬔",
+  "shared": false,
   "sortId": "",
   "bookCount": 4,
   "sections": [
@@ -12,6 +14,9 @@
       "type": "course",
       "id": "recZZNDbRzKrPaN5D",
       "title": "Health Elective (Beta)",
+      "gradeText": "GRADE(S): 10-12",
+      "schedText": "3 times/week 45 min *or_ ⬔",
+      "shared": false,
       "books": [
         {
           "resourceId": "recJTXFBabxJ0OLed",

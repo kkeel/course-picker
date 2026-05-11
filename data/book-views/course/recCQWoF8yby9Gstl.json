@@ -5,6 +5,8 @@
   "title": "Citizenship: Grade 8 (U.S.)",
   "subject": "Citizenship",
   "gradeText": "GRADE(S): 8",
+  "schedText": "",
+  "shared": false,
   "sortId": "",
   "bookCount": 5,
   "sections": [
@@ -12,6 +14,9 @@
       "type": "topic",
       "id": "recNZjfwI3SeCuONn",
       "title": "Plutarch: Grades 6-8",
+      "gradeText": "GRADE(S): 6-8+",
+      "schedText": "1 time/week 30 min * 🅃",
+      "shared": true,
       "books": [
         {
           "resourceId": "reca6JrCf4DtEZII1",
@@ -96,6 +101,9 @@
       "type": "topic",
       "id": "rec46I88QSFQIJwng",
       "title": "American Gov./ Economics: Grade 8",
+      "gradeText": "GRADE(S): 8",
+      "schedText": "1 time/week 30 min * 🅃",
+      "shared": false,
       "books": [
         {
           "resourceId": "reccvFARcG21ppLkY",
@@ -167,6 +175,9 @@
       "type": "topic",
       "id": "recUtBqECZE6X45Nt",
       "title": "Ethics: Part 2",
+      "gradeText": "GRADE(S): 8+",
+      "schedText": "1 time/week 25 min * 🅃",
+      "shared": true,
       "books": [
         {
           "resourceId": "recLHdhKMfjC9IAKG",

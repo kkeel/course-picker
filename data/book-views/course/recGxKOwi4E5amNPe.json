@@ -5,6 +5,8 @@
   "title": "Music: Intro",
   "subject": "Music",
   "gradeText": "GRADE(S): 1+",
+  "schedText": "",
+  "shared": false,
   "sortId": "",
   "bookCount": 7,
   "sections": [
@@ -12,6 +14,9 @@
       "type": "course",
       "id": "recGxKOwi4E5amNPe",
       "title": "Music: Intro",
+      "gradeText": "GRADE(S): 1+",
+      "schedText": "",
+      "shared": false,
       "books": [
         {
           "resourceId": "rectZLk9X7Vjlf8dG",
@@ -95,6 +100,9 @@
       "type": "topic",
       "id": "recQnNMrVmgVQUVVT",
       "title": "Music Appreciation",
+      "gradeText": "GRADE(S): 1",
+      "schedText": "1 time/week 10 min * 🅃",
+      "shared": false,
       "books": [
         {
           "resourceId": "recwSXrQ9crAhXWV3",
@@ -172,6 +180,9 @@
       "type": "topic",
       "id": "recd3yaMAQJpdn7CR",
       "title": "Hymns & Spirituals",
+      "gradeText": "GRADE(S): 1-12",
+      "schedText": "1 time/week 10 min * 🅃",
+      "shared": true,
       "books": [
         {
           "resourceId": "recDLRBTspENoopYR",
@@ -220,6 +231,9 @@
       "type": "topic",
       "id": "rec3VWzJd0IeiTO7V",
       "title": "Folk Songs",
+      "gradeText": "GRADE(S): 1-12",
+      "schedText": "1 time/week 10 min * 🅃",
+      "shared": true,
       "books": [
         {
           "resourceId": "recPb5gHeLu8G3EXl",
@@ -268,6 +282,9 @@
       "type": "topic",
       "id": "reclhERbHEXrGEJTn",
       "title": "Sol-fa: Musical Games",
+      "gradeText": "GRADE(S): 1",
+      "schedText": "1 time/week 10 min * 🅃",
+      "shared": false,
       "books": [
         {
           "resourceId": "recoemutvxjrSGUVb",
