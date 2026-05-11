@@ -601,3 +601,27 @@ a {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 6.8v10.4L18 12 7 6.8z'/%3E%3C/svg%3E");
           mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 6.8v10.4L18 12 7 6.8z'/%3E%3C/svg%3E");
 }
+
+.book-section-meta {
+  margin: -6px 0 12px;
+  display: flex;
+  align-items: flex-start;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 200;
+  color: var(--brand-muted);
+}
+
+.book-meta-schedule {
+  white-space: pre-line;
+}
+
+.book-meta-schedule + .book-meta-grade {
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 1px solid #e5e8e5;
+}
+
+.book-meta-grade {
+  white-space: normal;
+}
