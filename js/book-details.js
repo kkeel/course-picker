@@ -385,8 +385,14 @@ function renderCourseTopicMode(items) {
     return `
       <section class="book-course" style="--subject-color: ${subjectColor(item.subject)};">
         <div class="book-course-head">
-          <h2>${escapeHtml(item.title)}</h2>
-          <div>${escapeHtml(item.subject || "")} ${item.gradeText ? `• ${escapeHtml(item.gradeText)}` : ""}</div>
+          <h2>${item.shared ? "↔ " : ""}${escapeHtml(item.title)}</h2>
+        
+          ${(item.schedText || item.gradeText || item.subject) ? `
+            <div class="book-section-meta book-section-meta--course">
+              ${item.schedText ? `<span class="book-meta-schedule">${escapeHtml(item.schedText)}</span>` : ""}
+              ${item.gradeText ? `<span class="book-meta-grade">${escapeHtml(item.gradeText)}</span>` : ""}
+            </div>
+          ` : ""}
         </div>
 
         ${
@@ -394,6 +400,13 @@ function renderCourseTopicMode(items) {
             ? visibleSections.map((section) => `
                 <section class="book-section">
                   <h3>${section.shared ? "↔ " : ""}${escapeHtml(section.title)}</h3>
+
+                    ${(section.schedText || section.gradeText) ? `
+                      <div class="book-section-meta">
+                        ${section.schedText ? `<span class="book-meta-schedule">${escapeHtml(section.schedText)}</span>` : ""}
+                        ${section.gradeText ? `<span class="book-meta-grade">${escapeHtml(section.gradeText)}</span>` : ""}
+                      </div>
+                    ` : ""}
 
                   <div class="book-card-list">
                     ${(section.books || []).map(renderBookCard).join("")}
