@@ -246,9 +246,9 @@ function syncControls() {
 
 function renderBookCard(book) {
   const badges = [
+    book.gradeLevelTag ? { label: book.gradeLevelTag, className: "book-badge--grade" } : null,
     book.optional ? { label: "Optional", className: "book-badge--optional" } : null,
     book.chooseOne ? { label: "Choose one", className: "book-badge--choose-one" } : null,
-    book.formatTags ? { label: book.formatTags, className: "book-badge--format" } : null,
   ].filter(Boolean);
 
   return `
@@ -304,11 +304,11 @@ function renderBookCard(book) {
                     <span>${escapeHtml(book.notes)}</span>
                   </div>
                 ` : ""}
-
+            
                 ${book.formatTags ? `
-                  <div>
+                  <div class="book-format-row">
                     <span class="book-tipbox-label">Alt. Formats:</span>
-                    <span>${escapeHtml(book.formatTags)}</span>
+                    <span class="book-format-pill">${escapeHtml(book.formatTags)}</span>
                   </div>
                 ` : ""}
               </div>
@@ -324,6 +324,14 @@ function renderBookCard(book) {
                 <div class="book-meta-text">${escapeHtml(book.scopeText)}</div>
               </div>
             ` : ""}
+
+            <div class="book-meta-block book-purchase-block">
+              <div class="book-meta-label">Purchase Options</div>
+              <div class="book-link-row">
+                <span class="book-link-pill">Option 1</span>
+                <span class="book-link-pill">Option 2</span>
+              </div>
+            </div>
 
             ${book.sharedText ? `
               <div class="book-meta-block">
