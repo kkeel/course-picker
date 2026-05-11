@@ -533,6 +533,25 @@ function bindControls() {
       }
     });
   });
+  document.getElementById("clear-filters").addEventListener("click", async () => {
+    state.id = state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE;
+    state.course = "";
+    state.topic = "";
+    state.track = "";
+    state.query = "";
+
+    document.getElementById("book-search").value = "";
+
+    await loadView();
+  });
+
+  document.getElementById("toggle-filters").addEventListener("click", () => {
+    const controls = document.getElementById("book-controls");
+    const button = document.getElementById("toggle-filters");
+    const isCollapsed = controls.classList.toggle("is-collapsed");
+
+    button.textContent = isCollapsed ? "Show" : "Hide";
+  });
 }
 
 async function init() {
