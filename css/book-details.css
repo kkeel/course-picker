@@ -342,3 +342,7 @@ a {
     justify-content: flex-start;
   }
 }
+
+.book-course {
+  border-color: var(--subject-color, var(--divider-subtle));
+}
