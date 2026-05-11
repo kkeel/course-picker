@@ -187,30 +187,42 @@ function populateCourseTopicFilters() {
 
   const items = (state.data?.items || []).filter(itemMatchesTrack);
 
-  const courseStillExists = items.some((item) => item.id === state.course);
+  const courseStillExists = !state.course || items.some((item) => item.id === state.course);
   if (!courseStillExists) {
     state.course = "";
     state.topic = "";
   }
 
   const selectedCourse = items.find((item) => item.id === state.course);
-  const topicSourceItems = selectedCourse ? [selectedCourse] : items;
 
   const topics = [];
 
-  for (const item of topicSourceItems) {
+  for (const item of items) {
     for (const section of item.sections || []) {
       if (section.type === "topic") {
         topics.push({
           id: section.id,
           title: section.title,
+          courseId: item.id,
           courseTitle: item.title,
         });
       }
     }
   }
 
-  const topicStillExists = topics.some((topic) => topic.id === state.topic);
+  if (state.course && state.topic) {
+    const topicBelongsToCourse = topics.some(
+      (topic) => topic.id === state.topic && topic.courseId === state.course
+    );
+
+    if (!topicBelongsToCourse) state.topic = "";
+  }
+
+  const visibleTopics = selectedCourse
+    ? topics.filter((topic) => topic.courseId === selectedCourse.id)
+    : topics;
+
+  const topicStillExists = !state.topic || visibleTopics.some((topic) => topic.id === state.topic);
   if (!topicStillExists) state.topic = "";
 
   courseSelect.innerHTML = `
@@ -222,7 +234,7 @@ function populateCourseTopicFilters() {
 
   topicSelect.innerHTML = `
     <option value="">All topics</option>
-    ${topics.map((topic) => `
+    ${visibleTopics.map((topic) => `
       <option value="${escapeHtml(topic.id)}">
         ${escapeHtml(topic.courseTitle)} — ${escapeHtml(topic.title)}
       </option>
@@ -231,6 +243,24 @@ function populateCourseTopicFilters() {
 
   courseSelect.value = state.course;
   topicSelect.value = state.topic;
+}
+
+function syncClearButtons() {
+  document.querySelectorAll(".clear-select").forEach((button) => {
+    const clearType = button.dataset.clear;
+
+    let isActive = false;
+
+    if (clearType === "primary") {
+      isActive = state.id !== (state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE);
+    }
+
+    if (clearType === "track") isActive = Boolean(state.track);
+    if (clearType === "course") isActive = Boolean(state.course);
+    if (clearType === "topic") isActive = Boolean(state.topic);
+
+    button.hidden = !isActive;
+  });
 }
 
 function syncControls() {
@@ -242,6 +272,7 @@ function syncControls() {
 
   populatePrimarySelector();
   populateCourseTopicFilters();
+  syncClearButtons();
 }
 
 function renderBookCard(book) {
@@ -531,6 +562,14 @@ function bindControls() {
         writeParams();
         render();
       }
+
+      if (clearType === "track") {
+        state.track = "";
+        writeParams();
+        render();
+        return;
+      }
+      
     });
   });
   document.getElementById("clear-filters").addEventListener("click", async () => {
