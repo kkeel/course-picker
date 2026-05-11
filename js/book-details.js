@@ -332,34 +332,37 @@ function renderBookCard(book) {
             ` : ""}
           </div>
 
-          <div class="book-main-right">
-            <div class="book-scope-column">
-              ${book.scopeText ? `
-                <div class="book-meta-block">
-                  <div class="book-meta-label">Scope</div>
-                  <div class="book-meta-text">${escapeHtml(book.scopeText)}</div>
-                </div>
-              ` : ""}
-            </div>
-          
-            <div class="book-actions-column">
-              ${purchaseOptions.length ? `
-                <div class="book-meta-block book-purchase-block">
-                  <div class="book-meta-label">Purchase Options</div>
-                  <div class="book-link-row">
-                    ${purchaseOptions.map((option) => `
-                      <span class="book-link-pill">${escapeHtml(option.label)}</span>
-                    `).join("")}
+          <div class="book-main-divider" aria-hidden="true"></div>
+
+            <div class="book-main-right">
+              <div class="book-scope-column">
+                ${book.scopeText ? `
+                  <div class="book-meta-block book-meta-block--scope">
+                    <div class="book-meta-label">Scope</div>
+                    <div class="book-meta-text">${escapeHtml(book.scopeText)}</div>
                   </div>
-                </div>
-              ` : ""}
-          
-              ${book.sharedText ? `
-                <div class="book-meta-block book-shared-block">
-                  <div class="book-meta-label">↔ Shared</div>
-                  <div class="book-meta-text">${escapeHtml(book.sharedText)}</div>
-                </div>
-              ` : ""}
+                ` : ""}
+              </div>
+            
+              <div class="book-actions-column">
+                ${purchaseOptions.length ? `
+                  <div class="book-meta-block book-purchase-block">
+                    <div class="book-meta-label">Purchase Options</div>
+                    <div class="book-link-row">
+                      ${purchaseOptions.map((option) => `
+                        <span class="book-link-pill">${escapeHtml(option.label)}</span>
+                      `).join("")}
+                    </div>
+                  </div>
+                ` : ""}
+            
+                ${book.sharedText ? `
+                  <div class="book-meta-block book-shared-block">
+                    <div class="book-meta-label">↔ Shared</div>
+                    <div class="book-meta-text">${escapeHtml(book.sharedText)}</div>
+                  </div>
+                ` : ""}
+              </div>
             </div>
           </div>
         </div>
