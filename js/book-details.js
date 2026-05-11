@@ -246,36 +246,93 @@ function syncControls() {
 
 function renderBookCard(book) {
   const badges = [
-    book.optional ? "Optional" : "",
-    book.chooseOne ? "Choose One" : "",
-    book.formatTags || "",
+    book.optional ? { label: "Optional", className: "book-badge--optional" } : null,
+    book.chooseOne ? { label: "Choose one", className: "book-badge--choose-one" } : null,
+    book.formatTags ? { label: book.formatTags, className: "book-badge--format" } : null,
   ].filter(Boolean);
 
   return `
     <article class="book-card">
+      ${badges.length ? `
+        <div class="book-card-badges">
+          ${badges.map((badge) => `
+            <span class="book-badge ${badge.className}">${escapeHtml(badge.label)}</span>
+          `).join("")}
+        </div>
+      ` : ""}
+
       <div class="book-cover-wrap">
         <img
           class="book-cover"
           src="./${escapeHtml(book.imagePath || book.placeholderPath || "")}"
           alt=""
           loading="lazy"
-          onerror="this.style.display='none'"
+          onerror="
+            if (this.dataset.fallback !== 'placeholder') {
+              this.dataset.fallback = 'placeholder';
+              this.src = './img/placeholders/book.svg';
+            } else {
+              this.style.display='none';
+            }
+          "
         >
       </div>
 
       <div class="book-card-body">
-        <div class="book-card-head">
-          <h4 class="book-card-title">${escapeHtml(book.title)}</h4>
-          ${badges.length ? `<div class="book-badges">${badges.map((b) => `<span>${escapeHtml(b)}</span>`).join("")}</div>` : ""}
+        <div class="book-main-row">
+          <div class="book-main-left">
+            <h4 class="book-card-title">${escapeHtml(book.title)}</h4>
+
+            <div class="book-subline">
+              ${book.author ? `<span>by ${escapeHtml(book.author)}</span>` : ""}
+              ${book.isbn ? `<span>ISBN: ${escapeHtml(book.isbn)}</span>` : ""}
+              ${book.asin ? `<span>ASIN: ${escapeHtml(book.asin)}</span>` : ""}
+            </div>
+
+            ${book.rationale ? `
+              <p class="book-rationale">
+                <span class="book-rationale-label">Why we chose it:</span>
+                <span>${escapeHtml(book.rationale)}</span>
+              </p>
+            ` : ""}
+
+            ${(book.notes || book.formatTags) ? `
+              <div class="book-tipbox">
+                ${book.notes ? `
+                  <div>
+                    <span class="book-tipbox-label">Note:</span>
+                    <span>${escapeHtml(book.notes)}</span>
+                  </div>
+                ` : ""}
+
+                ${book.formatTags ? `
+                  <div>
+                    <span class="book-tipbox-label">Alt. Formats:</span>
+                    <span>${escapeHtml(book.formatTags)}</span>
+                  </div>
+                ` : ""}
+              </div>
+            ` : ""}
+          </div>
+
+          <div class="book-main-divider"></div>
+
+          <div class="book-main-right">
+            ${book.scopeText ? `
+              <div class="book-meta-block">
+                <div class="book-meta-label">Used</div>
+                <div class="book-meta-text">${escapeHtml(book.scopeText)}</div>
+              </div>
+            ` : ""}
+
+            ${book.sharedText ? `
+              <div class="book-meta-block">
+                <div class="book-meta-label">Also Used In</div>
+                <div class="book-meta-text">${escapeHtml(book.sharedText)}</div>
+              </div>
+            ` : ""}
+          </div>
         </div>
-
-        ${book.author ? `<div class="book-author">${escapeHtml(book.author)}</div>` : ""}
-
-        ${book.scopeText ? `<div class="book-meta"><strong>Used:</strong> ${escapeHtml(book.scopeText)}</div>` : ""}
-        ${book.sharedText ? `<div class="book-meta"><strong>Also used in:</strong> ${escapeHtml(book.sharedText)}</div>` : ""}
-
-        ${book.rationale ? `<p class="book-rationale">${escapeHtml(book.rationale)}</p>` : ""}
-        ${book.notes ? `<p class="book-notes">${escapeHtml(book.notes)}</p>` : ""}
       </div>
     </article>
   `;
