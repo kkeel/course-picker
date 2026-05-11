@@ -104,14 +104,21 @@ a {
 .book-controls-body {
   padding: 16px 14px 18px;
   display: grid;
-  grid-template-columns:
-    minmax(170px, 0.8fr)
-    minmax(190px, 1fr)
-    minmax(170px, 0.9fr)
-    minmax(220px, 1.2fr)
-    minmax(220px, 1.2fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 14px;
   align-items: end;
+}
+
+.control-view {
+  min-width: 220px;
+}
+
+.control-search {
+  grid-column: 1 / span 2;
+}
+
+.control-actions {
+  grid-column: 1 / -1;
 }
 
 .book-controls.is-collapsed .book-controls-body {
@@ -701,4 +708,34 @@ a {
 
 .book-meta-grade {
   white-space: normal;
+}
+
+@media (max-width: 1200px) {
+  .book-controls-body {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .control-view {
+    grid-column: 1 / -1;
+  }
+
+  .control-search {
+    grid-column: 1 / span 2;
+  }
+}
+
+@media (max-width: 760px) {
+  .book-controls-body {
+    grid-template-columns: 1fr;
+  }
+
+  .control-view,
+  .control-search,
+  .control-actions {
+    grid-column: 1;
+  }
+
+  .book-base-toggle {
+    flex-wrap: wrap;
+  }
 }
