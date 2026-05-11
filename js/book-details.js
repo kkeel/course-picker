@@ -260,8 +260,10 @@ function renderBookCard(book) {
 
   const tipRows = [
     book.noteText ? { label: "NOTE:", text: book.noteText, className: "book-note-row" } : null,
-    book.maySubText ? { label: "MAY SUBSTITUTE:", text: book.maySubText, className: "book-may-sub-row" } : null,
-    book.discountText ? { label: "DISCOUNT:", text: book.discountText.replace(/^Discount:\s*/i, ""), className: "book-discount-row" } : null,
+    book.maySubText ? { label: "➜ May sub:", text: book.maySubText, className: "book-may-sub-row" } : null,
+    // Hide discount/code on the public view for now.
+    // We can restore this later inside Member Tools mode.
+    null,
   ].filter(Boolean);
 
   const formatOptions = Array.isArray(book.formatOptions) ? book.formatOptions : [];
@@ -339,30 +341,34 @@ function renderBookCard(book) {
           </div>
 
           <div class="book-main-right">
-            ${book.scopeText ? `
-              <div class="book-meta-block">
-                <div class="book-meta-label">Scope</div>
-                <div class="book-meta-text">${escapeHtml(book.scopeText)}</div>
-              </div>
-            ` : ""}
-
-            ${purchaseOptions.length ? `
-              <div class="book-meta-block book-purchase-block">
-                <div class="book-meta-label">Purchase Options</div>
-                <div class="book-link-row">
-                  ${purchaseOptions.map((option) => `
-                    <span class="book-link-pill">${escapeHtml(option.label)}</span>
-                  `).join("")}
+            <div class="book-scope-column">
+              ${book.scopeText ? `
+                <div class="book-meta-block">
+                  <div class="book-meta-label">Scope</div>
+                  <div class="book-meta-text">${escapeHtml(book.scopeText)}</div>
                 </div>
-              </div>
-            ` : ""}
-
-            ${book.sharedText ? `
-              <div class="book-meta-block book-shared-block">
-                <div class="book-meta-label">↳ Also used in</div>
-                <div class="book-meta-text">${escapeHtml(book.sharedText)}</div>
-              </div>
-            ` : ""}
+              ` : ""}
+            </div>
+          
+            <div class="book-actions-column">
+              ${purchaseOptions.length ? `
+                <div class="book-meta-block book-purchase-block">
+                  <div class="book-meta-label">Purchase Options</div>
+                  <div class="book-link-row">
+                    ${purchaseOptions.map((option) => `
+                      <span class="book-link-pill">${escapeHtml(option.label)}</span>
+                    `).join("")}
+                  </div>
+                </div>
+              ` : ""}
+          
+              ${book.sharedText ? `
+                <div class="book-meta-block book-shared-block">
+                  <div class="book-meta-label">↔ Shared</div>
+                  <div class="book-meta-text">${escapeHtml(book.sharedText)}</div>
+                </div>
+              ` : ""}
+            </div>
           </div>
         </div>
       </div>
