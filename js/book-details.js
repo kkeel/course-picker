@@ -244,12 +244,28 @@ function syncControls() {
   populateCourseTopicFilters();
 }
 
+function formatIcon(type) {
+  if (type === "ebook") return "▣";
+  if (type === "audiobook") return "▶";
+  if (type === "video") return "◉";
+  return "◆";
+}
+
 function renderBookCard(book) {
   const badges = [
     book.gradeLevelTag ? { label: book.gradeLevelTag, className: "book-badge--grade" } : null,
     book.optional ? { label: "Optional", className: "book-badge--optional" } : null,
     book.chooseOne ? { label: "Choose one", className: "book-badge--choose-one" } : null,
   ].filter(Boolean);
+
+  const tipRows = [
+    book.noteText ? { label: "NOTE:", text: book.noteText, className: "book-note-row" } : null,
+    book.maySubText ? { label: "MAY SUBSTITUTE:", text: book.maySubText, className: "book-may-sub-row" } : null,
+    book.discountText ? { label: "DISCOUNT:", text: book.discountText.replace(/^Discount:\s*/i, ""), className: "book-discount-row" } : null,
+  ].filter(Boolean);
+
+  const formatOptions = Array.isArray(book.formatOptions) ? book.formatOptions : [];
+  const purchaseOptions = Array.isArray(book.purchaseOptions) ? book.purchaseOptions : [];
 
   return `
     <article class="book-card">
@@ -291,51 +307,59 @@ function renderBookCard(book) {
 
             ${book.rationale ? `
               <p class="book-rationale">
-                <span class="book-rationale-label">Why we chose it:</span>
+                <span class="book-rationale-label">➜ RATIONALE:</span>
                 <span>${escapeHtml(book.rationale)}</span>
               </p>
             ` : ""}
 
-            ${(book.notes || book.formatTags) ? `
+            ${(tipRows.length || formatOptions.length) ? `
               <div class="book-tipbox">
-                ${book.notes ? `
-                  <div>
-                    <span class="book-tipbox-label">Note:</span>
-                    <span>${escapeHtml(book.notes)}</span>
+                ${tipRows.map((row) => `
+                  <div class="${row.className}">
+                    <span class="book-tipbox-label">${escapeHtml(row.label)}</span>
+                    <span>${escapeHtml(row.text)}</span>
                   </div>
-                ` : ""}
-            
-                ${book.formatTags ? `
+                `).join("")}
+
+                ${formatOptions.length ? `
                   <div class="book-format-row">
-                    <span class="book-tipbox-label">Alt. Formats:</span>
-                    <span class="book-format-pill">${escapeHtml(book.formatTags)}</span>
+                    <span class="book-tipbox-label">ALT. FORMATS:</span>
+                    <span class="book-format-list">
+                      ${formatOptions.map((option) => `
+                        <span class="book-format-pill book-format-pill--${escapeHtml(option.type || "other")}">
+                          <span class="book-format-icon">${formatIcon(option.type)}</span>
+                          ${escapeHtml(option.label)}
+                        </span>
+                      `).join("")}
+                    </span>
                   </div>
                 ` : ""}
               </div>
             ` : ""}
           </div>
 
-          <div class="book-main-divider"></div>
-
           <div class="book-main-right">
             ${book.scopeText ? `
               <div class="book-meta-block">
-                <div class="book-meta-label">Used</div>
+                <div class="book-meta-label">Scope</div>
                 <div class="book-meta-text">${escapeHtml(book.scopeText)}</div>
               </div>
             ` : ""}
 
-            <div class="book-meta-block book-purchase-block">
-              <div class="book-meta-label">Purchase Options</div>
-              <div class="book-link-row">
-                <span class="book-link-pill">Option 1</span>
-                <span class="book-link-pill">Option 2</span>
+            ${purchaseOptions.length ? `
+              <div class="book-meta-block book-purchase-block">
+                <div class="book-meta-label">Purchase Options</div>
+                <div class="book-link-row">
+                  ${purchaseOptions.map((option) => `
+                    <span class="book-link-pill">${escapeHtml(option.label)}</span>
+                  `).join("")}
+                </div>
               </div>
-            </div>
+            ` : ""}
 
             ${book.sharedText ? `
-              <div class="book-meta-block">
-                <div class="book-meta-label">Also Used In</div>
+              <div class="book-meta-block book-shared-block">
+                <div class="book-meta-label">↳ Also used in</div>
                 <div class="book-meta-text">${escapeHtml(book.sharedText)}</div>
               </div>
             ` : ""}
