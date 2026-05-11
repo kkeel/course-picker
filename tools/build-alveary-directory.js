@@ -192,22 +192,56 @@ function buildAssignmentsByTarget(assignmentsJson) {
   return out;
 }
 
+function parseIsbnAsin(value) {
+  const text = String(value || "").trim();
+  if (!text) return { isbn: "", asin: "" };
+
+  if (/asin/i.test(text)) return { isbn: "", asin: text.replace(/asin\s*[:#-]?\s*/i, "").trim() };
+  return { isbn: text.replace(/isbn\s*[:#-]?\s*/i, "").trim(), asin: "" };
+}
+
+function formatOptionsFromTagText(text) {
+  const raw = String(text || "").trim();
+  if (!raw) return [];
+
+  return raw
+    .split(/[,;/|]+/)
+    .map((x) => x.trim())
+    .filter(Boolean)
+    .map((label) => {
+      const key = label.toLowerCase();
+      let type = "other";
+      if (key.includes("audio")) type = "audiobook";
+      else if (key.includes("ebook") || key.includes("e-book")) type = "ebook";
+      else if (key.includes("video")) type = "video";
+
+      return { type, label };
+    });
+}
+
+function publicPurchaseOptions(resource) {
+  return (resource?.links || []).map((link, index) => ({
+    label: link.text || `Option ${index + 1}`,
+    url: INCLUDE_PURCHASE_LINKS ? link.url || "" : "",
+    memberOnly: Boolean(link.memberOnly),
+    memberstackId: link.memberstackId || "",
+  }));
+}
+
+function discountText(resource) {
+  const discount = resource?.discount || {};
+  const pieces = [];
+
+  if (discount.text) pieces.push(`Discount: ${discount.text}`);
+  if (discount.code) pieces.push(`With code: ${discount.code}`);
+
+  return pieces.join("\n");
+}
+
 function publicResource(resource, assignment, context) {
   const resourceId = safeId(assignment?.resourceId);
   const title = resource?.title || resource?.Resource_Title || "Untitled book";
-
-  const links = INCLUDE_PURCHASE_LINKS
-    ? [
-        {
-          label: resource?.linkText1 || resource?.purchaseLinkText1 || "Option 1",
-          url: resource?.url1 || resource?.purchaseUrl1 || "",
-        },
-        {
-          label: resource?.linkText2 || resource?.purchaseLinkText2 || "Option 2",
-          url: resource?.url2 || resource?.purchaseUrl2 || "",
-        },
-      ].filter((link) => link.url)
-    : [];
+  const isbnAsin = parseIsbnAsin(resource?.isbnAsin || resource?.isbn || resource?.ISBN || "");
 
   return {
     resourceId,
@@ -217,24 +251,32 @@ function publicResource(resource, assignment, context) {
 
     title,
     author: resource?.author || resource?.Author || "",
-    isbn: resource?.isbn || resource?.ISBN || "",
-    asin: resource?.asin || resource?.ASIN || "",
+
+    isbn: resource?.isbn || resource?.ISBN || isbnAsin.isbn || "",
+    asin: resource?.asin || resource?.ASIN || isbnAsin.asin || "",
+    isbnAsin: resource?.isbnAsin || "",
 
     imagePath: `img/resources/${resourceId}.webp`,
     placeholderPath: "img/placeholders/book.svg",
 
     optional: Boolean(assignment?.optional || resource?.flags?.optional),
     chooseOne: Boolean(resource?.flags?.chooseOne),
-    formatTags: resource?.resourceTagText || "",
+    gradeLevelTag: assignment?.gradeLevelTag || "",
 
-    rationale: assignment?.rationale || resource?.rationale || "",
-    notes: assignment?.notes || resource?.notes || "",
+    formatTags: resource?.resourceTagText || "",
+    formatOptions: formatOptionsFromTagText(resource?.resourceTagText),
+
+    rationale: resource?.rationale || "",
+    noteText: resource?.note || "",
+    maySubText: resource?.maySub || "",
+    discountText: discountText(resource),
+
     scopeText: assignment?.scopeText || "",
     sharedText: Array.isArray(assignment?.sharedLinesR3)
       ? assignment.sharedLinesR3.join("\n")
       : assignment?.sharedTextR3 || "",
 
-    links,
+    purchaseOptions: publicPurchaseOptions(resource),
   };
 }
 
