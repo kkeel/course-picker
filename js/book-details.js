@@ -244,13 +244,6 @@ function syncControls() {
   populateCourseTopicFilters();
 }
 
-function formatIcon(type) {
-  if (type === "ebook") return "▣";
-  if (type === "audiobook") return "▶";
-  if (type === "video") return "◉";
-  return "◆";
-}
-
 function renderBookCard(book) {
   const badges = [
     book.gradeLevelTag ? { label: book.gradeLevelTag, className: "book-badge--grade" } : null,
@@ -329,7 +322,6 @@ function renderBookCard(book) {
                     <span class="book-format-list">
                       ${formatOptions.map((option) => `
                         <span class="book-format-pill book-format-pill--${escapeHtml(option.type || "other")}">
-                          <span class="book-format-icon">${formatIcon(option.type)}</span>
                           ${escapeHtml(option.label)}
                         </span>
                       `).join("")}
