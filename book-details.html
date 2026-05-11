@@ -15,58 +15,74 @@
       <p id="book-summary" class="book-summary"></p>
     </section>
 
-    <section class="book-controls">
-      <div class="book-base-toggle" aria-label="Choose book view">
-        <button class="book-base-button is-active" type="button" data-base="grade">
-          By Grade
-        </button>
-        <button class="book-base-button" type="button" data-base="subject">
-          By Subject
-        </button>
+    <section class="book-controls" id="book-controls">
+      <div class="book-controls-header">
+        <h2>Filter By</h2>
+        <button id="toggle-filters" class="book-controls-toggle" type="button">Hide</button>
       </div>
     
-      <div class="control-group">
-        <label for="primary-select">Choose one</label>
-        <div class="select-row">
-          <select id="primary-select"></select>
-          <button class="clear-select" type="button" data-clear="primary" aria-label="Reset main selection">×</button>
+      <div class="book-controls-body">
+        <div class="control-group control-view">
+          <label>View</label>
+          <div class="book-base-toggle" aria-label="Choose book view">
+            <button class="book-base-button is-active" type="button" data-base="grade">
+              By Grade
+            </button>
+            <button class="book-base-button" type="button" data-base="subject">
+              By Subject
+            </button>
+          </div>
         </div>
-      </div>
-
-      <div class="control-group">
-        <label for="track-filter">Track</label>
-        <div class="select-row">
-          <select id="track-filter">
-            <option value="">US + Canadian</option>
-            <option value="us">US only</option>
-            <option value="canadian">Canadian only</option>
-          </select>
-        </div>
-      </div>
     
-      <div class="control-group">
-        <label for="course-filter">Course</label>
-        <div class="select-row">
-          <select id="course-filter">
-            <option value="">All courses</option>
-          </select>
-          <button class="clear-select" type="button" data-clear="course" aria-label="Reset course">×</button>
+        <div class="control-group">
+          <label for="primary-select">Choose one</label>
+          <div class="select-row">
+            <select id="primary-select"></select>
+            <button class="clear-select" type="button" data-clear="primary" aria-label="Reset main selection">×</button>
+          </div>
         </div>
-      </div>
     
-      <div class="control-group">
-        <label for="topic-filter">Topic</label>
-        <div class="select-row">
-          <select id="topic-filter">
-            <option value="">All topics</option>
-          </select>
-          <button class="clear-select" type="button" data-clear="topic" aria-label="Reset topic">×</button>
+        <div class="control-group">
+          <label for="track-filter">Track</label>
+          <div class="select-row">
+            <select id="track-filter">
+              <option value="">US + Canadian</option>
+              <option value="us">US only</option>
+              <option value="canadian">Canadian only</option>
+            </select>
+          </div>
         </div>
-      </div>
     
-      <div class="control-group control-search">
-        <label for="book-search">Search</label>
-        <input id="book-search" type="search" placeholder="Search books, authors, notes...">
+        <div class="control-group">
+          <label for="course-filter">Course</label>
+          <div class="select-row">
+            <select id="course-filter">
+              <option value="">All courses</option>
+            </select>
+            <button class="clear-select" type="button" data-clear="course" aria-label="Reset course">×</button>
+          </div>
+        </div>
+    
+        <div class="control-group">
+          <label for="topic-filter">Topic</label>
+          <div class="select-row">
+            <select id="topic-filter">
+              <option value="">All topics</option>
+            </select>
+            <button class="clear-select" type="button" data-clear="topic" aria-label="Reset topic">×</button>
+          </div>
+        </div>
+    
+        <div class="control-group control-search">
+          <label for="book-search">Search</label>
+          <input id="book-search" type="search" placeholder="Search books, authors, notes...">
+        </div>
+    
+        <div class="control-actions">
+          <button id="clear-filters" class="clear-filters-button" type="button">
+            Clear filters
+          </button>
+        </div>
       </div>
     </section>
 
