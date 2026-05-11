@@ -559,6 +559,33 @@ function combineViews(view, id, title, rows) {
   };
 }
 
+function combineGroupedViews(view, id, title, groups) {
+  const normalizedGroups = groups
+    .map((group) => ({
+      ...group,
+      view: combineViews(view, group.id, group.label, group.rows),
+    }))
+    .filter((group) => group.view.bookCount > 0);
+
+  const bookCount = normalizedGroups.reduce(
+    (sum, group) => sum + group.view.bookCount,
+    0
+  );
+
+  return {
+    view,
+    id,
+    title,
+    bookCount,
+    groups: normalizedGroups.map((group) => ({
+      id: group.id,
+      label: group.label,
+      bookCount: group.view.bookCount,
+      items: group.view.items,
+    })),
+  };
+}
+
 async function main() {
   const coursesJson = await readJson(COURSES_PATH);
   const bookListCoursesJson = await readJson(BOOKLIST_COURSES_PATH, {});
@@ -586,6 +613,8 @@ async function main() {
     rows: directoryRows,
     views: {
       master: "data/book-views/master.json",
+      byGrade: "data/book-views/by-grade.json",
+      bySubject: "data/book-views/by-subject.json",
       grades: Object.fromEntries(
         GRADE_CODES.map((grade) => [grade, `data/book-views/grade/${grade}.json`])
       ),
@@ -612,6 +641,34 @@ async function main() {
     path.join(OUT_DIR, "master.json"),
     combineViews("master", "master", "All Books", courseViews)
   );
+
+  await writeJson(
+  path.join(OUT_DIR, "by-grade.json"),
+  combineGroupedViews(
+    "by-grade",
+    "by-grade",
+    "Books by Grade",
+    GRADE_CODES.map((grade) => ({
+      id: grade,
+      label: `Grade ${grade.replace("G", "")}`,
+      rows: courseViews.filter((view) => gradeMatches(view, grade)),
+    }))
+  )
+);
+
+await writeJson(
+  path.join(OUT_DIR, "by-subject.json"),
+  combineGroupedViews(
+    "by-subject",
+    "by-subject",
+    "Books by Subject",
+    SUBJECT_ORDER.map((subject) => ({
+      id: subjectSlug(subject),
+      label: subject,
+      rows: courseViews.filter((view) => view.subject === subject),
+    }))
+  )
+);
 
   for (const grade of GRADE_CODES) {
     const rows = courseViews.filter((view) => gradeMatches(view, grade));
