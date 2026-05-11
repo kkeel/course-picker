@@ -296,8 +296,9 @@ function renderBookCard(book) {
 
             <div class="book-subline">
               ${book.author ? `<span>by ${escapeHtml(book.author)}</span>` : ""}
-              ${book.isbn ? `<span>ISBN: ${escapeHtml(book.isbn)}</span>` : ""}
-              ${book.asin ? `<span>ASIN: ${escapeHtml(book.asin)}</span>` : ""}
+              ${book.isbnAsin ? `<span>ISBN/ASIN: ${escapeHtml(book.isbnAsin)}</span>` : ""}
+              ${!book.isbnAsin && book.isbn ? `<span>ISBN: ${escapeHtml(book.isbn)}</span>` : ""}
+              ${!book.isbnAsin && book.asin ? `<span>ASIN: ${escapeHtml(book.asin)}</span>` : ""}
             </div>
 
             ${book.rationale ? `
@@ -318,7 +319,7 @@ function renderBookCard(book) {
 
                 ${formatOptions.length ? `
                   <div class="book-format-row">
-                    <span class="book-tipbox-label">ALT. FORMATS:</span>
+                    <span class="book-tipbox-label">Alt. Formats:</span>
                     <span class="book-format-list">
                       ${formatOptions.map((option) => `
                         <span class="book-format-pill book-format-pill--${escapeHtml(option.type || "other")}">
@@ -392,7 +393,7 @@ function renderCourseTopicMode(items) {
           visibleSections.length
             ? visibleSections.map((section) => `
                 <section class="book-section">
-                  <h3>${escapeHtml(section.title)}</h3>
+                  <h3>${section.shared ? "↔ " : ""}${escapeHtml(section.title)}</h3>
 
                   <div class="book-card-list">
                     ${(section.books || []).map(renderBookCard).join("")}
