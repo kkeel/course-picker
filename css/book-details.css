@@ -452,3 +452,69 @@ a {
 .book-course {
   border-color: var(--subject-color, var(--divider-subtle));
 }
+
+.book-badge--optional {
+  background: #adb58f;
+}
+
+.book-badge--choose-one {
+  background: #596e5e;
+}
+
+.book-badge--grade {
+  background: #262b26;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.book-format-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.book-format-pill {
+  box-sizing: border-box;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f3f4f1;
+  border: 1px solid #596e5e;
+  color: #596e5e;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.book-format-pill::before {
+  content: "▣";
+  font-size: 10px;
+}
+
+.book-purchase-block {
+  margin-top: 14px;
+}
+
+.book-link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.book-link-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: #c9cfca;
+  color: #262b26;
+  font-size: 13px;
+  line-height: 1;
+}
