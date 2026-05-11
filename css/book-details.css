@@ -603,9 +603,9 @@ a {
 }
 
 .book-section-meta {
-  margin: -6px 0 12px;
+  margin: 6px 0 12px;
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   font-size: 12px;
   line-height: 1.5;
   font-weight: 200;
@@ -614,12 +614,15 @@ a {
 
 .book-meta-schedule {
   white-space: pre-line;
+  padding-right: 20px;
 }
 
 .book-meta-schedule + .book-meta-grade {
-  margin-left: 20px;
+  margin-left: 0;
   padding-left: 20px;
   border-left: 1px solid #e5e8e5;
+  display: flex;
+  align-items: center;
 }
 
 .book-meta-grade {
