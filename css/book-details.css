@@ -392,25 +392,25 @@ a {
   border-radius: 12px;
   font-size: 13px;
   line-height: 1.45;
-  color: #666d66;
-  font-weight: 100;
+  color: #5f675f;
+  font-weight: 300;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
 .book-tipbox-label {
-  font-weight: 200;
+  font-weight: 300;
   margin-right: 2px;
-  color: #666d66;
-  opacity: 0.85;
+  color: #5f675f;
+  opacity: 1;
 }
 
 .book-note-row,
 .book-may-sub-row,
 .book-discount-row {
-  display: block;
-  white-space: pre-line;
+  display: inline;
+  white-space: normal;
 }
 
 .book-meta-block {
@@ -520,7 +520,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #fbfcfa;
+  background: transparent;
   border: 1px solid #596e5e;
   color: #596e5e;
   font-weight: 600;
