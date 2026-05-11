@@ -91,6 +91,37 @@ function topicTitle(topic) {
   );
 }
 
+function itemSchedText(item) {
+  return (
+    item?.schedText ||
+    item?.Schedule_Text ||
+    item?.scheduleText ||
+    item?.Schedule ||
+    item?.["Schedule Info."] ||
+    ""
+  );
+}
+
+function itemGradeText(item) {
+  return (
+    item?.gradeText ||
+    item?.Grade_Text ||
+    item?.["Grade Text"] ||
+    ""
+  );
+}
+
+function itemIsShared(item) {
+  return Boolean(
+    item?.shared ||
+    item?.isShared ||
+    item?.sharedSymbol ||
+    item?.Shared ||
+    item?.["Shared"] ||
+    item?.["Shared?"]
+  );
+}
+
 function itemGradeTags(item) {
   const tags =
     item?.gradeTags ||
@@ -302,7 +333,9 @@ function directoryCourseRow(course, subject) {
     title: courseTitle(course),
     lessonSetName: courseTitle(course),
     subtitle: course?.subtitle || "",
-    gradeText: course?.gradeText || course?.Grade_Text || "",
+    gradeText: itemGradeText(course),
+    schedText: itemSchedText(course),
+    shared: itemIsShared(course),
     gradeTags: itemGradeTags(course),
     subject: subject || course?.subject || "",
     sortId: course?.Sort_ID || course?.sortId || "",
@@ -326,7 +359,9 @@ function directoryTopicRow(topic, course, subject) {
     title: topicTitle(topic),
     lessonSetName: topicTitle(topic),
     subtitle: topic?.subtitle || "",
-    gradeText: topic?.gradeText || topic?.Grade_Text || "",
+    gradeText: itemGradeText(topic),
+    schedText: itemSchedText(topic),
+    shared: itemIsShared(topic),
     gradeTags: itemGradeTags(topic),
     subject: subject || course?.subject || "",
     sortId: topic?.Sort_ID || topic?.sortId || "",
@@ -357,7 +392,9 @@ function buildBookViewForCourse(course, subject, assignmentsByTarget, resourcesB
         id: topicId,
         rowType: "topic",
         title: topicTitle(topic),
-        gradeText: topic?.gradeText || topic?.Grade_Text || "",
+        gradeText: itemGradeText(topic),
+        schedText: itemSchedText(topic),
+        shared: itemIsShared(topic),
         sortId: topic?.Sort_ID || topic?.sortId || "",
         books,
       };
@@ -371,7 +408,9 @@ function buildBookViewForCourse(course, subject, assignmentsByTarget, resourcesB
     rowType: "course",
     title: courseTitle(course),
     subject,
-    gradeText: course?.gradeText || course?.Grade_Text || "",
+    gradeText: itemGradeText(course),
+    schedText: itemSchedText(course),
+    shared: itemIsShared(course),
     sortId: course?.Sort_ID || course?.sortId || "",
     bookCount:
       courseBooks.length + topics.reduce((sum, topic) => sum + topic.books.length, 0),
@@ -382,6 +421,9 @@ function buildBookViewForCourse(course, subject, assignmentsByTarget, resourcesB
               type: "course",
               id: courseId,
               title: courseTitle(course),
+              gradeText: itemGradeText(course),
+              schedText: itemSchedText(course),
+              shared: itemIsShared(course),
               books: courseBooks,
             },
           ]
@@ -390,6 +432,9 @@ function buildBookViewForCourse(course, subject, assignmentsByTarget, resourcesB
         type: "topic",
         id: topic.id,
         title: topic.title,
+        gradeText: topic.gradeText,
+        schedText: topic.schedText,
+        shared: topic.shared,
         books: topic.books,
       })),
     ],
@@ -411,7 +456,9 @@ function buildBookViewForTopic(topic, course, subject, assignmentsByTarget, reso
     rowType: "topic",
     title: topicTitle(topic),
     subject,
-    gradeText: topic?.gradeText || topic?.Grade_Text || "",
+    gradeText: itemGradeText(topic),
+    schedText: itemSchedText(topic),
+    shared: itemIsShared(topic),
     sortId: topic?.Sort_ID || topic?.sortId || "",
     courseId,
     courseTitle: courseTitle(course),
@@ -421,6 +468,9 @@ function buildBookViewForTopic(topic, course, subject, assignmentsByTarget, reso
         type: "topic",
         id: topicId,
         title: topicTitle(topic),
+        gradeText: itemGradeText(topic),
+        schedText: itemSchedText(topic),
+        shared: itemIsShared(topic),
         books,
       },
     ],
@@ -487,6 +537,8 @@ function combineViews(view, id, title, rows) {
       title: row.title,
       subject: row.subject,
       gradeText: row.gradeText,
+      schedText: row.schedText,
+      shared: row.shared,
       sections: row.sections,
     });
   }
