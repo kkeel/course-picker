@@ -53,12 +53,48 @@ function slugSubject(subject) {
 
 function viewPath(base, id) {
   if (base === "subject") {
-    if (id === DEFAULT_SUBJECT) return "./data/book-views/master.json";
+    if (id === DEFAULT_SUBJECT) return "./data/book-views/by-subject.json";
     return `./data/book-views/subject/${slugSubject(id)}.json`;
   }
 
-  if (id === DEFAULT_GRADE) return "./data/book-views/master.json";
+  if (id === DEFAULT_GRADE) return "./data/book-views/by-grade.json";
   return `./data/book-views/grade/${id}.json`;
+}
+
+function filteredGroups() {
+  if (!Array.isArray(state.data?.groups)) return null;
+
+  return state.data.groups
+    .map((group) => {
+      const items = (group.items || [])
+        .filter(itemMatchesFilters)
+        .map((item) => {
+          let sections = item.sections || [];
+
+          if (state.topic) {
+            sections = sections.filter((section) => section.id === state.topic);
+          }
+
+          sections = sections
+            .map((section) => ({
+              ...section,
+              books: (section.books || []).filter((book) => bookMatches(book, state.query)),
+            }))
+            .filter((section) => section.books.length);
+
+          return {
+            ...item,
+            sections,
+          };
+        })
+        .filter((item) => item.sections.length);
+
+      return {
+        ...group,
+        items,
+      };
+    })
+    .filter((group) => group.items.length);
 }
 
 function readParams() {
@@ -457,27 +493,50 @@ function renderCourseTopicMode(items) {
   }).join("");
 }
 
+function renderGroupedMode(groups) {
+  return groups.map((group) => `
+    <section class="book-group">
+      <h2 class="book-group-title">${escapeHtml(group.label)}</h2>
+      ${renderCourseTopicMode(group.items)}
+    </section>
+  `).join("");
+}
+
 function render() {
   syncControls();
 
   const title = state.data?.title || "Book Details";
-  const items = filteredItems();
-  const bookCount = items.reduce(
-    (total, item) => total + item.sections.reduce((sum, section) => sum + section.books.length, 0),
-    0
-  );
+  const groups = filteredGroups();
+  const items = groups ? [] : filteredItems();
+
+  const bookCount = groups
+    ? groups.reduce(
+        (total, group) =>
+          total +
+          group.items.reduce(
+            (itemTotal, item) =>
+              itemTotal +
+              item.sections.reduce((sectionTotal, section) => sectionTotal + section.books.length, 0),
+            0
+          ),
+        0
+      )
+    : items.reduce(
+        (total, item) => total + item.sections.reduce((sum, section) => sum + section.books.length, 0),
+        0
+      );
 
   document.getElementById("book-title").textContent = title;
   document.getElementById("book-summary").textContent = `${bookCount} books shown`;
 
   const results = document.getElementById("book-results");
 
-  if (!items.length) {
+  if (!bookCount) {
     results.innerHTML = `<div class="empty-state">No books match these selections.</div>`;
     return;
   }
 
-  results.innerHTML = renderCourseTopicMode(items);
+  results.innerHTML = groups ? renderGroupedMode(groups) : renderCourseTopicMode(items);
 }
 
 async function loadView() {
