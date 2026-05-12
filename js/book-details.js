@@ -554,10 +554,19 @@ function isMasterView() {
   );
 }
 
+function renderAffiliateDisclosure() {
+  return `
+    <p class="book-affiliate-disclosure">
+      * As an Amazon Associate we earn from qualifying purchases, and we also receive a small commission at no additional cost to you through other affiliate links on this list.
+    </p>
+  `;
+}
+
 function renderSectionHeading(label) {
   return `
     <div class="book-results-heading">
       <h2 class="book-group-title">${escapeHtml(label)}</h2>
+      ${renderAffiliateDisclosure()}
     </div>
   `;
 }
@@ -667,6 +676,50 @@ async function loadView(options = {}) {
   }
 }
 
+function isFocusedDirectView() {
+  const params = new URLSearchParams(window.location.search);
+
+  const isLessonLink =
+    params.get("source") === "lesson" ||
+    params.get("compact") === "1";
+
+  const hasSpecificCourseOrTopic =
+    Boolean(params.get("course")) ||
+    Boolean(params.get("topic"));
+
+  const hasSpecificPrimary =
+    state.id !== (state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE);
+
+  return isLessonLink || hasSpecificCourseOrTopic || hasSpecificPrimary;
+}
+
+function setIntroCollapsed(isCollapsed) {
+  const intro = document.getElementById("book-intro-section");
+  const button = document.getElementById("toggle-intro");
+
+  if (!intro || !button) return;
+
+  intro.classList.toggle("is-collapsed", isCollapsed);
+  button.textContent = isCollapsed ? "About this page" : "Hide intro";
+}
+
+function setFiltersCollapsed(isCollapsed) {
+  const controls = document.getElementById("book-controls");
+  const button = document.getElementById("toggle-filters");
+
+  if (!controls || !button) return;
+
+  controls.classList.toggle("is-collapsed", isCollapsed);
+  button.textContent = isCollapsed ? "Show" : "Hide";
+}
+
+function initializePageState() {
+  const shouldCollapse = isFocusedDirectView();
+
+  setIntroCollapsed(shouldCollapse);
+  setFiltersCollapsed(shouldCollapse);
+}
+
 function bindControls() {
   document.querySelectorAll(".book-base-button").forEach((button) => {
     button.addEventListener("click", async () => {
@@ -761,10 +814,16 @@ function bindControls() {
 
   document.getElementById("toggle-filters").addEventListener("click", () => {
     const controls = document.getElementById("book-controls");
-    const button = document.getElementById("toggle-filters");
-    const isCollapsed = controls.classList.toggle("is-collapsed");
+    const isCollapsed = !controls.classList.contains("is-collapsed");
+  
+    setFiltersCollapsed(isCollapsed);
+  });
 
-    button.textContent = isCollapsed ? "Show" : "Hide";
+  document.getElementById("toggle-intro").addEventListener("click", () => {
+    const intro = document.getElementById("book-intro-section");
+    const isCollapsed = !intro.classList.contains("is-collapsed");
+  
+    setIntroCollapsed(isCollapsed);
   });
 }
 
@@ -791,6 +850,7 @@ async function init() {
     readParams();
     bindControls();
     bindBackToTop();
+    initializePageState();
     await loadFilterIndex();
     await loadView();
   } catch (error) {
