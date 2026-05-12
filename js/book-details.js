@@ -628,7 +628,20 @@ async function loadFilterIndex() {
   state.filterIndex = await response.json();
 }
 
-async function loadView() {
+function scrollToWorkingTop() {
+  const target = document.getElementById("book-working-top");
+
+  if (!target) return;
+
+  target.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+}
+
+async function loadView(options = {}) {
+  const { scrollToFilters = false } = options;
+
   const results = document.getElementById("book-results");
   results.innerHTML = `<div class="empty-state">Loading book view…</div>`;
 
@@ -639,6 +652,10 @@ async function loadView() {
 
   writeParams();
   render();
+
+  if (scrollToFilters) {
+    scrollToWorkingTop();
+  }
 }
 
 function bindControls() {
@@ -648,7 +665,7 @@ function bindControls() {
       state.id = state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE;
       state.course = "";
       state.topic = "";
-      await loadView();
+      await loadView({ scrollToFilters: true });
     });
   });
 
@@ -657,7 +674,7 @@ function bindControls() {
     state.course = "";
     state.topic = "";
   
-    await loadView();
+    await loadView({ scrollToFilters: true });
   });
 
   document.getElementById("track-filter").addEventListener("change", (event) => {
@@ -694,7 +711,7 @@ function bindControls() {
         state.id = state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE;
         state.course = "";
         state.topic = "";
-        await loadView();
+        await loadView({ scrollToFilters: true });
         return;
       }
   
@@ -730,7 +747,7 @@ function bindControls() {
 
     document.getElementById("book-search").value = "";
 
-    await loadView();
+    await loadView({ scrollToFilters: true });
   });
 
   document.getElementById("toggle-filters").addEventListener("click", () => {
@@ -754,10 +771,7 @@ function bindBackToTop() {
   window.addEventListener("scroll", toggleVisibility);
 
   button.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    scrollToWorkingTop();
   });
 
   toggleVisibility();
