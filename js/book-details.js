@@ -493,30 +493,27 @@ function renderCourseTopicMode(items) {
   }).join("");
 }
 
-function renderCurrentViewHeading() {
-  const title = state.data?.title || "";
+function groupLabelWithBooks(group) {
+  const label = group.label || "";
 
-  if (!title) return "";
+  if (state.base === "subject") {
+    return `${label} Books`;
+  }
 
-  return `
-    <header class="book-view-heading">
-      <div class="book-view-kicker">Book Directory View</div>
-      <h2 class="book-view-title">${escapeHtml(title)}</h2>
-    </header>
-  `;
+  if (state.base === "grade") {
+    return `${label} Books`;
+  }
+
+  return label;
 }
 
 function renderGroupedMode(groups) {
-  return `
-    ${renderCurrentViewHeading()}
-
-    ${groups.map((group) => `
-      <section class="book-group book-group-section">
-        <h3 class="book-group-title">${escapeHtml(group.label)}</h3>
-        ${renderCourseTopicMode(group.items)}
-      </section>
-    `).join("")}
-  `;
+  return groups.map((group) => `
+    <section class="book-group book-group-section">
+      <h2 class="book-group-title">${escapeHtml(groupLabelWithBooks(group))}</h2>
+      ${renderCourseTopicMode(group.items)}
+    </section>
+  `).join("");
 }
 
 function render() {
