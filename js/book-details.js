@@ -562,11 +562,11 @@ function renderAffiliateDisclosure() {
   `;
 }
 
-function renderSectionHeading(label) {
+function renderSectionHeading(label, showDisclosure = false) {
   return `
     <div class="book-results-heading">
       <h2 class="book-group-title">${escapeHtml(label)}</h2>
-      ${renderAffiliateDisclosure()}
+      ${showDisclosure ? renderAffiliateDisclosure() : ""}
     </div>
   `;
 }
@@ -575,15 +575,15 @@ function renderSelectedViewMode(items) {
   const heading = currentSelectionHeading();
 
   return `
-    ${heading ? renderSectionHeading(heading) : ""}
+    ${heading ? renderSectionHeading(heading, true) : ""}
     ${renderCourseTopicMode(items)}
   `;
 }
 
 function renderGroupedMode(groups) {
-  return groups.map((group) => `
+  return groups.map((group, index) => `
     <section class="book-group book-group-section">
-      ${renderSectionHeading(groupLabelWithBooks(group))}
+      ${renderSectionHeading(groupLabelWithBooks(group), index === 0)}
       ${renderCourseTopicMode(group.items)}
     </section>
   `).join("");
