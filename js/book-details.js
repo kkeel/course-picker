@@ -845,12 +845,35 @@ function bindBackToTop() {
   toggleVisibility();
 }
 
+function bindMemberToolsShell() {
+  const toggle = document.getElementById("member-tools-toggle");
+  const filterButtons = document.querySelectorAll(".member-filter-toggle");
+
+  if (!toggle) return;
+
+  toggle.addEventListener("click", () => {
+    const enabled = !document.body.classList.contains("member-tools-enabled");
+
+    document.body.classList.toggle("member-tools-enabled", enabled);
+    toggle.classList.toggle("is-active", enabled);
+    toggle.setAttribute("aria-pressed", enabled ? "true" : "false");
+    toggle.textContent = enabled ? "Member Tools: On" : "Member Tools: Off";
+  });
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      button.classList.toggle("is-active");
+    });
+  });
+}
+
 async function init() {
   try {
     readParams();
     bindControls();
     bindBackToTop();
     initializePageState();
+    bindMemberToolsShell();
     await loadFilterIndex();
     await loadView();
   } catch (error) {
