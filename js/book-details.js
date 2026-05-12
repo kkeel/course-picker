@@ -742,10 +742,32 @@ function bindControls() {
   });
 }
 
+function bindBackToTop() {
+  const button = document.getElementById("back-to-top");
+
+  if (!button) return;
+
+  const toggleVisibility = () => {
+    button.classList.toggle("is-visible", window.scrollY > 500);
+  };
+
+  window.addEventListener("scroll", toggleVisibility);
+
+  button.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+
+  toggleVisibility();
+}
+
 async function init() {
   try {
     readParams();
     bindControls();
+    bindBackToTop();
     await loadFilterIndex();
     await loadView();
   } catch (error) {
