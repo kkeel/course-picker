@@ -495,16 +495,13 @@ function renderCourseTopicMode(items) {
 
 function groupLabelWithBooks(group) {
   const label = group.label || "";
+  const isMasterView =
+    (state.base === "subject" && state.id === DEFAULT_SUBJECT) ||
+    (state.base === "grade" && state.id === DEFAULT_GRADE);
 
-  if (state.base === "subject") {
-    return `${label} Books`;
-  }
+  if (isMasterView) return label;
 
-  if (state.base === "grade") {
-    return `${label} Books`;
-  }
-
-  return label;
+  return `${label} Books`;
 }
 
 function renderGroupedMode(groups) {
