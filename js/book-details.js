@@ -25,6 +25,7 @@ function subjectColor(name) {
 
 const state = {
   data: null,
+  filterIndex: null,
   base: "grade",
   id: DEFAULT_GRADE,
   course: "",
@@ -217,11 +218,21 @@ function populatePrimarySelector() {
   primarySelect.value = state.id;
 }
 
+function filterIndexItems() {
+  if (Array.isArray(state.filterIndex?.items)) return state.filterIndex.items;
+
+  if (Array.isArray(state.filterIndex?.groups)) {
+    return state.filterIndex.groups.flatMap((group) => group.items || []);
+  }
+
+  return state.data?.items || [];
+}
+
 function populateCourseTopicFilters() {
   const courseSelect = document.getElementById("course-filter");
   const topicSelect = document.getElementById("topic-filter");
 
-  const items = (state.data?.items || []).filter(itemMatchesTrack);
+  const items = filterIndexItems().filter(itemMatchesTrack);
 
   const courseStillExists = !state.course || items.some((item) => item.id === state.course);
   if (!courseStillExists) {
@@ -520,11 +531,41 @@ function currentSelectionHeading() {
   return "";
 }
 
+function countBooksInItems(items) {
+  return (items || []).reduce(
+    (total, item) =>
+      total +
+      (item.sections || []).reduce(
+        (sectionTotal, section) => sectionTotal + (section.books || []).length,
+        0
+      ),
+    0
+  );
+}
+
+function isMasterView() {
+  return (
+    (state.base === "subject" && state.id === DEFAULT_SUBJECT) ||
+    (state.base === "grade" && state.id === DEFAULT_GRADE)
+  );
+}
+
+function renderSectionHeading(label, count) {
+  const showCount = !isMasterView() && Number.isFinite(count);
+
+  return `
+    <div class="book-results-heading">
+      <h2 class="book-group-title">${escapeHtml(label)}</h2>
+      ${showCount ? `<span class="book-section-count">${count} books shown</span>` : ""}
+    </div>
+  `;
+}
+
 function renderSelectedViewMode(items) {
   const heading = currentSelectionHeading();
 
   return `
-    ${heading ? `<h2 class="book-group-title">${escapeHtml(heading)}</h2>` : ""}
+    ${heading ? renderSectionHeading(heading, countBooksInItems(items)) : ""}
     ${renderCourseTopicMode(items)}
   `;
 }
@@ -532,7 +573,7 @@ function renderSelectedViewMode(items) {
 function renderGroupedMode(groups) {
   return groups.map((group) => `
     <section class="book-group book-group-section">
-      <h2 class="book-group-title">${escapeHtml(groupLabelWithBooks(group))}</h2>
+      ${renderSectionHeading(groupLabelWithBooks(group), countBooksInItems(group.items))}
       ${renderCourseTopicMode(group.items)}
     </section>
   `).join("");
@@ -564,7 +605,8 @@ function render() {
 
   const pageTitle = document.getElementById("book-title");
   if (pageTitle) pageTitle.textContent = title;
-  document.getElementById("book-summary").textContent = `${bookCount} books shown`;
+  const summary = document.getElementById("book-summary");
+  if (summary) summary.textContent = isMasterView() ? "" : "";
 
   const results = document.getElementById("book-results");
 
@@ -574,6 +616,15 @@ function render() {
   }
 
   results.innerHTML = groups ? renderGroupedMode(groups) : renderSelectedViewMode(items);
+}
+
+async function loadFilterIndex() {
+  if (state.filterIndex) return;
+
+  const response = await fetch("./data/book-views/master.json");
+  if (!response.ok) throw new Error("Could not load filter index");
+
+  state.filterIndex = await response.json();
 }
 
 async function loadView() {
@@ -604,6 +655,7 @@ function bindControls() {
     state.id = event.target.value;
     state.course = "";
     state.topic = "";
+  
     await loadView();
   });
 
@@ -693,6 +745,7 @@ async function init() {
   try {
     readParams();
     bindControls();
+    await loadFilterIndex();
     await loadView();
   } catch (error) {
     console.error(error);
