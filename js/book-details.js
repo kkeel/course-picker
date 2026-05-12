@@ -232,7 +232,11 @@ function populateCourseTopicFilters() {
   const courseSelect = document.getElementById("course-filter");
   const topicSelect = document.getElementById("topic-filter");
 
-  const items = filterIndexItems().filter(itemMatchesTrack);
+  const scopedFilterItems = isMasterView()
+    ? filterIndexItems()
+    : (state.data?.items || []);
+  
+  const items = scopedFilterItems.filter(itemMatchesTrack);
 
   const courseStillExists = !state.course || items.some((item) => item.id === state.course);
   if (!courseStillExists) {
@@ -550,13 +554,10 @@ function isMasterView() {
   );
 }
 
-function renderSectionHeading(label, count) {
-  const showCount = !isMasterView() && Number.isFinite(count);
-
+function renderSectionHeading(label) {
   return `
     <div class="book-results-heading">
       <h2 class="book-group-title">${escapeHtml(label)}</h2>
-      ${showCount ? `<span class="book-section-count">${count} books shown</span>` : ""}
     </div>
   `;
 }
@@ -565,7 +566,7 @@ function renderSelectedViewMode(items) {
   const heading = currentSelectionHeading();
 
   return `
-    ${heading ? renderSectionHeading(heading, countBooksInItems(items)) : ""}
+    ${heading ? renderSectionHeading(heading) : ""}
     ${renderCourseTopicMode(items)}
   `;
 }
@@ -573,7 +574,7 @@ function renderSelectedViewMode(items) {
 function renderGroupedMode(groups) {
   return groups.map((group) => `
     <section class="book-group book-group-section">
-      ${renderSectionHeading(groupLabelWithBooks(group), countBooksInItems(group.items))}
+      ${renderSectionHeading(groupLabelWithBooks(group))}
       ${renderCourseTopicMode(group.items)}
     </section>
   `).join("");
