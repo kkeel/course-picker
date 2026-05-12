@@ -1056,3 +1056,54 @@ body.member-tools-enabled .member-tools-filters {
 body.member-tools-enabled .member-tool-only {
   display: block;
 }
+
+
+.book-member-toolbar {
+  border-top: 1px solid var(--divider-subtle);
+  padding: 14px 20px;
+}
+
+.book-member-toolbar-top {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.book-member-toolbar-body {
+  display: none;
+  margin-top: 12px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+body.member-tools-enabled .book-member-toolbar-body {
+  display: flex;
+}
+
+.book-member-toolbar-left,
+.book-member-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.book-member-mode-toggle {
+  appearance: none;
+  border: 1px solid #262b26;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--brand-text);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.book-member-mode-toggle.is-active {
+  background: var(--brand-dark);
+  border-color: var(--brand-dark);
+  color: #fff;
+}
