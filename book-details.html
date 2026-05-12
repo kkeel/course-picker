@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book Details</title>
+  <title>Book List</title>
   <link rel="stylesheet" href="./css/styles.css">
   <link rel="stylesheet" href="./css/book-details.css">
   
@@ -35,64 +35,31 @@
       <p id="book-summary" class="book-summary"></p>
     </section>
 
-    <section class="book-intro-section">
-      <h2 class="section-title">Book List</h2>
+    <section class="book-intro-section" id="book-intro-section">
+      <div class="book-intro-title-row">
+        <h2 class="section-title">Book List</h2>
+        <button id="toggle-intro" class="book-intro-toggle" type="button">
+          Hide intro
+        </button>
+      </div>
     
-      <div class="av-intro-flex">
-        <div class="av-intro-paragraphs">
-          <p class="section-subtitle av-intro-text">
-            Explore the Alveary 2026-27 booklist by grade or subject. Learn how books are used in the curriculum, review our
-            <a
-              href="https://www.youtube.com/watch?v=SOu730a00Mo"
-              target="_blank"
-              rel="noopener"
-              class="av-inline-link"
-            >video about choosing books for your students</a>,
-            see format options, and click links for purchasing or accessing free resources. Add notes and save your selections for a personalized booklist.
-          </p>
+      <div id="book-intro-details" class="book-intro-details">
+        <div class="av-intro-flex">
+          <div class="av-intro-paragraphs">
+            <p class="section-subtitle av-intro-text">
+              Explore the Alveary 2026-27 booklist by grade or subject. Learn how books are used in the curriculum, review our
+              <a
+                href="https://www.youtube.com/watch?v=SOu730a00Mo"
+                target="_blank"
+                rel="noopener"
+                class="av-inline-link"
+              >video about choosing books for your students</a>,
+              see format options, and click links for purchasing or accessing free resources. Add notes and save your selections for a personalized booklist.
+            </p>
+          </div>
     
-          <p class="affiliate-disclaimer">
-            * As an Amazon Associate we earn from qualifying purchases, and we also receive a small commission at no additional cost to you through other affiliate links on this list.
-          </p>
-        </div>
-    
-        <div class="av-intro-side">
-          <div class="av-video-inline">
-            <a
-              class="av-video-row av-video-row--primary"
-              href="https://www.youtube.com/watch?v=6KuQw_XJkNo"
-              target="_blank"
-              rel="noopener"
-            >
-              <span class="av-play-icon" aria-hidden="true">
-                <img src="./img/icons/play-button.svg" alt="" />
-              </span>
-              <span class="av-video-text">How We Choose Books</span>
-            </a>
-    
-            <a
-              class="av-video-row"
-              href="https://youtube.com/playlist?list=PLvg0fKfOahKR84TV79NMDkZYEuWy0HoAO&si=fYkD8-4dFOdnTQUH"
-              target="_blank"
-              rel="noopener"
-            >
-              <span class="av-play-icon" aria-hidden="true">
-                <img src="./img/icons/play-button.svg" alt="" />
-              </span>
-              <span class="av-video-text">Book Previews</span>
-            </a>
-    
-            <a
-              class="av-video-row"
-              href="https://www.youtube.com/playlist?list=PLvg0fKfOahKSx9EEHrcnpAiodF7RNqmi7"
-              target="_blank"
-              rel="noopener"
-            >
-              <span class="av-play-icon" aria-hidden="true">
-                <img src="./img/icons/play-button.svg" alt="" />
-              </span>
-              <span class="av-video-text">Planning App Tutorials</span>
-            </a>
+          <div class="av-intro-side">
+            <!-- keep your current video box here -->
           </div>
         </div>
       </div>
