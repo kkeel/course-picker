@@ -164,35 +164,60 @@
     
         <div class="control-group control-search">
           <label for="book-search">Search</label>
-          <input id="book-search" type="search" placeholder="Search books, authors, notes...">
-        </div>
-    
-        <div class="control-actions">
-          <button id="clear-filters" class="clear-filters-button" type="button">
-            Clear filters
-          </button>
+        
+          <div class="book-search-row">
+            <input id="book-search" type="search" placeholder="Search books, authors, notes...">
+        
+            <select id="student-filter" class="member-tool-only book-mini-select">
+              <option value="">Students</option>
+            </select>
+        
+            <select id="planning-tag-filter" class="member-tool-only book-mini-select">
+              <option value="">Planning Tags</option>
+            </select>
+        
+            <button id="clear-filters" class="clear-filters-link" type="button">
+              Clear filters
+            </button>
+          </div>
         </div>
         
       </div>
 
       <div class="book-member-toolbar" id="book-member-toolbar">
-        <div class="book-member-toolbar-top">
-          <button id="member-tools-toggle" class="book-member-mode-toggle" type="button" aria-pressed="false">
-            Member Tools: Off
-          </button>
-        </div>
+        <button id="member-tools-toggle" class="book-member-mode-toggle" type="button" aria-pressed="false">
+          <span class="mini-toggle-switch">
+            <span class="mini-toggle-knob"></span>
+          </span>
+          <span class="member-tools-label">Member Tools</span>
+        </button>
       
         <div class="book-member-toolbar-body">
-          <div class="book-member-toolbar-left">
-            <button class="member-filter-toggle" type="button" data-member-filter="myBooks">My Books</button>
-            <button class="member-filter-toggle" type="button" data-member-filter="myCourses">My Courses</button>
-            <button class="member-filter-toggle" type="button" data-member-filter="myNotes">My Notes</button>
-          </div>
+          <button class="member-mini-toggle" type="button" data-member-filter="myBooks">
+            <span class="mini-toggle-switch">
+              <span class="mini-toggle-knob"></span>
+            </span>
+            <span>My Books</span>
+          </button>
       
-          <div class="book-member-toolbar-right">
-            <button class="member-tool-link" type="button">Manage Students</button>
-            <button class="member-tool-link" type="button">Print</button>
-          </div>
+          <button class="member-mini-toggle" type="button" data-member-filter="myCourses">
+            <span class="mini-toggle-switch">
+              <span class="mini-toggle-knob"></span>
+            </span>
+            <span>My Courses</span>
+          </button>
+      
+          <button class="member-mini-toggle" type="button" data-member-filter="myNotes">
+            <span class="mini-toggle-switch">
+              <span class="mini-toggle-knob"></span>
+            </span>
+            <span>My Notes</span>
+          </button>
+      
+          <div class="book-member-toolbar-spacer"></div>
+      
+          <button class="member-tool-link" type="button">Manage Students</button>
+          <button class="member-tool-link" type="button">Print</button>
         </div>
       </div>
       
