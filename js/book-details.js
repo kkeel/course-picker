@@ -628,22 +628,29 @@ async function loadFilterIndex() {
   state.filterIndex = await response.json();
 }
 
-function scrollToWorkingTop() {
+function scrollToWorkingTop(options = {}) {
+  const { behavior = "smooth" } = options;
   const target = document.getElementById("book-working-top");
 
   if (!target) return;
 
   target.scrollIntoView({
-    behavior: "smooth",
+    behavior,
     block: "start",
   });
 }
 
 async function loadView(options = {}) {
-  const { scrollToFilters = false } = options;
+  const { scrollToFilters = false, instantScroll = false } = options;
+
+  const preserveScrollY = window.scrollY;
 
   const results = document.getElementById("book-results");
   results.innerHTML = `<div class="empty-state">Loading book view…</div>`;
+
+  if (scrollToFilters) {
+    window.scrollTo(0, preserveScrollY);
+  }
 
   const response = await fetch(viewPath(state.base, state.id));
   if (!response.ok) throw new Error(`Could not load ${viewPath(state.base, state.id)}`);
@@ -654,7 +661,9 @@ async function loadView(options = {}) {
   render();
 
   if (scrollToFilters) {
-    scrollToWorkingTop();
+    scrollToWorkingTop({
+      behavior: instantScroll ? "auto" : "smooth",
+    });
   }
 }
 
@@ -665,7 +674,7 @@ function bindControls() {
       state.id = state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE;
       state.course = "";
       state.topic = "";
-      await loadView({ scrollToFilters: true });
+      await loadView({ scrollToFilters: true, instantScroll: true });
     });
   });
 
@@ -674,7 +683,7 @@ function bindControls() {
     state.course = "";
     state.topic = "";
   
-    await loadView({ scrollToFilters: true });
+    await loadView({ scrollToFilters: true, instantScroll: true });
   });
 
   document.getElementById("track-filter").addEventListener("change", (event) => {
@@ -711,7 +720,7 @@ function bindControls() {
         state.id = state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE;
         state.course = "";
         state.topic = "";
-        await loadView({ scrollToFilters: true });
+        await loadView({ scrollToFilters: true, instantScroll: true });
         return;
       }
   
@@ -747,7 +756,7 @@ function bindControls() {
 
     document.getElementById("book-search").value = "";
 
-    await loadView({ scrollToFilters: true });
+    await loadView({ scrollToFilters: true, instantScroll: true });
   });
 
   document.getElementById("toggle-filters").addEventListener("click", () => {
