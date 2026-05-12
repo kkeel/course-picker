@@ -160,6 +160,10 @@ a {
 
 /* Controls */
 
+.book-working-top-anchor {
+  scroll-margin-top: 110px;
+}
+
 .book-controls {
   margin: 22px 0 24px;
   border: 1px solid var(--divider-subtle);
