@@ -493,19 +493,36 @@ function renderCourseTopicMode(items) {
   }).join("");
 }
 
+function renderCurrentViewHeading() {
+  const title = state.data?.title || "";
+
+  if (!title) return "";
+
+  return `
+    <header class="book-view-heading">
+      <div class="book-view-kicker">Book Directory View</div>
+      <h2 class="book-view-title">${escapeHtml(title)}</h2>
+    </header>
+  `;
+}
+
 function renderGroupedMode(groups) {
-  return groups.map((group) => `
-    <section class="book-group">
-      <h2 class="book-group-title">${escapeHtml(group.label)}</h2>
-      ${renderCourseTopicMode(group.items)}
-    </section>
-  `).join("");
+  return `
+    ${renderCurrentViewHeading()}
+
+    ${groups.map((group) => `
+      <section class="book-group book-group-section">
+        <h3 class="book-group-title">${escapeHtml(group.label)}</h3>
+        ${renderCourseTopicMode(group.items)}
+      </section>
+    `).join("")}
+  `;
 }
 
 function render() {
   syncControls();
 
-  const title = state.data?.title || "Book Details";
+  const title = "Book List";
   const groups = filteredGroups();
   const items = groups ? [] : filteredItems();
 
@@ -526,7 +543,8 @@ function render() {
         0
       );
 
-  document.getElementById("book-title").textContent = title;
+  const pageTitle = document.getElementById("book-title");
+  if (pageTitle) pageTitle.textContent = title;
   document.getElementById("book-summary").textContent = `${bookCount} books shown`;
 
   const results = document.getElementById("book-results");
