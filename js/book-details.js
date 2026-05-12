@@ -812,7 +812,7 @@ function bindControls() {
     await loadView({ scrollToFilters: true, instantScroll: true });
   });
 
-  document.getElementById("toggle-filters").addEventListener("click", () => {
+  document.querySelector(".book-controls-header").addEventListener("click", () => {
     const controls = document.getElementById("book-controls");
     const isCollapsed = !controls.classList.contains("is-collapsed");
   
