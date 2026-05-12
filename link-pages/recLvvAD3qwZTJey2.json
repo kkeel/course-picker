@@ -14,12 +14,36 @@
     "History: Grades 10-12 (U.S.)"
   ],
   "topicConnectionNames": [],
-  "updatedAt": "2026-05-11T08:52:55.578Z",
+  "updatedAt": "2026-05-12T08:17:38.716Z",
   "terms": [
     {
       "termNumber": 1,
       "term": "Term 1",
       "weeks": [
+        {
+          "weekNumber": 2,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "recnR3VDc9Nt9ytj0",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 2,
+              "sort": 0,
+              "lessonLabel": "Lesson 2",
+              "title": "30m World History: Grades 10-12 - Lesson 2",
+              "anchor": "term-1-week-2-lesson-2",
+              "links": [
+                {
+                  "text": "Primary vs. Secondary Sources: The Differences Explained",
+                  "url": "https://www.youtube.com/watch?v=CPQ95B95bWE"
+                }
+              ]
+            }
+          ]
+        },
         {
           "weekNumber": 3,
           "weekLabel": "Week 3",
@@ -37,8 +61,32 @@
               "anchor": "term-1-week-3-lesson-3",
               "links": [
                 {
-                  "text": "Primary Source and Secondary Source",
+                  "text": "Primary vs. Secondary Sources: The Differences Explained",
                   "url": "https://www.youtube.com/watch?v=CPQ95B95bWE"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 6,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recSzwH8fJOPUnDWd",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 6,
+              "weekLabel": "Week 6",
+              "sequence": 6,
+              "sort": 0,
+              "lessonLabel": "Lesson 6",
+              "title": "30m World History: Grades 10-12 - Lesson 6",
+              "anchor": "term-1-week-6-lesson-6",
+              "links": [
+                {
+                  "text": "The East India Company || 400 Years: Britain & India || Episode 1",
+                  "url": "https://www.youtube.com/watch?v=NPVLr4Np0jA"
                 }
               ]
             }
