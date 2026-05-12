@@ -847,7 +847,7 @@ function bindBackToTop() {
 
 function bindMemberToolsShell() {
   const toggle = document.getElementById("member-tools-toggle");
-  const filterButtons = document.querySelectorAll(".member-filter-toggle");
+  const filterButtons = document.querySelectorAll(".member-mini-toggle");
 
   if (!toggle) return;
 
