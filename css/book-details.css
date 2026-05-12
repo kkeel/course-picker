@@ -571,14 +571,6 @@ body.member-tools-enabled .book-member-toolbar-body {
     grid-column: 1 / 3;
   }
 
-  #planning-tag-filter {
-    grid-column: 2;
-  }
-
-  #student-filter {
-    grid-column: 3;
-  }
-
   .clear-filters-link {
     grid-column: 3;
     justify-self: end;
@@ -626,19 +618,14 @@ body.member-tools-enabled .book-member-toolbar-body {
     grid-column: 1 / -1;
   }
 
-  #planning-tag-filter,
-  #student-filter {
-    grid-column: auto;
-  }
-
   .clear-filters-link {
     grid-column: 2;
     justify-self: end;
   }
 }
 
-/* 1-column/mobile: labels sit beside fields, including Search */
-@media (max-width: 620px) {
+/* Mobile: switch directly to one clean label-left layout */
+@media (max-width: 720px) {
   .book-controls-body,
   .book-search-row {
     grid-template-columns: 1fr;
@@ -655,16 +642,15 @@ body.member-tools-enabled .book-member-toolbar-body {
   }
 
   .control-group,
-  .control-search {
+  .control-search,
+  .control-view {
     display: grid;
-    grid-template-columns: 88px minmax(0, 1fr);
+    grid-template-columns: 104px minmax(0, 1fr);
     align-items: center;
     gap: 10px;
   }
 
   .control-view {
-    display: grid;
-    grid-template-columns: 88px minmax(0, 1fr);
     align-items: start;
   }
 
@@ -676,10 +662,7 @@ body.member-tools-enabled .book-member-toolbar-body {
     display: contents;
   }
 
-  #book-search {
-    grid-column: 2;
-  }
-
+  #book-search,
   #planning-tag-filter,
   #student-filter {
     grid-column: 2;
