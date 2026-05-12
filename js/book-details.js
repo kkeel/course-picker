@@ -504,6 +504,31 @@ function groupLabelWithBooks(group) {
   return `${label} Books`;
 }
 
+function currentSelectionHeading() {
+  if (state.base === "subject" && state.id !== DEFAULT_SUBJECT) {
+    return `${state.id} Books`;
+  }
+
+  if (state.base === "grade" && state.id !== DEFAULT_GRADE) {
+    const gradeLabel = state.id.startsWith("G")
+      ? `Grade ${state.id.replace("G", "")}`
+      : state.id;
+
+    return `${gradeLabel} Books`;
+  }
+
+  return "";
+}
+
+function renderSelectedViewMode(items) {
+  const heading = currentSelectionHeading();
+
+  return `
+    ${heading ? `<h2 class="book-group-title">${escapeHtml(heading)}</h2>` : ""}
+    ${renderCourseTopicMode(items)}
+  `;
+}
+
 function renderGroupedMode(groups) {
   return groups.map((group) => `
     <section class="book-group book-group-section">
@@ -548,7 +573,7 @@ function render() {
     return;
   }
 
-  results.innerHTML = groups ? renderGroupedMode(groups) : renderCourseTopicMode(items);
+  results.innerHTML = groups ? renderGroupedMode(groups) : renderSelectedViewMode(items);
 }
 
 async function loadView() {
