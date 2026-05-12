@@ -172,20 +172,30 @@
             Clear filters
           </button>
         </div>
+        
+      </div>
 
-        <div class="control-member-tools">
-          <button id="member-tools-toggle" class="member-tools-toggle" type="button" aria-pressed="false">
+      <div class="book-member-toolbar" id="book-member-toolbar">
+        <div class="book-member-toolbar-top">
+          <button id="member-tools-toggle" class="book-member-mode-toggle" type="button" aria-pressed="false">
             Member Tools: Off
           </button>
-        
-          <div class="member-tools-filters" aria-label="Member tool filters">
+        </div>
+      
+        <div class="book-member-toolbar-body">
+          <div class="book-member-toolbar-left">
             <button class="member-filter-toggle" type="button" data-member-filter="myBooks">My Books</button>
             <button class="member-filter-toggle" type="button" data-member-filter="myCourses">My Courses</button>
             <button class="member-filter-toggle" type="button" data-member-filter="myNotes">My Notes</button>
           </div>
+      
+          <div class="book-member-toolbar-right">
+            <button class="member-tool-link" type="button">Manage Students</button>
+            <button class="member-tool-link" type="button">Print</button>
+          </div>
         </div>
-        
       </div>
+      
     </section>
 
     <section id="book-results" class="book-results">
