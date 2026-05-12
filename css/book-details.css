@@ -773,3 +773,21 @@ a {
   font-weight: 200;
   color: var(--brand-text);
 }
+
+.book-results-heading {
+  margin: 0 0 18px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.book-results-heading .book-group-title {
+  margin-bottom: 0;
+}
+
+.book-section-count {
+  color: var(--brand-muted);
+  font-size: 15px;
+  font-weight: 300;
+}
