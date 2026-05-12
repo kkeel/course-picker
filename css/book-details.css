@@ -148,6 +148,10 @@ a {
   .av-intro-side {
     justify-content: flex-start;
   }
+
+  .av-video-inline {
+    max-width: 420px;
+  }
 }
 
 /* Controls */
