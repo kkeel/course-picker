@@ -7,15 +7,34 @@
   <link rel="stylesheet" href="./css/book-details.css">
 </head>
 <body>
+  <header class="app-header">
+    <div class="main-content">
+      <div class="app-header-inner">
+  
+        <a href="./index.html" class="app-logo-link">
+          <img
+            src="./img/alveary-logo-mark.svg"
+            alt="Alveary"
+            class="app-logo-mark"
+          />
+  
+          <div class="logo-text-block">
+            <div class="logo-title">Alveary</div>
+          </div>
+        </a>
+  
+        <nav class="app-nav">
+          <a href="./index.html" class="app-nav-link">Course List</a>
+          <a href="./books.html" class="app-nav-link app-nav-link--active">Book List</a>
+          <a href="./supplies.html" class="app-nav-link">Supply List</a>
+          <a href="./schedule.html" class="app-nav-link">Schedule</a>
+        </nav>
+  
+      </div>
+    </div>
+  </header>
   <main class="book-shell">
     <section class="book-hero">
-      <a class="back-link" href="./alveary-directory.html">← Alveary Directory</a>
-    
-      <div class="book-kicker">Book Directory View</div>
-    
-      <h1 class="book-title">
-        Book List
-      </h1>
     
       <p id="book-summary" class="book-summary"></p>
     </section>
