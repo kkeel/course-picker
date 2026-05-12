@@ -765,3 +765,11 @@ a {
   font-weight: 400;
   color: var(--brand-text);
 }
+
+.book-group-section {
+  margin-top: 56px;
+}
+
+.book-group-section:first-child {
+  margin-top: 24px;
+}
