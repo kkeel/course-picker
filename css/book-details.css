@@ -147,10 +147,14 @@ a {
 
   .av-intro-side {
     justify-content: flex-start;
+    width: 100%;
   }
 
   .av-video-inline {
+    width: 100%;
     max-width: 420px;
+    margin-left: 0;
+    margin-right: auto;
   }
 }
 
