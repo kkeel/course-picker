@@ -175,6 +175,134 @@ function saveBookMemberState() {
   }
 }
 
+const BOOK_MEMBER_LEGACY_MIGRATED_KEY = "alveary_book_member_legacy_migrated_v1";
+
+function resolveLegacyPlannerKey() {
+  try {
+    if (window.PLANNER_STATE_KEY) return window.PLANNER_STATE_KEY;
+  } catch {}
+
+  try {
+    const keys = [];
+
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith("alveary_planner_")) {
+        keys.push(key);
+      }
+    }
+
+    keys.sort();
+    return keys.length ? keys[keys.length - 1] : "";
+  } catch {
+    return "";
+  }
+}
+
+function convertLegacyOwnerKey(ownerKey) {
+  const key = normalizeId(ownerKey);
+  if (!key) return "";
+
+  // Already in the new format.
+  if (key.startsWith("course:")) return key;
+
+  // Old course-level format:
+  // C:recCourseId:R:recResourceId
+  let match = key.match(/^C:([^:]+):R:([^:]+)$/);
+  if (match) {
+    const courseId = normalizeId(match[1]);
+    const resourceId = normalizeId(match[2]);
+
+    // Only keep scoped owners when they already use Airtable record IDs.
+    // If not, we let the global myBooks save behave as a legacy/global save.
+    if (courseId.startsWith("rec") && resourceId.startsWith("rec")) {
+      return `course:${courseId}:resource:${resourceId}`;
+    }
+
+    return "";
+  }
+
+  // Old topic-level format:
+  // C:recCourseId:T:recTopicId:R:recResourceId
+  match = key.match(/^C:([^:]+):T:([^:]+):R:([^:]+)$/);
+  if (match) {
+    const courseId = normalizeId(match[1]);
+    const topicId = normalizeId(match[2]);
+    const resourceId = normalizeId(match[3]);
+
+    // Only keep scoped owners when they already use Airtable record IDs.
+    // If not, we let the global myBooks save behave as a legacy/global save.
+    if (
+      courseId.startsWith("rec") &&
+      topicId.startsWith("rec") &&
+      resourceId.startsWith("rec")
+    ) {
+      return `course:${courseId}:topic:${topicId}:resource:${resourceId}`;
+    }
+
+    return "";
+  }
+
+  return "";
+}
+
+function migrateLegacyBookMemberStateOnce() {
+  try {
+    if (localStorage.getItem(BOOK_MEMBER_LEGACY_MIGRATED_KEY) === "1") return;
+
+    const plannerKey = resolveLegacyPlannerKey();
+    if (!plannerKey) return;
+
+    const raw = localStorage.getItem(plannerKey);
+    if (!raw) return;
+
+    const legacy = JSON.parse(raw);
+    const legacyResources = legacy?.extras?.resources;
+
+    if (!legacyResources || typeof legacyResources !== "object") return;
+
+    const legacyMyBooks = Array.isArray(legacyResources.myBooks)
+      ? legacyResources.myBooks
+      : [];
+
+    const legacyOwners =
+      legacyResources.myBooksOwnersByResourceId &&
+      typeof legacyResources.myBooksOwnersByResourceId === "object"
+        ? legacyResources.myBooksOwnersByResourceId
+        : {};
+
+    bookMemberState.books.myBooks = uniqueStrings([
+      ...bookMemberState.books.myBooks,
+      ...legacyMyBooks,
+    ]);
+
+    Object.entries(legacyOwners).forEach(([resourceId, owners]) => {
+      const rid = normalizeId(resourceId);
+      if (!rid) return;
+
+      const convertedOwners = uniqueStrings(
+        (Array.isArray(owners) ? owners : [])
+          .map(convertLegacyOwnerKey)
+          .filter(Boolean)
+      );
+
+      if (!convertedOwners.length) return;
+
+      bookMemberState.books.myBooksOwnersByResourceId[rid] = uniqueStrings([
+        ...bookOwnerKeys(rid),
+        ...convertedOwners,
+      ]);
+    });
+
+    normalizeBookMemberState();
+    saveBookMemberState();
+
+    localStorage.setItem(BOOK_MEMBER_LEGACY_MIGRATED_KEY, "1");
+  } catch {
+    // ignore migration errors
+  }
+}
+
 function bookResourceId(book) {
   return normalizeId(book?.resourceId || book?.id);
 }
@@ -1308,6 +1436,7 @@ async function init() {
     readParams();
     loadBookPageUiState();
     loadBookMemberState();
+    migrateLegacyBookMemberStateOnce();
     bindControls();
     bindBackToTop();
     initializePageState();
