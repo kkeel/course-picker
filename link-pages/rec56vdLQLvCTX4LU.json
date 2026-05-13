@@ -12,7 +12,7 @@
   "topicConnectionNames": [
     "Ancient History: Grades 7-9"
   ],
-  "updatedAt": "2026-05-12T08:17:38.706Z",
+  "updatedAt": "2026-05-13T08:28:54.225Z",
   "terms": [
     {
       "termNumber": 1,
@@ -267,24 +267,6 @@
                 {
                   "text": "Primary vs. Secondary Sources: The Differences Explained | Scribbr",
                   "url": "https://www.youtube.com/watch?v=CPQ95B95bWE"
-                }
-              ]
-            },
-            {
-              "lessonId": "recTH4Yyplkq4fOnT",
-              "termNumber": 1,
-              "termLabel": "Term 1",
-              "weekNumber": 8,
-              "weekLabel": "Week 8",
-              "sequence": 16,
-              "sort": 100804,
-              "lessonLabel": "",
-              "title": "30m U.S. History: Grades 9-12 - Lesson 16",
-              "anchor": "term-1-week-8-lesson-16",
-              "links": [
-                {
-                  "text": "Lunsford Lane",
-                  "url": "https://northcarolinahistory.org/encyclopedia/lunsford-lane-1803/"
                 }
               ]
             }
@@ -583,6 +565,30 @@
       "term": "Term 3",
       "weeks": [
         {
+          "weekNumber": 25,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recIuegdrRu4N2xSJ",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 50,
+              "sort": 302504,
+              "lessonLabel": "",
+              "title": "30m U.S. History: Grades 9-12 - Lesson 50",
+              "anchor": "term-3-week-25-lesson-50",
+              "links": [
+                {
+                  "text": "Map Template",
+                  "url": "https://drive.google.com/file/d/1ufobZ-aqCbvpqABA_xk0uPIkQwdq6a61/view?usp=drive_link"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "weekNumber": 27,
           "weekLabel": "Week 3",
           "lessons": [
@@ -601,6 +607,30 @@
                 {
                   "text": "Industrial Revolution - Library of Congress",
                   "url": "https://www.loc.gov/classroom-materials/industrial-revolution-in-the-united-states/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 32,
+          "weekLabel": "Week 8",
+          "lessons": [
+            {
+              "lessonId": "recBa1dELJqlFJzwJ",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 32,
+              "weekLabel": "Week 8",
+              "sequence": 63,
+              "sort": 303202,
+              "lessonLabel": "",
+              "title": "40m U.S. History: Grades 9-12 - Lesson 63",
+              "anchor": "term-3-week-32-lesson-63",
+              "links": [
+                {
+                  "text": "Excerpts from American Horizons",
+                  "url": "https://drive.google.com/file/d/1Ett9lKDZDbmBFvteqs6rJL3kYx_2d4SH/view?usp=drive_link"
                 }
               ]
             }
