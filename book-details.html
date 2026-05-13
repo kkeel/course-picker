@@ -167,15 +167,21 @@
         
           <div class="book-search-row">
             <input id="book-search" type="search" placeholder="Search books, authors, notes...">
-        
-            <select id="student-filter" class="member-tool-only book-mini-select">
-              <option value="">Students</option>
-            </select>
-        
-            <select id="planning-tag-filter" class="member-tool-only book-mini-select">
-              <option value="">Planning Tags</option>
-            </select>
-        
+          
+            <div class="member-tool-only mini-filter-group mini-filter-planning">
+              <label for="planning-tag-filter">Planning Tags</label>
+              <select id="planning-tag-filter" class="book-mini-select">
+                <option value="">Planning Tags</option>
+              </select>
+            </div>
+          
+            <div class="member-tool-only mini-filter-group mini-filter-students">
+              <label for="student-filter">Students</label>
+              <select id="student-filter" class="book-mini-select">
+                <option value="">Students</option>
+              </select>
+            </div>
+          
             <button id="clear-filters" class="clear-filters-link" type="button">
               Clear filters
             </button>
