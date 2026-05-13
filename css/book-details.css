@@ -851,6 +851,50 @@ body.member-tools-enabled .book-member-toolbar-body {
   flex: 1;
 }
 
+.book-title-with-students {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.book-title-with-students h2,
+.book-title-with-students h3 {
+  margin-bottom: 0;
+}
+
+.header-student-chip-list {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.header-student-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(89,110,94,0.1);
+  color: var(--brand-dark);
+  border: 1px solid rgba(89,110,94,0.18);
+  font-size: 11px;
+  line-height: 1.1;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.card-header-tools {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 7px;
+  flex: 0 0 auto;
+  max-width: 48%;
+}
+
 .card-header-actions {
   display: inline-flex;
   align-items: center;
@@ -860,30 +904,46 @@ body.member-tools-enabled .book-member-toolbar-body {
 }
 
 .bookmark-region--readonly {
-  opacity: 0.9;
+  opacity: 1;
 }
 
-.bookmark-region--readonly .bookmark-btn {
+.bookmark-region--readonly .header-bookmark-btn {
   cursor: default;
 }
 
-.planner-tag-list {
+.header-bookmark-btn {
+  min-height: 30px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  flex-wrap: wrap;
-}
-
-.planner-tag-chip {
-  display: inline-flex;
-  align-items: center;
-  height: 24px;
-  padding: 0 10px;
-  border-radius: 999px;
-  background: rgba(0,0,0,0.06);
+  border-radius: 4px;
+  border: 1px solid var(--divider-subtle);
+  background: #ffffff;
+  color: var(--brand-muted);
+  padding: 3px 9px 3px 4px;
+  font: inherit;
   font-size: 12px;
+  font-weight: 600;
   line-height: 1;
   white-space: nowrap;
+}
+
+.header-bookmark-btn--solid {
+  border-color: var(--subject-color, var(--brand-dark));
+  background: var(--subject-color, var(--brand-dark));
+  color: #ffffff;
+}
+
+.header-bookmark-btn--empty {
+  border-color: var(--divider-subtle);
+  background: #ffffff;
+  color: var(--brand-muted);
+}
+
+.header-bookmark-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
 }
 
 .note-btn {
@@ -892,8 +952,49 @@ body.member-tools-enabled .book-member-toolbar-body {
   border-radius: 4px;
   border: 1px solid var(--divider-subtle);
   background: #fff;
+  color: var(--brand-dark);
   cursor: pointer;
   font-size: 14px;
+}
+
+.planner-tag-list {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.planner-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.06);
+  color: var(--brand-muted);
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .book-course-head-main,
+  .book-section-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .card-header-tools {
+    align-items: flex-start;
+    max-width: none;
+  }
+
+  .card-header-actions,
+  .planner-tag-list {
+    justify-content: flex-start;
+  }
 }
 
 .book-course {
