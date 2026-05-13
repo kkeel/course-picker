@@ -582,8 +582,9 @@ function syncControls() {
 function renderBookSaveButton(book) {
   const status = bookSaveStatus(book);
   const resourceId = bookResourceId(book);
+  const instanceKey = bookInstanceKey(book);
 
-  if (!resourceId) return "";
+  if (!resourceId || !instanceKey) return "";
 
   if (status === "active" || status === "legacy") {
     return `
@@ -591,15 +592,11 @@ function renderBookSaveButton(book) {
         <button
           type="button"
           class="bookmark-btn bookmark-btn--solid book-save-btn"
-          onclick="event.stopPropagation(); toggleBookSavedHereByResourceId('${escapeHtml(resourceId)}')"
+          onclick="event.stopPropagation(); toggleBookSavedHereByInstanceKey('${escapeHtml(instanceKey)}')"
           aria-label="Remove from My Books"
           title="In My Books"
         >
-          <img
-            src="img/icons/book-icon-active.png"
-            alt=""
-            class="bookmark-icon"
-          />
+          <img src="img/icons/book-icon-active.png" alt="" class="bookmark-icon" />
         </button>
       </span>
     `;
@@ -611,15 +608,11 @@ function renderBookSaveButton(book) {
         <button
           type="button"
           class="bookmark-btn bookmark-btn--ghost book-save-btn"
-          onclick="event.stopPropagation(); addBookOwnerHereByResourceId('${escapeHtml(resourceId)}')"
+          onclick="event.stopPropagation(); addBookOwnerHereByInstanceKey('${escapeHtml(instanceKey)}')"
           aria-label="In My Books elsewhere — add here"
           title="In My Books elsewhere — add here"
         >
-          <img
-            src="img/icons/book-icon-active.png"
-            alt=""
-            class="bookmark-icon"
-          />
+          <img src="img/icons/book-icon-active.png" alt="" class="bookmark-icon" />
           <span class="bookmark-apply">+</span>
         </button>
       </span>
@@ -631,36 +624,32 @@ function renderBookSaveButton(book) {
       <button
         type="button"
         class="bookmark-btn bookmark-btn--empty book-save-btn"
-        onclick="event.stopPropagation(); toggleBookSavedHereByResourceId('${escapeHtml(resourceId)}')"
+        onclick="event.stopPropagation(); toggleBookSavedHereByInstanceKey('${escapeHtml(instanceKey)}')"
         aria-label="Add to My Books"
         title="Add to My Books"
       >
-        <img
-          src="img/icons/book-icon-inactive.png"
-          alt=""
-          class="bookmark-icon"
-        />
+        <img src="img/icons/book-icon-inactive.png" alt="" class="bookmark-icon" />
         <span class="bookmark-apply">+</span>
       </button>
     </span>
   `;
 }
 
-function findBookByResourceId(resourceId) {
-  const rid = normalizeId(resourceId);
-  if (!rid) return null;
+function findBookByInstanceKey(instanceKey) {
+  const key = normalizeId(instanceKey);
+  if (!key) return null;
 
   const sourceItems = state.data?.items || [];
   const sourceGroups = state.data?.groups || [];
 
-  const items = Array.isArray(sourceGroups)
+  const items = Array.isArray(sourceGroups) && sourceGroups.length
     ? sourceGroups.flatMap((group) => group.items || [])
     : sourceItems;
 
   for (const item of items) {
     for (const section of item.sections || []) {
       for (const book of section.books || []) {
-        if (bookResourceId(book) === rid) {
+        if (bookInstanceKey(book) === key) {
           return book;
         }
       }
@@ -670,15 +659,15 @@ function findBookByResourceId(resourceId) {
   return null;
 }
 
-function toggleBookSavedHereByResourceId(resourceId) {
-  const book = findBookByResourceId(resourceId);
+function toggleBookSavedHereByInstanceKey(instanceKey) {
+  const book = findBookByInstanceKey(instanceKey);
   if (!book) return;
 
   toggleBookSavedHere(book);
 }
 
-function addBookOwnerHereByResourceId(resourceId) {
-  const book = findBookByResourceId(resourceId);
+function addBookOwnerHereByInstanceKey(instanceKey) {
+  const book = findBookByInstanceKey(instanceKey);
   if (!book) return;
 
   addBookOwnerHere(book);
@@ -705,6 +694,9 @@ function renderBookCard(book) {
 
   return `
     <article class="book-card">
+      <div class="book-card-bookmark-corner">
+        ${renderBookSaveButton(book)}
+      </div>
       ${badges.length ? `
         <div class="book-card-badges">
           ${badges.map((badge) => `
@@ -733,13 +725,7 @@ function renderBookCard(book) {
       <div class="book-card-body">
         <div class="book-main-row">
           <div class="book-main-left">
-            <div class="book-title-row">
-              <h4 class="book-card-title">${escapeHtml(book.title)}</h4>
-            
-              <div class="book-card-bookmark-corner">
-                ${renderBookSaveButton(book)}
-              </div>
-            </div>
+            <h4 class="book-card-title">${escapeHtml(book.title)}</h4>
 
             <div class="book-subline">
               ${book.author ? `<span>by ${escapeHtml(book.author)}</span>` : ""}
