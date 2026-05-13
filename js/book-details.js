@@ -1179,27 +1179,22 @@ function renderCourseTopicMode(items) {
           return `
             <section class="book-section">
               <div class="book-section-head">
-                  <div class="book-section-head-left">
-                    <h3>${section.shared ? "↔ " : ""}${escapeHtml(section.title)}</h3>
-                
-                    ${(section.schedText || section.gradeText) ? `
-                      <div class="book-section-meta">
-                        ${section.schedText ? `<span class="book-meta-schedule">${escapeHtml(section.schedText)}</span>` : ""}
-                        ${section.gradeText ? `<span class="book-meta-grade">${escapeHtml(section.gradeText)}</span>` : ""}
-                      </div>
-                    ` : ""}
-                  </div>
-                
-                  ${renderHeaderTools({
-                    saved: isTopicSavedReadOnly(section),
-                    planningTags: section.planningTags || [],
-                  })}
+                <div class="book-section-head-left">
+                  <h3>${section.shared ? "↔ " : ""}${escapeHtml(section.title)}</h3>
+
+                  ${(section.schedText || section.gradeText) ? `
+                    <div class="book-section-meta">
+                      ${section.schedText ? `<span class="book-meta-schedule">${escapeHtml(section.schedText)}</span>` : ""}
+                      ${section.gradeText ? `<span class="book-meta-grade">${escapeHtml(section.gradeText)}</span>` : ""}
+                    </div>
+                  ` : ""}
                 </div>
-                <div class="book-section-meta">
-                  ${section.schedText ? `<span class="book-meta-schedule">${escapeHtml(section.schedText)}</span>` : ""}
-                  ${section.gradeText ? `<span class="book-meta-grade">${escapeHtml(section.gradeText)}</span>` : ""}
-                </div>
-              ` : ""}
+
+                ${renderHeaderTools({
+                  saved: isTopicSavedReadOnly(section),
+                  planningTags: section.planningTags || [],
+                })}
+              </div>
 
               <div class="book-card-list">
                 ${books.map((book) => renderBookCard(book)).join("")}
@@ -1231,7 +1226,7 @@ function renderCourseTopicMode(items) {
           <div class="book-course-head-main">
             <div class="book-course-head-left">
               <h2>${item.shared ? "↔ " : ""}${escapeHtml(item.title)}</h2>
-        
+
               ${(item.schedText || item.gradeText || item.subject) ? `
                 <div class="book-section-meta book-section-meta--course">
                   ${item.schedText ? `<span class="book-meta-schedule">${escapeHtml(item.schedText)}</span>` : ""}
@@ -1239,7 +1234,7 @@ function renderCourseTopicMode(items) {
                 </div>
               ` : ""}
             </div>
-        
+
             ${renderHeaderTools({
               saved: isCourseSavedReadOnly(item),
               planningTags: item.planningTags || [],
