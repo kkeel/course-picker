@@ -691,34 +691,34 @@ body.member-tools-enabled .book-member-toolbar-body {
   }
 
   .book-search-row {
-    display: grid;
-    grid-template-columns: 108px minmax(0, 1fr);
-    gap: 14px 10px;
-    align-items: center;
-  }
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
 
-    .mini-filter-group {
-    display: contents;
-  }
+.mini-filter-search,
+.mini-filter-planning,
+.mini-filter-students {
+  grid-column: 1 / -1 !important;
+  display: grid !important;
+  grid-template-columns: 108px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
 
-  .mini-filter-search,
-  .mini-filter-planning,
-  .mini-filter-students {
-    display: contents;
-  }
+.mini-filter-group label {
+  grid-column: 1;
+  margin: 0;
+}
 
-  .mini-filter-group label {
-    grid-column: 1 !important;
-    grid-row: auto !important;
-  }
-
-  .mini-filter-group input,
-  .mini-filter-group select {
-    grid-column: 2 !important;
-    grid-row: auto !important;
-    min-width: 0;
-  }
-
+.mini-filter-group input,
+.mini-filter-group select {
+  grid-column: 2;
+  min-width: 0;
+  width: 100%;
+}
+   
   .clear-filters-link {
     grid-column: 1 / -1 !important;
     grid-row: auto !important;
