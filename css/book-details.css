@@ -625,27 +625,26 @@ body.member-tools-enabled .book-member-toolbar-body {
 }
 
 /* Mobile: switch directly to one clean label-left layout */
-@media (max-width: 720px) {
-  .book-controls-body,
-  .book-search-row {
-    grid-template-columns: 1fr;
-  }
-
+@media (max-width: 820px) {
   .book-controls-body {
+    grid-template-columns: 1fr;
+    gap: 16px;
     padding: 18px 20px 22px;
   }
 
-  .control-view,
-  .control-group {
-    grid-column: 1;
-    grid-row: auto;
+  .book-controls-body > .control-view,
+  .book-controls-body > .control-group,
+  .book-controls-body > .control-search {
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+    min-width: 0;
   }
 
-  .control-group,
-  .control-search,
-  .control-view {
+  .control-view,
+  .control-group:not(.control-search),
+  .control-search {
     display: grid;
-    grid-template-columns: 104px minmax(0, 1fr);
+    grid-template-columns: 108px minmax(0, 1fr);
     align-items: center;
     gap: 10px;
   }
@@ -656,6 +655,7 @@ body.member-tools-enabled .book-member-toolbar-body {
 
   .book-base-toggle {
     flex-wrap: wrap;
+    min-width: 0;
   }
 
   .book-search-row {
@@ -665,13 +665,17 @@ body.member-tools-enabled .book-member-toolbar-body {
   #book-search,
   #planning-tag-filter,
   #student-filter {
-    grid-column: 2;
+    grid-column: 2 / -1 !important;
+    grid-row: auto !important;
+    min-width: 0;
   }
 
   .clear-filters-link {
-    grid-column: 2;
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
     justify-self: start;
-    padding-top: 4px;
+    align-self: center;
+    padding-top: 2px;
   }
 
   .book-member-toolbar {
