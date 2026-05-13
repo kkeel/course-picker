@@ -34,6 +34,217 @@ const state = {
   track: "",
 };
 
+/* =========================================================
+   Member Book State
+   Canonical IDs:
+   - book.resourceId = Airtable resource record ID
+   - book.instanceKey = course/topic/resource instance from JSON
+   ========================================================= */
+
+const BOOK_MEMBER_STATE_KEY = "alveary_book_member_state_v1";
+
+const bookMemberState = {
+  version: 1,
+
+  books: {
+    // Global: resource is in My Books somewhere
+    myBooks: [],
+
+    // Instance ownership:
+    // {
+    //   "recResourceId": [
+    //     "course:recCourseId:resource:recResourceId",
+    //     "course:recCourseId:topic:recTopicId:resource:recResourceId"
+    //   ]
+    // }
+    myBooksOwnersByResourceId: {},
+  },
+};
+
+function normalizeId(value) {
+  return String(value || "").trim();
+}
+
+function uniqueStrings(values) {
+  const out = [];
+  const seen = new Set();
+
+  (Array.isArray(values) ? values : []).forEach((value) => {
+    const v = normalizeId(value);
+    if (!v || seen.has(v)) return;
+    seen.add(v);
+    out.push(v);
+  });
+
+  return out;
+}
+
+function normalizeBookMemberState() {
+  bookMemberState.books.myBooks = uniqueStrings(bookMemberState.books.myBooks);
+
+  const ownersMap = bookMemberState.books.myBooksOwnersByResourceId || {};
+  const nextOwnersMap = {};
+
+  Object.entries(ownersMap).forEach(([resourceId, owners]) => {
+    const rid = normalizeId(resourceId);
+    if (!rid) return;
+
+    const cleanOwners = uniqueStrings(owners);
+    if (cleanOwners.length) {
+      nextOwnersMap[rid] = cleanOwners;
+    }
+  });
+
+  bookMemberState.books.myBooksOwnersByResourceId = nextOwnersMap;
+}
+
+function loadBookMemberState() {
+  try {
+    const raw = localStorage.getItem(BOOK_MEMBER_STATE_KEY);
+    if (!raw) return;
+
+    const saved = JSON.parse(raw);
+    const savedBooks = saved?.books;
+
+    if (!savedBooks || typeof savedBooks !== "object") return;
+
+    bookMemberState.books.myBooks = Array.isArray(savedBooks.myBooks)
+      ? savedBooks.myBooks
+      : [];
+
+    bookMemberState.books.myBooksOwnersByResourceId =
+      savedBooks.myBooksOwnersByResourceId &&
+      typeof savedBooks.myBooksOwnersByResourceId === "object"
+        ? savedBooks.myBooksOwnersByResourceId
+        : {};
+
+    normalizeBookMemberState();
+  } catch {
+    // ignore bad saved state
+  }
+}
+
+function saveBookMemberState() {
+  try {
+    normalizeBookMemberState();
+    localStorage.setItem(BOOK_MEMBER_STATE_KEY, JSON.stringify(bookMemberState));
+  } catch {
+    // ignore storage errors
+  }
+}
+
+function bookResourceId(book) {
+  return normalizeId(book?.resourceId || book?.id);
+}
+
+function bookInstanceKey(book) {
+  return normalizeId(book?.instanceKey);
+}
+
+function isBookInMyBooks(bookOrResourceId) {
+  const resourceId =
+    typeof bookOrResourceId === "string"
+      ? normalizeId(bookOrResourceId)
+      : bookResourceId(bookOrResourceId);
+
+  if (!resourceId) return false;
+
+  return bookMemberState.books.myBooks.includes(resourceId);
+}
+
+function bookOwnerKeys(resourceId) {
+  const rid = normalizeId(resourceId);
+  if (!rid) return [];
+
+  const owners = bookMemberState.books.myBooksOwnersByResourceId?.[rid];
+  return uniqueStrings(owners);
+}
+
+function isBookOwnedHere(book) {
+  const resourceId = bookResourceId(book);
+  const instanceKey = bookInstanceKey(book);
+
+  if (!resourceId || !instanceKey) return false;
+
+  return bookOwnerKeys(resourceId).includes(instanceKey);
+}
+
+function isBookGhostHere(book) {
+  const resourceId = bookResourceId(book);
+  const instanceKey = bookInstanceKey(book);
+
+  if (!resourceId || !instanceKey) return false;
+  if (!isBookInMyBooks(resourceId)) return false;
+
+  const owners = bookOwnerKeys(resourceId);
+
+  // Legacy/global-only saves behave as active everywhere until scoped.
+  if (!owners.length) return false;
+
+  return !owners.includes(instanceKey);
+}
+
+function bookSaveStatus(book) {
+  if (isBookOwnedHere(book)) return "active";
+  if (isBookGhostHere(book)) return "ghost";
+  if (isBookInMyBooks(book)) return "legacy";
+  return "empty";
+}
+
+function addBookOwnerHere(book) {
+  const resourceId = bookResourceId(book);
+  const instanceKey = bookInstanceKey(book);
+
+  if (!resourceId) return;
+
+  bookMemberState.books.myBooks = uniqueStrings([
+    ...bookMemberState.books.myBooks,
+    resourceId,
+  ]);
+
+  if (instanceKey) {
+    const owners = bookOwnerKeys(resourceId);
+    bookMemberState.books.myBooksOwnersByResourceId[resourceId] = uniqueStrings([
+      ...owners,
+      instanceKey,
+    ]);
+  }
+
+  saveBookMemberState();
+}
+
+function removeBookOwnerHere(book) {
+  const resourceId = bookResourceId(book);
+  const instanceKey = bookInstanceKey(book);
+
+  if (!resourceId) return;
+
+  const owners = bookOwnerKeys(resourceId).filter((key) => key !== instanceKey);
+
+  if (owners.length) {
+    bookMemberState.books.myBooksOwnersByResourceId[resourceId] = owners;
+  } else {
+    delete bookMemberState.books.myBooksOwnersByResourceId[resourceId];
+    bookMemberState.books.myBooks = bookMemberState.books.myBooks.filter(
+      (id) => id !== resourceId
+    );
+  }
+
+  saveBookMemberState();
+}
+
+function toggleBookSavedHere(book) {
+  const status = bookSaveStatus(book);
+
+  if (status === "active") {
+    removeBookOwnerHere(book);
+  } else {
+    addBookOwnerHere(book);
+  }
+
+  render();
+}
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -939,6 +1150,7 @@ function bindMemberToolsShell() {
 async function init() {
   try {
     readParams();
+    loadBookMemberState();
     bindControls();
     bindBackToTop();
     initializePageState();
