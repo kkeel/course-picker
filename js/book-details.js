@@ -35,6 +35,48 @@ const state = {
 };
 
 /* =========================================================
+   Page UI State
+   Remembers page-level open/closed panels.
+   ========================================================= */
+
+const BOOK_PAGE_UI_KEY = "alveary_book_page_ui_v1";
+
+const pageUiState = {
+  introCollapsed: null,
+  filtersCollapsed: null,
+};
+
+function loadBookPageUiState() {
+  try {
+    const raw = localStorage.getItem(BOOK_PAGE_UI_KEY);
+    if (!raw) return;
+
+    const saved = JSON.parse(raw);
+    if (!saved || typeof saved !== "object") return;
+
+    pageUiState.introCollapsed =
+      typeof saved.introCollapsed === "boolean"
+        ? saved.introCollapsed
+        : null;
+
+    pageUiState.filtersCollapsed =
+      typeof saved.filtersCollapsed === "boolean"
+        ? saved.filtersCollapsed
+        : null;
+  } catch {
+    // ignore bad saved state
+  }
+}
+
+function saveBookPageUiState() {
+  try {
+    localStorage.setItem(BOOK_PAGE_UI_KEY, JSON.stringify(pageUiState));
+  } catch {
+    // ignore storage errors
+  }
+}
+
+/* =========================================================
    Member Book State
    Canonical IDs:
    - book.resourceId = Airtable resource record ID
@@ -927,8 +969,18 @@ function setFiltersCollapsed(isCollapsed) {
 function initializePageState() {
   const shouldCollapse = isFocusedDirectView();
 
-  setIntroCollapsed(shouldCollapse);
-  setFiltersCollapsed(shouldCollapse);
+  const introCollapsed =
+    typeof pageUiState.introCollapsed === "boolean"
+      ? pageUiState.introCollapsed
+      : shouldCollapse;
+
+  const filtersCollapsed =
+    typeof pageUiState.filtersCollapsed === "boolean"
+      ? pageUiState.filtersCollapsed
+      : shouldCollapse;
+
+  setIntroCollapsed(introCollapsed);
+  setFiltersCollapsed(filtersCollapsed);
 }
 
 function bindControls() {
@@ -1026,14 +1078,20 @@ function bindControls() {
   document.querySelector(".book-controls-header").addEventListener("click", () => {
     const controls = document.getElementById("book-controls");
     const isCollapsed = !controls.classList.contains("is-collapsed");
-  
+
+    pageUiState.filtersCollapsed = isCollapsed;
+    saveBookPageUiState();
+
     setFiltersCollapsed(isCollapsed);
   });
 
   document.getElementById("toggle-intro").addEventListener("click", () => {
     const intro = document.getElementById("book-intro-section");
     const isCollapsed = !intro.classList.contains("is-collapsed");
-  
+
+    pageUiState.introCollapsed = isCollapsed;
+    saveBookPageUiState();
+
     setIntroCollapsed(isCollapsed);
   });
 }
@@ -1150,6 +1208,7 @@ function bindMemberToolsShell() {
 async function init() {
   try {
     readParams();
+    loadBookPageUiState();
     loadBookMemberState();
     bindControls();
     bindBackToTop();
