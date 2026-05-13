@@ -1094,12 +1094,23 @@ function renderSelectedViewMode(items) {
 }
 
 function renderGroupedMode(groups) {
-  return groups.map((group, index) => `
-    <section class="book-group book-group-section">
-      ${renderSectionHeading(groupLabelWithBooks(group), index === 0)}
-      ${renderCourseTopicMode(group.items)}
-    </section>
-  `).join("");
+  let visibleGroupIndex = 0;
+
+  return groups.map((group) => {
+    const groupHtml = renderCourseTopicMode(group.items);
+
+    if (!groupHtml.trim()) return "";
+
+    const html = `
+      <section class="book-group book-group-section">
+        ${renderSectionHeading(groupLabelWithBooks(group), visibleGroupIndex === 0)}
+        ${groupHtml}
+      </section>
+    `;
+
+    visibleGroupIndex += 1;
+    return html;
+  }).join("");
 }
 
 function render() {
