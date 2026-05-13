@@ -655,6 +655,44 @@
     "linkPageUrl": "./links.html?id=recUTvWjiMV4SxFLw"
   },
   {
+    "id": "recGXxGxyBDadjmRF",
+    "title": "Citizenship",
+    "lessonSetName": "Citizenship: Grade 6",
+    "subject": "Citizenship",
+    "gradeText": "GRADE(S): 6",
+    "sortId": "005.006.001.000",
+    "rowType": "course",
+    "hasTopics": true,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [
+      "Plutarch: Grades 6-8",
+      "Current Events: Grades 5-8",
+      "Community Read Alouds: Grades 1-12"
+    ],
+    "linkPageUrl": "./links.html?id=recGXxGxyBDadjmRF"
+  },
+  {
+    "id": "recLxHIpB9s53QHpZ",
+    "title": "Plutarch",
+    "lessonSetName": "Plutarch: Grades 6-8",
+    "subject": "Citizenship",
+    "gradeText": "GRADE(S): 6-8+",
+    "sortId": "005.006.001.001",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Citizenship: Grade 6",
+      "Citizenship: Grade 7 (U.S.)",
+      "Citizenship: Grade 7 (Canada)",
+      "Citizenship: Grade 8 (U.S.)",
+      "Citizenship: Grade 8 (Canada)"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recLxHIpB9s53QHpZ"
+  },
+  {
     "id": "recnPUjwJ22heDgYx",
     "title": "Citizenship",
     "lessonSetName": "Citizenship: Grade 7 (U.S.)",
@@ -689,6 +727,26 @@
     ],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=recyny4sbSkwaNkf2"
+  },
+  {
+    "id": "recFveiRQJWXaIwRJ",
+    "title": "Citizenship",
+    "lessonSetName": "Citizenship: Grade 7 (Canada)",
+    "subject": "Citizenship",
+    "gradeText": "GRADE(S): 7",
+    "sortId": "005.007.002.000",
+    "rowType": "course",
+    "hasTopics": true,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [
+      "Plutarch: Grades 6-8",
+      "Current Events: Grades 5-8",
+      "Canadian Government: Grade 7",
+      "Community Read Alouds: Grades 1-12",
+      "Ethics: Part 1"
+    ],
+    "linkPageUrl": "./links.html?id=recFveiRQJWXaIwRJ"
   },
   {
     "id": "recgUPgdIguvZwUVr",
@@ -1480,6 +1538,20 @@
     "courseConnectionNames": [],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=rec1NRlYp2n4n75t8"
+  },
+  {
+    "id": "reczpuW6rvOyzzblj",
+    "title": "History",
+    "lessonSetName": "History: Grades 2-3 (U.S.)",
+    "subject": "History",
+    "gradeText": "GRADE(S): 2-3",
+    "sortId": "008.002.001.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=reczpuW6rvOyzzblj"
   },
   {
     "id": "recQcsYwjuZMuzVvp",

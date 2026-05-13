@@ -1,0 +1,132 @@
+{
+  "id": "recFveiRQJWXaIwRJ",
+  "title": "Citizenship",
+  "lessonSetName": "Citizenship: Grade 7 (Canada)",
+  "subject": "Citizenship",
+  "gradeText": "GRADE(S): 7",
+  "sortId": "005.007.002.000",
+  "rowType": "course",
+  "hasTopics": true,
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [],
+  "topicConnectionNames": [
+    "Plutarch: Grades 6-8",
+    "Current Events: Grades 5-8",
+    "Canadian Government: Grade 7",
+    "Community Read Alouds: Grades 1-12",
+    "Ethics: Part 1"
+  ],
+  "updatedAt": "2026-05-13T18:27:46.664Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recgAaG5YspMiel91",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100103,
+              "lessonLabel": "",
+              "title": "30m Plutarch: Grades 6-8 - Lesson 1",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Our Young Folks' Plutarch",
+                  "url": "https://www.heritage-history.com/index.php?c=read&author=kaufman&book=plutarch&story=caesar"
+                },
+                {
+                  "text": "Image: Julius Caesar",
+                  "url": "https://en.wikipedia.org/wiki/Julius_Caesar#/media/File:Retrato_de_Julio_César_(26724093101)_(cropped).jpg"
+                },
+                {
+                  "text": "Character Cards",
+                  "url": "https://www.teacherspayteachers.com/Product/Plutarchs-Lives-Bundle-Julius-Caesar-Agis-Cleomenes-Tiberius-Gaius-15470373"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 2,
+      "term": "Term 2",
+      "weeks": [
+        {
+          "weekNumber": 13,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recZm3L2iaiKwaoTa",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 13,
+              "weekLabel": "Week 1",
+              "sequence": 13,
+              "sort": 201303,
+              "lessonLabel": "",
+              "title": "30m Plutarch: Grades 6-8 - Lesson 13",
+              "anchor": "term-2-week-13-lesson-13",
+              "links": [
+                {
+                  "text": "Our Young Folks' Plutarch - Agis",
+                  "url": "https://www.heritage-history.com/index.php?c=read&author=kaufman&book=plutarch&story=agis"
+                },
+                {
+                  "text": "Our Young Folks' Plutarch - Cleomenes",
+                  "url": "https://www.heritage-history.com/index.php?c=read&author=kaufman&book=plutarch&story=cleomenes"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 3,
+      "term": "Term 3",
+      "weeks": [
+        {
+          "weekNumber": 25,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recCEtI1mjoqLRs6B",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 25,
+              "sort": 302503,
+              "lessonLabel": "",
+              "title": "30m Plutarch: Grades 6-8 - Lesson 25",
+              "anchor": "term-3-week-25-lesson-25",
+              "links": [
+                {
+                  "text": "Our Young Folks' Plutarch - Tiberius Gracchus",
+                  "url": "https://www.heritage-history.com/index.php?c=read&author=kaufman&book=plutarch&story=tiberius"
+                },
+                {
+                  "text": "Our Young Folks' Plutarch - Caius Gracchus",
+                  "url": "https://www.heritage-history.com/index.php?c=read&author=kaufman&book=plutarch&story=gracchus "
+                },
+                {
+                  "text": "Image: Gracchus",
+                  "url": "https://commons.wikimedia.org/wiki/File:Eugene_Guillaume_-_the_Gracchi.jpg"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
