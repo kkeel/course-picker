@@ -579,6 +579,112 @@ function syncControls() {
   syncClearButtons();
 }
 
+function renderBookSaveButton(book) {
+  const status = bookSaveStatus(book);
+  const resourceId = bookResourceId(book);
+
+  if (!resourceId) return "";
+
+  if (status === "active" || status === "legacy") {
+    return `
+      <span class="bookmark-region book-save-region">
+        <button
+          type="button"
+          class="bookmark-btn bookmark-btn--solid book-save-btn"
+          onclick="event.stopPropagation(); toggleBookSavedHereByResourceId('${escapeHtml(resourceId)}')"
+          aria-label="Remove from My Books"
+          title="In My Books"
+        >
+          <img
+            src="img/icons/book-icon-active.png"
+            alt=""
+            class="bookmark-icon"
+          />
+        </button>
+      </span>
+    `;
+  }
+
+  if (status === "ghost") {
+    return `
+      <span class="bookmark-region book-save-region">
+        <button
+          type="button"
+          class="bookmark-btn bookmark-btn--ghost book-save-btn"
+          onclick="event.stopPropagation(); addBookOwnerHereByResourceId('${escapeHtml(resourceId)}')"
+          aria-label="In My Books elsewhere — add here"
+          title="In My Books elsewhere — add here"
+        >
+          <img
+            src="img/icons/book-icon-active.png"
+            alt=""
+            class="bookmark-icon"
+          />
+          <span class="bookmark-apply">+</span>
+        </button>
+      </span>
+    `;
+  }
+
+  return `
+    <span class="bookmark-region book-save-region">
+      <button
+        type="button"
+        class="bookmark-btn bookmark-btn--empty book-save-btn"
+        onclick="event.stopPropagation(); toggleBookSavedHereByResourceId('${escapeHtml(resourceId)}')"
+        aria-label="Add to My Books"
+        title="Add to My Books"
+      >
+        <img
+          src="img/icons/book-icon-inactive.png"
+          alt=""
+          class="bookmark-icon"
+        />
+        <span class="bookmark-apply">+</span>
+      </button>
+    </span>
+  `;
+}
+
+function findBookByResourceId(resourceId) {
+  const rid = normalizeId(resourceId);
+  if (!rid) return null;
+
+  const sourceItems = state.data?.items || [];
+  const sourceGroups = state.data?.groups || [];
+
+  const items = Array.isArray(sourceGroups)
+    ? sourceGroups.flatMap((group) => group.items || [])
+    : sourceItems;
+
+  for (const item of items) {
+    for (const section of item.sections || []) {
+      for (const book of section.books || []) {
+        if (bookResourceId(book) === rid) {
+          return book;
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
+function toggleBookSavedHereByResourceId(resourceId) {
+  const book = findBookByResourceId(resourceId);
+  if (!book) return;
+
+  toggleBookSavedHere(book);
+}
+
+function addBookOwnerHereByResourceId(resourceId) {
+  const book = findBookByResourceId(resourceId);
+  if (!book) return;
+
+  addBookOwnerHere(book);
+  render();
+}
+
 function renderBookCard(book) {
   const badges = [
     book.gradeLevelTag ? { label: book.gradeLevelTag, className: "book-badge--grade" } : null,
@@ -627,7 +733,13 @@ function renderBookCard(book) {
       <div class="book-card-body">
         <div class="book-main-row">
           <div class="book-main-left">
-            <h4 class="book-card-title">${escapeHtml(book.title)}</h4>
+            <div class="book-title-row">
+              <h4 class="book-card-title">${escapeHtml(book.title)}</h4>
+            
+              <div class="book-card-bookmark-corner">
+                ${renderBookSaveButton(book)}
+              </div>
+            </div>
 
             <div class="book-subline">
               ${book.author ? `<span>by ${escapeHtml(book.author)}</span>` : ""}
