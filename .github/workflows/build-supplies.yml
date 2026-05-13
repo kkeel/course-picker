@@ -14,14 +14,15 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: "20"
+          node-version: "22"
+          package-manager-cache: false
 
       - name: Install Airtable dependency
         run: npm install airtable
@@ -35,7 +36,7 @@ jobs:
           node tools/build-supplies-from-airtable.mjs
 
       - name: Commit and push updated JSON files
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v10
         with:
           add: |
             data/MA_Supplies.json
