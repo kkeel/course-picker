@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "reczJaAXPgqwXQPsz",
+  "recordID": "reczJaAXPgqwXQPsz",
+  "courseRecordId": "reczJaAXPgqwXQPsz",
+  "Sort_ID": "",
+  "legacyId": "reczJaAXPgqwXQPsz",
+  "courseLegacyId": "reczJaAXPgqwXQPsz",
   "rowType": "course",
   "title": "Science: Grade 6",
   "subject": "Science",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recCIKPAUtjmwgV4a",
+      "recordID": "recCIKPAUtjmwgV4a",
+      "topicRecordId": "recCIKPAUtjmwgV4a",
+      "Topic_ID": "016.006.002.001",
+      "legacyId": "016.006.002.001",
+      "topicLegacyId": "016.006.002.001",
+      "courseId": "reczJaAXPgqwXQPsz",
+      "courseRecordId": "reczJaAXPgqwXQPsz",
+      "courseLegacyId": "reczJaAXPgqwXQPsz",
       "title": "General Science: Grade 6",
       "gradeText": "GRADE(S): 6",
       "schedText": "2 times/week 30 min * ⬔",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recTmUqHMkE0WgkLh",
@@ -145,10 +159,19 @@
     {
       "type": "topic",
       "id": "recNsLgCgQ6qo59lq",
+      "recordID": "recNsLgCgQ6qo59lq",
+      "topicRecordId": "recNsLgCgQ6qo59lq",
+      "Topic_ID": "016.006.002.002",
+      "legacyId": "016.006.002.002",
+      "topicLegacyId": "016.006.002.002",
+      "courseId": "reczJaAXPgqwXQPsz",
+      "courseRecordId": "reczJaAXPgqwXQPsz",
+      "courseLegacyId": "reczJaAXPgqwXQPsz",
       "title": "Natural History: Grade 6",
       "gradeText": "GRADE(S): 6",
       "schedText": "1 time/week 15 min * ⬔",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "reclcRnF299kHLBzD",
@@ -286,10 +309,19 @@
     {
       "type": "topic",
       "id": "recgVS35iUXGLMTeB",
+      "recordID": "recgVS35iUXGLMTeB",
+      "topicRecordId": "recgVS35iUXGLMTeB",
+      "Topic_ID": "016.006.002.003",
+      "legacyId": "016.006.002.003",
+      "topicLegacyId": "016.006.002.003",
+      "courseId": "reczJaAXPgqwXQPsz",
+      "courseRecordId": "reczJaAXPgqwXQPsz",
+      "courseLegacyId": "reczJaAXPgqwXQPsz",
       "title": "Labs: Grade 6",
       "gradeText": "GRADE(S): 6",
       "schedText": "1 time/week 30 min * ⬔",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec6cSvtXvrxeShOA",

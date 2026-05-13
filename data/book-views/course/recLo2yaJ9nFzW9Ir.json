@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recLo2yaJ9nFzW9Ir",
+  "recordID": "recLo2yaJ9nFzW9Ir",
+  "courseRecordId": "recLo2yaJ9nFzW9Ir",
+  "Sort_ID": "",
+  "legacyId": "recLo2yaJ9nFzW9Ir",
+  "courseLegacyId": "recLo2yaJ9nFzW9Ir",
   "rowType": "course",
   "title": "Literature: Grade 2",
   "subject": "Literature",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "rec0zdroSI7QgJY6v",
+      "recordID": "rec0zdroSI7QgJY6v",
+      "topicRecordId": "rec0zdroSI7QgJY6v",
+      "Topic_ID": "011.001.002.003",
+      "legacyId": "011.001.002.003",
+      "topicLegacyId": "011.001.002.003",
+      "courseId": "recLo2yaJ9nFzW9Ir",
+      "courseRecordId": "recLo2yaJ9nFzW9Ir",
+      "courseLegacyId": "recLo2yaJ9nFzW9Ir",
       "title": "Mythology: Grade 2",
       "gradeText": "GRADE(S): 2",
       "schedText": "1 time/week 15 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rechRuS8zVr1DHOaD",
@@ -64,10 +78,19 @@
     {
       "type": "topic",
       "id": "rec7jlz4INbdwK5bW",
+      "recordID": "rec7jlz4INbdwK5bW",
+      "topicRecordId": "rec7jlz4INbdwK5bW",
+      "Topic_ID": "011.001.002.004",
+      "legacyId": "011.001.002.004",
+      "topicLegacyId": "011.001.002.004",
+      "courseId": "recLo2yaJ9nFzW9Ir",
+      "courseRecordId": "recLo2yaJ9nFzW9Ir",
+      "courseLegacyId": "recLo2yaJ9nFzW9Ir",
       "title": "Classic Lit.: Grade 2",
       "gradeText": "GRADE(S): 2",
       "schedText": "1 time/week 15 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recJGvkeytuYA6Noo",

@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recVYrtvG5Zep6XCc",
+  "recordID": "recVYrtvG5Zep6XCc",
+  "courseRecordId": "recVYrtvG5Zep6XCc",
+  "Sort_ID": "",
+  "legacyId": "recVYrtvG5Zep6XCc",
+  "courseLegacyId": "recVYrtvG5Zep6XCc",
   "rowType": "course",
   "title": "Language Study: Grade 6",
   "subject": "English",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "rec9bl06BiEUDmZFr",
+      "recordID": "rec9bl06BiEUDmZFr",
+      "topicRecordId": "rec9bl06BiEUDmZFr",
+      "Topic_ID": "006.001.006.002",
+      "legacyId": "006.001.006.002",
+      "topicLegacyId": "006.001.006.002",
+      "courseId": "recVYrtvG5Zep6XCc",
+      "courseRecordId": "recVYrtvG5Zep6XCc",
+      "courseLegacyId": "recVYrtvG5Zep6XCc",
       "title": "Grammar: Grade 6",
       "gradeText": "GRADE(S): 6",
       "schedText": "2 times/week 15 min * ⬔",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recGIofb7rFuTOhyP",
@@ -163,10 +177,19 @@
     {
       "type": "topic",
       "id": "rec1RjXdHiGBUlKd2",
+      "recordID": "rec1RjXdHiGBUlKd2",
+      "topicRecordId": "rec1RjXdHiGBUlKd2",
+      "Topic_ID": "006.001.006.003",
+      "legacyId": "006.001.006.003",
+      "topicLegacyId": "006.001.006.003",
+      "courseId": "recVYrtvG5Zep6XCc",
+      "courseRecordId": "recVYrtvG5Zep6XCc",
+      "courseLegacyId": "recVYrtvG5Zep6XCc",
       "title": "Dictation: Grade 6",
       "gradeText": "GRADE(S): 6",
       "schedText": "3 times/week 15 min * ⬔",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recAUDZpOAGF0JSEx",
@@ -201,10 +224,19 @@
     {
       "type": "topic",
       "id": "rec42Ixi12Wm4FHAN",
+      "recordID": "rec42Ixi12Wm4FHAN",
+      "topicRecordId": "rec42Ixi12Wm4FHAN",
+      "Topic_ID": "006.001.006.004",
+      "legacyId": "006.001.006.004",
+      "topicLegacyId": "006.001.006.004",
+      "courseId": "recVYrtvG5Zep6XCc",
+      "courseRecordId": "recVYrtvG5Zep6XCc",
+      "courseLegacyId": "recVYrtvG5Zep6XCc",
       "title": "Penmanship & Copywork: Grade 6",
       "gradeText": "GRADE(S): 6",
       "schedText": "5 times/week 10 min * ☐",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec6WKrYlYzjYnRR4",

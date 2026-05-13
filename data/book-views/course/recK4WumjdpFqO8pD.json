@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recK4WumjdpFqO8pD",
+  "recordID": "recK4WumjdpFqO8pD",
+  "courseRecordId": "recK4WumjdpFqO8pD",
+  "Sort_ID": "",
+  "legacyId": "recK4WumjdpFqO8pD",
+  "courseLegacyId": "recK4WumjdpFqO8pD",
   "rowType": "course",
   "title": "Bible: Grades 10-11",
   "subject": "Bible",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recJOkNvdiyWNEvhn",
+      "recordID": "recJOkNvdiyWNEvhn",
+      "topicRecordId": "recJOkNvdiyWNEvhn",
+      "Topic_ID": "004.007.001.001",
+      "legacyId": "004.007.001.001",
+      "topicLegacyId": "004.007.001.001",
+      "courseId": "recK4WumjdpFqO8pD",
+      "courseRecordId": "recK4WumjdpFqO8pD",
+      "courseLegacyId": "recK4WumjdpFqO8pD",
       "title": "Old Testament: Grades 7-12",
       "gradeText": "GRADE(S): 7-12",
       "schedText": "2 times/week 30 min * ⬔ (Grades 7-9)\n2 times/week 30 min * ☐ (Grades 10-12)",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec1dkTRQiOlbkGqi",
@@ -182,10 +196,19 @@
     {
       "type": "topic",
       "id": "recxXpnf7IZkJRKX0",
+      "recordID": "recxXpnf7IZkJRKX0",
+      "topicRecordId": "recxXpnf7IZkJRKX0",
+      "Topic_ID": "004.010.001.002",
+      "legacyId": "004.010.001.002",
+      "topicLegacyId": "004.010.001.002",
+      "courseId": "recK4WumjdpFqO8pD",
+      "courseRecordId": "recK4WumjdpFqO8pD",
+      "courseLegacyId": "recK4WumjdpFqO8pD",
       "title": "New Testament: Grades 10-11",
       "gradeText": "GRADE(S): 10-11",
       "schedText": "1 time/week 30 min * ☐",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec2dOHvUHjbSY3hp",
@@ -319,10 +342,19 @@
     {
       "type": "topic",
       "id": "recyAMOsJVfBdGg0r",
+      "recordID": "recyAMOsJVfBdGg0r",
+      "topicRecordId": "recyAMOsJVfBdGg0r",
+      "Topic_ID": "004.010.001.003",
+      "legacyId": "004.010.001.003",
+      "topicLegacyId": "004.010.001.003",
+      "courseId": "recK4WumjdpFqO8pD",
+      "courseRecordId": "recK4WumjdpFqO8pD",
+      "courseLegacyId": "recK4WumjdpFqO8pD",
       "title": "Church History: Grades 10-12",
       "gradeText": "GRADE(S): 10-12",
       "schedText": "1 time/week 30 min * ☐",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recDkUYOYpWCv6KlP",
@@ -413,10 +445,19 @@
     {
       "type": "topic",
       "id": "recMaPKBscCmVvdjg",
+      "recordID": "recMaPKBscCmVvdjg",
+      "topicRecordId": "recMaPKBscCmVvdjg",
+      "Topic_ID": "004.010.001.005",
+      "legacyId": "004.010.001.005",
+      "topicLegacyId": "004.010.001.005",
+      "courseId": "recK4WumjdpFqO8pD",
+      "courseRecordId": "recK4WumjdpFqO8pD",
+      "courseLegacyId": "recK4WumjdpFqO8pD",
       "title": "Spiritual Formation: Grades 10-11",
       "gradeText": "GRADE(S): 10-11",
       "schedText": "1 time/week 30 min * ☐",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recoR5dUTNBS6Lg5R",

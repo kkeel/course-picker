@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recQWKDHT3t6U85uA",
+  "recordID": "recQWKDHT3t6U85uA",
+  "courseRecordId": "recQWKDHT3t6U85uA",
+  "Sort_ID": "",
+  "legacyId": "recQWKDHT3t6U85uA",
+  "courseLegacyId": "recQWKDHT3t6U85uA",
   "rowType": "course",
   "title": "Citizenship: Grade 9 (Canada)",
   "subject": "Citizenship",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recXw9HiIV6WGm6oO",
+      "recordID": "recXw9HiIV6WGm6oO",
+      "topicRecordId": "recXw9HiIV6WGm6oO",
+      "Topic_ID": "005.009.002.001",
+      "legacyId": "005.009.002.001",
+      "topicLegacyId": "005.009.002.001",
+      "courseId": "recQWKDHT3t6U85uA",
+      "courseRecordId": "recQWKDHT3t6U85uA",
+      "courseLegacyId": "recQWKDHT3t6U85uA",
       "title": "Plutarch/Government: Grade 9 (Canada)",
       "gradeText": "GRADE(S): 9",
       "schedText": "1 time/week 30 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recUCjRu76tQczZuF",
@@ -105,10 +119,19 @@
     {
       "type": "topic",
       "id": "reciA3o7lcUcEINWo",
+      "recordID": "reciA3o7lcUcEINWo",
+      "topicRecordId": "reciA3o7lcUcEINWo",
+      "Topic_ID": "005.009.000.003",
+      "legacyId": "005.009.000.003",
+      "topicLegacyId": "005.009.000.003",
+      "courseId": "recQWKDHT3t6U85uA",
+      "courseRecordId": "recQWKDHT3t6U85uA",
+      "courseLegacyId": "recQWKDHT3t6U85uA",
       "title": "Ethics: Part 3",
       "gradeText": "GRADE(S): 9+",
       "schedText": "1 time/week 25 min * 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recLHdhKMfjC9IAKG",

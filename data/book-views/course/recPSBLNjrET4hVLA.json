@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recPSBLNjrET4hVLA",
+  "recordID": "recPSBLNjrET4hVLA",
+  "courseRecordId": "recPSBLNjrET4hVLA",
+  "Sort_ID": "",
+  "legacyId": "recPSBLNjrET4hVLA",
+  "courseLegacyId": "recPSBLNjrET4hVLA",
   "rowType": "course",
   "title": "Resources: Grade 10",
   "subject": "Suggested Resources",
@@ -13,10 +18,16 @@
     {
       "type": "course",
       "id": "recPSBLNjrET4hVLA",
+      "recordID": "recPSBLNjrET4hVLA",
+      "courseRecordId": "recPSBLNjrET4hVLA",
+      "Sort_ID": "",
+      "legacyId": "recPSBLNjrET4hVLA",
+      "courseLegacyId": "recPSBLNjrET4hVLA",
       "title": "Resources: Grade 10",
       "gradeText": "GRADE(S): 10",
       "schedText": "",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recqEtI9344LV8lQQ",
@@ -166,10 +177,19 @@
     {
       "type": "topic",
       "id": "recgB0ahib5RbcrAz",
+      "recordID": "recgB0ahib5RbcrAz",
+      "topicRecordId": "recgB0ahib5RbcrAz",
+      "Topic_ID": "018.009.000.002",
+      "legacyId": "018.009.000.002",
+      "topicLegacyId": "018.009.000.002",
+      "courseId": "recPSBLNjrET4hVLA",
+      "courseRecordId": "recPSBLNjrET4hVLA",
+      "courseLegacyId": "recPSBLNjrET4hVLA",
       "title": "Afternoon Occupations: Grades 9-12 (Opt.)",
       "gradeText": "GRADE(S): 9-12",
       "schedText": "",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec7FrmRjmju44ghI",

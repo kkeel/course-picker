@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "rec52efxcB4N98hgR",
+  "recordID": "rec52efxcB4N98hgR",
+  "courseRecordId": "rec52efxcB4N98hgR",
+  "Sort_ID": "",
+  "legacyId": "rec52efxcB4N98hgR",
+  "courseLegacyId": "rec52efxcB4N98hgR",
   "rowType": "course",
   "title": "Citizenship: Grade 6",
   "subject": "Citizenship",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recNZjfwI3SeCuONn",
+      "recordID": "recNZjfwI3SeCuONn",
+      "topicRecordId": "recNZjfwI3SeCuONn",
+      "Topic_ID": "005.006.001.001",
+      "legacyId": "005.006.001.001",
+      "topicLegacyId": "005.006.001.001",
+      "courseId": "rec52efxcB4N98hgR",
+      "courseRecordId": "rec52efxcB4N98hgR",
+      "courseLegacyId": "rec52efxcB4N98hgR",
       "title": "Plutarch: Grades 6-8",
       "gradeText": "GRADE(S): 6-8+",
       "schedText": "1 time/week 30 min * 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "reca6JrCf4DtEZII1",

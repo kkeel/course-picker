@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recgwYscXzqbmjffJ",
+  "recordID": "recgwYscXzqbmjffJ",
+  "courseRecordId": "recgwYscXzqbmjffJ",
+  "Sort_ID": "",
+  "legacyId": "recgwYscXzqbmjffJ",
+  "courseLegacyId": "recgwYscXzqbmjffJ",
   "rowType": "course",
   "title": "Science: Physics",
   "subject": "Science",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recj36OQrkZkYtxM6",
+      "recordID": "recj36OQrkZkYtxM6",
+      "topicRecordId": "recj36OQrkZkYtxM6",
+      "Topic_ID": "016.011.002.001",
+      "legacyId": "016.011.002.001",
+      "topicLegacyId": "016.011.002.001",
+      "courseId": "recgwYscXzqbmjffJ",
+      "courseRecordId": "recgwYscXzqbmjffJ",
+      "courseLegacyId": "recgwYscXzqbmjffJ",
       "title": "Physics Lessons",
       "gradeText": "GRADE(S): 11-12",
       "schedText": "5 times/week 45 min *",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recDMDo9ie5QCal7N",

@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "reckjXj6u4AumFRqU",
+  "recordID": "reckjXj6u4AumFRqU",
+  "courseRecordId": "reckjXj6u4AumFRqU",
+  "Sort_ID": "",
+  "legacyId": "reckjXj6u4AumFRqU",
+  "courseLegacyId": "reckjXj6u4AumFRqU",
   "rowType": "course",
   "title": "Mathematics: Grade 12",
   "subject": "Math",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recx9GYaBIsAr3FBg",
+      "recordID": "recx9GYaBIsAr3FBg",
+      "topicRecordId": "recx9GYaBIsAr3FBg",
+      "Topic_ID": "012.017.012.001",
+      "legacyId": "012.017.012.001",
+      "topicLegacyId": "012.017.012.001",
+      "courseId": "reckjXj6u4AumFRqU",
+      "courseRecordId": "reckjXj6u4AumFRqU",
+      "courseLegacyId": "reckjXj6u4AumFRqU",
       "title": "Pre-Calculus: Part 2",
       "gradeText": "GRADE(S): 12",
       "schedText": "5 times/week 40 min *",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recBToi9LtJZphztW",
@@ -58,10 +72,19 @@
     {
       "type": "topic",
       "id": "recEohsqHGUHTgrJP",
+      "recordID": "recEohsqHGUHTgrJP",
+      "topicRecordId": "recEohsqHGUHTgrJP",
+      "Topic_ID": "012.017.012.002",
+      "legacyId": "012.017.012.002",
+      "topicLegacyId": "012.017.012.002",
+      "courseId": "reckjXj6u4AumFRqU",
+      "courseRecordId": "reckjXj6u4AumFRqU",
+      "courseLegacyId": "reckjXj6u4AumFRqU",
       "title": "Calculus: Part 1",
       "gradeText": "GRADE(S): 12",
       "schedText": "5 times/week 40 min *",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recWxUYXUJvlXYpTX",

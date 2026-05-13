@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recwmIzmYdzWW44N9",
+  "recordID": "recwmIzmYdzWW44N9",
+  "courseRecordId": "recwmIzmYdzWW44N9",
+  "Sort_ID": "",
+  "legacyId": "recwmIzmYdzWW44N9",
+  "courseLegacyId": "recwmIzmYdzWW44N9",
   "rowType": "course",
   "title": "Bible: Grade 3",
   "subject": "Bible",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recj6cQqX6s5LfVuZ",
+      "recordID": "recj6cQqX6s5LfVuZ",
+      "topicRecordId": "recj6cQqX6s5LfVuZ",
+      "Topic_ID": "004.003.001.001",
+      "legacyId": "004.003.001.001",
+      "topicLegacyId": "004.003.001.001",
+      "courseId": "recwmIzmYdzWW44N9",
+      "courseRecordId": "recwmIzmYdzWW44N9",
+      "courseLegacyId": "recwmIzmYdzWW44N9",
       "title": "Old Testament: Grades 3-6",
       "gradeText": "GRADE(S): 3-6",
       "schedText": "2 times/week 20 min * 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recg0MzdbBT0JchkF",
@@ -145,10 +159,19 @@
     {
       "type": "topic",
       "id": "rec8fMADfpLzUlCnb",
+      "recordID": "rec8fMADfpLzUlCnb",
+      "topicRecordId": "rec8fMADfpLzUlCnb",
+      "Topic_ID": "004.003.001.002",
+      "legacyId": "004.003.001.002",
+      "topicLegacyId": "004.003.001.002",
+      "courseId": "recwmIzmYdzWW44N9",
+      "courseRecordId": "recwmIzmYdzWW44N9",
+      "courseLegacyId": "recwmIzmYdzWW44N9",
       "title": "New Testament: Grades 3-6",
       "gradeText": "GRADE(S): 3-6",
       "schedText": "2 times/week 20 min * 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recg0MzdbBT0JchkF",
@@ -277,10 +300,19 @@
     {
       "type": "topic",
       "id": "recwdjPJ19zLtMKB3",
+      "recordID": "recwdjPJ19zLtMKB3",
+      "topicRecordId": "recwdjPJ19zLtMKB3",
+      "Topic_ID": "004.001.001.003",
+      "legacyId": "004.001.001.003",
+      "topicLegacyId": "004.001.001.003",
+      "courseId": "recwmIzmYdzWW44N9",
+      "courseRecordId": "recwmIzmYdzWW44N9",
+      "courseLegacyId": "recwmIzmYdzWW44N9",
       "title": "Church History: Grades 1-3",
       "gradeText": "GRADE(S): 1-3",
       "schedText": "1 time/week 20 min * 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recEwODkwJZNKwdhf",

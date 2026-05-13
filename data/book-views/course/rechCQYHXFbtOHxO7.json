@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "rechCQYHXFbtOHxO7",
+  "recordID": "rechCQYHXFbtOHxO7",
+  "courseRecordId": "rechCQYHXFbtOHxO7",
+  "Sort_ID": "",
+  "legacyId": "rechCQYHXFbtOHxO7",
+  "courseLegacyId": "rechCQYHXFbtOHxO7",
   "rowType": "course",
   "title": "Science: Geology",
   "subject": "Alt. Science Options",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "rechpxDJlfYNeYf26",
+      "recordID": "rechpxDJlfYNeYf26",
+      "topicRecordId": "rechpxDJlfYNeYf26",
+      "Topic_ID": "017.011.005.001",
+      "legacyId": "017.011.005.001",
+      "topicLegacyId": "017.011.005.001",
+      "courseId": "rechCQYHXFbtOHxO7",
+      "courseRecordId": "rechCQYHXFbtOHxO7",
+      "courseLegacyId": "rechCQYHXFbtOHxO7",
       "title": "Geology Lessons",
       "gradeText": "GRADE(S): 11-12",
       "schedText": "5 times/week 45 min *",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recEt26KRk57juKYO",

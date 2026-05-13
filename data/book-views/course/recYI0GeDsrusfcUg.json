@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recYI0GeDsrusfcUg",
+  "recordID": "recYI0GeDsrusfcUg",
+  "courseRecordId": "recYI0GeDsrusfcUg",
+  "Sort_ID": "",
+  "legacyId": "recYI0GeDsrusfcUg",
+  "courseLegacyId": "recYI0GeDsrusfcUg",
   "rowType": "course",
   "title": "Language Study: Grade 11",
   "subject": "English",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "reczhSNGYcB2YzeYL",
+      "recordID": "reczhSNGYcB2YzeYL",
+      "topicRecordId": "reczhSNGYcB2YzeYL",
+      "Topic_ID": "006.001.011.004",
+      "legacyId": "006.001.011.004",
+      "topicLegacyId": "006.001.011.004",
+      "courseId": "recYI0GeDsrusfcUg",
+      "courseRecordId": "recYI0GeDsrusfcUg",
+      "courseLegacyId": "recYI0GeDsrusfcUg",
       "title": "Composition: Grade 11",
       "gradeText": "GRADE(S): 11",
       "schedText": "4 times/week 40 min *",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recka4FSscPAcsBxD",

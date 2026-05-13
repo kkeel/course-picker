@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recvWaMgcOPtoe4WV",
+  "recordID": "recvWaMgcOPtoe4WV",
+  "courseRecordId": "recvWaMgcOPtoe4WV",
+  "Sort_ID": "",
+  "legacyId": "recvWaMgcOPtoe4WV",
+  "courseLegacyId": "recvWaMgcOPtoe4WV",
   "rowType": "course",
   "title": "Mathematics: Grade 8",
   "subject": "Math",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recst0aVIebKf7Sw7",
+      "recordID": "recst0aVIebKf7Sw7",
+      "topicRecordId": "recst0aVIebKf7Sw7",
+      "Topic_ID": "012.009.008.002",
+      "legacyId": "012.009.008.002",
+      "topicLegacyId": "012.009.008.002",
+      "courseId": "recvWaMgcOPtoe4WV",
+      "courseRecordId": "recvWaMgcOPtoe4WV",
+      "courseLegacyId": "recvWaMgcOPtoe4WV",
       "title": "Algebra 1: Part 1",
       "gradeText": "GRADE(S): 8",
       "schedText": "3 times/week 40 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec53OxsCZTGCz2fd",
@@ -103,10 +117,19 @@
     {
       "type": "topic",
       "id": "recv5IVzMmUzic2Uj",
+      "recordID": "recv5IVzMmUzic2Uj",
+      "topicRecordId": "recv5IVzMmUzic2Uj",
+      "Topic_ID": "012.009.008.003",
+      "legacyId": "012.009.008.003",
+      "topicLegacyId": "012.009.008.003",
+      "courseId": "recvWaMgcOPtoe4WV",
+      "courseRecordId": "recvWaMgcOPtoe4WV",
+      "courseLegacyId": "recvWaMgcOPtoe4WV",
       "title": "Geometry: Grade 8",
       "gradeText": "GRADE(S): 8",
       "schedText": "2 times/week 40 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recGmBghw8V9pxfyC",
@@ -149,10 +172,19 @@
     {
       "type": "topic",
       "id": "recqNQrKdVJQ5PxQP",
+      "recordID": "recqNQrKdVJQ5PxQP",
+      "topicRecordId": "recqNQrKdVJQ5PxQP",
+      "Topic_ID": "012.001.012.002",
+      "legacyId": "012.001.012.002",
+      "topicLegacyId": "012.001.012.002",
+      "courseId": "recvWaMgcOPtoe4WV",
+      "courseRecordId": "recvWaMgcOPtoe4WV",
+      "courseLegacyId": "recvWaMgcOPtoe4WV",
       "title": "Math Games: Grades 1-8",
       "gradeText": "GRADE(S): 1-8",
       "schedText": "3 times/week 15 min+ _ 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recvX4HmvwtODCrX3",

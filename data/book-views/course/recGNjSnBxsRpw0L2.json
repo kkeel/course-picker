@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recGNjSnBxsRpw0L2",
+  "recordID": "recGNjSnBxsRpw0L2",
+  "courseRecordId": "recGNjSnBxsRpw0L2",
+  "Sort_ID": "",
+  "legacyId": "recGNjSnBxsRpw0L2",
+  "courseLegacyId": "recGNjSnBxsRpw0L2",
   "rowType": "course",
   "title": "Literature: Grades 7-8",
   "subject": "Literature",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recCQuj3cZ8Hd8QF8",
+      "recordID": "recCQuj3cZ8Hd8QF8",
+      "topicRecordId": "recCQuj3cZ8Hd8QF8",
+      "Topic_ID": "011.001.007.003",
+      "legacyId": "011.001.007.003",
+      "topicLegacyId": "011.001.007.003",
+      "courseId": "recGNjSnBxsRpw0L2",
+      "courseRecordId": "recGNjSnBxsRpw0L2",
+      "courseLegacyId": "recGNjSnBxsRpw0L2",
       "title": "Lit./Mythology: Grades 7-8",
       "gradeText": "GRADE(S): 7-8",
       "schedText": "1 time/week 30 min * ⬔",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rectQeZOe9TstFr1x",
@@ -165,10 +179,19 @@
     {
       "type": "topic",
       "id": "recbv15L0qWVYvdIB",
+      "recordID": "recbv15L0qWVYvdIB",
+      "topicRecordId": "recbv15L0qWVYvdIB",
+      "Topic_ID": "011.001.007.006",
+      "legacyId": "011.001.007.006",
+      "topicLegacyId": "011.001.007.006",
+      "courseId": "recGNjSnBxsRpw0L2",
+      "courseRecordId": "recGNjSnBxsRpw0L2",
+      "courseLegacyId": "recGNjSnBxsRpw0L2",
       "title": "General Lit: Grades 7-8",
       "gradeText": "GRADE(S): 7-8",
       "schedText": "1 time/week 30 min * ☐",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec8oemEyLSCeLUEf",

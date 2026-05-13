@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recDsXNT5aQL6hJr6",
+  "recordID": "recDsXNT5aQL6hJr6",
+  "courseRecordId": "recDsXNT5aQL6hJr6",
+  "Sort_ID": "",
+  "legacyId": "recDsXNT5aQL6hJr6",
+  "courseLegacyId": "recDsXNT5aQL6hJr6",
   "rowType": "course",
   "title": "Citizenship: Grade 11 (U.S.)",
   "subject": "Citizenship",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recqfjmCMc7Y12W6X",
+      "recordID": "recqfjmCMc7Y12W6X",
+      "topicRecordId": "recqfjmCMc7Y12W6X",
+      "Topic_ID": "005.011.001.001",
+      "legacyId": "005.011.001.001",
+      "topicLegacyId": "005.011.001.001",
+      "courseId": "recDsXNT5aQL6hJr6",
+      "courseRecordId": "recDsXNT5aQL6hJr6",
+      "courseLegacyId": "recDsXNT5aQL6hJr6",
       "title": "Econ/Civics: Grade 11 (U.S.)",
       "gradeText": "GRADE(S): 11",
       "schedText": "1 time/week 40 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recBswas53sRmzlW8",
@@ -132,10 +146,19 @@
     {
       "type": "topic",
       "id": "rec61CKvvCBBN5gkW",
+      "recordID": "rec61CKvvCBBN5gkW",
+      "topicRecordId": "rec61CKvvCBBN5gkW",
+      "Topic_ID": "005.011.001.003",
+      "legacyId": "005.011.001.003",
+      "topicLegacyId": "005.011.001.003",
+      "courseId": "recDsXNT5aQL6hJr6",
+      "courseRecordId": "recDsXNT5aQL6hJr6",
+      "courseLegacyId": "recDsXNT5aQL6hJr6",
       "title": "Ethics: Part 5",
       "gradeText": "GRADE(S): 11+",
       "schedText": "1 time/week 20 min * 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recSGmJ0X1KxD75S1",

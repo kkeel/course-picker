@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recmjLEaM2UBX0ld5",
+  "recordID": "recmjLEaM2UBX0ld5",
+  "courseRecordId": "recmjLEaM2UBX0ld5",
+  "Sort_ID": "",
+  "legacyId": "recmjLEaM2UBX0ld5",
+  "courseLegacyId": "recmjLEaM2UBX0ld5",
   "rowType": "course",
   "title": "Mathematics: Grade 3",
   "subject": "Math",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recrfQKdENXfAsE6h",
+      "recordID": "recrfQKdENXfAsE6h",
+      "topicRecordId": "recrfQKdENXfAsE6h",
+      "Topic_ID": "012.003.003.001",
+      "legacyId": "012.003.003.001",
+      "topicLegacyId": "012.003.003.001",
+      "courseId": "recmjLEaM2UBX0ld5",
+      "courseRecordId": "recmjLEaM2UBX0ld5",
+      "courseLegacyId": "recmjLEaM2UBX0ld5",
       "title": "Math Lessons: Grade 3",
       "gradeText": "GRADE(S): 3",
       "schedText": "5 times/week 20 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recFMS94k7WrvHAe1",
@@ -64,10 +78,19 @@
     {
       "type": "topic",
       "id": "recqNQrKdVJQ5PxQP",
+      "recordID": "recqNQrKdVJQ5PxQP",
+      "topicRecordId": "recqNQrKdVJQ5PxQP",
+      "Topic_ID": "012.001.012.002",
+      "legacyId": "012.001.012.002",
+      "topicLegacyId": "012.001.012.002",
+      "courseId": "recmjLEaM2UBX0ld5",
+      "courseRecordId": "recmjLEaM2UBX0ld5",
+      "courseLegacyId": "recmjLEaM2UBX0ld5",
       "title": "Math Games: Grades 1-8",
       "gradeText": "GRADE(S): 1-8",
       "schedText": "3 times/week 15 min+ _ 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recvX4HmvwtODCrX3",

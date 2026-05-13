@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "rec9r9r3HBVh9D3Bk",
+  "recordID": "rec9r9r3HBVh9D3Bk",
+  "courseRecordId": "rec9r9r3HBVh9D3Bk",
+  "Sort_ID": "",
+  "legacyId": "rec9r9r3HBVh9D3Bk",
+  "courseLegacyId": "rec9r9r3HBVh9D3Bk",
   "rowType": "course",
   "title": "History: Grades 5-6 (Canada)",
   "subject": "History",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recVun2b5K8g6M1I9",
+      "recordID": "recVun2b5K8g6M1I9",
+      "topicRecordId": "recVun2b5K8g6M1I9",
+      "Topic_ID": "008.005.002.001",
+      "legacyId": "008.005.002.001",
+      "topicLegacyId": "008.005.002.001",
+      "courseId": "rec9r9r3HBVh9D3Bk",
+      "courseRecordId": "rec9r9r3HBVh9D3Bk",
+      "courseLegacyId": "rec9r9r3HBVh9D3Bk",
       "title": "Canadian History: Grades 5-6",
       "gradeText": "GRADE(S): 5-6",
       "schedText": "1 time/week 25 min * ⬔",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recmOVOrkNY53BDD1",
@@ -177,10 +191,19 @@
     {
       "type": "topic",
       "id": "recNJHxMpmevpJkq6",
+      "recordID": "recNJHxMpmevpJkq6",
+      "topicRecordId": "recNJHxMpmevpJkq6",
+      "Topic_ID": "008.004.001.003",
+      "legacyId": "008.004.001.003",
+      "topicLegacyId": "008.004.001.003",
+      "courseId": "rec9r9r3HBVh9D3Bk",
+      "courseRecordId": "rec9r9r3HBVh9D3Bk",
+      "courseLegacyId": "rec9r9r3HBVh9D3Bk",
       "title": "World History: Grades 4-6",
       "gradeText": "GRADE(S): 4-6",
       "schedText": "1 time/week 25 min * ⬔",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "reciWVjR4g0VyEe7B",
@@ -310,10 +333,19 @@
     {
       "type": "topic",
       "id": "recBP0ILhMKRSKye3",
+      "recordID": "recBP0ILhMKRSKye3",
+      "topicRecordId": "recBP0ILhMKRSKye3",
+      "Topic_ID": "008.005.001.004",
+      "legacyId": "008.005.001.004",
+      "topicLegacyId": "008.005.001.004",
+      "courseId": "rec9r9r3HBVh9D3Bk",
+      "courseRecordId": "rec9r9r3HBVh9D3Bk",
+      "courseLegacyId": "rec9r9r3HBVh9D3Bk",
       "title": "Ancient History: Grades 5-6",
       "gradeText": "GRADE(S): 5-6",
       "schedText": "1 time/week 25 min * 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recMCU05MT5TWYKrs",

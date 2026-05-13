@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recWaFPHwfSbZaTdp",
+  "recordID": "recWaFPHwfSbZaTdp",
+  "courseRecordId": "recWaFPHwfSbZaTdp",
+  "Sort_ID": "",
+  "legacyId": "recWaFPHwfSbZaTdp",
+  "courseLegacyId": "recWaFPHwfSbZaTdp",
   "rowType": "course",
   "title": "Science: Advanced Nature Study",
   "subject": "Alt. Science Options",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recFKiqo3isVdxq8e",
+      "recordID": "recFKiqo3isVdxq8e",
+      "topicRecordId": "recFKiqo3isVdxq8e",
+      "Topic_ID": "017.009.004.001",
+      "legacyId": "017.009.004.001",
+      "topicLegacyId": "017.009.004.001",
+      "courseId": "recWaFPHwfSbZaTdp",
+      "courseRecordId": "recWaFPHwfSbZaTdp",
+      "courseLegacyId": "recWaFPHwfSbZaTdp",
       "title": "Advanced Nature Study Lessons",
       "gradeText": "GRADE(S): 9-12",
       "schedText": "5 times/week 45 min *",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recYzoHi8SECZm9DH",

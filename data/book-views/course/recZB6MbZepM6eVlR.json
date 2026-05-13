@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recZB6MbZepM6eVlR",
+  "recordID": "recZB6MbZepM6eVlR",
+  "courseRecordId": "recZB6MbZepM6eVlR",
+  "Sort_ID": "",
+  "legacyId": "recZB6MbZepM6eVlR",
+  "courseLegacyId": "recZB6MbZepM6eVlR",
   "rowType": "course",
   "title": "Science: Introduction to Engineering",
   "subject": "Alt. Science Options",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recDeupYbqp2v4Hpz",
+      "recordID": "recDeupYbqp2v4Hpz",
+      "topicRecordId": "recDeupYbqp2v4Hpz",
+      "Topic_ID": "017.009.002.001",
+      "legacyId": "017.009.002.001",
+      "topicLegacyId": "017.009.002.001",
+      "courseId": "recZB6MbZepM6eVlR",
+      "courseRecordId": "recZB6MbZepM6eVlR",
+      "courseLegacyId": "recZB6MbZepM6eVlR",
       "title": "Introduction to Engineering Lessons",
       "gradeText": "GRADE(S): 9-12",
       "schedText": "5 times/week 45 min *",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "reclCiCAHqfLzR2iO",

@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recmbtUVxlW0bO2jV",
+  "recordID": "recmbtUVxlW0bO2jV",
+  "courseRecordId": "recmbtUVxlW0bO2jV",
+  "Sort_ID": "",
+  "legacyId": "recmbtUVxlW0bO2jV",
+  "courseLegacyId": "recmbtUVxlW0bO2jV",
   "rowType": "course",
   "title": "Science: Microbiology",
   "subject": "Alt. Science Options",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recFovwuS7zeV6AkE",
+      "recordID": "recFovwuS7zeV6AkE",
+      "topicRecordId": "recFovwuS7zeV6AkE",
+      "Topic_ID": "017.012.007.001",
+      "legacyId": "017.012.007.001",
+      "topicLegacyId": "017.012.007.001",
+      "courseId": "recmbtUVxlW0bO2jV",
+      "courseRecordId": "recmbtUVxlW0bO2jV",
+      "courseLegacyId": "recmbtUVxlW0bO2jV",
       "title": "Microbiology Lessons",
       "gradeText": "GRADE(S): 12",
       "schedText": "5 times/week 45 min *",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recFNNRqwF5Zatz2j",
@@ -330,10 +344,19 @@
     {
       "type": "topic",
       "id": "rec7sSt6jDa0Ogs9W",
+      "recordID": "rec7sSt6jDa0Ogs9W",
+      "topicRecordId": "rec7sSt6jDa0Ogs9W",
+      "Topic_ID": "017.012.007.002",
+      "legacyId": "017.012.007.002",
+      "topicLegacyId": "017.012.007.002",
+      "courseId": "recmbtUVxlW0bO2jV",
+      "courseRecordId": "recmbtUVxlW0bO2jV",
+      "courseLegacyId": "recmbtUVxlW0bO2jV",
       "title": "Microbiology Labs",
       "gradeText": "GRADE(S): 12",
       "schedText": "1 time/week 60 min *or_",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec3l9V2jvKLEyrAJ",

@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "rec1cxxBHRBfT6T9a",
+  "recordID": "rec1cxxBHRBfT6T9a",
+  "courseRecordId": "rec1cxxBHRBfT6T9a",
+  "Sort_ID": "",
+  "legacyId": "rec1cxxBHRBfT6T9a",
+  "courseLegacyId": "rec1cxxBHRBfT6T9a",
   "rowType": "course",
   "title": "Science: Astronomy",
   "subject": "Alt. Science Options",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recXTURkL3qi6QDwx",
+      "recordID": "recXTURkL3qi6QDwx",
+      "topicRecordId": "recXTURkL3qi6QDwx",
+      "Topic_ID": "017.011.006.001",
+      "legacyId": "017.011.006.001",
+      "topicLegacyId": "017.011.006.001",
+      "courseId": "rec1cxxBHRBfT6T9a",
+      "courseRecordId": "rec1cxxBHRBfT6T9a",
+      "courseLegacyId": "rec1cxxBHRBfT6T9a",
       "title": "Astronomy Lessons",
       "gradeText": "GRADE(S): 11-12",
       "schedText": "5 times/week 45 min *",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec0Kv3iVP2d80NNZ",

@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recjS0ICLL8DA93jm",
+  "recordID": "recjS0ICLL8DA93jm",
+  "courseRecordId": "recjS0ICLL8DA93jm",
+  "Sort_ID": "",
+  "legacyId": "recjS0ICLL8DA93jm",
+  "courseLegacyId": "recjS0ICLL8DA93jm",
   "rowType": "course",
   "title": "Language Study: Grade 3",
   "subject": "English",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recZGVMJzb5q6czhu",
+      "recordID": "recZGVMJzb5q6czhu",
+      "topicRecordId": "recZGVMJzb5q6czhu",
+      "Topic_ID": "006.001.003.001",
+      "legacyId": "006.001.003.001",
+      "topicLegacyId": "006.001.003.001",
+      "courseId": "recjS0ICLL8DA93jm",
+      "courseRecordId": "recjS0ICLL8DA93jm",
+      "courseLegacyId": "recjS0ICLL8DA93jm",
       "title": "Reading Level 3",
       "gradeText": "GRADE(S): 3",
       "schedText": "5 times/week 15 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recn1sSUMLrB3cWd5",
@@ -83,10 +97,19 @@
     {
       "type": "topic",
       "id": "rec5rnTiExW1WHSTC",
+      "recordID": "rec5rnTiExW1WHSTC",
+      "topicRecordId": "rec5rnTiExW1WHSTC",
+      "Topic_ID": "006.001.003.004",
+      "legacyId": "006.001.003.004",
+      "topicLegacyId": "006.001.003.004",
+      "courseId": "recjS0ICLL8DA93jm",
+      "courseRecordId": "recjS0ICLL8DA93jm",
+      "courseLegacyId": "recjS0ICLL8DA93jm",
       "title": "Penmanship & Copywork: Grade 3",
       "gradeText": "GRADE(S): 3",
       "schedText": "5 times/week 10 min * ⬔",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec66MFd5sIKfJzQY",

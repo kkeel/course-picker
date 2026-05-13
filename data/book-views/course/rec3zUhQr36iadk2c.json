@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "rec3zUhQr36iadk2c",
+  "recordID": "rec3zUhQr36iadk2c",
+  "courseRecordId": "rec3zUhQr36iadk2c",
+  "Sort_ID": "",
+  "legacyId": "rec3zUhQr36iadk2c",
+  "courseLegacyId": "rec3zUhQr36iadk2c",
   "rowType": "course",
   "title": "Citizenship: Grade 8 (Canada)",
   "subject": "Citizenship",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recNZjfwI3SeCuONn",
+      "recordID": "recNZjfwI3SeCuONn",
+      "topicRecordId": "recNZjfwI3SeCuONn",
+      "Topic_ID": "005.006.001.001",
+      "legacyId": "005.006.001.001",
+      "topicLegacyId": "005.006.001.001",
+      "courseId": "rec3zUhQr36iadk2c",
+      "courseRecordId": "rec3zUhQr36iadk2c",
+      "courseLegacyId": "rec3zUhQr36iadk2c",
       "title": "Plutarch: Grades 6-8",
       "gradeText": "GRADE(S): 6-8+",
       "schedText": "1 time/week 30 min * 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "reca6JrCf4DtEZII1",
@@ -100,10 +114,19 @@
     {
       "type": "topic",
       "id": "rec8rP4OZOxbQrWlK",
+      "recordID": "rec8rP4OZOxbQrWlK",
+      "topicRecordId": "rec8rP4OZOxbQrWlK",
+      "Topic_ID": "005.008.002.002",
+      "legacyId": "005.008.002.002",
+      "topicLegacyId": "005.008.002.002",
+      "courseId": "rec3zUhQr36iadk2c",
+      "courseRecordId": "rec3zUhQr36iadk2c",
+      "courseLegacyId": "rec3zUhQr36iadk2c",
       "title": "Canadian Gov./ Economics: Grade 8",
       "gradeText": "GRADE(S): 8",
       "schedText": "1 time/week 25 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec3jFPfyFSqt2mGU",
@@ -192,10 +215,19 @@
     {
       "type": "topic",
       "id": "recUtBqECZE6X45Nt",
+      "recordID": "recUtBqECZE6X45Nt",
+      "topicRecordId": "recUtBqECZE6X45Nt",
+      "Topic_ID": "005.008.001.003",
+      "legacyId": "005.008.001.003",
+      "topicLegacyId": "005.008.001.003",
+      "courseId": "rec3zUhQr36iadk2c",
+      "courseRecordId": "rec3zUhQr36iadk2c",
+      "courseLegacyId": "rec3zUhQr36iadk2c",
       "title": "Ethics: Part 2",
       "gradeText": "GRADE(S): 8+",
       "schedText": "1 time/week 25 min * 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recLHdhKMfjC9IAKG",

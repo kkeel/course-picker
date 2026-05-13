@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recVU4NnwRjkf9C4r",
+  "recordID": "recVU4NnwRjkf9C4r",
+  "courseRecordId": "recVU4NnwRjkf9C4r",
+  "Sort_ID": "",
+  "legacyId": "recVU4NnwRjkf9C4r",
+  "courseLegacyId": "recVU4NnwRjkf9C4r",
   "rowType": "course",
   "title": "Citizenship: Grade 9 (U.S.)",
   "subject": "Citizenship",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recZlVEv5UkShx7q9",
+      "recordID": "recZlVEv5UkShx7q9",
+      "topicRecordId": "recZlVEv5UkShx7q9",
+      "Topic_ID": "005.009.001.001",
+      "legacyId": "005.009.001.001",
+      "topicLegacyId": "005.009.001.001",
+      "courseId": "recVU4NnwRjkf9C4r",
+      "courseRecordId": "recVU4NnwRjkf9C4r",
+      "courseLegacyId": "recVU4NnwRjkf9C4r",
       "title": "Plutarch/Government: Grade 9 (U.S.)",
       "gradeText": "GRADE(S): 9",
       "schedText": "1 time/week 30 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recUCjRu76tQczZuF",
@@ -87,10 +101,19 @@
     {
       "type": "topic",
       "id": "reciA3o7lcUcEINWo",
+      "recordID": "reciA3o7lcUcEINWo",
+      "topicRecordId": "reciA3o7lcUcEINWo",
+      "Topic_ID": "005.009.000.003",
+      "legacyId": "005.009.000.003",
+      "topicLegacyId": "005.009.000.003",
+      "courseId": "recVU4NnwRjkf9C4r",
+      "courseRecordId": "recVU4NnwRjkf9C4r",
+      "courseLegacyId": "recVU4NnwRjkf9C4r",
       "title": "Ethics: Part 3",
       "gradeText": "GRADE(S): 9+",
       "schedText": "1 time/week 25 min * 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recLHdhKMfjC9IAKG",

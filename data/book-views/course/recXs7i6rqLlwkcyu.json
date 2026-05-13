@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recXs7i6rqLlwkcyu",
+  "recordID": "recXs7i6rqLlwkcyu",
+  "courseRecordId": "recXs7i6rqLlwkcyu",
+  "Sort_ID": "",
+  "legacyId": "recXs7i6rqLlwkcyu",
+  "courseLegacyId": "recXs7i6rqLlwkcyu",
   "rowType": "course",
   "title": "History: Grades 7-8 (U.S.)",
   "subject": "History",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recjxhOtJDBXK35Pc",
+      "recordID": "recjxhOtJDBXK35Pc",
+      "topicRecordId": "recjxhOtJDBXK35Pc",
+      "Topic_ID": "008.007.001.001",
+      "legacyId": "008.007.001.001",
+      "topicLegacyId": "008.007.001.001",
+      "courseId": "recXs7i6rqLlwkcyu",
+      "courseRecordId": "recXs7i6rqLlwkcyu",
+      "courseLegacyId": "recXs7i6rqLlwkcyu",
       "title": "U.S. History: Grades 7-8",
       "gradeText": "GRADE(S): 7-8",
       "schedText": "2 times/week 30 min * ☐",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recHfeudUbdDsMiXi",
@@ -248,10 +262,19 @@
     {
       "type": "topic",
       "id": "recfXdRHtTUmQQfre",
+      "recordID": "recfXdRHtTUmQQfre",
+      "topicRecordId": "recfXdRHtTUmQQfre",
+      "Topic_ID": "008.007.001.003",
+      "legacyId": "008.007.001.003",
+      "topicLegacyId": "008.007.001.003",
+      "courseId": "recXs7i6rqLlwkcyu",
+      "courseRecordId": "recXs7i6rqLlwkcyu",
+      "courseLegacyId": "recXs7i6rqLlwkcyu",
       "title": "World History: Grades 7-8",
       "gradeText": "GRADE(S): 7-8",
       "schedText": "1 time/week 30 min * ☐",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recQp6EwwCJ4kqsg2",
@@ -340,10 +363,19 @@
     {
       "type": "topic",
       "id": "reccWaJufKNkFDBA7",
+      "recordID": "reccWaJufKNkFDBA7",
+      "topicRecordId": "reccWaJufKNkFDBA7",
+      "Topic_ID": "008.007.001.006",
+      "legacyId": "008.007.001.006",
+      "topicLegacyId": "008.007.001.006",
+      "courseId": "recXs7i6rqLlwkcyu",
+      "courseRecordId": "recXs7i6rqLlwkcyu",
+      "courseLegacyId": "recXs7i6rqLlwkcyu",
       "title": "Ancient History: Grades 7-9",
       "gradeText": "GRADE(S): 7-9",
       "schedText": "1 time/week 30 min * 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recd40KytaKLQWL3Q",

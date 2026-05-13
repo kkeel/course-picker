@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "rec9gyYrqX7Oeugm6",
+  "recordID": "rec9gyYrqX7Oeugm6",
+  "courseRecordId": "rec9gyYrqX7Oeugm6",
+  "Sort_ID": "",
+  "legacyId": "rec9gyYrqX7Oeugm6",
+  "courseLegacyId": "rec9gyYrqX7Oeugm6",
   "rowType": "course",
   "title": "Science: Grade 7",
   "subject": "Science",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "rec0dGYE4JfbHgtMM",
+      "recordID": "rec0dGYE4JfbHgtMM",
+      "topicRecordId": "rec0dGYE4JfbHgtMM",
+      "Topic_ID": "016.007.002.001",
+      "legacyId": "016.007.002.001",
+      "topicLegacyId": "016.007.002.001",
+      "courseId": "rec9gyYrqX7Oeugm6",
+      "courseRecordId": "rec9gyYrqX7Oeugm6",
+      "courseLegacyId": "rec9gyYrqX7Oeugm6",
       "title": "General Science: Grade 7",
       "gradeText": "GRADE(S): 7",
       "schedText": "2 times/week 30 min * ⬔",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recvcsBBJOzNPiZf1",
@@ -68,10 +82,19 @@
     {
       "type": "topic",
       "id": "recqkaSHIvH4dpBWk",
+      "recordID": "recqkaSHIvH4dpBWk",
+      "topicRecordId": "recqkaSHIvH4dpBWk",
+      "Topic_ID": "016.007.002.002",
+      "legacyId": "016.007.002.002",
+      "topicLegacyId": "016.007.002.002",
+      "courseId": "rec9gyYrqX7Oeugm6",
+      "courseRecordId": "rec9gyYrqX7Oeugm6",
+      "courseLegacyId": "rec9gyYrqX7Oeugm6",
       "title": "Natural History: Grade 7",
       "gradeText": "GRADE(S): 7",
       "schedText": "1 time/week 30 min * ⬔",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec6TGftg4CSilmo5",
@@ -123,10 +146,19 @@
     {
       "type": "topic",
       "id": "recT561H8Zw38p89v",
+      "recordID": "recT561H8Zw38p89v",
+      "topicRecordId": "recT561H8Zw38p89v",
+      "Topic_ID": "016.007.002.003",
+      "legacyId": "016.007.002.003",
+      "topicLegacyId": "016.007.002.003",
+      "courseId": "rec9gyYrqX7Oeugm6",
+      "courseRecordId": "rec9gyYrqX7Oeugm6",
+      "courseLegacyId": "rec9gyYrqX7Oeugm6",
       "title": "Labs: Grade 7",
       "gradeText": "GRADE(S): 7",
       "schedText": "1 time/week 45 min *or_ ⬔",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recqjGUmdZW03rnih",

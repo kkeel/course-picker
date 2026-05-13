@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recd3Rk2unWYZgixW",
+  "recordID": "recd3Rk2unWYZgixW",
+  "courseRecordId": "recd3Rk2unWYZgixW",
+  "Sort_ID": "",
+  "legacyId": "recd3Rk2unWYZgixW",
+  "courseLegacyId": "recd3Rk2unWYZgixW",
   "rowType": "course",
   "title": "Science: Grade 1",
   "subject": "Science",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recze3NFQFBQ9QtnB",
+      "recordID": "recze3NFQFBQ9QtnB",
+      "topicRecordId": "recze3NFQFBQ9QtnB",
+      "Topic_ID": "016.001.002.001",
+      "legacyId": "016.001.002.001",
+      "topicLegacyId": "016.001.002.001",
+      "courseId": "recd3Rk2unWYZgixW",
+      "courseRecordId": "recd3Rk2unWYZgixW",
+      "courseLegacyId": "recd3Rk2unWYZgixW",
       "title": "General Science: Grade 1",
       "gradeText": "GRADE(S): 1",
       "schedText": "1 time/week 15 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "reciabsH6UTpXZ1tB",
@@ -272,10 +286,19 @@
     {
       "type": "topic",
       "id": "recyJkGRi0eytNpYD",
+      "recordID": "recyJkGRi0eytNpYD",
+      "topicRecordId": "recyJkGRi0eytNpYD",
+      "Topic_ID": "016.001.002.002",
+      "legacyId": "016.001.002.002",
+      "topicLegacyId": "016.001.002.002",
+      "courseId": "recd3Rk2unWYZgixW",
+      "courseRecordId": "recd3Rk2unWYZgixW",
+      "courseLegacyId": "recd3Rk2unWYZgixW",
       "title": "Natural History: Grade 1",
       "gradeText": "GRADE(S): 1",
       "schedText": "1 time/week 10 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recugX6G65uu0dv8O",

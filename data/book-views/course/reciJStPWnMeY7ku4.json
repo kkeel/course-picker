@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "reciJStPWnMeY7ku4",
+  "recordID": "reciJStPWnMeY7ku4",
+  "courseRecordId": "reciJStPWnMeY7ku4",
+  "Sort_ID": "",
+  "legacyId": "reciJStPWnMeY7ku4",
+  "courseLegacyId": "reciJStPWnMeY7ku4",
   "rowType": "course",
   "title": "Language Study: Grade 10",
   "subject": "English",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recKpemaueL8hPyNj",
+      "recordID": "recKpemaueL8hPyNj",
+      "topicRecordId": "recKpemaueL8hPyNj",
+      "Topic_ID": "006.001.010.002",
+      "legacyId": "006.001.010.002",
+      "topicLegacyId": "006.001.010.002",
+      "courseId": "reciJStPWnMeY7ku4",
+      "courseRecordId": "reciJStPWnMeY7ku4",
+      "courseLegacyId": "reciJStPWnMeY7ku4",
       "title": "Grammar: Grade 10",
       "gradeText": "GRADE(S): 10",
       "schedText": "1 time/week 40 min *",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec3MHBg7NmbinMh5",
@@ -105,10 +119,19 @@
     {
       "type": "topic",
       "id": "recEP3zrR9MMA5GAp",
+      "recordID": "recEP3zrR9MMA5GAp",
+      "topicRecordId": "recEP3zrR9MMA5GAp",
+      "Topic_ID": "006.001.010.004",
+      "legacyId": "006.001.010.004",
+      "topicLegacyId": "006.001.010.004",
+      "courseId": "reciJStPWnMeY7ku4",
+      "courseRecordId": "reciJStPWnMeY7ku4",
+      "courseLegacyId": "reciJStPWnMeY7ku4",
       "title": "Composition: Grade 10",
       "gradeText": "GRADE(S): 10",
       "schedText": "3 times/week 40 min *",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recTDoFwbVufsDGsC",

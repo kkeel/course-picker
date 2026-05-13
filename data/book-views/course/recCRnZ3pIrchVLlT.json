@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recCRnZ3pIrchVLlT",
+  "recordID": "recCRnZ3pIrchVLlT",
+  "courseRecordId": "recCRnZ3pIrchVLlT",
+  "Sort_ID": "",
+  "legacyId": "recCRnZ3pIrchVLlT",
+  "courseLegacyId": "recCRnZ3pIrchVLlT",
   "rowType": "course",
   "title": "Citizenship: Grade 7 (U.S.)",
   "subject": "Citizenship",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recNZjfwI3SeCuONn",
+      "recordID": "recNZjfwI3SeCuONn",
+      "topicRecordId": "recNZjfwI3SeCuONn",
+      "Topic_ID": "005.006.001.001",
+      "legacyId": "005.006.001.001",
+      "topicLegacyId": "005.006.001.001",
+      "courseId": "recCRnZ3pIrchVLlT",
+      "courseRecordId": "recCRnZ3pIrchVLlT",
+      "courseLegacyId": "recCRnZ3pIrchVLlT",
       "title": "Plutarch: Grades 6-8",
       "gradeText": "GRADE(S): 6-8+",
       "schedText": "1 time/week 30 min * 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "reca6JrCf4DtEZII1",
@@ -100,10 +114,19 @@
     {
       "type": "topic",
       "id": "recdq6lu7MCE3kUuC",
+      "recordID": "recdq6lu7MCE3kUuC",
+      "topicRecordId": "recdq6lu7MCE3kUuC",
+      "Topic_ID": "005.007.001.002",
+      "legacyId": "005.007.001.002",
+      "topicLegacyId": "005.007.001.002",
+      "courseId": "recCRnZ3pIrchVLlT",
+      "courseRecordId": "recCRnZ3pIrchVLlT",
+      "courseLegacyId": "recCRnZ3pIrchVLlT",
       "title": "American Government: Grade 7",
       "gradeText": "GRADE(S): 7",
       "schedText": "1 time/week 30 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recM99PeNDdcQd2s6",
@@ -146,10 +169,19 @@
     {
       "type": "topic",
       "id": "recAh0bSY9eyBBZYK",
+      "recordID": "recAh0bSY9eyBBZYK",
+      "topicRecordId": "recAh0bSY9eyBBZYK",
+      "Topic_ID": "005.007.001.003",
+      "legacyId": "005.007.001.003",
+      "topicLegacyId": "005.007.001.003",
+      "courseId": "recCRnZ3pIrchVLlT",
+      "courseRecordId": "recCRnZ3pIrchVLlT",
+      "courseLegacyId": "recCRnZ3pIrchVLlT",
       "title": "Ethics: Part 1",
       "gradeText": "GRADE(S): 7+",
       "schedText": "1 time/week 25 min * 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recLHdhKMfjC9IAKG",

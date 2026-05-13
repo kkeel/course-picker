@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recvw8fHm1PCFhD0Q",
+  "recordID": "recvw8fHm1PCFhD0Q",
+  "courseRecordId": "recvw8fHm1PCFhD0Q",
+  "Sort_ID": "",
+  "legacyId": "recvw8fHm1PCFhD0Q",
+  "courseLegacyId": "recvw8fHm1PCFhD0Q",
   "rowType": "course",
   "title": "Language Study: Grade 12",
   "subject": "English",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "rechkj2wbdVhgZVbF",
+      "recordID": "rechkj2wbdVhgZVbF",
+      "topicRecordId": "rechkj2wbdVhgZVbF",
+      "Topic_ID": "006.001.012.004",
+      "legacyId": "006.001.012.004",
+      "topicLegacyId": "006.001.012.004",
+      "courseId": "recvw8fHm1PCFhD0Q",
+      "courseRecordId": "recvw8fHm1PCFhD0Q",
+      "courseLegacyId": "recvw8fHm1PCFhD0Q",
       "title": "Composition: Grade 12",
       "gradeText": "GRADE(S): 12",
       "schedText": "4 times/week 40 min *",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recAwcA9L3GVqc8X5",

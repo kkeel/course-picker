@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recebRHoma5zWr9s9",
+  "recordID": "recebRHoma5zWr9s9",
+  "courseRecordId": "recebRHoma5zWr9s9",
+  "Sort_ID": "",
+  "legacyId": "recebRHoma5zWr9s9",
+  "courseLegacyId": "recebRHoma5zWr9s9",
   "rowType": "course",
   "title": "Science: Food Science",
   "subject": "Alt. Science Options",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "rec2J7Uc3ixLHrIIw",
+      "recordID": "rec2J7Uc3ixLHrIIw",
+      "topicRecordId": "rec2J7Uc3ixLHrIIw",
+      "Topic_ID": "017.009.001.001",
+      "legacyId": "017.009.001.001",
+      "topicLegacyId": "017.009.001.001",
+      "courseId": "recebRHoma5zWr9s9",
+      "courseRecordId": "recebRHoma5zWr9s9",
+      "courseLegacyId": "recebRHoma5zWr9s9",
       "title": "Food Science Lessons",
       "gradeText": "GRADE(S): 9-12",
       "schedText": "5 times/week 45 min *",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec8XGWgtVYl2kw7Q",

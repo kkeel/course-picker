@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recQkVAkPcg3NKGnG",
+  "recordID": "recQkVAkPcg3NKGnG",
+  "courseRecordId": "recQkVAkPcg3NKGnG",
+  "Sort_ID": "",
+  "legacyId": "recQkVAkPcg3NKGnG",
+  "courseLegacyId": "recQkVAkPcg3NKGnG",
   "rowType": "course",
   "title": "Literature: Grade 1",
   "subject": "Literature",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recPJwhSDEWWZXwi6",
+      "recordID": "recPJwhSDEWWZXwi6",
+      "topicRecordId": "recPJwhSDEWWZXwi6",
+      "Topic_ID": "011.001.001.001",
+      "legacyId": "011.001.001.001",
+      "topicLegacyId": "011.001.001.001",
+      "courseId": "recQkVAkPcg3NKGnG",
+      "courseRecordId": "recQkVAkPcg3NKGnG",
+      "courseLegacyId": "recQkVAkPcg3NKGnG",
       "title": "Fairy Tales",
       "gradeText": "GRADE(S): 1",
       "schedText": "1 time/week 15 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recAgpjTHZLXwXPgv",
@@ -100,10 +114,19 @@
     {
       "type": "topic",
       "id": "rechdAl8LV3A6ohAz",
+      "recordID": "rechdAl8LV3A6ohAz",
+      "topicRecordId": "rechdAl8LV3A6ohAz",
+      "Topic_ID": "011.001.001.002",
+      "legacyId": "011.001.001.002",
+      "topicLegacyId": "011.001.001.002",
+      "courseId": "recQkVAkPcg3NKGnG",
+      "courseRecordId": "recQkVAkPcg3NKGnG",
+      "courseLegacyId": "recQkVAkPcg3NKGnG",
       "title": "Tall Tales/ Fables",
       "gradeText": "GRADE(S): 1",
       "schedText": "1 time/week 15 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recHLSd4DYDUKCKw4",

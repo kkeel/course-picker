@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recQaLjo9nTekdSYB",
+  "recordID": "recQaLjo9nTekdSYB",
+  "courseRecordId": "recQaLjo9nTekdSYB",
+  "Sort_ID": "",
+  "legacyId": "recQaLjo9nTekdSYB",
+  "courseLegacyId": "recQaLjo9nTekdSYB",
   "rowType": "course",
   "title": "Literature: Grades 5-6",
   "subject": "Literature",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "rec4BCuHlRHW598gk",
+      "recordID": "rec4BCuHlRHW598gk",
+      "topicRecordId": "rec4BCuHlRHW598gk",
+      "Topic_ID": "011.001.005.003",
+      "legacyId": "011.001.005.003",
+      "topicLegacyId": "011.001.005.003",
+      "courseId": "recQaLjo9nTekdSYB",
+      "courseRecordId": "recQaLjo9nTekdSYB",
+      "courseLegacyId": "recQaLjo9nTekdSYB",
       "title": "Lit./Mythology: Grade 5-6",
       "gradeText": "GRADE(S): 5-6",
       "schedText": "1 time/week 25 min * ⬔",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recpil5H5fFMDZ67e",
@@ -206,10 +220,19 @@
     {
       "type": "topic",
       "id": "rec7ZFS33CbZViLLV",
+      "recordID": "rec7ZFS33CbZViLLV",
+      "topicRecordId": "rec7ZFS33CbZViLLV",
+      "Topic_ID": "011.001.005.005",
+      "legacyId": "011.001.005.005",
+      "topicLegacyId": "011.001.005.005",
+      "courseId": "recQaLjo9nTekdSYB",
+      "courseRecordId": "recQaLjo9nTekdSYB",
+      "courseLegacyId": "recQaLjo9nTekdSYB",
       "title": "General Lit.: Grades 5-6",
       "gradeText": "GRADE(S): 5-6",
       "schedText": "1 time/week 20 min * ☐",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec8oemEyLSCeLUEf",

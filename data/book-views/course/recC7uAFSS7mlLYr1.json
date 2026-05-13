@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recC7uAFSS7mlLYr1",
+  "recordID": "recC7uAFSS7mlLYr1",
+  "courseRecordId": "recC7uAFSS7mlLYr1",
+  "Sort_ID": "",
+  "legacyId": "recC7uAFSS7mlLYr1",
+  "courseLegacyId": "recC7uAFSS7mlLYr1",
   "rowType": "course",
   "title": "Mathematics: Grade 11",
   "subject": "Math",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "reczBM3lDoMDTujKt",
+      "recordID": "reczBM3lDoMDTujKt",
+      "topicRecordId": "reczBM3lDoMDTujKt",
+      "Topic_ID": "012.015.011.001",
+      "legacyId": "012.015.011.001",
+      "topicLegacyId": "012.015.011.001",
+      "courseId": "recC7uAFSS7mlLYr1",
+      "courseRecordId": "recC7uAFSS7mlLYr1",
+      "courseLegacyId": "recC7uAFSS7mlLYr1",
       "title": "Algebra 2/Trigonometry: Part 2",
       "gradeText": "GRADE(S): 11",
       "schedText": "5 times/week 40 min *",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recCiZ8KkqNCQdjfw",
@@ -134,10 +148,19 @@
     {
       "type": "topic",
       "id": "recyYBZGLnHazDme6",
+      "recordID": "recyYBZGLnHazDme6",
+      "topicRecordId": "recyYBZGLnHazDme6",
+      "Topic_ID": "012.015.011.002",
+      "legacyId": "012.015.011.002",
+      "topicLegacyId": "012.015.011.002",
+      "courseId": "recC7uAFSS7mlLYr1",
+      "courseRecordId": "recC7uAFSS7mlLYr1",
+      "courseLegacyId": "recC7uAFSS7mlLYr1",
       "title": "Pre-Calculus: Part 1",
       "gradeText": "GRADE(S): 11",
       "schedText": "5 times/week 40 min *",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recBToi9LtJZphztW",

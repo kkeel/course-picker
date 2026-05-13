@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recLgCbF51jHg5u4Q",
+  "recordID": "recLgCbF51jHg5u4Q",
+  "courseRecordId": "recLgCbF51jHg5u4Q",
+  "Sort_ID": "",
+  "legacyId": "recLgCbF51jHg5u4Q",
+  "courseLegacyId": "recLgCbF51jHg5u4Q",
   "rowType": "course",
   "title": "Citizenship: Grade 5",
   "subject": "Citizenship",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recXNvUndzlFnI497",
+      "recordID": "recXNvUndzlFnI497",
+      "topicRecordId": "recXNvUndzlFnI497",
+      "Topic_ID": "005.005.001.001",
+      "legacyId": "005.005.001.001",
+      "topicLegacyId": "005.005.001.001",
+      "courseId": "recLgCbF51jHg5u4Q",
+      "courseRecordId": "recLgCbF51jHg5u4Q",
+      "courseLegacyId": "recLgCbF51jHg5u4Q",
       "title": "Plutarch: Beginner Track",
       "gradeText": "GRADE(S): 5+",
       "schedText": "1 time/week 30 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recgUVxPoomptWyyL",

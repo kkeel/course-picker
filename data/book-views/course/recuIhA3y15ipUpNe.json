@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recuIhA3y15ipUpNe",
+  "recordID": "recuIhA3y15ipUpNe",
+  "courseRecordId": "recuIhA3y15ipUpNe",
+  "Sort_ID": "",
+  "legacyId": "recuIhA3y15ipUpNe",
+  "courseLegacyId": "recuIhA3y15ipUpNe",
   "rowType": "course",
   "title": "History: Grade 10 (Canada)",
   "subject": "History",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "rec94JklXBmpXn1Ky",
+      "recordID": "rec94JklXBmpXn1Ky",
+      "topicRecordId": "rec94JklXBmpXn1Ky",
+      "Topic_ID": "008.009.002.001",
+      "legacyId": "008.009.002.001",
+      "topicLegacyId": "008.009.002.001",
+      "courseId": "recuIhA3y15ipUpNe",
+      "courseRecordId": "recuIhA3y15ipUpNe",
+      "courseLegacyId": "recuIhA3y15ipUpNe",
       "title": "Canadian History: Grades 9-10",
       "gradeText": "GRADE(S): 9-10",
       "schedText": "1 time/week 40 min * \n1 time/week 30 min *",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "reckrNrYGs7Cee08j",
@@ -267,10 +281,19 @@
     {
       "type": "topic",
       "id": "recDY9EzpeC95AAcw",
+      "recordID": "recDY9EzpeC95AAcw",
+      "topicRecordId": "recDY9EzpeC95AAcw",
+      "Topic_ID": "008.010.002.002",
+      "legacyId": "008.010.002.002",
+      "topicLegacyId": "008.010.002.002",
+      "courseId": "recuIhA3y15ipUpNe",
+      "courseRecordId": "recuIhA3y15ipUpNe",
+      "courseLegacyId": "recuIhA3y15ipUpNe",
       "title": "World History: Grades 10-12",
       "gradeText": "GRADE(S): 10-12",
       "schedText": "1 time/week 30 min *",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recTJd5zTm3syYIlP",
@@ -412,10 +435,19 @@
     {
       "type": "topic",
       "id": "recZwW63MrJRv4YVe",
+      "recordID": "recZwW63MrJRv4YVe",
+      "topicRecordId": "recZwW63MrJRv4YVe",
+      "Topic_ID": "008.010.000.003",
+      "legacyId": "008.010.000.003",
+      "topicLegacyId": "008.010.000.003",
+      "courseId": "recuIhA3y15ipUpNe",
+      "courseRecordId": "recuIhA3y15ipUpNe",
+      "courseLegacyId": "recuIhA3y15ipUpNe",
       "title": "Ancient History: Grades 10-12",
       "gradeText": "GRADE(S): 10-12",
       "schedText": "1 time/week 30 min * \n1 time/week 40 min *",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec5xfKBz756Opt41",

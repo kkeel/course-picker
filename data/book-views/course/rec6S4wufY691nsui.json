@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "rec6S4wufY691nsui",
+  "recordID": "rec6S4wufY691nsui",
+  "courseRecordId": "rec6S4wufY691nsui",
+  "Sort_ID": "",
+  "legacyId": "rec6S4wufY691nsui",
+  "courseLegacyId": "rec6S4wufY691nsui",
   "rowType": "course",
   "title": "Literature: Grade 4",
   "subject": "Literature",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recyJEQ4vVSOi8L6a",
+      "recordID": "recyJEQ4vVSOi8L6a",
+      "topicRecordId": "recyJEQ4vVSOi8L6a",
+      "Topic_ID": "011.001.004.003",
+      "legacyId": "011.001.004.003",
+      "topicLegacyId": "011.001.004.003",
+      "courseId": "rec6S4wufY691nsui",
+      "courseRecordId": "rec6S4wufY691nsui",
+      "courseLegacyId": "rec6S4wufY691nsui",
       "title": "Mythology/Hist. Fiction: Grade 4",
       "gradeText": "GRADE(S): 4",
       "schedText": "1 time/week 20 min * ⬔",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recvWJbcAeFQgv7mZ",
@@ -208,10 +222,19 @@
     {
       "type": "topic",
       "id": "recm2gFfuHCv4GF4r",
+      "recordID": "recm2gFfuHCv4GF4r",
+      "topicRecordId": "recm2gFfuHCv4GF4r",
+      "Topic_ID": "011.001.004.005",
+      "legacyId": "011.001.004.005",
+      "topicLegacyId": "011.001.004.005",
+      "courseId": "rec6S4wufY691nsui",
+      "courseRecordId": "rec6S4wufY691nsui",
+      "courseLegacyId": "rec6S4wufY691nsui",
       "title": "General Lit.: Grade 4",
       "gradeText": "GRADE(S): 4",
       "schedText": "1 time/week 20 min * ☐",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recQ27ovq0EVSNWEI",

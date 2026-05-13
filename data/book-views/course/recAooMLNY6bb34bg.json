@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recAooMLNY6bb34bg",
+  "recordID": "recAooMLNY6bb34bg",
+  "courseRecordId": "recAooMLNY6bb34bg",
+  "Sort_ID": "",
+  "legacyId": "recAooMLNY6bb34bg",
+  "courseLegacyId": "recAooMLNY6bb34bg",
   "rowType": "course",
   "title": "Science: Grade 4",
   "subject": "Science",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recAWJ7ll6G0Cb1BR",
+      "recordID": "recAWJ7ll6G0Cb1BR",
+      "topicRecordId": "recAWJ7ll6G0Cb1BR",
+      "Topic_ID": "016.004.002.001",
+      "legacyId": "016.004.002.001",
+      "topicLegacyId": "016.004.002.001",
+      "courseId": "recAooMLNY6bb34bg",
+      "courseRecordId": "recAooMLNY6bb34bg",
+      "courseLegacyId": "recAooMLNY6bb34bg",
       "title": "General Science: Grade 4",
       "gradeText": "GRADE(S): 4",
       "schedText": "1 time/week 20 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "reccNpYrY3Ytle0Va",
@@ -145,10 +159,19 @@
     {
       "type": "topic",
       "id": "rec6gQyp8zaw6ii9g",
+      "recordID": "rec6gQyp8zaw6ii9g",
+      "topicRecordId": "rec6gQyp8zaw6ii9g",
+      "Topic_ID": "016.004.002.002",
+      "legacyId": "016.004.002.002",
+      "topicLegacyId": "016.004.002.002",
+      "courseId": "recAooMLNY6bb34bg",
+      "courseRecordId": "recAooMLNY6bb34bg",
+      "courseLegacyId": "recAooMLNY6bb34bg",
       "title": "Natural History: Grade 4",
       "gradeText": "GRADE(S): 4",
       "schedText": "1 time/week 15 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recRoaA5IiM7dt1v8",
@@ -282,10 +305,19 @@
     {
       "type": "topic",
       "id": "recTaQkORQXogZDN9",
+      "recordID": "recTaQkORQXogZDN9",
+      "topicRecordId": "recTaQkORQXogZDN9",
+      "Topic_ID": "016.004.002.003",
+      "legacyId": "016.004.002.003",
+      "topicLegacyId": "016.004.002.003",
+      "courseId": "recAooMLNY6bb34bg",
+      "courseRecordId": "recAooMLNY6bb34bg",
+      "courseLegacyId": "recAooMLNY6bb34bg",
       "title": "Labs: Grade 4",
       "gradeText": "GRADE(S): 4",
       "schedText": "1 time/week 30 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recTwQ75ZKylB7WX9",

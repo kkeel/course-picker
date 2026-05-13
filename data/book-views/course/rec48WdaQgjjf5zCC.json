@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "rec48WdaQgjjf5zCC",
+  "recordID": "rec48WdaQgjjf5zCC",
+  "courseRecordId": "rec48WdaQgjjf5zCC",
+  "Sort_ID": "",
+  "legacyId": "rec48WdaQgjjf5zCC",
+  "courseLegacyId": "rec48WdaQgjjf5zCC",
   "rowType": "course",
   "title": "Citizenship: Grade 10 (Canada)",
   "subject": "Citizenship",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "rechwXMNqSazZ5Jib",
+      "recordID": "rechwXMNqSazZ5Jib",
+      "topicRecordId": "rechwXMNqSazZ5Jib",
+      "Topic_ID": "005.010.002.002",
+      "legacyId": "005.010.002.002",
+      "topicLegacyId": "005.010.002.002",
+      "courseId": "rec48WdaQgjjf5zCC",
+      "courseRecordId": "rec48WdaQgjjf5zCC",
+      "courseLegacyId": "rec48WdaQgjjf5zCC",
       "title": "Econ/Civics: Grade 10 (Canada)",
       "gradeText": "GRADE(S): 10",
       "schedText": "1 time/week 40 min * 🅃",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec15R98Dglfr11MF",
@@ -190,10 +204,19 @@
     {
       "type": "topic",
       "id": "recpeWeqaT2ZQAYYl",
+      "recordID": "recpeWeqaT2ZQAYYl",
+      "topicRecordId": "recpeWeqaT2ZQAYYl",
+      "Topic_ID": "005.010.001.003",
+      "legacyId": "005.010.001.003",
+      "topicLegacyId": "005.010.001.003",
+      "courseId": "rec48WdaQgjjf5zCC",
+      "courseRecordId": "rec48WdaQgjjf5zCC",
+      "courseLegacyId": "rec48WdaQgjjf5zCC",
       "title": "Ethics: Part 4",
       "gradeText": "GRADE(S): 10+",
       "schedText": "1 time/week 20 min * 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recSGmJ0X1KxD75S1",

@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recHTgJVYIMQRUCqi",
+  "recordID": "recHTgJVYIMQRUCqi",
+  "courseRecordId": "recHTgJVYIMQRUCqi",
+  "Sort_ID": "",
+  "legacyId": "recHTgJVYIMQRUCqi",
+  "courseLegacyId": "recHTgJVYIMQRUCqi",
   "rowType": "course",
   "title": "History: Grades 2-3 (Canada)",
   "subject": "History",
@@ -13,10 +18,19 @@
     {
       "type": "topic",
       "id": "recbib99MSqhVumm9",
+      "recordID": "recbib99MSqhVumm9",
+      "topicRecordId": "recbib99MSqhVumm9",
+      "Topic_ID": "008.002.002.001",
+      "legacyId": "008.002.002.001",
+      "topicLegacyId": "008.002.002.001",
+      "courseId": "recHTgJVYIMQRUCqi",
+      "courseRecordId": "recHTgJVYIMQRUCqi",
+      "courseLegacyId": "recHTgJVYIMQRUCqi",
       "title": "Canadian History: Grades 2-4",
       "gradeText": "GRADE(S): 2-4",
       "schedText": "1 time/week 20 min * 🅃",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "recAYCiNb4mH6y06V",

@@ -1,6 +1,11 @@
 {
   "view": "course",
   "id": "recWJgh3knGd0u3na",
+  "recordID": "recWJgh3knGd0u3na",
+  "courseRecordId": "recWJgh3knGd0u3na",
+  "Sort_ID": "",
+  "legacyId": "recWJgh3knGd0u3na",
+  "courseLegacyId": "recWJgh3knGd0u3na",
   "rowType": "course",
   "title": "Resources: Grades 4-6",
   "subject": "Suggested Resources",
@@ -13,10 +18,16 @@
     {
       "type": "course",
       "id": "recWJgh3knGd0u3na",
+      "recordID": "recWJgh3knGd0u3na",
+      "courseRecordId": "recWJgh3knGd0u3na",
+      "Sort_ID": "",
+      "legacyId": "recWJgh3knGd0u3na",
+      "courseLegacyId": "recWJgh3knGd0u3na",
       "title": "Resources: Grades 4-6",
       "gradeText": "GRADE(S): 4-6",
       "schedText": "",
       "shared": false,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec2YtGq9kPH4HvWF",
@@ -220,10 +231,19 @@
     {
       "type": "topic",
       "id": "recg2XrwqatEI3CcV",
+      "recordID": "recg2XrwqatEI3CcV",
+      "topicRecordId": "recg2XrwqatEI3CcV",
+      "Topic_ID": "018.001.000.001",
+      "legacyId": "018.001.000.001",
+      "topicLegacyId": "018.001.000.001",
+      "courseId": "recWJgh3knGd0u3na",
+      "courseRecordId": "recWJgh3knGd0u3na",
+      "courseLegacyId": "recWJgh3knGd0u3na",
       "title": "Afternoon Occupations: Grades 1-8 (Opt.)",
       "gradeText": "GRADE(S): 1-8",
       "schedText": "",
       "shared": true,
+      "sortId": "",
       "books": [
         {
           "resourceId": "rec7FrmRjmju44ghI",
