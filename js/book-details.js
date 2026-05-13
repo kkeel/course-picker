@@ -1109,22 +1109,8 @@ function render() {
   const groups = filteredGroups();
   const items = groups ? [] : filteredItems();
 
-  const bookCount = groups
-    ? groups.reduce(
-        (total, group) =>
-          total +
-          group.items.reduce(
-            (itemTotal, item) =>
-              itemTotal +
-              item.sections.reduce((sectionTotal, section) => sectionTotal + section.books.length, 0),
-            0
-          ),
-        0
-      )
-    : items.reduce(
-        (total, item) => total + item.sections.reduce((sum, section) => sum + section.books.length, 0),
-        0
-      );
+  const renderedHtml = groups ? renderGroupedMode(groups) : renderSelectedViewMode(items);
+  const bookCount = renderedHtml.trim() ? 1 : 0;
 
   const pageTitle = document.getElementById("book-title");
   if (pageTitle) pageTitle.textContent = title;
@@ -1138,7 +1124,7 @@ function render() {
     return;
   }
 
-  results.innerHTML = groups ? renderGroupedMode(groups) : renderSelectedViewMode(items);
+  results.innerHTML = renderedHtml;
 }
 
 async function loadFilterIndex() {
