@@ -361,6 +361,143 @@ function bookSaveStatus(book) {
   return "empty";
 }
 
+/* =========================================================
+   Read-only Course Planner Adapter
+   Book page may READ course state,
+   but must NOT write course-owned data.
+   ========================================================= */
+
+function getReadOnlyPlannerState() {
+  try {
+    const plannerKey = resolveLegacyPlannerKey();
+    if (!plannerKey) return null;
+
+    const raw = localStorage.getItem(plannerKey);
+    if (!raw) return null;
+
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+function getPlannerExtras() {
+  return getReadOnlyPlannerState()?.extras || {};
+}
+
+function buildCourseRecordLookup() {
+  const lookup = new Map();
+
+  const sourceItems = filterIndexItems();
+
+  sourceItems.forEach((item) => {
+    const recordId = normalizeId(item.id);
+    if (!recordId) return;
+
+    // canonical Airtable record ID
+    lookup.set(recordId, recordId);
+
+    // legacy planner keys / ids
+    [
+      item.courseId,
+      item.sortId,
+      item.Sort_ID,
+      item.legacyId,
+    ]
+      .map(normalizeId)
+      .filter(Boolean)
+      .forEach((legacyId) => {
+        lookup.set(legacyId, recordId);
+      });
+  });
+
+  return lookup;
+}
+
+function buildTopicRecordLookup() {
+  const lookup = new Map();
+
+  const sourceItems = filterIndexItems();
+
+  sourceItems.forEach((item) => {
+    (item.sections || []).forEach((section) => {
+      const recordId = normalizeId(section.id);
+      if (!recordId) return;
+
+      lookup.set(recordId, recordId);
+
+      [
+        section.topicId,
+        section.Topic_ID,
+        section.sortId,
+        section.legacyId,
+      ]
+        .map(normalizeId)
+        .filter(Boolean)
+        .forEach((legacyId) => {
+          lookup.set(legacyId, recordId);
+        });
+    });
+  });
+
+  return lookup;
+}
+
+function getSavedCourseRecordIdsForReading() {
+  const extras = getPlannerExtras();
+
+  const lookup = buildCourseRecordLookup();
+
+  const values = [
+    ...(extras.myCourses || []),
+    ...(extras.courseSelections || []),
+  ];
+
+  return uniqueStrings(
+    values
+      .map(normalizeId)
+      .map((id) => lookup.get(id) || "")
+      .filter(Boolean)
+  );
+}
+
+function getSavedTopicRecordIdsForReading() {
+  const extras = getPlannerExtras();
+
+  const lookup = buildTopicRecordLookup();
+
+  const values = [
+    ...(extras.myTopics || []),
+    ...(extras.topicSelections || []),
+  ];
+
+  return uniqueStrings(
+    values
+      .map(normalizeId)
+      .map((id) => lookup.get(id) || "")
+      .filter(Boolean)
+  );
+}
+
+function itemMatchesMyCourses(item) {
+  const savedCourses = getSavedCourseRecordIdsForReading();
+  const savedTopics = getSavedTopicRecordIdsForReading();
+
+  const itemId = normalizeId(item.id);
+
+  // Saved course directly
+  if (savedCourses.includes(itemId)) {
+    return true;
+  }
+
+  // Saved topic inside course
+  const hasSavedTopic = (item.sections || []).some((section) =>
+    savedTopics.includes(normalizeId(section.id))
+  );
+
+  return hasSavedTopic;
+}
+
 function shouldIncludeBookByMemberFilters(book) {
   const filters = memberUiState.filters || {};
 
@@ -559,6 +696,12 @@ function itemMatchesTrack(item) {
 
 function itemMatchesFilters(item) {
   if (!itemMatchesTrack(item)) return false;
+
+  if (memberUiState.filters?.myCourses) {
+    if (!itemMatchesMyCourses(item)) {
+      return false;
+    }
+  }
 
   if (state.course && item.id !== state.course) return false;
 
