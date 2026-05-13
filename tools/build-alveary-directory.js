@@ -59,6 +59,10 @@ function safeId(value) {
   return String(value || "").trim();
 }
 
+function legacyId(value, ...fallbacks) {
+  return safeId(value || fallbacks.find(Boolean) || "");
+}
+
 function subjectSlug(subject) {
   return String(subject || "Other")
     .trim()
@@ -355,20 +359,62 @@ function directoryTopicRow(topic, course, subject) {
 
   return {
     id,
+  
+    // NEW
+    recordID: id,
+    topicRecordId: id,
+  
+    // LEGACY IDS
+    Topic_ID:
+      topic?.Topic_ID ||
+      topic?.topicId ||
+      topic?.Sort_ID ||
+      topic?.sortId ||
+      "",
+  
+    legacyId:
+      topic?.Topic_ID ||
+      topic?.topicId ||
+      topic?.Sort_ID ||
+      topic?.sortId ||
+      id,
+  
+    topicLegacyId:
+      topic?.Topic_ID ||
+      topic?.topicId ||
+      topic?.Sort_ID ||
+      topic?.sortId ||
+      id,
+  
     rowType: "topic",
+  
     title: topicTitle(topic),
     lessonSetName: topicTitle(topic),
     subtitle: topic?.subtitle || "",
+  
     gradeText: itemGradeText(topic),
     schedText: itemSchedText(topic),
     shared: itemIsShared(topic),
     gradeTags: itemGradeTags(topic),
+  
     subject: subject || course?.subject || "",
+  
     sortId: topic?.Sort_ID || topic?.sortId || "",
+  
+    // COURSE LINKS
     courseId,
+    courseRecordId: courseId,
+  
+    courseLegacyId:
+      course?.Sort_ID ||
+      course?.sortId ||
+      courseId,
+  
     courseTitle: courseTitle(course),
     courseConnectionNames: [courseTitle(course)],
-    bookDetailsUrl: `book-details.html?view=topic&id=${encodeURIComponent(id)}`,
+  
+    bookDetailsUrl:
+      `book-details.html?view=topic&id=${encodeURIComponent(id)}`,
   };
 }
 
@@ -390,12 +436,50 @@ function buildBookViewForCourse(course, subject, assignmentsByTarget, resourcesB
 
       return {
         id: topicId,
+      
+        // NEW
+        recordID: topicId,
+        topicRecordId: topicId,
+      
+        // LEGACY IDS
+        Topic_ID:
+          topic?.Topic_ID ||
+          topic?.topicId ||
+          topic?.Sort_ID ||
+          topic?.sortId ||
+          "",
+      
+        legacyId:
+          topic?.Topic_ID ||
+          topic?.topicId ||
+          topic?.Sort_ID ||
+          topic?.sortId ||
+          topicId,
+      
+        topicLegacyId:
+          topic?.Topic_ID ||
+          topic?.topicId ||
+          topic?.Sort_ID ||
+          topic?.sortId ||
+          topicId,
+      
         rowType: "topic",
         title: topicTitle(topic),
         gradeText: itemGradeText(topic),
         schedText: itemSchedText(topic),
         shared: itemIsShared(topic),
+      
         sortId: topic?.Sort_ID || topic?.sortId || "",
+      
+        // COURSE LINKS
+        courseId,
+        courseRecordId: courseId,
+      
+        courseLegacyId:
+          course?.Sort_ID ||
+          course?.sortId ||
+          courseId,
+      
         books,
       };
     })
@@ -405,6 +489,13 @@ function buildBookViewForCourse(course, subject, assignmentsByTarget, resourcesB
   return {
     view: "course",
     id: courseId,
+    recordID: courseId,
+    courseRecordId: courseId,
+  
+    Sort_ID: course?.Sort_ID || course?.sortId || "",
+    legacyId: course?.Sort_ID || course?.sortId || courseId,
+    courseLegacyId: course?.Sort_ID || course?.sortId || courseId,
+  
     rowType: "course",
     title: courseTitle(course),
     subject,
@@ -412,29 +503,54 @@ function buildBookViewForCourse(course, subject, assignmentsByTarget, resourcesB
     schedText: itemSchedText(course),
     shared: itemIsShared(course),
     sortId: course?.Sort_ID || course?.sortId || "",
+  
     bookCount:
       courseBooks.length + topics.reduce((sum, topic) => sum + topic.books.length, 0),
+  
     sections: [
       ...(courseBooks.length
         ? [
             {
               type: "course",
               id: courseId,
+              recordID: courseId,
+              courseRecordId: courseId,
+  
+              Sort_ID: course?.Sort_ID || course?.sortId || "",
+              legacyId: course?.Sort_ID || course?.sortId || courseId,
+              courseLegacyId: course?.Sort_ID || course?.sortId || courseId,
+  
               title: courseTitle(course),
               gradeText: itemGradeText(course),
               schedText: itemSchedText(course),
               shared: itemIsShared(course),
+              sortId: course?.Sort_ID || course?.sortId || "",
+  
               books: courseBooks,
             },
           ]
         : []),
+  
       ...topics.map((topic) => ({
         type: "topic",
         id: topic.id,
+        recordID: topic.recordID,
+        topicRecordId: topic.topicRecordId,
+  
+        Topic_ID: topic.Topic_ID,
+        legacyId: topic.legacyId,
+        topicLegacyId: topic.topicLegacyId,
+  
+        courseId: topic.courseId,
+        courseRecordId: topic.courseRecordId,
+        courseLegacyId: topic.courseLegacyId,
+  
         title: topic.title,
         gradeText: topic.gradeText,
         schedText: topic.schedText,
         shared: topic.shared,
+        sortId: topic.sortId,
+  
         books: topic.books,
       })),
     ],
@@ -445,6 +561,18 @@ function buildBookViewForTopic(topic, course, subject, assignmentsByTarget, reso
   const courseId = safeId(course?.recordID || course?.id);
   const topicId = safeId(topic?.recordID || topic?.id || topic?.Topic_ID);
 
+  const topicLegacyId =
+    topic?.Topic_ID ||
+    topic?.topicId ||
+    topic?.Sort_ID ||
+    topic?.sortId ||
+    topicId;
+
+  const courseLegacyId =
+    course?.Sort_ID ||
+    course?.sortId ||
+    courseId;
+
   const books = booksForTarget(topicId, assignmentsByTarget, resourcesById, {
     courseId,
     topicId,
@@ -453,6 +581,23 @@ function buildBookViewForTopic(topic, course, subject, assignmentsByTarget, reso
   return {
     view: "topic",
     id: topicId,
+    recordID: topicId,
+    topicRecordId: topicId,
+
+    Topic_ID:
+      topic?.Topic_ID ||
+      topic?.topicId ||
+      topic?.Sort_ID ||
+      topic?.sortId ||
+      "",
+
+    legacyId: topicLegacyId,
+    topicLegacyId,
+
+    courseId,
+    courseRecordId: courseId,
+    courseLegacyId,
+
     rowType: "topic",
     title: topicTitle(topic),
     subject,
@@ -460,17 +605,37 @@ function buildBookViewForTopic(topic, course, subject, assignmentsByTarget, reso
     schedText: itemSchedText(topic),
     shared: itemIsShared(topic),
     sortId: topic?.Sort_ID || topic?.sortId || "",
-    courseId,
+
     courseTitle: courseTitle(course),
     bookCount: books.length,
+
     sections: [
       {
         type: "topic",
         id: topicId,
+        recordID: topicId,
+        topicRecordId: topicId,
+
+        Topic_ID:
+          topic?.Topic_ID ||
+          topic?.topicId ||
+          topic?.Sort_ID ||
+          topic?.sortId ||
+          "",
+
+        legacyId: topicLegacyId,
+        topicLegacyId,
+
+        courseId,
+        courseRecordId: courseId,
+        courseLegacyId,
+
         title: topicTitle(topic),
         gradeText: itemGradeText(topic),
         schedText: itemSchedText(topic),
         shared: itemIsShared(topic),
+        sortId: topic?.Sort_ID || topic?.sortId || "",
+
         books,
       },
     ],
@@ -534,11 +699,23 @@ function combineViews(view, id, title, rows) {
     sections.push({
       type: row.rowType,
       id: row.id,
+      recordID: row.recordID,
+      courseRecordId: row.courseRecordId,
+      topicRecordId: row.topicRecordId,
+    
+      Sort_ID: row.Sort_ID,
+      Topic_ID: row.Topic_ID,
+      legacyId: row.legacyId,
+      courseLegacyId: row.courseLegacyId,
+      topicLegacyId: row.topicLegacyId,
+    
       title: row.title,
       subject: row.subject,
       gradeText: row.gradeText,
       schedText: row.schedText,
       shared: row.shared,
+      sortId: row.sortId,
+    
       sections: row.sections,
     });
   }
