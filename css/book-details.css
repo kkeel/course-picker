@@ -832,6 +832,70 @@ body.member-tools-enabled .book-member-toolbar-body {
    9. COURSE / TOPIC SECTIONS
    ========================================================= */
 
+/* =========================================================
+   Course / Topic header tools
+   Mirrors live book page layout
+   ========================================================= */
+
+.book-course-head-main,
+.book-section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.book-course-head-left,
+.book-section-head-left {
+  min-width: 0;
+  flex: 1;
+}
+
+.card-header-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.bookmark-region--readonly {
+  opacity: 0.9;
+}
+
+.bookmark-region--readonly .bookmark-btn {
+  cursor: default;
+}
+
+.planner-tag-list {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.planner-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.06);
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.note-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  border: 1px solid var(--divider-subtle);
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
 .book-course {
   border: 1px solid var(--subject-color, var(--divider-subtle));
   border-radius: 4px;
