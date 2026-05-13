@@ -2,6 +2,8 @@ name: Build Alveary Directory
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "30 8 * * *"   # daily at 8:30am UTC, after courses/resources JSON builds
 
 permissions:
   contents: write
@@ -12,18 +14,27 @@ jobs:
 
     steps:
       - name: Check out repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: "22"
+          package-manager-cache: false
 
       - name: Build directory JSON
         run: node tools/build-alveary-directory.js
 
       - name: Commit updated directory files
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: Build Alveary directory JSON
-          file_pattern: data/alveary-directory-index.json data/book-views/**
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          git add data/alveary-directory-index.json data/book-views
+
+          if git diff --cached --quiet; then
+            echo "No directory changes to commit"
+          else
+            git commit -m "Build Alveary directory JSON"
+            git push
+          fi
