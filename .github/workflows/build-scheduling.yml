@@ -38,7 +38,7 @@ jobs:
           node tools/build-scheduling-from-airtable.mjs
 
       - name: Commit and push changes
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v10
         with:
           add: "data/MA_Scheduling.json"
           message: "Nightly build: MA_Scheduling.json"
