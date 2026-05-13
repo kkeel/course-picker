@@ -845,27 +845,93 @@ function bindBackToTop() {
   toggleVisibility();
 }
 
+const BOOK_MEMBER_UI_KEY = "alveary_book_member_ui_v1";
+
+const memberUiState = {
+  toolsOpen: false,
+  filters: {
+    myBooks: false,
+    myCourses: false,
+    myNotes: false,
+  },
+};
+
+function loadBookMemberUiState() {
+  try {
+    const raw = localStorage.getItem(BOOK_MEMBER_UI_KEY);
+    if (!raw) return;
+
+    const saved = JSON.parse(raw);
+    if (!saved || typeof saved !== "object") return;
+
+    memberUiState.toolsOpen = !!saved.toolsOpen;
+
+    if (saved.filters && typeof saved.filters === "object") {
+      memberUiState.filters.myBooks = !!saved.filters.myBooks;
+      memberUiState.filters.myCourses = !!saved.filters.myCourses;
+      memberUiState.filters.myNotes = !!saved.filters.myNotes;
+    }
+  } catch {
+    // ignore bad saved state
+  }
+}
+
+function saveBookMemberUiState() {
+  try {
+    localStorage.setItem(BOOK_MEMBER_UI_KEY, JSON.stringify(memberUiState));
+  } catch {
+    // ignore storage errors
+  }
+}
+
+function syncMemberToolsUi() {
+  const toggle = document.getElementById("member-tools-toggle");
+  const filterButtons = document.querySelectorAll(".member-mini-toggle");
+
+  document.body.classList.toggle("member-tools-enabled", memberUiState.toolsOpen);
+
+  if (toggle) {
+    toggle.classList.toggle("is-active", memberUiState.toolsOpen);
+    toggle.setAttribute("aria-pressed", memberUiState.toolsOpen ? "true" : "false");
+    toggle.textContent = memberUiState.toolsOpen ? "Hide Member Tools" : "Show Member Tools";
+  }
+
+  filterButtons.forEach((button) => {
+    const key = button.dataset.memberFilter;
+    const active = !!memberUiState.filters[key];
+
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", active ? "true" : "false");
+  });
+}
+
 function bindMemberToolsShell() {
   const toggle = document.getElementById("member-tools-toggle");
   const filterButtons = document.querySelectorAll(".member-mini-toggle");
 
-  if (!toggle) return;
+  loadBookMemberUiState();
+  syncMemberToolsUi();
 
-  toggle.addEventListener("click", () => {
-    const enabled = !document.body.classList.contains("member-tools-enabled");
+  if (toggle) {
+    toggle.addEventListener("click", () => {
+      memberUiState.toolsOpen = !memberUiState.toolsOpen;
 
-    document.body.classList.toggle("member-tools-enabled", enabled);
-    toggle.classList.toggle("is-active", enabled);
-    toggle.setAttribute("aria-pressed", enabled ? "true" : "false");
-
-    toggle.textContent = enabled
-      ? "Member Tools: On"
-      : "Member Tools: Off";
-  });
+      saveBookMemberUiState();
+      syncMemberToolsUi();
+    });
+  }
 
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      button.classList.toggle("is-active");
+      const key = button.dataset.memberFilter;
+      if (!key || !(key in memberUiState.filters)) return;
+
+      memberUiState.filters[key] = !memberUiState.filters[key];
+
+      saveBookMemberUiState();
+      syncMemberToolsUi();
+
+      render();
     });
   });
 }
