@@ -857,7 +857,10 @@ function bindMemberToolsShell() {
     document.body.classList.toggle("member-tools-enabled", enabled);
     toggle.classList.toggle("is-active", enabled);
     toggle.setAttribute("aria-pressed", enabled ? "true" : "false");
-    toggle.textContent = enabled ? "Member Tools: On" : "Member Tools: Off";
+
+    toggle.textContent = enabled
+      ? "Member Tools: On"
+      : "Member Tools: Off";
   });
 
   filterButtons.forEach((button) => {
