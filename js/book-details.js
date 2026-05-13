@@ -974,25 +974,54 @@ function isTopicSavedReadOnly(section) {
   );
 }
 
-function renderReadOnlyBookmark(status = false) {
+function tagLabel(tag) {
+  if (!tag) return "";
+  if (typeof tag === "string") return tag;
+  return tag.label || tag.name || tag.id || "";
+}
+
+function studentLabel(student) {
+  if (!student) return "";
+  if (typeof student === "string") return student;
+  return student.name || student.label || student.id || "";
+}
+
+function renderStudentChips(students = []) {
+  const cleanStudents = (Array.isArray(students) ? students : [])
+    .map(studentLabel)
+    .filter(Boolean);
+
+  if (!cleanStudents.length) return "";
+
+  return `
+    <span class="header-student-chip-list">
+      ${cleanStudents.map((student) => `
+        <span class="header-student-chip">${escapeHtml(student)}</span>
+      `).join("")}
+    </span>
+  `;
+}
+
+function renderReadOnlyBookmark(status = false, label = "Add Books") {
   return `
     <span class="bookmark-region bookmark-region--readonly">
       <button
         type="button"
-        class="bookmark-btn ${
-          status ? "bookmark-btn--solid" : "bookmark-btn--empty"
+        class="header-bookmark-btn ${
+          status ? "header-bookmark-btn--solid" : "header-bookmark-btn--empty"
         }"
         disabled
-        aria-hidden="true"
-        tabindex="-1"
+        aria-label="${escapeHtml(label)}"
+        title="${escapeHtml(label)}"
       >
         <img
           src="img/icons/${
             status ? "book-icon-active.png" : "book-icon-inactive.png"
           }"
           alt=""
-          class="bookmark-icon"
+          class="header-bookmark-icon"
         />
+        <span>${escapeHtml(label)}</span>
       </button>
     </span>
   `;
@@ -1001,29 +1030,41 @@ function renderReadOnlyBookmark(status = false) {
 function renderHeaderTools({
   saved = false,
   planningTags = [],
+  variant = "item",
+  showNotes = true,
 } = {}) {
+  const cleanTags = (Array.isArray(planningTags) ? planningTags : [])
+    .map(tagLabel)
+    .filter(Boolean);
+
+  const label = variant === "all" ? "All Books" : "Add Books";
+
   return `
-    <div class="card-header-actions">
-      ${planningTags.length ? `
+    <div class="card-header-tools">
+      <div class="card-header-actions">
+        ${renderReadOnlyBookmark(saved, label)}
+
+        ${showNotes ? `
+          <button
+            type="button"
+            class="note-btn"
+            aria-label="Edit notes"
+            title="Edit notes"
+          >
+            ✎
+          </button>
+        ` : ""}
+      </div>
+
+      ${cleanTags.length ? `
         <div class="planner-tag-list">
-          ${planningTags.map((tag) => `
+          ${cleanTags.map((tag) => `
             <span class="planner-tag-chip">
               ${escapeHtml(tag)}
             </span>
           `).join("")}
         </div>
       ` : ""}
-
-      <button
-        type="button"
-        class="note-btn"
-        aria-label="Notes"
-        title="Notes"
-      >
-        ✎
-      </button>
-
-      ${renderReadOnlyBookmark(saved)}
     </div>
   `;
 }
@@ -1168,7 +1209,9 @@ function renderCourseTopicMode(items) {
       return normalizedSection !== normalizedCourse;
     });
 
-    const sectionsHtml = visibleSections.length
+    const hasTopicSections = visibleSections.length > 0;
+
+    const sectionsHtml = hasTopicSections
       ? visibleSections.map((section) => {
           const books = (section.books || []).filter((book) =>
             shouldIncludeBookByMemberFilters(book)
@@ -1180,7 +1223,10 @@ function renderCourseTopicMode(items) {
             <section class="book-section">
               <div class="book-section-head">
                 <div class="book-section-head-left">
-                  <h3>${section.shared ? "↔ " : ""}${escapeHtml(section.title)}</h3>
+                  <div class="book-title-with-students">
+                    <h3>${section.shared ? "↔ " : ""}${escapeHtml(section.title)}</h3>
+                    ${renderStudentChips(section.students || section.assignedStudents || [])}
+                  </div>
 
                   ${(section.schedText || section.gradeText) ? `
                     <div class="book-section-meta">
@@ -1192,7 +1238,9 @@ function renderCourseTopicMode(items) {
 
                 ${renderHeaderTools({
                   saved: isTopicSavedReadOnly(section),
-                  planningTags: section.planningTags || [],
+                  planningTags: section.planningTags || section.tags || [],
+                  variant: "item",
+                  showNotes: true,
                 })}
               </div>
 
@@ -1225,7 +1273,10 @@ function renderCourseTopicMode(items) {
         <div class="book-course-head">
           <div class="book-course-head-main">
             <div class="book-course-head-left">
-              <h2>${item.shared ? "↔ " : ""}${escapeHtml(item.title)}</h2>
+              <div class="book-title-with-students">
+                <h2>${item.shared ? "↔ " : ""}${escapeHtml(item.title)}</h2>
+                ${renderStudentChips(item.students || item.assignedStudents || [])}
+              </div>
 
               ${(item.schedText || item.gradeText || item.subject) ? `
                 <div class="book-section-meta book-section-meta--course">
@@ -1237,7 +1288,9 @@ function renderCourseTopicMode(items) {
 
             ${renderHeaderTools({
               saved: isCourseSavedReadOnly(item),
-              planningTags: item.planningTags || [],
+              planningTags: item.planningTags || item.tags || [],
+              variant: hasTopicSections ? "all" : "item",
+              showNotes: !hasTopicSections,
             })}
           </div>
         </div>
