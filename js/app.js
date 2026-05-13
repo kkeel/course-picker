@@ -2791,7 +2791,14 @@ function coursePlanner() {
           if (cachedRaw) {
             const cachedData = JSON.parse(cachedRaw);
             if (cachedData && typeof cachedData === "object") {
-              this.allCoursesBySubject = cachedData;
+              const cachedBySubject =
+                cachedData?.coursesBySubject ||
+                cachedData?.bySubject ||
+                cachedData?.subjects ||
+                cachedData ||
+                {};
+            
+              this.allCoursesBySubject = cachedBySubject;
               this.loadPlannerStateFromStorage();
               this.applyFilters();      // respects restored filters
               hadCached = true;
