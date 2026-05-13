@@ -962,6 +962,72 @@ function addBookOwnerHereByInstanceKey(instanceKey) {
   render();
 }
 
+function isCourseSavedReadOnly(item) {
+  return getSavedCourseRecordIdsForReading().includes(
+    normalizeId(item?.id)
+  );
+}
+
+function isTopicSavedReadOnly(section) {
+  return getSavedTopicRecordIdsForReading().includes(
+    normalizeId(section?.id)
+  );
+}
+
+function renderReadOnlyBookmark(status = false) {
+  return `
+    <span class="bookmark-region bookmark-region--readonly">
+      <button
+        type="button"
+        class="bookmark-btn ${
+          status ? "bookmark-btn--solid" : "bookmark-btn--empty"
+        }"
+        disabled
+        aria-hidden="true"
+        tabindex="-1"
+      >
+        <img
+          src="img/icons/${
+            status ? "book-icon-active.png" : "book-icon-inactive.png"
+          }"
+          alt=""
+          class="bookmark-icon"
+        />
+      </button>
+    </span>
+  `;
+}
+
+function renderHeaderTools({
+  saved = false,
+  planningTags = [],
+} = {}) {
+  return `
+    <div class="card-header-actions">
+      ${planningTags.length ? `
+        <div class="planner-tag-list">
+          ${planningTags.map((tag) => `
+            <span class="planner-tag-chip">
+              ${escapeHtml(tag)}
+            </span>
+          `).join("")}
+        </div>
+      ` : ""}
+
+      <button
+        type="button"
+        class="note-btn"
+        aria-label="Notes"
+        title="Notes"
+      >
+        ✎
+      </button>
+
+      ${renderReadOnlyBookmark(saved)}
+    </div>
+  `;
+}
+
 function renderBookCard(book) {
   const badges = [
     book.gradeLevelTag ? { label: book.gradeLevelTag, className: "book-badge--grade" } : null,
@@ -1112,9 +1178,23 @@ function renderCourseTopicMode(items) {
 
           return `
             <section class="book-section">
-              <h3>${section.shared ? "↔ " : ""}${escapeHtml(section.title)}</h3>
-
-              ${(section.schedText || section.gradeText) ? `
+              <div class="book-section-head">
+                  <div class="book-section-head-left">
+                    <h3>${section.shared ? "↔ " : ""}${escapeHtml(section.title)}</h3>
+                
+                    ${(section.schedText || section.gradeText) ? `
+                      <div class="book-section-meta">
+                        ${section.schedText ? `<span class="book-meta-schedule">${escapeHtml(section.schedText)}</span>` : ""}
+                        ${section.gradeText ? `<span class="book-meta-grade">${escapeHtml(section.gradeText)}</span>` : ""}
+                      </div>
+                    ` : ""}
+                  </div>
+                
+                  ${renderHeaderTools({
+                    saved: isTopicSavedReadOnly(section),
+                    planningTags: section.planningTags || [],
+                  })}
+                </div>
                 <div class="book-section-meta">
                   ${section.schedText ? `<span class="book-meta-schedule">${escapeHtml(section.schedText)}</span>` : ""}
                   ${section.gradeText ? `<span class="book-meta-grade">${escapeHtml(section.gradeText)}</span>` : ""}
@@ -1148,14 +1228,23 @@ function renderCourseTopicMode(items) {
     return `
       <section class="book-course" style="--subject-color: ${subjectColor(item.subject)};">
         <div class="book-course-head">
-          <h2>${item.shared ? "↔ " : ""}${escapeHtml(item.title)}</h2>
-
-          ${(item.schedText || item.gradeText || item.subject) ? `
-            <div class="book-section-meta book-section-meta--course">
-              ${item.schedText ? `<span class="book-meta-schedule">${escapeHtml(item.schedText)}</span>` : ""}
-              ${item.gradeText ? `<span class="book-meta-grade">${escapeHtml(item.gradeText)}</span>` : ""}
+          <div class="book-course-head-main">
+            <div class="book-course-head-left">
+              <h2>${item.shared ? "↔ " : ""}${escapeHtml(item.title)}</h2>
+        
+              ${(item.schedText || item.gradeText || item.subject) ? `
+                <div class="book-section-meta book-section-meta--course">
+                  ${item.schedText ? `<span class="book-meta-schedule">${escapeHtml(item.schedText)}</span>` : ""}
+                  ${item.gradeText ? `<span class="book-meta-grade">${escapeHtml(item.gradeText)}</span>` : ""}
+                </div>
+              ` : ""}
             </div>
-          ` : ""}
+        
+            ${renderHeaderTools({
+              saved: isCourseSavedReadOnly(item),
+              planningTags: item.planningTags || [],
+            })}
+          </div>
         </div>
 
         ${sectionsHtml}
