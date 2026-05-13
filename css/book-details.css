@@ -915,7 +915,7 @@ body.member-tools-enabled .book-member-toolbar-body {
   font-weight: 500;
 }
 
-.book-course-head div {
+.book-course-head .book-section-meta {
   margin-top: 5px;
   font-size: 13px;
   color: var(--brand-muted);
