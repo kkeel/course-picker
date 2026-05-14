@@ -16,7 +16,7 @@
     "Community Read Alouds: Grades 1-12",
     "Ethics: Part 1"
   ],
-  "updatedAt": "2026-05-13T18:27:46.664Z",
+  "updatedAt": "2026-05-14T08:23:16.567Z",
   "terms": [
     {
       "termNumber": 1,
@@ -99,6 +99,36 @@
           "weekLabel": "Week 1",
           "lessons": [
             {
+              "lessonId": "recTENlpahbqgUJOt",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 25,
+              "sort": 302502,
+              "lessonLabel": "",
+              "title": "25m Canadian Government: Grade 7 - Lesson 25",
+              "anchor": "term-3-week-25-lesson-25",
+              "links": [
+                {
+                  "text": "Levels of Government (Video)",
+                  "url": "https://www.youtube.com/watch?v=uwcMDuSGym4"
+                },
+                {
+                  "text": "Levels of Government",
+                  "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/settle-canada/government.html"
+                },
+                {
+                  "text": "Activity: Levels of Government",
+                  "url": "https://learn.parl.ca/en/games/game4/index.html"
+                },
+                {
+                  "text": "Around Town Game: Levels of Government",
+                  "url": "https://learn.parl.ca/en/games/aroundtown/index.html"
+                }
+              ]
+            },
+            {
               "lessonId": "recCEtI1mjoqLRs6B",
               "termNumber": 3,
               "termLabel": "Term 3",
@@ -121,6 +151,62 @@
                 {
                   "text": "Image: Gracchus",
                   "url": "https://commons.wikimedia.org/wiki/File:Eugene_Guillaume_-_the_Gracchi.jpg"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 26,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "rec0RJGP4VjwZR96s",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 26,
+              "weekLabel": "Week 2",
+              "sequence": 26,
+              "sort": 302602,
+              "lessonLabel": "",
+              "title": "25m Canadian Government: Grade 7 - Lesson 26",
+              "anchor": "term-3-week-26-lesson-26",
+              "links": [
+                {
+                  "text": "Who are parliamentarians?",
+                  "url": "https://www.youtube.com/watch?v=Pv8ngA-5xcc"
+                },
+                {
+                  "text": "Home Page for the 2025 Federal Election",
+                  "url": "https://www.elections.ca/res/rep/off/ovrGE45/home.html"
+                },
+                {
+                  "text": "Activity: Parliament and Elections",
+                  "url": "https://learn.parl.ca/en/games/game5/index.html"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 27,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "recgjuI8HSntoHT81",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 27,
+              "weekLabel": "Week 3",
+              "sequence": 27,
+              "sort": 302702,
+              "lessonLabel": "",
+              "title": "25m Canadian Government: Grade 7 - Lesson 27",
+              "anchor": "term-3-week-27-lesson-27",
+              "links": [
+                {
+                  "text": "Parliament: The Virtual Reality Experience",
+                  "url": "https://www.youtube.com/watch?v=1K4cXuOl_lM"
                 }
               ]
             }

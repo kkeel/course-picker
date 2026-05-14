@@ -10,7 +10,7 @@
   "isStandaloneCourse": true,
   "courseConnectionNames": [],
   "topicConnectionNames": [],
-  "updatedAt": "2026-05-13T18:27:46.753Z",
+  "updatedAt": "2026-05-14T08:23:16.635Z",
   "terms": [
     {
       "termNumber": 1,
@@ -67,6 +67,28 @@
           "weekLabel": "Week 2",
           "lessons": [
             {
+              "lessonId": "recXwunDWfUvU3L4N",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 3,
+              "sort": 0,
+              "lessonLabel": "Lesson 3",
+              "title": "25m Geography: Grades 4-6 - Lesson 3",
+              "anchor": "term-1-week-2-lesson-3",
+              "links": [
+                {
+                  "text": "Map of Scotland",
+                  "url": "https://www.scotland-map.com/scotland-map.gif"
+                },
+                {
+                  "text": "Picture of Livingstone's Home",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/David_Livingstone_Centre.jpg/3840px-David_Livingstone_Centre.jpg"
+                }
+              ]
+            },
+            {
               "lessonId": "recKrhtnWRL6fWzEz",
               "termNumber": 1,
               "termLabel": "Term 1",
@@ -81,6 +103,30 @@
                 {
                   "text": "Blank World Map",
                   "url": "https://www.geoguessr.com/assets/seterra/printables/en/continents.pdf"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 3,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "rec0Xe8FiUtYeOrQe",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 3,
+              "weekLabel": "Week 3",
+              "sequence": 5,
+              "sort": 0,
+              "lessonLabel": "Lesson 5",
+              "title": "25m Geography: Grades 4-6 - Lesson 5",
+              "anchor": "term-1-week-3-lesson-5",
+              "links": [
+                {
+                  "text": "Map of Great Britain",
+                  "url": "https://www.worldatlas.com/r/w960-q80/upload/57/b0/c2/uk-01.png"
                 }
               ]
             }
@@ -145,8 +191,16 @@
               "anchor": "term-1-week-5-lesson-9",
               "links": [
                 {
+                  "text": "Ship Chronometer",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Chronometer_01.JPG/1920px-Chronometer_01.JPG?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail&_=20091118215011"
+                },
+                {
                   "text": "Mariner's quadrant",
                   "url": "https://www.rmg.co.uk/collections/objects/rmgc-object-43274"
+                },
+                {
+                  "text": "Marine barometer",
+                  "url": "https://www.rmg.co.uk/collections/objects/rmgc-object-43017"
                 },
                 {
                   "text": "Prime Meridian",
@@ -336,6 +390,24 @@
           "weekNumber": 15,
           "weekLabel": "Week 3",
           "lessons": [
+            {
+              "lessonId": "rec66Y9N6Q2qVbTpt",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 15,
+              "weekLabel": "Week 3",
+              "sequence": 29,
+              "sort": 0,
+              "lessonLabel": "Lesson 29",
+              "title": "25m Geography: Grades 4-6 - Lesson 29",
+              "anchor": "term-2-week-15-lesson-29",
+              "links": [
+                {
+                  "text": "Picture of salsola plant",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/9/93/Salsola_soda_Rignanese.jpg"
+                }
+              ]
+            },
             {
               "lessonId": "recd6KE7jPMkANSYu",
               "termNumber": 2,
