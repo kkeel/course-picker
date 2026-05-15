@@ -1,0 +1,104 @@
+{
+  "id": "rec2Ve2pxnvaAIg4K",
+  "title": "World History",
+  "lessonSetName": "World History: Grades 7-8",
+  "subject": "History",
+  "gradeText": "GRADE(S): 7-8",
+  "sortId": "008.007.001.003",
+  "rowType": "course",
+  "hasTopics": false,
+  "isStandaloneCourse": true,
+  "courseConnectionNames": [],
+  "topicConnectionNames": [],
+  "updatedAt": "2026-05-15T08:34:29.020Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "rec9APtBgq0MXOWdT",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 0,
+              "lessonLabel": "Lesson 1",
+              "title": "30m World History: Grades 7-8 - Lesson 1",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Map of Mexico",
+                  "url": "https://www.worldometers.info/img/maps/mexico_physical_map.gif"
+                },
+                {
+                  "text": "Virgin of Guadalupe",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Virgen_de_guadalupe1.jpg/500px-Virgen_de_guadalupe1.jpg"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 2,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "recW5n6I7B9vIGTv6",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 2,
+              "sort": 0,
+              "lessonLabel": "Lesson 2",
+              "title": "30m World History: Grades 7-8 - Lesson 2",
+              "anchor": "term-1-week-2-lesson-2",
+              "links": [
+                {
+                  "text": "Picture of Santa Anna",
+                  "url": "https://cdn.britannica.com/01/26501-050-77D1B82E/Antonio-Lopez-de-Santa-Anna-daguerreotype.jpg"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 2,
+      "term": "Term 2",
+      "weeks": [
+        {
+          "weekNumber": 19,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "reckPAHNSV7Q9o9u3",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 19,
+              "weekLabel": "Week 7",
+              "sequence": 19,
+              "sort": 0,
+              "lessonLabel": "Lesson 19",
+              "title": "30m World History: Grades 7-8 - Lesson 19",
+              "anchor": "term-2-week-19-lesson-19",
+              "links": [
+                {
+                  "text": "View of Paris",
+                  "url": "https://travel.usnews.com/dims4/USNEWS/d326300/2147483647/resize/976x652%5E%3E/crop/976x652/quality/85/format/webp/?url=https%3A%2F%2Ftravel.usnews.com%2Fimages%2FNew_Paris_pic_jw04ZlH.jpg"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

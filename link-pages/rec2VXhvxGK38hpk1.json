@@ -1,21 +1,18 @@
 {
-  "id": "reckIbzVuwanEJ4os",
-  "title": "World History",
-  "lessonSetName": "World History: Grades 4-6",
+  "id": "rec2VXhvxGK38hpk1",
+  "title": "U.S. History",
+  "lessonSetName": "U.S. History: Grades 7-8",
   "subject": "History",
-  "gradeText": "GRADE(S): 4-6",
-  "sortId": "008.004.001.003",
+  "gradeText": "GRADE(S): 7-8",
+  "sortId": "008.007.001.001",
   "rowType": "topic",
   "hasTopics": false,
   "isStandaloneCourse": false,
   "courseConnectionNames": [
-    "History: Grade 4 (U.S.)",
-    "History: Grade 4 (Canada)",
-    "History: Grades 5-6 (U.S.)",
-    "History: Grades 5-6 (Canada)"
+    "History: Grades 7-8 (U.S.)"
   ],
   "topicConnectionNames": [],
-  "updatedAt": "2026-05-15T08:34:29.012Z",
+  "updatedAt": "2026-05-15T08:34:29.020Z",
   "terms": [
     {
       "termNumber": 1,
@@ -26,7 +23,7 @@
           "weekLabel": "Week 1",
           "lessons": [
             {
-              "lessonId": "recDcQLGWIq6eJaVL",
+              "lessonId": "recmg7hlHcpoVE5ar",
               "termNumber": 1,
               "termLabel": "Term 1",
               "weekNumber": 1,
@@ -34,12 +31,16 @@
               "sequence": 1,
               "sort": 0,
               "lessonLabel": "Lesson 1",
-              "title": "25m World History: Grades 4-6 - Lesson 1",
+              "title": "30m U.S. History: Grades 7-8 - Lesson 1",
               "anchor": "term-1-week-1-lesson-1",
               "links": [
                 {
-                  "text": "The Cliffs of Moher",
-                  "url": "https://images.ireland.com/media/Images/things-to-do/attractions/cliffs-of-moher-new/ce306945c0404787866c4a33c7498133.webp"
+                  "text": "Video: Industrial Revolution",
+                  "url": "https://www.youtube.com/watch?v=nl_-6WPQ4Sg"
+                },
+                {
+                  "text": "The War of 1812",
+                  "url": "https://drive.google.com/file/d/1vSlbwb_use3fZtq2uFA2jcUFj6TZGC8h/view?usp=drive_link"
                 }
               ]
             }

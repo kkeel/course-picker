@@ -13,31 +13,457 @@
     "U.S. History: Grades 7-8",
     "Ancient History: Grades 7-9"
   ],
-  "updatedAt": "2026-05-14T08:23:16.654Z",
+  "updatedAt": "2026-05-15T08:34:29.019Z",
   "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "rechGPnYmytIobssC",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100101,
+              "lessonLabel": "",
+              "title": "30m World History: Grades 7-8 - Lesson 1",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Map of Mexico",
+                  "url": "https://www.worldometers.info/img/maps/mexico_physical_map.gif"
+                },
+                {
+                  "text": "Virgin of Guadalupe",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Virgen_de_guadalupe1.jpg/500px-Virgen_de_guadalupe1.jpg"
+                }
+              ]
+            },
+            {
+              "lessonId": "recgNqQ43i2qP0mwq",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100102,
+              "lessonLabel": "",
+              "title": "30m U.S. History: Grades 7-8 - Lesson 1",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Video: Industrial Revolution",
+                  "url": "https://www.youtube.com/watch?v=nl_-6WPQ4Sg"
+                },
+                {
+                  "text": "The War of 1812",
+                  "url": "https://drive.google.com/file/d/1vSlbwb_use3fZtq2uFA2jcUFj6TZGC8h/view?usp=drive_link"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 2,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "recDZnXTgwx42IchF",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 2,
+              "sort": 100201,
+              "lessonLabel": "",
+              "title": "30m World History: Grades 7-8 - Lesson 2",
+              "anchor": "term-1-week-2-lesson-2",
+              "links": [
+                {
+                  "text": "Picture of Santa Anna",
+                  "url": "https://cdn.britannica.com/01/26501-050-77D1B82E/Antonio-Lopez-de-Santa-Anna-daguerreotype.jpg"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 4,
+          "weekLabel": "Week 4",
+          "lessons": [
+            {
+              "lessonId": "recG4kyNnGSziczwZ",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 4,
+              "weekLabel": "Week 4",
+              "sequence": 4,
+              "sort": 100403,
+              "lessonLabel": "",
+              "title": "30m Ancient History: Grades 7-9 - Lesson 4",
+              "anchor": "term-1-week-4-lesson-4",
+              "links": [
+                {
+                  "text": "From Enslavement to Rebel Gladiator: The Life of Spartacus",
+                  "url": "https://www.youtube.com/watch?v=8l1NyR6UvxU"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 5,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "recQho07BQ4zpjmgp",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 5,
+              "weekLabel": "Week 5",
+              "sequence": 5,
+              "sort": 100503,
+              "lessonLabel": "",
+              "title": "30m Ancient History: Grades 7-9 - Lesson 5",
+              "anchor": "term-1-week-5-lesson-5",
+              "links": [
+                {
+                  "text": "Folger Shakespeare Library: Julius Caesar",
+                  "url": "https://www.folger.edu/explore/shakespeares-works/julius-caesar/read/"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     {
       "termNumber": 2,
       "term": "Term 2",
       "weeks": [
         {
-          "weekNumber": 15,
+          "weekNumber": 18,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recKOGx7Q0naW6xZr",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 18,
+              "weekLabel": "Week 6",
+              "sequence": 18,
+              "sort": 201803,
+              "lessonLabel": "",
+              "title": "30m Ancient History: Grades 7-9 - Lesson 18",
+              "anchor": "term-2-week-18-lesson-18",
+              "links": [
+                {
+                  "text": "Virtual Tour of the Colosseum",
+                  "url": "https://colosseum.info/virtual-tour/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 19,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "recbFimeZeuN3ImNl",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 19,
+              "weekLabel": "Week 7",
+              "sequence": 19,
+              "sort": 201901,
+              "lessonLabel": "",
+              "title": "30m World History: Grades 7-8 - Lesson 19",
+              "anchor": "term-2-week-19-lesson-19",
+              "links": [
+                {
+                  "text": "View of Paris",
+                  "url": "https://travel.usnews.com/dims4/USNEWS/d326300/2147483647/resize/976x652%5E%3E/crop/976x652/quality/85/format/webp/?url=https%3A%2F%2Ftravel.usnews.com%2Fimages%2FNew_Paris_pic_jw04ZlH.jpg"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 3,
+      "term": "Term 3",
+      "weeks": [
+        {
+          "weekNumber": 25,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recDM3f28stSAGuAs",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 25,
+              "sort": 302503,
+              "lessonLabel": "",
+              "title": "30m Ancient History: Grades 7-9 - Lesson 25",
+              "anchor": "term-3-week-25-lesson-25",
+              "links": [
+                {
+                  "text": "Map Resource",
+                  "url": "https://timemaps.com/history/italy-200ad/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 26,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "rec4hgkIpjtwJ3erZ",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 26,
+              "weekLabel": "Week 2",
+              "sequence": 26,
+              "sort": 302603,
+              "lessonLabel": "",
+              "title": "30m Ancient History: Grades 7-9 - Lesson 26",
+              "anchor": "term-3-week-26-lesson-26",
+              "links": [
+                {
+                  "text": "Map Resource",
+                  "url": "https://timemaps.com/history/italy-200ad/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 27,
           "weekLabel": "Week 3",
           "lessons": [
             {
-              "lessonId": "recckZf83eNdiSFVg",
-              "termNumber": 2,
-              "termLabel": "Term 2",
-              "weekNumber": 15,
+              "lessonId": "receV6xDV1UhdubNU",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 27,
               "weekLabel": "Week 3",
-              "sequence": 15,
-              "sort": 201503,
+              "sequence": 27,
+              "sort": 302703,
               "lessonLabel": "",
-              "title": "30m Ancient History: Grades 7-9 - Lesson 15",
-              "anchor": "term-2-week-15-lesson-15",
+              "title": "30m Ancient History: Grades 7-9 - Lesson 27",
+              "anchor": "term-3-week-27-lesson-27",
               "links": [
                 {
-                  "text": "Drain the Oceans | National Geographic",
-                  "url": "https://www.youtube.com/watch?v=NP4RrJCYFGs"
+                  "text": "Map Resource",
+                  "url": "https://timemaps.com/history/italy-200ad/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 28,
+          "weekLabel": "Week 4",
+          "lessons": [
+            {
+              "lessonId": "recCwf6X4AcRDgz8x",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 28,
+              "weekLabel": "Week 4",
+              "sequence": 28,
+              "sort": 302803,
+              "lessonLabel": "",
+              "title": "30m Ancient History: Grades 7-9 - Lesson 28",
+              "anchor": "term-3-week-28-lesson-28",
+              "links": [
+                {
+                  "text": "The Acts of Paul and Thecla",
+                  "url": "https://www.pbs.org/wgbh/pages/frontline/shows/religion/maps/primary/thecla.html"
+                },
+                {
+                  "text": "Map Resource",
+                  "url": "https://timemaps.com/history/italy-200ad/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 29,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "recei6C3wreRkrRFX",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 29,
+              "weekLabel": "Week 5",
+              "sequence": 29,
+              "sort": 302903,
+              "lessonLabel": "",
+              "title": "30m Ancient History: Grades 7-9 - Lesson 29",
+              "anchor": "term-3-week-29-lesson-29",
+              "links": [
+                {
+                  "text": "Map Resource",
+                  "url": "https://timemaps.com/history/italy-200ad/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 30,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recQjSKC7L3cfiCbx",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 30,
+              "weekLabel": "Week 6",
+              "sequence": 30,
+              "sort": 303003,
+              "lessonLabel": "",
+              "title": "30m Ancient History: Grades 7-9 - Lesson 30",
+              "anchor": "term-3-week-30-lesson-30",
+              "links": [
+                {
+                  "text": "Map Resource",
+                  "url": "https://timemaps.com/history/italy-200ad/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 31,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "recl7NS9IaQjIgCQJ",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 31,
+              "weekLabel": "Week 7",
+              "sequence": 31,
+              "sort": 303103,
+              "lessonLabel": "",
+              "title": "30m Ancient History: Grades 7-9 - Lesson 31",
+              "anchor": "term-3-week-31-lesson-31",
+              "links": [
+                {
+                  "text": "Map Resource",
+                  "url": "https://timemaps.com/history/italy-200ad/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 32,
+          "weekLabel": "Week 8",
+          "lessons": [
+            {
+              "lessonId": "recKtul27KcdJZ8mL",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 32,
+              "weekLabel": "Week 8",
+              "sequence": 32,
+              "sort": 303203,
+              "lessonLabel": "",
+              "title": "30m Ancient History: Grades 7-9 - Lesson 32",
+              "anchor": "term-3-week-32-lesson-32",
+              "links": [
+                {
+                  "text": "Map Resource",
+                  "url": "https://timemaps.com/history/italy-200ad/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 33,
+          "weekLabel": "Week 9",
+          "lessons": [
+            {
+              "lessonId": "recHv7LnG5VOwsWPc",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 33,
+              "weekLabel": "Week 9",
+              "sequence": 33,
+              "sort": 303303,
+              "lessonLabel": "",
+              "title": "30m Ancient History: Grades 7-9 - Lesson 33",
+              "anchor": "term-3-week-33-lesson-33",
+              "links": [
+                {
+                  "text": "Map Resource",
+                  "url": "https://timemaps.com/history/italy-200ad/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 34,
+          "weekLabel": "Week 10",
+          "lessons": [
+            {
+              "lessonId": "recH7EXwT71ZPyFtd",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 34,
+              "weekLabel": "Week 10",
+              "sequence": 34,
+              "sort": 303403,
+              "lessonLabel": "",
+              "title": "30m Ancient History: Grades 7-9 - Lesson 34",
+              "anchor": "term-3-week-34-lesson-34",
+              "links": [
+                {
+                  "text": "Map Resource",
+                  "url": "https://timemaps.com/history/italy-200ad/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 35,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "rec2Om1bf92aETiDO",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 35,
+              "weekLabel": "Week 11",
+              "sequence": 35,
+              "sort": 303503,
+              "lessonLabel": "",
+              "title": "30m Ancient History: Grades 7-9 - Lesson 35",
+              "anchor": "term-3-week-35-lesson-35",
+              "links": [
+                {
+                  "text": "Map Resource",
+                  "url": "https://timemaps.com/history/italy-200ad/"
                 }
               ]
             }
