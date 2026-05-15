@@ -26,9 +26,30 @@
       .replace(/'/g, "&#39;");
   }
 
-  function getPacketId() {
+  function getUrlParams() {
     const params = new URLSearchParams(window.location.search);
-    return params.get("id") || "";
+  
+    return {
+      id: params.get("id") || "",
+      term: params.get("term") || "all",
+      week: params.get("week") || "all"
+    };
+  }
+  
+  function getPacketId() {
+    return getUrlParams().id;
+  }
+
+  function applyInitialFiltersFromUrl() {
+    const params = getUrlParams();
+  
+    if (params.term && params.term !== "all") {
+      state.selectedTerm = params.term;
+    }
+  
+    if (params.week && params.week !== "all") {
+      state.selectedWeek = params.week;
+    }
   }
 
   function lessonDisplayLabel(lesson) {
@@ -200,6 +221,8 @@
 
       state.data = await response.json();
 
+      applyInitialFiltersFromUrl();
+      
       els.subject.style.display = "none";
 
       els.title.textContent =
