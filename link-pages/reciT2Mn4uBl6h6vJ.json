@@ -14,12 +14,36 @@
     "World History: Grades 10-12",
     "Ancient History: Grades 10-12"
   ],
-  "updatedAt": "2026-05-15T13:41:18.050Z",
+  "updatedAt": "2026-05-16T07:44:27.547Z",
   "terms": [
     {
       "termNumber": 1,
       "term": "Term 1",
       "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "rec1USLYwgd07G1GI",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 2,
+              "sort": 100105,
+              "lessonLabel": "",
+              "title": "40m Ancient History: Grades 10-12 - Lesson 2",
+              "anchor": "term-1-week-1-lesson-2",
+              "links": [
+                {
+                  "text": "Interview with Nadya Williams ",
+                  "url": "https://www.orangeblossomordinary.com/interviews/interview-with-nadya-williams-author-of-christians-reading-classics"
+                }
+              ]
+            }
+          ]
+        },
         {
           "weekNumber": 2,
           "weekLabel": "Week 2",
@@ -53,6 +77,24 @@
               "lessonLabel": "",
               "title": "30m Ancient History: Grades 10-12 - Lesson 3",
               "anchor": "term-1-week-2-lesson-3",
+              "links": [
+                {
+                  "text": "From Enslavement to Rebel Gladiator: The Life of Spartacus",
+                  "url": "https://youtu.be/8l1NyR6UvxU"
+                }
+              ]
+            },
+            {
+              "lessonId": "recJhtgLICgOsZw2I",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 4,
+              "sort": 100205,
+              "lessonLabel": "",
+              "title": "40m Ancient History: Grades 10-12 - Lesson 4",
+              "anchor": "term-1-week-2-lesson-4",
               "links": [
                 {
                   "text": "The Civil Wars - On the Gracch, Appian",
@@ -786,6 +828,24 @@
           "weekNumber": 33,
           "weekLabel": "Week 9",
           "lessons": [
+            {
+              "lessonId": "recUxKs0cgFsTH4xh",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 33,
+              "weekLabel": "Week 9",
+              "sequence": 33,
+              "sort": 303301,
+              "lessonLabel": "",
+              "title": "30m World History: Grades 10-12 - Lesson 33",
+              "anchor": "term-3-week-33-lesson-33",
+              "links": [
+                {
+                  "text": "The Proclamation of the German Empire on January 18, 1871,",
+                  "url": "https://germanhistorydocs.org/en/forging-an-empire-bismarckian-germany-1866-1890/anton-von-werner-the-proclamation-of-the-german-empire-january-18-1871-friedrichsruh-version-1885"
+                }
+              ]
+            },
             {
               "lessonId": "rec56FXrI5lbIDvQ7",
               "termNumber": 3,

@@ -14,12 +14,36 @@
     "History: Grades 11-12 (Canada)"
   ],
   "topicConnectionNames": [],
-  "updatedAt": "2026-05-15T13:41:18.044Z",
+  "updatedAt": "2026-05-16T07:44:27.542Z",
   "terms": [
     {
       "termNumber": 1,
       "term": "Term 1",
       "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recgdpfifL3284J4j",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 2,
+              "sort": 0,
+              "lessonLabel": "Lesson 2",
+              "title": "40m Ancient History: Grades 10-12 - Lesson 2",
+              "anchor": "term-1-week-1-lesson-2",
+              "links": [
+                {
+                  "text": "Interview with Nadya Williams",
+                  "url": "https://www.orangeblossomordinary.com/interviews/interview-with-nadya-williams-author-of-christians-reading-classics"
+                }
+              ]
+            }
+          ]
+        },
         {
           "weekNumber": 2,
           "weekLabel": "Week 2",
@@ -35,6 +59,24 @@
               "lessonLabel": "Lesson 3",
               "title": "30m Ancient History: Grades 10-12 - Lesson 3",
               "anchor": "term-1-week-2-lesson-3",
+              "links": [
+                {
+                  "text": "From Enslavement to Rebel Gladiator: The Life of Spartacus",
+                  "url": "https://youtu.be/8l1NyR6UvxU"
+                }
+              ]
+            },
+            {
+              "lessonId": "recvEQChjrqm0UM1V",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 4,
+              "sort": 0,
+              "lessonLabel": "Lesson 4",
+              "title": "40m Ancient History: Grades 10-12 - Lesson 4",
+              "anchor": "term-1-week-2-lesson-4",
               "links": [
                 {
                   "text": "The Civil Wars - On the Gracch, Appian",

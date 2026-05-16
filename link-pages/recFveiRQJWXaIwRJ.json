@@ -16,7 +16,7 @@
     "Community Read Alouds: Grades 1-12",
     "Ethics: Part 1"
   ],
-  "updatedAt": "2026-05-15T13:41:17.922Z",
+  "updatedAt": "2026-05-16T07:44:27.413Z",
   "terms": [
     {
       "termNumber": 1,
@@ -71,16 +71,20 @@
               "anchor": "term-1-week-2-lesson-2",
               "links": [
                 {
-                  "text": "Explore the House of Commons at West Block ",
-                  "url": "https://www.youtube.com/watch?v=so1njjXhBmM"
+                  "text": "A Day in the Life of Senator Yonah Martin ",
+                  "url": "https://www.youtube.com/watch?v=z4K2HFVR_y0"
                 },
                 {
-                  "text": "Explore the Senate of Canada Building",
-                  "url": "https://www.youtube.com/watch?v=ytGC3AxXdzw"
+                  "text": "A Day in the Life of Senator Dennis Glen Patterson ",
+                  "url": "https://www.youtube.com/watch?v=Mb2F3wUVWMc"
                 },
                 {
                   "text": "The Selection of Ottawa as the Capital of Canada ",
                   "url": "https://www.youtube.com/watch?v=cOxVFdcWxWY"
+                },
+                {
+                  "text": "https://learn.parl.ca/en/games/game6/index.html",
+                  "url": "https://learn.parl.ca/en/games/game6/index.html"
                 }
               ]
             }
@@ -143,30 +147,6 @@
           ]
         },
         {
-          "weekNumber": 7,
-          "weekLabel": "Week 7",
-          "lessons": [
-            {
-              "lessonId": "recJ0j4cAxMFt772t",
-              "termNumber": 1,
-              "termLabel": "Term 1",
-              "weekNumber": 7,
-              "weekLabel": "Week 7",
-              "sequence": 7,
-              "sort": 100702,
-              "lessonLabel": "",
-              "title": "25m Canadian Government: Grade 7 - Lesson 7",
-              "anchor": "term-1-week-7-lesson-7",
-              "links": [
-                {
-                  "text": "Parliament and Elections",
-                  "url": "https://learn.parl.ca/en/games/game5/index.html"
-                }
-              ]
-            }
-          ]
-        },
-        {
           "weekNumber": 8,
           "weekLabel": "Week 8",
           "lessons": [
@@ -221,6 +201,30 @@
               ]
             }
           ]
+        },
+        {
+          "weekNumber": 11,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "recqC7i4KBetzXjvf",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 11,
+              "weekLabel": "Week 11",
+              "sequence": 11,
+              "sort": 101102,
+              "lessonLabel": "",
+              "title": "25m Canadian Government: Grade 7 - Lesson 11",
+              "anchor": "term-1-week-11-lesson-11",
+              "links": [
+                {
+                  "text": "Canadian Symbols at Parliament",
+                  "url": "https://learn.parl.ca/en/games/game8/index.html"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -232,6 +236,40 @@
           "weekNumber": 13,
           "weekLabel": "Week 1",
           "lessons": [
+            {
+              "lessonId": "recLUqLHLPGwfzSfp",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 13,
+              "weekLabel": "Week 1",
+              "sequence": 13,
+              "sort": 201302,
+              "lessonLabel": "",
+              "title": "25m Canadian Government: Grade 7 - Lesson 13",
+              "anchor": "term-2-week-13-lesson-13",
+              "links": [
+                {
+                  "text": "Explore the House of Commons at West Block ",
+                  "url": "https://www.youtube.com/watch?v=so1njjXhBmM"
+                },
+                {
+                  "text": "Explore the Senate of Canada Building",
+                  "url": "https://www.youtube.com/watch?v=ytGC3AxXdzw"
+                },
+                {
+                  "text": "Celebrating the Library of Parliament",
+                  "url": "https://www.youtube.com/watch?v=KnOLsnexkFc"
+                },
+                {
+                  "text": "Centre Block’s Memorial Chamber",
+                  "url": "https://www.youtube.com/watch?v=8_LeNrlvPuU"
+                },
+                {
+                  "text": "Books of Remembrance",
+                  "url": "https://veterans.gc.ca/en/remembrance/memorials/books-remembrance"
+                }
+              ]
+            },
             {
               "lessonId": "recZm3L2iaiKwaoTa",
               "termNumber": 2,
@@ -279,6 +317,54 @@
                 {
                   "text": "Parliament at Work: House of Commons",
                   "url": "https://learn.parl.ca/en/games/game7/index.html"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 19,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "recD5EbOK72H8Hbx8",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 19,
+              "weekLabel": "Week 7",
+              "sequence": 19,
+              "sort": 201902,
+              "lessonLabel": "",
+              "title": "25m Canadian Government: Grade 7 - Lesson 19",
+              "anchor": "term-2-week-19-lesson-19",
+              "links": [
+                {
+                  "text": "Rights and Responsibilities in the Community",
+                  "url": "https://learn.parl.ca/en/games/game1/index.html"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 21,
+          "weekLabel": "Week 9",
+          "lessons": [
+            {
+              "lessonId": "rec8dpLzrXcEYOxw5",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 21,
+              "weekLabel": "Week 9",
+              "sequence": 21,
+              "sort": 202102,
+              "lessonLabel": "",
+              "title": "25m Canadian Government: Grade 7 - Lesson 21",
+              "anchor": "term-2-week-21-lesson-21",
+              "links": [
+                {
+                  "text": "Bill on the Hill",
+                  "url": "https://learn.parl.ca/en/games/billonthehill/"
                 }
               ]
             }
@@ -375,10 +461,6 @@
                 {
                   "text": "Home Page for the 2025 Federal Election",
                   "url": "https://www.elections.ca/res/rep/off/ovrGE45/home.html"
-                },
-                {
-                  "text": "Activity: Parliament and Elections",
-                  "url": "https://learn.parl.ca/en/games/game5/index.html"
                 }
               ]
             }
@@ -401,8 +483,44 @@
               "anchor": "term-3-week-27-lesson-27",
               "links": [
                 {
+                  "text": "Map of Parliament Hill",
+                  "url": "https://visit.parl.ca/staticfiles/Visit/assets/images2/LOP-map-V3.png"
+                },
+                {
                   "text": "Parliament: The Virtual Reality Experience",
                   "url": "https://www.youtube.com/watch?v=1K4cXuOl_lM"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 34,
+          "weekLabel": "Week 10",
+          "lessons": [
+            {
+              "lessonId": "rectPIOUdxKk342tY",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 34,
+              "weekLabel": "Week 10",
+              "sequence": 34,
+              "sort": 303402,
+              "lessonLabel": "",
+              "title": "25m Canadian Government: Grade 7 - Lesson 34",
+              "anchor": "term-3-week-34-lesson-34",
+              "links": [
+                {
+                  "text": "Understanding Parliament",
+                  "url": "https://learn.parl.ca/understanding-comprendre/en/"
+                },
+                {
+                  "text": "House of Commons Video Archive",
+                  "url": "https://www.cpac.ca/house"
+                },
+                {
+                  "text": "Senate Video Archive",
+                  "url": "https://www.cpac.ca/senate"
                 }
               ]
             }
