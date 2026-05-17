@@ -927,6 +927,41 @@
     "linkPageUrl": "./links.html?id=reccC5jUZLuL3WcXg"
   },
   {
+    "id": "recKa7MPZrKDMtNrX",
+    "title": "Citizenship",
+    "lessonSetName": "Citizenship: Grade 10 (Canada)",
+    "subject": "Citizenship",
+    "gradeText": "GRADE(S): 10",
+    "sortId": "005.010.002.000",
+    "rowType": "course",
+    "hasTopics": true,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [
+      "Econ/Civics: Grade 10 (Canada)",
+      "Ethics: Part 4",
+      "Current Events: Grades 9-12",
+      "Community Read Alouds: Grades 1-12"
+    ],
+    "linkPageUrl": "./links.html?id=recKa7MPZrKDMtNrX"
+  },
+  {
+    "id": "rech5WsJGtkFMro6Z",
+    "title": "Econ/Civics",
+    "lessonSetName": "Econ/Civics: Grade 10 (Canada)",
+    "subject": "Citizenship",
+    "gradeText": "GRADE(S): 10",
+    "sortId": "005.010.002.002",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Citizenship: Grade 10 (Canada)"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=rech5WsJGtkFMro6Z"
+  },
+  {
     "id": "recOUpJF18JdVLMQz",
     "title": "Citizenship",
     "lessonSetName": "Citizenship: Grade 11 (U.S.)",
@@ -1675,6 +1710,23 @@
     "linkPageUrl": "./links.html?id=recsOZm3eEE7p9FbO"
   },
   {
+    "id": "recTYpFpYIaDutvIa",
+    "title": "Ancient History",
+    "lessonSetName": "Ancient History: Grades 5-6",
+    "subject": "History",
+    "gradeText": "GRADE(S): 5-6",
+    "sortId": "008.005.001.004",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "History: Grades 5-6 (U.S.)",
+      "History: Grades 5-6 (Canada)"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recTYpFpYIaDutvIa"
+  },
+  {
     "id": "recmp57SjAMWlxCPc",
     "title": "History",
     "lessonSetName": "History: Grades 5-6 (Canada)",
@@ -1790,6 +1842,22 @@
       "Canadian History: Grades 7-8"
     ],
     "linkPageUrl": "./links.html?id=recyhrlHSPAxgxtxn"
+  },
+  {
+    "id": "recjFbzbQHFiDKuEN",
+    "title": "Canadian History",
+    "lessonSetName": "Canadian History: Grades 7-8",
+    "subject": "History",
+    "gradeText": "GRADE(S): 7-8",
+    "sortId": "008.007.002.002",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "History: Grades 7-8 (Canada)"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recjFbzbQHFiDKuEN"
   },
   {
     "id": "rec56vdLQLvCTX4LU",
