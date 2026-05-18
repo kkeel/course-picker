@@ -15,12 +15,36 @@
     "General Lit.: Grades 11-12",
     "History of Lit: Grades 9-12"
   ],
-  "updatedAt": "2026-05-18T09:34:08.035Z",
+  "updatedAt": "2026-05-18T15:09:45.038Z",
   "terms": [
     {
       "termNumber": 1,
       "term": "Term 1",
       "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recukC9ToefVkp3jb",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100102,
+              "lessonLabel": "",
+              "title": "15m Poetry Reading: Grades 9-12 - Lesson 1",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Elegy Written in a Country Churchyard",
+                  "url": "https://www.poetryfoundation.org/poems/44299/elegy-written-in-a-country-churchyard"
+                }
+              ]
+            }
+          ]
+        },
         {
           "weekNumber": 5,
           "weekLabel": "Week 5",

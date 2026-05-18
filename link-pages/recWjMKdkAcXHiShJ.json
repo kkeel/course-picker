@@ -1,0 +1,51 @@
+{
+  "id": "recWjMKdkAcXHiShJ",
+  "title": "Poetry Reading",
+  "lessonSetName": "Poetry Reading: Grades 9-12",
+  "subject": "Literature",
+  "gradeText": "GRADE(S): 9-12",
+  "sortId": "011.001.009.010",
+  "rowType": "topic",
+  "hasTopics": false,
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [
+    "Literature: Grade 9",
+    "Literature: Grade 10",
+    "Literature: Grade 11",
+    "Literature: Grade 12"
+  ],
+  "topicConnectionNames": [],
+  "updatedAt": "2026-05-18T15:09:45.033Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recqfkpen0KKmychw",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 0,
+              "lessonLabel": "Lesson 1",
+              "title": "15m Poetry Reading: Grades 9-12 - Lesson 1",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Elegy Written in a Country Churchyard",
+                  "url": "https://www.poetryfoundation.org/poems/44299/elegy-written-in-a-country-churchyard"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
