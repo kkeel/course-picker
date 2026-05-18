@@ -588,6 +588,17 @@ function slugSubject(subject) {
 }
 
 function viewPath(base, id) {
+  const params = new URLSearchParams(window.location.search);
+  const directView = params.get("view");
+
+  if (directView === "topic") {
+    return `./data/book-views/topic/${encodeURIComponent(id)}.json`;
+  }
+
+  if (directView === "course") {
+    return `./data/book-views/course/${encodeURIComponent(id)}.json`;
+  }
+
   if (base === "subject") {
     if (id === DEFAULT_SUBJECT) return "./data/book-views/by-subject.json";
     return `./data/book-views/subject/${slugSubject(id)}.json`;
