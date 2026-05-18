@@ -13,16 +13,106 @@
     "General Lit.: Grades 5-6",
     "Lit./Mythology: Grade 5-6"
   ],
-  "updatedAt": "2026-05-18T15:09:45.027Z",
+  "updatedAt": "2026-05-18T23:16:00.470Z",
   "terms": [
     {
       "termNumber": 1,
       "term": "Term 1",
       "weeks": [
         {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recbRGt7GEgUsTxT2",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100101,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 1",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Louisa May Alcott Bio",
+                  "url": "https://www.battlefields.org/learn/biographies/louisa-may-alcott"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 2,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "recoSWI9Xzw8zOFLi",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 2,
+              "sort": 100201,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 2",
+              "anchor": "term-1-week-2-lesson-2",
+              "links": [
+                {
+                  "text": "Christmas During the Civil War",
+                  "url": "https://www.battlefields.org/learn/articles/christmas-during-civil-war#:~:text=Christmas%20during%20the%20Civil%20War%20served%20both%20as%20an%20escape,Civil%20War%20%7C%20Article"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 3,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "recGiFuxKwn4Ny0En",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 3,
+              "weekLabel": "Week 3",
+              "sequence": 3,
+              "sort": 100301,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 3",
+              "anchor": "term-1-week-3-lesson-3",
+              "links": [
+                {
+                  "text": "Civil War Dresses",
+                  "url": "https://civilwarladies.com/"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "weekNumber": 4,
           "weekLabel": "Week 4",
           "lessons": [
+            {
+              "lessonId": "rec9qAlH9EaPxAVFT",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 4,
+              "weekLabel": "Week 4",
+              "sequence": 4,
+              "sort": 100401,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 4",
+              "anchor": "term-1-week-4-lesson-4",
+              "links": [
+                {
+                  "text": "The Alcotts' Home",
+                  "url": "https://louisamayalcott.org/photo-gallery"
+                }
+              ]
+            },
             {
               "lessonId": "recJJJGriy1b3Lwjh",
               "termNumber": 1,
@@ -48,6 +138,28 @@
           "weekLabel": "Week 5",
           "lessons": [
             {
+              "lessonId": "rec0B9csjRLDT4HFO",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 5,
+              "weekLabel": "Week 5",
+              "sequence": 5,
+              "sort": 100501,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 5",
+              "anchor": "term-1-week-5-lesson-5",
+              "links": [
+                {
+                  "text": "Transcendentalism and the Alcotts",
+                  "url": "http://kcpt.pbslearningmedia.org/resource/alcott18-soc-ela-transcendentalism/louisa-may-alcott-transcendentalism/?student=true"
+                },
+                {
+                  "text": "Alcott and Emerson",
+                  "url": "https://www.walden.org/what-we-do/library/the-transcendentalists-their-lives-writings/louisa-may-alcott-1832-1888/"
+                }
+              ]
+            },
+            {
               "lessonId": "rec7Zdxkww5D7sU3Q",
               "termNumber": 1,
               "termLabel": "Term 1",
@@ -66,6 +178,30 @@
                 {
                   "text": "Minerva",
                   "url": "https://www.worldhistory.org/img/r/p/500x600/2205.jpg.webp?v=1485680571"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 6,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recrJOfThvnJlEUNr",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 6,
+              "weekLabel": "Week 6",
+              "sequence": 6,
+              "sort": 100601,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 6",
+              "anchor": "term-1-week-6-lesson-6",
+              "links": [
+                {
+                  "text": "Pickled Limes",
+                  "url": "https://youtu.be/t1FxQW77Hxk?si=9Hv45OH2dAjwqHhA"
                 }
               ]
             }
@@ -118,6 +254,402 @@
                 {
                   "text": "Runestone of Norse Mythology",
                   "url": "http://users.stlcc.edu/mfuller/viking/GotlandStockholmRunestoneSandaTop.jpg"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 2,
+      "term": "Term 2",
+      "weeks": [
+        {
+          "weekNumber": 14,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "recW2AoMgdixGxYCJ",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 14,
+              "weekLabel": "Week 2",
+              "sequence": 14,
+              "sort": 201401,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 14",
+              "anchor": "term-2-week-14-lesson-14",
+              "links": [
+                {
+                  "text": "The Telegraph: The Civil War Text Machine",
+                  "url": "https://youtu.be/tzP7QOOAt4I?si=4eeaKxa3jCUd1W8m"
+                },
+                {
+                  "text": "LMA, Civil War Nurse",
+                  "url": "https://www.civilwarmed.org/alcott/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 15,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "rec73jWnpga6DudP5",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 15,
+              "weekLabel": "Week 3",
+              "sequence": 15,
+              "sort": 201501,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 15",
+              "anchor": "term-2-week-15-lesson-15",
+              "links": [
+                {
+                  "text": "Scarlet Fever",
+                  "url": "https://youtube.com/shorts/6qLp4mwwfx4?si=NcfFqpdbmXUjcPqc"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 17,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "recVV0UIxySes3UPX",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 17,
+              "weekLabel": "Week 5",
+              "sequence": 17,
+              "sort": 201701,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 17",
+              "anchor": "term-2-week-17-lesson-17",
+              "links": [
+                {
+                  "text": "Autobiographical Roots of Little Women",
+                  "url": "https://northlight.org/blending-fiction-with-fact-little-women/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 19,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "rec43YVoDysRD6WxM",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 19,
+              "weekLabel": "Week 7",
+              "sequence": 19,
+              "sort": 201901,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 19",
+              "anchor": "term-2-week-19-lesson-19",
+              "links": [
+                {
+                  "text": "The Netherlands",
+                  "url": "https://history.howstuffworks.com/european-history/holland-netherlands.htm"
+                },
+                {
+                  "text": "Hans Brinker Pronunciation & Corrections",
+                  "url": "https://www.heardutchhere.net/HansBrinker2.html"
+                },
+                {
+                  "text": "Mary Mapes Dodge Bio",
+                  "url": "https://hymnary.org/person/Dodge_MM"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 20,
+          "weekLabel": "Week 8",
+          "lessons": [
+            {
+              "lessonId": "recgN6mrMnzkM7MQC",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 20,
+              "weekLabel": "Week 8",
+              "sequence": 20,
+              "sort": 202001,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 20",
+              "anchor": "term-2-week-20-lesson-20",
+              "links": [
+                {
+                  "text": "Netherlands Map",
+                  "url": "https://www.worldatlas.com/upload/90/d7/e8/nl-01.jpg"
+                },
+                {
+                  "text": "Dutch Windmill Inside",
+                  "url": "https://youtu.be/1FJzqp3Doys?si=wbCZpjk9_vGb5DeD"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 21,
+          "weekLabel": "Week 9",
+          "lessons": [
+            {
+              "lessonId": "recDrEivFXIh1vp0S",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 21,
+              "weekLabel": "Week 9",
+              "sequence": 21,
+              "sort": 202101,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 21",
+              "anchor": "term-2-week-21-lesson-21",
+              "links": [
+                {
+                  "text": "Traditional Dutch Winter Skating",
+                  "url": "https://youtu.be/z61b1Y6FjXw?si=BFWlqPBmn7FBQd-O"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 22,
+          "weekLabel": "Week 10",
+          "lessons": [
+            {
+              "lessonId": "recjTwyv4Ja0ZFlMW",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 22,
+              "weekLabel": "Week 10",
+              "sequence": 22,
+              "sort": 202201,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 22",
+              "anchor": "term-2-week-22-lesson-22",
+              "links": [
+                {
+                  "text": "St. Nicholas Illustration",
+                  "url": "https://www.stnicholascenter.org/how-to-celebrate/resources/stories-poems/stories/vintage-stories/hans-brinker"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 23,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "rec6CjcoGRPiBaMFB",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 23,
+              "weekLabel": "Week 11",
+              "sequence": 23,
+              "sort": 202301,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 23",
+              "anchor": "term-2-week-23-lesson-23",
+              "links": [
+                {
+                  "text": "Rijksmuseum Art",
+                  "url": "https://www.rijksmuseum.nl/en/collection"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 3,
+      "term": "Term 3",
+      "weeks": [
+        {
+          "weekNumber": 25,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "rec6VR6oXpLrXKHBj",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 25,
+              "sort": 302501,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 25",
+              "anchor": "term-3-week-25-lesson-25",
+              "links": [
+                {
+                  "text": "Netherlands Map",
+                  "url": "https://www.worldatlas.com/upload/90/d7/e8/nl-01.jpg"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 26,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "rece9R94XGpc1AWZj",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 26,
+              "weekLabel": "Week 2",
+              "sequence": 26,
+              "sort": 302601,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 26",
+              "anchor": "term-3-week-26-lesson-26",
+              "links": [
+                {
+                  "text": "Historic Dutch Home Tour",
+                  "url": "https://youtube.com/shorts/jbPdlxg_mrU?si=k-fPRm3F7aanpX4I"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 28,
+          "weekLabel": "Week 4",
+          "lessons": [
+            {
+              "lessonId": "rec1FqouNA3CYCM8p",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 28,
+              "weekLabel": "Week 4",
+              "sequence": 28,
+              "sort": 302801,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 28",
+              "anchor": "term-3-week-28-lesson-28",
+              "links": [
+                {
+                  "text": "Can a finger really be used to stop a leaky dike?",
+                  "url": "https://youtu.be/eAclTrE3Q9M?si=swADH_ZJTeBN8n5g"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 30,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recu16WEM07sRqKom",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 30,
+              "weekLabel": "Week 6",
+              "sequence": 30,
+              "sort": 303001,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 30",
+              "anchor": "term-3-week-30-lesson-30",
+              "links": [
+                {
+                  "text": "Traditional Dutch Gingerbread",
+                  "url": "https://youtu.be/XTVVGWTgYTE?si=HMLkwFnNFoTOis_m"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 31,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "recNdqnUysoi1nh2y",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 31,
+              "weekLabel": "Week 7",
+              "sequence": 31,
+              "sort": 303101,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 31",
+              "anchor": "term-3-week-31-lesson-31",
+              "links": [
+                {
+                  "text": "Netherlands Map",
+                  "url": "https://www.worldatlas.com/upload/90/d7/e8/nl-01.jpg"
+                },
+                {
+                  "text": "Rijksmuseum van Oudheden",
+                  "url": "https://www.rmo.nl/en/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 33,
+          "weekLabel": "Week 9",
+          "lessons": [
+            {
+              "lessonId": "reclgQiadPIEczYfP",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 33,
+              "weekLabel": "Week 9",
+              "sequence": 33,
+              "sort": 303301,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 33",
+              "anchor": "term-3-week-33-lesson-33",
+              "links": [
+                {
+                  "text": "Netherlands Map",
+                  "url": "https://www.worldatlas.com/upload/90/d7/e8/nl-01.jpg"
+                },
+                {
+                  "text": "The Hague Market Today",
+                  "url": "https://youtu.be/C8iamIyfOMw?si=qGEicJEOHo1ZxUZ-"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 36,
+          "weekLabel": "Week 12",
+          "lessons": [
+            {
+              "lessonId": "recH3BXG7qixQpVHI",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 36,
+              "weekLabel": "Week 12",
+              "sequence": 36,
+              "sort": 303601,
+              "lessonLabel": "",
+              "title": "20m General Lit.: Grades 5-6 - Lesson 36",
+              "anchor": "term-3-week-36-lesson-36",
+              "links": [
+                {
+                  "text": "Elfstedentocht: The Famed Frozen Race",
+                  "url": "https://www.bbc.com/sport/winter-sports/67926417"
                 }
               ]
             }
