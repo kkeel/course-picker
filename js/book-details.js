@@ -1477,10 +1477,18 @@ async function loadView(options = {}) {
   }
 
   const response = await fetch(viewPath(state.base, state.id));
-  if (!response.ok) throw new Error(`Could not load ${viewPath(state.base, state.id)}`);
-
-  state.data = await response.json();
-
+    if (!response.ok) throw new Error(`Could not load ${viewPath(state.base, state.id)}`);
+  
+    const loadedData = await response.json();
+  
+  if (loadedData?.view === "topic" || loadedData?.view === "course") {
+    state.data = {
+      items: [loadedData],
+    };
+  } else {
+    state.data = loadedData;
+  }
+  
   writeParams();
   render();
 
