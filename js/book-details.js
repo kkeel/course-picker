@@ -26,6 +26,7 @@ function subjectColor(name) {
 const state = {
   data: null,
   filterIndex: null,
+  view: "",
   base: "grade",
   id: DEFAULT_GRADE,
   course: "",
@@ -588,14 +589,11 @@ function slugSubject(subject) {
 }
 
 function viewPath(base, id) {
-  const params = new URLSearchParams(window.location.search);
-  const directView = params.get("view");
-
-  if (directView === "topic") {
+  if (state.view === "topic") {
     return `./data/book-views/topic/${encodeURIComponent(id)}.json`;
   }
 
-  if (directView === "course") {
+  if (state.view === "course") {
     return `./data/book-views/course/${encodeURIComponent(id)}.json`;
   }
 
@@ -647,15 +645,31 @@ function filteredGroups() {
 function readParams() {
   const params = new URLSearchParams(window.location.search);
 
+  state.view = params.get("view") || "";
   state.base = params.get("base") || "grade";
   state.id = params.get("id") || (state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE);
   state.course = params.get("course") || "";
   state.topic = params.get("topic") || "";
   state.track = params.get("track") || "";
+
+  if (state.view === "topic" || state.view === "course") {
+    state.base = "";
+    state.course = "";
+    state.topic = "";
+    state.track = "";
+  }
 }
 
 function writeParams() {
   const params = new URLSearchParams();
+
+  if (state.view === "topic" || state.view === "course") {
+    params.set("view", state.view);
+    params.set("id", state.id);
+
+    window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
+    return;
+  }
 
   params.set("base", state.base);
   params.set("id", state.id);
