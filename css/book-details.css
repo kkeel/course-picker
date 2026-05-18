@@ -1571,3 +1571,42 @@ body.member-tools-enabled .book-member-toolbar-body {
     bottom: 16px;
   }
 }
+
+/* =========================================================
+   TEMPORARILY HIDE MEMBER / NAV TOOLS
+   Keep code in place for later member-tool rebuild.
+   ========================================================= */
+
+/* Hide top navigation/menu area */
+.app-header,
+.app-nav,
+#app-step-nav {
+  display: none !important;
+}
+
+/* Hide member tools toggle and member toolbar in filter box */
+.book-member-toolbar,
+.book-member-mode-toggle,
+#member-tools-toggle {
+  display: none !important;
+}
+
+/* Hide member-only filter controls */
+.member-tool-only,
+body.member-tools-enabled .member-tool-only {
+  display: none !important;
+}
+
+/* Hide course/topic header member buttons for now */
+.card-header-tools,
+.card-header-actions,
+.header-student-chip-list,
+.planner-tag-list {
+  display: none !important;
+}
+
+/* Hide book-card My Books buttons for now */
+.book-card-bookmark-corner,
+.book-save-region {
+  display: none !important;
+}
