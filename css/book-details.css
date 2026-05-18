@@ -1577,8 +1577,12 @@ body.member-tools-enabled .book-member-toolbar-body {
    Keep code in place for later member-tool rebuild.
    ========================================================= */
 
-/* Hide top navigation/menu area */
-.app-header,
+/* Keep Alveary logo visible */
+.app-header {
+  display: block;
+}
+
+/* Hide navigation links/menu only */
 .app-nav,
 #app-step-nav {
   display: none !important;
