@@ -660,6 +660,20 @@ function readParams() {
   }
 }
 
+function exitDirectView({
+  base = "subject",
+  id = DEFAULT_SUBJECT,
+  keepSearch = true,
+} = {}) {
+  state.view = "";
+  state.base = base;
+  state.id = id;
+  state.course = "";
+  state.topic = "";
+  state.track = "";
+  if (!keepSearch) state.query = "";
+}
+
 function writeParams() {
   const params = new URLSearchParams();
 
@@ -1502,6 +1516,12 @@ async function loadView(options = {}) {
 function isFocusedDirectView() {
   const params = new URLSearchParams(window.location.search);
 
+  const isDirectJsonView =
+    state.view === "topic" ||
+    state.view === "course" ||
+    params.get("view") === "topic" ||
+    params.get("view") === "course";
+
   const isLessonLink =
     params.get("source") === "lesson" ||
     params.get("compact") === "1";
@@ -1513,7 +1533,7 @@ function isFocusedDirectView() {
   const hasSpecificPrimary =
     state.id !== (state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE);
 
-  return isLessonLink || hasSpecificCourseOrTopic || hasSpecificPrimary;
+  return isDirectJsonView || isLessonLink || hasSpecificCourseOrTopic || hasSpecificPrimary;
 }
 
 function setIntroCollapsed(isCollapsed) {
@@ -1556,41 +1576,66 @@ function initializePageState() {
 function bindControls() {
   document.querySelectorAll(".book-base-button").forEach((button) => {
     button.addEventListener("click", async () => {
-      state.base = button.dataset.base;
-      state.id = state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE;
-      state.course = "";
-      state.topic = "";
+      exitDirectView({
+        base: button.dataset.base,
+        id: button.dataset.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE,
+      });
+
       await loadView({ scrollToFilters: true, instantScroll: true });
     });
   });
 
   document.getElementById("primary-select").addEventListener("change", async (event) => {
-    state.id = event.target.value;
-    state.course = "";
-    state.topic = "";
-  
+    const selectedBase = state.base || "subject";
+
+    exitDirectView({
+      base: selectedBase,
+      id: event.target.value,
+    });
+
     await loadView({ scrollToFilters: true, instantScroll: true });
   });
 
-  document.getElementById("track-filter").addEventListener("change", (event) => {
+  document.getElementById("track-filter").addEventListener("change", async (event) => {
+    if (state.view) {
+      exitDirectView({
+        base: "subject",
+        id: DEFAULT_SUBJECT,
+      });
+    }
+
     state.track = event.target.value;
     state.course = "";
     state.topic = "";
-    writeParams();
-    render();
+
+    await loadView({ scrollToFilters: false, instantScroll: true });
   });
 
-  document.getElementById("course-filter").addEventListener("change", (event) => {
+  document.getElementById("course-filter").addEventListener("change", async (event) => {
+    if (state.view) {
+      exitDirectView({
+        base: "subject",
+        id: DEFAULT_SUBJECT,
+      });
+    }
+
     state.course = event.target.value;
     state.topic = "";
-    writeParams();
-    render();
+
+    await loadView({ scrollToFilters: false, instantScroll: true });
   });
 
-  document.getElementById("topic-filter").addEventListener("change", (event) => {
+  document.getElementById("topic-filter").addEventListener("change", async (event) => {
+    if (state.view) {
+      exitDirectView({
+        base: "subject",
+        id: DEFAULT_SUBJECT,
+      });
+    }
+
     state.topic = event.target.value;
-    writeParams();
-    render();
+
+    await loadView({ scrollToFilters: false, instantScroll: true });
   });
 
   document.getElementById("book-search").addEventListener("input", (event) => {
@@ -1601,7 +1646,14 @@ function bindControls() {
   document.querySelectorAll(".clear-select").forEach((button) => {
     button.addEventListener("click", async () => {
       const clearType = button.dataset.clear;
-  
+
+      if (state.view) {
+        exitDirectView({
+          base: "subject",
+          id: DEFAULT_SUBJECT,
+        });
+      }
+
       if (clearType === "primary") {
         state.id = state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE;
         state.course = "";
@@ -1609,36 +1661,34 @@ function bindControls() {
         await loadView({ scrollToFilters: true, instantScroll: true });
         return;
       }
-  
+
       if (clearType === "course") {
         state.course = "";
         state.topic = "";
-        writeParams();
-        render();
+        await loadView({ scrollToFilters: false, instantScroll: true });
         return;
       }
-  
+
       if (clearType === "topic") {
         state.topic = "";
-        writeParams();
-        render();
+        await loadView({ scrollToFilters: false, instantScroll: true });
+        return;
       }
 
       if (clearType === "track") {
         state.track = "";
-        writeParams();
-        render();
+        await loadView({ scrollToFilters: false, instantScroll: true });
         return;
       }
-      
     });
   });
+
   document.getElementById("clear-filters").addEventListener("click", async () => {
-    state.id = state.base === "subject" ? DEFAULT_SUBJECT : DEFAULT_GRADE;
-    state.course = "";
-    state.topic = "";
-    state.track = "";
-    state.query = "";
+    exitDirectView({
+      base: "subject",
+      id: DEFAULT_SUBJECT,
+      keepSearch: false,
+    });
 
     document.getElementById("book-search").value = "";
 
