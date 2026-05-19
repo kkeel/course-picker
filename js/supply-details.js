@@ -96,8 +96,8 @@ const SupplyMemberState = {
   version: 1,
 
   supplies: {
-    // Global: resource is in My Supplys somewhere
-    mySupplys: [],
+    // Global: resource is in My Supplies somewhere
+    mySupplies: [],
 
     // Instance ownership:
     // {
@@ -106,7 +106,7 @@ const SupplyMemberState = {
     //     "course:recCourseId:topic:recTopicId:resource:recResourceId"
     //   ]
     // }
-    mySupplysOwnersByResourceId: {},
+    mySuppliesOwnersByResourceId: {},
   },
 };
 
@@ -129,9 +129,9 @@ function uniqueStrings(values) {
 }
 
 function normalizeSupplyMemberState() {
-  SupplyMemberState.supplies.mySupplys = uniqueStrings(SupplyMemberState.supplies.mySupplys);
+  SupplyMemberState.supplies.mySupplies = uniqueStrings(SupplyMemberState.supplies.mySupplies);
 
-  const ownersMap = SupplyMemberState.supplies.mySupplysOwnersByResourceId || {};
+  const ownersMap = SupplyMemberState.supplies.mySuppliesOwnersByResourceId || {};
   const nextOwnersMap = {};
 
   Object.entries(ownersMap).forEach(([resourceId, owners]) => {
@@ -144,7 +144,7 @@ function normalizeSupplyMemberState() {
     }
   });
 
-  SupplyMemberState.supplies.mySupplysOwnersByResourceId = nextOwnersMap;
+  SupplyMemberState.supplies.mySuppliesOwnersByResourceId = nextOwnersMap;
 }
 
 function loadSupplyMemberState() {
@@ -153,19 +153,24 @@ function loadSupplyMemberState() {
     if (!raw) return;
 
     const saved = JSON.parse(raw);
-    const savedSupplys = saved?.supplies;
+    const savedSupplies = saved?.supplies;
 
-    if (!savedSupplys || typeof savedSupplys !== "object") return;
+    if (!savedSupplies || typeof savedSupplies !== "object") return;
 
-    SupplyMemberState.supplies.mySupplys = Array.isArray(savedSupplys.mySupplys)
-      ? savedSupplys.mySupplys
-      : [];
+    SupplyMemberState.supplies.mySupplies = Array.isArray(savedSupplies.mySupplies)
+      ? savedSupplies.mySupplies
+      : Array.isArray(savedSupplies.mySupplys)
+        ? savedSupplies.mySupplys
+        : [];
 
-    SupplyMemberState.supplies.mySupplysOwnersByResourceId =
-      savedSupplys.mySupplysOwnersByResourceId &&
-      typeof savedSupplys.mySupplysOwnersByResourceId === "object"
-        ? savedSupplys.mySupplysOwnersByResourceId
-        : {};
+    SupplyMemberState.supplies.mySuppliesOwnersByResourceId =
+      savedSupplies.mySuppliesOwnersByResourceId &&
+      typeof savedSupplies.mySuppliesOwnersByResourceId === "object"
+        ? savedSupplies.mySuppliesOwnersByResourceId
+        : savedSupplies.mySupplysOwnersByResourceId &&
+          typeof savedSupplies.mySupplysOwnersByResourceId === "object"
+            ? savedSupplies.mySupplysOwnersByResourceId
+            : {};
 
     normalizeSupplyMemberState();
   } catch {
@@ -221,7 +226,7 @@ function convertLegacyOwnerKey(ownerKey) {
     const resourceId = normalizeId(match[2]);
 
     // Only keep scoped owners when they already use Airtable record IDs.
-    // If not, we let the global mySupplys save behave as a legacy/global save.
+    // If not, we let the global mySupplies save behave as a legacy/global save.
     if (courseId.startsWith("rec") && resourceId.startsWith("rec")) {
       return `course:${courseId}:resource:${resourceId}`;
     }
@@ -238,7 +243,7 @@ function convertLegacyOwnerKey(ownerKey) {
     const resourceId = normalizeId(match[3]);
 
     // Only keep scoped owners when they already use Airtable record IDs.
-    // If not, we let the global mySupplys save behave as a legacy/global save.
+    // If not, we let the global mySupplies save behave as a legacy/global save.
     if (
       courseId.startsWith("rec") &&
       topicId.startsWith("rec") &&
@@ -268,19 +273,19 @@ function migrateLegacySupplyMemberStateOnce() {
 
     if (!legacyResources || typeof legacyResources !== "object") return;
 
-    const legacyMySupplys = Array.isArray(legacyResources.mySupplys)
-      ? legacyResources.mySupplys
+    const legacymySupplies = Array.isArray(legacyResources.mySupplies)
+      ? legacyResources.mySupplies
       : [];
 
     const legacyOwners =
-      legacyResources.mySupplysOwnersByResourceId &&
-      typeof legacyResources.mySupplysOwnersByResourceId === "object"
-        ? legacyResources.mySupplysOwnersByResourceId
+      legacyResources.mySuppliesOwnersByResourceId &&
+      typeof legacyResources.mySuppliesOwnersByResourceId === "object"
+        ? legacyResources.mySuppliesOwnersByResourceId
         : {};
 
-    SupplyMemberState.supplies.mySupplys = uniqueStrings([
-      ...SupplyMemberState.supplies.mySupplys,
-      ...legacyMySupplys,
+    SupplyMemberState.supplies.mySupplies = uniqueStrings([
+      ...SupplyMemberState.supplies.mySupplies,
+      ...legacymySupplies,
     ]);
 
     Object.entries(legacyOwners).forEach(([resourceId, owners]) => {
@@ -295,7 +300,7 @@ function migrateLegacySupplyMemberStateOnce() {
 
       if (!convertedOwners.length) return;
 
-      SupplyMemberState.supplies.mySupplysOwnersByResourceId[rid] = uniqueStrings([
+      SupplyMemberState.supplies.mySuppliesOwnersByResourceId[rid] = uniqueStrings([
         ...SupplyOwnerKeys(rid),
         ...convertedOwners,
       ]);
@@ -318,7 +323,7 @@ function SupplyInstanceKey(Supply) {
   return normalizeId(Supply?.instanceKey);
 }
 
-function isSupplyInMySupplys(SupplyOrResourceId) {
+function isSupplyInMySupplies(SupplyOrResourceId) {
   const resourceId =
     typeof SupplyOrResourceId === "string"
       ? normalizeId(SupplyOrResourceId)
@@ -326,14 +331,14 @@ function isSupplyInMySupplys(SupplyOrResourceId) {
 
   if (!resourceId) return false;
 
-  return SupplyMemberState.supplies.mySupplys.includes(resourceId);
+  return SupplyMemberState.supplies.mySupplies.includes(resourceId);
 }
 
 function SupplyOwnerKeys(resourceId) {
   const rid = normalizeId(resourceId);
   if (!rid) return [];
 
-  const owners = SupplyMemberState.supplies.mySupplysOwnersByResourceId?.[rid];
+  const owners = SupplyMemberState.supplies.mySuppliesOwnersByResourceId?.[rid];
   return uniqueStrings(owners);
 }
 
@@ -351,7 +356,7 @@ function isSupplyGhostHere(Supply) {
   const instanceKey = SupplyInstanceKey(Supply);
 
   if (!resourceId || !instanceKey) return false;
-  if (!isSupplyInMySupplys(resourceId)) return false;
+  if (!isSupplyInMySupplies(resourceId)) return false;
 
   const owners = SupplyOwnerKeys(resourceId);
 
@@ -364,7 +369,7 @@ function isSupplyGhostHere(Supply) {
 function SupplySaveStatus(Supply) {
   if (isSupplyOwnedHere(Supply)) return "active";
   if (isSupplyGhostHere(Supply)) return "ghost";
-  if (isSupplyInMySupplys(Supply)) return "legacy";
+  if (isSupplyInMySupplies(Supply)) return "legacy";
   return "empty";
 }
 
@@ -508,10 +513,10 @@ function itemMatchesMyCourses(item) {
 function shouldIncludeSupplyByMemberFilters(Supply) {
   const filters = memberUiState.filters || {};
 
-  // My Supplys filter:
-  // show Supplys saved HERE or legacy/global saved Supplys
+  // My Supplies filter:
+  // show Supplies saved HERE or legacy/global saved Supplies
   // hide ghost-only copies
-  if (filters.mySupplys) {
+  if (filters.mySupplies) {
     const status = SupplySaveStatus(Supply);
 
     if (status !== "active" && status !== "legacy") {
@@ -528,14 +533,14 @@ function addSupplyOwnerHere(Supply) {
 
   if (!resourceId) return;
 
-  SupplyMemberState.supplies.mySupplys = uniqueStrings([
-    ...SupplyMemberState.supplies.mySupplys,
+  SupplyMemberState.supplies.mySupplies = uniqueStrings([
+    ...SupplyMemberState.supplies.mySupplies,
     resourceId,
   ]);
 
   if (instanceKey) {
     const owners = SupplyOwnerKeys(resourceId);
-    SupplyMemberState.supplies.mySupplysOwnersByResourceId[resourceId] = uniqueStrings([
+    SupplyMemberState.supplies.mySuppliesOwnersByResourceId[resourceId] = uniqueStrings([
       ...owners,
       instanceKey,
     ]);
@@ -553,10 +558,10 @@ function removeSupplyOwnerHere(Supply) {
   const owners = SupplyOwnerKeys(resourceId).filter((key) => key !== instanceKey);
 
   if (owners.length) {
-    SupplyMemberState.supplies.mySupplysOwnersByResourceId[resourceId] = owners;
+    SupplyMemberState.supplies.mySuppliesOwnersByResourceId[resourceId] = owners;
   } else {
-    delete SupplyMemberState.supplies.mySupplysOwnersByResourceId[resourceId];
-    SupplyMemberState.supplies.mySupplys = SupplyMemberState.supplies.mySupplys.filter(
+    delete SupplyMemberState.supplies.mySuppliesOwnersByResourceId[resourceId];
+    SupplyMemberState.supplies.mySupplies = SupplyMemberState.supplies.mySupplies.filter(
       (id) => id !== resourceId
     );
   }
@@ -926,8 +931,8 @@ function renderSupplySaveButton(Supply) {
           type="button"
           class="Supplymark-btn Supplymark-btn--solid supply-save-btn"
           onclick="event.stopPropagation(); toggleSupplySavedHereByInstanceKey('${escapeHtml(instanceKey)}')"
-          aria-label="Remove from My Supplys"
-          title="In My Supplys"
+          aria-label="Remove from My Supplies"
+          title="In My Supplies"
         >
           <img src="img/icons/supply-icon-active.png" alt="" class="Supplymark-icon" />
         </button>
@@ -942,8 +947,8 @@ function renderSupplySaveButton(Supply) {
           type="button"
           class="Supplymark-btn Supplymark-btn--ghost supply-save-btn"
           onclick="event.stopPropagation(); addSupplyOwnerHereByInstanceKey('${escapeHtml(instanceKey)}')"
-          aria-label="In My Supplys elsewhere — add here"
-          title="In My Supplys elsewhere — add here"
+          aria-label="In My Supplies elsewhere — add here"
+          title="In My Supplies elsewhere — add here"
         >
           <img src="img/icons/supply-icon-active.png" alt="" class="Supplymark-icon" />
           <span class="Supplymark-apply">+</span>
@@ -958,8 +963,8 @@ function renderSupplySaveButton(Supply) {
         type="button"
         class="Supplymark-btn Supplymark-btn--empty supply-save-btn"
         onclick="event.stopPropagation(); toggleSupplySavedHereByInstanceKey('${escapeHtml(instanceKey)}')"
-        aria-label="Add to My Supplys"
-        title="Add to My Supplys"
+        aria-label="Add to My Supplies"
+        title="Add to My Supplies"
       >
         <img src="img/icons/supply-icon-inactive.png" alt="" class="Supplymark-icon" />
         <span class="Supplymark-apply">+</span>
@@ -1047,7 +1052,7 @@ function renderStudentChips(students = []) {
   `;
 }
 
-function renderReadOnlySupplymark(status = false, label = "Add Supplys") {
+function renderReadOnlySupplymark(status = false, label = "Add Supplies") {
   return `
     <span class="Supplymark-region Supplymark-region--readonly">
       <button
@@ -1082,7 +1087,7 @@ function renderHeaderTools({
     .map(tagLabel)
     .filter(Boolean);
 
-  const label = variant === "all" ? "All Supplys" : "Add Supplys";
+  const label = variant === "all" ? "All Supplies" : "Add Supplies";
 
   return `
     <div class="card-header-tools">
@@ -1195,7 +1200,10 @@ function renderSupplyCard(Supply) {
                 ${Supply.note ? `
                   <div class="supply-note-row">
                     <span class="supply-tipbox-label">NOTE:</span>
-                    <span>${escapeHtml(Supply.note)}</span>
+                    <span class="supply-note-text">
+                      ${String(Supply.note || "")
+                        .replace(/\n/g, "<br>")}
+                    </span>
                   </div>
                 ` : ""}
 
@@ -1274,11 +1282,11 @@ function renderCourseTopicMode(items) {
 
     const sectionsHtml = hasTopicSections
       ? visibleSections.map((section) => {
-          const Supplys = (section.supplies || []).filter((Supply) =>
+          const supplies = (section.supplies || []).filter((Supply) =>
             shouldIncludeSupplyByMemberFilters(Supply)
           );
 
-          if (!Supplys.length) return "";
+          if (!supplies.length) return "";
 
           return `
             <section class="supply-section">
@@ -1306,22 +1314,22 @@ function renderCourseTopicMode(items) {
               </div>
 
               <div class="supply-card-list">
-                ${Supplys.map((Supply) => renderSupplyCard(Supply)).join("")}
+                ${supplies.map((Supply) => renderSupplyCard(Supply)).join("")}
               </div>
             </section>
           `;
         }).join("")
       : (() => {
-          const Supplys = (item.sections?.[0]?.supplies || []).filter((Supply) =>
+          const supplies = (item.sections?.[0]?.supplies || []).filter((Supply) =>
             shouldIncludeSupplyByMemberFilters(Supply)
           );
 
-          if (!Supplys.length) return "";
+          if (!supplies.length) return "";
 
           return `
             <section class="supply-section">
               <div class="supply-card-list">
-                ${Supplys.map((Supply) => renderSupplyCard(Supply)).join("")}
+                ${supplies.map((Supply) => renderSupplyCard(Supply)).join("")}
               </div>
             </section>
           `;
@@ -1362,20 +1370,29 @@ function renderCourseTopicMode(items) {
   }).join("");
 }
 
-function groupLabelWithSupplys(group) {
+function groupLabelWithSupplies(group) {
   const label = group.label || "";
+
   const isMasterView =
     (state.base === "subject" && state.id === DEFAULT_SUBJECT) ||
     (state.base === "grade" && state.id === DEFAULT_GRADE);
 
   if (isMasterView) return label;
 
-  return `${label} Supplys`;
+  if (label.toLowerCase().includes("supplies")) {
+    return label;
+  }
+
+  return `${label} Supplies`;
 }
 
 function currentSelectionHeading() {
   if (state.base === "subject" && state.id !== DEFAULT_SUBJECT) {
-    return `${state.id} Supplys`;
+    if (state.id.toLowerCase().includes("supplies")) {
+      return state.id;
+    }
+
+    return `${state.id} Supplies`;
   }
 
   if (state.base === "grade" && state.id !== DEFAULT_GRADE) {
@@ -1383,13 +1400,13 @@ function currentSelectionHeading() {
       ? `Grade ${state.id.replace("G", "")}`
       : state.id;
 
-    return `${gradeLabel} Supplys`;
+    return `${gradeLabel} Supplies`;
   }
 
   return "";
 }
 
-function countSupplysInItems(items) {
+function countSuppliesInItems(items) {
   return (items || []).reduce(
     (total, item) =>
       total +
@@ -1444,7 +1461,7 @@ function renderGroupedMode(groups) {
 
     const html = `
       <section class="supply-group supply-group-section">
-        ${renderSectionHeading(groupLabelWithSupplys(group), visibleGroupIndex === 0)}
+        ${renderSectionHeading(groupLabelWithSupplies(group), visibleGroupIndex === 0)}
         ${groupHtml}
       </section>
     `;
@@ -1761,7 +1778,7 @@ const Supply_MEMBER_UI_KEY = "alveary_Supply_member_ui_v1";
 const memberUiState = {
   toolsOpen: false,
   filters: {
-    mySupplys: false,
+    mySupplies: false,
     myCourses: false,
     myNotes: false,
   },
@@ -1778,7 +1795,9 @@ function loadSupplyMemberUiState() {
     memberUiState.toolsOpen = !!saved.toolsOpen;
 
     if (saved.filters && typeof saved.filters === "object") {
-      memberUiState.filters.mySupplys = !!saved.filters.mySupplys;
+      memberUiState.filters.mySupplies = !!(
+        saved.filters.mySupplies || saved.filters.mySupplys
+      );
       memberUiState.filters.myCourses = !!saved.filters.myCourses;
       memberUiState.filters.myNotes = !!saved.filters.myNotes;
     }
