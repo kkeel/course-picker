@@ -165,11 +165,18 @@ function flattenCourses(groups) {
 
   for (const [subject, courses] of Object.entries(groups || {})) {
     for (const course of courses || []) {
+      const sortId = normalizeSortId(course.id || course.courseId);
+      const recordId = safeText(course.recordID);
+
+      if (!recordId) continue;
+
       rows.push({
         ...course,
         subject: course.subject || subject,
-        id: normalizeSortId(course.id || course.courseId),
-        courseId: normalizeSortId(course.courseId || course.id),
+        id: recordId,
+        recordID: recordId,
+        sortId,
+        courseId: sortId,
       });
     }
   }
@@ -186,10 +193,10 @@ function makeSection(row, supplies) {
   };
 }
 
-function buildView(row, rowsById, suppliesByTarget) {
+function buildView(row, rowsBySortId, suppliesByTarget) {
   const sections = [];
 
-  const ownSupplies = suppliesByTarget[row.id] || [];
+  const ownSupplies = suppliesByTarget[row.sortId] || [];
   if (ownSupplies.length) {
     sections.push(makeSection(row, ownSupplies));
   }
@@ -197,10 +204,10 @@ function buildView(row, rowsById, suppliesByTarget) {
   const topicIds = splitCsv(row.Topic_ID_App).map(normalizeSortId);
 
   for (const topicId of topicIds) {
-    const topic = rowsById.get(topicId);
+    const topic = rowsBySortId.get(topicId);
     if (!topic) continue;
 
-    const topicSupplies = suppliesByTarget[topicId] || [];
+    const topicSupplies = suppliesByTarget[topic.sortId] || [];
     if (!topicSupplies.length) continue;
 
     sections.push({
@@ -284,6 +291,7 @@ async function main() {
   const groups = normalizeGroups(coursesJson);
   const rows = flattenCourses(groups);
   const rowsById = new Map(rows.map((row) => [row.id, row]));
+  const rowsBySortId = new Map(rows.map((row) => [row.sortId, row]));
 
   const supplies = Array.isArray(suppliesJson)
     ? suppliesJson
@@ -292,7 +300,7 @@ async function main() {
   const suppliesByTarget = buildSuppliesByTarget(supplies);
 
   const courseViews = rows
-    .map((row) => buildView(row, rowsById, suppliesByTarget))
+    .map((row) => buildView(row, rowsBySortId, suppliesByTarget))
     .filter((view) => view.supplyCount > 0);
 
   await fs.rm(OUT_DIR, { recursive: true, force: true });
@@ -302,7 +310,7 @@ async function main() {
   }
 
   for (const row of rows) {
-  const topicSupplies = suppliesByTarget[row.id] || [];
+  const topicSupplies = suppliesByTarget[row.sortId] || [];
   if (!topicSupplies.length) continue;
 
   await writeJson(path.join(OUT_DIR, "topic", `${row.id}.json`), {
