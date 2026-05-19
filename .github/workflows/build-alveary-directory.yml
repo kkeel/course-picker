@@ -22,19 +22,21 @@ jobs:
           node-version: "22"
           package-manager-cache: false
 
-      - name: Build directory JSON
-        run: node tools/build-alveary-directory.js
+      - name: Build directory and resource view JSON
+        run: |
+          node tools/build-alveary-directory.js
+          node tools/build-supply-views.js
 
       - name: Commit updated directory files
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-          git add data/alveary-directory-index.json data/book-views
+          git add data/alveary-directory-index.json data/book-views data/supply-views
 
           if git diff --cached --quiet; then
             echo "No directory changes to commit"
           else
-            git commit -m "Build Alveary directory JSON"
+            git commit -m "Build Alveary directory and resource view JSON"
             git push
           fi
