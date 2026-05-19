@@ -301,6 +301,34 @@ async function main() {
     await writeJson(path.join(OUT_DIR, "course", `${view.id}.json`), view);
   }
 
+  for (const row of rows) {
+  const topicSupplies = suppliesByTarget[row.id] || [];
+  if (!topicSupplies.length) continue;
+
+  await writeJson(path.join(OUT_DIR, "topic", `${row.id}.json`), {
+    view: "topic",
+    id: row.id,
+    recordID: row.recordID || "",
+    title: row.title || "Untitled topic",
+    subject: row.subject || "",
+    gradeText: row.gradeText || "",
+    gradeTags: itemGradeTags(row),
+    schedText: row.schedText || "",
+    shared: row.shared || "",
+    sortId: row.id,
+    supplyCount: topicSupplies.length,
+    bookCount: topicSupplies.length,
+    sections: [
+      {
+        title: row.title || "Untitled topic",
+        type: "topic",
+        supplies: topicSupplies,
+        books: topicSupplies
+      }
+    ]
+  });
+}
+
   await writeJson(
     path.join(OUT_DIR, "master.json"),
     combineViews("master", "master", "All Supplies", courseViews)
