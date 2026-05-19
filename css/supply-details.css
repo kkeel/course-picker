@@ -1484,12 +1484,6 @@ body.member-tools-enabled .supply-member-toolbar-body {
   background: #fff;
 }
 
-.supply-meta-text,
-.supply-rationale,
-.supply-tipbox {
-  white-space: pre-line;
-}
-
 .supply-link-pill {
   text-decoration: none;
 }
@@ -1680,4 +1674,38 @@ body.member-tools-enabled .member-tool-only {
 .supply-may-sub-row,
 .supply-discount-row {
   margin: 0;
+}
+
+.supply-rationale {
+  margin: 4px 0 0;
+}
+
+.supply-rationale-label {
+  display: inline;
+}
+
+.supply-tipbox {
+  margin-top: 6px;
+  gap: 4px;
+  white-space: normal;
+}
+
+.supply-note-row,
+.supply-may-sub-row,
+.supply-discount-row {
+  margin: 0;
+  display: block;
+  white-space: normal;
+}
+
+.supply-note-text,
+.supply-may-sub-text,
+.supply-rationale-text,
+.supply-meta-text {
+  white-space: pre-line;
+}
+
+.supply-tipbox-label {
+  display: inline;
+  margin-right: 3px;
 }
