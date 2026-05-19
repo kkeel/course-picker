@@ -40,16 +40,16 @@ const state = {
    Remembers page-level open/closed panels.
    ========================================================= */
 
-const BOOK_PAGE_UI_KEY = "alveary_book_page_ui_v1";
+const Supply_PAGE_UI_KEY = "alveary_Supply_page_ui_v1";
 
 const pageUiState = {
   introCollapsed: null,
   filtersCollapsed: null,
 };
 
-function loadBookPageUiState() {
+function loadSupplyPageUiState() {
   try {
-    const raw = localStorage.getItem(BOOK_PAGE_UI_KEY);
+    const raw = localStorage.getItem(Supply_PAGE_UI_KEY);
     if (!raw) return;
 
     const saved = JSON.parse(raw);
@@ -69,29 +69,29 @@ function loadBookPageUiState() {
   }
 }
 
-function saveBookPageUiState() {
+function saveSupplyPageUiState() {
   try {
-    localStorage.setItem(BOOK_PAGE_UI_KEY, JSON.stringify(pageUiState));
+    localStorage.setItem(Supply_PAGE_UI_KEY, JSON.stringify(pageUiState));
   } catch {
     // ignore storage errors
   }
 }
 
 /* =========================================================
-   Member Book State
+   Member Supply State
    Canonical IDs:
-   - book.resourceId = Airtable resource record ID
-   - book.instanceKey = course/topic/resource instance from JSON
+   - Supply.resourceId = Airtable resource record ID
+   - Supply.instanceKey = course/topic/resource instance from JSON
    ========================================================= */
 
-const BOOK_MEMBER_STATE_KEY = "alveary_book_member_state_v1";
+const Supply_MEMBER_STATE_KEY = "alveary_Supply_member_state_v1";
 
-const bookMemberState = {
+const SupplyMemberState = {
   version: 1,
 
-  books: {
-    // Global: resource is in My Books somewhere
-    myBooks: [],
+  Supplys: {
+    // Global: resource is in My Supplys somewhere
+    mySupplys: [],
 
     // Instance ownership:
     // {
@@ -100,7 +100,7 @@ const bookMemberState = {
     //     "course:recCourseId:topic:recTopicId:resource:recResourceId"
     //   ]
     // }
-    myBooksOwnersByResourceId: {},
+    mySupplysOwnersByResourceId: {},
   },
 };
 
@@ -122,10 +122,10 @@ function uniqueStrings(values) {
   return out;
 }
 
-function normalizeBookMemberState() {
-  bookMemberState.books.myBooks = uniqueStrings(bookMemberState.books.myBooks);
+function normalizeSupplyMemberState() {
+  SupplyMemberState.Supplys.mySupplys = uniqueStrings(SupplyMemberState.Supplys.mySupplys);
 
-  const ownersMap = bookMemberState.books.myBooksOwnersByResourceId || {};
+  const ownersMap = SupplyMemberState.Supplys.mySupplysOwnersByResourceId || {};
   const nextOwnersMap = {};
 
   Object.entries(ownersMap).forEach(([resourceId, owners]) => {
@@ -138,45 +138,45 @@ function normalizeBookMemberState() {
     }
   });
 
-  bookMemberState.books.myBooksOwnersByResourceId = nextOwnersMap;
+  SupplyMemberState.Supplys.mySupplysOwnersByResourceId = nextOwnersMap;
 }
 
-function loadBookMemberState() {
+function loadSupplyMemberState() {
   try {
-    const raw = localStorage.getItem(BOOK_MEMBER_STATE_KEY);
+    const raw = localStorage.getItem(Supply_MEMBER_STATE_KEY);
     if (!raw) return;
 
     const saved = JSON.parse(raw);
-    const savedBooks = saved?.books;
+    const savedSupplys = saved?.Supplys;
 
-    if (!savedBooks || typeof savedBooks !== "object") return;
+    if (!savedSupplys || typeof savedSupplys !== "object") return;
 
-    bookMemberState.books.myBooks = Array.isArray(savedBooks.myBooks)
-      ? savedBooks.myBooks
+    SupplyMemberState.Supplys.mySupplys = Array.isArray(savedSupplys.mySupplys)
+      ? savedSupplys.mySupplys
       : [];
 
-    bookMemberState.books.myBooksOwnersByResourceId =
-      savedBooks.myBooksOwnersByResourceId &&
-      typeof savedBooks.myBooksOwnersByResourceId === "object"
-        ? savedBooks.myBooksOwnersByResourceId
+    SupplyMemberState.Supplys.mySupplysOwnersByResourceId =
+      savedSupplys.mySupplysOwnersByResourceId &&
+      typeof savedSupplys.mySupplysOwnersByResourceId === "object"
+        ? savedSupplys.mySupplysOwnersByResourceId
         : {};
 
-    normalizeBookMemberState();
+    normalizeSupplyMemberState();
   } catch {
     // ignore bad saved state
   }
 }
 
-function saveBookMemberState() {
+function saveSupplyMemberState() {
   try {
-    normalizeBookMemberState();
-    localStorage.setItem(BOOK_MEMBER_STATE_KEY, JSON.stringify(bookMemberState));
+    normalizeSupplyMemberState();
+    localStorage.setItem(Supply_MEMBER_STATE_KEY, JSON.stringify(SupplyMemberState));
   } catch {
     // ignore storage errors
   }
 }
 
-const BOOK_MEMBER_LEGACY_MIGRATED_KEY = "alveary_book_member_legacy_migrated_v1";
+const Supply_MEMBER_LEGACY_MIGRATED_KEY = "alveary_Supply_member_legacy_migrated_v1";
 
 function resolveLegacyPlannerKey() {
   try {
@@ -215,7 +215,7 @@ function convertLegacyOwnerKey(ownerKey) {
     const resourceId = normalizeId(match[2]);
 
     // Only keep scoped owners when they already use Airtable record IDs.
-    // If not, we let the global myBooks save behave as a legacy/global save.
+    // If not, we let the global mySupplys save behave as a legacy/global save.
     if (courseId.startsWith("rec") && resourceId.startsWith("rec")) {
       return `course:${courseId}:resource:${resourceId}`;
     }
@@ -232,7 +232,7 @@ function convertLegacyOwnerKey(ownerKey) {
     const resourceId = normalizeId(match[3]);
 
     // Only keep scoped owners when they already use Airtable record IDs.
-    // If not, we let the global myBooks save behave as a legacy/global save.
+    // If not, we let the global mySupplys save behave as a legacy/global save.
     if (
       courseId.startsWith("rec") &&
       topicId.startsWith("rec") &&
@@ -247,9 +247,9 @@ function convertLegacyOwnerKey(ownerKey) {
   return "";
 }
 
-function migrateLegacyBookMemberStateOnce() {
+function migrateLegacySupplyMemberStateOnce() {
   try {
-    if (localStorage.getItem(BOOK_MEMBER_LEGACY_MIGRATED_KEY) === "1") return;
+    if (localStorage.getItem(Supply_MEMBER_LEGACY_MIGRATED_KEY) === "1") return;
 
     const plannerKey = resolveLegacyPlannerKey();
     if (!plannerKey) return;
@@ -262,19 +262,19 @@ function migrateLegacyBookMemberStateOnce() {
 
     if (!legacyResources || typeof legacyResources !== "object") return;
 
-    const legacyMyBooks = Array.isArray(legacyResources.myBooks)
-      ? legacyResources.myBooks
+    const legacyMySupplys = Array.isArray(legacyResources.mySupplys)
+      ? legacyResources.mySupplys
       : [];
 
     const legacyOwners =
-      legacyResources.myBooksOwnersByResourceId &&
-      typeof legacyResources.myBooksOwnersByResourceId === "object"
-        ? legacyResources.myBooksOwnersByResourceId
+      legacyResources.mySupplysOwnersByResourceId &&
+      typeof legacyResources.mySupplysOwnersByResourceId === "object"
+        ? legacyResources.mySupplysOwnersByResourceId
         : {};
 
-    bookMemberState.books.myBooks = uniqueStrings([
-      ...bookMemberState.books.myBooks,
-      ...legacyMyBooks,
+    SupplyMemberState.Supplys.mySupplys = uniqueStrings([
+      ...SupplyMemberState.Supplys.mySupplys,
+      ...legacyMySupplys,
     ]);
 
     Object.entries(legacyOwners).forEach(([resourceId, owners]) => {
@@ -289,65 +289,65 @@ function migrateLegacyBookMemberStateOnce() {
 
       if (!convertedOwners.length) return;
 
-      bookMemberState.books.myBooksOwnersByResourceId[rid] = uniqueStrings([
-        ...bookOwnerKeys(rid),
+      SupplyMemberState.Supplys.mySupplysOwnersByResourceId[rid] = uniqueStrings([
+        ...SupplyOwnerKeys(rid),
         ...convertedOwners,
       ]);
     });
 
-    normalizeBookMemberState();
-    saveBookMemberState();
+    normalizeSupplyMemberState();
+    saveSupplyMemberState();
 
-    localStorage.setItem(BOOK_MEMBER_LEGACY_MIGRATED_KEY, "1");
+    localStorage.setItem(Supply_MEMBER_LEGACY_MIGRATED_KEY, "1");
   } catch {
     // ignore migration errors
   }
 }
 
-function bookResourceId(book) {
-  return normalizeId(book?.resourceId || book?.id);
+function SupplyResourceId(Supply) {
+  return normalizeId(Supply?.resourceId || Supply?.id);
 }
 
-function bookInstanceKey(book) {
-  return normalizeId(book?.instanceKey);
+function SupplyInstanceKey(Supply) {
+  return normalizeId(Supply?.instanceKey);
 }
 
-function isBookInMyBooks(bookOrResourceId) {
+function isSupplyInMySupplys(SupplyOrResourceId) {
   const resourceId =
-    typeof bookOrResourceId === "string"
-      ? normalizeId(bookOrResourceId)
-      : bookResourceId(bookOrResourceId);
+    typeof SupplyOrResourceId === "string"
+      ? normalizeId(SupplyOrResourceId)
+      : SupplyResourceId(SupplyOrResourceId);
 
   if (!resourceId) return false;
 
-  return bookMemberState.books.myBooks.includes(resourceId);
+  return SupplyMemberState.Supplys.mySupplys.includes(resourceId);
 }
 
-function bookOwnerKeys(resourceId) {
+function SupplyOwnerKeys(resourceId) {
   const rid = normalizeId(resourceId);
   if (!rid) return [];
 
-  const owners = bookMemberState.books.myBooksOwnersByResourceId?.[rid];
+  const owners = SupplyMemberState.Supplys.mySupplysOwnersByResourceId?.[rid];
   return uniqueStrings(owners);
 }
 
-function isBookOwnedHere(book) {
-  const resourceId = bookResourceId(book);
-  const instanceKey = bookInstanceKey(book);
+function isSupplyOwnedHere(Supply) {
+  const resourceId = SupplyResourceId(Supply);
+  const instanceKey = SupplyInstanceKey(Supply);
 
   if (!resourceId || !instanceKey) return false;
 
-  return bookOwnerKeys(resourceId).includes(instanceKey);
+  return SupplyOwnerKeys(resourceId).includes(instanceKey);
 }
 
-function isBookGhostHere(book) {
-  const resourceId = bookResourceId(book);
-  const instanceKey = bookInstanceKey(book);
+function isSupplyGhostHere(Supply) {
+  const resourceId = SupplyResourceId(Supply);
+  const instanceKey = SupplyInstanceKey(Supply);
 
   if (!resourceId || !instanceKey) return false;
-  if (!isBookInMyBooks(resourceId)) return false;
+  if (!isSupplyInMySupplys(resourceId)) return false;
 
-  const owners = bookOwnerKeys(resourceId);
+  const owners = SupplyOwnerKeys(resourceId);
 
   // Legacy/global-only saves behave as active everywhere until scoped.
   if (!owners.length) return false;
@@ -355,16 +355,16 @@ function isBookGhostHere(book) {
   return !owners.includes(instanceKey);
 }
 
-function bookSaveStatus(book) {
-  if (isBookOwnedHere(book)) return "active";
-  if (isBookGhostHere(book)) return "ghost";
-  if (isBookInMyBooks(book)) return "legacy";
+function SupplySaveStatus(Supply) {
+  if (isSupplyOwnedHere(Supply)) return "active";
+  if (isSupplyGhostHere(Supply)) return "ghost";
+  if (isSupplyInMySupplys(Supply)) return "legacy";
   return "empty";
 }
 
 /* =========================================================
    Read-only Course Planner Adapter
-   Book page may READ course state,
+   Supply page may READ course state,
    but must NOT write course-owned data.
    ========================================================= */
 
@@ -499,14 +499,14 @@ function itemMatchesMyCourses(item) {
   return hasSavedTopic;
 }
 
-function shouldIncludeBookByMemberFilters(book) {
+function shouldIncludeSupplyByMemberFilters(Supply) {
   const filters = memberUiState.filters || {};
 
-  // My Books filter:
-  // show books saved HERE or legacy/global saved books
+  // My Supplys filter:
+  // show Supplys saved HERE or legacy/global saved Supplys
   // hide ghost-only copies
-  if (filters.myBooks) {
-    const status = bookSaveStatus(book);
+  if (filters.mySupplys) {
+    const status = SupplySaveStatus(Supply);
 
     if (status !== "active" && status !== "legacy") {
       return false;
@@ -516,55 +516,55 @@ function shouldIncludeBookByMemberFilters(book) {
   return true;
 }
 
-function addBookOwnerHere(book) {
-  const resourceId = bookResourceId(book);
-  const instanceKey = bookInstanceKey(book);
+function addSupplyOwnerHere(Supply) {
+  const resourceId = SupplyResourceId(Supply);
+  const instanceKey = SupplyInstanceKey(Supply);
 
   if (!resourceId) return;
 
-  bookMemberState.books.myBooks = uniqueStrings([
-    ...bookMemberState.books.myBooks,
+  SupplyMemberState.Supplys.mySupplys = uniqueStrings([
+    ...SupplyMemberState.Supplys.mySupplys,
     resourceId,
   ]);
 
   if (instanceKey) {
-    const owners = bookOwnerKeys(resourceId);
-    bookMemberState.books.myBooksOwnersByResourceId[resourceId] = uniqueStrings([
+    const owners = SupplyOwnerKeys(resourceId);
+    SupplyMemberState.Supplys.mySupplysOwnersByResourceId[resourceId] = uniqueStrings([
       ...owners,
       instanceKey,
     ]);
   }
 
-  saveBookMemberState();
+  saveSupplyMemberState();
 }
 
-function removeBookOwnerHere(book) {
-  const resourceId = bookResourceId(book);
-  const instanceKey = bookInstanceKey(book);
+function removeSupplyOwnerHere(Supply) {
+  const resourceId = SupplyResourceId(Supply);
+  const instanceKey = SupplyInstanceKey(Supply);
 
   if (!resourceId) return;
 
-  const owners = bookOwnerKeys(resourceId).filter((key) => key !== instanceKey);
+  const owners = SupplyOwnerKeys(resourceId).filter((key) => key !== instanceKey);
 
   if (owners.length) {
-    bookMemberState.books.myBooksOwnersByResourceId[resourceId] = owners;
+    SupplyMemberState.Supplys.mySupplysOwnersByResourceId[resourceId] = owners;
   } else {
-    delete bookMemberState.books.myBooksOwnersByResourceId[resourceId];
-    bookMemberState.books.myBooks = bookMemberState.books.myBooks.filter(
+    delete SupplyMemberState.Supplys.mySupplysOwnersByResourceId[resourceId];
+    SupplyMemberState.Supplys.mySupplys = SupplyMemberState.Supplys.mySupplys.filter(
       (id) => id !== resourceId
     );
   }
 
-  saveBookMemberState();
+  saveSupplyMemberState();
 }
 
-function toggleBookSavedHere(book) {
-  const status = bookSaveStatus(book);
+function toggleSupplySavedHere(Supply) {
+  const status = SupplySaveStatus(Supply);
 
   if (status === "active") {
-    removeBookOwnerHere(book);
+    removeSupplyOwnerHere(Supply);
   } else {
-    addBookOwnerHere(book);
+    addSupplyOwnerHere(Supply);
   }
 
   render();
@@ -590,20 +590,20 @@ function slugSubject(subject) {
 
 function viewPath(base, id) {
   if (state.view === "topic") {
-    return `./data/book-views/topic/${encodeURIComponent(id)}.json`;
+    return `./data/supply-views/topic/${encodeURIComponent(id)}.json`;
   }
 
   if (state.view === "course") {
-    return `./data/book-views/course/${encodeURIComponent(id)}.json`;
+    return `./data/supply-views/course/${encodeURIComponent(id)}.json`;
   }
 
   if (base === "subject") {
-    if (id === DEFAULT_SUBJECT) return "./data/book-views/by-subject.json";
-    return `./data/book-views/subject/${slugSubject(id)}.json`;
+    if (id === DEFAULT_SUBJECT) return "./data/supply-views/by-subject.json";
+    return `./data/supply-views/subject/${slugSubject(id)}.json`;
   }
 
-  if (id === DEFAULT_GRADE) return "./data/book-views/by-grade.json";
-  return `./data/book-views/grade/${id}.json`;
+  if (id === DEFAULT_GRADE) return "./data/supply-views/by-grade.json";
+  return `./data/supply-views/grade/${id}.json`;
 }
 
 function filteredGroups() {
@@ -623,9 +623,9 @@ function filteredGroups() {
           sections = sections
             .map((section) => ({
               ...section,
-              books: (section.books || []).filter((book) => bookMatches(book, state.query)),
+              Supplys: (section.Supplys || []).filter((Supply) => SupplyMatches(Supply, state.query)),
             }))
-            .filter((section) => section.books.length);
+            .filter((section) => section.Supplys.length);
 
           return {
             ...item,
@@ -695,17 +695,17 @@ function writeParams() {
   window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
 }
 
-function bookMatches(book, query) {
+function SupplyMatches(Supply, query) {
   if (!query) return true;
 
   const haystack = [
-    book.title,
-    book.author,
-    book.rationale,
-    book.notes,
-    book.scopeText,
-    book.sharedText,
-    book.formatTags,
+    Supply.title,
+    Supply.author,
+    Supply.rationale,
+    Supply.notes,
+    Supply.scopeText,
+    Supply.sharedText,
+    Supply.formatTags,
   ]
     .filter(Boolean)
     .join(" ")
@@ -766,9 +766,9 @@ function filteredItems() {
       sections = sections
         .map((section) => ({
           ...section,
-          books: (section.books || []).filter((book) => bookMatches(book, state.query)),
+          Supplys: (section.Supplys || []).filter((Supply) => SupplyMatches(Supply, state.query)),
         }))
-        .filter((section) => section.books.length);
+        .filter((section) => section.Supplys.length);
 
       return {
         ...item,
@@ -895,7 +895,7 @@ function syncClearButtons() {
 }
 
 function syncControls() {
-  document.querySelectorAll(".book-base-button").forEach((button) => {
+  document.querySelectorAll(".Supply-base-button").forEach((button) => {
     button.classList.toggle("is-active", button.dataset.base === state.base);
   });
 
@@ -906,24 +906,24 @@ function syncControls() {
   syncClearButtons();
 }
 
-function renderBookSaveButton(book) {
-  const status = bookSaveStatus(book);
-  const resourceId = bookResourceId(book);
-  const instanceKey = bookInstanceKey(book);
+function renderSupplySaveButton(Supply) {
+  const status = SupplySaveStatus(Supply);
+  const resourceId = SupplyResourceId(Supply);
+  const instanceKey = SupplyInstanceKey(Supply);
 
   if (!resourceId || !instanceKey) return "";
 
   if (status === "active" || status === "legacy") {
     return `
-      <span class="bookmark-region book-save-region">
+      <span class="Supplymark-region Supply-save-region">
         <button
           type="button"
-          class="bookmark-btn bookmark-btn--solid book-save-btn"
-          onclick="event.stopPropagation(); toggleBookSavedHereByInstanceKey('${escapeHtml(instanceKey)}')"
-          aria-label="Remove from My Books"
-          title="In My Books"
+          class="Supplymark-btn Supplymark-btn--solid Supply-save-btn"
+          onclick="event.stopPropagation(); toggleSupplySavedHereByInstanceKey('${escapeHtml(instanceKey)}')"
+          aria-label="Remove from My Supplys"
+          title="In My Supplys"
         >
-          <img src="img/icons/book-icon-active.png" alt="" class="bookmark-icon" />
+          <img src="img/icons/Supply-icon-active.png" alt="" class="Supplymark-icon" />
         </button>
       </span>
     `;
@@ -931,38 +931,38 @@ function renderBookSaveButton(book) {
 
   if (status === "ghost") {
     return `
-      <span class="bookmark-region book-save-region">
+      <span class="Supplymark-region Supply-save-region">
         <button
           type="button"
-          class="bookmark-btn bookmark-btn--ghost book-save-btn"
-          onclick="event.stopPropagation(); addBookOwnerHereByInstanceKey('${escapeHtml(instanceKey)}')"
-          aria-label="In My Books elsewhere — add here"
-          title="In My Books elsewhere — add here"
+          class="Supplymark-btn Supplymark-btn--ghost Supply-save-btn"
+          onclick="event.stopPropagation(); addSupplyOwnerHereByInstanceKey('${escapeHtml(instanceKey)}')"
+          aria-label="In My Supplys elsewhere — add here"
+          title="In My Supplys elsewhere — add here"
         >
-          <img src="img/icons/book-icon-active.png" alt="" class="bookmark-icon" />
-          <span class="bookmark-apply">+</span>
+          <img src="img/icons/Supply-icon-active.png" alt="" class="Supplymark-icon" />
+          <span class="Supplymark-apply">+</span>
         </button>
       </span>
     `;
   }
 
   return `
-    <span class="bookmark-region book-save-region">
+    <span class="Supplymark-region Supply-save-region">
       <button
         type="button"
-        class="bookmark-btn bookmark-btn--empty book-save-btn"
-        onclick="event.stopPropagation(); toggleBookSavedHereByInstanceKey('${escapeHtml(instanceKey)}')"
-        aria-label="Add to My Books"
-        title="Add to My Books"
+        class="Supplymark-btn Supplymark-btn--empty Supply-save-btn"
+        onclick="event.stopPropagation(); toggleSupplySavedHereByInstanceKey('${escapeHtml(instanceKey)}')"
+        aria-label="Add to My Supplys"
+        title="Add to My Supplys"
       >
-        <img src="img/icons/book-icon-inactive.png" alt="" class="bookmark-icon" />
-        <span class="bookmark-apply">+</span>
+        <img src="img/icons/Supply-icon-inactive.png" alt="" class="Supplymark-icon" />
+        <span class="Supplymark-apply">+</span>
       </button>
     </span>
   `;
 }
 
-function findBookByInstanceKey(instanceKey) {
+function findSupplyByInstanceKey(instanceKey) {
   const key = normalizeId(instanceKey);
   if (!key) return null;
 
@@ -975,9 +975,9 @@ function findBookByInstanceKey(instanceKey) {
 
   for (const item of items) {
     for (const section of item.sections || []) {
-      for (const book of section.books || []) {
-        if (bookInstanceKey(book) === key) {
-          return book;
+      for (const Supply of section.Supplys || []) {
+        if (SupplyInstanceKey(Supply) === key) {
+          return Supply;
         }
       }
     }
@@ -986,18 +986,18 @@ function findBookByInstanceKey(instanceKey) {
   return null;
 }
 
-function toggleBookSavedHereByInstanceKey(instanceKey) {
-  const book = findBookByInstanceKey(instanceKey);
-  if (!book) return;
+function toggleSupplySavedHereByInstanceKey(instanceKey) {
+  const Supply = findSupplyByInstanceKey(instanceKey);
+  if (!Supply) return;
 
-  toggleBookSavedHere(book);
+  toggleSupplySavedHere(Supply);
 }
 
-function addBookOwnerHereByInstanceKey(instanceKey) {
-  const book = findBookByInstanceKey(instanceKey);
-  if (!book) return;
+function addSupplyOwnerHereByInstanceKey(instanceKey) {
+  const Supply = findSupplyByInstanceKey(instanceKey);
+  if (!Supply) return;
 
-  addBookOwnerHere(book);
+  addSupplyOwnerHere(Supply);
   render();
 }
 
@@ -1041,13 +1041,13 @@ function renderStudentChips(students = []) {
   `;
 }
 
-function renderReadOnlyBookmark(status = false, label = "Add Books") {
+function renderReadOnlySupplymark(status = false, label = "Add Supplys") {
   return `
-    <span class="bookmark-region bookmark-region--readonly">
+    <span class="Supplymark-region Supplymark-region--readonly">
       <button
         type="button"
-        class="header-bookmark-btn ${
-          status ? "header-bookmark-btn--solid" : "header-bookmark-btn--empty"
+        class="header-Supplymark-btn ${
+          status ? "header-Supplymark-btn--solid" : "header-Supplymark-btn--empty"
         }"
         disabled
         aria-label="${escapeHtml(label)}"
@@ -1055,10 +1055,10 @@ function renderReadOnlyBookmark(status = false, label = "Add Books") {
       >
         <img
           src="img/icons/${
-            status ? "book-icon-active.png" : "book-icon-inactive.png"
+            status ? "Supply-icon-active.png" : "Supply-icon-inactive.png"
           }"
           alt=""
-          class="header-bookmark-icon"
+          class="header-Supplymark-icon"
         />
         <span>${escapeHtml(label)}</span>
       </button>
@@ -1076,12 +1076,12 @@ function renderHeaderTools({
     .map(tagLabel)
     .filter(Boolean);
 
-  const label = variant === "all" ? "All Books" : "Add Books";
+  const label = variant === "all" ? "All Supplys" : "Add Supplys";
 
   return `
     <div class="card-header-tools">
       <div class="card-header-actions">
-        ${renderReadOnlyBookmark(saved, label)}
+        ${renderReadOnlySupplymark(saved, label)}
 
         ${showNotes ? `
           <button
@@ -1108,47 +1108,47 @@ function renderHeaderTools({
   `;
 }
 
-function renderBookCard(book) {
+function renderSupplyCard(Supply) {
   const badges = [
-    book.gradeLevelTag ? { label: book.gradeLevelTag, className: "book-badge--grade" } : null,
-    book.optional ? { label: "Optional", className: "book-badge--optional" } : null,
-    book.chooseOne ? { label: "Choose one", className: "book-badge--choose-one" } : null,
+    Supply.gradeLevelTag ? { label: Supply.gradeLevelTag, className: "Supply-badge--grade" } : null,
+    Supply.optional ? { label: "Optional", className: "Supply-badge--optional" } : null,
+    Supply.chooseOne ? { label: "Choose one", className: "Supply-badge--choose-one" } : null,
   ].filter(Boolean);
 
   const tipRows = [
-    book.noteText ? { label: "NOTE:", text: book.noteText, className: "book-note-row" } : null,
-    book.maySubText ? { label: "➜ May sub:", text: book.maySubText, className: "book-may-sub-row" } : null,
+    Supply.noteText ? { label: "NOTE:", text: Supply.noteText, className: "Supply-note-row" } : null,
+    Supply.maySubText ? { label: "➜ May sub:", text: Supply.maySubText, className: "Supply-may-sub-row" } : null,
     // Hide discount/code on the public view for now.
     // We can restore this later inside Member Tools mode.
     null,
   ].filter(Boolean);
 
-  const formatOptions = Array.isArray(book.formatOptions) ? book.formatOptions : [];
-  const purchaseOptions = Array.isArray(book.purchaseOptions) ? book.purchaseOptions : [];
+  const formatOptions = Array.isArray(Supply.formatOptions) ? Supply.formatOptions : [];
+  const purchaseOptions = Array.isArray(Supply.purchaseOptions) ? Supply.purchaseOptions : [];
 
   return `
-    <article class="book-card">
-      <div class="book-card-bookmark-corner">
-        ${renderBookSaveButton(book)}
+    <article class="Supply-card">
+      <div class="Supply-card-Supplymark-corner">
+        ${renderSupplySaveButton(Supply)}
       </div>
       ${badges.length ? `
-        <div class="book-card-badges">
+        <div class="Supply-card-badges">
           ${badges.map((badge) => `
-            <span class="book-badge ${badge.className}">${escapeHtml(badge.label)}</span>
+            <span class="Supply-badge ${badge.className}">${escapeHtml(badge.label)}</span>
           `).join("")}
         </div>
       ` : ""}
 
-      <div class="book-cover-wrap">
+      <div class="Supply-cover-wrap">
         <img
-          class="book-cover"
-          src="./${escapeHtml(book.imagePath || book.placeholderPath || "")}"
+          class="Supply-cover"
+          src="./${escapeHtml(Supply.imagePath || Supply.placeholderPath || "")}"
           alt=""
           loading="lazy"
           onerror="
             if (this.dataset.fallback !== 'placeholder') {
               this.dataset.fallback = 'placeholder';
-              this.src = './img/placeholders/book.svg';
+              this.src = './img/placeholders/Supply.svg';
             } else {
               this.style.display='none';
             }
@@ -1156,40 +1156,40 @@ function renderBookCard(book) {
         >
       </div>
 
-      <div class="book-card-body">
-        <div class="book-main-row">
-          <div class="book-main-left">
-            <h4 class="book-card-title">${escapeHtml(book.title)}</h4>
+      <div class="Supply-card-body">
+        <div class="Supply-main-row">
+          <div class="Supply-main-left">
+            <h4 class="Supply-card-title">${escapeHtml(Supply.title)}</h4>
 
-            <div class="book-subline">
-              ${book.author ? `<span>by ${escapeHtml(book.author)}</span>` : ""}
-              ${book.isbnAsin ? `<span>ISBN/ASIN: ${escapeHtml(book.isbnAsin)}</span>` : ""}
-              ${!book.isbnAsin && book.isbn ? `<span>ISBN: ${escapeHtml(book.isbn)}</span>` : ""}
-              ${!book.isbnAsin && book.asin ? `<span>ASIN: ${escapeHtml(book.asin)}</span>` : ""}
+            <div class="Supply-subline">
+              ${Supply.author ? `<span>by ${escapeHtml(Supply.author)}</span>` : ""}
+              ${Supply.isbnAsin ? `<span>ISBN/ASIN: ${escapeHtml(Supply.isbnAsin)}</span>` : ""}
+              ${!Supply.isbnAsin && Supply.isbn ? `<span>ISBN: ${escapeHtml(Supply.isbn)}</span>` : ""}
+              ${!Supply.isbnAsin && Supply.asin ? `<span>ASIN: ${escapeHtml(Supply.asin)}</span>` : ""}
             </div>
 
-            ${book.rationale ? `
-              <p class="book-rationale">
-                <span class="book-rationale-label">➜ RATIONALE:</span>
-                <span>${escapeHtml(book.rationale)}</span>
+            ${Supply.rationale ? `
+              <p class="Supply-rationale">
+                <span class="Supply-rationale-label">➜ RATIONALE:</span>
+                <span>${escapeHtml(Supply.rationale)}</span>
               </p>
             ` : ""}
 
             ${(tipRows.length || formatOptions.length) ? `
-              <div class="book-tipbox">
+              <div class="Supply-tipbox">
                 ${tipRows.map((row) => `
                   <div class="${row.className}">
-                    <span class="book-tipbox-label">${escapeHtml(row.label)}</span>
+                    <span class="Supply-tipbox-label">${escapeHtml(row.label)}</span>
                     <span>${escapeHtml(row.text)}</span>
                   </div>
                 `).join("")}
 
                 ${formatOptions.length ? `
-                  <div class="book-format-row">
-                    <span class="book-tipbox-label">Alt. Formats:</span>
-                    <span class="book-format-list">
+                  <div class="Supply-format-row">
+                    <span class="Supply-tipbox-label">Alt. Formats:</span>
+                    <span class="Supply-format-list">
                       ${formatOptions.map((option) => `
-                        <span class="book-format-pill book-format-pill--${escapeHtml(option.type || "other")}">
+                        <span class="Supply-format-pill Supply-format-pill--${escapeHtml(option.type || "other")}">
                           ${escapeHtml(option.label)}
                         </span>
                       `).join("")}
@@ -1200,34 +1200,34 @@ function renderBookCard(book) {
             ` : ""}
           </div>
 
-          <div class="book-main-divider" aria-hidden="true"></div>
+          <div class="Supply-main-divider" aria-hidden="true"></div>
 
-            <div class="book-main-right">
-              <div class="book-scope-column">
-                ${book.scopeText ? `
-                  <div class="book-meta-block book-meta-block--scope">
-                    <div class="book-meta-label">Scope</div>
-                    <div class="book-meta-text">${escapeHtml(book.scopeText)}</div>
+            <div class="Supply-main-right">
+              <div class="Supply-scope-column">
+                ${Supply.scopeText ? `
+                  <div class="Supply-meta-block Supply-meta-block--scope">
+                    <div class="Supply-meta-label">Scope</div>
+                    <div class="Supply-meta-text">${escapeHtml(Supply.scopeText)}</div>
                   </div>
                 ` : ""}
               </div>
             
-              <div class="book-actions-column">
+              <div class="Supply-actions-column">
                 ${purchaseOptions.length ? `
-                  <div class="book-meta-block book-purchase-block">
-                    <div class="book-meta-label">Purchase Options</div>
-                    <div class="book-link-row">
+                  <div class="Supply-meta-block Supply-purchase-block">
+                    <div class="Supply-meta-label">Purchase Options</div>
+                    <div class="Supply-link-row">
                       ${purchaseOptions.map((option) => `
-                        <span class="book-link-pill">${escapeHtml(option.label)}</span>
+                        <span class="Supply-link-pill">${escapeHtml(option.label)}</span>
                       `).join("")}
                     </div>
                   </div>
                 ` : ""}
             
-                ${book.sharedText ? `
-                  <div class="book-meta-block book-shared-block">
-                    <div class="book-meta-label">↔ Shared</div>
-                    <div class="book-meta-text">${escapeHtml(book.sharedText)}</div>
+                ${Supply.sharedText ? `
+                  <div class="Supply-meta-block Supply-shared-block">
+                    <div class="Supply-meta-label">↔ Shared</div>
+                    <div class="Supply-meta-text">${escapeHtml(Supply.sharedText)}</div>
                   </div>
                 ` : ""}
               </div>
@@ -1252,25 +1252,25 @@ function renderCourseTopicMode(items) {
 
     const sectionsHtml = hasTopicSections
       ? visibleSections.map((section) => {
-          const books = (section.books || []).filter((book) =>
-            shouldIncludeBookByMemberFilters(book)
+          const Supplys = (section.Supplys || []).filter((Supply) =>
+            shouldIncludeSupplyByMemberFilters(Supply)
           );
 
-          if (!books.length) return "";
+          if (!Supplys.length) return "";
 
           return `
-            <section class="book-section">
-              <div class="book-section-head">
-                <div class="book-section-head-left">
-                  <div class="book-title-with-students">
+            <section class="Supply-section">
+              <div class="Supply-section-head">
+                <div class="Supply-section-head-left">
+                  <div class="Supply-title-with-students">
                     <h3>${section.shared ? "↔ " : ""}${escapeHtml(section.title)}</h3>
                     ${renderStudentChips(section.students || section.assignedStudents || [])}
                   </div>
 
                   ${(section.schedText || section.gradeText) ? `
-                    <div class="book-section-meta">
-                      ${section.schedText ? `<span class="book-meta-schedule">${escapeHtml(section.schedText)}</span>` : ""}
-                      ${section.gradeText ? `<span class="book-meta-grade">${escapeHtml(section.gradeText)}</span>` : ""}
+                    <div class="Supply-section-meta">
+                      ${section.schedText ? `<span class="Supply-meta-schedule">${escapeHtml(section.schedText)}</span>` : ""}
+                      ${section.gradeText ? `<span class="Supply-meta-grade">${escapeHtml(section.gradeText)}</span>` : ""}
                     </div>
                   ` : ""}
                 </div>
@@ -1283,23 +1283,23 @@ function renderCourseTopicMode(items) {
                 })}
               </div>
 
-              <div class="book-card-list">
-                ${books.map((book) => renderBookCard(book)).join("")}
+              <div class="Supply-card-list">
+                ${Supplys.map((Supply) => renderSupplyCard(Supply)).join("")}
               </div>
             </section>
           `;
         }).join("")
       : (() => {
-          const books = (item.sections?.[0]?.books || []).filter((book) =>
-            shouldIncludeBookByMemberFilters(book)
+          const Supplys = (item.sections?.[0]?.Supplys || []).filter((Supply) =>
+            shouldIncludeSupplyByMemberFilters(Supply)
           );
 
-          if (!books.length) return "";
+          if (!Supplys.length) return "";
 
           return `
-            <section class="book-section">
-              <div class="book-card-list">
-                ${books.map((book) => renderBookCard(book)).join("")}
+            <section class="Supply-section">
+              <div class="Supply-card-list">
+                ${Supplys.map((Supply) => renderSupplyCard(Supply)).join("")}
               </div>
             </section>
           `;
@@ -1308,19 +1308,19 @@ function renderCourseTopicMode(items) {
     if (!sectionsHtml.trim()) return "";
 
     return `
-      <section class="book-course" style="--subject-color: ${subjectColor(item.subject)};">
-        <div class="book-course-head">
-          <div class="book-course-head-main">
-            <div class="book-course-head-left">
-              <div class="book-title-with-students">
+      <section class="Supply-course" style="--subject-color: ${subjectColor(item.subject)};">
+        <div class="Supply-course-head">
+          <div class="Supply-course-head-main">
+            <div class="Supply-course-head-left">
+              <div class="Supply-title-with-students">
                 <h2>${item.shared ? "↔ " : ""}${escapeHtml(item.title)}</h2>
                 ${renderStudentChips(item.students || item.assignedStudents || [])}
               </div>
 
               ${(item.schedText || item.gradeText || item.subject) ? `
-                <div class="book-section-meta book-section-meta--course">
-                  ${item.schedText ? `<span class="book-meta-schedule">${escapeHtml(item.schedText)}</span>` : ""}
-                  ${item.gradeText ? `<span class="book-meta-grade">${escapeHtml(item.gradeText)}</span>` : ""}
+                <div class="Supply-section-meta Supply-section-meta--course">
+                  ${item.schedText ? `<span class="Supply-meta-schedule">${escapeHtml(item.schedText)}</span>` : ""}
+                  ${item.gradeText ? `<span class="Supply-meta-grade">${escapeHtml(item.gradeText)}</span>` : ""}
                 </div>
               ` : ""}
             </div>
@@ -1340,7 +1340,7 @@ function renderCourseTopicMode(items) {
   }).join("");
 }
 
-function groupLabelWithBooks(group) {
+function groupLabelWithSupplys(group) {
   const label = group.label || "";
   const isMasterView =
     (state.base === "subject" && state.id === DEFAULT_SUBJECT) ||
@@ -1348,12 +1348,12 @@ function groupLabelWithBooks(group) {
 
   if (isMasterView) return label;
 
-  return `${label} Books`;
+  return `${label} Supplys`;
 }
 
 function currentSelectionHeading() {
   if (state.base === "subject" && state.id !== DEFAULT_SUBJECT) {
-    return `${state.id} Books`;
+    return `${state.id} Supplys`;
   }
 
   if (state.base === "grade" && state.id !== DEFAULT_GRADE) {
@@ -1361,18 +1361,18 @@ function currentSelectionHeading() {
       ? `Grade ${state.id.replace("G", "")}`
       : state.id;
 
-    return `${gradeLabel} Books`;
+    return `${gradeLabel} Supplys`;
   }
 
   return "";
 }
 
-function countBooksInItems(items) {
+function countSupplysInItems(items) {
   return (items || []).reduce(
     (total, item) =>
       total +
       (item.sections || []).reduce(
-        (sectionTotal, section) => sectionTotal + (section.books || []).length,
+        (sectionTotal, section) => sectionTotal + (section.Supplys || []).length,
         0
       ),
     0
@@ -1388,7 +1388,7 @@ function isMasterView() {
 
 function renderAffiliateDisclosure() {
   return `
-    <p class="book-affiliate-disclosure">
+    <p class="Supply-affiliate-disclosure">
       * As an Amazon Associate we earn from qualifying purchases, and we also receive a small commission at no additional cost to you through other affiliate links on this list.
     </p>
   `;
@@ -1396,8 +1396,8 @@ function renderAffiliateDisclosure() {
 
 function renderSectionHeading(label, showDisclosure = false) {
   return `
-    <div class="book-results-heading">
-      <h2 class="book-group-title">${escapeHtml(label)}</h2>
+    <div class="Supply-results-heading">
+      <h2 class="Supply-group-title">${escapeHtml(label)}</h2>
       ${showDisclosure ? renderAffiliateDisclosure() : ""}
     </div>
   `;
@@ -1421,8 +1421,8 @@ function renderGroupedMode(groups) {
     if (!groupHtml.trim()) return "";
 
     const html = `
-      <section class="book-group book-group-section">
-        ${renderSectionHeading(groupLabelWithBooks(group), visibleGroupIndex === 0)}
+      <section class="Supply-group Supply-group-section">
+        ${renderSectionHeading(groupLabelWithSupplys(group), visibleGroupIndex === 0)}
         ${groupHtml}
       </section>
     `;
@@ -1435,22 +1435,22 @@ function renderGroupedMode(groups) {
 function render() {
   syncControls();
 
-  const title = "Book List";
+  const title = "Supply List";
   const groups = filteredGroups();
   const items = groups ? [] : filteredItems();
 
   const renderedHtml = groups ? renderGroupedMode(groups) : renderSelectedViewMode(items);
-  const bookCount = renderedHtml.trim() ? 1 : 0;
+  const SupplyCount = renderedHtml.trim() ? 1 : 0;
 
-  const pageTitle = document.getElementById("book-title");
+  const pageTitle = document.getElementById("Supply-title");
   if (pageTitle) pageTitle.textContent = title;
-  const summary = document.getElementById("book-summary");
+  const summary = document.getElementById("Supply-summary");
   if (summary) summary.textContent = isMasterView() ? "" : "";
 
-  const results = document.getElementById("book-results");
+  const results = document.getElementById("Supply-results");
 
-  if (!bookCount) {
-    results.innerHTML = `<div class="empty-state">No books match these selections.</div>`;
+  if (!SupplyCount) {
+    results.innerHTML = `<div class="empty-state">No Supplys match these selections.</div>`;
     return;
   }
 
@@ -1460,7 +1460,7 @@ function render() {
 async function loadFilterIndex() {
   if (state.filterIndex) return;
 
-  const response = await fetch("./data/book-views/master.json");
+  const response = await fetch("./data/supply-views/master.json");
   if (!response.ok) throw new Error("Could not load filter index");
 
   state.filterIndex = await response.json();
@@ -1468,7 +1468,7 @@ async function loadFilterIndex() {
 
 function scrollToWorkingTop(options = {}) {
   const { behavior = "smooth" } = options;
-  const target = document.getElementById("book-working-top");
+  const target = document.getElementById("Supply-working-top");
 
   if (!target) return;
 
@@ -1483,8 +1483,8 @@ async function loadView(options = {}) {
 
   const preserveScrollY = window.scrollY;
 
-  const results = document.getElementById("book-results");
-  results.innerHTML = `<div class="empty-state">Loading book view…</div>`;
+  const results = document.getElementById("Supply-results");
+  results.innerHTML = `<div class="empty-state">Loading Supply view…</div>`;
 
   if (scrollToFilters) {
     window.scrollTo(0, preserveScrollY);
@@ -1537,7 +1537,7 @@ function isFocusedDirectView() {
 }
 
 function setIntroCollapsed(isCollapsed) {
-  const intro = document.getElementById("book-intro-section");
+  const intro = document.getElementById("Supply-intro-section");
   const button = document.getElementById("toggle-intro");
 
   if (!intro || !button) return;
@@ -1547,7 +1547,7 @@ function setIntroCollapsed(isCollapsed) {
 }
 
 function setFiltersCollapsed(isCollapsed) {
-  const controls = document.getElementById("book-controls");
+  const controls = document.getElementById("Supply-controls");
   const button = document.getElementById("toggle-filters");
 
   if (!controls || !button) return;
@@ -1574,7 +1574,7 @@ function initializePageState() {
 }
 
 function bindControls() {
-  document.querySelectorAll(".book-base-button").forEach((button) => {
+  document.querySelectorAll(".Supply-base-button").forEach((button) => {
     button.addEventListener("click", async () => {
       exitDirectView({
         base: button.dataset.base,
@@ -1638,7 +1638,7 @@ function bindControls() {
     await loadView({ scrollToFilters: false, instantScroll: true });
   });
 
-  document.getElementById("book-search").addEventListener("input", (event) => {
+  document.getElementById("Supply-search").addEventListener("input", (event) => {
     state.query = event.target.value;
     render();
   });
@@ -1690,27 +1690,27 @@ function bindControls() {
       keepSearch: false,
     });
 
-    document.getElementById("book-search").value = "";
+    document.getElementById("Supply-search").value = "";
 
     await loadView({ scrollToFilters: true, instantScroll: true });
   });
 
-  document.querySelector(".book-controls-header").addEventListener("click", () => {
-    const controls = document.getElementById("book-controls");
+  document.querySelector(".Supply-controls-header").addEventListener("click", () => {
+    const controls = document.getElementById("Supply-controls");
     const isCollapsed = !controls.classList.contains("is-collapsed");
 
     pageUiState.filtersCollapsed = isCollapsed;
-    saveBookPageUiState();
+    saveSupplyPageUiState();
 
     setFiltersCollapsed(isCollapsed);
   });
 
   document.getElementById("toggle-intro").addEventListener("click", () => {
-    const intro = document.getElementById("book-intro-section");
+    const intro = document.getElementById("Supply-intro-section");
     const isCollapsed = !intro.classList.contains("is-collapsed");
 
     pageUiState.introCollapsed = isCollapsed;
-    saveBookPageUiState();
+    saveSupplyPageUiState();
 
     setIntroCollapsed(isCollapsed);
   });
@@ -1734,20 +1734,20 @@ function bindBackToTop() {
   toggleVisibility();
 }
 
-const BOOK_MEMBER_UI_KEY = "alveary_book_member_ui_v1";
+const Supply_MEMBER_UI_KEY = "alveary_Supply_member_ui_v1";
 
 const memberUiState = {
   toolsOpen: false,
   filters: {
-    myBooks: false,
+    mySupplys: false,
     myCourses: false,
     myNotes: false,
   },
 };
 
-function loadBookMemberUiState() {
+function loadSupplyMemberUiState() {
   try {
-    const raw = localStorage.getItem(BOOK_MEMBER_UI_KEY);
+    const raw = localStorage.getItem(Supply_MEMBER_UI_KEY);
     if (!raw) return;
 
     const saved = JSON.parse(raw);
@@ -1756,7 +1756,7 @@ function loadBookMemberUiState() {
     memberUiState.toolsOpen = !!saved.toolsOpen;
 
     if (saved.filters && typeof saved.filters === "object") {
-      memberUiState.filters.myBooks = !!saved.filters.myBooks;
+      memberUiState.filters.mySupplys = !!saved.filters.mySupplys;
       memberUiState.filters.myCourses = !!saved.filters.myCourses;
       memberUiState.filters.myNotes = !!saved.filters.myNotes;
     }
@@ -1765,9 +1765,9 @@ function loadBookMemberUiState() {
   }
 }
 
-function saveBookMemberUiState() {
+function saveSupplyMemberUiState() {
   try {
-    localStorage.setItem(BOOK_MEMBER_UI_KEY, JSON.stringify(memberUiState));
+    localStorage.setItem(Supply_MEMBER_UI_KEY, JSON.stringify(memberUiState));
   } catch {
     // ignore storage errors
   }
@@ -1798,14 +1798,14 @@ function bindMemberToolsShell() {
   const toggle = document.getElementById("member-tools-toggle");
   const filterButtons = document.querySelectorAll(".member-mini-toggle");
 
-  loadBookMemberUiState();
+  loadSupplyMemberUiState();
   syncMemberToolsUi();
 
   if (toggle) {
     toggle.addEventListener("click", () => {
       memberUiState.toolsOpen = !memberUiState.toolsOpen;
 
-      saveBookMemberUiState();
+      saveSupplyMemberUiState();
       syncMemberToolsUi();
     });
   }
@@ -1817,7 +1817,7 @@ function bindMemberToolsShell() {
 
       memberUiState.filters[key] = !memberUiState.filters[key];
 
-      saveBookMemberUiState();
+      saveSupplyMemberUiState();
       syncMemberToolsUi();
 
       render();
@@ -1828,9 +1828,9 @@ function bindMemberToolsShell() {
 async function init() {
   try {
     readParams();
-    loadBookPageUiState();
-    loadBookMemberState();
-    migrateLegacyBookMemberStateOnce();
+    loadSupplyPageUiState();
+    loadSupplyMemberState();
+    migrateLegacySupplyMemberStateOnce();
     bindControls();
     bindBackToTop();
     initializePageState();
@@ -1839,8 +1839,8 @@ async function init() {
     await loadView();
   } catch (error) {
     console.error(error);
-    document.getElementById("book-results").innerHTML =
-      `<div class="empty-state">Could not load this book view.</div>`;
+    document.getElementById("Supply-results").innerHTML =
+      `<div class="empty-state">Could not load this Supply view.</div>`;
   }
 }
 
