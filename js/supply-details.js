@@ -123,9 +123,9 @@ function uniqueStrings(values) {
 }
 
 function normalizeSupplyMemberState() {
-  SupplyMemberState.Supplys.mySupplys = uniqueStrings(SupplyMemberState.Supplys.mySupplys);
+  SupplyMemberState.supplies.mySupplys = uniqueStrings(SupplyMemberState.supplies.mySupplys);
 
-  const ownersMap = SupplyMemberState.Supplys.mySupplysOwnersByResourceId || {};
+  const ownersMap = SupplyMemberState.supplies.mySupplysOwnersByResourceId || {};
   const nextOwnersMap = {};
 
   Object.entries(ownersMap).forEach(([resourceId, owners]) => {
@@ -138,7 +138,7 @@ function normalizeSupplyMemberState() {
     }
   });
 
-  SupplyMemberState.Supplys.mySupplysOwnersByResourceId = nextOwnersMap;
+  SupplyMemberState.supplies.mySupplysOwnersByResourceId = nextOwnersMap;
 }
 
 function loadSupplyMemberState() {
@@ -147,15 +147,15 @@ function loadSupplyMemberState() {
     if (!raw) return;
 
     const saved = JSON.parse(raw);
-    const savedSupplys = saved?.Supplys;
+    const savedSupplys = saved?.supplies;
 
     if (!savedSupplys || typeof savedSupplys !== "object") return;
 
-    SupplyMemberState.Supplys.mySupplys = Array.isArray(savedSupplys.mySupplys)
+    SupplyMemberState.supplies.mySupplys = Array.isArray(savedSupplys.mySupplys)
       ? savedSupplys.mySupplys
       : [];
 
-    SupplyMemberState.Supplys.mySupplysOwnersByResourceId =
+    SupplyMemberState.supplies.mySupplysOwnersByResourceId =
       savedSupplys.mySupplysOwnersByResourceId &&
       typeof savedSupplys.mySupplysOwnersByResourceId === "object"
         ? savedSupplys.mySupplysOwnersByResourceId
@@ -272,8 +272,8 @@ function migrateLegacySupplyMemberStateOnce() {
         ? legacyResources.mySupplysOwnersByResourceId
         : {};
 
-    SupplyMemberState.Supplys.mySupplys = uniqueStrings([
-      ...SupplyMemberState.Supplys.mySupplys,
+    SupplyMemberState.supplies.mySupplys = uniqueStrings([
+      ...SupplyMemberState.supplies.mySupplys,
       ...legacyMySupplys,
     ]);
 
@@ -289,7 +289,7 @@ function migrateLegacySupplyMemberStateOnce() {
 
       if (!convertedOwners.length) return;
 
-      SupplyMemberState.Supplys.mySupplysOwnersByResourceId[rid] = uniqueStrings([
+      SupplyMemberState.supplies.mySupplysOwnersByResourceId[rid] = uniqueStrings([
         ...SupplyOwnerKeys(rid),
         ...convertedOwners,
       ]);
@@ -320,14 +320,14 @@ function isSupplyInMySupplys(SupplyOrResourceId) {
 
   if (!resourceId) return false;
 
-  return SupplyMemberState.Supplys.mySupplys.includes(resourceId);
+  return SupplyMemberState.supplies.mySupplys.includes(resourceId);
 }
 
 function SupplyOwnerKeys(resourceId) {
   const rid = normalizeId(resourceId);
   if (!rid) return [];
 
-  const owners = SupplyMemberState.Supplys.mySupplysOwnersByResourceId?.[rid];
+  const owners = SupplyMemberState.supplies.mySupplysOwnersByResourceId?.[rid];
   return uniqueStrings(owners);
 }
 
@@ -522,14 +522,14 @@ function addSupplyOwnerHere(Supply) {
 
   if (!resourceId) return;
 
-  SupplyMemberState.Supplys.mySupplys = uniqueStrings([
-    ...SupplyMemberState.Supplys.mySupplys,
+  SupplyMemberState.supplies.mySupplys = uniqueStrings([
+    ...SupplyMemberState.supplies.mySupplys,
     resourceId,
   ]);
 
   if (instanceKey) {
     const owners = SupplyOwnerKeys(resourceId);
-    SupplyMemberState.Supplys.mySupplysOwnersByResourceId[resourceId] = uniqueStrings([
+    SupplyMemberState.supplies.mySupplysOwnersByResourceId[resourceId] = uniqueStrings([
       ...owners,
       instanceKey,
     ]);
@@ -547,10 +547,10 @@ function removeSupplyOwnerHere(Supply) {
   const owners = SupplyOwnerKeys(resourceId).filter((key) => key !== instanceKey);
 
   if (owners.length) {
-    SupplyMemberState.Supplys.mySupplysOwnersByResourceId[resourceId] = owners;
+    SupplyMemberState.supplies.mySupplysOwnersByResourceId[resourceId] = owners;
   } else {
-    delete SupplyMemberState.Supplys.mySupplysOwnersByResourceId[resourceId];
-    SupplyMemberState.Supplys.mySupplys = SupplyMemberState.Supplys.mySupplys.filter(
+    delete SupplyMemberState.supplies.mySupplysOwnersByResourceId[resourceId];
+    SupplyMemberState.supplies.mySupplys = SupplyMemberState.supplies.mySupplys.filter(
       (id) => id !== resourceId
     );
   }
@@ -623,9 +623,9 @@ function filteredGroups() {
           sections = sections
             .map((section) => ({
               ...section,
-              Supplys: (section.Supplys || []).filter((Supply) => SupplyMatches(Supply, state.query)),
+              Supplys: (section.supplies || []).filter((Supply) => SupplyMatches(Supply, state.query)),
             }))
-            .filter((section) => section.Supplys.length);
+            .filter((section) => section.supplies.length);
 
           return {
             ...item,
@@ -766,9 +766,9 @@ function filteredItems() {
       sections = sections
         .map((section) => ({
           ...section,
-          Supplys: (section.Supplys || []).filter((Supply) => SupplyMatches(Supply, state.query)),
+          Supplys: (section.supplies || []).filter((Supply) => SupplyMatches(Supply, state.query)),
         }))
-        .filter((section) => section.Supplys.length);
+        .filter((section) => section.supplies.length);
 
       return {
         ...item,
@@ -895,7 +895,7 @@ function syncClearButtons() {
 }
 
 function syncControls() {
-  document.querySelectorAll(".Supply-base-button").forEach((button) => {
+  document.querySelectorAll(".supply-base-button").forEach((button) => {
     button.classList.toggle("is-active", button.dataset.base === state.base);
   });
 
@@ -915,15 +915,15 @@ function renderSupplySaveButton(Supply) {
 
   if (status === "active" || status === "legacy") {
     return `
-      <span class="Supplymark-region Supply-save-region">
+      <span class="Supplymark-region supply-save-region">
         <button
           type="button"
-          class="Supplymark-btn Supplymark-btn--solid Supply-save-btn"
+          class="Supplymark-btn Supplymark-btn--solid supply-save-btn"
           onclick="event.stopPropagation(); toggleSupplySavedHereByInstanceKey('${escapeHtml(instanceKey)}')"
           aria-label="Remove from My Supplys"
           title="In My Supplys"
         >
-          <img src="img/icons/Supply-icon-active.png" alt="" class="Supplymark-icon" />
+          <img src="img/icons/supply-icon-active.png" alt="" class="Supplymark-icon" />
         </button>
       </span>
     `;
@@ -931,15 +931,15 @@ function renderSupplySaveButton(Supply) {
 
   if (status === "ghost") {
     return `
-      <span class="Supplymark-region Supply-save-region">
+      <span class="Supplymark-region supply-save-region">
         <button
           type="button"
-          class="Supplymark-btn Supplymark-btn--ghost Supply-save-btn"
+          class="Supplymark-btn Supplymark-btn--ghost supply-save-btn"
           onclick="event.stopPropagation(); addSupplyOwnerHereByInstanceKey('${escapeHtml(instanceKey)}')"
           aria-label="In My Supplys elsewhere — add here"
           title="In My Supplys elsewhere — add here"
         >
-          <img src="img/icons/Supply-icon-active.png" alt="" class="Supplymark-icon" />
+          <img src="img/icons/supply-icon-active.png" alt="" class="Supplymark-icon" />
           <span class="Supplymark-apply">+</span>
         </button>
       </span>
@@ -947,15 +947,15 @@ function renderSupplySaveButton(Supply) {
   }
 
   return `
-    <span class="Supplymark-region Supply-save-region">
+    <span class="Supplymark-region supply-save-region">
       <button
         type="button"
-        class="Supplymark-btn Supplymark-btn--empty Supply-save-btn"
+        class="Supplymark-btn Supplymark-btn--empty supply-save-btn"
         onclick="event.stopPropagation(); toggleSupplySavedHereByInstanceKey('${escapeHtml(instanceKey)}')"
         aria-label="Add to My Supplys"
         title="Add to My Supplys"
       >
-        <img src="img/icons/Supply-icon-inactive.png" alt="" class="Supplymark-icon" />
+        <img src="img/icons/supply-icon-inactive.png" alt="" class="Supplymark-icon" />
         <span class="Supplymark-apply">+</span>
       </button>
     </span>
@@ -975,7 +975,7 @@ function findSupplyByInstanceKey(instanceKey) {
 
   for (const item of items) {
     for (const section of item.sections || []) {
-      for (const Supply of section.Supplys || []) {
+      for (const Supply of section.supplies || []) {
         if (SupplyInstanceKey(Supply) === key) {
           return Supply;
         }
@@ -1055,7 +1055,7 @@ function renderReadOnlySupplymark(status = false, label = "Add Supplys") {
       >
         <img
           src="img/icons/${
-            status ? "Supply-icon-active.png" : "Supply-icon-inactive.png"
+            status ? "supply-icon-active.png" : "supply-icon-inactive.png"
           }"
           alt=""
           class="header-Supplymark-icon"
@@ -1110,14 +1110,14 @@ function renderHeaderTools({
 
 function renderSupplyCard(Supply) {
   const badges = [
-    Supply.gradeLevelTag ? { label: Supply.gradeLevelTag, className: "Supply-badge--grade" } : null,
-    Supply.optional ? { label: "Optional", className: "Supply-badge--optional" } : null,
-    Supply.chooseOne ? { label: "Choose one", className: "Supply-badge--choose-one" } : null,
+    Supply.gradeLevelTag ? { label: Supply.gradeLevelTag, className: "supply-badge--grade" } : null,
+    Supply.optional ? { label: "Optional", className: "supply-badge--optional" } : null,
+    Supply.chooseOne ? { label: "Choose one", className: "supply-badge--choose-one" } : null,
   ].filter(Boolean);
 
   const tipRows = [
-    Supply.noteText ? { label: "NOTE:", text: Supply.noteText, className: "Supply-note-row" } : null,
-    Supply.maySubText ? { label: "➜ May sub:", text: Supply.maySubText, className: "Supply-may-sub-row" } : null,
+    Supply.noteText ? { label: "NOTE:", text: Supply.noteText, className: "supply-note-row" } : null,
+    Supply.maySubText ? { label: "➜ May sub:", text: Supply.maySubText, className: "supply-may-sub-row" } : null,
     // Hide discount/code on the public view for now.
     // We can restore this later inside Member Tools mode.
     null,
@@ -1127,21 +1127,21 @@ function renderSupplyCard(Supply) {
   const purchaseOptions = Array.isArray(Supply.purchaseOptions) ? Supply.purchaseOptions : [];
 
   return `
-    <article class="Supply-card">
-      <div class="Supply-card-Supplymark-corner">
+    <article class="supply-card">
+      <div class="supply-card-Supplymark-corner">
         ${renderSupplySaveButton(Supply)}
       </div>
       ${badges.length ? `
-        <div class="Supply-card-badges">
+        <div class="supply-card-badges">
           ${badges.map((badge) => `
-            <span class="Supply-badge ${badge.className}">${escapeHtml(badge.label)}</span>
+            <span class="supply-badge ${badge.className}">${escapeHtml(badge.label)}</span>
           `).join("")}
         </div>
       ` : ""}
 
-      <div class="Supply-cover-wrap">
+      <div class="supply-cover-wrap">
         <img
-          class="Supply-cover"
+          class="supply-cover"
           src="./${escapeHtml(Supply.imagePath || Supply.placeholderPath || "")}"
           alt=""
           loading="lazy"
@@ -1156,12 +1156,12 @@ function renderSupplyCard(Supply) {
         >
       </div>
 
-      <div class="Supply-card-body">
-        <div class="Supply-main-row">
-          <div class="Supply-main-left">
-            <h4 class="Supply-card-title">${escapeHtml(Supply.title)}</h4>
+      <div class="supply-card-body">
+        <div class="supply-main-row">
+          <div class="supply-main-left">
+            <h4 class="supply-card-title">${escapeHtml(Supply.title)}</h4>
 
-            <div class="Supply-subline">
+            <div class="supply-subline">
               ${Supply.author ? `<span>by ${escapeHtml(Supply.author)}</span>` : ""}
               ${Supply.isbnAsin ? `<span>ISBN/ASIN: ${escapeHtml(Supply.isbnAsin)}</span>` : ""}
               ${!Supply.isbnAsin && Supply.isbn ? `<span>ISBN: ${escapeHtml(Supply.isbn)}</span>` : ""}
@@ -1169,27 +1169,27 @@ function renderSupplyCard(Supply) {
             </div>
 
             ${Supply.rationale ? `
-              <p class="Supply-rationale">
-                <span class="Supply-rationale-label">➜ RATIONALE:</span>
+              <p class="supply-rationale">
+                <span class="supply-rationale-label">➜ RATIONALE:</span>
                 <span>${escapeHtml(Supply.rationale)}</span>
               </p>
             ` : ""}
 
             ${(tipRows.length || formatOptions.length) ? `
-              <div class="Supply-tipbox">
+              <div class="supply-tipbox">
                 ${tipRows.map((row) => `
                   <div class="${row.className}">
-                    <span class="Supply-tipbox-label">${escapeHtml(row.label)}</span>
+                    <span class="supply-tipbox-label">${escapeHtml(row.label)}</span>
                     <span>${escapeHtml(row.text)}</span>
                   </div>
                 `).join("")}
 
                 ${formatOptions.length ? `
-                  <div class="Supply-format-row">
-                    <span class="Supply-tipbox-label">Alt. Formats:</span>
-                    <span class="Supply-format-list">
+                  <div class="supply-format-row">
+                    <span class="supply-tipbox-label">Alt. Formats:</span>
+                    <span class="supply-format-list">
                       ${formatOptions.map((option) => `
-                        <span class="Supply-format-pill Supply-format-pill--${escapeHtml(option.type || "other")}">
+                        <span class="supply-format-pill supply-format-pill--${escapeHtml(option.type || "other")}">
                           ${escapeHtml(option.label)}
                         </span>
                       `).join("")}
@@ -1200,34 +1200,34 @@ function renderSupplyCard(Supply) {
             ` : ""}
           </div>
 
-          <div class="Supply-main-divider" aria-hidden="true"></div>
+          <div class="supply-main-divider" aria-hidden="true"></div>
 
-            <div class="Supply-main-right">
-              <div class="Supply-scope-column">
+            <div class="supply-main-right">
+              <div class="supply-scope-column">
                 ${Supply.scopeText ? `
-                  <div class="Supply-meta-block Supply-meta-block--scope">
-                    <div class="Supply-meta-label">Scope</div>
-                    <div class="Supply-meta-text">${escapeHtml(Supply.scopeText)}</div>
+                  <div class="supply-meta-block supply-meta-block--scope">
+                    <div class="supply-meta-label">Scope</div>
+                    <div class="supply-meta-text">${escapeHtml(Supply.scopeText)}</div>
                   </div>
                 ` : ""}
               </div>
             
-              <div class="Supply-actions-column">
+              <div class="supply-actions-column">
                 ${purchaseOptions.length ? `
-                  <div class="Supply-meta-block Supply-purchase-block">
-                    <div class="Supply-meta-label">Purchase Options</div>
-                    <div class="Supply-link-row">
+                  <div class="supply-meta-block supply-purchase-block">
+                    <div class="supply-meta-label">Purchase Options</div>
+                    <div class="supply-link-row">
                       ${purchaseOptions.map((option) => `
-                        <span class="Supply-link-pill">${escapeHtml(option.label)}</span>
+                        <span class="supply-link-pill">${escapeHtml(option.label)}</span>
                       `).join("")}
                     </div>
                   </div>
                 ` : ""}
             
                 ${Supply.sharedText ? `
-                  <div class="Supply-meta-block Supply-shared-block">
-                    <div class="Supply-meta-label">↔ Shared</div>
-                    <div class="Supply-meta-text">${escapeHtml(Supply.sharedText)}</div>
+                  <div class="supply-meta-block supply-shared-block">
+                    <div class="supply-meta-label">↔ Shared</div>
+                    <div class="supply-meta-text">${escapeHtml(Supply.sharedText)}</div>
                   </div>
                 ` : ""}
               </div>
@@ -1252,25 +1252,25 @@ function renderCourseTopicMode(items) {
 
     const sectionsHtml = hasTopicSections
       ? visibleSections.map((section) => {
-          const Supplys = (section.Supplys || []).filter((Supply) =>
+          const Supplys = (section.supplies || []).filter((Supply) =>
             shouldIncludeSupplyByMemberFilters(Supply)
           );
 
           if (!Supplys.length) return "";
 
           return `
-            <section class="Supply-section">
-              <div class="Supply-section-head">
-                <div class="Supply-section-head-left">
-                  <div class="Supply-title-with-students">
+            <section class="supply-section">
+              <div class="supply-section-head">
+                <div class="supply-section-head-left">
+                  <div class="supply-title-with-students">
                     <h3>${section.shared ? "↔ " : ""}${escapeHtml(section.title)}</h3>
                     ${renderStudentChips(section.students || section.assignedStudents || [])}
                   </div>
 
                   ${(section.schedText || section.gradeText) ? `
-                    <div class="Supply-section-meta">
-                      ${section.schedText ? `<span class="Supply-meta-schedule">${escapeHtml(section.schedText)}</span>` : ""}
-                      ${section.gradeText ? `<span class="Supply-meta-grade">${escapeHtml(section.gradeText)}</span>` : ""}
+                    <div class="supply-section-meta">
+                      ${section.schedText ? `<span class="supply-meta-schedule">${escapeHtml(section.schedText)}</span>` : ""}
+                      ${section.gradeText ? `<span class="supply-meta-grade">${escapeHtml(section.gradeText)}</span>` : ""}
                     </div>
                   ` : ""}
                 </div>
@@ -1283,22 +1283,22 @@ function renderCourseTopicMode(items) {
                 })}
               </div>
 
-              <div class="Supply-card-list">
+              <div class="supply-card-list">
                 ${Supplys.map((Supply) => renderSupplyCard(Supply)).join("")}
               </div>
             </section>
           `;
         }).join("")
       : (() => {
-          const Supplys = (item.sections?.[0]?.Supplys || []).filter((Supply) =>
+          const Supplys = (item.sections?.[0]?.supplies || []).filter((Supply) =>
             shouldIncludeSupplyByMemberFilters(Supply)
           );
 
           if (!Supplys.length) return "";
 
           return `
-            <section class="Supply-section">
-              <div class="Supply-card-list">
+            <section class="supply-section">
+              <div class="supply-card-list">
                 ${Supplys.map((Supply) => renderSupplyCard(Supply)).join("")}
               </div>
             </section>
@@ -1308,19 +1308,19 @@ function renderCourseTopicMode(items) {
     if (!sectionsHtml.trim()) return "";
 
     return `
-      <section class="Supply-course" style="--subject-color: ${subjectColor(item.subject)};">
-        <div class="Supply-course-head">
-          <div class="Supply-course-head-main">
-            <div class="Supply-course-head-left">
-              <div class="Supply-title-with-students">
+      <section class="supply-course" style="--subject-color: ${subjectColor(item.subject)};">
+        <div class="supply-course-head">
+          <div class="supply-course-head-main">
+            <div class="supply-course-head-left">
+              <div class="supply-title-with-students">
                 <h2>${item.shared ? "↔ " : ""}${escapeHtml(item.title)}</h2>
                 ${renderStudentChips(item.students || item.assignedStudents || [])}
               </div>
 
               ${(item.schedText || item.gradeText || item.subject) ? `
-                <div class="Supply-section-meta Supply-section-meta--course">
-                  ${item.schedText ? `<span class="Supply-meta-schedule">${escapeHtml(item.schedText)}</span>` : ""}
-                  ${item.gradeText ? `<span class="Supply-meta-grade">${escapeHtml(item.gradeText)}</span>` : ""}
+                <div class="supply-section-meta supply-section-meta--course">
+                  ${item.schedText ? `<span class="supply-meta-schedule">${escapeHtml(item.schedText)}</span>` : ""}
+                  ${item.gradeText ? `<span class="supply-meta-grade">${escapeHtml(item.gradeText)}</span>` : ""}
                 </div>
               ` : ""}
             </div>
@@ -1372,7 +1372,7 @@ function countSupplysInItems(items) {
     (total, item) =>
       total +
       (item.sections || []).reduce(
-        (sectionTotal, section) => sectionTotal + (section.Supplys || []).length,
+        (sectionTotal, section) => sectionTotal + (section.supplies || []).length,
         0
       ),
     0
@@ -1388,7 +1388,7 @@ function isMasterView() {
 
 function renderAffiliateDisclosure() {
   return `
-    <p class="Supply-affiliate-disclosure">
+    <p class="supply-affiliate-disclosure">
       * As an Amazon Associate we earn from qualifying purchases, and we also receive a small commission at no additional cost to you through other affiliate links on this list.
     </p>
   `;
@@ -1396,8 +1396,8 @@ function renderAffiliateDisclosure() {
 
 function renderSectionHeading(label, showDisclosure = false) {
   return `
-    <div class="Supply-results-heading">
-      <h2 class="Supply-group-title">${escapeHtml(label)}</h2>
+    <div class="supply-results-heading">
+      <h2 class="supply-group-title">${escapeHtml(label)}</h2>
       ${showDisclosure ? renderAffiliateDisclosure() : ""}
     </div>
   `;
@@ -1421,7 +1421,7 @@ function renderGroupedMode(groups) {
     if (!groupHtml.trim()) return "";
 
     const html = `
-      <section class="Supply-group Supply-group-section">
+      <section class="supply-group supply-group-section">
         ${renderSectionHeading(groupLabelWithSupplys(group), visibleGroupIndex === 0)}
         ${groupHtml}
       </section>
@@ -1442,12 +1442,12 @@ function render() {
   const renderedHtml = groups ? renderGroupedMode(groups) : renderSelectedViewMode(items);
   const SupplyCount = renderedHtml.trim() ? 1 : 0;
 
-  const pageTitle = document.getElementById("Supply-title");
+  const pageTitle = document.getElementById("supply-title");
   if (pageTitle) pageTitle.textContent = title;
-  const summary = document.getElementById("Supply-summary");
+  const summary = document.getElementById("supply-summary");
   if (summary) summary.textContent = isMasterView() ? "" : "";
 
-  const results = document.getElementById("Supply-results");
+  const results = document.getElementById("supply-results");
 
   if (!SupplyCount) {
     results.innerHTML = `<div class="empty-state">No Supplys match these selections.</div>`;
@@ -1468,7 +1468,7 @@ async function loadFilterIndex() {
 
 function scrollToWorkingTop(options = {}) {
   const { behavior = "smooth" } = options;
-  const target = document.getElementById("Supply-working-top");
+  const target = document.getElementById("supply-working-top");
 
   if (!target) return;
 
@@ -1483,7 +1483,7 @@ async function loadView(options = {}) {
 
   const preserveScrollY = window.scrollY;
 
-  const results = document.getElementById("Supply-results");
+  const results = document.getElementById("supply-results");
   results.innerHTML = `<div class="empty-state">Loading Supply view…</div>`;
 
   if (scrollToFilters) {
@@ -1537,7 +1537,7 @@ function isFocusedDirectView() {
 }
 
 function setIntroCollapsed(isCollapsed) {
-  const intro = document.getElementById("Supply-intro-section");
+  const intro = document.getElementById("supply-intro-section");
   const button = document.getElementById("toggle-intro");
 
   if (!intro || !button) return;
@@ -1547,7 +1547,7 @@ function setIntroCollapsed(isCollapsed) {
 }
 
 function setFiltersCollapsed(isCollapsed) {
-  const controls = document.getElementById("Supply-controls");
+  const controls = document.getElementById("supply-controls");
   const button = document.getElementById("toggle-filters");
 
   if (!controls || !button) return;
@@ -1574,7 +1574,7 @@ function initializePageState() {
 }
 
 function bindControls() {
-  document.querySelectorAll(".Supply-base-button").forEach((button) => {
+  document.querySelectorAll(".supply-base-button").forEach((button) => {
     button.addEventListener("click", async () => {
       exitDirectView({
         base: button.dataset.base,
@@ -1638,7 +1638,7 @@ function bindControls() {
     await loadView({ scrollToFilters: false, instantScroll: true });
   });
 
-  document.getElementById("Supply-search").addEventListener("input", (event) => {
+  document.getElementById("supply-search").addEventListener("input", (event) => {
     state.query = event.target.value;
     render();
   });
@@ -1690,13 +1690,13 @@ function bindControls() {
       keepSearch: false,
     });
 
-    document.getElementById("Supply-search").value = "";
+    document.getElementById("supply-search").value = "";
 
     await loadView({ scrollToFilters: true, instantScroll: true });
   });
 
-  document.querySelector(".Supply-controls-header").addEventListener("click", () => {
-    const controls = document.getElementById("Supply-controls");
+  document.querySelector(".supply-controls-header").addEventListener("click", () => {
+    const controls = document.getElementById("supply-controls");
     const isCollapsed = !controls.classList.contains("is-collapsed");
 
     pageUiState.filtersCollapsed = isCollapsed;
@@ -1706,7 +1706,7 @@ function bindControls() {
   });
 
   document.getElementById("toggle-intro").addEventListener("click", () => {
-    const intro = document.getElementById("Supply-intro-section");
+    const intro = document.getElementById("supply-intro-section");
     const isCollapsed = !intro.classList.contains("is-collapsed");
 
     pageUiState.introCollapsed = isCollapsed;
@@ -1839,7 +1839,7 @@ async function init() {
     await loadView();
   } catch (error) {
     console.error(error);
-    document.getElementById("Supply-results").innerHTML =
+    document.getElementById("supply-results").innerHTML =
       `<div class="empty-state">Could not load this Supply view.</div>`;
   }
 }
