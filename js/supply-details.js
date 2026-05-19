@@ -1183,7 +1183,7 @@ function renderSupplyCard(Supply) {
               ${Supply.qty ? `<span>QTY: ${escapeHtml(Supply.qty)}</span>` : ""}
             </div>
 
-            ${Supply.rationale ? `
+            ${String(Supply.rationale || "").trim() ? `
               <p class="supply-rationale">
                 <span class="supply-rationale-label">➜ RATIONALE:</span>
                 <span>${escapeHtml(Supply.rationale)}</span>
