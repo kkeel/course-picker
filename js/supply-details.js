@@ -89,7 +89,7 @@ const Supply_MEMBER_STATE_KEY = "alveary_Supply_member_state_v1";
 const SupplyMemberState = {
   version: 1,
 
-  Supplys: {
+  supplies: {
     // Global: resource is in My Supplys somewhere
     mySupplys: [],
 
@@ -623,7 +623,7 @@ function filteredGroups() {
           sections = sections
             .map((section) => ({
               ...section,
-              Supplys: (section.supplies || []).filter((Supply) => SupplyMatches(Supply, state.query)),
+              supplies: (section.supplies || []).filter((Supply) => SupplyMatches(Supply, state.query)),
             }))
             .filter((section) => section.supplies.length);
 
@@ -766,7 +766,7 @@ function filteredItems() {
       sections = sections
         .map((section) => ({
           ...section,
-          Supplys: (section.supplies || []).filter((Supply) => SupplyMatches(Supply, state.query)),
+          supplies: (section.supplies || []).filter((Supply) => SupplyMatches(Supply, state.query)),
         }))
         .filter((section) => section.supplies.length);
 
@@ -1450,7 +1450,7 @@ function render() {
   const results = document.getElementById("supply-results");
 
   if (!SupplyCount) {
-    results.innerHTML = `<div class="empty-state">No Supplys match these selections.</div>`;
+    results.innerHTML = `<div class="empty-state">No supplies match these selections.</div>`;
     return;
   }
 
