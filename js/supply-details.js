@@ -1,6 +1,12 @@
 const ALVEARY_CONFIG = window.ALVEARY_CONFIG || {};
 
-const SUBJECTS = ALVEARY_CONFIG.subjects || ["All Subjects"];
+const SUBJECTS = [
+  "All Subjects",
+  "Basic Supplies",
+  ...(ALVEARY_CONFIG.subjects || []).filter(
+    (subject) => subject !== "All Subjects" && subject !== "Basic Supplies"
+  ),
+];
 const GRADES = ALVEARY_CONFIG.grades || ["All Grades"];
 const TRACKS = ALVEARY_CONFIG.tracks || [
   { value: "", label: "US + Canadian" },
