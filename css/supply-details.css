@@ -1646,3 +1646,38 @@ body.member-tools-enabled .member-tool-only {
 .supply-tipbox-label {
   flex: 0 0 auto;
 }
+
+.supply-main-right {
+  padding-top: 2px;
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  column-gap: 15px;
+  row-gap: 0;
+  align-items: start;
+}
+
+.supply-actions-column {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.supply-meta-block {
+  margin: 0;
+}
+
+.supply-meta-label {
+  margin-bottom: 2px;
+}
+
+.supply-tipbox {
+  margin-top: 8px;
+  gap: 6px;
+}
+
+.supply-note-row,
+.supply-may-sub-row,
+.supply-discount-row {
+  margin: 0;
+}
