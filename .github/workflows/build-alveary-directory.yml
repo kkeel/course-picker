@@ -22,7 +22,7 @@ jobs:
           node-version: "22"
           package-manager-cache: false
 
-      - name: Build directory and resource view JSON
+      - name: Build directory, book views, and supply views
         run: |
           node tools/build-alveary-directory.js
           node tools/build-supply-views.js
