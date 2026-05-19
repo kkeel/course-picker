@@ -1630,3 +1630,19 @@ body.member-tools-enabled .member-tool-only {
 .supply-save-region {
   display: none !important;
 }
+
+.supply-note-row span:last-child,
+.supply-may-sub-row span:last-child,
+.supply-rationale span:last-child,
+.supply-meta-text {
+  white-space: pre-line;
+}
+
+.supply-note-row,
+.supply-may-sub-row {
+  align-items: flex-start;
+}
+
+.supply-tipbox-label {
+  flex: 0 0 auto;
+}
