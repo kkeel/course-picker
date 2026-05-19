@@ -49,7 +49,17 @@ function safeText(value) {
 }
 
 function normalizeSortId(value) {
-  return safeText(value).replace(/\.000$/, "");
+  const text = safeText(value);
+  const parts = text.split(".");
+
+  // Supply records often connect to courses as 001.001.000.000,
+  // while the course shell is 001.001.000.
+  // Only remove the final .000 when there are 4+ parts.
+  if (parts.length >= 4 && parts[parts.length - 1] === "000") {
+    return parts.slice(0, -1).join(".");
+  }
+
+  return text;
 }
 
 function subjectSlug(subject) {
@@ -290,7 +300,6 @@ async function main() {
 
   const groups = normalizeGroups(coursesJson);
   const rows = flattenCourses(groups);
-  const rowsById = new Map(rows.map((row) => [row.id, row]));
   const rowsBySortId = new Map(rows.map((row) => [row.sortId, row]));
 
   const supplies = Array.isArray(suppliesJson)
@@ -342,19 +351,34 @@ async function main() {
     combineViews("master", "master", "All Supplies", courseViews)
   );
 
-  await writeJson(
-    path.join(OUT_DIR, "by-grade.json"),
-    combineGroupedViews(
-      "by-grade",
-      "by-grade",
-      "Supplies by Grade",
-      GRADE_CODES.map((grade) => ({
+  const basicSupplyViews = courseViews.filter(
+  (view) => view.subject === "Basic Supplies"
+);
+
+const nonBasicCourseViews = courseViews.filter(
+  (view) => view.subject !== "Basic Supplies"
+);
+
+await writeJson(
+  path.join(OUT_DIR, "by-grade.json"),
+  combineGroupedViews(
+    "by-grade",
+    "by-grade",
+    "Supplies by Grade",
+    [
+      {
+        id: "basic-supplies",
+        label: "Basic Supplies",
+        rows: basicSupplyViews,
+      },
+      ...GRADE_CODES.map((grade) => ({
         id: grade,
         label: `Grade ${grade.replace("G", "")}`,
-        rows: courseViews.filter((view) => gradeMatches(view, grade)),
-      }))
-    )
-  );
+        rows: nonBasicCourseViews.filter((view) => gradeMatches(view, grade)),
+      })),
+    ]
+  )
+);
 
   await writeJson(
     path.join(OUT_DIR, "by-subject.json"),
