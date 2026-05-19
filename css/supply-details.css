@@ -1118,9 +1118,10 @@ body.member-tools-enabled .supply-member-toolbar-body {
 .supply-cover {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: top;
   display: block;
+  background: #fff;
 }
 
 .supply-card-body {
@@ -1476,6 +1477,21 @@ body.member-tools-enabled .supply-member-toolbar-body {
   line-height: 1.35;
   color: #666d66;
   white-space: pre-line;
+}
+
+.supply-cover {
+  object-fit: contain;
+  background: #fff;
+}
+
+.supply-meta-text,
+.supply-rationale,
+.supply-tipbox {
+  white-space: pre-line;
+}
+
+.supply-link-pill {
+  text-decoration: none;
 }
 
 
