@@ -29,21 +29,21 @@
       <div id="app-step-nav" class="app-step-nav"></div>
     </div>
   </header>
-  <main class="book-shell">
-    <section class="book-hero">
+  <main class="supply-shell">
+    <section class="supply-hero">
     
-      <p id="book-summary" class="book-summary"></p>
+      <p id="supply-summary" class="supply-summary"></p>
     </section>
 
-    <section class="book-intro-section" id="book-intro-section">
-      <div class="book-intro-title-row">
+    <section class="supply-intro-section" id="supply-intro-section">
+      <div class="supply-intro-title-row">
         <h2 class="section-title">Supply List</h2>
-        <button id="toggle-intro" class="book-intro-toggle" type="button">
+        <button id="toggle-intro" class="supply-intro-toggle" type="button">
           Hide intro
         </button>
       </div>
     
-      <div id="book-intro-details" class="book-intro-details">
+      <div id="supply-intro-details" class="supply-intro-details">
         <div class="av-intro-flex">
           <div class="av-intro-paragraphs">
             <p class="section-subtitle av-intro-text">
@@ -94,22 +94,22 @@
       </div>
     </section>
 
-    <div id="book-working-top" class="book-working-top-anchor"></div>
+    <div id="supply-working-top" class="supply-working-top-anchor"></div>
 
-    <section class="book-controls" id="book-controls">
-      <div class="book-controls-header">
+    <section class="supply-controls" id="supply-controls">
+      <div class="supply-controls-header">
         <h2>Filter By</h2>
-        <button id="toggle-filters" class="book-controls-toggle" type="button">Hide</button>
+        <button id="toggle-filters" class="supply-controls-toggle" type="button">Hide</button>
       </div>
     
-      <div class="book-controls-body">
+      <div class="supply-controls-body">
         <div class="control-group control-view">
           <label>View</label>
-          <div class="book-base-toggle" aria-label="Choose book view">
-            <button class="book-base-button is-active" type="button" data-base="grade">
+          <div class="supply-base-toggle" aria-label="Choose Supply view">
+            <button class="supply-base-button is-active" type="button" data-base="grade">
               By Grade
             </button>
-            <button class="book-base-button" type="button" data-base="subject">
+            <button class="supply-base-button" type="button" data-base="subject">
               By Subject
             </button>
           </div>
@@ -156,22 +156,22 @@
         </div>
     
         <div class="control-group control-search">
-          <div class="book-search-row">
+          <div class="supply-search-row">
             <div class="mini-filter-group mini-filter-search">
-              <label for="book-search">Search</label>
-              <input id="book-search" type="search" placeholder="Search supplies, notes, quantities...">
+              <label for="supply-search">Search</label>
+              <input id="supply-search" type="search" placeholder="Search supplies, notes, quantities...">
             </div>
         
             <div class="member-tool-only mini-filter-group mini-filter-planning">
               <label for="planning-tag-filter">Planning Tags</label>
-              <select id="planning-tag-filter" class="book-mini-select">
+              <select id="planning-tag-filter" class="supply-mini-select">
                 <option value="">Planning Tags</option>
               </select>
             </div>
         
             <div class="member-tool-only mini-filter-group mini-filter-students">
               <label for="student-filter">Students</label>
-              <select id="student-filter" class="book-mini-select">
+              <select id="student-filter" class="supply-mini-select">
                 <option value="">Students</option>
               </select>
             </div>
@@ -184,22 +184,22 @@
         
       </div>
 
-      <div class="book-member-toolbar" id="book-member-toolbar">
+      <div class="supply-member-toolbar" id="supply-member-toolbar">
         <button
           id="member-tools-toggle"
-          class="book-member-mode-toggle"
+          class="supply-member-mode-toggle"
           type="button"
           aria-pressed="false"
         >
           Member Tools: Off
         </button>
       
-        <div class="book-member-toolbar-body">
-          <button class="member-mini-toggle" type="button" data-member-filter="myBooks">
+        <div class="supply-member-toolbar-body">
+          <button class="member-mini-toggle" type="button" data-member-filter="mySupplies">
             <span class="mini-toggle-switch">
               <span class="mini-toggle-knob"></span>
             </span>
-            <span>My Books</span>
+            <span>My Supplies</span>
           </button>
       
           <button class="member-mini-toggle" type="button" data-member-filter="myCourses">
@@ -216,7 +216,7 @@
             <span>My Notes</span>
           </button>
       
-          <div class="book-member-toolbar-spacer"></div>
+          <div class="supply-member-toolbar-spacer"></div>
       
           <button class="member-tool-link" type="button">Manage Students</button>
           <button class="member-tool-link" type="button">Print</button>
@@ -225,8 +225,8 @@
       
     </section>
 
-    <section id="book-results" class="book-results">
-      <div class="empty-state">Loading book view…</div>
+    <section id="supply-results" class="supply-results">
+      <div class="empty-state">Loading Supply view…</div>
     </section>
     </main>
 
