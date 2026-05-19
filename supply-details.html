@@ -1,1 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book List</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/book-details.css">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <link rel="icon" type="image/png" href="img/Alveary%20Lt.%20Green.png">
+</head>
+<body>
+  <header class="app-header mb-8 px-6 md:px-16 py-4 md:py-6 flex flex-col md:flex-row md:items-center gap-4">
+    <a href="https://www.alveary.org/alveary-2026-2027/dashboard" class="logo-link flex items-center gap-3" aria-label="Go to Alveary dashboard">
+      <img
+        src="img/Alveary%20Lt.%20Green.png"
+        alt="Alveary logo"
+        class="object-contain"
+        style="height: 40px; width: 40px;"
+      />
+      <div class="logo-text-block">
+        <span class="logo-title">Alveary</span>
+      </div>
+    </a>
+  
+    <div class="mt-3 md:mt-0 md:ml-auto flex items-center justify-end gap-6 text-sm">
+      <div id="app-step-nav" class="app-step-nav"></div>
+    </div>
+  </header>
+  <main class="book-shell">
+    <section class="book-hero">
+    
+      <p id="book-summary" class="book-summary"></p>
+    </section>
 
+    <section class="book-intro-section" id="book-intro-section">
+      <div class="book-intro-title-row">
+        <h2 class="section-title">Book List</h2>
+        <button id="toggle-intro" class="book-intro-toggle" type="button">
+          Hide intro
+        </button>
+      </div>
+    
+      <div id="book-intro-details" class="book-intro-details">
+        <div class="av-intro-flex">
+          <div class="av-intro-paragraphs">
+            <p class="section-subtitle av-intro-text">
+              Explore the Alveary 2026-27 booklist by grade or subject. Learn how books are used in the curriculum, review our
+              <a
+                href="https://www.youtube.com/watch?v=SOu730a00Mo"
+                target="_blank"
+                rel="noopener"
+                class="av-inline-link"
+              >video about choosing books for your students</a>,
+              see format options, and click links for purchasing or accessing free resources. Add notes and save your selections for a personalized booklist.
+            </p>
+          </div>
+    
+          <div class="av-intro-side">
+            <div class="av-video-inline">
+              <a
+                class="av-video-row av-video-row--primary"
+                href="https://www.youtube.com/watch?v=6KuQw_XJkNo"
+                target="_blank"
+                rel="noopener"
+              >
+                <span class="av-play-icon" aria-hidden="true">
+                  <img src="./img/icons/play-button.svg" alt="" />
+                </span>
+                <span class="av-video-text">How We Choose Books</span>
+              </a>
+            
+              <a
+                class="av-video-row"
+                href="https://youtube.com/playlist?list=PLvg0fKfOahKR84TV79NMDkZYEuWy0HoAO&si=fYkD8-4dFOdnTQUH"
+                target="_blank"
+                rel="noopener"
+              >
+                <span class="av-play-icon" aria-hidden="true">
+                  <img src="./img/icons/play-button.svg" alt="" />
+                </span>
+                <span class="av-video-text">Book Previews</span>
+              </a>
+            
+              <a
+                class="av-video-row"
+                href="https://www.youtube.com/playlist?list=PLvg0fKfOahKSx9EEHrcnpAiodF7RNqmi7"
+                target="_blank"
+                rel="noopener"
+              >
+                <span class="av-play-icon" aria-hidden="true">
+                  <img src="./img/icons/play-button.svg" alt="" />
+                </span>
+                <span class="av-video-text">Planning App Tutorials</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="book-working-top" class="book-working-top-anchor"></div>
+
+    <section class="book-controls" id="book-controls">
+      <div class="book-controls-header">
+        <h2>Filter By</h2>
+        <button id="toggle-filters" class="book-controls-toggle" type="button">Hide</button>
+      </div>
+    
+      <div class="book-controls-body">
+        <div class="control-group control-view">
+          <label>View</label>
+          <div class="book-base-toggle" aria-label="Choose book view">
+            <button class="book-base-button is-active" type="button" data-base="grade">
+              By Grade
+            </button>
+            <button class="book-base-button" type="button" data-base="subject">
+              By Subject
+            </button>
+          </div>
+        </div>
+    
+        <div class="control-group">
+          <label for="primary-select">Choose one</label>
+          <div class="select-row">
+            <select id="primary-select"></select>
+            <button class="clear-select" type="button" data-clear="primary" aria-label="Reset main selection">×</button>
+          </div>
+        </div>
+    
+        <div class="control-group">
+          <label for="track-filter">Track</label>
+          <div class="select-row">
+            <select id="track-filter">
+              <option value="">US + Canadian</option>
+              <option value="us">US only</option>
+              <option value="canadian">Canadian only</option>
+            </select>
+            <button class="clear-select" type="button" data-clear="track" aria-label="Reset track">×</button>
+          </div>
+        </div>
+    
+        <div class="control-group">
+          <label for="course-filter">Course</label>
+          <div class="select-row">
+            <select id="course-filter">
+              <option value="">All courses</option>
+            </select>
+            <button class="clear-select" type="button" data-clear="course" aria-label="Reset course">×</button>
+          </div>
+        </div>
+    
+        <div class="control-group">
+          <label for="topic-filter">Topic</label>
+          <div class="select-row">
+            <select id="topic-filter">
+              <option value="">All topics</option>
+            </select>
+            <button class="clear-select" type="button" data-clear="topic" aria-label="Reset topic">×</button>
+          </div>
+        </div>
+    
+        <div class="control-group control-search">
+          <div class="book-search-row">
+            <div class="mini-filter-group mini-filter-search">
+              <label for="book-search">Search</label>
+              <input id="book-search" type="search" placeholder="Search books, authors, notes...">
+            </div>
+        
+            <div class="member-tool-only mini-filter-group mini-filter-planning">
+              <label for="planning-tag-filter">Planning Tags</label>
+              <select id="planning-tag-filter" class="book-mini-select">
+                <option value="">Planning Tags</option>
+              </select>
+            </div>
+        
+            <div class="member-tool-only mini-filter-group mini-filter-students">
+              <label for="student-filter">Students</label>
+              <select id="student-filter" class="book-mini-select">
+                <option value="">Students</option>
+              </select>
+            </div>
+        
+            <button id="clear-filters" class="clear-filters-link" type="button">
+              Clear filters
+            </button>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="book-member-toolbar" id="book-member-toolbar">
+        <button
+          id="member-tools-toggle"
+          class="book-member-mode-toggle"
+          type="button"
+          aria-pressed="false"
+        >
+          Member Tools: Off
+        </button>
+      
+        <div class="book-member-toolbar-body">
+          <button class="member-mini-toggle" type="button" data-member-filter="myBooks">
+            <span class="mini-toggle-switch">
+              <span class="mini-toggle-knob"></span>
+            </span>
+            <span>My Books</span>
+          </button>
+      
+          <button class="member-mini-toggle" type="button" data-member-filter="myCourses">
+            <span class="mini-toggle-switch">
+              <span class="mini-toggle-knob"></span>
+            </span>
+            <span>My Courses</span>
+          </button>
+      
+          <button class="member-mini-toggle" type="button" data-member-filter="myNotes">
+            <span class="mini-toggle-switch">
+              <span class="mini-toggle-knob"></span>
+            </span>
+            <span>My Notes</span>
+          </button>
+      
+          <div class="book-member-toolbar-spacer"></div>
+      
+          <button class="member-tool-link" type="button">Manage Students</button>
+          <button class="member-tool-link" type="button">Print</button>
+        </div>
+      </div>
+      
+    </section>
+
+    <section id="book-results" class="book-results">
+      <div class="empty-state">Loading book view…</div>
+    </section>
+    </main>
+
+    <button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top">
+      ↑ Back to top
+    </button>
+  
+    <script src="./js/alveary-config.js"></script>
+    <script src="./js/app.js"></script>
+    <script src="./js/book-details.js"></script>
+  </body>
+</html>
