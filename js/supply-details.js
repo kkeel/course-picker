@@ -1109,28 +1109,34 @@ function renderHeaderTools({
 }
 
 function renderSupplyCard(Supply) {
+  const supplyId = Supply.supplyId || Supply.id || "";
+  const localImage = supplyId ? `./img/supplies/${supplyId}.webp` : "";
+  const fallbackImage = Supply.image || "";
+  const placeholderImage = "./img/placeholders/Supply.svg";
+
   const badges = [
-    Supply.gradeLevelTag ? { label: Supply.gradeLevelTag, className: "supply-badge--grade" } : null,
     Supply.optional ? { label: "Optional", className: "supply-badge--optional" } : null,
-    Supply.chooseOne ? { label: "Choose one", className: "supply-badge--choose-one" } : null,
+    Supply.groupSupply ? { label: "Group Supply", className: "supply-badge--group" } : null,
+    Supply.household ? { label: "Household", className: "supply-badge--household" } : null,
   ].filter(Boolean);
 
-  const tipRows = [
-    Supply.noteText ? { label: "NOTE:", text: Supply.noteText, className: "supply-note-row" } : null,
-    Supply.maySubText ? { label: "➜ May sub:", text: Supply.maySubText, className: "supply-may-sub-row" } : null,
-    // Hide discount/code on the public view for now.
-    // We can restore this later inside Member Tools mode.
-    null,
+  const purchaseOptions = [
+    Supply.link1 ? { label: Supply.linkText1 || "Option 1", url: Supply.link1 } : null,
+    Supply.link2 ? { label: Supply.linkText2 || "Option 2", url: Supply.link2 } : null,
   ].filter(Boolean);
 
-  const formatOptions = Array.isArray(Supply.formatOptions) ? Supply.formatOptions : [];
-  const purchaseOptions = Array.isArray(Supply.purchaseOptions) ? Supply.purchaseOptions : [];
+  const discountText = [
+    Supply.discount ? "Discount" : "",
+    Supply.discountCode ? `with code ${Supply.discountCode}` : "",
+    Supply.discountLink ? `using link ${Supply.discountLink}` : "",
+  ].filter(Boolean).join(" ");
 
   return `
     <article class="supply-card">
       <div class="supply-card-Supplymark-corner">
         ${renderSupplySaveButton(Supply)}
       </div>
+
       ${badges.length ? `
         <div class="supply-card-badges">
           ${badges.map((badge) => `
@@ -1142,13 +1148,17 @@ function renderSupplyCard(Supply) {
       <div class="supply-cover-wrap">
         <img
           class="supply-cover"
-          src="./${escapeHtml(Supply.imagePath || Supply.placeholderPath || "")}"
+          src="${escapeHtml(localImage || fallbackImage || placeholderImage)}"
+          data-fallback-src="${escapeHtml(fallbackImage || placeholderImage)}"
+          data-placeholder-src="${escapeHtml(placeholderImage)}"
           alt=""
           loading="lazy"
           onerror="
-            if (this.dataset.fallback !== 'placeholder') {
-              this.dataset.fallback = 'placeholder';
-              this.src = './img/placeholders/Supply.svg';
+            if (this.dataset.fallbackSrc && this.src !== this.dataset.fallbackSrc) {
+              this.src = this.dataset.fallbackSrc;
+              this.dataset.fallbackSrc = '';
+            } else if (this.dataset.placeholderSrc && this.src !== this.dataset.placeholderSrc) {
+              this.src = this.dataset.placeholderSrc;
             } else {
               this.style.display='none';
             }
@@ -1162,10 +1172,9 @@ function renderSupplyCard(Supply) {
             <h4 class="supply-card-title">${escapeHtml(Supply.title)}</h4>
 
             <div class="supply-subline">
-              ${Supply.author ? `<span>by ${escapeHtml(Supply.author)}</span>` : ""}
-              ${Supply.isbnAsin ? `<span>ISBN/ASIN: ${escapeHtml(Supply.isbnAsin)}</span>` : ""}
-              ${!Supply.isbnAsin && Supply.isbn ? `<span>ISBN: ${escapeHtml(Supply.isbn)}</span>` : ""}
-              ${!Supply.isbnAsin && Supply.asin ? `<span>ASIN: ${escapeHtml(Supply.asin)}</span>` : ""}
+              ${Supply.location ? `<span>${escapeHtml(Supply.location)}</span>` : ""}
+              ${Supply.isbn ? `<span>ISBN/ASIN: ${escapeHtml(Supply.isbn)}</span>` : ""}
+              ${Supply.qty ? `<span>QTY: ${escapeHtml(Supply.qty)}</span>` : ""}
             </div>
 
             ${Supply.rationale ? `
@@ -1175,25 +1184,26 @@ function renderSupplyCard(Supply) {
               </p>
             ` : ""}
 
-            ${(tipRows.length || formatOptions.length) ? `
+            ${(Supply.note || Supply.maySub || discountText) ? `
               <div class="supply-tipbox">
-                ${tipRows.map((row) => `
-                  <div class="${row.className}">
-                    <span class="supply-tipbox-label">${escapeHtml(row.label)}</span>
-                    <span>${escapeHtml(row.text)}</span>
+                ${Supply.note ? `
+                  <div class="supply-note-row">
+                    <span class="supply-tipbox-label">NOTE:</span>
+                    <span>${escapeHtml(Supply.note)}</span>
                   </div>
-                `).join("")}
+                ` : ""}
 
-                ${formatOptions.length ? `
-                  <div class="supply-format-row">
-                    <span class="supply-tipbox-label">Alt. Formats:</span>
-                    <span class="supply-format-list">
-                      ${formatOptions.map((option) => `
-                        <span class="supply-format-pill supply-format-pill--${escapeHtml(option.type || "other")}">
-                          ${escapeHtml(option.label)}
-                        </span>
-                      `).join("")}
-                    </span>
+                ${Supply.maySub ? `
+                  <div class="supply-may-sub-row">
+                    <span class="supply-tipbox-label">➜ May sub:</span>
+                    <span>${escapeHtml(Supply.maySub)}</span>
+                  </div>
+                ` : ""}
+
+                ${discountText ? `
+                  <div class="supply-discount-row">
+                    <span class="supply-tipbox-label">Discount:</span>
+                    <span>${escapeHtml(discountText.replace(/^Discount\s*/, ""))}</span>
                   </div>
                 ` : ""}
               </div>
@@ -1202,35 +1212,41 @@ function renderSupplyCard(Supply) {
 
           <div class="supply-main-divider" aria-hidden="true"></div>
 
-            <div class="supply-main-right">
-              <div class="supply-scope-column">
-                ${Supply.scopeText ? `
-                  <div class="supply-meta-block supply-meta-block--scope">
-                    <div class="supply-meta-label">Scope</div>
-                    <div class="supply-meta-text">${escapeHtml(Supply.scopeText)}</div>
+          <div class="supply-main-right">
+            <div class="supply-scope-column">
+              ${Supply.scope ? `
+                <div class="supply-meta-block supply-meta-block--scope">
+                  <div class="supply-meta-label">Scope</div>
+                  <div class="supply-meta-text">${escapeHtml(Supply.scope)}</div>
+                </div>
+              ` : ""}
+            </div>
+
+            <div class="supply-actions-column">
+              ${purchaseOptions.length ? `
+                <div class="supply-meta-block supply-purchase-block">
+                  <div class="supply-meta-label">Purchase Options</div>
+                  <div class="supply-link-row">
+                    ${purchaseOptions.map((option) => `
+                      <a
+                        class="supply-link-pill"
+                        href="${escapeHtml(option.url)}"
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        ${escapeHtml(option.label)}
+                      </a>
+                    `).join("")}
                   </div>
-                ` : ""}
-              </div>
-            
-              <div class="supply-actions-column">
-                ${purchaseOptions.length ? `
-                  <div class="supply-meta-block supply-purchase-block">
-                    <div class="supply-meta-label">Purchase Options</div>
-                    <div class="supply-link-row">
-                      ${purchaseOptions.map((option) => `
-                        <span class="supply-link-pill">${escapeHtml(option.label)}</span>
-                      `).join("")}
-                    </div>
-                  </div>
-                ` : ""}
-            
-                ${Supply.sharedText ? `
-                  <div class="supply-meta-block supply-shared-block">
-                    <div class="supply-meta-label">↔ Shared</div>
-                    <div class="supply-meta-text">${escapeHtml(Supply.sharedText)}</div>
-                  </div>
-                ` : ""}
-              </div>
+                </div>
+              ` : ""}
+
+              ${Supply.usedInText ? `
+                <div class="supply-meta-block supply-shared-block">
+                  <div class="supply-meta-label">Used In</div>
+                  <div class="supply-meta-text">${escapeHtml(Supply.usedInText)}</div>
+                </div>
+              ` : ""}
             </div>
           </div>
         </div>
