@@ -1205,6 +1205,15 @@ body.member-tools-enabled .supply-member-toolbar-body {
 }
 
 .supply-subline-row--qty-list {
+  white-space: normal;
+}
+
+.supply-subline-row--qty-list .supply-qty-label {
+  display: block;
+}
+
+.supply-subline-row--qty-list .supply-qty-text {
+  display: block;
   white-space: pre-line;
 }
 
