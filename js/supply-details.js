@@ -1515,6 +1515,27 @@ function renderSectionHeading(label, showDisclosure = false) {
 function renderSelectedViewMode(items) {
   const heading = currentSelectionHeading();
 
+  const shouldSplitBasicSupplies =
+    state.base === "grade" &&
+    state.id !== DEFAULT_GRADE &&
+    Array.isArray(items);
+
+  if (shouldSplitBasicSupplies) {
+    const regularItems = items.filter((item) => item.subject !== "Basic Supplies");
+    const basicSupplyItems = items.filter((item) => item.subject === "Basic Supplies");
+
+    return `
+      ${heading ? renderSectionHeading(heading, true) : ""}
+      ${renderCourseTopicMode(regularItems)}
+      ${basicSupplyItems.length ? `
+        <section class="supply-group supply-group-section">
+          ${renderSectionHeading("Basic Supplies", false)}
+          ${renderCourseTopicMode(basicSupplyItems)}
+        </section>
+      ` : ""}
+    `;
+  }
+
   return `
     ${heading ? renderSectionHeading(heading, true) : ""}
     ${renderCourseTopicMode(items)}
