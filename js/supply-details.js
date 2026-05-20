@@ -864,9 +864,21 @@ function populateCourseTopicFilters() {
   const courseSelect = document.getElementById("course-filter");
   const topicSelect = document.getElementById("topic-filter");
 
-  const scopedFilterItems = isMasterView()
-    ? filterIndexItems()
-    : (state.data?.items || []);
+  const scopedFilterItems = (() => {
+    if (isMasterView()) return filterIndexItems();
+  
+    if (Array.isArray(state.data?.items)) {
+      return state.data.items;
+    }
+  
+    if (Array.isArray(state.data?.groups)) {
+      return state.data.groups
+        .filter(groupMatchesPrimarySelection)
+        .flatMap((group) => group.items || []);
+    }
+  
+    return [];
+  })();
   
   const items = scopedFilterItems.filter(itemMatchesTrack);
 
