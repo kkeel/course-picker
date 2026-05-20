@@ -591,17 +591,23 @@ function escapeHtml(value) {
 }
 
 function formatSupplyMultilineText(value, options = {}) {
-  if (!value) return "";
+  const { preserveLeadingBlank = false } = options;
 
-  const {
-    preserveLeadingBlank = false,
-  } = options;
+  let text = String(value || "")
+    .replace(/\r\n/g, "\n")
+    .replace(/\r/g, "\n")
+    .replace(/[ \t]+$/gm, "")
+    .replace(/\n+$/g, "");
 
-  let text = String(value).replace(/\r\n/g, "\n");
+  if (!text.trim()) return "";
 
-  // Preserve intentional leading blank line
-  if (!preserveLeadingBlank) {
-    text = text.replace(/^\n+/, "");
+  const hasIntentionalLeadingList =
+    preserveLeadingBlank && /^\s*\n+\s*[-•]/.test(text);
+
+  if (hasIntentionalLeadingList) {
+    text = text.replace(/^\s*\n+/, "\n");
+  } else {
+    text = text.replace(/^\s+/, "");
   }
 
   return escapeHtml(text);
@@ -1159,9 +1165,16 @@ function renderSupplyCard(Supply) {
     Supply.discountLink ? `using link ${Supply.discountLink}` : "",
   ].filter(Boolean).join(" ");
 
-  const rationaleText = String(Supply.rationale || "");
-  const noteText = String(Supply.note || "").trim();
-  const maySubText = String(Supply.maySub || "").trim();
+  const qtyText = formatSupplyMultilineText(Supply.qty, {
+    preserveLeadingBlank: true,
+  });
+  
+  const rationaleText = formatSupplyMultilineText(Supply.rationale, {
+    preserveLeadingBlank: true,
+  });
+  
+  const noteText = formatSupplyMultilineText(Supply.note);
+  const maySubText = formatSupplyMultilineText(Supply.maySub);
 
   return `
     <article class="supply-card">
@@ -1216,25 +1229,19 @@ function renderSupplyCard(Supply) {
                 </div>
               ` : ""}
             
-              ${Supply.qty ? `
+              ${qtyText ? `
                 <div class="supply-subline-row supply-subline-row--qty">
                   <span class="supply-qty-label">QTY:</span>
-                  <span class="supply-qty-text">${formatSupplyMultilineText(Supply.qty, {
-                    preserveLeadingBlank: true
-                  })}</span>
+                  <span class="supply-qty-text">${qtyText}</span>
                 </div>
               ` : ""}
             </div>
 
             ${rationaleText ? `
-              <p class="supply-rationale">
+              <div class="supply-rationale">
                 <span class="supply-rationale-label">➜ RATIONALE:</span>
-                <span class="supply-rationale-text">
-                  ${formatSupplyMultilineText(rationaleText, {
-                    preserveLeadingBlank: true
-                  })}
-                </span>
-              </p>
+                <span class="supply-rationale-text">${rationaleText}</span>
+              </div>
             ` : ""}
 
             ${(noteText || maySubText || discountText) ? `
@@ -1242,14 +1249,14 @@ function renderSupplyCard(Supply) {
                 ${noteText ? `
                   <div class="supply-note-row">
                     <span class="supply-tipbox-label">NOTE:</span>
-                    <span class="supply-note-text">${escapeHtml(noteText).replace(/\n/g, "<br>")}</span>
+                    <span class="supply-note-text">${noteText}</span>
                   </div>
                 ` : ""}
 
                 ${maySubText ? `
                   <div class="supply-may-sub-row">
                     <span class="supply-tipbox-label">➜ May sub:</span>
-                    <span class="supply-may-sub-text">${escapeHtml(maySubText)}</span>
+                    <span class="supply-may-sub-text">${maySubText}</span>
                   </div>
                 ` : ""}
 
