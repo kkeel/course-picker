@@ -170,6 +170,32 @@ function splitCsv(value) {
     .filter(Boolean);
 }
 
+function sortIdDepth(value) {
+  return safeText(value).split(".").filter(Boolean).length;
+}
+
+function isTopicRow(row) {
+  return sortIdDepth(row.sortId) >= 4;
+}
+
+function isSharedSupplyRow(row) {
+  return /\bshared\b/i.test(safeText(row.title));
+}
+
+function uniqueSupplies(supplies) {
+  const out = [];
+  const seen = new Set();
+
+  for (const supply of supplies || []) {
+    const key = safeText(supply.id || supply.supplyId || supply.title);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    out.push(supply);
+  }
+
+  return out;
+}
+
 function flattenCourses(groups) {
   const rows = [];
 
@@ -204,34 +230,24 @@ function makeSection(row, supplies) {
 }
 
 function buildView(row, rowsBySortId, suppliesByTarget) {
-  const sections = [];
+  const supplies = [];
 
-  const ownSupplies = suppliesByTarget[row.sortId] || [];
-  if (ownSupplies.length) {
-    sections.push(makeSection(row, ownSupplies));
-  }
+  supplies.push(...(suppliesByTarget[row.sortId] || []));
 
   const topicIds = splitCsv(row.Topic_ID_App).map(normalizeSortId);
 
   for (const topicId of topicIds) {
-    const topic = rowsBySortId.get(topicId);
-    if (!topic) continue;
-
-    const topicSupplies = suppliesByTarget[topic.sortId] || [];
-    if (!topicSupplies.length) continue;
-
-    sections.push({
-      title: topic.title || "Untitled topic",
-      type: "topic",
-      supplies: topicSupplies,
-      books: topicSupplies, // temporary compatibility with cloned book-details.js
-    });
+    const topicSupplies = suppliesByTarget[topicId] || [];
+    supplies.push(...topicSupplies);
   }
 
-  const supplyCount = sections.reduce(
-    (sum, section) => sum + (section.supplies?.length || 0),
-    0
-  );
+  const combinedSupplies = uniqueSupplies(supplies);
+
+  const sections = combinedSupplies.length
+    ? [makeSection(row, combinedSupplies)]
+    : [];
+
+  const supplyCount = combinedSupplies.length;
 
   return {
     view: "course",
@@ -245,7 +261,7 @@ function buildView(row, rowsBySortId, suppliesByTarget) {
     shared: row.shared || "",
     sortId: row.id,
     supplyCount,
-    bookCount: supplyCount, // temporary compatibility with cloned book-details.js
+    bookCount: supplyCount,
     sections,
   };
 }
@@ -308,7 +324,11 @@ async function main() {
 
   const suppliesByTarget = buildSuppliesByTarget(supplies);
 
-  const courseViews = rows
+  const visibleRows = rows.filter((row) => !isSharedSupplyRow(row));
+  const courseRows = visibleRows.filter((row) => !isTopicRow(row));
+  const topicRows = visibleRows.filter((row) => isTopicRow(row));
+  
+  const courseViews = courseRows
     .map((row) => buildView(row, rowsBySortId, suppliesByTarget))
     .filter((view) => view.supplyCount > 0);
 
@@ -318,7 +338,7 @@ async function main() {
     await writeJson(path.join(OUT_DIR, "course", `${view.id}.json`), view);
   }
 
-  for (const row of rows) {
+  for (const row of topicRows) {
   const topicSupplies = suppliesByTarget[row.sortId] || [];
   if (!topicSupplies.length) continue;
 
