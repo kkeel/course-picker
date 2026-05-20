@@ -590,6 +590,23 @@ function escapeHtml(value) {
     .replace(/'/g, "&#39;");
 }
 
+function formatSupplyMultilineText(value, options = {}) {
+  if (!value) return "";
+
+  const {
+    preserveLeadingBlank = false,
+  } = options;
+
+  let text = String(value).replace(/\r\n/g, "\n");
+
+  // Preserve intentional leading blank line
+  if (!preserveLeadingBlank) {
+    text = text.replace(/^\n+/, "");
+  }
+
+  return escapeHtml(text);
+}
+
 function slugSubject(subject) {
   return String(subject || "")
     .trim()
@@ -1142,7 +1159,7 @@ function renderSupplyCard(Supply) {
     Supply.discountLink ? `using link ${Supply.discountLink}` : "",
   ].filter(Boolean).join(" ");
 
-  const rationaleText = String(Supply.rationale || "").trim();
+  const rationaleText = String(Supply.rationale || "");
   const noteText = String(Supply.note || "").trim();
   const maySubText = String(Supply.maySub || "").trim();
 
@@ -1187,15 +1204,36 @@ function renderSupplyCard(Supply) {
             <h4 class="supply-card-title">${escapeHtml(Supply.title)}</h4>
 
             <div class="supply-subline">
-              ${Supply.location ? `<span>${escapeHtml(Supply.location)}</span>` : ""}
-              ${Supply.isbn ? `<span>ISBN/ASIN: ${escapeHtml(Supply.isbn)}</span>` : ""}
-              ${Supply.qty ? `<span>QTY: ${escapeHtml(Supply.qty)}</span>` : ""}
+              ${Supply.location ? `
+                <div class="supply-subline-row">
+                  ${escapeHtml(Supply.location)}
+                </div>
+              ` : ""}
+            
+              ${Supply.isbn ? `
+                <div class="supply-subline-row">
+                  ISBN/ASIN: ${escapeHtml(Supply.isbn)}
+                </div>
+              ` : ""}
+            
+              ${Supply.qty ? `
+                <div class="supply-subline-row supply-subline-row--qty">
+                  <span class="supply-qty-label">QTY:</span>
+                  <span class="supply-qty-text">${formatSupplyMultilineText(Supply.qty, {
+                    preserveLeadingBlank: true
+                  })}</span>
+                </div>
+              ` : ""}
             </div>
 
             ${rationaleText ? `
               <p class="supply-rationale">
                 <span class="supply-rationale-label">➜ RATIONALE:</span>
-                <span class="supply-rationale-text">${escapeHtml(rationaleText)}</span>
+                <span class="supply-rationale-text">
+                  ${formatSupplyMultilineText(rationaleText, {
+                    preserveLeadingBlank: true
+                  })}
+                </span>
               </p>
             ` : ""}
 
