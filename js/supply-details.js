@@ -605,7 +605,7 @@ function formatSupplyMultilineText(value, options = {}) {
     preserveLeadingBlank && /^\s*\n+\s*[-•]/.test(text);
 
   if (hasIntentionalLeadingList) {
-    text = text.replace(/^\s*\n+/, "\n");
+    text = text.replace(/^\s*\n+/, "");
   } else {
     text = text.replace(/^\s+/, "");
   }
