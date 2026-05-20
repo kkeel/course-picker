@@ -1155,8 +1155,10 @@ function renderSupplyCard(Supply) {
   const badges = [
     Supply.optional ? { label: "Optional", className: "supply-badge--optional" } : null,
     Supply.groupSupply ? { label: "Group Supply", className: "supply-badge--group" } : null,
-    Supply.household ? { label: "Household", className: "supply-badge--household" } : null,
   ].filter(Boolean);
+  
+  const locationText = String(Supply.location || "").trim();
+  const isbnText = String(Supply.isbn || "").trim();
 
   const purchaseOptions = [
     Supply.link1 ? { label: Supply.linkText1 || "Option 1", url: Supply.link1 } : null,
@@ -1225,15 +1227,15 @@ function renderSupplyCard(Supply) {
             <h4 class="supply-card-title">${escapeHtml(Supply.title)}</h4>
 
             <div class="supply-subline">
-              ${Supply.location ? `
+              ${locationText ? `
                 <div class="supply-subline-row">
-                  ${escapeHtml(Supply.location)}
+                  ${escapeHtml(locationText)}
                 </div>
               ` : ""}
-            
-              ${Supply.isbn ? `
+              
+              ${isbnText ? `
                 <div class="supply-subline-row">
-                  ISBN/ASIN: ${escapeHtml(Supply.isbn)}
+                  ISBN/ASIN: ${escapeHtml(isbnText)}
                 </div>
               ` : ""}
             
