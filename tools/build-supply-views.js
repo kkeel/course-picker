@@ -416,9 +416,23 @@ await writeJson(
 
   for (const grade of GRADE_CODES) {
     const rowsForGrade = courseViews.filter((view) => gradeMatches(view, grade));
+  
+    const nonBasicRowsForGrade = rowsForGrade.filter(
+      (view) => view.subject !== "Basic Supplies"
+    );
+  
+    const basicRowsForGrade = rowsForGrade.filter(
+      (view) => view.subject === "Basic Supplies"
+    );
+  
     await writeJson(
       path.join(OUT_DIR, "grade", `${grade}.json`),
-      combineViews("grade", grade, `Grade ${grade.replace("G", "")} Supplies`, rowsForGrade)
+      combineViews(
+        "grade",
+        grade,
+        `Grade ${grade.replace("G", "")} Supplies`,
+        [...nonBasicRowsForGrade, ...basicRowsForGrade]
+      )
     );
   }
 
