@@ -1142,6 +1142,10 @@ function renderSupplyCard(Supply) {
     Supply.discountLink ? `using link ${Supply.discountLink}` : "",
   ].filter(Boolean).join(" ");
 
+  const rationaleText = String(Supply.rationale || "").trim();
+  const noteText = String(Supply.note || "").trim();
+  const maySubText = String(Supply.maySub || "").trim();
+
   return `
     <article class="supply-card">
       <div class="supply-card-Supplymark-corner">
@@ -1188,29 +1192,26 @@ function renderSupplyCard(Supply) {
               ${Supply.qty ? `<span>QTY: ${escapeHtml(Supply.qty)}</span>` : ""}
             </div>
 
-            ${String(Supply.rationale || "").trim() ? `
+            ${rationaleText ? `
               <p class="supply-rationale">
                 <span class="supply-rationale-label">➜ RATIONALE:</span>
-                <span>${escapeHtml(Supply.rationale)}</span>
+                <span class="supply-rationale-text">${escapeHtml(rationaleText)}</span>
               </p>
             ` : ""}
 
-            ${(Supply.note || Supply.maySub || discountText) ? `
+            ${(noteText || maySubText || discountText) ? `
               <div class="supply-tipbox">
-                ${Supply.note ? `
+                ${noteText ? `
                   <div class="supply-note-row">
                     <span class="supply-tipbox-label">NOTE:</span>
-                    <span class="supply-note-text">
-                      ${String(Supply.note || "")
-                        .replace(/\n/g, "<br>")}
-                    </span>
+                    <span class="supply-note-text">${escapeHtml(noteText).replace(/\n/g, "<br>")}</span>
                   </div>
                 ` : ""}
 
-                ${Supply.maySub ? `
+                ${maySubText ? `
                   <div class="supply-may-sub-row">
                     <span class="supply-tipbox-label">➜ May sub:</span>
-                    <span>${escapeHtml(Supply.maySub)}</span>
+                    <span class="supply-may-sub-text">${escapeHtml(maySubText)}</span>
                   </div>
                 ` : ""}
 
