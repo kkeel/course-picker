@@ -1192,7 +1192,15 @@ body.member-tools-enabled .supply-member-toolbar-body {
 }
 
 .supply-subline-row--qty {
+  white-space: normal;
+}
+
+.supply-subline-row--qty-list {
   white-space: pre-line;
+}
+
+.supply-subline-row--qty:not(.supply-subline-row--qty-list) .supply-qty-text {
+  white-space: normal;
 }
 
 .supply-qty-label {
