@@ -1185,7 +1185,7 @@ function renderSupplyCard(Supply) {
   const maySubText = formatSupplyMultilineText(Supply.maySub);
 
   return `
-    <article class="supply-card">
+    <article class="supply-card ${badges.length ? "" : "supply-card--no-badges"}">
       <div class="supply-card-Supplymark-corner">
         ${renderSupplySaveButton(Supply)}
       </div>
