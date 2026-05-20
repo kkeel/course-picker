@@ -769,18 +769,25 @@ function SupplyMatches(Supply, query) {
 function itemMatchesTrack(item) {
   if (!state.track) return true;
 
-  const text = [
-    item.title,
-    item.subject,
-    item.gradeText,
-    ...(item.sections || []).map((section) => section.title),
-  ].join(" ").toLowerCase();
+  const title = String(item?.title || "").toLowerCase();
 
-  const isCanadian = text.includes("canadian") || text.includes("canada");
-  const isUS = text.includes("u.s.") || text.includes("us ") || text.includes("american");
+  const isCanadianVariant =
+    title.includes("canada") ||
+    title.includes("canadian");
 
-  if (state.track === "canadian") return isCanadian;
-  if (state.track === "us") return !isCanadian;
+  const isUSVariant =
+    title.includes("u.s.") ||
+    title.includes("(us)") ||
+    title.includes("(u.s.)") ||
+    title.includes(" us ");
+
+  if (state.track === "canadian") {
+    return isCanadianVariant || !isUSVariant;
+  }
+
+  if (state.track === "us") {
+    return isUSVariant || !isCanadianVariant;
+  }
 
   return true;
 }
