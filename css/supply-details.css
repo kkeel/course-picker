@@ -79,7 +79,7 @@ a {
 
 
 /* =========================================================
-   3. BOOK LIST INTRO / VIDEO LINKS
+   3. SUPPLY LIST INTRO / VIDEO LINKS
    ========================================================= */
 
 .supply-intro-section {
@@ -834,7 +834,7 @@ body.member-tools-enabled .supply-member-toolbar-body {
 
 /* =========================================================
    Course / Topic header tools
-   Mirrors live book page layout
+   Mirrors live supply page layout
    ========================================================= */
 
 .supply-course-head-main,
@@ -1069,7 +1069,7 @@ body.member-tools-enabled .supply-member-toolbar-body {
 
 
 /* =========================================================
-   10. BOOK CARDS
+   10. SUPPLY CARDS
    ========================================================= */
 
 .supply-card-list {
@@ -1203,7 +1203,7 @@ body.member-tools-enabled .supply-member-toolbar-body {
 }
 
 /* =========================================================
-   My Books button on book cards
+   My Supplies button on supply cards
    ========================================================= */
 
 .supply-card-bookmark-corner {
@@ -1490,7 +1490,7 @@ body.member-tools-enabled .supply-member-toolbar-body {
 
 
 /* =========================================================
-   13. BOOK CARD RESPONSIVE BEHAVIOR
+   13. SUPPLY CARD RESPONSIVE BEHAVIOR
    ========================================================= */
 
 @media (max-width: 760px) {
@@ -1583,63 +1583,36 @@ body.member-tools-enabled .supply-member-toolbar-body {
 }
 
 /* =========================================================
-   TEMPORARILY HIDE MEMBER / NAV TOOLS
-   Keep code in place for later member-tool rebuild.
+   15. TEMPORARY HIDES / MEMBER TOOLS
    ========================================================= */
 
-/* Keep Alveary logo visible */
 .app-header {
   display: block;
 }
 
-/* Hide navigation links/menu only */
 .app-nav,
 #app-step-nav {
   display: none !important;
 }
 
-/* Hide member tools toggle and member toolbar in filter box */
 .supply-member-toolbar,
 .supply-member-mode-toggle,
-#member-tools-toggle {
-  display: none !important;
-}
-
-/* Hide member-only filter controls */
+#member-tools-toggle,
 .member-tool-only,
-body.member-tools-enabled .member-tool-only {
-  display: none !important;
-}
-
-/* Hide course/topic header member buttons for now */
+body.member-tools-enabled .member-tool-only,
 .card-header-tools,
 .card-header-actions,
 .header-student-chip-list,
-.planner-tag-list {
-  display: none !important;
-}
-
-/* Hide book-card My Books buttons for now */
+.planner-tag-list,
 .supply-card-bookmark-corner,
 .supply-save-region {
   display: none !important;
 }
 
-.supply-note-row span:last-child,
-.supply-may-sub-row span:last-child,
-.supply-rationale span:last-child,
-.supply-meta-text {
-  white-space: pre-line;
-}
 
-.supply-note-row,
-.supply-may-sub-row {
-  align-items: flex-start;
-}
-
-.supply-tipbox-label {
-  flex: 0 0 auto;
-}
+/* =========================================================
+   16. SUPPLY CARD SPACING CLEANUP
+   ========================================================= */
 
 .supply-main-right {
   padding-top: 2px;
@@ -1665,23 +1638,14 @@ body.member-tools-enabled .member-tool-only {
   margin-bottom: 2px;
 }
 
-.supply-tipbox {
-  margin-top: 8px;
-  gap: 6px;
-}
-
-.supply-note-row,
-.supply-may-sub-row,
-.supply-discount-row {
-  margin: 0;
-}
-
 .supply-rationale {
   margin: 4px 0 0;
 }
 
-.supply-rationale-label {
+.supply-rationale-label,
+.supply-tipbox-label {
   display: inline;
+  margin-right: 3px;
 }
 
 .supply-tipbox {
@@ -1703,9 +1667,4 @@ body.member-tools-enabled .member-tool-only {
 .supply-rationale-text,
 .supply-meta-text {
   white-space: pre-line;
-}
-
-.supply-tipbox-label {
-  display: inline;
-  margin-right: 3px;
 }
