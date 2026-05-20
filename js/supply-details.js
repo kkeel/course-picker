@@ -1179,6 +1179,8 @@ function renderSupplyCard(Supply) {
     preserveLeadingBlank: true,
   });
   
+  const rationaleHasLeadingList = hasIntentionalLeadingList(Supply.rationale);
+  
   const noteText = formatSupplyMultilineText(Supply.note);
   const maySubText = formatSupplyMultilineText(Supply.maySub);
 
@@ -1244,7 +1246,7 @@ function renderSupplyCard(Supply) {
             </div>
 
             ${rationaleText ? `
-              <div class="supply-rationale">
+              <div class="supply-rationale ${rationaleHasLeadingList ? "supply-rationale--list" : ""}">
                 <span class="supply-rationale-label">➜ RATIONALE:</span>
                 <span class="supply-rationale-text">${rationaleText}</span>
               </div>
