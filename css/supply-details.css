@@ -1089,6 +1089,7 @@ body.member-tools-enabled .supply-member-toolbar-body {
   background: #fbfbf9;
   display: grid;
   grid-template-columns: 64px 1fr;
+  grid-template-rows: auto auto;
   gap: 12px;
   align-items: start;
   position: relative;
@@ -1105,6 +1106,7 @@ body.member-tools-enabled .supply-member-toolbar-body {
 }
 
 .supply-cover-wrap {
+  grid-row: 2;
   width: 64px;
   height: 84px;
   border-radius: 10px;
@@ -1122,7 +1124,17 @@ body.member-tools-enabled .supply-member-toolbar-body {
 }
 
 .supply-card-body {
+  grid-row: 2;
   min-width: 0;
+}
+
+.supply-card--no-badges {
+  grid-template-rows: auto;
+}
+
+.supply-card--no-badges .supply-cover-wrap,
+.supply-card--no-badges .supply-card-body {
+  grid-row: 1;
 }
 
 .supply-main-row {
