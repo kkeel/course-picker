@@ -1181,12 +1181,29 @@ body.member-tools-enabled .supply-member-toolbar-body {
 .supply-subline {
   margin-top: 4px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  align-items: baseline;
+  flex-direction: column;
+  gap: 2px;
   font-size: 0.9rem;
   opacity: 0.85;
-  line-height: 1.35;
+  line-height: 1.4;
+}
+
+.supply-subline-row {
+  display: block;
+}
+
+.supply-subline-row--qty {
+  white-space: pre-line;
+}
+
+.supply-qty-label {
+  font-weight: 500;
+  margin-right: 4px;
+}
+
+.supply-qty-text,
+.supply-rationale-text {
+  white-space: pre-line;
 }
 
 .supply-rationale {
