@@ -636,18 +636,32 @@ function viewPath(base, id) {
   }
 
   if (base === "subject") {
-    if (id === DEFAULT_SUBJECT) return "./data/supply-views/by-subject.json";
-    return `./data/supply-views/subject/${slugSubject(id)}.json`;
+    return "./data/supply-views/by-subject.json";
   }
 
   if (id === DEFAULT_GRADE) return "./data/supply-views/by-grade.json";
   return `./data/supply-views/grade/${id}.json`;
 }
 
+function groupMatchesPrimarySelection(group) {
+  if (!group) return false;
+
+  if (state.base === "subject" && state.id !== DEFAULT_SUBJECT) {
+    return group.label === state.id || group.id === slugSubject(state.id);
+  }
+
+  if (state.base === "grade" && state.id !== DEFAULT_GRADE) {
+    return group.id === state.id;
+  }
+
+  return true;
+}
+
 function filteredGroups() {
   if (!Array.isArray(state.data?.groups)) return null;
 
   return state.data.groups
+    .filter(groupMatchesPrimarySelection)
     .map((group) => {
       const items = (group.items || [])
         .filter(itemMatchesFilters)
@@ -1535,7 +1549,7 @@ function render() {
   const items = groups ? [] : filteredItems();
 
   const renderedHtml = groups ? renderGroupedMode(groups) : renderSelectedViewMode(items);
-  const SupplyCount = renderedHtml.trim() ? 1 : 0;
+  const SupplyCount = groups ? groups.length : countSuppliesInItems(items);
 
   const pageTitle = document.getElementById("supply-title");
   if (pageTitle) pageTitle.textContent = title;
