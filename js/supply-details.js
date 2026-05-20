@@ -613,6 +613,10 @@ function formatSupplyMultilineText(value, options = {}) {
   return escapeHtml(text);
 }
 
+function hasIntentionalLeadingList(value) {
+  return /^\s*\n+\s*[-•]/.test(String(value || "").replace(/\r\n/g, "\n").replace(/\r/g, "\n"));
+}
+
 function slugSubject(subject) {
   return String(subject || "")
     .trim()
@@ -1168,6 +1172,8 @@ function renderSupplyCard(Supply) {
   const qtyText = formatSupplyMultilineText(Supply.qty, {
     preserveLeadingBlank: true,
   });
+
+  const qtyHasLeadingList = hasIntentionalLeadingList(Supply.qty);
   
   const rationaleText = formatSupplyMultilineText(Supply.rationale, {
     preserveLeadingBlank: true,
@@ -1230,7 +1236,7 @@ function renderSupplyCard(Supply) {
               ` : ""}
             
               ${qtyText ? `
-                <div class="supply-subline-row supply-subline-row--qty">
+                <div class="supply-subline-row supply-subline-row--qty ${qtyHasLeadingList ? "supply-subline-row--qty-list" : ""}">
                   <span class="supply-qty-label">QTY:</span>
                   <span class="supply-qty-text">${qtyText}</span>
                 </div>
