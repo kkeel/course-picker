@@ -14,7 +14,7 @@
     "New Testament: Grades 3-6",
     "Church History: Grades 4-6"
   ],
-  "updatedAt": "2026-05-19T08:53:07.238Z",
+  "updatedAt": "2026-05-20T08:48:55.589Z",
   "terms": [
     {
       "termNumber": 1,
@@ -24,6 +24,24 @@
           "weekNumber": 1,
           "weekLabel": "Week 1",
           "lessons": [
+            {
+              "lessonId": "reciP59UEOurRnc5V",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100101,
+              "lessonLabel": "",
+              "title": "20m Old Testament: Grades 3-6 - Lesson 1",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Introduction to the Old Testament Historical Books",
+                  "url": "https://www.thegospelcoalition.org/essay/historical-books/"
+                }
+              ]
+            },
             {
               "lessonId": "recjqLmOjJEQjiw0E",
               "termNumber": 1,
@@ -39,6 +57,24 @@
                 {
                   "text": "Bible Project: Book of John (First Half)",
                   "url": "https://bibleproject.com/videos/john-1-12/"
+                }
+              ]
+            },
+            {
+              "lessonId": "rec6QIrXDmS8FDPIA",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 2,
+              "sort": 100104,
+              "lessonLabel": "",
+              "title": "20m New Testament: Grades 3-6 - Lesson 2",
+              "anchor": "term-1-week-1-lesson-2",
+              "links": [
+                {
+                  "text": "John 1",
+                  "url": "https://bibleproject.com/videos/john-1/"
                 }
               ]
             },
@@ -491,6 +527,30 @@
                 {
                   "text": "Book of John Translated by Adoniram Judson",
                   "url": "https://archive.org/details/04-BookOfJohnnewTestamentTranslatedIntoTheBurmeseburma-Myanmar/page/n1/mode/2up"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 34,
+          "weekLabel": "Week 10",
+          "lessons": [
+            {
+              "lessonId": "recSl1z3tO4ah66OF",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 34,
+              "weekLabel": "Week 10",
+              "sequence": 67,
+              "sort": 303401,
+              "lessonLabel": "",
+              "title": "20m Old Testament: Grades 3-6 - Lesson 67",
+              "anchor": "term-3-week-34-lesson-67",
+              "links": [
+                {
+                  "text": "Psalms Written During 1 & 2 Samuel ",
+                  "url": "https://www.esv.org/resources/esv-global-study-bible/chart-09-02/"
                 }
               ]
             }

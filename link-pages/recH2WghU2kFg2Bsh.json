@@ -1,18 +1,23 @@
 {
-  "id": "rechldKYJ1ONHghSw",
-  "title": "Playground Songs & Rhymes",
-  "lessonSetName": "Playground Songs & Rhymes",
-  "subject": "Physical Education",
-  "gradeText": "GRADE(S): 1-3",
-  "sortId": "015.001.001.001",
+  "id": "recH2WghU2kFg2Bsh",
+  "title": "Folk Songs",
+  "lessonSetName": "Folk Songs",
+  "subject": "Music",
+  "gradeText": "GRADE(S): 1-12",
+  "sortId": "014.001.001.004",
   "rowType": "topic",
   "hasTopics": false,
   "isStandaloneCourse": false,
   "courseConnectionNames": [
-    "PE: Grades 1-3"
+    "Music: Intro",
+    "Music: Level 1",
+    "Music: Level 2",
+    "Music: Level 3",
+    "Music: Level 4",
+    "Music: Level 5"
   ],
   "topicConnectionNames": [],
-  "updatedAt": "2026-05-20T08:48:55.885Z",
+  "updatedAt": "2026-05-20T08:48:55.861Z",
   "terms": [
     {
       "termNumber": 1,
@@ -23,7 +28,7 @@
           "weekLabel": "Week 1",
           "lessons": [
             {
-              "lessonId": "recP98NIz8G6aPKS9",
+              "lessonId": "recszF049nxRcbRZy",
               "termNumber": 1,
               "termLabel": "Term 1",
               "weekNumber": 1,
@@ -31,12 +36,20 @@
               "sequence": 1,
               "sort": 0,
               "lessonLabel": "Lesson 1",
-              "title": "20m Playground Songs & Rhymes - Lesson 1",
+              "title": "10m Folk Songs - Lesson 1",
               "anchor": "term-1-week-1-lesson-1",
               "links": [
                 {
-                  "text": "Hot Cross Buns",
-                  "url": "https://soundcloud.com/alveary/hot-cross-buns-1?in=alveary/sets/p-e-2026-27&si=38b8ec4f4abb4058bbe781c08e7f8c6f&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Steal Away YouTube",
+                  "url": "https://www.youtube.com/watch?v=Wo0AOf9b6fU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=3"
+                },
+                {
+                  "text": "History Article 1",
+                  "url": "https://aaregistry.org/story/wallace-willis-lyricist-born/"
+                },
+                {
+                  "text": "History Article 2",
+                  "url": "https://www.okhistory.org/publications/enc/entry?entry=WI018"
                 }
               ]
             }
@@ -47,7 +60,7 @@
           "weekLabel": "Week 2",
           "lessons": [
             {
-              "lessonId": "recGo6Ga61DfBtqMF",
+              "lessonId": "rec9UlJZE0ywld46H",
               "termNumber": 1,
               "termLabel": "Term 1",
               "weekNumber": 2,
@@ -55,12 +68,24 @@
               "sequence": 2,
               "sort": 0,
               "lessonLabel": "Lesson 2",
-              "title": "20m Playground Songs & Rhymes - Lesson 2",
+              "title": "10m Folk Songs - Lesson 2",
               "anchor": "term-1-week-2-lesson-2",
               "links": [
                 {
-                  "text": "Hot Cross Buns",
-                  "url": "https://soundcloud.com/alveary/hot-cross-buns-1?in=alveary/sets/p-e-2026-27&si=38b8ec4f4abb4058bbe781c08e7f8c6f&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Steal Away YouTube",
+                  "url": "https://www.youtube.com/watch?v=Wo0AOf9b6fU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=3"
+                },
+                {
+                  "text": "Jubilee Singers Article",
+                  "url": "https://music.si.edu/story/fisk-jubilee-singers-preserving-african-american-spirituals"
+                },
+                {
+                  "text": "Jubilee Singers Video",
+                  "url": "https://www.youtube.com/watch?v=ylD4zvvN79Y"
+                },
+                {
+                  "text": "Swing Low Sweet Charior",
+                  "url": "https://www.youtube.com/watch?v=GUvBGZnL9rE"
                 }
               ]
             }
@@ -71,7 +96,7 @@
           "weekLabel": "Week 3",
           "lessons": [
             {
-              "lessonId": "recqIZMSjy0xVateB",
+              "lessonId": "receYUesawdlAbHx5",
               "termNumber": 1,
               "termLabel": "Term 1",
               "weekNumber": 3,
@@ -79,12 +104,16 @@
               "sequence": 3,
               "sort": 0,
               "lessonLabel": "Lesson 3",
-              "title": "20m Playground Songs & Rhymes - Lesson 3",
+              "title": "10m Folk Songs - Lesson 3",
               "anchor": "term-1-week-3-lesson-3",
               "links": [
                 {
-                  "text": "Hot Cross Buns",
-                  "url": "https://soundcloud.com/alveary/hot-cross-buns-1?in=alveary/sets/p-e-2026-27&si=38b8ec4f4abb4058bbe781c08e7f8c6f&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Steal Away YouTube",
+                  "url": "https://www.youtube.com/watch?v=Wo0AOf9b6fU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=3"
+                },
+                {
+                  "text": "Jubilee Singer Travels",
+                  "url": "https://fiskmusicmusiceverywhere.omeka.net/exhibits/show/the_fisk_jubilee_singers_trave/overview--the-fisk-jubilee-sin"
                 }
               ]
             }
@@ -95,7 +124,7 @@
           "weekLabel": "Week 4",
           "lessons": [
             {
-              "lessonId": "recbRlmcLfOB1zlcB",
+              "lessonId": "recm4rn2z4aXpV370",
               "termNumber": 1,
               "termLabel": "Term 1",
               "weekNumber": 4,
@@ -103,12 +132,16 @@
               "sequence": 4,
               "sort": 0,
               "lessonLabel": "Lesson 4",
-              "title": "20m Playground Songs & Rhymes - Lesson 4",
+              "title": "10m Folk Songs - Lesson 4",
               "anchor": "term-1-week-4-lesson-4",
               "links": [
                 {
-                  "text": "Hot Cross Buns",
-                  "url": "https://soundcloud.com/alveary/hot-cross-buns-1?in=alveary/sets/p-e-2026-27&si=38b8ec4f4abb4058bbe781c08e7f8c6f&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Steal Away YouTube",
+                  "url": "https://www.youtube.com/watch?v=Wo0AOf9b6fU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=3"
+                },
+                {
+                  "text": "Steal Away Versions",
+                  "url": "https://www.youtube.com/watch?v=SJUPr6S4E70&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=44&pp=iAQB8AUBsAgC"
                 }
               ]
             }
@@ -119,7 +152,7 @@
           "weekLabel": "Week 5",
           "lessons": [
             {
-              "lessonId": "recVfbOWV8irmArCl",
+              "lessonId": "reczbVnbphJsIi4r7",
               "termNumber": 1,
               "termLabel": "Term 1",
               "weekNumber": 5,
@@ -127,12 +160,20 @@
               "sequence": 5,
               "sort": 0,
               "lessonLabel": "Lesson 5",
-              "title": "20m Playground Songs & Rhymes - Lesson 5",
+              "title": "10m Folk Songs - Lesson 5",
               "anchor": "term-1-week-5-lesson-5",
               "links": [
                 {
-                  "text": "Where, Oh, Where",
-                  "url": "https://soundcloud.com/alveary/where-oh-where-1?in=alveary/sets/p-e-2026-27&si=01598f068892453f96f3464c2a1b1cdd&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Wellerman History",
+                  "url": "https://theconversation.com/the-viral-wellerman-sea-shanty-is-also-a-window-into-the-remarkable-cross-cultural-whaling-history-of-aotearoa-new-zealand-153634"
+                },
+                {
+                  "text": "Wellerman YouTube",
+                  "url": "https://www.youtube.com/watch?v=E_8tAyecj2g&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=9&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Wellerman Sheet Music",
+                  "url": "https://assets.umusic.co.uk/ucj/LongestJohns/Wellerman.pdf"
                 }
               ]
             }
@@ -143,7 +184,7 @@
           "weekLabel": "Week 6",
           "lessons": [
             {
-              "lessonId": "rec5wq6cAyFgwWtlS",
+              "lessonId": "recdpw4E215olUeF7",
               "termNumber": 1,
               "termLabel": "Term 1",
               "weekNumber": 6,
@@ -151,12 +192,16 @@
               "sequence": 6,
               "sort": 0,
               "lessonLabel": "Lesson 6",
-              "title": "20m Playground Songs & Rhymes - Lesson 6",
+              "title": "10m Folk Songs - Lesson 6",
               "anchor": "term-1-week-6-lesson-6",
               "links": [
                 {
-                  "text": "Where, Oh, Where",
-                  "url": "https://soundcloud.com/alveary/where-oh-where-1?in=alveary/sets/p-e-2026-27&si=01598f068892453f96f3464c2a1b1cdd&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Wellerman YouTube",
+                  "url": "https://www.youtube.com/watch?v=E_8tAyecj2g&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=9&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Wellerman History",
+                  "url": "https://theconversation.com/the-viral-wellerman-sea-shanty-is-also-a-window-into-the-remarkable-cross-cultural-whaling-history-of-aotearoa-new-zealand-153634"
                 }
               ]
             }
@@ -167,7 +212,7 @@
           "weekLabel": "Week 7",
           "lessons": [
             {
-              "lessonId": "recN2zmgC8hTQlKc5",
+              "lessonId": "recUTcuvQXW5HPCtD",
               "termNumber": 1,
               "termLabel": "Term 1",
               "weekNumber": 7,
@@ -175,12 +220,12 @@
               "sequence": 7,
               "sort": 0,
               "lessonLabel": "Lesson 7",
-              "title": "20m Playground Songs & Rhymes - Lesson 7",
+              "title": "10m Folk Songs - Lesson 7",
               "anchor": "term-1-week-7-lesson-7",
               "links": [
                 {
-                  "text": "Where, Oh, Where",
-                  "url": "https://soundcloud.com/alveary/where-oh-where-1?in=alveary/sets/p-e-2026-27&si=01598f068892453f96f3464c2a1b1cdd&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Wellerman YouTube",
+                  "url": "https://www.youtube.com/watch?v=E_8tAyecj2g&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=9&pp=iAQB8AUBsAgC"
                 }
               ]
             }
@@ -191,7 +236,7 @@
           "weekLabel": "Week 8",
           "lessons": [
             {
-              "lessonId": "recbOFA7N1latT8Nm",
+              "lessonId": "recpDKBzrGtF04y29",
               "termNumber": 1,
               "termLabel": "Term 1",
               "weekNumber": 8,
@@ -199,12 +244,12 @@
               "sequence": 8,
               "sort": 0,
               "lessonLabel": "Lesson 8",
-              "title": "20m Playground Songs & Rhymes - Lesson 8",
+              "title": "10m Folk Songs - Lesson 8",
               "anchor": "term-1-week-8-lesson-8",
               "links": [
                 {
-                  "text": "Where, Oh, Where",
-                  "url": "https://soundcloud.com/alveary/where-oh-where-1?in=alveary/sets/p-e-2026-27&si=01598f068892453f96f3464c2a1b1cdd&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Wellerman YouTube",
+                  "url": "https://www.youtube.com/watch?v=E_8tAyecj2g&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=9&pp=iAQB8AUBsAgC"
                 }
               ]
             }
@@ -215,7 +260,7 @@
           "weekLabel": "Week 9",
           "lessons": [
             {
-              "lessonId": "recemxgUY2yAHnUbV",
+              "lessonId": "recf44VT1piyp5UEi",
               "termNumber": 1,
               "termLabel": "Term 1",
               "weekNumber": 9,
@@ -223,16 +268,20 @@
               "sequence": 9,
               "sort": 0,
               "lessonLabel": "Lesson 9",
-              "title": "20m Playground Songs & Rhymes - Lesson 9",
+              "title": "10m Folk Songs - Lesson 9",
               "anchor": "term-1-week-9-lesson-9",
               "links": [
                 {
-                  "text": "Hot Cross Buns",
-                  "url": "https://soundcloud.com/alveary/hot-cross-buns-1?in=alveary/sets/p-e-2026-27&si=864959f69226408f808996a784601db0&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Wellerman YouTube",
+                  "url": "https://www.youtube.com/watch?v=E_8tAyecj2g&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=9&pp=iAQB8AUBsAgC"
                 },
                 {
-                  "text": "Where, Oh, Where",
-                  "url": "https://soundcloud.com/alveary/where-oh-where-1?in=alveary/sets/p-e-2026-27&si=01598f068892453f96f3464c2a1b1cdd&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Wellerman Tune",
+                  "url": "https://www.youtube.com/watch?v=GeIfv-w3lzw&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=45&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Work Songs",
+                  "url": "https://thenestcollective.co.uk/blog/work-songs"
                 }
               ]
             }
@@ -243,7 +292,7 @@
           "weekLabel": "Week 10",
           "lessons": [
             {
-              "lessonId": "rec1UDpNQhHTaZX4q",
+              "lessonId": "rectTor2NYB8nAp1d",
               "termNumber": 1,
               "termLabel": "Term 1",
               "weekNumber": 10,
@@ -251,44 +300,24 @@
               "sequence": 10,
               "sort": 0,
               "lessonLabel": "Lesson 10",
-              "title": "20m Playground Songs & Rhymes - Lesson 10",
+              "title": "10m Folk Songs - Lesson 10",
               "anchor": "term-1-week-10-lesson-10",
               "links": [
                 {
-                  "text": "Hot Cross Buns",
-                  "url": "https://soundcloud.com/alveary/hot-cross-buns-1?in=alveary/sets/p-e-2026-27&si=689e2773c7d64c5a82fa1f49aef9e617&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Wellerman YouTube",
+                  "url": "https://www.youtube.com/watch?v=E_8tAyecj2g&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=9&pp=iAQB8AUBsAgC"
                 },
                 {
-                  "text": "Where, Oh, Where",
-                  "url": "https://soundcloud.com/alveary/where-oh-where-1?in=alveary/sets/p-e-2026-27&si=3c2a31dc12114033a5b2a69dc9bfb077&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "weekNumber": 11,
-          "weekLabel": "Week 11",
-          "lessons": [
-            {
-              "lessonId": "recEvXu3O2UCSRai7",
-              "termNumber": 1,
-              "termLabel": "Term 1",
-              "weekNumber": 11,
-              "weekLabel": "Week 11",
-              "sequence": 11,
-              "sort": 0,
-              "lessonLabel": "Lesson 11",
-              "title": "20m Playground Songs & Rhymes - Lesson 11",
-              "anchor": "term-1-week-11-lesson-11",
-              "links": [
-                {
-                  "text": "Hot Cross Buns",
-                  "url": "https://soundcloud.com/alveary/hot-cross-buns-1?in=alveary/sets/p-e-2026-27&si=e9c750d3c3e5440cb9ec05a81259d7a4&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Wellerman Tune",
+                  "url": "https://www.youtube.com/watch?v=GeIfv-w3lzw&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=45&pp=iAQB8AUBsAgC"
                 },
                 {
-                  "text": "Where, Oh, Where",
-                  "url": "https://soundcloud.com/alveary/where-oh-where-1?in=alveary/sets/p-e-2026-27&si=b63b3eeeff80439991985268ed1825b6&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Ragtime Wellerman",
+                  "url": "https://www.youtube.com/watch?v=hy-aYX5kMoM"
+                },
+                {
+                  "text": "Symphony Wellerman",
+                  "url": "https://www.youtube.com/watch?v=dHP_EwQqaqE&list=RDdHP_EwQqaqE&start_radio=1"
                 }
               ]
             }
@@ -305,7 +334,7 @@
           "weekLabel": "Week 1",
           "lessons": [
             {
-              "lessonId": "recsuNmgyAvxG2gIR",
+              "lessonId": "reccN2XCNdOsdUYjO",
               "termNumber": 2,
               "termLabel": "Term 2",
               "weekNumber": 13,
@@ -313,12 +342,12 @@
               "sequence": 13,
               "sort": 0,
               "lessonLabel": "Lesson 13",
-              "title": "20m Playground Songs & Rhymes - Lesson 13",
+              "title": "10m Folk Songs - Lesson 13",
               "anchor": "term-2-week-13-lesson-13",
               "links": [
                 {
-                  "text": "Say, Say, My Playmate",
-                  "url": "https://soundcloud.com/alveary/say-say-my-playmate?in=alveary/sets/p-e-2026-27&si=27b73ed7d4464c90aa3597f66d346da3&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "National Anthems",
+                  "url": "https://www.youtube.com/watch?v=jrsTiAcOhMA&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=22&pp=iAQB8AUBsAgC"
                 }
               ]
             }
@@ -329,7 +358,7 @@
           "weekLabel": "Week 2",
           "lessons": [
             {
-              "lessonId": "recgEkI3siUSvZzLV",
+              "lessonId": "recKq01LKxgi1VPZb",
               "termNumber": 2,
               "termLabel": "Term 2",
               "weekNumber": 14,
@@ -337,12 +366,16 @@
               "sequence": 14,
               "sort": 0,
               "lessonLabel": "Lesson 14",
-              "title": "20m Playground Songs & Rhymes - Lesson 14",
+              "title": "10m Folk Songs - Lesson 14",
               "anchor": "term-2-week-14-lesson-14",
               "links": [
                 {
-                  "text": "Say, Say, My Playmate",
-                  "url": "https://soundcloud.com/alveary/say-say-my-playmate?in=alveary/sets/p-e-2026-27&si=27b73ed7d4464c90aa3597f66d346da3&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "National Anthems",
+                  "url": "https://www.youtube.com/watch?v=jrsTiAcOhMA&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=22&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "About National Anthems",
+                  "url": "https://militarymusic.com/blogs/military-music/13516201-national-anthems-of-the-world"
                 }
               ]
             }
@@ -353,7 +386,7 @@
           "weekLabel": "Week 3",
           "lessons": [
             {
-              "lessonId": "recG0fkLDQ7ZeBPIi",
+              "lessonId": "rec2R60IWxHfXdkpc",
               "termNumber": 2,
               "termLabel": "Term 2",
               "weekNumber": 15,
@@ -361,12 +394,24 @@
               "sequence": 15,
               "sort": 0,
               "lessonLabel": "Lesson 15",
-              "title": "20m Playground Songs & Rhymes - Lesson 15",
+              "title": "10m Folk Songs - Lesson 15",
               "anchor": "term-2-week-15-lesson-15",
               "links": [
                 {
-                  "text": "Say, Say, My Playmate",
-                  "url": "https://soundcloud.com/alveary/say-say-my-playmate?in=alveary/sets/p-e-2026-27&si=27b73ed7d4464c90aa3597f66d346da3&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "National Anthems",
+                  "url": "https://www.youtube.com/watch?v=jrsTiAcOhMA&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=22&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "My Country 'Tis of Thee",
+                  "url": "https://www.youtube.com/watch?v=VKj7FLg3WVA"
+                },
+                {
+                  "text": "God Save the Queen",
+                  "url": "https://www.youtube.com/watch?v=I8KSAtos-dk"
+                },
+                {
+                  "text": "My Country 'Tis of Thee by W.E.B. Dubois",
+                  "url": "https://www.poetryfoundation.org/poems/43026/my-country-tis-of-thee"
                 }
               ]
             }
@@ -377,7 +422,7 @@
           "weekLabel": "Week 4",
           "lessons": [
             {
-              "lessonId": "rec6eJz3bT1lf8N2B",
+              "lessonId": "reczEcCxjLnFeGX5R",
               "termNumber": 2,
               "termLabel": "Term 2",
               "weekNumber": 16,
@@ -385,12 +430,20 @@
               "sequence": 16,
               "sort": 0,
               "lessonLabel": "Lesson 16",
-              "title": "20m Playground Songs & Rhymes - Lesson 16",
+              "title": "10m Folk Songs - Lesson 16",
               "anchor": "term-2-week-16-lesson-16",
               "links": [
                 {
-                  "text": "Say, Say, My Playmate",
-                  "url": "https://soundcloud.com/alveary/say-say-my-playmate?in=alveary/sets/p-e-2026-27&si=27b73ed7d4464c90aa3597f66d346da3&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "National Anthems",
+                  "url": "https://www.youtube.com/watch?v=jrsTiAcOhMA&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=22&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "National Anthem lyrics",
+                  "url": "https://lyricstranslate.com/en/national-anthems-lyrics.html"
+                },
+                {
+                  "text": "Star Spangled Story",
+                  "url": "https://www.kennedy-center.org/education/resources-for-educators/classroom-resources/media-and-interactives/media/music/story-behind-the-song/the-story-behind-the-song/the-star-spangled-banner/"
                 }
               ]
             }
@@ -401,7 +454,7 @@
           "weekLabel": "Week 5",
           "lessons": [
             {
-              "lessonId": "recmCmcpVK6vMg8Hy",
+              "lessonId": "rec1KQTwbd8MIdPD2",
               "termNumber": 2,
               "termLabel": "Term 2",
               "weekNumber": 17,
@@ -409,12 +462,12 @@
               "sequence": 17,
               "sort": 0,
               "lessonLabel": "Lesson 17",
-              "title": "20m Playground Songs & Rhymes - Lesson 17",
+              "title": "10m Folk Songs - Lesson 17",
               "anchor": "term-2-week-17-lesson-17",
               "links": [
                 {
-                  "text": "Obwisana",
-                  "url": "https://soundcloud.com/alveary/obwisana-1?in=alveary/sets/p-e-2026-27&si=77edbdd143324286a3672564e4cc3ec1&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "National Anthems",
+                  "url": "https://www.youtube.com/watch?v=jrsTiAcOhMA&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=22&pp=iAQB8AUBsAgC"
                 }
               ]
             }
@@ -425,7 +478,7 @@
           "weekLabel": "Week 6",
           "lessons": [
             {
-              "lessonId": "rec7PZ4Vn76CzV3Yx",
+              "lessonId": "reciMR3cW84A7kWGn",
               "termNumber": 2,
               "termLabel": "Term 2",
               "weekNumber": 18,
@@ -433,12 +486,16 @@
               "sequence": 18,
               "sort": 0,
               "lessonLabel": "Lesson 18",
-              "title": "20m Playground Songs & Rhymes - Lesson 18",
+              "title": "10m Folk Songs - Lesson 18",
               "anchor": "term-2-week-18-lesson-18",
               "links": [
                 {
-                  "text": "Obwisana",
-                  "url": "https://soundcloud.com/alveary/obwisana-1?in=alveary/sets/p-e-2026-27&si=77edbdd143324286a3672564e4cc3ec1&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Bebi Notsa",
+                  "url": "https://www.youtube.com/watch?v=FKVaqoMWYRU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=20&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "All Through the Night",
+                  "url": "https://www.youtube.com/watch?v=i3iQH9CWBHw&list=RDi3iQH9CWBHw&start_radio=1"
                 }
               ]
             }
@@ -449,7 +506,7 @@
           "weekLabel": "Week 7",
           "lessons": [
             {
-              "lessonId": "reckgbCGy5fMXyo0w",
+              "lessonId": "recIVOE7Blr5bpdLY",
               "termNumber": 2,
               "termLabel": "Term 2",
               "weekNumber": 19,
@@ -457,12 +514,16 @@
               "sequence": 19,
               "sort": 0,
               "lessonLabel": "Lesson 19",
-              "title": "20m Playground Songs & Rhymes - Lesson 19",
+              "title": "10m Folk Songs - Lesson 19",
               "anchor": "term-2-week-19-lesson-19",
               "links": [
                 {
-                  "text": "Obwisana",
-                  "url": "https://soundcloud.com/alveary/obwisana-1?in=alveary/sets/p-e-2026-27&si=77edbdd143324286a3672564e4cc3ec1&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Bebi Notsa",
+                  "url": "https://www.youtube.com/watch?v=FKVaqoMWYRU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=20&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "The Trail of Tears Association",
+                  "url": "https://nationaltota.com/trail/"
                 }
               ]
             }
@@ -473,7 +534,7 @@
           "weekLabel": "Week 8",
           "lessons": [
             {
-              "lessonId": "recebQ4swUjnUk4b5",
+              "lessonId": "recRTmJo0oVssLnGj",
               "termNumber": 2,
               "termLabel": "Term 2",
               "weekNumber": 20,
@@ -481,12 +542,16 @@
               "sequence": 20,
               "sort": 0,
               "lessonLabel": "Lesson 20",
-              "title": "20m Playground Songs & Rhymes - Lesson 20",
+              "title": "10m Folk Songs - Lesson 20",
               "anchor": "term-2-week-20-lesson-20",
               "links": [
                 {
-                  "text": "Obwisana",
-                  "url": "https://soundcloud.com/alveary/obwisana-1?in=alveary/sets/p-e-2026-27&si=77edbdd143324286a3672564e4cc3ec1&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Bebi Notsa",
+                  "url": "https://www.youtube.com/watch?v=FKVaqoMWYRU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=20&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "All Through the Night",
+                  "url": "https://www.youtube.com/channel/UCejTOQ5k3aLTSngU2U_R6ng"
                 }
               ]
             }
@@ -497,7 +562,7 @@
           "weekLabel": "Week 9",
           "lessons": [
             {
-              "lessonId": "recWvUol1iuXKiKgZ",
+              "lessonId": "recGVtcoL1afpm11n",
               "termNumber": 2,
               "termLabel": "Term 2",
               "weekNumber": 21,
@@ -505,16 +570,12 @@
               "sequence": 21,
               "sort": 0,
               "lessonLabel": "Lesson 21",
-              "title": "20m Playground Songs & Rhymes - Lesson 21",
+              "title": "10m Folk Songs - Lesson 21",
               "anchor": "term-2-week-21-lesson-21",
               "links": [
                 {
-                  "text": "Say, Say, My Playmate",
-                  "url": "https://soundcloud.com/alveary/say-say-my-playmate?in=alveary/sets/p-e-2026-27&si=8e390b140f2e45e9bcbea4781fa0d1eb&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
-                },
-                {
-                  "text": "Obwisana",
-                  "url": "https://soundcloud.com/alveary/obwisana-1?in=alveary/sets/p-e-2026-27&si=77edbdd143324286a3672564e4cc3ec1&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Bebi Notsa",
+                  "url": "https://www.youtube.com/watch?v=FKVaqoMWYRU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=20&pp=iAQB8AUBsAgC"
                 }
               ]
             }
@@ -525,7 +586,7 @@
           "weekLabel": "Week 10",
           "lessons": [
             {
-              "lessonId": "recVkpvbvCN69j5nd",
+              "lessonId": "rec1q4iBHvvaTxIgG",
               "termNumber": 2,
               "termLabel": "Term 2",
               "weekNumber": 22,
@@ -533,16 +594,12 @@
               "sequence": 22,
               "sort": 0,
               "lessonLabel": "Lesson 22",
-              "title": "20m Playground Songs & Rhymes - Lesson 22",
+              "title": "10m Folk Songs - Lesson 22",
               "anchor": "term-2-week-22-lesson-22",
               "links": [
                 {
-                  "text": "Say, Say, My Playmate",
-                  "url": "https://soundcloud.com/alveary/say-say-my-playmate?in=alveary/sets/p-e-2026-27&si=8e390b140f2e45e9bcbea4781fa0d1eb&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
-                },
-                {
-                  "text": "Obwisana",
-                  "url": "https://soundcloud.com/alveary/obwisana-1?in=alveary/sets/p-e-2026-27&si=77edbdd143324286a3672564e4cc3ec1&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Bebi Notsa",
+                  "url": "https://www.youtube.com/watch?v=FKVaqoMWYRU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=20&pp=iAQB8AUBsAgC"
                 }
               ]
             }
@@ -553,7 +610,7 @@
           "weekLabel": "Week 11",
           "lessons": [
             {
-              "lessonId": "recfAK55o5kr6rdvF",
+              "lessonId": "recMSM5xJGbn5SfLx",
               "termNumber": 2,
               "termLabel": "Term 2",
               "weekNumber": 23,
@@ -561,16 +618,12 @@
               "sequence": 23,
               "sort": 0,
               "lessonLabel": "Lesson 23",
-              "title": "20m Playground Songs & Rhymes - Lesson 23",
+              "title": "10m Folk Songs - Lesson 23",
               "anchor": "term-2-week-23-lesson-23",
               "links": [
                 {
-                  "text": "Say, Say, My Playmate",
-                  "url": "https://soundcloud.com/alveary/say-say-my-playmate?in=alveary/sets/p-e-2026-27&si=8e390b140f2e45e9bcbea4781fa0d1eb&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
-                },
-                {
-                  "text": "Obwisana",
-                  "url": "https://soundcloud.com/alveary/obwisana-1?in=alveary/sets/p-e-2026-27&si=77edbdd143324286a3672564e4cc3ec1&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Playlist",
+                  "url": "https://www.youtube.com/watch?v=FKVaqoMWYRU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=20&pp=iAQB8AUBsAgC"
                 }
               ]
             }
@@ -587,7 +640,7 @@
           "weekLabel": "Week 1",
           "lessons": [
             {
-              "lessonId": "recbg6R4yY4ZxHSwp",
+              "lessonId": "reccwJGMs5k1Df0d2",
               "termNumber": 3,
               "termLabel": "Term 3",
               "weekNumber": 25,
@@ -595,12 +648,16 @@
               "sequence": 25,
               "sort": 0,
               "lessonLabel": "Lesson 25",
-              "title": "20m Playground Songs & Rhymes - Lesson 25",
+              "title": "10m Folk Songs - Lesson 25",
               "anchor": "term-3-week-25-lesson-25",
               "links": [
                 {
-                  "text": "My Momma Gave Me a Nickel",
-                  "url": "https://soundcloud.com/alveary/my-momma-gave-me-a-nickel?in=alveary/sets/p-e-2026-27&si=13eab269684d42bc9a848703c29be5ec&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "San Juan Pig lyrics & audio",
+                  "url": "https://pnwfolklore.org/PigWar.html"
+                },
+                {
+                  "text": "About the San Juan Pig",
+                  "url": "https://www.youtube.com/watch?v=_601S48T7CI"
                 }
               ]
             }
@@ -611,7 +668,7 @@
           "weekLabel": "Week 2",
           "lessons": [
             {
-              "lessonId": "recMsA3X3onmArEwo",
+              "lessonId": "reckSDgJwIXUwS6pS",
               "termNumber": 3,
               "termLabel": "Term 3",
               "weekNumber": 26,
@@ -619,12 +676,16 @@
               "sequence": 26,
               "sort": 0,
               "lessonLabel": "Lesson 26",
-              "title": "20m Playground Songs & Rhymes - Lesson 26",
+              "title": "10m Folk Songs - Lesson 26",
               "anchor": "term-3-week-26-lesson-26",
               "links": [
                 {
-                  "text": "My Momma Gave Me a Nickel",
-                  "url": "https://soundcloud.com/alveary/my-momma-gave-me-a-nickel?in=alveary/sets/p-e-2026-27&si=13eab269684d42bc9a848703c29be5ec&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "San Juan Pig lyrics & audio",
+                  "url": "https://pnwfolklore.org/PigWar.html"
+                },
+                {
+                  "text": "About the San Juan Pig",
+                  "url": "https://www.youtube.com/watch?v=_601S48T7CI"
                 }
               ]
             }
@@ -635,7 +696,7 @@
           "weekLabel": "Week 3",
           "lessons": [
             {
-              "lessonId": "recBiU7NWIxBcBcdg",
+              "lessonId": "recKjlVgnur3tPQO5",
               "termNumber": 3,
               "termLabel": "Term 3",
               "weekNumber": 27,
@@ -643,12 +704,16 @@
               "sequence": 27,
               "sort": 0,
               "lessonLabel": "Lesson 27",
-              "title": "20m Playground Songs & Rhymes - Lesson 27",
+              "title": "10m Folk Songs - Lesson 27",
               "anchor": "term-3-week-27-lesson-27",
               "links": [
                 {
-                  "text": "My Momma Gave Me a Nickel",
-                  "url": "https://soundcloud.com/alveary/my-momma-gave-me-a-nickel?in=alveary/sets/p-e-2026-27&si=13eab269684d42bc9a848703c29be5ec&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "San Juan Pig lyrics & audio",
+                  "url": "https://pnwfolklore.org/PigWar.html"
+                },
+                {
+                  "text": "San Juan Island map",
+                  "url": "https://i0.wp.com/againstprofphil.org/wp-content/uploads/san_juan_islands_map_july21.png?resize=584%2C633&ssl=1"
                 }
               ]
             }
@@ -659,7 +724,7 @@
           "weekLabel": "Week 4",
           "lessons": [
             {
-              "lessonId": "rec9htgatmYZvrsuH",
+              "lessonId": "recOHL1xJturempZu",
               "termNumber": 3,
               "termLabel": "Term 3",
               "weekNumber": 28,
@@ -667,12 +732,16 @@
               "sequence": 28,
               "sort": 0,
               "lessonLabel": "Lesson 28",
-              "title": "20m Playground Songs & Rhymes - Lesson 28",
+              "title": "10m Folk Songs - Lesson 28",
               "anchor": "term-3-week-28-lesson-28",
               "links": [
                 {
-                  "text": "My Momma Gave Me a Nickel",
-                  "url": "https://soundcloud.com/alveary/my-momma-gave-me-a-nickel?in=alveary/sets/p-e-2026-27&si=13eab269684d42bc9a848703c29be5ec&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "San Juan Pig lyrics & audio",
+                  "url": "https://pnwfolklore.org/PigWar.html"
+                },
+                {
+                  "text": "Pig War Research Project",
+                  "url": "https://www.sos.wa.gov/archives/explore-our-collection/national-history-day-topic-guide/pig-war-pig-and-international-boundary-dispute"
                 }
               ]
             }
@@ -683,7 +752,7 @@
           "weekLabel": "Week 5",
           "lessons": [
             {
-              "lessonId": "recDHCQLA7LaKrpMO",
+              "lessonId": "rec5Ff6CsuTSp2GEc",
               "termNumber": 3,
               "termLabel": "Term 3",
               "weekNumber": 29,
@@ -691,12 +760,12 @@
               "sequence": 29,
               "sort": 0,
               "lessonLabel": "Lesson 29",
-              "title": "20m Playground Songs & Rhymes - Lesson 29",
+              "title": "10m Folk Songs - Lesson 29",
               "anchor": "term-3-week-29-lesson-29",
               "links": [
                 {
-                  "text": "I Pass the Shoe",
-                  "url": "https://soundcloud.com/alveary/i-pass-the-shoe-vocals?in=alveary/sets/p-e-2026-27&si=7772dc643f154870a17298fd6d6f23bc&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "San Juan Pig lyrics & audio",
+                  "url": "https://pnwfolklore.org/PigWar.html"
                 }
               ]
             }
@@ -707,7 +776,7 @@
           "weekLabel": "Week 6",
           "lessons": [
             {
-              "lessonId": "recf2nWtxuUjqz0gO",
+              "lessonId": "recu1RO0lytuoaKVz",
               "termNumber": 3,
               "termLabel": "Term 3",
               "weekNumber": 30,
@@ -715,12 +784,24 @@
               "sequence": 30,
               "sort": 0,
               "lessonLabel": "Lesson 30",
-              "title": "20m Playground Songs & Rhymes - Lesson 30",
+              "title": "10m Folk Songs - Lesson 30",
               "anchor": "term-3-week-30-lesson-30",
               "links": [
                 {
-                  "text": "I Pass the Shoe",
-                  "url": "https://soundcloud.com/alveary/i-pass-the-shoe-vocals?in=alveary/sets/p-e-2026-27&si=7772dc643f154870a17298fd6d6f23bc&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Reference Link",
+                  "url": "https://www.huapala.org/Aloha/Aloha_Oe.html"
+                },
+                {
+                  "text": "Aloha 'Oe (Full)",
+                  "url": "https://www.youtube.com/watch?v=_-lv7IjDsQU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=34&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Aloha 'Oe (one verse)",
+                  "url": "https://www.youtube.com/watch?v=v6cYHXcWAN0&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=36&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Aloha 'Oe (one verse with lyrics)",
+                  "url": "https://www.youtube.com/watch?v=ONFMei_PpNQ&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=35&pp=iAQB8AUBsAgC"
                 }
               ]
             }
@@ -731,7 +812,7 @@
           "weekLabel": "Week 7",
           "lessons": [
             {
-              "lessonId": "recOBeEwzquun68Mv",
+              "lessonId": "recHu8yXoX9iRneW1",
               "termNumber": 3,
               "termLabel": "Term 3",
               "weekNumber": 31,
@@ -739,12 +820,20 @@
               "sequence": 31,
               "sort": 0,
               "lessonLabel": "Lesson 31",
-              "title": "20m Playground Songs & Rhymes - Lesson 31",
+              "title": "10m Folk Songs - Lesson 31",
               "anchor": "term-3-week-31-lesson-31",
               "links": [
                 {
-                  "text": "I Pass the Shoe",
-                  "url": "https://soundcloud.com/alveary/i-pass-the-shoe-vocals?in=alveary/sets/p-e-2026-27&si=7772dc643f154870a17298fd6d6f23bc&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Nuʻuanu Pali",
+                  "url": "https://en.wikipedia.org/wiki/Nu%CA%BBuanu_Pali#/media/File:Cliffs_of_the_Koolau_Range,_Oahu_58.jpg"
+                },
+                {
+                  "text": "Aloha 'Oe",
+                  "url": "https://www.youtube.com/watch?v=_-lv7IjDsQU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=34&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "About Queen Liliʻuokalani",
+                  "url": "https://onipaa.org/queen-liliuokalani"
                 }
               ]
             }
@@ -755,7 +844,7 @@
           "weekLabel": "Week 8",
           "lessons": [
             {
-              "lessonId": "recbpP0z7totuzkrp",
+              "lessonId": "rec8DzyMkhtKRzNj9",
               "termNumber": 3,
               "termLabel": "Term 3",
               "weekNumber": 32,
@@ -763,12 +852,16 @@
               "sequence": 32,
               "sort": 0,
               "lessonLabel": "Lesson 32",
-              "title": "20m Playground Songs & Rhymes - Lesson 32",
+              "title": "10m Folk Songs - Lesson 32",
               "anchor": "term-3-week-32-lesson-32",
               "links": [
                 {
-                  "text": "I Pass the Shoe",
-                  "url": "https://soundcloud.com/alveary/i-pass-the-shoe-vocals?in=alveary/sets/p-e-2026-27&si=7772dc643f154870a17298fd6d6f23bc&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Aloha 'Oe",
+                  "url": "https://www.youtube.com/watch?v=_-lv7IjDsQU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=34&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "About Queen Liliʻuokalani",
+                  "url": "https://onipaa.org/queen-liliuokalani"
                 }
               ]
             }
@@ -779,7 +872,7 @@
           "weekLabel": "Week 9",
           "lessons": [
             {
-              "lessonId": "recv2qEbXhTUH1ZWy",
+              "lessonId": "reccgxRGbsQvDNIJJ",
               "termNumber": 3,
               "termLabel": "Term 3",
               "weekNumber": 33,
@@ -787,16 +880,16 @@
               "sequence": 33,
               "sort": 0,
               "lessonLabel": "Lesson 33",
-              "title": "20m Playground Songs & Rhymes - Lesson 33",
+              "title": "10m Folk Songs - Lesson 33",
               "anchor": "term-3-week-33-lesson-33",
               "links": [
                 {
-                  "text": "My Momma Gave Me a Nickel",
-                  "url": "https://soundcloud.com/alveary/my-momma-gave-me-a-nickel?in=alveary/sets/p-e-2026-27&si=9c9341eb095b4a28b4b15108987f2967&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Aloha 'Oe",
+                  "url": "https://www.youtube.com/watch?v=_-lv7IjDsQU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=34&pp=iAQB8AUBsAgC"
                 },
                 {
-                  "text": "I Pass the Shoe",
-                  "url": "https://soundcloud.com/alveary/i-pass-the-shoe-vocals?in=alveary/sets/p-e-2026-27&si=7772dc643f154870a17298fd6d6f23bc&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "He Mele Lāhui Hawai'i",
+                  "url": "https://www.youtube.com/watch?v=m8Zqlda_RiY"
                 }
               ]
             }
@@ -807,7 +900,7 @@
           "weekLabel": "Week 10",
           "lessons": [
             {
-              "lessonId": "rect7B2TrNaZX0t01",
+              "lessonId": "recKN5To9srESWXw9",
               "termNumber": 3,
               "termLabel": "Term 3",
               "weekNumber": 34,
@@ -815,44 +908,12 @@
               "sequence": 34,
               "sort": 0,
               "lessonLabel": "Lesson 34",
-              "title": "20m Playground Songs & Rhymes - Lesson 34",
+              "title": "10m Folk Songs - Lesson 34",
               "anchor": "term-3-week-34-lesson-34",
               "links": [
                 {
-                  "text": "My Momma Gave Me a Nickel",
-                  "url": "https://soundcloud.com/alveary/my-momma-gave-me-a-nickel?in=alveary/sets/p-e-2026-27&si=9c9341eb095b4a28b4b15108987f2967&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
-                },
-                {
-                  "text": "I Pass the Shoe",
-                  "url": "https://soundcloud.com/alveary/i-pass-the-shoe-vocals?in=alveary/sets/p-e-2026-27&si=7772dc643f154870a17298fd6d6f23bc&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "weekNumber": 35,
-          "weekLabel": "Week 11",
-          "lessons": [
-            {
-              "lessonId": "reciEkAVhuner2cF9",
-              "termNumber": 3,
-              "termLabel": "Term 3",
-              "weekNumber": 35,
-              "weekLabel": "Week 11",
-              "sequence": 35,
-              "sort": 0,
-              "lessonLabel": "Lesson 35",
-              "title": "20m Playground Songs & Rhymes - Lesson 35",
-              "anchor": "term-3-week-35-lesson-35",
-              "links": [
-                {
-                  "text": "My Momma Gave Me a Nickel",
-                  "url": "https://soundcloud.com/alveary/my-momma-gave-me-a-nickel?in=alveary/sets/p-e-2026-27&si=9c9341eb095b4a28b4b15108987f2967&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
-                },
-                {
-                  "text": "I Pass the Shoe",
-                  "url": "https://soundcloud.com/alveary/i-pass-the-shoe-vocals?in=alveary/sets/p-e-2026-27&si=7772dc643f154870a17298fd6d6f23bc&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                  "text": "Aloha 'Oe",
+                  "url": "https://www.youtube.com/watch?v=_-lv7IjDsQU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=34&pp=iAQB8AUBsAgC"
                 }
               ]
             }
