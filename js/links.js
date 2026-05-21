@@ -150,7 +150,26 @@
     const terms = getVisibleTerms();
 
     if (!terms.length) {
-      setStatus("There are no lesson links for this page.");
+      clearStatus();
+
+      els.content.hidden = false;
+
+      els.content.innerHTML = `
+        <section class="links-empty-state">
+          <h2 class="links-empty-title">
+            ${escapeHtml(
+              state.data.lessonSetName ||
+              state.data.title ||
+              "Lesson Links"
+            )}
+          </h2>
+
+          <p class="links-empty-message">
+            There are no lesson links for this lesson plan.
+          </p>
+        </section>
+      `;
+
       return;
     }
 
@@ -225,10 +244,14 @@
       
       els.subject.style.display = "none";
 
-      els.title.textContent =
+      const pageTitle =
         state.data.lessonSetName ||
         state.data.title ||
         "Lesson Links";
+
+      els.title.textContent = pageTitle;
+
+      document.title = `Alveary – ${pageTitle}`;
       
       els.subtitle.style.display = "none";
 
