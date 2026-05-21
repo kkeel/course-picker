@@ -214,3 +214,22 @@
     padding: 4px 14px 12px;
   }
 }
+
+.links-empty-state {
+  padding: 8px 0 0;
+}
+
+.links-empty-title {
+  font-family: "Plantin MT Pro", Georgia, "Times New Roman", serif;
+  color: var(--brand-text);
+  font-size: 32px;
+  font-weight: 200;
+  line-height: 1.2;
+  margin: 0 0 10px;
+}
+
+.links-empty-message {
+  color: var(--brand-dark);
+  font-size: 1rem;
+  line-height: 1.6;
+}
