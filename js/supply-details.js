@@ -1706,17 +1706,15 @@ function setFiltersCollapsed(isCollapsed) {
 }
 
 function initializePageState() {
-  const shouldCollapse = isFocusedDirectView();
-
   const introCollapsed =
     typeof pageUiState.introCollapsed === "boolean"
       ? pageUiState.introCollapsed
-      : shouldCollapse;
+      : true;
 
   const filtersCollapsed =
     typeof pageUiState.filtersCollapsed === "boolean"
       ? pageUiState.filtersCollapsed
-      : shouldCollapse;
+      : true;
 
   setIntroCollapsed(introCollapsed);
   setFiltersCollapsed(filtersCollapsed);
