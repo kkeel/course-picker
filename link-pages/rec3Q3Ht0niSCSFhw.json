@@ -15,12 +15,40 @@
     "Penmanship & Copywork: Grade 4",
     "Written Narration: Grade 4"
   ],
-  "updatedAt": "2026-05-20T08:48:55.653Z",
+  "updatedAt": "2026-05-21T08:50:45.522Z",
   "terms": [
     {
       "termNumber": 1,
       "term": "Term 1",
       "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recnLKPkiomVzsNbC",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100102,
+              "lessonLabel": "",
+              "title": "15m Dictation: Grade 4 - Tracker",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Alveary Phonogram Teacher’s Guide",
+                  "url": "https://drive.google.com/file/d/1q4ltWCGVQU3sr9NWw7_db_xeKIQAcf_L/view"
+                },
+                {
+                  "text": "English Reading & Spelling Patterns",
+                  "url": "https://drive.google.com/file/d/1wMWfPKz4dNixRLeWYrtJDhbKu9UL59bQ/view"
+                }
+              ]
+            }
+          ]
+        },
         {
           "weekNumber": 11,
           "weekLabel": "Week 11",

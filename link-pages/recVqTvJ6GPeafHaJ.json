@@ -10,8 +10,38 @@
   "isStandaloneCourse": true,
   "courseConnectionNames": [],
   "topicConnectionNames": [],
-  "updatedAt": "2026-05-20T08:48:55.514Z",
+  "updatedAt": "2026-05-21T08:50:45.440Z",
   "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 3,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "recWpMSkchCG4qdrY",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 3,
+              "weekLabel": "Week 3",
+              "sequence": 3,
+              "sort": 0,
+              "lessonLabel": "Lesson 3",
+              "title": "30m Architecture: Grades 9-12 - Lesson 3",
+              "anchor": "term-1-week-3-lesson-3",
+              "links": [
+                {
+                  "text": "Decoding the Great Pyramid",
+                  "url": "https://www.youtube.com/watch?v=gFP-7Z9HLww"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     {
       "termNumber": 2,
       "term": "Term 2",
@@ -59,6 +89,34 @@
                 {
                   "text": "Redwork Embroidery",
                   "url": "https://embroiderylegacy.com/how-to-redwork-embroidery/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 23,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "recKZLKLdXs6e6KRU",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 23,
+              "weekLabel": "Week 11",
+              "sequence": 23,
+              "sort": 0,
+              "lessonLabel": "Lesson 23",
+              "title": "30m Architecture: Grades 9-12 - Lesson 23",
+              "anchor": "term-2-week-23-lesson-23",
+              "links": [
+                {
+                  "text": "∞ Video Link: How Gaudi Designed the Sagrada Familia",
+                  "url": "https://www.youtube.com/watch?v=1kowM6vT-0o"
+                },
+                {
+                  "text": "∞ Video Link: Sagrada Familia Finally Nears Completion",
+                  "url": "https://www.youtube.com/watch?v=F3YggOb3FxI"
                 }
               ]
             }
