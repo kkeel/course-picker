@@ -150,7 +150,7 @@
     const terms = getVisibleTerms();
 
     if (!terms.length) {
-      setStatus("No links match the selected filters.");
+      setStatus("There are no lesson links for this page.");
       return;
     }
 
@@ -238,7 +238,7 @@
       renderLinks();
     } catch (error) {
       console.error(error);
-      setStatus("Could not load this link page.", true);
+      setStatus("There are no lesson links for this page.");
     }
   }
 
