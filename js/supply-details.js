@@ -1438,6 +1438,12 @@ function renderCourseTopicMode(items) {
 
               ${(item.schedText || item.gradeText || item.subject) ? `
                 <div class="supply-section-meta supply-section-meta--course">
+                  ${
+                    item.subject === "Basic Supplies"
+                      ? `<span class="supply-meta-subject">${escapeHtml(item.subject)}</span>`
+                      : ""
+                  }
+              
                   ${item.schedText ? `<span class="supply-meta-schedule">${escapeHtml(item.schedText)}</span>` : ""}
                   ${item.gradeText ? `<span class="supply-meta-grade">${escapeHtml(item.gradeText)}</span>` : ""}
                 </div>
