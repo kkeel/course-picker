@@ -30,12 +30,17 @@
 
   function getUrlParams() {
     const params = new URLSearchParams(window.location.search);
-  
+
     return {
       id: params.get("id") || "",
       term: params.get("term") || "all",
       week: params.get("week") || "all"
     };
+  }
+
+  function hasPrefilteredView() {
+    const params = getUrlParams();
+    return params.term !== "all" || params.week !== "all";
   }
   
   function getPacketId() {
@@ -209,8 +214,6 @@
       const additionalHtml = additionalLinks.length
         ? `
           <div class="links-additional-quicklinks">
-            <h3>Additional Quick Links</h3>
-  
             <div class="links-additional-quicklinks-list">
               ${additionalLinks.map(link => `
                 <a
@@ -225,7 +228,34 @@
           </div>
         `
         : "";
-  
+
+      const isCollapsed = hasPrefilteredView();
+
+      els.quickAccess.classList.toggle("is-collapsed", isCollapsed);
+
+      const header = els.quickAccess.querySelector(".links-quick-access-header");
+      if (header) {
+        header.innerHTML = `
+          <h2>Quick Links</h2>
+          <button
+            type="button"
+            class="links-quick-access-toggle"
+            aria-expanded="${isCollapsed ? "false" : "true"}"
+          >
+            ${isCollapsed ? "Show" : "Hide"}
+          </button>
+        `;
+
+        const toggleButton = header.querySelector(".links-quick-access-toggle");
+        toggleButton.addEventListener("click", () => {
+          const shouldCollapse = !els.quickAccess.classList.contains("is-collapsed");
+
+          els.quickAccess.classList.toggle("is-collapsed", shouldCollapse);
+          toggleButton.textContent = shouldCollapse ? "Show" : "Hide";
+          toggleButton.setAttribute("aria-expanded", shouldCollapse ? "false" : "true");
+        });
+      }
+
       els.quickAccessGrid.innerHTML = primaryHtml + additionalHtml;
     }
 
