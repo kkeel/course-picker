@@ -188,27 +188,23 @@
   
       els.quickAccess.hidden = false;
   
-      const primaryHtml = `
-        <div class="links-quick-access-grid">
-          ${links.map(link => {
-            const isDisabled = !link.url || link.url === "#";
-  
-            return `
-              <a
-                class="links-quick-access-card ${isDisabled ? "is-disabled" : ""}"
-                href="${escapeHtml(isDisabled ? "#" : link.url)}"
-                target="_blank"
-                rel="noopener"
-                aria-disabled="${isDisabled ? "true" : "false"}"
-              >
-                <span class="links-quick-access-icon">${escapeHtml(link.icon)}</span>
-                <span class="links-quick-access-label">${escapeHtml(link.label)}</span>
-                <span class="links-quick-access-arrow">↗</span>
-              </a>
-            `;
-          }).join("")}
-        </div>
-      `;
+      const primaryHtml = links.map(link => {
+        const isDisabled = !link.url || link.url === "#";
+
+        return `
+          <a
+            class="links-quick-access-card ${isDisabled ? "is-disabled" : ""}"
+            href="${escapeHtml(isDisabled ? "#" : link.url)}"
+            target="_blank"
+            rel="noopener"
+            aria-disabled="${isDisabled ? "true" : "false"}"
+          >
+            <span class="links-quick-access-icon">${escapeHtml(link.icon)}</span>
+            <span class="links-quick-access-label">${escapeHtml(link.label)}</span>
+            <span class="links-quick-access-arrow">↗</span>
+          </a>
+        `;
+      }).join("");
   
       const additionalHtml = additionalLinks.length
         ? `
