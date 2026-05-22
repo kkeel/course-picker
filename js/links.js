@@ -149,28 +149,59 @@
   }
 
   function renderQuickAccess() {
+    const quickLinks = state.data?.quickLinks || {};
+  
+    const supplyListUrl = String(quickLinks.supplyListUrl || "").trim();
+  
     const links = [
-      { label: "Extra Helpings", icon: "🍯", url: "#" },
-      { label: "Book List Details", icon: "📚", url: "#" },
-      { label: "Supply List Details", icon: "✂️", url: "#" },
-      { label: "Basic Supply List", icon: "✏️", url: "#" },
-      { label: "Lesson PDF", icon: "📝", url: "#" }
+      {
+        label: "Extra Helpings",
+        icon: "🍯",
+        url: quickLinks.extraHelpingsUrl || "#"
+      },
+      {
+        label: "Book List Details",
+        icon: "📚",
+        url: quickLinks.bookListUrl || "#"
+      },
+      {
+        label: supplyListUrl ? "Supply List Details" : "No Supplies",
+        icon: "✂️",
+        url: supplyListUrl || "#"
+      },
+      {
+        label: "Basic Supply List",
+        icon: "✏️",
+        url:
+          quickLinks.basicSuppliesUrl ||
+          "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY"
+      },
+      {
+        label: "Lesson PDF",
+        icon: "📝",
+        url: quickLinks.lessonPdfUrl || "#"
+      }
     ];
-
+  
     els.quickAccess.hidden = false;
-
-    els.quickAccessGrid.innerHTML = links.map(link => `
-      <a
-        class="links-quick-access-card ${link.url === "#" ? "is-disabled" : ""}"
-        href="${escapeHtml(link.url)}"
-        target="_blank"
-        rel="noopener"
-      >
-        <span class="links-quick-access-icon">${escapeHtml(link.icon)}</span>
-        <span class="links-quick-access-label">${escapeHtml(link.label)}</span>
-        <span class="links-quick-access-arrow">↗</span>
-      </a>
-    `).join("");
+  
+    els.quickAccessGrid.innerHTML = links.map(link => {
+      const isDisabled = !link.url || link.url === "#";
+  
+      return `
+        <a
+          class="links-quick-access-card ${isDisabled ? "is-disabled" : ""}"
+          href="${escapeHtml(isDisabled ? "#" : link.url)}"
+          target="_blank"
+          rel="noopener"
+          aria-disabled="${isDisabled ? "true" : "false"}"
+        >
+          <span class="links-quick-access-icon">${escapeHtml(link.icon)}</span>
+          <span class="links-quick-access-label">${escapeHtml(link.label)}</span>
+          <span class="links-quick-access-arrow">↗</span>
+        </a>
+      `;
+    }).join("");
   }
 
   function renderLinks() {
