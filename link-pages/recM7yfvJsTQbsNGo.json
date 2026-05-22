@@ -17,12 +17,28 @@
   ],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=rec6FuB0jPUtQ0dZT",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recM7yfvJsTQbsNGo.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recM7yfvJsTQbsNGo-language-study-grade-5.pdf",
+    "additional": [
+      {
+        "label": "Practice Island Teacher Manual",
+        "url": "https://drive.google.com/file/d/1WFljgKcH4k0K0LdxmfaXlm4SOBiZu4mE/view?usp=drive_link",
+        "sort": "1",
+        "groupTitle": "Grammar: Grade 5",
+        "groupType": "topic"
+      },
+      {
+        "label": "Foundations (See Sections 3 & 8: Narration & English)",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "2",
+        "groupTitle": "Language Study: Grade 5",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.038Z",
+  "updatedAt": "2026-05-22T14:12:53.381Z",
   "terms": [
     {
       "termNumber": 2,

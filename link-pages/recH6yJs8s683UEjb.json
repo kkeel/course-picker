@@ -14,12 +14,28 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?view=topic&id=reclhERbHEXrGEJTn",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recH6yJs8s683UEjb.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recH6yJs8s683UEjb-sol-fa-musical-games.pdf",
+    "additional": [
+      {
+        "label": "Musical Games Playlist",
+        "url": "https://youtube.com/playlist?list=PLvg0fKfOahKRzogiNUj8sdCn1mNe2jstw&si=C2T7jlSRNZOG5PeG",
+        "sort": "1",
+        "groupTitle": "Sol-fa: Musical Games",
+        "groupType": "topic"
+      },
+      {
+        "label": "Appendix: Waltz Steps",
+        "url": "https://drive.google.com/file/d/1-hh0emXbA5yRIxwaDwb1v21i84msOL55/view?usp=drive_link",
+        "sort": "2",
+        "groupTitle": "Sol-fa: Musical Games",
+        "groupType": "topic"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.251Z",
+  "updatedAt": "2026-05-22T14:12:53.590Z",
   "terms": [
     {
       "termNumber": 1,

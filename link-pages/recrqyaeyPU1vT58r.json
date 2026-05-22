@@ -15,11 +15,62 @@
   ],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=rec7VealMCWCQdr30",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": ""
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recrqyaeyPU1vT58r-language-study-grade-1.pdf",
+    "additional": [
+      {
+        "label": "Alveary Reading Lesson Placement",
+        "url": "https://drive.google.com/file/d/1LacFQJKYjPCSfdMKrhHZfzQYEh0CfYzp/view?usp=drive_link",
+        "sort": "1",
+        "groupTitle": "Reading Level 1",
+        "groupType": "topic"
+      },
+      {
+        "label": "Literacy Development from Birth to Age 9",
+        "url": "https://docs.google.com/document/d/14aiBeoKftBqos9DDvIt8YAczJyAHo6ia5P_6fT5czqs/export?format=pdf",
+        "sort": "2",
+        "groupTitle": "Reading Level 1",
+        "groupType": "topic"
+      },
+      {
+        "label": "Reading Level 1 Teacher Guide",
+        "url": "https://drive.google.com/file/d/1Iixxi7_7x4QNwyQCClEJPmK-2Y2hCLy5/view?usp=drive_link",
+        "sort": "3",
+        "groupTitle": "Reading Level 1",
+        "groupType": "topic"
+      },
+      {
+        "label": "Scholastic webpage",
+        "url": "http://teacher.scholastic.com/education/guidedreading/leveling_chart.htm",
+        "sort": "4",
+        "groupTitle": "Reading Level 1",
+        "groupType": "topic"
+      },
+      {
+        "label": "Errata Page: Reading Level 1 for Lessons released prior to 11/19/25",
+        "url": "https://drive.google.com/file/d/16PytKzsUdJlc56yDtPyBHuo1ssZnBhGE/view?usp=drive_link",
+        "sort": "5",
+        "groupTitle": "Reading Level 1",
+        "groupType": "topic"
+      },
+      {
+        "label": "Foundations (See Section 14: Reading Lessons)",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "",
+        "groupTitle": "Reading Level 1",
+        "groupType": "topic"
+      },
+      {
+        "label": "Foundations (See Section 8: English)",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "",
+        "groupTitle": "Language Study: Grade 1",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.025Z",
+  "updatedAt": "2026-05-22T14:12:53.368Z",
   "terms": []
 }

@@ -14,12 +14,28 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?view=topic&id=recyfL7cWHbryaDo9",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recx8oy8TfLy5X1cD.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recx8oy8TfLy5X1cD-new-testament-grades-7-8.pdf",
+    "additional": [
+      {
+        "label": "Video overviews of Bible books from Bible Project",
+        "url": "https://bibleproject.com/videos/all/",
+        "sort": "1",
+        "groupTitle": "New Testament: Grades 7-8",
+        "groupType": "topic"
+      },
+      {
+        "label": "Teaching the Bible with Dr. John Walton",
+        "url": "https://vimeo.com/812792281/9dfa3d1ced",
+        "sort": "2",
+        "groupTitle": "New Testament: Grades 7-8",
+        "groupType": "topic"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:23.973Z",
+  "updatedAt": "2026-05-22T14:12:53.318Z",
   "terms": [
     {
       "termNumber": 1,

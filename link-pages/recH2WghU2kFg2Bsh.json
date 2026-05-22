@@ -19,12 +19,35 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?view=topic&id=rec3VWzJd0IeiTO7V",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recH2WghU2kFg2Bsh.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recH2WghU2kFg2Bsh-folk-songs.pdf",
+    "additional": [
+      {
+        "label": "Hymns, Folk Songs, & Spirituals Youtube Playlist",
+        "url": "https://www.youtube.com/playlist?list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t",
+        "sort": "1",
+        "groupTitle": "Folk Songs",
+        "groupType": "topic"
+      },
+      {
+        "label": "Hymns, Folk Songs, & Spirituals Spotify Playlist",
+        "url": "spotify.org",
+        "sort": "2",
+        "groupTitle": "Folk Songs",
+        "groupType": "topic"
+      },
+      {
+        "label": "Musical Terms Appendix",
+        "url": "https://drive.google.com/file/d/1yPct0tsaTXFIwtrnM5ZMnD5RHIJYcCcm/view?usp=drive_link",
+        "sort": "3",
+        "groupTitle": "Folk Songs",
+        "groupType": "topic"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.250Z",
+  "updatedAt": "2026-05-22T14:12:53.589Z",
   "terms": [
     {
       "termNumber": 1,

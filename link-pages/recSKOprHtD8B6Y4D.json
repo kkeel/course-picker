@@ -14,12 +14,28 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?view=topic&id=reczUjTDddwJhQsyZ",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recSKOprHtD8B6Y4D.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recSKOprHtD8B6Y4D-sol-fa-level-1.pdf",
+    "additional": [
+      {
+        "label": "Sol-fa SoundCloud Playlist",
+        "url": "https://soundcloud.com/alveary/sets/solfege-level-1-beginner",
+        "sort": "1",
+        "groupTitle": "Sol-fa: Level 1",
+        "groupType": "topic"
+      },
+      {
+        "label": "Warm-Ups",
+        "url": "https://soundcloud.com/alveary/warm-up?in=alveary/sets/solfege-level-1-beginner",
+        "sort": "2",
+        "groupTitle": "Sol-fa: Level 1",
+        "groupType": "topic"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.256Z",
+  "updatedAt": "2026-05-22T14:12:53.597Z",
   "terms": [
     {
       "termNumber": 1,

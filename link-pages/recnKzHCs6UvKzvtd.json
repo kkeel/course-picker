@@ -12,12 +12,28 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
-    "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recnKzHCs6UvKzvtd.pdf"
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=reco8PHbwJd4HJMU8",
+    "supplyListUrl": "https://planning.alveary.org/supply-details.html?view=course&id=reco8PHbwJd4HJMU8",
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recnKzHCs6UvKzvtd-shakespeare-grades-5-8.pdf",
+    "additional": [
+      {
+        "label": "Relational Methods, Sec. 9: How to Teach Shakespeare",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "1",
+        "groupTitle": "Shakespeare: Grades 5-8",
+        "groupType": "course"
+      },
+      {
+        "label": "Appendix: Ideas for Students New to Shakespeare",
+        "url": "https://drive.google.com/file/d/17sgxRqinE_s4K-iiquCS_F0kI1AFV2Xe/view?usp=drive_link",
+        "sort": "2",
+        "groupTitle": "Shakespeare: Grades 5-8",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.197Z",
+  "updatedAt": "2026-05-22T14:12:53.537Z",
   "terms": [
     {
       "termNumber": 1,

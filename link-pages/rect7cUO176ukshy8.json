@@ -14,11 +14,55 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
-    "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": ""
+    "bookListUrl": "https://planning.alveary.org/book-details.html?view=topic&id=recZGVMJzb5q6czhu",
+    "supplyListUrl": "https://planning.alveary.org/supply-details.html?view=topic&id=recZGVMJzb5q6czhu",
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rect7cUO176ukshy8-reading-level-3.pdf",
+    "additional": [
+      {
+        "label": "Alveary Reading Lesson Placement",
+        "url": "https://drive.google.com/file/d/1LacFQJKYjPCSfdMKrhHZfzQYEh0CfYzp/view?usp=drive_link",
+        "sort": "1",
+        "groupTitle": "Reading Level 3",
+        "groupType": "topic"
+      },
+      {
+        "label": "Literacy Development from Birth to Age 9",
+        "url": "https://docs.google.com/document/d/14aiBeoKftBqos9DDvIt8YAczJyAHo6ia5P_6fT5czqs/export?format=pdf",
+        "sort": "2",
+        "groupTitle": "Reading Level 3",
+        "groupType": "topic"
+      },
+      {
+        "label": "Level 3 Teacher Guide",
+        "url": "https://drive.google.com/file/d/1jQmx2XUoXKDklwv2DnHs31tYid6e7mIP/view?usp=drive_link",
+        "sort": "3",
+        "groupTitle": "Reading Level 3",
+        "groupType": "topic"
+      },
+      {
+        "label": "Scholastic webpage",
+        "url": "http://teacher.scholastic.com/education/guidedreading/leveling_chart.htm",
+        "sort": "4",
+        "groupTitle": "Reading Level 3",
+        "groupType": "topic"
+      },
+      {
+        "label": "Errata Page: Reading Level 3 for lessons released prior to 11/19/25",
+        "url": "https://drive.google.com/file/d/1qHjYgMtv5ZvRRCXbEhWHK4sso-pNNKQz/view?usp=drive_link",
+        "sort": "5",
+        "groupTitle": "Reading Level 3",
+        "groupType": "topic"
+      },
+      {
+        "label": "Foundations (See Section 14: Reading Lessons)",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "",
+        "groupTitle": "Reading Level 3",
+        "groupType": "topic"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.031Z",
+  "updatedAt": "2026-05-22T14:12:53.374Z",
   "terms": []
 }

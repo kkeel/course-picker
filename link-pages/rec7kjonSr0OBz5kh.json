@@ -12,11 +12,27 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recbVmgtsnbd9QfGD",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec7kjonSr0OBz5kh.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec7kjonSr0OBz5kh-latin-1-independent-study.pdf",
+    "additional": [
+      {
+        "label": "Online Latin Course Intro Video",
+        "url": "https://www.youtube.com/watch?v=Ga7fuB78_zQ&list=PLvg0fKfOahKQi_uFUcbXA0cxTllU5NGQf&index=2",
+        "sort": "",
+        "groupTitle": "Latin 1 (Independent Study)",
+        "groupType": "course"
+      },
+      {
+        "label": "Online Latin Course Registration (Optional)",
+        "url": "https://buy.stripe.com/3cs28S9YofiO5YQbIL",
+        "sort": "",
+        "groupTitle": "Latin 1 (Independent Study)",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.145Z",
+  "updatedAt": "2026-05-22T14:12:53.488Z",
   "terms": []
 }

@@ -12,12 +12,35 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
-    "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec9lkHl3pKY5QBnE.pdf"
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recydvGZUJZVjPvQy",
+    "supplyListUrl": "https://planning.alveary.org/supply-details.html?view=course&id=recydvGZUJZVjPvQy",
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec9lkHl3pKY5QBnE-geography-grade-3-u-s.pdf",
+    "additional": [
+      {
+        "label": "Appendix: Geography Models",
+        "url": "https://drive.google.com/file/d/1rh58GFhfyB_ocpweuaAdKZO5sWyi4FPd/view?usp=drive_link",
+        "sort": "1",
+        "groupTitle": "Geography: Grade 3 (U.S.)",
+        "groupType": "course"
+      },
+      {
+        "label": "5th Edition U.S. Map PDF",
+        "url": "https://drive.google.com/file/d/1ABXlFZN195-d9Yg0Zsx9OgLURrDyyxXQ/view?usp=drive_link",
+        "sort": "2",
+        "groupTitle": "Geography: Grade 3 (U.S.)",
+        "groupType": "course"
+      },
+      {
+        "label": "Foundations (See Section 16: Geography)",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "2",
+        "groupTitle": "Geography: Grade 3 (U.S.)",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.090Z",
+  "updatedAt": "2026-05-22T14:12:53.436Z",
   "terms": [
     {
       "termNumber": 1,

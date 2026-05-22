@@ -12,11 +12,20 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recgy9PIABsEwyDTQ",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec6r1YSTtDI9TXFv.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec6r1YSTtDI9TXFv-keyboarding.pdf",
+    "additional": [
+      {
+        "label": "typing.com",
+        "url": "https://www.typing.com/",
+        "sort": "1",
+        "groupTitle": "Keyboarding",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.163Z",
+  "updatedAt": "2026-05-22T14:12:53.506Z",
   "terms": []
 }

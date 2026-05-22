@@ -12,12 +12,42 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
-    "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recD6sCXurd6xJISq.pdf"
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recPbX2lDJKZ0THU4",
+    "supplyListUrl": "https://planning.alveary.org/supply-details.html?view=course&id=recPbX2lDJKZ0THU4",
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recD6sCXurd6xJISq-art-level-7.pdf",
+    "additional": [
+      {
+        "label": "Appendix: Guiding Questions for Art",
+        "url": "https://drive.google.com/file/d/1kFr-2zGXd-qvzieLvcbgAjlIYTfN4-Qq/view?usp=drive_link",
+        "sort": "1",
+        "groupTitle": "Art: Level 7",
+        "groupType": "course"
+      },
+      {
+        "label": "Art Teacher Training Tutorials",
+        "url": "http://vimeo.com/user/36827822/folder/2111395",
+        "sort": "2",
+        "groupTitle": "Art: Level 7",
+        "groupType": "course"
+      },
+      {
+        "label": "Ethics Guide for Picking Wildflowers",
+        "url": "https://www.blm.gov/Learn/Can-I-Keep-This",
+        "sort": "3",
+        "groupTitle": "Art: Level 7",
+        "groupType": "course"
+      },
+      {
+        "label": "Foundations (See Section 5: Art Appreciation and Instruction)",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "",
+        "groupTitle": "Art: Level 7",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:23.945Z",
+  "updatedAt": "2026-05-22T14:12:53.290Z",
   "terms": [
     {
       "termNumber": 1,

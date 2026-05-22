@@ -12,12 +12,49 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recZZNDbRzKrPaN5D",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recwMzJYZwztAl4dg.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recwMzJYZwztAl4dg-health-elective-beta.pdf",
+    "additional": [
+      {
+        "label": "Wellness Journal (Optional)",
+        "url": "https://a.co/d/hlgJYJ3",
+        "sort": "1",
+        "groupTitle": "Health Elective (Beta)",
+        "groupType": "course"
+      },
+      {
+        "label": "Couch to 5K Plan Option 1",
+        "url": "https://c25k.com/",
+        "sort": "2",
+        "groupTitle": "Health Elective (Beta)",
+        "groupType": "course"
+      },
+      {
+        "label": "Couch to 5K Plan Option 2",
+        "url": "https://www.nhs.uk/better-health/get-active/get-running-with-couch-to-5k/",
+        "sort": "3",
+        "groupTitle": "Health Elective (Beta)",
+        "groupType": "course"
+      },
+      {
+        "label": "Weight Lift Training Guide Option 1",
+        "url": "https://www.menshealth.com/fitness/a62964206/teen-workout-program/",
+        "sort": "4",
+        "groupTitle": "Health Elective (Beta)",
+        "groupType": "course"
+      },
+      {
+        "label": "Weight Lift Training Guide Option 2",
+        "url": "https://www.amazon.com/gp/product/0345528581/",
+        "sort": "5",
+        "groupTitle": "Health Elective (Beta)",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.151Z",
+  "updatedAt": "2026-05-22T14:12:53.494Z",
   "terms": [
     {
       "termNumber": 1,

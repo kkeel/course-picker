@@ -16,12 +16,28 @@
   ],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recK4WumjdpFqO8pD",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recMLQEwtZN1C2Rlr.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recMLQEwtZN1C2Rlr-bible-grades-10-11.pdf",
+    "additional": [
+      {
+        "label": "bibleproject.com",
+        "url": "https://bibleproject.com/explore/book-overviews/?type=old",
+        "sort": "",
+        "groupTitle": "Bible: Grades 10-11",
+        "groupType": "course"
+      },
+      {
+        "label": "Foundations (See Section 6: Bible)",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "",
+        "groupTitle": "Bible: Grades 10-11",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:23.980Z",
+  "updatedAt": "2026-05-22T14:12:53.324Z",
   "terms": [
     {
       "termNumber": 1,

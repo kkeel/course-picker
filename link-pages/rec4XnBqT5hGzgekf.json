@@ -18,11 +18,27 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?view=topic&id=recc7G1pOR69hhyYk",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec4XnBqT5hGzgekf.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec4XnBqT5hGzgekf-composer-study.pdf",
+    "additional": [
+      {
+        "label": "Extra Resource: Classics for Kids Musical Dictionary",
+        "url": "https://www.classicsforkids.com/musical-terms/",
+        "sort": "1",
+        "groupTitle": "Composer Study",
+        "groupType": "topic"
+      },
+      {
+        "label": "Foundations (See Section 12: Music)",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "4",
+        "groupTitle": "Composer Study",
+        "groupType": "topic"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.255Z",
+  "updatedAt": "2026-05-22T14:12:53.596Z",
   "terms": []
 }

@@ -14,12 +14,49 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?view=topic&id=rechpxDJlfYNeYf26",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recb8iEt7Ir3xrsKe.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recb8iEt7Ir3xrsKe-geology-lessons.pdf",
+    "additional": [
+      {
+        "label": "Nature Journal Connection",
+        "url": "https://johnmuirlaws.com/the-nature-journal-connection/",
+        "sort": "1",
+        "groupTitle": "Geology Lessons",
+        "groupType": "topic"
+      },
+      {
+        "label": "Alveary Bookshelf",
+        "url": "https://airtable.com/appGy6iYhEqm5cMsF/shre6jWU0AaAKFUVU",
+        "sort": "2",
+        "groupTitle": "Geology Lessons",
+        "groupType": "topic"
+      },
+      {
+        "label": "Roadside Geology",
+        "url": "https://www.amazon.com/s?k=roadside+geology&redirectFromSmile=1&ref=nb_sb_noss_1",
+        "sort": "3",
+        "groupTitle": "Geology Lessons",
+        "groupType": "topic"
+      },
+      {
+        "label": "State by State Rockhound",
+        "url": "http://www.gatorgirlrocks.com/state-by-state/",
+        "sort": "4",
+        "groupTitle": "Geology Lessons",
+        "groupType": "topic"
+      },
+      {
+        "label": "How to Find Rocks",
+        "url": "https://howtofindrocks.com/",
+        "sort": "5",
+        "groupTitle": "Geology Lessons",
+        "groupType": "topic"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.366Z",
+  "updatedAt": "2026-05-22T14:12:53.701Z",
   "terms": [
     {
       "termNumber": 1,

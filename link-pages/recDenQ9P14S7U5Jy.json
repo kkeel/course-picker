@@ -12,11 +12,20 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recbHf0MqLbILcfsB",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recDenQ9P14S7U5Jy.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recDenQ9P14S7U5Jy-recitation-grades-4-6.pdf",
+    "additional": [
+      {
+        "label": "Our Work: Grades 4-6",
+        "url": "https://charlotte-mason-institute.my.canva.site/our-work-grade-4-6-2026-27-web",
+        "sort": "1",
+        "groupTitle": "Recitation: Grades 4-6",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.078Z",
+  "updatedAt": "2026-05-22T14:12:53.422Z",
   "terms": []
 }

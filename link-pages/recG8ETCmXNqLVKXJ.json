@@ -15,12 +15,21 @@
   ],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recLExzdChHiV6eiV",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recG8ETCmXNqLVKXJ.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recG8ETCmXNqLVKXJ-history-grades-10-12-u-s.pdf",
+    "additional": [
+      {
+        "label": "Foundations (See Section 15: History)",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "5",
+        "groupTitle": "History: Grades 10-12 (U.S.)",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.137Z",
+  "updatedAt": "2026-05-22T14:12:53.482Z",
   "terms": [
     {
       "termNumber": 1,

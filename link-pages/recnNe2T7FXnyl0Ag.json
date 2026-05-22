@@ -17,12 +17,42 @@
   ],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recVYrtvG5Zep6XCc",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recnNe2T7FXnyl0Ag.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recnNe2T7FXnyl0Ag-language-study-grade-6.pdf",
+    "additional": [
+      {
+        "label": "Grammar Town Teacher Manual",
+        "url": "https://drive.google.com/file/d/1zu-MyMCHwIECpjQou20LfkvdSuSimxlC/view",
+        "sort": "1",
+        "groupTitle": "Grammar: Grade 6",
+        "groupType": "topic"
+      },
+      {
+        "label": "Foundations (See Sections 3 & 8: Narration & English)",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "2",
+        "groupTitle": "Language Study: Grade 6",
+        "groupType": "course"
+      },
+      {
+        "label": "Practice Town Teacher Manual",
+        "url": "https://drive.google.com/file/d/1V17GjjkYyfgnKIzmIIPcVVoDdeLlGXfp/view?usp=drive_link",
+        "sort": "2",
+        "groupTitle": "Grammar: Grade 6",
+        "groupType": "topic"
+      },
+      {
+        "label": "Grammar Town Exam Questions Answer Key for Terms 1-3",
+        "url": "https://www.dropbox.com/scl/fi/o1ccjsz5djtobq8ifjtu6/Grade-6-Grammar-Town-Term-1-3-Exam-Answer-Key.pdf?dl=0&rlkey=4nulr5ylfe1gl5rr1h5aymom6",
+        "sort": "3",
+        "groupTitle": "Grammar: Grade 6",
+        "groupType": "topic"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.042Z",
+  "updatedAt": "2026-05-22T14:12:53.385Z",
   "terms": [
     {
       "termNumber": 1,

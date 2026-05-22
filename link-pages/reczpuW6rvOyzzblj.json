@@ -12,12 +12,28 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recJIxZb1XZli9xOn",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/reczpuW6rvOyzzblj.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/reczpuW6rvOyzzblj-history-grades-2-3-u-s.pdf",
+    "additional": [
+      {
+        "label": "Foundations (See Section 15: History)",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "5",
+        "groupTitle": "History: Grades 2-3 (U.S.)",
+        "groupType": "course"
+      },
+      {
+        "label": "History Charts & Timeline Scope & Sample",
+        "url": "https://www.dropbox.com/s/zzw2uu8pdxzprys/TimelinesandHistoryCharts.pdf?dl=0",
+        "sort": "",
+        "groupTitle": "History: Grades 2-3 (U.S.)",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.105Z",
+  "updatedAt": "2026-05-22T14:12:53.452Z",
   "terms": [
     {
       "termNumber": 1,

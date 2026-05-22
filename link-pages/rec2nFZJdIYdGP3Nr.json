@@ -12,12 +12,28 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
-    "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec2nFZJdIYdGP3Nr.pdf"
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recJBESg40pUPf6Wl",
+    "supplyListUrl": "https://planning.alveary.org/supply-details.html?view=course&id=recJBESg40pUPf6Wl",
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec2nFZJdIYdGP3Nr-geography-grades-4-6.pdf",
+    "additional": [
+      {
+        "label": "Foundations (See Section 16: Geography)",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "2",
+        "groupTitle": "Geography: Grades 4-6",
+        "groupType": "course"
+      },
+      {
+        "label": "Student Lessons (No Answers)",
+        "url": "https://drive.google.com/file/d/1a0t3sK_9v6ytBavD62JR-LSq8ls8P-BF/view?usp=drive_link",
+        "sort": "",
+        "groupTitle": "Geography: Grades 4-6",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.093Z",
+  "updatedAt": "2026-05-22T14:12:53.439Z",
   "terms": [
     {
       "termNumber": 1,

@@ -14,12 +14,49 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
-    "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recjB0PioIpL4XnWr.pdf"
+    "bookListUrl": "https://planning.alveary.org/book-details.html?view=topic&id=recQnNMrVmgVQUVVT",
+    "supplyListUrl": "https://planning.alveary.org/supply-details.html?view=topic&id=recQnNMrVmgVQUVVT",
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recjB0PioIpL4XnWr-music-appreciation.pdf",
+    "additional": [
+      {
+        "label": "Child's Introduction to the Orchestra (Youtube)",
+        "url": "https://www.youtube.com/watch?v=C_ipa4JzNNc",
+        "sort": "1",
+        "groupTitle": "Music Appreciation",
+        "groupType": "topic"
+      },
+      {
+        "label": "Child's Introduction to the Orchestra",
+        "url": "https://archive.org/details/AChildsIntroductionToTheOrchestra/01.+Antoinette+the+Clarinet.mp3",
+        "sort": "2",
+        "groupTitle": "Music Appreciation",
+        "groupType": "topic"
+      },
+      {
+        "label": "How to Pronounce Prokofiev",
+        "url": "https://www.youtube.com/watch?v=iHh-aaPPHTE",
+        "sort": "3",
+        "groupTitle": "Music Appreciation",
+        "groupType": "topic"
+      },
+      {
+        "label": "How to Pronounce Camille Saint-Saens",
+        "url": "https://www.youtube.com/watch?v=6nP9OD_9IDs",
+        "sort": "4",
+        "groupTitle": "Music Appreciation",
+        "groupType": "topic"
+      },
+      {
+        "label": "Music Appreciation Spotify Playlist",
+        "url": "https://open.spotify.com/playlist/3QbKMj78klSaE3d5LDmrIZ?si=sDtm0OwWQzmojI-TgQAszA",
+        "sort": "5",
+        "groupTitle": "Music Appreciation",
+        "groupType": "topic"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.248Z",
+  "updatedAt": "2026-05-22T14:12:53.587Z",
   "terms": [
     {
       "termNumber": 1,

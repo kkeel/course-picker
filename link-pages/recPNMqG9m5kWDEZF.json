@@ -15,12 +15,42 @@
   ],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
-    "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": ""
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recWaFPHwfSbZaTdp",
+    "supplyListUrl": "https://planning.alveary.org/supply-details.html?view=course&id=recWaFPHwfSbZaTdp",
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recPNMqG9m5kWDEZF-science-advanced-nature-study.pdf",
+    "additional": [
+      {
+        "label": "Seek app from iNaturalist",
+        "url": "https://www.inaturalist.org/pages/seek_app",
+        "sort": "1",
+        "groupTitle": "Advanced Nature Study Lessons",
+        "groupType": "topic"
+      },
+      {
+        "label": "SHOP — Exploring Overland",
+        "url": "https://www.exploringoverland.com/shop",
+        "sort": "2",
+        "groupTitle": "Advanced Nature Study Lessons",
+        "groupType": "topic"
+      },
+      {
+        "label": "How to Teach Nature Journaling",
+        "url": "https://johnmuirlaws.com/product/how-to-teach-nature-journaling/",
+        "sort": "3",
+        "groupTitle": "Advanced Nature Study Lessons",
+        "groupType": "topic"
+      },
+      {
+        "label": "A Community for Naturalists · iNaturalist",
+        "url": "https://www.inaturalist.org/",
+        "sort": "4",
+        "groupTitle": "Advanced Nature Study Lessons",
+        "groupType": "topic"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.359Z",
+  "updatedAt": "2026-05-22T14:12:53.692Z",
   "terms": [
     {
       "termNumber": 1,

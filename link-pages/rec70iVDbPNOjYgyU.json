@@ -14,12 +14,56 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?view=topic&id=recFovwuS7zeV6AkE",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec70iVDbPNOjYgyU.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec70iVDbPNOjYgyU-microbiology-lessons.pdf",
+    "additional": [
+      {
+        "label": "Nature Journal Connection",
+        "url": "https://johnmuirlaws.com/the-nature-journal-connection/",
+        "sort": "1",
+        "groupTitle": "Microbiology Lessons",
+        "groupType": "topic"
+      },
+      {
+        "label": "Alveary Bookshelf",
+        "url": "https://airtable.com/appGy6iYhEqm5cMsF/shre6jWU0AaAKFUVU",
+        "sort": "2",
+        "groupTitle": "Microbiology Lessons",
+        "groupType": "topic"
+      },
+      {
+        "label": "Illustrated Guide to Home Biology Experiments",
+        "url": "https://www.thehomescientist.com/manuals",
+        "sort": "3",
+        "groupTitle": "Microbiology Lessons",
+        "groupType": "topic"
+      },
+      {
+        "label": "Seven Wonders of the Microbe World",
+        "url": "https://www.youtube.com/playlist?list=PL4473936D327B7C69",
+        "sort": "4",
+        "groupTitle": "Microbiology Lessons",
+        "groupType": "topic"
+      },
+      {
+        "label": "Microbiology from A to Z",
+        "url": "https://www.micropia.nl/en/discover/microbiology/",
+        "sort": "5",
+        "groupTitle": "Microbiology Lessons",
+        "groupType": "topic"
+      },
+      {
+        "label": "Microbiology Current Events",
+        "url": "https://www.micropia.nl/en/discover/news/",
+        "sort": "6",
+        "groupTitle": "Microbiology Lessons",
+        "groupType": "topic"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.375Z",
+  "updatedAt": "2026-05-22T14:12:53.709Z",
   "terms": [
     {
       "termNumber": 1,

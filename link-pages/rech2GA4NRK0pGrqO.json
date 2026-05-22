@@ -12,12 +12,35 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=rec9lmWtXdrU3jSHO",
     "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rech2GA4NRK0pGrqO.pdf"
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rech2GA4NRK0pGrqO-technology.pdf",
+    "additional": [
+      {
+        "label": "Course Overview",
+        "url": "https://docs.google.com/presentation/d/e/2PACX-1vQ5QhlLN2XlWUN1IulvzKqFgW6BY8yYI6hwO5rZ8EbTNksTFLGk3aqwAgzuCeijn1qEPP3OGLfYyGiR/pub?start=false&loop=false&delayms=60000&slide=id.g35fbbf57a49_0_0",
+        "sort": "1",
+        "groupTitle": "Technology",
+        "groupType": "course"
+      },
+      {
+        "label": "Term 1 Exam Link",
+        "url": "https://www.canva.com/create/infographics/",
+        "sort": "2",
+        "groupTitle": "Technology",
+        "groupType": "course"
+      },
+      {
+        "label": "Term 3 Exam Link",
+        "url": "https://www.youtube.com/watch?v=ih3LDRuup2s",
+        "sort": "3",
+        "groupTitle": "Technology",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.150Z",
+  "updatedAt": "2026-05-22T14:12:53.492Z",
   "terms": [
     {
       "termNumber": 1,

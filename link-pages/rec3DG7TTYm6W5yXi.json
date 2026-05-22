@@ -12,12 +12,28 @@
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
-    "supplyListUrl": "",
-    "basicSuppliesUrl": "",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec3DG7TTYm6W5yXi.pdf"
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recYTG9MRdgiltlD5",
+    "supplyListUrl": "https://planning.alveary.org/supply-details.html?view=course&id=recYTG9MRdgiltlD5",
+    "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec3DG7TTYm6W5yXi-sloyd-level-1.pdf",
+    "additional": [
+      {
+        "label": "Sloyd Introduction Video",
+        "url": "https://vimeo.com/340947199/7d7d2ddd99",
+        "sort": "1",
+        "groupTitle": "Sloyd: Level 1",
+        "groupType": "course"
+      },
+      {
+        "label": "Appendix: First Year Models",
+        "url": "https://drive.google.com/file/d/1KgMXjK5H8Gq2ZkMkPhkp8-mUYTmIBHmx/view?usp=drive_link",
+        "sort": "2",
+        "groupTitle": "Sloyd: Level 1",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-22T08:44:24.153Z",
+  "updatedAt": "2026-05-22T14:12:53.495Z",
   "terms": [
     {
       "termNumber": 1,
