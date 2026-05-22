@@ -2,7 +2,8 @@
   const state = {
     data: null,
     selectedTerm: "all",
-    selectedWeek: "all"
+    selectedWeek: "all",
+    quickAccessCollapsed: false
   };
 
   const els = {
@@ -13,6 +14,7 @@
     termFilter: document.getElementById("termFilter"),
     weekFilter: document.getElementById("weekFilter"),
     clearFilters: document.getElementById("clearFilters"),
+    quickAccessHeader: document.querySelector(".links-quick-access-header"),
     quickAccess: document.getElementById("linksQuickAccess"),
     quickAccessGrid: document.getElementById("linksQuickAccessGrid"),
     status: document.getElementById("linksStatus"),
@@ -36,11 +38,6 @@
       term: params.get("term") || "all",
       week: params.get("week") || "all"
     };
-  }
-
-  function hasPrefilteredView() {
-    const params = getUrlParams();
-    return params.term !== "all" || params.week !== "all";
   }
   
   function getPacketId() {
@@ -192,6 +189,21 @@
       ];
   
       els.quickAccess.hidden = false;
+      els.quickAccess.classList.toggle("is-collapsed", state.quickAccessCollapsed);
+      
+      els.quickAccessHeader.innerHTML = `
+        <h2>Quick Links</h2>
+        <button class="links-quick-access-toggle" type="button">
+          ${state.quickAccessCollapsed ? "Show" : "Hide"}
+        </button>
+      `;
+      
+      els.quickAccessHeader
+        .querySelector(".links-quick-access-toggle")
+        .addEventListener("click", () => {
+          state.quickAccessCollapsed = !state.quickAccessCollapsed;
+          renderQuickAccess();
+        });
   
       const primaryHtml = links.map(link => {
         const isDisabled = !link.url || link.url === "#";
@@ -228,33 +240,6 @@
           </div>
         `
         : "";
-
-      const isCollapsed = hasPrefilteredView();
-
-      els.quickAccess.classList.toggle("is-collapsed", isCollapsed);
-
-      const header = els.quickAccess.querySelector(".links-quick-access-header");
-      if (header) {
-        header.innerHTML = `
-          <h2>Quick Links</h2>
-          <button
-            type="button"
-            class="links-quick-access-toggle"
-            aria-expanded="${isCollapsed ? "false" : "true"}"
-          >
-            ${isCollapsed ? "Show" : "Hide"}
-          </button>
-        `;
-
-        const toggleButton = header.querySelector(".links-quick-access-toggle");
-        toggleButton.addEventListener("click", () => {
-          const shouldCollapse = !els.quickAccess.classList.contains("is-collapsed");
-
-          els.quickAccess.classList.toggle("is-collapsed", shouldCollapse);
-          toggleButton.textContent = shouldCollapse ? "Show" : "Hide";
-          toggleButton.setAttribute("aria-expanded", shouldCollapse ? "false" : "true");
-        });
-      }
 
       els.quickAccessGrid.innerHTML = primaryHtml + additionalHtml;
     }
@@ -354,6 +339,9 @@
       state.data = await response.json();
 
       applyInitialFiltersFromUrl();
+
+      state.quickAccessCollapsed =
+        state.selectedTerm !== "all" || state.selectedWeek !== "all";
       
       els.subject.style.display = "none";
 
