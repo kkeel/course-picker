@@ -254,13 +254,7 @@
 
       els.content.innerHTML = `
         <section class="links-empty-state">
-          <h2 class="links-empty-title">
-            ${escapeHtml(
-              state.data.lessonSetName ||
-              state.data.title ||
-              "Lesson Links"
-            )}
-          </h2>
+          <h2 class="links-empty-title">Lesson Links</h2>
 
           <p class="links-empty-message">
             There are no lesson links for this lesson plan.
