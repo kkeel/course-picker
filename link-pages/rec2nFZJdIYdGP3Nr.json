@@ -10,7 +10,14 @@
   "isStandaloneCourse": true,
   "courseConnectionNames": [],
   "topicConnectionNames": [],
-  "updatedAt": "2026-05-21T18:15:09.767Z",
+  "quickLinks": {
+    "extraHelpingsUrl": "",
+    "bookListUrl": "",
+    "supplyListUrl": "",
+    "basicSuppliesUrl": "",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec2nFZJdIYdGP3Nr.pdf"
+  },
+  "updatedAt": "2026-05-22T02:38:16.949Z",
   "terms": [
     {
       "termNumber": 1,
@@ -627,6 +634,30 @@
               ]
             }
           ]
+        },
+        {
+          "weekNumber": 24,
+          "weekLabel": "Week 12",
+          "lessons": [
+            {
+              "lessonId": "recbzELCYQ2hESd0N",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 24,
+              "weekLabel": "Week 12",
+              "sequence": 48,
+              "sort": 0,
+              "lessonLabel": "Lesson 48",
+              "title": "25m Geography: Grades 4-6 - Lesson 48",
+              "anchor": "term-2-week-24-lesson-48",
+              "links": [
+                {
+                  "text": "∞ Link: Blank Map of Africa",
+                  "url": "https://www.geoguessr.com/assets/seterra/printables/en/africa-countries.pdf"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -941,6 +972,30 @@
                 {
                   "text": "Clay Model Example 2",
                   "url": "https://content.instructables.com/FTO/8GQM/K14VAJK6/FTO8GQMK14VAJK6.jpg?auto=webp&frame=1&width=1024&height=1024&fit=bounds&md=26d32cb5b3bb6aea25e9c7387d2a94fe"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 36,
+          "weekLabel": "Week 12",
+          "lessons": [
+            {
+              "lessonId": "rec4PhIKrBadBoipV",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 36,
+              "weekLabel": "Week 12",
+              "sequence": 72,
+              "sort": 0,
+              "lessonLabel": "Lesson 72",
+              "title": "25m Geography: Grades 4-6 - Lesson 72",
+              "anchor": "term-3-week-36-lesson-72",
+              "links": [
+                {
+                  "text": "∞ Link: Blank Map of Africa",
+                  "url": "https://www.geoguessr.com/assets/seterra/printables/en/africa-countries.pdf"
                 }
               ]
             }

@@ -13,7 +13,14 @@
     "Canadian History: Grades 2-4",
     "World History: Grades 4-6"
   ],
-  "updatedAt": "2026-05-21T18:15:09.787Z",
+  "quickLinks": {
+    "extraHelpingsUrl": "",
+    "bookListUrl": "",
+    "supplyListUrl": "",
+    "basicSuppliesUrl": "",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recqYUG7bTFDN17sM.pdf"
+  },
+  "updatedAt": "2026-05-22T02:38:16.967Z",
   "terms": [
     {
       "termNumber": 1,
@@ -626,6 +633,30 @@
           ]
         },
         {
+          "weekNumber": 19,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "recZ6R7rbCVnzMgve",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 19,
+              "weekLabel": "Week 7",
+              "sequence": 19,
+              "sort": 201902,
+              "lessonLabel": "",
+              "title": "25m World History: Grades 4-6 - Lesson 19",
+              "anchor": "term-2-week-19-lesson-19",
+              "links": [
+                {
+                  "text": "Statue of William Wilberforce",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/e/e1/052-SFEC-HULL-20070329-WILBERFORCE.JPG"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "weekNumber": 20,
           "weekLabel": "Week 8",
           "lessons": [
@@ -670,6 +701,24 @@
                   "url": "https://www.youtube.com/watch?v=6JnbeHTzVgs"
                 }
               ]
+            },
+            {
+              "lessonId": "recncZDLhK6IL03gL",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 21,
+              "weekLabel": "Week 9",
+              "sequence": 21,
+              "sort": 202102,
+              "lessonLabel": "",
+              "title": "25m World History: Grades 4-6 - Lesson 21",
+              "anchor": "term-2-week-21-lesson-21",
+              "links": [
+                {
+                  "text": "Video: The Battle of Trafalgar",
+                  "url": "https://www.youtube.com/watch?v=gTs2B2BX25E"
+                }
+              ]
             }
           ]
         },
@@ -696,6 +745,30 @@
                 {
                   "text": "O Canada",
                   "url": "https://www.thecanadianencyclopedia.ca/en/article/o-canada"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 23,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "recR6WCQQoNQdGyuF",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 23,
+              "weekLabel": "Week 11",
+              "sequence": 23,
+              "sort": 202302,
+              "lessonLabel": "",
+              "title": "25m World History: Grades 4-6 - Lesson 23",
+              "anchor": "term-2-week-23-lesson-23",
+              "links": [
+                {
+                  "text": "Westminster Abbey memorial",
+                  "url": "https://www.westminster-abbey.org/abbey-commemorations/commemorations/william-wilberforce-family"
                 }
               ]
             }

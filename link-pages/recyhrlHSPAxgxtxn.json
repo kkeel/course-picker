@@ -13,7 +13,14 @@
     "Ancient History: Grades 7-9",
     "Canadian History: Grades 7-8"
   ],
-  "updatedAt": "2026-05-21T18:15:09.798Z",
+  "quickLinks": {
+    "extraHelpingsUrl": "",
+    "bookListUrl": "",
+    "supplyListUrl": "",
+    "basicSuppliesUrl": "",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recyhrlHSPAxgxtxn.pdf"
+  },
+  "updatedAt": "2026-05-22T02:38:16.981Z",
   "terms": [
     {
       "termNumber": 1,
@@ -503,6 +510,72 @@
       "termNumber": 2,
       "term": "Term 2",
       "weeks": [
+        {
+          "weekNumber": 14,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "rec8KmIU5IhSse67K",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 14,
+              "weekLabel": "Week 2",
+              "sequence": 27,
+              "sort": 201402,
+              "lessonLabel": "",
+              "title": "30m Canadian History: Grades 7-8 - Lesson 27",
+              "anchor": "term-2-week-14-lesson-27",
+              "links": [
+                {
+                  "text": "The French Canadian Exiles of 1840",
+                  "url": "https://canadabayheritage.asn.au/canada-bay-history/the-french-canadian-exiles-of-1840/"
+                }
+              ]
+            },
+            {
+              "lessonId": "recrQCc102N3XVsgS",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 14,
+              "weekLabel": "Week 2",
+              "sequence": 28,
+              "sort": 201404,
+              "lessonLabel": "",
+              "title": "30m Canadian History: Grades 7-8 - Lesson 28",
+              "anchor": "term-2-week-14-lesson-28",
+              "links": [
+                {
+                  "text": "Association des Frères-Chasseurs",
+                  "url": "https://thecanadianencyclopedia.ca/en/article/association-des-freres-chasseurs"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 17,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "recLiWWb0XMmTzyHt",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 17,
+              "weekLabel": "Week 5",
+              "sequence": 34,
+              "sort": 201704,
+              "lessonLabel": "",
+              "title": "30m Canadian History: Grades 7-8 - Lesson 34",
+              "anchor": "term-2-week-17-lesson-34",
+              "links": [
+                {
+                  "text": "Nelson's Column and Notre Dame Street in 1830",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Monument_Nelson_Montreal.jpg"
+                }
+              ]
+            }
+          ]
+        },
         {
           "weekNumber": 18,
           "weekLabel": "Week 6",
