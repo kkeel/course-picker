@@ -13,6 +13,8 @@
     termFilter: document.getElementById("termFilter"),
     weekFilter: document.getElementById("weekFilter"),
     clearFilters: document.getElementById("clearFilters"),
+    quickAccess: document.getElementById("linksQuickAccess"),
+    quickAccessGrid: document.getElementById("linksQuickAccessGrid"),
     status: document.getElementById("linksStatus"),
     content: document.getElementById("linksContent")
   };
@@ -146,6 +148,31 @@
     els.weekFilter.value = state.selectedWeek;
   }
 
+  function renderQuickAccess() {
+    const links = [
+      { label: "Extra Helpings", icon: "🍯", url: "#" },
+      { label: "Book List Details", icon: "📚", url: "#" },
+      { label: "Supply List Details", icon: "✂️", url: "#" },
+      { label: "Basic Supply List", icon: "✏️", url: "#" },
+      { label: "Lesson PDF", icon: "📝", url: "#" }
+    ];
+
+    els.quickAccess.hidden = false;
+
+    els.quickAccessGrid.innerHTML = links.map(link => `
+      <a
+        class="links-quick-access-card ${link.url === "#" ? "is-disabled" : ""}"
+        href="${escapeHtml(link.url)}"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="links-quick-access-icon">${escapeHtml(link.icon)}</span>
+        <span class="links-quick-access-label">${escapeHtml(link.label)}</span>
+        <span class="links-quick-access-arrow">↗</span>
+      </a>
+    `).join("");
+  }
+
   function renderLinks() {
     const terms = getVisibleTerms();
 
@@ -257,6 +284,7 @@
 
       els.controls.hidden = false;
 
+      renderQuickAccess();
       renderFilters();
       renderLinks();
     } catch (error) {
