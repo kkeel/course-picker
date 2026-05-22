@@ -1554,6 +1554,11 @@ function renderSectionHeading(label, showDisclosure = false) {
 function renderSelectedViewMode(items) {
   const heading = currentSelectionHeading();
 
+  const isDirectBasicSuppliesView =
+    !heading &&
+    Array.isArray(items) &&
+    items.some((item) => item.subject === "Basic Supplies");
+  
   const shouldSplitBasicSupplies =
     state.base === "grade" &&
     state.id !== DEFAULT_GRADE &&
@@ -1577,6 +1582,7 @@ function renderSelectedViewMode(items) {
 
   return `
     ${heading ? renderSectionHeading(heading, true) : ""}
+    ${isDirectBasicSuppliesView ? renderSectionHeading("Basic Supplies", true) : ""}
     ${renderCourseTopicMode(items)}
   `;
 }
