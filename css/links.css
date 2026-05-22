@@ -59,13 +59,47 @@
   background: transparent;
 }
 
+.links-quick-access-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 16px;
+}
+
 .links-quick-access-header h2 {
   font-family: "Plantin MT Pro", Georgia, "Times New Roman", serif;
   color: var(--brand-text);
   font-size: 24px;
   font-weight: 200;
   line-height: 1.25;
-  margin: 0 0 16px;
+  margin: 0;
+}
+
+.links-quick-access-toggle {
+  border: none;
+  background: transparent;
+  color: var(--links-dark-green);
+  font-size: 0.9rem;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.links-quick-access-toggle:hover {
+  text-decoration: underline;
+}
+
+.links-quick-access.is-collapsed {
+  padding-bottom: 18px;
+}
+
+.links-quick-access.is-collapsed .links-quick-access-grid {
+  display: none;
+}
+
+.links-quick-access.is-collapsed .links-quick-access-header {
+  margin-bottom: 0;
 }
 
 .links-quick-access-grid {
@@ -131,7 +165,8 @@
   background: transparent;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: flex-start;
+  gap: 14px;
   flex-wrap: nowrap;
 }
 
