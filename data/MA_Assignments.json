@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-21T11:36:35.231Z",
+  "lastUpdated": "2026-05-22T11:15:42.157Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -4753,14 +4753,14 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "003.003.000",
-      "scopeText": "Term 3",
+      "scopeText": "Term 3 (Selections)",
       "terms": [
         "T3"
       ],
       "termNotes": {
         "T1": "",
         "T2": "",
-        "T3": "Narrative of the Life of Frederick Douglass"
+        "T3": "Narrative of the Life of Frederick Douglass (Selections)"
       },
       "gradeText": "G7, G8,",
       "grades": [
@@ -14230,12 +14230,12 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "001.003.000",
-      "scopeText": "Term 1",
+      "scopeText": "Term 1 (Selections)",
       "terms": [
         "T1"
       ],
       "termNotes": {
-        "T1": "Narrative of the Life of Frederick Douglass",
+        "T1": "Narrative of the Life of Frederick Douglass (Selections)",
         "T2": "",
         "T3": ""
       },
@@ -18199,6 +18199,34 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rectYyDExoONIDZ4N?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "recN8S2XaCdhl8ZUm",
+      "targetId": "rectYyDExoONIDZ4N",
+      "resourceId": "recNY9aIjlncWz6wr",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.003.000",
+      "scopeText": "Term 2 (Partial Term)\nTerm 3",
+      "terms": [
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "Elijah of Buxton (Partial Term)",
+        "T3": "Elijah of Buxton (Full Term)"
+      },
+      "gradeText": "G7, G8,",
+      "grades": [
+        7,
+        8
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rectYyDExoONIDZ4N?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "rec7sipwSpjH39nPX",
       "targetId": "rectYyDExoONIDZ4N",
       "resourceId": "recyvHTlefUZzpApF",
@@ -18227,33 +18255,6 @@
         "Canadian History: Grades 7-8",
         "Canadian History: Grades 9-10"
       ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rectYyDExoONIDZ4N?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recN8S2XaCdhl8ZUm",
-      "targetId": "rectYyDExoONIDZ4N",
-      "resourceId": "recNY9aIjlncWz6wr",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "003.003.000",
-      "scopeText": "Term 3",
-      "terms": [
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "",
-        "T3": "Elijah of Buxton (Full Term)"
-      },
-      "gradeText": "G7, G8,",
-      "grades": [
-        7,
-        8
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rectYyDExoONIDZ4N?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -19045,12 +19046,12 @@
       "rotation": "R3",
       "targetType": "topic",
       "resourceKey": "001.003.001",
-      "scopeText": "Term 1",
+      "scopeText": "Term 1 (Selections)",
       "terms": [
         "T1"
       ],
       "termNotes": {
-        "T1": "Narrative of the Life of Frederick Douglass",
+        "T1": "Narrative of the Life of Frederick Douglass (Selections)",
         "T2": "",
         "T3": ""
       },
