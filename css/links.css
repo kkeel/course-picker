@@ -33,6 +33,77 @@
   max-width: 760px;
 }
 
+.links-quick-access {
+  max-width: 1188px;
+  margin: 0 auto 1.8rem;
+  padding: 18px;
+  border: 1px solid var(--divider-subtle);
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.links-quick-access-header h2 {
+  font-family: "Plantin MT Pro", Georgia, "Times New Roman", serif;
+  color: var(--brand-text);
+  font-size: 28px;
+  font-weight: 200;
+  line-height: 1.2;
+  margin: 0 0 14px;
+}
+
+.links-quick-access-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.links-quick-access-card {
+  min-height: 68px;
+  padding: 12px 14px;
+  border: 1px solid #e5e8e5;
+  border-radius: 8px;
+  background: #fbfbf9;
+  color: var(--brand-text);
+  text-decoration: none;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.links-quick-access-card:hover {
+  border-color: #adb58f;
+  background: #f3f4f1;
+}
+
+.links-quick-access-card.is-disabled {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.links-quick-access-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: #eef1e8;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.links-quick-access-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.links-quick-access-arrow {
+  color: var(--brand-dark);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
 .links-controls {
   margin-bottom: 1.8rem;
   padding: 14px;
@@ -184,6 +255,10 @@
 }
 
 @media (max-width: 700px) {
+  .links-quick-access-grid {
+    grid-template-columns: 1fr;
+  }
+  
   .links-controls {
     align-items: stretch;
   }
