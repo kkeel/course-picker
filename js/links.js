@@ -278,7 +278,7 @@
 
       els.title.textContent = pageTitle;
 
-      document.title = `Alveary – ${pageTitle}`;
+      document.title = `Links – ${pageTitle}`;
       
       els.subtitle.style.display = "none";
 
