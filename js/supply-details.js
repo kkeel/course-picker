@@ -1417,6 +1417,20 @@ function renderCourseTopicMode(items) {
 
           return `
             <section class="supply-section">
+              ${
+                item.subject === "Basic Supplies"
+                  ? `
+                    <div class="supply-section-head">
+                      <div class="supply-section-head-left">
+                        <div class="supply-title-with-students">
+                          <h3>Basic Supplies</h3>
+                        </div>
+                      </div>
+                    </div>
+                  `
+                  : ""
+              }
+          
               <div class="supply-card-list">
                 ${supplies.map((Supply) => renderSupplyCard(Supply)).join("")}
               </div>
