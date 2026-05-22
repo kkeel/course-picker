@@ -17,7 +17,7 @@
     "basicSuppliesUrl": "",
     "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/reczpuW6rvOyzzblj.pdf"
   },
-  "updatedAt": "2026-05-22T02:38:16.960Z",
+  "updatedAt": "2026-05-22T08:44:24.105Z",
   "terms": [
     {
       "termNumber": 1,
@@ -40,12 +40,60 @@
               "anchor": "term-1-week-1-lesson-1",
               "links": [
                 {
-                  "text": "Photograph of Lincoln",
-                  "url": "https://cdn.britannica.com/34/78134-050-3AC7D4F8/Abraham-Lincoln-photograph-Mathew-Brady.jpg"
-                },
-                {
                   "text": "Replica of log cabin",
                   "url": "https://www.nps.gov/npgallery/GetAsset/8968409b-1dd8-b71c-07d7-57f2fa1d6631/proxy/hires?"
+                },
+                {
+                  "text": "Photograph of Lincoln",
+                  "url": "https://cdn.britannica.com/34/78134-050-3AC7D4F8/Abraham-Lincoln-photograph-Mathew-Brady.jpg"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 2,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "recKu2UuoOKJAt9oQ",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 2,
+              "sort": 0,
+              "lessonLabel": "Lesson 2",
+              "title": "20m History: Grades 2-3 (U.S.) - Lesson 2",
+              "anchor": "term-1-week-2-lesson-2",
+              "links": [
+                {
+                  "text": "Log raft ferry",
+                  "url": "https://hdl.huntington.org/digital/iiif/p15150coll7/5011/full/full/0/default.jpg"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 3,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "recYji22GJvA0U2Zx",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 3,
+              "weekLabel": "Week 3",
+              "sequence": 3,
+              "sort": 0,
+              "lessonLabel": "Lesson 3",
+              "title": "20m History: Grades 2-3 (U.S.) - Lesson 3",
+              "anchor": "term-1-week-3-lesson-3",
+              "links": [
+                {
+                  "text": "Painting of a Steamboat",
+                  "url": "https://steamboats.com/jpgs/Pittsburgh1870s.jpg"
                 }
               ]
             }
