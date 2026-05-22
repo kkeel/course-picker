@@ -8,12 +8,24 @@
   color: var(--brand-text);
 }
 
+.links-page .logo-title {
+  font-family: "Circular Pro", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1;
+  color: var(--links-dark-green);
+}
+
+.links-page .app-header {
+  display: block;
+}
+
 .links-hero,
 .links-quick-access,
 .links-controls,
 .links-status,
 .links-content {
-  max-width: 1320px;
+  max-width: 90rem;
   margin-left: auto;
   margin-right: auto;
 }
@@ -208,7 +220,7 @@
   font-size: 0.76rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  background: #fbfbf9;
+  background: #f4f6fa;
 }
 
 .link-week-lessons {
