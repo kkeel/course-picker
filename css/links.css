@@ -379,3 +379,7 @@
 .links-additional-quicklinks-list a:hover {
   background: #f4f6fa;
 }
+
+.links-additional-quicklinks {
+  grid-column: 1 / -1;
+}
