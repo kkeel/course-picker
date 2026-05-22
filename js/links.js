@@ -148,61 +148,90 @@
     els.weekFilter.value = state.selectedWeek;
   }
 
-  function renderQuickAccess() {
-    const quickLinks = state.data?.quickLinks || {};
+    function renderQuickAccess() {
+      const quickLinks = state.data?.quickLinks || {};
   
-    const supplyListUrl = String(quickLinks.supplyListUrl || "").trim();
+      const supplyListUrl = String(quickLinks.supplyListUrl || "").trim();
+      const additionalLinks = Array.isArray(quickLinks.additional)
+        ? quickLinks.additional
+        : [];
   
-    const links = [
-      {
-        label: "Extra Helpings",
-        icon: "🍯",
-        url: quickLinks.extraHelpingsUrl || "#"
-      },
-      {
-        label: "Book List Details",
-        icon: "📚",
-        url: quickLinks.bookListUrl || "#"
-      },
-      {
-        label: supplyListUrl ? "Supply List Details" : "No Supplies",
-        icon: "✂️",
-        url: supplyListUrl || "#"
-      },
-      {
-        label: "Basic Supply List",
-        icon: "✏️",
-        url:
-          quickLinks.basicSuppliesUrl ||
-          "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY"
-      },
-      {
-        label: "Lesson PDF",
-        icon: "📝",
-        url: quickLinks.lessonPdfUrl || "#"
-      }
-    ];
+      const links = [
+        {
+          label: "Extra Helpings",
+          icon: "🍯",
+          url: quickLinks.extraHelpingsUrl || "#"
+        },
+        {
+          label: "Book List Details",
+          icon: "📚",
+          url: quickLinks.bookListUrl || "#"
+        },
+        {
+          label: supplyListUrl ? "Supply List Details" : "No Supplies",
+          icon: "✂️",
+          url: supplyListUrl || "#"
+        },
+        {
+          label: "Basic Supply List",
+          icon: "✏️",
+          url:
+            quickLinks.basicSuppliesUrl ||
+            "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY"
+        },
+        {
+          label: "Lesson PDF",
+          icon: "📝",
+          url: quickLinks.lessonPdfUrl || "#"
+        }
+      ];
   
-    els.quickAccess.hidden = false;
+      els.quickAccess.hidden = false;
   
-    els.quickAccessGrid.innerHTML = links.map(link => {
-      const isDisabled = !link.url || link.url === "#";
+      const primaryHtml = `
+        <div class="links-quick-access-grid">
+          ${links.map(link => {
+            const isDisabled = !link.url || link.url === "#";
   
-      return `
-        <a
-          class="links-quick-access-card ${isDisabled ? "is-disabled" : ""}"
-          href="${escapeHtml(isDisabled ? "#" : link.url)}"
-          target="_blank"
-          rel="noopener"
-          aria-disabled="${isDisabled ? "true" : "false"}"
-        >
-          <span class="links-quick-access-icon">${escapeHtml(link.icon)}</span>
-          <span class="links-quick-access-label">${escapeHtml(link.label)}</span>
-          <span class="links-quick-access-arrow">↗</span>
-        </a>
+            return `
+              <a
+                class="links-quick-access-card ${isDisabled ? "is-disabled" : ""}"
+                href="${escapeHtml(isDisabled ? "#" : link.url)}"
+                target="_blank"
+                rel="noopener"
+                aria-disabled="${isDisabled ? "true" : "false"}"
+              >
+                <span class="links-quick-access-icon">${escapeHtml(link.icon)}</span>
+                <span class="links-quick-access-label">${escapeHtml(link.label)}</span>
+                <span class="links-quick-access-arrow">↗</span>
+              </a>
+            `;
+          }).join("")}
+        </div>
       `;
-    }).join("");
-  }
+  
+      const additionalHtml = additionalLinks.length
+        ? `
+          <div class="links-additional-quicklinks">
+            <h3>Additional Quick Links</h3>
+  
+            <div class="links-additional-quicklinks-list">
+              ${additionalLinks.map(link => `
+                <a
+                  href="${escapeHtml(link.url)}"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  ${escapeHtml(link.label)}
+                </a>
+              `).join("")}
+            </div>
+          </div>
+        `
+        : "";
+  
+      els.quickAccessGrid.innerHTML = primaryHtml + additionalHtml;
+    }
 
   function renderLinks() {
     const terms = getVisibleTerms();
