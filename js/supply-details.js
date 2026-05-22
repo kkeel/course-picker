@@ -1417,20 +1417,6 @@ function renderCourseTopicMode(items) {
 
           return `
             <section class="supply-section">
-              ${
-                item.subject === "Basic Supplies"
-                  ? `
-                    <div class="supply-section-head">
-                      <div class="supply-section-head-left">
-                        <div class="supply-title-with-students">
-                          <h3>Basic Supplies</h3>
-                        </div>
-                      </div>
-                    </div>
-                  `
-                  : ""
-              }
-          
               <div class="supply-card-list">
                 ${supplies.map((Supply) => renderSupplyCard(Supply)).join("")}
               </div>
@@ -1450,14 +1436,8 @@ function renderCourseTopicMode(items) {
                 ${renderStudentChips(item.students || item.assignedStudents || [])}
               </div>
 
-              ${(item.schedText || item.gradeText || item.subject) ? `
+              ${(item.schedText || item.gradeText) ? `
                 <div class="supply-section-meta supply-section-meta--course">
-                  ${
-                    item.subject === "Basic Supplies"
-                      ? `<span class="supply-meta-subject">${escapeHtml(item.subject)}</span>`
-                      : ""
-                  }
-              
                   ${item.schedText ? `<span class="supply-meta-schedule">${escapeHtml(item.schedText)}</span>` : ""}
                   ${item.gradeText ? `<span class="supply-meta-grade">${escapeHtml(item.gradeText)}</span>` : ""}
                 </div>
