@@ -176,9 +176,6 @@ function render() {
 
   const visibleCourses = state.courses.filter((row) => rowMatchesQuery(row, query));
   const visibleTopics = state.topics.filter((row) => rowMatchesQuery(row, query));
-
-  document.getElementById("directory-count").textContent =
-    `${visibleCourses.length} courses`;
   
   const topicGroupList = document.getElementById("topic-group-list");
 
@@ -274,8 +271,7 @@ async function initDirectory() {
 
     document.getElementById("topic-group-list").innerHTML =
       `<div class="empty-state">Could not load topic groups.</div>`;
-
-    document.getElementById("directory-count").textContent = "Load failed";
+    
     console.error(error);
   }
 }
