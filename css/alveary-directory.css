@@ -1,3 +1,7 @@
+/* =========================================================
+   1. THEME TOKENS
+   ========================================================= */
+
 :root {
   --brand-bg: #faf7ed;
   --brand-dark: #596e5e;
@@ -7,9 +11,12 @@
   --brand-surface: #ffffff;
   --divider-subtle: #dde2d5;
   --border-soft: rgba(89,110,94,0.25);
-  --surface-soft: rgba(255,255,255,0.78);
   --shadow-soft: 0 10px 28px rgba(63, 62, 55, 0.08);
 }
+
+/* =========================================================
+   2. BASE PAGE / APP HEADER
+   ========================================================= */
 
 * {
   box-sizing: border-box;
@@ -28,494 +35,6 @@ a {
   text-decoration: none;
 }
 
-.directory-shell {
-  max-width: 90rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 32px 24px 56px;
-}
-
-.directory-hero {
-  margin-bottom: 26px;
-}
-
-.directory-kicker {
-  font-family: "Circular Pro", "DM Sans", system-ui, sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--brand-accent);
-  margin-bottom: 16px;
-}
-
-.directory-title-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 12px;
-}
-
-.directory-title {
-  margin: 0;
-  font-family: "Plantin MT Pro", "Times New Roman", serif;
-  font-size: 48px;
-  font-weight: 200;
-  line-height: 1.06;
-  color: var(--brand-text);
-}
-
-.directory-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 7px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--border-soft);
-  background: rgba(173,181,143,0.16);
-  color: var(--brand-dark);
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.directory-subtext {
-  max-width: 760px;
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.55;
-  color: var(--brand-text);
-}
-
-.directory-panel {
-  background: transparent;
-  border: 1px solid var(--divider-subtle);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.directory-panel-head {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--divider-subtle);
-  background: transparent;
-}
-
-.directory-panel-title {
-  margin: 0 0 4px;
-  font-family: "Plantin MT Pro", "Times New Roman", serif;
-  font-size: 32px;
-  font-weight: 200;
-  line-height: 1.12;
-  color: var(--brand-text);
-}
-
-.directory-panel-note {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.45;
-  color: var(--brand-muted);
-}
-
-.directory-panel-body {
-  padding: 14px;
-}
-
-.course-list,
-.topic-group-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.directory-card,
-.course-card,
-.topic-card {
-  display: block;
-  border-radius: 4px;
-  border: 1px solid var(--divider-subtle);
-  background: var(--brand-surface);
-  padding: 18px 18px 16px;
-  transition: border-color 0.14s ease, transform 0.14s ease, box-shadow 0.14s ease;
-}
-
-.directory-card:hover,
-.course-card:hover,
-.topic-card:hover {
-  border-color: rgba(89,110,94,0.42);
-  box-shadow: var(--shadow-soft);
-  transform: translateY(-1px);
-}
-
-.card-topline {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.card-title {
-  margin: 0;
-  font-family: "Circular Pro", "DM Sans", system-ui, sans-serif;
-  font-size: 18px;
-  line-height: 1.35;
-  font-weight: 500;
-  color: var(--brand-text);
-}
-
-.card-mini {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  padding: 4px 10px;
-  border: 1px solid var(--border-soft);
-  background: rgba(173,181,143,0.14);
-  color: var(--brand-dark);
-  font-size: 11px;
-  line-height: 1;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.card-meta {
-  margin-top: 6px;
-  font-size: 12px;
-  line-height: 1.45;
-  color: var(--brand-muted);
-  white-space: pre-line;
-}
-
-.topic-group {
-  border-radius: 4px;
-  border: 1px solid var(--divider-subtle);
-  background: var(--brand-surface);
-  overflow: hidden;
-}
-
-.topic-group-head {
-  padding: 14px 16px 10px;
-  border-bottom: 1px solid var(--divider-subtle);
-  background: rgba(255,255,255,0.65);
-}
-
-.topic-group-title {
-  margin: 0;
-  font-family: "Circular Pro", "DM Sans", system-ui, sans-serif;
-  font-size: 18px;
-  line-height: 1.35;
-  font-weight: 500;
-  color: var(--brand-text);
-}
-
-.topic-group-grade {
-  margin-top: 4px;
-  font-size: 12px;
-  color: var(--brand-muted);
-}
-
-.topic-items {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 12px;
-}
-
-.topic-card .card-title {
-  font-size: 16px;
-}
-
-.empty-state {
-  border: 1px dashed var(--divider-subtle);
-  border-radius: 4px;
-  padding: 16px;
-  background: rgba(255,255,255,0.55);
-  color: var(--brand-muted);
-  font-size: 14px;
-}
-
-@media (max-width: 980px) {
-
-  .directory-title {
-    font-size: 40px;
-  }
-
-  .directory-panel-title {
-    font-size: 28px;
-  }
-}
-
-@media (max-width: 640px) {
-  .directory-shell {
-    padding: 22px 16px 40px;
-  }
-
-  .directory-title {
-    font-size: 34px;
-  }
-
-  .directory-subtext {
-    font-size: 15px;
-  }
-
-  .card-topline {
-    flex-direction: column;
-  }
-
-  .card-mini {
-    align-self: flex-start;
-  }
-}
-
-
-.directory-toolbar {
-  margin: 0 0 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.directory-toggle {
-  display: inline-flex;
-  gap: 4px;
-  margin: 0 0 18px;
-  padding: 4px;
-  border: 1px solid var(--divider-subtle);
-  border-radius: 999px;
-  background: rgba(255,255,255,0.6);
-}
-
-.directory-toggle-button {
-  appearance: none;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--brand-muted);
-  cursor: pointer;
-  font: inherit;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 9px 16px;
-}
-
-.directory-toggle-button.is-active {
-  background: var(--brand-dark);
-  color: #fff;
-}
-
-.directory-view {
-  display: none;
-}
-
-.directory-view.is-active {
-  display: block;
-}
-
-.directory-panel {
-  width: 100%;
-  max-width: none;
-}
-
-.directory-search-label {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--brand-dark);
-}
-
-.directory-search {
-  width: 100%;
-  max-width: 520px;
-  border: 1px solid var(--divider-subtle);
-  border-radius: 999px;
-  background: #fff;
-  padding: 11px 16px;
-  font: inherit;
-  color: var(--brand-text);
-}
-
-.card-actions {
-  margin-top: 14px;
-}
-
-.card-action-grid {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 8px;
-  max-width: 100%;
-  overflow-x: auto;
-  padding-bottom: 2px;
-}
-
-.card-action-link {
-  flex: 0 0 auto;
-  min-height: 34px;
-  padding: 5px 9px;
-  border: 1px solid var(--divider-subtle);
-  border-radius: 8px;
-  background: #fbfbf9;
-  color: var(--brand-dark);
-  display: inline-grid;
-  grid-template-columns: 22px auto 12px;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.card-action-link:hover {
-  border-color: rgba(89,110,94,0.42);
-  background: #ffffff;
-}
-
-.card-action-link.is-primary {
-  border-color: var(--brand-dark);
-  background: var(--brand-dark);
-  color: #ffffff;
-}
-
-.card-action-link.is-highlight {
-  border-color: rgba(216,140,82,0.45);
-  background: rgba(216,140,82,0.12);
-  color: #8a4f2b;
-}
-
-.card-action-icon {
-  width: 22px;
-  height: 22px;
-  border-radius: 7px;
-  background: #eef1e8;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-}
-
-.card-action-link.is-primary .card-action-icon {
-  background: rgba(255,255,255,0.16);
-}
-
-.card-action-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.card-action-arrow {
-  font-size: 16px;
-  opacity: 0.75;
-}
-
-.topic-group-course-only {
-  border: 0;
-  background: transparent;
-  overflow: visible;
-}
-
-.topic-group-course-only .directory-card {
-  margin: 0;
-}
-
-.topic-group-topline {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 14px;
-}
-
-.title-grade {
-  margin-left: 8px;
-  font-family: "DM Sans", system-ui, sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--brand-muted);
-  white-space: nowrap;
-}
-
-.topic-group {
-  background: #ffffff;
-  border: 1.5px solid var(--brand-dark);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.topic-group-head {
-  background: #eef1eb;
-  border-bottom: 1px solid #d2d9cf;
-}
-
-.topic-group-head .card-mini {
-  background: #f3f4f1;
-  border-color: #cfd8cf;
-}
-
-.topic-items {
-  background: #ffffff;
-  padding: 12px;
-}
-
-.topic-card {
-  border-color: #dfe5d8;
-  background: #ffffff;
-}
-
-.topic-card:hover {
-  border-color: #cfd8cf;
-}
-
-.topic-group-head .card-action-link,
-.topic-group-course-only .card-action-link {
-  border-color: var(--brand-dark);
-}
-
-.topic-group-head .card-action-link.is-primary,
-.topic-group-course-only .card-action-link.is-primary {
-  border-color: var(--brand-dark);
-  background: #bdc5bf;
-  color: var(--brand-text);
-}
-
-.topic-group-head .card-action-link.is-primary .card-action-icon,
-.topic-group-course-only .card-action-link.is-primary .card-action-icon {
-  background: rgba(255,255,255,0.5);
-}
-
-/* ALL topic buttons get stronger outline */
-.topic-card .card-action-link {
-  border-color: #adb58f;
-}
-
-/* Topic PDF button */
-.topic-card .card-action-link.is-primary {
-  border-color: #adb58f;
-  background: #dee1d2;
-  color: var(--brand-text);
-}
-
-.topic-card .card-action-link.is-primary .card-action-icon {
-  background: #eef1e8;
-}
-
-.topic-group-course-only {
-  border: 1.5px solid var(--brand-dark);
-  background: #eef1eb;
-  padding: 14px 16px 10px;
-  border-radius: 8px;
-}
-
-.topic-group-course-only .directory-card {
-  border: 0;
-  background: transparent;
-  padding: 0;
-  box-shadow: none;
-  transform: none;
-}
-
-.topic-group-course-only .directory-card:hover {
-  border-color: transparent;
-  box-shadow: none;
-  transform: none;
-}
-
 .logo-title {
   font-family: "Circular Pro", system-ui, sans-serif;
   font-weight: 700;
@@ -528,6 +47,26 @@ a {
   display: flex;
   flex-direction: column;
 }
+
+.directory-shell {
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 24px 24px 56px;
+}
+
+@media (max-width: 640px) {
+  .directory-shell {
+    padding: 22px 16px 40px;
+  }
+
+  .logo-title {
+    font-size: 28px;
+  }
+}
+
+/* =========================================================
+   3. LESSON PLANS INTRO
+   ========================================================= */
 
 .lesson-intro-section {
   margin-bottom: 28px;
@@ -546,6 +85,23 @@ a {
   align-items: center;
   gap: 14px;
   flex-wrap: wrap;
+}
+
+.directory-title {
+  margin: 0;
+  font-family: "Plantin MT Pro", Georgia, "Times New Roman", serif;
+  font-size: 48px;
+  font-weight: 200;
+  line-height: 1.06;
+  color: var(--brand-text);
+}
+
+.directory-subtext {
+  max-width: 760px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--brand-text);
 }
 
 .lesson-intro-toggle {
@@ -567,6 +123,33 @@ a {
 .lesson-working-top-anchor {
   scroll-margin-top: 110px;
 }
+
+@media (max-width: 980px) {
+  .directory-title {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .directory-title {
+    font-size: 34px;
+  }
+
+  .directory-subtext {
+    font-size: 15px;
+  }
+
+  .lesson-intro-title-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* =========================================================
+   4. FILTER PANEL
+   Copied to match Book Details structure.
+   ========================================================= */
 
 .book-controls {
   margin: 22px 0 24px;
@@ -613,6 +196,18 @@ a {
   pointer-events: none;
 }
 
+.clear-filters-link:hover,
+.book-member-mode-toggle:hover {
+  color: var(--brand-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.book-controls.is-collapsed .book-controls-body,
+.book-controls.is-collapsed .book-member-toolbar {
+  display: none;
+}
+
 .book-controls-body {
   display: grid;
   grid-template-columns:
@@ -647,6 +242,10 @@ a {
 .control-search {
   grid-column: 1 / -1;
 }
+
+/* =========================================================
+   5. FILTER INPUTS / SELECTS / CLEAR BUTTONS
+   ========================================================= */
 
 .book-base-toggle {
   display: inline-flex;
@@ -723,6 +322,11 @@ a {
   opacity: 0.7;
 }
 
+.clear-select:hover {
+  color: var(--brand-dark);
+  opacity: 1;
+}
+
 .book-search-row {
   display: grid;
   grid-template-columns:
@@ -759,6 +363,10 @@ a {
   justify-self: end;
   align-self: center;
 }
+
+/* =========================================================
+   6. MEMBER TOOLS SHELL
+   ========================================================= */
 
 .member-tool-only {
   display: none;
@@ -812,6 +420,11 @@ body.member-tools-enabled .book-member-toolbar-body {
   cursor: pointer;
 }
 
+.book-member-mode-toggle.is-active,
+.member-mini-toggle.is-active {
+  color: #6f766d;
+}
+
 .mini-toggle-switch {
   width: 42px;
   height: 24px;
@@ -821,6 +434,7 @@ body.member-tools-enabled .book-member-toolbar-body {
   display: inline-flex;
   align-items: center;
   flex: 0 0 auto;
+  transition: background 0.15s ease;
 }
 
 .mini-toggle-knob {
@@ -832,6 +446,17 @@ body.member-tools-enabled .book-member-toolbar-body {
   left: 2px;
   top: 2px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  transition: transform 0.15s ease;
+}
+
+.book-member-mode-toggle.is-active .mini-toggle-switch,
+.member-mini-toggle.is-active .mini-toggle-switch {
+  background: #adb58f;
+}
+
+.book-member-mode-toggle.is-active .mini-toggle-knob,
+.member-mini-toggle.is-active .mini-toggle-knob {
+  transform: translateX(18px);
 }
 
 .member-tool-link {
@@ -845,6 +470,305 @@ body.member-tools-enabled .book-member-toolbar-body {
   cursor: pointer;
   padding: 4px 0;
 }
+
+.member-tool-link + .member-tool-link {
+  margin-left: 18px;
+}
+
+/* =========================================================
+   7. DIRECTORY RESULTS WRAPPER
+   ========================================================= */
+
+.directory-view {
+  display: none;
+}
+
+.directory-view.is-active {
+  display: block;
+}
+
+.topic-group-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.empty-state {
+  border: 1px dashed var(--divider-subtle);
+  border-radius: 4px;
+  padding: 16px;
+  background: rgba(255,255,255,0.55);
+  color: var(--brand-muted);
+  font-size: 14px;
+}
+
+/* =========================================================
+   8. COURSE / TOPIC CARDS
+   ========================================================= */
+
+.directory-card,
+.topic-card {
+  display: block;
+  border-radius: 4px;
+  border: 1px solid var(--divider-subtle);
+  background: var(--brand-surface);
+  padding: 18px 18px 16px;
+  transition: border-color 0.14s ease, transform 0.14s ease, box-shadow 0.14s ease;
+}
+
+.directory-card:hover,
+.topic-card:hover {
+  border-color: rgba(89,110,94,0.42);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-1px);
+}
+
+.card-topline,
+.topic-group-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.card-title,
+.topic-group-title {
+  margin: 0;
+  font-family: "Circular Pro", "DM Sans", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 500;
+  color: var(--brand-text);
+}
+
+.topic-card .card-title {
+  font-size: 16px;
+}
+
+.title-grade {
+  margin-left: 8px;
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand-muted);
+  white-space: nowrap;
+}
+
+.card-mini {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 10px;
+  border: 1px solid var(--border-soft);
+  background: rgba(173,181,143,0.14);
+  color: var(--brand-dark);
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* =========================================================
+   9. ACTION BUTTONS
+   ========================================================= */
+
+.card-actions {
+  margin-top: 14px;
+}
+
+.card-action-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  max-width: 100%;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.card-action-link {
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 5px 9px;
+  border: 1px solid var(--divider-subtle);
+  border-radius: 8px;
+  background: #fbfbf9;
+  color: var(--brand-dark);
+  display: inline-grid;
+  grid-template-columns: 22px auto 12px;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.card-action-link:hover {
+  border-color: rgba(89,110,94,0.42);
+  background: #ffffff;
+}
+
+.card-action-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: #eef1e8;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.card-action-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-action-arrow {
+  font-size: 16px;
+  opacity: 0.75;
+}
+
+/* =========================================================
+   10. FINAL COURSE / TOPIC HIERARCHY
+   ========================================================= */
+
+.topic-group {
+  background: #ffffff;
+  border: 1.5px solid var(--brand-dark);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.topic-group-head {
+  padding: 14px 16px 10px;
+  background: #eef1eb;
+  border-bottom: 1px solid #d2d9cf;
+}
+
+.topic-group-head .card-mini {
+  background: #f3f4f1;
+  border-color: #cfd8cf;
+}
+
+.topic-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #ffffff;
+  padding: 12px;
+}
+
+.topic-card {
+  border-color: #dfe5d8;
+  background: #ffffff;
+}
+
+.topic-card:hover {
+  border-color: #cfd8cf;
+}
+
+.topic-group-course-only {
+  border: 1.5px solid var(--brand-dark);
+  background: #eef1eb;
+  padding: 14px 16px 10px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.topic-group-course-only .directory-card {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+.topic-group-course-only .directory-card:hover {
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.topic-group-head .card-action-link,
+.topic-group-course-only .card-action-link {
+  border-color: var(--brand-dark);
+}
+
+.topic-group-head .card-action-link.is-primary,
+.topic-group-course-only .card-action-link.is-primary {
+  border-color: var(--brand-dark);
+  background: #bdc5bf;
+  color: var(--brand-text);
+}
+
+.topic-group-head .card-action-link.is-primary .card-action-icon,
+.topic-group-course-only .card-action-link.is-primary .card-action-icon {
+  background: rgba(255,255,255,0.5);
+}
+
+.topic-card .card-action-link {
+  border-color: #adb58f;
+}
+
+.topic-card .card-action-link.is-primary {
+  border-color: #adb58f;
+  background: #dee1d2;
+  color: var(--brand-text);
+}
+
+.topic-card .card-action-link.is-primary .card-action-icon {
+  background: #eef1e8;
+}
+
+/* =========================================================
+   11. BACK TO TOP
+   ========================================================= */
+
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border: 1px solid rgba(89,110,94,0.25);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(8px);
+  color: #596e5e;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(63, 62, 55, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease,
+    background 0.2s ease;
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: #ffffff;
+}
+
+/* =========================================================
+   12. FILTER RESPONSIVE BEHAVIOR
+   ========================================================= */
 
 @media (max-width: 1220px) {
   .book-controls-body,
@@ -963,6 +887,7 @@ body.member-tools-enabled .book-member-toolbar-body {
   .book-controls-body > .control-search {
     grid-column: 1 / -1 !important;
     grid-row: auto !important;
+    min-width: 0;
   }
 
   .control-view,
@@ -971,6 +896,15 @@ body.member-tools-enabled .book-member-toolbar-body {
     grid-template-columns: 108px minmax(0, 1fr);
     align-items: center;
     gap: 10px;
+  }
+
+  .control-search {
+    display: block;
+  }
+
+  .book-base-toggle {
+    flex-wrap: wrap;
+    min-width: 0;
   }
 
   .book-search-row {
@@ -987,5 +921,71 @@ body.member-tools-enabled .book-member-toolbar-body {
     grid-template-columns: 108px minmax(0, 1fr);
     align-items: center;
     gap: 10px;
+    min-width: 0;
   }
+
+  .mini-filter-group label {
+    grid-column: 1;
+    margin: 0;
+  }
+
+  .mini-filter-group input,
+  .mini-filter-group select {
+    grid-column: 2;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .clear-filters-link {
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+    justify-self: start;
+    align-self: center;
+    padding-top: 2px;
+  }
+
+  .book-member-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 12px 20px;
+  }
+
+  .book-member-toolbar-body {
+    width: 100%;
+  }
+
+  .book-member-toolbar-spacer {
+    display: none;
+  }
+
+  .card-topline,
+  .topic-group-topline {
+    flex-direction: column;
+  }
+
+  .card-mini {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .back-to-top {
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
+/* =========================================================
+   13. TEMPORARY MEMBER / NAV VISIBILITY
+   ========================================================= */
+
+/* Keep Alveary logo visible */
+.app-header {
+  display: block;
+}
+
+/* Hide navigation links/menu only */
+.app-nav,
+#app-step-nav {
+  display: none !important;
 }
