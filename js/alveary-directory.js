@@ -128,7 +128,7 @@ function renderActionButtons(item) {
           <a
             class="card-action-link ${action.primary ? "is-primary" : ""} ${action.highlight ? "is-highlight" : ""}"
             href="${escapeHtml(action.url)}"
-            ${action.external ? `target="_blank" rel="noopener"` : ""}
+            target="_blank" rel="noopener"
           >
             <span class="card-action-icon">${escapeHtml(action.icon)}</span>
             <span class="card-action-label">${escapeHtml(action.label)}</span>
@@ -158,12 +158,11 @@ function renderTopicCard(item) {
   return `
     <article class="topic-card">
       <div class="card-topline">
-        <h3 class="card-title">${escapeHtml(item.lessonSetName || item.title || "")}</h3>
+        <h3 class="card-title">
+          ${escapeHtml(item.lessonSetName || item.title || "")}
+          <span class="title-grade">${escapeHtml(item.gradeText || "")}</span>
+        </h3>
         <span class="card-mini">Topic</span>
-      </div>
-
-      <div class="card-meta">
-        ${escapeHtml(item.gradeText || "")}
       </div>
       ${renderActionButtons(item)}
     </article>
@@ -208,8 +207,10 @@ function render() {
             <div class="topic-group-head">
               <div class="topic-group-topline">
                 <div>
-                  <h3 class="topic-group-title">${escapeHtml(course.lessonSetName || course.title || "")}</h3>
-                  <div class="topic-group-grade">${escapeHtml(course.gradeText || "")}</div>
+                  <h3 class="topic-group-title">
+                    ${escapeHtml(course.lessonSetName || course.title || "")}
+                    <span class="title-grade">${escapeHtml(course.gradeText || "")}</span>
+                  </h3>
                 </div>
                 <span class="card-mini">${escapeHtml(course.subject || "Course")}</span>
               </div>
