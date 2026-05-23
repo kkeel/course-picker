@@ -439,8 +439,8 @@ a {
 }
 
 .topic-group-head {
-  background: #eef1e8;
-  border-bottom: 1px solid #dfe4df;
+  background: #dfe5d8;
+  border-bottom: 1px solid #d2d9cf;
 }
 
 .topic-group-head .card-mini {
@@ -454,7 +454,7 @@ a {
 }
 
 .topic-card {
-  border-color: #eef1e8;
+  border-color: #dfe5d8;
   background: #ffffff;
 }
 
@@ -480,8 +480,8 @@ a {
 }
 
 .topic-card .card-action-link.is-primary {
-  border-color: #adb58f;
-  background: #ced3bc;
+  border-color: #d7ddd0;
+  background: #dfe5d8;
   color: var(--brand-text);
 }
 
@@ -491,7 +491,7 @@ a {
 
 .topic-group-course-only {
   border: 1.5px solid var(--brand-dark);
-  background: #ffffff;
+  background: #dfe5d8;
   padding: 14px 16px 10px;
   border-radius: 8px;
 }
