@@ -334,6 +334,9 @@ a {
 
 .card-actions {
   margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .card-button {
@@ -355,6 +358,11 @@ a {
 .card-button-secondary {
   background: var(--brand-accent);
   color: var(--brand-text);
+}
+
+.card-button-highlight {
+  background: #d88c52;
+  color: #fff;
 }
 
 .topic-group-course-only {
