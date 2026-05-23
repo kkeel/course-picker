@@ -66,12 +66,66 @@
       }
     ]
   },
-  "updatedAt": "2026-05-22T23:47:49.125Z",
+  "updatedAt": "2026-05-23T08:00:21.599Z",
   "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recBhWOQLQrzJUOul",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100102,
+              "lessonLabel": "",
+              "title": "40m Econ/Civics: Grade 10 (Canada) - Lesson 1",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "How to Mark a Book by Mortimer Adler",
+                  "url": "https://drive.google.com/file/d/1QDZHH4Kp_Qj67MvQFGkqz0MSuQOivxgR/view?usp=drive_link"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     {
       "termNumber": 2,
       "term": "Term 2",
       "weeks": [
+        {
+          "weekNumber": 13,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recTA3sbsAaXhhrwb",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 13,
+              "weekLabel": "Week 1",
+              "sequence": 13,
+              "sort": 201302,
+              "lessonLabel": "",
+              "title": "40m Econ/Civics: Grade 10 (Canada) - Lesson 13",
+              "anchor": "term-2-week-13-lesson-13",
+              "links": [
+                {
+                  "text": "How to Mark a Book by Mortimer Adler",
+                  "url": "https://drive.google.com/file/d/1QDZHH4Kp_Qj67MvQFGkqz0MSuQOivxgR/view?usp=drive_link"
+                }
+              ]
+            }
+          ]
+        },
         {
           "weekNumber": 21,
           "weekLabel": "Week 9",

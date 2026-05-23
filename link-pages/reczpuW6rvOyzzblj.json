@@ -33,7 +33,7 @@
       }
     ]
   },
-  "updatedAt": "2026-05-22T23:47:49.220Z",
+  "updatedAt": "2026-05-23T08:00:21.695Z",
   "terms": [
     {
       "termNumber": 1,
@@ -266,6 +266,60 @@
                 {
                   "text": "Video about telegraph",
                   "url": "https://www.youtube.com/watch?v=tzP7QOOAt4I"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 10,
+          "weekLabel": "Week 10",
+          "lessons": [
+            {
+              "lessonId": "recCGnYmm4AUdFJVu",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 10,
+              "weekLabel": "Week 10",
+              "sequence": 10,
+              "sort": 0,
+              "lessonLabel": "Lesson 10",
+              "title": "20m History: Grades 2-3 (U.S.) - Lesson 10",
+              "anchor": "term-1-week-10-lesson-10",
+              "links": [
+                {
+                  "text": "Gettysburg National Military Park",
+                  "url": "https://npplan.com/wp-content/uploads/2022/08/Gettysburg-001.jpg"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 3,
+      "term": "Term 3",
+      "weeks": [
+        {
+          "weekNumber": 27,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "recJbeZcLGWjP8Ppb",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 27,
+              "weekLabel": "Week 3",
+              "sequence": 27,
+              "sort": 0,
+              "lessonLabel": "Lesson 27",
+              "title": "20m History: Grades 2-3 (U.S.) - Lesson 27",
+              "anchor": "term-3-week-27-lesson-27",
+              "links": [
+                {
+                  "text": "Earth Lodge",
+                  "url": "https://www.nps.gov/knri/learn/historyculture/images/EARTHLODGE-resized.jpg?maxwidth=650&autorotate=false&quality=78&format=webp"
                 }
               ]
             }
