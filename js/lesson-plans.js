@@ -1,4 +1,4 @@
-const DIRECTORY_INDEX_URL = "./data/alveary-directory-index.json";
+const DIRECTORY_INDEX_URL = "./data/lesson-plans-index.json";
 
 const state = {
   rows: [],
