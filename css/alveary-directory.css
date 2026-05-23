@@ -479,9 +479,15 @@ a {
   background: rgba(255,255,255,0.5);
 }
 
+/* ALL topic buttons get stronger outline */
+.topic-card .card-action-link {
+  border-color: #adb58f;
+}
+
+/* Topic PDF button */
 .topic-card .card-action-link.is-primary {
   border-color: #adb58f;
-  background: #ced3bc;
+  background: #dee1d2;
   color: var(--brand-text);
 }
 
