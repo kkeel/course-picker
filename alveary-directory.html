@@ -33,7 +33,11 @@
   <main class="directory-shell">
     <section class="lesson-intro-section" id="lesson-intro-section">
       <div class="lesson-intro-title-row">
-        <h1 class="directory-title">Lesson Plans</h1>
+        <div class="lesson-title-main">
+          <h1 class="directory-title">Lesson Plans</h1>
+          <span class="directory-pill" id="directory-count">Loading…</span>
+        </div>
+      
         <button id="toggle-intro" class="lesson-intro-toggle" type="button">
           Hide intro
         </button>
@@ -183,19 +187,11 @@
       <div class="directory-panel">
         <div class="directory-panel-head">
           <h2 class="directory-panel-title">Courses & Topics</h2>
-          <p class="directory-panel-note">
-            Open course-level resources from the main card, or topic-level resources from the topic cards below each course.
-          </p>
-          <span class="directory-pill" id="directory-count">Loading…</span>
-        </div>
-
-        <div class="directory-panel-body">
-          <div id="topic-group-list" class="topic-group-list">
-            <div class="empty-state">Loading lesson plans…</div>
-          </div>
-        </div>
-      </div>
-    </section>
+          <section class="directory-view is-active" id="topic-view" data-directory-view="topic">
+            <div id="topic-group-list" class="topic-group-list">
+              <div class="empty-state">Loading lesson plans…</div>
+            </div>
+          </section>
   </main>
 
   <button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top">
