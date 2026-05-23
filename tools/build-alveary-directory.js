@@ -4,6 +4,12 @@ import path from "node:path";
 
 const ROOT = process.cwd();
 
+const AIRTABLE_PAT = process.env.AIRTABLE_PAT || "";
+const LESSON_WRITING_BASE_ID =
+  process.env.LESSON_WRITING_BASE_ID || "";
+
+const LESSON_PLAN_SETS_TABLE = "Lesson Plan Sets";
+
 const DATA_DIR = path.join(ROOT, "data");
 const OUT_DIR = path.join(DATA_DIR, "book-views");
 
@@ -49,6 +55,50 @@ async function readJson(filePath, fallback = null) {
 async function writeJson(filePath, data) {
   await fs.mkdir(path.dirname(filePath), { recursive: true });
   await fs.writeFile(filePath, `${JSON.stringify(data, null, 2)}\n`, "utf8");
+}
+
+async function airtableFetchAll({
+  baseId,
+  table,
+  fields = [],
+  view = "",
+}) {
+  const records = [];
+  let offset = "";
+
+  do {
+    const params = new URLSearchParams();
+
+    if (view) params.set("view", view);
+
+    for (const field of fields) {
+      params.append("fields[]", field);
+    }
+
+    if (offset) params.set("offset", offset);
+
+    const response = await fetch(
+      `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(table)}?${params}`,
+      {
+        headers: {
+          Authorization: `Bearer ${AIRTABLE_PAT}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Airtable fetch failed: ${response.status} ${response.statusText}`
+      );
+    }
+
+    const json = await response.json();
+
+    records.push(...(json.records || []));
+    offset = json.offset || "";
+  } while (offset);
+
+  return records;
 }
 
 function normalizeGroups(raw) {
@@ -227,6 +277,47 @@ function buildAssignmentsByTarget(assignmentsJson) {
   return out;
 }
 
+function firstAirtableValue(value) {
+  if (Array.isArray(value)) {
+    const first = value[0];
+
+    if (typeof first === "object" && first !== null) {
+      return first.id || first.name || "";
+    }
+
+    return first || "";
+  }
+
+  if (typeof value === "object" && value !== null) {
+    return value.id || value.name || "";
+  }
+
+  return value || "";
+}
+
+function buildLessonPlanSetMap(records) {
+  const out = {};
+
+  for (const record of records) {
+    const fields = record.fields || {};
+
+    const curriculumId = safeId(firstAirtableValue(fields["MA_CurriculumID"]));
+
+    if (!curriculumId) continue;
+
+    out[curriculumId] = {
+      extraHelpings: firstAirtableValue(fields["Extra Helpings Link"]),
+      editableSheet: firstAirtableValue(fields["Editable Sheet URL"]),
+      lessonPdf: firstAirtableValue(fields["PDF Link URL"]),
+      lessonLinks: firstAirtableValue(fields["Link Page"]),
+      books: firstAirtableValue(fields["Book List Link"]),
+      supplies: firstAirtableValue(fields["Supply List Link"]),
+    };
+  }
+
+  return out;
+}
+
 function parseIsbnAsin(value) {
   const text = String(value || "").trim();
   if (!text) return { isbn: "", asin: "" };
@@ -327,7 +418,7 @@ function booksForTarget(targetId, assignmentsByTarget, resourcesById, context) {
     .filter(Boolean);
 }
 
-function directoryCourseRow(course, subject) {
+function directoryCourseRow(course, subject, lessonPlanSetMap) {
   const id = safeId(course?.recordID || course?.id);
   if (!id) return null;
 
@@ -348,10 +439,11 @@ function directoryCourseRow(course, subject) {
       .map((topic) => safeId(topic?.recordID || topic?.id || topic?.Topic_ID))
       .filter(Boolean),
     bookDetailsUrl: `book-details.html?view=course&id=${encodeURIComponent(id)}`,
+    links: lessonPlanSetMap[id] || {},
   };
 }
 
-function directoryTopicRow(topic, course, subject) {
+function directoryTopicRow(topic, course, subject, lessonPlanSetMap) {
   const id = safeId(topic?.recordID || topic?.id || topic?.Topic_ID);
   if (!id) return null;
 
@@ -415,6 +507,7 @@ function directoryTopicRow(topic, course, subject) {
   
     bookDetailsUrl:
       `book-details.html?view=topic&id=${encodeURIComponent(id)}`,
+    links: lessonPlanSetMap[id] || {},
   };
 }
 
@@ -642,14 +735,23 @@ function buildBookViewForTopic(topic, course, subject, assignmentsByTarget, reso
   };
 }
 
-function collectCourseViews(groups, assignmentsByTarget, resourcesById) {
+function collectCourseViews(
+  groups,
+  assignmentsByTarget,
+  resourcesById,
+  lessonPlanSetMap
+) {
   const directoryRows = [];
   const courseViews = [];
   const topicViewsById = new Map();
 
   for (const [subject, courses] of Object.entries(groups)) {
     for (const course of courses || []) {
-      const courseRow = directoryCourseRow(course, subject);
+      const courseRow = directoryCourseRow(
+        course,
+        subject,
+        lessonPlanSetMap
+      );
       if (courseRow) directoryRows.push(courseRow);
 
       const courseView = buildBookViewForCourse(
@@ -662,7 +764,12 @@ function collectCourseViews(groups, assignmentsByTarget, resourcesById) {
       if (courseView.bookCount > 0) courseViews.push(courseView);
 
       for (const topic of course?.topics || []) {
-        const topicRow = directoryTopicRow(topic, course, subject);
+        const topicRow = directoryTopicRow(
+          topic,
+          course,
+          subject,
+          lessonPlanSetMap
+        );
         if (topicRow) directoryRows.push(topicRow);
 
         const topicId = safeId(topic?.recordID || topic?.id || topic?.Topic_ID);
@@ -769,6 +876,23 @@ async function main() {
   const assignmentsJson = await readJson(ASSIGNMENTS_PATH);
   const resourcesJson = await readJson(RESOURCES_PATH);
 
+  const lessonPlanSetRecords = await airtableFetchAll({
+    baseId: LESSON_WRITING_BASE_ID,
+    table: LESSON_PLAN_SETS_TABLE,
+    fields: [
+      "MA_CurriculumID",
+      "Extra Helpings Link",
+      "Editable Sheet URL",
+      "PDF Link URL",
+      "Link Page",
+      "Book List Link",
+      "Supply List Link",
+    ],
+  });
+  
+  const lessonPlanSetMap =
+    buildLessonPlanSetMap(lessonPlanSetRecords);
+
   const baseGroups = normalizeGroups(coursesJson);
   const extraGroups = normalizeGroups(bookListCoursesJson);
   const groups = mergeCourseGroups(baseGroups, extraGroups);
@@ -776,11 +900,13 @@ async function main() {
   const resourcesById = buildResourcesById(resourcesJson);
   const assignmentsByTarget = buildAssignmentsByTarget(assignmentsJson);
 
-  const { directoryRows, courseViews, topicViews } = collectCourseViews(
-    groups,
-    assignmentsByTarget,
-    resourcesById
-  );
+  const { directoryRows, courseViews, topicViews } =
+    collectCourseViews(
+      groups,
+      assignmentsByTarget,
+      resourcesById,
+      lessonPlanSetMap
+    );
 
   await fs.rm(OUT_DIR, { recursive: true, force: true });
 
