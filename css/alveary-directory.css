@@ -432,55 +432,68 @@ a {
 }
 
 .topic-group {
-  background: #f4f6fa;
-  border-color: rgba(89,110,94,0.14);
+  background: #ffffff;
+  border: 1.5px solid var(--brand-dark);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .topic-group-head {
-  background: #eef1e8;
-  border-bottom-color: rgba(89,110,94,0.14);
+  background: #ffffff;
+  border-bottom: 1px solid #dfe4df;
 }
 
 .topic-group-head .card-mini {
-  background: rgba(255,255,255,0.7);
+  background: #f3f4f1;
+  border-color: #cfd8cf;
 }
 
 .topic-items {
-  background: #f4f6fa;
+  background: #ffffff;
+  padding: 12px;
 }
 
 .topic-card {
-  border-color: rgba(89,110,94,0.1);
+  border-color: #dfe4df;
   background: #ffffff;
+}
+
+.topic-card:hover {
+  border-color: #cfd8cf;
+}
+
+.topic-group-head .card-action-link,
+.topic-group-course-only .card-action-link {
+  border-color: var(--brand-dark);
 }
 
 .topic-group-head .card-action-link.is-primary,
 .topic-group-course-only .card-action-link.is-primary {
-  border-color: #bdc5bf;
+  border-color: var(--brand-dark);
   background: #bdc5bf;
   color: var(--brand-text);
 }
 
 .topic-group-head .card-action-link.is-primary .card-action-icon,
 .topic-group-course-only .card-action-link.is-primary .card-action-icon {
-  background: rgba(255,255,255,0.45);
-}
-
-.topic-card .card-action-link.is-primary {
-  border-color: #ced3bc;
-  background: #ced3bc;
-  color: var(--brand-text);
-}
-
-.topic-card .card-action-link.is-primary .card-action-icon {
   background: rgba(255,255,255,0.5);
 }
 
-.topic-group-course-only {
-  border: 1px solid rgba(89,110,94,0.14);
+.topic-card .card-action-link.is-primary {
+  border-color: #adb58f;
+  background: #f3f4f1;
+  color: var(--brand-dark);
+}
+
+.topic-card .card-action-link.is-primary .card-action-icon {
   background: #eef1e8;
+}
+
+.topic-group-course-only {
+  border: 1.5px solid var(--brand-dark);
+  background: #ffffff;
   padding: 14px 16px 10px;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 .topic-group-course-only .directory-card {
