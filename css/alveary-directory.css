@@ -421,3 +421,31 @@ a {
   align-items: flex-start;
   gap: 14px;
 }
+
+.title-grade {
+  margin-left: 8px;
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--brand-muted);
+  white-space: nowrap;
+}
+
+.topic-group-head {
+  background: #bdc5bf;
+  border-bottom-color: rgba(89,110,94,0.22);
+}
+
+.topic-group-head .card-mini {
+  background: rgba(255,255,255,0.48);
+}
+
+.topic-card .card-action-link.is-primary {
+  border-color: #adb58f;
+  background: #adb58f;
+  color: var(--brand-text);
+}
+
+.topic-card .card-action-link.is-primary .card-action-icon {
+  background: rgba(255,255,255,0.35);
+}
