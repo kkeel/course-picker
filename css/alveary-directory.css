@@ -431,21 +431,56 @@ a {
   white-space: nowrap;
 }
 
+.topic-group {
+  background: #f4f6fa;
+  border-color: rgba(89,110,94,0.18);
+}
+
 .topic-group-head {
-  background: #bdc5bf;
-  border-bottom-color: rgba(89,110,94,0.22);
+  background: #ced3bc;
+  border-bottom-color: rgba(89,110,94,0.18);
 }
 
 .topic-group-head .card-mini {
-  background: rgba(255,255,255,0.48);
+  background: rgba(255,255,255,0.55);
+}
+
+.topic-items {
+  background: #f4f6fa;
+}
+
+.topic-card {
+  border-color: rgba(89,110,94,0.12);
+  background: #ffffff;
 }
 
 .topic-card .card-action-link.is-primary {
-  border-color: #adb58f;
-  background: #adb58f;
+  border-color: #ced3bc;
+  background: #ced3bc;
   color: var(--brand-text);
 }
 
 .topic-card .card-action-link.is-primary .card-action-icon {
-  background: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.45);
+}
+
+.topic-group-course-only {
+  border: 1px solid rgba(89,110,94,0.18);
+  background: #ced3bc;
+  padding: 14px 16px 10px;
+  border-radius: 4px;
+}
+
+.topic-group-course-only .directory-card {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+.topic-group-course-only .directory-card:hover {
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
 }
