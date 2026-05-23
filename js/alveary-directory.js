@@ -78,37 +78,37 @@ function renderActionButtons(item) {
 
   const buttons = [
     links.books && `
-      <a class="card-button" href="./${escapeHtml(links.books)}">
+      <a class="card-button" href="${escapeHtml(links.books)}">
         Books
       </a>
     `,
 
     links.supplies && `
-      <a class="card-button card-button-secondary" href="./${escapeHtml(links.supplies)}">
+      <a class="card-button card-button-secondary" href="${escapeHtml(links.supplies)}">
         Supplies
       </a>
     `,
 
     links.lessonLinks && `
-      <a class="card-button card-button-secondary" href="./${escapeHtml(links.lessonLinks)}">
+      <a class="card-button card-button-secondary" href="${escapeHtml(links.lessonLinks)}">
         Links
       </a>
     `,
 
     links.lessonPdf && `
-      <a class="card-button card-button-secondary" href="./${escapeHtml(links.lessonPdf)}" target="_blank" rel="noopener">
+      <a class="card-button card-button-secondary" href="${escapeHtml(links.lessonPdf)}" target="_blank" rel="noopener">
         PDF
       </a>
     `,
 
     links.editableSheet && `
-      <a class="card-button card-button-secondary" href="./${escapeHtml(links.editableSheet)}" target="_blank" rel="noopener">
+      <a class="card-button card-button-secondary" href="${escapeHtml(links.editableSheet)}" target="_blank" rel="noopener">
         Editable Sheet
       </a>
     `,
 
     links.extraHelpings && `
-      <a class="card-button card-button-highlight" href="./${escapeHtml(links.extraHelpings)}">
+      <a class="card-button card-button-highlight" href="${escapeHtml(links.extraHelpings)}">
         Extra Helpings
       </a>
     `,
