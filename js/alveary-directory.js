@@ -144,11 +144,13 @@ function renderCourseCard(item) {
   return `
     <article class="directory-card">
       <div class="card-topline">
-        <h3 class="card-title">${escapeHtml(item.lessonSetName || item.title || "")}</h3>
+        <h3 class="card-title">
+          ${escapeHtml(item.lessonSetName || item.title || "")}
+          <span class="title-grade">${escapeHtml(item.gradeText || "")}</span>
+        </h3>
         <span class="card-mini">${escapeHtml(item.subject || "Course")}</span>
       </div>
 
-      <div class="card-meta">${escapeHtml(item.gradeText || "")}</div>
       ${renderActionButtons(item)}
     </article>
   `;
