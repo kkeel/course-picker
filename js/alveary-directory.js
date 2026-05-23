@@ -178,13 +178,8 @@ function render() {
 
   document.getElementById("directory-count").textContent =
     `${visibleCourses.length} courses`;
-
-  const courseList = document.getElementById("course-list");
+  
   const topicGroupList = document.getElementById("topic-group-list");
-
-  courseList.innerHTML = visibleCourses.length
-    ? visibleCourses.map(renderCourseCard).join("")
-    : `<div class="empty-state">No matching courses found.</div>`;
 
   const topicsByCourseId = {};
 
@@ -211,8 +206,15 @@ function render() {
         return `
           <section class="topic-group">
             <div class="topic-group-head">
-              <h3 class="topic-group-title">${escapeHtml(course.lessonSetName || course.title || "")}</h3>
-              <div class="topic-group-grade">${escapeHtml(course.gradeText || "")}</div>
+              <div class="topic-group-topline">
+                <div>
+                  <h3 class="topic-group-title">${escapeHtml(course.lessonSetName || course.title || "")}</h3>
+                  <div class="topic-group-grade">${escapeHtml(course.gradeText || "")}</div>
+                </div>
+                <span class="card-mini">${escapeHtml(course.subject || "Course")}</span>
+              </div>
+            
+              ${renderActionButtons(course)}
             </div>
             <div class="topic-items">
               ${topicGroup.topics.map(renderTopicCard).join("")}
@@ -262,13 +264,6 @@ async function initDirectory() {
       render();
     });
 
-    document.querySelectorAll(".directory-toggle-button").forEach((button) => {
-      button.addEventListener("click", () => {
-        setActiveView(button.dataset.view);
-      });
-    });
-
-    setActiveView("course");
     render();
   } catch (error) {
     document.getElementById("course-list").innerHTML =
