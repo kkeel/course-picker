@@ -69,7 +69,7 @@ a {
    ========================================================= */
 
 .lesson-intro-section {
-  margin-bottom: 28px;
+  margin-bottom: 22px;
 }
 
 .lesson-intro-title-row {
@@ -156,6 +156,7 @@ a {
   border: 1px solid var(--divider-subtle);
   border-radius: 8px;
   background: rgba(255,255,255,0.48);
+  backdrop-filter: blur(4px);
   overflow: hidden;
 }
 
@@ -478,6 +479,10 @@ body.member-tools-enabled .book-member-toolbar-body {
 /* =========================================================
    7. DIRECTORY RESULTS WRAPPER
    ========================================================= */
+
+.book-controls + .directory-view {
+  margin-top: 8px;
+}
 
 .directory-view {
   display: none;
