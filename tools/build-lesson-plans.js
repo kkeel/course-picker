@@ -1,4 +1,4 @@
-// tools/build-alveary-directory.js
+// tools/build-lesson-plans.js
 import fs from "node:fs/promises";
 import path from "node:path";
 
