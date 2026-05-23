@@ -414,3 +414,10 @@ a {
 .topic-group-course-only .directory-card {
   margin: 0;
 }
+
+.topic-group-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+}
