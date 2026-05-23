@@ -3,49 +3,207 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alveary Directory</title>
+  <title>Lesson Plans</title>
+  <link rel="stylesheet" href="./css/styles.css">
   <link rel="stylesheet" href="./css/alveary-directory.css">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="icon" type="image/png" href="img/Alveary%20Lt.%20Green.png">
 </head>
 <body>
-  <main class="directory-shell">
-    <section class="directory-hero">
-      <div class="directory-kicker">Alveary Directory</div>
+  <header class="app-header mb-8 px-6 md:px-16 py-4 md:py-6 flex flex-col md:flex-row md:items-center gap-4">
+    <a href="https://www.alveary.org/alveary-2026-2027/dashboard" class="logo-link flex items-center gap-3" aria-label="Go to Alveary dashboard">
+      <img
+        src="img/Alveary%20Lt.%20Green.png"
+        alt="Alveary logo"
+        class="object-contain"
+        style="height: 40px; width: 40px;"
+      />
+      <div class="logo-text-block">
+        <span class="logo-title">Alveary</span>
+      </div>
+    </a>
 
-      <div class="directory-title-row">
-        <h1 class="directory-title">Course & Topic Directory</h1>
-        <span class="directory-pill" id="directory-count">Loading…</span>
+    <div class="mt-3 md:mt-0 md:ml-auto flex items-center justify-end gap-6 text-sm">
+      <div id="app-step-nav" class="app-step-nav"></div>
+    </div>
+  </header>
+
+  <main class="directory-shell">
+    <section class="lesson-intro-section" id="lesson-intro-section">
+      <div class="lesson-intro-title-row">
+        <h1 class="directory-title">Lesson Plans</h1>
+        <button id="toggle-intro" class="lesson-intro-toggle" type="button">
+          Hide intro
+        </button>
       </div>
 
-      <p class="directory-subtext">
-        Browse courses and topics, then open the simplified book details page for each course or topic.
-      </p>
+      <div id="lesson-intro-details" class="lesson-intro-details">
+        <p class="directory-subtext">
+          Open lesson plan PDFs, quick links, extra helpings, book lists, supply lists, and editable planning sheets for each course or topic.
+        </p>
+      </div>
     </section>
 
-    <section class="directory-toolbar">
-      <label class="directory-search-label" for="directory-search">Search</label>
-      <input
-        id="directory-search"
-        class="directory-search"
-        type="search"
-        placeholder="Search courses, topics, subjects, or grades..."
-      >
+    <div id="lesson-working-top" class="lesson-working-top-anchor"></div>
+
+    <section class="book-controls" id="lesson-controls">
+      <div class="book-controls-header">
+        <h2>Filter By</h2>
+        <button id="toggle-filters" class="book-controls-toggle" type="button">Hide</button>
+      </div>
+
+      <div class="book-controls-body">
+        <div class="control-group control-view">
+          <label>View</label>
+          <div class="book-base-toggle" aria-label="Choose lesson plan view">
+            <button class="book-base-button is-active" type="button" data-base="grade">
+              By Grade
+            </button>
+            <button class="book-base-button" type="button" data-base="subject">
+              By Subject
+            </button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="primary-select">Choose one</label>
+          <div class="select-row">
+            <select id="primary-select"></select>
+            <button class="clear-select" type="button" data-clear="primary" aria-label="Reset main selection">×</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="track-filter">Track</label>
+          <div class="select-row">
+            <select id="track-filter">
+              <option value="">US + Canadian</option>
+              <option value="us">US only</option>
+              <option value="canadian">Canadian only</option>
+            </select>
+            <button class="clear-select" type="button" data-clear="track" aria-label="Reset track">×</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="course-filter">Course</label>
+          <div class="select-row">
+            <select id="course-filter">
+              <option value="">All courses</option>
+            </select>
+            <button class="clear-select" type="button" data-clear="course" aria-label="Reset course">×</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="topic-filter">Topic</label>
+          <div class="select-row">
+            <select id="topic-filter">
+              <option value="">All topics</option>
+            </select>
+            <button class="clear-select" type="button" data-clear="topic" aria-label="Reset topic">×</button>
+          </div>
+        </div>
+
+        <div class="control-group control-search">
+          <div class="book-search-row">
+            <div class="mini-filter-group mini-filter-search">
+              <label for="directory-search">Search</label>
+              <input
+                id="directory-search"
+                type="search"
+                placeholder="Search lesson plans, courses, topics, subjects, or grades..."
+              >
+            </div>
+
+            <div class="member-tool-only mini-filter-group mini-filter-planning">
+              <label for="planning-tag-filter">Planning Tags</label>
+              <select id="planning-tag-filter" class="book-mini-select">
+                <option value="">Planning Tags</option>
+              </select>
+            </div>
+
+            <div class="member-tool-only mini-filter-group mini-filter-students">
+              <label for="student-filter">Students</label>
+              <select id="student-filter" class="book-mini-select">
+                <option value="">Students</option>
+              </select>
+            </div>
+
+            <button id="clear-filters" class="clear-filters-link" type="button">
+              Clear filters
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-member-toolbar" id="book-member-toolbar">
+        <button
+          id="member-tools-toggle"
+          class="book-member-mode-toggle"
+          type="button"
+          aria-pressed="false"
+        >
+          Member Tools: Off
+        </button>
+
+        <div class="book-member-toolbar-body">
+          <button class="member-mini-toggle" type="button" data-member-filter="myCourses">
+            <span class="mini-toggle-switch">
+              <span class="mini-toggle-knob"></span>
+            </span>
+            <span>My Courses</span>
+          </button>
+
+          <button class="member-mini-toggle" type="button" data-member-filter="students">
+            <span class="mini-toggle-switch">
+              <span class="mini-toggle-knob"></span>
+            </span>
+            <span>Students</span>
+          </button>
+
+          <button class="member-mini-toggle" type="button" data-member-filter="planningTags">
+            <span class="mini-toggle-switch">
+              <span class="mini-toggle-knob"></span>
+            </span>
+            <span>Planning Tags</span>
+          </button>
+
+          <div class="book-member-toolbar-spacer"></div>
+
+          <button class="member-tool-link" type="button">Manage Students</button>
+          <button class="member-tool-link" type="button">Print</button>
+        </div>
+      </div>
     </section>
-    
+
     <section class="directory-view is-active" id="topic-view" data-directory-view="topic">
       <div class="directory-panel">
         <div class="directory-panel-head">
-          <h2 class="directory-panel-title">Lesson Plans</h2>
-            <p class="directory-panel-note">Open course-level resources from the main card, or topic-level resources from the topic cards below each course.</p>
+          <h2 class="directory-panel-title">Courses & Topics</h2>
+          <p class="directory-panel-note">
+            Open course-level resources from the main card, or topic-level resources from the topic cards below each course.
+          </p>
+          <span class="directory-pill" id="directory-count">Loading…</span>
         </div>
+
         <div class="directory-panel-body">
           <div id="topic-group-list" class="topic-group-list">
-            <div class="empty-state">Loading topic groups…</div>
+            <div class="empty-state">Loading lesson plans…</div>
           </div>
         </div>
       </div>
     </section>
   </main>
 
+  <button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top">
+    ↑ Back to top
+  </button>
+
+  <script src="./js/alveary-config.js"></script>
+  <script src="./js/app.js"></script>
   <script src="./js/alveary-directory.js"></script>
 </body>
 </html>
