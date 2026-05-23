@@ -76,51 +76,66 @@ function getActionLinks(item) {
 function renderActionButtons(item) {
   const links = getActionLinks(item);
 
-  const buttons = [
-    links.books && `
-      <a class="card-button" href="${escapeHtml(links.books)}">
-        Books
-      </a>
-    `,
+  const actions = [
+    {
+      key: "lessonPdf",
+      label: "Lesson PDF",
+      icon: "📝",
+      url: links.lessonPdf,
+      primary: true,
+      external: true,
+    },
+    {
+      key: "lessonLinks",
+      label: "Links",
+      icon: "🔗",
+      url: links.lessonLinks,
+    },
+    {
+      key: "extraHelpings",
+      label: "Extra Helpings",
+      icon: "🍯",
+      url: links.extraHelpings,
+      highlight: true,
+    },
+    {
+      key: "books",
+      label: "Book List Details",
+      icon: "📚",
+      url: links.books,
+    },
+    {
+      key: "supplies",
+      label: "Supply List Details",
+      icon: "✂️",
+      url: links.supplies,
+    },
+    {
+      key: "editableSheet",
+      label: "Editable Sheet",
+      icon: "📊",
+      url: links.editableSheet,
+      external: true,
+    },
+  ].filter((action) => action.url);
 
-    links.supplies && `
-      <a class="card-button card-button-secondary" href="${escapeHtml(links.supplies)}">
-        Supplies
-      </a>
-    `,
-
-    links.lessonLinks && `
-      <a class="card-button card-button-secondary" href="${escapeHtml(links.lessonLinks)}">
-        Links
-      </a>
-    `,
-
-    links.lessonPdf && `
-      <a class="card-button card-button-secondary" href="${escapeHtml(links.lessonPdf)}" target="_blank" rel="noopener">
-        PDF
-      </a>
-    `,
-
-    links.editableSheet && `
-      <a class="card-button card-button-secondary" href="${escapeHtml(links.editableSheet)}" target="_blank" rel="noopener">
-        Editable Sheet
-      </a>
-    `,
-
-    links.extraHelpings && `
-      <a class="card-button card-button-highlight" href="${escapeHtml(links.extraHelpings)}">
-        Extra Helpings
-      </a>
-    `,
-  ]
-    .filter(Boolean)
-    .join("");
-
-  if (!buttons) return "";
+  if (!actions.length) return "";
 
   return `
-    <div class="card-actions">
-      ${buttons}
+    <div class="card-actions card-action-grid">
+      ${actions
+        .map((action) => `
+          <a
+            class="card-action-link ${action.primary ? "is-primary" : ""} ${action.highlight ? "is-highlight" : ""}"
+            href="${escapeHtml(action.url)}"
+            ${action.external ? `target="_blank" rel="noopener"` : ""}
+          >
+            <span class="card-action-icon">${escapeHtml(action.icon)}</span>
+            <span class="card-action-label">${escapeHtml(action.label)}</span>
+            <span class="card-action-arrow">↗</span>
+          </a>
+        `)
+        .join("")}
     </div>
   `;
 }
