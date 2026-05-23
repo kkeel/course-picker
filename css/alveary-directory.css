@@ -433,16 +433,16 @@ a {
 
 .topic-group {
   background: #f4f6fa;
-  border-color: rgba(89,110,94,0.18);
+  border-color: rgba(89,110,94,0.14);
 }
 
 .topic-group-head {
-  background: #bdc5bf;
-  border-bottom-color: rgba(89,110,94,0.18);
+  background: #eef1e8;
+  border-bottom-color: rgba(89,110,94,0.14);
 }
 
 .topic-group-head .card-mini {
-  background: rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.7);
 }
 
 .topic-items {
@@ -450,8 +450,20 @@ a {
 }
 
 .topic-card {
-  border-color: rgba(89,110,94,0.12);
+  border-color: rgba(89,110,94,0.1);
   background: #ffffff;
+}
+
+.topic-group-head .card-action-link.is-primary,
+.topic-group-course-only .card-action-link.is-primary {
+  border-color: #bdc5bf;
+  background: #bdc5bf;
+  color: var(--brand-text);
+}
+
+.topic-group-head .card-action-link.is-primary .card-action-icon,
+.topic-group-course-only .card-action-link.is-primary .card-action-icon {
+  background: rgba(255,255,255,0.45);
 }
 
 .topic-card .card-action-link.is-primary {
@@ -461,12 +473,12 @@ a {
 }
 
 .topic-card .card-action-link.is-primary .card-action-icon {
-  background: rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.5);
 }
 
 .topic-group-course-only {
-  border: 1px solid rgba(89,110,94,0.18);
-  background: #bdc5bf;
+  border: 1px solid rgba(89,110,94,0.14);
+  background: #eef1e8;
   padding: 14px 16px 10px;
   border-radius: 4px;
 }
