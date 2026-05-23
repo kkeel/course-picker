@@ -439,7 +439,7 @@ a {
 }
 
 .topic-group-head {
-  background: #dfe5d8;
+  background: #eef1eb;
   border-bottom: 1px solid #d2d9cf;
 }
 
@@ -491,7 +491,7 @@ a {
 
 .topic-group-course-only {
   border: 1.5px solid var(--brand-dark);
-  background: #ffffff;
+  background: #eef1eb;
   padding: 14px 16px 10px;
   border-radius: 8px;
 }
