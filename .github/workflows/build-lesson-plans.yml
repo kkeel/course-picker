@@ -1,4 +1,4 @@
-name: Build Alveary Directory
+name: Build Lesson Plan Hub
 
 on:
   workflow_dispatch:
@@ -30,7 +30,7 @@ jobs:
           LESSON_WRITING_BASE_ID: ${{ secrets.LESSON_WRITING_BASE_ID }}
           LESSON_PLAN_SETS_TABLE: ${{ secrets.LESSON_PLAN_SETS_TABLE }}
         run: |
-          node tools/build-alveary-directory.js
+          node tools/build-lesson-plans.js
           node tools/build-supply-views.js
 
       - name: Commit updated directory files
