@@ -54,6 +54,77 @@ function bookDetailsUrl(item) {
   return `book-details.html?${params.toString()}`;
 }
 
+function safeLink(value) {
+  return typeof value === "string" && value.trim()
+    ? value.trim()
+    : "";
+}
+
+function getActionLinks(item) {
+  const links = item.links || {};
+
+  return {
+    books: safeLink(links.books || bookDetailsUrl(item)),
+    supplies: safeLink(links.supplies),
+    lessonLinks: safeLink(links.lessonLinks),
+    lessonPdf: safeLink(links.lessonPdf),
+    editableSheet: safeLink(links.editableSheet),
+    extraHelpings: safeLink(links.extraHelpings),
+  };
+}
+
+function renderActionButtons(item) {
+  const links = getActionLinks(item);
+
+  const buttons = [
+    links.books && `
+      <a class="card-button" href="./${escapeHtml(links.books)}">
+        Books
+      </a>
+    `,
+
+    links.supplies && `
+      <a class="card-button card-button-secondary" href="./${escapeHtml(links.supplies)}">
+        Supplies
+      </a>
+    `,
+
+    links.lessonLinks && `
+      <a class="card-button card-button-secondary" href="./${escapeHtml(links.lessonLinks)}">
+        Links
+      </a>
+    `,
+
+    links.lessonPdf && `
+      <a class="card-button card-button-secondary" href="./${escapeHtml(links.lessonPdf)}" target="_blank" rel="noopener">
+        PDF
+      </a>
+    `,
+
+    links.editableSheet && `
+      <a class="card-button card-button-secondary" href="./${escapeHtml(links.editableSheet)}" target="_blank" rel="noopener">
+        Editable Sheet
+      </a>
+    `,
+
+    links.extraHelpings && `
+      <a class="card-button card-button-highlight" href="./${escapeHtml(links.extraHelpings)}">
+        Extra Helpings
+      </a>
+    `,
+  ]
+    .filter(Boolean)
+    .join("");
+
+  if (!buttons) return "";
+
+  return `
+    <div class="card-actions">
+      ${buttons}
+    </div>
+  `;
+}
+
 function renderCourseCard(item) {
   return `
     <article class="directory-card">
@@ -63,12 +134,7 @@ function renderCourseCard(item) {
       </div>
 
       <div class="card-meta">${escapeHtml(item.gradeText || "")}</div>
-
-      <div class="card-actions">
-        <a class="card-button" href="./${escapeHtml(bookDetailsUrl(item))}">
-          Book Details
-        </a>
-      </div>
+      ${renderActionButtons(item)}
     </article>
   `;
 }
@@ -84,12 +150,7 @@ function renderTopicCard(item) {
       <div class="card-meta">
         ${escapeHtml(item.gradeText || "")}
       </div>
-
-      <div class="card-actions">
-        <a class="card-button card-button-secondary" href="./${escapeHtml(bookDetailsUrl(item))}">
-          Book Details
-        </a>
-      </div>
+      ${renderActionButtons(item)}
     </article>
   `;
 }
