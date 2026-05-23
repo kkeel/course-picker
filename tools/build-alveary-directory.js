@@ -8,7 +8,8 @@ const AIRTABLE_PAT = process.env.AIRTABLE_PAT || "";
 const LESSON_WRITING_BASE_ID =
   process.env.LESSON_WRITING_BASE_ID || "";
 
-const LESSON_PLAN_SETS_TABLE = "Lesson Plan Sets";
+const LESSON_PLAN_SETS_TABLE =
+  process.env.LESSON_PLAN_SETS_TABLE || "Lesson Plan Sets";
 
 const DATA_DIR = path.join(ROOT, "data");
 const OUT_DIR = path.join(DATA_DIR, "book-views");
