@@ -911,7 +911,7 @@ async function main() {
 
   await fs.rm(OUT_DIR, { recursive: true, force: true });
 
-  await writeJson(path.join(DATA_DIR, "alveary-directory-index.json"), {
+  await writeJson(path.join(DATA_DIR, "lesson-plans-index.json"), {
     title: "Alveary Directory",
     generatedAt: new Date().toISOString(),
     rows: directoryRows,
