@@ -187,12 +187,7 @@ function applyMemberToolsState() {
 
   button.setAttribute("aria-pressed", enabled ? "true" : "false");
 
-  button.innerHTML = `
-    <span class="mini-toggle-switch">
-      <span class="mini-toggle-knob"></span>
-    </span>
-    <span>Member Tools: ${enabled ? "On" : "Off"}</span>
-  `;
+  button.textContent = `Member Tools: ${enabled ? "On" : "Off"}`;
 }
 
 function setupBackToTop() {
@@ -532,10 +527,12 @@ async function initDirectory() {
       applyIntroState();
     });
 
-    document.querySelector(".book-controls-header").addEventListener("click", () => {
+    document.getElementById("toggle-filters").addEventListener("click", (event) => {
+      event.stopPropagation();
+    
       const controls = document.getElementById("lesson-controls");
       const nextCollapsed = !controls.classList.contains("is-collapsed");
-
+    
       localStorage.setItem(STORAGE_KEYS.filtersCollapsed, String(nextCollapsed));
       applyFilterState();
     });
