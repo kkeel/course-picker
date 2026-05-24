@@ -949,83 +949,152 @@ async function main() {
     generatedAt: new Date().toISOString(),
     rows: directoryRows,
     views: {
-      master: "data/book-views/master.json",
-      byGrade: "data/book-views/by-grade.json",
-      bySubject: "data/book-views/by-subject.json",
+      master: "data/lesson-plan-views/master.json",
+      byGrade: "data/lesson-plan-views/by-grade.json",
+      bySubject: "data/lesson-plan-views/by-subject.json",
       grades: Object.fromEntries(
-        GRADE_CODES.map((grade) => [grade, `data/book-views/grade/${grade}.json`])
+        GRADE_CODES.map((grade) => [
+          grade,
+          `data/lesson-plan-views/grade/${grade}.json`,
+        ])
       ),
       subjects: Object.fromEntries(
         SUBJECT_ORDER.map((subject) => [
           subject,
-          `data/book-views/subject/${subjectSlug(subject)}.json`,
+          `data/lesson-plan-views/subject/${subjectSlug(subject)}.json`,
         ])
       ),
     },
   });
 
-  for (const view of courseViews) {
-    await writeJson(path.join(BOOK_VIEWS_DIR, "course", `${view.id}.json`), view);
-  }
-
-  for (const view of topicViews) {
-    await writeJson(path.join(BOOK_VIEWS_DIR, "topic", `${view.id}.json`), view);
-  }
-
-  const allViews = [...courseViews, ...topicViews];
-
   await writeJson(
-    path.join(BOOK_VIEWS_DIR, "master.json"),
-    combineViews("master", "master", "All Books", courseViews)
+    path.join(LESSON_PLAN_VIEWS_DIR, "master.json"),
+    buildLessonPlanView("master", "master", "All Lesson Plans", directoryRows)
   );
-
+  
   await writeJson(
-  path.join(BOOK_VIEWS_DIR, "by-grade.json"),
-  combineGroupedViews(
-    "by-grade",
-    "by-grade",
-    "Books by Grade",
-    GRADE_CODES.map((grade) => ({
-      id: grade,
-      label: `Grade ${grade.replace("G", "")}`,
-      rows: courseViews.filter((view) => gradeMatches(view, grade)),
-    }))
-  )
-);
-
-await writeJson(
-  path.join(BOOK_VIEWS_DIR, "by-subject.json"),
-  combineGroupedViews(
-    "by-subject",
-    "by-subject",
-    "Books by Subject",
-    SUBJECT_ORDER.map((subject) => ({
-      id: subjectSlug(subject),
-      label: subject,
-      rows: courseViews.filter((view) => view.subject === subject),
-    }))
-  )
-);
-
+    path.join(LESSON_PLAN_VIEWS_DIR, "by-grade.json"),
+    buildLessonPlanGroupedView(
+      "by-grade",
+      "by-grade",
+      "Lesson Plans by Grade",
+      GRADE_CODES.map((grade) => ({
+        id: grade,
+        label: `Grade ${grade.replace("G", "")}`,
+        rows: directoryRows.filter((row) => gradeMatches(row, grade)),
+      }))
+    )
+  );
+  
+  await writeJson(
+    path.join(LESSON_PLAN_VIEWS_DIR, "by-subject.json"),
+    buildLessonPlanGroupedView(
+      "by-subject",
+      "by-subject",
+      "Lesson Plans by Subject",
+      SUBJECT_ORDER.map((subject) => ({
+        id: subjectSlug(subject),
+        label: subject,
+        rows: directoryRows.filter((row) => row.subject === subject),
+      }))
+    )
+  );
+  
   for (const grade of GRADE_CODES) {
-    const rows = courseViews.filter((view) => gradeMatches(view, grade));
+    const rows = directoryRows.filter((row) => gradeMatches(row, grade));
+  
     await writeJson(
-      path.join(BOOK_VIEWS_DIR, "grade", `${grade}.json`),
-      combineViews("grade", grade, `Grade ${grade.replace("G", "")} Books`, rows)
+      path.join(LESSON_PLAN_VIEWS_DIR, "grade", `${grade}.json`),
+      buildLessonPlanView(
+        "grade",
+        grade,
+        `Grade ${grade.replace("G", "")} Lesson Plans`,
+        rows
+      )
     );
   }
-
-  const subjects = new Set(allViews.map((view) => view.subject).filter(Boolean));
-
-  for (const subject of subjects) {
-    const rows = courseViews.filter((view) => view.subject === subject);
+  
+  const lessonPlanSubjects = new Set(
+    directoryRows.map((row) => row.subject).filter(Boolean)
+  );
+  
+  for (const subject of lessonPlanSubjects) {
+    const rows = directoryRows.filter((row) => row.subject === subject);
+  
     await writeJson(
-      path.join(BOOK_VIEWS_DIR, "subject", `${subjectSlug(subject)}.json`),
-      combineViews("subject", subject, `${subject} Books`, rows)
+      path.join(LESSON_PLAN_VIEWS_DIR, "subject", `${subjectSlug(subject)}.json`),
+      buildLessonPlanView(
+        "subject",
+        subject,
+        `${subject} Lesson Plans`,
+        rows
+      )
     );
   }
+  
+    for (const view of courseViews) {
+      await writeJson(path.join(BOOK_VIEWS_DIR, "course", `${view.id}.json`), view);
+    }
+  
+    for (const view of topicViews) {
+      await writeJson(path.join(BOOK_VIEWS_DIR, "topic", `${view.id}.json`), view);
+    }
+  
+    const allViews = [...courseViews, ...topicViews];
+  
+    await writeJson(
+      path.join(BOOK_VIEWS_DIR, "master.json"),
+      combineViews("master", "master", "All Books", courseViews)
+    );
+  
+    await writeJson(
+    path.join(BOOK_VIEWS_DIR, "by-grade.json"),
+    combineGroupedViews(
+      "by-grade",
+      "by-grade",
+      "Books by Grade",
+      GRADE_CODES.map((grade) => ({
+        id: grade,
+        label: `Grade ${grade.replace("G", "")}`,
+        rows: courseViews.filter((view) => gradeMatches(view, grade)),
+      }))
+    )
+  );
+  
+  await writeJson(
+    path.join(BOOK_VIEWS_DIR, "by-subject.json"),
+    combineGroupedViews(
+      "by-subject",
+      "by-subject",
+      "Books by Subject",
+      SUBJECT_ORDER.map((subject) => ({
+        id: subjectSlug(subject),
+        label: subject,
+        rows: courseViews.filter((view) => view.subject === subject),
+      }))
+    )
+  );
+  
+    for (const grade of GRADE_CODES) {
+      const rows = courseViews.filter((view) => gradeMatches(view, grade));
+      await writeJson(
+        path.join(BOOK_VIEWS_DIR, "grade", `${grade}.json`),
+        combineViews("grade", grade, `Grade ${grade.replace("G", "")} Books`, rows)
+      );
+    }
+  
+    const subjects = new Set(allViews.map((view) => view.subject).filter(Boolean));
+  
+    for (const subject of subjects) {
+      const rows = courseViews.filter((view) => view.subject === subject);
+      await writeJson(
+        path.join(BOOK_VIEWS_DIR, "subject", `${subjectSlug(subject)}.json`),
+        combineViews("subject", subject, `${subject} Books`, rows)
+      );
+    }
 
   console.log("[directory] rows:", directoryRows.length);
+  console.log("[lesson plan views] output:", "data/lesson-plan-views");
   console.log("[book views] courses:", courseViews.length);
   console.log("[book views] topics:", topicViews.length);
   console.log("[book views] purchase links included:", INCLUDE_PURCHASE_LINKS);
