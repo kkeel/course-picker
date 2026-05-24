@@ -115,9 +115,48 @@ function populatePrimarySelect() {
 function populateCourseFilter() {
   const select = document.getElementById("course-filter");
 
-  const courses = uniqueSorted(
-    state.courses.map((row) => row.lessonSetName || row.title)
+  const courseRows = state.rows.filter(
+    (row) => row.rowType === "course"
   );
+
+  const courses = [];
+
+  for (const row of courseRows) {
+    if (state.selectedTrack) {
+      const text = [
+        row.title,
+        row.lessonSetName,
+        row.subject,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      const isCanadian =
+        text.includes("canada") ||
+        text.includes("canadian");
+
+      if (
+        state.selectedTrack === "canadian" &&
+        !isCanadian
+      ) {
+        continue;
+      }
+
+      if (
+        state.selectedTrack === "us" &&
+        isCanadian
+      ) {
+        continue;
+      }
+    }
+
+    const title = row.lessonSetName || row.title;
+
+    if (!courses.includes(title)) {
+      courses.push(title);
+    }
+  }
 
   select.innerHTML = `
     <option value="">All courses</option>
@@ -135,9 +174,55 @@ function populateCourseFilter() {
 function populateTopicFilter() {
   const select = document.getElementById("topic-filter");
 
-  const topics = uniqueSorted(
-    state.topics.map((row) => row.lessonSetName || row.title)
+  let topicRows = state.rows.filter(
+    (row) => row.rowType === "topic"
   );
+
+  if (state.selectedCourse) {
+    topicRows = topicRows.filter(
+      (row) => row.courseTitle === state.selectedCourse
+    );
+  }
+
+  const topics = [];
+
+  for (const row of topicRows) {
+    if (state.selectedTrack) {
+      const text = [
+        row.title,
+        row.lessonSetName,
+        row.subject,
+        row.courseTitle,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      const isCanadian =
+        text.includes("canada") ||
+        text.includes("canadian");
+
+      if (
+        state.selectedTrack === "canadian" &&
+        !isCanadian
+      ) {
+        continue;
+      }
+
+      if (
+        state.selectedTrack === "us" &&
+        isCanadian
+      ) {
+        continue;
+      }
+    }
+
+    const title = row.lessonSetName || row.title;
+
+    if (!topics.includes(title)) {
+      topics.push(title);
+    }
+  }
 
   select.innerHTML = `
     <option value="">All topics</option>
@@ -670,12 +755,22 @@ async function initDirectory() {
 
     document.getElementById("track-filter").addEventListener("change", (event) => {
       state.selectedTrack = event.target.value;
+    
+      populateCourseFilter();
+      populateTopicFilter();
+    
       updateUrl();
       render();
     });
 
     document.getElementById("course-filter").addEventListener("change", (event) => {
       state.selectedCourse = event.target.value;
+    
+      state.selectedTopic = "";
+      document.getElementById("topic-filter").value = "";
+    
+      populateTopicFilter();
+    
       updateUrl();
       render();
     });
