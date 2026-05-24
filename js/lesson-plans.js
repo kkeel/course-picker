@@ -7,9 +7,11 @@ const STORAGE_KEYS = {
 };
 
 const state = {
+  allRows: [],
   rows: [],
   courses: [],
   topics: [],
+  indexViews: {},
 
   query: "",
 
@@ -79,25 +81,27 @@ function uniqueSorted(values) {
 function populatePrimarySelect() {
   const select = document.getElementById("primary-select");
 
-  const values =
-    state.base === "grade"
-      ? uniqueSorted(state.rows.map((row) => row.gradeText))
-      : uniqueSorted(state.rows.map((row) => row.subject));
+  if (state.base === "grade") {
+    select.innerHTML = `
+      <option value="">All Grades</option>
+      ${Array.from({ length: 12 }, (_, i) => {
+        const grade = `G${i + 1}`;
+        return `<option value="${grade}">Grade ${i + 1}</option>`;
+      }).join("")}
+    `;
+  } else {
+    const subjects = uniqueSorted(state.allRows.map((row) => row.subject));
 
-  const allLabel =
-    state.base === "grade"
-      ? "All Grades"
-      : "All Subjects";
-
-  select.innerHTML = `
-    <option value="">${allLabel}</option>
-    ${values
-      .map(
-        (value) =>
-          `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`
-      )
-      .join("")}
-  `;
+    select.innerHTML = `
+      <option value="">All Subjects</option>
+      ${subjects
+        .map(
+          (value) =>
+            `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`
+        )
+        .join("")}
+    `;
+  }
 
   select.value = state.selectedId;
 }
@@ -363,11 +367,79 @@ function renderTopicCard(item) {
   `;
 }
 
-function render() {
+function hydrateRows(rows) {
+  state.rows = Array.isArray(rows) ? rows : [];
+  state.courses = state.rows.filter((row) => row.rowType === "course");
+  state.topics = state.rows.filter((row) => row.rowType === "topic");
+}
+
+function getSelectedViewUrl() {
+  if (!state.selectedId) {
+    return state.indexViews.master || "data/lesson-plan-views/master.json";
+  }
+
+  if (state.base === "grade") {
+    return state.indexViews.grades?.[state.selectedId] || "";
+  }
+
+  if (state.base === "subject") {
+    return state.indexViews.subjects?.[state.selectedId] || "";
+  }
+
+  return state.indexViews.master || "data/lesson-plan-views/master.json";
+}
+
+async function loadSelectedView() {
+  const viewUrl = getSelectedViewUrl();
+
+  if (!viewUrl) {
+    hydrateRows([]);
+    return;
+  }
+
+  const response = await fetch(viewUrl);
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+  const view = await response.json();
+
+  hydrateRows(view.rows || []);
+
+  populateCourseFilter();
+  populateTopicFilter();
+}
+
+function rowMatchesFilters(row) {
   const query = normalizeSearch(state.query);
 
-  const visibleCourses = state.courses.filter((row) => rowMatchesQuery(row, query));
-  const visibleTopics = state.topics.filter((row) => rowMatchesQuery(row, query));
+  if (!rowMatchesQuery(row, query)) return false;
+
+  if (state.selectedCourse) {
+    const rowCourseTitle = row.rowType === "topic"
+      ? row.courseTitle
+      : row.lessonSetName || row.title;
+
+    if (rowCourseTitle !== state.selectedCourse) return false;
+  }
+
+  if (state.selectedTopic) {
+    const rowTopicTitle = row.rowType === "topic"
+      ? row.lessonSetName || row.title
+      : "";
+
+    const courseTopicTitles = (row.topicIds || [])
+      .map(String);
+
+    if (rowTopicTitle !== state.selectedTopic && !courseTopicTitles.includes(state.selectedTopic)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function render() {
+  const visibleCourses = state.courses.filter(rowMatchesFilters);
+  const visibleTopics = state.topics.filter(rowMatchesFilters);
   
   const topicGroupList = document.getElementById("topic-group-list");
 
@@ -480,17 +552,16 @@ async function initDirectory() {
 
     const index = await response.json();
     const rows = Array.isArray(index.rows) ? index.rows : [];
-
-    state.rows = rows;
-    state.courses = rows.filter((row) => row.rowType === "course");
-    state.topics = rows.filter((row) => row.rowType === "topic");
-
+    
+    state.allRows = rows;
+    state.indexViews = index.views || {};
+    
     populatePrimarySelect();
-    populateCourseFilter();
-    populateTopicFilter();
+    
+    await loadSelectedView();
 
     document.querySelectorAll(".book-base-button").forEach((button) => {
-      button.addEventListener("click", () => {
+      button.addEventListener("click", async () => {
         state.base = button.dataset.base || "grade";
         state.selectedId = "";
 
@@ -500,13 +571,18 @@ async function initDirectory() {
 
         populatePrimarySelect();
         updateUrl();
+        await loadSelectedView();
         render();
       });
     });
 
-    document.getElementById("primary-select").addEventListener("change", (event) => {
+    document.getElementById("primary-select").addEventListener("change", async (event) => {
       state.selectedId = event.target.value;
+      state.selectedCourse = "";
+      state.selectedTopic = "";
+    
       updateUrl();
+      await loadSelectedView();
       render();
     });
 
@@ -528,19 +604,20 @@ async function initDirectory() {
       render();
     });
 
-    document.getElementById("clear-filters").addEventListener("click", () => {
+    document.getElementById("clear-filters").addEventListener("click", async () => {
       state.query = "";
       state.selectedId = "";
       state.selectedCourse = "";
       state.selectedTopic = "";
       state.selectedTrack = "";
-
+    
       searchInput.value = "";
       document.getElementById("primary-select").value = "";
       document.getElementById("course-filter").value = "";
       document.getElementById("topic-filter").value = "";
-
+    
       updateUrl();
+      await loadSelectedView();
       render();
     });
 
