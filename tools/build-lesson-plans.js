@@ -12,7 +12,8 @@ const LESSON_PLAN_SETS_TABLE =
   process.env.LESSON_PLAN_SETS_TABLE || "Lesson Plan Sets";
 
 const DATA_DIR = path.join(ROOT, "data");
-const OUT_DIR = path.join(DATA_DIR, "book-views");
+const BOOK_VIEWS_DIR = path.join(DATA_DIR, "book-views");
+const LESSON_PLAN_VIEWS_DIR = path.join(DATA_DIR, "lesson-plan-views");
 
 const COURSES_PATH = path.join(DATA_DIR, "MA_Courses.json");
 const BOOKLIST_COURSES_PATH = path.join(DATA_DIR, "MA_BookList_Courses.json");
@@ -871,6 +872,37 @@ function combineGroupedViews(view, id, title, groups) {
   };
 }
 
+function buildLessonPlanView(view, id, title, rows) {
+  return {
+    view,
+    id,
+    title,
+    generatedAt: new Date().toISOString(),
+    count: rows.length,
+    rows,
+  };
+}
+
+function buildLessonPlanGroupedView(view, id, title, groups) {
+  const cleanedGroups = groups
+    .map((group) => ({
+      id: group.id,
+      label: group.label,
+      count: group.rows.length,
+      rows: group.rows,
+    }))
+    .filter((group) => group.count > 0);
+
+  return {
+    view,
+    id,
+    title,
+    generatedAt: new Date().toISOString(),
+    count: cleanedGroups.reduce((sum, group) => sum + group.count, 0),
+    groups: cleanedGroups,
+  };
+}
+
 async function main() {
   const coursesJson = await readJson(COURSES_PATH);
   const bookListCoursesJson = await readJson(BOOKLIST_COURSES_PATH, {});
@@ -909,7 +941,8 @@ async function main() {
       lessonPlanSetMap
     );
 
-  await fs.rm(OUT_DIR, { recursive: true, force: true });
+  await fs.rm(BOOK_VIEWS_DIR, { recursive: true, force: true });
+  await fs.rm(LESSON_PLAN_VIEWS_DIR, { recursive: true, force: true });
 
   await writeJson(path.join(DATA_DIR, "lesson-plans-index.json"), {
     title: "Lesson Plans",
@@ -932,22 +965,22 @@ async function main() {
   });
 
   for (const view of courseViews) {
-    await writeJson(path.join(OUT_DIR, "course", `${view.id}.json`), view);
+    await writeJson(path.join(BOOK_VIEWS_DIR, "course", `${view.id}.json`), view);
   }
 
   for (const view of topicViews) {
-    await writeJson(path.join(OUT_DIR, "topic", `${view.id}.json`), view);
+    await writeJson(path.join(BOOK_VIEWS_DIR, "topic", `${view.id}.json`), view);
   }
 
   const allViews = [...courseViews, ...topicViews];
 
   await writeJson(
-    path.join(OUT_DIR, "master.json"),
+    path.join(BOOK_VIEWS_DIR, "master.json"),
     combineViews("master", "master", "All Books", courseViews)
   );
 
   await writeJson(
-  path.join(OUT_DIR, "by-grade.json"),
+  path.join(BOOK_VIEWS_DIR, "by-grade.json"),
   combineGroupedViews(
     "by-grade",
     "by-grade",
@@ -961,7 +994,7 @@ async function main() {
 );
 
 await writeJson(
-  path.join(OUT_DIR, "by-subject.json"),
+  path.join(BOOK_VIEWS_DIR, "by-subject.json"),
   combineGroupedViews(
     "by-subject",
     "by-subject",
@@ -977,7 +1010,7 @@ await writeJson(
   for (const grade of GRADE_CODES) {
     const rows = courseViews.filter((view) => gradeMatches(view, grade));
     await writeJson(
-      path.join(OUT_DIR, "grade", `${grade}.json`),
+      path.join(BOOK_VIEWS_DIR, "grade", `${grade}.json`),
       combineViews("grade", grade, `Grade ${grade.replace("G", "")} Books`, rows)
     );
   }
@@ -987,7 +1020,7 @@ await writeJson(
   for (const subject of subjects) {
     const rows = courseViews.filter((view) => view.subject === subject);
     await writeJson(
-      path.join(OUT_DIR, "subject", `${subjectSlug(subject)}.json`),
+      path.join(BOOK_VIEWS_DIR, "subject", `${subjectSlug(subject)}.json`),
       combineViews("subject", subject, `${subject} Books`, rows)
     );
   }
