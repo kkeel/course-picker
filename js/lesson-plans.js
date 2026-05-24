@@ -473,7 +473,23 @@ function rowMatchesFilters(row) {
 function render() {
   const topicGroupList = document.getElementById("topic-group-list");
 
-  const groupedHtml = state.groups
+  const fallbackLabel =
+    state.selectedId && state.base === "grade"
+      ? `Grade ${state.selectedId.replace("G", "")}`
+      : state.selectedId && state.base === "subject"
+        ? state.selectedId
+        : "";
+  
+  const renderGroups = state.groups.length
+    ? state.groups
+    : [
+        {
+          label: fallbackLabel,
+          rows: state.rows,
+        },
+      ];
+  
+  const groupedHtml = renderGroups
     .map((group) => {
       const groupRows = (group.rows || []).filter(rowMatchesFilters);
 
