@@ -11,6 +11,7 @@ const state = {
   rows: [],
   courses: [],
   topics: [],
+  groups: [],
   indexViews: {},
 
   query: "",
@@ -47,6 +48,7 @@ function getUrlState() {
     id: params.get("id") || "",
     course: params.get("course") || "",
     topic: params.get("topic") || "",
+    track: params.get("track") || "",
   };
 }
 
@@ -65,6 +67,10 @@ function updateUrl() {
 
   if (state.selectedTopic) {
     params.set("topic", state.selectedTopic);
+  }
+
+  if (state.selectedTrack) {
+    params.set("track", state.selectedTrack);
   }
 
   const newUrl = `${window.location.pathname}?${params.toString()}`;
@@ -370,6 +376,14 @@ function hydrateRows(rows) {
 
 function getSelectedViewUrl() {
   if (!state.selectedId) {
+    if (state.base === "grade") {
+      return state.indexViews.byGrade || "data/lesson-plan-views/by-grade.json";
+    }
+
+    if (state.base === "subject") {
+      return state.indexViews.bySubject || "data/lesson-plan-views/by-subject.json";
+    }
+
     return state.indexViews.master || "data/lesson-plan-views/master.json";
   }
 
@@ -389,6 +403,7 @@ async function loadSelectedView() {
 
   if (!viewUrl) {
     hydrateRows([]);
+    state.groups = [];
     return;
   }
 
@@ -397,7 +412,13 @@ async function loadSelectedView() {
 
   const view = await response.json();
 
-  hydrateRows(view.rows || []);
+  state.groups = Array.isArray(view.groups) ? view.groups : [];
+
+  const rows = state.groups.length
+    ? state.groups.flatMap((group) => group.rows || [])
+    : view.rows || [];
+
+  hydrateRows(rows);
 
   populateCourseFilter();
   populateTopicFilter();
@@ -407,6 +428,23 @@ function rowMatchesFilters(row) {
   const query = normalizeSearch(state.query);
 
   if (!rowMatchesQuery(row, query)) return false;
+
+  if (state.selectedTrack) {
+    const text = [
+      row.title,
+      row.lessonSetName,
+      row.subject,
+      row.courseTitle,
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+  
+    const isCanadian = text.includes("canada") || text.includes("canadian");
+  
+    if (state.selectedTrack === "canadian" && !isCanadian) return false;
+    if (state.selectedTrack === "us" && isCanadian) return false;
+  }
 
   if (state.selectedCourse) {
     const rowCourseTitle = row.rowType === "topic"
@@ -433,64 +471,92 @@ function rowMatchesFilters(row) {
 }
 
 function render() {
-  const visibleCourses = state.courses.filter(rowMatchesFilters);
-  const visibleTopics = state.topics.filter(rowMatchesFilters);
-  
   const topicGroupList = document.getElementById("topic-group-list");
 
-  const topicsByCourseId = {};
+  const groupedHtml = state.groups
+    .map((group) => {
+      const groupRows = (group.rows || []).filter(rowMatchesFilters);
 
-  for (const topic of visibleTopics) {
-    const key = topic.courseId || "uncategorized";
+      if (!groupRows.length) return "";
 
-    if (!topicsByCourseId[key]) {
-      topicsByCourseId[key] = {
-        courseId: key,
-        courseTitle: topic.courseTitle || "Other Topics",
-        subject: topic.subject || "",
-        topics: [],
-      };
-    }
+      const visibleCourses = groupRows.filter(
+        (row) => row.rowType === "course"
+      );
 
-    topicsByCourseId[key].topics.push(topic);
-  }
+      const visibleTopics = groupRows.filter(
+        (row) => row.rowType === "topic"
+      );
 
-  const groupedHtml = visibleCourses
-    .map((course) => {
-      const topicGroup = topicsByCourseId[course.id];
+      const topicsByCourseId = {};
 
-      if (topicGroup) {
-        return `
-          <section class="topic-group">
-            <div class="topic-group-head">
-              <div class="topic-group-topline">
-                <div>
-                  <h3 class="topic-group-title">
-                    ${escapeHtml(course.lessonSetName || course.title || "")}
-                    <span class="title-grade">${escapeHtml(course.gradeText || "")}</span>
-                  </h3>
-                </div>
-                <span class="card-mini">${escapeHtml(course.subject || "Course")}</span>
-              </div>
-            
-              ${renderActionButtons(course)}
-            </div>
-            <div class="topic-items">
-              ${topicGroup.topics.map(renderTopicCard).join("")}
-            </div>
-          </section>
-        `;
+      for (const topic of visibleTopics) {
+        const key = topic.courseId || "uncategorized";
+
+        if (!topicsByCourseId[key]) {
+          topicsByCourseId[key] = [];
+        }
+
+        topicsByCourseId[key].push(topic);
       }
 
+      const cardsHtml = visibleCourses
+        .map((course) => {
+          const topicList = topicsByCourseId[course.id] || [];
+
+          if (topicList.length) {
+            return `
+              <section class="topic-group">
+                <div class="topic-group-head">
+                  <div class="topic-group-topline">
+                    <div>
+                      <h3 class="topic-group-title">
+                        ${escapeHtml(course.lessonSetName || course.title || "")}
+                        <span class="title-grade">
+                          ${escapeHtml(course.gradeText || "")}
+                        </span>
+                      </h3>
+                    </div>
+
+                    <span class="card-mini">
+                      ${escapeHtml(course.subject || "Course")}
+                    </span>
+                  </div>
+
+                  ${renderActionButtons(course)}
+                </div>
+
+                <div class="topic-items">
+                  ${topicList.map(renderTopicCard).join("")}
+                </div>
+              </section>
+            `;
+          }
+
+          return `
+            <section class="topic-group topic-group-course-only">
+              ${renderCourseCard(course)}
+            </section>
+          `;
+        })
+        .join("");
+
       return `
-        <section class="topic-group topic-group-course-only">
-          ${renderCourseCard(course)}
+        <section class="directory-render-group">
+          <div class="directory-render-group-header">
+            ${escapeHtml(group.label || "")}
+          </div>
+
+          <div class="directory-render-group-body">
+            ${cardsHtml}
+          </div>
         </section>
       `;
     })
     .join("");
 
-  topicGroupList.innerHTML = groupedHtml || `<div class="empty-state">No matching courses or topics found.</div>`;
+  topicGroupList.innerHTML =
+    groupedHtml ||
+    `<div class="empty-state">No matching courses or topics found.</div>`;
 }
 
 function setActiveView(view) {
@@ -513,6 +579,7 @@ async function initDirectory() {
     state.selectedId = urlState.id;
     state.selectedCourse = urlState.course;
     state.selectedTopic = urlState.topic;
+    state.selectedTrack = urlState.track;
 
     applyIntroState();
     applyFilterState();
@@ -557,6 +624,8 @@ async function initDirectory() {
     
     await loadSelectedView();
 
+    document.getElementById("track-filter").value = state.selectedTrack;
+
     document.querySelectorAll(".book-base-button").forEach((button) => {
       button.addEventListener("click", async () => {
         state.base = button.dataset.base || "grade";
@@ -580,6 +649,12 @@ async function initDirectory() {
     
       updateUrl();
       await loadSelectedView();
+      render();
+    });
+
+    document.getElementById("track-filter").addEventListener("change", (event) => {
+      state.selectedTrack = event.target.value;
+      updateUrl();
       render();
     });
 
@@ -610,12 +685,46 @@ async function initDirectory() {
     
       searchInput.value = "";
       document.getElementById("primary-select").value = "";
+      document.getElementById("track-filter").value = "";
       document.getElementById("course-filter").value = "";
       document.getElementById("topic-filter").value = "";
     
       updateUrl();
       await loadSelectedView();
       render();
+    });
+
+    document.querySelectorAll(".clear-select").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const target = button.dataset.clear;
+    
+        if (target === "primary") {
+          state.selectedId = "";
+          document.getElementById("primary-select").value = "";
+          updateUrl();
+          await loadSelectedView();
+        }
+    
+        if (target === "track") {
+          state.selectedTrack = "";
+          document.getElementById("track-filter").value = "";
+          updateUrl();
+        }
+    
+        if (target === "course") {
+          state.selectedCourse = "";
+          document.getElementById("course-filter").value = "";
+          updateUrl();
+        }
+    
+        if (target === "topic") {
+          state.selectedTopic = "";
+          document.getElementById("topic-filter").value = "";
+          updateUrl();
+        }
+    
+        render();
+      });
     });
 
     render();
