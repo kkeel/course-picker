@@ -194,7 +194,7 @@ a {
 }
 
 .book-controls-toggle {
-  pointer-events: none;
+  cursor: pointer;
 }
 
 .clear-filters-link:hover,
