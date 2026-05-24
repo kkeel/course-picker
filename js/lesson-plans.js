@@ -16,7 +16,7 @@ const state = {
 
   query: "",
 
-  base: "grade",
+  base: "subject",
   selectedId: "",
   selectedCourse: "",
   selectedTopic: "",
@@ -44,7 +44,7 @@ function getUrlState() {
   const params = new URLSearchParams(window.location.search);
 
   return {
-    base: params.get("base") || "grade",
+    base: params.get("base") || "subject",
     id: params.get("id") || "",
     course: params.get("course") || "",
     topic: params.get("topic") || "",
@@ -531,24 +531,27 @@ function rowMatchesFilters(row) {
     if (state.selectedTrack === "us" && isCanadian) return false;
   }
 
-  if (state.selectedCourse) {
+  if (state.selectedCourse && !state.selectedTopic) {
     const rowCourseTitle = row.rowType === "topic"
       ? row.courseTitle
       : row.lessonSetName || row.title;
-
+  
     if (rowCourseTitle !== state.selectedCourse) return false;
   }
 
   if (state.selectedTopic) {
-    const rowTopicTitle = row.rowType === "topic"
-      ? row.lessonSetName || row.title
-      : "";
-
-    const courseTopicTitles = (row.topicIds || [])
-      .map(String);
-
-    if (rowTopicTitle !== state.selectedTopic && !courseTopicTitles.includes(state.selectedTopic)) {
-      return false;
+    if (row.rowType === "topic") {
+      const rowTopicTitle = row.lessonSetName || row.title;
+      if (rowTopicTitle !== state.selectedTopic) return false;
+    }
+  
+    if (row.rowType === "course") {
+      const hasMatchingTopic = state.topics.some((topic) => {
+        const topicTitle = topic.lessonSetName || topic.title;
+        return topic.courseId === row.id && topicTitle === state.selectedTopic;
+      });
+  
+      if (!hasMatchingTopic) return false;
     }
   }
 
@@ -695,9 +698,7 @@ async function initDirectory() {
       applyIntroState();
     });
 
-    document.getElementById("toggle-filters").addEventListener("click", (event) => {
-      event.stopPropagation();
-    
+    document.querySelector(".book-controls-header").addEventListener("click", () => {
       const controls = document.getElementById("lesson-controls");
       const nextCollapsed = !controls.classList.contains("is-collapsed");
     
@@ -727,10 +728,23 @@ async function initDirectory() {
 
     document.getElementById("track-filter").value = state.selectedTrack;
 
+    document.querySelectorAll(".book-base-button").forEach((btn) => {
+      btn.classList.toggle("is-active", btn.dataset.base === state.base);
+    });
+
     document.querySelectorAll(".book-base-button").forEach((button) => {
       button.addEventListener("click", async () => {
-        state.base = button.dataset.base || "grade";
+        state.base = button.dataset.base || "subject";
         state.selectedId = "";
+        state.selectedCourse = "";
+        state.selectedTopic = "";
+        state.selectedTrack = "";
+        state.query = "";
+        
+        document.getElementById("directory-search").value = "";
+        document.getElementById("track-filter").value = "";
+        document.getElementById("course-filter").value = "";
+        document.getElementById("topic-filter").value = "";
 
         document.querySelectorAll(".book-base-button").forEach((btn) => {
           btn.classList.toggle("is-active", btn.dataset.base === state.base);
@@ -793,12 +807,19 @@ async function initDirectory() {
       state.selectedCourse = "";
       state.selectedTopic = "";
       state.selectedTrack = "";
+      state.base = "subject";
     
       searchInput.value = "";
-      document.getElementById("primary-select").value = "";
       document.getElementById("track-filter").value = "";
       document.getElementById("course-filter").value = "";
       document.getElementById("topic-filter").value = "";
+    
+      document.querySelectorAll(".book-base-button").forEach((btn) => {
+        btn.classList.toggle("is-active", btn.dataset.base === state.base);
+      });
+    
+      populatePrimarySelect();
+      document.getElementById("primary-select").value = "";
     
       updateUrl();
       await loadSelectedView();
@@ -811,30 +832,55 @@ async function initDirectory() {
     
         if (target === "primary") {
           state.selectedId = "";
+          state.selectedCourse = "";
+          state.selectedTopic = "";
+    
           document.getElementById("primary-select").value = "";
+          document.getElementById("course-filter").value = "";
+          document.getElementById("topic-filter").value = "";
+    
           updateUrl();
           await loadSelectedView();
+          render();
+          return;
         }
     
         if (target === "track") {
           state.selectedTrack = "";
           document.getElementById("track-filter").value = "";
+    
+          populateCourseFilter();
+          populateTopicFilter();
+    
           updateUrl();
+          render();
+          return;
         }
     
         if (target === "course") {
           state.selectedCourse = "";
+          state.selectedTopic = "";
+    
           document.getElementById("course-filter").value = "";
+          document.getElementById("topic-filter").value = "";
+    
+          populateTopicFilter();
+    
           updateUrl();
+          render();
+          return;
         }
     
         if (target === "topic") {
           state.selectedTopic = "";
           document.getElementById("topic-filter").value = "";
-          updateUrl();
-        }
     
-        render();
+          populateTopicFilter();
+    
+          updateUrl();
+          render();
+          return;
+        }
       });
     });
 
