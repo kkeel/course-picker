@@ -50,7 +50,7 @@
       }
     ]
   },
-  "updatedAt": "2026-05-23T08:00:21.699Z",
+  "updatedAt": "2026-05-24T08:11:46.717Z",
   "terms": [
     {
       "termNumber": 1,
@@ -72,10 +72,6 @@
               "title": "25m U.S. History: Grades 4-6 - Lesson 1",
               "anchor": "term-1-week-1-lesson-1",
               "links": [
-                {
-                  "text": "Map of Expedition",
-                  "url": "https://www.mapofthemonth.com/site/wp-content/uploads/2018/05/Carte_Lewis_and_Clark_Expedition-map-pub-domain.jpg"
-                },
                 {
                   "text": "Lewis and Clark Expedition Part 1",
                   "url": "https://www.knowitall.org/video/lewis-and-clark-expedition-part-1-introduction-history-nutshell"
@@ -211,24 +207,6 @@
           "weekLabel": "Week 4",
           "lessons": [
             {
-              "lessonId": "recN6W1EsW2PJ2ngK",
-              "termNumber": 1,
-              "termLabel": "Term 1",
-              "weekNumber": 4,
-              "weekLabel": "Week 4",
-              "sequence": 4,
-              "sort": 100401,
-              "lessonLabel": "",
-              "title": "25m U.S. History: Grades 4-6 - Lesson 4",
-              "anchor": "term-1-week-4-lesson-4",
-              "links": [
-                {
-                  "text": "Map of Expedition",
-                  "url": "https://www.mapofthemonth.com/site/wp-content/uploads/2018/05/Carte_Lewis_and_Clark_Expedition-map-pub-domain.jpg"
-                }
-              ]
-            },
-            {
               "lessonId": "recE9FyjVaXubE5N9",
               "termNumber": 1,
               "termLabel": "Term 1",
@@ -321,6 +299,10 @@
                 {
                   "text": "Sakakawea Statue",
                   "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Flickr_-_USCapitol_-_Sakakawea_Statue.jpg/500px-Flickr_-_USCapitol_-_Sakakawea_Statue.jpg"
+                },
+                {
+                  "text": "Fort Mandan",
+                  "url": "https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/ftmandanbrown2-1-.jpg"
                 }
               ]
             }
@@ -330,24 +312,6 @@
           "weekNumber": 7,
           "weekLabel": "Week 7",
           "lessons": [
-            {
-              "lessonId": "reczewuGv46yT97zj",
-              "termNumber": 1,
-              "termLabel": "Term 1",
-              "weekNumber": 7,
-              "weekLabel": "Week 7",
-              "sequence": 7,
-              "sort": 100701,
-              "lessonLabel": "",
-              "title": "25m U.S. History: Grades 4-6 - Lesson 7",
-              "anchor": "term-1-week-7-lesson-7",
-              "links": [
-                {
-                  "text": "Reconstructed Fort Mandan",
-                  "url": "https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/ftmandanbrown2-1-.jpg"
-                }
-              ]
-            },
             {
               "lessonId": "recxoxUdkNEpsyXr4",
               "termNumber": 1,
@@ -387,6 +351,10 @@
                 {
                   "text": "Map of Expedition",
                   "url": "https://www.mapofthemonth.com/site/wp-content/uploads/2018/05/Carte_Lewis_and_Clark_Expedition-map-pub-domain.jpg"
+                },
+                {
+                  "text": "Image of Three Forks",
+                  "url": "https://www.umt.edu/this-is-montana/columns/stories/the-three-forks-of-the-missouri-in-headwaters-state-park-larry-mayer-photo.jpg"
                 }
               ]
             }
@@ -417,9 +385,55 @@
           ]
         },
         {
+          "weekNumber": 10,
+          "weekLabel": "Week 10",
+          "lessons": [
+            {
+              "lessonId": "rec0mDKpoeSY1qMxV",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 10,
+              "weekLabel": "Week 10",
+              "sequence": 10,
+              "sort": 101001,
+              "lessonLabel": "",
+              "title": "25m U.S. History: Grades 4-6 - Lesson 10",
+              "anchor": "term-1-week-10-lesson-10",
+              "links": [
+                {
+                  "text": "Map of Expedition",
+                  "url": "https://www.mapofthemonth.com/site/wp-content/uploads/2018/05/Carte_Lewis_and_Clark_Expedition-map-pub-domain.jpg"
+                },
+                {
+                  "text": "Image of dugout canoe",
+                  "url": "https://lewis-clark.org/media/tech_canoe-boss-2.jpg"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "weekNumber": 11,
           "weekLabel": "Week 11",
           "lessons": [
+            {
+              "lessonId": "recUBu47yE0GTj68I",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 11,
+              "weekLabel": "Week 11",
+              "sequence": 11,
+              "sort": 101101,
+              "lessonLabel": "",
+              "title": "25m U.S. History: Grades 4-6 - Lesson 11",
+              "anchor": "term-1-week-11-lesson-11",
+              "links": [
+                {
+                  "text": "Aerial image of Columbia estuary",
+                  "url": "https://en.wikipedia.org/wiki/Columbia_River_Estuary#/media/File:Columbia_River_07788.JPG"
+                }
+              ]
+            },
             {
               "lessonId": "recNEHWKQaVTp4hQD",
               "termNumber": 1,

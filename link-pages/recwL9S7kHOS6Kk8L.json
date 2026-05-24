@@ -30,7 +30,7 @@
       }
     ]
   },
-  "updatedAt": "2026-05-23T08:00:21.726Z",
+  "updatedAt": "2026-05-24T08:11:46.742Z",
   "terms": [
     {
       "termNumber": 1,
@@ -113,6 +113,24 @@
           "weekLabel": "Week 4",
           "lessons": [
             {
+              "lessonId": "recB7r2lvV7b0DCj6",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 4,
+              "weekLabel": "Week 4",
+              "sequence": 7,
+              "sort": 0,
+              "lessonLabel": "Lesson 7",
+              "title": "30m Ancient History: Grades 10-12 - Lesson 7",
+              "anchor": "term-1-week-4-lesson-7",
+              "links": [
+                {
+                  "text": "Augustan Rule",
+                  "url": "https://www.metmuseum.org/essays/augustan-rule-27-b-c-14-a-d"
+                }
+              ]
+            },
+            {
               "lessonId": "recRRxaiCMXzZcUzq",
               "termNumber": 1,
               "termLabel": "Term 1",
@@ -157,9 +175,93 @@
           ]
         },
         {
+          "weekNumber": 6,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recYrdVYKrrVkGBmI",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 6,
+              "weekLabel": "Week 6",
+              "sequence": 12,
+              "sort": 0,
+              "lessonLabel": "Lesson 12",
+              "title": "40m Ancient History: Grades 10-12 - Lesson 12",
+              "anchor": "term-1-week-6-lesson-12",
+              "links": [
+                {
+                  "text": "The Roman Empire",
+                  "url": "https://www.metmuseum.org/essays/the-roman-empire-27-b-c-393-a-d"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 7,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "recVMAWP5TwprxoCb",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 7,
+              "weekLabel": "Week 7",
+              "sequence": 13,
+              "sort": 0,
+              "lessonLabel": "Lesson 13",
+              "title": "30m Ancient History: Grades 10-12 - Lesson 13",
+              "anchor": "term-1-week-7-lesson-13",
+              "links": [
+                {
+                  "text": "The Roman Empire",
+                  "url": "https://www.metmuseum.org/essays/the-roman-empire-27-b-c-393-a-d"
+                }
+              ]
+            },
+            {
+              "lessonId": "rec0xdZwEdr1MQtjq",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 7,
+              "weekLabel": "Week 7",
+              "sequence": 14,
+              "sort": 0,
+              "lessonLabel": "Lesson 14",
+              "title": "40m Ancient History: Grades 10-12 - Lesson 14",
+              "anchor": "term-1-week-7-lesson-14",
+              "links": [
+                {
+                  "text": "The Roman Empire",
+                  "url": "https://www.metmuseum.org/essays/the-roman-empire-27-b-c-393-a-d"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "weekNumber": 8,
           "weekLabel": "Week 8",
           "lessons": [
+            {
+              "lessonId": "recBru2D0U5ipSKpZ",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 8,
+              "weekLabel": "Week 8",
+              "sequence": 15,
+              "sort": 0,
+              "lessonLabel": "Lesson 15",
+              "title": "30m Ancient History: Grades 10-12 - Lesson 15",
+              "anchor": "term-1-week-8-lesson-15",
+              "links": [
+                {
+                  "text": "The Roman Empire",
+                  "url": "https://www.metmuseum.org/essays/the-roman-empire-27-b-c-393-a-d"
+                }
+              ]
+            },
             {
               "lessonId": "rec4rch8OCbmatsTY",
               "termNumber": 1,
@@ -311,8 +413,8 @@
               "anchor": "term-2-week-22-lesson-44",
               "links": [
                 {
-                  "text": "Tacitus: Book 1",
-                  "url": "https://www.sacred-texts.com/cla/tac/a01000.htm"
+                  "text": "Germania, Tacitus",
+                  "url": "https://sourcebooks.fordham.edu/source/tacitus1.asp"
                 }
               ]
             }
@@ -324,6 +426,30 @@
       "termNumber": 3,
       "term": "Term 3",
       "weeks": [
+        {
+          "weekNumber": 25,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "receuahwWoduWY7OU",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 50,
+              "sort": 0,
+              "lessonLabel": "Lesson 50",
+              "title": "40m Ancient History: Grades 10-12 - Lesson 50",
+              "anchor": "term-3-week-25-lesson-50",
+              "links": [
+                {
+                  "text": "The Forgotten Women of Church History",
+                  "url": "https://cfc.sebts.edu/faith-and-culture/stefana-dan-laing-forgotten-women-church-history/"
+                }
+              ]
+            }
+          ]
+        },
         {
           "weekNumber": 33,
           "weekLabel": "Week 9",
