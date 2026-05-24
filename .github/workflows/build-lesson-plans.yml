@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 jobs:
-  build-directory:
+  build-lesson-plan-hub:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,7 +24,7 @@ jobs:
           node-version: "22"
           package-manager-cache: false
 
-      - name: Build directory, book views, and supply views
+      - name: Build lesson plan hub, book views, and supply views
         env:
           AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
           LESSON_WRITING_BASE_ID: ${{ secrets.LESSON_WRITING_BASE_ID }}
@@ -33,16 +33,16 @@ jobs:
           node tools/build-lesson-plans.js
           node tools/build-supply-views.js
 
-      - name: Commit updated directory files
+      - name: Commit updated lesson plan hub files
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-
-          git add data/alveary-directory-index.json data/book-views data/supply-views
-
+      
+          git add data/lesson-plans-index.json data/lesson-plan-views data/book-views data/supply-views
+      
           if git diff --cached --quiet; then
-            echo "No directory changes to commit"
+            echo "No lesson plan hub changes to commit"
           else
-            git commit -m "Build Alveary directory and resource view JSON"
+            git commit -m "Build lesson plan hub and resource view JSON"
             git push
           fi
