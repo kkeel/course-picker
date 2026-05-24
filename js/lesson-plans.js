@@ -1,11 +1,27 @@
 const DIRECTORY_INDEX_URL = "./data/lesson-plans-index.json";
 
+const STORAGE_KEYS = {
+  introCollapsed: "lessonPlansIntroCollapsed",
+  filtersCollapsed: "lessonPlansFiltersCollapsed",
+  memberTools: "lessonPlansMemberTools",
+};
+
 const state = {
   rows: [],
   courses: [],
   topics: [],
+
   query: "",
-  activeView: "course",
+
+  base: "grade",
+  selectedId: "",
+  selectedCourse: "",
+  selectedTopic: "",
+  selectedTrack: "",
+
+  activeView: "topic",
+
+  memberToolsEnabled: false,
 };
 
 function escapeHtml(value) {
@@ -19,6 +35,182 @@ function escapeHtml(value) {
 
 function normalizeSearch(value) {
   return String(value || "").toLowerCase().trim();
+}
+
+function getUrlState() {
+  const params = new URLSearchParams(window.location.search);
+
+  return {
+    base: params.get("base") || "grade",
+    id: params.get("id") || "",
+    course: params.get("course") || "",
+    topic: params.get("topic") || "",
+  };
+}
+
+function updateUrl() {
+  const params = new URLSearchParams();
+
+  params.set("base", state.base);
+
+  if (state.selectedId) {
+    params.set("id", state.selectedId);
+  }
+
+  if (state.selectedCourse) {
+    params.set("course", state.selectedCourse);
+  }
+
+  if (state.selectedTopic) {
+    params.set("topic", state.selectedTopic);
+  }
+
+  const newUrl = `${window.location.pathname}?${params.toString()}`;
+
+  window.history.replaceState({}, "", newUrl);
+}
+
+function uniqueSorted(values) {
+  return [...new Set(values.filter(Boolean))].sort((a, b) =>
+    a.localeCompare(b)
+  );
+}
+
+function populatePrimarySelect() {
+  const select = document.getElementById("primary-select");
+
+  const values =
+    state.base === "grade"
+      ? uniqueSorted(state.rows.map((row) => row.gradeText))
+      : uniqueSorted(state.rows.map((row) => row.subject));
+
+  const allLabel =
+    state.base === "grade"
+      ? "All Grades"
+      : "All Subjects";
+
+  select.innerHTML = `
+    <option value="">${allLabel}</option>
+    ${values
+      .map(
+        (value) =>
+          `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`
+      )
+      .join("")}
+  `;
+
+  select.value = state.selectedId;
+}
+
+function populateCourseFilter() {
+  const select = document.getElementById("course-filter");
+
+  const courses = uniqueSorted(
+    state.courses.map((row) => row.lessonSetName || row.title)
+  );
+
+  select.innerHTML = `
+    <option value="">All courses</option>
+    ${courses
+      .map(
+        (value) =>
+          `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`
+      )
+      .join("")}
+  `;
+
+  select.value = state.selectedCourse;
+}
+
+function populateTopicFilter() {
+  const select = document.getElementById("topic-filter");
+
+  const topics = uniqueSorted(
+    state.topics.map((row) => row.lessonSetName || row.title)
+  );
+
+  select.innerHTML = `
+    <option value="">All topics</option>
+    ${topics
+      .map(
+        (value) =>
+          `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`
+      )
+      .join("")}
+  `;
+
+  select.value = state.selectedTopic;
+}
+
+function applyIntroState() {
+  const intro = document.getElementById("lesson-intro-section");
+  const button = document.getElementById("toggle-intro");
+
+  const collapsed =
+    localStorage.getItem(STORAGE_KEYS.introCollapsed) === "true";
+
+  intro.classList.toggle("is-collapsed", collapsed);
+
+  button.textContent = collapsed ? "Show intro" : "Hide intro";
+}
+
+function applyFilterState() {
+  const controls = document.getElementById("lesson-controls");
+  const button = document.getElementById("toggle-filters");
+
+  const collapsed =
+    localStorage.getItem(STORAGE_KEYS.filtersCollapsed) === "true";
+
+  controls.classList.toggle("is-collapsed", collapsed);
+
+  button.textContent = collapsed ? "Show" : "Hide";
+}
+
+function applyMemberToolsState() {
+  const enabled =
+    localStorage.getItem(STORAGE_KEYS.memberTools) === "true";
+
+  state.memberToolsEnabled = enabled;
+
+  document.body.classList.toggle(
+    "member-tools-enabled",
+    enabled
+  );
+
+  const button = document.getElementById("member-tools-toggle");
+
+  button.classList.toggle("is-active", enabled);
+
+  button.setAttribute("aria-pressed", enabled ? "true" : "false");
+
+  button.innerHTML = `
+    <span class="mini-toggle-switch">
+      <span class="mini-toggle-knob"></span>
+    </span>
+    <span>Member Tools: ${enabled ? "On" : "Off"}</span>
+  `;
+}
+
+function setupBackToTop() {
+  const button = document.getElementById("back-to-top");
+
+  function updateVisibility() {
+    button.classList.toggle(
+      "is-visible",
+      window.scrollY > 600
+    );
+  }
+
+  window.addEventListener("scroll", updateVisibility);
+
+  button.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+
+  updateVisibility();
 }
 
 function rowMatchesQuery(row, query) {
