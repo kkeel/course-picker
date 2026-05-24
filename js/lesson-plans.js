@@ -122,34 +122,7 @@ function populateCourseFilter() {
   const courses = [];
 
   for (const row of courseRows) {
-    if (state.selectedTrack) {
-      const text = [
-        row.title,
-        row.lessonSetName,
-        row.subject,
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-
-      const isCanadian =
-        text.includes("canada") ||
-        text.includes("canadian");
-
-      if (
-        state.selectedTrack === "canadian" &&
-        !isCanadian
-      ) {
-        continue;
-      }
-
-      if (
-        state.selectedTrack === "us" &&
-        isCanadian
-      ) {
-        continue;
-      }
-    }
+    if (!rowMatchesTrack(row)) continue;
 
     const title = row.lessonSetName || row.title;
 
@@ -187,35 +160,7 @@ function populateTopicFilter() {
   const topics = [];
 
   for (const row of topicRows) {
-    if (state.selectedTrack) {
-      const text = [
-        row.title,
-        row.lessonSetName,
-        row.subject,
-        row.courseTitle,
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-
-      const isCanadian =
-        text.includes("canada") ||
-        text.includes("canadian");
-
-      if (
-        state.selectedTrack === "canadian" &&
-        !isCanadian
-      ) {
-        continue;
-      }
-
-      if (
-        state.selectedTrack === "us" &&
-        isCanadian
-      ) {
-        continue;
-      }
-    }
+    if (!rowMatchesTrack(row)) continue;
 
     const title = row.lessonSetName || row.title;
 
@@ -318,6 +263,55 @@ function rowMatchesQuery(row, query) {
     .toLowerCase();
 
   return haystack.includes(query);
+}
+
+function getTrackText(row) {
+  return [
+    row.title,
+    row.lessonSetName,
+    row.subject,
+    row.courseTitle,
+    row.gradeText,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+}
+
+function isCanadianSpecific(row) {
+  const text = getTrackText(row);
+
+  return (
+    text.includes("canada") ||
+    text.includes("canadian")
+  );
+}
+
+function isUsSpecific(row) {
+  const text = getTrackText(row);
+
+  return (
+    text.includes("u.s.") ||
+    text.includes("u.s") ||
+    text.includes("usa") ||
+    text.includes("united states") ||
+    text.includes("us history") ||
+    text.includes("history: grade") && !text.includes("canada")
+  );
+}
+
+function rowMatchesTrack(row) {
+  if (!state.selectedTrack) return true;
+
+  if (state.selectedTrack === "us") {
+    return !isCanadianSpecific(row);
+  }
+
+  if (state.selectedTrack === "canadian") {
+    return !isUsSpecific(row);
+  }
+
+  return true;
 }
 
 function bookDetailsUrl(item) {
@@ -514,22 +508,7 @@ function rowMatchesFilters(row) {
 
   if (!rowMatchesQuery(row, query)) return false;
 
-  if (state.selectedTrack) {
-    const text = [
-      row.title,
-      row.lessonSetName,
-      row.subject,
-      row.courseTitle,
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
-  
-    const isCanadian = text.includes("canada") || text.includes("canadian");
-  
-    if (state.selectedTrack === "canadian" && !isCanadian) return false;
-    if (state.selectedTrack === "us" && isCanadian) return false;
-  }
+  if (!rowMatchesTrack(row)) return false;
 
   if (state.selectedCourse && !state.selectedTopic) {
     const rowCourseTitle = row.rowType === "topic"
