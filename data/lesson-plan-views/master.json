@@ -1,6 +1,9 @@
 {
-  "title": "Lesson Plans",
-  "generatedAt": "2026-05-24T01:16:13.394Z",
+  "view": "master",
+  "id": "master",
+  "title": "All Lesson Plans",
+  "generatedAt": "2026-05-24T01:16:13.401Z",
+  "count": 534,
   "rows": [
     {
       "id": "recbffM9zHurHapsq",
@@ -19556,43 +19559,5 @@
       "bookDetailsUrl": "book-details.html?view=topic&id=recgB0ahib5RbcrAz",
       "links": {}
     }
-  ],
-  "views": {
-    "master": "data/lesson-plan-views/master.json",
-    "byGrade": "data/lesson-plan-views/by-grade.json",
-    "bySubject": "data/lesson-plan-views/by-subject.json",
-    "grades": {
-      "G1": "data/lesson-plan-views/grade/G1.json",
-      "G2": "data/lesson-plan-views/grade/G2.json",
-      "G3": "data/lesson-plan-views/grade/G3.json",
-      "G4": "data/lesson-plan-views/grade/G4.json",
-      "G5": "data/lesson-plan-views/grade/G5.json",
-      "G6": "data/lesson-plan-views/grade/G6.json",
-      "G7": "data/lesson-plan-views/grade/G7.json",
-      "G8": "data/lesson-plan-views/grade/G8.json",
-      "G9": "data/lesson-plan-views/grade/G9.json",
-      "G10": "data/lesson-plan-views/grade/G10.json",
-      "G11": "data/lesson-plan-views/grade/G11.json",
-      "G12": "data/lesson-plan-views/grade/G12.json"
-    },
-    "subjects": {
-      "Architecture": "data/lesson-plan-views/subject/architecture.json",
-      "Art": "data/lesson-plan-views/subject/art.json",
-      "Bible": "data/lesson-plan-views/subject/bible.json",
-      "Citizenship": "data/lesson-plan-views/subject/citizenship.json",
-      "English": "data/lesson-plan-views/subject/english.json",
-      "Geography": "data/lesson-plan-views/subject/geography.json",
-      "History": "data/lesson-plan-views/subject/history.json",
-      "Latin": "data/lesson-plan-views/subject/latin.json",
-      "Life Skills": "data/lesson-plan-views/subject/life-skills.json",
-      "Literature": "data/lesson-plan-views/subject/literature.json",
-      "Math": "data/lesson-plan-views/subject/math.json",
-      "Modern Language": "data/lesson-plan-views/subject/modern-language.json",
-      "Music": "data/lesson-plan-views/subject/music.json",
-      "Physical Education": "data/lesson-plan-views/subject/physical-education.json",
-      "Science": "data/lesson-plan-views/subject/science.json",
-      "Alt. Science Options": "data/lesson-plan-views/subject/alt-science-options.json",
-      "Suggested Resources": "data/lesson-plan-views/subject/suggested-resources.json"
-    }
-  }
+  ]
 }
