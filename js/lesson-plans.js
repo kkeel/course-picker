@@ -440,6 +440,41 @@ function setActiveView(view) {
 
 async function initDirectory() {
   try {
+    const urlState = getUrlState();
+
+    state.base = urlState.base;
+    state.selectedId = urlState.id;
+    state.selectedCourse = urlState.course;
+    state.selectedTopic = urlState.topic;
+
+    applyIntroState();
+    applyFilterState();
+    applyMemberToolsState();
+    setupBackToTop();
+
+    document.getElementById("toggle-intro").addEventListener("click", () => {
+      const intro = document.getElementById("lesson-intro-section");
+      const nextCollapsed = !intro.classList.contains("is-collapsed");
+
+      localStorage.setItem(STORAGE_KEYS.introCollapsed, String(nextCollapsed));
+      applyIntroState();
+    });
+
+    document.querySelector(".book-controls-header").addEventListener("click", () => {
+      const controls = document.getElementById("lesson-controls");
+      const nextCollapsed = !controls.classList.contains("is-collapsed");
+
+      localStorage.setItem(STORAGE_KEYS.filtersCollapsed, String(nextCollapsed));
+      applyFilterState();
+    });
+
+    document.getElementById("member-tools-toggle").addEventListener("click", () => {
+      const nextEnabled = !state.memberToolsEnabled;
+
+      localStorage.setItem(STORAGE_KEYS.memberTools, String(nextEnabled));
+      applyMemberToolsState();
+    });
+
     const response = await fetch(DIRECTORY_INDEX_URL);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
@@ -450,20 +485,70 @@ async function initDirectory() {
     state.courses = rows.filter((row) => row.rowType === "course");
     state.topics = rows.filter((row) => row.rowType === "topic");
 
+    populatePrimarySelect();
+    populateCourseFilter();
+    populateTopicFilter();
+
+    document.querySelectorAll(".book-base-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.base = button.dataset.base || "grade";
+        state.selectedId = "";
+
+        document.querySelectorAll(".book-base-button").forEach((btn) => {
+          btn.classList.toggle("is-active", btn.dataset.base === state.base);
+        });
+
+        populatePrimarySelect();
+        updateUrl();
+        render();
+      });
+    });
+
+    document.getElementById("primary-select").addEventListener("change", (event) => {
+      state.selectedId = event.target.value;
+      updateUrl();
+      render();
+    });
+
+    document.getElementById("course-filter").addEventListener("change", (event) => {
+      state.selectedCourse = event.target.value;
+      updateUrl();
+      render();
+    });
+
+    document.getElementById("topic-filter").addEventListener("change", (event) => {
+      state.selectedTopic = event.target.value;
+      updateUrl();
+      render();
+    });
+
     const searchInput = document.getElementById("directory-search");
     searchInput.addEventListener("input", (event) => {
       state.query = event.target.value;
       render();
     });
 
+    document.getElementById("clear-filters").addEventListener("click", () => {
+      state.query = "";
+      state.selectedId = "";
+      state.selectedCourse = "";
+      state.selectedTopic = "";
+      state.selectedTrack = "";
+
+      searchInput.value = "";
+      document.getElementById("primary-select").value = "";
+      document.getElementById("course-filter").value = "";
+      document.getElementById("topic-filter").value = "";
+
+      updateUrl();
+      render();
+    });
+
     render();
   } catch (error) {
-    document.getElementById("course-list").innerHTML =
-      `<div class="empty-state">Could not load course list.</div>`;
-
     document.getElementById("topic-group-list").innerHTML =
-      `<div class="empty-state">Could not load topic groups.</div>`;
-    
+      `<div class="empty-state">Could not load lesson plans.</div>`;
+
     console.error(error);
   }
 }
