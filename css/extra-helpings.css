@@ -61,7 +61,7 @@ body.extra-page {
 }
 
 .extra-hero {
-  margin-bottom: 1.7rem;
+  margin-bottom: 2rem;
 }
 
 .extra-kicker {
@@ -70,15 +70,19 @@ body.extra-page {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.75rem;
 }
 
 .extra-title {
-  margin-bottom: 0.65rem;
+  margin: 0 0 1rem;
+  max-width: 980px;
 }
 
 .extra-subtitle {
-  max-width: 800px;
+  max-width: 900px;
+  color: var(--brand-dark);
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
 .extra-controls {
@@ -162,24 +166,41 @@ body.extra-page {
   line-height: 1.55;
 }
 
-.extra-term {
-  margin: 2rem 0 2.5rem;
+.extra-ideas {
+  margin-top: 1.8rem;
 }
 
-.extra-term-title {
-  font-family: "Plantin MT Pro", Georgia, "Times New Roman", serif;
-  color: var(--brand-text);
-  font-size: 30px;
-  font-weight: 200;
-  line-height: 1.25;
-  margin: 0 0 12px;
-}
-
-.extra-term-card {
+.extra-term-table {
   border: 1px solid var(--divider-subtle);
   border-radius: 12px;
   background: #ffffff;
   overflow: hidden;
+}
+
+.extra-term-row {
+  display: grid;
+  grid-template-columns: 128px minmax(0, 1fr);
+  border-top: 1px solid #e5e8e5;
+}
+
+.extra-term-row:first-child {
+  border-top: none;
+}
+
+.extra-term-label {
+  padding: 18px 18px;
+  background: #fbfbf9;
+  color: var(--extra-dark-green);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+}
+
+.extra-term-assignments {
+  min-width: 0;
 }
 
 .extra-idea-block {
@@ -193,7 +214,7 @@ body.extra-page {
 .extra-idea-list {
   list-style: none;
   margin: 0;
-  padding: 10px 14px;
+  padding: 14px 18px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -478,6 +499,18 @@ body.extra-page {
   .extra-clear-btn {
     flex: 0 0 auto;
     white-space: nowrap;
+  }
+
+    .extra-term-row {
+    grid-template-columns: 1fr;
+  }
+
+  .extra-term-label {
+    padding: 12px 14px 8px;
+  }
+
+  .extra-idea-list {
+    padding: 8px 14px 14px;
   }
 }
 
