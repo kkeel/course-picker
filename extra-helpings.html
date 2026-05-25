@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extra Helpings</title>
+
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/extra-helpings.css">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="icon" type="image/png" href="img/Alveary%20Lt.%20Green.png">
+</head>
+
+<body class="extra-page">
+  <header class="app-header mb-8 px-6 md:px-16 py-4 md:py-6 flex flex-col md:flex-row md:items-center gap-4">
+    <a href="https://www.alveary.org/alveary-2026-2027/dashboard" class="logo-link flex items-center gap-3" aria-label="Go to Alveary dashboard">
+      <img src="img/Alveary%20Lt.%20Green.png" alt="Alveary logo" class="object-contain" style="height: 40px; width: 40px;" />
+      <div class="logo-text-block">
+        <span class="logo-title">Alveary</span>
+      </div>
+    </a>
+
+    <div class="mt-3 md:mt-0 md:ml-auto flex items-center justify-end gap-6 text-sm">
+      <div id="app-step-nav" class="app-step-nav"></div>
+    </div>
+  </header>
+
+  <main class="extra-shell">
+    <section class="extra-hero">
+      <div class="extra-kicker">Extra Helpings</div>
+      <h1 id="extra-title" class="extra-title">Loading…</h1>
+      <p id="extra-subtitle" class="extra-subtitle">
+        Optional enrichment ideas, projects, books, games, and resources.
+      </p>
+    </section>
+
+    <section id="extra-status" class="extra-status">
+      Loading Extra Helpings…
+    </section>
+
+    <section id="extra-content" hidden>
+      <section class="extra-ideas-section">
+        <div class="extra-section-heading">
+          <h2>Ideas</h2>
+          <p id="extra-ideas-intro"></p>
+        </div>
+
+        <div id="extra-term-list" class="extra-term-list"></div>
+      </section>
+
+      <section class="extra-resources-section">
+        <div class="extra-section-heading">
+          <h2>Books, Games, & More</h2>
+          <p>Additional books, activities, and resources for students who want to explore more.</p>
+        </div>
+
+        <div id="extra-resource-list" class="extra-resource-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="./js/alveary-config.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/extra-helpings.js"></script>
+</body>
+</html>
