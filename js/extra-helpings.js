@@ -8,9 +8,9 @@
     subject: document.getElementById("extraSubject"),
     title: document.getElementById("extraTitle"),
     subtitle: document.getElementById("extraSubtitle"),
-    controls: document.getElementById("extraControls"),
-    termFilter: document.getElementById("termFilter"),
-    clearFilters: document.getElementById("clearFilters"),
+    controls: null,
+    termFilter: null,
+    clearFilters: null,
     status: document.getElementById("extraStatus"),
     content: document.getElementById("extraContent"),
     backToTop: document.getElementById("back-to-top"),
@@ -173,10 +173,6 @@
 
     return `
       <section class="extra-ideas">
-        <div class="extra-section-heading">
-          <h2>Ideas</h2>
-          <p>${escapeHtml(state.data?.ideas?.intro || "")}</p>
-        </div>
 
         ${terms.map((term) => `
           <section class="extra-term" data-term="${escapeHtml(term.term)}">
@@ -323,19 +319,6 @@
     `;
   }
 
-  function bindControls() {
-    els.termFilter.addEventListener("change", () => {
-      state.selectedTerm = els.termFilter.value;
-      render();
-    });
-
-    els.clearFilters.addEventListener("click", () => {
-      state.selectedTerm = "all";
-      els.termFilter.value = "all";
-      render();
-    });
-  }
-
   function bindBackToTop() {
     if (!els.backToTop) return;
 
@@ -371,16 +354,12 @@
 
       const title = state.data.title || "Extra Helpings";
 
-      els.subject.textContent = state.data.subject || "Extra Helpings";
+      els.subject.style.display = "none";
       els.title.textContent = title;
-      els.subtitle.textContent = [
-        state.data.gradeText,
-        "Optional enrichment ideas, extra books, games, activities, and resources.",
-      ].filter(Boolean).join(" · ");
+      els.subtitle.textContent =
+        "Ideas for projects, activities, books, games, and more for students with a high level of interest.";
 
       document.title = `Extra Helpings – ${title}`;
-
-      els.controls.hidden = false;
 
       render();
     } catch (error) {
@@ -388,8 +367,7 @@
       setStatus("Could not load Extra Helpings for this course or topic.", true);
     }
   }
-
-  bindControls();
+  
   bindBackToTop();
   loadExtraHelpings();
 })();
