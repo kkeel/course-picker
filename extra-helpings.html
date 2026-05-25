@@ -1,12 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Extra Helpings</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alveary – Extra Helpings</title>
 
-  <link rel="stylesheet" href="./css/styles.css">
-  <link rel="stylesheet" href="./css/extra-helpings.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/extra-helpings.css">
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -29,40 +29,40 @@
 
   <main class="extra-shell">
     <section class="extra-hero">
-      <div class="extra-kicker">Extra Helpings</div>
-      <h1 id="extra-title" class="extra-title">Loading…</h1>
-      <p id="extra-subtitle" class="extra-subtitle">
-        Optional enrichment ideas, projects, books, games, and resources.
+      <div class="extra-kicker" id="extraSubject">Extra Helpings</div>
+      <h1 class="section-title extra-title" id="extraTitle">Loading Extra Helpings…</h1>
+      <p class="section-subtitle extra-subtitle" id="extraSubtitle">
+        Optional enrichment ideas, extra books, games, activities, and resources.
       </p>
     </section>
 
-    <section id="extra-status" class="extra-status">
+    <section class="extra-controls" id="extraControls" hidden>
+      <label class="extra-filter-label">
+        Term
+        <select id="termFilter" class="extra-select">
+          <option value="all">All terms</option>
+          <option value="1">Term 1</option>
+          <option value="2">Term 2</option>
+          <option value="3">Term 3</option>
+        </select>
+      </label>
+
+      <button type="button" id="clearFilters" class="extra-clear-btn">
+        Show all
+      </button>
+    </section>
+
+    <section id="extraStatus" class="extra-status">
       Loading Extra Helpings…
     </section>
 
-    <section id="extra-content" hidden>
-      <section class="extra-ideas-section">
-        <div class="extra-section-heading">
-          <h2>Ideas</h2>
-          <p id="extra-ideas-intro"></p>
-        </div>
-
-        <div id="extra-term-list" class="extra-term-list"></div>
-      </section>
-
-      <section class="extra-resources-section">
-        <div class="extra-section-heading">
-          <h2>Books, Games, & More</h2>
-          <p>Additional books, activities, and resources for students who want to explore more.</p>
-        </div>
-
-        <div id="extra-resource-list" class="extra-resource-list"></div>
-      </section>
-    </section>
+    <section id="extraContent" class="extra-content" hidden></section>
   </main>
 
-  <script src="./js/alveary-config.js"></script>
-  <script src="./js/app.js"></script>
-  <script src="./js/extra-helpings.js"></script>
+  <button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top">
+    ↑ Back to top
+  </button>
+
+  <script src="js/extra-helpings.js"></script>
 </body>
 </html>
