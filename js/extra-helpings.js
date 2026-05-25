@@ -172,6 +172,13 @@
   
     return `
       <section class="extra-ideas">
+    
+        <div class="extra-section-heading extra-section-heading--ideas">
+          <h2>
+            Ideas for projects, activities, books, games, and more for students with a high level of interest.
+          </h2>
+        </div>
+    
         <div class="extra-term-table">
           ${terms.map((term) => `
             <section class="extra-term-row" data-term="${escapeHtml(term.term)}">
@@ -359,9 +366,8 @@
       els.subject.textContent = "Extra Helpings";
       els.subject.style.display = "";
       els.title.textContent = title;
-      els.subtitle.textContent =
-        "Ideas for projects, activities, books, games, and more for students with a high level of interest.";
-
+      els.subtitle.style.display = "none";
+      
       document.title = `Extra Helpings – ${title}`;
 
       render();
