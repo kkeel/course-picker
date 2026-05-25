@@ -161,32 +161,34 @@
 
   function renderIdeas() {
     const terms = visibleTerms();
-
+  
     if (!terms.length) {
       return `
         <section class="extra-empty-state">
-          <h2 class="extra-empty-title">Ideas</h2>
-          <p class="extra-empty-message">No term ideas are listed for this selection.</p>
+          <p class="extra-empty-message">No term ideas are listed for this page.</p>
         </section>
       `;
     }
-
+  
     return `
       <section class="extra-ideas">
-
-        ${terms.map((term) => `
-          <section class="extra-term" data-term="${escapeHtml(term.term)}">
-            <h3 class="extra-term-title">${escapeHtml(term.title || `Term ${term.term}`)}</h3>
-
-            <div class="extra-term-card">
-              ${(term.items || []).map((item) => `
-                <article class="extra-idea-block">
-                  ${renderIdeaContent(item.content)}
-                </article>
-              `).join("")}
-            </div>
-          </section>
-        `).join("")}
+        <div class="extra-term-table">
+          ${terms.map((term) => `
+            <section class="extra-term-row" data-term="${escapeHtml(term.term)}">
+              <div class="extra-term-label">
+                ${escapeHtml(term.title || `Term ${term.term}`)}
+              </div>
+  
+              <div class="extra-term-assignments">
+                ${(term.items || []).map((item) => `
+                  <article class="extra-idea-block">
+                    ${renderIdeaContent(item.content)}
+                  </article>
+                `).join("")}
+              </div>
+            </section>
+          `).join("")}
+        </div>
       </section>
     `;
   }
@@ -354,7 +356,8 @@
 
       const title = state.data.title || "Extra Helpings";
 
-      els.subject.style.display = "none";
+      els.subject.textContent = "Extra Helpings";
+      els.subject.style.display = "";
       els.title.textContent = title;
       els.subtitle.textContent =
         "Ideas for projects, activities, books, games, and more for students with a high level of interest.";
