@@ -212,18 +212,16 @@ function buildResourceMap(resourceRecords) {
       isbnAsin: asString(f["ISBN-ASIN"]).trim(),
       resourceTagText: asString(f["Resource Tag Text"]).trim(),
       scope: asString(f["🍯Scope"]).trim(),
-      rationale: asString(
-        pickField(f, ["➜ RATIONALE", "→ RATIONALE", "RATIONALE"])
-      ).trim(),
+      rationale: asString(f["➜ RATIONALE"]).trim(),
       imagePath: `img/extra-helpings/${resourceId}.webp`,
       links: [
         {
           text: asString(f["Link Text 1"]).trim() || "Option 1",
-          url: asString(f["URL 1"]).trim(),
+          url: asString(f["URL Link 1"]).trim(),
         },
         {
           text: asString(f["Link Text 2"]).trim() || "Option 2",
-          url: asString(f["URL 2"]).trim(),
+          url: asString(f["URL Link 2"]).trim(),
         },
       ].filter((link) => link.url),
     };
@@ -331,7 +329,7 @@ async function main() {
     const ideas = ideasByR3[r3Id] || [];
 
     const title =
-      asString(pickField(f, ["Course", "Topic", "Name", "Title", "Lesson Set Name"])).trim() ||
+      asString(f["ProgramLIST"]).trim() ||
       asString(f["Sort_ID"]).trim() ||
       r3Id;
 
@@ -339,9 +337,10 @@ async function main() {
       id: r3Id,
       recordID: r3Id,
       title,
-      subject: asString(pickField(f, ["Subject", "Subject Text"])).trim(),
-      gradeText: asString(pickField(f, ["Grade Text", "Grade_Filter", "Grade Filter"])).trim(),
-      sortId: asString(pickField(f, ["Sort_ID", "Sort ID", "sortId"])).trim(),
+      subject: asString(f["🍯Subject"]).trim(),
+      gradeText: asString(f["Grade_Text"]).trim(),
+      gradeFilter: asString(f["Grade_Filter"]).trim(),
+      sortId: asString(f["Sort_ID"]).trim(),
       setting: asString(f["🍯Setting"]).trim(),
       generatedAt: new Date().toISOString(),
 
