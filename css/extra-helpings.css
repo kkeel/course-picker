@@ -262,6 +262,20 @@ body.extra-page {
   text-underline-offset: 2px;
 }
 
+.extra-idea-item strong {
+  font-weight: 700;
+}
+
+.extra-idea-item em {
+  font-style: italic;
+}
+
+.extra-idea-item strong em,
+.extra-idea-item em strong {
+  font-weight: 700;
+  font-style: italic;
+}
+
 .extra-checkbox {
   width: 15px;
   height: 15px;
