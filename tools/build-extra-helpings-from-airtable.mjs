@@ -299,6 +299,41 @@ function buildTerms(ideas) {
   }));
 }
 
+function sortIdParts(sortId) {
+  return String(sortId || "")
+    .split(".")
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
+function isCourseLevel(sortId) {
+  const parts = sortIdParts(sortId);
+  return parts.length >= 4 && parts[3] === "000";
+}
+
+function courseSortKey(sortId) {
+  const parts = sortIdParts(sortId);
+
+  if (parts.length < 4) return String(sortId || "");
+
+  return [...parts.slice(0, 3), "000"].join(".");
+}
+
+function mergeUniqueById(items) {
+  const out = [];
+  const seen = new Set();
+
+  for (const item of items || []) {
+    const id = item?.id || item?.resourceId;
+    if (!id || seen.has(id)) continue;
+
+    seen.add(id);
+    out.push(item);
+  }
+
+  return out;
+}
+
 async function main() {
   const [rotationRecords, resourceRecords, ideaRecords] = await Promise.all([
     fetchAll(ROTATION_TABLE, ROTATION_VIEW),
@@ -316,32 +351,85 @@ async function main() {
 
   const indexRows = [];
 
+  const rotationMetaById = {};
+  const rotationIdsByCourseKey = {};
+  
+  for (const record of rotationRecords) {
+    const f = record.fields || {};
+    const sortId = asString(f["Sort_ID"]).trim();
+    const key = courseSortKey(sortId);
+  
+    rotationMetaById[record.id] = {
+      id: record.id,
+      title:
+        asString(f["ProgramLIST"]).trim() ||
+        sortId ||
+        record.id,
+      subject: asString(f["🍯Subject"]).trim(),
+      gradeText: asString(f["Grade_Text"]).trim(),
+      gradeFilter: asString(f["Grade_Filter"]).trim(),
+      sortId,
+      setting: asString(f["🍯Setting"]).trim(),
+      resourceIds: asIdArray(f["MA_Resources (ExHelpings)"]),
+      isCourseLevel: isCourseLevel(sortId),
+      courseKey: key,
+    };
+  
+    if (!rotationIdsByCourseKey[key]) {
+      rotationIdsByCourseKey[key] = [];
+    }
+  
+    rotationIdsByCourseKey[key].push(record.id);
+  }
+
   for (const rec of rotationRecords) {
     const f = rec.fields || {};
     const r3Id = rec.id;
 
-    const resourceIds = asIdArray(f["MA_Resources (ExHelpings)"]);
-    const resources = resourceIds
-      .map((id) => resourcesById[id])
+    const meta = rotationMetaById[r3Id];
+    const relatedIds = meta.isCourseLevel
+      ? rotationIdsByCourseKey[meta.courseKey] || [r3Id]
+      : [
+          ...new Set([
+            rotationIdsByCourseKey[meta.courseKey]?.find(
+              (id) => rotationMetaById[id]?.isCourseLevel
+            ),
+            r3Id,
+          ].filter(Boolean)),
+        ];
+    
+    const relatedSections = relatedIds
+      .map((id) => rotationMetaById[id])
       .filter(Boolean)
-      .sort((a, b) => String(a.title || "").localeCompare(String(b.title || "")));
-
-    const ideas = ideasByR3[r3Id] || [];
-
-    const title =
-      asString(f["ProgramLIST"]).trim() ||
-      asString(f["Sort_ID"]).trim() ||
-      r3Id;
+      .sort((a, b) => String(a.sortId || "").localeCompare(String(b.sortId || "")));
+    
+    const resourceIds = relatedSections.flatMap((section) => section.resourceIds || []);
+    
+    const resources = mergeUniqueById(
+      resourceIds
+        .map((id) => resourcesById[id])
+        .filter(Boolean)
+    ).sort((a, b) => String(a.title || "").localeCompare(String(b.title || "")));
+    
+    const ideas = relatedSections.flatMap((section) => ideasByR3[section.id] || []);
+    
+    const title = meta.title;
 
     const payload = {
       id: r3Id,
       recordID: r3Id,
       title,
-      subject: asString(f["🍯Subject"]).trim(),
-      gradeText: asString(f["Grade_Text"]).trim(),
-      gradeFilter: asString(f["Grade_Filter"]).trim(),
-      sortId: asString(f["Sort_ID"]).trim(),
-      setting: asString(f["🍯Setting"]).trim(),
+      subject: meta.subject,
+      gradeText: meta.gradeText,
+      gradeFilter: meta.gradeFilter,
+      sortId: meta.sortId,
+      setting: meta.setting,
+      relatedSections: relatedSections.map((section) => ({
+        id: section.id,
+        title: section.title,
+        sortId: section.sortId,
+        type: section.isCourseLevel ? "course" : "topic",
+      })),
       generatedAt: new Date().toISOString(),
 
       ideas: {
