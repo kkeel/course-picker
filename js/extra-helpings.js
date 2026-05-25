@@ -207,7 +207,7 @@
 
     return `
       <div class="extra-resource-meta-block">
-        <div class="extra-resource-meta-label">Options</div>
+        <div class="extra-resource-meta-label">Purchase Options</div>
         <div class="extra-resource-link-row">
           ${links.map((link) => {
             const url = safeUrl(link.url);
