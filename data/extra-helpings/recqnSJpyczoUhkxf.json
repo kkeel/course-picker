@@ -7,7 +7,39 @@
   "gradeFilter": "G8,",
   "sortId": "006.001.008.000",
   "setting": "Hide",
-  "generatedAt": "2026-05-25T14:14:27.533Z",
+  "relatedSections": [
+    {
+      "id": "recqnSJpyczoUhkxf",
+      "title": "Language Study: Grade 8",
+      "sortId": "006.001.008.000",
+      "type": "course"
+    },
+    {
+      "id": "recUsu8pR1gAT6SmN",
+      "title": "Grammar/Comp: Grade 8",
+      "sortId": "006.001.008.002",
+      "type": "topic"
+    },
+    {
+      "id": "recOlXtr0sY7g0n9A",
+      "title": "Dictation: Grade 8",
+      "sortId": "006.001.008.003",
+      "type": "topic"
+    },
+    {
+      "id": "reccQ7zHRgX1vfMIm",
+      "title": "Written Narration: Grade 8",
+      "sortId": "006.001.008.004",
+      "type": "topic"
+    },
+    {
+      "id": "recMuKJeBsa2PYeAA",
+      "title": "Copywork: Grade 8",
+      "sortId": "006.001.008.005",
+      "type": "topic"
+    }
+  ],
+  "generatedAt": "2026-05-25T14:26:10.006Z",
   "ideas": {
     "intro": "Ideas for projects, activities, books, games, and more for students with a high level of interest.",
     "terms": [
@@ -20,6 +52,12 @@
             "term": 1,
             "sort": "",
             "content": "[ ] As you study grammar concepts, create a checklist poster to hang on the wall near where you write your compositions. Refer to it as you write."
+          },
+          {
+            "id": "recUu5kcAjUSvrkEG",
+            "term": 1,
+            "sort": "",
+            "content": "[ ]"
           }
         ]
       },

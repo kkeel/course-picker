@@ -7,7 +7,21 @@
   "gradeFilter": "G1,",
   "sortId": "012.001.001.000",
   "setting": "Hide",
-  "generatedAt": "2026-05-25T14:14:27.538Z",
+  "relatedSections": [
+    {
+      "id": "rec8m6y5MmTFpp033",
+      "title": "Mathematics: Grade 1",
+      "sortId": "012.001.001.000",
+      "type": "course"
+    },
+    {
+      "id": "recSG4uIGMf0evGmf",
+      "title": "Math Lessons: Grade 1",
+      "sortId": "012.001.001.001",
+      "type": "topic"
+    }
+  ],
+  "generatedAt": "2026-05-25T14:26:10.015Z",
   "ideas": {
     "intro": "Ideas for projects, activities, books, games, and more for students with a high level of interest.",
     "terms": [
@@ -20,6 +34,12 @@
             "term": 1,
             "sort": "",
             "content": "[ ] Math Lessons: Read books about mathematical concepts.\n[ ] Math Games: Play games and work puzzles that allow students to practice thinking mathematically."
+          },
+          {
+            "id": "recMcqcxd22yONID6",
+            "term": 1,
+            "sort": "",
+            "content": "[ ] Math Lessons: Read books about mathematical concepts."
           }
         ]
       },
@@ -32,6 +52,12 @@
             "term": 2,
             "sort": "",
             "content": "[ ] Math Lessons: Read books about mathematical concepts.\n[ ] Math Games: Play games and work puzzles that allow students to practice thinking mathematically."
+          },
+          {
+            "id": "recrVct6MIob13qoW",
+            "term": 2,
+            "sort": "",
+            "content": "[ ] Math Lessons: Read books about mathematical concepts."
           }
         ]
       },
@@ -44,6 +70,12 @@
             "term": 3,
             "sort": "",
             "content": "[ ] Math Lessons: Read books about mathematical concepts.\n[ ] Math Games: Play games and work puzzles that allow students to practice thinking mathematically."
+          },
+          {
+            "id": "rec2lmEVxIpFIN8nY",
+            "term": 3,
+            "sort": "",
+            "content": "[ ] Math Lessons: Read books about mathematical concepts."
           }
         ]
       }

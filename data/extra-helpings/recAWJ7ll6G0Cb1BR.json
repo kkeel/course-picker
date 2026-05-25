@@ -7,7 +7,21 @@
   "gradeFilter": "G4,",
   "sortId": "016.004.002.001",
   "setting": "Hide",
-  "generatedAt": "2026-05-25T14:14:27.545Z",
+  "relatedSections": [
+    {
+      "id": "recAooMLNY6bb34bg",
+      "title": "Science: Grade 4",
+      "sortId": "016.004.002.000",
+      "type": "course"
+    },
+    {
+      "id": "recAWJ7ll6G0Cb1BR",
+      "title": "General Science: Grade 4",
+      "sortId": "016.004.002.001",
+      "type": "topic"
+    }
+  ],
+  "generatedAt": "2026-05-25T14:26:10.031Z",
   "ideas": {
     "intro": "Ideas for projects, activities, books, games, and more for students with a high level of interest.",
     "terms": [
@@ -15,6 +29,12 @@
         "term": 1,
         "title": "Term 1",
         "items": [
+          {
+            "id": "reczMHqn4jT9fCgT7",
+            "term": 1,
+            "sort": "",
+            "content": "[ ] Explore additional books from Extra Helpings or Library.\n[ ] Encourage students to further explore lesson activities and outdoor work.\n[ ] Website: [Science Photo Library](https://denniskunkel.com/) by Dennis Kunkel"
+          },
           {
             "id": "recWjKV96vAyt1Cw0",
             "term": 1,
@@ -26,12 +46,25 @@
       {
         "term": 2,
         "title": "Term 2",
-        "items": []
+        "items": [
+          {
+            "id": "rec10EmVbhFEfovQu",
+            "term": 2,
+            "sort": "",
+            "content": "[ ] Explore additional books from Extra Helpings or Library.\n[ ] Encourage students to further explore lesson activities and outdoor work.\n[ ]"
+          }
+        ]
       },
       {
         "term": 3,
         "title": "Term 3",
         "items": [
+          {
+            "id": "recsAW5ZLREBQv7uM",
+            "term": 3,
+            "sort": "",
+            "content": "[ ] Explore additional books from Extra Helpings or Library.\n[ ] Encourage students to further explore lesson activities and outdoor work.\n[ ] Website: [Volcano Model Instructions](https://www.sciencefun.org/kidszone/experiments/how-to-make-a-volcano/) by Science Fun\n[ ] Website: [Berlese Funnel Instructions](https://www.sciencebuddies.org/science-fair-projects/project-ideas/EnvSci_p042/environmental-science/are-there-bugs-under-your-feet#summary) by Science Buddies\n[ ] Website: [Bug Vacuum Instructions](https://www.sciencebuddies.org/science-fair-projects/project-ideas/EnvSci_p045/environmental-science/bug-vacuums-sucking-up-biodiversity#summary) by Science Buddies\n[ ] Website: [Pitfall Trap Instructions](https://www.sciencefriday.com/educational-resources/protected-pitfall-traps/) by Science Friday\n[ ] Website: [Body Ratios Activity](https://www.scientificamerican.com/article/human-body-ratios/) by Scientific American"
+          },
           {
             "id": "rec2xVuNvigGzmfLO",
             "term": 3,
@@ -78,6 +111,23 @@
       ]
     },
     {
+      "id": "recs5ptTCtNXTdgef",
+      "resourceId": "recs5ptTCtNXTdgef",
+      "title": "Octopus Den",
+      "author": "Deirdre Langeland",
+      "isbnAsin": "978-1607271277",
+      "resourceTagText": "",
+      "scope": "(T2)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/recs5ptTCtNXTdgef.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.amazon.com/Octopus-Den-Smithsonian-Oceanic-Collection/dp/1607271273/ref=sr_1_1?crid=1TP35CHJV1LJR&keywords=octopus+smithsonian&qid=1680022202&sprefix=octopus+smithsonian%2Caps%2C113&sr=8-1"
+        }
+      ]
+    },
+    {
       "id": "recOLKlvqtNAcp14e",
       "resourceId": "recOLKlvqtNAcp14e",
       "title": "Science Verse",
@@ -91,6 +141,23 @@
         {
           "text": "Option 1",
           "url": "https://www.amazon.com/Science-Golden-Awards-Picture-Awards/dp/0670910570?&linkCode=ll1&tag=wear03e-20&linkId=c978242d82eadefac9ce82e8dedeef23&language=en_US&ref_=as_li_ss_tl"
+        }
+      ]
+    },
+    {
+      "id": "rec4eUBrXCko2JLxE",
+      "resourceId": "rec4eUBrXCko2JLxE",
+      "title": "Sea Creatures",
+      "author": "Seymour Simon",
+      "isbnAsin": "978-0062289209",
+      "resourceTagText": "",
+      "scope": "(T2)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/rec4eUBrXCko2JLxE.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.amazon.com/Sea-Creatures-Seymour-Simon/dp/0062289209/ref=sr_1_1?crid=2P7GGZ6DE8M7D&keywords=sea+creatures+seymour+simon&qid=1680022550&sprefix=sea+creatures+seymour+simon%2Caps%2C150&sr=8-1"
         }
       ]
     },
@@ -142,6 +209,23 @@
         {
           "text": "Option 1",
           "url": "https://www.amazon.com/Unseen-Worlds-Real-Life-Microscopic-Creatures/dp/1999968018/ref=sr_1_18?crid=33SFNDLPH4DSC&keywords=microscope+children%27s+book&qid=1679364750&sprefix=microscope+children%27s+book%2Caps%2C128&sr=8-18"
+        }
+      ]
+    },
+    {
+      "id": "recExj5uNfcFzuVqV",
+      "resourceId": "recExj5uNfcFzuVqV",
+      "title": "What's Smaller Than a Pygmy Shrew?",
+      "author": "Robert E. Wells",
+      "isbnAsin": "978-0807588383",
+      "resourceTagText": "",
+      "scope": "(T1)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/recExj5uNfcFzuVqV.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.amazon.com/Whats-Smaller-Pygmy-Knowledge-Science/dp/0807588385/ref=sr_1_1?crid=3LYMKTEA1L7VI&keywords=what%27s+smaller+than+a+pygmy+shrew&qid=1679364282&sprefix=what+is+smaller+than+a+%2Caps%2C105&sr=8-1"
         }
       ]
     }
