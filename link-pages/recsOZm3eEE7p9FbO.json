@@ -58,7 +58,7 @@
       }
     ]
   },
-  "updatedAt": "2026-05-24T08:11:46.722Z",
+  "updatedAt": "2026-05-25T09:42:08.907Z",
   "terms": [
     {
       "termNumber": 1,
@@ -513,6 +513,24 @@
           "weekLabel": "Week 2",
           "lessons": [
             {
+              "lessonId": "recKI9JdqOuKQkRDf",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 14,
+              "weekLabel": "Week 2",
+              "sequence": 14,
+              "sort": 201401,
+              "lessonLabel": "",
+              "title": "25m U.S. History: Grades 4-6 - Lesson 14",
+              "anchor": "term-2-week-14-lesson-14",
+              "links": [
+                {
+                  "text": "Statue of Lewis, Clark & Seaman",
+                  "url": "https://drive.google.com/file/d/1GbCGP1Zi1ci5h1tS5aN_6IFeg-Wqtvfw/view?usp=drive_link"
+                }
+              ]
+            },
+            {
               "lessonId": "recgCSEh9sKTdFrWx",
               "termNumber": 2,
               "termLabel": "Term 2",
@@ -536,6 +554,24 @@
           "weekNumber": 15,
           "weekLabel": "Week 3",
           "lessons": [
+            {
+              "lessonId": "recuHiGLjfMJCaBNB",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 15,
+              "weekLabel": "Week 3",
+              "sequence": 15,
+              "sort": 201501,
+              "lessonLabel": "",
+              "title": "25m U.S. History: Grades 4-6 - Lesson 15",
+              "anchor": "term-2-week-15-lesson-15",
+              "links": [
+                {
+                  "text": "Map of places where Lincoln lived",
+                  "url": "https://www.nps.gov/articles/images/127map1ch.jpg?maxwidth=1300&autorotate=false&quality=78&format=webp"
+                }
+              ]
+            },
             {
               "lessonId": "rec1Ism7cxof21Bn5",
               "termNumber": 2,
@@ -779,6 +815,10 @@
                 {
                   "text": "Map of Oregon Trail",
                   "url": "https://cdn.britannica.com/60/3260-050-6BE12AFF/state-The-Oregon-Trail-boundaries-1850.jpg"
+                },
+                {
+                  "text": "Video: Transcontinental Railraod",
+                  "url": "https://www.youtube.com/watch?v=0CdAzizWiyI"
                 }
               ]
             },
