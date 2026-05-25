@@ -84,34 +84,55 @@
 
   function renderInlineMarkdown(value) {
     const raw = cleanMarkdownSource(value);
-    const parts = [];
+  
+    const tokens = [];
     const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+(?:\)[^\s)]*)?)\)/g;
-
+  
     let lastIndex = 0;
     let match;
-
+  
     while ((match = linkRegex.exec(raw)) !== null) {
-      const before = raw.slice(lastIndex, match.index);
-      const label = match[1];
-      const url = safeUrl(match[2]);
-
-      if (before) parts.push(escapeHtml(before));
-
-      if (url) {
-        parts.push(
-          `<a href="${escapeHtml(url)}" target="_blank" rel="noopener">${escapeHtml(label)}</a>`
-        );
-      } else {
-        parts.push(escapeHtml(label));
+      if (match.index > lastIndex) {
+        tokens.push({
+          type: "text",
+          value: raw.slice(lastIndex, match.index),
+        });
       }
-
+  
+      tokens.push({
+        type: "link",
+        label: match[1],
+        url: safeUrl(match[2]),
+      });
+  
       lastIndex = match.index + match[0].length;
     }
-
-    const after = raw.slice(lastIndex);
-    if (after) parts.push(escapeHtml(after));
-
-    return parts.join("");
+  
+    if (lastIndex < raw.length) {
+      tokens.push({
+        type: "text",
+        value: raw.slice(lastIndex),
+      });
+    }
+  
+    function formatText(text) {
+      return escapeHtml(text)
+        .replace(/\*\*\*([^*]+)\*\*\*/g, "<strong><em>$1</em></strong>")
+        .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+        .replace(/\*([^*]+)\*/g, "<em>$1</em>");
+    }
+  
+    return tokens.map((token) => {
+      if (token.type === "link") {
+        const label = formatText(token.label);
+  
+        if (!token.url) return label;
+  
+        return `<a href="${escapeHtml(token.url)}" target="_blank" rel="noopener">${label}</a>`;
+      }
+  
+      return formatText(token.value);
+    }).join("");
   }
 
   function renderIdeaContent(content) {
