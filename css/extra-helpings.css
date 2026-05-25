@@ -176,11 +176,11 @@ body.extra-page {
 .extra-section-heading--resources h2 {
   margin: 0;
   font-family: "Circular Pro", system-ui, sans-serif;
-  font-size: 2.1rem;
-  line-height: 1.12;
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  line-height: 1.2;
   font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--extra-dark-green);
+  letter-spacing: -0.015em;
+  color: var(--brand-text);
 }
 
 .extra-ideas {
@@ -517,18 +517,6 @@ body.extra-page {
     flex: 0 0 auto;
     white-space: nowrap;
   }
-
-    .extra-term-row {
-    grid-template-columns: 1fr;
-  }
-
-  .extra-term-label {
-    padding: 12px 14px 8px;
-  }
-
-  .extra-idea-list {
-    padding: 8px 14px 14px;
-  }
 }
 
 @media (max-width: 820px) {
@@ -590,5 +578,17 @@ body.extra-page {
   .back-to-top {
     right: 16px;
     bottom: 16px;
+  }
+
+  .extra-term-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .extra-term-label {
+    padding: 12px 14px 8px;
+  }
+  
+  .extra-idea-list {
+    padding: 8px 14px 14px;
   }
 }
