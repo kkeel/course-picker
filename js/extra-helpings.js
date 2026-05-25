@@ -119,25 +119,35 @@
       .split(/\r?\n/)
       .map((line) => line.trim())
       .filter(Boolean);
-
+  
     if (!lines.length) return "";
-
+  
     const items = lines.map((line) => {
-      const isUnchecked = line.startsWith("[ ]");
+      const isCheckboxLine =
+        line.startsWith("[ ]") ||
+        line.toLowerCase().startsWith("[x]") ||
+        line.startsWith("•") ||
+        line.startsWith("- ");
+  
       const isChecked = line.toLowerCase().startsWith("[x]");
-
-      const text = line.replace(/^\[( |x|X)\]\s*/, "");
-
+  
+      const text = line
+        .replace(/^\[( |x|X)\]\s*/, "")
+        .replace(/^•\s*/, "")
+        .replace(/^-\s*/, "");
+  
       return `
-        <li class="extra-idea-item">
-          <span class="extra-checkbox ${isChecked ? "is-checked" : ""}" aria-hidden="true">
-            ${isChecked ? "✓" : ""}
-          </span>
+        <li class="extra-idea-item ${isCheckboxLine ? "has-checkbox" : "no-checkbox"}">
+          ${
+            isCheckboxLine
+              ? `<span class="extra-checkbox ${isChecked ? "is-checked" : ""}" aria-hidden="true">${isChecked ? "✓" : ""}</span>`
+              : ""
+          }
           <span>${renderInlineMarkdown(text)}</span>
         </li>
       `;
     });
-
+  
     return `<ul class="extra-idea-list">${items.join("")}</ul>`;
   }
 
