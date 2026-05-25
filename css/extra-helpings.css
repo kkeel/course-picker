@@ -74,8 +74,10 @@ body.extra-page {
 }
 
 .extra-title {
-  margin: 0 0 1rem;
+  margin: 0 0 1.2rem;
   max-width: 980px;
+  font-size: clamp(3rem, 5vw, 4.3rem);
+  line-height: 0.98;
 }
 
 .extra-subtitle {
@@ -164,6 +166,21 @@ body.extra-page {
   color: var(--brand-dark);
   font-size: 1rem;
   line-height: 1.55;
+}
+
+.extra-section-heading--ideas {
+  margin-bottom: 1.1rem;
+}
+
+.extra-section-heading--ideas h2,
+.extra-section-heading--resources h2 {
+  margin: 0;
+  font-family: "Circular Pro", system-ui, sans-serif;
+  font-size: 2.1rem;
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--extra-dark-green);
 }
 
 .extra-ideas {
