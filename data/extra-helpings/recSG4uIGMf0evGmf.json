@@ -7,21 +7,7 @@
   "gradeFilter": "G1,",
   "sortId": "012.001.001.001",
   "setting": "Hide",
-  "relatedSections": [
-    {
-      "id": "rec8m6y5MmTFpp033",
-      "title": "Mathematics: Grade 1",
-      "sortId": "012.001.001.000",
-      "type": "course"
-    },
-    {
-      "id": "recSG4uIGMf0evGmf",
-      "title": "Math Lessons: Grade 1",
-      "sortId": "012.001.001.001",
-      "type": "topic"
-    }
-  ],
-  "generatedAt": "2026-05-25T14:26:10.015Z",
+  "generatedAt": "2026-05-25T14:42:49.414Z",
   "ideas": {
     "intro": "Ideas for projects, activities, books, games, and more for students with a high level of interest.",
     "terms": [
@@ -29,12 +15,6 @@
         "term": 1,
         "title": "Term 1",
         "items": [
-          {
-            "id": "recdvUW5IcCQWfdmU",
-            "term": 1,
-            "sort": "",
-            "content": "[ ] Math Lessons: Read books about mathematical concepts.\n[ ] Math Games: Play games and work puzzles that allow students to practice thinking mathematically."
-          },
           {
             "id": "recMcqcxd22yONID6",
             "term": 1,
@@ -48,12 +28,6 @@
         "title": "Term 2",
         "items": [
           {
-            "id": "rec2FhrT7O0lDH8pg",
-            "term": 2,
-            "sort": "",
-            "content": "[ ] Math Lessons: Read books about mathematical concepts.\n[ ] Math Games: Play games and work puzzles that allow students to practice thinking mathematically."
-          },
-          {
             "id": "recrVct6MIob13qoW",
             "term": 2,
             "sort": "",
@@ -65,12 +39,6 @@
         "term": 3,
         "title": "Term 3",
         "items": [
-          {
-            "id": "recJ4MWCePcowiNx5",
-            "term": 3,
-            "sort": "",
-            "content": "[ ] Math Lessons: Read books about mathematical concepts.\n[ ] Math Games: Play games and work puzzles that allow students to practice thinking mathematically."
-          },
           {
             "id": "rec2lmEVxIpFIN8nY",
             "term": 3,
@@ -100,40 +68,6 @@
       ]
     },
     {
-      "id": "recj0UOXbV0nu2xFn",
-      "resourceId": "recj0UOXbV0nu2xFn",
-      "title": "Battleship",
-      "author": "",
-      "isbnAsin": "B06Y1N3PTX",
-      "resourceTagText": "",
-      "scope": "(T1, T2, T3)",
-      "rationale": "",
-      "imagePath": "img/extra-helpings/recj0UOXbV0nu2xFn.webp",
-      "links": [
-        {
-          "text": "Option 1",
-          "url": "https://a.co/d/1IeHlnm"
-        }
-      ]
-    },
-    {
-      "id": "recWPSYYrPLnOBokm",
-      "resourceId": "recWPSYYrPLnOBokm",
-      "title": "Connect Four",
-      "author": "",
-      "isbnAsin": "B06XY881H4",
-      "resourceTagText": "",
-      "scope": "(T1, T2, T3)",
-      "rationale": "",
-      "imagePath": "img/extra-helpings/recWPSYYrPLnOBokm.webp",
-      "links": [
-        {
-          "text": "Option 1",
-          "url": "https://a.co/d/dImhZUz"
-        }
-      ]
-    },
-    {
       "id": "recs4LqubnPpAYjXs",
       "resourceId": "recs4LqubnPpAYjXs",
       "title": "Feast for 10",
@@ -147,23 +81,6 @@
         {
           "text": "Option 1",
           "url": "https://www.amazon.com/Feast-10-Cathryn-Falwell/dp/0618382267/ref=sr_1_1?keywords=feast+for+ten&qid=1585071849&sr=8-1"
-        }
-      ]
-    },
-    {
-      "id": "recEi8YaF6JjeM4Rv",
-      "resourceId": "recEi8YaF6JjeM4Rv",
-      "title": "Hi-Ho Cherry-O!",
-      "author": "",
-      "isbnAsin": "B00SDK3CLS",
-      "resourceTagText": "",
-      "scope": "(T1, T2, T3)",
-      "rationale": "",
-      "imagePath": "img/extra-helpings/recEi8YaF6JjeM4Rv.webp",
-      "links": [
-        {
-          "text": "Option 1",
-          "url": "https://a.co/d/94uZj93"
         }
       ]
     },
