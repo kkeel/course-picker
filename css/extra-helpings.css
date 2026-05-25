@@ -238,13 +238,21 @@ body.extra-page {
 }
 
 .extra-idea-item {
+  color: var(--brand-text);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.extra-idea-item.has-checkbox {
   display: grid;
   grid-template-columns: 22px minmax(0, 1fr);
   gap: 8px;
   align-items: start;
-  color: var(--brand-text);
-  font-size: 0.95rem;
-  line-height: 1.45;
+}
+
+.extra-idea-item.no-checkbox {
+  display: block;
+  padding-left: 30px;
 }
 
 .extra-idea-item a {
