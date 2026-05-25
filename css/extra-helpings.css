@@ -282,8 +282,11 @@ body.extra-page {
 
 .extra-section-heading--resources p {
   text-align: right;
-  font-size: 13px;
-  color: #5f6b7a;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #6f746b;
+  max-width: 520px;
+  justify-self: end;
 }
 
 .extra-resource-list {
