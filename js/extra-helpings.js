@@ -281,13 +281,13 @@
             <div class="extra-resource-main-divider" aria-hidden="true"></div>
 
             <div class="extra-resource-main-right">
-              ${resource.scope ? `
-                <div class="extra-resource-meta-block">
+              <div class="extra-resource-meta-block extra-resource-meta-block--scope">
+                ${resource.scope ? `
                   <div class="extra-resource-meta-label">Scope</div>
                   <div class="extra-resource-meta-text">${escapeHtml(resource.scope)}</div>
-                </div>
-              ` : ""}
-
+                ` : ""}
+              </div>
+              
               ${renderResourceLinks(resource)}
             </div>
           </div>
@@ -303,7 +303,9 @@
       <section class="extra-resources">
         <div class="extra-section-heading extra-section-heading--resources">
           <h2>Books, Games, & More</h2>
-          <p>Optional resources connected to this course or topic.</p>
+          <p>
+            * As an Amazon Associate we earn from qualifying purchases, and we also receive a small commission at no additional cost to you through other affiliate links on this list.
+          </p>
         </div>
 
         ${resources.length ? `
