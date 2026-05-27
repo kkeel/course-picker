@@ -16,9 +16,17 @@
     "supplyListUrl": "",
     "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
     "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recLd6j0zACfKoxrZ-poetry-grades-1-4.pdf",
-    "additional": []
+    "additional": [
+      {
+        "label": "Over the River Public Domain Poetry List",
+        "url": "https://drive.google.com/file/d/1qON7mvn-Iyf1thEn-tq-0ncsndsxFRgh/view?usp=drive_link",
+        "sort": "",
+        "groupTitle": "Poetry: Grades 1-4",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-05-27T08:55:02.822Z",
+  "updatedAt": "2026-05-27T17:50:47.681Z",
   "terms": [
     {
       "termNumber": 1,
@@ -29,6 +37,26 @@
           "weekLabel": "Week 1",
           "lessons": [
             {
+              "lessonId": "recjb1mGLbsdQCWTS",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 0,
+              "lessonLabel": "Lesson 1",
+              "linkLabel": "Poetry",
+              "title": "5m Poetry: Grades 1-4 - Lesson 1",
+              "topicTitle": "Poetry",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "\"Keep a Poem in Your Pocket\"",
+                  "url": "https://library.goldenacornmusic.com/keep-a-poem-in-your-pocket?"
+                }
+              ]
+            },
+            {
               "lessonId": "recaTnchtaJLEFfCU",
               "termNumber": 1,
               "termLabel": "Term 1",
@@ -37,7 +65,9 @@
               "sequence": 2,
               "sort": 0,
               "lessonLabel": "Lesson 2",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 2",
+              "topicTitle": "Poetry",
               "anchor": "term-1-week-1-lesson-2",
               "links": [
                 {
@@ -55,7 +85,9 @@
               "sequence": 3,
               "sort": 0,
               "lessonLabel": "Lesson 3",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 3",
+              "topicTitle": "Poetry",
               "anchor": "term-1-week-1-lesson-3",
               "links": [
                 {
@@ -79,7 +111,9 @@
               "sequence": 16,
               "sort": 0,
               "lessonLabel": "Lesson 16",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 16",
+              "topicTitle": "Poetry",
               "anchor": "term-1-week-4-lesson-16",
               "links": [
                 {
@@ -97,7 +131,9 @@
               "sequence": 20,
               "sort": 0,
               "lessonLabel": "Lesson 20",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 20",
+              "topicTitle": "Poetry",
               "anchor": "term-1-week-4-lesson-20",
               "links": [
                 {
@@ -121,7 +157,9 @@
               "sequence": 21,
               "sort": 0,
               "lessonLabel": "Lesson 21",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 21",
+              "topicTitle": "Poetry",
               "anchor": "term-1-week-5-lesson-21",
               "links": [
                 {
@@ -139,7 +177,9 @@
               "sequence": 25,
               "sort": 0,
               "lessonLabel": "Lesson 25",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 25",
+              "topicTitle": "Poetry",
               "anchor": "term-1-week-5-lesson-25",
               "links": [
                 {
@@ -163,7 +203,9 @@
               "sequence": 26,
               "sort": 0,
               "lessonLabel": "Lesson 26",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 26",
+              "topicTitle": "Poetry",
               "anchor": "term-1-week-6-lesson-26",
               "links": [
                 {
@@ -181,7 +223,9 @@
               "sequence": 27,
               "sort": 0,
               "lessonLabel": "Lesson 27",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 27",
+              "topicTitle": "Poetry",
               "anchor": "term-1-week-6-lesson-27",
               "links": [
                 {
@@ -205,7 +249,9 @@
               "sequence": 31,
               "sort": 0,
               "lessonLabel": "Lesson 31",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 31",
+              "topicTitle": "Poetry",
               "anchor": "term-1-week-7-lesson-31",
               "links": [
                 {
@@ -229,7 +275,9 @@
               "sequence": 36,
               "sort": 0,
               "lessonLabel": "Lesson 36",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 36",
+              "topicTitle": "Poetry",
               "anchor": "term-1-week-8-lesson-36",
               "links": [
                 {
@@ -253,7 +301,9 @@
               "sequence": 45,
               "sort": 0,
               "lessonLabel": "Lesson 45",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 45",
+              "topicTitle": "Poetry",
               "anchor": "term-1-week-9-lesson-45",
               "links": [
                 {
@@ -283,7 +333,9 @@
               "sequence": 61,
               "sort": 0,
               "lessonLabel": "Lesson 61",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 61",
+              "topicTitle": "Poetry",
               "anchor": "term-2-week-13-lesson-61",
               "links": [
                 {
@@ -307,7 +359,9 @@
               "sequence": 66,
               "sort": 0,
               "lessonLabel": "Lesson 66",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 66",
+              "topicTitle": "Poetry",
               "anchor": "term-2-week-14-lesson-66",
               "links": [
                 {
@@ -325,7 +379,9 @@
               "sequence": 70,
               "sort": 0,
               "lessonLabel": "Lesson 70",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 70",
+              "topicTitle": "Poetry",
               "anchor": "term-2-week-14-lesson-70",
               "links": [
                 {
@@ -349,7 +405,9 @@
               "sequence": 71,
               "sort": 0,
               "lessonLabel": "Lesson 71",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 71",
+              "topicTitle": "Poetry",
               "anchor": "term-2-week-15-lesson-71",
               "links": [
                 {
@@ -373,7 +431,9 @@
               "sequence": 86,
               "sort": 0,
               "lessonLabel": "Lesson 86",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 86",
+              "topicTitle": "Poetry",
               "anchor": "term-2-week-18-lesson-86",
               "links": [
                 {
@@ -401,7 +461,9 @@
               "sequence": 91,
               "sort": 0,
               "lessonLabel": "Lesson 91",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 91",
+              "topicTitle": "Poetry",
               "anchor": "term-2-week-19-lesson-91",
               "links": [
                 {
@@ -425,7 +487,9 @@
               "sequence": 101,
               "sort": 0,
               "lessonLabel": "Lesson 101",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 101",
+              "topicTitle": "Poetry",
               "anchor": "term-2-week-21-lesson-101",
               "links": [
                 {
@@ -449,7 +513,9 @@
               "sequence": 106,
               "sort": 0,
               "lessonLabel": "Lesson 106",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 106",
+              "topicTitle": "Poetry",
               "anchor": "term-2-week-22-lesson-106",
               "links": [
                 {
@@ -467,7 +533,9 @@
               "sequence": 107,
               "sort": 0,
               "lessonLabel": "Lesson 107",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 107",
+              "topicTitle": "Poetry",
               "anchor": "term-2-week-22-lesson-107",
               "links": [
                 {
@@ -491,7 +559,9 @@
               "sequence": 111,
               "sort": 0,
               "lessonLabel": "Lesson 111",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 111",
+              "topicTitle": "Poetry",
               "anchor": "term-2-week-23-lesson-111",
               "links": [
                 {
@@ -521,7 +591,9 @@
               "sequence": 121,
               "sort": 0,
               "lessonLabel": "Lesson 121",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 121",
+              "topicTitle": "Poetry",
               "anchor": "term-3-week-25-lesson-121",
               "links": [
                 {
@@ -545,7 +617,9 @@
               "sequence": 127,
               "sort": 0,
               "lessonLabel": "Lesson 127",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 127",
+              "topicTitle": "Poetry",
               "anchor": "term-3-week-26-lesson-127",
               "links": [
                 {
@@ -569,7 +643,9 @@
               "sequence": 131,
               "sort": 0,
               "lessonLabel": "Lesson 131",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 131",
+              "topicTitle": "Poetry",
               "anchor": "term-3-week-27-lesson-131",
               "links": [
                 {
@@ -593,7 +669,9 @@
               "sequence": 136,
               "sort": 0,
               "lessonLabel": "Lesson 136",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 136",
+              "topicTitle": "Poetry",
               "anchor": "term-3-week-28-lesson-136",
               "links": [
                 {
@@ -611,7 +689,9 @@
               "sequence": 138,
               "sort": 0,
               "lessonLabel": "Lesson 138",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 138",
+              "topicTitle": "Poetry",
               "anchor": "term-3-week-28-lesson-138",
               "links": [
                 {
@@ -629,7 +709,9 @@
               "sequence": 140,
               "sort": 0,
               "lessonLabel": "Lesson 140",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 140",
+              "topicTitle": "Poetry",
               "anchor": "term-3-week-28-lesson-140",
               "links": [
                 {
@@ -653,7 +735,9 @@
               "sequence": 141,
               "sort": 0,
               "lessonLabel": "Lesson 141",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 141",
+              "topicTitle": "Poetry",
               "anchor": "term-3-week-29-lesson-141",
               "links": [
                 {
@@ -677,7 +761,9 @@
               "sequence": 146,
               "sort": 0,
               "lessonLabel": "Lesson 146",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 146",
+              "topicTitle": "Poetry",
               "anchor": "term-3-week-30-lesson-146",
               "links": [
                 {
@@ -695,7 +781,9 @@
               "sequence": 150,
               "sort": 0,
               "lessonLabel": "Lesson 150",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 150",
+              "topicTitle": "Poetry",
               "anchor": "term-3-week-30-lesson-150",
               "links": [
                 {
@@ -719,7 +807,9 @@
               "sequence": 151,
               "sort": 0,
               "lessonLabel": "Lesson 151",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 151",
+              "topicTitle": "Poetry",
               "anchor": "term-3-week-31-lesson-151",
               "links": [
                 {
@@ -743,7 +833,9 @@
               "sequence": 156,
               "sort": 0,
               "lessonLabel": "Lesson 156",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 156",
+              "topicTitle": "Poetry",
               "anchor": "term-3-week-32-lesson-156",
               "links": [
                 {
@@ -767,7 +859,9 @@
               "sequence": 161,
               "sort": 0,
               "lessonLabel": "Lesson 161",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 161",
+              "topicTitle": "Poetry",
               "anchor": "term-3-week-33-lesson-161",
               "links": [
                 {
@@ -791,7 +885,9 @@
               "sequence": 166,
               "sort": 0,
               "lessonLabel": "Lesson 166",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 166",
+              "topicTitle": "Poetry",
               "anchor": "term-3-week-34-lesson-166",
               "links": [
                 {
@@ -815,7 +911,9 @@
               "sequence": 171,
               "sort": 0,
               "lessonLabel": "Lesson 171",
+              "linkLabel": "Poetry",
               "title": "5m Poetry: Grades 1-4 - Lesson 171",
+              "topicTitle": "Poetry",
               "anchor": "term-3-week-35-lesson-171",
               "links": [
                 {

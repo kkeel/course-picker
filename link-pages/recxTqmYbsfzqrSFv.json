@@ -26,7 +26,7 @@
       }
     ]
   },
-  "updatedAt": "2026-05-27T08:55:02.719Z",
+  "updatedAt": "2026-05-27T17:50:47.575Z",
   "terms": [
     {
       "termNumber": 1,
@@ -45,7 +45,9 @@
               "sequence": 1,
               "sort": 0,
               "lessonLabel": "Lesson 1",
+              "linkLabel": "Geography",
               "title": "40m Geography: Grade 10-11 - Lesson 1",
+              "topicTitle": "Geography",
               "anchor": "term-1-week-1-lesson-1",
               "links": [
                 {
@@ -75,7 +77,9 @@
               "sequence": 2,
               "sort": 0,
               "lessonLabel": "Lesson 2",
+              "linkLabel": "Geography",
               "title": "40m Geography: Grade 10-11 - Lesson 2",
+              "topicTitle": "Geography",
               "anchor": "term-1-week-1-lesson-2",
               "links": [
                 {
@@ -99,12 +103,60 @@
               "sequence": 3,
               "sort": 0,
               "lessonLabel": "Lesson 3",
+              "linkLabel": "Geography",
               "title": "40m Geography: Grade 10-11 - Lesson 3",
+              "topicTitle": "Geography",
               "anchor": "term-1-week-2-lesson-3",
               "links": [
                 {
                   "text": "Canadian Geography (10th)",
                   "url": "https://www.youtube.com/watch?v=5Ba1JtVoegU"
+                }
+              ]
+            },
+            {
+              "lessonId": "recIi0nq3I1whGOAm",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 4,
+              "sort": 0,
+              "lessonLabel": "Lesson 4",
+              "linkLabel": "Geography",
+              "title": "40m Geography: Grade 10-11 - Lesson 4",
+              "topicTitle": "Geography",
+              "anchor": "term-1-week-2-lesson-4",
+              "links": [
+                {
+                  "text": "Thomas Howard",
+                  "url": "https://lewis-clark.org/members/thomas-howard/#:~:text=In%201808%20he%20married%20a"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 5,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "rec1u8HKZwROLRiIS",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 5,
+              "weekLabel": "Week 5",
+              "sequence": 10,
+              "sort": 0,
+              "lessonLabel": "Lesson 10",
+              "linkLabel": "Geography",
+              "title": "40m Geography: Grade 10-11 - Lesson 10",
+              "topicTitle": "Geography",
+              "anchor": "term-1-week-5-lesson-10",
+              "links": [
+                {
+                  "text": "Plant and Animal Discoveries",
+                  "url": "https://montanakids.com/history_and_prehistory/lewis_and_clark/plants_animals.htm"
                 }
               ]
             }
@@ -129,7 +181,9 @@
               "sequence": 26,
               "sort": 0,
               "lessonLabel": "Lesson 26",
+              "linkLabel": "Geography",
               "title": "40m Geography: Grade 10-11 - Lesson 26",
+              "topicTitle": "Geography",
               "anchor": "term-2-week-13-lesson-26",
               "links": [
                 {
