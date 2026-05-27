@@ -264,7 +264,7 @@
 
 .link-lesson {
   display: grid;
-  grid-template-columns: 120px minmax(0, 1fr);
+  grid-template-columns: 170px minmax(0, 1fr);
   min-height: 44px;
   border-bottom: 1px solid #e5e8e5;
   scroll-margin-top: 110px;
