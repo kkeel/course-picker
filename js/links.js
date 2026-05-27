@@ -1,10 +1,11 @@
 (function () {
   const state = {
-    data: null,
-    selectedTerm: "all",
-    selectedWeek: "all",
-    quickAccessCollapsed: false
-  };
+  data: null,
+  selectedTerm: "all",
+  selectedWeek: "all",
+  selectedTopic: "all",
+  quickAccessCollapsed: false
+};
 
   const els = {
     subject: document.getElementById("linksSubject"),
@@ -13,6 +14,7 @@
     controls: document.getElementById("linksControls"),
     termFilter: document.getElementById("termFilter"),
     weekFilter: document.getElementById("weekFilter"),
+    topicFilter: document.getElementById("topicFilter"),
     clearFilters: document.getElementById("clearFilters"),
     quickAccessHeader: document.querySelector(".links-quick-access-header"),
     quickAccess: document.getElementById("linksQuickAccess"),
@@ -90,14 +92,33 @@
 
   function getVisibleWeeks(term) {
     const weeks = Array.isArray(term.weeks) ? term.weeks : [];
-
-    return weeks.filter(week => {
-      if (state.selectedWeek !== "all" && String(week.weekNumber) !== state.selectedWeek) {
-        return false;
-      }
-
-      return Array.isArray(week.lessons) && week.lessons.length > 0;
-    });
+  
+    return weeks
+      .map(week => {
+        const lessons = (week.lessons || []).filter(lesson => {
+          if (state.selectedTopic === "all") return true;
+  
+          return (
+            lesson.topicSlug === state.selectedTopic ||
+            lesson.topicTitle === state.selectedTopic
+          );
+        });
+  
+        return {
+          ...week,
+          lessons
+        };
+      })
+      .filter(week => {
+        if (
+          state.selectedWeek !== "all" &&
+          String(week.weekNumber) !== state.selectedWeek
+        ) {
+          return false;
+        }
+  
+        return Array.isArray(week.lessons) && week.lessons.length > 0;
+      });
   }
 
   function renderFilters() {
@@ -113,6 +134,7 @@
     els.termFilter.value = state.selectedTerm;
 
     renderWeekFilter();
+    renderTopicFilter();
   }
 
   function renderWeekFilter() {
@@ -148,6 +170,53 @@
     }
 
     els.weekFilter.value = state.selectedWeek;
+  }
+
+  function renderTopicFilter() {
+    const topicMap = new Map();
+  
+    for (const term of state.data.terms || []) {
+      for (const week of term.weeks || []) {
+        for (const lesson of week.lessons || []) {
+          const key =
+            lesson.topicSlug ||
+            lesson.topicTitle;
+  
+          const label =
+            lesson.topicTitle ||
+            lesson.linkLabel;
+  
+          if (key && label && !topicMap.has(key)) {
+            topicMap.set(key, label);
+          }
+        }
+      }
+    }
+  
+    const topics = [...topicMap.entries()]
+      .map(([value, label]) => ({ value, label }))
+      .sort((a, b) => a.label.localeCompare(b.label));
+  
+    els.topicFilter.innerHTML = [
+      `<option value="all">All topics</option>`,
+      ...topics.map(topic => `
+        <option value="${escapeHtml(topic.value)}">
+          ${escapeHtml(topic.label)}
+        </option>
+      `)
+    ].join("");
+  
+    const hasSelectedTopic = topics.some(
+      topic => topic.value === state.selectedTopic
+    );
+  
+    if (!hasSelectedTopic) {
+      state.selectedTopic = "all";
+    }
+  
+    els.topicFilter.value = state.selectedTopic;
+  
+    els.topicFilter.parentElement.hidden = topics.length <= 1;
   }
 
     function renderQuickAccess() {
@@ -282,7 +351,21 @@
               <div class="link-week-lessons">
                 ${(week.lessons || []).map(lesson => `
                   <article class="link-lesson" id="${escapeHtml(lesson.anchor)}">
-                    <div class="link-lesson-label">${escapeHtml(lessonDisplayLabel(lesson))}</div>
+                    <div class="link-lesson-label">
+                      <div class="link-lesson-number">
+                        ${escapeHtml(lessonDisplayLabel(lesson))}
+                      </div>
+                    
+                      ${
+                        lesson.topicTitle
+                          ? `
+                            <div class="link-lesson-topic">
+                              ${escapeHtml(lesson.topicTitle)}
+                            </div>
+                          `
+                          : ""
+                      }
+                    </div>
                     <div class="link-list">
                       ${(lesson.links || []).map(link => `
                         <a href="${escapeHtml(link.url)}" target="_blank" rel="noopener">
@@ -373,9 +456,15 @@
     renderLinks();
   });
 
+  els.topicFilter.addEventListener("change", () => {
+    state.selectedTopic = els.topicFilter.value;
+    renderLinks();
+  });
+
   els.clearFilters.addEventListener("click", () => {
     state.selectedTerm = "all";
     state.selectedWeek = "all";
+    state.selectedTopic = "all";
     renderFilters();
     renderLinks();
   });
