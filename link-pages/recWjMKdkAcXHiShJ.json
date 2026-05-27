@@ -31,7 +31,7 @@
       }
     ]
   },
-  "updatedAt": "2026-05-26T09:01:21.388Z",
+  "updatedAt": "2026-05-27T08:55:02.806Z",
   "terms": [
     {
       "termNumber": 1,
@@ -392,6 +392,30 @@
       "term": "Term 2",
       "weeks": [
         {
+          "weekNumber": 15,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "rec1g3ZOZRfAzjJ2u",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 15,
+              "weekLabel": "Week 3",
+              "sequence": 29,
+              "sort": 0,
+              "lessonLabel": "Lesson 29",
+              "title": "15m Poetry Reading: Grades 9-12 - Lesson 29",
+              "anchor": "term-2-week-15-lesson-29",
+              "links": [
+                {
+                  "text": "https://www.poetryfoundation.org/poems/45480/when-lilacs-last-in-the-dooryard-bloomd",
+                  "url": "https://www.poetryfoundation.org/poems/45480/when-lilacs-last-in-the-dooryard-bloomd"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "weekNumber": 19,
           "weekLabel": "Week 7",
           "lessons": [
@@ -492,6 +516,30 @@
                 {
                   "text": "Maya Angelou recites Sympathy",
                   "url": "https://www.youtube.com/watch?v=nz4lhMIhtrs"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 35,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "recqI46yM6smmu5oR",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 35,
+              "weekLabel": "Week 11",
+              "sequence": 69,
+              "sort": 0,
+              "lessonLabel": "Lesson 69",
+              "title": "15m Poetry Reading: Grades 9-12 - Lesson 69",
+              "anchor": "term-3-week-35-lesson-69",
+              "links": [
+                {
+                  "text": "Paul Dunbar House Historic Site",
+                  "url": "https://www.destinationdayton.org/things-to-do/attractions/paul-laurence-dunbar/"
                 }
               ]
             }
