@@ -1217,9 +1217,25 @@ function renderBookCard(book) {
                   <div class="book-meta-block book-purchase-block">
                     <div class="book-meta-label">Purchase Options</div>
                     <div class="book-link-row">
-                      ${purchaseOptions.map((option) => `
-                        <span class="book-link-pill">${escapeHtml(option.label)}</span>
-                      `).join("")}
+                      ${purchaseOptions.map((option) => {
+                        const label = option.label || "Link";
+                        const url = option.url || "";
+                      
+                        if (!url) {
+                          return `<span class="book-link-pill book-link-pill--disabled">${escapeHtml(label)}</span>`;
+                        }
+                      
+                        return `
+                          <a
+                            class="book-link-pill"
+                            href="${escapeHtml(url)}"
+                            target="_blank"
+                            rel="sponsored noopener noreferrer"
+                          >
+                            ${escapeHtml(label)}
+                          </a>
+                        `;
+                      }).join("")}
                     </div>
                   </div>
                 ` : ""}
