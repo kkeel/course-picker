@@ -314,6 +314,7 @@ function buildLessonPlanSetMap(records) {
       lessonLinks: firstAirtableValue(fields["Link Page"]),
       books: firstAirtableValue(fields["Book List Link"]),
       supplies: firstAirtableValue(fields["Supply List Link"]),
+      delivery: firstAirtableValue(fields["Humble Heart Product Link"]),
     };
   }
 
@@ -920,6 +921,7 @@ async function main() {
       "Link Page",
       "Book List Link",
       "Supply List Link",
+      "Humble Heart Product Link",
     ],
   });
   
