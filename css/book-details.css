@@ -1356,7 +1356,7 @@ body.member-tools-enabled .book-member-toolbar-body {
 }
 
 .book-link-pill:hover {
-  background: var(--subject-color, var(--brand-dark));
+  background: var(--brand-dark));
   color: #ffffff;
 }
 
