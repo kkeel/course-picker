@@ -25,6 +25,9 @@ const state = {
   activeView: "topic",
 
   memberToolsEnabled: false,
+
+  openTools: new Set(),
+  openTopics: new Set(),
 };
 
 function escapeHtml(value) {
@@ -349,18 +352,24 @@ function getActionLinks(item) {
   };
 }
 
-function renderActionButtons(item) {
+function renderActionButtons(item, options = {}) {
+  const {
+    type = "course",
+    showTopicsToggle = false,
+  } = options;
+
   const links = getActionLinks(item);
 
-  const actions = [
-    {
-      key: "lessonPdf",
-      label: "Lesson PDF",
-      icon: "📝",
-      url: links.lessonPdf,
-      primary: true,
-      external: true,
-    },
+  const itemId = item.id || "";
+  const toolsOpen = state.openTools.has(itemId);
+  const topicsOpen = state.openTopics.has(itemId);
+
+  const pdfLabel =
+    type === "topic"
+      ? "Single Topic PDF"
+      : "Full Course PDF";
+
+  const toolButtons = [
     {
       key: "lessonLinks",
       label: "Links",
@@ -368,50 +377,119 @@ function renderActionButtons(item) {
       url: links.lessonLinks,
     },
     {
-      key: "extraHelpings",
-      label: "Extra Helpings",
-      icon: "🍯",
-      url: links.extraHelpings,
-      highlight: true,
-    },
-    {
       key: "books",
-      label: "Book List Details",
+      label: "Books",
       icon: "📚",
       url: links.books,
     },
     {
       key: "supplies",
-      label: "Supply List Details",
+      label: "Supplies",
       icon: "✂️",
       url: links.supplies,
     },
     {
       key: "editableSheet",
-      label: "Editable Sheet",
-      icon: "📊",
+      label: "Editable Lessons",
+      icon: "✏️",
       url: links.editableSheet,
       external: true,
     },
-  ].filter((action) => action.url);
-
-  if (!actions.length) return "";
+    {
+      key: "extraHelpings",
+      label: "Extra Helpings",
+      icon: "🍯",
+      url: links.extraHelpings,
+    },
+  ].filter((button) => button.url);
 
   return `
-    <div class="card-actions card-action-grid">
-      ${actions
-        .map((action) => `
-          <a
-            class="card-action-link ${action.primary ? "is-primary" : ""} ${action.highlight ? "is-highlight" : ""}"
-            href="${escapeHtml(action.url)}"
-            target="_blank" rel="noopener"
-          >
-            <span class="card-action-icon">${escapeHtml(action.icon)}</span>
-            <span class="card-action-label">${escapeHtml(action.label)}</span>
-            <span class="card-action-arrow">↗</span>
-          </a>
-        `)
-        .join("")}
+    <div class="card-action-row">
+
+      ${
+        links.lessonPdf
+          ? `
+            <a
+              class="card-action-link is-primary"
+              href="${escapeHtml(links.lessonPdf)}"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="card-action-icon">📝</span>
+              <span class="card-action-label">${escapeHtml(pdfLabel)}</span>
+              <span class="card-action-arrow">↗</span>
+            </a>
+          `
+          : ""
+      }
+
+      <span class="card-action-divider">|</span>
+
+      <div class="card-tool-slot">
+
+        ${
+          toolsOpen
+            ? `
+              <div class="card-tool-links">
+                ${toolButtons
+                  .map(
+                    (button) => `
+                      <a
+                        class="card-action-link"
+                        href="${escapeHtml(button.url)}"
+                        ${
+                          button.external
+                            ? `target="_blank" rel="noopener"`
+                            : ""
+                        }
+                      >
+                        <span class="card-action-icon">${escapeHtml(button.icon)}</span>
+                        <span class="card-action-label">${escapeHtml(button.label)}</span>
+                      </a>
+                    `
+                  )
+                  .join("")}
+              </div>
+
+              <button
+                class="card-inline-toggle card-tools-toggle"
+                type="button"
+                data-card-tools="${escapeHtml(itemId)}"
+              >
+                ▶ Hide Tools
+              </button>
+            `
+            : `
+              <button
+                class="card-inline-toggle card-tools-toggle"
+                type="button"
+                data-card-tools="${escapeHtml(itemId)}"
+              >
+                ▼ More Tools
+              </button>
+            `
+        }
+
+      </div>
+
+      ${
+        showTopicsToggle
+          ? `
+            <button
+              class="card-inline-toggle card-topic-toggle"
+              type="button"
+              data-card-topics="${escapeHtml(itemId)}"
+            >
+              ${
+                topicsOpen
+                  ? "Hide Topics ▼"
+                  : "View Topics ▲"
+              }
+            </button>
+          `
+          : ""
+      }
+
     </div>
   `;
 }
@@ -424,10 +502,16 @@ function renderCourseCard(item) {
           ${escapeHtml(item.lessonSetName || item.title || "")}
           <span class="title-grade">${escapeHtml(item.gradeText || "")}</span>
         </h3>
-        <span class="card-mini">${escapeHtml(item.subject || "Course")}</span>
+
+        <span class="card-mini">
+          ${escapeHtml(item.subject || "Course")}
+        </span>
       </div>
 
-      ${renderActionButtons(item)}
+      ${renderActionButtons(item, {
+        type: "course",
+        showTopicsToggle: item.hasTopics,
+      })}
     </article>
   `;
 }
@@ -440,9 +524,14 @@ function renderTopicCard(item) {
           ${escapeHtml(item.lessonSetName || item.title || "")}
           <span class="title-grade">${escapeHtml(item.gradeText || "")}</span>
         </h3>
+
         <span class="card-mini">Topic</span>
       </div>
-      ${renderActionButtons(item)}
+
+      ${renderActionButtons(item, {
+        type: "topic",
+        showTopicsToggle: false,
+      })}
     </article>
   `;
 }
