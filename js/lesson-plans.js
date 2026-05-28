@@ -353,6 +353,7 @@ function getActionLinks(item) {
     lessonPdf: safeLink(links.lessonPdf),
     editableSheet: safeLink(links.editableSheet),
     extraHelpings: safeLink(links.extraHelpings),
+    delivery: safeLink(links.delivery),
   };
 }
 
@@ -405,7 +406,14 @@ function renderActionButtons(item, options = {}) {
       icon: "🍯",
       url: links.extraHelpings,
     },
-  ].filter((button) => button.url);
+    {
+      key: "delivery",
+      label: "Get Delivered",
+      icon: "📦",
+      url: links.delivery,
+      disabled: !links.delivery,
+    },
+  ];
 
   return `
     <div class="card-action-row">
@@ -438,18 +446,34 @@ function renderActionButtons(item, options = {}) {
                 ${toolButtons
                   .map(
                     (button) => `
-                      <a
-                        class="card-action-link"
-                        href="${escapeHtml(button.url)}"
-                        ${
-                          button.external
-                            ? `target="_blank" rel="noopener"`
-                            : ""
-                        }
-                      >
-                        <span class="card-action-icon">${escapeHtml(button.icon)}</span>
-                        <span class="card-action-label">${escapeHtml(button.label)}</span>
-                      </a>
+                      ${
+                        button.disabled
+                          ? `
+                            <button
+                              class="card-action-link is-disabled"
+                              type="button"
+                              disabled
+                              title="Print delivery coming soon"
+                            >
+                              <span class="card-action-icon">${escapeHtml(button.icon)}</span>
+                              <span class="card-action-label">${escapeHtml(button.label)}</span>
+                            </button>
+                          `
+                          : `
+                            <a
+                              class="card-action-link"
+                              href="${escapeHtml(button.url)}"
+                              ${
+                                button.external
+                                  ? `target="_blank" rel="noopener"`
+                                  : ""
+                              }
+                            >
+                              <span class="card-action-icon">${escapeHtml(button.icon)}</span>
+                              <span class="card-action-label">${escapeHtml(button.label)}</span>
+                            </a>
+                          `
+                      }
                     `
                   )
                   .join("")}
