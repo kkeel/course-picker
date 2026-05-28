@@ -339,6 +339,10 @@ function safeLink(value) {
     : "";
 }
 
+function hasLessonPdf(row) {
+  return Boolean(safeLink(row?.links?.lessonPdf));
+}
+
 function getActionLinks(item) {
   const links = item.links || {};
 
@@ -532,7 +536,7 @@ function renderTopicCard(item) {
 
 function hydrateRows(rows) {
   const pdfRows = Array.isArray(rows)
-    ? rows.filter((row) => safeLink(row?.links?.lessonPdf))
+    ? rows.filter(hasLessonPdf)
     : [];
 
   state.rows = pdfRows;
@@ -578,11 +582,18 @@ async function loadSelectedView() {
 
   const view = await response.json();
 
-  state.groups = Array.isArray(view.groups) ? view.groups : [];
+  const rawGroups = Array.isArray(view.groups) ? view.groups : [];
+
+  state.groups = rawGroups
+    .map((group) => ({
+      ...group,
+      rows: (group.rows || []).filter(hasLessonPdf),
+    }))
+    .filter((group) => group.rows.length);
 
   const rows = state.groups.length
     ? state.groups.flatMap((group) => group.rows || [])
-    : view.rows || [];
+    : (view.rows || []).filter(hasLessonPdf);
 
   hydrateRows(rows);
 
@@ -781,7 +792,7 @@ async function initDirectory() {
     const index = await response.json();
     const rows = Array.isArray(index.rows) ? index.rows : [];
     
-    state.allRows = rows;
+    state.allRows = rows.filter(hasLessonPdf);
     state.indexViews = index.views || {};
     
     populatePrimarySelect();
