@@ -229,6 +229,39 @@ function applyMemberToolsState() {
   button.textContent = `Member Tools: ${enabled ? "On" : "Off"}`;
 }
 
+function setupGradeBundleModal() {
+  const modal = document.getElementById("grade-bundle-modal");
+  const openButton = document.getElementById("open-grade-bundles");
+
+  if (!modal || !openButton) return;
+
+  function openModal() {
+    modal.hidden = false;
+    document.body.classList.add("grade-bundle-modal-open");
+
+    const closeButton = modal.querySelector("[data-close-grade-bundles]");
+    if (closeButton) closeButton.focus();
+  }
+
+  function closeModal() {
+    modal.hidden = true;
+    document.body.classList.remove("grade-bundle-modal-open");
+    openButton.focus();
+  }
+
+  openButton.addEventListener("click", openModal);
+
+  modal.querySelectorAll("[data-close-grade-bundles]").forEach((button) => {
+    button.addEventListener("click", closeModal);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !modal.hidden) {
+      closeModal();
+    }
+  });
+}
+
 function setupBackToTop() {
   const button = document.getElementById("back-to-top");
 
@@ -791,6 +824,7 @@ async function initDirectory() {
     applyFilterState();
     applyMemberToolsState();
     setupBackToTop();
+    setupGradeBundleModal();
 
     document.getElementById("toggle-intro").addEventListener("click", () => {
       const intro = document.getElementById("lesson-intro-section");
