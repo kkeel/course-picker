@@ -47,17 +47,47 @@
           Download or print your own lesson plans and find more tools to give you quick access to links, extra helpings, and more.
         </p>
       
-        <div class="lesson-helper-card">
-          <h2 class="lesson-helper-title">Not sure which plans you need?</h2>
+        <div class="lesson-intro-card-grid">
+          <div class="lesson-helper-card">
+            <h2 class="lesson-helper-title">Not sure which plans you need?</h2>
       
-          <p class="lesson-helper-lines">
-            <strong>Full Course</strong> = everything for the year<br>
-            <strong>Topic Plans</strong> = just one unit or subject area
-          </p>
+            <p class="lesson-helper-lines">
+              <strong>Full Course</strong> = everything for the year<br>
+              <strong>Topic Plans</strong> = just one unit or subject area
+            </p>
       
-          <p class="lesson-helper-text">
-            Use a complete course as designed or customize your plans by selecting individual topics. Both options work beautifully depending on your needs.
-          </p>
+            <p class="lesson-helper-text">
+              Use a complete course as designed or customize your plans by selecting individual topics. Both options work beautifully depending on your needs.
+            </p>
+          </div>
+      
+          <div class="lesson-delivery-card">
+            <div class="lesson-delivery-icon" aria-hidden="true">📦</div>
+      
+            <div class="lesson-delivery-content">
+              <h2 class="lesson-helper-title">Want printed lesson plans?</h2>
+      
+              <p class="lesson-helper-text">
+                Professionally printed lesson plans will be available through our print partner.
+              </p>
+      
+              <div class="lesson-delivery-actions">
+                <button id="open-grade-bundles" class="lesson-delivery-button" type="button">
+                  View Grade Bundles
+                </button>
+      
+                <a
+                  class="lesson-delivery-button is-disabled"
+                  href="#"
+                  aria-disabled="true"
+                  tabindex="-1"
+                  title="Full print store link coming soon"
+                >
+                  Browse Full Print Store
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -200,6 +230,52 @@
       </div>
     </section>
   </main>
+
+  <div id="grade-bundle-modal" class="grade-bundle-modal" hidden>
+    <div class="grade-bundle-backdrop" data-close-grade-bundles></div>
+  
+    <div
+      class="grade-bundle-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="grade-bundle-title"
+    >
+      <div class="grade-bundle-header">
+        <div>
+          <h2 id="grade-bundle-title">Choose a grade bundle</h2>
+          <p>Printed grade bundles will open in our print partner’s store.</p>
+        </div>
+  
+        <button
+          class="grade-bundle-close"
+          type="button"
+          data-close-grade-bundles
+          aria-label="Close grade bundle options"
+        >
+          ×
+        </button>
+      </div>
+  
+      <div class="grade-bundle-grid">
+        <button class="grade-bundle-tile is-disabled" type="button" disabled>Grade 1</button>
+        <button class="grade-bundle-tile is-disabled" type="button" disabled>Grade 2</button>
+        <button class="grade-bundle-tile is-disabled" type="button" disabled>Grade 3</button>
+        <button class="grade-bundle-tile is-disabled" type="button" disabled>Grade 4</button>
+        <button class="grade-bundle-tile is-disabled" type="button" disabled>Grade 5</button>
+        <button class="grade-bundle-tile is-disabled" type="button" disabled>Grade 6</button>
+        <button class="grade-bundle-tile is-disabled" type="button" disabled>Grade 7</button>
+        <button class="grade-bundle-tile is-disabled" type="button" disabled>Grade 8</button>
+        <button class="grade-bundle-tile is-disabled" type="button" disabled>Grade 9</button>
+        <button class="grade-bundle-tile is-disabled" type="button" disabled>Grade 10</button>
+        <button class="grade-bundle-tile is-disabled" type="button" disabled>Grade 11</button>
+        <button class="grade-bundle-tile is-disabled" type="button" disabled>Grade 12</button>
+      </div>
+  
+      <p class="grade-bundle-note">
+        Grade bundle links are coming soon.
+      </p>
+    </div>
+  </div>
 
   <button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top">
     ↑ Back to top
