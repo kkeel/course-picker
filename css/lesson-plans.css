@@ -664,7 +664,7 @@ body.member-tools-enabled .book-member-toolbar-body {
    ========================================================= */
 
 .topic-group {
-  background: #ffffff;
+  background: #dee1d2;
   border: 1.5px solid var(--brand-dark);
   border-radius: 8px;
   overflow: hidden;
@@ -672,8 +672,7 @@ body.member-tools-enabled .book-member-toolbar-body {
 
 .topic-group-head {
   padding: 14px 16px 10px;
-  background: #eef1eb;
-  border-bottom: 1px solid #d2d9cf;
+  background: #ffffff;
 }
 
 .topic-group-head .card-mini {
@@ -685,12 +684,12 @@ body.member-tools-enabled .book-member-toolbar-body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  background: #ffffff;
-  padding: 12px;
+  background: #dee1d2;
+  padding: 0 12px 12px;
 }
 
 .topic-card {
-  border-color: #dfe5d8;
+  border-color: #adb58f;
   background: #ffffff;
 }
 
@@ -700,7 +699,7 @@ body.member-tools-enabled .book-member-toolbar-body {
 
 .topic-group-course-only {
   border: 1.5px solid var(--brand-dark);
-  background: #eef1eb;
+  background: #ffffff;
   padding: 14px 16px 10px;
   border-radius: 8px;
   overflow: hidden;
