@@ -502,10 +502,6 @@ function renderCourseCard(item) {
           ${escapeHtml(item.lessonSetName || item.title || "")}
           <span class="title-grade">${escapeHtml(item.gradeText || "")}</span>
         </h3>
-
-        <span class="card-mini">
-          ${escapeHtml(item.subject || "Course")}
-        </span>
       </div>
 
       ${renderActionButtons(item, {
@@ -524,8 +520,6 @@ function renderTopicCard(item) {
           ${escapeHtml(item.lessonSetName || item.title || "")}
           <span class="title-grade">${escapeHtml(item.gradeText || "")}</span>
         </h3>
-
-        <span class="card-mini">Topic</span>
       </div>
 
       ${renderActionButtons(item, {
@@ -537,7 +531,11 @@ function renderTopicCard(item) {
 }
 
 function hydrateRows(rows) {
-  state.rows = Array.isArray(rows) ? rows : [];
+  const pdfRows = Array.isArray(rows)
+    ? rows.filter((row) => safeLink(row?.links?.lessonPdf))
+    : [];
+
+  state.rows = pdfRows;
   state.courses = state.rows.filter((row) => row.rowType === "course");
   state.topics = state.rows.filter((row) => row.rowType === "topic");
 }
@@ -688,10 +686,6 @@ function render() {
                         </span>
                       </h3>
                     </div>
-
-                    <span class="card-mini">
-                      ${escapeHtml(course.subject || "Course")}
-                    </span>
                   </div>
 
                   ${renderActionButtons(course)}
