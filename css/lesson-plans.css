@@ -1242,6 +1242,10 @@ body.member-tools-enabled .book-member-toolbar-body {
   background: rgba(38,43,38,0.38);
 }
 
+body.grade-bundle-modal-open {
+  overflow: hidden;
+}
+
 .grade-bundle-dialog {
   position: relative;
   width: min(760px, 100%);
