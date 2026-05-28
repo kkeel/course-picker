@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-05-27T14:03:38.644Z",
+  "generatedAt": "2026-05-28T14:24:13.912Z",
   "rotation": "R3",
-  "count": 104,
+  "count": 123,
   "rows": [
     {
       "id": "recR8JMqdSmRHsqIq",
@@ -125,6 +125,28 @@
       "resourceCount": 1
     },
     {
+      "id": "rec5SUWoHylzXH7Jk",
+      "title": "Bible: Grade 1",
+      "subject": "Bible",
+      "gradeText": "GRADE(S): 1",
+      "sortId": "004.001.001.000",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=rec5SUWoHylzXH7Jk",
+      "ideaCount": 3,
+      "resourceCount": 14
+    },
+    {
+      "id": "recRJCbr7FFMfauFa",
+      "title": "Bible Stories",
+      "subject": "Bible",
+      "gradeText": "GRADE(S): 1",
+      "sortId": "004.001.001.001",
+      "setting": "Hide",
+      "url": "extra-helpings.html?id=recRJCbr7FFMfauFa",
+      "ideaCount": 3,
+      "resourceCount": 13
+    },
+    {
       "id": "recK6iLGNWoRKLZKj",
       "title": "First Citizen Stories",
       "subject": "Citizenship",
@@ -174,7 +196,7 @@
       "subject": "English",
       "gradeText": "GRADE(S): 1",
       "sortId": "006.001.001.001",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=rec9nMxj7clnqmYXN",
       "ideaCount": 3,
       "resourceCount": 7
@@ -185,7 +207,7 @@
       "subject": "English",
       "gradeText": "GRADE(S): 2",
       "sortId": "006.001.002.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recV8AeQe61SiWsp9",
       "ideaCount": 3,
       "resourceCount": 4
@@ -196,7 +218,7 @@
       "subject": "English",
       "gradeText": "GRADE(S): 2",
       "sortId": "006.001.002.001",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recW0CmfSrc3CfXE3",
       "ideaCount": 3,
       "resourceCount": 4
@@ -207,7 +229,7 @@
       "subject": "English",
       "gradeText": "GRADE(S): 3",
       "sortId": "006.001.003.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recjS0ICLL8DA93jm",
       "ideaCount": 3,
       "resourceCount": 4
@@ -218,7 +240,7 @@
       "subject": "English",
       "gradeText": "GRADE(S): 3",
       "sortId": "006.001.003.001",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recZGVMJzb5q6czhu",
       "ideaCount": 3,
       "resourceCount": 4
@@ -306,7 +328,7 @@
       "subject": "English",
       "gradeText": "GRADE(S): 7",
       "sortId": "006.001.007.002",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recC44bP2oeAkcAkU",
       "ideaCount": 0,
       "resourceCount": 1
@@ -350,7 +372,7 @@
       "subject": "English",
       "gradeText": "GRADE(S): 9",
       "sortId": "006.001.009.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=rec9h7PAcPcPasRGf",
       "ideaCount": 1,
       "resourceCount": 4
@@ -394,7 +416,7 @@
       "subject": "Geography",
       "gradeText": "GRADE(S): 1",
       "sortId": "007.001.001.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=rec9fXNGxN5UAt46h",
       "ideaCount": 3,
       "resourceCount": 12
@@ -409,6 +431,94 @@
       "url": "extra-helpings.html?id=recCHapNtsJooytSB",
       "ideaCount": 3,
       "resourceCount": 16
+    },
+    {
+      "id": "recJIxZb1XZli9xOn",
+      "title": "History: Grades 2-3 (U.S.)",
+      "subject": "History",
+      "gradeText": "GRADE(S): 2-3",
+      "sortId": "008.002.001.000",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=recJIxZb1XZli9xOn",
+      "ideaCount": 2,
+      "resourceCount": 9
+    },
+    {
+      "id": "recE5optfXT9zxsw5",
+      "title": "History: Grade 4 (U.S.)",
+      "subject": "History",
+      "gradeText": "GRADE(S): 4",
+      "sortId": "008.004.001.000",
+      "setting": "Hide",
+      "url": "extra-helpings.html?id=recE5optfXT9zxsw5",
+      "ideaCount": 5,
+      "resourceCount": 0
+    },
+    {
+      "id": "recZ0DXfFP97QArDQ",
+      "title": "U.S. History: Grades 4-6",
+      "subject": "History",
+      "gradeText": "GRADE(S): 4-6",
+      "sortId": "008.004.001.001",
+      "setting": "Hide",
+      "url": "extra-helpings.html?id=recZ0DXfFP97QArDQ",
+      "ideaCount": 5,
+      "resourceCount": 11
+    },
+    {
+      "id": "rec2RKe5ltrOg6i2s",
+      "title": "History: Grades 5-6 (U.S.)",
+      "subject": "History",
+      "gradeText": "GRADE(S): 5-6",
+      "sortId": "008.005.001.000",
+      "setting": "Hide",
+      "url": "extra-helpings.html?id=rec2RKe5ltrOg6i2s",
+      "ideaCount": 5,
+      "resourceCount": 0
+    },
+    {
+      "id": "recBP0ILhMKRSKye3",
+      "title": "Ancient History: Grades 5-6",
+      "subject": "History",
+      "gradeText": "GRADE(S): 5-6",
+      "sortId": "008.005.001.004",
+      "setting": "Hide",
+      "url": "extra-helpings.html?id=recBP0ILhMKRSKye3",
+      "ideaCount": 0,
+      "resourceCount": 2
+    },
+    {
+      "id": "recXs7i6rqLlwkcyu",
+      "title": "History: Grades 7-8 (U.S.)",
+      "subject": "History",
+      "gradeText": "GRADE(S): 7-8",
+      "sortId": "008.007.001.000",
+      "setting": "Hide",
+      "url": "extra-helpings.html?id=recXs7i6rqLlwkcyu",
+      "ideaCount": 4,
+      "resourceCount": 0
+    },
+    {
+      "id": "recjxhOtJDBXK35Pc",
+      "title": "U.S. History: Grades 7-8",
+      "subject": "History",
+      "gradeText": "GRADE(S): 7-8",
+      "sortId": "008.007.001.001",
+      "setting": "Hide",
+      "url": "extra-helpings.html?id=recjxhOtJDBXK35Pc",
+      "ideaCount": 4,
+      "resourceCount": 4
+    },
+    {
+      "id": "recfXdRHtTUmQQfre",
+      "title": "World History: Grades 7-8",
+      "subject": "History",
+      "gradeText": "GRADE(S): 7-8",
+      "sortId": "008.007.001.003",
+      "setting": "Hide",
+      "url": "extra-helpings.html?id=recfXdRHtTUmQQfre",
+      "ideaCount": 0,
+      "resourceCount": 1
     },
     {
       "id": "recbVmgtsnbd9QfGD",
@@ -427,7 +537,7 @@
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 9-12",
       "sortId": "010.000.009.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=rec9lmWtXdrU3jSHO",
       "ideaCount": 3,
       "resourceCount": 1
@@ -438,7 +548,7 @@
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 1+",
       "sortId": "010.002.001.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recofNASItbLN2GCB",
       "ideaCount": 3,
       "resourceCount": 1
@@ -449,7 +559,7 @@
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 2+",
       "sortId": "010.002.002.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recYTG9MRdgiltlD5",
       "ideaCount": 3,
       "resourceCount": 1
@@ -460,7 +570,7 @@
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 3+",
       "sortId": "010.002.003.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recRefBpDHe8bvBjF",
       "ideaCount": 3,
       "resourceCount": 1
@@ -471,7 +581,7 @@
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 4+",
       "sortId": "010.002.004.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recXKGlPdyYfXJDZY",
       "ideaCount": 3,
       "resourceCount": 1
@@ -482,7 +592,7 @@
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 5+",
       "sortId": "010.002.005.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recgESzLLnd2ZR8cn",
       "ideaCount": 3,
       "resourceCount": 1
@@ -493,7 +603,7 @@
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 6+",
       "sortId": "010.002.006.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=reclZXJopMkaFIGIq",
       "ideaCount": 3,
       "resourceCount": 1
@@ -504,7 +614,7 @@
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 7+",
       "sortId": "010.002.007.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=rec18fvwcWROKwRu9",
       "ideaCount": 3,
       "resourceCount": 1
@@ -515,7 +625,7 @@
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 8+",
       "sortId": "010.002.008.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recrFpPHtw3Q73WKF",
       "ideaCount": 3,
       "resourceCount": 1
@@ -526,7 +636,7 @@
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 1-3",
       "sortId": "010.005.001.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recaNFVhLb9cQ69od",
       "ideaCount": 3,
       "resourceCount": 0
@@ -537,7 +647,7 @@
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 4-6",
       "sortId": "010.005.004.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recphzOz02QtwWmTI",
       "ideaCount": 3,
       "resourceCount": 2
@@ -548,7 +658,7 @@
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 7+",
       "sortId": "010.006.007.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recqxe0MPp3Lz61Ry",
       "ideaCount": 3,
       "resourceCount": 2
@@ -559,7 +669,7 @@
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 8+",
       "sortId": "010.006.008.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recz1F63dCN1s8zYl",
       "ideaCount": 3,
       "resourceCount": 2
@@ -570,7 +680,7 @@
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 9+",
       "sortId": "010.006.009.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recmMn3pYICegCygi",
       "ideaCount": 3,
       "resourceCount": 3
@@ -581,10 +691,65 @@
       "subject": "Life Skills",
       "gradeText": "GRADE(S): 4-8",
       "sortId": "010.007.004.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recgy9PIABsEwyDTQ",
       "ideaCount": 3,
       "resourceCount": 0
+    },
+    {
+      "id": "recQkVAkPcg3NKGnG",
+      "title": "Literature: Grade 1",
+      "subject": "Literature",
+      "gradeText": "GRADE(S): 1",
+      "sortId": "011.001.001.000",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=recQkVAkPcg3NKGnG",
+      "ideaCount": 3,
+      "resourceCount": 10
+    },
+    {
+      "id": "recPJwhSDEWWZXwi6",
+      "title": "Fairy Tales",
+      "subject": "Literature",
+      "gradeText": "GRADE(S): 1",
+      "sortId": "011.001.001.001",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=recPJwhSDEWWZXwi6",
+      "ideaCount": 3,
+      "resourceCount": 6
+    },
+    {
+      "id": "rechdAl8LV3A6ohAz",
+      "title": "Tall Tales/ Fables",
+      "subject": "Literature",
+      "gradeText": "GRADE(S): 1",
+      "sortId": "011.001.001.002",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=rechdAl8LV3A6ohAz",
+      "ideaCount": 3,
+      "resourceCount": 5
+    },
+    {
+      "id": "recLo2yaJ9nFzW9Ir",
+      "title": "Literature: Grade 2",
+      "subject": "Literature",
+      "gradeText": "GRADE(S): 2",
+      "sortId": "011.001.002.000",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=recLo2yaJ9nFzW9Ir",
+      "ideaCount": 3,
+      "resourceCount": 4
+    },
+    {
+      "id": "rec0zdroSI7QgJY6v",
+      "title": "Mythology: Grade 2",
+      "subject": "Literature",
+      "gradeText": "GRADE(S): 2",
+      "sortId": "011.001.002.003",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=rec0zdroSI7QgJY6v",
+      "ideaCount": 3,
+      "resourceCount": 2
     },
     {
       "id": "recjJ2PgFC1yLjsc9",
@@ -603,7 +768,7 @@
       "subject": "Math",
       "gradeText": "GRADE(S): 1",
       "sortId": "012.001.001.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=rec8m6y5MmTFpp033",
       "ideaCount": 3,
       "resourceCount": 8
@@ -614,7 +779,7 @@
       "subject": "Math",
       "gradeText": "GRADE(S): 1",
       "sortId": "012.001.001.001",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recSG4uIGMf0evGmf",
       "ideaCount": 3,
       "resourceCount": 5
@@ -625,7 +790,7 @@
       "subject": "Math",
       "gradeText": "GRADE(S): 1-8",
       "sortId": "012.001.012.002",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recqNQrKdVJQ5PxQP",
       "ideaCount": 3,
       "resourceCount": 14
@@ -636,7 +801,7 @@
       "subject": "Math",
       "gradeText": "GRADE(S): 2",
       "sortId": "012.002.002.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recxrCynkX6ybFg1n",
       "ideaCount": 3,
       "resourceCount": 8
@@ -647,7 +812,7 @@
       "subject": "Math",
       "gradeText": "GRADE(S): 2",
       "sortId": "012.002.002.001",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recr6yha3bg0duSUp",
       "ideaCount": 3,
       "resourceCount": 5
@@ -658,7 +823,7 @@
       "subject": "Math",
       "gradeText": "GRADE(S): 3",
       "sortId": "012.003.003.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recmjLEaM2UBX0ld5",
       "ideaCount": 3,
       "resourceCount": 5
@@ -669,7 +834,7 @@
       "subject": "Math",
       "gradeText": "GRADE(S): 4",
       "sortId": "012.004.004.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=rec7WXp34DyEHCgw2",
       "ideaCount": 3,
       "resourceCount": 6
@@ -680,7 +845,7 @@
       "subject": "Math",
       "gradeText": "GRADE(S): 5",
       "sortId": "012.005.005.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recW6rrrRMWrhGcJ2",
       "ideaCount": 3,
       "resourceCount": 8
@@ -691,7 +856,7 @@
       "subject": "Math",
       "gradeText": "GRADE(S): 6",
       "sortId": "012.006.006.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recSb3nZWQVxmijSz",
       "ideaCount": 3,
       "resourceCount": 8
@@ -702,10 +867,21 @@
       "subject": "Math",
       "gradeText": "GRADE(S): 7",
       "sortId": "012.007.007.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recmY4SJFVuVD9PiR",
       "ideaCount": 3,
       "resourceCount": 5
+    },
+    {
+      "id": "rec98Rpi7iomq1qoc",
+      "title": "Geometry: Grade 7",
+      "subject": "Math",
+      "gradeText": "GRADE(S): 7",
+      "sortId": "012.007.007.003",
+      "setting": "Hide",
+      "url": "extra-helpings.html?id=rec98Rpi7iomq1qoc",
+      "ideaCount": 0,
+      "resourceCount": 1
     },
     {
       "id": "recvWaMgcOPtoe4WV",
@@ -713,7 +889,7 @@
       "subject": "Math",
       "gradeText": "GRADE(S): 8",
       "sortId": "012.009.008.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recvWaMgcOPtoe4WV",
       "ideaCount": 3,
       "resourceCount": 5
@@ -724,7 +900,7 @@
       "subject": "Math",
       "gradeText": "GRADE(S): 5",
       "sortId": "012.018.005.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=rech3p7fPR9avbcP7",
       "ideaCount": 3,
       "resourceCount": 0
@@ -735,7 +911,7 @@
       "subject": "Math",
       "gradeText": "GRADE(S): 6",
       "sortId": "012.019.006.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recaIV1xYhUgThc52",
       "ideaCount": 3,
       "resourceCount": 0
@@ -746,7 +922,7 @@
       "subject": "Math",
       "gradeText": "GRADE(S): 7",
       "sortId": "012.020.007.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recaORDZdhOnlg6Vz",
       "ideaCount": 3,
       "resourceCount": 1
@@ -757,7 +933,7 @@
       "subject": "Math",
       "gradeText": "GRADE(S): 8",
       "sortId": "012.021.008.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recXyDVhxTlc50p4e",
       "ideaCount": 3,
       "resourceCount": 0
@@ -770,7 +946,7 @@
       "sortId": "014.001.001.000",
       "setting": "Hide",
       "url": "extra-helpings.html?id=recGxKOwi4E5amNPe",
-      "ideaCount": 3,
+      "ideaCount": 0,
       "resourceCount": 8
     },
     {
@@ -779,7 +955,7 @@
       "subject": "Music",
       "gradeText": "GRADE(S): 1",
       "sortId": "014.001.001.001",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recQnNMrVmgVQUVVT",
       "ideaCount": 3,
       "resourceCount": 8
@@ -790,7 +966,7 @@
       "subject": "Music",
       "gradeText": "GRADE(S): 1",
       "sortId": "014.001.001.005",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=reclhERbHEXrGEJTn",
       "ideaCount": 1,
       "resourceCount": 0
@@ -803,7 +979,7 @@
       "sortId": "014.002.002.000",
       "setting": "Hide",
       "url": "extra-helpings.html?id=rec15PtNAJs6tYrdL",
-      "ideaCount": 2,
+      "ideaCount": 0,
       "resourceCount": 15
     },
     {
@@ -903,7 +1079,7 @@
       "setting": "Publish",
       "url": "extra-helpings.html?id=recyJkGRi0eytNpYD",
       "ideaCount": 0,
-      "resourceCount": 1
+      "resourceCount": 7
     },
     {
       "id": "reciqxXCmGbHxO5Yi",
@@ -936,7 +1112,7 @@
       "setting": "Publish",
       "url": "extra-helpings.html?id=recYIIp8xMEA2XJMF",
       "ideaCount": 0,
-      "resourceCount": 2
+      "resourceCount": 8
     },
     {
       "id": "recQMEi3IyNcsqebg",
@@ -969,7 +1145,7 @@
       "setting": "Publish",
       "url": "extra-helpings.html?id=recPDQYQzHOHAgDNN",
       "ideaCount": 0,
-      "resourceCount": 7
+      "resourceCount": 12
     },
     {
       "id": "recAooMLNY6bb34bg",
@@ -980,7 +1156,7 @@
       "setting": "Publish",
       "url": "extra-helpings.html?id=recAooMLNY6bb34bg",
       "ideaCount": 3,
-      "resourceCount": 9
+      "resourceCount": 11
     },
     {
       "id": "recAWJ7ll6G0Cb1BR",
@@ -1002,7 +1178,7 @@
       "setting": "Publish",
       "url": "extra-helpings.html?id=rec6gQyp8zaw6ii9g",
       "ideaCount": 1,
-      "resourceCount": 3
+      "resourceCount": 5
     },
     {
       "id": "recq8k84Ven5CZX4C",
@@ -1024,7 +1200,7 @@
       "setting": "Publish",
       "url": "extra-helpings.html?id=recZwtVr7xJbFZ4Yv",
       "ideaCount": 1,
-      "resourceCount": 9
+      "resourceCount": 11
     },
     {
       "id": "rec8p3hfuwYeXGSUv",
@@ -1035,7 +1211,7 @@
       "setting": "Publish",
       "url": "extra-helpings.html?id=rec8p3hfuwYeXGSUv",
       "ideaCount": 2,
-      "resourceCount": 4
+      "resourceCount": 5
     },
     {
       "id": "reczJaAXPgqwXQPsz",
@@ -1076,7 +1252,7 @@
       "subject": "Science",
       "gradeText": "GRADE(S): 7",
       "sortId": "016.007.002.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=rec9gyYrqX7Oeugm6",
       "ideaCount": 3,
       "resourceCount": 4
@@ -1087,7 +1263,7 @@
       "subject": "Science",
       "gradeText": "GRADE(S): 7",
       "sortId": "016.007.002.001",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=rec0dGYE4JfbHgtMM",
       "ideaCount": 3,
       "resourceCount": 5
@@ -1098,10 +1274,10 @@
       "subject": "Science",
       "gradeText": "GRADE(S): 7",
       "sortId": "016.007.002.002",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recqkaSHIvH4dpBWk",
       "ideaCount": 3,
-      "resourceCount": 1
+      "resourceCount": 2
     },
     {
       "id": "recWNjr2g4UPXUMUZ",
@@ -1109,7 +1285,7 @@
       "subject": "Science",
       "gradeText": "GRADE(S): 8",
       "sortId": "016.008.002.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recWNjr2g4UPXUMUZ",
       "ideaCount": 3,
       "resourceCount": 3
@@ -1120,7 +1296,7 @@
       "subject": "Science",
       "gradeText": "GRADE(S): 8",
       "sortId": "016.008.002.001",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=reckqMDHssrGrXRnM",
       "ideaCount": 2,
       "resourceCount": 1
@@ -1131,10 +1307,32 @@
       "subject": "Science",
       "gradeText": "GRADE(S): 8",
       "sortId": "016.008.002.002",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=rec1GA7WscJbTd61i",
       "ideaCount": 1,
       "resourceCount": 3
+    },
+    {
+      "id": "recSV0InAnVRkUhG7",
+      "title": "Science: Chemistry",
+      "subject": "Science",
+      "gradeText": "GRADE(S): 9-12+",
+      "sortId": "016.009.002.000",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=recSV0InAnVRkUhG7",
+      "ideaCount": 0,
+      "resourceCount": 1
+    },
+    {
+      "id": "recBq9iEE2Yn8ZhJh",
+      "title": "Chemistry Lessons",
+      "subject": "Science",
+      "gradeText": "GRADE(S): 9-12+",
+      "sortId": "016.009.002.001",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=recBq9iEE2Yn8ZhJh",
+      "ideaCount": 0,
+      "resourceCount": 1
     },
     {
       "id": "recpEmtJeBr6l5oV8",
@@ -1142,8 +1340,19 @@
       "subject": "Science",
       "gradeText": "GRADE(S): 10-12+",
       "sortId": "016.010.002.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recpEmtJeBr6l5oV8",
+      "ideaCount": 0,
+      "resourceCount": 1
+    },
+    {
+      "id": "recLbje4VqybSpi0f",
+      "title": "Biology Lessons",
+      "subject": "Science",
+      "gradeText": "GRADE(S): 10-12+",
+      "sortId": "016.010.002.001",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=recLbje4VqybSpi0f",
       "ideaCount": 0,
       "resourceCount": 1
     }
