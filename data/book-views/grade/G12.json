@@ -2829,7 +2829,7 @@
               "maySubText": "",
               "discountText": "",
               "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
-              "sharedText": "Canadian History: Grades 11-12\nCanadian History: Grades 9-10",
+              "sharedText": "",
               "purchaseOptions": [
                 {
                   "label": "Option 1",
@@ -5966,7 +5966,14 @@
               "discountText": "",
               "scopeText": "Term 1\nTerm 2\nTerm 3",
               "sharedText": "",
-              "purchaseOptions": []
+              "purchaseOptions": [
+                {
+                  "label": "PDF",
+                  "url": "",
+                  "memberOnly": true,
+                  "memberstackId": "chemistry-lab-book"
+                }
+              ]
             }
           ]
         }
@@ -6205,7 +6212,14 @@
               "discountText": "",
               "scopeText": "Term 1\nTerm 2\nTerm 3",
               "sharedText": "",
-              "purchaseOptions": []
+              "purchaseOptions": [
+                {
+                  "label": "PDF",
+                  "url": "",
+                  "memberOnly": true,
+                  "memberstackId": "biology-lab-book"
+                }
+              ]
             }
           ]
         }

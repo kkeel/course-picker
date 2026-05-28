@@ -186,7 +186,14 @@
           "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "purchaseOptions": []
+          "purchaseOptions": [
+            {
+              "label": "PDF",
+              "url": "",
+              "memberOnly": true,
+              "memberstackId": "grade-7-lab-book"
+            }
+          ]
         }
       ]
     }

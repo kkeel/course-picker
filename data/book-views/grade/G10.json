@@ -2,7 +2,7 @@
   "view": "grade",
   "id": "G10",
   "title": "Grade 10 Books",
-  "bookCount": 185,
+  "bookCount": 184,
   "items": [
     {
       "type": "course",
@@ -3028,47 +3028,6 @@
               ]
             },
             {
-              "resourceId": "reclTSrJE2vbwfJaf",
-              "instanceKey": "course:recuIhA3y15ipUpNe:topic:rec94JklXBmpXn1Ky:resource:reclTSrJE2vbwfJaf",
-              "title": "Early Voices",
-              "author": "Mary Alice Downie",
-              "isbn": "9781554887699",
-              "asin": "",
-              "isbnAsin": "9781554887699",
-              "imagePath": "img/resources/reclTSrJE2vbwfJaf.webp",
-              "placeholderPath": "img/placeholders/book.svg",
-              "optional": false,
-              "chooseOne": false,
-              "gradeLevelTag": "",
-              "formatTags": "Ebook",
-              "formatOptions": [
-                {
-                  "type": "ebook",
-                  "label": "Ebook"
-                }
-              ],
-              "rationale": "This collection of writings by 29 different women presents a kaleidoscope image of Canada's history. The wide range of individual voices, backgrounds, and histories provided by these primary documents complement the other historical non-fiction and fiction read during the year.",
-              "noteText": "This book will be used over multiple years during high school",
-              "maySubText": "",
-              "discountText": "",
-              "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
-              "sharedText": "Canadian History: Grades 11-12\nCanadian History: Grades 9-10",
-              "purchaseOptions": [
-                {
-                  "label": "Option 1",
-                  "url": "",
-                  "memberOnly": false,
-                  "memberstackId": ""
-                },
-                {
-                  "label": "Option 2",
-                  "url": "",
-                  "memberOnly": false,
-                  "memberstackId": ""
-                }
-              ]
-            },
-            {
               "resourceId": "recrsNiVJtNacZvR9",
               "instanceKey": "course:recuIhA3y15ipUpNe:topic:rec94JklXBmpXn1Ky:resource:recrsNiVJtNacZvR9",
               "title": "The Underground Railroad: Next Stop, Toronto!",
@@ -3093,51 +3052,6 @@
               "maySubText": "",
               "discountText": "",
               "scopeText": "Term 1",
-              "sharedText": "",
-              "purchaseOptions": [
-                {
-                  "label": "Option 1",
-                  "url": "",
-                  "memberOnly": false,
-                  "memberstackId": ""
-                },
-                {
-                  "label": "Option 2",
-                  "url": "",
-                  "memberOnly": false,
-                  "memberstackId": ""
-                }
-              ]
-            },
-            {
-              "resourceId": "recerCcBPX6VYGc7c",
-              "instanceKey": "course:recuIhA3y15ipUpNe:topic:rec94JklXBmpXn1Ky:resource:recerCcBPX6VYGc7c",
-              "title": "Red Wolf",
-              "author": "Jennifer Dance",
-              "isbn": "978-1459708105",
-              "asin": "",
-              "isbnAsin": "978-1459708105",
-              "imagePath": "img/resources/recerCcBPX6VYGc7c.webp",
-              "placeholderPath": "img/placeholders/book.svg",
-              "optional": false,
-              "chooseOne": false,
-              "gradeLevelTag": "",
-              "formatTags": "Ebook, Audiobook",
-              "formatOptions": [
-                {
-                  "type": "ebook",
-                  "label": "Ebook"
-                },
-                {
-                  "type": "audiobook",
-                  "label": "Audiobook"
-                }
-              ],
-              "rationale": "A harrowing and heartbreaking story of the impact of the Indian Act of 1876 on Indigenous families and communities through one child's experience of the Indian Residential School system. This novel is beautifully written and rich in historical detail, presenting an honest introduction to a dark chapter of Canada’s history.",
-              "noteText": "",
-              "maySubText": "",
-              "discountText": "",
-              "scopeText": "Term 2\nTerm 3",
               "sharedText": "",
               "purchaseOptions": [
                 {
@@ -3220,6 +3134,51 @@
               "discountText": "",
               "scopeText": "Term 2",
               "sharedText": "Canadian History: Grades 7-8\nCanadian History: Grades 9-10",
+              "purchaseOptions": [
+                {
+                  "label": "Option 1",
+                  "url": "",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                },
+                {
+                  "label": "Option 2",
+                  "url": "",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                }
+              ]
+            },
+            {
+              "resourceId": "recerCcBPX6VYGc7c",
+              "instanceKey": "course:recuIhA3y15ipUpNe:topic:rec94JklXBmpXn1Ky:resource:recerCcBPX6VYGc7c",
+              "title": "Red Wolf",
+              "author": "Jennifer Dance",
+              "isbn": "978-1459708105",
+              "asin": "",
+              "isbnAsin": "978-1459708105",
+              "imagePath": "img/resources/recerCcBPX6VYGc7c.webp",
+              "placeholderPath": "img/placeholders/book.svg",
+              "optional": false,
+              "chooseOne": false,
+              "gradeLevelTag": "",
+              "formatTags": "Ebook, Audiobook",
+              "formatOptions": [
+                {
+                  "type": "ebook",
+                  "label": "Ebook"
+                },
+                {
+                  "type": "audiobook",
+                  "label": "Audiobook"
+                }
+              ],
+              "rationale": "A harrowing and heartbreaking story of the impact of the Indian Act of 1876 on Indigenous families and communities through one child's experience of the Indian Residential School system. This novel is beautifully written and rich in historical detail, presenting an honest introduction to a dark chapter of Canada’s history.",
+              "noteText": "",
+              "maySubText": "",
+              "discountText": "",
+              "scopeText": "Term 3",
+              "sharedText": "",
               "purchaseOptions": [
                 {
                   "label": "Option 1",
@@ -6476,7 +6435,14 @@
               "discountText": "",
               "scopeText": "Term 1\nTerm 2\nTerm 3",
               "sharedText": "",
-              "purchaseOptions": []
+              "purchaseOptions": [
+                {
+                  "label": "PDF",
+                  "url": "",
+                  "memberOnly": true,
+                  "memberstackId": "chemistry-lab-book"
+                }
+              ]
             }
           ]
         }
@@ -6715,7 +6681,14 @@
               "discountText": "",
               "scopeText": "Term 1\nTerm 2\nTerm 3",
               "sharedText": "",
-              "purchaseOptions": []
+              "purchaseOptions": [
+                {
+                  "label": "PDF",
+                  "url": "",
+                  "memberOnly": true,
+                  "memberstackId": "biology-lab-book"
+                }
+              ]
             }
           ]
         }
