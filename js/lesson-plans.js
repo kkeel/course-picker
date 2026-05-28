@@ -685,8 +685,10 @@ function render() {
           const topicList = topicsByCourseId[course.id] || [];
 
           if (topicList.length) {
+            const topicsOpen = state.openTopics.has(course.id);
+          
             return `
-              <section class="topic-group">
+              <section class="topic-group ${topicsOpen ? "is-topics-open" : ""}">
                 <div class="topic-group-head">
                   <div class="topic-group-topline">
                     <div>
@@ -698,10 +700,13 @@ function render() {
                       </h3>
                     </div>
                   </div>
-
-                  ${renderActionButtons(course)}
+          
+                  ${renderActionButtons(course, {
+                    type: "course",
+                    showTopicsToggle: true,
+                  })}
                 </div>
-
+          
                 <div class="topic-items">
                   ${topicList.map(renderTopicCard).join("")}
                 </div>
@@ -872,6 +877,36 @@ async function initDirectory() {
     searchInput.addEventListener("input", (event) => {
       state.query = event.target.value;
       render();
+    });
+
+    document.getElementById("topic-group-list").addEventListener("click", (event) => {
+      const toolsButton = event.target.closest("[data-card-tools]");
+      const topicsButton = event.target.closest("[data-card-topics]");
+    
+      if (toolsButton) {
+        const itemId = toolsButton.dataset.cardTools;
+    
+        if (state.openTools.has(itemId)) {
+          state.openTools.delete(itemId);
+        } else {
+          state.openTools.add(itemId);
+        }
+    
+        render();
+        return;
+      }
+    
+      if (topicsButton) {
+        const itemId = topicsButton.dataset.cardTopics;
+    
+        if (state.openTopics.has(itemId)) {
+          state.openTopics.delete(itemId);
+        } else {
+          state.openTopics.add(itemId);
+        }
+    
+        render();
+      }
     });
 
     document.getElementById("clear-filters").addEventListener("click", async () => {
