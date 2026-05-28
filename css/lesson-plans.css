@@ -637,6 +637,19 @@ body.member-tools-enabled .book-member-toolbar-body {
   background: #ffffff;
 }
 
+.card-action-link.is-disabled,
+.card-action-link:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.card-action-link.is-disabled:hover,
+.card-action-link:disabled:hover {
+  border-color: var(--divider-subtle);
+  background: #fbfbf9;
+}
+
 .card-action-icon {
   width: 22px;
   height: 22px;
