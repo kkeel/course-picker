@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-25T11:59:22.722Z",
+  "lastUpdated": "2026-05-28T11:49:37.830Z",
   "rotation": "R3",
   "resources": [
     {
@@ -1577,7 +1577,14 @@
       "author": "Alveary",
       "isbnAsin": "",
       "resourceTagText": "Ebook",
-      "links": [],
+      "links": [
+        {
+          "text": "PDF",
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "biology-lab-book"
+        }
+      ],
       "flags": {
         "save": true,
         "print": true,
@@ -1604,7 +1611,14 @@
       "author": "Alveary",
       "isbnAsin": "",
       "resourceTagText": "Ebook",
-      "links": [],
+      "links": [
+        {
+          "text": "PDF",
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "chemistry-lab-book"
+        }
+      ],
       "flags": {
         "save": true,
         "print": true,
@@ -4700,8 +4714,7 @@
       "rationale": "This collection of writings by 29 different women presents a kaleidoscope image of Canada's history. The wide range of individual voices, backgrounds, and histories provided by these primary documents complement the other historical non-fiction and fiction read during the year.",
       "note": "This book will be used over multiple years during high school",
       "assignmentIdsR3": [
-        "recORcax5cPQKfRr8",
-        "rec5vdKASlsKmCGmP"
+        "recORcax5cPQKfRr8"
       ],
       "imageViewLink": "https://drive.google.com/uc?id=1PwJpkc1CN9c35xCP_C7S04tvjxfyQsVV",
       "bookEditUrl": "https://airtable.com/app1aju9e3YhfQTXd/pag8BT9Kl6uQ8sdqh?e0DsR=allRecords&uNjQ2=reclTSrJE2vbwfJaf"
@@ -12604,7 +12617,14 @@
       "author": "Alveary",
       "isbnAsin": "",
       "resourceTagText": "Ebook",
-      "links": [],
+      "links": [
+        {
+          "text": "PDF",
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "grade-4-lab-book"
+        }
+      ],
       "flags": {
         "save": true,
         "print": true,
@@ -12631,7 +12651,14 @@
       "author": "Alveary",
       "isbnAsin": "",
       "resourceTagText": "Ebook",
-      "links": [],
+      "links": [
+        {
+          "text": "PDF",
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "grade-5-lab-book"
+        }
+      ],
       "flags": {
         "save": true,
         "print": true,
@@ -12658,7 +12685,14 @@
       "author": "Alveary",
       "isbnAsin": "",
       "resourceTagText": "Ebook",
-      "links": [],
+      "links": [
+        {
+          "text": "PDF",
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "grade-6-lab-book"
+        }
+      ],
       "flags": {
         "save": true,
         "print": true,
@@ -12685,7 +12719,14 @@
       "author": "Alveary",
       "isbnAsin": "",
       "resourceTagText": "Ebook",
-      "links": [],
+      "links": [
+        {
+          "text": "PDF",
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "grade-7-lab-book"
+        }
+      ],
       "flags": {
         "save": true,
         "print": true,
@@ -12712,7 +12753,14 @@
       "author": "Alveary",
       "isbnAsin": "",
       "resourceTagText": "Ebook",
-      "links": [],
+      "links": [
+        {
+          "text": "PDF",
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "grade-8-lab-book"
+        }
+      ],
       "flags": {
         "save": true,
         "print": true,
