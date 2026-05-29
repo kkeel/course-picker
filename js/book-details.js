@@ -580,29 +580,66 @@ function escapeHtml(value) {
 }
 
 async function handleBookProtectedLinkClick(event, linkEl) {
-  const href = linkEl?.getAttribute("href") || "";
-  const needsAuth =
-    linkEl?.dataset?.memberOnly === "true" ||
-    href.includes("alveary.org/login") ||
-    href === "#";
-
-  if (!needsAuth) return true;
-
-  const auth = await window.AlvearyAuth?.whoami?.({ force: true });
-
-  if (auth?.ok) {
-    return true;
-  }
-
   event.preventDefault();
 
-  await window.AlvearyAuth?.openAuth?.("LOGIN");
+  const secureLinkId = linkEl?.dataset?.secureLinkId || "";
+  const fallbackHref = linkEl?.getAttribute("href") || "";
 
-  await window.AlvearyAuth?.whoami?.({ force: true });
+  let auth = await window.AlvearyAuth?.whoami?.({ force: true });
+
+  if (!auth?.ok) {
+    await window.AlvearyAuth?.openAuth?.("LOGIN");
+
+    auth = await window.AlvearyAuth?.whoami?.({ force: true });
+
+    if (!auth?.ok) return false;
+  }
+
+  if (secureLinkId) {
+    openMemberstackSecureLink(secureLinkId);
+    return false;
+  }
+
+  if (fallbackHref && fallbackHref !== "#" && !fallbackHref.includes("alveary.org/login")) {
+    window.open(fallbackHref, "_blank", "noopener,noreferrer");
+  }
+
+  return false;
+}
+
+function openMemberstackSecureLink(secureLinkId) {
+  const link = document.createElement("a");
+
+  link.href = "#";
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.style.display = "none";
+  link.setAttribute("data-ms-secure-link", secureLinkId);
+
+  document.body.appendChild(link);
 
   refreshMemberstackSecureLinks();
 
-  return false;
+  let tries = 0;
+
+  const timer = setInterval(() => {
+    tries += 1;
+
+    const href = link.getAttribute("href") || "";
+
+    if (href && href !== "#" && !href.includes("alveary.org/login")) {
+      clearInterval(timer);
+      window.open(href, "_blank", "noopener,noreferrer");
+      link.remove();
+      return;
+    }
+
+    if (tries > 20) {
+      clearInterval(timer);
+      link.remove();
+      console.warn("Could not resolve Memberstack secure link:", secureLinkId);
+    }
+  }, 150);
 }
 
 function refreshMemberstackSecureLinks() {
