@@ -579,6 +579,47 @@ function escapeHtml(value) {
     .replace(/'/g, "&#39;");
 }
 
+async function handleBookProtectedLinkClick(event, linkEl) {
+  const href = linkEl?.getAttribute("href") || "";
+  const needsAuth =
+    linkEl?.dataset?.memberOnly === "true" ||
+    href.includes("alveary.org/login") ||
+    href === "#";
+
+  if (!needsAuth) return true;
+
+  const auth = await window.AlvearyAuth?.whoami?.({ force: true });
+
+  if (auth?.ok) {
+    return true;
+  }
+
+  event.preventDefault();
+
+  await window.AlvearyAuth?.openAuth?.("LOGIN");
+
+  await window.AlvearyAuth?.whoami?.({ force: true });
+
+  refreshMemberstackSecureLinks();
+
+  return false;
+}
+
+function refreshMemberstackSecureLinks() {
+  const existing = document.querySelector('script[data-memberstack-app]');
+  if (!existing) return;
+
+  const clone = document.createElement("script");
+  clone.setAttribute(
+    "data-memberstack-app",
+    existing.getAttribute("data-memberstack-app") || ""
+  );
+  clone.src = existing.src;
+  clone.type = "text/javascript";
+
+  existing.parentNode.insertBefore(clone, existing.nextSibling);
+}
+
 function slugSubject(subject) {
   return String(subject || "")
     .trim()
@@ -1220,6 +1261,24 @@ function renderBookCard(book) {
                       ${purchaseOptions.map((option) => {
                         const label = option.label || "Link";
                         const url = option.url || "";
+                        const memberstackId = option.memberstackId || "";
+                        const isMemberOnly = Boolean(option.memberOnly && memberstackId);
+                      
+                        if (isMemberOnly) {
+                          return `
+                            <a
+                              class="book-link-pill book-link-pill--member"
+                              href="#"
+                              data-member-only="true"
+                              data-ms-secure-link="${escapeHtml(memberstackId)}"
+                              onclick="return handleBookProtectedLinkClick(event, this)"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              ${escapeHtml(label)}
+                            </a>
+                          `;
+                        }
                       
                         if (!url) {
                           return `<span class="book-link-pill book-link-pill--disabled">${escapeHtml(label)}</span>`;
@@ -1460,6 +1519,7 @@ function render() {
 
   const pageTitle = document.getElementById("book-title");
   if (pageTitle) pageTitle.textContent = title;
+
   const summary = document.getElementById("book-summary");
   if (summary) summary.textContent = isMasterView() ? "" : "";
 
@@ -1467,10 +1527,12 @@ function render() {
 
   if (!bookCount) {
     results.innerHTML = `<div class="empty-state">No books match these selections.</div>`;
+    setTimeout(refreshMemberstackSecureLinks, 0);
     return;
   }
 
   results.innerHTML = renderedHtml;
+  setTimeout(refreshMemberstackSecureLinks, 0);
 }
 
 async function loadFilterIndex() {
