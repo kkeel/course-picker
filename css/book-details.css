@@ -1632,25 +1632,49 @@ body.member-tools-enabled .member-tool-only {
 }
 
 .book-link-pill.is-checking-auth {
-  opacity: 0.78;
-  cursor: wait;
   pointer-events: none;
 }
 
-.book-link-pill.is-checking-auth::after {
-  content: "";
-  display: inline-block;
-  width: 0.65em;
-  height: 0.65em;
-  margin-left: 0.45em;
-  border: 2px solid currentColor;
-  border-right-color: transparent;
-  border-radius: 999px;
-  vertical-align: -0.1em;
-  animation: book-link-spin 0.75s linear infinite;
+.book-auth-status-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(38, 43, 38, 0.36);
+  backdrop-filter: blur(1px);
 }
 
-@keyframes book-link-spin {
+.book-auth-status-overlay.is-visible {
+  display: flex;
+}
+
+.book-auth-status-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  max-width: min(420px, calc(100vw - 40px));
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(89, 110, 94, 0.25);
+  border-radius: 18px;
+  background: #fffdf6;
+  color: #262b26;
+  box-shadow: 0 18px 50px rgba(38, 43, 38, 0.18);
+  font-weight: 650;
+}
+
+.book-auth-status-spinner {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex: 0 0 auto;
+  border: 2px solid #adb58f;
+  border-right-color: transparent;
+  border-radius: 999px;
+  animation: book-auth-spin 0.75s linear infinite;
+}
+
+@keyframes book-auth-spin {
   to {
     transform: rotate(360deg);
   }
