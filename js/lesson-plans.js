@@ -471,10 +471,10 @@ function renderActionButtons(item, options = {}) {
               data-card-topics="${escapeHtml(itemId)}"
             >
               ${
-                topicsOpen
-                  ? "Hide Topics ▼"
-                  : "View Topics ▲"
-              }
+                  topicsOpen
+                    ? "Hide Topics ▲"
+                    : "View Topics ▼"
+                }
             </button>
           `
           : ""
@@ -511,7 +511,7 @@ function renderActionButtons(item, options = {}) {
                 type="button"
                 data-card-tools="${escapeHtml(itemId)}"
               >
-                ▶ Hide Tools
+                ◀ Hide Tools
               </button>
             `
             : `
