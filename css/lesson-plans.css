@@ -661,6 +661,20 @@ body.member-tools-enabled .book-member-toolbar-body {
   background: #fbfbf9;
 }
 
+.card-action-link.is-editable-highlight {
+  border-color: #adb58f;
+  background: #f4eed9;
+}
+
+.card-action-link.is-editable-highlight:hover {
+  border-color: #596e5e;
+  background: #f6f2e1;
+}
+
+.card-action-link.is-editable-highlight .card-action-icon {
+  background: #e8e9e2;
+}
+
 .card-action-icon {
   width: 22px;
   height: 22px;
