@@ -1630,3 +1630,28 @@ body.member-tools-enabled .member-tool-only {
 .book-save-region {
   display: none !important;
 }
+
+.book-link-pill.is-checking-auth {
+  opacity: 0.78;
+  cursor: wait;
+  pointer-events: none;
+}
+
+.book-link-pill.is-checking-auth::after {
+  content: "";
+  display: inline-block;
+  width: 0.65em;
+  height: 0.65em;
+  margin-left: 0.45em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 999px;
+  vertical-align: -0.1em;
+  animation: book-link-spin 0.75s linear infinite;
+}
+
+@keyframes book-link-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
