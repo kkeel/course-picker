@@ -476,11 +476,23 @@ function renderActionButtons(item, options = {}) {
     },
     {
       key: "editableSheet",
-      label: "Editable Lessons",
+      label:
+        isDelayedPdf(item)
+          ? "Editable Lessons Coming Soon"
+          : !links.editableSheet
+            ? "No Editable Lesson Plans"
+            : "Editable Lessons",
       icon: "✏️",
-      url: links.editableSheet,
+      url:
+        isDelayedPdf(item) || isHiddenPdf(item)
+          ? ""
+          : links.editableSheet,
       external: true,
       highlight: true,
+      disabled:
+        isDelayedPdf(item) ||
+        isHiddenPdf(item) ||
+        !links.editableSheet,
     },
   ];
 
@@ -537,22 +549,38 @@ function renderActionButtons(item, options = {}) {
             ? `
               <div class="card-tool-links">
                 ${toolButtons
-                  .filter((button) => button.url)
+                  .filter((button) => {
+                    if (button.key === "editableSheet") {
+                      return true;
+                    }
+                  
+                    return button.url;
+                  })
                   .map(
-                    (button) => `
-                      <a
-                        class="card-action-link ${button.highlight ? "is-editable-highlight" : ""}"
-                        href="${escapeHtml(button.url)}"
-                        ${
-                          button.external
-                            ? `target="_blank" rel="noopener"`
-                            : ""
-                        }
-                      >
-                        <span class="card-action-icon">${escapeHtml(button.icon)}</span>
-                        <span class="card-action-label">${escapeHtml(button.label)}</span>
-                      </a>
-                    `
+                    (button) =>
+                      button.disabled
+                        ? `
+                          <span
+                            class="card-action-link is-disabled ${button.highlight ? "is-editable-highlight" : ""}"
+                          >
+                            <span class="card-action-icon">${escapeHtml(button.icon)}</span>
+                            <span class="card-action-label">${escapeHtml(button.label)}</span>
+                          </span>
+                        `
+                        : `
+                          <a
+                            class="card-action-link ${button.highlight ? "is-editable-highlight" : ""}"
+                            href="${escapeHtml(button.url)}"
+                            ${
+                              button.external
+                                ? `target="_blank" rel="noopener"`
+                                : ""
+                            }
+                          >
+                            <span class="card-action-icon">${escapeHtml(button.icon)}</span>
+                            <span class="card-action-label">${escapeHtml(button.label)}</span>
+                          </a>
+                        `
                   )
                   .join("")}
               </div>
