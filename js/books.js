@@ -52,7 +52,10 @@
       // ---- Read-only data holders (no UI changes yet) ----
       isLoadingBookData: false,
       bookDataError: "",
-
+      
+      protectedLinkBusy: false,
+      protectedLinkMessage: "Checking membership…",
+      
       assignmentsData: null,
       resourcesData: null,
 
@@ -83,6 +86,112 @@
         if (typeof this.persistPlannerStateDebounced === "function") {
           this.persistPlannerStateDebounced();
         }
+      },
+
+      async openProtectedBookLink(lnk) {
+        if (!lnk) return false;
+      
+        const fallbackUrl = String(lnk.url || "").trim();
+        const secureLinkId = String(
+          lnk.memberstackId ||
+          lnk.memberstackContentId ||
+          lnk.secureLinkId ||
+          ""
+        ).trim();
+      
+        if (this.protectedLinkBusy) return false;
+      
+        this.protectedLinkBusy = true;
+        this.protectedLinkMessage = "Checking membership…";
+      
+        try {
+          let auth = await window.AlvearyAuth?.whoami?.({ force: true });
+      
+          if (!auth?.ok || !(auth.role === "member" || auth.role === "staff")) {
+            this.protectedLinkMessage = "Opening sign in…";
+      
+            await window.AlvearyAuth?.openAuth?.("LOGIN");
+      
+            this.protectedLinkMessage = "Checking membership…";
+      
+            auth = await window.AlvearyAuth?.whoami?.({ force: true });
+      
+            if (!auth?.ok || !(auth.role === "member" || auth.role === "staff")) {
+              this.protectedLinkMessage = "Membership required.";
+              await new Promise((resolve) => setTimeout(resolve, 1200));
+              return false;
+            }
+          }
+      
+          this.protectedLinkMessage = "Opening…";
+      
+          if (secureLinkId) {
+            await this.openMemberstackSecureBookLink(secureLinkId);
+            return false;
+          }
+      
+          if (fallbackUrl && fallbackUrl !== "#" && !fallbackUrl.includes("alveary.org/login")) {
+            window.open(fallbackUrl, "_blank", "noopener,noreferrer");
+          }
+      
+          return false;
+        } catch (error) {
+          console.warn("Protected book link failed", error);
+          this.protectedLinkMessage = "Unable to verify membership.";
+          await new Promise((resolve) => setTimeout(resolve, 1200));
+          return false;
+        } finally {
+          this.protectedLinkBusy = false;
+        }
+      },
+      
+      openMemberstackSecureBookLink(secureLinkId) {
+        return new Promise((resolve) => {
+          const link = document.createElement("a");
+      
+          link.href = "#";
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.style.display = "none";
+          link.setAttribute("data-ms-secure-link", secureLinkId);
+      
+          document.body.appendChild(link);
+      
+          const existing = document.querySelector("script[data-memberstack-app]");
+          if (existing) {
+            const clone = document.createElement("script");
+            clone.setAttribute(
+              "data-memberstack-app",
+              existing.getAttribute("data-memberstack-app") || ""
+            );
+            clone.src = existing.src;
+            clone.type = "text/javascript";
+            existing.parentNode.insertBefore(clone, existing.nextSibling);
+          }
+      
+          let tries = 0;
+      
+          const timer = setInterval(() => {
+            tries += 1;
+      
+            const href = link.getAttribute("href") || "";
+      
+            if (href && href !== "#" && !href.includes("alveary.org/login")) {
+              clearInterval(timer);
+              window.open(href, "_blank", "noopener,noreferrer");
+              link.remove();
+              resolve(true);
+              return;
+            }
+      
+            if (tries > 20) {
+              clearInterval(timer);
+              link.remove();
+              console.warn("Could not resolve Memberstack secure link:", secureLinkId);
+              resolve(false);
+            }
+          }, 150);
+        });
       },
 
       listViewModeClass() {
