@@ -229,12 +229,16 @@
   
       const links = [
         {
-          label: "Extra Helpings",
+          label: quickLinks.extraHelpingsUrl
+            ? "Extra Helpings"
+            : "No Extra Helpings",
           icon: "🍯",
           url: quickLinks.extraHelpingsUrl || "#"
         },
         {
-          label: "Book List Details",
+          label: quickLinks.bookListUrl
+            ? "Book List Details"
+            : "No Books",
           icon: "📚",
           url: quickLinks.bookListUrl || "#"
         },
