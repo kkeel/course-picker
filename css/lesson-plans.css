@@ -681,7 +681,7 @@ body.member-tools-enabled .book-member-toolbar-body {
   width: 22px;
   height: 22px;
   border-radius: 7px;
-  background: #eef1e8;
+  background: #e5e8e5;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -771,11 +771,6 @@ body.member-tools-enabled .book-member-toolbar-body {
   color: var(--brand-text);
 }
 
-.topic-group-head .card-action-link.is-primary .card-action-icon,
-.topic-group-course-only .card-action-link.is-primary .card-action-icon {
-  background: rgba(255,255,255,0.5);
-}
-
 .topic-card .card-action-link {
   border-color: #adb58f;
 }
@@ -786,8 +781,10 @@ body.member-tools-enabled .book-member-toolbar-body {
   color: var(--brand-text);
 }
 
+.topic-group-head .card-action-link.is-primary .card-action-icon,
+.topic-group-course-only .card-action-link.is-primary .card-action-icon,
 .topic-card .card-action-link.is-primary .card-action-icon {
-  background: #eef1e8;
+  background: #fbfbf9;
 }
 
 /* =========================================================
