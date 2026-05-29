@@ -18,23 +18,25 @@ function showLessonPlansAuthGate_() {
   const main = document.querySelector("main.directory-shell");
   if (!main) return;
 
+  main.classList.add("lesson-plans-gate-shell");
+
   main.innerHTML = `
-    <section class="directory-page-header">
-      <div class="directory-header-main">
-        <h1 class="directory-title">Lesson Plans</h1>
+    <section class="lesson-plans-member-gate">
+      <h2 class="section-title">Lesson Plans</h2>
+
+      <div class="mt-6 p-6 rounded-lg border border-[#d2d6d2] bg-white max-w-2xl">
+        <p class="text-sm text-[#596e5e] mb-4">
+          This lesson plan directory is available to Alveary members.
+        </p>
+
+        <button
+          type="button"
+          class="auth-button text-sm px-4 py-2 rounded border border-[#596e5e] text-[#596e5e] hover:bg-[#596e5e] hover:text-white transition"
+          id="lessonPlansLoginButton"
+        >
+          Sign in to view lesson plans
+        </button>
       </div>
-    </section>
-
-    <section class="directory-empty-state">
-      <p>This lesson plan directory is available to Alveary members.</p>
-
-      <button
-        type="button"
-        class="directory-empty-action"
-        id="lessonPlansLoginButton"
-      >
-        Sign in to view lesson plans
-      </button>
     </section>
   `;
 
