@@ -35,6 +35,127 @@
       }
     ]
   },
-  "updatedAt": "2026-05-29T15:12:58.327Z",
-  "terms": []
+  "updatedAt": "2026-05-29T15:38:07.748Z",
+  "terms": [
+    {
+      "termNumber": 2,
+      "term": "Term 2",
+      "weeks": [
+        {
+          "weekNumber": 13,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "rec6yl6sZTVpvdH5n",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 13,
+              "weekLabel": "Week 1",
+              "sequence": 13,
+              "sort": 0,
+              "lessonLabel": "Lesson 13",
+              "linkLabel": "Econ/Civics",
+              "title": "40m Econ/Civics: Grade 11 (Canada) - Lesson 13",
+              "topicTitle": "Econ/Civics",
+              "anchor": "term-2-week-13-lesson-13",
+              "links": [
+                {
+                  "text": "How to Mark a Book by Mortimer Adler",
+                  "url": "https://drive.google.com/file/d/1QDZHH4Kp_Qj67MvQFGkqz0MSuQOivxgR/view?usp=drive_link"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 21,
+          "weekLabel": "Week 9",
+          "lessons": [
+            {
+              "lessonId": "reclp87zlbZ7EvcjZ",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 21,
+              "weekLabel": "Week 9",
+              "sequence": 21,
+              "sort": 0,
+              "lessonLabel": "Lesson 21",
+              "linkLabel": "Econ/Civics",
+              "title": "40m Econ/Civics: Grade 11 (Canada) - Lesson 21",
+              "topicTitle": "Econ/Civics",
+              "anchor": "term-2-week-21-lesson-21",
+              "links": [
+                {
+                  "text": "People's History Dear Mr Prime Minister",
+                  "url": "https://www.youtube.com/watch?v=Fb1xXll9ofc"
+                },
+                {
+                  "text": "The Portrait of R.B. Bennett",
+                  "url": "https://www.youtube.com/watch?v=B0dIXlkaDTc&t=2s"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 3,
+      "term": "Term 3",
+      "weeks": [
+        {
+          "weekNumber": 25,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recdgKvaU7Atjrg6a",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 25,
+              "sort": 0,
+              "lessonLabel": "Lesson 25",
+              "linkLabel": "Econ/Civics",
+              "title": "40m Econ/Civics: Grade 11 (Canada) - Lesson 25",
+              "topicTitle": "Econ/Civics",
+              "anchor": "term-3-week-25-lesson-25",
+              "links": [
+                {
+                  "text": "Marginal Tax Rate (TaxEDU)",
+                  "url": "https://taxfoundation.org/tax-basics/marginal-tax-rate/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 31,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "recYqqLbx6OUZRpYV",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 31,
+              "weekLabel": "Week 7",
+              "sequence": 31,
+              "sort": 0,
+              "lessonLabel": "Lesson 31",
+              "linkLabel": "Econ/Civics",
+              "title": "40m Econ/Civics: Grade 11 (Canada) - Lesson 31",
+              "topicTitle": "Econ/Civics",
+              "anchor": "term-3-week-31-lesson-31",
+              "links": [
+                {
+                  "text": "What is Accounting? (Aplos)",
+                  "url": "https://www.aplos.com/training/courses/fund-accounting-101/lessons/what-is-accounting/"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
