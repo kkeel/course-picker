@@ -6,6 +6,25 @@ const STORAGE_KEYS = {
   memberTools: "lessonPlansMemberTools",
 };
 
+const SUBJECT_ORDER = [
+  "Architecture",
+  "Art",
+  "Bible",
+  "Citizenship",
+  "English",
+  "Geography",
+  "History",
+  "Latin",
+  "Life Skills",
+  "Literature",
+  "Math",
+  "Modern Language",
+  "Music",
+  "Physical Education",
+  "Science",
+  "Alt. Science Options",
+];
+
 const state = {
   allRows: [],
   rows: [],
@@ -99,7 +118,16 @@ function populatePrimarySelect() {
       }).join("")}
     `;
   } else {
-    const subjects = uniqueSorted(state.allRows.map((row) => row.subject));
+    const subjectsInRows = new Set(
+      state.allRows.map((row) => row.subject).filter(Boolean)
+    );
+    
+    const subjects = [
+      ...SUBJECT_ORDER.filter((subject) => subjectsInRows.has(subject)),
+      ...uniqueSorted(
+        [...subjectsInRows].filter((subject) => !SUBJECT_ORDER.includes(subject))
+      ),
+    ];
 
     select.innerHTML = `
       <option value="">All Subjects</option>
