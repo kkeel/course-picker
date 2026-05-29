@@ -133,6 +133,15 @@
   pointer-events: none;
 }
 
+.links-quick-access-card.is-coming-soon {
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.links-quick-access-card.is-coming-soon .links-quick-access-label {
+  font-style: italic;
+}
+
 .links-quick-access-icon {
   width: 34px;
   height: 34px;
