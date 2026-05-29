@@ -479,20 +479,15 @@ function renderActionButtons(item, options = {}) {
       label:
         isDelayedPdf(item)
           ? "Editable Lessons Coming Soon"
-          : !links.editableSheet
-            ? "No Editable Lesson Plans"
-            : "Editable Lessons",
+          : "Editable Lessons",
       icon: "✏️",
       url:
-        isDelayedPdf(item) || isHiddenPdf(item)
+        isDelayedPdf(item)
           ? ""
           : links.editableSheet,
       external: true,
       highlight: true,
-      disabled:
-        isDelayedPdf(item) ||
-        isHiddenPdf(item) ||
-        !links.editableSheet,
+      disabled: isDelayedPdf(item),
     },
   ];
 
@@ -549,13 +544,7 @@ function renderActionButtons(item, options = {}) {
             ? `
               <div class="card-tool-links">
                 ${toolButtons
-                  .filter((button) => {
-                    if (button.key === "editableSheet") {
-                      return true;
-                    }
-                  
-                    return button.url;
-                  })
+                  .filter((button) => button.url || button.disabled)
                   .map(
                     (button) =>
                       button.disabled
