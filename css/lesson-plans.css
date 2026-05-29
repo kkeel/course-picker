@@ -1199,6 +1199,14 @@ body.member-tools-enabled .book-member-toolbar-body {
   flex: 1;
 }
 
+.lesson-delivery-coming-soon {
+  margin: 8px 0 0;
+  color: var(--brand-dark);
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
 .lesson-delivery-actions {
   margin-top: 10px;
   display: flex;
@@ -1227,7 +1235,8 @@ body.member-tools-enabled .book-member-toolbar-body {
   background: #ffffff;
 }
 
-.lesson-delivery-button.is-disabled {
+.lesson-delivery-button.is-disabled,
+.lesson-delivery-button:disabled {
   opacity: 0.48;
   cursor: not-allowed;
   pointer-events: none;
