@@ -43,8 +43,148 @@
       }
     ]
   },
-  "updatedAt": "2026-05-28T10:39:13.434Z",
+  "updatedAt": "2026-05-29T10:30:25.010Z",
   "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recnLBHIvmusoGQnf",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 2,
+              "sort": 0,
+              "lessonLabel": "Lesson 2",
+              "linkLabel": "Canadian History",
+              "title": "30m Canadian History: Grades 9-10 - Lesson 2",
+              "topicTitle": "Canadian History",
+              "anchor": "term-1-week-1-lesson-2",
+              "links": [
+                {
+                  "text": "Vermont & Quebec Map",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Champlainmap.svg"
+                },
+                {
+                  "text": "Patriot Rebellions in Quebec (1837-1838)",
+                  "url": "www.youtube.com/watch?v=CI6EkD-5LZI"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 3,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "recC9rF0dTgFSGtFt",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 3,
+              "weekLabel": "Week 3",
+              "sequence": 6,
+              "sort": 0,
+              "lessonLabel": "Lesson 6",
+              "linkLabel": "Canadian History",
+              "title": "30m Canadian History: Grades 9-10 - Lesson 6",
+              "topicTitle": "Canadian History",
+              "anchor": "term-1-week-3-lesson-6",
+              "links": [
+                {
+                  "text": "Katherine Jane Ellice",
+                  "url": "https://www.watercolourworld.org/collections/?s=&filter[creation.maker.name.value.keyword][]=Katherine+Jane+Ellice"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 6,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recxLxxPOgo5j1Jwq",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 6,
+              "weekLabel": "Week 6",
+              "sequence": 12,
+              "sort": 0,
+              "lessonLabel": "Lesson 12",
+              "linkLabel": "Canadian History",
+              "title": "30m Canadian History: Grades 9-10 - Lesson 12",
+              "topicTitle": "Canadian History",
+              "anchor": "term-1-week-6-lesson-12",
+              "links": [
+                {
+                  "text": "The French Canadian Exiles of 1840",
+                  "url": "https://canadabayheritage.asn.au/canada-bay-history/the-french-canadian-exiles-of-1840/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 7,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "recI5Xe78oYKlSfZO",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 7,
+              "weekLabel": "Week 7",
+              "sequence": 14,
+              "sort": 0,
+              "lessonLabel": "Lesson 14",
+              "linkLabel": "Canadian History",
+              "title": "30m Canadian History: Grades 9-10 - Lesson 14",
+              "topicTitle": "Canadian History",
+              "anchor": "term-1-week-7-lesson-14",
+              "links": [
+                {
+                  "text": "Association des Frères-Chasseurs",
+                  "url": "https://thecanadianencyclopedia.ca/en/article/association-des-freres-chasseurs"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 11,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "recYktNVJNkVi0ksu",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 11,
+              "weekLabel": "Week 11",
+              "sequence": 21,
+              "sort": 0,
+              "lessonLabel": "Lesson 21",
+              "linkLabel": "Canadian History",
+              "title": "40m Canadian History: Grades 9-10 - Lesson 21",
+              "topicTitle": "Canadian History",
+              "anchor": "term-1-week-11-lesson-21",
+              "links": [
+                {
+                  "text": "Nelson's Column and Notre Dame Street in 1830",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Monument_Nelson_Montreal.jpg"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     {
       "termNumber": 2,
       "term": "Term 2",
@@ -324,6 +464,32 @@
           ]
         },
         {
+          "weekNumber": 29,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "recBy4ktnNDxD4o7a",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 29,
+              "weekLabel": "Week 5",
+              "sequence": 58,
+              "sort": 0,
+              "lessonLabel": "Lesson 58",
+              "linkLabel": "Canadian History",
+              "title": "30m Canadian History: Grades 9-10 - Lesson 58",
+              "topicTitle": "Canadian History",
+              "anchor": "term-3-week-29-lesson-58",
+              "links": [
+                {
+                  "text": "The Bishop Who Ate His Boots",
+                  "url": "http://www.stringercam.com/bishop_boots.html"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "weekNumber": 30,
           "weekLabel": "Week 6",
           "lessons": [
@@ -340,32 +506,6 @@
               "title": "30m Canadian History: Grades 9-10 - Lesson 60",
               "topicTitle": "Canadian History",
               "anchor": "term-3-week-30-lesson-60",
-              "links": [
-                {
-                  "text": "The Bishop Who Ate His Boots",
-                  "url": "http://www.stringercam.com/bishop_boots.html"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "weekNumber": 31,
-          "weekLabel": "Week 7",
-          "lessons": [
-            {
-              "lessonId": "reckNQIQLLVPYNrYz",
-              "termNumber": 3,
-              "termLabel": "Term 3",
-              "weekNumber": 31,
-              "weekLabel": "Week 7",
-              "sequence": 62,
-              "sort": 0,
-              "lessonLabel": "Lesson 62",
-              "linkLabel": "Canadian History",
-              "title": "30m Canadian History: Grades 9-10 - Lesson 62",
-              "topicTitle": "Canadian History",
-              "anchor": "term-3-week-31-lesson-62",
               "links": [
                 {
                   "text": "The Smoking Hills",

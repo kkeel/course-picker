@@ -28,6 +28,43 @@
       }
     ]
   },
-  "updatedAt": "2026-05-28T10:39:13.480Z",
-  "terms": []
+  "updatedAt": "2026-05-29T10:30:25.060Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "rec9Y2ql8hjzD5Mer",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 0,
+              "lessonLabel": "Lesson 1",
+              "linkLabel": "General Lit",
+              "title": "30m General Lit: Grades 7-8 - Lesson 1",
+              "topicTitle": "General Lit",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "George MacDonald: The Man Behind Middle Earth and Narnia",
+                  "url": "https://youtu.be/_1PmIgX7Uuw?si=QNrjNR74h4gBlLpV"
+                },
+                {
+                  "text": "George MacDonald biography",
+                  "url": "https://www.worksofmacdonald.com/about/introduction"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

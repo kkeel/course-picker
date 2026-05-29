@@ -44,12 +44,42 @@
       }
     ]
   },
-  "updatedAt": "2026-05-28T10:39:13.433Z",
+  "updatedAt": "2026-05-29T10:30:25.008Z",
   "terms": [
     {
       "termNumber": 1,
       "term": "Term 1",
       "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recy6nHgMHpniHYLY",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 2,
+              "sort": 100104,
+              "lessonLabel": "",
+              "linkLabel": "Canadian History",
+              "title": "30m Canadian History: Grades 9-10 - Lesson 2",
+              "topicTitle": "Canadian History",
+              "anchor": "term-1-week-1-lesson-2",
+              "links": [
+                {
+                  "text": "Vermont & Quebec Map",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Champlainmap.svg"
+                },
+                {
+                  "text": "Patriot Rebellions in Quebec (1837-1838)",
+                  "url": "www.youtube.com/watch?v=CI6EkD-5LZI"
+                }
+              ]
+            }
+          ]
+        },
         {
           "weekNumber": 3,
           "weekLabel": "Week 3",
@@ -75,6 +105,26 @@
                 {
                   "text": "Why Should We Care About the Past?",
                   "url": "https://vimeo.com/1178494208/e339ca6ee9"
+                }
+              ]
+            },
+            {
+              "lessonId": "recAf2E7DiKhcvwiJ",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 3,
+              "weekLabel": "Week 3",
+              "sequence": 6,
+              "sort": 100304,
+              "lessonLabel": "",
+              "linkLabel": "Canadian History",
+              "title": "30m Canadian History: Grades 9-10 - Lesson 6",
+              "topicTitle": "Canadian History",
+              "anchor": "term-1-week-3-lesson-6",
+              "links": [
+                {
+                  "text": "Katherine Jane Ellice",
+                  "url": "https://www.watercolourworld.org/collections/?s=&filter[creation.maker.name.value.keyword][]=Katherine+Jane+Ellice"
                 }
               ]
             }
@@ -133,6 +183,32 @@
           ]
         },
         {
+          "weekNumber": 6,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recHiwSdzmYvN8V3N",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 6,
+              "weekLabel": "Week 6",
+              "sequence": 12,
+              "sort": 100604,
+              "lessonLabel": "",
+              "linkLabel": "Canadian History",
+              "title": "30m Canadian History: Grades 9-10 - Lesson 12",
+              "topicTitle": "Canadian History",
+              "anchor": "term-1-week-6-lesson-12",
+              "links": [
+                {
+                  "text": "The French Canadian Exiles of 1840",
+                  "url": "https://canadabayheritage.asn.au/canada-bay-history/the-french-canadian-exiles-of-1840/"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "weekNumber": 7,
           "weekLabel": "Week 7",
           "lessons": [
@@ -163,6 +239,26 @@
                   "url": "https://vimeo.com/1179331499/f8db497493"
                 }
               ]
+            },
+            {
+              "lessonId": "reczhDi8oJJAn7wtj",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 7,
+              "weekLabel": "Week 7",
+              "sequence": 14,
+              "sort": 100704,
+              "lessonLabel": "",
+              "linkLabel": "Canadian History",
+              "title": "30m Canadian History: Grades 9-10 - Lesson 14",
+              "topicTitle": "Canadian History",
+              "anchor": "term-1-week-7-lesson-14",
+              "links": [
+                {
+                  "text": "Association des Frères-Chasseurs",
+                  "url": "https://thecanadianencyclopedia.ca/en/article/association-des-freres-chasseurs"
+                }
+              ]
             }
           ]
         },
@@ -187,6 +283,32 @@
                 {
                   "text": "Primary vs. Secondary Sources: The Differences Explained | Scribbr",
                   "url": "https://www.youtube.com/watch?v=CPQ95B95bWE"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 11,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "recLa5ET6jVmQVoXK",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 11,
+              "weekLabel": "Week 11",
+              "sequence": 21,
+              "sort": 101102,
+              "lessonLabel": "",
+              "linkLabel": "Canadian History",
+              "title": "40m Canadian History: Grades 9-10 - Lesson 21",
+              "topicTitle": "Canadian History",
+              "anchor": "term-1-week-11-lesson-21",
+              "links": [
+                {
+                  "text": "Nelson's Column and Notre Dame Street in 1830",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Monument_Nelson_Montreal.jpg"
                 }
               ]
             }
@@ -617,6 +739,26 @@
                   "url": "https://timemaps.com/history/italy-200ad/"
                 }
               ]
+            },
+            {
+              "lessonId": "recTmXTnB5BPgQ1ve",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 29,
+              "weekLabel": "Week 5",
+              "sequence": 58,
+              "sort": 302904,
+              "lessonLabel": "",
+              "linkLabel": "Canadian History",
+              "title": "30m Canadian History: Grades 9-10 - Lesson 58",
+              "topicTitle": "Canadian History",
+              "anchor": "term-3-week-29-lesson-58",
+              "links": [
+                {
+                  "text": "The Bishop Who Ate His Boots",
+                  "url": "http://www.stringercam.com/bishop_boots.html"
+                }
+              ]
             }
           ]
         },
@@ -659,8 +801,12 @@
               "anchor": "term-3-week-30-lesson-60",
               "links": [
                 {
-                  "text": "The Bishop Who Ate His Boots",
-                  "url": "http://www.stringercam.com/bishop_boots.html"
+                  "text": "The Smoking Hills",
+                  "url": "https://www.atlasobscura.com/places/smoking-hills"
+                },
+                {
+                  "text": "A spectacular phenomenon - the Smoking Hills Northwest Territories",
+                  "url": "https://www.youtube.com/shorts/TJCYP7rb1S0"
                 }
               ]
             }
@@ -687,30 +833,6 @@
                 {
                   "text": "Europe 200 AD Map",
                   "url": "https://timemaps.com/history/italy-200ad/"
-                }
-              ]
-            },
-            {
-              "lessonId": "recyn77r989CY43vb",
-              "termNumber": 3,
-              "termLabel": "Term 3",
-              "weekNumber": 31,
-              "weekLabel": "Week 7",
-              "sequence": 62,
-              "sort": 303104,
-              "lessonLabel": "",
-              "linkLabel": "Canadian History",
-              "title": "30m Canadian History: Grades 9-10 - Lesson 62",
-              "topicTitle": "Canadian History",
-              "anchor": "term-3-week-31-lesson-62",
-              "links": [
-                {
-                  "text": "The Smoking Hills",
-                  "url": "https://www.atlasobscura.com/places/smoking-hills"
-                },
-                {
-                  "text": "A spectacular phenomenon - the Smoking Hills Northwest Territories",
-                  "url": "https://www.youtube.com/shorts/TJCYP7rb1S0"
                 }
               ]
             }

@@ -14,7 +14,7 @@
     "Canadian History: Grades 7-8"
   ],
   "quickLinks": {
-    "extraHelpingsUrl": "",
+    "extraHelpingsUrl": "https://planning.alveary.org/extra-helpings.html?id=recws9yuKmAFWhfH1",
     "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recws9yuKmAFWhfH1",
     "supplyListUrl": "",
     "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
@@ -57,7 +57,7 @@
       }
     ]
   },
-  "updatedAt": "2026-05-28T10:39:13.426Z",
+  "updatedAt": "2026-05-29T10:30:25.001Z",
   "terms": [
     {
       "termNumber": 1,
@@ -682,6 +682,32 @@
           ]
         },
         {
+          "weekNumber": 16,
+          "weekLabel": "Week 4",
+          "lessons": [
+            {
+              "lessonId": "recpKEIvAyttZlzOj",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 16,
+              "weekLabel": "Week 4",
+              "sequence": 16,
+              "sort": 201601,
+              "lessonLabel": "",
+              "linkLabel": "World History",
+              "title": "30m World History: Grades 7-8 - Lesson 16",
+              "topicTitle": "World History",
+              "anchor": "term-2-week-16-lesson-16",
+              "links": [
+                {
+                  "text": "Map of Mexico",
+                  "url": "https://www.worldometers.info/img/maps/mexico_physical_map.gif"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "weekNumber": 17,
           "weekLabel": "Week 5",
           "lessons": [
@@ -838,6 +864,26 @@
                 {
                   "text": "Europe 200 AD Map",
                   "url": "https://timemaps.com/history/italy-200ad/"
+                }
+              ]
+            },
+            {
+              "lessonId": "recIpiDa0XsKgAD3L",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 50,
+              "sort": 302504,
+              "lessonLabel": "",
+              "linkLabel": "Canadian History",
+              "title": "30m Canadian History: Grades 7-8 - Lesson 50",
+              "topicTitle": "Canadian History",
+              "anchor": "term-3-week-25-lesson-50",
+              "links": [
+                {
+                  "text": "Buxton School House Tour",
+                  "url": "https://www.youtube.com/watch?v=-lTzbYF4VFg"
                 }
               ]
             }
@@ -1076,6 +1122,26 @@
                 {
                   "text": "Europe 200 AD Map",
                   "url": "https://timemaps.com/history/italy-200ad/"
+                }
+              ]
+            },
+            {
+              "lessonId": "recbqOBhtFuqBJxGg",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 34,
+              "weekLabel": "Week 10",
+              "sequence": 68,
+              "sort": 303404,
+              "lessonLabel": "",
+              "linkLabel": "Canadian History",
+              "title": "30m Canadian History: Grades 7-8 - Lesson 68",
+              "topicTitle": "Canadian History",
+              "anchor": "term-3-week-34-lesson-68",
+              "links": [
+                {
+                  "text": "The Ontario black history landmark you never knew about",
+                  "url": "https://www.tvo.org/article/the-ontario-black-history-landmark-you-never-knew-about"
                 }
               ]
             }
