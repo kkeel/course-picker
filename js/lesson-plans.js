@@ -386,7 +386,6 @@ function getActionLinks(item) {
     lessonPdf: safeLink(links.lessonPdf),
     editableSheet: safeLink(links.editableSheet),
     extraHelpings: safeLink(links.extraHelpings),
-    delivery: safeLink(links.delivery),
   };
 }
 
@@ -438,13 +437,6 @@ function renderActionButtons(item, options = {}) {
       label: "Extra Helpings",
       icon: "🍯",
       url: links.extraHelpings,
-    },
-    {
-      key: "delivery",
-      label: "Get Delivered",
-      icon: "📦",
-      url: links.delivery,
-      disabled: !links.delivery,
     },
   ];
 
