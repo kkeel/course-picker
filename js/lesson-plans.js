@@ -1,3 +1,56 @@
+const LESSON_PLANS_SCRIPT_URL =
+  document.currentScript?.src || "./js/lesson-plans.js";
+
+async function getLessonPlansAuth_() {
+  if (window.AlvearyAuth?.whoami) {
+    return window.AlvearyAuth.whoami();
+  }
+
+  const authModuleUrl = new URL("auth.js", LESSON_PLANS_SCRIPT_URL).href;
+  const auth = await import(authModuleUrl);
+
+  return auth.whoami();
+}
+
+function showLessonPlansAuthGate_() {
+  document.body.classList.remove("is-auth-checking");
+
+  const main = document.querySelector("main.directory-shell");
+  if (!main) return;
+
+  main.innerHTML = `
+    <section class="lesson-plans-auth-message">
+      <h1>Member access required</h1>
+      <p>Please sign in with your Alveary account to view lesson plans.</p>
+      <button class="lesson-plans-auth-button" type="button" id="lessonPlansLoginButton">
+        Sign in
+      </button>
+    </section>
+  `;
+
+  document.getElementById("lessonPlansLoginButton")?.addEventListener("click", async () => {
+    await window.AlvearyAuth?.openAuth?.("LOGIN");
+    window.location.reload();
+  });
+}
+
+async function requireLessonPlansMemberAccess_() {
+  try {
+    const auth = await getLessonPlansAuth_();
+    const role = String(auth?.role || "public").toLowerCase();
+
+    if (role === "member" || role === "staff") {
+      document.body.classList.remove("is-auth-checking");
+      return true;
+    }
+  } catch (error) {
+    console.warn("Lesson Plans auth check failed", error);
+  }
+
+  showLessonPlansAuthGate_();
+  return false;
+}
+
 const DIRECTORY_INDEX_URL = "./data/lesson-plans-index.json";
 
 const STORAGE_KEYS = {
@@ -860,7 +913,10 @@ function setActiveView(view) {
 }
 
 async function initDirectory() {
-  try {
+    const authorized = await requireLessonPlansMemberAccess_();
+    if (!authorized) return;
+  
+    try {
     const urlState = getUrlState();
 
     state.base = urlState.base;
