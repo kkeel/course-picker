@@ -19,11 +19,21 @@ function showLessonPlansAuthGate_() {
   if (!main) return;
 
   main.innerHTML = `
-    <section class="lesson-plans-auth-message">
-      <h1>Member access required</h1>
-      <p>Please sign in with your Alveary account to view lesson plans.</p>
-      <button class="lesson-plans-auth-button" type="button" id="lessonPlansLoginButton">
-        Sign in
+    <section class="directory-page-header">
+      <div class="directory-header-main">
+        <h1 class="directory-title">Lesson Plans</h1>
+      </div>
+    </section>
+
+    <section class="directory-empty-state">
+      <p>This lesson plan directory is available to Alveary members.</p>
+
+      <button
+        type="button"
+        class="directory-empty-action"
+        id="lessonPlansLoginButton"
+      >
+        Sign in to view lesson plans
       </button>
     </section>
   `;
