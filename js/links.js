@@ -255,9 +255,14 @@
             "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY"
         },
         {
-          label: "Lesson PDF",
+          label:
+            quickLinks.lessonPdfLabel ||
+            "Lesson PDF",
           icon: "📝",
-          url: quickLinks.lessonPdfUrl || "#"
+          url: quickLinks.lessonPdfUrl || "#",
+          status:
+            quickLinks.lessonPdfStatus ||
+            "none"
         }
       ];
   
@@ -279,11 +284,22 @@
         });
   
       const primaryHtml = links.map(link => {
-        const isDisabled = !link.url || link.url === "#";
+        const isComingSoon = link.status === "coming-soon";
+      
+        const isDisabled =
+          isComingSoon ||
+          !link.url ||
+          link.url === "#";
 
         return `
           <a
-            class="links-quick-access-card ${isDisabled ? "is-disabled" : ""}"
+            class="links-quick-access-card ${
+              isComingSoon
+                ? "is-coming-soon"
+                : isDisabled
+                  ? "is-disabled"
+                  : ""
+            }"
             href="${escapeHtml(isDisabled ? "#" : link.url)}"
             target="_blank"
             rel="noopener"
@@ -291,7 +307,9 @@
           >
             <span class="links-quick-access-icon">${escapeHtml(link.icon)}</span>
             <span class="links-quick-access-label">${escapeHtml(link.label)}</span>
-            <span class="links-quick-access-arrow">↗</span>
+            <span class="links-quick-access-arrow">
+              ${isComingSoon ? "⏳" : isDisabled ? "" : "↗"}
+            </span>
           </a>
         `;
       }).join("");
