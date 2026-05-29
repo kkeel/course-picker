@@ -1261,21 +1261,21 @@ function renderBookCard(book) {
                       ${purchaseOptions.map((option) => {
                         const label = option.label || "Link";
                         const url = option.url || "";
-                        const memberstackId = option.memberstackId || "";
-                        const isMemberOnly = Boolean(option.memberOnly && memberstackId);
+                        const memberstackId = option.memberstackId || option.memberstackContentId || option.secureLinkId || "";
+                        const isMemberOnly = Boolean(option.memberOnly || memberstackId);
                       
                         if (isMemberOnly) {
                           return `
                             <a
                               class="book-link-pill book-link-pill--member"
-                              href="#"
+                              href="${escapeHtml(url || "#")}"
                               data-member-only="true"
-                              data-ms-secure-link="${escapeHtml(memberstackId)}"
+                              ${memberstackId ? `data-ms-secure-link="${escapeHtml(memberstackId)}"` : ""}
                               onclick="return handleBookProtectedLinkClick(event, this)"
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-                              ${escapeHtml(label)}
+                              ${escapeHtml(label || "Sign in")}
                             </a>
                           `;
                         }
