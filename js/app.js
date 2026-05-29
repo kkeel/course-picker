@@ -2909,7 +2909,7 @@ function coursePlanner() {
   { key: "courses", label: "Courses", href: "courses.html", status: "ready", icon: "course-list.svg" },
   { key: "schedule", label: "Schedule", href: "schedule.html", status: "ready", icon: "schedule.svg" },
   { key: "books", label: "Books", href: "books.html", status: "ready", icon: "book-list.svg" },
-  { key: "lesson-plans", label: "Lesson Plans", href: null, status: "soon", icon: "lesson-plans.svg" },
+  { key: "lesson-plans", label: "Lesson Plans", href: "lesson-plans.html", status: "ready", icon: "lesson-plans.svg", audience: "staff" },
   { key: "supply-intro", label: "Supply Planning Intro", href: "supply-intro.html", status: "ready", icon: "course-planning-intro.svg" },
   { key: "supplies", label: "Supplies", href: "supplies.html", status: "ready", icon: "supplies.svg" },
   { key: "exams", label: "Exams", href: null, status: "soon", icon: "exams.svg" },
