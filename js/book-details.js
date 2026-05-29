@@ -580,26 +580,47 @@ function escapeHtml(value) {
 }
 
 function setProtectedLinkBusy(linkEl, message = "Checking membership…") {
-  if (!linkEl) return;
-
-  if (!linkEl.dataset.originalLabel) {
-    linkEl.dataset.originalLabel = linkEl.textContent.trim();
+  if (linkEl) {
+    linkEl.classList.add("is-checking-auth");
+    linkEl.setAttribute("aria-busy", "true");
   }
 
-  linkEl.classList.add("is-checking-auth");
-  linkEl.setAttribute("aria-busy", "true");
-  linkEl.textContent = message;
+  let overlay = document.getElementById("book-auth-status-overlay");
+
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "book-auth-status-overlay";
+    overlay.className = "book-auth-status-overlay";
+    overlay.setAttribute("role", "status");
+    overlay.setAttribute("aria-live", "polite");
+
+    overlay.innerHTML = `
+      <div class="book-auth-status-card">
+        <div class="book-auth-status-spinner" aria-hidden="true"></div>
+        <div class="book-auth-status-text"></div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+  }
+
+  const text = overlay.querySelector(".book-auth-status-text");
+  if (text) text.textContent = message;
+
+  overlay.classList.add("is-visible");
+  document.body.classList.add("book-auth-is-busy");
 }
 
 function clearProtectedLinkBusy(linkEl) {
-  if (!linkEl) return;
-
-  linkEl.classList.remove("is-checking-auth");
-  linkEl.removeAttribute("aria-busy");
-
-  if (linkEl.dataset.originalLabel) {
-    linkEl.textContent = linkEl.dataset.originalLabel;
+  if (linkEl) {
+    linkEl.classList.remove("is-checking-auth");
+    linkEl.removeAttribute("aria-busy");
   }
+
+  const overlay = document.getElementById("book-auth-status-overlay");
+  if (overlay) overlay.classList.remove("is-visible");
+
+  document.body.classList.remove("book-auth-is-busy");
 }
 
 async function handleBookProtectedLinkClick(event, linkEl) {
