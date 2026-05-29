@@ -1270,7 +1270,7 @@ function renderBookCard(book) {
                               class="book-link-pill book-link-pill--member"
                               href="${escapeHtml(url || "#")}"
                               data-member-only="true"
-                              ${memberstackId ? `data-ms-secure-link="${escapeHtml(memberstackId)}"` : ""}
+                              data-secure-link-id="${escapeHtml(memberstackId)}"
                               onclick="return handleBookProtectedLinkClick(event, this)"
                               target="_blank"
                               rel="noopener noreferrer"
