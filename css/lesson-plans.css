@@ -18,6 +18,34 @@
    2. BASE PAGE / APP HEADER
    ========================================================= */
 
+.lesson-plans-gate-shell {
+  max-width: 90rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 32px 64px 64px;
+}
+
+.lesson-plans-gate-shell .section-title {
+  font-family: "Plantin MT Pro", "Times New Roman", serif;
+  font-size: 48px;
+  font-weight: 200;
+  margin-bottom: 0.5rem;
+  color: var(--brand-text);
+}
+
+@media (max-width: 1024px) {
+  .lesson-plans-gate-shell {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .lesson-plans-gate-shell {
+    padding: 24px 16px 48px;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
