@@ -87,12 +87,54 @@
       }
     ]
   },
-  "updatedAt": "2026-05-29T14:09:30.768Z",
+  "updatedAt": "2026-05-29T15:12:58.317Z",
   "terms": [
     {
       "termNumber": 1,
       "term": "Term 1",
       "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recHveI7VCR9ZTUFl",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100102,
+              "lessonLabel": "",
+              "linkLabel": "Plutarch/Government",
+              "title": "30m Plutarch/Government: Grade 9 (Canada) - Lesson 1",
+              "topicTitle": "Plutarch/Government",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Retelling of Caesar (from Our Young Folks' Plutarch) ",
+                  "url": "https://www.heritage-history.com/index.php?c=read&author=kaufman&book=plutarch&story=caesar"
+                },
+                {
+                  "text": "Julius Caesar Image",
+                  "url": "https://en.wikipedia.org/wiki/Julius_Caesar#/media/File:Retrato_de_Julio_César_(26724093101)_(cropped).jpg"
+                },
+                {
+                  "text": "Julius Caesar Video",
+                  "url": "https://vimeo.com/1193331676/77ba7b165d"
+                },
+                {
+                  "text": "Character Cards",
+                  "url": "https://www.teacherspayteachers.com/Product/Plutarchs-Lives-Bundle-Julius-Caesar-Agis-Cleomenes-Tiberius-Gaius-15470373"
+                },
+                {
+                  "text": "Character Simulator",
+                  "url": "https://vimeo.com/1193327119/534010b4cf"
+                }
+              ]
+            }
+          ]
+        },
         {
           "weekNumber": 7,
           "weekLabel": "Week 7",
@@ -114,6 +156,54 @@
                 {
                   "text": "Calumny of Apelles",
                   "url": "https://www.wikiart.org/en/sandro-botticelli/calumny-of-apelles"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 3,
+      "term": "Term 3",
+      "weeks": [
+        {
+          "weekNumber": 25,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recAPIpulyjayJlkm",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 25,
+              "sort": 302502,
+              "lessonLabel": "",
+              "linkLabel": "Plutarch/Government",
+              "title": "30m Plutarch/Government: Grade 9 (Canada) - Lesson 25",
+              "topicTitle": "Plutarch/Government",
+              "anchor": "term-3-week-25-lesson-25",
+              "links": [
+                {
+                  "text": "Our Young Folks' Plutarch - Tiberius Gracchus",
+                  "url": "https://www.heritage-history.com/index.php?c=read&author=kaufman&book=plutarch&story=tiberius"
+                },
+                {
+                  "text": "Our Young Folks' Plutarch - Caius Gracchus",
+                  "url": "https://www.heritage-history.com/index.php?c=read&author=kaufman&book=plutarch&story=gracchus "
+                },
+                {
+                  "text": "Tiberius and Caius Gracchus",
+                  "url": "https://commons.wikimedia.org/wiki/File:Eugene_Guillaume_-_the_Gracchi.jpg"
+                },
+                {
+                  "text": "Tiberius Video",
+                  "url": "https://vimeo.com/1193330726/452e57448f"
+                },
+                {
+                  "text": "Gaius Video",
+                  "url": "https://vimeo.com/1193330261/887d867a85"
                 }
               ]
             }
