@@ -462,48 +462,50 @@ function renderActionButtons(item, options = {}) {
 
       <span class="card-action-divider">|</span>
 
+      ${
+        showTopicsToggle
+          ? `
+            <button
+              class="card-inline-toggle card-topic-toggle"
+              type="button"
+              data-card-topics="${escapeHtml(itemId)}"
+            >
+              ${
+                topicsOpen
+                  ? "Hide Topics ▼"
+                  : "View Topics ▲"
+              }
+            </button>
+          `
+          : ""
+      }
+      
       <div class="card-tool-slot">
-
         ${
           toolsOpen
             ? `
               <div class="card-tool-links">
                 ${toolButtons
+                  .filter((button) => button.url)
                   .map(
                     (button) => `
-                      ${
-                        button.disabled
-                          ? `
-                            <button
-                              class="card-action-link is-disabled"
-                              type="button"
-                              disabled
-                              title="Print delivery coming soon"
-                            >
-                              <span class="card-action-icon">${escapeHtml(button.icon)}</span>
-                              <span class="card-action-label">${escapeHtml(button.label)}</span>
-                            </button>
-                          `
-                          : `
-                            <a
-                              class="card-action-link"
-                              href="${escapeHtml(button.url)}"
-                              ${
-                                button.external
-                                  ? `target="_blank" rel="noopener"`
-                                  : ""
-                              }
-                            >
-                              <span class="card-action-icon">${escapeHtml(button.icon)}</span>
-                              <span class="card-action-label">${escapeHtml(button.label)}</span>
-                            </a>
-                          `
-                      }
+                      <a
+                        class="card-action-link"
+                        href="${escapeHtml(button.url)}"
+                        ${
+                          button.external
+                            ? `target="_blank" rel="noopener"`
+                            : ""
+                        }
+                      >
+                        <span class="card-action-icon">${escapeHtml(button.icon)}</span>
+                        <span class="card-action-label">${escapeHtml(button.label)}</span>
+                      </a>
                     `
                   )
                   .join("")}
               </div>
-
+      
               <button
                 class="card-inline-toggle card-tools-toggle"
                 type="button"
@@ -522,27 +524,7 @@ function renderActionButtons(item, options = {}) {
               </button>
             `
         }
-
       </div>
-
-      ${
-        showTopicsToggle
-          ? `
-            <button
-              class="card-inline-toggle card-topic-toggle"
-              type="button"
-              data-card-topics="${escapeHtml(itemId)}"
-            >
-              ${
-                topicsOpen
-                  ? "Hide Topics ▼"
-                  : "View Topics ▲"
-              }
-            </button>
-          `
-          : ""
-      }
-
     </div>
   `;
 }
