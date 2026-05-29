@@ -1057,38 +1057,6 @@ body.member-tools-enabled .book-member-toolbar-body {
   visibility: hidden;
 }
 
-.lesson-plans-auth-message {
-  max-width: 720px;
-  margin: 80px auto;
-  padding: 24px;
-  border: 1px solid var(--divider-subtle);
-  border-radius: 8px;
-  background: #ffffff;
-  color: var(--brand-text);
-}
-
-.lesson-plans-auth-message h1 {
-  margin: 0 0 10px;
-  font-family: "Plantin MT Pro", Georgia, serif;
-  font-size: 36px;
-  font-weight: 200;
-}
-
-.lesson-plans-auth-message p {
-  margin: 0 0 16px;
-  line-height: 1.5;
-}
-
-.lesson-plans-auth-button {
-  border: 1px solid var(--brand-dark);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--brand-dark);
-  font: inherit;
-  padding: 8px 16px;
-  cursor: pointer;
-}
-
 /* =========================================================
    VERSION 2 LESSON PLAN ACTIONS
    ========================================================= */
