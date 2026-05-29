@@ -380,6 +380,13 @@ function isDelayedPdf(row) {
   return row?.links?.pdfVisibility === "Delay PDF";
 }
 
+function shouldShowLessonPlanRow(row) {
+  if (isHiddenPdf(row)) return false;
+  if (isDelayedPdf(row)) return true;
+
+  return Boolean(safeLink(row?.links?.lessonPdf));
+}
+
 function hasLessonPdf(row) {
   return Boolean(safeLink(row?.links?.lessonPdf));
 }
@@ -583,7 +590,7 @@ function renderTopicCard(item) {
 
 function hydrateRows(rows) {
   const pdfRows = Array.isArray(rows)
-    ? rows.filter(row => !isHiddenPdf(row))
+    ? rows.filter(shouldShowLessonPlanRow)
     : [];
 
   state.rows = pdfRows;
@@ -634,13 +641,13 @@ async function loadSelectedView() {
   state.groups = rawGroups
     .map((group) => ({
       ...group,
-      rows: (group.rows || []).filter(row => !isHiddenPdf(row)),
+      rows: (group.rows || []).filter(shouldShowLessonPlanRow),
     }))
     .filter((group) => group.rows.length);
 
   const rows = state.groups.length
     ? state.groups.flatMap((group) => group.rows || [])
-    : (view.rows || []).filter(row => !isHiddenPdf(row));
+    : (view.rows || []).filter(shouldShowLessonPlanRow);
 
   hydrateRows(rows);
 
@@ -845,7 +852,7 @@ async function initDirectory() {
     const index = await response.json();
     const rows = Array.isArray(index.rows) ? index.rows : [];
     
-    state.allRows = rows.filter(row => !isHiddenPdf(row));
+    state.allRows = rows.filter(shouldShowLessonPlanRow);
     state.indexViews = index.views || {};
     
     populatePrimarySelect();
