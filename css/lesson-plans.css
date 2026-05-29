@@ -663,12 +663,12 @@ body.member-tools-enabled .book-member-toolbar-body {
 
 .card-action-link.is-editable-highlight {
   border-color: #adb58f;
-  background: #e0e1d2;
+  background: #fbfbf9;
 }
 
 .card-action-link.is-editable-highlight:hover {
   border-color: #596e5e;
-  background: #e0e1d2;
+  background: #fbfbf9;
 }
 
 .card-action-link.is-editable-highlight .card-action-icon {
