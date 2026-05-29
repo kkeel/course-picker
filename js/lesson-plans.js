@@ -488,6 +488,7 @@ function renderActionButtons(item, options = {}) {
       external: true,
       highlight: true,
       disabled: isDelayedPdf(item),
+      hasEditableSheet: Boolean(links.editableSheet),
     },
   ];
 
@@ -544,7 +545,13 @@ function renderActionButtons(item, options = {}) {
             ? `
               <div class="card-tool-links">
                 ${toolButtons
-                  .filter((button) => button.url || button.disabled)
+                  .filter((button) => {
+                    if (button.key === "editableSheet") {
+                      return button.hasEditableSheet;
+                    }
+                  
+                    return button.url;
+                  })
                   .map(
                     (button) =>
                       button.disabled
