@@ -1092,8 +1092,10 @@ body.member-tools-enabled .book-member-toolbar-body {
 }
 
 .card-tool-slot {
+  margin-left: auto;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
   min-width: 0;
   flex: 1 1 auto;
@@ -1127,8 +1129,7 @@ body.member-tools-enabled .book-member-toolbar-body {
 }
 
 .card-topic-toggle {
-  margin-left: auto;
-  text-align: right;
+  text-align: left;
 }
 
 .topic-items {
