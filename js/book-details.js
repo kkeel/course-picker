@@ -579,35 +579,80 @@ function escapeHtml(value) {
     .replace(/'/g, "&#39;");
 }
 
+function setProtectedLinkBusy(linkEl, message = "Checking membership…") {
+  if (!linkEl) return;
+
+  if (!linkEl.dataset.originalLabel) {
+    linkEl.dataset.originalLabel = linkEl.textContent.trim();
+  }
+
+  linkEl.classList.add("is-checking-auth");
+  linkEl.setAttribute("aria-busy", "true");
+  linkEl.textContent = message;
+}
+
+function clearProtectedLinkBusy(linkEl) {
+  if (!linkEl) return;
+
+  linkEl.classList.remove("is-checking-auth");
+  linkEl.removeAttribute("aria-busy");
+
+  if (linkEl.dataset.originalLabel) {
+    linkEl.textContent = linkEl.dataset.originalLabel;
+  }
+}
+
 async function handleBookProtectedLinkClick(event, linkEl) {
   event.preventDefault();
+
+  if (linkEl?.classList?.contains("is-checking-auth")) {
+    return false;
+  }
+
+  setProtectedLinkBusy(linkEl);
 
   const secureLinkId = linkEl?.dataset?.secureLinkId || "";
   const fallbackHref = linkEl?.getAttribute("href") || "";
 
-  let auth = await window.AlvearyAuth?.whoami?.({ force: true });
+  try {
+    let auth = await window.AlvearyAuth?.whoami?.({ force: true });
 
-  if (!auth?.ok) {
-    await window.AlvearyAuth?.openAuth?.("LOGIN");
+    if (!auth?.ok) {
+      setProtectedLinkBusy(linkEl, "Opening sign in…");
 
-    auth = await window.AlvearyAuth?.whoami?.({ force: true });
+      await window.AlvearyAuth?.openAuth?.("LOGIN");
 
-    if (!auth?.ok) return false;
-  }
+      setProtectedLinkBusy(linkEl, "Checking membership…");
 
-  if (secureLinkId) {
-    openMemberstackSecureLink(secureLinkId);
+      auth = await window.AlvearyAuth?.whoami?.({ force: true });
+
+      if (!auth?.ok) {
+        clearProtectedLinkBusy(linkEl);
+        return false;
+      }
+    }
+
+    setProtectedLinkBusy(linkEl, "Opening…");
+
+    if (secureLinkId) {
+      openMemberstackSecureLink(secureLinkId, linkEl);
+      return false;
+    }
+
+    if (fallbackHref && fallbackHref !== "#" && !fallbackHref.includes("alveary.org/login")) {
+      window.open(fallbackHref, "_blank", "noopener,noreferrer");
+    }
+
+    clearProtectedLinkBusy(linkEl);
+    return false;
+  } catch (error) {
+    console.warn("Protected link failed", error);
+    clearProtectedLinkBusy(linkEl);
     return false;
   }
-
-  if (fallbackHref && fallbackHref !== "#" && !fallbackHref.includes("alveary.org/login")) {
-    window.open(fallbackHref, "_blank", "noopener,noreferrer");
-  }
-
-  return false;
 }
 
-function openMemberstackSecureLink(secureLinkId) {
+function openMemberstackSecureLink(secureLinkId, sourceLinkEl = null) {
   const link = document.createElement("a");
 
   link.href = "#";
@@ -631,12 +676,14 @@ function openMemberstackSecureLink(secureLinkId) {
       clearInterval(timer);
       window.open(href, "_blank", "noopener,noreferrer");
       link.remove();
+      clearProtectedLinkBusy(sourceLinkEl);
       return;
     }
 
     if (tries > 20) {
       clearInterval(timer);
       link.remove();
+      clearProtectedLinkBusy(sourceLinkEl);
       console.warn("Could not resolve Memberstack secure link:", secureLinkId);
     }
   }, 150);
