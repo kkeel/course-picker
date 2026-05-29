@@ -408,10 +408,10 @@ function renderActionButtons(item, options = {}) {
 
   const toolButtons = [
     {
-      key: "lessonLinks",
-      label: "Links",
-      icon: "🔗",
-      url: links.lessonLinks,
+      key: "supplies",
+      label: "Supplies",
+      icon: "✂️",
+      url: links.supplies,
     },
     {
       key: "books",
@@ -420,10 +420,16 @@ function renderActionButtons(item, options = {}) {
       url: links.books,
     },
     {
-      key: "supplies",
-      label: "Supplies",
-      icon: "✂️",
-      url: links.supplies,
+      key: "lessonLinks",
+      label: "Links",
+      icon: "🔗",
+      url: links.lessonLinks,
+    },
+    {
+      key: "extraHelpings",
+      label: "Extra Helpings",
+      icon: "🍯",
+      url: links.extraHelpings,
     },
     {
       key: "editableSheet",
@@ -431,12 +437,7 @@ function renderActionButtons(item, options = {}) {
       icon: "✏️",
       url: links.editableSheet,
       external: true,
-    },
-    {
-      key: "extraHelpings",
-      label: "Extra Helpings",
-      icon: "🍯",
-      url: links.extraHelpings,
+      highlight: true,
     },
   ];
 
@@ -490,7 +491,7 @@ function renderActionButtons(item, options = {}) {
                   .map(
                     (button) => `
                       <a
-                        class="card-action-link"
+                        class="card-action-link ${button.highlight ? "is-editable-highlight" : ""}"
                         href="${escapeHtml(button.url)}"
                         ${
                           button.external
