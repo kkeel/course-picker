@@ -18,6 +18,8 @@
     "supplyListUrl": "",
     "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
     "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec2VXhvxGK38hpk1-u-s-history-grades-7-8.pdf",
+    "lessonPdfStatus": "active",
+    "lessonPdfLabel": "Lesson PDF",
     "additional": [
       {
         "label": "History Charts & Timelines Scope & Sample",
@@ -56,7 +58,7 @@
       }
     ]
   },
-  "updatedAt": "2026-05-29T16:28:19.173Z",
+  "updatedAt": "2026-05-29T19:44:37.380Z",
   "terms": [
     {
       "termNumber": 1,
@@ -113,6 +115,90 @@
                 {
                   "text": "Louisiana Purchase, 1803",
                   "url": "https://history.state.gov/milestones/1801-1829/louisiana-purchase"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 4,
+          "weekLabel": "Week 4",
+          "lessons": [
+            {
+              "lessonId": "rec5vck8rF09aHi42",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 4,
+              "weekLabel": "Week 4",
+              "sequence": 7,
+              "sort": 0,
+              "lessonLabel": "Lesson 7",
+              "linkLabel": "U.S. History",
+              "title": "30m U.S. History: Grades 7-8 - Lesson 7",
+              "topicTitle": "U.S. History",
+              "anchor": "term-1-week-4-lesson-7",
+              "links": [
+                {
+                  "text": "Trail of Tears",
+                  "url": "https://drive.google.com/file/d/1gsnqC277i7cj8b7upQxuaHpBvJp_iA11/view?usp=drive_link"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 2,
+      "term": "Term 2",
+      "weeks": [
+        {
+          "weekNumber": 18,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recbUlSvEICDJznFS",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 18,
+              "weekLabel": "Week 6",
+              "sequence": 36,
+              "sort": 0,
+              "lessonLabel": "Lesson 36",
+              "linkLabel": "U.S. History",
+              "title": "30m U.S. History: Grades 7-8 - Lesson 36",
+              "topicTitle": "U.S. History",
+              "anchor": "term-2-week-18-lesson-36",
+              "links": [
+                {
+                  "text": "Taiping Rebellion",
+                  "url": "https://illinois.pbslearningmedia.org/resource/taiping-rebellion-story-of-china/taiping-rebellion-story-of-china/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 20,
+          "weekLabel": "Week 8",
+          "lessons": [
+            {
+              "lessonId": "recw4XBLUsSQyGzMT",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 20,
+              "weekLabel": "Week 8",
+              "sequence": 40,
+              "sort": 0,
+              "lessonLabel": "Lesson 40",
+              "linkLabel": "U.S. History",
+              "title": "30m U.S. History: Grades 7-8 - Lesson 40",
+              "topicTitle": "U.S. History",
+              "anchor": "term-2-week-20-lesson-40",
+              "links": [
+                {
+                  "text": "Map of China",
+                  "url": "https://www.worldatlas.com/r/w960-q80/upload/b3/25/a7/cn-01.jpg"
                 }
               ]
             }

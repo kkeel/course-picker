@@ -18,6 +18,8 @@
     "supplyListUrl": "",
     "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
     "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recjFbzbQHFiDKuEN-canadian-history-grades-7-8.pdf",
+    "lessonPdfStatus": "active",
+    "lessonPdfLabel": "Lesson PDF",
     "additional": [
       {
         "label": "History Charts & Timelines Scope & Sample",
@@ -56,7 +58,7 @@
       }
     ]
   },
-  "updatedAt": "2026-05-29T16:28:19.178Z",
+  "updatedAt": "2026-05-29T19:44:37.385Z",
   "terms": [
     {
       "termNumber": 1,
@@ -203,12 +205,12 @@
               "anchor": "term-1-week-4-lesson-8",
               "links": [
                 {
-                  "text": "Blank Great Lakes Map",
-                  "url": "https://www.d-maps.com/carte.php?num_car=167231&lang=en"
-                },
-                {
                   "text": "The American War | 1812 Virtual Exhibition",
                   "url": "https://www.warmuseum.ca/war-of-1812/explore-history/the-american-war/"
+                },
+                {
+                  "text": "Blank Great Lakes Map",
+                  "url": "https://www.d-maps.com/carte.php?num_car=167231&lang=en"
                 }
               ]
             }

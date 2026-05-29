@@ -1877,6 +1877,25 @@
     "linkPageUrl": "./links.html?id=recmKSiBZiXiTeogS"
   },
   {
+    "id": "recutBeJZJFQSmU0W",
+    "title": "Commonplace",
+    "lessonSetName": "Commonplace: Grades 9-12",
+    "subject": "English",
+    "gradeText": "GRADE(S): 9-12",
+    "sortId": "006.001.009.005",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Language Study: Grade 9",
+      "Language Study: Grade 10",
+      "Language Study: Grade 11",
+      "Language Study: Grade 12"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recutBeJZJFQSmU0W"
+  },
+  {
     "id": "rec1mNFS0CpoTiiY1",
     "title": "Language Study",
     "lessonSetName": "Language Study: Grade 10",
@@ -2800,6 +2819,20 @@
     "linkPageUrl": "./links.html?id=rec7kjonSr0OBz5kh"
   },
   {
+    "id": "recYZlnPwbPmjZmwb",
+    "title": "Latin 1",
+    "lessonSetName": "Latin 1 (Video Course)",
+    "subject": "Latin",
+    "gradeText": "GRADE(S): 7+",
+    "sortId": "009.007.002.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recYZlnPwbPmjZmwb"
+  },
+  {
     "id": "recWU0Dj1J0rt9CDM",
     "title": "Latin 2",
     "lessonSetName": "Latin 2 (Independent Study)",
@@ -2812,6 +2845,48 @@
     "courseConnectionNames": [],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=recWU0Dj1J0rt9CDM"
+  },
+  {
+    "id": "recEwkGjtyroHgV1R",
+    "title": "Latin 2",
+    "lessonSetName": "Latin 2 (Video Course)",
+    "subject": "Latin",
+    "gradeText": "GRADE(S): 8+",
+    "sortId": "009.008.002.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recEwkGjtyroHgV1R"
+  },
+  {
+    "id": "recdVnyJqQDWlTKpR",
+    "title": "Latin 3",
+    "lessonSetName": "Latin 3",
+    "subject": "Latin",
+    "gradeText": "GRADE(S): 9+",
+    "sortId": "009.009.001.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recdVnyJqQDWlTKpR"
+  },
+  {
+    "id": "recycLF7Z2ng9RVTl",
+    "title": "Latin 4",
+    "lessonSetName": "Latin 4",
+    "subject": "Latin",
+    "gradeText": "GRADE(S): 10-12+",
+    "sortId": "009.010.001.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recycLF7Z2ng9RVTl"
   },
   {
     "id": "rech2GA4NRK0pGrqO",
@@ -3100,6 +3175,38 @@
     ],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=recqZwXfywCQoLNyJ"
+  },
+  {
+    "id": "recdlpC8UnGxOhpSZ",
+    "title": "Community Read Alouds",
+    "lessonSetName": "Community Read Alouds: Grades 1-12",
+    "subject": "Literature",
+    "gradeText": "GRADE(S): 1-12",
+    "sortId": "011.001.001.011",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Literature: Grade 1",
+      "Citizenship: Grade 4",
+      "Citizenship: Grade 5",
+      "Citizenship: Grade 6",
+      "Citizenship: Grade 7 (U.S.)",
+      "Citizenship: Grade 7 (Canada)",
+      "Citizenship: Grade 8 (U.S.)",
+      "Citizenship: Grade 8 (Canada)",
+      "Citizenship: Grade 9 (U.S.)",
+      "Citizenship: Grade 9 (Canada)",
+      "Citizenship: Grade 10 (U.S.)",
+      "Citizenship: Grade 10 (Canada)",
+      "Citizenship: Grade 11 (U.S.)",
+      "Citizenship: Grade 11 (Canada)",
+      "Citizenship: Grade 12",
+      "Literature: Grade 2",
+      "Literature: Grade 3"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recdlpC8UnGxOhpSZ"
   },
   {
     "id": "recJoxcXhTxtkVsai",
@@ -3751,6 +3858,31 @@
     "linkPageUrl": "./links.html?id=recHJenMoQE2N0d4B"
   },
   {
+    "id": "rechBr1klp07q5DHA",
+    "title": "Math Games",
+    "lessonSetName": "Math Games: Grades 1-8",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 1-8",
+    "sortId": "012.001.012.002",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Mathematics: Grade 1",
+      "Mathematics: Grade 2",
+      "Mathematics: Grade 3",
+      "Mathematics: Grade 4",
+      "Mathematics: Grade 5",
+      "Mathematics: Grade 6",
+      "Mathematics: Grade 7",
+      "Mathematics: Grade 8",
+      "Mathematics: Grade 7 (Denison)",
+      "Mathematics: Grade 8 (Denison)"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=rechBr1klp07q5DHA"
+  },
+  {
     "id": "recoJa1ta75vW3WbF",
     "title": "Mathematics",
     "lessonSetName": "Mathematics: Grade 2",
@@ -3966,6 +4098,39 @@
     "linkPageUrl": "./links.html?id=recJlZumjEUgeobT3"
   },
   {
+    "id": "rec5juQj1dJsT8yW7",
+    "title": "Mathematics",
+    "lessonSetName": "Mathematics: Grade 7 (Denison)",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 7",
+    "sortId": "012.008.007.000",
+    "rowType": "course",
+    "hasTopics": true,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [
+      "Math Lessons: Grade 7 (Denison)",
+      "Math Games: Grades 1-8"
+    ],
+    "linkPageUrl": "./links.html?id=rec5juQj1dJsT8yW7"
+  },
+  {
+    "id": "rec78JKlbLnC40Gfe",
+    "title": "Math Lessons",
+    "lessonSetName": "Math Lessons: Grade 7 (Denison)",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 7",
+    "sortId": "012.008.007.001",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Mathematics: Grade 7 (Denison)"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=rec78JKlbLnC40Gfe"
+  },
+  {
     "id": "recbnlGvqaxScUkOl",
     "title": "Mathematics",
     "lessonSetName": "Mathematics: Grade 8",
@@ -4014,6 +4179,267 @@
     ],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=rec1jHIwzgSj6uy59"
+  },
+  {
+    "id": "recPqAaYKNZk1NeSq",
+    "title": "Mathematics",
+    "lessonSetName": "Mathematics: Grade 8 (Denison)",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 8",
+    "sortId": "012.010.008.000",
+    "rowType": "course",
+    "hasTopics": true,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [
+      "Math Lessons: Grade 8 (Denison)",
+      "Math Games: Grades 1-8"
+    ],
+    "linkPageUrl": "./links.html?id=recPqAaYKNZk1NeSq"
+  },
+  {
+    "id": "rec8KH0dlph0jIUpf",
+    "title": "Math Lessons",
+    "lessonSetName": "Math Lessons: Grade 8 (Denison)",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 8",
+    "sortId": "012.010.008.001",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Mathematics: Grade 8 (Denison)"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=rec8KH0dlph0jIUpf"
+  },
+  {
+    "id": "recFr9MouOlHF7yqG",
+    "title": "Mathematics",
+    "lessonSetName": "Mathematics: Grade 9",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 9",
+    "sortId": "012.011.009.000",
+    "rowType": "course",
+    "hasTopics": true,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [
+      "Algebra 1: Part 2"
+    ],
+    "linkPageUrl": "./links.html?id=recFr9MouOlHF7yqG"
+  },
+  {
+    "id": "recrmETFmM8vfKg2P",
+    "title": "Algebra 1",
+    "lessonSetName": "Algebra 1: Part 2",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 9",
+    "sortId": "012.011.009.002",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Mathematics: Grade 9"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recrmETFmM8vfKg2P"
+  },
+  {
+    "id": "recXmmJNDgueRNk4c",
+    "title": "Geometry",
+    "lessonSetName": "Geometry: Part 1",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 9",
+    "sortId": "012.011.009.003",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recXmmJNDgueRNk4c"
+  },
+  {
+    "id": "recGM45MgvSbLYeXW",
+    "title": "Mathematics",
+    "lessonSetName": "Mathematics: Grade 9 (Denison)",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 9",
+    "sortId": "012.012.009.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recGM45MgvSbLYeXW"
+  },
+  {
+    "id": "recTbtQABTBtcqOWU",
+    "title": "Mathematics",
+    "lessonSetName": "Mathematics: Grade 10",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 10",
+    "sortId": "012.013.010.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recTbtQABTBtcqOWU"
+  },
+  {
+    "id": "recFMynuIixr8H4eE",
+    "title": "Algebra 2/Trigonometry",
+    "lessonSetName": "Algebra 2/Trigonometry: Part 1",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 10",
+    "sortId": "012.013.010.002",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recFMynuIixr8H4eE"
+  },
+  {
+    "id": "recIK8xpJ8QBgmOAp",
+    "title": "Geometry",
+    "lessonSetName": "Geometry: Part 2",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 10",
+    "sortId": "012.013.010.003",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recIK8xpJ8QBgmOAp"
+  },
+  {
+    "id": "rechhYXT0BvgTKnUV",
+    "title": "Mathematics",
+    "lessonSetName": "Mathematics: Grade 10 (Denison)",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 10",
+    "sortId": "012.014.010.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=rechhYXT0BvgTKnUV"
+  },
+  {
+    "id": "recEbVV9AfUEFJtAS",
+    "title": "Mathematics",
+    "lessonSetName": "Mathematics: Grade 11",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 11",
+    "sortId": "012.015.011.000",
+    "rowType": "course",
+    "hasTopics": true,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [
+      "Algebra 2/Trigonometry: Part 2",
+      "Pre-Calculus: Part 1"
+    ],
+    "linkPageUrl": "./links.html?id=recEbVV9AfUEFJtAS"
+  },
+  {
+    "id": "recDcQNO5PijuitA3",
+    "title": "Algebra 2/Trigonometry",
+    "lessonSetName": "Algebra 2/Trigonometry: Part 2",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 11",
+    "sortId": "012.015.011.001",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Mathematics: Grade 11"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recDcQNO5PijuitA3"
+  },
+  {
+    "id": "recDDSyn48JSd0tLu",
+    "title": "Pre-Calculus",
+    "lessonSetName": "Pre-Calculus: Part 1",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 11",
+    "sortId": "012.015.011.002",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Mathematics: Grade 11"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recDDSyn48JSd0tLu"
+  },
+  {
+    "id": "recX4ioHv5emciaob",
+    "title": "Mathematics",
+    "lessonSetName": "Mathematics: Grade 11 (Denison)",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 11",
+    "sortId": "012.016.011.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recX4ioHv5emciaob"
+  },
+  {
+    "id": "rec5jsVrXXRewf4ZT",
+    "title": "Mathematics",
+    "lessonSetName": "Mathematics: Grade 12",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 12",
+    "sortId": "012.017.012.000",
+    "rowType": "course",
+    "hasTopics": true,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [
+      "Pre-Calculus: Part 2",
+      "Calculus: Part 1"
+    ],
+    "linkPageUrl": "./links.html?id=rec5jsVrXXRewf4ZT"
+  },
+  {
+    "id": "rec0fRv1pQK8DzhYA",
+    "title": "Pre-Calculus",
+    "lessonSetName": "Pre-Calculus: Part 2",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 12",
+    "sortId": "012.017.012.001",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Mathematics: Grade 12"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=rec0fRv1pQK8DzhYA"
+  },
+  {
+    "id": "rec8qMhWphMYz5stD",
+    "title": "Calculus",
+    "lessonSetName": "Calculus: Part 1",
+    "subject": "Math",
+    "gradeText": "GRADE(S): 12",
+    "sortId": "012.017.012.002",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Mathematics: Grade 12"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=rec8qMhWphMYz5stD"
   },
   {
     "id": "recFzc62gdI8njsrI",
@@ -4086,6 +4512,76 @@
     "linkPageUrl": "./links.html?id=rec5lgyGmTryTXFqV"
   },
   {
+    "id": "recQEVYVhmQly4Gys",
+    "title": "Upper French",
+    "lessonSetName": "Upper French: Level 1",
+    "subject": "Modern Language",
+    "gradeText": "GRADE(S): 7+",
+    "sortId": "013.001.007.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recQEVYVhmQly4Gys"
+  },
+  {
+    "id": "rec0mbj1CzlCVVh8e",
+    "title": "Upper French",
+    "lessonSetName": "Upper French: Level 2",
+    "subject": "Modern Language",
+    "gradeText": "GRADE(S): 8+",
+    "sortId": "013.001.008.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=rec0mbj1CzlCVVh8e"
+  },
+  {
+    "id": "recqdi48TtS1Pf0hW",
+    "title": "Upper French",
+    "lessonSetName": "Upper French: Level 3",
+    "subject": "Modern Language",
+    "gradeText": "GRADE(S): 9+",
+    "sortId": "013.001.009.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recqdi48TtS1Pf0hW"
+  },
+  {
+    "id": "recwpdzlEG9loZ8x4",
+    "title": "Upper French",
+    "lessonSetName": "Upper French: Level 4",
+    "subject": "Modern Language",
+    "gradeText": "GRADE(S): 10",
+    "sortId": "013.001.010.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recwpdzlEG9loZ8x4"
+  },
+  {
+    "id": "rec9bgPLjFGYFeHWq",
+    "title": "Upper French",
+    "lessonSetName": "Upper French: Level 5",
+    "subject": "Modern Language",
+    "gradeText": "GRADE(S): 11-12",
+    "sortId": "013.001.011.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=rec9bgPLjFGYFeHWq"
+  },
+  {
     "id": "recvfB9zd1vOwauPP",
     "title": "Lower Spanish",
     "lessonSetName": "Lower Spanish: Grades 1-6",
@@ -4098,6 +4594,76 @@
     "courseConnectionNames": [],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=recvfB9zd1vOwauPP"
+  },
+  {
+    "id": "recu53s9Uycrt3KdA",
+    "title": "Upper Spanish",
+    "lessonSetName": "Upper Spanish: Level 1",
+    "subject": "Modern Language",
+    "gradeText": "GRADE(S): 7+",
+    "sortId": "013.002.007.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recu53s9Uycrt3KdA"
+  },
+  {
+    "id": "recpWhNFqz5mUtyP3",
+    "title": "Upper Spanish",
+    "lessonSetName": "Upper Spanish: Level 2",
+    "subject": "Modern Language",
+    "gradeText": "GRADE(S): 8+",
+    "sortId": "013.002.008.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recpWhNFqz5mUtyP3"
+  },
+  {
+    "id": "recCFj5XpCiodnLXW",
+    "title": "Upper Spanish",
+    "lessonSetName": "Upper Spanish: Level 3",
+    "subject": "Modern Language",
+    "gradeText": "GRADE(S): 9+",
+    "sortId": "013.002.009.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recCFj5XpCiodnLXW"
+  },
+  {
+    "id": "recTfLdszcLawcxSD",
+    "title": "Upper Spanish",
+    "lessonSetName": "Upper Spanish: Level 4",
+    "subject": "Modern Language",
+    "gradeText": "GRADE(S): 10+",
+    "sortId": "013.002.010.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recTfLdszcLawcxSD"
+  },
+  {
+    "id": "recmLIQ0KZhIfSCdJ",
+    "title": "Upper Spanish",
+    "lessonSetName": "Upper Spanish: Level 5",
+    "subject": "Modern Language",
+    "gradeText": "GRADE(S): 11-12",
+    "sortId": "013.002.011.000",
+    "rowType": "course",
+    "hasTopics": false,
+    "isStandaloneCourse": true,
+    "courseConnectionNames": [],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recmLIQ0KZhIfSCdJ"
   },
   {
     "id": "recbxa7tAimxQiAER",
@@ -4192,6 +4758,27 @@
     ],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=recH6yJs8s683UEjb"
+  },
+  {
+    "id": "recuH8Gbg2Zsk3YfH",
+    "title": "Afternoon Listening",
+    "lessonSetName": "Afternoon Listening",
+    "subject": "Music",
+    "gradeText": "GRADE(S): 1-12",
+    "sortId": "014.001.001.006",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Music: Intro",
+      "Music: Level 1",
+      "Music: Level 2",
+      "Music: Level 3",
+      "Music: Level 4",
+      "Music: Level 5"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recuH8Gbg2Zsk3YfH"
   },
   {
     "id": "recfWnzstisEbMksF",
@@ -4648,6 +5235,45 @@
     "linkPageUrl": "./links.html?id=recwBqOc4lmMXcM2L"
   },
   {
+    "id": "reci3cmbvtA1twTDz",
+    "title": "Nature Notebook",
+    "lessonSetName": "Nature Notebook: Grade 1",
+    "subject": "Science",
+    "gradeText": "GRADE(S): 1",
+    "sortId": "016.001.002.004",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Science: Grade 1"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=reci3cmbvtA1twTDz"
+  },
+  {
+    "id": "rec01dVZHduPzl704",
+    "title": "Nature Walks & Scouting",
+    "lessonSetName": "Nature Walks & Scouting: Grades 1-8",
+    "subject": "Science",
+    "gradeText": "GRADE(S): 1-8",
+    "sortId": "016.001.002.005",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Science: Grade 1",
+      "Science: Grade 2",
+      "Science: Grade 3",
+      "Science: Grade 4",
+      "Science: Grade 5",
+      "Science: Grade 6",
+      "Science: Grade 7",
+      "Science: Grade 8"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=rec01dVZHduPzl704"
+  },
+  {
     "id": "rec4PSJe5DvdQBNkI",
     "title": "Science",
     "lessonSetName": "Science: Grade 2",
@@ -4699,6 +5325,22 @@
     "linkPageUrl": "./links.html?id=recCXQZ8oUUFWnejN"
   },
   {
+    "id": "recfwFbjwURXmVcHG",
+    "title": "Nature Notebook",
+    "lessonSetName": "Nature Notebook: Grade 2",
+    "subject": "Science",
+    "gradeText": "GRADE(S): 2",
+    "sortId": "016.002.002.004",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Science: Grade 2"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recfwFbjwURXmVcHG"
+  },
+  {
     "id": "rec7fueb0YSSxfQPe",
     "title": "Science",
     "lessonSetName": "Science: Grade 3",
@@ -4748,6 +5390,22 @@
     ],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=recbZSk1ogEczQlcZ"
+  },
+  {
+    "id": "recNXSsUCLErAvVze",
+    "title": "Nature Notebook",
+    "lessonSetName": "Nature Notebook: Grade 3",
+    "subject": "Science",
+    "gradeText": "GRADE(S): 3",
+    "sortId": "016.003.002.004",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Science: Grade 3"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recNXSsUCLErAvVze"
   },
   {
     "id": "recL7jljihq9fktaT",
@@ -4818,6 +5476,22 @@
     "linkPageUrl": "./links.html?id=rec2f94XuSZMwo0v1"
   },
   {
+    "id": "recrru9SjnBTtPvCB",
+    "title": "Nature Notebook",
+    "lessonSetName": "Nature Notebook: Grade 4",
+    "subject": "Science",
+    "gradeText": "GRADE(S): 4",
+    "sortId": "016.004.002.004",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Science: Grade 4"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recrru9SjnBTtPvCB"
+  },
+  {
     "id": "reczHSLxyHMpisZMp",
     "title": "Science",
     "lessonSetName": "Science: Grade 5",
@@ -4884,6 +5558,22 @@
     ],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=recQJZSM8R2lmVTiZ"
+  },
+  {
+    "id": "reca3djrVV173a3dE",
+    "title": "Nature Notebook",
+    "lessonSetName": "Nature Notebook: Grade 5",
+    "subject": "Science",
+    "gradeText": "GRADE(S): 5",
+    "sortId": "016.005.002.004",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Science: Grade 5"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=reca3djrVV173a3dE"
   },
   {
     "id": "recm8QafJuO9s9fKP",
@@ -4954,6 +5644,22 @@
     "linkPageUrl": "./links.html?id=recYOEHT8vZGbZNw7"
   },
   {
+    "id": "recsvu3I7df1VWClJ",
+    "title": "Nature Notebook",
+    "lessonSetName": "Nature Notebook: Grade 6",
+    "subject": "Science",
+    "gradeText": "GRADE(S): 6",
+    "sortId": "016.006.002.004",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Science: Grade 6"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recsvu3I7df1VWClJ"
+  },
+  {
     "id": "recweO1dzNgjFJDZl",
     "title": "Science",
     "lessonSetName": "Science: Grade 7",
@@ -5020,6 +5726,22 @@
     ],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=recN5n38Wp9qNytu4"
+  },
+  {
+    "id": "recCADGKnoorm51Q6",
+    "title": "Nature Notebook",
+    "lessonSetName": "Nature Notebook: Grade 7",
+    "subject": "Science",
+    "gradeText": "GRADE(S): 7",
+    "sortId": "016.007.002.004",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Science: Grade 7"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recCADGKnoorm51Q6"
   },
   {
     "id": "recGKaAb6Nzs0xy6V",
@@ -5090,6 +5812,22 @@
     "linkPageUrl": "./links.html?id=recAVmSJ61vSdTrfR"
   },
   {
+    "id": "rec1jqW5sgh06DhPV",
+    "title": "Nature Notebook",
+    "lessonSetName": "Nature Notebook: Grade 8",
+    "subject": "Science",
+    "gradeText": "GRADE(S): 8",
+    "sortId": "016.008.002.004",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Science: Grade 8"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=rec1jqW5sgh06DhPV"
+  },
+  {
     "id": "rec1OB6KqxZdTWMBz",
     "title": "Science",
     "lessonSetName": "Science: Chemistry",
@@ -5123,6 +5861,70 @@
     ],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=rec9DDCe249pz6EBd"
+  },
+  {
+    "id": "recs0CZmYQYNc0gW6",
+    "title": "Chemistry Labs",
+    "lessonSetName": "Chemistry Labs",
+    "subject": "Science",
+    "gradeText": "GRADE(S): 9-12+",
+    "sortId": "016.009.002.003",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Science: Chemistry"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recs0CZmYQYNc0gW6"
+  },
+  {
+    "id": "recH7dK88YkNRwvPD",
+    "title": "Nature Notebook",
+    "lessonSetName": "Nature Notebook: Grades 9-12",
+    "subject": "Science",
+    "gradeText": "GRADE(S): 9-12",
+    "sortId": "016.009.002.004",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Science: Chemistry",
+      "Science: Biology",
+      "Science: Physics",
+      "Science: Botany",
+      "Science: Geology",
+      "Science: Microbiology",
+      "Science: Food Science",
+      "Science: Introduction to Engineering",
+      "Science: Astronomy"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recH7dK88YkNRwvPD"
+  },
+  {
+    "id": "recWt7LLnlqUsyMLX",
+    "title": "Nature Walks & Scouting",
+    "lessonSetName": "Nature Walks & Scouting: Grades 9-12",
+    "subject": "Science",
+    "gradeText": "GRADE(S): 9-12",
+    "sortId": "016.009.002.005",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Science: Chemistry",
+      "Science: Biology",
+      "Science: Physics",
+      "Science: Botany",
+      "Science: Geology",
+      "Science: Microbiology",
+      "Science: Food Science",
+      "Science: Introduction to Engineering",
+      "Science: Astronomy"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recWt7LLnlqUsyMLX"
   },
   {
     "id": "recwwf902tAlqLJvw",
@@ -5160,6 +5962,22 @@
     "linkPageUrl": "./links.html?id=reccNJhCeeDz4hFPh"
   },
   {
+    "id": "receyCRwNHNQ79mAT",
+    "title": "Biology Labs",
+    "lessonSetName": "Biology Labs",
+    "subject": "Science",
+    "gradeText": "GRADE(S): 10-12+",
+    "sortId": "016.010.002.002",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Science: Biology"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=receyCRwNHNQ79mAT"
+  },
+  {
     "id": "recboVDjU5FjNV0na",
     "title": "Science",
     "lessonSetName": "Science: Physics",
@@ -5193,6 +6011,22 @@
     ],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=reczytoRRePjtWqL0"
+  },
+  {
+    "id": "recUKbEtw4wcS6Wek",
+    "title": "Physics Labs",
+    "lessonSetName": "Physics Labs",
+    "subject": "Science",
+    "gradeText": "GRADE(S): 11-12",
+    "sortId": "016.011.002.003",
+    "rowType": "topic",
+    "hasTopics": false,
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Science: Physics"
+    ],
+    "topicConnectionNames": [],
+    "linkPageUrl": "./links.html?id=recUKbEtw4wcS6Wek"
   },
   {
     "id": "rech4K8qlYxESp4Hi",

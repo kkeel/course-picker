@@ -21,6 +21,8 @@
     "supplyListUrl": "",
     "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
     "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec6j5XLnrMBoubth-history-of-lit-grades-9-12.pdf",
+    "lessonPdfStatus": "active",
+    "lessonPdfLabel": "Lesson PDF",
     "additional": [
       {
         "label": "Foundations (See Section 9: Literature)",
@@ -31,12 +33,38 @@
       }
     ]
   },
-  "updatedAt": "2026-05-29T16:28:19.237Z",
+  "updatedAt": "2026-05-29T19:44:37.449Z",
   "terms": [
     {
       "termNumber": 1,
       "term": "Term 1",
       "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recZ30FvwkCDwOtEK",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 0,
+              "lessonLabel": "Lesson 1",
+              "linkLabel": "History of Lit",
+              "title": "30m History of Lit: Grades 9-12 - Lesson 1",
+              "topicTitle": "History of Lit",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "History of Lit PDF",
+                  "url": "https://drive.google.com/file/d/1gOXvfIxBuNRwQOuVW_hCT3JXFFKGPOXQ/view?usp=drive_link"
+                }
+              ]
+            }
+          ]
+        },
         {
           "weekNumber": 3,
           "weekLabel": "Week 3",
@@ -114,6 +142,10 @@
                 {
                   "text": "Percy Bysshe Shelley Biography",
                   "url": "https://www.ebsco.com/research-starters/history/percy-bysshe-shelley"
+                },
+                {
+                  "text": "History of Lit PDF",
+                  "url": "https://drive.google.com/file/d/1gOXvfIxBuNRwQOuVW_hCT3JXFFKGPOXQ/view?usp=drive_link"
                 }
               ]
             }
@@ -282,6 +314,10 @@
                 {
                   "text": "Poems by Emerson",
                   "url": "https://poets.org/poet/ralph-waldo-emerson#tabbed-content"
+                },
+                {
+                  "text": "History of Lit PDF",
+                  "url": "https://drive.google.com/file/d/1gOXvfIxBuNRwQOuVW_hCT3JXFFKGPOXQ/view?usp=drive_link"
                 }
               ]
             }
@@ -308,6 +344,36 @@
                 {
                   "text": "Biography of Henry David Thoreau",
                   "url": "https://thoreausociety.org/life-legacy/"
+                },
+                {
+                  "text": "History of Lit PDF",
+                  "url": "https://drive.google.com/file/d/1gOXvfIxBuNRwQOuVW_hCT3JXFFKGPOXQ/view?usp=drive_link"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 15,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "recSK1180oR6KcsE8",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 15,
+              "weekLabel": "Week 3",
+              "sequence": 15,
+              "sort": 0,
+              "lessonLabel": "Lesson 15",
+              "linkLabel": "History of Lit",
+              "title": "30m History of Lit: Grades 9-12 - Lesson 15",
+              "topicTitle": "History of Lit",
+              "anchor": "term-2-week-15-lesson-15",
+              "links": [
+                {
+                  "text": "History of Lit PDF",
+                  "url": "https://drive.google.com/file/d/1gOXvfIxBuNRwQOuVW_hCT3JXFFKGPOXQ/view?usp=drive_link"
                 }
               ]
             }
@@ -334,6 +400,10 @@
                 {
                   "text": "Walt Whitman Revolutionised American Poetry",
                   "url": "https://www.youtube.com/watch?v=wdqw8VUMETg"
+                },
+                {
+                  "text": "History of Lit PDF",
+                  "url": "https://drive.google.com/file/d/1gOXvfIxBuNRwQOuVW_hCT3JXFFKGPOXQ/view?usp=drive_link"
                 }
               ]
             }
@@ -368,6 +438,36 @@
                 {
                   "text": "Dickinson Letter 330",
                   "url": "https://archive.emilydickinson.org/correspondence/higginson/l330.html"
+                },
+                {
+                  "text": "History of Lit PDF",
+                  "url": "https://drive.google.com/file/d/1gOXvfIxBuNRwQOuVW_hCT3JXFFKGPOXQ/view?usp=drive_link"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 19,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "recVEmzAsheV2ihTm",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 19,
+              "weekLabel": "Week 7",
+              "sequence": 19,
+              "sort": 0,
+              "lessonLabel": "Lesson 19",
+              "linkLabel": "History of Lit",
+              "title": "30m History of Lit: Grades 9-12 - Lesson 19",
+              "topicTitle": "History of Lit",
+              "anchor": "term-2-week-19-lesson-19",
+              "links": [
+                {
+                  "text": "History of Lit PDF",
+                  "url": "https://drive.google.com/file/d/1gOXvfIxBuNRwQOuVW_hCT3JXFFKGPOXQ/view?usp=drive_link"
                 }
               ]
             }
@@ -472,6 +572,10 @@
                 {
                   "text": "Mark Twain and World Literature",
                   "url": "https://blog.oup.com/2010/04/mark-twain/"
+                },
+                {
+                  "text": "History of Lit PDF",
+                  "url": "https://drive.google.com/file/d/1gOXvfIxBuNRwQOuVW_hCT3JXFFKGPOXQ/view?usp=drive_link"
                 }
               ]
             }
@@ -498,6 +602,10 @@
                 {
                   "text": "The Early Nineteenth-Century Newspaper Boom",
                   "url": "https://collections.americanantiquarian.org/earlyamericannewsmedia/exhibits/show/news-in-antebellum-america/the-newspaper-boom"
+                },
+                {
+                  "text": "History of Lit PDF",
+                  "url": "https://drive.google.com/file/d/1gOXvfIxBuNRwQOuVW_hCT3JXFFKGPOXQ/view?usp=drive_link"
                 }
               ]
             }
@@ -528,6 +636,10 @@
                 {
                   "text": "Poe - The Raven",
                   "url": "https://www.poetryfoundation.org/poems/48860/the-raven"
+                },
+                {
+                  "text": "History of Lit PDF",
+                  "url": "https://drive.google.com/file/d/1gOXvfIxBuNRwQOuVW_hCT3JXFFKGPOXQ/view?usp=drive_link"
                 }
               ]
             }
@@ -554,6 +666,10 @@
                 {
                   "text": "Forget Edgar Allen Poe, What About Wilkie Collins? A Tribute to the Forgotten Father of the Detective Novel",
                   "url": "https://www.typebarmagazine.com/forget-edgar-allen-poe-what-about-wilkie-collins-a-tribute-to-the-forgotten-father-of-the-detective-novel/"
+                },
+                {
+                  "text": "History of Lit PDF",
+                  "url": "https://drive.google.com/file/d/1gOXvfIxBuNRwQOuVW_hCT3JXFFKGPOXQ/view?usp=drive_link"
                 }
               ]
             }
@@ -588,6 +704,10 @@
                 {
                   "text": "Journey to the Centre of the Earth - opening chapters",
                   "url": "https://www.penguinrandomhouse.ca/books/306018/journey-to-the-centre-of-the-earth-by-jules-verne/9780141441979/excerpt"
+                },
+                {
+                  "text": "History of Lit PDF",
+                  "url": "https://drive.google.com/file/d/1gOXvfIxBuNRwQOuVW_hCT3JXFFKGPOXQ/view?usp=drive_link"
                 }
               ]
             }
@@ -628,7 +748,7 @@
                   "url": "https://www.westminster-abbey.org/abbey-commemorations/commemorations/lewis-carroll"
                 },
                 {
-                  "text": "https://www.poetryfoundation.org/poets/lewis-carroll#tab-poems",
+                  "text": "Poems by Lewis Carroll",
                   "url": "https://www.poetryfoundation.org/poets/lewis-carroll#tab-poems"
                 }
               ]
@@ -690,6 +810,10 @@
                 {
                   "text": "An Introduction to the Life and Works of Leo Tolstoy",
                   "url": "https://russianliteraturesociety.com/an-introduction-to-the-life-and-works-of-leo-tolstoy/"
+                },
+                {
+                  "text": "History of Lit PDF",
+                  "url": "https://drive.google.com/file/d/1gOXvfIxBuNRwQOuVW_hCT3JXFFKGPOXQ/view?usp=drive_link"
                 }
               ]
             }
@@ -796,6 +920,10 @@
                 {
                   "text": "Raden Ajeng Kartini: Indonesia's Feminist Educator",
                   "url": "https://www.hurights.or.jp/archives/focus/section2/2009/06/raden-ajeng-kartini-indonesias-feminist-educator.html"
+                },
+                {
+                  "text": "History of Lit PDF",
+                  "url": "https://drive.google.com/file/d/1gOXvfIxBuNRwQOuVW_hCT3JXFFKGPOXQ/view?usp=drive_link"
                 }
               ]
             }
