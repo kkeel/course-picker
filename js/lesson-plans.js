@@ -372,6 +372,14 @@ function safeLink(value) {
     : "";
 }
 
+function isHiddenPdf(row) {
+  return row?.links?.pdfVisibility === "Do Not Show PDF";
+}
+
+function isDelayedPdf(row) {
+  return row?.links?.pdfVisibility === "Delay PDF";
+}
+
 function hasLessonPdf(row) {
   return Boolean(safeLink(row?.links?.lessonPdf));
 }
@@ -445,20 +453,27 @@ function renderActionButtons(item, options = {}) {
     <div class="card-action-row">
 
       ${
-        links.lessonPdf
+        isDelayedPdf(item)
           ? `
-            <a
-              class="card-action-link is-primary"
-              href="${escapeHtml(links.lessonPdf)}"
-              target="_blank"
-              rel="noopener"
-            >
+            <span class="card-action-link is-primary is-disabled">
               <span class="card-action-icon">📝</span>
-              <span class="card-action-label">${escapeHtml(pdfLabel)}</span>
-              <span class="card-action-arrow">↗</span>
-            </a>
+              <span class="card-action-label">PDF Coming Soon</span>
+            </span>
           `
-          : ""
+          : links.lessonPdf
+            ? `
+              <a
+                class="card-action-link is-primary"
+                href="${escapeHtml(links.lessonPdf)}"
+                target="_blank"
+                rel="noopener"
+              >
+                <span class="card-action-icon">📝</span>
+                <span class="card-action-label">${escapeHtml(pdfLabel)}</span>
+                <span class="card-action-arrow">↗</span>
+              </a>
+            `
+            : ""
       }
 
       <span class="card-action-divider">|</span>
@@ -568,7 +583,7 @@ function renderTopicCard(item) {
 
 function hydrateRows(rows) {
   const pdfRows = Array.isArray(rows)
-    ? rows.filter(hasLessonPdf)
+    ? rows.filter(row => !isHiddenPdf(row))
     : [];
 
   state.rows = pdfRows;
@@ -619,13 +634,13 @@ async function loadSelectedView() {
   state.groups = rawGroups
     .map((group) => ({
       ...group,
-      rows: (group.rows || []).filter(hasLessonPdf),
+      rows: (group.rows || []).filter(row => !isHiddenPdf(row)),
     }))
     .filter((group) => group.rows.length);
 
   const rows = state.groups.length
     ? state.groups.flatMap((group) => group.rows || [])
-    : (view.rows || []).filter(hasLessonPdf);
+    : (view.rows || []).filter(row => !isHiddenPdf(row));
 
   hydrateRows(rows);
 
@@ -830,7 +845,7 @@ async function initDirectory() {
     const index = await response.json();
     const rows = Array.isArray(index.rows) ? index.rows : [];
     
-    state.allRows = rows.filter(hasLessonPdf);
+    state.allRows = rows.filter(row => !isHiddenPdf(row));
     state.indexViews = index.views || {};
     
     populatePrimarySelect();
