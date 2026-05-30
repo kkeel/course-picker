@@ -1792,11 +1792,33 @@ body.lesson-student-modal-open {
   box-shadow: 0 22px 60px rgba(38,43,38,0.24);
 }
 
+.bulk-download-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
 .bulk-download-header h2 {
   margin: 0;
   font-family: "Plantin MT Pro", Georgia, serif;
   font-size: 34px;
   font-weight: 200;
+}
+
+.bulk-download-header p {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--brand-muted);
+}
+
+.bulk-download-close {
+  flex: 0 0 auto;
+  color: var(--brand-dark);
+  font-size: 22px;
+  line-height: 1;
 }
 
 .bulk-download-section {
@@ -1830,4 +1852,8 @@ body.lesson-student-modal-open {
   width: 34px;
   height: 34px;
   cursor: pointer;
+}
+
+.bulk-download-option input[type="radio"] {
+  accent-color: var(--brand-dark);
 }
