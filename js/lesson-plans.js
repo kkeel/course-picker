@@ -2020,6 +2020,39 @@ function populateMemberFilters() {
   }
 }
 
+function setLessonLoadingMessage(message) {
+  const loading = document.getElementById("lesson-page-loading");
+  if (!loading) return;
+
+  const text = loading.querySelector("p");
+  if (text) text.textContent = message;
+}
+
+function removeLessonLoadingMessage() {
+  document.getElementById("lesson-page-loading")?.remove();
+}
+
+function setMemberLoadingMessage(message = "") {
+  const toolbar = document.getElementById("book-member-toolbar");
+  if (!toolbar) return;
+
+  let notice = document.getElementById("lesson-member-loading-message");
+
+  if (!message) {
+    notice?.remove();
+    return;
+  }
+
+  if (!notice) {
+    notice = document.createElement("div");
+    notice.id = "lesson-member-loading-message";
+    notice.className = "lesson-member-loading-message";
+    toolbar.appendChild(notice);
+  }
+
+  notice.textContent = message;
+}
+
 async function initDirectory() {
     const authorized = await requireLessonPlansMemberAccess_();
     if (!authorized) return;
