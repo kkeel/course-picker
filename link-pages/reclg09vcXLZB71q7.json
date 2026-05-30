@@ -31,6 +31,95 @@
       }
     ]
   },
-  "updatedAt": "2026-05-29T19:44:37.448Z",
-  "terms": []
+  "updatedAt": "2026-05-30T09:01:26.798Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 8,
+          "weekLabel": "Week 8",
+          "lessons": [
+            {
+              "lessonId": "rec7OthQ8OFUlnxqq",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 8,
+              "weekLabel": "Week 8",
+              "sequence": 16,
+              "sort": 0,
+              "lessonLabel": "Lesson 16",
+              "linkLabel": "General Lit.",
+              "title": "30m General Lit.: Grades 9-10 - Lesson 16",
+              "topicTitle": "General Lit.",
+              "anchor": "term-1-week-8-lesson-16",
+              "links": [
+                {
+                  "text": "Booker T. Washington's \"Atlanta Compromise\" Speech",
+                  "url": "https://www.loc.gov/exhibits/civil-rights-act/multimedia/booker-t-washington.html"
+                },
+                {
+                  "text": "Booker T. Washington: Founder of Tuskegee University & Champion for Civil Rights",
+                  "url": "https://www.youtube.com/watch?v=07cispyOhWQ"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 10,
+          "weekLabel": "Week 10",
+          "lessons": [
+            {
+              "lessonId": "recMA1H0kYQ3URRzO",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 10,
+              "weekLabel": "Week 10",
+              "sequence": 20,
+              "sort": 0,
+              "lessonLabel": "Lesson 20",
+              "linkLabel": "General Lit.",
+              "title": "30m General Lit.: Grades 9-10 - Lesson 20",
+              "topicTitle": "General Lit.",
+              "anchor": "term-1-week-10-lesson-20",
+              "links": [
+                {
+                  "text": "https://teachersinstitute.yale.edu/curriculum/units/1978/2/78.02.02.x.html",
+                  "url": "https://teachersinstitute.yale.edu/curriculum/units/1978/2/78.02.02.x.html"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 11,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "recAlLowDopvD31gl",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 11,
+              "weekLabel": "Week 11",
+              "sequence": 22,
+              "sort": 0,
+              "lessonLabel": "Lesson 22",
+              "linkLabel": "General Lit.",
+              "title": "30m General Lit.: Grades 9-10 - Lesson 22",
+              "topicTitle": "General Lit.",
+              "anchor": "term-1-week-11-lesson-22",
+              "links": [
+                {
+                  "text": "First African American Nominated for Vice President",
+                  "url": "https://www.youtube.com/watch?v=ka0IRru-JYA"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

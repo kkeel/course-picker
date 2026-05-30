@@ -20,7 +20,7 @@
     "lessonPdfLabel": "Lesson PDF",
     "additional": []
   },
-  "updatedAt": "2026-05-29T19:44:37.381Z",
+  "updatedAt": "2026-05-30T09:01:26.731Z",
   "terms": [
     {
       "termNumber": 1,
@@ -167,6 +167,36 @@
           ]
         },
         {
+          "weekNumber": 18,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recf8ZQNK6x7a1pZX",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 18,
+              "weekLabel": "Week 6",
+              "sequence": 18,
+              "sort": 0,
+              "lessonLabel": "Lesson 18",
+              "linkLabel": "World History",
+              "title": "30m World History: Grades 7-8 - Lesson 18",
+              "topicTitle": "World History",
+              "anchor": "term-2-week-18-lesson-18",
+              "links": [
+                {
+                  "text": "Washington Monument",
+                  "url": "https://cdn.britannica.com/46/93846-050-EDA09DD6/Washington-Monument-Washington-DC.jpg"
+                },
+                {
+                  "text": "Example of graphic organizer",
+                  "url": "https://cms.boardmix.com/images/articles/Character-analysis-graphic-organizer.png"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "weekNumber": 19,
           "weekLabel": "Week 7",
           "lessons": [
@@ -185,12 +215,148 @@
               "anchor": "term-2-week-19-lesson-19",
               "links": [
                 {
-                  "text": "Washington Monument",
-                  "url": "https://cdn.britannica.com/46/93846-050-EDA09DD6/Washington-Monument-Washington-DC.jpg"
-                },
-                {
                   "text": "Paintings of James McNeill Whistler",
                   "url": "https://www.metmuseum.org/essays/james-mcneill-whistler-1834-1903"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 21,
+          "weekLabel": "Week 9",
+          "lessons": [
+            {
+              "lessonId": "recKOLCzhjheOnnjw",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 21,
+              "weekLabel": "Week 9",
+              "sequence": 21,
+              "sort": 0,
+              "lessonLabel": "Lesson 21",
+              "linkLabel": "World History",
+              "title": "30m World History: Grades 7-8 - Lesson 21",
+              "topicTitle": "World History",
+              "anchor": "term-2-week-21-lesson-21",
+              "links": [
+                {
+                  "text": "Painting of Paul Gaughin",
+                  "url": "https://www.artic.edu/artworks/19339/arlesiennes-mistral"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 22,
+          "weekLabel": "Week 10",
+          "lessons": [
+            {
+              "lessonId": "reci7TvlhlXCKTy1l",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 22,
+              "weekLabel": "Week 10",
+              "sequence": 22,
+              "sort": 0,
+              "lessonLabel": "Lesson 22",
+              "linkLabel": "World History",
+              "title": "30m World History: Grades 7-8 - Lesson 22",
+              "topicTitle": "World History",
+              "anchor": "term-2-week-22-lesson-22",
+              "links": [
+                {
+                  "text": "Image of Eiffel Tower",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/1/10/Eiffel_tower_paris.jpg"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 3,
+      "term": "Term 3",
+      "weeks": [
+        {
+          "weekNumber": 26,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "recRLnoo22snJl9A7",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 26,
+              "weekLabel": "Week 2",
+              "sequence": 26,
+              "sort": 0,
+              "lessonLabel": "Lesson 26",
+              "linkLabel": "World History",
+              "title": "30m World History: Grades 7-8 - Lesson 26",
+              "topicTitle": "World History",
+              "anchor": "term-3-week-26-lesson-26",
+              "links": [
+                {
+                  "text": "Painting of Thomas Edison",
+                  "url": "https://www.si.edu/object/thomas-alva-edison%3Anpg_NPG.65.23"
+                },
+                {
+                  "text": "Video: Edison's phonograph",
+                  "url": "https://www.youtube.com/watch?v=D9KkvlCO-6o"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 29,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "recC27hYqzjyXbOCT",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 29,
+              "weekLabel": "Week 5",
+              "sequence": 29,
+              "sort": 0,
+              "lessonLabel": "Lesson 29",
+              "linkLabel": "World History",
+              "title": "30m World History: Grades 7-8 - Lesson 29",
+              "topicTitle": "World History",
+              "anchor": "term-3-week-29-lesson-29",
+              "links": [
+                {
+                  "text": "Angelus by Millet",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/JEAN-FRAN%C3%87OIS_MILLET_-_El_%C3%81ngelus_%28Museo_de_Orsay%2C_1857-1859._%C3%93leo_sobre_lienzo%2C_55.5_x_66_cm%29.jpg/3840px-JEAN-FRAN%C3%87OIS_MILLET_-_El_%C3%81ngelus_%28Museo_de_Orsay%2C_1857-1859._%C3%93leo_sobre_lienzo%2C_55.5_x_66_cm%29.jpg"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 30,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recyMOwBhiSVeRKHo",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 30,
+              "weekLabel": "Week 6",
+              "sequence": 30,
+              "sort": 0,
+              "lessonLabel": "Lesson 30",
+              "linkLabel": "World History",
+              "title": "30m World History: Grades 7-8 - Lesson 30",
+              "topicTitle": "World History",
+              "anchor": "term-3-week-30-lesson-30",
+              "links": [
+                {
+                  "text": "Painting of Lady Archibald Campbell",
+                  "url": "https://www.pubhist.com/works/38/large/whistler_archibald_campbell.jpg"
                 }
               ]
             }

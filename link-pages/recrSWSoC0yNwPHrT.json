@@ -30,6 +30,65 @@
       }
     ]
   },
-  "updatedAt": "2026-05-29T19:44:37.442Z",
-  "terms": []
+  "updatedAt": "2026-05-30T09:01:26.792Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recY7gajs76FmeY9C",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 0,
+              "lessonLabel": "Lesson 1",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 1",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "What Are Free Verse Poems",
+                  "url": "https://youtu.be/13cW2vXOMxU?si=2eiDG96US6j9Sy8d"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 2,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "recI2Sjg3uHub9lHL",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 2,
+              "sort": 0,
+              "lessonLabel": "Lesson 2",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 2",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-1-week-2-lesson-2",
+              "links": [
+                {
+                  "text": "José María Heredia biography",
+                  "url": "https://poets.org/poet/jose-maria-heredia"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
