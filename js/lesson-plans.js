@@ -1369,6 +1369,16 @@ function setupBulkDownloadModal() {
     }
 
     if (value === "myCourses") {
+      const hasMyCourses =
+        lessonHasSavedCourseData();
+    
+      if (!hasMyCourses) {
+        showMessage(
+          "You have not added any courses yet. Use My Courses on the Course List page to bookmark courses or topics first."
+        );
+        return;
+      }
+    
       showFormatOptions();
       return;
     }
@@ -1386,6 +1396,22 @@ function setupBulkDownloadModal() {
     }
 
     if (value === "planningTags") {
+      const hasPlanningTags =
+        Object.keys(state.plannerState.globalTopicTags || {}).length > 0 ||
+        Object.values(state.plannerState.courses || {}).some(
+          (entry) => (entry.tags || []).length
+        ) ||
+        Object.values(state.plannerState.topics || {}).some(
+          (entry) => (entry.tags || []).length
+        );
+    
+      if (!hasPlanningTags) {
+        showMessage(
+          "You have not assigned any Planning Tags yet. Use the Course List page to add Planning Tags to your courses and topics first."
+        );
+        return;
+      }
+    
       showFormatOptions();
       return;
     }
