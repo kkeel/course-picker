@@ -548,76 +548,93 @@ function resolveLessonPlannerStorageKey() {
   }
 }
 
-function writeLessonPlannerStateToLocalStorage() {
+function getLessonPlannerLocalState() {
   try {
     const key = resolveLessonPlannerStorageKey();
-    if (!key) return;
+    if (!key) return {};
 
-    const existingRaw = localStorage.getItem(key);
-    const existing = existingRaw ? JSON.parse(existingRaw) : {};
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
 
-    const nextState = buildLessonPlannerSaveState(existing);
+function buildLessonPlannerRootState(existingState = {}) {
+  const existing =
+    existingState && typeof existingState === "object"
+      ? existingState
+      : {};
 
-    localStorage.setItem(key, JSON.stringify(nextState));
+  return {
+    ...existing,
+
+    version:
+      window.APP_CACHE_VERSION ||
+      existing.version ||
+      "2025-12-09-v1",
+
+    globalTopicTags: state.plannerState.globalTopicTags || existing.globalTopicTags || {},
+    globalTopicNotes: state.plannerState.globalTopicNotes || existing.globalTopicNotes || {},
+    globalTopicStudents:
+      state.plannerState.globalTopicStudents || existing.globalTopicStudents || {},
+
+    students: (state.plannerState.students || []).slice(0, 15).map((student) => ({
+      ...student,
+      id: normalizeStudentId(student.id),
+    })),
+
+    studentsUpdatedAt: new Date().toISOString(),
+
+    studentColorCursor:
+      typeof state.plannerState.studentColorCursor === "number"
+        ? state.plannerState.studentColorCursor
+        : existing.studentColorCursor || 0,
+
+    studentRailCollapsed:
+      state.plannerState.studentRailCollapsed ||
+      existing.studentRailCollapsed ||
+      {},
+
+    courses: state.plannerState.courses || existing.courses || {},
+    topics: state.plannerState.topics || existing.topics || {},
+    extras: state.plannerState.extras || existing.extras || {},
+  };
+}
+
+function writeLessonPlannerStateToLocalStorage(nextState = null) {
+  try {
+    const key = resolveLessonPlannerStorageKey();
+    if (!key) return null;
+
+    const finalState = nextState || buildLessonPlannerRootState(getLessonPlannerLocalState());
+
+    localStorage.setItem(key, JSON.stringify(finalState));
+    return finalState;
   } catch (error) {
     console.warn("Could not write lesson planner state locally", error);
+    return null;
   }
 }
 
 let lessonStudentSaveTimer = null;
-
-function buildLessonPlannerSaveState(existingCloudState = {}) {
-  const existing =
-    existingCloudState && typeof existingCloudState === "object"
-      ? existingCloudState
-      : {};
-
-  const existingCore =
-    existing.plannerCore && typeof existing.plannerCore === "object"
-      ? existing.plannerCore
-      : existing;
-
-  const nextCore = {
-    ...existingCore,
-    ...state.plannerState,
-    students: state.plannerState.students || [],
-    studentsUpdatedAt: new Date().toISOString(),
-  };
-
-  // If the saved cloud state uses plannerCore, preserve that wrapper.
-  if (existing.plannerCore && typeof existing.plannerCore === "object") {
-    return {
-      ...existing,
-      students: nextCore.students,
-      studentsUpdatedAt: nextCore.studentsUpdatedAt,
-      plannerCore: nextCore,
-    };
-  }
-
-  // Otherwise save the normal root planner shape used by Course List / Books.
-  return nextCore;
-}
 
 function saveLessonPlannerStateDebounced() {
   if (lessonStudentSaveTimer) clearTimeout(lessonStudentSaveTimer);
 
   lessonStudentSaveTimer = setTimeout(async () => {
     try {
-      const latest = await window.AlvearyAuth?.getPlannerState?.();
-      const nextState = buildLessonPlannerSaveState(latest?.state || {});
+      const nextState = buildLessonPlannerRootState(getLessonPlannerLocalState());
 
-      state.plannerState =
-        nextState.plannerCore && typeof nextState.plannerCore === "object"
-          ? nextState.plannerCore
-          : nextState;
+      state.plannerState = nextState;
 
-      writeLessonPlannerStateToLocalStorage();
+      writeLessonPlannerStateToLocalStorage(nextState);
 
       window.dispatchEvent(
         new CustomEvent("alveary:planner-updated", {
           detail: {
             source: "lesson-plans-student-manager",
-            studentsUpdatedAt: state.plannerState.studentsUpdatedAt,
+            studentsUpdatedAt: nextState.studentsUpdatedAt,
           },
         })
       );
@@ -627,6 +644,8 @@ function saveLessonPlannerStateDebounced() {
 
         if (!result?.ok) {
           console.warn("Lesson Plans student save did not confirm", result);
+        } else {
+          console.log("Lesson Plans student save confirmed", result);
         }
       }
     } catch (error) {
