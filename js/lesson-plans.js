@@ -566,8 +566,17 @@ function buildLessonPlannerRootState(existingState = {}) {
       ? existingState
       : {};
 
+  const {
+    bookFilterIndex,
+    rows,
+    groups,
+    allRows,
+    indexViews,
+    ...safeExisting
+  } = existing;
+  
   return {
-    ...existing,
+    ...safeExisting,
 
     version:
       window.APP_CACHE_VERSION ||
@@ -626,7 +635,11 @@ function saveLessonPlannerStateDebounced() {
     try {
       const nextState = buildLessonPlannerRootState(getLessonPlannerLocalState());
 
-      state.plannerState = nextState;
+      state.plannerState = {
+        ...state.plannerState,
+        ...nextState,
+        bookFilterIndex: state.plannerState.bookFilterIndex,
+      };
 
       writeLessonPlannerStateToLocalStorage(nextState);
 
