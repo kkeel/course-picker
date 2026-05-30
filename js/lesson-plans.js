@@ -1206,6 +1206,51 @@ async function loadSelectedView() {
   populateTopicFilter();
 }
 
+function memberFilterMatchesRow(row) {
+  const member = getMemberRecordForRow(row);
+
+  if (state.memberFilters.myCourses && !member.isBookmarked) {
+    return false;
+  }
+
+  if (state.selectedPlanningTag) {
+    const tags = new Set(member.tags || []);
+    if (!tags.has(state.selectedPlanningTag)) return false;
+  }
+
+  if (state.selectedStudent) {
+    const students = new Set((member.students || []).map(normalizeStudentId));
+    if (!students.has(normalizeStudentId(state.selectedStudent))) return false;
+  }
+
+  return true;
+}
+
+function courseHasMemberMatchingTopic(courseRow) {
+  if (!courseRow || courseRow.rowType !== "course") return false;
+
+  return state.topics.some((topic) => {
+    if (topic.courseId !== courseRow.id) return false;
+    if (!rowMatchesTrack(topic)) return false;
+
+    return memberFilterMatchesRow(topic);
+  });
+}
+
+function rowMatchesMemberFilters(row) {
+  if (!state.memberToolsEnabled) return true;
+
+  if (memberFilterMatchesRow(row)) return true;
+
+  // Course List behavior:
+  // keep the parent course card if one of its topic cards matches member state.
+  if (row.rowType === "course") {
+    return courseHasMemberMatchingTopic(row);
+  }
+
+  return false;
+}
+
 function rowMatchesFilters(row) {
   const query = normalizeSearch(state.query);
 
@@ -1237,23 +1282,7 @@ function rowMatchesFilters(row) {
     }
   }
 
-    if (state.memberToolsEnabled) {
-      const member = getMemberRecordForRow(row);
-  
-      if (state.memberFilters.myCourses && !member.isBookmarked) {
-        return false;
-      }
-  
-      if (state.selectedPlanningTag) {
-        const tags = new Set(member.tags || []);
-        if (!tags.has(state.selectedPlanningTag)) return false;
-      }
-  
-      if (state.selectedStudent) {
-        const students = new Set((member.students || []).map(normalizeStudentId));
-        if (!students.has(normalizeStudentId(state.selectedStudent))) return false;
-      }
-    }
+      if (!rowMatchesMemberFilters(row)) return false;
 
   return true;
 }
