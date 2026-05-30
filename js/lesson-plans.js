@@ -855,11 +855,11 @@ function getActionLinks(item) {
 
 function planningTagImage(id) {
   const images = {
-    core: "img/icons/planning-core.svg",
-    family: "img/icons/planning-family.svg",
-    combine: "img/icons/planning-combine.svg",
-    "high-interest": "img/icons/planning-high-interest.svg",
-    additional: "img/icons/planning-additional.svg",
+    core: "img/Core%20Subjects.png",
+    family: "img/Family%20Subjects.png",
+    combine: "img/Combine%20Subjects.png",
+    "high-interest": "img/High%20Interest%20Subjects.png",
+    additional: "img/Additional%20Subjects.png",
   };
 
   return images[id] || "";
@@ -932,19 +932,17 @@ function renderNoteButton(item) {
 }
 
 function renderMemberIconStack(item) {
+  const tags = renderPlanningTagIcons(item);
   const note = renderNoteButton(item);
   const bookmark = renderBookmarkIndicator(item);
-  const tags = renderPlanningTagIcons(item);
 
-  if (!note && !bookmark && !tags) return "";
+  if (!tags && !note && !bookmark) return "";
 
   return `
     <div class="lesson-member-icon-stack">
-      <div class="lesson-member-icon-row">
-        ${note}
-        ${bookmark}
-      </div>
       ${tags}
+      ${note}
+      ${bookmark}
     </div>
   `;
 }
