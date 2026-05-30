@@ -1857,3 +1857,18 @@ body.lesson-student-modal-open {
 .bulk-download-option input[type="radio"] {
   accent-color: var(--brand-dark);
 }
+
+body.bulk-download-modal-open {
+  overflow: hidden;
+}
+
+.bulk-download-message {
+  margin-top: 18px;
+  border: 1px solid var(--divider-subtle);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.58);
+  padding: 12px 14px;
+  color: var(--brand-muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
