@@ -298,7 +298,6 @@ function getTopicInstanceKeys(row) {
   const courseKeys = uniqueStrings([
     row?.courseLegacyId,
     courseLegacyFromLookup,
-    parentCourseIdFromTopicId(topicLegacyId),
     row?.courseId,
     row?.courseRecordId,
   ]);
@@ -348,6 +347,19 @@ function getSavedTopicInstanceKeysForReading() {
       .filter(([, value]) => value?.isBookmarked)
       .map(([key]) => key),
   ].map(firstValue));
+}
+
+function getTopicsForCourse(courseRow) {
+  if (!courseRow || courseRow.rowType !== "course") return [];
+
+  return state.topics.filter((topic) => topic.courseId === courseRow.id);
+}
+
+function courseHasAllTopicsBookmarked(courseRow) {
+  const topics = getTopicsForCourse(courseRow);
+  if (!topics.length) return false;
+
+  return topics.every((topic) => getMemberRecordForRow(topic).isBookmarked);
 }
 
 function getMemberRecordForRow(row) {
@@ -413,7 +425,8 @@ function getMemberRecordForRow(row) {
   return {
     isBookmarked:
       !!courseState?.isBookmarked ||
-      getCourseStateKeys(row).some((key) => savedCourses.has(key)),
+      getCourseStateKeys(row).some((key) => savedCourses.has(key)) ||
+      courseHasAllTopicsBookmarked(row),
     tags: Array.isArray(courseState?.tags) ? courseState.tags : [],
     students: Array.isArray(courseState?.students)
       ? courseState.students.map(normalizeStudentId)
@@ -1274,7 +1287,13 @@ function render() {
           const topicList = topicsByCourseId[course.id] || [];
 
           if (topicList.length) {
-            const topicsOpen = state.openTopics.has(course.id);
+            const topicsOpen =
+              state.openTopics.has(course.id) ||
+              (
+                state.memberToolsEnabled &&
+                state.memberFilters.myCourses &&
+                courseHasMemberMatchingTopic(course)
+              );
           
             return `
               <section class="topic-group ${topicsOpen ? "is-topics-open" : ""}">
