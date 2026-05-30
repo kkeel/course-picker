@@ -275,7 +275,13 @@
           <button id="manage-students-button" class="member-tool-link" type="button">
             Manage Students
           </button>
-          <button class="member-tool-link" type="button">Print</button>
+          <button
+            id="open-bulk-download"
+            class="member-tool-link"
+            type="button"
+          >
+            Bulk Download
+          </button>
         </div>
       </div>
     </section>
@@ -362,6 +368,93 @@
     <div id="lesson-student-modal-body"></div>
   </section>
 </div>
+
+  <div id="bulk-download-modal" class="bulk-download-modal" hidden>
+    <div class="bulk-download-backdrop" data-close-bulk-download></div>
+  
+    <div
+      class="bulk-download-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="bulk-download-title"
+    >
+      <div class="bulk-download-header">
+        <div>
+          <h2 id="bulk-download-title">Bulk Download</h2>
+          <p>
+            Download lesson plans by collection, grade, or planning preferences.
+          </p>
+        </div>
+  
+        <button
+          class="bulk-download-close"
+          type="button"
+          data-close-bulk-download
+          aria-label="Close bulk download"
+        >
+          ×
+        </button>
+      </div>
+  
+      <div class="bulk-download-section">
+        <h3>Download From</h3>
+  
+        <label class="bulk-download-option">
+          <input type="radio" name="download-source" checked>
+          <span>Grade</span>
+        </label>
+  
+        <label class="bulk-download-option">
+          <input type="radio" name="download-source">
+          <span>My Courses</span>
+        </label>
+  
+        <label class="bulk-download-option">
+          <input type="radio" name="download-source">
+          <span>Students</span>
+        </label>
+  
+        <label class="bulk-download-option">
+          <input type="radio" name="download-source">
+          <span>Planning Tags</span>
+        </label>
+  
+        <label class="bulk-download-option">
+          <input type="radio" name="download-source">
+          <span>Tracking Tags</span>
+        </label>
+      </div>
+  
+      <div class="bulk-download-section">
+        <h3>Download Format</h3>
+  
+        <label class="bulk-download-option">
+          <input type="radio" name="download-format" checked>
+          <span>Full Course Plans</span>
+        </label>
+  
+        <label class="bulk-download-option">
+          <input type="radio" name="download-format">
+          <span>Topic Plans</span>
+        </label>
+  
+        <label class="bulk-download-option">
+          <input type="radio" name="download-format">
+          <span>Both</span>
+        </label>
+      </div>
+  
+      <div class="bulk-download-footer">
+        <button
+          type="button"
+          class="lesson-delivery-button is-disabled"
+          disabled
+        >
+          ZIP Downloads Coming Soon
+        </button>
+      </div>
+    </div>
+  </div>
 
   <button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top">
     ↑ Back to top
