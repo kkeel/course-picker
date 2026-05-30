@@ -126,6 +126,9 @@ const state = {
     globalTopicStudents: {},
     globalTopicNotes: {},
     extras: {},
+    savedCourseRecordIds: [],
+    savedTopicRecordIds: [],
+    bookFilterIndex: null,
   },
 
   openTools: new Set(),
@@ -220,6 +223,7 @@ function getSavedCourseIdsForReading() {
   return new Set([
     ...(extras.myCourses || []),
     ...(extras.courseSelections || []),
+    ...(state.plannerState.savedCourseRecordIds || []),
   ].map(firstValue));
 }
 
@@ -229,7 +233,169 @@ function getSavedTopicIdsForReading() {
   return new Set([
     ...(extras.myTopics || []),
     ...(extras.topicSelections || []),
+    ...(state.plannerState.savedTopicRecordIds || []),
   ].map(firstValue));
+}
+
+function resolveLegacyPlannerKey() {
+  try {
+    if (window.PLANNER_STATE_KEY) return window.PLANNER_STATE_KEY;
+  } catch {}
+
+  try {
+    const keys = [];
+
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith("alveary_planner_")) {
+        keys.push(key);
+      }
+    }
+
+    keys.sort();
+    return keys.length ? keys[keys.length - 1] : "";
+  } catch {
+    return "";
+  }
+}
+
+function getReadOnlyPlannerState() {
+  try {
+    const plannerKey = resolveLegacyPlannerKey();
+    if (!plannerKey) return null;
+
+    const raw = localStorage.getItem(plannerKey);
+    if (!raw) return null;
+
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+function normalizeId(value) {
+  return String(value || "").trim();
+}
+
+function uniqueStrings(values) {
+  const out = [];
+  const seen = new Set();
+
+  (Array.isArray(values) ? values : []).forEach((value) => {
+    const v = normalizeId(value);
+    if (!v || seen.has(v)) return;
+    seen.add(v);
+    out.push(v);
+  });
+
+  return out;
+}
+
+function bookFilterIndexItems() {
+  if (Array.isArray(state.plannerState.bookFilterIndex?.items)) {
+    return state.plannerState.bookFilterIndex.items;
+  }
+
+  if (Array.isArray(state.plannerState.bookFilterIndex?.groups)) {
+    return state.plannerState.bookFilterIndex.groups.flatMap((group) => group.items || []);
+  }
+
+  return [];
+}
+
+async function loadBookFilterIndexForPlannerLookups() {
+  if (state.plannerState.bookFilterIndex) return;
+
+  try {
+    const response = await fetch("./data/book-views/master.json");
+    if (!response.ok) throw new Error("Could not load book master index");
+
+    state.plannerState.bookFilterIndex = await response.json();
+  } catch (error) {
+    console.warn("Could not load book master index for lesson plan planner lookups", error);
+  }
+}
+
+function buildCourseRecordLookup() {
+  const lookup = new Map();
+
+  bookFilterIndexItems().forEach((item) => {
+    const recordId = normalizeId(item.id);
+    if (!recordId) return;
+
+    lookup.set(recordId, recordId);
+
+    [
+      item.courseId,
+      item.sortId,
+      item.Sort_ID,
+      item.legacyId,
+      item.courseLegacyId,
+    ]
+      .map(normalizeId)
+      .filter(Boolean)
+      .forEach((legacyId) => {
+        lookup.set(legacyId, recordId);
+      });
+  });
+
+  return lookup;
+}
+
+function buildTopicRecordLookup() {
+  const lookup = new Map();
+
+  bookFilterIndexItems().forEach((item) => {
+    (item.sections || []).forEach((section) => {
+      const recordId = normalizeId(section.id);
+      if (!recordId) return;
+
+      lookup.set(recordId, recordId);
+
+      [
+        section.topicId,
+        section.Topic_ID,
+        section.sortId,
+        section.legacyId,
+        section.topicLegacyId,
+      ]
+        .map(normalizeId)
+        .filter(Boolean)
+        .forEach((legacyId) => {
+          lookup.set(legacyId, recordId);
+        });
+    });
+  });
+
+  return lookup;
+}
+
+function rebuildSavedRecordIdsForLessonPlans() {
+  const localPlanner = getReadOnlyPlannerState();
+  const extras = localPlanner?.extras || state.plannerState.extras || {};
+
+  const courseLookup = buildCourseRecordLookup();
+  const topicLookup = buildTopicRecordLookup();
+
+  state.plannerState.savedCourseRecordIds = uniqueStrings(
+    [
+      ...(extras.myCourses || []),
+      ...(extras.courseSelections || []),
+    ]
+      .map(normalizeId)
+      .map((id) => courseLookup.get(id) || id)
+      .filter(Boolean)
+  );
+
+  state.plannerState.savedTopicRecordIds = uniqueStrings(
+    [
+      ...(extras.myTopics || []),
+      ...(extras.topicSelections || []),
+    ]
+      .map(normalizeId)
+      .map((id) => topicLookup.get(id) || id)
+      .filter(Boolean)
+  );
 }
 
 function getMemberRecordForRow(row) {
@@ -1184,6 +1350,8 @@ async function loadPlannerStateForLessonPlans() {
       extras: planner.extras || {},
     };
 
+    await loadBookFilterIndexForPlannerLookups();
+    rebuildSavedRecordIdsForLessonPlans();
     populateMemberFilters();
   } catch (error) {
     console.warn("Could not load lesson plan member state", error);
