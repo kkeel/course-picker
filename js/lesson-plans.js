@@ -176,25 +176,42 @@ function firstValue(...values) {
   return "";
 }
 
+function idParts(id) {
+  return String(id || "").trim().split(".");
+}
+
+function parentCourseIdFromTopicId(topicId) {
+  const parts = idParts(topicId);
+  return parts.length >= 3 ? parts.slice(0, 3).join(".") : "";
+}
+
+function getCourseLegacyFromLookup(courseRecordId) {
+  const id = normalizeId(courseRecordId);
+  if (!id) return "";
+
+  for (const item of bookFilterIndexItems()) {
+    if (normalizeId(item.id) === id) {
+      return normalizeId(item.Sort_ID || item.sortId || item.courseId || item.legacyId);
+    }
+  }
+
+  return "";
+}
+
 function getCourseStateKeys(row) {
-  return [
-    row?.id,
-    row?.courseRecordId,
-    row?.recordID,
-    row?.courseAirtableRecordId,
-    row?.recordId,
+  const legacyFromLookup = getCourseLegacyFromLookup(row?.id || row?.courseRecordId || row?.recordID);
+
+  return uniqueStrings([
     row?.Sort_ID,
     row?.sortId,
     row?.legacyId,
     row?.courseLegacyId,
+    legacyFromLookup,
     row?.courseId,
-  ]
-    .map(firstValue)
-    .filter(Boolean);
-}
-
-function getCourseStateKey(row) {
-  return getCourseStateKeys(row)[0] || "";
+    row?.id,
+    row?.courseRecordId,
+    row?.recordID,
+  ]);
 }
 
 function getCourseStateForRow(row) {
@@ -207,32 +224,66 @@ function getCourseStateForRow(row) {
   return null;
 }
 
-function getTopicId(row) {
+function getTopicLegacyId(row) {
   return firstValue(
-    row?.id,
-    row?.topicAirtableRecordId,
-    row?.topicRecordId,
-    row?.recordId,
-    row?.recordID,
     row?.Topic_ID,
     row?.topicId,
-    row?.topic_id
+    row?.topic_id,
+    row?.legacyId,
+    row?.topicLegacyId
   );
 }
 
-function getTopicStateKey(row) {
-  const courseKey = firstValue(
-    row?.courseId,
-    row?.courseRecordId,
-    row?.courseAirtableRecordId,
-    row?.parentCourseId,
-    row?.courseKey
+function getTopicRecordId(row) {
+  return firstValue(
+    row?.id,
+    row?.topicRecordId,
+    row?.recordID,
+    row?.topicAirtableRecordId,
+    row?.recordId
+  );
+}
+
+function getTopicInstanceKeys(row) {
+  const topicLegacyId = getTopicLegacyId(row);
+  const topicRecordId = getTopicRecordId(row);
+
+  const courseLegacyFromLookup = getCourseLegacyFromLookup(
+    row?.courseId || row?.courseRecordId
   );
 
-  const topicId = getTopicId(row);
+  const courseKeys = uniqueStrings([
+    row?.courseLegacyId,
+    courseLegacyFromLookup,
+    parentCourseIdFromTopicId(topicLegacyId),
+    row?.courseId,
+    row?.courseRecordId,
+  ]);
 
-  if (!courseKey || !topicId) return "";
-  return `${courseKey}::${topicId}`;
+  const topicKeys = uniqueStrings([
+    topicLegacyId,
+    topicRecordId,
+  ]);
+
+  const keys = [];
+
+  for (const courseKey of courseKeys) {
+    for (const topicKey of topicKeys) {
+      if (courseKey && topicKey) keys.push(`${courseKey}::${topicKey}`);
+    }
+  }
+
+  return uniqueStrings(keys);
+}
+
+function getTopicStateForRow(row) {
+  const topics = state.plannerState.topics || {};
+
+  for (const key of getTopicInstanceKeys(row)) {
+    if (topics[key]) return topics[key];
+  }
+
+  return null;
 }
 
 function getSavedCourseIdsForReading() {
@@ -241,242 +292,55 @@ function getSavedCourseIdsForReading() {
   return new Set([
     ...(extras.myCourses || []),
     ...(extras.courseSelections || []),
-    ...(state.plannerState.savedCourseRecordIds || []),
   ].map(firstValue));
 }
 
-function getSavedTopicIdsForReading() {
+function getSavedTopicInstanceKeysForReading() {
   const extras = state.plannerState.extras || {};
 
   return new Set([
     ...(extras.myTopics || []),
     ...(extras.topicSelections || []),
-    ...(state.plannerState.savedTopicRecordIds || []),
+    ...Object.entries(state.plannerState.topics || {})
+      .filter(([, value]) => value?.isBookmarked)
+      .map(([key]) => key),
   ].map(firstValue));
-}
-
-function resolveLegacyPlannerKey() {
-  try {
-    if (window.PLANNER_STATE_KEY) return window.PLANNER_STATE_KEY;
-  } catch {}
-
-  try {
-    const keys = [];
-
-    for (let i = 0; i < localStorage.length; i += 1) {
-      const key = localStorage.key(i);
-      if (key && key.startsWith("alveary_planner_")) {
-        keys.push(key);
-      }
-    }
-
-    keys.sort();
-    return keys.length ? keys[keys.length - 1] : "";
-  } catch {
-    return "";
-  }
-}
-
-function getReadOnlyPlannerState() {
-  try {
-    const plannerKey = resolveLegacyPlannerKey();
-    if (!plannerKey) return null;
-
-    const raw = localStorage.getItem(plannerKey);
-    if (!raw) return null;
-
-    return JSON.parse(raw);
-  } catch {
-    return null;
-  }
-}
-
-function normalizeId(value) {
-  return String(value || "").trim();
-}
-
-function uniqueStrings(values) {
-  const out = [];
-  const seen = new Set();
-
-  (Array.isArray(values) ? values : []).forEach((value) => {
-    const v = normalizeId(value);
-    if (!v || seen.has(v)) return;
-    seen.add(v);
-    out.push(v);
-  });
-
-  return out;
-}
-
-function bookFilterIndexItems() {
-  if (Array.isArray(state.plannerState.bookFilterIndex?.items)) {
-    return state.plannerState.bookFilterIndex.items;
-  }
-
-  if (Array.isArray(state.plannerState.bookFilterIndex?.groups)) {
-    return state.plannerState.bookFilterIndex.groups.flatMap((group) => group.items || []);
-  }
-
-  return [];
-}
-
-async function loadBookFilterIndexForPlannerLookups() {
-  if (state.plannerState.bookFilterIndex) return;
-
-  try {
-    const response = await fetch("./data/book-views/master.json");
-    if (!response.ok) throw new Error("Could not load book master index");
-
-    state.plannerState.bookFilterIndex = await response.json();
-  } catch (error) {
-    console.warn("Could not load book master index for lesson plan planner lookups", error);
-  }
-}
-
-function buildCourseRecordLookup() {
-  const lookup = new Map();
-
-  bookFilterIndexItems().forEach((item) => {
-    const recordId = normalizeId(item.id);
-    if (!recordId) return;
-
-    lookup.set(recordId, recordId);
-
-    [
-      item.courseId,
-      item.sortId,
-      item.Sort_ID,
-      item.legacyId,
-      item.courseLegacyId,
-    ]
-      .map(normalizeId)
-      .filter(Boolean)
-      .forEach((legacyId) => {
-        lookup.set(legacyId, recordId);
-      });
-  });
-
-  return lookup;
-}
-
-function buildTopicRecordLookup() {
-  const lookup = new Map();
-
-  bookFilterIndexItems().forEach((item) => {
-    (item.sections || []).forEach((section) => {
-      const recordId = normalizeId(section.id);
-      if (!recordId) return;
-
-      lookup.set(recordId, recordId);
-
-      [
-        section.topicId,
-        section.Topic_ID,
-        section.sortId,
-        section.legacyId,
-        section.topicLegacyId,
-      ]
-        .map(normalizeId)
-        .filter(Boolean)
-        .forEach((legacyId) => {
-          lookup.set(legacyId, recordId);
-        });
-    });
-  });
-
-  return lookup;
-}
-
-function rebuildSavedRecordIdsForLessonPlans() {
-  const localPlanner = getReadOnlyPlannerState();
-  const cloudPlanner = state.plannerState || {};
-
-  const extras = localPlanner?.extras || cloudPlanner.extras || {};
-
-  const courseLookup = buildCourseRecordLookup();
-  const topicLookup = buildTopicRecordLookup();
-
-  const bookmarkedCourseKeys = [
-    ...Object.entries(localPlanner?.courses || {})
-      .filter(([, value]) => value?.isBookmarked)
-      .map(([key]) => key),
-
-    ...Object.entries(cloudPlanner.courses || {})
-      .filter(([, value]) => value?.isBookmarked)
-      .map(([key]) => key),
-  ];
-
-  const bookmarkedTopicKeys = [
-    ...Object.entries(localPlanner?.topics || {})
-      .filter(([, value]) => value?.isBookmarked)
-      .map(([key]) => key),
-
-    ...Object.entries(cloudPlanner.topics || {})
-      .filter(([, value]) => value?.isBookmarked)
-      .map(([key]) => key),
-  ];
-
-  const topicIdsFromInstanceKeys = bookmarkedTopicKeys
-    .map((key) => String(key || "").split("::").pop())
-    .filter(Boolean);
-
-  state.plannerState.savedCourseRecordIds = uniqueStrings(
-    [
-      ...(extras.myCourses || []),
-      ...(extras.courseSelections || []),
-      ...bookmarkedCourseKeys,
-    ]
-      .map(normalizeId)
-      .map((id) => courseLookup.get(id) || id)
-      .filter(Boolean)
-  );
-
-  state.plannerState.savedTopicRecordIds = uniqueStrings(
-    [
-      ...(extras.myTopics || []),
-      ...(extras.topicSelections || []),
-      ...bookmarkedTopicKeys,
-      ...topicIdsFromInstanceKeys,
-    ]
-      .map(normalizeId)
-      .map((id) => topicLookup.get(id) || id)
-      .filter(Boolean)
-  );
-
-  console.log("Lesson Plan saved course record IDs:", state.plannerState.savedCourseRecordIds);
-  console.log("Lesson Plan saved topic record IDs:", state.plannerState.savedTopicRecordIds);
 }
 
 function getMemberRecordForRow(row) {
   const planner = state.plannerState || {};
 
   if (row?.rowType === "topic") {
-    const instanceKey = getTopicStateKey(row);
-    const topicId = getTopicId(row);
-    const topicState = instanceKey ? planner.topics?.[instanceKey] : null;
+    const topicLegacyId = getTopicLegacyId(row);
+    const topicState = getTopicStateForRow(row);
+
+    const isBookmarked =
+      !!topicState?.isBookmarked ||
+      getTopicInstanceKeys(row).some((key) =>
+        getSavedTopicInstanceKeysForReading().has(key)
+      );
 
     return {
-      isBookmarked: !!topicState?.isBookmarked || getSavedTopicIdsForReading().has(topicId),
+      isBookmarked,
       tags: [
         ...(Array.isArray(topicState?.tags) ? topicState.tags : []),
-        ...(Array.isArray(planner.globalTopicTags?.[topicId]) ? planner.globalTopicTags[topicId] : []),
+        ...(Array.isArray(planner.globalTopicTags?.[topicLegacyId]) ? planner.globalTopicTags[topicLegacyId] : []),
       ],
       students: [
         ...(Array.isArray(topicState?.students) ? topicState.students : []),
-        ...(Array.isArray(planner.globalTopicStudents?.[topicId]) ? planner.globalTopicStudents[topicId] : []),
+        ...(Array.isArray(planner.globalTopicStudents?.[topicLegacyId]) ? planner.globalTopicStudents[topicLegacyId] : []),
       ].map(normalizeStudentId),
-      noteText: planner.globalTopicNotes?.[topicId] || "",
+      noteText: planner.globalTopicNotes?.[topicLegacyId] || "",
     };
   }
 
-  const courseKey = getCourseStateKey(row);
   const courseState = getCourseStateForRow(row);
-  
+  const savedCourses = getSavedCourseIdsForReading();
+
   return {
     isBookmarked:
       !!courseState?.isBookmarked ||
-      getCourseStateKeys(row).some((key) => getSavedCourseIdsForReading().has(key)),
+      getCourseStateKeys(row).some((key) => savedCourses.has(key)),
     tags: Array.isArray(courseState?.tags) ? courseState.tags : [],
     students: Array.isArray(courseState?.students)
       ? courseState.students.map(normalizeStudentId)
