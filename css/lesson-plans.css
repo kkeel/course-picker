@@ -1757,3 +1757,77 @@ body.lesson-student-modal-open {
     font-size: 28px;
   }
 }
+
+/* =========================================================
+   BULK DOWNLOAD MODAL
+   ========================================================= */
+
+.bulk-download-modal[hidden] {
+  display: none;
+}
+
+.bulk-download-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.bulk-download-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(38,43,38,0.38);
+}
+
+.bulk-download-dialog {
+  position: relative;
+  width: min(720px, 100%);
+  background: var(--brand-bg);
+  border: 1px solid var(--divider-subtle);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 22px 60px rgba(38,43,38,0.24);
+}
+
+.bulk-download-header h2 {
+  margin: 0;
+  font-family: "Plantin MT Pro", Georgia, serif;
+  font-size: 34px;
+  font-weight: 200;
+}
+
+.bulk-download-section {
+  margin-top: 24px;
+}
+
+.bulk-download-section h3 {
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.bulk-download-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.bulk-download-footer {
+  margin-top: 24px;
+}
+
+.bulk-download-close {
+  appearance: none;
+  border: 1px solid var(--divider-subtle);
+  border-radius: 999px;
+  background: #fff;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+}
