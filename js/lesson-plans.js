@@ -1368,6 +1368,23 @@ async function loadPlannerStateForLessonPlans() {
       extras: planner.extras || {},
     };
 
+    console.log("FULL LESSON PLAN PLANNER STATE", state.plannerState);
+
+    console.log(
+      "COURSE KEYS",
+      Object.keys(state.plannerState.courses || {})
+    );
+    
+    console.log(
+      "TOPIC KEYS",
+      Object.keys(state.plannerState.topics || {})
+    );
+    
+    console.log(
+      "EXTRAS",
+      state.plannerState.extras
+    );
+
     await loadBookFilterIndexForPlannerLookups();
     populateMemberFilters();
   } catch (error) {
