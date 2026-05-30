@@ -1384,6 +1384,23 @@ function setupBulkDownloadModal() {
   
     return [...tagIds].sort();
   }
+
+  function showSourceMessage(label, note = "") {
+    if (!sourcePicker) return;
+  
+    sourcePicker.hidden = false;
+    sourcePicker.innerHTML = `
+      <div class="bulk-download-picker-label">
+        ${escapeHtml(label)}
+      </div>
+  
+      ${
+        note
+          ? `<p class="bulk-download-picker-note">${escapeHtml(note)}</p>`
+          : ""
+      }
+    `;
+  }
   
   function showSourcePicker(label, options, note = "") {
     if (!sourcePicker) return;
@@ -1439,12 +1456,11 @@ function setupBulkDownloadModal() {
         return;
       }
   
-      showSourcePicker(
+      showSourceMessage(
         "My Courses",
-        [],
         "Your bookmarked courses and topics will be included."
       );
-  
+      
       showFormatOptions();
       return;
     }
