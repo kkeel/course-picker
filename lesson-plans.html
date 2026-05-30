@@ -264,7 +264,9 @@
 
           <div class="book-member-toolbar-spacer"></div>
 
-          <button class="member-tool-link" type="button">Manage Students</button>
+          <button id="manage-students-button" class="member-tool-link" type="button">
+            Manage Students
+          </button>
           <button class="member-tool-link" type="button">Print</button>
         </div>
       </div>
@@ -321,6 +323,37 @@
       </p>
     </div>
   </div>
+
+  <div id="lesson-student-modal" class="lesson-student-modal" hidden>
+  <div class="lesson-student-modal-backdrop" data-close-student-modal></div>
+
+  <section
+    class="lesson-student-modal-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="lesson-student-modal-title"
+  >
+    <div class="lesson-student-modal-header">
+      <div>
+        <h2 id="lesson-student-modal-title">Manage Students</h2>
+        <p>
+          Add up to 15 students. Names and colors update across the planning app.
+        </p>
+      </div>
+
+      <button
+        class="lesson-student-modal-close"
+        type="button"
+        data-close-student-modal
+        aria-label="Close student manager"
+      >
+        ×
+      </button>
+    </div>
+
+    <div id="lesson-student-modal-body"></div>
+  </section>
+</div>
 
   <button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top">
     ↑ Back to top
