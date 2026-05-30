@@ -1918,3 +1918,55 @@ body.bulk-download-modal-open {
   font-size: 14px;
   line-height: 1.45;
 }
+
+.bulk-download-source-layout {
+  display: grid;
+  grid-template-columns: minmax(170px, 0.9fr) minmax(180px, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.bulk-download-source-picker {
+  border-left: 1px solid var(--divider-subtle);
+  padding-left: 16px;
+}
+
+.bulk-download-picker-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--brand-dark);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.bulk-download-picker-select {
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid var(--divider-subtle);
+  border-radius: 8px;
+  background: #fff;
+  padding: 8px 13px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--brand-text);
+}
+
+.bulk-download-picker-note {
+  margin: 8px 0 0;
+  color: var(--brand-muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+  .bulk-download-source-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .bulk-download-source-picker {
+    border-left: 0;
+    border-top: 1px solid var(--divider-subtle);
+    padding-left: 0;
+    padding-top: 14px;
+  }
+}
