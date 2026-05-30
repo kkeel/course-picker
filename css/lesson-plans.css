@@ -445,23 +445,6 @@ body.member-tools-enabled .member-tool-only {
   display: block;
 }
 
-.book-member-toolbar {
-  border-top: 1px solid var(--divider-subtle);
-  padding: 10px 28px;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  gap: 22px;
-}
-
-.book-member-toolbar-body {
-  display: none;
-  align-items: center;
-  gap: 20px;
-  flex: 1;
-  flex-wrap: wrap;
-}
-
 body.member-tools-enabled .book-member-toolbar-body {
   display: flex;
 }
@@ -477,26 +460,47 @@ body.member-tools-enabled .book-member-toolbar-body {
   gap: 10px;
 }
 
-.member-mini-toggle {
-  appearance: none;
-  border: 0;
-  background: transparent;
-  color: #9a9d94;
-  font: inherit;
-  font-size: 15px;
-  font-weight: 500;
-  padding: 0;
-  cursor: pointer;
-}
-
 .book-member-mode-toggle.is-active,
 .member-mini-toggle.is-active {
   color: #6f766d;
 }
 
+.member-tool-link + .member-tool-link {
+  margin-left: 18px;
+}
+
+.book-member-toolbar {
+  border-top: 1px solid var(--divider-subtle);
+  padding: 9px 28px;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.book-member-toolbar-body {
+  display: none;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.member-mini-toggle {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--brand-muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 0;
+  cursor: pointer;
+}
+
 .mini-toggle-switch {
-  width: 42px;
-  height: 24px;
+  width: 34px;
+  height: 20px;
   border-radius: 999px;
   background: #d8d8d1;
   position: relative;
@@ -507,8 +511,8 @@ body.member-tools-enabled .book-member-toolbar-body {
 }
 
 .mini-toggle-knob {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: #fff;
   position: absolute;
@@ -518,14 +522,9 @@ body.member-tools-enabled .book-member-toolbar-body {
   transition: transform 0.15s ease;
 }
 
-.book-member-mode-toggle.is-active .mini-toggle-switch,
-.member-mini-toggle.is-active .mini-toggle-switch {
-  background: #adb58f;
-}
-
 .book-member-mode-toggle.is-active .mini-toggle-knob,
 .member-mini-toggle.is-active .mini-toggle-knob {
-  transform: translateX(18px);
+  transform: translateX(14px);
 }
 
 .member-tool-link {
@@ -534,14 +533,10 @@ body.member-tools-enabled .book-member-toolbar-body {
   background: transparent;
   color: var(--brand-text);
   font: inherit;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
-  padding: 4px 0;
-}
-
-.member-tool-link + .member-tool-link {
-  margin-left: 18px;
+  padding: 2px 0;
 }
 
 /* =========================================================
