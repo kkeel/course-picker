@@ -1259,6 +1259,19 @@ body.member-tools-enabled .book-member-toolbar-body {
   }
 }
 
+.lesson-student-chip-row {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  min-width: 0;
+}
+
+.lesson-student-chip {
+  height: 22px;
+  padding: 0 10px;
+}
+
 /* =========================================================
    PRINT DELIVERY INTRO + GRADE BUNDLE MODAL
    ========================================================= */
