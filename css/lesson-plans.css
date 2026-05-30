@@ -465,6 +465,12 @@ body.member-tools-enabled .book-member-toolbar-body {
   color: #6f766d;
 }
 
+.book-member-mode-toggle.is-active .mini-toggle-switch,
+.member-mini-toggle.is-active .mini-toggle-switch {
+  background: #dee1d2;
+  border: 1px solid rgba(89,110,94,0.18);
+}
+
 .member-tool-link + .member-tool-link {
   margin-left: 18px;
 }
