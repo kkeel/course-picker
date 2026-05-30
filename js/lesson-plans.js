@@ -120,6 +120,8 @@ const state = {
 
   plannerState: {
     students: [],
+    studentsUpdatedAt: "",
+    studentColorCursor: 0,
     courses: {},
     topics: {},
     globalTopicTags: {},
@@ -481,6 +483,396 @@ function getStudentById(id) {
   return (state.plannerState.students || []).find(
     (student) => normalizeStudentId(student.id) === sid
   );
+}
+
+function studentColorPalette() {
+  const colors = [];
+  const seen = new Set();
+
+  Object.values(window.ALVEARY_CONFIG?.subjectColors || {}).forEach((color) => {
+    const c = String(color || "").trim();
+    if (!c) return;
+
+    const key = c.toLowerCase();
+    if (seen.has(key)) return;
+
+    seen.add(key);
+    colors.push(c);
+  });
+
+  [
+    "#556F8C",
+    "#7F3A82",
+    "#C67894",
+    "#B9355C",
+    "#5A5D66",
+  ].forEach((color) => {
+    const key = color.toLowerCase();
+    if (seen.has(key)) return;
+    seen.add(key);
+    colors.push(color);
+  });
+
+  return colors;
+}
+
+function nextStudentColor() {
+  const palette = studentColorPalette();
+  if (!palette.length) return "#9eaa99";
+
+  const index = Number(state.plannerState.studentColorCursor || 0);
+  const color = palette[index % palette.length];
+
+  state.plannerState.studentColorCursor = index + 1;
+
+  return color;
+}
+
+function resolveLessonPlannerStorageKey() {
+  try {
+    if (window.PLANNER_STATE_KEY) return window.PLANNER_STATE_KEY;
+  } catch {}
+
+  try {
+    const keys = [];
+
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith("alveary_planner_")) keys.push(key);
+    }
+
+    keys.sort();
+    return keys.length ? keys[keys.length - 1] : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeLessonPlannerStateToLocalStorage() {
+  try {
+    const key = resolveLessonPlannerStorageKey();
+    if (!key) return;
+
+    localStorage.setItem(key, JSON.stringify(state.plannerState));
+  } catch (error) {
+    console.warn("Could not write lesson planner state locally", error);
+  }
+}
+
+let lessonStudentSaveTimer = null;
+
+function saveLessonPlannerStateDebounced() {
+  if (lessonStudentSaveTimer) clearTimeout(lessonStudentSaveTimer);
+
+  lessonStudentSaveTimer = setTimeout(async () => {
+    try {
+      state.plannerState.studentsUpdatedAt = new Date().toISOString();
+
+      writeLessonPlannerStateToLocalStorage();
+
+      window.dispatchEvent(
+        new CustomEvent("alveary:planner-updated", {
+          detail: {
+            source: "lesson-plans-student-manager",
+            studentsUpdatedAt: state.plannerState.studentsUpdatedAt,
+          },
+        })
+      );
+
+      if (window.AlvearyAuth?.setPlannerState) {
+        const result = await window.AlvearyAuth.setPlannerState(state.plannerState);
+
+        if (!result?.ok) {
+          console.warn("Lesson Plans student save did not confirm", result);
+        }
+      }
+    } catch (error) {
+      console.warn("Could not save lesson plan student state", error);
+    }
+  }, 350);
+}
+
+function removeStudentIdFromPlannerAssignments(studentId) {
+  const sid = normalizeStudentId(studentId);
+  if (!sid) return;
+
+  const cleanArray = (list) =>
+    Array.isArray(list)
+      ? list.map(normalizeStudentId).filter((id) => id && id !== sid)
+      : [];
+
+  Object.values(state.plannerState.courses || {}).forEach((entry) => {
+    if (!entry || typeof entry !== "object") return;
+    entry.students = cleanArray(entry.students);
+  });
+
+  Object.values(state.plannerState.topics || {}).forEach((entry) => {
+    if (!entry || typeof entry !== "object") return;
+    entry.students = cleanArray(entry.students);
+  });
+
+  Object.keys(state.plannerState.globalTopicStudents || {}).forEach((topicId) => {
+    const next = cleanArray(state.plannerState.globalTopicStudents[topicId]);
+
+    if (next.length) {
+      state.plannerState.globalTopicStudents[topicId] = next;
+    } else {
+      delete state.plannerState.globalTopicStudents[topicId];
+    }
+  });
+
+  if (state.selectedStudent === sid) {
+    state.selectedStudent = "";
+  }
+}
+
+function renderStudentManagerModal() {
+  const body = document.getElementById("lesson-student-modal-body");
+  if (!body) return;
+
+  const students = Array.isArray(state.plannerState.students)
+    ? state.plannerState.students
+    : [];
+
+  const palette = studentColorPalette();
+
+  body.innerHTML = `
+    <div class="lesson-student-manager">
+      <div class="lesson-student-list">
+        ${
+          students.length
+            ? students.map((student) => `
+              <div class="lesson-student-row" data-student-id="${escapeHtml(normalizeStudentId(student.id))}">
+                <button
+                  type="button"
+                  class="student-color-btn"
+                  data-student-color-toggle
+                  style="background-color:${escapeHtml(student.color || "#9eaa99")};"
+                  aria-label="Choose student color"
+                  title="Choose color"
+                ></button>
+
+                <input
+                  class="student-name-input"
+                  type="text"
+                  data-student-name-input
+                  value="${escapeHtml(student.name || "")}"
+                  placeholder="Student name"
+                />
+
+                <button
+                  type="button"
+                  class="student-remove-x"
+                  data-student-remove
+                  aria-label="Remove student"
+                  title="Remove"
+                >
+                  ×
+                </button>
+
+                <div class="student-swatches" data-student-swatches hidden>
+                  ${palette.map((color) => `
+                    <button
+                      type="button"
+                      class="student-swatch ${String(student.color || "").toLowerCase() === color.toLowerCase() ? "student-swatch--selected" : ""}"
+                      data-student-swatch="${escapeHtml(color)}"
+                      style="background-color:${escapeHtml(color)};"
+                      aria-label="Set color ${escapeHtml(color)}"
+                    ></button>
+                  `).join("")}
+                </div>
+              </div>
+            `).join("")
+            : `<p class="lesson-student-empty">No students yet. Add your first student below.</p>`
+        }
+      </div>
+
+      <div class="student-add-row">
+        <input
+          id="lesson-new-student-name"
+          class="student-name-input"
+          type="text"
+          placeholder="Add a student…"
+        />
+
+        <button
+          id="lesson-add-student"
+          type="button"
+          class="student-row-btn"
+          ${students.length >= 15 ? "disabled" : ""}
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function openStudentManagerModal() {
+  const modal = document.getElementById("lesson-student-modal");
+  if (!modal) return;
+
+  renderStudentManagerModal();
+
+  modal.hidden = false;
+  document.body.classList.add("lesson-student-modal-open");
+
+  setTimeout(() => {
+    document.getElementById("lesson-new-student-name")?.focus();
+  }, 0);
+}
+
+function closeStudentManagerModal() {
+  const modal = document.getElementById("lesson-student-modal");
+  if (!modal) return;
+
+  modal.hidden = true;
+  document.body.classList.remove("lesson-student-modal-open");
+  document.getElementById("manage-students-button")?.focus();
+}
+
+function addLessonStudent() {
+  const input = document.getElementById("lesson-new-student-name");
+  const name = String(input?.value || "").trim();
+
+  if (!name) return;
+
+  const students = Array.isArray(state.plannerState.students)
+    ? state.plannerState.students
+    : [];
+
+  if (students.length >= 15) return;
+
+  const id = `s_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+
+  state.plannerState.students = [
+    ...students,
+    {
+      id,
+      name,
+      color: nextStudentColor(),
+    },
+  ];
+
+  populateMemberFilters();
+  render();
+  renderStudentManagerModal();
+  saveLessonPlannerStateDebounced();
+}
+
+function updateLessonStudentName(studentId, name) {
+  const sid = normalizeStudentId(studentId);
+
+  state.plannerState.students = (state.plannerState.students || []).map((student) =>
+    normalizeStudentId(student.id) === sid
+      ? {
+          ...student,
+          id: sid,
+          name,
+        }
+      : student
+  );
+
+  populateMemberFilters();
+  render();
+  saveLessonPlannerStateDebounced();
+}
+
+function updateLessonStudentColor(studentId, color) {
+  const sid = normalizeStudentId(studentId);
+
+  state.plannerState.students = (state.plannerState.students || []).map((student) =>
+    normalizeStudentId(student.id) === sid
+      ? {
+          ...student,
+          id: sid,
+          color,
+        }
+      : student
+  );
+
+  populateMemberFilters();
+  render();
+  renderStudentManagerModal();
+  saveLessonPlannerStateDebounced();
+}
+
+function removeLessonStudent(studentId) {
+  const sid = normalizeStudentId(studentId);
+  if (!sid) return;
+
+  state.plannerState.students = (state.plannerState.students || []).filter(
+    (student) => normalizeStudentId(student.id) !== sid
+  );
+
+  removeStudentIdFromPlannerAssignments(sid);
+
+  populateMemberFilters();
+  render();
+  renderStudentManagerModal();
+  saveLessonPlannerStateDebounced();
+}
+
+function setupStudentManagerModal() {
+  const openButton = document.getElementById("manage-students-button");
+  const modal = document.getElementById("lesson-student-modal");
+
+  openButton?.addEventListener("click", openStudentManagerModal);
+
+  modal?.addEventListener("click", (event) => {
+    const closeButton = event.target.closest("[data-close-student-modal]");
+    if (closeButton) {
+      closeStudentManagerModal();
+      return;
+    }
+
+    const row = event.target.closest("[data-student-id]");
+    const studentId = row?.dataset?.studentId || "";
+
+    if (event.target.closest("[data-student-color-toggle]")) {
+      const swatches = row.querySelector("[data-student-swatches]");
+      if (swatches) swatches.hidden = !swatches.hidden;
+      return;
+    }
+
+    const swatch = event.target.closest("[data-student-swatch]");
+    if (swatch) {
+      updateLessonStudentColor(studentId, swatch.dataset.studentSwatch);
+      return;
+    }
+
+    if (event.target.closest("[data-student-remove]")) {
+      removeLessonStudent(studentId);
+      return;
+    }
+
+    if (event.target.closest("#lesson-add-student")) {
+      addLessonStudent();
+    }
+  });
+
+  modal?.addEventListener("input", (event) => {
+    const input = event.target.closest("[data-student-name-input]");
+    if (!input) return;
+
+    const row = input.closest("[data-student-id]");
+    updateLessonStudentName(row?.dataset?.studentId, input.value);
+  });
+
+  modal?.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeStudentManagerModal();
+      return;
+    }
+
+    if (
+      event.key === "Enter" &&
+      event.target?.id === "lesson-new-student-name"
+    ) {
+      event.preventDefault();
+      addLessonStudent();
+    }
+  });
 }
 
 function getUrlState() {
@@ -1486,6 +1878,11 @@ async function loadPlannerStateForLessonPlans() {
             id: normalizeStudentId(student.id),
           }))
         : [],
+      studentsUpdatedAt: planner.studentsUpdatedAt || "",
+      studentColorCursor:
+        typeof planner.studentColorCursor === "number"
+          ? planner.studentColorCursor
+          : 0,
       courses: planner.courses || {},
       topics: planner.topics || {},
       globalTopicTags: planner.globalTopicTags || {},
@@ -1567,7 +1964,8 @@ async function initDirectory() {
     setupGradeBundleModal();
 
     await loadPlannerStateForLessonPlans();
-
+    setupStudentManagerModal();
+    
     document.getElementById("toggle-intro").addEventListener("click", () => {
       const intro = document.getElementById("lesson-intro-section");
       const nextCollapsed = !intro.classList.contains("is-collapsed");
