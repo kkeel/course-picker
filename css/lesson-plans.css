@@ -92,6 +92,13 @@ a {
   }
 }
 
+.lesson-member-loading-message {
+  margin-left: auto;
+  color: var(--brand-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
 /* =========================================================
    3. LESSON PLANS INTRO
    ========================================================= */
