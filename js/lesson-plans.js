@@ -853,6 +853,102 @@ function getActionLinks(item) {
   };
 }
 
+function planningTagImage(id) {
+  const images = {
+    core: "img/icons/planning-core.svg",
+    family: "img/icons/planning-family.svg",
+    combine: "img/icons/planning-combine.svg",
+    "high-interest": "img/icons/planning-high-interest.svg",
+    additional: "img/icons/planning-additional.svg",
+  };
+
+  return images[id] || "";
+}
+
+function renderPlanningTagIcons(item) {
+  if (!state.memberToolsEnabled || !state.memberFilters.planningTags) return "";
+
+  const member = getMemberRecordForRow(item);
+  const tags = [...new Set(member.tags || [])].filter(Boolean);
+
+  if (!tags.length) return "";
+
+  return `
+    <div class="lesson-planning-tag-row">
+      ${tags.map((tag) => {
+        const img = planningTagImage(tag);
+
+        return `
+          <span class="planning-tag-pill lesson-planning-tag-pill" title="${escapeHtml(planningTagLabel(tag))}">
+            ${
+              img
+                ? `<img class="planning-tag-img" src="${escapeHtml(img)}" alt="${escapeHtml(planningTagLabel(tag))}" />`
+                : `<span class="lesson-planning-tag-fallback">${escapeHtml(planningTagLabel(tag).slice(0, 1))}</span>`
+            }
+          </span>
+        `;
+      }).join("")}
+    </div>
+  `;
+}
+
+function renderNoteButton(item) {
+  if (!state.memberToolsEnabled) return "";
+
+  const member = getMemberRecordForRow(item);
+  const hasNote = String(member.noteText || "").trim().length > 0;
+
+  if (!hasNote) return "";
+
+  const color = subjectColor(item.subject);
+
+  return `
+    <span
+      class="note-btn note-btn--strong lesson-note-display"
+      style="background-color:${escapeHtml(color)}4D; border-color:${escapeHtml(color)}; color:${escapeHtml(color)};"
+      aria-label="Has notes"
+      title="Has notes"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M4 17.5V20h2.5L17 9.5 14.5 7 4 17.5z"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M15.5 5.5L18 8"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </span>
+  `;
+}
+
+function renderMemberIconStack(item) {
+  const note = renderNoteButton(item);
+  const bookmark = renderBookmarkIndicator(item);
+  const tags = renderPlanningTagIcons(item);
+
+  if (!note && !bookmark && !tags) return "";
+
+  return `
+    <div class="lesson-member-icon-stack">
+      <div class="lesson-member-icon-row">
+        ${note}
+        ${bookmark}
+      </div>
+      ${tags}
+    </div>
+  `;
+}
+
 function renderStudentChips(item) {
   if (!state.memberToolsEnabled || !state.memberFilters.students) return "";
 
@@ -1053,36 +1149,7 @@ function renderActionButtons(item, options = {}) {
 }
 
 function renderMemberMeta(item) {
-  if (!state.memberToolsEnabled) return "";
-
-  const member = getMemberRecordForRow(item);
-  const tags = [...new Set(member.tags || [])].filter(Boolean);
-  const students = [...new Set(member.students || [])].filter(Boolean);
-  const hasNote = String(member.noteText || "").trim().length > 0;
-
-  const pieces = [];
-
-  if (state.memberFilters.planningTags && tags.length) {
-    pieces.push(
-      ...tags.map((tag) => `
-        <span class="member-meta-chip member-meta-tag">
-          ${escapeHtml(planningTagLabel(tag))}
-        </span>
-      `)
-    );
-  }
-
-  if (hasNote) {
-    pieces.push(`<span class="member-meta-chip member-meta-note">📝 Note</span>`);
-  }
-
-  if (!pieces.length) return "";
-
-  return `
-    <div class="member-card-meta">
-      ${pieces.join("")}
-    </div>
-  `;
+  return "";
 }
 
 function renderCourseCard(item) {
@@ -1094,7 +1161,7 @@ function renderCourseCard(item) {
           <span class="title-grade">${escapeHtml(item.gradeText || "")}</span>
         </h3>
       
-        ${renderBookmarkIndicator(item)}
+        ${renderMemberIconStack(item)}
       </div>
 
       ${renderMemberMeta(item)}
@@ -1116,7 +1183,7 @@ function renderTopicCard(item) {
           <span class="title-grade">${escapeHtml(item.gradeText || "")}</span>
         </h3>
       
-        ${renderBookmarkIndicator(item)}
+        ${renderMemberIconStack(item)}
       </div>
 
       ${renderMemberMeta(item)}
@@ -1348,7 +1415,7 @@ function render() {
                       </h3>
                     </div>
                   
-                    ${renderBookmarkIndicator(course)}
+                    ${renderMemberIconStack(course)}
                   </div>
 
                   ${renderMemberMeta(course)}
