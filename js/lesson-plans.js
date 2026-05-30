@@ -1310,6 +1310,7 @@ function setupBulkDownloadModal() {
   const openButton = document.getElementById("open-bulk-download");
   const formatSection = document.getElementById("bulk-download-format-section");
   const message = document.getElementById("bulk-download-message");
+  const sourcePicker = document.getElementById("bulk-download-source-picker");
 
   if (!modal || !openButton) return;
 
@@ -1345,6 +1346,7 @@ function setupBulkDownloadModal() {
 
     hideFormatOptions();
     clearMessage();
+    clearSourcePicker();
   }
 
   function openModal() {
@@ -1359,63 +1361,138 @@ function setupBulkDownloadModal() {
     openButton.focus();
   }
 
+  function clearSourcePicker() {
+    if (!sourcePicker) return;
+    sourcePicker.hidden = true;
+    sourcePicker.innerHTML = "";
+  }
+  
+  function getPlanningTagOptions() {
+    const tagIds = new Set();
+  
+    Object.values(state.plannerState.courses || {}).forEach((entry) => {
+      (entry.tags || []).forEach((tag) => tagIds.add(tag));
+    });
+  
+    Object.values(state.plannerState.topics || {}).forEach((entry) => {
+      (entry.tags || []).forEach((tag) => tagIds.add(tag));
+    });
+  
+    Object.values(state.plannerState.globalTopicTags || {}).forEach((tags) => {
+      (tags || []).forEach((tag) => tagIds.add(tag));
+    });
+  
+    return [...tagIds].sort();
+  }
+  
+  function showSourcePicker(label, options, note = "") {
+    if (!sourcePicker) return;
+  
+    sourcePicker.hidden = false;
+    sourcePicker.innerHTML = `
+      <label class="bulk-download-picker-label" for="bulk-download-detail-select">
+        ${escapeHtml(label)}
+      </label>
+  
+      <select id="bulk-download-detail-select" class="bulk-download-picker-select">
+        <option value="">Choose one</option>
+        ${options.map((option) => `
+          <option value="${escapeHtml(option.value)}">
+            ${escapeHtml(option.label)}
+          </option>
+        `).join("")}
+      </select>
+  
+      ${
+        note
+          ? `<p class="bulk-download-picker-note">${escapeHtml(note)}</p>`
+          : ""
+      }
+    `;
+  }
+
   function handleSourceChange(value) {
     hideFormatOptions();
     clearMessage();
-
+    clearSourcePicker();
+  
     if (value === "grade") {
+      showSourcePicker(
+        "Choose Grade",
+        Array.from({ length: 12 }, (_, i) => ({
+          value: `G${i + 1}`,
+          label: `Grade ${i + 1}`,
+        }))
+      );
+  
       showFormatOptions();
       return;
     }
-
+  
     if (value === "myCourses") {
-      const hasMyCourses =
-        lessonHasSavedCourseData();
-    
+      const hasMyCourses = lessonHasSavedCourseData();
+  
       if (!hasMyCourses) {
         showMessage(
           "You have not added any courses yet. Use My Courses on the Course List page to bookmark courses or topics first."
         );
         return;
       }
-    
+  
+      showSourcePicker(
+        "My Courses",
+        [],
+        "Your bookmarked courses and topics will be included."
+      );
+  
       showFormatOptions();
       return;
     }
-
+  
     if (value === "students") {
-      const hasStudents = (state.plannerState.students || []).length > 0;
-
-      if (!hasStudents) {
-        showMessage("You have not created any students yet. Use Manage Students to add students first.");
+      const students = state.plannerState.students || [];
+  
+      if (!students.length) {
+        showMessage(
+          "You have not created any students yet. Use Manage Students to add students first."
+        );
         return;
       }
-
+  
+      showSourcePicker(
+        "Choose Student",
+        students.map((student) => ({
+          value: normalizeStudentId(student.id),
+          label: student.name || "Student",
+        }))
+      );
+  
       showFormatOptions();
       return;
     }
-
+  
     if (value === "planningTags") {
-      const hasPlanningTags =
-        Object.keys(state.plannerState.globalTopicTags || {}).length > 0 ||
-        Object.values(state.plannerState.courses || {}).some(
-          (entry) => (entry.tags || []).length
-        ) ||
-        Object.values(state.plannerState.topics || {}).some(
-          (entry) => (entry.tags || []).length
-        );
-    
-      if (!hasPlanningTags) {
+      const tags = getPlanningTagOptions();
+  
+      if (!tags.length) {
         showMessage(
           "You have not assigned any Planning Tags yet. Use the Course List page to add Planning Tags to your courses and topics first."
         );
         return;
       }
-    
+  
+      showSourcePicker(
+        "Choose Planning Tag",
+        tags.map((tag) => ({
+          value: tag,
+          label: planningTagLabel(tag),
+        }))
+      );
+  
       showFormatOptions();
       return;
     }
-
+  
     if (value === "trackingTags") {
       showMessage("Tracking Tags are coming soon.");
     }
