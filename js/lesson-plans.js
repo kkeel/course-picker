@@ -1311,6 +1311,19 @@ function setupBulkDownloadModal() {
   const formatSection = document.getElementById("bulk-download-format-section");
   const message = document.getElementById("bulk-download-message");
   const sourcePicker = document.getElementById("bulk-download-source-picker");
+  const preview = document.getElementById("bulk-download-preview");
+
+  let bulkDownloadState = {
+    source: "",
+    detail: "",
+    format: "",
+  };
+
+  function clearPreview() {
+    if (!preview) return;
+    preview.hidden = true;
+    preview.innerHTML = "";
+  }
 
   if (!modal || !openButton) return;
 
@@ -1347,6 +1360,13 @@ function setupBulkDownloadModal() {
     hideFormatOptions();
     clearMessage();
     clearSourcePicker();
+    clearPreview();
+
+    bulkDownloadState = {
+      source: "",
+      detail: "",
+      format: "",
+    };
   }
 
   function openModal() {
@@ -1428,10 +1448,113 @@ function setupBulkDownloadModal() {
     `;
   }
 
+  function getBulkPreviewRows() {
+    const source = bulkDownloadState.source;
+    const detail = bulkDownloadState.detail;
+    const format = bulkDownloadState.format;
+  
+    if (!source || !format) return [];
+  
+    if (
+      (source === "grade" || source === "students" || source === "planningTags") &&
+      !detail
+    ) {
+      return [];
+    }
+  
+    let rows = (state.allRows || []).filter(hasLessonPdf);
+  
+    if (source === "grade") {
+      const gradeNumber = String(detail || "").replace("G", "");
+  
+      rows = rows.filter((row) => {
+        const text = [
+          row.gradeText,
+          row.title,
+          row.lessonSetName,
+        ].filter(Boolean).join(" ").toLowerCase();
+  
+        return (
+          text.includes(`grade ${gradeNumber}`) ||
+          text.includes(`g${gradeNumber}`)
+        );
+      });
+    }
+  
+    if (source === "myCourses") {
+      rows = rows.filter((row) => getMemberRecordForRow(row).isBookmarked);
+    }
+  
+    if (source === "students") {
+      rows = rows.filter((row) =>
+        (getMemberRecordForRow(row).students || []).includes(normalizeStudentId(detail))
+      );
+    }
+  
+    if (source === "planningTags") {
+      rows = rows.filter((row) =>
+        (getMemberRecordForRow(row).tags || []).includes(detail)
+      );
+    }
+  
+    if (format === "fullCourse") {
+      rows = rows.filter((row) => row.rowType === "course");
+    }
+  
+    if (format === "topicPlans") {
+      rows = rows.filter((row) =>
+        row.rowType === "topic" ||
+        (row.rowType === "course" && !row.hasTopics)
+      );
+    }
+  
+    const seen = new Set();
+  
+    return rows.filter((row) => {
+      const url = safeLink(row?.links?.lessonPdf);
+      if (!url || seen.has(url)) return false;
+      seen.add(url);
+      return true;
+    });
+  }
+  
+  function updateBulkDownloadPreview() {
+    if (!preview) return;
+  
+    const rows = getBulkPreviewRows();
+  
+    if (!rows.length) {
+      clearPreview();
+      return;
+    }
+  
+    const fullCourseCount = rows.filter((row) => row.rowType === "course").length;
+    const topicCount = rows.filter((row) => row.rowType === "topic").length;
+  
+    preview.hidden = false;
+    preview.innerHTML = `
+      <h3>Preview</h3>
+      <p>
+        <strong>${fullCourseCount}</strong> Full Course Plans<br>
+        <strong>${topicCount}</strong> Single Topic Plans<br>
+        <strong>${rows.length}</strong> PDFs total
+      </p>
+    `;
+  }
+
   function handleSourceChange(value) {
     hideFormatOptions();
     clearMessage();
     clearSourcePicker();
+    bulkDownloadState.source = value;
+    bulkDownloadState.detail = "";
+    bulkDownloadState.format = "";
+    
+    modal.querySelectorAll('input[name="download-format"]').forEach((input) => {
+      input.checked = false;
+    });
+    
+    clearPreview();
   
     if (value === "grade") {
       showSourcePicker(
@@ -1529,6 +1652,18 @@ function setupBulkDownloadModal() {
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && !modal.hidden) {
       closeModal();
+    }
+  });
+
+  modal.addEventListener("change", (event) => {
+    if (event.target?.id === "bulk-download-detail-select") {
+      bulkDownloadState.detail = event.target.value;
+      updateBulkDownloadPreview();
+    }
+  
+    if (event.target?.name === "download-format") {
+      bulkDownloadState.format = event.target.value;
+      updateBulkDownloadPreview();
     }
   });
 }
