@@ -53,6 +53,7 @@ async function requireLessonPlansMemberAccess_() {
 
     if (role === "member" || role === "staff") {
       document.body.classList.remove("is-auth-checking");
+      document.getElementById("lesson-page-loading")?.remove();
       return true;
     }
   } catch (error) {
