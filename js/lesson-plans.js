@@ -176,6 +176,49 @@ function firstValue(...values) {
   return "";
 }
 
+function normalizeId(value) {
+  return String(value || "").trim();
+}
+
+function uniqueStrings(values) {
+  const out = [];
+  const seen = new Set();
+
+  (Array.isArray(values) ? values : []).forEach((value) => {
+    const v = normalizeId(value);
+    if (!v || seen.has(v)) return;
+    seen.add(v);
+    out.push(v);
+  });
+
+  return out;
+}
+
+function bookFilterIndexItems() {
+  if (Array.isArray(state.plannerState.bookFilterIndex?.items)) {
+    return state.plannerState.bookFilterIndex.items;
+  }
+
+  if (Array.isArray(state.plannerState.bookFilterIndex?.groups)) {
+    return state.plannerState.bookFilterIndex.groups.flatMap((group) => group.items || []);
+  }
+
+  return [];
+}
+
+async function loadBookFilterIndexForPlannerLookups() {
+  if (state.plannerState.bookFilterIndex) return;
+
+  try {
+    const response = await fetch("./data/book-views/master.json");
+    if (!response.ok) throw new Error("Could not load book master index");
+
+    state.plannerState.bookFilterIndex = await response.json();
+  } catch (error) {
+    console.warn("Could not load book master index for lesson plan planner lookups", error);
+  }
+}
+
 function idParts(id) {
   return String(id || "").trim().split(".");
 }
@@ -319,6 +362,19 @@ function getMemberRecordForRow(row) {
       getTopicInstanceKeys(row).some((key) =>
         getSavedTopicInstanceKeysForReading().has(key)
       );
+
+    if (
+      row.lessonSetName?.includes("Bible") ||
+      row.title?.includes("Bible")
+    ) {
+      console.log("COURSE CHECK", {
+        title: row.lessonSetName || row.title,
+        keys: getCourseStateKeys(row),
+        plannerMatches: getCourseStateKeys(row).filter(
+          (key) => state.plannerState.courses?.[key]
+        ),
+      });
+    }
 
     return {
       isBookmarked,
@@ -1296,7 +1352,6 @@ async function loadPlannerStateForLessonPlans() {
     };
 
     await loadBookFilterIndexForPlannerLookups();
-    rebuildSavedRecordIdsForLessonPlans();
     populateMemberFilters();
   } catch (error) {
     console.warn("Could not load lesson plan member state", error);
