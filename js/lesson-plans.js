@@ -70,6 +70,16 @@ const STORAGE_KEYS = {
   introCollapsed: "lessonPlansIntroCollapsed",
   filtersCollapsed: "lessonPlansFiltersCollapsed",
   memberTools: "lessonPlansMemberTools",
+  uiPrefsInitialized: "lessonPlansUiPrefsInitialized",
+  memberFilters: "lessonPlansMemberFilters",
+  selectedPlanningTag: "lessonPlansSelectedPlanningTag",
+  selectedStudent: "lessonPlansSelectedStudent",
+  query: "lessonPlansQuery",
+  base: "lessonPlansBase",
+  selectedId: "lessonPlansSelectedId",
+  selectedCourse: "lessonPlansSelectedCourse",
+  selectedTopic: "lessonPlansSelectedTopic",
+  selectedTrack: "lessonPlansSelectedTrack",
 };
 
 const SUBJECT_ORDER = [
@@ -1102,6 +1112,99 @@ function populateTopicFilter() {
   select.value = state.selectedTopic;
 }
 
+function lessonHasSavedCourseData() {
+  const planner = state.plannerState || {};
+
+  const hasCourseBookmarks = Object.values(planner.courses || {}).some(
+    (entry) => entry?.isBookmarked
+  );
+
+  const hasTopicBookmarks = Object.values(planner.topics || {}).some(
+    (entry) => entry?.isBookmarked
+  );
+
+  const extras = planner.extras || {};
+
+  return (
+    hasCourseBookmarks ||
+    hasTopicBookmarks ||
+    (extras.myCourses || []).length ||
+    (extras.courseSelections || []).length ||
+    (extras.myTopics || []).length ||
+    (extras.topicSelections || []).length
+  );
+}
+
+function readJsonStorage(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function saveLessonUiPrefs() {
+  localStorage.setItem(STORAGE_KEYS.memberTools, String(state.memberToolsEnabled));
+  localStorage.setItem(STORAGE_KEYS.memberFilters, JSON.stringify(state.memberFilters));
+  localStorage.setItem(STORAGE_KEYS.selectedPlanningTag, state.selectedPlanningTag || "");
+  localStorage.setItem(STORAGE_KEYS.selectedStudent, state.selectedStudent || "");
+  localStorage.setItem(STORAGE_KEYS.query, state.query || "");
+  localStorage.setItem(STORAGE_KEYS.base, state.base || "subject");
+  localStorage.setItem(STORAGE_KEYS.selectedId, state.selectedId || "");
+  localStorage.setItem(STORAGE_KEYS.selectedCourse, state.selectedCourse || "");
+  localStorage.setItem(STORAGE_KEYS.selectedTopic, state.selectedTopic || "");
+  localStorage.setItem(STORAGE_KEYS.selectedTrack, state.selectedTrack || "");
+}
+
+function applySavedLessonUiPrefs() {
+  state.memberFilters = {
+    ...state.memberFilters,
+    ...readJsonStorage(STORAGE_KEYS.memberFilters, {}),
+  };
+
+  state.selectedPlanningTag = localStorage.getItem(STORAGE_KEYS.selectedPlanningTag) || "";
+  state.selectedStudent = localStorage.getItem(STORAGE_KEYS.selectedStudent) || "";
+  state.query = localStorage.getItem(STORAGE_KEYS.query) || "";
+  state.base = localStorage.getItem(STORAGE_KEYS.base) || state.base || "subject";
+  state.selectedId = localStorage.getItem(STORAGE_KEYS.selectedId) || "";
+  state.selectedCourse = localStorage.getItem(STORAGE_KEYS.selectedCourse) || "";
+  state.selectedTopic = localStorage.getItem(STORAGE_KEYS.selectedTopic) || "";
+  state.selectedTrack = localStorage.getItem(STORAGE_KEYS.selectedTrack) || "";
+}
+
+function applySmartFirstVisitDefaults() {
+  if (localStorage.getItem(STORAGE_KEYS.uiPrefsInitialized) === "true") return;
+
+  const hasSavedCourses = lessonHasSavedCourseData();
+
+  if (hasSavedCourses) {
+    localStorage.setItem(STORAGE_KEYS.memberTools, "true");
+    localStorage.setItem(STORAGE_KEYS.filtersCollapsed, "true");
+
+    state.memberToolsEnabled = true;
+    state.memberFilters = {
+      myCourses: true,
+      students: false,
+      planningTags: false,
+    };
+  } else {
+    localStorage.setItem(STORAGE_KEYS.memberTools, "false");
+    localStorage.setItem(STORAGE_KEYS.filtersCollapsed, "false");
+
+    state.memberToolsEnabled = false;
+    state.memberFilters = {
+      myCourses: false,
+      students: false,
+      planningTags: false,
+    };
+  }
+
+  localStorage.setItem(STORAGE_KEYS.introCollapsed, "false");
+  localStorage.setItem(STORAGE_KEYS.memberFilters, JSON.stringify(state.memberFilters));
+  localStorage.setItem(STORAGE_KEYS.uiPrefsInitialized, "true");
+}
+
 function applyIntroState() {
   const intro = document.getElementById("lesson-intro-section");
   const button = document.getElementById("toggle-intro");
@@ -1124,6 +1227,16 @@ function applyFilterState() {
   controls.classList.toggle("is-collapsed", collapsed);
 
   button.textContent = collapsed ? "Show" : "Hide";
+}
+
+function applyMemberMiniToggleState() {
+  document.querySelectorAll(".member-mini-toggle").forEach((button) => {
+    const key = button.dataset.memberFilter;
+    const active = !!state.memberFilters[key];
+
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", active ? "true" : "false");
+  });
 }
 
 function applyMemberToolsState() {
@@ -2101,10 +2214,29 @@ async function initDirectory() {
     setMemberLoadingMessage("Loading your saved planning choices…");
     
     loadPlannerStateForLessonPlans()
-      .then(() => {
-        setMemberLoadingMessage("");
-        render();
-      })
+    .then(async () => {
+      applySmartFirstVisitDefaults();
+      applySavedLessonUiPrefs();
+      populatePrimarySelect();
+      await loadSelectedView();
+      
+      document.getElementById("primary-select").value = state.selectedId;
+      document.getElementById("course-filter").value = state.selectedCourse;
+      document.getElementById("topic-filter").value = state.selectedTopic;
+      applyIntroState();
+      applyFilterState();
+      applyMemberToolsState();
+      applyMemberMiniToggleState();
+      populateMemberFilters();
+  
+      document.getElementById("directory-search").value = state.query;
+      document.getElementById("track-filter").value = state.selectedTrack;
+      document.getElementById("planning-tag-filter").value = state.selectedPlanningTag;
+      document.getElementById("student-filter").value = state.selectedStudent;
+  
+      setMemberLoadingMessage("");
+      render();
+    })
       .catch((error) => {
         setMemberLoadingMessage("");
         console.warn("Could not apply lesson plan member data", error);
@@ -2131,6 +2263,7 @@ async function initDirectory() {
     
       localStorage.setItem(STORAGE_KEYS.memberTools, String(nextEnabled));
       applyMemberToolsState();
+      saveLessonUiPrefs();
       render();
     });
     
@@ -2144,17 +2277,20 @@ async function initDirectory() {
         button.classList.toggle("is-active", !!state.memberFilters[key]);
         button.setAttribute("aria-pressed", state.memberFilters[key] ? "true" : "false");
     
+        saveLessonUiPrefs();
         render();
       });
     });
     
     document.getElementById("planning-tag-filter")?.addEventListener("change", (event) => {
       state.selectedPlanningTag = event.target.value;
+      saveLessonUiPrefs();
       render();
     });
     
     document.getElementById("student-filter")?.addEventListener("change", (event) => {
       state.selectedStudent = event.target.value;
+      saveLessonUiPrefs();
       render();
     });
 
@@ -2179,6 +2315,7 @@ async function initDirectory() {
         populatePrimarySelect();
         updateUrl();
         await loadSelectedView();
+        saveLessonUiPrefs();
         render();
       });
     });
@@ -2190,6 +2327,7 @@ async function initDirectory() {
     
       updateUrl();
       await loadSelectedView();
+      saveLessonUiPrefs();
       render();
     });
 
@@ -2200,6 +2338,7 @@ async function initDirectory() {
       populateTopicFilter();
     
       updateUrl();
+      saveLessonUiPrefs();
       render();
     });
 
@@ -2212,18 +2351,21 @@ async function initDirectory() {
       populateTopicFilter();
     
       updateUrl();
+      saveLessonUiPrefs();
       render();
     });
 
     document.getElementById("topic-filter").addEventListener("change", (event) => {
       state.selectedTopic = event.target.value;
       updateUrl();
+      saveLessonUiPrefs();
       render();
     });
 
     const searchInput = document.getElementById("directory-search");
     searchInput.addEventListener("input", (event) => {
       state.query = event.target.value;
+      saveLessonUiPrefs();
       render();
     });
 
@@ -2240,6 +2382,7 @@ async function initDirectory() {
           state.openTools.add(itemId);
         }
     
+        saveLessonUiPrefs();
         render();
         return;
       }
@@ -2253,6 +2396,7 @@ async function initDirectory() {
           state.openTopics.add(itemId);
         }
     
+        saveLessonUiPrefs();
         render();
       }
     });
@@ -2283,6 +2427,7 @@ async function initDirectory() {
     
       updateUrl();
       await loadSelectedView();
+      saveLessonUiPrefs();
       render();
     });
 
@@ -2305,6 +2450,7 @@ async function initDirectory() {
     
           updateUrl();
           await loadSelectedView();
+          saveLessonUiPrefs();
           render();
           return;
         }
@@ -2317,6 +2463,7 @@ async function initDirectory() {
           populateTopicFilter();
     
           updateUrl();
+          saveLessonUiPrefs();
           render();
           return;
         }
@@ -2331,6 +2478,7 @@ async function initDirectory() {
           populateTopicFilter();
     
           updateUrl();
+          saveLessonUiPrefs();
           render();
           return;
         }
@@ -2342,6 +2490,7 @@ async function initDirectory() {
           populateTopicFilter();
     
           updateUrl();
+          saveLessonUiPrefs();
           render();
           return;
         }
