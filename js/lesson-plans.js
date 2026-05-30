@@ -553,7 +553,12 @@ function writeLessonPlannerStateToLocalStorage() {
     const key = resolveLessonPlannerStorageKey();
     if (!key) return;
 
-    localStorage.setItem(key, JSON.stringify(state.plannerState));
+    const existingRaw = localStorage.getItem(key);
+    const existing = existingRaw ? JSON.parse(existingRaw) : {};
+
+    const nextState = buildLessonPlannerSaveState(existing);
+
+    localStorage.setItem(key, JSON.stringify(nextState));
   } catch (error) {
     console.warn("Could not write lesson planner state locally", error);
   }
@@ -561,12 +566,50 @@ function writeLessonPlannerStateToLocalStorage() {
 
 let lessonStudentSaveTimer = null;
 
+function buildLessonPlannerSaveState(existingCloudState = {}) {
+  const existing =
+    existingCloudState && typeof existingCloudState === "object"
+      ? existingCloudState
+      : {};
+
+  const existingCore =
+    existing.plannerCore && typeof existing.plannerCore === "object"
+      ? existing.plannerCore
+      : existing;
+
+  const nextCore = {
+    ...existingCore,
+    ...state.plannerState,
+    students: state.plannerState.students || [],
+    studentsUpdatedAt: new Date().toISOString(),
+  };
+
+  // If the saved cloud state uses plannerCore, preserve that wrapper.
+  if (existing.plannerCore && typeof existing.plannerCore === "object") {
+    return {
+      ...existing,
+      students: nextCore.students,
+      studentsUpdatedAt: nextCore.studentsUpdatedAt,
+      plannerCore: nextCore,
+    };
+  }
+
+  // Otherwise save the normal root planner shape used by Course List / Books.
+  return nextCore;
+}
+
 function saveLessonPlannerStateDebounced() {
   if (lessonStudentSaveTimer) clearTimeout(lessonStudentSaveTimer);
 
   lessonStudentSaveTimer = setTimeout(async () => {
     try {
-      state.plannerState.studentsUpdatedAt = new Date().toISOString();
+      const latest = await window.AlvearyAuth?.getPlannerState?.();
+      const nextState = buildLessonPlannerSaveState(latest?.state || {});
+
+      state.plannerState =
+        nextState.plannerCore && typeof nextState.plannerCore === "object"
+          ? nextState.plannerCore
+          : nextState;
 
       writeLessonPlannerStateToLocalStorage();
 
@@ -580,7 +623,7 @@ function saveLessonPlannerStateDebounced() {
       );
 
       if (window.AlvearyAuth?.setPlannerState) {
-        const result = await window.AlvearyAuth.setPlannerState(state.plannerState);
+        const result = await window.AlvearyAuth.setPlannerState(nextState);
 
         if (!result?.ok) {
           console.warn("Lesson Plans student save did not confirm", result);
