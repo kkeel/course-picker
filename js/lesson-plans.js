@@ -53,7 +53,7 @@ async function requireLessonPlansMemberAccess_() {
 
     if (role === "member" || role === "staff") {
       document.body.classList.remove("is-auth-checking");
-      document.getElementById("lesson-page-loading")?.remove();
+      setLessonLoadingMessage("Loading lesson plan options…");
       return true;
     }
   } catch (error) {
@@ -2072,8 +2072,43 @@ async function initDirectory() {
     setupBackToTop();
     setupGradeBundleModal();
 
-    await loadPlannerStateForLessonPlans();
     setupStudentManagerModal();
+
+    setLessonLoadingMessage("Loading lesson plan options…");
+    
+    const response = await fetch(DIRECTORY_INDEX_URL);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    const index = await response.json();
+    const rows = Array.isArray(index.rows) ? index.rows : [];
+    
+    state.allRows = rows.filter(shouldShowLessonPlanRow);
+    state.indexViews = index.views || {};
+    
+    populatePrimarySelect();
+    
+    await loadSelectedView();
+    
+    document.getElementById("track-filter").value = state.selectedTrack;
+    
+    document.querySelectorAll(".book-base-button").forEach((btn) => {
+      btn.classList.toggle("is-active", btn.dataset.base === state.base);
+    });
+    
+    removeLessonLoadingMessage();
+    render();
+    
+    setMemberLoadingMessage("Loading your saved planning choices…");
+    
+    loadPlannerStateForLessonPlans()
+      .then(() => {
+        setMemberLoadingMessage("");
+        render();
+      })
+      .catch((error) => {
+        setMemberLoadingMessage("");
+        console.warn("Could not apply lesson plan member data", error);
+      });
     
     document.getElementById("toggle-intro").addEventListener("click", () => {
       const intro = document.getElementById("lesson-intro-section");
@@ -2121,25 +2156,6 @@ async function initDirectory() {
     document.getElementById("student-filter")?.addEventListener("change", (event) => {
       state.selectedStudent = event.target.value;
       render();
-    });
-
-    const response = await fetch(DIRECTORY_INDEX_URL);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-    const index = await response.json();
-    const rows = Array.isArray(index.rows) ? index.rows : [];
-    
-    state.allRows = rows.filter(shouldShowLessonPlanRow);
-    state.indexViews = index.views || {};
-    
-    populatePrimarySelect();
-    
-    await loadSelectedView();
-
-    document.getElementById("track-filter").value = state.selectedTrack;
-
-    document.querySelectorAll(".book-base-button").forEach((btn) => {
-      btn.classList.toggle("is-active", btn.dataset.base === state.base);
     });
 
     document.querySelectorAll(".book-base-button").forEach((button) => {
