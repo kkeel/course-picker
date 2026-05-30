@@ -381,9 +381,7 @@
       <div class="bulk-download-header">
         <div>
           <h2 id="bulk-download-title">Bulk Download</h2>
-          <p>
-            Download lesson plans by collection, grade, or planning preferences.
-          </p>
+          <p>Download lesson plans by collection, grade, or planning preferences.</p>
         </div>
   
         <button
@@ -400,46 +398,56 @@
         <h3>Download From</h3>
   
         <label class="bulk-download-option">
-          <input type="radio" name="download-source" checked>
+          <input type="radio" name="download-source" value="grade">
           <span>Grade</span>
         </label>
   
         <label class="bulk-download-option">
-          <input type="radio" name="download-source">
+          <input type="radio" name="download-source" value="myCourses">
           <span>My Courses</span>
         </label>
   
         <label class="bulk-download-option">
-          <input type="radio" name="download-source">
+          <input type="radio" name="download-source" value="students">
           <span>Students</span>
         </label>
   
         <label class="bulk-download-option">
-          <input type="radio" name="download-source">
+          <input type="radio" name="download-source" value="planningTags">
           <span>Planning Tags</span>
         </label>
   
         <label class="bulk-download-option">
-          <input type="radio" name="download-source">
+          <input type="radio" name="download-source" value="trackingTags">
           <span>Tracking Tags</span>
         </label>
       </div>
   
-      <div class="bulk-download-section">
+      <div
+        id="bulk-download-message"
+        class="bulk-download-message"
+        hidden
+      ></div>
+  
+      <div
+        id="bulk-download-format-section"
+        class="bulk-download-section"
+        hidden
+      >
         <h3>Download Format</h3>
   
         <label class="bulk-download-option">
-          <input type="radio" name="download-format" checked>
+          <input type="radio" name="download-format" value="fullCourse">
           <span>Full Course Plans</span>
         </label>
   
         <label class="bulk-download-option">
-          <input type="radio" name="download-format">
+          <input type="radio" name="download-format" value="topicPlans">
           <span>Topic Plans</span>
         </label>
   
         <label class="bulk-download-option">
-          <input type="radio" name="download-format">
+          <input type="radio" name="download-format" value="both">
           <span>Both</span>
         </label>
       </div>
