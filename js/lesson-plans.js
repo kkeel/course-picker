@@ -1308,21 +1308,103 @@ function setupGradeBundleModal() {
 function setupBulkDownloadModal() {
   const modal = document.getElementById("bulk-download-modal");
   const openButton = document.getElementById("open-bulk-download");
+  const formatSection = document.getElementById("bulk-download-format-section");
+  const message = document.getElementById("bulk-download-message");
 
   if (!modal || !openButton) return;
 
+  function showMessage(text) {
+    if (!message) return;
+    message.hidden = false;
+    message.textContent = text;
+  }
+
+  function clearMessage() {
+    if (!message) return;
+    message.hidden = true;
+    message.textContent = "";
+  }
+
+  function showFormatOptions() {
+    if (formatSection) formatSection.hidden = false;
+    clearMessage();
+  }
+
+  function hideFormatOptions() {
+    if (formatSection) formatSection.hidden = true;
+  }
+
+  function resetModal() {
+    modal.querySelectorAll('input[name="download-source"]').forEach((input) => {
+      input.checked = false;
+    });
+
+    modal.querySelectorAll('input[name="download-format"]').forEach((input) => {
+      input.checked = false;
+    });
+
+    hideFormatOptions();
+    clearMessage();
+  }
+
   function openModal() {
+    resetModal();
     modal.hidden = false;
+    document.body.classList.add("bulk-download-modal-open");
   }
 
   function closeModal() {
     modal.hidden = true;
+    document.body.classList.remove("bulk-download-modal-open");
+    openButton.focus();
+  }
+
+  function handleSourceChange(value) {
+    hideFormatOptions();
+    clearMessage();
+
+    if (value === "grade") {
+      showFormatOptions();
+      return;
+    }
+
+    if (value === "myCourses") {
+      showFormatOptions();
+      return;
+    }
+
+    if (value === "students") {
+      const hasStudents = (state.plannerState.students || []).length > 0;
+
+      if (!hasStudents) {
+        showMessage("You have not created any students yet. Use Manage Students to add students first.");
+        return;
+      }
+
+      showFormatOptions();
+      return;
+    }
+
+    if (value === "planningTags") {
+      showFormatOptions();
+      return;
+    }
+
+    if (value === "trackingTags") {
+      showMessage("Tracking Tags are coming soon.");
+    }
   }
 
   openButton.addEventListener("click", openModal);
 
   modal.querySelectorAll("[data-close-bulk-download]").forEach((button) => {
     button.addEventListener("click", closeModal);
+  });
+
+  modal.querySelectorAll('input[name="download-source"]').forEach((input) => {
+    input.addEventListener("change", () => {
+      handleSourceChange(input.value);
+    });
   });
 
   document.addEventListener("keydown", (event) => {
