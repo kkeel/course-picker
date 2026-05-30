@@ -1448,3 +1448,47 @@ body.grade-bundle-modal-open {
     font-size: 28px;
   }
 }
+
+/* =========================================================
+   MEMBER STATE CHIPS
+   ========================================================= */
+
+.member-card-meta {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.member-meta-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  border-radius: 999px;
+  padding: 4px 9px;
+  border: 1px solid var(--divider-subtle);
+  background: #fbfbf9;
+  color: var(--brand-dark);
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.member-meta-bookmark {
+  background: rgba(173,181,143,0.18);
+  border-color: rgba(89,110,94,0.22);
+}
+
+.member-meta-student {
+  border-color: color-mix(in srgb, var(--student-color) 55%, white);
+  background: color-mix(in srgb, var(--student-color) 18%, white);
+  color: var(--brand-text);
+}
+
+.member-meta-tag {
+  background: #f3f4f1;
+}
+
+.member-meta-note {
+  background: rgba(255,255,255,0.75);
+}
