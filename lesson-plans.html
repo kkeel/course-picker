@@ -372,103 +372,114 @@
   <div id="bulk-download-modal" class="bulk-download-modal" hidden>
     <div class="bulk-download-backdrop" data-close-bulk-download></div>
   
-    <div
-      class="bulk-download-dialog"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="bulk-download-title"
-    >
-      <div class="bulk-download-header">
-        <div>
-          <h2 id="bulk-download-title">Bulk Download</h2>
-          <p>Download lesson plans by collection, grade, or planning preferences.</p>
+      <div
+        class="bulk-download-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="bulk-download-title"
+      >
+        <div class="bulk-download-header">
+          <div>
+            <h2 id="bulk-download-title">Bulk Download</h2>
+            <p>Download lesson plans by collection, grade, or planning preferences.</p>
+          </div>
+      
+          <button
+            class="bulk-download-close"
+            type="button"
+            data-close-bulk-download
+            aria-label="Close bulk download"
+          >
+            ×
+          </button>
         </div>
-  
-        <button
-          class="bulk-download-close"
-          type="button"
-          data-close-bulk-download
-          aria-label="Close bulk download"
-        >
-          ×
-        </button>
-      </div>
-
-      <div class="bulk-download-options-grid">
-        <div class="bulk-download-section">
-          <h3>Download From</h3>
-    
-          <label class="bulk-download-option">
-            <input type="radio" name="download-source" value="grade">
-            <span>Grade</span>
-          </label>
-    
-          <label class="bulk-download-option">
-            <input type="radio" name="download-source" value="myCourses">
-            <span>My Courses</span>
-          </label>
-    
-          <label class="bulk-download-option">
-            <input type="radio" name="download-source" value="students">
-            <span>Students</span>
-          </label>
-    
-          <label class="bulk-download-option">
-            <input type="radio" name="download-source" value="planningTags">
-            <span>Planning Tags</span>
-          </label>
-    
-          <label class="bulk-download-option">
-            <input type="radio" name="download-source" value="trackingTags">
-            <span>Tracking Tags</span>
-          </label>
-        </div>
-    
-        <div
-          id="bulk-download-message"
-          class="bulk-download-message"
-          hidden
-        ></div>
-    
-        <div
-          id="bulk-download-format-section"
-          class="bulk-download-section"
-          hidden
-        >
-          <h3>Download Format</h3>
-    
-          <label class="bulk-download-option">
-            <input type="radio" name="download-format" value="fullCourse">
-            <span>Full Course Plans</span>
-          </label>
-    
-          <label class="bulk-download-option">
-            <input type="radio" name="download-format" value="topicPlans">
-            <span>Single Topic Plans</span>
-          </label>
-    
-          <label class="bulk-download-option">
-            <input type="radio" name="download-format" value="both">
-            <span>Both</span>
-          </label>
-          <div class="bulk-download-format-helper">
-            <strong>Full Course</strong> = includes all topic areas for a course in a weekly format<br>
-            <strong>Single Topic</strong> = includes one topic area in a weekly format
+      
+        <div class="bulk-download-options-grid">
+          <div class="bulk-download-section">
+            <h3>Download From</h3>
+      
+            <div class="bulk-download-source-layout">
+              <div class="bulk-download-source-options">
+                <label class="bulk-download-option">
+                  <input type="radio" name="download-source" value="grade">
+                  <span>Grade</span>
+                </label>
+      
+                <label class="bulk-download-option">
+                  <input type="radio" name="download-source" value="myCourses">
+                  <span>My Courses</span>
+                </label>
+      
+                <label class="bulk-download-option">
+                  <input type="radio" name="download-source" value="students">
+                  <span>Students</span>
+                </label>
+      
+                <label class="bulk-download-option">
+                  <input type="radio" name="download-source" value="planningTags">
+                  <span>Planning Tags</span>
+                </label>
+      
+                <label class="bulk-download-option">
+                  <input type="radio" name="download-source" value="trackingTags">
+                  <span>Tracking Tags</span>
+                </label>
+              </div>
+      
+              <div
+                id="bulk-download-source-picker"
+                class="bulk-download-source-picker"
+                hidden
+              ></div>
+            </div>
+          </div>
+      
+          <div
+            id="bulk-download-message"
+            class="bulk-download-message"
+            hidden
+          ></div>
+      
+          <div
+            id="bulk-download-format-section"
+            class="bulk-download-section"
+            hidden
+          >
+            <h3>Download Format</h3>
+      
+            <label class="bulk-download-option">
+              <input type="radio" name="download-format" value="fullCourse">
+              <span>Full Course Plans</span>
+            </label>
+      
+            <label class="bulk-download-option">
+              <input type="radio" name="download-format" value="topicPlans">
+              <span>Single Topic Plans</span>
+            </label>
+      
+            <label class="bulk-download-option">
+              <input type="radio" name="download-format" value="both">
+              <span>Both</span>
+            </label>
+      
+            <div class="bulk-download-format-helper">
+              <strong>Full Course</strong> = includes all topic areas for a course in a weekly format<br>
+              <strong>Single Topic</strong> = includes one topic area in a weekly format
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="bulk-download-footer">
-        <button
-          type="button"
-          class="lesson-delivery-button is-disabled"
-          disabled
-        >
-          ZIP Downloads Coming Soon
-        </button>
+      
+        <div class="bulk-download-footer">
+          <button
+            type="button"
+            class="lesson-delivery-button is-disabled"
+            disabled
+          >
+            ZIP Downloads Coming Soon
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
   <button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top">
     ↑ Back to top
