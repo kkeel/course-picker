@@ -792,7 +792,7 @@ body.member-tools-enabled .book-member-toolbar-body {
 
 .topic-group {
   background: #dee1d2;
-  border: 1px solid var(--divider-subtle);
+  border: 1px solid var(--subject-color, var(--divider-subtle));
   border-radius: 8px;
   overflow: hidden;
 }
@@ -825,7 +825,7 @@ body.member-tools-enabled .book-member-toolbar-body {
 }
 
 .topic-group-course-only {
-  border: 1px solid var(--divider-subtle);
+  border: 1px solid var(--subject-color, var(--divider-subtle));
   background: #ffffff;
   padding: 14px 16px 14px;
   border-radius: 8px;
