@@ -1141,8 +1141,39 @@ body.member-tools-enabled .book-member-toolbar-body {
   display: none !important;
 }
 
-.lesson-plans-page.is-auth-checking .directory-shell {
-  visibility: hidden;
+.lesson-plans-page.is-auth-checking .lesson-intro-section,
+.lesson-plans-page.is-auth-checking .book-controls,
+.lesson-plans-page.is-auth-checking .directory-view {
+  display: none;
+}
+
+.lesson-page-loading {
+  max-width: 90rem;
+  margin: 72px auto 0;
+  padding: 0 24px;
+}
+
+.lesson-page-loading-card {
+  border: 1px solid var(--divider-subtle);
+  background: rgba(255, 255, 255, 0.62);
+  border-radius: 14px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.lesson-page-loading-card h2 {
+  margin: 0 0 4px;
+  font-family: "Plantin MT Pro", Georgia, serif;
+  font-size: 30px;
+  font-weight: 200;
+}
+
+.lesson-page-loading-card p {
+  margin: 0;
+  color: var(--brand-muted);
+  font-size: 14px;
 }
 
 /* =========================================================
