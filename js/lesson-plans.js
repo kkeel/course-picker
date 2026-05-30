@@ -80,6 +80,8 @@ const STORAGE_KEYS = {
   selectedCourse: "lessonPlansSelectedCourse",
   selectedTopic: "lessonPlansSelectedTopic",
   selectedTrack: "lessonPlansSelectedTrack",
+  openTopics: "lessonPlansOpenTopics",
+  closedTopics: "lessonPlansClosedTopics",
 };
 
 const SUBJECT_ORDER = [
@@ -146,6 +148,7 @@ const state = {
 
   openTools: new Set(),
   openTopics: new Set(),
+  closedTopics: new Set(),
 };
 
 function escapeHtml(value) {
@@ -1144,6 +1147,16 @@ function readJsonStorage(key, fallback) {
   }
 }
 
+function saveTopicOpenPrefs() {
+  localStorage.setItem(STORAGE_KEYS.openTopics, JSON.stringify([...state.openTopics]));
+  localStorage.setItem(STORAGE_KEYS.closedTopics, JSON.stringify([...state.closedTopics]));
+}
+
+function applySavedTopicOpenPrefs() {
+  state.openTopics = new Set(readJsonStorage(STORAGE_KEYS.openTopics, []));
+  state.closedTopics = new Set(readJsonStorage(STORAGE_KEYS.closedTopics, []));
+}
+
 function saveLessonUiPrefs() {
   localStorage.setItem(STORAGE_KEYS.memberTools, String(state.memberToolsEnabled));
   localStorage.setItem(STORAGE_KEYS.memberFilters, JSON.stringify(state.memberFilters));
@@ -1562,7 +1575,17 @@ function renderActionButtons(item, options = {}) {
 
   const itemId = item.id || "";
   const toolsOpen = state.openTools.has(itemId);
-  const topicsOpen = state.openTopics.has(itemId);
+  const matchingCourse = state.courses.find((course) => course.id === itemId);
+
+  const shouldAutoOpenTopics =
+    state.memberToolsEnabled &&
+    state.memberFilters.myCourses &&
+    matchingCourse &&
+    courseHasMemberMatchingTopic(matchingCourse);
+  
+  const topicsOpen =
+    state.openTopics.has(itemId) ||
+    (shouldAutoOpenTopics && !state.closedTopics.has(itemId));
   const studentChips = renderStudentChips(item);
 
   const pdfLabel =
@@ -1973,13 +1996,14 @@ function render() {
           const topicList = topicsByCourseId[course.id] || [];
 
           if (topicList.length) {
+            const shouldAutoOpenTopics =
+              state.memberToolsEnabled &&
+              state.memberFilters.myCourses &&
+              courseHasMemberMatchingTopic(course);
+            
             const topicsOpen =
               state.openTopics.has(course.id) ||
-              (
-                state.memberToolsEnabled &&
-                state.memberFilters.myCourses &&
-                courseHasMemberMatchingTopic(course)
-              );
+              (shouldAutoOpenTopics && !state.closedTopics.has(course.id));
           
             return `
               <section class="topic-group ${topicsOpen ? "is-topics-open" : ""}" style="--subject-color:${escapeHtml(subjectColor(course.subject))};">
@@ -2217,6 +2241,7 @@ async function initDirectory() {
     .then(async () => {
       applySmartFirstVisitDefaults();
       applySavedLessonUiPrefs();
+      applySavedTopicOpenPrefs();
       populatePrimarySelect();
       await loadSelectedView();
       
@@ -2273,6 +2298,11 @@ async function initDirectory() {
         if (!key) return;
     
         state.memberFilters[key] = !state.memberFilters[key];
+
+        if (key === "myCourses" && state.memberFilters.myCourses) {
+          state.closedTopics.clear();
+          saveTopicOpenPrefs();
+        }
     
         button.classList.toggle("is-active", !!state.memberFilters[key]);
         button.setAttribute("aria-pressed", state.memberFilters[key] ? "true" : "false");
@@ -2389,14 +2419,26 @@ async function initDirectory() {
     
       if (topicsButton) {
         const itemId = topicsButton.dataset.cardTopics;
-    
-        if (state.openTopics.has(itemId)) {
+        const isCurrentlyOpen =
+          state.openTopics.has(itemId) ||
+          (
+            state.memberToolsEnabled &&
+            state.memberFilters.myCourses &&
+            courseHasMemberMatchingTopic(
+              state.courses.find((course) => course.id === itemId)
+            ) &&
+            !state.closedTopics.has(itemId)
+          );
+      
+        if (isCurrentlyOpen) {
           state.openTopics.delete(itemId);
+          state.closedTopics.add(itemId);
         } else {
+          state.closedTopics.delete(itemId);
           state.openTopics.add(itemId);
         }
-    
-        saveLessonUiPrefs();
+      
+        saveTopicOpenPrefs();
         render();
       }
     });
