@@ -375,19 +375,6 @@ function getMemberRecordForRow(row) {
         getSavedTopicInstanceKeysForReading().has(key)
       );
 
-    if (
-      row.lessonSetName?.includes("Bible") ||
-      row.title?.includes("Bible")
-    ) {
-      console.log("COURSE CHECK", {
-        title: row.lessonSetName || row.title,
-        keys: getCourseStateKeys(row),
-        plannerMatches: getCourseStateKeys(row).filter(
-          (key) => state.plannerState.courses?.[key]
-        ),
-      });
-    }
-
     return {
       isBookmarked,
       tags: [
@@ -404,23 +391,6 @@ function getMemberRecordForRow(row) {
 
   const courseState = getCourseStateForRow(row);
   const savedCourses = getSavedCourseIdsForReading();
-  
-  if (
-    row.lessonSetName?.includes("Bible") ||
-    row.lessonSetName?.includes("Architecture") ||
-    row.lessonSetName?.includes("Art") ||
-    row.lessonSetName?.includes("Geography")
-  ) {
-    console.log("LESSON COURSE CHECK", {
-      title: row.lessonSetName || row.title,
-      rowId: row.id,
-      keys: getCourseStateKeys(row),
-      savedCourses: [...savedCourses],
-      matchingKeys: getCourseStateKeys(row).filter((key) => savedCourses.has(key)),
-      hasCourseState: !!courseState,
-      courseState,
-    });
-  }
   
   return {
     isBookmarked:
@@ -445,6 +415,65 @@ function planningTagLabel(id) {
   };
 
   return labels[id] || id;
+}
+
+function subjectColor(subject) {
+  return (
+    window.ALVEARY_CONFIG?.subjectColors?.[subject] ||
+    "#596e5e"
+  );
+}
+
+function isCourseFullyBookmarked(item) {
+  return item?.rowType === "course" && courseHasAllTopicsBookmarked(item);
+}
+
+function renderBookmarkIndicator(item) {
+  if (!state.memberToolsEnabled) return "";
+
+  const member = getMemberRecordForRow(item);
+  if (!member.isBookmarked) return "";
+
+  const color = subjectColor(item.subject);
+
+  if (item.rowType === "course" && item.hasTopics) {
+    const allBookmarked = isCourseFullyBookmarked(item);
+
+    return `
+      <div class="lesson-bookmark-stack">
+        <span
+          class="quick-enroll-btn quick-enroll-btn--active lesson-bookmark-display"
+          style="background-color:${escapeHtml(color)}4D; border-color:${escapeHtml(color)}; color:${escapeHtml(color)};"
+          aria-label="${allBookmarked ? "All topics bookmarked" : "Bookmarked course"}"
+        >
+          <img src="img/icons/bookmark-active.svg" alt="" class="bookmark-icon" />
+        </span>
+
+        ${
+          allBookmarked
+            ? `
+              <span
+                class="quick-enroll-label quick-enroll-label--active"
+                style="background-color:${escapeHtml(color)};"
+              >
+                All
+              </span>
+            `
+            : ""
+        }
+      </div>
+    `;
+  }
+
+  return `
+    <span
+      class="bookmark-btn bookmark-btn--solid lesson-bookmark-display"
+      style="background-color:${escapeHtml(color)};"
+      aria-label="Bookmarked"
+    >
+      <img src="img/icons/bookmark-active.svg" alt="" class="bookmark-icon" />
+    </span>
+  `;
 }
 
 function getStudentById(id) {
@@ -1006,10 +1035,6 @@ function renderMemberMeta(item) {
 
   const pieces = [];
 
-  if (state.memberFilters.myCourses && member.isBookmarked) {
-    pieces.push(`<span class="member-meta-chip member-meta-bookmark">★ My Course</span>`);
-  }
-
   if (state.memberFilters.students && students.length) {
     pieces.push(
       ...students
@@ -1051,12 +1076,14 @@ function renderMemberMeta(item) {
 
 function renderCourseCard(item) {
   return `
-    <article class="directory-card">
+    <article class="directory-card" style="--subject-color:${escapeHtml(subjectColor(item.subject))};">
       <div class="card-topline">
         <h3 class="card-title">
           ${escapeHtml(item.lessonSetName || item.title || "")}
           <span class="title-grade">${escapeHtml(item.gradeText || "")}</span>
         </h3>
+      
+        ${renderBookmarkIndicator(item)}
       </div>
 
       ${renderMemberMeta(item)}
@@ -1071,12 +1098,14 @@ function renderCourseCard(item) {
 
 function renderTopicCard(item) {
   return `
-    <article class="topic-card">
+    <article class="topic-card" style="--subject-color:${escapeHtml(subjectColor(item.subject))};">
       <div class="card-topline">
         <h3 class="card-title">
           ${escapeHtml(item.lessonSetName || item.title || "")}
           <span class="title-grade">${escapeHtml(item.gradeText || "")}</span>
         </h3>
+      
+        ${renderBookmarkIndicator(item)}
       </div>
 
       ${renderMemberMeta(item)}
@@ -1296,7 +1325,7 @@ function render() {
               );
           
             return `
-              <section class="topic-group ${topicsOpen ? "is-topics-open" : ""}">
+              <section class="topic-group ${topicsOpen ? "is-topics-open" : ""}" style="--subject-color:${escapeHtml(subjectColor(course.subject))};">
                 <div class="topic-group-head">
                   <div class="topic-group-topline">
                     <div>
@@ -1307,6 +1336,8 @@ function render() {
                         </span>
                       </h3>
                     </div>
+                  
+                    ${renderBookmarkIndicator(course)}
                   </div>
 
                   ${renderMemberMeta(course)}
@@ -1325,7 +1356,7 @@ function render() {
           }
 
           return `
-            <section class="topic-group topic-group-course-only">
+            <section class="topic-group topic-group-course-only" style="--subject-color:${escapeHtml(subjectColor(course.subject))};">
               ${renderCourseCard(course)}
             </section>
           `;
@@ -1386,23 +1417,6 @@ async function loadPlannerStateForLessonPlans() {
       globalTopicNotes: planner.globalTopicNotes || {},
       extras: planner.extras || {},
     };
-
-    console.log("FULL LESSON PLAN PLANNER STATE", state.plannerState);
-
-    console.log(
-      "COURSE KEYS",
-      Object.keys(state.plannerState.courses || {})
-    );
-    
-    console.log(
-      "TOPIC KEYS",
-      Object.keys(state.plannerState.topics || {})
-    );
-    
-    console.log(
-      "EXTRAS",
-      state.plannerState.extras
-    );
 
     await loadBookFilterIndexForPlannerLookups();
     populateMemberFilters();
