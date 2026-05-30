@@ -1970,3 +1970,25 @@ body.bulk-download-modal-open {
     padding-top: 14px;
   }
 }
+
+.bulk-download-preview {
+  margin-top: 14px;
+  border: 1px solid var(--divider-subtle);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.58);
+  padding: 14px 16px;
+  color: var(--brand-text);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.bulk-download-preview h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.bulk-download-preview strong {
+  color: var(--brand-dark);
+}
