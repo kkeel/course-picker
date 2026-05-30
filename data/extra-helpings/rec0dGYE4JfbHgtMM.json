@@ -7,7 +7,7 @@
   "gradeFilter": "G7,",
   "sortId": "016.007.002.001",
   "setting": "Publish",
-  "generatedAt": "2026-05-29T13:48:49.584Z",
+  "generatedAt": "2026-05-30T11:57:34.600Z",
   "ideas": {
     "intro": "Ideas for projects, activities, books, games, and more for students with a high level of interest.",
     "terms": [
@@ -51,6 +51,23 @@
   },
   "resources": [
     {
+      "id": "recs1DvbQvUk0Scyy",
+      "resourceId": "recs1DvbQvUk0Scyy",
+      "title": "Archimedes and the Door of Science",
+      "author": "Jeanne Bendick",
+      "isbnAsin": "978-1883937126",
+      "resourceTagText": "",
+      "scope": "(T2)",
+      "rationale": "Students will love this funny and informative biography of Archimedes, one of the first inventors of record.",
+      "imagePath": "img/extra-helpings/recs1DvbQvUk0Scyy.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.amazon.com/Archimedes-Science-Living-History-Library/dp/1883937124/ref=sr_1_1?crid=22KJUQ4UFWA6F&dchild=1&keywords=archimedes+and+the+door+of+science&qid=1621962141&sprefix=archim%2Caps%2C210&sr=8-1"
+        }
+      ]
+    },
+    {
       "id": "recU4E60a8E3AGKFq",
       "resourceId": "recU4E60a8E3AGKFq",
       "title": "Gear Up!: Marvelous Machine Projects",
@@ -68,13 +85,30 @@
       ]
     },
     {
+      "id": "recRtcPqzd7mhIRVV",
+      "resourceId": "recRtcPqzd7mhIRVV",
+      "title": "The First Scientist: A Life of Roger Bacon",
+      "author": "Brian Clegg",
+      "isbnAsin": "978-0786711161",
+      "resourceTagText": "",
+      "scope": "(T3)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/recRtcPqzd7mhIRVV.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://a.co/d/08PeaNoe"
+        }
+      ]
+    },
+    {
       "id": "recJkVmj54JXuC4t9",
       "resourceId": "recJkVmj54JXuC4t9",
       "title": "The Stars: A New Way to See Them",
       "author": "H.A. Rey",
       "isbnAsin": "",
       "resourceTagText": "",
-      "scope": "(T1)",
+      "scope": "(T1, T2, T3)",
       "rationale": "Practical guide to stargazing",
       "imagePath": "img/extra-helpings/recJkVmj54JXuC4t9.webp",
       "links": [
@@ -85,23 +119,23 @@
       ]
     },
     {
-      "id": "recO65PpJVUhYm4wS",
-      "resourceId": "recO65PpJVUhYm4wS",
-      "title": "The Way Things Work: Newly Revised Edition: The Ultimate Guide to How Things Work",
-      "author": "David Macaulay",
-      "isbnAsin": "978-0544824386",
-      "resourceTagText": "Ebook",
-      "scope": "(T2)",
-      "rationale": "This well-written and humorously illustrated classic guides readers through the fundamental principles of machines and shows how the developments of the past are building blocks of the world of tomorrow.",
-      "imagePath": "img/extra-helpings/recO65PpJVUhYm4wS.webp",
+      "id": "reclEFTyM45BTsM7v",
+      "resourceId": "reclEFTyM45BTsM7v",
+      "title": "Tools of the Ancient Greeks",
+      "author": "Kris Bordessa",
+      "isbnAsin": "978-0974934464",
+      "resourceTagText": "",
+      "scope": "(T1)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/reclEFTyM45BTsM7v.webp",
       "links": [
         {
           "text": "Option 1",
-          "url": "https://www.amazon.com/Way-Things-Work-Now/dp/0544824385?&linkCode=ll2&tag=alveary0a-20&linkId=e410b5c256194f03085df7f4385fe58d&language=en_US&ref_=as_li_ss_tl"
+          "url": "https://a.co/d/05bwbd95"
         },
         {
           "text": "Option 2",
-          "url": "https://bookshop.org/a/90084/9780544824386"
+          "url": "https://bookshop.org/p/books/tools-of-the-ancient-greeks-a-kid-s-guide-to-the-history-science-of-life-in-ancient-greece-kris-bordessa/36a2d4c5fe4b1b73?ean=9780974934464&next=t"
         }
       ]
     }
