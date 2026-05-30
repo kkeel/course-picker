@@ -176,17 +176,35 @@ function firstValue(...values) {
   return "";
 }
 
-function getCourseStateKey(row) {
-  return firstValue(
+function getCourseStateKeys(row) {
+  return [
     row?.id,
-    row?.courseAirtableRecordId,
     row?.courseRecordId,
-    row?.recordId,
     row?.recordID,
+    row?.courseAirtableRecordId,
+    row?.recordId,
     row?.Sort_ID,
     row?.sortId,
-    row?.courseId
-  );
+    row?.legacyId,
+    row?.courseLegacyId,
+    row?.courseId,
+  ]
+    .map(firstValue)
+    .filter(Boolean);
+}
+
+function getCourseStateKey(row) {
+  return getCourseStateKeys(row)[0] || "";
+}
+
+function getCourseStateForRow(row) {
+  const courses = state.plannerState.courses || {};
+
+  for (const key of getCourseStateKeys(row)) {
+    if (courses[key]) return courses[key];
+  }
+
+  return null;
 }
 
 function getTopicId(row) {
@@ -372,15 +390,42 @@ function buildTopicRecordLookup() {
 
 function rebuildSavedRecordIdsForLessonPlans() {
   const localPlanner = getReadOnlyPlannerState();
-  const extras = localPlanner?.extras || state.plannerState.extras || {};
+  const cloudPlanner = state.plannerState || {};
+
+  const extras = localPlanner?.extras || cloudPlanner.extras || {};
 
   const courseLookup = buildCourseRecordLookup();
   const topicLookup = buildTopicRecordLookup();
+
+  const bookmarkedCourseKeys = [
+    ...Object.entries(localPlanner?.courses || {})
+      .filter(([, value]) => value?.isBookmarked)
+      .map(([key]) => key),
+
+    ...Object.entries(cloudPlanner.courses || {})
+      .filter(([, value]) => value?.isBookmarked)
+      .map(([key]) => key),
+  ];
+
+  const bookmarkedTopicKeys = [
+    ...Object.entries(localPlanner?.topics || {})
+      .filter(([, value]) => value?.isBookmarked)
+      .map(([key]) => key),
+
+    ...Object.entries(cloudPlanner.topics || {})
+      .filter(([, value]) => value?.isBookmarked)
+      .map(([key]) => key),
+  ];
+
+  const topicIdsFromInstanceKeys = bookmarkedTopicKeys
+    .map((key) => String(key || "").split("::").pop())
+    .filter(Boolean);
 
   state.plannerState.savedCourseRecordIds = uniqueStrings(
     [
       ...(extras.myCourses || []),
       ...(extras.courseSelections || []),
+      ...bookmarkedCourseKeys,
     ]
       .map(normalizeId)
       .map((id) => courseLookup.get(id) || id)
@@ -391,11 +436,16 @@ function rebuildSavedRecordIdsForLessonPlans() {
     [
       ...(extras.myTopics || []),
       ...(extras.topicSelections || []),
+      ...bookmarkedTopicKeys,
+      ...topicIdsFromInstanceKeys,
     ]
       .map(normalizeId)
       .map((id) => topicLookup.get(id) || id)
       .filter(Boolean)
   );
+
+  console.log("Lesson Plan saved course record IDs:", state.plannerState.savedCourseRecordIds);
+  console.log("Lesson Plan saved topic record IDs:", state.plannerState.savedTopicRecordIds);
 }
 
 function getMemberRecordForRow(row) {
@@ -421,10 +471,12 @@ function getMemberRecordForRow(row) {
   }
 
   const courseKey = getCourseStateKey(row);
-  const courseState = courseKey ? planner.courses?.[courseKey] : null;
-
+  const courseState = getCourseStateForRow(row);
+  
   return {
-    isBookmarked: !!courseState?.isBookmarked || getSavedCourseIdsForReading().has(courseKey),
+    isBookmarked:
+      !!courseState?.isBookmarked ||
+      getCourseStateKeys(row).some((key) => getSavedCourseIdsForReading().has(key)),
     tags: Array.isArray(courseState?.tags) ? courseState.tags : [],
     students: Array.isArray(courseState?.students)
       ? courseState.students.map(normalizeStudentId)
