@@ -1596,3 +1596,126 @@ body.grade-bundle-modal-open {
 .member-meta-note {
   background: rgba(255,255,255,0.75);
 }
+
+/* =========================================================
+   UNIVERSAL STUDENT MANAGER MODAL - LESSON PLANS PHASE
+   ========================================================= */
+
+.lesson-student-modal[hidden] {
+  display: none;
+}
+
+.lesson-student-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.lesson-student-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(38,43,38,0.38);
+}
+
+body.lesson-student-modal-open {
+  overflow: hidden;
+}
+
+.lesson-student-modal-dialog {
+  position: relative;
+  width: min(620px, 100%);
+  max-height: min(680px, calc(100vh - 48px));
+  overflow: auto;
+  border-radius: 14px;
+  border: 1px solid var(--divider-subtle);
+  background: var(--brand-bg);
+  padding: 22px;
+  box-shadow: 0 22px 60px rgba(38,43,38,0.24);
+}
+
+.lesson-student-modal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.lesson-student-modal-header h2 {
+  margin: 0;
+  font-family: "Plantin MT Pro", Georgia, "Times New Roman", serif;
+  font-size: 34px;
+  line-height: 1.08;
+  font-weight: 200;
+  color: var(--brand-text);
+}
+
+.lesson-student-modal-header p {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--brand-muted);
+}
+
+.lesson-student-modal-close {
+  appearance: none;
+  border: 1px solid var(--divider-subtle);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--brand-dark);
+  width: 34px;
+  height: 34px;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lesson-student-manager {
+  border: 1px solid var(--divider-subtle);
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lesson-student-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 390px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.lesson-student-row {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.lesson-student-row .student-swatches {
+  grid-column: 2 / 4;
+}
+
+.lesson-student-empty {
+  margin: 0;
+  color: var(--brand-muted);
+  font-size: 13px;
+}
+
+@media (max-width: 560px) {
+  .lesson-student-modal-dialog {
+    padding: 18px;
+  }
+
+  .lesson-student-modal-header h2 {
+    font-size: 28px;
+  }
+}
