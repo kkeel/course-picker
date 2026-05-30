@@ -853,6 +853,30 @@ function getActionLinks(item) {
   };
 }
 
+function renderStudentChips(item) {
+  if (!state.memberToolsEnabled || !state.memberFilters.students) return "";
+
+  const member = getMemberRecordForRow(item);
+  const students = [...new Set(member.students || [])]
+    .map(getStudentById)
+    .filter(Boolean);
+
+  if (!students.length) return "";
+
+  return `
+    <span class="lesson-student-chip-row">
+      ${students.map((student) => `
+        <span
+          class="student-chip lesson-student-chip"
+          style="--stu:${escapeHtml(student.color || "#9eaa99")};"
+        >
+          <span class="student-chip-text">${escapeHtml(student.name || "Student")}</span>
+        </span>
+      `).join("")}
+    </span>
+  `;
+}
+
 function renderActionButtons(item, options = {}) {
   const {
     type = "course",
@@ -864,6 +888,7 @@ function renderActionButtons(item, options = {}) {
   const itemId = item.id || "";
   const toolsOpen = state.openTools.has(itemId);
   const topicsOpen = state.openTopics.has(itemId);
+  const studentChips = renderStudentChips(item);
 
   const pdfLabel =
     type === "topic"
@@ -942,6 +967,8 @@ function renderActionButtons(item, options = {}) {
 
       <span class="card-action-divider">|</span>
 
+      ${studentChips}
+      
       ${
         showTopicsToggle
           ? `
@@ -1034,22 +1061,6 @@ function renderMemberMeta(item) {
   const hasNote = String(member.noteText || "").trim().length > 0;
 
   const pieces = [];
-
-  if (state.memberFilters.students && students.length) {
-    pieces.push(
-      ...students
-        .map(getStudentById)
-        .filter(Boolean)
-        .map((student) => `
-          <span
-            class="member-meta-chip member-meta-student"
-            style="--student-color:${escapeHtml(student.color || "#adb58f")};"
-          >
-            ${escapeHtml(student.name || "Student")}
-          </span>
-        `)
-    );
-  }
 
   if (state.memberFilters.planningTags && tags.length) {
     pieces.push(
