@@ -392,7 +392,24 @@ function getMemberRecordForRow(row) {
 
   const courseState = getCourseStateForRow(row);
   const savedCourses = getSavedCourseIdsForReading();
-
+  
+  if (
+    row.lessonSetName?.includes("Bible") ||
+    row.lessonSetName?.includes("Architecture") ||
+    row.lessonSetName?.includes("Art") ||
+    row.lessonSetName?.includes("Geography")
+  ) {
+    console.log("LESSON COURSE CHECK", {
+      title: row.lessonSetName || row.title,
+      rowId: row.id,
+      keys: getCourseStateKeys(row),
+      savedCourses: [...savedCourses],
+      matchingKeys: getCourseStateKeys(row).filter((key) => savedCourses.has(key)),
+      hasCourseState: !!courseState,
+      courseState,
+    });
+  }
+  
   return {
     isBookmarked:
       !!courseState?.isBookmarked ||
