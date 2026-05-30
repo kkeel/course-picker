@@ -125,6 +125,7 @@ const state = {
     globalTopicTags: {},
     globalTopicStudents: {},
     globalTopicNotes: {},
+    extras: {},
   },
 
   openTools: new Set(),
@@ -164,20 +165,71 @@ function normalizeStudentId(value) {
   return v;
 }
 
+function firstValue(...values) {
+  for (const value of values) {
+    const text = String(value || "").trim();
+    if (text) return text;
+  }
+  return "";
+}
+
 function getCourseStateKey(row) {
-  return String(row?.Sort_ID || row?.sortId || row?.courseId || row?.id || "").trim();
+  return firstValue(
+    row?.id,
+    row?.courseAirtableRecordId,
+    row?.courseRecordId,
+    row?.recordId,
+    row?.recordID,
+    row?.Sort_ID,
+    row?.sortId,
+    row?.courseId
+  );
 }
 
 function getTopicId(row) {
-  return String(row?.Topic_ID || row?.topicId || row?.topic_id || row?.id || "").trim();
+  return firstValue(
+    row?.id,
+    row?.topicAirtableRecordId,
+    row?.topicRecordId,
+    row?.recordId,
+    row?.recordID,
+    row?.Topic_ID,
+    row?.topicId,
+    row?.topic_id
+  );
 }
 
 function getTopicStateKey(row) {
-  const courseKey = String(row?.courseId || row?.courseKey || row?.parentCourseId || "").trim();
+  const courseKey = firstValue(
+    row?.courseId,
+    row?.courseRecordId,
+    row?.courseAirtableRecordId,
+    row?.parentCourseId,
+    row?.courseKey
+  );
+
   const topicId = getTopicId(row);
 
   if (!courseKey || !topicId) return "";
   return `${courseKey}::${topicId}`;
+}
+
+function getSavedCourseIdsForReading() {
+  const extras = state.plannerState.extras || {};
+
+  return new Set([
+    ...(extras.myCourses || []),
+    ...(extras.courseSelections || []),
+  ].map(firstValue));
+}
+
+function getSavedTopicIdsForReading() {
+  const extras = state.plannerState.extras || {};
+
+  return new Set([
+    ...(extras.myTopics || []),
+    ...(extras.topicSelections || []),
+  ].map(firstValue));
 }
 
 function getMemberRecordForRow(row) {
@@ -189,7 +241,7 @@ function getMemberRecordForRow(row) {
     const topicState = instanceKey ? planner.topics?.[instanceKey] : null;
 
     return {
-      isBookmarked: !!topicState?.isBookmarked,
+      isBookmarked: !!topicState?.isBookmarked || getSavedTopicIdsForReading().has(topicId),
       tags: [
         ...(Array.isArray(topicState?.tags) ? topicState.tags : []),
         ...(Array.isArray(planner.globalTopicTags?.[topicId]) ? planner.globalTopicTags[topicId] : []),
@@ -206,7 +258,7 @@ function getMemberRecordForRow(row) {
   const courseState = courseKey ? planner.courses?.[courseKey] : null;
 
   return {
-    isBookmarked: !!courseState?.isBookmarked,
+    isBookmarked: !!courseState?.isBookmarked || getSavedCourseIdsForReading().has(courseKey),
     tags: Array.isArray(courseState?.tags) ? courseState.tags : [],
     students: Array.isArray(courseState?.students)
       ? courseState.students.map(normalizeStudentId)
@@ -1129,6 +1181,7 @@ async function loadPlannerStateForLessonPlans() {
       globalTopicTags: planner.globalTopicTags || {},
       globalTopicStudents: planner.globalTopicStudents || {},
       globalTopicNotes: planner.globalTopicNotes || {},
+      extras: planner.extras || {},
     };
 
     populateMemberFilters();
