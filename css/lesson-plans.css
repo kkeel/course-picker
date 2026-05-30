@@ -1872,3 +1872,40 @@ body.bulk-download-modal-open {
   font-size: 14px;
   line-height: 1.45;
 }
+
+.bulk-download-dialog {
+  width: min(900px, 100%);
+}
+
+.bulk-download-options-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.bulk-download-section,
+.bulk-download-message {
+  border: 1px solid var(--divider-subtle);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.58);
+  padding: 14px 16px;
+}
+
+.bulk-download-section {
+  margin-top: 0;
+}
+
+.bulk-download-message {
+  margin-top: 0;
+}
+
+.bulk-download-footer {
+  margin-top: 18px;
+}
+
+@media (max-width: 720px) {
+  .bulk-download-options-grid {
+    grid-template-columns: 1fr;
+  }
+}
