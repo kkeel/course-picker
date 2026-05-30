@@ -432,9 +432,9 @@ function directoryCourseRow(course, subject, lessonPlanSetMap) {
     recordID: id,
     courseRecordId: id,
   
-    Sort_ID: course?.Sort_ID || course?.sortId || "",
-    legacyId: course?.Sort_ID || course?.sortId || id,
-    courseLegacyId: course?.Sort_ID || course?.sortId || id,
+    Sort_ID: course?.Sort_ID || course?.sortId || course?.courseId || "",
+    legacyId: course?.Sort_ID || course?.sortId || course?.courseId || id,
+    courseLegacyId: course?.Sort_ID || course?.sortId || course?.courseId || id,
   
     rowType: "course",
     title: courseTitle(course),
@@ -445,7 +445,7 @@ function directoryCourseRow(course, subject, lessonPlanSetMap) {
     shared: itemIsShared(course),
     gradeTags: itemGradeTags(course),
     subject: subject || course?.subject || "",
-    sortId: course?.Sort_ID || course?.sortId || "",
+    sortId: course?.Sort_ID || course?.sortId || course?.courseId || "",
     hasTopics: Array.isArray(course?.topics) && course.topics.length > 0,
     topicIds: (course?.topics || [])
       .map((topic) => safeId(topic?.recordID || topic?.id || topic?.Topic_ID))
@@ -512,6 +512,7 @@ function directoryTopicRow(topic, course, subject, lessonPlanSetMap) {
     courseLegacyId:
       course?.Sort_ID ||
       course?.sortId ||
+      course?.courseId ||
       courseId,
   
     courseTitle: courseTitle(course),
