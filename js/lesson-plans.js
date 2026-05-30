@@ -1305,6 +1305,33 @@ function setupGradeBundleModal() {
   });
 }
 
+function setupBulkDownloadModal() {
+  const modal = document.getElementById("bulk-download-modal");
+  const openButton = document.getElementById("open-bulk-download");
+
+  if (!modal || !openButton) return;
+
+  function openModal() {
+    modal.hidden = false;
+  }
+
+  function closeModal() {
+    modal.hidden = true;
+  }
+
+  openButton.addEventListener("click", openModal);
+
+  modal.querySelectorAll("[data-close-bulk-download]").forEach((button) => {
+    button.addEventListener("click", closeModal);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !modal.hidden) {
+      closeModal();
+    }
+  });
+}
+
 function setupBackToTop() {
   const button = document.getElementById("back-to-top");
 
@@ -2208,6 +2235,7 @@ async function initDirectory() {
     applyMemberToolsState();
     setupBackToTop();
     setupGradeBundleModal();
+    setupBulkDownloadModal();
 
     setupStudentManagerModal();
 
