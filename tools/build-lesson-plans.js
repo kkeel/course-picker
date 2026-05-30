@@ -428,6 +428,14 @@ function directoryCourseRow(course, subject, lessonPlanSetMap) {
 
   return {
     id,
+  
+    recordID: id,
+    courseRecordId: id,
+  
+    Sort_ID: course?.Sort_ID || course?.sortId || "",
+    legacyId: course?.Sort_ID || course?.sortId || id,
+    courseLegacyId: course?.Sort_ID || course?.sortId || id,
+  
     rowType: "course",
     title: courseTitle(course),
     lessonSetName: courseTitle(course),
