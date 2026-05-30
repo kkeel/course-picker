@@ -106,9 +106,26 @@ const state = {
   selectedTopic: "",
   selectedTrack: "",
 
+  selectedPlanningTag: "",
+  selectedStudent: "",
+
   activeView: "topic",
 
   memberToolsEnabled: false,
+  memberFilters: {
+    myCourses: false,
+    students: false,
+    planningTags: false,
+  },
+
+  plannerState: {
+    students: [],
+    courses: {},
+    topics: {},
+    globalTopicTags: {},
+    globalTopicStudents: {},
+    globalTopicNotes: {},
+  },
 
   openTools: new Set(),
   openTopics: new Set(),
@@ -125,6 +142,96 @@ function escapeHtml(value) {
 
 function normalizeSearch(value) {
   return String(value || "").toLowerCase().trim();
+}
+
+function normalizeStudentId(value) {
+  const v = String(value || "").trim();
+  if (!v) return "";
+
+  if (/^s_\d+(?:_[A-Za-z0-9]+)?$/.test(v)) return v;
+
+  if (/^s[A-Za-z0-9]+$/.test(v)) {
+    const body = v.slice(1);
+    const digitPrefix = (body.match(/^\d+/) || [""])[0];
+
+    if (digitPrefix.length >= 13) {
+      const first = digitPrefix.slice(0, 13);
+      const rest = body.slice(13);
+      return rest ? `s_${first}_${rest}` : `s_${first}`;
+    }
+  }
+
+  return v;
+}
+
+function getCourseStateKey(row) {
+  return String(row?.Sort_ID || row?.sortId || row?.courseId || row?.id || "").trim();
+}
+
+function getTopicId(row) {
+  return String(row?.Topic_ID || row?.topicId || row?.topic_id || row?.id || "").trim();
+}
+
+function getTopicStateKey(row) {
+  const courseKey = String(row?.courseId || row?.courseKey || row?.parentCourseId || "").trim();
+  const topicId = getTopicId(row);
+
+  if (!courseKey || !topicId) return "";
+  return `${courseKey}::${topicId}`;
+}
+
+function getMemberRecordForRow(row) {
+  const planner = state.plannerState || {};
+
+  if (row?.rowType === "topic") {
+    const instanceKey = getTopicStateKey(row);
+    const topicId = getTopicId(row);
+    const topicState = instanceKey ? planner.topics?.[instanceKey] : null;
+
+    return {
+      isBookmarked: !!topicState?.isBookmarked,
+      tags: [
+        ...(Array.isArray(topicState?.tags) ? topicState.tags : []),
+        ...(Array.isArray(planner.globalTopicTags?.[topicId]) ? planner.globalTopicTags[topicId] : []),
+      ],
+      students: [
+        ...(Array.isArray(topicState?.students) ? topicState.students : []),
+        ...(Array.isArray(planner.globalTopicStudents?.[topicId]) ? planner.globalTopicStudents[topicId] : []),
+      ].map(normalizeStudentId),
+      noteText: planner.globalTopicNotes?.[topicId] || "",
+    };
+  }
+
+  const courseKey = getCourseStateKey(row);
+  const courseState = courseKey ? planner.courses?.[courseKey] : null;
+
+  return {
+    isBookmarked: !!courseState?.isBookmarked,
+    tags: Array.isArray(courseState?.tags) ? courseState.tags : [],
+    students: Array.isArray(courseState?.students)
+      ? courseState.students.map(normalizeStudentId)
+      : [],
+    noteText: courseState?.noteText || "",
+  };
+}
+
+function planningTagLabel(id) {
+  const labels = {
+    core: "Core",
+    family: "Family",
+    combine: "Combine",
+    "high-interest": "High interest",
+    additional: "Additional",
+  };
+
+  return labels[id] || id;
+}
+
+function getStudentById(id) {
+  const sid = normalizeStudentId(id);
+  return (state.plannerState.students || []).find(
+    (student) => normalizeStudentId(student.id) === sid
+  );
 }
 
 function getUrlState() {
@@ -669,6 +776,59 @@ function renderActionButtons(item, options = {}) {
   `;
 }
 
+function renderMemberMeta(item) {
+  if (!state.memberToolsEnabled) return "";
+
+  const member = getMemberRecordForRow(item);
+  const tags = [...new Set(member.tags || [])].filter(Boolean);
+  const students = [...new Set(member.students || [])].filter(Boolean);
+  const hasNote = String(member.noteText || "").trim().length > 0;
+
+  const pieces = [];
+
+  if (state.memberFilters.myCourses && member.isBookmarked) {
+    pieces.push(`<span class="member-meta-chip member-meta-bookmark">★ My Course</span>`);
+  }
+
+  if (state.memberFilters.students && students.length) {
+    pieces.push(
+      ...students
+        .map(getStudentById)
+        .filter(Boolean)
+        .map((student) => `
+          <span
+            class="member-meta-chip member-meta-student"
+            style="--student-color:${escapeHtml(student.color || "#adb58f")};"
+          >
+            ${escapeHtml(student.name || "Student")}
+          </span>
+        `)
+    );
+  }
+
+  if (state.memberFilters.planningTags && tags.length) {
+    pieces.push(
+      ...tags.map((tag) => `
+        <span class="member-meta-chip member-meta-tag">
+          ${escapeHtml(planningTagLabel(tag))}
+        </span>
+      `)
+    );
+  }
+
+  if (hasNote) {
+    pieces.push(`<span class="member-meta-chip member-meta-note">📝 Note</span>`);
+  }
+
+  if (!pieces.length) return "";
+
+  return `
+    <div class="member-card-meta">
+      ${pieces.join("")}
+    </div>
+  `;
+}
+
 function renderCourseCard(item) {
   return `
     <article class="directory-card">
@@ -678,6 +838,8 @@ function renderCourseCard(item) {
           <span class="title-grade">${escapeHtml(item.gradeText || "")}</span>
         </h3>
       </div>
+
+      ${renderMemberMeta(item)}
 
       ${renderActionButtons(item, {
         type: "course",
@@ -696,6 +858,8 @@ function renderTopicCard(item) {
           <span class="title-grade">${escapeHtml(item.gradeText || "")}</span>
         </h3>
       </div>
+
+      ${renderMemberMeta(item)}
 
       ${renderActionButtons(item, {
         type: "topic",
@@ -803,6 +967,24 @@ function rowMatchesFilters(row) {
     }
   }
 
+    if (state.memberToolsEnabled) {
+      const member = getMemberRecordForRow(row);
+  
+      if (state.memberFilters.myCourses && !member.isBookmarked) {
+        return false;
+      }
+  
+      if (state.selectedPlanningTag) {
+        const tags = new Set(member.tags || []);
+        if (!tags.has(state.selectedPlanningTag)) return false;
+      }
+  
+      if (state.selectedStudent) {
+        const students = new Set((member.students || []).map(normalizeStudentId));
+        if (!students.has(normalizeStudentId(state.selectedStudent))) return false;
+      }
+    }
+
   return true;
 }
 
@@ -871,6 +1053,8 @@ function render() {
                       </h3>
                     </div>
                   </div>
+
+                  ${renderMemberMeta(course)}
           
                   ${renderActionButtons(course, {
                     type: "course",
@@ -924,6 +1108,81 @@ function setActiveView(view) {
   });
 }
 
+async function loadPlannerStateForLessonPlans() {
+  try {
+    const result = await window.AlvearyAuth?.getPlannerState?.();
+
+    const planner =
+      result?.state?.plannerCore ||
+      result?.state ||
+      {};
+
+    state.plannerState = {
+      students: Array.isArray(planner.students)
+        ? planner.students.map((student) => ({
+            ...student,
+            id: normalizeStudentId(student.id),
+          }))
+        : [],
+      courses: planner.courses || {},
+      topics: planner.topics || {},
+      globalTopicTags: planner.globalTopicTags || {},
+      globalTopicStudents: planner.globalTopicStudents || {},
+      globalTopicNotes: planner.globalTopicNotes || {},
+    };
+
+    populateMemberFilters();
+  } catch (error) {
+    console.warn("Could not load lesson plan member state", error);
+  }
+}
+
+function populateMemberFilters() {
+  const tagSelect = document.getElementById("planning-tag-filter");
+  const studentSelect = document.getElementById("student-filter");
+
+  if (tagSelect) {
+    const tagIds = new Set();
+
+    Object.values(state.plannerState.courses || {}).forEach((entry) => {
+      (entry.tags || []).forEach((tag) => tagIds.add(tag));
+    });
+
+    Object.values(state.plannerState.topics || {}).forEach((entry) => {
+      (entry.tags || []).forEach((tag) => tagIds.add(tag));
+    });
+
+    Object.values(state.plannerState.globalTopicTags || {}).forEach((tags) => {
+      (tags || []).forEach((tag) => tagIds.add(tag));
+    });
+
+    tagSelect.innerHTML = `
+      <option value="">Planning Tags</option>
+      ${[...tagIds]
+        .sort()
+        .map((tag) => `<option value="${escapeHtml(tag)}">${escapeHtml(planningTagLabel(tag))}</option>`)
+        .join("")}
+    `;
+
+    tagSelect.value = state.selectedPlanningTag;
+  }
+
+  if (studentSelect) {
+    studentSelect.innerHTML = `
+      <option value="">Students</option>
+      ${(state.plannerState.students || [])
+        .map((student) => `
+          <option value="${escapeHtml(normalizeStudentId(student.id))}">
+            ${escapeHtml(student.name || "Student")}
+          </option>
+        `)
+        .join("")}
+    `;
+
+    studentSelect.value = state.selectedStudent;
+  }
+}
+
 async function initDirectory() {
     const authorized = await requireLessonPlansMemberAccess_();
     if (!authorized) return;
@@ -943,6 +1202,8 @@ async function initDirectory() {
     setupBackToTop();
     setupGradeBundleModal();
 
+    await loadPlannerStateForLessonPlans();
+
     document.getElementById("toggle-intro").addEventListener("click", () => {
       const intro = document.getElementById("lesson-intro-section");
       const nextCollapsed = !intro.classList.contains("is-collapsed");
@@ -961,9 +1222,34 @@ async function initDirectory() {
 
     document.getElementById("member-tools-toggle").addEventListener("click", () => {
       const nextEnabled = !state.memberToolsEnabled;
-
+    
       localStorage.setItem(STORAGE_KEYS.memberTools, String(nextEnabled));
       applyMemberToolsState();
+      render();
+    });
+    
+    document.querySelectorAll(".member-mini-toggle").forEach((button) => {
+      button.addEventListener("click", () => {
+        const key = button.dataset.memberFilter;
+        if (!key) return;
+    
+        state.memberFilters[key] = !state.memberFilters[key];
+    
+        button.classList.toggle("is-active", !!state.memberFilters[key]);
+        button.setAttribute("aria-pressed", state.memberFilters[key] ? "true" : "false");
+    
+        render();
+      });
+    });
+    
+    document.getElementById("planning-tag-filter")?.addEventListener("change", (event) => {
+      state.selectedPlanningTag = event.target.value;
+      render();
+    });
+    
+    document.getElementById("student-filter")?.addEventListener("change", (event) => {
+      state.selectedStudent = event.target.value;
+      render();
     });
 
     const response = await fetch(DIRECTORY_INDEX_URL);
@@ -1090,12 +1376,16 @@ async function initDirectory() {
       state.selectedCourse = "";
       state.selectedTopic = "";
       state.selectedTrack = "";
+      state.selectedPlanningTag = "";
+      state.selectedStudent = "";
       state.base = "subject";
     
       searchInput.value = "";
       document.getElementById("track-filter").value = "";
       document.getElementById("course-filter").value = "";
       document.getElementById("topic-filter").value = "";
+      document.getElementById("planning-tag-filter").value = "";
+      document.getElementById("student-filter").value = "";
     
       document.querySelectorAll(".book-base-button").forEach((btn) => {
         btn.classList.toggle("is-active", btn.dataset.base === state.base);
@@ -1117,10 +1407,14 @@ async function initDirectory() {
           state.selectedId = "";
           state.selectedCourse = "";
           state.selectedTopic = "";
+          state.selectedPlanningTag = "";
+          state.selectedStudent = "";
     
           document.getElementById("primary-select").value = "";
           document.getElementById("course-filter").value = "";
           document.getElementById("topic-filter").value = "";
+          document.getElementById("planning-tag-filter").value = "";
+          document.getElementById("student-filter").value = "";
     
           updateUrl();
           await loadSelectedView();
