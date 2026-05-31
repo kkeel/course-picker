@@ -2896,6 +2896,10 @@ function courseHasMemberMatchingTopic(courseRow) {
 function rowMatchesMemberFilters(row) {
   if (!state.memberToolsEnabled) return true;
 
+  if (state.selectedTrackingTag) {
+    return memberFilterMatchesRow(row);
+  }
+
   if (memberFilterMatchesRow(row)) return true;
 
   // Course List behavior:
@@ -2961,6 +2965,24 @@ function render() {
           rows: state.rows,
         },
       ];
+
+  if (state.selectedTrackingTag) {
+    const trackedRows = state.rows.filter(rowMatchesFilters);
+  
+    topicGroupList.innerHTML =
+      (
+        trackedRows.length
+          ? trackedRows.map((row) =>
+              row.rowType === "course"
+                ? renderCourseCard(row)
+                : renderTopicCard(row)
+            ).join("")
+          : `<div class="empty-state">No lesson plans match this tracking tag.</div>`
+      ) +
+      renderGlobalTrackingMenu();
+  
+    return;
+  }
   
   const groupedHtml = renderGroups
     .map((group) => {
