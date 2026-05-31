@@ -283,9 +283,11 @@ a {
   grid-column: 1;
   justify-self: start;
   align-self: center;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 18px;
+  white-space: nowrap;
 }
 
 .filter-quick-actions .clear-filters-link {
