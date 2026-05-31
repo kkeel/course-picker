@@ -369,6 +369,14 @@ a {
   position: relative;
 }
 
+.select-row .clear-select {
+  display: none;
+}
+
+.select-row:has(select option:checked:not([value=""])) .clear-select {
+  display: inline-flex;
+}
+
 .control-group select,
 .control-group input,
 .book-mini-select {
@@ -645,6 +653,16 @@ body.member-tools-enabled .book-member-toolbar-body {
   border-color: rgba(89,110,94,0.42);
   box-shadow: var(--shadow-soft);
   transform: translateY(-1px);
+}
+
+.directory-card .card-action-link.is-primary {
+  border-color: var(--brand-dark);
+  background: #bdc5bf;
+  color: var(--brand-text);
+}
+
+.directory-card .card-action-link.is-primary .card-action-icon {
+  background: #fbfbf9;
 }
 
 .card-topline,
