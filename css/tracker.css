@@ -89,10 +89,10 @@
 .tracker-overview-card,
 .tracker-card,
 .tracker-ledger {
-  background: rgba(255,255,255,0.72);
-  border: 1px solid rgba(89,110,94,0.18);
+  background: rgba(255,255,255,0.86);
+  border: 1px solid rgba(89,110,94,0.14);
   border-radius: 18px;
-  box-shadow: 0 8px 22px rgba(63,62,55,0.06);
+  box-shadow: 0 8px 22px rgba(63,62,55,0.045);
 }
 
 .tracker-overview-card {
@@ -226,14 +226,16 @@
 
 .tracker-tab:nth-child(4) {
   background: #bdc5bf;
+  color: #262b26;
 }
 
 .tracker-tab:nth-child(5) {
-  background: #596e5e;
+  background: #dee1d2;
+  color: #262b26;
 }
 
 .tracker-tab:not(.is-active) {
-  opacity: 0.88;
+  opacity: 0.92;
 }
 
 .tracker-tab.is-active {
