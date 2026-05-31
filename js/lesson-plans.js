@@ -3401,13 +3401,15 @@ async function initDirectory() {
       
       if (globalTrackingToggle) {
         const tagId = globalTrackingToggle.dataset.globalTrackingToggle;
-      
-        if (state.activeTrackingRow) {
-          toggleTrackingTagForRow(state.activeTrackingRow, tagId);
-        }
+        const activeRow = state.activeTrackingRow;
       
         state.trackingMenuOpen = false;
         state.activeTrackingRow = null;
+      
+        if (activeRow) {
+          toggleTrackingTagForRow(activeRow, tagId);
+        }
+      
         return;
       }
       
