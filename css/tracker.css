@@ -89,10 +89,10 @@
 .tracker-overview-card,
 .tracker-card,
 .tracker-ledger {
-  background: rgba(255,255,255,0.86);
-  border: 1px solid rgba(89,110,94,0.14);
+  background: #ffffff;
+  border: 1px solid rgba(89,110,94,0.12);
   border-radius: 18px;
-  box-shadow: 0 8px 22px rgba(63,62,55,0.045);
+  box-shadow: 0 8px 18px rgba(63,62,55,0.035);
 }
 
 .tracker-overview-card {
