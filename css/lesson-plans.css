@@ -292,9 +292,9 @@ a {
     minmax(190px, 1.25fr)
     minmax(190px, 1.25fr)
     minmax(190px, 1.25fr);
-  gap: 18px 20px;
+  gap: 12px 20px;
+  padding: 18px 28px 18px;
   align-items: end;
-  padding: 24px 28px 26px;
 }
 
 .control-group {
@@ -307,7 +307,7 @@ a {
 .control-group label,
 .mini-filter-group label {
   color: var(--brand-dark);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
 }
 
@@ -317,6 +317,22 @@ a {
 
 .control-search {
   grid-column: 1 / -1;
+}
+
+.control-group,
+   .mini-filter-group {
+     gap: 4px;
+   }
+
+.control-group select,
+.control-group input,
+.book-mini-select {
+  min-height: 36px;
+  padding: 6px 42px 6px 13px;
+}
+
+.book-search-row {
+  gap: 8px 20px;
 }
 
 /* =========================================================
