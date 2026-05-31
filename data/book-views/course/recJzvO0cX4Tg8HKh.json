@@ -13,7 +13,7 @@
   "schedText": "2 times/week 30 min *",
   "shared": false,
   "sortId": "",
-  "bookCount": 2,
+  "bookCount": 3,
   "sections": [
     {
       "type": "course",
@@ -69,6 +69,47 @@
             {
               "label": "Option 2",
               "url": "https://bookshop.org/a/90084/9781501121470",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
+        },
+        {
+          "resourceId": "recJrIjkIFxx14kky",
+          "instanceKey": "course:recJzvO0cX4Tg8HKh:resource:recJrIjkIFxx14kky",
+          "title": "Prisoners of Geography: Our World Explained in 12 Simple Maps",
+          "author": "Tim Marshall",
+          "isbn": "978-1615198474",
+          "asin": "",
+          "isbnAsin": "978-1615198474",
+          "imagePath": "img/resources/recJrIjkIFxx14kky.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": true,
+          "chooseOne": false,
+          "gradeLevelTag": "",
+          "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
+          "rationale": "A helpful companion while reading Prisoners of Geography.",
+          "noteText": "",
+          "maySubText": "",
+          "discountText": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "",
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "https://smile.amazon.com/Prisoners-Geography-Explained-Illustrated-Readers/dp/1615198474/",
+              "memberOnly": false,
+              "memberstackId": ""
+            },
+            {
+              "label": "Option 2",
+              "url": "https://bookshop.org/a/90084/9781615198474",
               "memberOnly": false,
               "memberstackId": ""
             }
