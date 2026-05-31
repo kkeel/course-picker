@@ -2151,3 +2151,19 @@ body.bulk-download-modal-open {
 .lesson-tracking-menu {
   padding-top: 22px;
 }
+
+.topic-group:has(.lesson-tracking-menu:not([hidden])),
+.topic-card:has(.lesson-tracking-menu:not([hidden])),
+.directory-card:has(.lesson-tracking-menu:not([hidden])) {
+  position: relative;
+  z-index: 50;
+}
+
+.lesson-tracking-control:has(.lesson-tracking-menu:not([hidden])) {
+  position: relative;
+  z-index: 10000;
+}
+
+.lesson-tracking-menu {
+  z-index: 10001;
+}
