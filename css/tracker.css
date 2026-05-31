@@ -1,5 +1,5 @@
 .tracker-page {
-  background: #f4f6fa;
+  background: var(--brand-bg, #faf7ed);
 }
 
 .tracker-shell {
@@ -25,7 +25,7 @@
   background:
     linear-gradient(to bottom, rgba(89,110,94,0.055) 1px, transparent 1px) 0 142px / 100% 34px,
     linear-gradient(90deg, rgba(89,110,94,0.12) 0 1px, transparent 1px) 42px 0 / 1px 100%,
-    #faf7ed;
+    #fbfbf9;
   border: 1px solid rgba(89,110,94,0.22);
   border-radius: 22px 8px 8px 22px;
   box-shadow: 0 22px 55px rgba(63,62,55,0.11);
@@ -41,7 +41,7 @@
   border-radius: 99px;
   background: repeating-linear-gradient(
     to bottom,
-    rgba(89,110,94,0.32) 0 10px,
+    rgba(89,110,94,0.26) 0 10px,
     transparent 10px 28px
   );
 }
@@ -69,6 +69,21 @@
   margin: 14px 0 28px;
   font-size: 16px;
   line-height: 1.55;
+}
+
+.tracker-build-notice {
+  margin: 18px 0 26px;
+  padding: 12px 16px;
+  border: 1px solid rgba(89,110,94,0.22);
+  border-radius: 14px;
+  background: rgba(243,244,241,0.85);
+  color: #596e5e;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.tracker-build-notice strong {
+  color: #596e5e;
 }
 
 .tracker-overview-card,
@@ -202,24 +217,23 @@
 }
 
 .tracker-tab:nth-child(2) {
-  background: #62765c;
+  background: #7b8b7f;
 }
 
 .tracker-tab:nth-child(3) {
-  background: #556F8C;
+  background: #9da89f;
 }
 
 .tracker-tab:nth-child(4) {
-  background: #5A5D66;
+  background: #bdc5bf;
 }
 
 .tracker-tab:nth-child(5) {
-  background: #7F3A82;
+  background: #596e5e;
 }
 
 .tracker-tab:not(.is-active) {
-  opacity: 0.78;
-  color: rgba(255,255,255,0.86);
+  opacity: 0.88;
 }
 
 .tracker-tab.is-active {
@@ -249,6 +263,11 @@
     border-left: 1px solid rgba(89,110,94,0.22);
     border-radius: 999px;
     padding: 9px 14px;
+    width: auto;
+  }
+
+  .tracker-tab.is-active {
+    transform: none;
   }
 
   .tracker-grid {
@@ -258,19 +277,4 @@
   .tracker-title {
     font-size: 42px;
   }
-}
-
-.tracker-build-notice {
-  margin: 18px 0 26px;
-  padding: 12px 16px;
-  border: 1px solid rgba(89,110,94,0.22);
-  border-radius: 14px;
-  background: rgba(232,233,226,0.72);
-  color: #596e5e;
-  font-size: 14px;
-  line-height: 1.45;
-}
-
-.tracker-build-notice strong {
-  color: #596e5e;
 }
