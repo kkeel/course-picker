@@ -1465,19 +1465,14 @@ function setupBulkDownloadModal() {
     let rows = (state.allRows || []).filter(hasLessonPdf);
   
     if (source === "grade") {
-      const gradeNumber = String(detail || "").replace("G", "");
-  
       rows = rows.filter((row) => {
-        const text = [
-          row.gradeText,
-          row.title,
-          row.lessonSetName,
-        ].filter(Boolean).join(" ").toLowerCase();
-  
-        return (
-          text.includes(`grade ${gradeNumber}`) ||
-          text.includes(`g${gradeNumber}`)
-        );
+        const grades = Array.isArray(row.grades)
+          ? row.grades
+          : Array.isArray(row.gradeLevels)
+            ? row.gradeLevels
+            : [];
+    
+        return grades.includes(detail);
       });
     }
   
