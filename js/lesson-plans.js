@@ -1337,9 +1337,19 @@ function setupBulkDownloadModal() {
   };
 
   function clearPreview() {
-    if (!preview) return;
-    preview.hidden = true;
-    preview.innerHTML = "";
+    if (preview) {
+      preview.hidden = true;
+      preview.innerHTML = "";
+    }
+  
+    const downloadButton =
+      document.getElementById("bulk-download-start");
+  
+    if (downloadButton) {
+      downloadButton.disabled = true;
+      downloadButton.classList.add("is-disabled");
+      downloadButton.textContent = "Download ZIP";
+    }
   }
 
   if (!modal || !openButton) return;
@@ -1636,41 +1646,155 @@ function setupBulkDownloadModal() {
     ]);
   }
 
+  function sanitizeBulkFileName(value, fallback = "Lesson Plan") {
+    return String(value || fallback)
+      .replace(/[<>:"/\\|?*\x00-\x1F]+/g, "")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 140) || fallback;
+  }
+  
+  function getBulkFormatLabel() {
+    if (bulkDownloadState.format === "fullCourse") return "Full Course Plans";
+    if (bulkDownloadState.format === "topicPlans") return "Single Topic Plans";
+    if (bulkDownloadState.format === "both") return "Both";
+    return "Lesson Plans";
+  }
+  
+  function getBulkSourceLabel() {
+    if (bulkDownloadState.source === "grade") {
+      return `Grade ${String(bulkDownloadState.detail || "").replace("G", "")}`;
+    }
+  
+    if (bulkDownloadState.source === "myCourses") {
+      return "My Courses";
+    }
+  
+    if (bulkDownloadState.source === "students") {
+      return getStudentById(bulkDownloadState.detail)?.name || "Student";
+    }
+  
+    if (bulkDownloadState.source === "planningTags") {
+      return planningTagLabel(bulkDownloadState.detail);
+    }
+  
+    return "Lesson Plans";
+  }
+  
+  function getBulkZipFileName() {
+    const name = sanitizeBulkFileName(
+      `Alveary ${getBulkSourceLabel()} ${getBulkFormatLabel()}`
+    ).replace(/\s+/g, "-");
+  
+    return `${name}.zip`;
+  }
+  
+  function compareBulkRows(a, b) {
+    const subjectA = SUBJECT_ORDER.indexOf(a.subject);
+    const subjectB = SUBJECT_ORDER.indexOf(b.subject);
+  
+    const subjectOrderA = subjectA === -1 ? 999 : subjectA;
+    const subjectOrderB = subjectB === -1 ? 999 : subjectB;
+  
+    if (subjectOrderA !== subjectOrderB) {
+      return subjectOrderA - subjectOrderB;
+    }
+  
+    const courseA = a.rowType === "topic"
+      ? a.courseTitle || ""
+      : a.lessonSetName || a.title || "";
+  
+    const courseB = b.rowType === "topic"
+      ? b.courseTitle || ""
+      : b.lessonSetName || b.title || "";
+  
+    const courseCompare = courseA.localeCompare(courseB);
+    if (courseCompare) return courseCompare;
+  
+    const typeA = a.rowType === "course" ? 0 : 1;
+    const typeB = b.rowType === "course" ? 0 : 1;
+  
+    if (typeA !== typeB) return typeA - typeB;
+  
+    return String(a.lessonSetName || a.title || "")
+      .localeCompare(String(b.lessonSetName || b.title || ""));
+  }
+  
+  function getBulkPdfFileName(row, usedFileNames) {
+    const parts = [
+      row.subject,
+      row.rowType === "topic" ? row.courseTitle : "",
+      row.lessonSetName || row.title || "Lesson Plan",
+    ].filter(Boolean);
+  
+    let baseName = sanitizeBulkFileName(parts.join(" - "));
+    let fileName = `${baseName}.pdf`;
+    let index = 2;
+  
+    while (usedFileNames.has(fileName.toLowerCase())) {
+      fileName = `${baseName} (${index}).pdf`;
+      index += 1;
+    }
+  
+    usedFileNames.add(fileName.toLowerCase());
+    return fileName;
+  }
+
   async function downloadBulkZip() {
-    const rows = getBulkPreviewRows();
+    const rows = getBulkPreviewRows()
+      .slice()
+      .sort(compareBulkRows);
   
     if (!rows.length) return;
   
     const button =
       document.getElementById("bulk-download-start");
   
+    if (!button) return;
+  
     try {
+      if (!window.JSZip) {
+        throw new Error("JSZip did not load.");
+      }
+  
       button.disabled = true;
-      button.textContent =
-        `Preparing ZIP (${rows.length})...`;
+      button.classList.add("is-disabled");
+      button.textContent = `Preparing ZIP (${rows.length})...`;
   
       const zip = new JSZip();
+      const usedFileNames = new Set();
+      const failedRows = [];
   
-      for (const row of rows) {
-        const pdfUrl = safeLink(
-          row?.links?.lessonPdf
-        );
+      for (let i = 0; i < rows.length; i += 1) {
+        const row = rows[i];
+        const pdfUrl = safeLink(row?.links?.lessonPdf);
   
-        if (!pdfUrl) continue;
+        button.textContent = `Downloading PDF ${i + 1} of ${rows.length}...`;
   
-        const response = await fetch(pdfUrl);
+        if (!pdfUrl) {
+          failedRows.push(row);
+          continue;
+        }
   
-        if (!response.ok) continue;
+        try {
+          const response = await fetch(pdfUrl);
   
-        const blob = await response.blob();
+          if (!response.ok) {
+            failedRows.push(row);
+            continue;
+          }
   
-        const fileName =
-          `${row.lessonSetName || row.title}.pdf`
-            .replace(/[<>:"/\\|?*]+/g, "")
-            .trim();
+          const blob = await response.blob();
+          const fileName = getBulkPdfFileName(row, usedFileNames);
   
-        zip.file(fileName, blob);
+          zip.file(fileName, blob);
+        } catch (error) {
+          console.warn("Could not add PDF to ZIP", row, error);
+          failedRows.push(row);
+        }
       }
+  
+      button.textContent = "Building ZIP...";
   
       const zipBlob =
         await zip.generateAsync({
@@ -1684,9 +1808,7 @@ function setupBulkDownloadModal() {
         document.createElement("a");
   
       link.href = url;
-  
-      link.download =
-        "Alveary-Lesson-Plans.zip";
+      link.download = getBulkZipFileName();
   
       document.body.appendChild(link);
       link.click();
@@ -1695,16 +1817,17 @@ function setupBulkDownloadModal() {
       URL.revokeObjectURL(url);
   
       button.textContent =
-        `Download ZIP (${rows.length})`;
+        failedRows.length
+          ? `Download ZIP (${rows.length - failedRows.length}/${rows.length})`
+          : `Download ZIP (${rows.length})`;
     }
     catch (error) {
       console.error(error);
-  
-      button.textContent =
-        "Download Failed";
+      button.textContent = "Download Failed";
     }
     finally {
       button.disabled = false;
+      button.classList.remove("is-disabled");
     }
   }
   
@@ -1772,7 +1895,7 @@ function setupBulkDownloadModal() {
         class="bulk-preview-toggle"
         data-bulk-preview-toggle
       >
-        Show counted PDFs ▼
+        Review Included PDFs ▼
       </button>
   
       <div class="bulk-preview-audit" data-bulk-preview-audit hidden>
@@ -1937,8 +2060,8 @@ function setupBulkDownloadModal() {
   
     audit.hidden = !audit.hidden;
     toggle.textContent = audit.hidden
-      ? "Show counted PDFs ▼"
-      : "Hide counted PDFs ▲";
+      ? "Review Included PDFs ▼"
+      : "Hide Included PDFs ▲";
   });
 
   document
