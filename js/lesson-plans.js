@@ -142,6 +142,7 @@ const state = {
     globalTopicStudents: {},
     globalTopicNotes: {},
     extras: {},
+    tracking: {},
     savedCourseRecordIds: [],
     savedTopicRecordIds: [],
     bookFilterIndex: null,
@@ -621,6 +622,7 @@ function buildLessonPlannerRootState(existingState = {}) {
     courses: state.plannerState.courses || existing.courses || {},
     topics: state.plannerState.topics || existing.topics || {},
     extras: state.plannerState.extras || existing.extras || {},
+    tracking: state.plannerState.tracking || existing.tracking || {},
   };
 }
 
@@ -2343,6 +2345,133 @@ function renderStudentChips(item) {
   `;
 }
 
+const TRACKING_TAGS = [
+  {
+    id: "download",
+    label: "Download",
+    icon: "⬇️",
+  },
+  {
+    id: "print",
+    label: "Print",
+    icon: "🖨️",
+  },
+  {
+    id: "digital",
+    label: "Digital",
+    icon: "💻",
+  },
+  {
+    id: "alvearyPlus",
+    label: "Alveary+",
+    icon: "A+",
+  },
+];
+
+function getTrackingKeyForRow(row) {
+  if (row?.rowType === "topic") {
+    return getTopicInstanceKeys(row)[0] || row.id || "";
+  }
+
+  return getCourseStateKeys(row)[0] || row.id || "";
+}
+
+function getTrackingTagsForRow(row) {
+  const key = getTrackingKeyForRow(row);
+  if (!key) return [];
+
+  return Array.isArray(state.plannerState.tracking?.[key])
+    ? state.plannerState.tracking[key]
+    : [];
+}
+
+function rowHasTrackingTag(row, tagId) {
+  return getTrackingTagsForRow(row).includes(tagId);
+}
+
+function toggleTrackingTagForRow(row, tagId) {
+  const key = getTrackingKeyForRow(row);
+  if (!key || !tagId) return;
+
+  const tracking = state.plannerState.tracking || {};
+  const current = Array.isArray(tracking[key])
+    ? tracking[key]
+    : [];
+
+  const next = current.includes(tagId)
+    ? current.filter((id) => id !== tagId)
+    : [...current, tagId];
+
+  state.plannerState.tracking = {
+    ...tracking,
+    [key]: next,
+  };
+
+  if (!next.length) {
+    delete state.plannerState.tracking[key];
+  }
+
+  render();
+  saveLessonPlannerStateDebounced();
+}
+
+function renderTrackingControls(item) {
+  if (!state.memberToolsEnabled) return "";
+
+  const activeTags = TRACKING_TAGS.filter((tag) =>
+    rowHasTrackingTag(item, tag.id)
+  );
+
+  return `
+    <div class="lesson-tracking-control" data-tracking-row="${escapeHtml(item.id || "")}">
+      <div class="lesson-tracking-tags">
+        ${activeTags.map((tag) => `
+          <button
+            type="button"
+            class="lesson-tracking-tag"
+            data-tracking-toggle="${escapeHtml(tag.id)}"
+            data-tracking-item="${escapeHtml(item.id || "")}"
+            title="${escapeHtml(tag.label)}"
+            aria-label="Remove ${escapeHtml(tag.label)} tracking"
+          >
+            <span>${escapeHtml(tag.icon)}</span>
+          </button>
+        `).join("")}
+      </div>
+
+      <div class="lesson-tracking-add-wrap">
+        <button
+          type="button"
+          class="lesson-tracking-add"
+          data-tracking-menu="${escapeHtml(item.id || "")}"
+          aria-label="Add tracking tag"
+          title="Add tracking"
+        >
+          +
+        </button>
+
+        <div
+          class="lesson-tracking-menu"
+          data-tracking-menu-panel="${escapeHtml(item.id || "")}"
+          hidden
+        >
+          ${TRACKING_TAGS.map((tag) => `
+            <button
+              type="button"
+              class="${rowHasTrackingTag(item, tag.id) ? "is-active" : ""}"
+              data-tracking-toggle="${escapeHtml(tag.id)}"
+              data-tracking-item="${escapeHtml(item.id || "")}"
+            >
+              <span>${escapeHtml(tag.icon)}</span>
+              <span>${escapeHtml(tag.label)}</span>
+            </button>
+          `).join("")}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
 function renderActionButtons(item, options = {}) {
   const {
     type = "course",
@@ -2463,6 +2592,8 @@ function renderActionButtons(item, options = {}) {
           : ""
       }
       
+      ${renderTrackingControls(item)}
+
       <div class="card-tool-slot">
         ${
           toolsOpen
@@ -2880,6 +3011,7 @@ async function loadPlannerStateForLessonPlans() {
       globalTopicStudents: planner.globalTopicStudents || {},
       globalTopicNotes: planner.globalTopicNotes || {},
       extras: planner.extras || {},
+      tracking: planner.tracking || {},
     };
 
     await loadBookFilterIndexForPlannerLookups();
@@ -3179,6 +3311,37 @@ async function initDirectory() {
     });
 
     document.getElementById("topic-group-list").addEventListener("click", (event) => {
+      const trackingMenuButton = event.target.closest("[data-tracking-menu]");
+      const trackingToggle = event.target.closest("[data-tracking-toggle]");
+      
+      if (trackingMenuButton) {
+        const itemId = trackingMenuButton.dataset.trackingMenu;
+      
+        document.querySelectorAll("[data-tracking-menu-panel]").forEach((panel) => {
+          if (panel.dataset.trackingMenuPanel === itemId) {
+            panel.hidden = !panel.hidden;
+          } else {
+            panel.hidden = true;
+          }
+        });
+      
+        return;
+      }
+      
+      if (trackingToggle) {
+        const itemId = trackingToggle.dataset.trackingItem;
+        const tagId = trackingToggle.dataset.trackingToggle;
+      
+        const item =
+          [...state.courses, ...state.topics].find((row) => row.id === itemId);
+      
+        if (item) {
+          toggleTrackingTagForRow(item, tagId);
+        }
+      
+        return;
+      }
+      
       const toolsButton = event.target.closest("[data-card-tools]");
       const topicsButton = event.target.closest("[data-card-topics]");
     
