@@ -2157,3 +2157,11 @@ body.bulk-download-modal-open {
   gap: 0;
   text-align: center;
 }
+
+.lesson-tracking-menu--global {
+  width: 190px;
+}
+
+.lesson-tracking-add-wrap {
+  position: relative;
+}
