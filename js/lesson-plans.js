@@ -3365,7 +3365,6 @@ async function initDirectory() {
       applyMemberToolsState();
       render();
     });
-    });
     
     document.querySelectorAll(".member-mini-toggle").forEach((button) => {
       button.addEventListener("click", () => {
