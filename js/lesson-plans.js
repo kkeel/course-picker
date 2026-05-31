@@ -1663,32 +1663,17 @@ function setupBulkDownloadModal() {
     }
 
     if (source === "trackingTags") {
-      const trackedCourseIds = new Set();
-    
-      allRows.forEach((row) => {
-        if (!hasTrackingTag(row)) return;
-    
-        if (row.rowType === "course") {
-          trackedCourseIds.add(row.id);
-        }
-    
-        if (row.rowType === "topic" && row.courseId) {
-          trackedCourseIds.add(row.courseId);
-        }
-      });
-    
-      fullCourseRows = allCourses.filter((course) =>
-        trackedCourseIds.has(course.id)
+      fullCourseRows = allCourses.filter(
+        (row) =>
+          row.rowType === "course" &&
+          hasTrackingTag(row)
       );
     
-      singleTopicRows = allRows.filter((row) => {
-        if (!hasTrackingTag(row)) return false;
-    
-        return (
-          row.rowType === "topic" ||
-          (row.rowType === "course" && !row.hasTopics)
-        );
-      });
+      singleTopicRows = allRows.filter(
+        (row) =>
+          row.rowType === "topic" &&
+          hasTrackingTag(row)
+      );
     }
   
     if (format === "fullCourse") {
