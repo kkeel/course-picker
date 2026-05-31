@@ -73,6 +73,7 @@ const STORAGE_KEYS = {
   uiPrefsInitialized: "lessonPlansUiPrefsInitialized",
   memberFilters: "lessonPlansMemberFilters",
   selectedPlanningTag: "lessonPlansSelectedPlanningTag",
+  selectedTrackingTag: "lessonPlansSelectedTrackingTag",
   selectedStudent: "lessonPlansSelectedStudent",
   query: "lessonPlansQuery",
   base: "lessonPlansBase",
@@ -121,6 +122,7 @@ const state = {
   selectedTrack: "",
 
   selectedPlanningTag: "",
+  selectedTrackingTag: "",
   selectedStudent: "",
 
   activeView: "topic",
@@ -1166,6 +1168,7 @@ function saveLessonUiPrefs() {
   localStorage.setItem(STORAGE_KEYS.memberTools, String(state.memberToolsEnabled));
   localStorage.setItem(STORAGE_KEYS.memberFilters, JSON.stringify(state.memberFilters));
   localStorage.setItem(STORAGE_KEYS.selectedPlanningTag, state.selectedPlanningTag || "");
+  localStorage.setItem(STORAGE_KEYS.selectedTrackingTag, state.selectedTrackingTag || "");
   localStorage.setItem(STORAGE_KEYS.selectedStudent, state.selectedStudent || "");
   localStorage.setItem(STORAGE_KEYS.query, state.query || "");
   localStorage.setItem(STORAGE_KEYS.base, state.base || "subject");
@@ -1189,6 +1192,7 @@ function applySavedLessonUiPrefs() {
   state.selectedCourse = localStorage.getItem(STORAGE_KEYS.selectedCourse) || "";
   state.selectedTopic = localStorage.getItem(STORAGE_KEYS.selectedTopic) || "";
   state.selectedTrack = localStorage.getItem(STORAGE_KEYS.selectedTrack) || "";
+  state.selectedTrackingTag = localStorage.getItem(STORAGE_KEYS.selectedTrackingTag) || "";
 }
 
 function applySmartFirstVisitDefaults() {
@@ -2871,6 +2875,10 @@ function memberFilterMatchesRow(row) {
     if (!students.has(normalizeStudentId(state.selectedStudent))) return false;
   }
 
+  if (state.selectedTrackingTag) {
+    if (!rowHasTrackingTag(row, state.selectedTrackingTag)) return false;
+  }
+
   return true;
 }
 
@@ -3105,6 +3113,7 @@ async function loadPlannerStateForLessonPlans() {
 function populateMemberFilters() {
   const tagSelect = document.getElementById("planning-tag-filter");
   const studentSelect = document.getElementById("student-filter");
+  const trackingSelect = document.getElementById("tracking-tag-filter");
 
   if (tagSelect) {
     const tagIds = new Set();
@@ -3146,6 +3155,20 @@ function populateMemberFilters() {
 
     studentSelect.value = state.selectedStudent;
   }
+
+  if (trackingSelect) {
+    trackingSelect.innerHTML = `
+      <option value="">Tracking Tags</option>
+      ${TRACKING_TAGS.map((tag) => `
+        <option value="${escapeHtml(tag.id)}">
+          ${escapeHtml(tag.label)}
+        </option>
+      `).join("")}
+    `;
+  
+    trackingSelect.value = state.selectedTrackingTag;
+  }
+  
 }
 
 function setLessonLoadingMessage(message) {
@@ -3250,6 +3273,7 @@ async function initDirectory() {
       document.getElementById("track-filter").value = state.selectedTrack;
       document.getElementById("planning-tag-filter").value = state.selectedPlanningTag;
       document.getElementById("student-filter").value = state.selectedStudent;
+      document.getElementById("tracking-tag-filter").value = state.selectedTrackingTag;
   
       setMemberLoadingMessage("");
       render();
@@ -3325,6 +3349,12 @@ async function initDirectory() {
     
     document.getElementById("student-filter")?.addEventListener("change", (event) => {
       state.selectedStudent = event.target.value;
+      saveLessonUiPrefs();
+      render();
+    });
+
+    document.getElementById("tracking-tag-filter")?.addEventListener("change", (event) => {
+      state.selectedTrackingTag = event.target.value;
       saveLessonUiPrefs();
       render();
     });
@@ -3543,6 +3573,7 @@ async function initDirectory() {
       state.selectedTopic = "";
       state.selectedTrack = "";
       state.selectedPlanningTag = "";
+      state.selectedTrackingTag = "";
       state.selectedStudent = "";
       state.base = "subject";
     
@@ -3551,6 +3582,7 @@ async function initDirectory() {
       document.getElementById("course-filter").value = "";
       document.getElementById("topic-filter").value = "";
       document.getElementById("planning-tag-filter").value = "";
+      document.getElementById("tracking-tag-filter").value = "";
       document.getElementById("student-filter").value = "";
     
       document.querySelectorAll(".book-base-button").forEach((btn) => {
@@ -3575,12 +3607,14 @@ async function initDirectory() {
           state.selectedCourse = "";
           state.selectedTopic = "";
           state.selectedPlanningTag = "";
+          state.selectedTrackingTag = "";
           state.selectedStudent = "";
     
           document.getElementById("primary-select").value = "";
           document.getElementById("course-filter").value = "";
           document.getElementById("topic-filter").value = "";
           document.getElementById("planning-tag-filter").value = "";
+          document.getElementById("tracking-tag-filter").value = "";
           document.getElementById("student-filter").value = "";
     
           updateUrl();
