@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-30T10:15:55.033Z",
+  "lastUpdated": "2026-05-31T10:23:37.194Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -1332,7 +1332,7 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)",
+      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)\nHistory: Grades 2-3 (U.S.)",
       "sharedLinesR3": [
         "Geography: Grade 1",
         "Geography: Grade 7 (U.S.)",
@@ -1342,7 +1342,8 @@
         "Resources: Grade 12",
         "Geography: Grade 2 (U.S.)",
         "Geography: Grade 3 (U.S.)",
-        "Geography: Grade 8 (U.S.)"
+        "Geography: Grade 8 (U.S.)",
+        "History: Grades 2-3 (U.S.)"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec4dlS5S8PVYawuL?home=pag8nmiUVfXJRZFLW"
     },
@@ -3052,7 +3053,7 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)",
+      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)\nHistory: Grades 2-3 (U.S.)",
       "sharedLinesR3": [
         "Geography: Grade 1",
         "Geography: Grade 7 (U.S.)",
@@ -3062,7 +3063,8 @@
         "Resources: Grade 12",
         "Geography: Grade 2 (U.S.)",
         "Geography: Grade 3 (U.S.)",
-        "Geography: Grade 8 (U.S.)"
+        "Geography: Grade 8 (U.S.)",
+        "History: Grades 2-3 (U.S.)"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec9fXNGxN5UAt46h?home=pag8nmiUVfXJRZFLW"
     },
@@ -3521,7 +3523,7 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)",
+      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)\nHistory: Grades 2-3 (U.S.)",
       "sharedLinesR3": [
         "Geography: Grade 1",
         "Geography: Grade 7 (U.S.)",
@@ -3531,7 +3533,8 @@
         "Resources: Grade 12",
         "Geography: Grade 2 (U.S.)",
         "Geography: Grade 3 (U.S.)",
-        "Geography: Grade 8 (U.S.)"
+        "Geography: Grade 8 (U.S.)",
+        "History: Grades 2-3 (U.S.)"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recaCEvjUhG8ZaMgO?home=pag8nmiUVfXJRZFLW"
     },
@@ -10528,6 +10531,46 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recJIxZb1XZli9xOn?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "recvrz6mUbe4Tphna",
+      "targetId": "recJIxZb1XZli9xOn",
+      "resourceId": "reczH8uwlnf97SywN",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "United States Atlas 7th Ed. (Selections)",
+        "T2": "United States Atlas 7th Ed. (Selections)",
+        "T3": "United States Atlas 7th Ed. (Selections)"
+      },
+      "gradeText": "G2, G3,",
+      "grades": [
+        2,
+        3
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)\nHistory: Grades 2-3 (U.S.)",
+      "sharedLinesR3": [
+        "Geography: Grade 1",
+        "Geography: Grade 7 (U.S.)",
+        "Resources: Grade 9",
+        "Resources: Grade 10",
+        "Resources: Grade 11",
+        "Resources: Grade 12",
+        "Geography: Grade 2 (U.S.)",
+        "Geography: Grade 3 (U.S.)",
+        "Geography: Grade 8 (U.S.)",
+        "History: Grades 2-3 (U.S.)"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recJIxZb1XZli9xOn?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recJDRQkZXjuQDihv",
       "targetId": "recJIxZb1XZli9xOn",
       "resourceId": "recbQgipyAhHvRQkR",
@@ -11335,6 +11378,34 @@
         "T1": "Prisoners of Geography: Ten Maps That Explain Everything About the World (Full Term - Intro-Ch.4)",
         "T2": "Prisoners of Geography: Ten Maps That Explain Everything About the World (Full Term - Ch.5-7)",
         "T3": "Prisoners of Geography: Ten Maps That Explain Everything About the World (Full Term - Ch.7-Conclusion)"
+      },
+      "gradeText": "G9,",
+      "grades": [
+        9
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recJzvO0cX4Tg8HKh?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recnNDBEY69580xjr",
+      "targetId": "recJzvO0cX4Tg8HKh",
+      "resourceId": "recJrIjkIFxx14kky",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.001.000",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Prisoners of Geography: Our World Explained in 12 Simple Maps (Full Term)",
+        "T2": "Prisoners of Geography: Our World Explained in 12 Simple Maps (Full Term)",
+        "T3": "Prisoners of Geography: Our World Explained in 12 Simple Maps (Full Term)"
       },
       "gradeText": "G9,",
       "grades": [
@@ -12275,7 +12346,7 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)",
+      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)\nHistory: Grades 2-3 (U.S.)",
       "sharedLinesR3": [
         "Geography: Grade 1",
         "Geography: Grade 7 (U.S.)",
@@ -12285,7 +12356,8 @@
         "Resources: Grade 12",
         "Geography: Grade 2 (U.S.)",
         "Geography: Grade 3 (U.S.)",
-        "Geography: Grade 8 (U.S.)"
+        "Geography: Grade 8 (U.S.)",
+        "History: Grades 2-3 (U.S.)"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recLpfY3HoY8mk9rj?home=pag8nmiUVfXJRZFLW"
     },
@@ -12729,7 +12801,7 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)",
+      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)\nHistory: Grades 2-3 (U.S.)",
       "sharedLinesR3": [
         "Geography: Grade 1",
         "Geography: Grade 7 (U.S.)",
@@ -12739,7 +12811,8 @@
         "Resources: Grade 12",
         "Geography: Grade 2 (U.S.)",
         "Geography: Grade 3 (U.S.)",
-        "Geography: Grade 8 (U.S.)"
+        "Geography: Grade 8 (U.S.)",
+        "History: Grades 2-3 (U.S.)"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recM5bGW4Ne9Dxpt0?home=pag8nmiUVfXJRZFLW"
     },
@@ -15555,7 +15628,7 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)",
+      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)\nHistory: Grades 2-3 (U.S.)",
       "sharedLinesR3": [
         "Geography: Grade 1",
         "Geography: Grade 7 (U.S.)",
@@ -15565,7 +15638,8 @@
         "Resources: Grade 12",
         "Geography: Grade 2 (U.S.)",
         "Geography: Grade 3 (U.S.)",
-        "Geography: Grade 8 (U.S.)"
+        "Geography: Grade 8 (U.S.)",
+        "History: Grades 2-3 (U.S.)"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recPSBLNjrET4hVLA?home=pag8nmiUVfXJRZFLW"
     },
@@ -17731,7 +17805,7 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)",
+      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)\nHistory: Grades 2-3 (U.S.)",
       "sharedLinesR3": [
         "Geography: Grade 1",
         "Geography: Grade 7 (U.S.)",
@@ -17741,7 +17815,8 @@
         "Resources: Grade 12",
         "Geography: Grade 2 (U.S.)",
         "Geography: Grade 3 (U.S.)",
-        "Geography: Grade 8 (U.S.)"
+        "Geography: Grade 8 (U.S.)",
+        "History: Grades 2-3 (U.S.)"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recSTL1mmHDECHmkV?home=pag8nmiUVfXJRZFLW"
     },
@@ -21155,7 +21230,7 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)",
+      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)\nHistory: Grades 2-3 (U.S.)",
       "sharedLinesR3": [
         "Geography: Grade 1",
         "Geography: Grade 7 (U.S.)",
@@ -21165,7 +21240,8 @@
         "Resources: Grade 12",
         "Geography: Grade 2 (U.S.)",
         "Geography: Grade 3 (U.S.)",
-        "Geography: Grade 8 (U.S.)"
+        "Geography: Grade 8 (U.S.)",
+        "History: Grades 2-3 (U.S.)"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recydvGZUJZVjPvQy?home=pag8nmiUVfXJRZFLW"
     },
@@ -22213,7 +22289,7 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)",
+      "sharedTextR3": "Geography: Grade 1\nGeography: Grade 7 (U.S.)\nResources: Grade 9\nResources: Grade 10\nResources: Grade 11\nResources: Grade 12\nGeography: Grade 2 (U.S.)\nGeography: Grade 3 (U.S.)\nGeography: Grade 8 (U.S.)\nHistory: Grades 2-3 (U.S.)",
       "sharedLinesR3": [
         "Geography: Grade 1",
         "Geography: Grade 7 (U.S.)",
@@ -22223,7 +22299,8 @@
         "Resources: Grade 12",
         "Geography: Grade 2 (U.S.)",
         "Geography: Grade 3 (U.S.)",
-        "Geography: Grade 8 (U.S.)"
+        "Geography: Grade 8 (U.S.)",
+        "History: Grades 2-3 (U.S.)"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recyqXBP4TluYd1hZ?home=pag8nmiUVfXJRZFLW"
     },
