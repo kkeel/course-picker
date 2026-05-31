@@ -2133,3 +2133,21 @@ body.bulk-download-modal-open {
   background: #eef1e8;
   color: var(--brand-dark);
 }
+
+.lesson-tracking-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: var(--brand-muted);
+  font-size: 14px;
+  line-height: 1;
+}
+
+.lesson-tracking-menu {
+  padding-top: 22px;
+}
