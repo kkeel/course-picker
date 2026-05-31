@@ -105,6 +105,7 @@ const SUBJECT_ORDER = [
 
 const state = {
   allRows: [],
+  masterRows: [],
   rows: [],
   courses: [],
   topics: [],
@@ -1305,6 +1306,24 @@ function setupGradeBundleModal() {
   });
 }
 
+async function loadMasterLessonRowsForBulkDownload() {
+  if (state.masterRows.length) return state.masterRows;
+
+  const masterUrl =
+    state.indexViews.master ||
+    "data/lesson-plan-views/master.json";
+
+  const response = await fetch(masterUrl);
+  if (!response.ok) throw new Error(`Could not load master lesson plans: ${response.status}`);
+
+  const master = await response.json();
+  state.masterRows = Array.isArray(master.rows)
+    ? master.rows.filter(shouldShowLessonPlanRow)
+    : [];
+
+  return state.masterRows;
+}
+
 function setupBulkDownloadModal() {
   const modal = document.getElementById("bulk-download-modal");
   const openButton = document.getElementById("open-bulk-download");
@@ -1462,18 +1481,13 @@ function setupBulkDownloadModal() {
       return [];
     }
   
-    let rows = (state.allRows || []).filter(hasLessonPdf);
+    let rows = (state.masterRows || []).filter(hasLessonPdf);
   
     if (source === "grade") {
-      rows = rows.filter((row) => {
-        const grades = Array.isArray(row.grades)
-          ? row.grades
-          : Array.isArray(row.gradeLevels)
-            ? row.gradeLevels
-            : [];
-    
-        return grades.includes(detail);
-      });
+      rows = rows.filter((row) =>
+        Array.isArray(row.gradeTags) &&
+        row.gradeTags.includes(detail)
+      );
     }
   
     if (source === "myCourses") {
@@ -1513,8 +1527,15 @@ function setupBulkDownloadModal() {
     });
   }
   
-  function updateBulkDownloadPreview() {
+  async function updateBulkDownloadPreview() {
     if (!preview) return;
+    try {
+      await loadMasterLessonRowsForBulkDownload();
+    } catch (error) {
+      console.warn("Could not load bulk download master rows", error);
+      clearPreview();
+      return;
+    }
   
     const rows = getBulkPreviewRows();
   
