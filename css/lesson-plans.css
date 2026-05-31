@@ -2099,16 +2099,16 @@ body.bulk-download-modal-open {
 }
 
 .lesson-tracking-menu {
-  position: absolute;
-  right: 0;
-  top: 30px;
+  position: fixed;
+  left: var(--tracking-menu-left, 0px);
+  top: var(--tracking-menu-top, 0px);
   z-index: 9999;
   min-width: 150px;
   border: 1px solid var(--divider-subtle);
   border-radius: 8px;
   background: #ffffff;
   box-shadow: var(--shadow-soft);
-  padding: 6px;
+  padding: 22px 6px 6px;
 }
 
 .lesson-tracking-menu button {
@@ -2146,26 +2146,6 @@ body.bulk-download-modal-open {
   color: var(--brand-muted);
   font-size: 14px;
   line-height: 1;
-}
-
-.lesson-tracking-menu {
-  padding-top: 22px;
-}
-
-.topic-group:has(.lesson-tracking-menu:not([hidden])),
-.topic-card:has(.lesson-tracking-menu:not([hidden])),
-.directory-card:has(.lesson-tracking-menu:not([hidden])) {
-  position: relative;
-  z-index: 50;
-}
-
-.lesson-tracking-control:has(.lesson-tracking-menu:not([hidden])) {
-  position: relative;
-  z-index: 10000;
-}
-
-.lesson-tracking-menu {
-  z-index: 10001;
 }
 
 .lesson-tracking-menu .lesson-tracking-close {
