@@ -3685,6 +3685,33 @@ async function initDirectory() {
           render();
           return;
         }
+
+        if (target === "student") {
+          state.selectedStudent = "";
+          document.getElementById("student-filter").value = "";
+        
+          saveLessonUiPrefs();
+          render();
+          return;
+        }
+        
+        if (target === "planning") {
+          state.selectedPlanningTag = "";
+          document.getElementById("planning-tag-filter").value = "";
+        
+          saveLessonUiPrefs();
+          render();
+          return;
+        }
+        
+        if (target === "tracking") {
+          state.selectedTrackingTag = "";
+          document.getElementById("tracking-tag-filter").value = "";
+        
+          saveLessonUiPrefs();
+          render();
+          return;
+        }
       });
     });
 
