@@ -1992,3 +1992,50 @@ body.bulk-download-modal-open {
 .bulk-download-preview strong {
   color: var(--brand-dark);
 }
+
+.bulk-preview-counts {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bulk-preview-toggle {
+  margin-top: 12px;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--brand-dark);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.bulk-preview-audit {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--divider-subtle);
+}
+
+.bulk-preview-audit-section + .bulk-preview-audit-section {
+  margin-top: 16px;
+}
+
+.bulk-preview-audit-title {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--brand-dark);
+}
+
+.bulk-preview-audit-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.bulk-preview-audit-list li {
+  margin-bottom: 4px;
+}
