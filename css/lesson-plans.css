@@ -802,7 +802,7 @@ body.member-tools-enabled .book-member-toolbar-body {
   background: #dee1d2;
   border: 1px solid var(--subject-color, var(--divider-subtle));
   border-radius: 8px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .topic-group-head {
@@ -837,7 +837,7 @@ body.member-tools-enabled .book-member-toolbar-body {
   background: #ffffff;
   padding: 14px 16px 14px;
   border-radius: 8px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .topic-group-course-only .directory-card {
