@@ -2102,7 +2102,7 @@ body.bulk-download-modal-open {
   position: absolute;
   right: 0;
   top: 30px;
-  z-index: 20;
+  z-index: 9999;
   min-width: 150px;
   border: 1px solid var(--divider-subtle);
   border-radius: 8px;
