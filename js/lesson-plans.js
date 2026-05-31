@@ -1491,7 +1491,41 @@ function setupBulkDownloadModal() {
     }
   
     if (source === "myCourses") {
-      rows = rows.filter((row) => getMemberRecordForRow(row).isBookmarked);
+      const bookmarkedCourseIds = new Set();
+      const bookmarkedTopicUrls = new Set();
+      const bookmarkedCourseOnlyIds = new Set();
+    
+      rows.forEach((row) => {
+        if (!getMemberRecordForRow(row).isBookmarked) return;
+    
+        if (row.rowType === "course") {
+          bookmarkedCourseIds.add(row.id);
+    
+          if (!row.hasTopics) {
+            bookmarkedCourseOnlyIds.add(row.id);
+          }
+        }
+    
+        if (row.rowType === "topic") {
+          if (row.courseId) bookmarkedCourseIds.add(row.courseId);
+    
+          const topicUrl = safeLink(row?.links?.lessonPdf);
+          if (topicUrl) bookmarkedTopicUrls.add(topicUrl);
+        }
+      });
+    
+      rows = rows.filter((row) => {
+        if (row.rowType === "course") {
+          return bookmarkedCourseIds.has(row.id) || bookmarkedCourseOnlyIds.has(row.id);
+        }
+    
+        if (row.rowType === "topic") {
+          const topicUrl = safeLink(row?.links?.lessonPdf);
+          return topicUrl && bookmarkedTopicUrls.has(topicUrl);
+        }
+    
+        return false;
+      });
     }
   
     if (source === "students") {
