@@ -3338,9 +3338,33 @@ async function initDirectory() {
       const nextEnabled = !state.memberToolsEnabled;
     
       localStorage.setItem(STORAGE_KEYS.memberTools, String(nextEnabled));
+    
+      if (!nextEnabled) {
+        state.selectedStudent = "";
+        state.selectedPlanningTag = "";
+        state.selectedTrackingTag = "";
+    
+        document.getElementById("student-filter").value = "";
+        document.getElementById("planning-tag-filter").value = "";
+        document.getElementById("tracking-tag-filter").value = "";
+      } else {
+        state.selectedStudent =
+          localStorage.getItem(STORAGE_KEYS.selectedStudent) || "";
+    
+        state.selectedPlanningTag =
+          localStorage.getItem(STORAGE_KEYS.selectedPlanningTag) || "";
+    
+        state.selectedTrackingTag =
+          localStorage.getItem(STORAGE_KEYS.selectedTrackingTag) || "";
+    
+        document.getElementById("student-filter").value = state.selectedStudent;
+        document.getElementById("planning-tag-filter").value = state.selectedPlanningTag;
+        document.getElementById("tracking-tag-filter").value = state.selectedTrackingTag;
+      }
+    
       applyMemberToolsState();
-      saveLessonUiPrefs();
       render();
+    });
     });
     
     document.querySelectorAll(".member-mini-toggle").forEach((button) => {
