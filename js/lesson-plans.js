@@ -1599,7 +1599,7 @@ function setupBulkDownloadModal() {
       <div class="bulk-preview-counts">
         <div><strong>${fullCourseCount}</strong> Full Course Plans</div>
         <div><strong>${topicCount}</strong> Single Topic Plans</div>
-        <div><strong>${rows.length}</strong> PDFs total</div>
+        <div><strong>${rows.length}</strong> Unique PDFs</div>
       </div>
   
       <button
