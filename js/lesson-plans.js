@@ -400,7 +400,6 @@ function getMemberRecordForRow(row) {
       ],
       students: [
         ...(Array.isArray(topicState?.students) ? topicState.students : []),
-        ...(Array.isArray(planner.globalTopicStudents?.[topicLegacyId]) ? planner.globalTopicStudents[topicLegacyId] : []),
       ].map(normalizeStudentId),
       noteText: planner.globalTopicNotes?.[topicLegacyId] || "",
     };
