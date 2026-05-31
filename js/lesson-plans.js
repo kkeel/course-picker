@@ -3337,6 +3337,15 @@ async function initDirectory() {
     document.getElementById("topic-group-list").addEventListener("click", (event) => {
       const trackingMenuButton = event.target.closest("[data-tracking-menu]");
       const trackingToggle = event.target.closest("[data-tracking-toggle]");
+      const trackingClose = event.target.closest("[data-tracking-close]");
+
+      if (trackingClose) {
+        trackingClose
+          .closest(".lesson-tracking-menu")
+          ?.setAttribute("hidden", "");
+      
+        return;
+      }
       
       if (trackingMenuButton) {
         const itemId = trackingMenuButton.dataset.trackingMenu;
