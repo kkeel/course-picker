@@ -396,7 +396,6 @@ function getMemberRecordForRow(row) {
       isBookmarked,
       tags: [
         ...(Array.isArray(topicState?.tags) ? topicState.tags : []),
-        ...(Array.isArray(planner.globalTopicTags?.[topicLegacyId]) ? planner.globalTopicTags[topicLegacyId] : []),
       ],
       students: [
         ...(Array.isArray(topicState?.students) ? topicState.students : []),
