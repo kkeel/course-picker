@@ -3352,10 +3352,19 @@ async function initDirectory() {
       
         document.querySelectorAll("[data-tracking-menu-panel]").forEach((panel) => {
           if (panel.dataset.trackingMenuPanel === itemId) {
-            panel.hidden = !panel.hidden;
-          } else {
-            panel.hidden = true;
+          const willOpen = panel.hidden;
+        
+          panel.hidden = !willOpen;
+        
+          if (willOpen) {
+            const rect = trackingMenuButton.getBoundingClientRect();
+        
+            panel.style.setProperty("--tracking-menu-left", `${rect.left}px`);
+            panel.style.setProperty("--tracking-menu-top", `${rect.bottom + 8}px`);
           }
+        } else {
+          panel.hidden = true;
+        }
         });
       
         return;
