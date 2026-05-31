@@ -279,6 +279,20 @@ a {
   text-underline-offset: 3px;
 }
 
+.filter-quick-actions {
+  grid-column: 1;
+  justify-self: start;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-quick-actions .clear-filters-link {
+  grid-column: auto;
+  justify-self: start;
+}
+
 .book-controls.is-collapsed .book-controls-body,
 .book-controls.is-collapsed .book-member-toolbar {
   display: none;
