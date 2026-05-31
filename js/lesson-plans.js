@@ -2949,6 +2949,32 @@ function rowMatchesFilters(row) {
 
 function render() {
   const topicGroupList = document.getElementById("topic-group-list");
+  const toggleAllTopicsButton = document.getElementById("toggle-all-topics");
+
+  if (toggleAllTopicsButton) {
+    const visibleCourseIdsWithTopics = state.courses
+      .filter((course) => course.hasTopics && rowMatchesFilters(course))
+      .map((course) => course.id)
+      .filter(Boolean);
+  
+    const allVisibleOpen =
+      visibleCourseIdsWithTopics.length > 0 &&
+      visibleCourseIdsWithTopics.every((courseId) => {
+        const course = state.courses.find((item) => item.id === courseId);
+      
+        return (
+          state.openTopics.has(courseId) ||
+          (
+            state.memberToolsEnabled &&
+            state.memberFilters.myCourses &&
+            courseHasMemberMatchingTopic(course) &&
+            !state.closedTopics.has(courseId)
+          )
+        );
+      });
+  
+    toggleAllTopicsButton.textContent = allVisibleOpen ? "Hide topics" : "Show topics";
+  }
 
   const fallbackLabel =
     state.selectedId && state.base === "grade"
@@ -3609,6 +3635,49 @@ async function initDirectory() {
         saveTopicOpenPrefs();
         render();
       }
+    });
+
+    document.getElementById("toggle-all-topics")?.addEventListener("click", () => {
+      const courseIdsWithTopics = state.courses
+        .filter((course) => course.hasTopics)
+        .map((course) => course.id)
+        .filter(Boolean);
+    
+      const visibleCourseIdsWithTopics = courseIdsWithTopics.filter((courseId) => {
+        const course = state.courses.find((item) => item.id === courseId);
+        return course && rowMatchesFilters(course);
+      });
+    
+      const allVisibleOpen =
+        visibleCourseIdsWithTopics.length > 0 &&
+        visibleCourseIdsWithTopics.every((courseId) => {
+          const course = state.courses.find((item) => item.id === courseId);
+        
+          return (
+            state.openTopics.has(courseId) ||
+            (
+              state.memberToolsEnabled &&
+              state.memberFilters.myCourses &&
+              courseHasMemberMatchingTopic(course) &&
+              !state.closedTopics.has(courseId)
+            )
+          );
+        });
+    
+      if (allVisibleOpen) {
+        visibleCourseIdsWithTopics.forEach((courseId) => {
+          state.openTopics.delete(courseId);
+          state.closedTopics.add(courseId);
+        });
+      } else {
+        visibleCourseIdsWithTopics.forEach((courseId) => {
+          state.closedTopics.delete(courseId);
+          state.openTopics.add(courseId);
+        });
+      }
+    
+      saveTopicOpenPrefs();
+      render();
     });
 
     document.getElementById("clear-filters").addEventListener("click", async () => {
