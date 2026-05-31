@@ -2455,6 +2455,14 @@ function renderTrackingControls(item) {
           data-tracking-menu-panel="${escapeHtml(item.id || "")}"
           hidden
         >
+        
+          <button
+            type="button"
+            class="lesson-tracking-close"
+            data-tracking-close
+          >
+            ×
+          </button>
           ${TRACKING_TAGS.map((tag) => `
             <button
               type="button"
@@ -3177,6 +3185,22 @@ async function initDirectory() {
         setMemberLoadingMessage("");
         console.warn("Could not apply lesson plan member data", error);
       });
+
+    document.addEventListener("click", (event) => {
+      const clickedMenu =
+        event.target.closest(".lesson-tracking-menu");
+    
+      const clickedButton =
+        event.target.closest("[data-tracking-menu]");
+    
+      if (clickedMenu || clickedButton) return;
+    
+      document
+        .querySelectorAll("[data-tracking-menu-panel]")
+        .forEach((panel) => {
+          panel.hidden = true;
+        });
+    });
     
     document.getElementById("toggle-intro").addEventListener("click", () => {
       const intro = document.getElementById("lesson-intro-section");
