@@ -169,12 +169,40 @@
   font-weight: 200;
 }
 
+.tracker-ledger-group {
+  margin-top: 18px;
+}
+
+.tracker-ledger-group:first-child {
+  margin-top: 0;
+}
+
+.tracker-ledger-group-title {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 2px 14px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+  background: rgba(173,181,143,0.28);
+  color: #596e5e;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.tracker-ledger-group-rows {
+  padding-left: 14px;
+  border-left: 3px solid rgba(173,181,143,0.35);
+}
+
 .tracker-ledger-row {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 18px;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(89,110,94,0.14);
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(89,110,94,0.12);
   font-size: 14px;
 }
 
