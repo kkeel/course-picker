@@ -1479,7 +1479,11 @@ function setupBulkDownloadModal() {
       return [];
     }
   
-    const allRows = (state.masterRows || []).filter(hasLessonPdf);
+    const allRows = (state.masterRows || []).filter((row) =>
+      hasLessonPdf(row) &&
+      !isHiddenPdf(row) &&
+      !isDelayedPdf(row)
+    );
     const allCourses = allRows.filter((row) => row.rowType === "course");
     const allTopics = allRows.filter((row) => row.rowType === "topic");
   
