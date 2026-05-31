@@ -2914,7 +2914,7 @@ function coursePlanner() {
   { key: "supplies", label: "Supplies", href: "supplies.html", status: "ready", icon: "supplies.svg" },
   { key: "exams", label: "Exams", href: null, status: "soon", icon: "exams.svg" },
   { key: "ataglance", label: "Year At-A-Glance", href: "year-at-a-glance.html", status: "ready", icon: "at-a-glance.svg", group: "Other tools" },
-  { key: "budget", label: "Budget Planner", href: null, status: "soon", icon: "budget.svg", group: "Other tools" },
+  { key: "tracker", label: "Readiness Tracker", href: "tracker.html", status: "ready", icon: "budget.svg", group: "Other tools", audience: "staff" },
 ];
 
   function getCachedAuthRole() {
