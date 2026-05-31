@@ -70,6 +70,17 @@ function setBar(id, value) {
   if (el) el.style.width = `${Math.max(0, Math.min(100, value))}%`;
 }
 
+function ledgerGroup(title, rows) {
+  return `
+    <section class="tracker-ledger-group">
+      <div class="tracker-ledger-group-title">${title}</div>
+      <div class="tracker-ledger-group-rows">
+        ${rows.join("")}
+      </div>
+    </section>
+  `;
+}
+
 function ledgerRow(label, value) {
   return `
     <div class="tracker-ledger-row">
@@ -126,16 +137,24 @@ function renderTracker() {
 
   const ledger = document.getElementById("trackerLedgerRows");
   if (ledger) {
-    ledger.innerHTML = [
-      ledgerRow("Books ready", `${books.ready} / ${books.total}`),
-      ledgerRow("Books received", books.received),
-      ledgerRow("Books ordered", books.ordered),
-      ledgerRow("Books in progress", books.inProgress),
-      ledgerRow("Supplies ready", `${supplies.ready} / ${supplies.total}`),
-      ledgerRow("Supplies received", supplies.received),
-      ledgerRow("Supplies ordered", supplies.ordered),
-      ledgerRow("Supplies in progress", supplies.inProgress),
-      ledgerRow("Lesson plans ready", `${lessons.ready} / ${lessons.total}`),
+        ledger.innerHTML = [
+      ledgerGroup("Books", [
+        ledgerRow("Ready", `${books.ready} / ${books.total}`),
+        ledgerRow("Received", books.received),
+        ledgerRow("Ordered", books.ordered),
+        ledgerRow("In Progress", books.inProgress),
+      ]),
+      ledgerGroup("Supplies", [
+        ledgerRow("Ready", `${supplies.ready} / ${supplies.total}`),
+        ledgerRow("Received", supplies.received),
+        ledgerRow("Ordered", supplies.ordered),
+        ledgerRow("In Progress", supplies.inProgress),
+      ]),
+      ledgerGroup("Lesson Plans", [
+        ledgerRow("Ready for School", `${lessons.ready} / ${lessons.total}`),
+        ledgerRow("Downloaded", lessons.downloaded),
+        ledgerRow("Printed", lessons.printed),
+      ]),
     ].join("");
   }
 }
