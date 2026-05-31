@@ -2167,3 +2167,13 @@ body.bulk-download-modal-open {
 .lesson-tracking-menu {
   z-index: 10001;
 }
+
+.lesson-tracking-menu .lesson-tracking-close {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  display: inline-flex;
+  justify-content: center;
+  gap: 0;
+  text-align: center;
+}
