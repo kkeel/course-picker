@@ -1480,84 +1480,157 @@ function setupBulkDownloadModal() {
       return [];
     }
   
-    let rows = (state.masterRows || []).filter(hasLessonPdf);
+    const allRows = (state.masterRows || []).filter(hasLessonPdf);
+    const allCourses = allRows.filter((row) => row.rowType === "course");
+    const allTopics = allRows.filter((row) => row.rowType === "topic");
+  
+    const courseById = new Map(
+      allCourses.map((course) => [course.id, course])
+    );
+  
+    function dedupeByPdf(rows) {
+      const seen = new Set();
+  
+      return rows.filter((row) => {
+        const url = safeLink(row?.links?.lessonPdf);
+        if (!url || seen.has(url)) return false;
+        seen.add(url);
+        return true;
+      });
+    }
+  
+    function hasStudent(row) {
+      return (getMemberRecordForRow(row).students || [])
+        .includes(normalizeStudentId(detail));
+    }
+  
+    function hasPlanningTag(row) {
+      return (getMemberRecordForRow(row).tags || [])
+        .includes(detail);
+    }
+  
+    function isBookmarked(row) {
+      return !!getMemberRecordForRow(row).isBookmarked;
+    }
+  
+    let fullCourseRows = [];
+    let singleTopicRows = [];
   
     if (source === "grade") {
-      rows = rows.filter((row) =>
+      fullCourseRows = allCourses.filter((row) =>
         Array.isArray(row.gradeTags) &&
         row.gradeTags.includes(detail)
+      );
+  
+      singleTopicRows = allRows.filter((row) =>
+        Array.isArray(row.gradeTags) &&
+        row.gradeTags.includes(detail) &&
+        (
+          row.rowType === "topic" ||
+          (row.rowType === "course" && !row.hasTopics)
+        )
       );
     }
   
     if (source === "myCourses") {
       const bookmarkedCourseIds = new Set();
-      const bookmarkedTopicUrls = new Set();
-      const bookmarkedCourseOnlyIds = new Set();
-    
-      rows.forEach((row) => {
-        if (!getMemberRecordForRow(row).isBookmarked) return;
-    
+  
+      allRows.forEach((row) => {
+        if (!isBookmarked(row)) return;
+  
         if (row.rowType === "course") {
           bookmarkedCourseIds.add(row.id);
-    
-          if (!row.hasTopics) {
-            bookmarkedCourseOnlyIds.add(row.id);
-          }
         }
-    
-        if (row.rowType === "topic") {
-          if (row.courseId) bookmarkedCourseIds.add(row.courseId);
-    
-          const topicUrl = safeLink(row?.links?.lessonPdf);
-          if (topicUrl) bookmarkedTopicUrls.add(topicUrl);
+  
+        if (row.rowType === "topic" && row.courseId) {
+          bookmarkedCourseIds.add(row.courseId);
         }
       });
-    
-      rows = rows.filter((row) => {
-        if (row.rowType === "course") {
-          return bookmarkedCourseIds.has(row.id) || bookmarkedCourseOnlyIds.has(row.id);
-        }
-    
-        if (row.rowType === "topic") {
-          const topicUrl = safeLink(row?.links?.lessonPdf);
-          return topicUrl && bookmarkedTopicUrls.has(topicUrl);
-        }
-    
-        return false;
+  
+      fullCourseRows = allCourses.filter((course) =>
+        bookmarkedCourseIds.has(course.id)
+      );
+  
+      singleTopicRows = allRows.filter((row) => {
+        if (!isBookmarked(row)) return false;
+  
+        return (
+          row.rowType === "topic" ||
+          (row.rowType === "course" && !row.hasTopics)
+        );
       });
     }
   
     if (source === "students") {
-      rows = rows.filter((row) =>
-        (getMemberRecordForRow(row).students || []).includes(normalizeStudentId(detail))
+      const assignedCourseIds = new Set();
+  
+      allRows.forEach((row) => {
+        if (!hasStudent(row)) return;
+  
+        if (row.rowType === "course") {
+          assignedCourseIds.add(row.id);
+        }
+  
+        if (row.rowType === "topic" && row.courseId) {
+          assignedCourseIds.add(row.courseId);
+        }
+      });
+  
+      fullCourseRows = allCourses.filter((course) =>
+        assignedCourseIds.has(course.id)
       );
+  
+      singleTopicRows = allRows.filter((row) => {
+        if (!hasStudent(row)) return false;
+  
+        return (
+          row.rowType === "topic" ||
+          (row.rowType === "course" && !row.hasTopics)
+        );
+      });
     }
   
     if (source === "planningTags") {
-      rows = rows.filter((row) =>
-        (getMemberRecordForRow(row).tags || []).includes(detail)
+      const taggedCourseIds = new Set();
+  
+      allRows.forEach((row) => {
+        if (!hasPlanningTag(row)) return;
+  
+        if (row.rowType === "course") {
+          taggedCourseIds.add(row.id);
+        }
+  
+        if (row.rowType === "topic" && row.courseId) {
+          taggedCourseIds.add(row.courseId);
+        }
+      });
+  
+      fullCourseRows = allCourses.filter((course) =>
+        taggedCourseIds.has(course.id)
       );
+  
+      singleTopicRows = allRows.filter((row) => {
+        if (!hasPlanningTag(row)) return false;
+  
+        return (
+          row.rowType === "topic" ||
+          (row.rowType === "course" && !row.hasTopics)
+        );
+      });
     }
   
     if (format === "fullCourse") {
-      rows = rows.filter((row) => row.rowType === "course");
+      return dedupeByPdf(fullCourseRows);
     }
   
     if (format === "topicPlans") {
-      rows = rows.filter((row) =>
-        row.rowType === "topic" ||
-        (row.rowType === "course" && !row.hasTopics)
-      );
+      return dedupeByPdf(singleTopicRows);
     }
   
-    const seen = new Set();
-  
-    return rows.filter((row) => {
-      const url = safeLink(row?.links?.lessonPdf);
-      if (!url || seen.has(url)) return false;
-      seen.add(url);
-      return true;
-    });
+    return dedupeByPdf([
+      ...fullCourseRows,
+      ...singleTopicRows,
+    ]);
   }
   
   async function updateBulkDownloadPreview() {
