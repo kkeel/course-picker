@@ -1563,6 +1563,7 @@ function setupBulkDownloadModal() {
   
   async function updateBulkDownloadPreview() {
     if (!preview) return;
+  
     try {
       await loadMasterLessonRowsForBulkDownload();
     } catch (error) {
@@ -1578,17 +1579,75 @@ function setupBulkDownloadModal() {
       return;
     }
   
-    const fullCourseCount = rows.filter((row) => row.rowType === "course").length;
-    const topicCount = rows.filter((row) => row.rowType === "topic").length;
+    const fullCourseRows = rows.filter((row) => row.rowType === "course");
+    const topicRows = rows.filter((row) => row.rowType === "topic");
+  
+    const fullCourseCount = fullCourseRows.length;
+    const topicCount = topicRows.length;
+  
+    const rowLabel = (row) => {
+      const title = row.lessonSetName || row.title || "Untitled";
+      const grade = row.gradeText ? ` — ${row.gradeText}` : "";
+      const subject = row.subject ? `${row.subject}: ` : "";
+  
+      return `${subject}${title}${grade}`;
+    };
   
     preview.hidden = false;
     preview.innerHTML = `
       <h3>Preview</h3>
-      <p>
-        <strong>${fullCourseCount}</strong> Full Course Plans<br>
-        <strong>${topicCount}</strong> Single Topic Plans<br>
-        <strong>${rows.length}</strong> PDFs total
-      </p>
+  
+      <div class="bulk-preview-counts">
+        <div><strong>${fullCourseCount}</strong> Full Course Plans</div>
+        <div><strong>${topicCount}</strong> Single Topic Plans</div>
+        <div><strong>${rows.length}</strong> PDFs total</div>
+      </div>
+  
+      <button
+        type="button"
+        class="bulk-preview-toggle"
+        data-bulk-preview-toggle
+      >
+        Show counted PDFs ▼
+      </button>
+  
+      <div class="bulk-preview-audit" data-bulk-preview-audit hidden>
+        <div class="bulk-preview-audit-section">
+          <p class="bulk-preview-audit-title">
+            Full Course Plans (${fullCourseCount})
+          </p>
+  
+          ${
+            fullCourseRows.length
+              ? `
+                <ol class="bulk-preview-audit-list">
+                  ${fullCourseRows.map((row) => `
+                    <li>${escapeHtml(rowLabel(row))}</li>
+                  `).join("")}
+                </ol>
+              `
+              : `<p class="bulk-download-picker-note">No full course plans counted.</p>`
+          }
+        </div>
+  
+        <div class="bulk-preview-audit-section">
+          <p class="bulk-preview-audit-title">
+            Single Topic Plans (${topicCount})
+          </p>
+  
+          ${
+            topicRows.length
+              ? `
+                <ol class="bulk-preview-audit-list">
+                  ${topicRows.map((row) => `
+                    <li>${escapeHtml(rowLabel(row))}</li>
+                  `).join("")}
+                </ol>
+              `
+              : `<p class="bulk-download-picker-note">No single topic plans counted.</p>`
+          }
+        </div>
+      </div>
     `;
   }
 
@@ -1703,6 +1762,19 @@ function setupBulkDownloadModal() {
     if (event.key === "Escape" && !modal.hidden) {
       closeModal();
     }
+  });
+
+  modal.addEventListener("click", (event) => {
+    const toggle = event.target.closest("[data-bulk-preview-toggle]");
+    if (!toggle) return;
+  
+    const audit = modal.querySelector("[data-bulk-preview-audit]");
+    if (!audit) return;
+  
+    audit.hidden = !audit.hidden;
+    toggle.textContent = audit.hidden
+      ? "Show counted PDFs ▼"
+      : "Hide counted PDFs ▲";
   });
 
   modal.addEventListener("change", (event) => {
