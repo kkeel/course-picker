@@ -1721,13 +1721,10 @@ function setupBulkDownloadModal() {
   }
   
   function getBulkPdfFileName(row, usedFileNames) {
-    const parts = [
-      row.subject,
-      row.rowType === "topic" ? row.courseTitle : "",
-      row.lessonSetName || row.title || "Lesson Plan",
-    ].filter(Boolean);
+    let baseName = sanitizeBulkFileName(
+      row.lessonSetName || row.title || "Lesson Plan"
+    );
   
-    let baseName = sanitizeBulkFileName(parts.join(" - "));
     let fileName = `${baseName}.pdf`;
     let index = 2;
   
@@ -1787,7 +1784,8 @@ function setupBulkDownloadModal() {
           const blob = await response.blob();
           const fileName = getBulkPdfFileName(row, usedFileNames);
   
-          zip.file(fileName, blob);
+          const folderName = sanitizeBulkFileName(row.subject || "Other");
+          zip.folder(folderName).file(fileName, blob);
         } catch (error) {
           console.warn("Could not add PDF to ZIP", row, error);
           failedRows.push(row);
