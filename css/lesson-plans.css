@@ -2039,3 +2039,17 @@ body.bulk-download-modal-open {
 .bulk-preview-audit-list li {
   margin-bottom: 4px;
 }
+
+.bulk-download-preview {
+  max-height: 45vh;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.bulk-preview-audit {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--divider-subtle);
+  max-height: 32vh;
+  overflow-y: auto;
+}
