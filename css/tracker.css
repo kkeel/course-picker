@@ -23,13 +23,9 @@
   min-height: 720px;
   padding: 46px 58px 56px;
   background:
-    linear-gradient(to bottom, rgba(89,110,94,0.055) 1px, transparent 1px) 0 142px / 100% 34px,
-    linear-gradient(90deg, rgba(89,110,94,0.12) 0 1px, transparent 1px) 42px 0 / 1px 100%,
-    #fbfbf9;
-  border: 1px solid rgba(89,110,94,0.22);
-  border-radius: 22px 8px 8px 22px;
-  box-shadow: 0 22px 55px rgba(63,62,55,0.11);
-}
+    linear-gradient(to bottom, rgba(89,110,94,0.04) 1px, transparent 1px) 0 142px / 100% 34px,
+    linear-gradient(90deg, rgba(89,110,94,0.08) 0 1px, transparent 1px) 42px 0 / 1px 100%,
+    #ffffff;
 
 .tracker-page-content::before {
   content: "";
@@ -89,10 +85,10 @@
 .tracker-overview-card,
 .tracker-card,
 .tracker-ledger {
-  background: rgba(255,255,255,0.86);
-  border: 1px solid rgba(89,110,94,0.14);
+  background: #f6f2e1;
+  border: 1px solid rgba(89,110,94,0.12);
   border-radius: 18px;
-  box-shadow: 0 8px 22px rgba(63,62,55,0.045);
+  box-shadow: 0 6px 14px rgba(63,62,55,0.035);
 }
 
 .tracker-overview-card {
