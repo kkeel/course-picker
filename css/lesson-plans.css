@@ -2016,6 +2016,8 @@ body.bulk-download-modal-open {
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px solid var(--divider-subtle);
+  max-height: 350px;
+  overflow-y: auto;
 }
 
 .bulk-preview-audit-section + .bulk-preview-audit-section {
@@ -2050,6 +2052,6 @@ body.bulk-download-modal-open {
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px solid var(--divider-subtle);
-  max-height: 32vh;
+  max-height: 350px;
   overflow-y: auto;
 }
