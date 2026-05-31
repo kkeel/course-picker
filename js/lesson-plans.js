@@ -1635,6 +1635,78 @@ function setupBulkDownloadModal() {
       ...singleTopicRows,
     ]);
   }
+
+  async function downloadBulkZip() {
+    const rows = getBulkPreviewRows();
+  
+    if (!rows.length) return;
+  
+    const button =
+      document.getElementById("bulk-download-start");
+  
+    try {
+      button.disabled = true;
+      button.textContent =
+        `Preparing ZIP (${rows.length})...`;
+  
+      const zip = new JSZip();
+  
+      for (const row of rows) {
+        const pdfUrl = safeLink(
+          row?.links?.lessonPdf
+        );
+  
+        if (!pdfUrl) continue;
+  
+        const response = await fetch(pdfUrl);
+  
+        if (!response.ok) continue;
+  
+        const blob = await response.blob();
+  
+        const fileName =
+          `${row.lessonSetName || row.title}.pdf`
+            .replace(/[<>:"/\\|?*]+/g, "")
+            .trim();
+  
+        zip.file(fileName, blob);
+      }
+  
+      const zipBlob =
+        await zip.generateAsync({
+          type: "blob"
+        });
+  
+      const url =
+        URL.createObjectURL(zipBlob);
+  
+      const link =
+        document.createElement("a");
+  
+      link.href = url;
+  
+      link.download =
+        "Alveary-Lesson-Plans.zip";
+  
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+  
+      URL.revokeObjectURL(url);
+  
+      button.textContent =
+        `Download ZIP (${rows.length})`;
+    }
+    catch (error) {
+      console.error(error);
+  
+      button.textContent =
+        "Download Failed";
+    }
+    finally {
+      button.disabled = false;
+    }
+  }
   
   async function updateBulkDownloadPreview() {
     if (!preview) return;
@@ -1648,6 +1720,23 @@ function setupBulkDownloadModal() {
     }
   
     const rows = getBulkPreviewRows();
+
+    const downloadButton =
+      document.getElementById("bulk-download-start");
+    
+    if (downloadButton) {
+      const enabled = rows.length > 0;
+    
+      downloadButton.disabled = !enabled;
+      downloadButton.classList.toggle(
+        "is-disabled",
+        !enabled
+      );
+    
+      downloadButton.textContent = enabled
+        ? `Download ZIP (${rows.length})`
+        : "Download ZIP";
+    }
   
     if (!rows.length) {
       clearPreview();
@@ -1851,6 +1940,13 @@ function setupBulkDownloadModal() {
       ? "Show counted PDFs ▼"
       : "Hide counted PDFs ▲";
   });
+
+  document
+    .getElementById("bulk-download-start")
+    ?.addEventListener(
+      "click",
+      downloadBulkZip
+    );
 
   modal.addEventListener("change", (event) => {
     if (event.target?.id === "bulk-download-detail-select") {
