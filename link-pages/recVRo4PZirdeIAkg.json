@@ -28,10 +28,17 @@
         "sort": "3",
         "groupTitle": "Literature: Grades 7-8",
         "groupType": "course"
+      },
+      {
+        "label": "Short Stories and Folk Tales PDF",
+        "url": "https://drive.google.com/file/d/1g03-OIpAASZj-bgnqOMZOH-0uVABvoWj/view?usp=drive_link",
+        "sort": "",
+        "groupTitle": "Lit./Mythology: Grades 7-8",
+        "groupType": "topic"
       }
     ]
   },
-  "updatedAt": "2026-05-30T09:01:26.792Z",
+  "updatedAt": "2026-05-31T09:30:24.113Z",
   "terms": [
     {
       "termNumber": 1,
@@ -83,6 +90,10 @@
               "topicTitle": "Lit./Mythology",
               "anchor": "term-1-week-1-lesson-1",
               "links": [
+                {
+                  "text": "Biography of Gertrudis Gomez de Avellaneda",
+                  "url": "https://www.literaryladiesguide.com/author-biography/gertrudis-gomez-de-avellaneda/"
+                },
                 {
                   "text": "What Are Free Verse Poems",
                   "url": "https://youtu.be/13cW2vXOMxU?si=2eiDG96US6j9Sy8d"
@@ -256,6 +267,32 @@
       "term": "Term 2",
       "weeks": [
         {
+          "weekNumber": 13,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "reco5wg8KQPDohDpg",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 13,
+              "weekLabel": "Week 1",
+              "sequence": 13,
+              "sort": 201302,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 13",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-2-week-13-lesson-13",
+              "links": [
+                {
+                  "text": "Life in a Victorian Workhouse",
+                  "url": "https://youtu.be/Cf0PQTI9ea8?si=diUITDyASS0MG-6m"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "weekNumber": 14,
           "weekLabel": "Week 2",
           "lessons": [
@@ -280,6 +317,26 @@
                 {
                   "text": "LMA, Civil War Nurse",
                   "url": "https://www.civilwarmed.org/alcott/"
+                }
+              ]
+            },
+            {
+              "lessonId": "recJRyvQv4rwbEQiE",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 14,
+              "weekLabel": "Week 2",
+              "sequence": 14,
+              "sort": 201402,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 14",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-2-week-14-lesson-14",
+              "links": [
+                {
+                  "text": "How a Christmas Carol Became a Holiday Classic",
+                  "url": "https://news.ucdenver.edu/how-a-christmas-carol-became-a-holiday-classic/"
                 }
               ]
             }
@@ -308,6 +365,52 @@
                   "url": "https://youtube.com/shorts/6qLp4mwwfx4?si=NcfFqpdbmXUjcPqc"
                 }
               ]
+            },
+            {
+              "lessonId": "rec8nREfMRP9B7g78",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 15,
+              "weekLabel": "Week 3",
+              "sequence": 15,
+              "sort": 201502,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 15",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-2-week-15-lesson-15",
+              "links": [
+                {
+                  "text": "10 Things to Know about Charles Dickens' Christmas Carol",
+                  "url": "https://www.arts.gov/stories/blog/2020/ten-things-know-about-charles-dickens-christmas-carol"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 16,
+          "weekLabel": "Week 4",
+          "lessons": [
+            {
+              "lessonId": "recsAlXRRaOTopqA3",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 16,
+              "weekLabel": "Week 4",
+              "sequence": 16,
+              "sort": 201602,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 16",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-2-week-16-lesson-16",
+              "links": [
+                {
+                  "text": "Why Read Charles Dickens?",
+                  "url": "https://youtu.be/5czA_L_eOp4?si=tvi-M_ZE8aan8HSm"
+                }
+              ]
             }
           ]
         },
@@ -332,6 +435,538 @@
                 {
                   "text": "Autobiographical Roots of Little Women",
                   "url": "https://northlight.org/blending-fiction-with-fact-little-women/"
+                }
+              ]
+            },
+            {
+              "lessonId": "reckatEcNDJH44V7O",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 17,
+              "weekLabel": "Week 5",
+              "sequence": 17,
+              "sort": 201702,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 17",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-2-week-17-lesson-17",
+              "links": [
+                {
+                  "text": "Charles Dickens' Home Tour",
+                  "url": "https://youtu.be/Qb13xKEqI70?si=dOzSdlhzw7BWsCgz"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 18,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recSuweGUuaOCC7rW",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 18,
+              "weekLabel": "Week 6",
+              "sequence": 18,
+              "sort": 201802,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 18",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-2-week-18-lesson-18",
+              "links": [
+                {
+                  "text": "Dickens' London",
+                  "url": "https://youtu.be/LXP7gIf9fyY?si=ksP5AmI3up_i5mM1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 19,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "reco0D3VgLVD0Ucro",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 19,
+              "weekLabel": "Week 7",
+              "sequence": 19,
+              "sort": 201902,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 19",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-2-week-19-lesson-19",
+              "links": [
+                {
+                  "text": "The Story of A Christmas Carol and Victorian England",
+                  "url": "https://youtu.be/CGGrnco4hKw?si=pnSrKnDUVQYVDjqw"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 20,
+          "weekLabel": "Week 8",
+          "lessons": [
+            {
+              "lessonId": "recg240SdmLRHnytP",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 20,
+              "weekLabel": "Week 8",
+              "sequence": 20,
+              "sort": 202002,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 20",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-2-week-20-lesson-20",
+              "links": [
+                {
+                  "text": "How A Christmas Carol Perfectly Demonstrates 5-Act Structure",
+                  "url": "https://youtu.be/5P-U099IE0k?si=2Ukg-iZ1N3g_ExxP"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 21,
+          "weekLabel": "Week 9",
+          "lessons": [
+            {
+              "lessonId": "recvHTyPeA242HkY3",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 21,
+              "weekLabel": "Week 9",
+              "sequence": 21,
+              "sort": 202102,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 21",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-2-week-21-lesson-21",
+              "links": [
+                {
+                  "text": "The Man Who Invented Christmas",
+                  "url": "https://bleeckerstreetmedia.com/themanwhoinventedchristmas"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 22,
+          "weekLabel": "Week 10",
+          "lessons": [
+            {
+              "lessonId": "recfLdtkhC1dAKRg7",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 22,
+              "weekLabel": "Week 10",
+              "sequence": 22,
+              "sort": 202202,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 22",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-2-week-22-lesson-22",
+              "links": [
+                {
+                  "text": "The Man Who Invented Christmas",
+                  "url": "https://bleeckerstreetmedia.com/themanwhoinventedchristmas"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 23,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "reczmDKyd8nGApjMs",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 23,
+              "weekLabel": "Week 11",
+              "sequence": 23,
+              "sort": 202301,
+              "lessonLabel": "",
+              "linkLabel": "General Lit",
+              "title": "30m General Lit: Grades 7-8 - Lesson 23",
+              "topicTitle": "General Lit",
+              "anchor": "term-2-week-23-lesson-23",
+              "links": [
+                {
+                  "text": "The Enduring Appeal of Little Women",
+                  "url": "https://redeemedreader.com/the-enduring-appeal-of-little-women/"
+                }
+              ]
+            },
+            {
+              "lessonId": "rec8cAEv5ZGHRVHvB",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 23,
+              "weekLabel": "Week 11",
+              "sequence": 23,
+              "sort": 202302,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 23",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-2-week-23-lesson-23",
+              "links": [
+                {
+                  "text": "The Man Who Invented Christmas",
+                  "url": "https://bleeckerstreetmedia.com/themanwhoinventedchristmas"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "termNumber": 3,
+      "term": "Term 3",
+      "weeks": [
+        {
+          "weekNumber": 25,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recTjcnmyKw8gARFU",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 25,
+              "sort": 302502,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 25",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-3-week-25-lesson-25",
+              "links": [
+                {
+                  "text": "Short Stories and Folk Tales PDF",
+                  "url": "https://drive.google.com/file/d/1g03-OIpAASZj-bgnqOMZOH-0uVABvoWj/view?usp=drive_link"
+                },
+                {
+                  "text": "Mark Twain bio",
+                  "url": "https://www.youtube.com/watch?v=vuQMBWjmlHk"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 26,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "recJEv86rcUVVBw8p",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 26,
+              "weekLabel": "Week 2",
+              "sequence": 26,
+              "sort": 302602,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 26",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-3-week-26-lesson-26",
+              "links": [
+                {
+                  "text": "Short Stories and Folk Tales PDF",
+                  "url": "https://drive.google.com/file/d/1g03-OIpAASZj-bgnqOMZOH-0uVABvoWj/view?usp=drive_link"
+                },
+                {
+                  "text": "O. Henry bio",
+                  "url": "https://youtu.be/fMhtbP91rlQ?si=AqsYtoLQ6WRAyNDS"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 27,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "recENO3eABt6Q5lJu",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 27,
+              "weekLabel": "Week 3",
+              "sequence": 27,
+              "sort": 302702,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 27",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-3-week-27-lesson-27",
+              "links": [
+                {
+                  "text": "Short Stories and Folk Tales PDF",
+                  "url": "https://drive.google.com/file/d/1g03-OIpAASZj-bgnqOMZOH-0uVABvoWj/view?usp=drive_link"
+                },
+                {
+                  "text": "Edgar Allan Poe bio",
+                  "url": "https://youtu.be/NbWQAHEA06M?si=z1URd1-T4e54hXtK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 28,
+          "weekLabel": "Week 4",
+          "lessons": [
+            {
+              "lessonId": "recHBx29Ouo7oaV5W",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 28,
+              "weekLabel": "Week 4",
+              "sequence": 28,
+              "sort": 302802,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 28",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-3-week-28-lesson-28",
+              "links": [
+                {
+                  "text": "Short Stories and Folk Tales PDF",
+                  "url": "https://drive.google.com/file/d/1g03-OIpAASZj-bgnqOMZOH-0uVABvoWj/view?usp=drive_link"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 29,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "recqZaAULcPatqzBY",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 29,
+              "weekLabel": "Week 5",
+              "sequence": 29,
+              "sort": 302902,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 29",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-3-week-29-lesson-29",
+              "links": [
+                {
+                  "text": "Short Stories and Folk Tales PDF",
+                  "url": "https://drive.google.com/file/d/1g03-OIpAASZj-bgnqOMZOH-0uVABvoWj/view?usp=drive_link"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 30,
+          "weekLabel": "Week 6",
+          "lessons": [
+            {
+              "lessonId": "recWxUAvF4Q5rf0Wp",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 30,
+              "weekLabel": "Week 6",
+              "sequence": 30,
+              "sort": 303002,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 30",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-3-week-30-lesson-30",
+              "links": [
+                {
+                  "text": "Short Stories and Folk Tales PDF",
+                  "url": "https://drive.google.com/file/d/1g03-OIpAASZj-bgnqOMZOH-0uVABvoWj/view?usp=drive_link"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 31,
+          "weekLabel": "Week 7",
+          "lessons": [
+            {
+              "lessonId": "recxZxBMOkR0VyHMs",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 31,
+              "weekLabel": "Week 7",
+              "sequence": 31,
+              "sort": 303102,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 31",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-3-week-31-lesson-31",
+              "links": [
+                {
+                  "text": "Short Stories and Folk Tales PDF",
+                  "url": "https://drive.google.com/file/d/1g03-OIpAASZj-bgnqOMZOH-0uVABvoWj/view?usp=drive_link"
+                },
+                {
+                  "text": "Alexander Pushkin bio",
+                  "url": "https://kids.kiddle.co/Alexander_Pushkin"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 32,
+          "weekLabel": "Week 8",
+          "lessons": [
+            {
+              "lessonId": "rec58AWtYGsITKziw",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 32,
+              "weekLabel": "Week 8",
+              "sequence": 32,
+              "sort": 303202,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 32",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-3-week-32-lesson-32",
+              "links": [
+                {
+                  "text": "Short Stories and Folk Tales PDF",
+                  "url": "https://drive.google.com/file/d/1g03-OIpAASZj-bgnqOMZOH-0uVABvoWj/view?usp=drive_link"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 33,
+          "weekLabel": "Week 9",
+          "lessons": [
+            {
+              "lessonId": "recBin8corbKSRzNC",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 33,
+              "weekLabel": "Week 9",
+              "sequence": 33,
+              "sort": 303302,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 33",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-3-week-33-lesson-33",
+              "links": [
+                {
+                  "text": "Short Stories and Folk Tales PDF",
+                  "url": "https://drive.google.com/file/d/1g03-OIpAASZj-bgnqOMZOH-0uVABvoWj/view?usp=drive_link"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 34,
+          "weekLabel": "Week 10",
+          "lessons": [
+            {
+              "lessonId": "recgS4rEvaM1h2lax",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 34,
+              "weekLabel": "Week 10",
+              "sequence": 34,
+              "sort": 303402,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 34",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-3-week-34-lesson-34",
+              "links": [
+                {
+                  "text": "Short Stories and Folk Tales PDF",
+                  "url": "https://drive.google.com/file/d/1g03-OIpAASZj-bgnqOMZOH-0uVABvoWj/view?usp=drive_link"
+                },
+                {
+                  "text": "Arthur Conan Doyle bio",
+                  "url": "https://youtu.be/7toqzP16H4c?si=PshP6k_DZMyxnTIg"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 35,
+          "weekLabel": "Week 11",
+          "lessons": [
+            {
+              "lessonId": "recBXLgO5jULDGmNT",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 35,
+              "weekLabel": "Week 11",
+              "sequence": 35,
+              "sort": 303501,
+              "lessonLabel": "",
+              "linkLabel": "General Lit",
+              "title": "30m General Lit: Grades 7-8 - Lesson 35",
+              "topicTitle": "General Lit",
+              "anchor": "term-3-week-35-lesson-35",
+              "links": [
+                {
+                  "text": "Frederick Douglass: First African American Nominated for Vice President ",
+                  "url": "https://www.youtube.com/watch?v=ka0IRru-JYA"
+                }
+              ]
+            },
+            {
+              "lessonId": "reclLenh8WlbVWfEg",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 35,
+              "weekLabel": "Week 11",
+              "sequence": 35,
+              "sort": 303502,
+              "lessonLabel": "",
+              "linkLabel": "Lit./Mythology",
+              "title": "30m Lit./Mythology: Grades 7-8 - Lesson 35",
+              "topicTitle": "Lit./Mythology",
+              "anchor": "term-3-week-35-lesson-35",
+              "links": [
+                {
+                  "text": "Short Stories and Folk Tales PDF",
+                  "url": "https://drive.google.com/file/d/1g03-OIpAASZj-bgnqOMZOH-0uVABvoWj/view?usp=drive_link"
+                },
+                {
+                  "text": "Arthur Conan Doyle's Favorite Sherlock Holmes Stories",
+                  "url": "https://www.noiser.com/sherlock-holmes-short-stories/arthur-conan-doyles-12-favourite-sherlock-holmes-stories"
                 }
               ]
             }

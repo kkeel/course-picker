@@ -47,6 +47,13 @@
         "groupType": "topic"
       },
       {
+        "label": "Composer Study Playlist (YouTube)",
+        "url": "https://youtube.com/playlist?list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&si=ZX8dezRCvOY6NAt2",
+        "sort": "2",
+        "groupTitle": "Composer Study",
+        "groupType": "topic"
+      },
+      {
         "label": "Hymns, Folk Songs, & Spirituals Spotify Playlist",
         "url": "https://open.spotify.com/playlist/4UkdlCPoCevdH1QE3lDQJI?si=UU6UqstMQpa0ch7vKhEqow",
         "sort": "2",
@@ -77,7 +84,7 @@
       {
         "label": "Foundations (See Section 12: Music)",
         "url": "https://www.alveary.org/alveary-foundations/relational-methods",
-        "sort": "4",
+        "sort": "5",
         "groupTitle": "Composer Study",
         "groupType": "topic"
       },
@@ -104,7 +111,7 @@
       }
     ]
   },
-  "updatedAt": "2026-05-30T09:01:26.943Z",
+  "updatedAt": "2026-05-31T09:30:24.253Z",
   "terms": [
     {
       "termNumber": 1,
@@ -205,6 +212,34 @@
                   "url": "https://open.spotify.com/track/3LTEtuxXQYyBVIBreNDRkG"
                 }
               ]
+            },
+            {
+              "lessonId": "recrVCZUVtYohIUHy",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100104,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 1",
+              "topicTitle": "Composer Study",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Tanti Affetti",
+                  "url": "https://www.youtube.com/watch?v=P6rcV1ltrNo&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=41&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "How Vocal Chords Work",
+                  "url": "https://youtu.be/wcReVyTuB54?si=nLCNm3KjIuPhegyM"
+                },
+                {
+                  "text": "Nineteenth Century Music",
+                  "url": "https://www.metmuseum.org/essays/nineteenth-century-classical-music"
+                }
+              ]
             }
           ]
         },
@@ -303,6 +338,38 @@
                   "url": "https://www.youtube.com/watch?v=GUvBGZnL9rE"
                 }
               ]
+            },
+            {
+              "lessonId": "rec3p6TlhbEgxOtOE",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 2,
+              "sort": 100204,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 2",
+              "topicTitle": "Composer Study",
+              "anchor": "term-1-week-2-lesson-2",
+              "links": [
+                {
+                  "text": "Birdsong in your Nature Journal",
+                  "url": "https://www.youtube.com/watch?v=qCzabBSix9A&t=290s"
+                },
+                {
+                  "text": "Tanti Affetti",
+                  "url": "https://www.youtube.com/watch?v=P6rcV1ltrNo&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=41&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Über allen Gipfeln ist Ruh",
+                  "url": "https://www.youtube.com/watch?v=ubc5ouQ-SYU&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=42"
+                },
+                {
+                  "text": "What is Appoggiatura?",
+                  "url": "https://www.youtube.com/shorts/jhBm-1TXCxI"
+                }
+              ]
             }
           ]
         },
@@ -389,6 +456,42 @@
                   "url": "https://fiskmusicmusiceverywhere.omeka.net/exhibits/show/the_fisk_jubilee_singers_trave/overview--the-fisk-jubilee-sin"
                 }
               ]
+            },
+            {
+              "lessonId": "recg0G1IjzQ4mEYK7",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 3,
+              "weekLabel": "Week 3",
+              "sequence": 3,
+              "sort": 100304,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 3",
+              "topicTitle": "Composer Study",
+              "anchor": "term-1-week-3-lesson-3",
+              "links": [
+                {
+                  "text": "All About Fanny Mendelssohn",
+                  "url": "https://aconyc.org/all-about-fanny-mendelssohn/"
+                },
+                {
+                  "text": "Über allen Gipfeln ist Ruh",
+                  "url": "https://www.youtube.com/watch?v=ubc5ouQ-SYU&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=42"
+                },
+                {
+                  "text": "About Goethe's poem",
+                  "url": "https://interlude.hk/music-of-poetry-johann-wolfgang-von-goethe-uber-allen-gipfeln/"
+                },
+                {
+                  "text": "Soundararajam",
+                  "url": "https://open.spotify.com/track/5tnuN9ZNDErU5mWyHQw3IE?si=99e5843c3f7a4b53"
+                },
+                {
+                  "text": "Veena",
+                  "url": "https://www.britannica.com/art/veena#/media/1/629307/336520"
+                }
+              ]
             }
           ]
         },
@@ -469,6 +572,42 @@
                 {
                   "text": "Steal Away Versions",
                   "url": "https://www.youtube.com/watch?v=SJUPr6S4E70&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=44&pp=iAQB8AUBsAgC"
+                }
+              ]
+            },
+            {
+              "lessonId": "recNXjdYxynUekTN1",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 4,
+              "weekLabel": "Week 4",
+              "sequence": 4,
+              "sort": 100404,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 4",
+              "topicTitle": "Composer Study",
+              "anchor": "term-1-week-4-lesson-4",
+              "links": [
+                {
+                  "text": "Charango",
+                  "url": "https://sites.duke.edu/dumic/instruments/strings/central-and-south-america/charango/"
+                },
+                {
+                  "text": "Charango de los andes",
+                  "url": "https://www.youtube.com/watch?v=JU19N_jNw_o&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=4&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Guitars 200 years ago",
+                  "url": "https://www.youtube.com/watch?v=hpnMPFCqHV8&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=2&t=33s"
+                },
+                {
+                  "text": "Cripple Creek",
+                  "url": "https://www.youtube.com/watch?v=aQkcPSpWWCo&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=44&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Minstrel Banjo",
+                  "url": "https://www.youtube.com/watch?v=N7SWUCpHme8&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=43&t=220s&pp=iAQB8AUBsAgC"
                 }
               ]
             }
@@ -555,6 +694,38 @@
                 {
                   "text": "Wellerman Spotify",
                   "url": "https://open.spotify.com/track/18ltI7ufHHm9qClfrbGZr5"
+                }
+              ]
+            },
+            {
+              "lessonId": "recStMp9symdZyscP",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 5,
+              "weekLabel": "Week 5",
+              "sequence": 5,
+              "sort": 100504,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 5",
+              "topicTitle": "Composer Study",
+              "anchor": "term-1-week-5-lesson-5",
+              "links": [
+                {
+                  "text": "World Map",
+                  "url": "https://www.freeworldmaps.net/printable/printable-world-map-hd.jpg"
+                },
+                {
+                  "text": "Minuet #95",
+                  "url": "https://www.youtube.com/watch?v=zCohaWNsBFM&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=9&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Tirdao Bio",
+                  "url": "https://tecla.com/pedro-ximenez-abrill-tirado-by-jose-manuel-izquierdo-konig/"
+                },
+                {
+                  "text": "Minutes #2 & #15",
+                  "url": "https://www.youtube.com/watch?v=t7XuFxLMwWk&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=44&pp=iAQB8AUBsAgC"
                 }
               ]
             }
@@ -651,6 +822,34 @@
                   "url": "https://theconversation.com/the-viral-wellerman-sea-shanty-is-also-a-window-into-the-remarkable-cross-cultural-whaling-history-of-aotearoa-new-zealand-153634"
                 }
               ]
+            },
+            {
+              "lessonId": "recTpD7UHDZHwR4eP",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 6,
+              "weekLabel": "Week 6",
+              "sequence": 6,
+              "sort": 100604,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 6",
+              "topicTitle": "Composer Study",
+              "anchor": "term-1-week-6-lesson-6",
+              "links": [
+                {
+                  "text": "Recuerdos de la Alhambra",
+                  "url": "https://www.youtube.com/watch?v=R-5weyHVC2U&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=42"
+                },
+                {
+                  "text": "Francisco Bio",
+                  "url": "https://learnavel.com/blogs/classical-guitar/francisco-tarrega-father-of-classical-guitar"
+                },
+                {
+                  "text": "Antonio Torres bio",
+                  "url": "https://classicalguitarmagazine.com/from-the-archives-a-200th-birthday-appreciation-of-luthier-antonio-de-torres/"
+                }
+              ]
             }
           ]
         },
@@ -737,6 +936,38 @@
                   "url": "https://open.spotify.com/track/18ltI7ufHHm9qClfrbGZr5"
                 }
               ]
+            },
+            {
+              "lessonId": "recu1IxytvKxvVl6w",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 7,
+              "weekLabel": "Week 7",
+              "sequence": 7,
+              "sort": 100704,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 7",
+              "topicTitle": "Composer Study",
+              "anchor": "term-1-week-7-lesson-7",
+              "links": [
+                {
+                  "text": "The Stars & Stripes Forever",
+                  "url": "https://www.youtube.com/watch?v=a-7XWhyvIpE&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=36&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Valved Horn",
+                  "url": "https://www.metmuseum.org/art/collection/search/503893"
+                },
+                {
+                  "text": "Harmonics Explained",
+                  "url": "https://www.youtube.com/watch?si=K-uYU49YlhgDly7N&v=Qzvp4_igvyw&feature=youtu.be"
+                },
+                {
+                  "text": "Understanding Period Instruments",
+                  "url": "https://www.youtube.com/watch?v=WnOP8ug73m4&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=42&pp=iAQB8AUBsAgC"
+                }
+              ]
             }
           ]
         },
@@ -817,6 +1048,38 @@
                 {
                   "text": "Wellerman Spotify",
                   "url": "https://open.spotify.com/track/18ltI7ufHHm9qClfrbGZr5"
+                }
+              ]
+            },
+            {
+              "lessonId": "recDn5nkC93X1FpKv",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 8,
+              "weekLabel": "Week 8",
+              "sequence": 8,
+              "sort": 100804,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 8",
+              "topicTitle": "Composer Study",
+              "anchor": "term-1-week-8-lesson-8",
+              "links": [
+                {
+                  "text": "The Stars & Stripes Forever",
+                  "url": "https://www.youtube.com/watch?v=a-7XWhyvIpE&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=36&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Harmonics Explained",
+                  "url": "https://www.youtube.com/watch?si=K-uYU49YlhgDly7N&v=Qzvp4_igvyw&feature=youtu.be"
+                },
+                {
+                  "text": "Marching with John",
+                  "url": "https://interlude.hk/marching-with-john/"
+                },
+                {
+                  "text": "Stars & Stripes Extended History",
+                  "url": "https://human.libretexts.org/Bookshelves/Music/Ethnomusicology/Resonances_-_Engaging_Music_in_its_Cultural_Context_(Morgan-Ellis_Ed.)/05%3A_Functional_Music/12%3A_Music_for_Moving/12.03%3A_John_Philip_Sousa_-_The_Stars_and_Stripes_Forever"
                 }
               ]
             }
@@ -907,6 +1170,34 @@
                 {
                   "text": "Work Songs",
                   "url": "https://thenestcollective.co.uk/blog/work-songs"
+                }
+              ]
+            },
+            {
+              "lessonId": "rec5wxCgqYG83FWEi",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 9,
+              "weekLabel": "Week 9",
+              "sequence": 9,
+              "sort": 100904,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 9",
+              "topicTitle": "Composer Study",
+              "anchor": "term-1-week-9-lesson-9",
+              "links": [
+                {
+                  "text": "Septieme Solo de Concert",
+                  "url": "https://www.youtube.com/watch?v=I89PFDpfOhk&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=39&pp=iAQB8AUB0gcJCQoLAYcqIYzvsAgC"
+                },
+                {
+                  "text": "History & Making of the Saxophone",
+                  "url": "https://www.youtube.com/watch?v=z-GDrCxcV80&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=44&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Murder & Saxophones",
+                  "url": "https://www.youtube.com/watch?v=BmJpwT_jcrU&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=45&t=901s&pp=iAQB8AUBsAgC"
                 }
               ]
             }
@@ -1015,6 +1306,34 @@
                   "url": "https://www.youtube.com/watch?v=dHP_EwQqaqE&list=RDdHP_EwQqaqE&start_radio=1"
                 }
               ]
+            },
+            {
+              "lessonId": "recmVgopb2RfCsJJw",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 10,
+              "weekLabel": "Week 10",
+              "sequence": 10,
+              "sort": 101004,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 10",
+              "topicTitle": "Composer Study",
+              "anchor": "term-1-week-10-lesson-10",
+              "links": [
+                {
+                  "text": "Septieme Solo de Concert",
+                  "url": "https://www.youtube.com/watch?v=I89PFDpfOhk&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=39&pp=iAQB8AUB0gcJCQoLAYcqIYzvsAgC"
+                },
+                {
+                  "text": "Fantaisie for Saxophone",
+                  "url": "https://www.youtube.com/watch?v=i0P-1zBpD58&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=47&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Picture of a Saxophone",
+                  "url": "https://nationalsaxophonemuseum.com/adolphe-sax-alto-10663.html"
+                }
+              ]
             }
           ]
         },
@@ -1079,6 +1398,30 @@
                 {
                   "text": "Children of the Heavenly Father Tune",
                   "url": "https://www.youtube.com/watch?v=1uQjpAwclWU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=7&pp=iAQB8AUBsAgC"
+                }
+              ]
+            },
+            {
+              "lessonId": "recIAAUkeMOwEvAR3",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 11,
+              "weekLabel": "Week 11",
+              "sequence": 11,
+              "sort": 101104,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 11",
+              "topicTitle": "Composer Study",
+              "anchor": "term-1-week-11-lesson-11",
+              "links": [
+                {
+                  "text": "About Gamelan orchestras",
+                  "url": "https://fraryguitar.com/history_frary73/Romantic06.htm"
+                },
+                {
+                  "text": "Photos of the World's Fair",
+                  "url": "https://rarehistoricalphotos.com/paris-exposition-universelle-in-rare-pictures-1899/"
                 }
               ]
             }
@@ -1181,6 +1524,38 @@
                   "url": "https://open.spotify.com/playlist/4UkdlCPoCevdH1QE3lDQJI?si=v9qcA8gGRhONnGyiLoRTPA"
                 }
               ]
+            },
+            {
+              "lessonId": "recQffJwXDJ3x8erh",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 13,
+              "weekLabel": "Week 1",
+              "sequence": 13,
+              "sort": 201304,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 13",
+              "topicTitle": "Composer Study",
+              "anchor": "term-2-week-13-lesson-13",
+              "links": [
+                {
+                  "text": "List of Works",
+                  "url": "https://en.wikipedia.org/wiki/List_of_compositions_by_Edvard_Grieg"
+                },
+                {
+                  "text": "About Grieg",
+                  "url": "https://www.classicsforkids.com/podcast/edvard-grieg-1-about-edvard-grieg/"
+                },
+                {
+                  "text": "Piano Concerto in A minor",
+                  "url": "https://www.youtube.com/watch?v=I1Yoyz6_Los&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=54&t=223s&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "More about Edvard Grieg",
+                  "url": "https://shows.acast.com/62666225d66a880012621edb/episodes/677cea83172a299f31efa72b?"
+                }
+              ]
             }
           ]
         },
@@ -1265,6 +1640,34 @@
                 {
                   "text": "About National Anthems",
                   "url": "https://militarymusic.com/blogs/military-music/13516201-national-anthems-of-the-world"
+                }
+              ]
+            },
+            {
+              "lessonId": "recVtUzTUiJl9BUDi",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 14,
+              "weekLabel": "Week 2",
+              "sequence": 14,
+              "sort": 201404,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 14",
+              "topicTitle": "Composer Study",
+              "anchor": "term-2-week-14-lesson-14",
+              "links": [
+                {
+                  "text": "Piano Concerto V2",
+                  "url": "https://www.youtube.com/watch?v=KDYvF6D6axc&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=26&t=1001s&pp=iAQB8AUB0gcJCQ0LAYcqIYzvsAgC"
+                },
+                {
+                  "text": "Schumann Concerto",
+                  "url": "https://www.youtube.com/watch?v=Ynky7qoPnUU&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=55&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "When Liszt played Grieg",
+                  "url": "https://www.youtube.com/watch?v=sutOHXfD7kw"
                 }
               ]
             }
@@ -1355,6 +1758,42 @@
                 {
                   "text": "God Save the Queen",
                   "url": "https://www.youtube.com/watch?v=I8KSAtos-dk"
+                }
+              ]
+            },
+            {
+              "lessonId": "recfdhPMHRAWKTSnh",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 15,
+              "weekLabel": "Week 3",
+              "sequence": 15,
+              "sort": 201504,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 15",
+              "topicTitle": "Composer Study",
+              "anchor": "term-2-week-15-lesson-15",
+              "links": [
+                {
+                  "text": "Translating the Past to Today",
+                  "url": "https://interlude.hk/translating-the-past-to-today-griegs-holberg-suite/"
+                },
+                {
+                  "text": "Holberg's Suite: Prelude",
+                  "url": "https://www.youtube.com/watch?v=a3p3cna7J6Q&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=28"
+                },
+                {
+                  "text": "Holberg's Suite (Prelude - Piano)",
+                  "url": "https://www.youtube.com/watch?v=sjHsTANn5Ew&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=46&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "About Holberg",
+                  "url": "https://voicemap.me/tour/bergen/pocket-bergen-walking-tour-a-guide-to-the-city-s-landmarks-and-history/sites/the-statue-of-ludvig-holberg-2"
+                },
+                {
+                  "text": "Holberg's Suite: Gavotte",
+                  "url": "https://www.youtube.com/watch?v=kJ6AaBArhRw&t=381s"
                 }
               ]
             }
@@ -1455,6 +1894,34 @@
                   "url": "https://lyricstranslate.com/en/national-anthems-lyrics.html"
                 }
               ]
+            },
+            {
+              "lessonId": "rec12xLD5cxq6bsO0",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 16,
+              "weekLabel": "Week 4",
+              "sequence": 16,
+              "sort": 201604,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 16",
+              "topicTitle": "Composer Study",
+              "anchor": "term-2-week-16-lesson-16",
+              "links": [
+                {
+                  "text": "Holberg's Suite (staring at Air)",
+                  "url": "https://www.youtube.com/watch?v=kJ6AaBArhRw&t=575s"
+                },
+                {
+                  "text": "Romanticism in Music",
+                  "url": "https://www.libertyparkmusic.com/the-romantic-period/"
+                },
+                {
+                  "text": "Holberg Reflections",
+                  "url": "https://youtu.be/R8Nc7lKm7D8?si=XJVq1MNVNlfoaqXW"
+                }
+              ]
             }
           ]
         },
@@ -1539,6 +2006,30 @@
                 {
                   "text": "National Anthems",
                   "url": "https://www.youtube.com/watch?v=jrsTiAcOhMA&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=22&pp=iAQB8AUBsAgC"
+                }
+              ]
+            },
+            {
+              "lessonId": "reczLrpu64zXnNUaJ",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 17,
+              "weekLabel": "Week 5",
+              "sequence": 17,
+              "sort": 201704,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 17",
+              "topicTitle": "Composer Study",
+              "anchor": "term-2-week-17-lesson-17",
+              "links": [
+                {
+                  "text": "Morning Mood",
+                  "url": "https://www.youtube.com/watch?v=nkBti3oSdlA&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=32"
+                },
+                {
+                  "text": "Story of PG",
+                  "url": "https://www.classicsforkids.com/podcast/edvard-grieg-2-the-story-of-peer-gynt/"
                 }
               ]
             }
@@ -1639,6 +2130,30 @@
                   "url": "https://www.youtube.com/watch?v=i3iQH9CWBHw&list=RDi3iQH9CWBHw&start_radio=1"
                 }
               ]
+            },
+            {
+              "lessonId": "recIkevv980N71qHD",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 18,
+              "weekLabel": "Week 6",
+              "sequence": 18,
+              "sort": 201804,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 18",
+              "topicTitle": "Composer Study",
+              "anchor": "term-2-week-18-lesson-18",
+              "links": [
+                {
+                  "text": "Death of Ase",
+                  "url": "https://www.youtube.com/watch?v=nkBti3oSdlA&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=32"
+                },
+                {
+                  "text": "Hardanger Fiddle",
+                  "url": "https://stringsmagazine.com/a-trip-to-norway-an-introduction-to-the-hardanger-fiddle-and-how-one-learns-to-make-them/"
+                }
+              ]
             }
           ]
         },
@@ -1727,6 +2242,42 @@
                 {
                   "text": "Bebi Notsa",
                   "url": "https://www.youtube.com/watch?v=FKVaqoMWYRU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=20&pp=iAQB8AUBsAgC"
+                }
+              ]
+            },
+            {
+              "lessonId": "recPkAuMLnk8GXqBR",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 19,
+              "weekLabel": "Week 7",
+              "sequence": 19,
+              "sort": 201904,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 19",
+              "topicTitle": "Composer Study",
+              "anchor": "term-2-week-19-lesson-19",
+              "links": [
+                {
+                  "text": "In the Hall of the Mountain King",
+                  "url": "https://www.youtube.com/watch?v=nkBti3oSdlA&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=32&t=850s"
+                },
+                {
+                  "text": "Solveig's Sang",
+                  "url": "https://www.youtube.com/watch?v=3TUhk00H86g&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=47&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Suite No. 2",
+                  "url": "https://www.youtube.com/watch?v=laG3duylj_I&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=33"
+                },
+                {
+                  "text": "Nina Sings Solveig's Sang",
+                  "url": "https://classicalmusic101blog.wordpress.com/2019/11/18/peer-gynt-op-23-solvejgs-sang-performed-by-nina-grieg-1889-edvard-grieg/"
+                },
+                {
+                  "text": "About Nina Grieg",
+                  "url": "https://www.norwegianamerican.com/norwegian-american-women-of-distinction-nina-hagerup-grieg/"
                 }
               ]
             }
@@ -1819,6 +2370,30 @@
                   "url": "https://www.youtube.com/watch?v=_tUtwYqaEKQ&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=34"
                 }
               ]
+            },
+            {
+              "lessonId": "rec57u0LES5mshZuh",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 20,
+              "weekLabel": "Week 8",
+              "sequence": 20,
+              "sort": 202004,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 20",
+              "topicTitle": "Composer Study",
+              "anchor": "term-2-week-20-lesson-20",
+              "links": [
+                {
+                  "text": "Seven Children's Songs",
+                  "url": "https://www.youtube.com/watch?v=LqhzOjXHtwg&list=PLO9FsKeaaDxUg1JP1Robvn-qUKWn6ZLgb&index=6"
+                },
+                {
+                  "text": "Children's Song Description & Translation",
+                  "url": "https://www.collavoce.com/zoo/item/two-grieg-children-s-songs-vol-1-15-95019"
+                }
+              ]
             }
           ]
         },
@@ -1899,6 +2474,42 @@
                 {
                   "text": "Bebi Notsa-Instrumental Spotify",
                   "url": "https://open.spotify.com/track/6PIQvxzd4yaHx9eEVMDMLG?si=fc6caebf253847b6"
+                }
+              ]
+            },
+            {
+              "lessonId": "recGNSSfkfjXHKy1U",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 21,
+              "weekLabel": "Week 9",
+              "sequence": 21,
+              "sort": 202104,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 21",
+              "topicTitle": "Composer Study",
+              "anchor": "term-2-week-21-lesson-21",
+              "links": [
+                {
+                  "text": "Wedding Day at Troldhaugen",
+                  "url": "https://www.youtube.com/watch?v=7PzsyZR6Jt4&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=35&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Pictures of Troldhaugen",
+                  "url": "https://www.google.com/search?sca_esv=422503223facc176&cs=0&output=search&kgmid=/m/05px1l&q=Troldhaugen&shem=dlvsc,rimspwouoe&shndl=30&source=sh/x/loc/uni/m1/1&kgs=a94f279c560be8de&utm_source=dlvsc,rimspwouoe,sh/x/loc/uni/m1/1#lpg=cid:CgIgAQ%3D%3D"
+                },
+                {
+                  "text": "Grieg Plays Wedding Day ",
+                  "url": "https://www.youtube.com/@theoshow2"
+                },
+                {
+                  "text": "About Wedding Day at Troldhaugen",
+                  "url": "https://interlude.hk/silver-memories-grieg-wedding-day-at-troldhaugen/"
+                },
+                {
+                  "text": "More about the Griegs",
+                  "url": "https://www.uudb.org/grieg-edvard-and-nina/"
                 }
               ]
             }
@@ -1991,6 +2602,38 @@
                   "url": "https://open.spotify.com/track/6PIQvxzd4yaHx9eEVMDMLG?si=fc6caebf253847b6"
                 }
               ]
+            },
+            {
+              "lessonId": "rec14w6MjKCCfQ0ca",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 22,
+              "weekLabel": "Week 10",
+              "sequence": 22,
+              "sort": 202204,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 22",
+              "topicTitle": "Composer Study",
+              "anchor": "term-2-week-22-lesson-22",
+              "links": [
+                {
+                  "text": "Wedding Day Orchestra",
+                  "url": "https://www.youtube.com/watch?v=f4oMxrgJSLQ&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=45&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Wedding Day Saxophone",
+                  "url": "https://www.youtube.com/watch?v=6_f-oash5Fg&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=37&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Pictures of the Griegs",
+                  "url": "https://www.flickr.com/photos/bergen_public_library/albums/72157622624863896/with/5852241573"
+                },
+                {
+                  "text": "More about the Griegs",
+                  "url": "https://www.uudb.org/grieg-edvard-and-nina/"
+                }
+              ]
             }
           ]
         },
@@ -2071,6 +2714,38 @@
                 {
                   "text": "Playlist",
                   "url": "https://www.youtube.com/watch?v=FKVaqoMWYRU&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=20&pp=iAQB8AUBsAgC"
+                }
+              ]
+            },
+            {
+              "lessonId": "recQpKQ5Bq9LAmKwH",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 23,
+              "weekLabel": "Week 11",
+              "sequence": 23,
+              "sort": 202304,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 23",
+              "topicTitle": "Composer Study",
+              "anchor": "term-2-week-23-lesson-23",
+              "links": [
+                {
+                  "text": "Himmelen",
+                  "url": "https://www.youtube.com/watch?v=2TIEFDUa9o8&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=46&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "In Heaven's Hall",
+                  "url": "https://oxfordsong.org/song/i-himmelen-i-himmelen"
+                },
+                {
+                  "text": "All Lyrics",
+                  "url": "https://oxfordsong.org/song/fire-salmer-four-psalms"
+                },
+                {
+                  "text": "More about the Griegs",
+                  "url": "https://www.uudb.org/grieg-edvard-and-nina/"
                 }
               ]
             }
@@ -2169,6 +2844,42 @@
                   "url": "https://www.youtube.com/watch?v=_601S48T7CI"
                 }
               ]
+            },
+            {
+              "lessonId": "recDdRZdv1tCCjxsF",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 25,
+              "sort": 302504,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 25",
+              "topicTitle": "Composer Study",
+              "anchor": "term-3-week-25-lesson-25",
+              "links": [
+                {
+                  "text": "The Rainstorm",
+                  "url": "https://www.youtube.com/watch?v=U8k3g4icEv0&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=48&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Confounded Enigma",
+                  "url": "https://blackpast.org/african-american-history/confounded-enigma-blind-tom-wiggins/"
+                },
+                {
+                  "text": "Promenade (Piano)",
+                  "url": "https://www.youtube.com/watch?v=rH_Rsl7fjok&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=46&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Promenade (Orchestra)",
+                  "url": "https://www.youtube.com/watch?v=yUfSstK3MOc&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=49&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Pictures at an Exhibition (Rock)",
+                  "url": "https://www.youtube.com/watch?v=vIL7LONVn-k"
+                }
+              ]
             }
           ]
         },
@@ -2255,6 +2966,42 @@
                   "url": "https://www.youtube.com/watch?v=_601S48T7CI"
                 }
               ]
+            },
+            {
+              "lessonId": "recA3xsUR0cXkJMFb",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 26,
+              "weekLabel": "Week 2",
+              "sequence": 26,
+              "sort": 302604,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 26",
+              "topicTitle": "Composer Study",
+              "anchor": "term-3-week-26-lesson-26",
+              "links": [
+                {
+                  "text": "Water in the Moonlight",
+                  "url": "https://www.youtube.com/watch?v=t4ZmwXd_dJg&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=44&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Promenade (Piano)",
+                  "url": "https://www.youtube.com/watch?v=rH_Rsl7fjok&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=46&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Promenade (Orchestra)",
+                  "url": "https://www.youtube.com/watch?v=yUfSstK3MOc&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=49&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Reference",
+                  "url": "https://human.libretexts.org/Bookshelves/Music/Ethnomusicology/Resonances_-_Engaging_Music_in_its_Cultural_Context_%28Morgan-Ellis_Ed.%29/02%3A_Music_for_Storytelling/06%3A_Stories_without_Words/6.03%3A_Modest_Mussorgsky_-_Pictures_at_an_Exhibition"
+                },
+                {
+                  "text": "Promenade Activity",
+                  "url": "https://s3-eu-west-1.amazonaws.com/philharmonia-assets/uploads/2020/04/22074523/Mussorgsky-activity.pdf"
+                }
+              ]
             }
           ]
         },
@@ -2337,6 +3084,42 @@
                   "url": "https://pnwfolklore.org/PigWar.html"
                 }
               ]
+            },
+            {
+              "lessonId": "recxED56gxzNhvPeJ",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 27,
+              "weekLabel": "Week 3",
+              "sequence": 27,
+              "sort": 302704,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 27",
+              "topicTitle": "Composer Study",
+              "anchor": "term-3-week-27-lesson-27",
+              "links": [
+                {
+                  "text": "Battle of Manassas",
+                  "url": "https://www.youtube.com/watch?v=T6vLl-55szE&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=43&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "The Enigma of Blind Tom Wiggins",
+                  "url": "https://blackpast.org/african-american-history/confounded-enigma-blind-tom-wiggins/"
+                },
+                {
+                  "text": "Promenade (Piano)",
+                  "url": "https://www.youtube.com/watch?v=rH_Rsl7fjok&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=46&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Promenade (Orchestra)",
+                  "url": "https://www.youtube.com/watch?v=yUfSstK3MOc&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=49&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "The Old Castle",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Viktor_Hartmann_-_The_castle_at_Chermomor.jpg"
+                }
+              ]
             }
           ]
         },
@@ -2415,6 +3198,42 @@
                   "url": "https://www.sos.wa.gov/archives/explore-our-collection/national-history-day-topic-guide/pig-war-pig-and-international-boundary-dispute"
                 }
               ]
+            },
+            {
+              "lessonId": "rechfxovr6uBZH7Dg",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 28,
+              "weekLabel": "Week 4",
+              "sequence": 28,
+              "sort": 302804,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 28",
+              "topicTitle": "Composer Study",
+              "anchor": "term-3-week-28-lesson-28",
+              "links": [
+                {
+                  "text": "March Timpani",
+                  "url": "https://www.youtube.com/watch?v=-JK6NCOsWZU&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=46"
+                },
+                {
+                  "text": "Chopin's Waltz",
+                  "url": "https://www.youtube.com/watch?v=MS5pov3xu94&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=50&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Unhatched Chicks Image",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Hartmann_Chicks_sketch_for_Trilby_ballet.jpg"
+                },
+                {
+                  "text": "Promenade (Piano)",
+                  "url": "https://www.youtube.com/watch?v=rH_Rsl7fjok&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=46&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Promenade (Orchestra)",
+                  "url": "https://www.youtube.com/watch?v=yUfSstK3MOc&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=49&pp=iAQB8AUBsAgC"
+                }
+              ]
             }
           ]
         },
@@ -2491,6 +3310,42 @@
                 {
                   "text": "San Juan Pig lyrics & audio",
                   "url": "https://pnwfolklore.org/PigWar.html"
+                }
+              ]
+            },
+            {
+              "lessonId": "recZsQCIich3LtH9z",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 29,
+              "weekLabel": "Week 5",
+              "sequence": 29,
+              "sort": 302904,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 29",
+              "topicTitle": "Composer Study",
+              "anchor": "term-3-week-29-lesson-29",
+              "links": [
+                {
+                  "text": "The Sewing Song",
+                  "url": "https://www.youtube.com/watch?v=V-Qq0o1S4vo&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=47"
+                },
+                {
+                  "text": "Wiggins Primary Sources",
+                  "url": "https://digitalarchives.columbusstate.edu/collections/show/2"
+                },
+                {
+                  "text": "Plan for the City Gate",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Hartmann_--_Plan_for_a_City_Gate.jpg"
+                },
+                {
+                  "text": "Promenade (Piano)",
+                  "url": "https://www.youtube.com/watch?v=rH_Rsl7fjok&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=46&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Promenade (Orchestra)",
+                  "url": "https://www.youtube.com/watch?v=yUfSstK3MOc&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=49&pp=iAQB8AUBsAgC"
                 }
               ]
             }
@@ -2593,6 +3448,30 @@
                 {
                   "text": "Aloha 'Oe (Full) Spotify",
                   "url": "https://open.spotify.com/track/1vwFWu7xNFlahjubuLK0kk"
+                }
+              ]
+            },
+            {
+              "lessonId": "rec9wR0AUlemCc8aj",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 30,
+              "weekLabel": "Week 6",
+              "sequence": 30,
+              "sort": 303004,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 30",
+              "topicTitle": "Composer Study",
+              "anchor": "term-3-week-30-lesson-30",
+              "links": [
+                {
+                  "text": "Tempest",
+                  "url": "https://www.youtube.com/watch?v=Q3x84kju_hc&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=55&t=1052s&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Complete Book of Great Musicians",
+                  "url": "https://archive.org/details/completebookofgr00scho_0/page/n301/mode/2up"
                 }
               ]
             }
@@ -2701,6 +3580,38 @@
                   "url": "https://open.spotify.com/track/1vwFWu7xNFlahjubuLK0kk"
                 }
               ]
+            },
+            {
+              "lessonId": "recqWlCIF446VCWAT",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 31,
+              "weekLabel": "Week 7",
+              "sequence": 31,
+              "sort": 303104,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 31",
+              "topicTitle": "Composer Study",
+              "anchor": "term-3-week-31-lesson-31",
+              "links": [
+                {
+                  "text": "Overture & Captain's Song",
+                  "url": "https://www.youtube.com/watch?v=q5yj4gISc4I&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=57&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Complete Book of Great Musicians",
+                  "url": "https://archive.org/details/completebookofgr00scho_0/page/n303/mode/2up"
+                },
+                {
+                  "text": "HMS Pinafore Libretto",
+                  "url": "https://gsarchive.net/pinafore/pf_lib.pdf"
+                },
+                {
+                  "text": "More on G&S and Satire",
+                  "url": "https://www.classical-music.com/articles/why-dont-people-take-gilbert-and-sullivan-seriously"
+                }
+              ]
             }
           ]
         },
@@ -2795,6 +3706,34 @@
                   "url": "https://open.spotify.com/track/1vwFWu7xNFlahjubuLK0kk"
                 }
               ]
+            },
+            {
+              "lessonId": "recSnVI1HSQs5aKWn",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 32,
+              "weekLabel": "Week 8",
+              "sequence": 32,
+              "sort": 303204,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 32",
+              "topicTitle": "Composer Study",
+              "anchor": "term-3-week-32-lesson-32",
+              "links": [
+                {
+                  "text": "I am the very model",
+                  "url": "https://www.youtube.com/watch?v=FOAr-_vk4tM&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=55&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "I am the model lyrics",
+                  "url": "https://operahollandpark.com/wp-content/uploads/2020/05/Modern-Major-General-song-text.pdf"
+                },
+                {
+                  "text": "Complete Book of Great Musicians",
+                  "url": "https://archive.org/details/completebookofgr00scho_0/page/n305/mode/2up"
+                }
+              ]
             }
           ]
         },
@@ -2875,6 +3814,34 @@
                 {
                   "text": "Aloha 'Oe Spotify",
                   "url": "https://open.spotify.com/track/1vwFWu7xNFlahjubuLK0kk"
+                }
+              ]
+            },
+            {
+              "lessonId": "recCBpTaFck7ekteE",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 33,
+              "weekLabel": "Week 9",
+              "sequence": 33,
+              "sort": 303304,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 33",
+              "topicTitle": "Composer Study",
+              "anchor": "term-3-week-33-lesson-33",
+              "links": [
+                {
+                  "text": "I am the very model",
+                  "url": "https://www.youtube.com/watch?v=FOAr-_vk4tM&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=55&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "The Elements",
+                  "url": "https://www.youtube.com/watch?v=AcS3NOQnsQM&list=PLvg0fKfOahKQjCzDYuaJCcuJyn7khIxsN&index=53&pp=iAQB8AUBsAgC"
+                },
+                {
+                  "text": "Interviews with Arthur",
+                  "url": "https://www.gsarchive.net/sullivan/interviews/index.html"
                 }
               ]
             }
@@ -2959,6 +3926,42 @@
                   "url": "https://open.spotify.com/track/1vwFWu7xNFlahjubuLK0kk"
                 }
               ]
+            },
+            {
+              "lessonId": "recKnay3Ptuk0g3iT",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 34,
+              "weekLabel": "Week 10",
+              "sequence": 34,
+              "sort": 303404,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 34",
+              "topicTitle": "Composer Study",
+              "anchor": "term-3-week-34-lesson-34",
+              "links": [
+                {
+                  "text": "Tit Willow",
+                  "url": "https://open.spotify.com/track/1tL2Izzv8lHRlRdmXq0i3q?si=352b4b195fa14d3c"
+                },
+                {
+                  "text": "Muppet Tit Willow",
+                  "url": "https://www.youtube.com/watch?v=ueuA-9pqRok"
+                },
+                {
+                  "text": "About W.S. Gilbert",
+                  "url": "https://www.gsarchive.net/gilbert/gilbert_home.html"
+                },
+                {
+                  "text": "Cultural Appropriation & the Mikado",
+                  "url": "https://review.gale.com/2019/11/22/the-mikado-cultural-appropriation-or-satire/"
+                },
+                {
+                  "text": "Personal Recollection",
+                  "url": "http://gsarchive.net/sullivan/html/grossmith.html)"
+                }
+              ]
             }
           ]
         },
@@ -3019,6 +4022,30 @@
                 {
                   "text": "When Morning Gilds the Skies Tune",
                   "url": "https://www.youtube.com/watch?v=cIkqPnVFN8s&list=PLvg0fKfOahKTMOJ2uBJbzbi3nT426Ab1t&index=39&pp=iAQB8AUBsAgC"
+                }
+              ]
+            },
+            {
+              "lessonId": "recKlNhvAL3m6oOkJ",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 35,
+              "weekLabel": "Week 11",
+              "sequence": 35,
+              "sort": 303504,
+              "lessonLabel": "",
+              "linkLabel": "Composer Study",
+              "title": "15m Composer Study - Lesson 35",
+              "topicTitle": "Composer Study",
+              "anchor": "term-3-week-35-lesson-35",
+              "links": [
+                {
+                  "text": "O Gladsome Light",
+                  "url": "https://open.spotify.com/track/608hsTpsQHEnyXFlRbn199?si=54a2c8ac135c44f7"
+                },
+                {
+                  "text": "From the Times at Sullivan's Death",
+                  "url": "https://www.gsarchive.net/sullivan/html/obit.html"
                 }
               ]
             }

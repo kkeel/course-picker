@@ -20,7 +20,7 @@
     "lessonPdfLabel": "Lesson PDF",
     "additional": []
   },
-  "updatedAt": "2026-05-30T09:01:26.731Z",
+  "updatedAt": "2026-05-31T09:30:24.051Z",
   "terms": [
     {
       "termNumber": 1,
@@ -75,7 +75,7 @@
               "anchor": "term-1-week-2-lesson-2",
               "links": [
                 {
-                  "text": "Picture of Santa Anna",
+                  "text": "Picture of General Antonio López de Santa Anna",
                   "url": "https://cdn.britannica.com/01/26501-050-77D1B82E/Antonio-Lopez-de-Santa-Anna-daguerreotype.jpg"
                 }
               ]
@@ -299,10 +299,6 @@
               "anchor": "term-3-week-26-lesson-26",
               "links": [
                 {
-                  "text": "Painting of Thomas Edison",
-                  "url": "https://www.si.edu/object/thomas-alva-edison%3Anpg_NPG.65.23"
-                },
-                {
                   "text": "Video: Edison's phonograph",
                   "url": "https://www.youtube.com/watch?v=D9KkvlCO-6o"
                 }
@@ -357,6 +353,32 @@
                 {
                   "text": "Painting of Lady Archibald Campbell",
                   "url": "https://www.pubhist.com/works/38/large/whistler_archibald_campbell.jpg"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 33,
+          "weekLabel": "Week 9",
+          "lessons": [
+            {
+              "lessonId": "reci9ch4OZ5AU3mm3",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 33,
+              "weekLabel": "Week 9",
+              "sequence": 33,
+              "sort": 0,
+              "lessonLabel": "Lesson 33",
+              "linkLabel": "World History",
+              "title": "30m World History: Grades 7-8 - Lesson 33",
+              "topicTitle": "World History",
+              "anchor": "term-3-week-33-lesson-33",
+              "links": [
+                {
+                  "text": "Painting of Thomas Edison",
+                  "url": "https://www.si.edu/object/thomas-alva-edison%3Anpg_NPG.65.23"
                 }
               ]
             }

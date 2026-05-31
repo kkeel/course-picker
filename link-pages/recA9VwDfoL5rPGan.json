@@ -59,7 +59,7 @@
       }
     ]
   },
-  "updatedAt": "2026-05-30T09:01:26.729Z",
+  "updatedAt": "2026-05-31T09:30:24.048Z",
   "terms": [
     {
       "termNumber": 1,
@@ -138,7 +138,7 @@
               "anchor": "term-1-week-2-lesson-2",
               "links": [
                 {
-                  "text": "Picture of Santa Anna",
+                  "text": "Picture of General Antonio López de Santa Anna",
                   "url": "https://cdn.britannica.com/01/26501-050-77D1B82E/Antonio-Lopez-de-Santa-Anna-daguerreotype.jpg"
                 }
               ]
@@ -186,6 +186,10 @@
                 {
                   "text": "Trail of Tears",
                   "url": "https://drive.google.com/file/d/1gsnqC277i7cj8b7upQxuaHpBvJp_iA11/view?usp=drive_link"
+                },
+                {
+                  "text": "Video: Trail of Tears",
+                  "url": "https://www.nps.gov/media/video/view.htm?id=040C43DC-7425-49AC-A42F-EC1E49DD61EF"
                 }
               ]
             },
@@ -290,6 +294,32 @@
       "term": "Term 2",
       "weeks": [
         {
+          "weekNumber": 15,
+          "weekLabel": "Week 3",
+          "lessons": [
+            {
+              "lessonId": "recFiS8s8An2Qr2n5",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 15,
+              "weekLabel": "Week 3",
+              "sequence": 29,
+              "sort": 201502,
+              "lessonLabel": "",
+              "linkLabel": "U.S. History",
+              "title": "30m U.S. History: Grades 7-8 - Lesson 29",
+              "topicTitle": "U.S. History",
+              "anchor": "term-2-week-15-lesson-29",
+              "links": [
+                {
+                  "text": "Why Sojourner Truth Changed Her Name",
+                  "url": "https://www.britannica.com/video/who-was-Sojourner-Truth/-259716"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "weekNumber": 16,
           "weekLabel": "Week 4",
           "lessons": [
@@ -310,6 +340,32 @@
                 {
                   "text": "Map of Mexico",
                   "url": "https://www.worldometers.info/img/maps/mexico_physical_map.gif"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 17,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "recwQVhvvpcLjD76Z",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 17,
+              "weekLabel": "Week 5",
+              "sequence": 33,
+              "sort": 201702,
+              "lessonLabel": "",
+              "linkLabel": "U.S. History",
+              "title": "30m U.S. History: Grades 7-8 - Lesson 33",
+              "topicTitle": "U.S. History",
+              "anchor": "term-2-week-17-lesson-33",
+              "links": [
+                {
+                  "text": "John J. Audubon’s Birds of America",
+                  "url": "https://www.audubon.org/art/birds-of-america"
                 }
               ]
             }
@@ -460,6 +516,54 @@
                   "url": "https://www.artic.edu/artworks/19339/arlesiennes-mistral"
                 }
               ]
+            },
+            {
+              "lessonId": "recq2ckrlXVgPcF60",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 21,
+              "weekLabel": "Week 9",
+              "sequence": 41,
+              "sort": 202102,
+              "lessonLabel": "",
+              "linkLabel": "U.S. History",
+              "title": "30m U.S. History: Grades 7-8 - Lesson 41",
+              "topicTitle": "U.S. History",
+              "anchor": "term-2-week-21-lesson-41",
+              "links": [
+                {
+                  "text": "Architecture in 1800s",
+                  "url": "https://www.thoughtco.com/thmb/xCjkuiYv6fu5GUbx19R6MozaHxo=/650x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Gothic-Revival-668269263-5944247b5f9b58d58a23815d.jpg"
+                },
+                {
+                  "text": "Greek Revival House",
+                  "url": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Greek_Revival_house_in_Fairfield_County.jpg"
+                },
+                {
+                  "text": "Gothic Revival Rectory House",
+                  "url": "https://www.thoughtco.com/thmb/xCjkuiYv6fu5GUbx19R6MozaHxo=/650x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Gothic-Revival-668269263-5944247b5f9b58d58a23815d.jpg"
+                }
+              ]
+            },
+            {
+              "lessonId": "recBRKvlhYfwCLuUA",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 21,
+              "weekLabel": "Week 9",
+              "sequence": 42,
+              "sort": 202104,
+              "lessonLabel": "",
+              "linkLabel": "U.S. History",
+              "title": "30m U.S. History: Grades 7-8 - Lesson 42",
+              "topicTitle": "U.S. History",
+              "anchor": "term-2-week-21-lesson-42",
+              "links": [
+                {
+                  "text": "Video: Stanford University Research",
+                  "url": "https://www.youtube.com/watch?v=9eyHTMF2L7w"
+                }
+              ]
             }
           ]
         },
@@ -484,6 +588,26 @@
                 {
                   "text": "Image of Eiffel Tower",
                   "url": "https://upload.wikimedia.org/wikipedia/commons/1/10/Eiffel_tower_paris.jpg"
+                }
+              ]
+            },
+            {
+              "lessonId": "recKydtXGYWno2qqV",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 22,
+              "weekLabel": "Week 10",
+              "sequence": 44,
+              "sort": 202204,
+              "lessonLabel": "",
+              "linkLabel": "U.S. History",
+              "title": "30m U.S. History: Grades 7-8 - Lesson 44",
+              "topicTitle": "U.S. History",
+              "anchor": "term-2-week-22-lesson-44",
+              "links": [
+                {
+                  "text": "Video: Stanford University Research",
+                  "url": "https://www.youtube.com/watch?v=9eyHTMF2L7w"
                 }
               ]
             }
@@ -518,6 +642,26 @@
                   "url": "https://timemaps.com/history/italy-200ad/"
                 }
               ]
+            },
+            {
+              "lessonId": "recY1X7amJWJljD9v",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 50,
+              "sort": 302504,
+              "lessonLabel": "",
+              "linkLabel": "U.S. History",
+              "title": "30m U.S. History: Grades 7-8 - Lesson 50",
+              "topicTitle": "U.S. History",
+              "anchor": "term-3-week-25-lesson-50",
+              "links": [
+                {
+                  "text": "Video: Stanford University Research",
+                  "url": "https://www.youtube.com/watch?v=9eyHTMF2L7w"
+                }
+              ]
             }
           ]
         },
@@ -539,10 +683,6 @@
               "topicTitle": "World History",
               "anchor": "term-3-week-26-lesson-26",
               "links": [
-                {
-                  "text": "Painting of Thomas Edison",
-                  "url": "https://www.si.edu/object/thomas-alva-edison%3Anpg_NPG.65.23"
-                },
                 {
                   "text": "Video: Edison's phonograph",
                   "url": "https://www.youtube.com/watch?v=D9KkvlCO-6o"
@@ -566,6 +706,26 @@
                 {
                   "text": "Europe 200 AD Map",
                   "url": "https://timemaps.com/history/italy-200ad/"
+                }
+              ]
+            },
+            {
+              "lessonId": "recltrLqzKZKpgvnb",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 26,
+              "weekLabel": "Week 2",
+              "sequence": 52,
+              "sort": 302604,
+              "lessonLabel": "",
+              "linkLabel": "U.S. History",
+              "title": "30m U.S. History: Grades 7-8 - Lesson 52",
+              "topicTitle": "U.S. History",
+              "anchor": "term-3-week-26-lesson-52",
+              "links": [
+                {
+                  "text": "Video: Stanford University Research",
+                  "url": "https://www.youtube.com/watch?v=9eyHTMF2L7w"
                 }
               ]
             }
@@ -670,6 +830,26 @@
                   "url": "https://timemaps.com/history/italy-200ad/"
                 }
               ]
+            },
+            {
+              "lessonId": "recC3yoaqSoLMwk56",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 29,
+              "weekLabel": "Week 5",
+              "sequence": 58,
+              "sort": 302904,
+              "lessonLabel": "",
+              "linkLabel": "U.S. History",
+              "title": "30m U.S. History: Grades 7-8 - Lesson 58",
+              "topicTitle": "U.S. History",
+              "anchor": "term-3-week-29-lesson-58",
+              "links": [
+                {
+                  "text": "Video: Stanford University Research",
+                  "url": "https://www.youtube.com/watch?v=9eyHTMF2L7w"
+                }
+              ]
             }
           ]
         },
@@ -716,6 +896,26 @@
                   "url": "https://timemaps.com/history/italy-200ad/"
                 }
               ]
+            },
+            {
+              "lessonId": "recJ06fydG8LCmSNR",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 30,
+              "weekLabel": "Week 6",
+              "sequence": 60,
+              "sort": 303004,
+              "lessonLabel": "",
+              "linkLabel": "U.S. History",
+              "title": "30m U.S. History: Grades 7-8 - Lesson 60",
+              "topicTitle": "U.S. History",
+              "anchor": "term-3-week-30-lesson-60",
+              "links": [
+                {
+                  "text": "Video: Stanford University Research",
+                  "url": "https://www.youtube.com/watch?v=9eyHTMF2L7w"
+                }
+              ]
             }
           ]
         },
@@ -740,6 +940,26 @@
                 {
                   "text": "Europe 200 AD Map",
                   "url": "https://timemaps.com/history/italy-200ad/"
+                }
+              ]
+            },
+            {
+              "lessonId": "recex8FuTcvFx9CUy",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 31,
+              "weekLabel": "Week 7",
+              "sequence": 62,
+              "sort": 303104,
+              "lessonLabel": "",
+              "linkLabel": "U.S. History",
+              "title": "30m U.S. History: Grades 7-8 - Lesson 62",
+              "topicTitle": "U.S. History",
+              "anchor": "term-3-week-31-lesson-62",
+              "links": [
+                {
+                  "text": "https://www.youtube.com/watch?v=9eyHTMF2L7w",
+                  "url": "https://www.youtube.com/watch?v=9eyHTMF2L7w"
                 }
               ]
             }
@@ -775,6 +995,26 @@
           "weekNumber": 33,
           "weekLabel": "Week 9",
           "lessons": [
+            {
+              "lessonId": "recrsfLIFjNANdmdU",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 33,
+              "weekLabel": "Week 9",
+              "sequence": 33,
+              "sort": 303301,
+              "lessonLabel": "",
+              "linkLabel": "World History",
+              "title": "30m World History: Grades 7-8 - Lesson 33",
+              "topicTitle": "World History",
+              "anchor": "term-3-week-33-lesson-33",
+              "links": [
+                {
+                  "text": "Painting of Thomas Edison",
+                  "url": "https://www.si.edu/object/thomas-alva-edison%3Anpg_NPG.65.23"
+                }
+              ]
+            },
             {
               "lessonId": "recHv7LnG5VOwsWPc",
               "termNumber": 3,
