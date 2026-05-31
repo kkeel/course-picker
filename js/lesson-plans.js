@@ -1740,7 +1740,8 @@ function setupBulkDownloadModal() {
   async function downloadBulkZip() {
     const rows = getBulkPreviewRows()
       .slice()
-      .sort(compareBulkRows);
+      .sort(compareBulkRows)
+      .reverse();
   
     if (!rows.length) return;
   
