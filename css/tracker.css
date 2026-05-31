@@ -139,6 +139,20 @@
   padding: 20px;
 }
 
+.tracker-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.tracker-card-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
 .tracker-card-title {
   color: #596e5e;
   font-weight: 700;
