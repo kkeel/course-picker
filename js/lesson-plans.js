@@ -151,6 +151,10 @@ const state = {
   openTools: new Set(),
   openTopics: new Set(),
   closedTopics: new Set(),
+  activeTrackingRow: null,
+  trackingMenuOpen: false,
+  trackingMenuX: 0,
+  trackingMenuY: 0,
 };
 
 function escapeHtml(value) {
@@ -2370,7 +2374,7 @@ const TRACKING_TAGS = [
 
 function getTrackingKeyForRow(row) {
   if (row?.rowType === "topic") {
-    return getTopicInstanceKeys(row)[0] || row.id || "";
+    return getTopicLegacyId(row) || getTopicRecordId(row) || row.id || "";
   }
 
   return getCourseStateKeys(row)[0] || row.id || "";
@@ -2422,15 +2426,17 @@ function renderTrackingControls(item) {
     rowHasTrackingTag(item, tag.id)
   );
 
+  const menuKey = getTopicInstanceKeys(item)[0] || getCourseStateKeys(item)[0] || item.id || "";
+
   return `
-    <div class="lesson-tracking-control" data-tracking-row="${escapeHtml(item.id || "")}">
+    <div class="lesson-tracking-control" data-tracking-row="${escapeHtml(menuKey)}">
       <div class="lesson-tracking-tags">
         ${activeTags.map((tag) => `
           <button
             type="button"
             class="lesson-tracking-tag"
             data-tracking-toggle="${escapeHtml(tag.id)}"
-            data-tracking-item="${escapeHtml(item.id || "")}"
+            data-tracking-menu-key="${escapeHtml(menuKey)}"
             title="${escapeHtml(tag.label)}"
             aria-label="Remove ${escapeHtml(tag.label)} tracking"
           >
@@ -2443,39 +2449,47 @@ function renderTrackingControls(item) {
         <button
           type="button"
           class="lesson-tracking-add"
-          data-tracking-menu="${escapeHtml(item.id || "")}"
+          data-tracking-menu="${escapeHtml(menuKey)}"
           aria-label="Add tracking tag"
           title="Add tracking"
         >
           +
         </button>
-
-        <div
-          class="lesson-tracking-menu"
-          data-tracking-menu-panel="${escapeHtml(item.id || "")}"
-          hidden
-        >
-        
-          <button
-            type="button"
-            class="lesson-tracking-close"
-            data-tracking-close
-          >
-            ×
-          </button>
-          ${TRACKING_TAGS.map((tag) => `
-            <button
-              type="button"
-              class="${rowHasTrackingTag(item, tag.id) ? "is-active" : ""}"
-              data-tracking-toggle="${escapeHtml(tag.id)}"
-              data-tracking-item="${escapeHtml(item.id || "")}"
-            >
-              <span>${escapeHtml(tag.icon)}</span>
-              <span>${escapeHtml(tag.label)}</span>
-            </button>
-          `).join("")}
-        </div>
       </div>
+    </div>
+  `;
+}
+
+function renderGlobalTrackingMenu() {
+  if (!state.memberToolsEnabled || !state.trackingMenuOpen || !state.activeTrackingRow) {
+    return "";
+  }
+
+  return `
+    <div
+      class="lesson-tracking-menu lesson-tracking-menu--global"
+      style="--tracking-menu-left:${state.trackingMenuX}px; --tracking-menu-top:${state.trackingMenuY}px;"
+      data-global-tracking-menu
+    >
+      <button
+        type="button"
+        class="lesson-tracking-close"
+        data-tracking-close
+        aria-label="Close tracking menu"
+      >
+        ×
+      </button>
+
+      ${TRACKING_TAGS.map((tag) => `
+        <button
+          type="button"
+          class="${rowHasTrackingTag(state.activeTrackingRow, tag.id) ? "is-active" : ""}"
+          data-global-tracking-toggle="${escapeHtml(tag.id)}"
+        >
+          <span>${escapeHtml(tag.icon)}</span>
+          <span>${escapeHtml(tag.label)}</span>
+        </button>
+      `).join("")}
     </div>
   `;
 }
@@ -2976,8 +2990,9 @@ function render() {
     .join("");
 
   topicGroupList.innerHTML =
-    groupedHtml ||
-    `<div class="empty-state">No matching courses or topics found.</div>`;
+    (groupedHtml ||
+    `<div class="empty-state">No matching courses or topics found.</div>`) +
+    renderGlobalTrackingMenu();
 }
 
 function setActiveView(view) {
@@ -3187,19 +3202,16 @@ async function initDirectory() {
       });
 
     document.addEventListener("click", (event) => {
-      const clickedMenu =
-        event.target.closest(".lesson-tracking-menu");
-    
-      const clickedButton =
-        event.target.closest("[data-tracking-menu]");
+      const clickedMenu = event.target.closest("[data-global-tracking-menu]");
+      const clickedButton = event.target.closest("[data-tracking-menu]");
     
       if (clickedMenu || clickedButton) return;
     
-      document
-        .querySelectorAll("[data-tracking-menu-panel]")
-        .forEach((panel) => {
-          panel.hidden = true;
-        });
+      if (state.trackingMenuOpen) {
+        state.trackingMenuOpen = false;
+        state.activeTrackingRow = null;
+        render();
+      }
     });
     
     document.getElementById("toggle-intro").addEventListener("click", () => {
@@ -3337,45 +3349,82 @@ async function initDirectory() {
     document.getElementById("topic-group-list").addEventListener("click", (event) => {
       const trackingMenuButton = event.target.closest("[data-tracking-menu]");
       const trackingToggle = event.target.closest("[data-tracking-toggle]");
+      const globalTrackingToggle = event.target.closest("[data-global-tracking-toggle]");
       const trackingClose = event.target.closest("[data-tracking-close]");
-
-      if (trackingClose) {
-        trackingClose
-          .closest(".lesson-tracking-menu")
-          ?.setAttribute("hidden", "");
       
+      if (trackingClose) {
+        state.trackingMenuOpen = false;
+        state.activeTrackingRow = null;
+        render();
         return;
       }
       
       if (trackingMenuButton) {
-        const itemId = trackingMenuButton.dataset.trackingMenu;
+        const menuKey = trackingMenuButton.dataset.trackingMenu;
       
-        document.querySelectorAll("[data-tracking-menu-panel]").forEach((panel) => {
-          if (panel.dataset.trackingMenuPanel === itemId) {
-          const willOpen = panel.hidden;
-        
-          panel.hidden = !willOpen;
-        
-          if (willOpen) {
-            const rect = trackingMenuButton.getBoundingClientRect();
-        
-            panel.style.setProperty("--tracking-menu-left", `${rect.left}px`);
-            panel.style.setProperty("--tracking-menu-top", `${rect.bottom + 8}px`);
-          }
-        } else {
-          panel.hidden = true;
+        const item =
+          [...state.courses, ...state.topics].find((row) => {
+            const rowMenuKey =
+              getTopicInstanceKeys(row)[0] ||
+              getCourseStateKeys(row)[0] ||
+              row.id ||
+              "";
+      
+            return rowMenuKey === menuKey;
+          });
+      
+        if (!item) return;
+      
+        const rect = trackingMenuButton.getBoundingClientRect();
+        const menuWidth = 190;
+        const margin = 16;
+      
+        let x = rect.left;
+        if (x + menuWidth > window.innerWidth - margin) {
+          x = window.innerWidth - margin - menuWidth;
         }
-        });
+        if (x < margin) x = margin;
       
+        let y = rect.bottom + 8;
+        const maxY = window.innerHeight - margin - 220;
+        if (y > maxY) y = maxY;
+        if (y < margin) y = margin;
+      
+        state.activeTrackingRow = item;
+        state.trackingMenuOpen = true;
+        state.trackingMenuX = x;
+        state.trackingMenuY = y;
+      
+        render();
+        return;
+      }
+      
+      if (globalTrackingToggle) {
+        const tagId = globalTrackingToggle.dataset.globalTrackingToggle;
+      
+        if (state.activeTrackingRow) {
+          toggleTrackingTagForRow(state.activeTrackingRow, tagId);
+        }
+      
+        state.trackingMenuOpen = false;
+        state.activeTrackingRow = null;
         return;
       }
       
       if (trackingToggle) {
-        const itemId = trackingToggle.dataset.trackingItem;
+        const menuKey = trackingToggle.dataset.trackingMenuKey;
         const tagId = trackingToggle.dataset.trackingToggle;
       
         const item =
-          [...state.courses, ...state.topics].find((row) => row.id === itemId);
+          [...state.courses, ...state.topics].find((row) => {
+            const rowMenuKey =
+              getTopicInstanceKeys(row)[0] ||
+              getCourseStateKeys(row)[0] ||
+              row.id ||
+              "";
+      
+            return rowMenuKey === menuKey;
+          });
       
         if (item) {
           toggleTrackingTagForRow(item, tagId);
