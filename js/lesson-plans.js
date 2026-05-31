@@ -1438,6 +1438,23 @@ function setupBulkDownloadModal() {
     return [...tagIds].sort();
   }
 
+  function getTrackingTagOptions() {
+    const usedTagIds = new Set();
+  
+    Object.values(state.plannerState.tracking || {}).forEach((tags) => {
+      (Array.isArray(tags) ? tags : []).forEach((tag) => {
+        usedTagIds.add(tag);
+      });
+    });
+  
+    return TRACKING_TAGS
+      .filter((tag) => usedTagIds.has(tag.id))
+      .map((tag) => ({
+        value: tag.id,
+        label: tag.label,
+      }));
+  }
+
   function showSourceMessage(label, note = "") {
     if (!sourcePicker) return;
   
@@ -1489,7 +1506,10 @@ function setupBulkDownloadModal() {
     if (!source || !format) return [];
   
     if (
-      (source === "grade" || source === "students" || source === "planningTags") &&
+      (source === "grade" ||
+       source === "students" ||
+       source === "planningTags" ||
+       source === "trackingTags") &&
       !detail
     ) {
       return [];
@@ -1526,6 +1546,10 @@ function setupBulkDownloadModal() {
     function hasPlanningTag(row) {
       return (getMemberRecordForRow(row).tags || [])
         .includes(detail);
+    }
+
+    function hasTrackingTag(row) {
+      return rowHasTrackingTag(row, detail);
     }
   
     function isBookmarked(row) {
@@ -1637,6 +1661,35 @@ function setupBulkDownloadModal() {
         );
       });
     }
+
+    if (source === "trackingTags") {
+      const trackedCourseIds = new Set();
+    
+      allRows.forEach((row) => {
+        if (!hasTrackingTag(row)) return;
+    
+        if (row.rowType === "course") {
+          trackedCourseIds.add(row.id);
+        }
+    
+        if (row.rowType === "topic" && row.courseId) {
+          trackedCourseIds.add(row.courseId);
+        }
+      });
+    
+      fullCourseRows = allCourses.filter((course) =>
+        trackedCourseIds.has(course.id)
+      );
+    
+      singleTopicRows = allRows.filter((row) => {
+        if (!hasTrackingTag(row)) return false;
+    
+        return (
+          row.rowType === "topic" ||
+          (row.rowType === "course" && !row.hasTopics)
+        );
+      });
+    }
   
     if (format === "fullCourse") {
       return dedupeByPdf(fullCourseRows);
@@ -1682,6 +1735,11 @@ function setupBulkDownloadModal() {
   
     if (bulkDownloadState.source === "planningTags") {
       return planningTagLabel(bulkDownloadState.detail);
+    }
+
+    if (bulkDownloadState.source === "trackingTags") {
+      const tag = TRACKING_TAGS.find((item) => item.id === bulkDownloadState.detail);
+      return tag?.label || "Tracking Tag";
     }
   
     return "Lesson Plans";
@@ -2034,7 +2092,22 @@ function setupBulkDownloadModal() {
     }
   
     if (value === "trackingTags") {
-      showMessage("Tracking Tags are coming soon.");
+      const tags = getTrackingTagOptions();
+    
+      if (!tags.length) {
+        showMessage(
+          "You have not assigned any Tracking Tags yet. Use the + tracking button on lesson plan cards first."
+        );
+        return;
+      }
+    
+      showSourcePicker(
+        "Choose Tracking Tag",
+        tags
+      );
+    
+      showFormatOptions();
+      return;
     }
   }
 
