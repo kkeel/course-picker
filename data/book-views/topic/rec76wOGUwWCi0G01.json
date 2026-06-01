@@ -62,7 +62,14 @@
           "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "Copywork: Grade 7\nDictation: Grade 7",
-          "purchaseOptions": []
+          "purchaseOptions": [
+            {
+              "label": "PDF",
+              "url": "https://drive.google.com/file/d/1nmELMbJ9sLnRZqLrOuzTDDVDC8o0rKLW/view?usp=drive_link",
+              "memberOnly": false,
+              "memberstackId": ""
+            }
+          ]
         }
       ]
     }
