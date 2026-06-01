@@ -549,20 +549,23 @@
   color: var(--tracker-status-ready);
 }
 
-.tracker-status-icon svg {
+.tracker-status-mask {
   width: 15px;
   height: 15px;
   display: block;
-}
+  background-color: currentColor;
 
-.tracker-status-icon svg * {
-  stroke: currentColor;
-}
+  -webkit-mask-image: var(--status-icon-url);
+  mask-image: var(--status-icon-url);
 
-.tracker-status-img {
-  width: 15px;
-  height: 15px;
-  display: block;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 /* =========================================================
