@@ -425,10 +425,6 @@
   font-size: 14px;
 }
 
-.tracker-books-ledger {
-  border-top: 4px solid #7b8b7f;
-}
-
 .tracker-book-group-title {
   background: rgba(123,139,127,0.18);
   color: #596e5e;
@@ -440,4 +436,9 @@
 
 .tracker-book-group + .tracker-book-group {
   margin-top: 22px;
+}
+
+.tracker-books-summary .tracker-card:first-child {
+  background: rgba(123,139,127,0.14);
+  border-color: rgba(123,139,127,0.24);
 }
