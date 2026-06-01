@@ -1,3 +1,50 @@
+/* =========================================================
+   Readiness Tracker
+   Organized notebook-style tracker page
+   ========================================================= */
+
+/* =========================================================
+   1. Design Tokens
+   ========================================================= */
+
+:root {
+  --tracker-paper: #fbfbf9;
+  --tracker-card: #ffffff;
+  --tracker-ink: #262b26;
+  --tracker-green: #596e5e;
+  --tracker-muted: #6f746b;
+  --tracker-soft-border: rgba(89,110,94,0.12);
+  --tracker-medium-border: rgba(89,110,94,0.22);
+  --tracker-shadow: 0 22px 55px rgba(63,62,55,0.11);
+
+  /* Book List prep status colors */
+  --tracker-status-not-ready: #a0a6be;
+  --tracker-status-requested: #c07669;
+  --tracker-status-ordered: #d1b358;
+  --tracker-status-received: #7F3A82;
+  --tracker-status-ready: #6db4b2;
+
+  /* Same colors with opacity baked into the color, not the whole element */
+  --tracker-status-not-ready-bg: rgba(160,166,190,0.24);
+  --tracker-status-not-ready-border: rgba(160,166,190,0.62);
+
+  --tracker-status-requested-bg: rgba(192,118,105,0.24);
+  --tracker-status-requested-border: rgba(192,118,105,0.62);
+
+  --tracker-status-ordered-bg: rgba(209,179,88,0.32);
+  --tracker-status-ordered-border: rgba(209,179,88,0.70);
+
+  --tracker-status-received-bg: rgba(127,58,130,0.22);
+  --tracker-status-received-border: rgba(127,58,130,0.58);
+
+  --tracker-status-ready-bg: rgba(109,180,178,0.28);
+  --tracker-status-ready-border: rgba(109,180,178,0.70);
+}
+
+/* =========================================================
+   2. Page Shell + Notebook Layout
+   ========================================================= */
+
 .tracker-page {
   background: var(--brand-bg, #faf7ed);
 }
@@ -22,10 +69,10 @@
   z-index: 2;
   min-height: 720px;
   padding: 46px 58px 56px;
-  background: #fbfbf9;
-  border: 1px solid rgba(89,110,94,0.22);
+  background: var(--tracker-paper);
+  border: 1px solid var(--tracker-medium-border);
   border-radius: 22px 8px 8px 22px;
-  box-shadow: 0 22px 55px rgba(63,62,55,0.11);
+  box-shadow: var(--tracker-shadow);
 }
 
 .tracker-page-content::before {
@@ -43,12 +90,16 @@
   );
 }
 
+/* =========================================================
+   3. Typography + Page Headers
+   ========================================================= */
+
 .tracker-kicker {
   margin: 0 0 8px;
   font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #596e5e;
+  color: var(--tracker-green);
   font-weight: 700;
 }
 
@@ -58,7 +109,7 @@
   font-size: 58px;
   font-weight: 200;
   line-height: 1;
-  color: #262b26;
+  color: var(--tracker-ink);
 }
 
 .tracker-subtitle {
@@ -68,26 +119,51 @@
   line-height: 1.55;
 }
 
+.tracker-page-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.tracker-page-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.tracker-section-spaced {
+  margin-top: 22px;
+}
+
+/* =========================================================
+   4. Staff Build Notice
+   ========================================================= */
+
 .tracker-build-notice {
   margin: 18px 0 26px;
   padding: 12px 16px;
-  border: 1px solid rgba(89,110,94,0.22);
+  border: 1px solid var(--tracker-medium-border);
   border-radius: 14px;
   background: rgba(243,244,241,0.85);
-  color: #596e5e;
+  color: var(--tracker-green);
   font-size: 14px;
   line-height: 1.45;
 }
 
 .tracker-build-notice strong {
-  color: #596e5e;
+  color: var(--tracker-green);
 }
+
+/* =========================================================
+   5. Cards, Grids + Progress
+   ========================================================= */
 
 .tracker-overview-card,
 .tracker-card,
 .tracker-ledger {
-  background: #ffffff;
-  border: 1px solid rgba(89,110,94,0.12);
+  background: var(--tracker-card);
+  border: 1px solid var(--tracker-soft-border);
   border-radius: 18px;
   box-shadow: 0 8px 18px rgba(63,62,55,0.035);
 }
@@ -101,7 +177,7 @@
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #596e5e;
+  color: var(--tracker-green);
   font-weight: 700;
 }
 
@@ -123,7 +199,7 @@
 .tracker-progress-fill {
   width: 0%;
   height: 100%;
-  background: #596e5e;
+  background: var(--tracker-green);
   border-radius: inherit;
   transition: width 240ms ease;
 }
@@ -158,7 +234,7 @@
 }
 
 .tracker-card-title {
-  color: #596e5e;
+  color: var(--tracker-green);
   font-weight: 700;
   font-size: 13px;
   text-transform: uppercase;
@@ -173,8 +249,12 @@
 
 .tracker-card-note {
   font-size: 13px;
-  color: #6f746b;
+  color: var(--tracker-muted);
 }
+
+/* =========================================================
+   6. Ledger Sections
+   ========================================================= */
 
 .tracker-ledger {
   padding: 24px;
@@ -203,7 +283,7 @@
   margin-bottom: 6px;
   border-radius: 4px;
   background: rgba(173,181,143,0.28);
-  color: #596e5e;
+  color: var(--tracker-green);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -227,6 +307,16 @@
 .tracker-ledger-row:last-child {
   border-bottom: 0;
 }
+
+.tracker-empty-state {
+  padding: 14px 0;
+  color: var(--tracker-muted);
+  font-size: 14px;
+}
+
+/* =========================================================
+   7. Notebook Divider Tabs
+   ========================================================= */
 
 .tracker-tabs {
   display: flex;
@@ -255,27 +345,11 @@
   box-shadow: 6px 6px 16px rgba(63,62,55,0.08);
 }
 
-.tracker-tab:nth-child(1) {
-  background: #596e5e;
-}
-
-.tracker-tab:nth-child(2) {
-  background: #7b8b7f;
-}
-
-.tracker-tab:nth-child(3) {
-  background: #9da89f;
-}
-
-.tracker-tab:nth-child(4) {
-  background: #bdc5bf;
-  color: #262b26;
-}
-
-.tracker-tab:nth-child(5) {
-  background: #dee1d2;
-  color: #262b26;
-}
+.tracker-tab:nth-child(1) { background: #596e5e; }
+.tracker-tab:nth-child(2) { background: #7b8b7f; }
+.tracker-tab:nth-child(3) { background: #9da89f; }
+.tracker-tab:nth-child(4) { background: #bdc5bf; color: #262b26; }
+.tracker-tab:nth-child(5) { background: #dee1d2; color: #262b26; }
 
 .tracker-tab:not(.is-active) {
   opacity: 0.92;
@@ -285,6 +359,318 @@
   opacity: 1;
   transform: rotate(180deg) translateX(-5px);
 }
+
+/* =========================================================
+   8. Panel Visibility
+   ========================================================= */
+
+.tracker-panel {
+  display: none;
+}
+
+.tracker-panel.is-active {
+  display: block;
+}
+
+/* =========================================================
+   9. Book Tab Summary + Groups
+   ========================================================= */
+
+.tracker-book-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tracker-book-group-title {
+  background: rgba(123,139,127,0.18);
+  color: var(--tracker-green);
+}
+
+.tracker-book-group-rows {
+  border-left-color: rgba(123,139,127,0.38);
+}
+
+.tracker-book-group + .tracker-book-group {
+  margin-top: 22px;
+}
+
+.tracker-books-summary .tracker-card:first-child {
+  background: rgba(123,139,127,0.14);
+  border-color: rgba(123,139,127,0.24);
+}
+
+/* =========================================================
+   10. Book Prep Rows
+   ========================================================= */
+
+.tracker-book-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(89,110,94,0.12);
+}
+
+.tracker-book-row:last-child {
+  border-bottom: 0;
+}
+
+.tracker-book-line {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+}
+
+.tracker-book-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.tracker-book-cover {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 3px;
+  border: 1px solid rgba(89,110,94,0.14);
+  background: #f3f4f1;
+}
+
+.tracker-book-title {
+  font-weight: 600;
+  color: var(--tracker-ink);
+  margin-bottom: 0;
+  line-height: 1.15;
+}
+
+.tracker-book-author {
+  margin-top: 1px;
+  font-size: 11px;
+  line-height: 1.15;
+  color: var(--tracker-muted);
+}
+
+/* Legacy/simple row elements retained for safe compatibility */
+.tracker-book-check {
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(89,110,94,0.35);
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tracker-green);
+  font-size: 15px;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.tracker-book-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tracker-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 3px 9px;
+  background: rgba(173,181,143,0.20);
+  color: var(--tracker-green);
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.tracker-pill-muted {
+  background: rgba(222,225,210,0.55);
+  color: #505650;
+}
+
+.tracker-status {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--tracker-green);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   11. Left Status Squares
+   ========================================================= */
+
+.tracker-status-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 1.5px solid rgba(89,110,94,0.20);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.tracker-status-not_ready {
+  background: var(--tracker-status-not-ready-bg);
+  border-color: var(--tracker-status-not-ready-border);
+  color: var(--tracker-status-not-ready);
+}
+
+.tracker-status-requested {
+  background: var(--tracker-status-requested-bg);
+  border-color: var(--tracker-status-requested-border);
+  color: var(--tracker-status-requested);
+}
+
+.tracker-status-ordered {
+  background: var(--tracker-status-ordered-bg);
+  border-color: var(--tracker-status-ordered-border);
+  color: var(--tracker-status-ordered);
+}
+
+.tracker-status-received {
+  background: var(--tracker-status-received-bg);
+  border-color: var(--tracker-status-received-border);
+  color: var(--tracker-status-received);
+}
+
+.tracker-status-ready {
+  background: var(--tracker-status-ready-bg);
+  border-color: var(--tracker-status-ready-border);
+  color: var(--tracker-status-ready);
+}
+
+/* =========================================================
+   12. Book Prep Note Controls
+   Layout: mode icon + mode | kind | status
+   ========================================================= */
+
+.tracker-book-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.tracker-prep-ledger-note {
+  display: grid;
+  grid-template-columns: 150px 14px 82px 14px 112px;
+  align-items: center;
+  justify-content: end;
+  column-gap: 7px;
+  white-space: nowrap;
+}
+
+.tracker-prep-note-part {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.tracker-prep-note-mode {
+  gap: 6px;
+}
+
+.tracker-prep-bar {
+  color: rgba(80,86,80,0.42);
+  font-size: 12px;
+  text-align: center;
+}
+
+.tracker-prep-sentence-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(222,225,210,0.58);
+  font-size: 13px;
+  line-height: 1;
+}
+
+.tracker-prep-select {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  background-image: none;
+  border-bottom: 1px solid transparent;
+  padding: 3px 2px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666d66;
+  cursor: pointer;
+}
+
+.tracker-prep-select:hover,
+.tracker-prep-select:focus {
+  outline: none;
+  border-bottom-color: rgba(89,110,94,0.28);
+}
+
+.tracker-prep-select-soft,
+.tracker-prep-mode-select,
+.tracker-prep-kind-select {
+  color: #666d66;
+}
+
+.tracker-prep-mode-select,
+.tracker-prep-kind-select,
+.tracker-prep-status-select {
+  width: 100%;
+}
+
+/* =========================================================
+   13. Right Status Labels
+   ========================================================= */
+
+.tracker-prep-status-select {
+  border-radius: 5px;
+  padding: 3px 9px !important;
+  border-bottom: 0 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.065em;
+  text-transform: uppercase;
+}
+
+.tracker-prep-ledger-note select.tracker-prep-status-not_ready {
+  background-color: var(--tracker-status-not-ready-bg);
+  color: var(--tracker-status-not-ready) !important;
+}
+
+.tracker-prep-ledger-note select.tracker-prep-status-requested {
+  background-color: var(--tracker-status-requested-bg);
+  color: var(--tracker-status-requested) !important;
+}
+
+.tracker-prep-ledger-note select.tracker-prep-status-ordered {
+  background-color: var(--tracker-status-ordered-bg);
+  color: var(--tracker-status-ordered) !important;
+}
+
+.tracker-prep-ledger-note select.tracker-prep-status-received {
+  background-color: var(--tracker-status-received-bg);
+  color: var(--tracker-status-received) !important;
+}
+
+.tracker-prep-ledger-note select.tracker-prep-status-ready {
+  background-color: var(--tracker-status-ready-bg);
+  color: var(--tracker-status-ready) !important;
+}
+
+/* =========================================================
+   14. Responsive Layout
+   ========================================================= */
 
 @media (max-width: 900px) {
   .tracker-shell {
@@ -315,217 +701,15 @@
     transform: none;
   }
 
-  .tracker-grid {
+  .tracker-grid,
+  .tracker-grid-four {
     grid-template-columns: 1fr;
   }
 
   .tracker-title {
     font-size: 42px;
   }
-}
 
-.tracker-panel {
-  display: none;
-}
-
-.tracker-panel.is-active {
-  display: block;
-}
-
-.tracker-page-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 18px;
-}
-
-.tracker-page-icon {
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-  margin-top: 8px;
-}
-
-.tracker-section-spaced {
-  margin-top: 22px;
-}
-
-.tracker-book-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.tracker-book-row {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 10px;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(89,110,94,0.12);
-}
-
-.tracker-book-row:last-child {
-  border-bottom: 0;
-}
-
-.tracker-book-check {
-  width: 22px;
-  height: 22px;
-  border: 1px solid rgba(89,110,94,0.35);
-  border-radius: 4px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #596e5e;
-  font-size: 15px;
-  line-height: 1;
-  margin-top: 2px;
-}
-
-.tracker-book-title {
-  font-weight: 600;
-  color: #262b26;
-  margin-bottom: 0;
-  line-height: 1.15;
-}
-
-.tracker-book-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.tracker-pill {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  padding: 3px 9px;
-  background: rgba(173,181,143,0.20);
-  color: #596e5e;
-  font-size: 12px;
-  line-height: 1.2;
-}
-
-.tracker-pill-muted {
-  background: rgba(222,225,210,0.55);
-  color: #505650;
-}
-
-.tracker-status {
-  font-size: 12px;
-  font-weight: 700;
-  color: #596e5e;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  white-space: nowrap;
-}
-
-.tracker-empty-state {
-  padding: 14px 0;
-  color: #6f746b;
-  font-size: 14px;
-}
-
-.tracker-book-group-title {
-  background: rgba(123,139,127,0.18);
-  color: #596e5e;
-}
-
-.tracker-book-group-rows {
-  border-left-color: rgba(123,139,127,0.38);
-}
-
-.tracker-book-group + .tracker-book-group {
-  margin-top: 22px;
-}
-
-.tracker-books-summary .tracker-card:first-child {
-  background: rgba(123,139,127,0.14);
-  border-color: rgba(123,139,127,0.24);
-}
-
-.tracker-status-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #596e5e;
-  font-size: 17px;
-  line-height: 1;
-  border: 1px solid rgba(89,110,94,0.20);
-  background: rgba(222,225,210,0.45);
-  margin-top: 2px;
-}
-
-.tracker-status-not_ready {
-  background: rgba(222,225,210,0.45);
-}
-
-.tracker-status-ordered,
-.tracker-status-requested {
-  background: rgba(209,179,88,0.18);
-}
-
-.tracker-status-received {
-  background: rgba(123,139,127,0.20);
-}
-
-.tracker-status-ready {
-  background: rgba(89,110,94,0.18);
-}
-
-.tracker-book-line {
-  display: grid;
-  grid-template-columns: minmax(220px, 1fr) auto;
-  gap: 16px;
-  align-items: center;
-}
-
-.tracker-book-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: flex-end;
-}
-
-.tracker-prep-select {
-  appearance: none;
-  border: 0;
-  border-radius: 0;
-  background-color: transparent;
-  color: #505650;
-  padding: 2px 18px 2px 0;
-  font-size: 12px;
-  line-height: 1.2;
-  cursor: pointer;
-  border-bottom: 1px dotted rgba(89,110,94,0.28);
-  background-image:
-    linear-gradient(45deg, transparent 50%, #596e5e 50%),
-    linear-gradient(135deg, #596e5e 50%, transparent 50%);
-  background-position:
-    calc(100% - 8px) 50%,
-    calc(100% - 4px) 50%;
-  background-size: 4px 4px, 4px 4px;
-  background-repeat: no-repeat;
-}
-
-.tracker-prep-select:hover,
-.tracker-prep-select:focus {
-  outline: none;
-  color: #596e5e;
-  background-color: transparent;
-  border-bottom-color: rgba(89,110,94,0.55);
-}
-
-.tracker-prep-status-select {
-  background-color: transparent;
-  color: #596e5e;
-  font-weight: 700;
-}
-
-@media (max-width: 900px) {
   .tracker-book-line {
     grid-template-columns: 1fr;
     gap: 8px;
@@ -534,323 +718,20 @@
   .tracker-book-controls {
     justify-content: flex-start;
   }
-}
 
-.tracker-book-title-wrap {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-}
-
-.tracker-book-cover {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-  object-fit: cover;
-  border-radius: 3px;
-  border: 1px solid rgba(89,110,94,0.14);
-  background: #f3f4f1;
-}
-
-.tracker-book-author {
-  margin-top: 1px;
-  font-size: 11px;
-  line-height: 1.15;
-  color: #6f746b;
-}
-
-.tracker-status-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-.tracker-book-title-wrap {
-  gap: 9px;
-}
-
-.tracker-book-controls {
-  gap: 6px;
-}
-
-.tracker-prep-select {
-  padding-top: 3px;
-  padding-bottom: 3px;
-  font-size: 11px;
-}
-
-.tracker-book-controls {
-  align-items: center;
-  gap: 5px;
-}
-
-.tracker-prep-sentence-icon {
-  width: 22px;
-  height: 22px;
-  border-radius: 7px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(222,225,210,0.58);
-  font-size: 13px;
-  line-height: 1;
-}
-
-.tracker-prep-divider,
-.tracker-prep-arrow {
-  color: rgba(80,86,80,0.52);
-  font-size: 12px;
-}
-
-.tracker-prep-select-soft {
-  color: #666d66;
-}
-
-.tracker-prep-status-select {
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-weight: 700;
-}
-
-.tracker-prep-status-not_ready {
-  color: #596e5e;
-}
-
-.tracker-prep-status-ordered,
-.tracker-prep-status-requested {
-  color: #7b7257;
-}
-
-.tracker-prep-status-received {
-  color: #63756a;
-}
-
-.tracker-prep-status-ready {
-  color: #596e5e;
-}
-
-.tracker-prep-ledger-note {
-  display: grid;
-  grid-template-columns: 150px 14px 82px 14px 112px;
-  align-items: center;
-  justify-content: end;
-  column-gap: 7px;
-  white-space: nowrap;
-}
-
-.tracker-prep-note-part {
-  display: inline-flex;
-  align-items: center;
-  min-width: 0;
-}
-
-.tracker-prep-note-mode {
-  gap: 6px;
-}
-
-.tracker-prep-bar {
-  color: rgba(80,86,80,0.42);
-  font-size: 12px;
-  text-align: center;
-}
-
-.tracker-prep-mode-select,
-.tracker-prep-kind-select,
-.tracker-prep-status-select {
-  width: 100%;
-}
-
-.tracker-prep-ledger-note .tracker-prep-select {
-  border-bottom-color: rgba(89,110,94,0.20);
-}
-
-.tracker-prep-mode-select,
-.tracker-prep-kind-select {
-  color: #666d66;
-  font-weight: 500;
-}
-
-.tracker-prep-status-select {
-  color: #596e5e;
-  font-weight: 800;
-  letter-spacing: 0.065em;
-  text-transform: uppercase;
-}
-
-.tracker-prep-status-not_ready {
-  color: #6f746b;
-}
-
-.tracker-prep-status-ordered,
-.tracker-prep-status-requested {
-  color: #8a7755;
-}
-
-.tracker-prep-status-received {
-  color: #63756a;
-}
-
-.tracker-prep-status-ready {
-  color: #596e5e;
-}
-
-@media (max-width: 900px) {
   .tracker-prep-ledger-note {
     grid-template-columns: 145px 14px 82px 14px 112px;
     justify-content: start;
   }
 }
-
 /* =========================================================
-   Book Prep Ledger Controls
+   15. Future Tracker Enhancements
    ========================================================= */
 
-.tracker-prep-ledger-note {
-  display: grid;
-  grid-template-columns: 150px 14px 82px 14px 112px;
-  align-items: center;
-  justify-content: end;
-  column-gap: 7px;
-  white-space: nowrap;
-}
-
-.tracker-prep-note-part {
-  display: inline-flex;
-  align-items: center;
-  min-width: 0;
-}
-
-.tracker-prep-note-mode {
-  gap: 6px;
-}
-
-.tracker-prep-bar {
-  color: rgba(80,86,80,0.42);
-  font-size: 12px;
-  text-align: center;
-}
-
-.tracker-prep-sentence-icon {
-  width: 22px;
-  height: 22px;
-  border-radius: 7px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(222,225,210,0.58);
-  font-size: 13px;
-  line-height: 1;
-}
-
-.tracker-prep-ledger-note .tracker-prep-select {
-  appearance: none;
-  border: 0;
-  background: transparent;
-  background-image: none;
-  border-bottom: 1px solid transparent;
-  padding: 3px 2px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #666d66;
-  cursor: pointer;
-}
-
-.tracker-prep-ledger-note .tracker-prep-select:hover,
-.tracker-prep-ledger-note .tracker-prep-select:focus {
-  outline: none;
-  border-bottom-color: rgba(89,110,94,0.28);
-}
-
-.tracker-prep-mode-select {
-  width: 100%;
-}
-
-.tracker-prep-kind-select {
-  width: 100%;
-}
-
-.tracker-prep-status-select {
-  width: 100%;
-  border-radius: 5px;
-  padding: 3px 9px !important;
-  border-bottom: 0 !important;
-  font-size: 12px !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.065em;
-  text-transform: uppercase;
-}
-
-/* Status labels */
-.tracker-prep-ledger-note select.tracker-prep-status-not_ready {
-  background-color: #dee1d2;
-  color: #505650 !important;
-}
-
-.tracker-prep-ledger-note select.tracker-prep-status-requested {
-  background-color: #e8e1c8;
-  color: #7b7257 !important;
-}
-
-.tracker-prep-ledger-note select.tracker-prep-status-ordered {
-  background-color: #d1b358;
-  color: #3b413b !important;
-}
-
-.tracker-prep-ledger-note select.tracker-prep-status-received {
-  background-color: #bdc5bf;
-  color: #3b413b !important;
-}
-
-.tracker-prep-ledger-note select.tracker-prep-status-ready {
-  background-color: #596e5e;
-  color: #ffffff !important;
-}
-
-/* Left status squares */
-.tracker-status-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  border-width: 1.5px;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.tracker-status-not_ready {
-  background: #dee1d2;
-  border-color: #9da89f;
-  color: #596e5e;
-}
-
-.tracker-status-requested {
-  background: #e8e1c8;
-  border-color: #cfc08d;
-  color: #7b7257;
-}
-
-.tracker-status-ordered {
-  background: #d1b358;
-  border-color: #b99a3f;
-  color: #3b413b;
-}
-
-.tracker-status-received {
-  background: #bdc5bf;
-  border-color: #9da89f;
-  color: #3b413b;
-}
-
-.tracker-status-ready {
-  background: #596e5e;
-  border-color: #596e5e;
-  color: #ffffff;
-}
-
-@media (max-width: 900px) {
-  .tracker-prep-ledger-note {
-    grid-template-columns: 145px 14px 82px 14px 112px;
-    justify-content: start;
-  }
-}
+/*
+Planned additions:
+- Book detail links
+- Supply tracking rows
+- Lesson plan tracking rows
+- Budget tracking
+*/
