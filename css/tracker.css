@@ -357,10 +357,10 @@
 
 .tracker-book-row {
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 12px;
-  align-items: start;
-  padding: 12px 0;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 0;
   border-bottom: 1px solid rgba(89,110,94,0.12);
 }
 
@@ -385,7 +385,8 @@
 .tracker-book-title {
   font-weight: 600;
   color: #262b26;
-  margin-bottom: 6px;
+  margin-bottom: 0;
+  line-height: 1.15;
 }
 
 .tracker-book-meta {
@@ -540,17 +541,39 @@
 }
 
 .tracker-book-cover {
-  width: 34px;
-  height: 46px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
   object-fit: cover;
-  border-radius: 4px;
-  border: 1px solid rgba(89,110,94,0.16);
+  border-radius: 3px;
+  border: 1px solid rgba(89,110,94,0.14);
   background: #f3f4f1;
 }
 
 .tracker-book-author {
-  margin-top: 2px;
-  font-size: 12px;
+  margin-top: 1px;
+  font-size: 11px;
+  line-height: 1.15;
   color: #6f746b;
+}
+
+.tracker-status-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.tracker-book-title-wrap {
+  gap: 9px;
+}
+
+.tracker-book-controls {
+  gap: 6px;
+}
+
+.tracker-prep-select {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 11px;
 }
