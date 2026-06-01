@@ -96,23 +96,70 @@ function prettyPrepText(value) {
     .replace(/\b\w/g, char => char.toUpperCase());
 }
 
-function renderPrepRow(row, isReady = false) {
-  const check = isReady ? "✓" : "";
+function prepStatusIcon(status) {
+  const s = String(status || "not_ready").toLowerCase();
+
+  if (s === "ready") return "✓";
+  if (s === "received") return "▣";
+  if (s === "ordered" || s === "requested") return "↗";
+  return "□";
+}
+
+function prepSelect(resourceId, index, field, value, options, extraClass = "") {
+  return `
+    <select
+      class="tracker-prep-select ${extraClass}"
+      data-resource-id="${resourceId}"
+      data-option-index="${index}"
+      data-field="${field}"
+    >
+      ${options.map(option => `
+        <option value="${option.value}" ${String(value) === option.value ? "selected" : ""}>
+          ${option.label}
+        </option>
+      `).join("")}
+    </select>
+  `;
+}
+
+function renderPrepRow(row) {
   const title = row.title || `Resource ${row.resourceId}`;
+  const status = String(row.status || "not_ready").toLowerCase();
 
   return `
     <div class="tracker-book-row">
-      <span class="tracker-book-check">${check}</span>
+      <span class="tracker-status-icon tracker-status-${status}">
+        ${prepStatusIcon(status)}
+      </span>
 
-      <div>
+      <div class="tracker-book-line">
         <div class="tracker-book-title">${title}</div>
-        <div class="tracker-book-meta">
-          <span class="tracker-pill">${prettyPrepText(row.kind)}</span>
-          <span class="tracker-pill tracker-pill-muted">${prettyPrepText(row.mode)}</span>
+
+        <div class="tracker-book-controls">
+          ${prepSelect(row.resourceId, row.index, "kind", row.kind, [
+            { value: "physical", label: "Physical" },
+            { value: "digital", label: "Digital" },
+          ])}
+
+          ${prepSelect(row.resourceId, row.index, "mode", row.mode, [
+            { value: "purchase", label: "Purchase" },
+            { value: "library", label: "Library" },
+            { value: "ebook", label: "Ebook" },
+            { value: "audiobook", label: "Audiobook" },
+            { value: "own", label: "Already Own" },
+            { value: "print", label: "Print" },
+            { value: "save", label: "Save" },
+          ])}
+
+          ${prepSelect(row.resourceId, row.index, "status", row.status, [
+            { value: "not_ready", label: "Not Ready" },
+            { value: "ordered", label: "Ordered" },
+            { value: "requested", label: "Requested" },
+            { value: "received", label: "Received" },
+            { value: "ready", label: "Ready to Use" },
+          ], "tracker-prep-status-select")}
         </div>
       </div>
-
-      <div class="tracker-status">${prettyPrepText(row.status)}</div>
     </div>
   `;
 }
@@ -140,9 +187,10 @@ function renderBooksPanel() {
   const rows = [];
 
   Object.entries(optionsByResourceId).forEach(([resourceId, options]) => {
-    (Array.isArray(options) ? options : []).forEach(option => {
+    (Array.isArray(options) ? options : []).forEach((option, index) => {
       rows.push({
         resourceId,
+        index,
         title: "",
         kind: option?.kind || "physical",
         mode: option?.mode || "purchase",
@@ -255,6 +303,45 @@ function renderTracker() {
   }
 }
 
+function savePrepOptionChange(resourceId, index, field, value) {
+  const plannerState = readPlannerState();
+
+  if (!plannerState.extras) plannerState.extras = {};
+  if (!plannerState.extras.resources) plannerState.extras.resources = {};
+  if (!plannerState.extras.resources.optionsByResourceId) {
+    plannerState.extras.resources.optionsByResourceId = {};
+  }
+
+  const optionsByResourceId = plannerState.extras.resources.optionsByResourceId;
+  const options = optionsByResourceId[resourceId];
+
+  if (!Array.isArray(options) || !options[index]) return;
+
+  options[index] = {
+    ...options[index],
+    [field]: value,
+  };
+
+  localStorage.setItem(TRACKER_PLANNER_KEY, JSON.stringify(plannerState));
+
+  renderTracker();
+  renderBooksPanel();
+}
+
+function initBookPrepControls() {
+  document.addEventListener("change", event => {
+    const select = event.target.closest(".tracker-prep-select");
+    if (!select) return;
+
+    savePrepOptionChange(
+      select.dataset.resourceId,
+      Number(select.dataset.optionIndex),
+      select.dataset.field,
+      select.value
+    );
+  });
+}
+
 function initTabs() {
   const tabs = document.querySelectorAll(".tracker-tab");
   const panels = document.querySelectorAll(".tracker-panel");
@@ -284,6 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderTracker();
   renderBooksPanel();
   initTabs();
+  initBookPrepControls();
 
   window.addEventListener("storage", event => {
     if (event.key === TRACKER_PLANNER_KEY) renderTracker();
