@@ -136,45 +136,11 @@ function prepStatusIcon(status) {
   const s = String(status || "not_ready").toLowerCase();
 
   const icons = {
-    not_ready: `
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <rect x="4" y="4" width="16" height="16" rx="2" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
-        <line x1="8" y1="12" x2="16" y2="12" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
-      </svg>
-    `,
-
-    requested: `
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <line x1="10" y1="6" x2="10" y2="19" fill="none" stroke="currentColor"/>
-        <polygon points="8 4 3 4 3 17 8 17 10 19 12 17 17 17 17 4 12 4 10 6 8 4" fill="none" stroke="currentColor"/>
-        <polyline points="15 9 19 13 15 17" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
-        <line x1="12" y1="13" x2="19" y2="13" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
-      </svg>
-    `,
-
-    ordered: `
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 8.5L10 5L16 8.5V15.5L10 19L4 15.5Z" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
-        <path d="M4 8.5L10 12L16 8.5" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
-        <path d="M10 12V19" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
-        <polyline points="16.5 10 20.5 14 16.5 18" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
-      </svg>
-    `,
-
-    received: `
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <polyline points="3 11 12 4 21 11" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
-        <path d="M5.5 10.5V20H18.5V10.5" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
-        <path d="M9.5 20V14H14.5V20" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
-      </svg>
-    `,
-
-    ready: `
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <rect x="2" y="2" width="20" height="20" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
-        <polyline points="5,12 9,16 19,6" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
-      </svg>
-    `,
+    not_ready: "img/status-icons/status-not-ready.svg",
+    requested: "img/status-icons/status-requested.svg",
+    ordered: "img/status-icons/status-ordered.svg",
+    received: "img/status-icons/status-received.svg",
+    ready: "img/status-icons/status-ready.svg",
   };
 
   return icons[s] || icons.not_ready;
@@ -230,7 +196,12 @@ function renderPrepRow(row) {
   return `
     <div class="tracker-book-row">
       <span class="tracker-status-icon tracker-status-${status}">
-        ${prepStatusIcon(status)}
+        <img
+          src="${prepStatusIcon(status)}"
+          alt=""
+          aria-hidden="true"
+          class="tracker-status-img"
+        >
       </span>
 
       <div class="tracker-book-line">
