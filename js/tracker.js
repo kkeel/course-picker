@@ -117,6 +117,21 @@ function renderPrepRow(row, isReady = false) {
   `;
 }
 
+function bookTrackerGroup(title, rows, isReady = false) {
+  return `
+    <section class="tracker-ledger-group tracker-book-group">
+      <div class="tracker-ledger-group-title tracker-book-group-title">${title}</div>
+      <div class="tracker-ledger-group-rows tracker-book-group-rows">
+        ${
+          rows.length
+            ? rows.map(row => renderPrepRow(row, isReady)).join("")
+            : `<div class="tracker-empty-state">Nothing here yet.</div>`
+        }
+      </div>
+    </section>
+  `;
+}
+
 function renderBooksPanel() {
   const plannerState = readPlannerState();
   const optionsByResourceId =
@@ -140,9 +155,10 @@ function renderBooksPanel() {
     String(row.status || "").toLowerCase() === "ready"
   );
 
-  const attentionRows = rows.filter(row =>
-    String(row.status || "").toLowerCase() !== "ready"
-  );
+  const attentionRows = rows.filter(row => {
+    const status = String(row.status || "").toLowerCase();
+    return status === "not_ready" || !status;
+  });
 
   const receivedRows = rows.filter(row =>
     String(row.status || "").toLowerCase() === "received"
@@ -158,19 +174,15 @@ function renderBooksPanel() {
   setText("booksOrderedRequestedCount", orderedRequestedRows.length);
   setText("booksAttentionCount", attentionRows.length);
 
-  const attentionContainer = document.getElementById("booksAttentionRows");
-  const readyContainer = document.getElementById("booksReadyRows");
+  const booksGroupedContainer = document.getElementById("booksGroupedRows");
 
-  if (attentionContainer) {
-    attentionContainer.innerHTML = attentionRows.length
-      ? attentionRows.map(row => renderPrepRow(row, false)).join("")
-      : `<div class="tracker-empty-state">No book prep items need attention.</div>`;
-  }
-
-  if (readyContainer) {
-    readyContainer.innerHTML = readyRows.length
-      ? readyRows.map(row => renderPrepRow(row, true)).join("")
-      : `<div class="tracker-empty-state">No books have been marked ready yet.</div>`;
+  if (booksGroupedContainer) {
+    booksGroupedContainer.innerHTML = [
+      bookTrackerGroup("Ready to Use", readyRows, true),
+      bookTrackerGroup("Received", receivedRows, false),
+      bookTrackerGroup("Ordered / Requested", orderedRequestedRows, false),
+      bookTrackerGroup("Needs Attention", attentionRows, false),
+    ].join("");
   }
 }
 
