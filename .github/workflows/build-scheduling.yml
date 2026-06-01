@@ -1,10 +1,8 @@
-# .github/workflows/build-scheduling.yml
 name: build-scheduling
 
 on:
   workflow_dispatch:
   schedule:
-    # Pick whatever time matches your other nightly runs
     - cron: "50 3 * * *"
 
 permissions:
@@ -32,7 +30,6 @@ jobs:
           AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
           AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
           ROTATION: ${{ secrets.ROTATION }}
-          # RECOMMENDED: set this secret (exact view name), or remove if you want auto-detect
           AIRTABLE_VIEW: ${{ secrets.AIRTABLE_VIEW }}
         run: |
           node tools/build-scheduling-from-airtable.mjs
