@@ -742,3 +742,20 @@
   color: #596e5e !important;
   -webkit-text-fill-color: #596e5e;
 }
+
+.tracker-prep-ledger-note select.tracker-prep-status-not_ready {
+  color: #6f746b !important;
+}
+
+.tracker-prep-ledger-note select.tracker-prep-status-ordered,
+.tracker-prep-ledger-note select.tracker-prep-status-requested {
+  color: #8a7755 !important;
+}
+
+.tracker-prep-ledger-note select.tracker-prep-status-received {
+  color: #63756a !important;
+}
+
+.tracker-prep-ledger-note select.tracker-prep-status-ready {
+  color: #596e5e !important;
+}
