@@ -630,3 +630,75 @@
 .tracker-prep-status-ready {
   color: #596e5e;
 }
+
+.tracker-prep-ledger-note {
+  display: grid;
+  grid-template-columns: 150px 14px 82px 14px 112px;
+  align-items: center;
+  justify-content: end;
+  column-gap: 7px;
+  white-space: nowrap;
+}
+
+.tracker-prep-note-part {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.tracker-prep-note-mode {
+  gap: 6px;
+}
+
+.tracker-prep-bar {
+  color: rgba(80,86,80,0.42);
+  font-size: 12px;
+  text-align: center;
+}
+
+.tracker-prep-mode-select,
+.tracker-prep-kind-select,
+.tracker-prep-status-select {
+  width: 100%;
+}
+
+.tracker-prep-ledger-note .tracker-prep-select {
+  border-bottom-color: rgba(89,110,94,0.20);
+}
+
+.tracker-prep-mode-select,
+.tracker-prep-kind-select {
+  color: #666d66;
+  font-weight: 500;
+}
+
+.tracker-prep-status-select {
+  color: #596e5e;
+  font-weight: 800;
+  letter-spacing: 0.065em;
+  text-transform: uppercase;
+}
+
+.tracker-prep-status-not_ready {
+  color: #6f746b;
+}
+
+.tracker-prep-status-ordered,
+.tracker-prep-status-requested {
+  color: #8a7755;
+}
+
+.tracker-prep-status-received {
+  color: #63756a;
+}
+
+.tracker-prep-status-ready {
+  color: #596e5e;
+}
+
+@media (max-width: 900px) {
+  .tracker-prep-ledger-note {
+    grid-template-columns: 145px 14px 82px 14px 112px;
+    justify-content: start;
+  }
+}
