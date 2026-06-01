@@ -148,8 +148,14 @@ function renderBooksPanel() {
     String(row.status || "").toLowerCase() === "received"
   );
 
+  const orderedRequestedRows = rows.filter(row => {
+    const status = String(row.status || "").toLowerCase();
+    return status === "ordered" || status === "requested";
+  });
+
   setText("booksReadyCount", readyRows.length);
   setText("booksReceivedCount", receivedRows.length);
+  setText("booksOrderedRequestedCount", orderedRequestedRows.length);
   setText("booksAttentionCount", attentionRows.length);
 
   const attentionContainer = document.getElementById("booksAttentionRows");
