@@ -1,6 +1,7 @@
 const TRACKER_APP_CACHE_VERSION = window.APP_CACHE_VERSION || "2025-12-09-v1";
 const TRACKER_PLANNER_KEY = window.PLANNER_STATE_KEY || `alveary_planner_${TRACKER_APP_CACHE_VERSION}`;
 const TRACKER_RESOURCES_URL = "data/MA_Resources.json";
+const TRACKER_ACTIVE_TAB_KEY = `${TRACKER_PLANNER_KEY}_active_tab`;
 
 let trackerResourcesById = {};
 let trackerResourcesLastUpdated = "";
@@ -136,7 +137,8 @@ function prepStatusIcon(status) {
 
   if (s === "ready") return "✓";
   if (s === "received") return "▣";
-  if (s === "ordered" || s === "requested") return "↗";
+  if (s === "ordered") return "↗";
+  if (s === "requested") return "↗";
   return "□";
 }
 
@@ -426,27 +428,30 @@ function initBookPrepControls() {
   });
 }
 
-function initTabs() {
+function activateTrackerTab(target) {
   const tabs = document.querySelectorAll(".tracker-tab");
   const panels = document.querySelectorAll(".tracker-panel");
 
+  tabs.forEach(tab =>
+    tab.classList.toggle("is-active", tab.dataset.tab === target)
+  );
+
+  panels.forEach(panel =>
+    panel.classList.toggle("is-active", panel.dataset.panel === target)
+  );
+
+  localStorage.setItem(TRACKER_ACTIVE_TAB_KEY, target);
+}
+
+function initTabs() {
+  const tabs = document.querySelectorAll(".tracker-tab");
+  const savedTab = localStorage.getItem(TRACKER_ACTIVE_TAB_KEY) || "overview";
+
+  activateTrackerTab(savedTab);
+
   tabs.forEach(button => {
     button.addEventListener("click", () => {
-      const target = button.dataset.tab;
-
-      tabs.forEach(tab =>
-        tab.classList.remove("is-active")
-      );
-
-      panels.forEach(panel =>
-        panel.classList.remove("is-active")
-      );
-
-      button.classList.add("is-active");
-
-      document
-        .querySelector(`[data-panel="${target}"]`)
-        ?.classList.add("is-active");
+      activateTrackerTab(button.dataset.tab);
     });
   });
 }
