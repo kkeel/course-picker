@@ -160,12 +160,26 @@ function renderTracker() {
 }
 
 function initTabs() {
-  document.querySelectorAll(".tracker-tab").forEach(button => {
+  const tabs = document.querySelectorAll(".tracker-tab");
+  const panels = document.querySelectorAll(".tracker-panel");
+
+  tabs.forEach(button => {
     button.addEventListener("click", () => {
-      document.querySelectorAll(".tracker-tab").forEach(btn =>
-        btn.classList.remove("is-active")
+      const target = button.dataset.tab;
+
+      tabs.forEach(tab =>
+        tab.classList.remove("is-active")
       );
+
+      panels.forEach(panel =>
+        panel.classList.remove("is-active")
+      );
+
       button.classList.add("is-active");
+
+      document
+        .querySelector(`[data-panel="${target}"]`)
+        ?.classList.add("is-active");
     });
   });
 }
