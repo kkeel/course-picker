@@ -340,3 +340,83 @@
   flex-shrink: 0;
   margin-top: 8px;
 }
+
+.tracker-section-spaced {
+  margin-top: 22px;
+}
+
+.tracker-book-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tracker-book-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: start;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(89,110,94,0.12);
+}
+
+.tracker-book-row:last-child {
+  border-bottom: 0;
+}
+
+.tracker-book-check {
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(89,110,94,0.35);
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #596e5e;
+  font-size: 15px;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.tracker-book-title {
+  font-weight: 600;
+  color: #262b26;
+  margin-bottom: 6px;
+}
+
+.tracker-book-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tracker-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 3px 9px;
+  background: rgba(173,181,143,0.20);
+  color: #596e5e;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.tracker-pill-muted {
+  background: rgba(222,225,210,0.55);
+  color: #505650;
+}
+
+.tracker-status {
+  font-size: 12px;
+  font-weight: 700;
+  color: #596e5e;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.tracker-empty-state {
+  padding: 14px 0;
+  color: #6f746b;
+  font-size: 14px;
+}
