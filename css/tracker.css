@@ -825,3 +825,76 @@
   border-color: rgba(89,110,94,0.50);
   color: #596e5e;
 }
+
+/* Stronger book prep status colors */
+.tracker-prep-ledger-note .tracker-prep-select {
+  font-size: 13px;
+}
+
+.tracker-prep-ledger-note select.tracker-prep-status-select {
+  font-size: 12px;
+  font-weight: 800;
+  border-radius: 5px;
+  padding: 3px 9px;
+  border-bottom: 0;
+}
+
+/* Needs attention */
+.tracker-prep-ledger-note select.tracker-prep-status-not_ready {
+  background-color: #dee1d2;
+  color: #505650 !important;
+}
+
+/* Ordered and requested get separate but related colors */
+.tracker-prep-ledger-note select.tracker-prep-status-requested {
+  background-color: #e8e1c8;
+  color: #7b7257 !important;
+}
+
+.tracker-prep-ledger-note select.tracker-prep-status-ordered {
+  background-color: #d1b358;
+  color: #3b413b !important;
+}
+
+/* Received */
+.tracker-prep-ledger-note select.tracker-prep-status-received {
+  background-color: #bdc5bf;
+  color: #3b413b !important;
+}
+
+/* Ready */
+.tracker-prep-ledger-note select.tracker-prep-status-ready {
+  background-color: #596e5e;
+  color: #ffffff !important;
+}
+
+/* Stronger left status squares */
+.tracker-status-not_ready {
+  background: #dee1d2;
+  border-color: #9da89f;
+  color: #596e5e;
+}
+
+.tracker-status-requested {
+  background: #e8e1c8;
+  border-color: #cfc08d;
+  color: #7b7257;
+}
+
+.tracker-status-ordered {
+  background: #d1b358;
+  border-color: #b99a3f;
+  color: #3b413b;
+}
+
+.tracker-status-received {
+  background: #bdc5bf;
+  border-color: #9da89f;
+  color: #3b413b;
+}
+
+.tracker-status-ready {
+  background: #596e5e;
+  border-color: #596e5e;
+  color: #ffffff;
+}
