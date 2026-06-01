@@ -19,9 +19,9 @@
     "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recq5GiLldMnyhmk8",
     "supplyListUrl": "",
     "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec2I2PPQCvnRPCeY-language-study-grade-7.pdf",
-    "lessonPdfStatus": "active",
-    "lessonPdfLabel": "Lesson PDF",
+    "lessonPdfUrl": "",
+    "lessonPdfStatus": "coming-soon",
+    "lessonPdfLabel": "Lesson PDF Coming Soon",
     "additional": [
       {
         "label": "Copywork & Dictation: Grade 7",
@@ -46,7 +46,7 @@
       }
     ]
   },
-  "updatedAt": "2026-06-01T12:18:16.646Z",
+  "updatedAt": "2026-06-01T17:06:50.906Z",
   "terms": [
     {
       "termNumber": 1,
@@ -79,26 +79,46 @@
           ]
         },
         {
-          "weekNumber": 11,
-          "weekLabel": "Week 11",
+          "weekNumber": 9,
+          "weekLabel": "Week 9",
           "lessons": [
             {
-              "lessonId": "rec5IVylF5R6edcrO",
+              "lessonId": "recqiJM5hOiKN2VZA",
               "termNumber": 1,
               "termLabel": "Term 1",
-              "weekNumber": 11,
-              "weekLabel": "Week 11",
-              "sequence": 41,
-              "sort": 101104,
+              "weekNumber": 9,
+              "weekLabel": "Week 9",
+              "sequence": 33,
+              "sort": 100904,
               "lessonLabel": "",
               "linkLabel": "Grammar/Comp",
-              "title": "20m Grammar/Comp: Grade 7 - Lesson 41",
+              "title": "20m Grammar/Comp: Grade 7 - Lesson 33",
               "topicTitle": "Grammar/Comp",
-              "anchor": "term-1-week-11-lesson-41",
+              "anchor": "term-1-week-9-lesson-33",
               "links": [
                 {
-                  "text": "Iliad Selections PDF",
-                  "url": "https://griersmusings.wordpress.com/wp-content/uploads/2018/10/homer_the_iliad_penguin_classics_deluxe_edition-robert-fagles.pdf"
+                  "text": "Hymn, Spirituals, & Folk PDF p.9",
+                  "url": "https://drive.google.com/file/d/19IRILSASZkT5Wx-K39AgnoZTFpiE5LQp/view"
+                }
+              ]
+            },
+            {
+              "lessonId": "recnNSqya6Ayo6UK6",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 9,
+              "weekLabel": "Week 9",
+              "sequence": 36,
+              "sort": 100907,
+              "lessonLabel": "",
+              "linkLabel": "Grammar/Comp",
+              "title": "20m Grammar/Comp: Grade 7 - Lesson 36",
+              "topicTitle": "Grammar/Comp",
+              "anchor": "term-1-week-9-lesson-36",
+              "links": [
+                {
+                  "text": "∞ Link: Hymn, Spirituals, & Folk PDF p.9",
+                  "url": "https://drive.google.com/file/d/19IRILSASZkT5Wx-K39AgnoZTFpiE5LQp/view"
                 }
               ]
             }
@@ -129,34 +149,8 @@
               "anchor": "term-2-week-16-lesson-61",
               "links": [
                 {
-                  "text": "Proverbs 6:1-19",
-                  "url": "https://www.biblegateway.com/passage/?search=Proverbs%206%3A%201-19&version=ESV"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "weekNumber": 18,
-          "weekLabel": "Week 6",
-          "lessons": [
-            {
-              "lessonId": "recxyyurqgSEHAqdV",
-              "termNumber": 2,
-              "termLabel": "Term 2",
-              "weekNumber": 18,
-              "weekLabel": "Week 6",
-              "sequence": 69,
-              "sort": 201804,
-              "lessonLabel": "",
-              "linkLabel": "Grammar/Comp",
-              "title": "20m Grammar/Comp: Grade 7 - Lesson 69",
-              "topicTitle": "Grammar/Comp",
-              "anchor": "term-2-week-18-lesson-69",
-              "links": [
-                {
-                  "text": "Scarlatti Bio",
-                  "url": "https://www.baroquemusic.org/biodscarlatti.html"
+                  "text": "National Anthem lyrics",
+                  "url": "https://lyricstranslate.com/en/national-anthems-lyrics.html"
                 }
               ]
             }
@@ -187,42 +181,28 @@
               "anchor": "term-3-week-30-lesson-117",
               "links": [
                 {
-                  "text": "From the Interesting Narrative",
-                  "url": "https://www.dropbox.com/scl/fi/wxbg1kvf7c8rzo0cyk2r1/From-The-Interesting-Life-of-the-Life-of-Olaudah-Equiano-by-Himself.pdf?rlkey=m033hjqm6wfw743lk6ee3z8e5&st=v61260uq&dl=0"
-                },
-                {
-                  "text": "Google Doc Template",
-                  "url": "https://docs.google.com/document/d/1QrTppTAQXWzAfmCgY5l_eW6jGErDuLnCqcKFLjNTMHI/template/preview"
-                },
-                {
                   "text": "Found Verse ",
-                  "url": "https://lernerbooks.blog/2023/05/nearer-my-freedom-cover-design-historic-topic-contemporary-cover.html"
+                  "url": "https://writenow.nwp.org/with-an-ear-to-the-ground-create-a-found-poem-3a18ad33e3e5"
                 }
               ]
-            }
-          ]
-        },
-        {
-          "weekNumber": 35,
-          "weekLabel": "Week 11",
-          "lessons": [
+            },
             {
-              "lessonId": "recumbDvx3uWuqj61",
+              "lessonId": "recyVVriaDW2GRpSR",
               "termNumber": 3,
               "termLabel": "Term 3",
-              "weekNumber": 35,
-              "weekLabel": "Week 11",
-              "sequence": 137,
-              "sort": 303504,
+              "weekNumber": 30,
+              "weekLabel": "Week 6",
+              "sequence": 120,
+              "sort": 303007,
               "lessonLabel": "",
               "linkLabel": "Grammar/Comp",
-              "title": "20m Grammar/Comp: Grade 7 - Lesson 137",
+              "title": "20m Grammar/Comp: Grade 7 - Lesson 120",
               "topicTitle": "Grammar/Comp",
-              "anchor": "term-3-week-35-lesson-137",
+              "anchor": "term-3-week-30-lesson-120",
               "links": [
                 {
-                  "text": "Nearer My Freedom",
-                  "url": "https://brycchancarey.com/equiano/extract5.htm"
+                  "text": "Found Verse",
+                  "url": "https://writenow.nwp.org/with-an-ear-to-the-ground-create-a-found-poem-3a18ad33e3e5"
                 }
               ]
             }

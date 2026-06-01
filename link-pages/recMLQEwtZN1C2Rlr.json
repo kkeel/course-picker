@@ -19,9 +19,9 @@
     "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recK4WumjdpFqO8pD",
     "supplyListUrl": "",
     "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
-    "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recMLQEwtZN1C2Rlr-bible-grades-10-11.pdf",
-    "lessonPdfStatus": "active",
-    "lessonPdfLabel": "Lesson PDF",
+    "lessonPdfUrl": "",
+    "lessonPdfStatus": "coming-soon",
+    "lessonPdfLabel": "Lesson PDF Coming Soon",
     "additional": [
       {
         "label": "bibleproject.com",
@@ -39,7 +39,7 @@
       }
     ]
   },
-  "updatedAt": "2026-06-01T12:18:16.598Z",
+  "updatedAt": "2026-06-01T17:06:50.837Z",
   "terms": [
     {
       "termNumber": 1,
@@ -66,6 +66,14 @@
                 {
                   "text": "Video: Overview of the Psalms",
                   "url": "https://vimeo.com/1172683714/9c9b0fb4b7"
+                },
+                {
+                  "text": "Psalms Overview Poster",
+                  "url": "https://d1bsmz3sdihplr.cloudfront.net/media/Posters%20Download/18-Psalms-FNL.jpg"
+                },
+                {
+                  "text": "Bible Project Overview of the Psalms",
+                  "url": "https://bibleproject.com/videos/psalms/"
                 }
               ]
             },
@@ -94,6 +102,30 @@
                 {
                   "text": "ESV Illuminated Scripture Journal Luke ",
                   "url": "https://www.amazon.com/ESV-Illuminated-Scripture-Journal-Luke/dp/1433564823/ref=sr_1_1?crid=2XZTA0SVCA7S1&dib=eyJ2IjoiMSJ9.C_1jhjAG0PWET-4VCgEyK1nIWHKHTf1moMzX_dsdf5UdM9nCOzF74qVxM7yfcmsOKDP_EaG7O3ncMdWqn0s6qDRNNniOOW5I_3Ek2B9AYaFd29R_VLx3LbqoGgRZWRRG2pr_l51jJh6gn2AoeOCD1Yx-eoNhaX3U8C9_rsedhWWxxMK8C5dO2yZ5g6oB36CQSyn58Kq0U1JAWpVQwqcMK6qO6doE5cGPUYuuCuXTnQc.Ts02-_-4Zs6zCPnqlXf9EUGEiTOwuSrFOouK53cMLuU&dib_tag=se&keywords=esv+illuminated+scripture+journals+luke&qid=1780100952&s=books&sprefix=esv+illuminated+scripture+journals+luke%2Cstripbooks%2C134&sr=1-1"
+                }
+              ]
+            },
+            {
+              "lessonId": "recsVgCg5mXy5O0CT",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 2,
+              "sort": 100103,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 2",
+              "topicTitle": "Old Testament",
+              "anchor": "term-1-week-1-lesson-2",
+              "links": [
+                {
+                  "text": "Video:  Davidic Covenant",
+                  "url": "https://vimeo.com/1172620524/92f69879eb"
+                },
+                {
+                  "text": "Video Link: OT Summary",
+                  "url": "https://bibleproject.com/videos/old-testament-tanak/"
                 }
               ]
             },
@@ -138,7 +170,7 @@
               "anchor": "term-1-week-2-lesson-3",
               "links": [
                 {
-                  "text": "Differences Between Two Accounts of Israelite History\n\n",
+                  "text": "Video: Differences Between Two Accounts of Israelite History\n\n",
                   "url": "https://vimeo.com/1172620728/3039c50cac"
                 }
               ]
@@ -164,6 +196,26 @@
                 {
                   "text": "Lumo Project Luke 1:39-80",
                   "url": "https://www.youtube.com/watch?v=fQOHHQQfm8g&list=PLcJVIuhI8isJxPn9EJxNlGPypJ3dl7oKF&index=2"
+                }
+              ]
+            },
+            {
+              "lessonId": "recasgmtNp4JXgET9",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 4,
+              "sort": 100203,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 4",
+              "topicTitle": "Old Testament",
+              "anchor": "term-1-week-2-lesson-4",
+              "links": [
+                {
+                  "text": "Video: Big Ideas and Plotlines",
+                  "url": "https://vimeo.com/1172687176/e4a713822e"
                 }
               ]
             },
@@ -194,6 +246,26 @@
           "weekLabel": "Week 3",
           "lessons": [
             {
+              "lessonId": "recubV66qpnZXsGzm",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 3,
+              "weekLabel": "Week 3",
+              "sequence": 5,
+              "sort": 100301,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 5",
+              "topicTitle": "Old Testament",
+              "anchor": "term-1-week-3-lesson-5",
+              "links": [
+                {
+                  "text": "Video: Defective Views of God",
+                  "url": "https://vimeo.com/1172620578/2d904f10c8"
+                }
+              ]
+            },
+            {
               "lessonId": "reciIFyg84HCu29C6",
               "termNumber": 1,
               "termLabel": "Term 1",
@@ -210,6 +282,26 @@
                 {
                   "text": "Bible Project App",
                   "url": "https://bibleproject.com/app/"
+                }
+              ]
+            },
+            {
+              "lessonId": "recoNLqyfzZ0pn2Pe",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 3,
+              "weekLabel": "Week 3",
+              "sequence": 6,
+              "sort": 100303,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 6",
+              "topicTitle": "Old Testament",
+              "anchor": "term-1-week-3-lesson-6",
+              "links": [
+                {
+                  "text": "Video Link: Tapestry Illustration\n\n",
+                  "url": "https://vimeo.com/1172678304/adb0a7b876"
                 }
               ]
             },
@@ -240,6 +332,46 @@
           "weekLabel": "Week 4",
           "lessons": [
             {
+              "lessonId": "recF69LB8Csd7QJxh",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 4,
+              "weekLabel": "Week 4",
+              "sequence": 7,
+              "sort": 100401,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 7",
+              "topicTitle": "Old Testament",
+              "anchor": "term-1-week-4-lesson-7",
+              "links": [
+                {
+                  "text": "Video Link: Bible Characters",
+                  "url": "https://vimeo.com/1172682042/34dafbaf8a"
+                }
+              ]
+            },
+            {
+              "lessonId": "reciX1WxS1ps8KquL",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 4,
+              "weekLabel": "Week 4",
+              "sequence": 8,
+              "sort": 100403,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 8",
+              "topicTitle": "Old Testament",
+              "anchor": "term-1-week-4-lesson-8",
+              "links": [
+                {
+                  "text": "Video: Moralistic Lessons",
+                  "url": "https://vimeo.com/1120171125/ce2206b83a"
+                }
+              ]
+            },
+            {
               "lessonId": "recjQlMqEU3oMALMu",
               "termNumber": 1,
               "termLabel": "Term 1",
@@ -256,6 +388,52 @@
                 {
                   "text": "Bible Project, Episode 3, Literary Styles",
                   "url": "https://bibleproject.com/videos/literary-styles-bible/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 5,
+          "weekLabel": "Week 5",
+          "lessons": [
+            {
+              "lessonId": "rechfhzjKlpi9XFSv",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 5,
+              "weekLabel": "Week 5",
+              "sequence": 9,
+              "sort": 100501,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 9",
+              "topicTitle": "Old Testament",
+              "anchor": "term-1-week-5-lesson-9",
+              "links": [
+                {
+                  "text": "Video: God's Track Record\n\n",
+                  "url": "https://vimeo.com/1183471824/18e5330126"
+                }
+              ]
+            },
+            {
+              "lessonId": "recno30dIb4hJgjYX",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 5,
+              "weekLabel": "Week 5",
+              "sequence": 10,
+              "sort": 100503,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 10",
+              "topicTitle": "Old Testament",
+              "anchor": "term-1-week-5-lesson-10",
+              "links": [
+                {
+                  "text": "Video: God's Attributes",
+                  "url": "https://vimeo.com/1183471797/ed75105068"
                 }
               ]
             }
@@ -331,6 +509,32 @@
       "termNumber": 2,
       "term": "Term 2",
       "weeks": [
+        {
+          "weekNumber": 13,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recjskoKROZdiUfi8",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 13,
+              "weekLabel": "Week 1",
+              "sequence": 25,
+              "sort": 201301,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 25",
+              "topicTitle": "Old Testament",
+              "anchor": "term-2-week-13-lesson-25",
+              "links": [
+                {
+                  "text": "Video: Prayer",
+                  "url": "https://vimeo.com/1172677941/ed581ede0e"
+                }
+              ]
+            }
+          ]
+        },
         {
           "weekNumber": 16,
           "weekLabel": "Week 4",
@@ -640,6 +844,26 @@
           "weekLabel": "Week 1",
           "lessons": [
             {
+              "lessonId": "recWu6iYw1uzSyZAA",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 49,
+              "sort": 302501,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 49",
+              "topicTitle": "Old Testament",
+              "anchor": "term-3-week-25-lesson-49",
+              "links": [
+                {
+                  "text": "Video: Wisdom Literature",
+                  "url": "https://vimeo.com/1172682367/52d8e7fa8f"
+                }
+              ]
+            },
+            {
               "lessonId": "recYcdIkMZWdShWHc",
               "termNumber": 3,
               "termLabel": "Term 3",
@@ -662,6 +886,26 @@
                   "url": "https://d1bsmz3sdihplr.cloudfront.net/media/Posters%20Download/62%20Titus%20FNL.jpg"
                 }
               ]
+            },
+            {
+              "lessonId": "recGovii3QLXb5VXq",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 25,
+              "weekLabel": "Week 1",
+              "sequence": 50,
+              "sort": 302503,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 50",
+              "topicTitle": "Old Testament",
+              "anchor": "term-3-week-25-lesson-50",
+              "links": [
+                {
+                  "text": "Video: Proverbs",
+                  "url": "https://vimeo.com/1172687968/02e42a478e"
+                }
+              ]
             }
           ]
         },
@@ -669,6 +913,26 @@
           "weekNumber": 26,
           "weekLabel": "Week 2",
           "lessons": [
+            {
+              "lessonId": "recMb8q0TbQBHGNhf",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 26,
+              "weekLabel": "Week 2",
+              "sequence": 51,
+              "sort": 302601,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 51",
+              "topicTitle": "Old Testament",
+              "anchor": "term-3-week-26-lesson-51",
+              "links": [
+                {
+                  "text": "Video: Order",
+                  "url": "https://vimeo.com/1172680036/30f89bf6f4"
+                }
+              ]
+            },
             {
               "lessonId": "recBggAImv2JLonFL",
               "termNumber": 3,
@@ -690,6 +954,26 @@
                 {
                   "text": "2 Timothy Summary Poster",
                   "url": "https://d1bsmz3sdihplr.cloudfront.net/media/Posters%20Download/61-2-Timothy-FNL.jpg"
+                }
+              ]
+            },
+            {
+              "lessonId": "rec5v8Hseneuo4qRa",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 26,
+              "weekLabel": "Week 2",
+              "sequence": 52,
+              "sort": 302603,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 52",
+              "topicTitle": "Old Testament",
+              "anchor": "term-3-week-26-lesson-52",
+              "links": [
+                {
+                  "text": "Video: Theme of Order",
+                  "url": "https://vimeo.com/1172680273/bf5ca78211"
                 }
               ]
             }
@@ -720,6 +1004,26 @@
                 {
                   "text": "1 Peter Summary Poster",
                   "url": "https://d1bsmz3sdihplr.cloudfront.net/media/Posters%20Download/65-1-Peter-FNL.jpg"
+                }
+              ]
+            },
+            {
+              "lessonId": "recWMPlVfNuZSsuS9",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 28,
+              "weekLabel": "Week 4",
+              "sequence": 56,
+              "sort": 302803,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 56",
+              "topicTitle": "Old Testament",
+              "anchor": "term-3-week-28-lesson-56",
+              "links": [
+                {
+                  "text": "Video: Application and Relevance",
+                  "url": "https://vimeo.com/1172677315/4151fbe563"
                 }
               ]
             }
@@ -780,6 +1084,26 @@
                 {
                   "text": "2 Peter Summary Poster",
                   "url": "https://d1bsmz3sdihplr.cloudfront.net/media/Posters%20Download/66-2-Peter-FNL.jpg"
+                }
+              ]
+            },
+            {
+              "lessonId": "recmoGWcEzzWluZjN",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 32,
+              "weekLabel": "Week 8",
+              "sequence": 64,
+              "sort": 303203,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 64",
+              "topicTitle": "Old Testament",
+              "anchor": "term-3-week-32-lesson-64",
+              "links": [
+                {
+                  "text": " Video: Ecclesiastes",
+                  "url": "https://vimeo.com/1172680844/93a194a2e7"
                 }
               ]
             }
