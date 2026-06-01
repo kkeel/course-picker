@@ -63,10 +63,24 @@
         "sort": "5",
         "groupTitle": "Related Course Quick Links",
         "groupType": "course"
+      },
+      {
+        "label": "History: Grade 4 Student Lessons (No Answers)",
+        "url": "https://drive.google.com/file/d/1a0t3sK_9v6ytBavD62JR-LSq8ls8P-BF/view?usp=drive_link",
+        "sort": "6",
+        "groupTitle": "Related Course Quick Links",
+        "groupType": "course"
+      },
+      {
+        "label": "History: Grades 5-6 Student Lessons (No Answers)",
+        "url": "https://drive.google.com/file/d/1a0t3sK_9v6ytBavD62JR-LSq8ls8P-BF/view?usp=drive_link",
+        "sort": "6",
+        "groupTitle": "Related Course Quick Links",
+        "groupType": "course"
       }
     ]
   },
-  "updatedAt": "2026-05-31T09:30:24.036Z",
+  "updatedAt": "2026-06-01T12:18:16.687Z",
   "terms": [
     {
       "termNumber": 1,
@@ -333,25 +347,25 @@
           ]
         },
         {
-          "weekNumber": 15,
-          "weekLabel": "Week 3",
+          "weekNumber": 17,
+          "weekLabel": "Week 5",
           "lessons": [
             {
-              "lessonId": "rec2TqS6gYlUqRg8m",
+              "lessonId": "recEhntBI2K7isXjA",
               "termNumber": 2,
               "termLabel": "Term 2",
-              "weekNumber": 15,
-              "weekLabel": "Week 3",
-              "sequence": 15,
+              "weekNumber": 17,
+              "weekLabel": "Week 5",
+              "sequence": 17,
               "sort": 0,
-              "lessonLabel": "Lesson 15",
+              "lessonLabel": "Lesson 17",
               "linkLabel": "U.S. History",
-              "title": "25m U.S. History: Grades 4-6 - Lesson 15",
+              "title": "25m U.S. History: Grades 4-6 - Lesson 17",
               "topicTitle": "U.S. History",
-              "anchor": "term-2-week-15-lesson-15",
+              "anchor": "term-2-week-17-lesson-17",
               "links": [
                 {
-                  "text": "Map of places where Lincoln lived",
+                  "text": "Places where Lincoln lived",
                   "url": "https://www.nps.gov/articles/images/127map1ch.jpg?maxwidth=1300&autorotate=false&quality=78&format=webp"
                 }
               ]
@@ -429,7 +443,7 @@
               "anchor": "term-2-week-22-lesson-22",
               "links": [
                 {
-                  "text": "Video: What was the Union?",
+                  "text": "What was the Union?",
                   "url": "https://www.youtube.com/watch?v=_8EfSqfuF_s&t=230s"
                 }
               ]
@@ -521,7 +535,7 @@
                   "url": "https://cdn.britannica.com/60/3260-050-6BE12AFF/state-The-Oregon-Trail-boundaries-1850.jpg"
                 },
                 {
-                  "text": "Video: Transcontinental Railraod",
+                  "text": "Transcontinental Railraod",
                   "url": "https://www.youtube.com/watch?v=0CdAzizWiyI"
                 }
               ]
@@ -547,11 +561,11 @@
               "anchor": "term-3-week-30-lesson-30",
               "links": [
                 {
-                  "text": "Video: The Gold Rush",
+                  "text": "The Gold Rush",
                   "url": "https://www.youtube.com/watch?v=to4yJ64Em7o"
                 },
                 {
-                  "text": "Video: Pioneer Life in a Log Cabin",
+                  "text": "Pioneer Life in a Log Cabin",
                   "url": "https://www.youtube.com/watch?v=Uo5B7O12Ju0"
                 }
               ]
@@ -577,7 +591,7 @@
               "anchor": "term-3-week-32-lesson-32",
               "links": [
                 {
-                  "text": "Video: Trail of Tears",
+                  "text": "Trail of Tears",
                   "url": "https://www.youtube.com/watch?v=SosZ2ZRJymU"
                 }
               ]

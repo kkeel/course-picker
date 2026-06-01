@@ -39,7 +39,7 @@
       }
     ]
   },
-  "updatedAt": "2026-05-31T09:30:23.904Z",
+  "updatedAt": "2026-06-01T12:18:16.600Z",
   "terms": [
     {
       "termNumber": 1,
@@ -49,6 +49,26 @@
           "weekNumber": 1,
           "weekLabel": "Week 1",
           "lessons": [
+            {
+              "lessonId": "rechQ5M2u38X1wc5l",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100101,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 1",
+              "topicTitle": "Old Testament",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Video: Overview of the Psalms",
+                  "url": "https://vimeo.com/1172683714/9c9b0fb4b7"
+                }
+              ]
+            },
             {
               "lessonId": "recaMNmfBEaARJ1Du",
               "termNumber": 1,
@@ -83,6 +103,26 @@
           "weekNumber": 2,
           "weekLabel": "Week 2",
           "lessons": [
+            {
+              "lessonId": "recy578kHnHFWLBR4",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 3,
+              "sort": 100201,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 3",
+              "topicTitle": "Old Testament",
+              "anchor": "term-1-week-2-lesson-3",
+              "links": [
+                {
+                  "text": "Differences Between Two Accounts of Israelite History\n\n",
+                  "url": "https://vimeo.com/1172620728/3039c50cac"
+                }
+              ]
+            },
             {
               "lessonId": "recAtJGfmeRUnATON",
               "termNumber": 1,
@@ -264,8 +304,8 @@
                   "url": "https://bibleproject.com/explore/video/romans-1-4/"
                 },
                 {
-                  "text": "Romans Summary",
-                  "url": "https://bibleproject.com/view-resource/254/"
+                  "text": "Romans Summary Poster",
+                  "url": "https://d1bsmz3sdihplr.cloudfront.net/media/Posters%20Download/50_Romans.jpg"
                 }
               ]
             }
@@ -398,12 +438,8 @@
                   "url": "https://bibleproject.com/explore/video/ephesians/"
                 },
                 {
-                  "text": "Ephesians Summary",
-                  "url": "https://bibleproject.com/view-resource/258/"
-                },
-                {
-                  "text": "Book of Ephesians Guide",
-                  "url": "https://bibleproject.com/guides/book-of-ephesians/"
+                  "text": "Ephesians Summary Poster",
+                  "url": "https://d1bsmz3sdihplr.cloudfront.net/media/Posters%20Download/55-Ephesians-FNL.jpg"
                 }
               ]
             }
@@ -432,12 +468,8 @@
                   "url": "https://bibleproject.com/explore/video/hebrews/"
                 },
                 {
-                  "text": "Hebrews Summary",
-                  "url": "https://bibleproject.com/view-resource/266/"
-                },
-                {
-                  "text": "Book of Hebrews Guide",
-                  "url": "https://bibleproject.com/guides/book-of-hebrews/"
+                  "text": "Hebrews Summary Poster",
+                  "url": "https://d1bsmz3sdihplr.cloudfront.net/media/Posters%20Download/63-Hebrews-FNL.jpeg"
                 }
               ]
             }
@@ -524,12 +556,8 @@
                   "url": "https://bibleproject.com/explore/video/revelation/"
                 },
                 {
-                  "text": "Revelation Summary",
-                  "url": "https://bibleproject.com/view-resource/272/"
-                },
-                {
-                  "text": "Book of Revelation Guide",
-                  "url": "https://bibleproject.com/guides/book-of-revelation/"
+                  "text": "Revelation Summary Poster",
+                  "url": "https://d1bsmz3sdihplr.cloudfront.net/media/Posters%20Download/69-70-Revelation-FNL.jpg"
                 }
               ]
             },

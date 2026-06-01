@@ -38,6 +38,65 @@
       }
     ]
   },
-  "updatedAt": "2026-05-31T09:30:23.894Z",
-  "terms": []
+  "updatedAt": "2026-06-01T12:18:16.594Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recGZpz6VOeASTYVF",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 0,
+              "lessonLabel": "Lesson 1",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 1",
+              "topicTitle": "Old Testament",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Video: Overview of the Psalms",
+                  "url": "https://vimeo.com/1172683714/9c9b0fb4b7"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 2,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "rec0AyYOTouqEVqC0",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 3,
+              "sort": 0,
+              "lessonLabel": "Lesson 3",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 3",
+              "topicTitle": "Old Testament",
+              "anchor": "term-1-week-2-lesson-3",
+              "links": [
+                {
+                  "text": "Differences Between Two Accounts of Israelite History",
+                  "url": "https://vimeo.com/1172620728/3039c50cac"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

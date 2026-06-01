@@ -40,7 +40,7 @@
       }
     ]
   },
-  "updatedAt": "2026-05-31T09:30:23.898Z",
+  "updatedAt": "2026-06-01T12:18:16.596Z",
   "terms": [
     {
       "termNumber": 1,
@@ -50,6 +50,26 @@
           "weekNumber": 1,
           "weekLabel": "Week 1",
           "lessons": [
+            {
+              "lessonId": "receyhEwDJSyY3Ti8",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100101,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 1",
+              "topicTitle": "Old Testament",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Video: Overview of the Psalms",
+                  "url": "https://vimeo.com/1172683714/9c9b0fb4b7"
+                }
+              ]
+            },
             {
               "lessonId": "reco3wvlKvfPdEvhF",
               "termNumber": 1,
@@ -108,6 +128,26 @@
           "weekNumber": 2,
           "weekLabel": "Week 2",
           "lessons": [
+            {
+              "lessonId": "recz8aPtdSqGYaF38",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 2,
+              "weekLabel": "Week 2",
+              "sequence": 3,
+              "sort": 100201,
+              "lessonLabel": "",
+              "linkLabel": "Old Testament",
+              "title": "30m Old Testament: Grades 7-12 - Lesson 3",
+              "topicTitle": "Old Testament",
+              "anchor": "term-1-week-2-lesson-3",
+              "links": [
+                {
+                  "text": "Differences Between Two Accounts of Israelite History\n\n",
+                  "url": "https://vimeo.com/1172620728/3039c50cac"
+                }
+              ]
+            },
             {
               "lessonId": "recWFZi3XUywkiCuW",
               "termNumber": 1,
@@ -525,8 +565,8 @@
                   "url": "https://bibleproject.com/explore/video/galatians/"
                 },
                 {
-                  "text": "Galatians Summary",
-                  "url": "https://bibleproject.com/view-resource/257/"
+                  "text": "Galatians Summary Poster",
+                  "url": "https://d1bsmz3sdihplr.cloudfront.net/media/Posters%20Download/54-Galatians-FNL.jpg"
                 }
               ]
             },
@@ -655,8 +695,8 @@
                   "url": "https://bibleproject.com/explore/video/philippians/"
                 },
                 {
-                  "text": "Philippians Summary",
-                  "url": "https://bibleproject.com/view-resource/259/"
+                  "text": "Philippians Summary Poster",
+                  "url": "https://d1bsmz3sdihplr.cloudfront.net/media/Posters%20Download/56-Philippians-FNL.jpg"
                 }
               ]
             },
@@ -767,8 +807,8 @@
                   "url": "https://bibleproject.com/explore/video/colossians/"
                 },
                 {
-                  "text": "Colossians Summary",
-                  "url": "https://bibleproject.com/view-resource/260/"
+                  "text": "Colossians Summary Poster",
+                  "url": "https://d1bsmz3sdihplr.cloudfront.net/media/Posters%20Download/57%20Colossians%20PRF.jpg"
                 }
               ]
             },
