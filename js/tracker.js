@@ -196,12 +196,11 @@ function renderPrepRow(row) {
   return `
     <div class="tracker-book-row">
       <span class="tracker-status-icon tracker-status-${status}">
-        <img
-          src="${prepStatusIcon(status)}"
-          alt=""
+        <span
+          class="tracker-status-mask"
           aria-hidden="true"
-          class="tracker-status-img"
-        >
+          style="--status-icon-url: url('${prepStatusIcon(status)}');"
+        ></span>
       </span>
 
       <div class="tracker-book-line">
