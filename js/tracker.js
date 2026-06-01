@@ -159,6 +159,10 @@ function prepSelect(resourceId, index, field, value, options, extraClass = "") {
 
 function renderPrepRow(row) {
   const resource = trackerResourcesById[String(row.resourceId)] || {};
+  if (!resource.title) {
+    console.warn("Tracker resource missing from MA_Resources.json:", row.resourceId);
+  }
+  
   const title = resource.title || row.title || `Resource ${row.resourceId}`;
   const author = resource.author ? `by ${resource.author}` : "";
   const status = String(row.status || "not_ready").toLowerCase();
@@ -424,6 +428,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   initBookPrepControls();
 
   window.addEventListener("storage", event => {
-    if (event.key === TRACKER_PLANNER_KEY) renderTracker();
+    if (event.key === TRACKER_PLANNER_KEY) {
+      renderTracker();
+      renderBooksPanel();
+    }
   });
 });
