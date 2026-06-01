@@ -125,7 +125,7 @@
         
           <section class="tracker-panel" data-panel="books">
             <p class="tracker-kicker">Teacher Planner</p>
-        
+          
             <div class="tracker-page-header">
               <img
                 src="img/menu-icons/book-list.svg"
@@ -139,6 +139,28 @@
                 </p>
               </div>
             </div>
+          
+            <div class="tracker-grid tracker-books-summary">
+              <article class="tracker-card">
+                <div class="tracker-card-title">Ready</div>
+                <div id="booksReadyCount" class="tracker-card-percent">0</div>
+              </article>
+          
+              <article class="tracker-card">
+                <div class="tracker-card-title">Ordered</div>
+                <div id="booksOrderedCount" class="tracker-card-percent">0</div>
+              </article>
+          
+              <article class="tracker-card">
+                <div class="tracker-card-title">Needs Attention</div>
+                <div id="booksNotReadyCount" class="tracker-card-percent">0</div>
+              </article>
+            </div>
+          
+            <section class="tracker-ledger">
+              <h2>Books Requiring Attention</h2>
+              <div id="booksAttentionRows"></div>
+            </section>
           </section>
         
           <section class="tracker-panel" data-panel="supplies">
