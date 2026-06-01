@@ -90,6 +90,84 @@ function ledgerRow(label, value) {
   `;
 }
 
+function prettyPrepText(value) {
+  return String(value || "")
+    .replaceAll("_", " ")
+    .replace(/\b\w/g, char => char.toUpperCase());
+}
+
+function renderPrepRow(row, isReady = false) {
+  const check = isReady ? "✓" : "";
+  const title = row.title || `Resource ${row.resourceId}`;
+
+  return `
+    <div class="tracker-book-row">
+      <span class="tracker-book-check">${check}</span>
+
+      <div>
+        <div class="tracker-book-title">${title}</div>
+        <div class="tracker-book-meta">
+          <span class="tracker-pill">${prettyPrepText(row.kind)}</span>
+          <span class="tracker-pill tracker-pill-muted">${prettyPrepText(row.mode)}</span>
+        </div>
+      </div>
+
+      <div class="tracker-status">${prettyPrepText(row.status)}</div>
+    </div>
+  `;
+}
+
+function renderBooksPanel() {
+  const plannerState = readPlannerState();
+  const optionsByResourceId =
+    plannerState?.extras?.resources?.optionsByResourceId || {};
+
+  const rows = [];
+
+  Object.entries(optionsByResourceId).forEach(([resourceId, options]) => {
+    (Array.isArray(options) ? options : []).forEach(option => {
+      rows.push({
+        resourceId,
+        title: "",
+        kind: option?.kind || "physical",
+        mode: option?.mode || "purchase",
+        status: option?.status || "not_ready",
+      });
+    });
+  });
+
+  const readyRows = rows.filter(row =>
+    String(row.status || "").toLowerCase() === "ready"
+  );
+
+  const attentionRows = rows.filter(row =>
+    String(row.status || "").toLowerCase() !== "ready"
+  );
+
+  const receivedRows = rows.filter(row =>
+    String(row.status || "").toLowerCase() === "received"
+  );
+
+  setText("booksReadyCount", readyRows.length);
+  setText("booksReceivedCount", receivedRows.length);
+  setText("booksAttentionCount", attentionRows.length);
+
+  const attentionContainer = document.getElementById("booksAttentionRows");
+  const readyContainer = document.getElementById("booksReadyRows");
+
+  if (attentionContainer) {
+    attentionContainer.innerHTML = attentionRows.length
+      ? attentionRows.map(row => renderPrepRow(row, false)).join("")
+      : `<div class="tracker-empty-state">No book prep items need attention.</div>`;
+  }
+
+  if (readyContainer) {
+    readyContainer.innerHTML = readyRows.length
+      ? readyRows.map(row => renderPrepRow(row, true)).join("")
+      : `<div class="tracker-empty-state">No books have been marked ready yet.</div>`;
+  }
+}
+
 function renderTracker() {
   const plannerState = readPlannerState();
 
