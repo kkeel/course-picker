@@ -974,12 +974,20 @@ function setupStudentManagerModal() {
 function getUrlState() {
   const params = new URLSearchParams(window.location.search);
 
+  const hasPrefilter =
+    params.has("base") ||
+    params.has("id") ||
+    params.has("course") ||
+    params.has("topic") ||
+    params.has("track");
+
   return {
     base: params.get("base") || "subject",
     id: params.get("id") || "",
     course: params.get("course") || "",
     topic: params.get("topic") || "",
     track: params.get("track") || "",
+    hasPrefilter,
   };
 }
 
@@ -1178,7 +1186,9 @@ function saveLessonUiPrefs() {
   localStorage.setItem(STORAGE_KEYS.selectedTrack, state.selectedTrack || "");
 }
 
-function applySavedLessonUiPrefs() {
+function applySavedLessonUiPrefs(options = {}) {
+  const preserveUrlFilter = !!options.preserveUrlFilter;
+
   state.memberFilters = {
     ...state.memberFilters,
     ...readJsonStorage(STORAGE_KEYS.memberFilters, {}),
@@ -1186,13 +1196,16 @@ function applySavedLessonUiPrefs() {
 
   state.selectedPlanningTag = localStorage.getItem(STORAGE_KEYS.selectedPlanningTag) || "";
   state.selectedStudent = localStorage.getItem(STORAGE_KEYS.selectedStudent) || "";
+  state.selectedTrackingTag = localStorage.getItem(STORAGE_KEYS.selectedTrackingTag) || "";
+
+  if (preserveUrlFilter) return;
+
   state.query = localStorage.getItem(STORAGE_KEYS.query) || "";
   state.base = localStorage.getItem(STORAGE_KEYS.base) || state.base || "subject";
   state.selectedId = localStorage.getItem(STORAGE_KEYS.selectedId) || "";
   state.selectedCourse = localStorage.getItem(STORAGE_KEYS.selectedCourse) || "";
   state.selectedTopic = localStorage.getItem(STORAGE_KEYS.selectedTopic) || "";
   state.selectedTrack = localStorage.getItem(STORAGE_KEYS.selectedTrack) || "";
-  state.selectedTrackingTag = localStorage.getItem(STORAGE_KEYS.selectedTrackingTag) || "";
 }
 
 function applySmartFirstVisitDefaults() {
@@ -1225,6 +1238,28 @@ function applySmartFirstVisitDefaults() {
   localStorage.setItem(STORAGE_KEYS.introCollapsed, "false");
   localStorage.setItem(STORAGE_KEYS.memberFilters, JSON.stringify(state.memberFilters));
   localStorage.setItem(STORAGE_KEYS.uiPrefsInitialized, "true");
+}
+
+function applyPrefilterPageDefaults(urlState) {
+  if (!urlState?.hasPrefilter) return;
+
+  const hasSavedCourses = lessonHasSavedCourseData();
+
+  localStorage.setItem(STORAGE_KEYS.introCollapsed, "false");
+  localStorage.setItem(STORAGE_KEYS.filtersCollapsed, "false");
+  localStorage.setItem(STORAGE_KEYS.memberTools, String(hasSavedCourses));
+
+  state.memberToolsEnabled = hasSavedCourses;
+
+  state.memberFilters = {
+    ...state.memberFilters,
+    myCourses: hasSavedCourses,
+  };
+
+  localStorage.setItem(
+    STORAGE_KEYS.memberFilters,
+    JSON.stringify(state.memberFilters)
+  );
 }
 
 function applyIntroState() {
@@ -3303,7 +3338,10 @@ async function initDirectory() {
     loadPlannerStateForLessonPlans()
     .then(async () => {
       applySmartFirstVisitDefaults();
-      applySavedLessonUiPrefs();
+      applyPrefilterPageDefaults(urlState);
+      applySavedLessonUiPrefs({
+        preserveUrlFilter: urlState.hasPrefilter,
+      });
       applySavedTopicOpenPrefs();
       populatePrimarySelect();
       await loadSelectedView();
