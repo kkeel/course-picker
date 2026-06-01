@@ -269,6 +269,8 @@ function renderBooksPanel() {
   const rows = [];
 
   Object.entries(optionsByResourceId).forEach(([resourceId, options]) => {
+    if (!trackerResourcesById[String(resourceId)]?.title) return;
+  
     (Array.isArray(options) ? options : []).forEach((option, index) => {
       rows.push({
         resourceId,
