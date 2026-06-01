@@ -759,3 +759,69 @@
 .tracker-prep-ledger-note select.tracker-prep-status-ready {
   color: #596e5e !important;
 }
+
+/* Make book prep note text easier to read */
+.tracker-prep-ledger-note .tracker-prep-select {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Status text highlight instead of relying only on text color */
+.tracker-prep-ledger-note select.tracker-prep-status-select {
+  border-radius: 5px;
+  padding: 3px 8px;
+  border-bottom: 0;
+  background-color: rgba(222,225,210,0.55);
+}
+
+.tracker-prep-ledger-note select.tracker-prep-status-not_ready {
+  background-color: rgba(222,225,210,0.75);
+  color: #505650 !important;
+}
+
+.tracker-prep-ledger-note select.tracker-prep-status-ordered,
+.tracker-prep-ledger-note select.tracker-prep-status-requested {
+  background-color: rgba(209,179,88,0.22);
+  color: #7b7257 !important;
+}
+
+.tracker-prep-ledger-note select.tracker-prep-status-received {
+  background-color: rgba(123,139,127,0.22);
+  color: #596e5e !important;
+}
+
+.tracker-prep-ledger-note select.tracker-prep-status-ready {
+  background-color: rgba(89,110,94,0.20);
+  color: #596e5e !important;
+}
+
+/* Strengthen the left status squares */
+.tracker-status-icon {
+  border-width: 1.5px;
+  font-weight: 700;
+}
+
+.tracker-status-not_ready {
+  background: rgba(222,225,210,0.80);
+  border-color: rgba(89,110,94,0.30);
+  color: #596e5e;
+}
+
+.tracker-status-ordered,
+.tracker-status-requested {
+  background: rgba(209,179,88,0.26);
+  border-color: rgba(138,119,85,0.42);
+  color: #8a7755;
+}
+
+.tracker-status-received {
+  background: rgba(123,139,127,0.26);
+  border-color: rgba(89,110,94,0.38);
+  color: #596e5e;
+}
+
+.tracker-status-ready {
+  background: rgba(89,110,94,0.24);
+  border-color: rgba(89,110,94,0.50);
+  color: #596e5e;
+}
