@@ -1251,9 +1251,11 @@ function applyPrefilterPageDefaults(urlState) {
 
   state.memberToolsEnabled = hasSavedCourses;
 
+  // Important:
+  // Prefiltered grade links should show the grade, not only My Courses.
   state.memberFilters = {
     ...state.memberFilters,
-    myCourses: hasSavedCourses,
+    myCourses: false,
   };
 
   localStorage.setItem(
