@@ -580,3 +580,53 @@
   padding-bottom: 3px;
   font-size: 11px;
 }
+
+.tracker-book-controls {
+  align-items: center;
+  gap: 5px;
+}
+
+.tracker-prep-sentence-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(222,225,210,0.58);
+  font-size: 13px;
+  line-height: 1;
+}
+
+.tracker-prep-divider,
+.tracker-prep-arrow {
+  color: rgba(80,86,80,0.52);
+  font-size: 12px;
+}
+
+.tracker-prep-select-soft {
+  color: #666d66;
+}
+
+.tracker-prep-status-select {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.tracker-prep-status-not_ready {
+  color: #596e5e;
+}
+
+.tracker-prep-status-ordered,
+.tracker-prep-status-requested {
+  color: #7b7257;
+}
+
+.tracker-prep-status-received {
+  color: #63756a;
+}
+
+.tracker-prep-status-ready {
+  color: #596e5e;
+}
