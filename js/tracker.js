@@ -207,36 +207,38 @@ function renderPrepRow(row) {
           </div>
         </div>
 
-        <div class="tracker-book-controls">
+        <div class="tracker-book-controls tracker-prep-ledger-note">
+          <div class="tracker-prep-note-part tracker-prep-note-mode">
+            <span class="tracker-prep-sentence-icon" aria-hidden="true">
+              ${prepModeIcon(row.mode)}
+            </span>
+        
+            ${prepSelect(row.resourceId, row.index, "mode", row.mode, [
+              { value: "purchase", label: "purchase" },
+              { value: "library", label: "library" },
+              { value: "ebook", label: "ebook" },
+              { value: "audiobook", label: "audiobook" },
+              { value: "own", label: "already own" },
+              { value: "print", label: "print" },
+              { value: "save", label: "save" },
+            ], "tracker-prep-select-soft tracker-prep-mode-select")}
+          </div>
+        
+          <span class="tracker-prep-bar">|</span>
+        
           ${prepSelect(row.resourceId, row.index, "kind", row.kind, [
-            { value: "physical", label: "Physical" },
-            { value: "digital", label: "Digital" },
-          ], "tracker-prep-select-soft")}
+            { value: "physical", label: "physical" },
+            { value: "digital", label: "digital" },
+          ], "tracker-prep-select-soft tracker-prep-kind-select")}
         
-          <span class="tracker-prep-divider">·</span>
-        
-          <span class="tracker-prep-sentence-icon" aria-hidden="true">
-            ${prepModeIcon(row.mode)}
-          </span>
-        
-          ${prepSelect(row.resourceId, row.index, "mode", row.mode, [
-            { value: "purchase", label: "Purchase" },
-            { value: "library", label: "Library" },
-            { value: "ebook", label: "Ebook" },
-            { value: "audiobook", label: "Audiobook" },
-            { value: "own", label: "Already Own" },
-            { value: "print", label: "Print" },
-            { value: "save", label: "Save" },
-          ], "tracker-prep-select-soft")}
-        
-          <span class="tracker-prep-arrow">→</span>
+          <span class="tracker-prep-bar">|</span>
         
           ${prepSelect(row.resourceId, row.index, "status", row.status, [
-            { value: "not_ready", label: "Not Ready" },
-            { value: "ordered", label: "Ordered" },
-            { value: "requested", label: "Requested" },
-            { value: "received", label: "Received" },
-            { value: "ready", label: "Ready to Use" },
+            { value: "not_ready", label: "NOT READY" },
+            { value: "ordered", label: "ORDERED" },
+            { value: "requested", label: "REQUESTED" },
+            { value: "received", label: "RECEIVED" },
+            { value: "ready", label: "READY" },
           ], `tracker-prep-status-select tracker-prep-status-${status}`)}
         </div>
       </div>
