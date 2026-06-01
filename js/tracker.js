@@ -178,10 +178,10 @@ function renderBooksPanel() {
 
   if (booksGroupedContainer) {
     booksGroupedContainer.innerHTML = [
-      bookTrackerGroup("Ready to Use", readyRows, true),
-      bookTrackerGroup("Received", receivedRows, false),
-      bookTrackerGroup("Ordered / Requested", orderedRequestedRows, false),
       bookTrackerGroup("Needs Attention", attentionRows, false),
+      bookTrackerGroup("Ordered / Requested", orderedRequestedRows, false),
+      bookTrackerGroup("Received", receivedRows, false),
+      bookTrackerGroup("Ready to Use", readyRows, true),
     ].join("");
   }
 }
