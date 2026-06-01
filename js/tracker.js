@@ -1,5 +1,9 @@
 const TRACKER_APP_CACHE_VERSION = window.APP_CACHE_VERSION || "2025-12-09-v1";
 const TRACKER_PLANNER_KEY = window.PLANNER_STATE_KEY || `alveary_planner_${TRACKER_APP_CACHE_VERSION}`;
+const TRACKER_RESOURCES_URL = "data/MA_Resources.json";
+
+let trackerResourcesById = {};
+let trackerResourcesLastUpdated = "";
 
 function readPlannerState() {
   try {
@@ -9,6 +13,37 @@ function readPlannerState() {
     console.warn("Could not read tracker planner state", error);
     return {};
   }
+}
+
+async function loadTrackerResources() {
+  try {
+    const res = await fetch(TRACKER_RESOURCES_URL, { cache: "no-cache" });
+    if (!res.ok) throw new Error(`HTTP ${res.status} for ${TRACKER_RESOURCES_URL}`);
+
+    const json = await res.json();
+    trackerResourcesLastUpdated = json?.lastUpdated || "";
+
+    trackerResourcesById = {};
+
+    for (const resource of json?.resources || []) {
+      if (resource?.resourceId) {
+        trackerResourcesById[String(resource.resourceId)] = resource;
+      }
+    }
+  } catch (error) {
+    console.warn("Could not load tracker resources", error);
+    trackerResourcesById = {};
+  }
+}
+
+function trackerCoverPath(resourceId) {
+  if (!resourceId) return "img/placeholders/book.svg";
+
+  const v = trackerResourcesLastUpdated
+    ? `?v=${encodeURIComponent(trackerResourcesLastUpdated)}`
+    : "";
+
+  return `img/resources/${resourceId}.webp${v}`;
 }
 
 function percent(part, whole) {
@@ -123,7 +158,9 @@ function prepSelect(resourceId, index, field, value, options, extraClass = "") {
 }
 
 function renderPrepRow(row) {
-  const title = row.title || `Resource ${row.resourceId}`;
+  const resource = trackerResourcesById[String(row.resourceId)] || {};
+  const title = resource.title || row.title || `Resource ${row.resourceId}`;
+  const author = resource.author ? `by ${resource.author}` : "";
   const status = String(row.status || "not_ready").toLowerCase();
 
   return `
@@ -133,7 +170,18 @@ function renderPrepRow(row) {
       </span>
 
       <div class="tracker-book-line">
-        <div class="tracker-book-title">${title}</div>
+        <div class="tracker-book-title-wrap">
+          <img
+            src="${trackerCoverPath(row.resourceId)}"
+            alt=""
+            class="tracker-book-cover"
+            onerror="this.onerror=null; this.src='img/placeholders/book.svg';"
+          >
+          <div>
+            <div class="tracker-book-title">${title}</div>
+            ${author ? `<div class="tracker-book-author">${author}</div>` : ""}
+          </div>
+        </div>
 
         <div class="tracker-book-controls">
           ${prepSelect(row.resourceId, row.index, "kind", row.kind, [
@@ -367,7 +415,9 @@ function initTabs() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadTrackerResources();
+
   renderTracker();
   renderBooksPanel();
   initTabs();
