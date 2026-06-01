@@ -140,6 +140,26 @@ function prepStatusIcon(status) {
   return "□";
 }
 
+function prepKindIcon(kind) {
+  return String(kind || "").toLowerCase() === "digital" ? "💻" : "📖";
+}
+
+function prepModeIcon(mode) {
+  const key = String(mode || "purchase").toLowerCase();
+
+  const icons = {
+    save: "💾",
+    print: "🖨️",
+    purchase: "🛒",
+    library: "📚",
+    ebook: "💻",
+    audiobook: "🎧",
+    own: "🏠",
+  };
+
+  return icons[key] || "🛒";
+}
+
 function prepSelect(resourceId, index, field, value, options, extraClass = "") {
   return `
     <select
@@ -191,8 +211,14 @@ function renderPrepRow(row) {
           ${prepSelect(row.resourceId, row.index, "kind", row.kind, [
             { value: "physical", label: "Physical" },
             { value: "digital", label: "Digital" },
-          ])}
-
+          ], "tracker-prep-select-soft")}
+        
+          <span class="tracker-prep-divider">·</span>
+        
+          <span class="tracker-prep-sentence-icon" aria-hidden="true">
+            ${prepModeIcon(row.mode)}
+          </span>
+        
           ${prepSelect(row.resourceId, row.index, "mode", row.mode, [
             { value: "purchase", label: "Purchase" },
             { value: "library", label: "Library" },
@@ -201,15 +227,17 @@ function renderPrepRow(row) {
             { value: "own", label: "Already Own" },
             { value: "print", label: "Print" },
             { value: "save", label: "Save" },
-          ])}
-
+          ], "tracker-prep-select-soft")}
+        
+          <span class="tracker-prep-arrow">→</span>
+        
           ${prepSelect(row.resourceId, row.index, "status", row.status, [
             { value: "not_ready", label: "Not Ready" },
             { value: "ordered", label: "Ordered" },
             { value: "requested", label: "Requested" },
             { value: "received", label: "Received" },
             { value: "ready", label: "Ready to Use" },
-          ], "tracker-prep-status-select")}
+          ], `tracker-prep-status-select tracker-prep-status-${status}`)}
         </div>
       </div>
     </div>
