@@ -531,3 +531,26 @@
     justify-content: flex-start;
   }
 }
+
+.tracker-book-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.tracker-book-cover {
+  width: 34px;
+  height: 46px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid rgba(89,110,94,0.16);
+  background: #f3f4f1;
+}
+
+.tracker-book-author {
+  margin-top: 2px;
+  font-size: 12px;
+  color: #6f746b;
+}
