@@ -559,6 +559,12 @@
   stroke: currentColor;
 }
 
+.tracker-status-img {
+  width: 15px;
+  height: 15px;
+  display: block;
+}
+
 /* =========================================================
    12. Book Prep Note Controls
    Layout: mode icon + mode | kind | status
