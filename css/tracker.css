@@ -424,3 +424,20 @@
   color: #6f746b;
   font-size: 14px;
 }
+
+.tracker-books-ledger {
+  border-top: 4px solid #7b8b7f;
+}
+
+.tracker-book-group-title {
+  background: rgba(123,139,127,0.18);
+  color: #596e5e;
+}
+
+.tracker-book-group-rows {
+  border-left-color: rgba(123,139,127,0.38);
+}
+
+.tracker-book-group + .tracker-book-group {
+  margin-top: 22px;
+}
