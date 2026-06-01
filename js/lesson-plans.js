@@ -1243,16 +1243,15 @@ function applySmartFirstVisitDefaults() {
 function applyPrefilterPageDefaults(urlState) {
   if (!urlState?.hasPrefilter) return;
 
-  const hasSavedCourses = lessonHasSavedCourseData();
-
   localStorage.setItem(STORAGE_KEYS.introCollapsed, "false");
   localStorage.setItem(STORAGE_KEYS.filtersCollapsed, "false");
-  localStorage.setItem(STORAGE_KEYS.memberTools, String(hasSavedCourses));
 
-  state.memberToolsEnabled = hasSavedCourses;
+  // Member Tools should always be visible on lesson plan links
+  // because this page is member-only and Bulk Download lives there.
+  localStorage.setItem(STORAGE_KEYS.memberTools, "true");
+  state.memberToolsEnabled = true;
 
-  // Important:
-  // Prefiltered grade links should show the grade, not only My Courses.
+  // Keep grade links prefiltered by grade, not narrowed to My Courses.
   state.memberFilters = {
     ...state.memberFilters,
     myCourses: false,
