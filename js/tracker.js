@@ -237,47 +237,6 @@ function renderTracker() {
   }
 }
 
-function renderBooksPanel() {
-  const plannerState = readPlannerState();
-
-  const books = summarizeOptions(
-    plannerState?.extras?.resources?.optionsByResourceId || {}
-  );
-
-  setText("booksReadyCount", books.ready);
-  setText("booksOrderedCount", books.ordered);
-  setText("booksNotReadyCount", books.notReady);
-
-  const container = document.getElementById("booksAttentionRows");
-
-  if (!container) return;
-
-  const optionsByResourceId =
-    plannerState?.extras?.resources?.optionsByResourceId || {};
-
-  const rows = [];
-
-  Object.entries(optionsByResourceId).forEach(([resourceId, options]) => {
-    (options || []).forEach(option => {
-      const status = String(option?.status || "not_ready");
-
-      if (status === "ready") return;
-
-      rows.push(`
-        <div class="tracker-ledger-row">
-          <span>Resource ${resourceId}</span>
-          <strong>${status.replaceAll("_", " ")}</strong>
-        </div>
-      `);
-    });
-  });
-
-  container.innerHTML =
-    rows.length
-      ? rows.join("")
-      : `<div class="tracker-empty-state">All tracked books are ready.</div>`;
-}
-
 function initTabs() {
   const tabs = document.querySelectorAll(".tracker-tab");
   const panels = document.querySelectorAll(".tracker-panel");
