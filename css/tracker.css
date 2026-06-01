@@ -493,19 +493,20 @@
 .tracker-prep-select {
   appearance: none;
   border: 0;
-  border-radius: 999px;
-  background-color: rgba(222,225,210,0.55);
+  border-radius: 0;
+  background-color: transparent;
   color: #505650;
-  padding: 4px 24px 4px 10px;
+  padding: 2px 18px 2px 0;
   font-size: 12px;
   line-height: 1.2;
   cursor: pointer;
+  border-bottom: 1px dotted rgba(89,110,94,0.28);
   background-image:
     linear-gradient(45deg, transparent 50%, #596e5e 50%),
     linear-gradient(135deg, #596e5e 50%, transparent 50%);
   background-position:
-    calc(100% - 12px) 50%,
-    calc(100% - 8px) 50%;
+    calc(100% - 8px) 50%,
+    calc(100% - 4px) 50%;
   background-size: 4px 4px, 4px 4px;
   background-repeat: no-repeat;
 }
@@ -513,11 +514,13 @@
 .tracker-prep-select:hover,
 .tracker-prep-select:focus {
   outline: none;
-  background-color: rgba(173,181,143,0.24);
+  color: #596e5e;
+  background-color: transparent;
+  border-bottom-color: rgba(89,110,94,0.55);
 }
 
 .tracker-prep-status-select {
-  background-color: rgba(123,139,127,0.16);
+  background-color: transparent;
   color: #596e5e;
   font-weight: 700;
 }
