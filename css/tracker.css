@@ -702,3 +702,43 @@
     justify-content: start;
   }
 }
+
+/* Book prep note-style dropdowns */
+.tracker-prep-ledger-note .tracker-prep-select {
+  background-image: none;
+  border-bottom-color: transparent;
+  padding-right: 2px;
+}
+
+.tracker-prep-ledger-note .tracker-prep-select:hover,
+.tracker-prep-ledger-note .tracker-prep-select:focus {
+  border-bottom-color: rgba(89,110,94,0.28);
+}
+
+/* Keep the status as the visual anchor */
+.tracker-prep-status-select {
+  font-weight: 800;
+  letter-spacing: 0.065em;
+  text-transform: uppercase;
+}
+
+.tracker-prep-status-not_ready {
+  color: #6f746b !important;
+  -webkit-text-fill-color: #6f746b;
+}
+
+.tracker-prep-status-ordered,
+.tracker-prep-status-requested {
+  color: #8a7755 !important;
+  -webkit-text-fill-color: #8a7755;
+}
+
+.tracker-prep-status-received {
+  color: #63756a !important;
+  -webkit-text-fill-color: #63756a;
+}
+
+.tracker-prep-status-ready {
+  color: #596e5e !important;
+  -webkit-text-fill-color: #596e5e;
+}
