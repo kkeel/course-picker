@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-01T13:46:53.106Z",
+  "lastUpdated": "2026-06-03T12:49:18.455Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -14445,6 +14445,39 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recOlXtr0sY7g0n9A?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "recq2xv65pxm53xiI",
+      "targetId": "recoPQAbrD0LGdLmj",
+      "resourceId": "rec1PLwgnRIEyeMRE",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.000",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Aesop's Fables (Full Term)",
+        "T2": "Aesop's Fables (Full Term)",
+        "T3": "Aesop's Fables (Full Term)"
+      },
+      "gradeText": "G1, G2, G3, G4, G5, G6,",
+      "grades": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recoPQAbrD0LGdLmj?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recGJXKhhaJCQVzWm",
       "targetId": "recoPQAbrD0LGdLmj",
       "resourceId": "rec5EgFFy7cprp5gU",
@@ -22519,36 +22552,6 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recZ0DXfFP97QArDQ?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "reccxnrMs7csu4PsF",
-      "targetId": "recZ0DXfFP97QArDQ",
-      "resourceId": "recXbEbDp4E1weSLA",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)\nTerm 3 (Partial Term)",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "Heart and Soul: The Story of America and African Americans (Partial Term)",
-        "T2": "Heart and Soul: The Story of America and African Americans (Partial Term)",
-        "T3": "Heart and Soul: The Story of America and African Americans (Partial Term)"
-      },
-      "gradeText": "G4, G5, G6,",
-      "grades": [
-        4,
-        5,
-        6
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recZ0DXfFP97QArDQ?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "reckG9wHWGJ56rlGO",
       "targetId": "recZ0DXfFP97QArDQ",
       "resourceId": "rec0AHSZzCBWRzIdy",
@@ -22591,6 +22594,34 @@
         "T1": "",
         "T2": "",
         "T3": "Children of the Wild West (Full Term)"
+      },
+      "gradeText": "G4, G5, G6,",
+      "grades": [
+        4,
+        5,
+        6
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recZ0DXfFP97QArDQ?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "reccxnrMs7csu4PsF",
+      "targetId": "recZ0DXfFP97QArDQ",
+      "resourceId": "recXbEbDp4E1weSLA",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "003.003.000",
+      "scopeText": "Term 3 (Partial Term)",
+      "terms": [
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "",
+        "T3": "Heart and Soul: The Story of America and African Americans (Partial Term)"
       },
       "gradeText": "G4, G5, G6,",
       "grades": [

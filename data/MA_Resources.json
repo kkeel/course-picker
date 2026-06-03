@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-01T13:46:54.710Z",
+  "lastUpdated": "2026-06-03T12:49:19.504Z",
   "rotation": "R3",
   "resources": [
     {
@@ -1374,6 +1374,40 @@
       ],
       "imageViewLink": "https://drive.google.com/uc?id=1lg0T9EDZC1ZnAAp3LDr7u1GzKfE4LWoL",
       "bookEditUrl": "https://airtable.com/app1aju9e3YhfQTXd/pag8BT9Kl6uQ8sdqh?e0DsR=allRecords&uNjQ2=recunMit5ns4uKkuG"
+    },
+    {
+      "resourceId": "rec1PLwgnRIEyeMRE",
+      "title": "Aesop's Fables",
+      "author": "Aesop",
+      "isbnAsin": "978-1604338102",
+      "resourceTagText": "Ebook, Audiobook",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.amazon.com/dp/1604338105?social_share=cm_sw_r_ffobk_cp_ud_dp_S76HXSG6S5HVD6WW46AF&bestFormat=true&linkCode=ll2&tag=alveary0a-20&linkId=b3a51d94d7a838ffc6bd35524ab921a1&language=en_US&ref_=as_li_ss_tl",
+          "memberOnly": false,
+          "memberstackId": ""
+        }
+      ],
+      "flags": {
+        "save": false,
+        "print": false,
+        "reference": false,
+        "optional": true,
+        "chooseOne": false
+      },
+      "discount": {
+        "text": "",
+        "code": ""
+      },
+      "maySub": "",
+      "rationale": "Contains illustrations to accompany the French literature story lines. The fables and illustrations included in the book will be used multiple years in French.",
+      "note": "",
+      "assignmentIdsR3": [
+        "recq2xv65pxm53xiI"
+      ],
+      "imageViewLink": "",
+      "bookEditUrl": "https://airtable.com/app1aju9e3YhfQTXd/pag8BT9Kl6uQ8sdqh?e0DsR=allRecords&uNjQ2=rec1PLwgnRIEyeMRE"
     },
     {
       "resourceId": "recHLSd4DYDUKCKw4",
@@ -5790,7 +5824,14 @@
       "author": "Alveary",
       "isbnAsin": "",
       "resourceTagText": "Ebook",
-      "links": [],
+      "links": [
+        {
+          "text": "PDF",
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "french-level-2-student-notebook"
+        }
+      ],
       "flags": {
         "save": true,
         "print": true,
@@ -5844,7 +5885,14 @@
       "author": "Alveary",
       "isbnAsin": "",
       "resourceTagText": "",
-      "links": [],
+      "links": [
+        {
+          "text": "PDF",
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "french-level-3-student-notebook"
+        }
+      ],
       "flags": {
         "save": true,
         "print": true,
@@ -6656,9 +6704,9 @@
       "links": [
         {
           "text": "PDF",
-          "url": "https://drive.google.com/file/d/1-j4J77WFRAxZQFief984cmTr8KVNdwDA/view?usp=drive_link",
-          "memberOnly": false,
-          "memberstackId": ""
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "grade-4-copywork-dictation-book"
         }
       ],
       "flags": {
@@ -6691,9 +6739,9 @@
       "links": [
         {
           "text": "PDF",
-          "url": "https://drive.google.com/file/d/1D4RfQrpdsfFMNdUlpbmnd86nEHx4qeBg/view?usp=drive_link",
-          "memberOnly": false,
-          "memberstackId": ""
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "grade-5-copywork-dictation-book"
         }
       ],
       "flags": {
@@ -6726,9 +6774,9 @@
       "links": [
         {
           "text": "PDF",
-          "url": "https://drive.google.com/file/d/1W28ZbkW3USWwMt1bO8hVFjV5K7Q_eC_v/view?usp=drive_link",
-          "memberOnly": false,
-          "memberstackId": ""
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "grade-6-copywork-dictation-book"
         }
       ],
       "flags": {
@@ -6761,9 +6809,9 @@
       "links": [
         {
           "text": "PDF",
-          "url": "https://drive.google.com/file/d/1nmELMbJ9sLnRZqLrOuzTDDVDC8o0rKLW/view?usp=drive_link",
-          "memberOnly": false,
-          "memberstackId": ""
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "grade-7-copywork-dictation-book"
         }
       ],
       "flags": {
@@ -6796,9 +6844,9 @@
       "links": [
         {
           "text": "PDF",
-          "url": "https://drive.google.com/file/d/1khw_qgI4OvHCO-qwXNF2v4wyVvJJ6kSo/view?usp=drive_link",
-          "memberOnly": false,
-          "memberstackId": ""
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "grade-8-copywork-dictation-book"
         }
       ],
       "flags": {
@@ -13777,7 +13825,7 @@
       "resourceTagText": "Ebook",
       "links": [
         {
-          "text": "PDF",
+          "text": "Coming Soon",
           "url": "https://www.alveary.org/login",
           "memberOnly": true,
           "memberstackId": "spanish-level-5-student-notebook"
