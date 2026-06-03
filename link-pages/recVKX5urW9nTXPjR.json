@@ -30,6 +30,39 @@
       }
     ]
   },
-  "updatedAt": "2026-06-03T01:02:06.698Z",
-  "terms": []
+  "updatedAt": "2026-06-03T11:28:22.943Z",
+  "terms": [
+    {
+      "termNumber": 1,
+      "term": "Term 1",
+      "weeks": [
+        {
+          "weekNumber": 1,
+          "weekLabel": "Week 1",
+          "lessons": [
+            {
+              "lessonId": "recw6t0ltvU4dFLSD",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 0,
+              "lessonLabel": "Lesson 1",
+              "linkLabel": "Canadian History",
+              "title": "40m Canadian History: Grades 11-12 - Lesson 1",
+              "topicTitle": "Canadian History",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Canada: A People's History",
+                  "url": "https://archive.org/details/canada-a-peoples-history-2000-2001/Canada%3A+A+People's+History+S01E05.mp4"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
