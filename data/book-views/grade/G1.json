@@ -2,7 +2,7 @@
   "view": "grade",
   "id": "G1",
   "title": "Grade 1 Books",
-  "bookCount": 103,
+  "bookCount": 104,
   "items": [
     {
       "type": "course",
@@ -2586,6 +2586,45 @@
           "shared": false,
           "sortId": "",
           "books": [
+            {
+              "resourceId": "rec1PLwgnRIEyeMRE",
+              "instanceKey": "course:recoPQAbrD0LGdLmj:resource:rec1PLwgnRIEyeMRE",
+              "title": "Aesop's Fables",
+              "author": "Aesop",
+              "isbn": "978-1604338102",
+              "asin": "",
+              "isbnAsin": "978-1604338102",
+              "imagePath": "img/resources/rec1PLwgnRIEyeMRE.webp",
+              "placeholderPath": "img/placeholders/book.svg",
+              "optional": true,
+              "chooseOne": false,
+              "gradeLevelTag": "",
+              "formatTags": "Ebook, Audiobook",
+              "formatOptions": [
+                {
+                  "type": "ebook",
+                  "label": "Ebook"
+                },
+                {
+                  "type": "audiobook",
+                  "label": "Audiobook"
+                }
+              ],
+              "rationale": "Contains illustrations to accompany the French literature story lines. The fables and illustrations included in the book will be used multiple years in French.",
+              "noteText": "",
+              "maySubText": "",
+              "discountText": "",
+              "scopeText": "Term 1\nTerm 2\nTerm 3",
+              "sharedText": "",
+              "purchaseOptions": [
+                {
+                  "label": "Option 1",
+                  "url": "https://www.amazon.com/dp/1604338105?social_share=cm_sw_r_ffobk_cp_ud_dp_S76HXSG6S5HVD6WW46AF&bestFormat=true&linkCode=ll2&tag=alveary0a-20&linkId=b3a51d94d7a838ffc6bd35524ab921a1&language=en_US&ref_=as_li_ss_tl",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                }
+              ]
+            },
             {
               "resourceId": "rec5EgFFy7cprp5gU",
               "instanceKey": "course:recoPQAbrD0LGdLmj:resource:rec5EgFFy7cprp5gU",

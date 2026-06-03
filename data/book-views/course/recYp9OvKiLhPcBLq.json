@@ -119,7 +119,14 @@
           "discountText": "",
           "scopeText": "Term 1\nTerm 2\nTerm 3",
           "sharedText": "",
-          "purchaseOptions": []
+          "purchaseOptions": [
+            {
+              "label": "PDF",
+              "url": "https://www.alveary.org/login",
+              "memberOnly": true,
+              "memberstackId": "french-level-3-student-notebook"
+            }
+          ]
         }
       ]
     }
