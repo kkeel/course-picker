@@ -7,24 +7,45 @@
   "gradeFilter": "G2,",
   "sortId": "007.002.001.000",
   "setting": "Publish",
-  "generatedAt": "2026-06-05T13:42:21.162Z",
+  "generatedAt": "2026-06-06T12:02:14.037Z",
   "ideas": {
     "intro": "Ideas for projects, activities, books, games, and more for students with a high level of interest.",
     "terms": [
       {
         "term": 1,
         "title": "Term 1",
-        "items": []
+        "items": [
+          {
+            "id": "rec9BOR0yHSkClbzl",
+            "term": 1,
+            "sort": "",
+            "content": "[ ] This [National Geographic page](https://education.nationalgeographic.org/resource/maps-and-models/) has information on maps of familiar places along with simple questions to explore those maps. \n[ ] Choose a museum from [this list](https://studenttravelplanningguide.com/virtual-field-trips/) of museums by state and take a virtual field trip. (A parent should preview all links.)\n[ ] Follow the [Pony Express](https://nationalponyexpress.org/re-ride/current-reride/) re-ride from St. Joseph, Missouri to Sacramento, California either from this year or previous re-rides. You can also send a letter along on the journey!"
+          }
+        ]
       },
       {
         "term": 2,
         "title": "Term 2",
-        "items": []
+        "items": [
+          {
+            "id": "recwYS6mgyJhL5D0T",
+            "term": 2,
+            "sort": "",
+            "content": "[ ] Try a recipe from [one of the states](https://a.co/d/6QqQ4JL) you are studying. Check your library or online for ideas.\n[ ] Pick a landmark from one of the states you are learning about and try to recreate it using LEGOs or clay.\n[ ] Take a [virtual tour](https://www.nationalparks.org/connect/blog/take-virtual-visit-national-park) or watch a webcam from a National Park."
+          }
+        ]
       },
       {
         "term": 3,
         "title": "Term 3",
-        "items": []
+        "items": [
+          {
+            "id": "reclg46Cn8ZzvwXmc",
+            "term": 3,
+            "sort": "",
+            "content": "[ ] Route 66 carried hundreds of thousands of Depression-era migrants from the Midwest who went to California hoping for jobs and a better life. Explore some of the famous stops and consider your own[ road trip](https://www.route66roadtrip.com/).\n[ ] [Print ](https://www.nationalgeographic.org/society/learn-with-us/mapmaker-launch-guide/)and assemble a table-sized or floor-sized map of the United States and use it to play simple games such as taking small cars on a road trip or playing Simon Says.\n[ ] You can find out what indigenous groups lived in your zip code by entering it [here](https://land.codeforanchorage.org/)."
+          }
+        ]
       }
     ]
   },
@@ -47,6 +68,23 @@
       ]
     },
     {
+      "id": "recPPfDwjfDCLCUPi",
+      "resourceId": "recPPfDwjfDCLCUPi",
+      "title": "America the Beautiful",
+      "author": "Cholena Rose Dare",
+      "isbnAsin": "978-1680529296",
+      "resourceTagText": "",
+      "scope": "(T1, T2, T3)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/recPPfDwjfDCLCUPi.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://a.co/d/aLHrEWZ"
+        }
+      ]
+    },
+    {
       "id": "recbyYcOg6DgiFP6J",
       "resourceId": "recbyYcOg6DgiFP6J",
       "title": "An Outlaw Thanksgiving",
@@ -64,6 +102,23 @@
       ]
     },
     {
+      "id": "rec5caVs8wpd0KGeJ",
+      "resourceId": "rec5caVs8wpd0KGeJ",
+      "title": "Anno's U.S.A.",
+      "author": "Mitsumasa Anno",
+      "isbnAsin": "978-0399209741",
+      "resourceTagText": "",
+      "scope": "(T1, T2, T3)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/rec5caVs8wpd0KGeJ.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://a.co/d/5X33nXh"
+        }
+      ]
+    },
+    {
       "id": "recWjYl192Xu0Gnsi",
       "resourceId": "recWjYl192Xu0Gnsi",
       "title": "Big Moon Tortilla",
@@ -77,6 +132,44 @@
         {
           "text": "Option 1",
           "url": "https://www.amazon.com/Big-Moon-Tortilla-Joy-Cowley/dp/159078037X/ref=sr_1_1?crid=K3N0XD8WJL2U&dib=eyJ2IjoiMSJ9.JOkySku-37IjzLdLrQv8mIlubvpJsqeTbs3U1dUejB-QiPYhHEqrc4q4PXZdTs1v9yWtAWLjwLkg7TL1nVAeI7o3FHXr35ouhTByu5lDRRE.NMSe42r5niivWba1pvB1PrwEb0yCO7hbnBqH9JOkbzQ&dib_tag=se&keywords=big+moon+tortilla+book&qid=1779981544&sprefix=big+moon+tortilla+book%2Caps%2C298&sr=8-1"
+        }
+      ]
+    },
+    {
+      "id": "rec8yJcJs8oT3Ym8d",
+      "resourceId": "rec8yJcJs8oT3Ym8d",
+      "title": "Eat Your Way Through The USA",
+      "author": "Loree Pettit",
+      "isbnAsin": "9781931397346",
+      "resourceTagText": "",
+      "scope": "(T1, T2, T3)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/rec8yJcJs8oT3Ym8d.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.rainbowresource.com/031795.html"
+        }
+      ]
+    },
+    {
+      "id": "recG6wPkZfXSJqcPA",
+      "resourceId": "recG6wPkZfXSJqcPA",
+      "title": "Elementary Geography",
+      "author": "Charlotte Mason",
+      "isbnAsin": "978-0990552963",
+      "resourceTagText": "Ebook, Audiobook",
+      "scope": "(T1, T2, T3)",
+      "rationale": "This is Charlotte Mason's classic introduction to Geography. We use selections from the book, which include many demonstrations, to help young children understand the concepts.",
+      "imagePath": "img/extra-helpings/recG6wPkZfXSJqcPA.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.amazon.com/Elementary-Geography-Charlotte-Mason/dp/0990552969?&linkCode=ll2&tag=alveary0a-20&linkId=ad387209126bbe4d952b878a0038b283&language=en_US&ref_=as_li_ss_tl"
+        },
+        {
+          "text": "Free",
+          "url": "https://www.amblesideonline.org/elementary-geography.php"
         }
       ]
     },
@@ -128,6 +221,57 @@
         {
           "text": "Option 1",
           "url": "https://www.amazon.com/Song-Swallows-Leo-Politi/dp/0892369892/ref=sr_1_1?crid=AN80LCM4QSGY&dib=eyJ2IjoiMSJ9.CvB5CenBE2L_1gemr0OfP8Ludya2cTxTfvQRIOqAaT9fYqPy78KMk7jcOyONZ41QWQZZvW_ecPfmci2pmDojhWE86ezLXjmGhvBPMm4smoibqVNoNYcEFjbHUT3SO7Av8tmmgF-Yvoc9p2f6OMZoNcL91D4YtOM95totu9oh_MNiEU7VtrUI5ouoyhdEC408UD6pliFMXr6xubF6Z75oUGdcWiiDUBJZqFb6mAv2RdE.An20N0_djbRKy-WPgyUOwoh0Vzb-sMixgI9u_it_xfk&dib_tag=se&keywords=Song+of+the+Swallows&qid=1779979352&sprefix=song+of+the+swallows%2Caps%2C251&sr=8-1"
+        }
+      ]
+    },
+    {
+      "id": "rec0Hr1Id5Dd6HmRS",
+      "resourceId": "rec0Hr1Id5Dd6HmRS",
+      "title": "U.S. & Canada GeoPuzzle",
+      "author": "Geotoys",
+      "isbnAsin": "B000LFUKV8",
+      "resourceTagText": "",
+      "scope": "(T1, T2, T3)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/rec0Hr1Id5Dd6HmRS.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://a.co/d/fqyxvyc"
+        }
+      ]
+    },
+    {
+      "id": "recMG3Twjg8VFZSrO",
+      "resourceId": "recMG3Twjg8VFZSrO",
+      "title": "United Tastes of America: An Atlas of Food Facts & Recipes from Every State!",
+      "author": "Gabrielle Langholtz",
+      "isbnAsin": "978-0714878621",
+      "resourceTagText": "",
+      "scope": "(T1, T2, T3)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/recMG3Twjg8VFZSrO.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://a.co/d/74ntNh1"
+        }
+      ]
+    },
+    {
+      "id": "recIote56tPsxhN1Q",
+      "resourceId": "recIote56tPsxhN1Q",
+      "title": "Visit the Midwest",
+      "author": "",
+      "isbnAsin": "",
+      "resourceTagText": "",
+      "scope": "",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/recIote56tPsxhN1Q.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.amazon.com/dp/1978537506/ref=sspa_dk_detail_0?psc=1&pd_rd_i=1978537506&pd_rd_w=LaJhw&content-id=amzn1.sym.8c2f9165-8e93-42a1-8313-73d3809141a2&pf_rd_p=8c2f9165-8e93-42a1-8313-73d3809141a2&pf_rd_r=1MJQJQ1KD903PETCQA96&pd_rd_wg=j73UI&pd_rd_r=93c19120-8d0f-4cbb-ac17-dd8c81df6b97&s=books&sp_csd=d2lkZ2V0TmFtZT1zcF9kZXRhaWw"
         }
       ]
     },

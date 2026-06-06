@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-05T13:42:21.204Z",
+  "generatedAt": "2026-06-06T12:02:14.075Z",
   "rotation": "R3",
-  "count": 185,
+  "count": 198,
   "rows": [
     {
       "id": "recR8JMqdSmRHsqIq",
@@ -295,7 +295,7 @@
       "subject": "Citizenship",
       "gradeText": "GRADE(S): 4",
       "sortId": "005.004.001.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=reczerMKaBdxfhOtI",
       "ideaCount": 0,
       "resourceCount": 5
@@ -317,7 +317,7 @@
       "subject": "Citizenship",
       "gradeText": "GRADE(S): 5",
       "sortId": "005.005.001.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recLgCbF51jHg5u4Q",
       "ideaCount": 3,
       "resourceCount": 10
@@ -345,14 +345,36 @@
       "resourceCount": 0
     },
     {
+      "id": "rec52efxcB4N98hgR",
+      "title": "Citizenship: Grade 6",
+      "subject": "Citizenship",
+      "gradeText": "GRADE(S): 6",
+      "sortId": "005.006.001.000",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=rec52efxcB4N98hgR",
+      "ideaCount": 2,
+      "resourceCount": 0
+    },
+    {
+      "id": "recNZjfwI3SeCuONn",
+      "title": "Plutarch: Grades 6-8",
+      "subject": "Citizenship",
+      "gradeText": "GRADE(S): 6-8+",
+      "sortId": "005.006.001.001",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=recNZjfwI3SeCuONn",
+      "ideaCount": 3,
+      "resourceCount": 0
+    },
+    {
       "id": "recCRnZ3pIrchVLlT",
       "title": "Citizenship: Grade 7 (U.S.)",
       "subject": "Citizenship",
       "gradeText": "GRADE(S): 7",
       "sortId": "005.007.001.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recCRnZ3pIrchVLlT",
-      "ideaCount": 0,
+      "ideaCount": 6,
       "resourceCount": 5
     },
     {
@@ -361,10 +383,32 @@
       "subject": "Citizenship",
       "gradeText": "GRADE(S): 7",
       "sortId": "005.007.001.002",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recdq6lu7MCE3kUuC",
       "ideaCount": 3,
       "resourceCount": 5
+    },
+    {
+      "id": "recfFCbHI6HMBqSBE",
+      "title": "Citizenship: Grade 7 (Canada)",
+      "subject": "Citizenship",
+      "gradeText": "GRADE(S): 7",
+      "sortId": "005.007.002.000",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=recfFCbHI6HMBqSBE",
+      "ideaCount": 3,
+      "resourceCount": 0
+    },
+    {
+      "id": "recCQWoF8yby9Gstl",
+      "title": "Citizenship: Grade 8 (U.S.)",
+      "subject": "Citizenship",
+      "gradeText": "GRADE(S): 8",
+      "sortId": "005.008.001.000",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=recCQWoF8yby9Gstl",
+      "ideaCount": 4,
+      "resourceCount": 0
     },
     {
       "id": "rec46I88QSFQIJwng",
@@ -372,9 +416,75 @@
       "subject": "Citizenship",
       "gradeText": "GRADE(S): 8",
       "sortId": "005.008.001.002",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=rec46I88QSFQIJwng",
       "ideaCount": 1,
+      "resourceCount": 0
+    },
+    {
+      "id": "rec3zUhQr36iadk2c",
+      "title": "Citizenship: Grade 8 (Canada)",
+      "subject": "Citizenship",
+      "gradeText": "GRADE(S): 8",
+      "sortId": "005.008.002.000",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=rec3zUhQr36iadk2c",
+      "ideaCount": 4,
+      "resourceCount": 0
+    },
+    {
+      "id": "rec8rP4OZOxbQrWlK",
+      "title": "Canadian Gov./ Economics: Grade 8",
+      "subject": "Citizenship",
+      "gradeText": "GRADE(S): 8",
+      "sortId": "005.008.002.002",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=rec8rP4OZOxbQrWlK",
+      "ideaCount": 1,
+      "resourceCount": 0
+    },
+    {
+      "id": "recVU4NnwRjkf9C4r",
+      "title": "Citizenship: Grade 9 (U.S.)",
+      "subject": "Citizenship",
+      "gradeText": "GRADE(S): 9",
+      "sortId": "005.009.001.000",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=recVU4NnwRjkf9C4r",
+      "ideaCount": 2,
+      "resourceCount": 0
+    },
+    {
+      "id": "recZlVEv5UkShx7q9",
+      "title": "Plutarch/Government: Grade 9 (U.S.)",
+      "subject": "Citizenship",
+      "gradeText": "GRADE(S): 9",
+      "sortId": "005.009.001.001",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=recZlVEv5UkShx7q9",
+      "ideaCount": 2,
+      "resourceCount": 0
+    },
+    {
+      "id": "recQWKDHT3t6U85uA",
+      "title": "Citizenship: Grade 9 (Canada)",
+      "subject": "Citizenship",
+      "gradeText": "GRADE(S): 9",
+      "sortId": "005.009.002.000",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=recQWKDHT3t6U85uA",
+      "ideaCount": 2,
+      "resourceCount": 0
+    },
+    {
+      "id": "recXw9HiIV6WGm6oO",
+      "title": "Plutarch/Government: Grade 9 (Canada)",
+      "subject": "Citizenship",
+      "gradeText": "GRADE(S): 9",
+      "sortId": "005.009.002.001",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=recXw9HiIV6WGm6oO",
+      "ideaCount": 2,
       "resourceCount": 0
     },
     {
@@ -627,8 +737,8 @@
       "sortId": "007.002.001.000",
       "setting": "Publish",
       "url": "extra-helpings.html?id=recyqXBP4TluYd1hZ",
-      "ideaCount": 0,
-      "resourceCount": 7
+      "ideaCount": 3,
+      "resourceCount": 14
     },
     {
       "id": "recydvGZUJZVjPvQy",
@@ -638,8 +748,8 @@
       "sortId": "007.003.001.000",
       "setting": "Publish",
       "url": "extra-helpings.html?id=recydvGZUJZVjPvQy",
-      "ideaCount": 1,
-      "resourceCount": 16
+      "ideaCount": 4,
+      "resourceCount": 21
     },
     {
       "id": "recCHapNtsJooytSB",
@@ -671,8 +781,8 @@
       "sortId": "008.004.001.000",
       "setting": "Publish",
       "url": "extra-helpings.html?id=recE5optfXT9zxsw5",
-      "ideaCount": 5,
-      "resourceCount": 14
+      "ideaCount": 8,
+      "resourceCount": 17
     },
     {
       "id": "recZ0DXfFP97QArDQ",
@@ -686,6 +796,28 @@
       "resourceCount": 14
     },
     {
+      "id": "recNJHxMpmevpJkq6",
+      "title": "World History: Grades 4-6",
+      "subject": "History",
+      "gradeText": "GRADE(S): 4-6",
+      "sortId": "008.004.001.003",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=recNJHxMpmevpJkq6",
+      "ideaCount": 3,
+      "resourceCount": 4
+    },
+    {
+      "id": "recghfQsTMR1SBjwB",
+      "title": "History: Grade 4 (Canada)",
+      "subject": "History",
+      "gradeText": "GRADE(S): 4",
+      "sortId": "008.004.002.000",
+      "setting": "Hide",
+      "url": "extra-helpings.html?id=recghfQsTMR1SBjwB",
+      "ideaCount": 3,
+      "resourceCount": 3
+    },
+    {
       "id": "rec2RKe5ltrOg6i2s",
       "title": "History: Grades 5-6 (U.S.)",
       "subject": "History",
@@ -693,8 +825,8 @@
       "sortId": "008.005.001.000",
       "setting": "Publish",
       "url": "extra-helpings.html?id=rec2RKe5ltrOg6i2s",
-      "ideaCount": 5,
-      "resourceCount": 16
+      "ideaCount": 8,
+      "resourceCount": 19
     },
     {
       "id": "recBP0ILhMKRSKye3",
@@ -715,8 +847,8 @@
       "sortId": "008.005.002.000",
       "setting": "Publish",
       "url": "extra-helpings.html?id=rec9r9r3HBVh9D3Bk",
-      "ideaCount": 0,
-      "resourceCount": 2
+      "ideaCount": 3,
+      "resourceCount": 5
     },
     {
       "id": "recXs7i6rqLlwkcyu",
@@ -999,7 +1131,7 @@
       "subject": "Literature",
       "gradeText": "GRADE(S): 2",
       "sortId": "011.001.002.004",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=rec7jlz4INbdwK5bW",
       "ideaCount": 0,
       "resourceCount": 2
@@ -1021,7 +1153,7 @@
       "subject": "Literature",
       "gradeText": "GRADE(S): 3",
       "sortId": "011.001.003.003",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recDoQA8wNGbAHwcV",
       "ideaCount": 0,
       "resourceCount": 3
@@ -1197,7 +1329,7 @@
       "subject": "Literature",
       "gradeText": "GRADE(S): 4-8",
       "sortId": "011.002.004.000",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=recjJ2PgFC1yLjsc9",
       "ideaCount": 2,
       "resourceCount": 2
@@ -2028,12 +2160,23 @@
       "resourceCount": 0
     },
     {
+      "id": "rechCQYHXFbtOHxO7",
+      "title": "Science: Geology",
+      "subject": "Alt. Science Options",
+      "gradeText": "GRADE(S): 11-12",
+      "sortId": "017.011.005.000",
+      "setting": "Publish",
+      "url": "extra-helpings.html?id=rechCQYHXFbtOHxO7",
+      "ideaCount": 0,
+      "resourceCount": 1
+    },
+    {
       "id": "rechpxDJlfYNeYf26",
       "title": "Geology Lessons",
       "subject": "Alt. Science Options",
       "gradeText": "GRADE(S): 11-12",
       "sortId": "017.011.005.001",
-      "setting": "Hide",
+      "setting": "Publish",
       "url": "extra-helpings.html?id=rechpxDJlfYNeYf26",
       "ideaCount": 0,
       "resourceCount": 1
