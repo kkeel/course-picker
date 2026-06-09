@@ -2635,9 +2635,15 @@ function renderActionButtons(item, options = {}) {
     },
     {
       key: "lessonLinks",
-      label: "Links",
+      label: isDelayedPdf(item)
+        ? "Links Coming Soon"
+        : "Links",
       icon: "🔗",
-      url: links.lessonLinks,
+      url: isDelayedPdf(item)
+        ? ""
+        : links.lessonLinks,
+      disabled: isDelayedPdf(item),
+      hasLessonLinks: Boolean(links.lessonLinks),
     },
     {
       key: "extraHelpings",
@@ -2724,7 +2730,11 @@ function renderActionButtons(item, options = {}) {
                     if (button.key === "editableSheet") {
                       return button.hasEditableSheet;
                     }
-                  
+                    
+                    if (button.key === "lessonLinks") {
+                      return button.hasLessonLinks;
+                    }
+                    
                     return button.url;
                   })
                   .map(
