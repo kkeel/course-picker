@@ -5,10 +5,13 @@
   "subject": "History",
   "gradeText": "GRADE(S): 7-8",
   "sortId": "008.007.001.003",
-  "rowType": "course",
+  "rowType": "topic",
   "hasTopics": false,
-  "isStandaloneCourse": true,
-  "courseConnectionNames": [],
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [
+    "History: Grades 7-8 (U.S.)",
+    "History: Grades 7-8 (Canada)"
+  ],
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "https://planning.alveary.org/extra-helpings.html?id=recfXdRHtTUmQQfre",
@@ -18,9 +21,59 @@
     "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec2Ve2pxnvaAIg4K-world-history-grades-7-8.pdf",
     "lessonPdfStatus": "active",
     "lessonPdfLabel": "Lesson PDF",
-    "additional": []
+    "additional": [
+      {
+        "label": "History Charts & Timelines Scope & Sample",
+        "url": "https://www.dropbox.com/s/zzw2uu8pdxzprys/TimelinesandHistoryCharts.pdf?dl=0",
+        "sort": "1",
+        "groupTitle": "Related Course Quick Links",
+        "groupType": "course"
+      },
+      {
+        "label": "Century Chart",
+        "url": "https://static1.squarespace.com/static/5327b626e4b0bc54fcdbc4f4/t/55a70cd2e4b0efaafa4dfd0d/1437011154283/Century_Chart_Centered.pdf",
+        "sort": "2",
+        "groupTitle": "Related Course Quick Links",
+        "groupType": "course"
+      },
+      {
+        "label": "Grade 7 Canadian History Chart Prompts",
+        "url": "https://drive.google.com/file/d/1a0t3sK_9v6ytBavD62JR-LSq8ls8P-BF/view?usp=drive_link",
+        "sort": "3",
+        "groupTitle": "Related Course Quick Links",
+        "groupType": "course"
+      },
+      {
+        "label": "Grade 7 U.S. History Chart Prompts",
+        "url": "https://drive.google.com/file/d/1a0t3sK_9v6ytBavD62JR-LSq8ls8P-BF/view?usp=drive_link",
+        "sort": "3",
+        "groupTitle": "Related Course Quick Links",
+        "groupType": "course"
+      },
+      {
+        "label": "Grade 8 Canadian History Chart Prompts",
+        "url": "https://drive.google.com/file/d/1a0t3sK_9v6ytBavD62JR-LSq8ls8P-BF/view?usp=drive_link",
+        "sort": "4",
+        "groupTitle": "Related Course Quick Links",
+        "groupType": "course"
+      },
+      {
+        "label": "Grade 8 U.S. History Chart Prompts",
+        "url": "https://drive.google.com/file/d/1a0t3sK_9v6ytBavD62JR-LSq8ls8P-BF/view?usp=drive_link",
+        "sort": "4",
+        "groupTitle": "Related Course Quick Links",
+        "groupType": "course"
+      },
+      {
+        "label": "Foundations (See Section 15: History)",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "5",
+        "groupTitle": "Related Course Quick Links",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-06-09T10:13:55.340Z",
+  "updatedAt": "2026-06-09T15:49:53.036Z",
   "terms": [
     {
       "termNumber": 1,

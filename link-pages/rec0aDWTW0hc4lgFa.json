@@ -5,10 +5,12 @@
   "subject": "History",
   "gradeText": "GRADE(S): 9-12",
   "sortId": "008.009.001.001",
-  "rowType": "course",
+  "rowType": "topic",
   "hasTopics": false,
-  "isStandaloneCourse": true,
-  "courseConnectionNames": [],
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [
+    "History: Grades 10-12 (U.S.)"
+  ],
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
@@ -18,9 +20,31 @@
     "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec0aDWTW0hc4lgFa-u-s-history-grades-9-12.pdf",
     "lessonPdfStatus": "active",
     "lessonPdfLabel": "Lesson PDF",
-    "additional": []
+    "additional": [
+      {
+        "label": "History Charts & Timelines Scope & Sample",
+        "url": "https://www.dropbox.com/s/zzw2uu8pdxzprys/TimelinesandHistoryCharts.pdf?dl=0",
+        "sort": "1",
+        "groupTitle": "Related Course Quick Links",
+        "groupType": "course"
+      },
+      {
+        "label": "Century Chart",
+        "url": "https://static1.squarespace.com/static/5327b626e4b0bc54fcdbc4f4/t/55a70cd2e4b0efaafa4dfd0d/1437011154283/Century_Chart_Centered.pdf",
+        "sort": "2",
+        "groupTitle": "Related Course Quick Links",
+        "groupType": "course"
+      },
+      {
+        "label": "Foundations (See Section 15: History)",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "5",
+        "groupTitle": "Related Course Quick Links",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-06-09T10:13:55.347Z",
+  "updatedAt": "2026-06-09T15:49:53.044Z",
   "terms": [
     {
       "termNumber": 1,

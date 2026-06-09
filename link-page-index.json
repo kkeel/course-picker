@@ -399,7 +399,8 @@
     "isStandaloneCourse": false,
     "courseConnectionNames": [
       "Bible: Grades 7-8",
-      "Bible: Grade 9"
+      "Bible: Grade 9",
+      "Bible: Grade 12"
     ],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=rec7uZOhGTkCcJ1MV"
@@ -585,7 +586,8 @@
     "topicConnectionNames": [
       "Church History: Grades 10-12",
       "New Testament: Grade 12",
-      "Spiritual Formation: Grade 12"
+      "Spiritual Formation: Grade 12",
+      "Old Testament: Grades 7-12"
     ],
     "linkPageUrl": "./links.html?id=rechbZlB7x5Shb8Sb"
   },
@@ -1221,7 +1223,9 @@
     "courseConnectionNames": [],
     "topicConnectionNames": [
       "Current Events: Grades 9-12",
-      "Community Read Alouds: Grades 1-12"
+      "Community Read Alouds: Grades 1-12",
+      "Economics: Grade 12",
+      "Civics/Ethics: Grade 12"
     ],
     "linkPageUrl": "./links.html?id=recK8yvTqP3qOQR56"
   },
@@ -1232,10 +1236,12 @@
     "subject": "Citizenship",
     "gradeText": "GRADE(S): 12",
     "sortId": "005.012.001.002",
-    "rowType": "course",
+    "rowType": "topic",
     "hasTopics": false,
-    "isStandaloneCourse": true,
-    "courseConnectionNames": [],
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Citizenship: Grade 12"
+    ],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=recTzpeAId8hcpqi3"
   },
@@ -1246,10 +1252,12 @@
     "subject": "Citizenship",
     "gradeText": "GRADE(S): 12",
     "sortId": "005.012.001.003",
-    "rowType": "course",
+    "rowType": "topic",
     "hasTopics": false,
-    "isStandaloneCourse": true,
-    "courseConnectionNames": [],
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Citizenship: Grade 12"
+    ],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=recUMjD1jrqKAQh0D"
   },
@@ -2532,7 +2540,8 @@
     "courseConnectionNames": [],
     "topicConnectionNames": [
       "U.S. History: Grades 7-8",
-      "Ancient History: Grades 7-9"
+      "Ancient History: Grades 7-9",
+      "World History: Grades 7-8"
     ],
     "linkPageUrl": "./links.html?id=recA9VwDfoL5rPGan"
   },
@@ -2559,10 +2568,13 @@
     "subject": "History",
     "gradeText": "GRADE(S): 7-8",
     "sortId": "008.007.001.003",
-    "rowType": "course",
+    "rowType": "topic",
     "hasTopics": false,
-    "isStandaloneCourse": true,
-    "courseConnectionNames": [],
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "History: Grades 7-8 (U.S.)",
+      "History: Grades 7-8 (Canada)"
+    ],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=rec2Ve2pxnvaAIg4K"
   },
@@ -2598,7 +2610,8 @@
     "courseConnectionNames": [],
     "topicConnectionNames": [
       "Ancient History: Grades 7-9",
-      "Canadian History: Grades 7-8"
+      "Canadian History: Grades 7-8",
+      "World History: Grades 7-8"
     ],
     "linkPageUrl": "./links.html?id=recyhrlHSPAxgxtxn"
   },
@@ -2641,10 +2654,12 @@
     "subject": "History",
     "gradeText": "GRADE(S): 9-12",
     "sortId": "008.009.001.001",
-    "rowType": "course",
+    "rowType": "topic",
     "hasTopics": false,
-    "isStandaloneCourse": true,
-    "courseConnectionNames": [],
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "History: Grades 10-12 (U.S.)"
+    ],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=rec0aDWTW0hc4lgFa"
   },
@@ -2712,7 +2727,8 @@
     "courseConnectionNames": [],
     "topicConnectionNames": [
       "Ancient History: Grades 10-12",
-      "World History: Grades 10-12"
+      "World History: Grades 10-12",
+      "U.S. History: Grades 9-12"
     ],
     "linkPageUrl": "./links.html?id=recG8ETCmXNqLVKXJ"
   },

@@ -5,10 +5,12 @@
   "subject": "Citizenship",
   "gradeText": "GRADE(S): 12",
   "sortId": "005.012.001.002",
-  "rowType": "course",
+  "rowType": "topic",
   "hasTopics": false,
-  "isStandaloneCourse": true,
-  "courseConnectionNames": [],
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [
+    "Citizenship: Grade 12"
+  ],
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
@@ -20,15 +22,29 @@
     "lessonPdfLabel": "Lesson PDF",
     "additional": [
       {
+        "label": "Community Read Alouds",
+        "url": "https://drive.google.com/file/d/14IIlHipYPwsA7yqap8NVHuyYkN6-y9wx/view?usp=sharing",
+        "sort": "1",
+        "groupTitle": "Related Course Quick Links",
+        "groupType": "course"
+      },
+      {
         "label": "Economics in One Lesson (liberalstudies.ca)",
         "url": "https://www.liberalstudies.ca/wp-content/uploads/2014/11/Economics-in-One-Lesson_2.pdf",
         "sort": "1",
         "groupTitle": "Economics: Grade 12",
+        "groupType": "topic"
+      },
+      {
+        "label": "Setting Up a Citizenship Notebook",
+        "url": "https://drive.google.com/file/d/1KK5VuAvVgjuZxgxupTPIXsgMYmrLql_H/view?usp=drive_link",
+        "sort": "2",
+        "groupTitle": "Related Course Quick Links",
         "groupType": "course"
       }
     ]
   },
-  "updatedAt": "2026-06-09T10:13:55.234Z",
+  "updatedAt": "2026-06-09T15:49:52.921Z",
   "terms": [
     {
       "termNumber": 1,

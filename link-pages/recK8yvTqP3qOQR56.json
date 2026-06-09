@@ -11,11 +11,13 @@
   "courseConnectionNames": [],
   "topicConnectionNames": [
     "Current Events: Grades 9-12",
-    "Community Read Alouds: Grades 1-12"
+    "Community Read Alouds: Grades 1-12",
+    "Economics: Grade 12",
+    "Civics/Ethics: Grade 12"
   ],
   "quickLinks": {
     "extraHelpingsUrl": "",
-    "bookListUrl": "",
+    "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=rec3ENdR6OOp4bNWw",
     "supplyListUrl": "",
     "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
     "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/recK8yvTqP3qOQR56-citizenship-grade-12.pdf",
@@ -28,6 +30,13 @@
         "sort": "1",
         "groupTitle": "Citizenship: Grade 12",
         "groupType": "course"
+      },
+      {
+        "label": "Economics in One Lesson (liberalstudies.ca)",
+        "url": "https://www.liberalstudies.ca/wp-content/uploads/2014/11/Economics-in-One-Lesson_2.pdf",
+        "sort": "1",
+        "groupTitle": "Economics: Grade 12",
+        "groupType": "topic"
       },
       {
         "label": "The Pour Over | Subscribe",
@@ -80,7 +89,7 @@
       }
     ]
   },
-  "updatedAt": "2026-06-09T10:13:55.233Z",
+  "updatedAt": "2026-06-09T15:49:52.920Z",
   "terms": [
     {
       "termNumber": 1,
