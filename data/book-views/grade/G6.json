@@ -2,7 +2,7 @@
   "view": "grade",
   "id": "G6",
   "title": "Grade 6 Books",
-  "bookCount": 139,
+  "bookCount": 141,
   "items": [
     {
       "type": "course",
@@ -677,7 +677,7 @@
               "maySubText": "other Bible atlas, though page numbers in lesson plans will not match.",
               "discountText": "",
               "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
-              "sharedText": "Old Testament: Grades 3-6\nNew Testament: Grades 3-6\nNew Testament: Grades 7-8\nOld Testament: Grades 7-12\nStory of Arithmetic: Part 1\nStory of Geometry: Part 1",
+              "sharedText": "Old Testament: Grades 3-6\nNew Testament: Grades 3-6\nNew Testament: Grades 7-8\nOld Testament: Grades 7-12\nStory of Arithmetic: Part 1\nStory of Geometry: Part 1\nAncient History: Grades 5-6",
               "purchaseOptions": [
                 {
                   "label": "Option 1",
@@ -818,7 +818,7 @@
               "maySubText": "other Bible atlas, though page numbers in lesson plans will not match.",
               "discountText": "",
               "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
-              "sharedText": "Old Testament: Grades 3-6\nNew Testament: Grades 3-6\nNew Testament: Grades 7-8\nOld Testament: Grades 7-12\nStory of Arithmetic: Part 1\nStory of Geometry: Part 1",
+              "sharedText": "Old Testament: Grades 3-6\nNew Testament: Grades 3-6\nNew Testament: Grades 7-8\nOld Testament: Grades 7-12\nStory of Arithmetic: Part 1\nStory of Geometry: Part 1\nAncient History: Grades 5-6",
               "purchaseOptions": [
                 {
                   "label": "Option 1",
@@ -1702,7 +1702,7 @@
                 },
                 {
                   "label": "Option 2",
-                  "url": "https://bookshop.org/a/90084/9781728460390",
+                  "url": "https://www.barnesandnoble.com/w/africa-is-not-a-country-2nd-edition-margy-burns-knight/1143192207?ean=9781728460390",
                   "memberOnly": false,
                   "memberstackId": ""
                 }
@@ -2075,6 +2075,47 @@
           "shared": true,
           "sortId": "",
           "books": [
+            {
+              "resourceId": "recg0MzdbBT0JchkF",
+              "instanceKey": "course:rec2RKe5ltrOg6i2s:topic:recBP0ILhMKRSKye3:resource:recg0MzdbBT0JchkF",
+              "title": "The Student Bible Atlas, Revised Edition",
+              "author": "Tim Dowley",
+              "isbn": "978-1506400105",
+              "asin": "",
+              "isbnAsin": "978-1506400105",
+              "imagePath": "img/resources/recg0MzdbBT0JchkF.webp",
+              "placeholderPath": "img/placeholders/book.svg",
+              "optional": false,
+              "chooseOne": false,
+              "gradeLevelTag": "",
+              "formatTags": "Ebook",
+              "formatOptions": [
+                {
+                  "type": "ebook",
+                  "label": "Ebook"
+                }
+              ],
+              "rationale": "This is a simple, inexpensive Bible atlas that provides full-page maps of the biblical lands of the Old and New Testaments. In Bible lessons, students will be directed to look at specific pages. This resource is for Grades 3-8 ONLY.",
+              "noteText": "",
+              "maySubText": "other Bible atlas, though page numbers in lesson plans will not match.",
+              "discountText": "",
+              "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+              "sharedText": "Old Testament: Grades 3-6\nNew Testament: Grades 3-6\nNew Testament: Grades 7-8\nOld Testament: Grades 7-12\nStory of Arithmetic: Part 1\nStory of Geometry: Part 1\nAncient History: Grades 5-6",
+              "purchaseOptions": [
+                {
+                  "label": "Option 1",
+                  "url": "https://www.amazon.com/Student-Bible-Atlas-Revised/dp/1506400108?&linkCode=ll2&tag=alveary0a-20&linkId=e9acfc752605f36e4386055828db4aaf&language=en_US&ref_=as_li_ss_tl",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                },
+                {
+                  "label": "Option 2",
+                  "url": "https://www.christianbook.com/Christian/Books/product?event=AFF&amp;p=1226126&amp;item_no=400104",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                }
+              ]
+            },
             {
               "resourceId": "recMCU05MT5TWYKrs",
               "instanceKey": "course:rec2RKe5ltrOg6i2s:topic:recBP0ILhMKRSKye3:resource:recMCU05MT5TWYKrs",
@@ -2516,6 +2557,47 @@
           "shared": true,
           "sortId": "",
           "books": [
+            {
+              "resourceId": "recg0MzdbBT0JchkF",
+              "instanceKey": "course:rec9r9r3HBVh9D3Bk:topic:recBP0ILhMKRSKye3:resource:recg0MzdbBT0JchkF",
+              "title": "The Student Bible Atlas, Revised Edition",
+              "author": "Tim Dowley",
+              "isbn": "978-1506400105",
+              "asin": "",
+              "isbnAsin": "978-1506400105",
+              "imagePath": "img/resources/recg0MzdbBT0JchkF.webp",
+              "placeholderPath": "img/placeholders/book.svg",
+              "optional": false,
+              "chooseOne": false,
+              "gradeLevelTag": "",
+              "formatTags": "Ebook",
+              "formatOptions": [
+                {
+                  "type": "ebook",
+                  "label": "Ebook"
+                }
+              ],
+              "rationale": "This is a simple, inexpensive Bible atlas that provides full-page maps of the biblical lands of the Old and New Testaments. In Bible lessons, students will be directed to look at specific pages. This resource is for Grades 3-8 ONLY.",
+              "noteText": "",
+              "maySubText": "other Bible atlas, though page numbers in lesson plans will not match.",
+              "discountText": "",
+              "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+              "sharedText": "Old Testament: Grades 3-6\nNew Testament: Grades 3-6\nNew Testament: Grades 7-8\nOld Testament: Grades 7-12\nStory of Arithmetic: Part 1\nStory of Geometry: Part 1\nAncient History: Grades 5-6",
+              "purchaseOptions": [
+                {
+                  "label": "Option 1",
+                  "url": "https://www.amazon.com/Student-Bible-Atlas-Revised/dp/1506400108?&linkCode=ll2&tag=alveary0a-20&linkId=e9acfc752605f36e4386055828db4aaf&language=en_US&ref_=as_li_ss_tl",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                },
+                {
+                  "label": "Option 2",
+                  "url": "https://www.christianbook.com/Christian/Books/product?event=AFF&amp;p=1226126&amp;item_no=400104",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                }
+              ]
+            },
             {
               "resourceId": "recMCU05MT5TWYKrs",
               "instanceKey": "course:rec9r9r3HBVh9D3Bk:topic:recBP0ILhMKRSKye3:resource:recMCU05MT5TWYKrs",
@@ -3724,7 +3806,7 @@
               "purchaseOptions": [
                 {
                   "label": "Option 1",
-                  "url": "https://www.amazon.com/dp/1421411407?social_share=cm_sw_r_ffobk_cp_ud_dp_1YTNVZAF8E2GYAEM5E5K&bestFormat=true&linkCode=ll2&tag=alveary0a-20&linkId=a0f112d19ba47e6a6c585f250d641ed8&language=en_US&ref_=as_li_ss_tl",
+                  "url": "https://www.press.jhu.edu/books/title/10916/over-river-and-through-wood",
                   "memberOnly": false,
                   "memberstackId": ""
                 },
