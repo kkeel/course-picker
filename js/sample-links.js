@@ -284,7 +284,7 @@
         isPublicSampleLink: true
       },
       {
-        label: "Sample Lesson PDF Coming Soon",
+        label: "Lesson PDF",
         icon: "📝",
         url: "#",
         isPublicSampleLink: false,
@@ -340,7 +340,7 @@
     const additionalHtml = additionalLinks.length
       ? `
         <div class="links-additional-quicklinks">
-          <h3>Additional Full-Access Links Preview</h3>
+          <h3>Additional Links Included with Full Access</h3>
           <div class="links-additional-quicklinks-list">
             ${additionalLinks.map(link => `
               <a
@@ -481,7 +481,7 @@
       state.quickAccessCollapsed =
         state.selectedTerm !== "all" || state.selectedWeek !== "all";
 
-      els.subject.textContent = "Sample Lesson Links";
+      els.subject.style.display = "none";
 
       const pageTitle =
         state.data.lessonSetName ||
@@ -492,9 +492,7 @@
 
       document.title = `Sample Links – ${pageTitle}`;
 
-      els.subtitle.textContent =
-        "Preview the kinds of links included with Alveary lesson plans. Links for sample lessons are active; full lesson links are shown as a preview.";
-
+      els.subtitle.style.display = "none";
       els.notice.hidden = false;
       els.controls.hidden = false;
 
