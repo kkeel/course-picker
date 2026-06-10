@@ -7,7 +7,7 @@
   "gradeFilter": "G7,",
   "sortId": "016.007.002.001",
   "setting": "Publish",
-  "generatedAt": "2026-06-09T13:32:36.968Z",
+  "generatedAt": "2026-06-10T13:59:31.189Z",
   "ideas": {
     "intro": "Ideas for projects, activities, books, games, and more for students with a high level of interest.",
     "terms": [
@@ -49,5 +49,95 @@
       }
     ]
   },
-  "resources": []
+  "resources": [
+    {
+      "id": "recs1DvbQvUk0Scyy",
+      "resourceId": "recs1DvbQvUk0Scyy",
+      "title": "Archimedes and the Door of Science",
+      "author": "Jeanne Bendick",
+      "isbnAsin": "978-1883937126",
+      "resourceTagText": "",
+      "scope": "(T2)",
+      "rationale": "Students will love this funny and informative biography of Archimedes, one of the first inventors of record.",
+      "imagePath": "img/extra-helpings/recs1DvbQvUk0Scyy.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.amazon.com/Archimedes-Science-Living-History-Library/dp/1883937124/ref=sr_1_1?crid=22KJUQ4UFWA6F&dchild=1&keywords=archimedes+and+the+door+of+science&qid=1621962141&sprefix=archim%2Caps%2C210&sr=8-1"
+        }
+      ]
+    },
+    {
+      "id": "recU4E60a8E3AGKFq",
+      "resourceId": "recU4E60a8E3AGKFq",
+      "title": "Gear Up!: Marvelous Machine Projects",
+      "author": "Keith Good",
+      "isbnAsin": "978-0822535669",
+      "resourceTagText": "",
+      "scope": "(T2)",
+      "rationale": "Activity Book: creative machine-building projects",
+      "imagePath": "img/extra-helpings/recU4E60a8E3AGKFq.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.amazon.com/gp/product/0822535661/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1"
+        }
+      ]
+    },
+    {
+      "id": "recRtcPqzd7mhIRVV",
+      "resourceId": "recRtcPqzd7mhIRVV",
+      "title": "The First Scientist: A Life of Roger Bacon",
+      "author": "Brian Clegg",
+      "isbnAsin": "978-0786711161",
+      "resourceTagText": "",
+      "scope": "(T3)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/recRtcPqzd7mhIRVV.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://a.co/d/08PeaNoe"
+        }
+      ]
+    },
+    {
+      "id": "recJkVmj54JXuC4t9",
+      "resourceId": "recJkVmj54JXuC4t9",
+      "title": "The Stars: A New Way to See Them",
+      "author": "H.A. Rey",
+      "isbnAsin": "",
+      "resourceTagText": "",
+      "scope": "(T1, T2, T3)",
+      "rationale": "Practical guide to stargazing",
+      "imagePath": "img/extra-helpings/recJkVmj54JXuC4t9.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.amazon.com/Stars-New-Way-See-Them/dp/0544763440/ref=sr_1_1?crid=3J9ZW7AHV5583&dib=eyJ2IjoiMSJ9.5pQvC8xcmznlqde_tqG0Vp9o6O1D9J-L_5sxgi0i9XEvcFQbbTliLG21lDokilF3uslrCeSERO5tqDu_D-z7dkyU0e-oC19WpsryZhAuxzOMyj24WUBuG_U1tftg23tlHW9RYXKO9blJKpKxDxBc_YN36jMk1twzVtiuhx_vq0x6h7DfyRHjP40NYNef-p0HCAU5xkxSpBkMkFV_XoV1KyFYCuEJonn7h4KjmpnzhHM.HnBcznl4kDx6W3AFjn0T0LpZpTiw8IJIh0wyarhmhTs&dib_tag=se&keywords=the+stars+by+h.a.+rey&qid=1714004157&sprefix=the+stars+by+h%2Caps%2C222&sr=8-1"
+        }
+      ]
+    },
+    {
+      "id": "reclEFTyM45BTsM7v",
+      "resourceId": "reclEFTyM45BTsM7v",
+      "title": "Tools of the Ancient Greeks",
+      "author": "Kris Bordessa",
+      "isbnAsin": "978-0974934464",
+      "resourceTagText": "",
+      "scope": "(T1)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/reclEFTyM45BTsM7v.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://a.co/d/05bwbd95"
+        },
+        {
+          "text": "Option 2",
+          "url": "https://bookshop.org/p/books/tools-of-the-ancient-greeks-a-kid-s-guide-to-the-history-science-of-life-in-ancient-greece-kris-bordessa/36a2d4c5fe4b1b73?ean=9780974934464&next=t"
+        }
+      ]
+    }
+  ]
 }

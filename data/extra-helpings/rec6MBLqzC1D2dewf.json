@@ -7,7 +7,7 @@
   "gradeFilter": "G9, G10, G11, G12,",
   "sortId": "003.003.009.000",
   "setting": "Publish",
-  "generatedAt": "2026-06-09T13:32:36.906Z",
+  "generatedAt": "2026-06-10T13:59:31.130Z",
   "ideas": {
     "intro": "Ideas for projects, activities, books, games, and more for students with a high level of interest.",
     "terms": [
@@ -49,5 +49,44 @@
       }
     ]
   },
-  "resources": []
+  "resources": [
+    {
+      "id": "recVYPkNw6oJUHLvP",
+      "resourceId": "recVYPkNw6oJUHLvP",
+      "title": "Gardner's Art Through the Ages",
+      "author": "Fred S. Kleiner, Christin J. Mamiya",
+      "isbnAsin": "978-0495004806",
+      "resourceTagText": "",
+      "scope": "(T1, T2, T3)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/recVYPkNw6oJUHLvP.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://a.co/d/1bntQLh"
+        }
+      ]
+    },
+    {
+      "id": "rec1aj7GOWk1fBlyu",
+      "resourceId": "rec1aj7GOWk1fBlyu",
+      "title": "The Arts: A Visual Encyclopedia",
+      "author": "DK",
+      "isbnAsin": "978-1465461780",
+      "resourceTagText": "",
+      "scope": "(T1, T2, T3)",
+      "rationale": "We will be using this as our spine throughout the course. It is a nice overview of global art history. This book was chosen due to its miniscule amount of nudity compared to other art books geared to teens.",
+      "imagePath": "img/extra-helpings/rec1aj7GOWk1fBlyu.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.amazon.com/Arts-Visual-Encyclopedia-DK/dp/1465461787?&linkCode=ll2&tag=alveary0a-20&linkId=ce996659d33ccf54fd7f9d04eaeb7b85&language=en_US&ref_=as_li_ss_tl"
+        },
+        {
+          "text": "Option 2",
+          "url": "https://www.christianbook.com/Christian/Books/product?event=AFF&amp;p=1226126&amp;item_no=5462909"
+        }
+      ]
+    }
+  ]
 }
