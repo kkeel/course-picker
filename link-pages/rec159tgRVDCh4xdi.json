@@ -5,10 +5,12 @@
   "subject": "Literature",
   "gradeText": "GRADE(S): 11",
   "sortId": "011.001.011.009",
-  "rowType": "course",
+  "rowType": "topic",
   "hasTopics": false,
-  "isStandaloneCourse": true,
-  "courseConnectionNames": [],
+  "isStandaloneCourse": false,
+  "courseConnectionNames": [
+    "Literature: Grade 11"
+  ],
   "topicConnectionNames": [],
   "quickLinks": {
     "extraHelpingsUrl": "",
@@ -18,9 +20,17 @@
     "lessonPdfUrl": "https://planning.alveary.org/pdf/lesson-plans/rec159tgRVDCh4xdi-poetry-study-grade-11.pdf",
     "lessonPdfStatus": "active",
     "lessonPdfLabel": "Lesson PDF",
-    "additional": []
+    "additional": [
+      {
+        "label": "Foundations (See Section 9: Literature)",
+        "url": "https://www.alveary.org/alveary-foundations/relational-methods",
+        "sort": "3",
+        "groupTitle": "Related Course Quick Links",
+        "groupType": "course"
+      }
+    ]
   },
-  "updatedAt": "2026-06-09T19:00:45.563Z",
+  "updatedAt": "2026-06-10T10:41:35.548Z",
   "terms": [
     {
       "termNumber": 1,

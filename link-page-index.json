@@ -3636,7 +3636,8 @@
       "Plays: Grades 9-12",
       "Poetry Reading: Grades 9-12",
       "General Lit.: Grades 11-12",
-      "History of Lit: Grades 9-12"
+      "History of Lit: Grades 9-12",
+      "Poetry Study: Grade 11"
     ],
     "linkPageUrl": "./links.html?id=rec84N8PnmvlbHHXv"
   },
@@ -3664,10 +3665,12 @@
     "subject": "Literature",
     "gradeText": "GRADE(S): 11",
     "sortId": "011.001.011.009",
-    "rowType": "course",
+    "rowType": "topic",
     "hasTopics": false,
-    "isStandaloneCourse": true,
-    "courseConnectionNames": [],
+    "isStandaloneCourse": false,
+    "courseConnectionNames": [
+      "Literature: Grade 11"
+    ],
     "topicConnectionNames": [],
     "linkPageUrl": "./links.html?id=rec159tgRVDCh4xdi"
   },
