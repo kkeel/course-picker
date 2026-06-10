@@ -484,7 +484,9 @@
       state.quickAccessCollapsed =
         state.selectedTerm !== "all" || state.selectedWeek !== "all";
 
-      els.subject.style.display = "none";
+      if (els.subject) {
+        els.subject.style.display = "none";
+      }
 
       const pageTitle =
         state.data.lessonSetName ||
@@ -495,7 +497,9 @@
 
       document.title = `Sample Links – ${pageTitle}`;
 
-      els.subtitle.style.display = "none";
+      if (els.subtitle) {
+        els.subtitle.style.display = "none";
+      }
       els.notice.hidden = false;
       els.controls.hidden = false;
 
