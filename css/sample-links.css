@@ -1,0 +1,58 @@
+.sample-links-page .sample-links-notice {
+  max-width: 90rem;
+  margin: 0 auto 1rem;
+  padding: 14px 18px;
+  border: 1px solid #dfe4df;
+  border-radius: 8px;
+  background: #fbfbf9;
+  color: #596e5e;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.sample-links-page .sample-links-notice strong {
+  color: #3f5145;
+}
+
+.sample-links-page .link-list a.is-sample-disabled,
+.sample-links-page .links-additional-quicklinks-list a.is-sample-disabled {
+  border-color: #d6dbd3;
+  background: #f3f4f1;
+  color: #8a9287;
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.72;
+}
+
+.sample-links-page .link-list a.is-sample-disabled::after,
+.sample-links-page .links-additional-quicklinks-list a.is-sample-disabled::after {
+  content: " Full access";
+  margin-left: 6px;
+  color: #9aa295;
+  font-size: 0.72rem;
+  font-style: italic;
+}
+
+.sample-links-page .links-quick-access-card.is-sample-disabled {
+  opacity: 0.62;
+  pointer-events: none;
+}
+
+.sample-links-page .links-quick-access-card.is-sample-disabled .links-quick-access-label::after {
+  content: " — full access";
+  color: #8a9287;
+  font-style: italic;
+}
+
+.sample-links-page .link-week.is-sample-active .link-week-label {
+  background: #eef1e8;
+}
+
+.sample-links-page .link-week.is-sample-locked .link-week-label {
+  color: #8a9287;
+}
+
+.sample-links-page .link-week.is-sample-locked .link-lesson-number,
+.sample-links-page .link-week.is-sample-locked .link-lesson-topic {
+  color: #8a9287;
+}
