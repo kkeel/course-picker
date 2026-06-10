@@ -39,7 +39,7 @@
 }
 
 .sample-links-page .links-quick-access-card.is-sample-disabled .links-quick-access-label::after {
-  content: " — full access";
+  content: " — included with full access";
   color: #8a9287;
   font-style: italic;
 }
