@@ -273,7 +273,8 @@
         label: supplyListUrl ? "Supply List Details" : "No Supplies",
         icon: "✂️",
         url: supplyListUrl || "#",
-        isPublicSampleLink: Boolean(supplyListUrl)
+        isPublicSampleLink: Boolean(supplyListUrl),
+        allowDisabledNote: false
       },
       {
         label: "Basic Supply List",
@@ -325,7 +326,9 @@
           aria-disabled="${isDisabled ? "true" : "false"}"
         >
           <span class="links-quick-access-icon">${escapeHtml(link.icon)}</span>
-          <span class="links-quick-access-label">${escapeHtml(link.label)}</span>
+          <span class="links-quick-access-label ${link.allowDisabledNote === false ? "no-disabled-note" : ""}">
+            ${escapeHtml(link.label)}
+          </span>
           <span class="links-quick-access-arrow">
             ${isDisabled ? "" : "↗"}
           </span>
