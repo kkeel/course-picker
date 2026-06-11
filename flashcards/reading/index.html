@@ -191,6 +191,26 @@
   </main>
 
   <script src="../../js/app.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const fixReadingMenuIcons = () => {
+        document.querySelectorAll(".step-menu-svg-icon").forEach((img) => {
+          const src = img.getAttribute("src") || "";
+          if (!src.startsWith("img/menu-icons/")) return;
+  
+          img.setAttribute("src", `../../${src}`);
+        });
+      };
+  
+      document.addEventListener("click", () => {
+        setTimeout(fixReadingMenuIcons, 0);
+      });
+  
+      fixReadingMenuIcons();
+    });
+  </script>
+  
   <script type="module" src="reading-cards.js"></script>
 </body>
 </html>
