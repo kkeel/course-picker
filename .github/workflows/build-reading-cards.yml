@@ -1,0 +1,29 @@
+name: Build Reading Cards JSON
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-reading-cards:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Build reading cards JSON
+        env:
+          AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
+          LESSON_WRITING_BASE_ID: ${{ secrets.LESSON_WRITING_BASE_ID }}
+        run: node flashcards/tools/build-reading-cards.mjs
+
+      - name: Commit generated reading card JSON
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Build reading cards JSON
+          file_pattern: data/flashcards/reading/**/*.json
