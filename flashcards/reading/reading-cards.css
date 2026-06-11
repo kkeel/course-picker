@@ -1,130 +1,102 @@
-:root {
-  --green: #596e5e;
-  --soft-green: #dee1d2;
-  --paper: #fffdf8;
-  --ink: #2f332f;
-  --muted: #68706a;
-  --line: #d9ddd2;
+/* =========================================================
+   Reading Lesson Cards
+   Alveary Planning App shell + flashcard-specific layout
+   ========================================================= */
+
+.reading-cards-page {
+  background: var(--brand-bg);
+  color: var(--brand-text);
 }
 
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #f4f6fa;
-  color: var(--ink);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-.reading-cards-app {
-  width: min(1100px, calc(100% - 32px));
+.reading-shell {
+  max-width: 90rem;
   margin: 0 auto;
-  padding: 32px 0 56px;
+  padding: 0 1.5rem 4rem;
 }
 
-.page-header {
-  margin-bottom: 20px;
-  padding: 24px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: white;
-  box-shadow: 0 10px 24px rgba(47, 51, 47, 0.08);
+@media (min-width: 1024px) {
+  .reading-shell {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
 }
 
-.eyebrow {
-  margin: 0 0 6px;
-  color: var(--green);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+/* Intro */
+
+.reading-intro-section {
+  margin-bottom: 28px;
 }
 
-h1 {
-  margin: 0;
-  color: var(--green);
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1;
+.reading-intro-details {
+  margin-top: 8px;
 }
 
-.intro {
-  max-width: 680px;
-  margin: 12px 0 0;
-  color: var(--muted);
-  font-size: 1rem;
+.reading-mode-card {
+  min-width: 320px;
 }
 
-.controls {
-  position: sticky;
-  top: 0;
-  z-index: 3;
+@media (max-width: 900px) {
+  .reading-mode-card {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+/* Controls */
+
+.reading-controls-panel {
+  margin-bottom: 24px;
+}
+
+.reading-controls-body {
+  grid-template-columns: minmax(180px, 0.9fr) repeat(3, minmax(180px, 1fr));
+}
+
+.reading-action-group {
+  grid-column: 1 / -1;
+}
+
+.reading-action-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: flex-end;
-  margin-bottom: 16px;
-  padding: 14px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 6px 18px rgba(47, 51, 47, 0.08);
+  align-items: center;
+  justify-content: space-between;
 }
 
-.controls label {
-  display: grid;
-  gap: 5px;
-  color: var(--green);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+.reading-print-action,
+.reading-study-action {
+  font-weight: 600;
+  color: var(--brand-dark);
 }
 
-.controls select,
-.controls button {
-  min-height: 40px;
-  border: 1px solid #c6ccbf;
-  border-radius: 999px;
-  background: white;
-  color: var(--ink);
-  font: inherit;
+/* Status */
+
+.reading-status {
+  margin: 16px 0 20px;
+  color: rgba(38, 43, 38, 0.65);
+  font-size: 14px;
 }
 
-.controls select {
-  min-width: 170px;
-  padding: 0 38px 0 14px;
+.reading-summary {
+  margin: 0 0 18px;
+  color: rgba(38, 43, 38, 0.65);
+  font-size: 14px;
 }
 
-.controls button {
-  padding: 0 18px;
-  border-color: var(--green);
-  background: var(--green);
-  color: white;
-  cursor: pointer;
-  font-weight: 700;
-}
-
-.summary {
-  margin-bottom: 18px;
-  color: var(--muted);
-  font-size: 0.95rem;
-}
+/* Print sheets on screen */
 
 .card-sheets {
   display: grid;
-  gap: 24px;
+  gap: 28px;
+  justify-content: center;
 }
 
 .sheet {
   width: 8.5in;
   min-height: 11in;
-  margin: 0 auto;
   padding: 0.5in;
-  border: 1px solid #d5d9cf;
-  background: white;
-  box-shadow: 0 12px 30px rgba(47, 51, 47, 0.12);
+  background: #ffffff;
+  border: 1px solid #dde2d5;
+  box-shadow: 0 8px 24px rgba(38, 43, 38, 0.08);
 }
 
 .sheet-heading {
@@ -132,9 +104,10 @@ h1 {
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 0.16in;
-  color: var(--green);
+  color: var(--brand-dark);
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .card-grid {
@@ -150,12 +123,12 @@ h1 {
   width: 3.5in;
   height: 2in;
   overflow: hidden;
-  border: 1px dashed #c5cabb;
-  background: var(--paper);
+  background: #ffffff;
+  border: 1px dashed #cfd6c6;
 }
 
 .print-card.empty {
-  background: #fafafa;
+  background: #fbfbf9;
 }
 
 .print-card img {
@@ -170,7 +143,7 @@ h1 {
   place-content: center;
   height: 100%;
   padding: 12px;
-  color: #8d9288;
+  color: rgba(38, 43, 38, 0.55);
   font-size: 0.82rem;
   text-align: center;
 }
@@ -182,21 +155,105 @@ h1 {
   padding: 1px 4px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.8);
-  color: #697068;
+  color: rgba(38, 43, 38, 0.55);
   font-size: 0.55rem;
 }
 
+/* Study view placeholder */
+
+.study-deck {
+  display: grid;
+  gap: 16px;
+}
+
+.study-card-placeholder,
+.empty-state,
 .loading,
-.error,
-.empty-state {
-  padding: 28px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: white;
-  color: var(--muted);
+.error {
+  padding: 24px;
+  border: 1px solid #dde2d5;
+  border-radius: 4px;
+  background: #ffffff;
+  color: rgba(38, 43, 38, 0.7);
 }
 
 .error {
-  border-color: #d6a6a6;
-  color: #8a3333;
+  border-color: rgba(150, 73, 69, 0.45);
+  color: #964945;
+}
+
+/* Responsive */
+
+@media (max-width: 980px) {
+  .reading-controls-body {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .reading-action-group {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 720px) {
+  .reading-controls-body {
+    grid-template-columns: 1fr;
+  }
+
+  .sheet {
+    width: 100%;
+    min-height: auto;
+    padding: 16px;
+    overflow-x: auto;
+  }
+
+  .card-grid {
+    justify-content: start;
+  }
+}
+
+/* Print */
+
+@media print {
+  .no-print,
+  .app-header,
+  .reading-intro-section,
+  .reading-controls-panel,
+  .reading-status,
+  .reading-summary {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+  }
+
+  .reading-shell {
+    max-width: none;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .card-sheets {
+    display: block;
+  }
+
+  .sheet {
+    width: 8.5in;
+    height: 11in;
+    min-height: 11in;
+    margin: 0;
+    padding: 0.5in;
+    border: none;
+    box-shadow: none;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .sheet-heading {
+    display: none;
+  }
+
+  .print-card {
+    border: 0.5pt solid #dddddd;
+  }
 }
