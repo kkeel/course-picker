@@ -1,4 +1,4 @@
-const DATA_BASE = "../../data/flashcards/reading";
+const DATA_BASE = new URL("../../data/flashcards/reading", import.meta.url).href;
 
 const state = {
   cards: [],
