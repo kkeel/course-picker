@@ -3,6 +3,9 @@ name: Build Reading Cards JSON
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build-reading-cards:
     runs-on: ubuntu-latest
@@ -23,7 +26,9 @@ jobs:
         run: node flashcards/tools/build-reading-cards.mjs
 
       - name: Commit generated reading card JSON
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: Build reading cards JSON
-          file_pattern: data/flashcards/reading/**/*.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/flashcards/reading
+          git diff --cached --quiet && echo "No reading card JSON changes to commit" || git commit -m "Build reading cards JSON"
+          git push
