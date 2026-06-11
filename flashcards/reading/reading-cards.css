@@ -257,3 +257,37 @@
     border: 0.5pt solid #dddddd;
   }
 }
+
+/* Reading Cards intro layout */
+
+.reading-intro-section {
+  margin-bottom: 28px;
+}
+
+.reading-intro-line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.42fr);
+  gap: 28px;
+  align-items: end;
+}
+
+.reading-intro-line .directory-title {
+  margin-bottom: 0;
+}
+
+.reading-mode-card {
+  margin-top: 0;
+  max-width: none;
+  align-self: end;
+}
+
+@media (max-width: 900px) {
+  .reading-intro-line {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .reading-mode-card {
+    max-width: 420px;
+  }
+}
