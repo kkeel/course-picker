@@ -150,7 +150,7 @@ async function loadCards() {
   const data = await response.json();
   state.cards = data.cards || [];
 
-  loadCards();
+  renderSheets();
 }
 
 els.packetFilter?.addEventListener("change", (event) => {
