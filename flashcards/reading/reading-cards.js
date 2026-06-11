@@ -130,28 +130,42 @@ function escapeHtml(value) {
 async function loadCards() {
   els.status.textContent = "Loading reading cards…";
 
-  const response = await fetch(`${DATA_BASE}/master.json`);
+  let filePath = "";
+
+  if (state.packet.startsWith("progression-")) {
+    const level = state.packet.replace("progression-", "");
+    filePath = `by-first-assigned/${level}.json`;
+  } else if (state.packet.startsWith("jump-in-")) {
+    const level = state.packet.replace("jump-in-", "");
+    filePath = `by-level/${level}.json`;
+  } else {
+    els.status.textContent = "";
+    els.cardSheets.innerHTML = `<div class="empty-state">Tagged card printing is coming soon.</div>`;
+    return;
+  }
+
+  const response = await fetch(`${DATA_BASE}/${filePath}`);
   if (!response.ok) throw new Error(`Could not load reading cards JSON: ${response.status}`);
 
   const data = await response.json();
   state.cards = data.cards || [];
 
-  renderSheets();
+  loadCards();
 }
 
 els.packetFilter?.addEventListener("change", (event) => {
   state.packet = event.target.value;
-  renderSheets();
+  loadCards();
 });
 
 els.printGroupFilter?.addEventListener("change", (event) => {
   state.groupBy = event.target.value;
-  renderSheets();
+  loadCards();
 });
 
 els.sideFilter?.addEventListener("change", (event) => {
   state.side = event.target.value;
-  renderSheets();
+  loadCards();
 });
 
 els.printButton?.addEventListener("click", () => {
