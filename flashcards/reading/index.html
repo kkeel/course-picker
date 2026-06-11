@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reading Lesson Cards</title>
+  <link rel="stylesheet" href="reading-cards.css" />
+  <link rel="stylesheet" href="reading-cards.print.css" media="print" />
+</head>
+<body>
+  <main class="reading-cards-app">
+    <header class="page-header no-print">
+      <p class="eyebrow">Alveary Flashcards</p>
+      <h1>Reading Lesson Cards</h1>
+      <p class="intro">Preview, filter, and print reading lesson cards by level and type.</p>
+    </header>
+
+    <section class="controls no-print" aria-label="Reading card controls">
+      <label>
+        Level
+        <select id="levelFilter">
+          <option value="Level 1">Level 1</option>
+          <option value="Level 2">Level 2</option>
+          <option value="Level 3">Level 3</option>
+          <option value="all">All levels</option>
+        </select>
+      </label>
+
+      <label>
+        Type
+        <select id="typeFilter">
+          <option value="all">All card types</option>
+        </select>
+      </label>
+
+      <label>
+        Side
+        <select id="sideFilter">
+          <option value="front">Fronts</option>
+          <option value="back">Backs</option>
+          <option value="both">Fronts + backs</option>
+        </select>
+      </label>
+
+      <button type="button" id="printButton">Print / Save PDF</button>
+    </section>
+
+    <section class="summary no-print" id="summary"></section>
+
+    <section id="cardSheets" class="card-sheets" aria-live="polite"></section>
+  </main>
+
+  <script type="module" src="reading-cards.js"></script>
+</body>
+</html>
