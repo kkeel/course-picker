@@ -7,11 +7,7 @@
 
   <link rel="manifest" href="../../manifest.webmanifest">
   <meta name="theme-color" content="#596e5e">
-
-  <link rel="apple-touch-icon" href="../../img/icons/icon-192.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" type="image/png" href="../../img/Alveary%20Lt.%20Green.png">
 
   <link
     rel="stylesheet"
@@ -23,8 +19,6 @@
   <link rel="stylesheet" href="reading-cards.print.css" media="print" />
 
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <link rel="icon" type="image/png" href="../../img/Alveary%20Lt.%20Green.png">
 </head>
 
 <body class="reading-cards-page">
@@ -46,112 +40,156 @@
     </div>
   </header>
 
-  <main class="main-content px-6 lg:px-16 pb-16">
-    <section class="reading-hero no-print">
-      <div>
-        <div class="reading-kicker">Alveary Flashcards</div>
-        <h1 class="section-title reading-title">Reading Lesson Cards</h1>
-        <p class="section-subtitle reading-subtitle">
-          Print progression packets or practice reading cards by level and type.
-        </p>
+  <main class="directory-shell reading-shell">
+    <section class="lesson-intro-section reading-intro-section no-print">
+      <div class="lesson-intro-title-row">
+        <div class="lesson-title-main">
+          <h1 class="directory-title">Reading Lesson Cards</h1>
+        </div>
+      </div>
+
+      <div class="lesson-intro-details reading-intro-details">
+        <div class="lesson-intro-flex">
+          <p class="directory-subtext">
+            Print progression packets for reading lessons or switch to Study View to practice cards and track mastery.
+          </p>
+
+          <div class="lesson-intro-side">
+            <div class="lesson-helper-card reading-mode-card">
+              <h2 class="lesson-helper-title">Choose a view</h2>
+              <p class="lesson-helper-text">
+                <strong>Print View</strong> = prepare card packets and PDFs<br>
+                <strong>Study View</strong> = practice cards and manage review tags
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="reading-mode-panel no-print" aria-label="Reading card view mode">
-      <div class="reading-mode-header">
-        <h2>Choose a View</h2>
-        <p>Print View is for packets and PDFs. Study View is for practice and mastery tags.</p>
+    <section class="book-controls reading-controls-panel no-print" id="reading-controls">
+      <div class="book-controls-header">
+        <h2>Reading Card Tools</h2>
+        <button id="toggle-reading-controls" class="book-controls-toggle" type="button">Hide</button>
       </div>
 
-      <div class="reading-mode-buttons" role="tablist" aria-label="Reading card views">
-        <button type="button" class="reading-mode-btn is-active" data-mode="print" role="tab" aria-selected="true">
-          🖨 Print View
-        </button>
-        <button type="button" class="reading-mode-btn" data-mode="study" role="tab" aria-selected="false">
-          ⭐ Study View
-        </button>
+      <div class="book-controls-body reading-controls-body">
+        <div class="control-group control-view">
+          <label>View</label>
+          <div class="book-base-toggle" aria-label="Choose reading card view">
+            <button class="book-base-button is-active" type="button" data-mode="print">
+              Print View
+            </button>
+            <button class="book-base-button" type="button" data-mode="study">
+              Study View
+            </button>
+          </div>
+        </div>
+
+        <div class="control-group reading-print-control" data-mode-panel="print">
+          <label for="packetFilter">Packet</label>
+          <div class="select-row">
+            <select id="packetFilter">
+              <option value="progression-level-1">New for Level 1</option>
+              <option value="progression-level-2">New for Level 2</option>
+              <option value="progression-level-3">New for Level 3</option>
+              <option value="jump-in-level-2">Start at Level 2</option>
+              <option value="jump-in-level-3">Start at Level 3</option>
+              <option value="tagged-needs-practice">Tagged: Needs Practice</option>
+              <option value="tagged-review">Tagged: Review</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group reading-print-control" data-mode-panel="print">
+          <label for="printGroupFilter">Group by</label>
+          <div class="select-row">
+            <select id="printGroupFilter">
+              <option value="type">Type</option>
+              <option value="level">Level</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group reading-print-control" data-mode-panel="print">
+          <label for="sideFilter">Side</label>
+          <div class="select-row">
+            <select id="sideFilter">
+              <option value="front">Fronts</option>
+              <option value="back">Backs</option>
+              <option value="both">Fronts + Backs</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group reading-study-control" data-mode-panel="study" hidden>
+          <label for="studySetFilter">Study Set</label>
+          <div class="select-row">
+            <select id="studySetFilter">
+              <option value="level-1">Level 1</option>
+              <option value="level-2">Level 2</option>
+              <option value="level-3">Level 3</option>
+              <option value="all">All cards</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group reading-study-control" data-mode-panel="study" hidden>
+          <label for="studyTypeFilter">Type</label>
+          <div class="select-row">
+            <select id="studyTypeFilter">
+              <option value="all">All card types</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group reading-study-control" data-mode-panel="study" hidden>
+          <label for="studyTagFilter">Study Tags</label>
+          <div class="select-row">
+            <select id="studyTagFilter">
+              <option value="all">All study tags</option>
+              <option value="mastered">Mastered</option>
+              <option value="review">Review</option>
+              <option value="needs-practice">Needs Practice</option>
+              <option value="untagged">Untagged</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group reading-action-group">
+          <div class="filter-quick-actions">
+            <button id="clear-reading-filters" class="clear-filters-link" type="button">
+              Clear filters
+            </button>
+
+            <button id="printButton" class="clear-filters-link reading-print-action" type="button" data-mode-panel="print">
+              Print / Save PDF
+            </button>
+
+            <button id="shuffleButton" class="clear-filters-link reading-study-action" type="button" data-mode-panel="study" hidden>
+              Shuffle
+            </button>
+          </div>
+        </div>
       </div>
-    </section>
-
-    <section class="reading-controls no-print" id="printControls" data-mode-panel="print">
-      <label class="reading-filter-label">
-        Packet
-        <select id="packetFilter" class="reading-select">
-          <option value="progression-level-1">New for Level 1</option>
-          <option value="progression-level-2">New for Level 2</option>
-          <option value="progression-level-3">New for Level 3</option>
-          <option value="jump-in-level-2">Start at Level 2</option>
-          <option value="jump-in-level-3">Start at Level 3</option>
-        </select>
-      </label>
-
-      <label class="reading-filter-label">
-        Group by
-        <select id="printGroupFilter" class="reading-select">
-          <option value="type">Type</option>
-          <option value="level">Level</option>
-        </select>
-      </label>
-
-      <label class="reading-filter-label">
-        Side
-        <select id="sideFilter" class="reading-select">
-          <option value="front">Fronts</option>
-          <option value="back">Backs</option>
-          <option value="both">Fronts + Backs</option>
-        </select>
-      </label>
-
-      <button type="button" id="printButton" class="reading-action-btn">Print / Save PDF</button>
-    </section>
-
-    <section class="reading-controls no-print" id="studyControls" data-mode-panel="study" hidden>
-      <label class="reading-filter-label">
-        Study Set
-        <select id="studySetFilter" class="reading-select">
-          <option value="level-1">Level 1</option>
-          <option value="level-2">Level 2</option>
-          <option value="level-3">Level 3</option>
-          <option value="all">All cards</option>
-        </select>
-      </label>
-
-      <label class="reading-filter-label">
-        Type
-        <select id="studyTypeFilter" class="reading-select">
-          <option value="all">All card types</option>
-        </select>
-      </label>
-
-      <label class="reading-filter-label">
-        Tags
-        <select id="studyTagFilter" class="reading-select">
-          <option value="all">All study tags</option>
-          <option value="mastered">Mastered</option>
-          <option value="review">Review</option>
-          <option value="needs-practice">Needs Practice</option>
-          <option value="untagged">Untagged</option>
-        </select>
-      </label>
-
-      <button type="button" id="shuffleButton" class="reading-clear-btn">Shuffle</button>
     </section>
 
     <section id="readingStatus" class="reading-status no-print">
       Loading reading cards…
     </section>
 
-    <section id="printView" class="reading-content" data-mode-panel="print">
+    <section id="printView" class="directory-view is-active reading-content" data-mode-panel="print">
       <div id="printSummary" class="reading-summary no-print"></div>
       <div id="cardSheets" class="card-sheets" aria-live="polite"></div>
     </section>
 
-    <section id="studyView" class="reading-content" data-mode-panel="study" hidden>
+    <section id="studyView" class="directory-view reading-content" data-mode-panel="study" hidden>
       <div id="studySummary" class="reading-summary no-print"></div>
       <div id="studyDeck" class="study-deck" aria-live="polite"></div>
     </section>
   </main>
 
+  <script src="../../js/app.js"></script>
   <script type="module" src="reading-cards.js"></script>
 </body>
 </html>
