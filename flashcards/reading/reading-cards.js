@@ -25,6 +25,14 @@ const renderPacket = urlParams.get("packet");
 const renderReplacementLevel = urlParams.get("replacementLevel");
 const renderReplacementType = urlParams.get("replacementType");
 
+if (renderPacket) {
+  state.packet = renderPacket;
+}
+
+if (urlParams.get("side")) {
+  state.side = urlParams.get("side");
+}
+
 const TYPE_ORDER = [
   "phonogram",
   "short-vowel",
