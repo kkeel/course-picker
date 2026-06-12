@@ -6,6 +6,7 @@ const BASE_ID = process.env.LESSON_WRITING_BASE_ID;
 const TABLE_NAME = "Reading Lesson Cards";
 
 const OUT_DIR = "data/flashcards/reading";
+const IMAGE_DIR = `${OUT_DIR}/images`;
 
 if (!AIRTABLE_PAT) throw new Error("Missing AIRTABLE_PAT");
 if (!BASE_ID) throw new Error("Missing LESSON_WRITING_BASE_ID");
@@ -69,6 +70,67 @@ function sortCards(a, b) {
   );
 }
 
+function googleDriveFileId(url) {
+  const text = String(url || "").trim();
+  if (!text) return "";
+
+  const fileMatch = text.match(/\/file\/d\/([^/]+)/);
+  if (fileMatch) return fileMatch[1];
+
+  const idMatch = text.match(/[?&]id=([^&]+)/);
+  if (idMatch) return idMatch[1];
+
+  return "";
+}
+
+function imageExtFromContentType(contentType) {
+  const type = String(contentType || "").toLowerCase();
+  if (type.includes("jpeg") || type.includes("jpg")) return "jpg";
+  if (type.includes("webp")) return "webp";
+  return "png";
+}
+
+async function downloadDriveImage(sourceUrl, fileStem) {
+  const fileId = googleDriveFileId(sourceUrl);
+  if (!fileId) return { image: sourceUrl, sourceImage: sourceUrl, cached: false };
+
+  await fs.mkdir(IMAGE_DIR, { recursive: true });
+
+  const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+
+  try {
+    const res = await fetch(downloadUrl);
+
+    if (!res.ok) {
+      console.warn(`Image download failed ${res.status}: ${sourceUrl}`);
+      return { image: sourceUrl, sourceImage: sourceUrl, cached: false };
+    }
+
+    const contentType = res.headers.get("content-type") || "";
+
+    if (!contentType.startsWith("image/")) {
+      console.warn(`Drive did not return an image (${contentType}): ${sourceUrl}`);
+      return { image: sourceUrl, sourceImage: sourceUrl, cached: false };
+    }
+
+    const ext = imageExtFromContentType(contentType);
+    const relativePath = `${IMAGE_DIR}/${fileStem}.${ext}`;
+    const buffer = Buffer.from(await res.arrayBuffer());
+
+    await fs.writeFile(relativePath, buffer);
+
+    return {
+      image: `/${relativePath}`,
+      sourceImage: sourceUrl,
+      cached: true,
+    };
+  } catch (error) {
+    console.warn(`Image download error: ${sourceUrl}`);
+    console.warn(error.message);
+    return { image: sourceUrl, sourceImage: sourceUrl, cached: false };
+  }
+}
+
 async function airtableFetchAll(tableName) {
   const records = [];
   let offset = "";
@@ -104,13 +166,19 @@ async function writeJson(filePath, data) {
   console.log(`Wrote ${filePath}`);
 }
 
-function normalizeCard(record) {
+async function normalizeCard(record) {
   const f = record.fields || {};
 
   const title = asText(fieldValue(f, "Card"));
   const type = asText(fieldValue(f, "Type of Card"));
   const firstAssigned = asText(fieldValue(f, "First Assigned in"));
   const includedIn = asSelectList(fieldValue(f, "Included in"));
+
+  const sourceFrontImage = asText(fieldValue(f, "Front Image Link"));
+  const sourceBackImage = asText(fieldValue(f, "Back Image Link"));
+
+  const frontImage = await downloadDriveImage(sourceFrontImage, `${record.id}-front`);
+  const backImage = await downloadDriveImage(sourceBackImage, `${record.id}-back`);
 
   return {
     id: record.id,
@@ -130,14 +198,18 @@ function normalizeCard(record) {
 
     front: {
       text: asText(fieldValue(f, "Front of Card")),
-      image: asText(fieldValue(f, "Front Image Link")),
+      image: frontImage.image,
+      sourceImage: frontImage.sourceImage,
+      imageCached: frontImage.cached,
     },
 
     back: {
       text: asText(fieldValue(f, "Back of Card")),
       keyword: asText(fieldValue(f, "Key Word (back)")),
       mnemonic: asText(fieldValue(f, "Mnemonic (back)")),
-      image: asText(fieldValue(f, "Back Image Link")),
+      image: backImage.image,
+      sourceImage: backImage.sourceImage,
+      imageCached: backImage.cached,
     },
 
     rawFields: f,
@@ -171,10 +243,20 @@ async function main() {
   const records = await airtableFetchAll(TABLE_NAME);
   const generatedAt = new Date().toISOString();
 
-  const cards = records
-    .map(normalizeCard)
+  console.log(`Normalizing cards and caching images...`);
+
+  const normalizedCards = [];
+  for (const record of records) {
+    normalizedCards.push(await normalizeCard(record));
+  }
+
+  const cards = normalizedCards
     .filter((card) => card.title || card.front.image || card.back.image)
     .sort(sortCards);
+
+  const cachedImageCount = cards.reduce((count, card) => {
+    return count + (card.front.imageCached ? 1 : 0) + (card.back.imageCached ? 1 : 0);
+  }, 0);
 
   const levels = [...new Set(cards.flatMap((card) => card.includedIn))]
     .filter(Boolean)
@@ -195,6 +277,7 @@ async function main() {
       table: TABLE_NAME,
     },
     count: cards.length,
+    cachedImageCount,
     cards,
   };
 
@@ -206,6 +289,7 @@ async function main() {
     },
     recordCount: records.length,
     cardCount: cards.length,
+    cachedImageCount,
     levels,
     firstAssignedLevels,
     types,
@@ -215,6 +299,7 @@ async function main() {
       byLevel: "by-level/{level-slug}.json",
       byFirstAssigned: "by-first-assigned/{level-slug}.json",
       byType: "by-type/{type-slug}.json",
+      images: "images/{record-id}-{front|back}.png",
     },
   };
 
@@ -252,6 +337,7 @@ async function main() {
   }
 
   console.log(`Done. Built ${cards.length} reading cards.`);
+  console.log(`Cached ${cachedImageCount} images.`);
 }
 
 main().catch((err) => {
