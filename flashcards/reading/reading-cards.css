@@ -293,18 +293,16 @@
 }
 
 .print-card-word-sheet {
-  padding: 0.08in;
+  padding: 0;
 }
 
 .word-mini-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1.62in);
-  grid-template-rows: repeat(4, 0.42in);
-  gap: 0.04in;
+  grid-template-columns: repeat(2, 1.75in);
+  grid-template-rows: repeat(3, 0.6667in);
+  gap: 0;
   width: 100%;
   height: 100%;
-  align-content: center;
-  justify-content: center;
 }
 
 .word-mini-card {
@@ -317,5 +315,5 @@
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: fill;
 }
