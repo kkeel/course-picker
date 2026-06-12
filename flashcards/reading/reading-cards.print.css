@@ -1,0 +1,58 @@
+@page {
+  size: letter portrait;
+  margin: 0;
+}
+
+html,
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #ffffff !important;
+}
+
+.sheet {
+  width: 8.5in !important;
+  height: 11in !important;
+  min-height: 11in !important;
+  padding: 0.5in !important;
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  page-break-after: always;
+  break-after: page;
+  box-sizing: border-box;
+}
+
+.sheet-heading {
+  display: none !important;
+}
+
+.card-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 3.5in) !important;
+  grid-auto-rows: 2in !important;
+  gap: 0 !important;
+  justify-content: center !important;
+}
+
+.print-card {
+  width: 3.5in !important;
+  height: 2in !important;
+  border: 0.5pt solid #dddddd !important;
+  box-sizing: border-box;
+}
+
+.print-card img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
+.no-print,
+.app-header,
+.reading-intro-section,
+.reading-controls-panel,
+.reading-status,
+.reading-summary {
+  display: none !important;
+}
