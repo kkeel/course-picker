@@ -18,6 +18,21 @@ const els = {
   printButton: document.getElementById("printButton"),
 };
 
+const TYPE_ORDER = [
+  "phonogram",
+  "short-vowel",
+  "definition",
+  "red-word",
+  "sentence",
+  "word",
+  "game",
+];
+
+function typeRank(card) {
+  const index = TYPE_ORDER.indexOf(card.typeSlug);
+  return index === -1 ? 999 : index;
+}
+
 function driveImageUrl(url) {
   const text = String(url || "").trim();
   const match = text.match(/\/file\/d\/([^/]+)/);
@@ -73,7 +88,6 @@ function renderCard(card, side) {
           ? `<img src="${driveImageUrl(imageUrl)}" alt="${escapeHtml(label)}">`
           : `<div class="missing-image">Missing ${side} image<br>${escapeHtml(card.title || "")}</div>`
       }
-      <div class="card-label">${escapeHtml(label)}</div>
     </div>
   `;
 }
@@ -86,7 +100,7 @@ function renderSheets() {
   const cards = getPacketCards();
   const sortedCards = [...cards].sort((a, b) => {
     if (state.groupBy === "type") {
-      return String(a.type || "").localeCompare(String(b.type || "")) ||
+      return typeRank(a) - typeRank(b) ||
         String(a.lesson || "").localeCompare(String(b.lesson || ""), undefined, { numeric: true }) ||
         (a.cardNumber ?? 9999) - (b.cardNumber ?? 9999);
     }
