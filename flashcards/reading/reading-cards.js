@@ -84,38 +84,76 @@ function renderEmptyCard() {
 
 function renderSheets() {
   const cards = getPacketCards();
-  const groups = groupCards(cards);
+  const sortedCards = [...cards].sort((a, b) => {
+    if (state.groupBy === "type") {
+      return String(a.type || "").localeCompare(String(b.type || "")) ||
+        String(a.lesson || "").localeCompare(String(b.lesson || ""), undefined, { numeric: true }) ||
+        (a.cardNumber ?? 9999) - (b.cardNumber ?? 9999);
+    }
+
+    return String(a.firstAssigned || "").localeCompare(String(b.firstAssigned || "")) ||
+      String(a.lesson || "").localeCompare(String(b.lesson || ""), undefined, { numeric: true }) ||
+      String(a.type || "").localeCompare(String(b.type || "")) ||
+      (a.cardNumber ?? 9999) - (b.cardNumber ?? 9999);
+  });
 
   els.status.textContent = "";
   els.printSummary.textContent = `${cards.length} cards selected.`;
 
-  if (!cards.length) {
+  if (!sortedCards.length) {
     els.cardSheets.innerHTML = `<div class="empty-state">No cards found for this selection.</div>`;
     return;
   }
 
-  const html = groups.map(([groupName, groupCards]) => {
-    const sheets = chunk(groupCards, 10);
+  const pages = chunk(sortedCards, 10);
 
-    return sheets.map((sheetCards, index) => {
-      const filledCards = [...sheetCards];
-      while (filledCards.length < 10) filledCards.push(null);
+  const html = pages.map((pageCards, index) => {
+    const filledCards = [...pageCards];
+    while (filledCards.length < 10) filledCards.push(null);
 
+    if (state.side === "both") {
       return `
-        <article class="sheet">
-          <div class="sheet-heading">
-            <span>${escapeHtml(groupName)}</span>
-            <span>Sheet ${index + 1}</span>
-          </div>
-          <div class="card-grid">
-            ${filledCards.map((card) => card ? renderCard(card, state.side) : renderEmptyCard()).join("")}
-          </div>
-        </article>
+        ${renderSheet(filledCards, "front", index + 1)}
+        ${renderSheet(mirrorBackCards(filledCards), "back", index + 1)}
       `;
-    }).join("");
+    }
+
+    const sheetCards = state.side === "back"
+      ? mirrorBackCards(filledCards)
+      : filledCards;
+
+    return renderSheet(sheetCards, state.side, index + 1);
   }).join("");
 
   els.cardSheets.innerHTML = html;
+}
+
+function renderSheet(cards, side, sheetNumber) {
+  const sideLabel = side === "back" ? "Backs" : "Fronts";
+
+  return `
+    <article class="sheet ${side === "back" ? "is-back-sheet" : "is-front-sheet"}">
+      <div class="sheet-heading">
+        <span>${escapeHtml(sideLabel)}</span>
+        <span>Sheet ${sheetNumber}</span>
+      </div>
+      <div class="card-grid">
+        ${cards.map((card) => card ? renderCard(card, side) : renderEmptyCard()).join("")}
+      </div>
+    </article>
+  `;
+}
+
+function mirrorBackCards(cards) {
+  const mirrored = [...cards];
+
+  for (let i = 0; i < mirrored.length; i += 2) {
+    const left = mirrored[i];
+    mirrored[i] = mirrored[i + 1] || null;
+    mirrored[i + 1] = left || null;
+  }
+
+  return mirrored;
 }
 
 function escapeHtml(value) {
