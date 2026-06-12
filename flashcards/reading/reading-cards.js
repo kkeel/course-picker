@@ -77,7 +77,38 @@ function chunk(items, size) {
   return chunks;
 }
 
+function isWordCard(card) {
+  return card?.typeSlug === "word";
+}
+
+function renderWordMiniCard(card, side) {
+  const imageUrl = side === "back" ? card.back?.image : card.front?.image;
+  const label = `${card.type || "Card"} ${card.cardNumber || ""}`.trim();
+
+  return `
+    <div class="word-mini-card">
+      ${
+        imageUrl
+          ? `<img src="${driveImageUrl(imageUrl)}" alt="${escapeHtml(label)}">`
+          : `<div class="missing-image">Missing ${side} image<br>${escapeHtml(card.title || "")}</div>`
+      }
+    </div>
+  `;
+}
+
 function renderCard(card, side) {
+  if (isWordCard(card)) {
+    const wordCards = card.wordGroup || [card];
+
+    return `
+      <div class="print-card print-card-word-sheet">
+        <div class="word-mini-grid">
+          ${wordCards.map((wordCard) => renderWordMiniCard(wordCard, side)).join("")}
+        </div>
+      </div>
+    `;
+  }
+
   const imageUrl = side === "back" ? card.back?.image : card.front?.image;
   const label = `${card.type || "Card"} ${card.cardNumber || ""}`.trim();
 
@@ -96,9 +127,46 @@ function renderEmptyCard() {
   return `<div class="print-card empty"></div>`;
 }
 
+function packWordCards(cards) {
+  const packed = [];
+  const wordBuffer = [];
+
+  for (const card of cards) {
+    if (isWordCard(card)) {
+      wordBuffer.push(card);
+      continue;
+    }
+
+    flushWordBuffer();
+    packed.push(card);
+  }
+
+  flushWordBuffer();
+  return packed;
+
+  function flushWordBuffer() {
+    if (!wordBuffer.length) return;
+
+    const wordGroups = chunk(wordBuffer, 8);
+    for (const group of wordGroups) {
+      packed.push({
+        ...group[0],
+        id: `word-group-${group.map((card) => card.id).join("-")}`,
+        title: `Word cards ${group[0].cardNumber || ""}`,
+        type: "Word",
+        typeSlug: "word",
+        wordGroup: group,
+      });
+    }
+
+    wordBuffer.length = 0;
+  }
+}
+
 function renderSheets() {
   const cards = getPacketCards();
-  const sortedCards = [...cards].sort((a, b) => {
+  const packedCards = packWordCards(cards);
+  const sortedCards = [...packedCards].sort((a, b) => {
     if (state.groupBy === "type") {
       return typeRank(a) - typeRank(b) ||
         String(a.lesson || "").localeCompare(String(b.lesson || ""), undefined, { numeric: true }) ||
