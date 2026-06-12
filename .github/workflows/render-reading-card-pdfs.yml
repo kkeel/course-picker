@@ -1,0 +1,42 @@
+name: Render Reading Card PDFs
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render-reading-card-pdfs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install Playwright
+        run: |
+          npm install playwright
+          npx playwright install chromium
+
+      - name: Build reading cards JSON
+        env:
+          AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
+          LESSON_WRITING_BASE_ID: ${{ secrets.LESSON_WRITING_BASE_ID }}
+        run: node flashcards/tools/build-reading-cards.mjs
+
+      - name: Render reading card PDFs
+        run: node flashcards/tools/render-reading-card-pdfs.mjs
+
+      - name: Commit generated PDFs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/flashcards/reading pdf/flashcards/reading
+          git diff --cached --quiet && echo "No reading card PDF changes to commit" || git commit -m "Render reading card PDFs"
+          git push
