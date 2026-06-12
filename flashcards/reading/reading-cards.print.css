@@ -18,9 +18,14 @@ body {
   margin: 0 !important;
   border: none !important;
   box-shadow: none !important;
+  page-break-after: auto;
+  break-after: auto;
+  box-sizing: border-box;
+}
+
+.sheet:not(:last-child) {
   page-break-after: always;
   break-after: page;
-  box-sizing: border-box;
 }
 
 .sheet-heading {
