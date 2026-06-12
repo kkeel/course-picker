@@ -18,6 +18,13 @@ const els = {
   printButton: document.getElementById("printButton"),
 };
 
+const urlParams = new URLSearchParams(window.location.search);
+
+const renderMode = urlParams.get("render") === "pdf";
+const renderPacket = urlParams.get("packet");
+const renderReplacementLevel = urlParams.get("replacementLevel");
+const renderReplacementType = urlParams.get("replacementType");
+
 const TYPE_ORDER = [
   "phonogram",
   "short-vowel",
@@ -287,7 +294,17 @@ async function loadCards() {
   const data = await response.json();
   state.cards = data.cards || [];
 
+  if (renderReplacementLevel && renderReplacementType) {
+    state.cards = state.cards.filter((card) =>
+      card.includedInSlugs?.includes(renderReplacementLevel) &&
+      card.typeSlug === renderReplacementType
+    );
+  }
+
   renderSheets();
+  if (renderMode) {
+    document.body.dataset.renderReady = "true";
+  }
 }
 
 els.packetFilter?.addEventListener("change", (event) => {
