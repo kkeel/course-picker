@@ -1647,7 +1647,7 @@
                                     >
                                       <span>
                                         <button
-                                          x-show="lnk.memberOnly"
+                                          x-show="lnk.memberOnly && !isComingSoonLink(lnk)"
                                           type="button"
                                           class="buy-link-pill buy-link-pill--member"
                                           @click.prevent="openProtectedBookLink(lnk)"
@@ -1655,13 +1655,21 @@
                                         ></button>
                                   
                                         <a
-                                          x-show="!lnk.memberOnly"
+                                          x-show="!lnk.memberOnly && !isComingSoonLink(lnk)"
                                           class="buy-link-pill"
                                           :href="lnk.url || '#'"
                                           target="_blank"
                                           rel="noopener"
                                           x-text="lnk.text || 'Link'"
                                         ></a>
+
+                                        <button
+                                          x-show="isComingSoonLink(lnk)"
+                                          type="button"
+                                          class="buy-link-pill buy-link-pill--disabled"
+                                          disabled
+                                          x-text="lnk.text || 'Coming Soon'"
+                                        ></button>
                                       </span>
                                     </template>
                                   </div>
@@ -1880,7 +1888,7 @@
                                                 >
                                                   <span>
                                                     <button
-                                                      x-show="lnk.memberOnly"
+                                                      x-show="lnk.memberOnly && !isComingSoonLink(lnk)"
                                                       type="button"
                                                       class="buy-link-pill buy-link-pill--member"
                                                       @click.prevent="openProtectedBookLink(lnk)"
@@ -1888,13 +1896,21 @@
                                                     ></button>
                                               
                                                     <a
-                                                      x-show="!lnk.memberOnly"
+                                                      x-show="!lnk.memberOnly && !isComingSoonLink(lnk)"
                                                       class="buy-link-pill"
                                                       :href="lnk.url || '#'"
                                                       target="_blank"
                                                       rel="noopener"
                                                       x-text="lnk.text || 'Link'"
                                                     ></a>
+
+                                                    <button
+                                                      x-show="isComingSoonLink(lnk)"
+                                                      type="button"
+                                                      class="buy-link-pill buy-link-pill--disabled"
+                                                      disabled
+                                                      x-text="lnk.text || 'Coming Soon'"
+                                                    ></button>
                                                   </span>
                                                 </template>
                                               </div>
@@ -2712,7 +2728,7 @@
                                           >
                                             <span>
                                               <button
-                                                x-show="lnk.memberOnly"
+                                                x-show="lnk.memberOnly && !isComingSoonLink(lnk)"
                                                 type="button"
                                                 class="buy-link-pill buy-link-pill--member"
                                                 @click.prevent="openProtectedBookLink(lnk)"
@@ -2720,13 +2736,21 @@
                                               ></button>
                                         
                                               <a
-                                                x-show="!lnk.memberOnly"
+                                                x-show="!lnk.memberOnly && !isComingSoonLink(lnk)"
                                                 class="buy-link-pill"
                                                 :href="lnk.url || '#'"
                                                 target="_blank"
                                                 rel="noopener"
                                                 x-text="lnk.text || 'Link'"
                                               ></a>
+
+                                              <button
+                                                x-show="isComingSoonLink(lnk)"
+                                                type="button"
+                                                class="buy-link-pill buy-link-pill--disabled"
+                                                disabled
+                                                x-text="lnk.text || 'Coming Soon'"
+                                              ></button>
                                             </span>
                                           </template>
                                         </div>
@@ -2957,7 +2981,7 @@
                                                 >
                                                   <span>
                                                     <button
-                                                      x-show="lnk.memberOnly"
+                                                      x-show="lnk.memberOnly && !isComingSoonLink(lnk)"
                                                       type="button"
                                                       class="buy-link-pill buy-link-pill--member"
                                                       @click.prevent="openProtectedBookLink(lnk)"
@@ -2965,13 +2989,21 @@
                                                     ></button>
                                               
                                                     <a
-                                                      x-show="!lnk.memberOnly"
+                                                      x-show="!lnk.memberOnly && !isComingSoonLink(lnk)"
                                                       class="buy-link-pill"
                                                       :href="lnk.url || '#'"
                                                       target="_blank"
                                                       rel="noopener"
                                                       x-text="lnk.text || 'Link'"
                                                     ></a>
+
+                                                    <button
+                                                      x-show="isComingSoonLink(lnk)"
+                                                      type="button"
+                                                      class="buy-link-pill buy-link-pill--disabled"
+                                                      disabled
+                                                      x-text="lnk.text || 'Coming Soon'"
+                                                    ></button>
                                                   </span>
                                                 </template>
                                               </div>
