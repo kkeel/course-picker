@@ -1202,6 +1202,17 @@
   box-shadow: 0 0 0 2px rgba(173,181,143,0.35);
 }
 
+.buy-link-pill--disabled,
+.buy-link-pill--disabled:hover,
+.buy-link-pill--disabled:active {
+  opacity: 0.65;
+  cursor: default;
+  pointer-events: none;
+  background: #bdc5bf;
+  color: #262b26;
+  transform: none;
+}
+
 /* =========================================================
    Book List Read-only mode (screen only)
    Keeps visibility, removes edit affordances.
