@@ -152,7 +152,7 @@ function packWordCards(cards) {
   function flushWordBuffer() {
     if (!wordBuffer.length) return;
 
-    const wordGroups = chunk(wordBuffer, 8);
+    const wordGroups = chunk(wordBuffer, 6);
     for (const group of wordGroups) {
       packed.push({
         ...group[0],
