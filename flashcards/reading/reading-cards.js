@@ -99,11 +99,16 @@ function renderWordMiniCard(card, side) {
 function renderCard(card, side) {
   if (isWordCard(card)) {
     const wordCards = card.wordGroup || [card];
-
+    const arrangedWordCards = side === "back"
+      ? mirrorMiniCards(wordCards)
+      : wordCards;
+  
     return `
       <div class="print-card print-card-word-sheet">
         <div class="word-mini-grid">
-          ${wordCards.map((wordCard) => renderWordMiniCard(wordCard, side)).join("")}
+          ${arrangedWordCards.map((wordCard) =>
+            wordCard ? renderWordMiniCard(wordCard, side) : `<div class="word-mini-card empty"></div>`
+          ).join("")}
         </div>
       </div>
     `;
@@ -227,6 +232,18 @@ function renderSheet(cards, side, sheetNumber) {
 }
 
 function mirrorBackCards(cards) {
+  const mirrored = [...cards];
+
+  for (let i = 0; i < mirrored.length; i += 2) {
+    const left = mirrored[i];
+    mirrored[i] = mirrored[i + 1] || null;
+    mirrored[i + 1] = left || null;
+  }
+
+  return mirrored;
+}
+
+function mirrorMiniCards(cards) {
   const mirrored = [...cards];
 
   for (let i = 0; i < mirrored.length; i += 2) {
