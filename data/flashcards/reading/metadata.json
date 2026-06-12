@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-06-12T13:00:07.346Z",
+  "source": {
+    "baseId": "apphTWdjAdJEcAmoe",
+    "table": "Reading Lesson Cards"
+  },
+  "recordCount": 1192,
+  "cardCount": 1192,
+  "levels": [
+    "Level 1",
+    "Level 2",
+    "Level 3"
+  ],
+  "firstAssignedLevels": [
+    "Level 1",
+    "Level 2",
+    "Level 3"
+  ],
+  "types": [
+    "Definition",
+    "Game",
+    "Phonogram",
+    "Red Word",
+    "Sentence",
+    "Short Vowel",
+    "Word"
+  ],
+  "files": {
+    "master": "master.json",
+    "metadata": "metadata.json",
+    "byLevel": "by-level/{level-slug}.json",
+    "byFirstAssigned": "by-first-assigned/{level-slug}.json",
+    "byType": "by-type/{type-slug}.json"
+  }
+}
