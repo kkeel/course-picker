@@ -1,11 +1,12 @@
 {
-  "generatedAt": "2026-06-12T13:00:07.346Z",
+  "generatedAt": "2026-06-12T14:52:08.431Z",
   "source": {
     "baseId": "apphTWdjAdJEcAmoe",
     "table": "Reading Lesson Cards"
   },
   "recordCount": 1192,
   "cardCount": 1192,
+  "cachedImageCount": 2383,
   "levels": [
     "Level 1",
     "Level 2",
@@ -30,6 +31,7 @@
     "metadata": "metadata.json",
     "byLevel": "by-level/{level-slug}.json",
     "byFirstAssigned": "by-first-assigned/{level-slug}.json",
-    "byType": "by-type/{type-slug}.json"
+    "byType": "by-type/{type-slug}.json",
+    "images": "images/{record-id}-{front|back}.png"
   }
 }
