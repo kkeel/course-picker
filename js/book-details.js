@@ -1368,6 +1368,13 @@ function renderBookCard(book) {
                         const url = option.url || "";
                         const memberstackId = option.memberstackId || option.memberstackContentId || option.secureLinkId || "";
                         const isMemberOnly = Boolean(option.memberOnly || memberstackId);
+
+                        const isComingSoon = String(label || "").trim().toLowerCase() === "coming soon" ||
+                          String(label || "").trim().toLowerCase() === "coming soon!";
+                        
+                        if (isComingSoon) {
+                          return `<span class="book-link-pill book-link-pill--disabled">${escapeHtml(label)}</span>`;
+                        }
                       
                         if (isMemberOnly) {
                           return `
