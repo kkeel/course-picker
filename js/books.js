@@ -88,8 +88,17 @@
         }
       },
 
+      isComingSoonLink(lnk) {
+        const label = String(lnk?.text || lnk?.label || "").trim().toLowerCase();
+        return label === "coming soon" || label === "coming soon!";
+      },
+
       async openProtectedBookLink(lnk) {
         if (!lnk) return false;
+      
+        if (this.isComingSoonLink?.(lnk)) {
+          return false;
+        }
       
         const fallbackUrl = String(lnk.url || "").trim();
         const secureLinkId = String(
