@@ -395,11 +395,6 @@
   margin-top: 22px;
 }
 
-.tracker-books-summary .tracker-card:first-child {
-  background: rgba(123,139,127,0.14);
-  border-color: rgba(123,139,127,0.24);
-}
-
 .tracker-books-summary .tracker-card {
   cursor: pointer;
   transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
