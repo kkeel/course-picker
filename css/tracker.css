@@ -410,20 +410,12 @@
   transform: translateY(-1px);
 }
 
-.tracker-book-group.is-collapsed .tracker-book-group-rows,
 .tracker-book-group.is-hidden-by-focus {
   display: none;
 }
 
 .tracker-book-group-title {
-  border: 0;
-  cursor: pointer;
   gap: 10px;
-}
-
-.tracker-section-cue {
-  font-size: 13px;
-  opacity: 0.7;
 }
 
 /* =========================================================
