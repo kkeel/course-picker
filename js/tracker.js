@@ -3,10 +3,8 @@ const TRACKER_PLANNER_KEY = window.PLANNER_STATE_KEY || `alveary_planner_${TRACK
 const TRACKER_RESOURCES_URL = "data/MA_Resources.json";
 const TRACKER_ACTIVE_TAB_KEY = `${TRACKER_PLANNER_KEY}_active_tab`;
 const TRACKER_BOOK_FOCUS_KEY = `${TRACKER_PLANNER_KEY}_book_focus`;
-const TRACKER_BOOK_COLLAPSED_KEY = `${TRACKER_PLANNER_KEY}_book_collapsed_sections`;
 
 let trackerBookFocus = localStorage.getItem(TRACKER_BOOK_FOCUS_KEY) || "";
-let trackerBookCollapsedSections = readJsonLocal(TRACKER_BOOK_COLLAPSED_KEY, {});
 
 let trackerResourcesById = {};
 let trackerResourcesLastUpdated = "";
@@ -272,19 +270,17 @@ function renderPrepRow(row) {
 }
 
 function bookTrackerGroup(key, title, rows) {
-  const isCollapsed = !!trackerBookCollapsedSections[key];
   const isFocused = trackerBookFocus === key;
   const shouldHide = trackerBookFocus && !isFocused;
 
   return `
     <section
-      class="tracker-ledger-group tracker-book-group ${isCollapsed ? "is-collapsed" : ""} ${shouldHide ? "is-hidden-by-focus" : ""}"
+      class="tracker-ledger-group tracker-book-group ${shouldHide ? "is-hidden-by-focus" : ""}"
       data-book-section="${key}"
     >
-      <button class="tracker-ledger-group-title tracker-book-group-title" type="button" data-toggle-book-section="${key}">
+      <div class="tracker-ledger-group-title tracker-book-group-title">
         <span>${title}</span>
-        <span class="tracker-section-cue">${isCollapsed ? "+" : "−"}</span>
-      </button>
+      </div>
 
       <div class="tracker-ledger-group-rows tracker-book-group-rows">
         ${
@@ -365,28 +361,13 @@ function syncBookSummaryCards() {
 function initBookSectionControls() {
   document.addEventListener("click", event => {
     const focusCard = event.target.closest("[data-book-focus]");
-    if (focusCard) {
-      const key = focusCard.dataset.bookFocus;
-      trackerBookFocus = trackerBookFocus === key ? "" : key;
+    if (!focusCard) return;
 
-      localStorage.setItem(TRACKER_BOOK_FOCUS_KEY, trackerBookFocus);
-      renderBooksPanel();
-      return;
-    }
+    const key = focusCard.dataset.bookFocus;
+    trackerBookFocus = trackerBookFocus === key ? "" : key;
 
-    const toggleButton = event.target.closest("[data-toggle-book-section]");
-    if (toggleButton) {
-      const key = toggleButton.dataset.toggleBookSection;
-
-      trackerBookCollapsedSections[key] = !trackerBookCollapsedSections[key];
-
-      localStorage.setItem(
-        TRACKER_BOOK_COLLAPSED_KEY,
-        JSON.stringify(trackerBookCollapsedSections)
-      );
-
-      renderBooksPanel();
-    }
+    localStorage.setItem(TRACKER_BOOK_FOCUS_KEY, trackerBookFocus);
+    renderBooksPanel();
   });
 }
 
