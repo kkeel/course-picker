@@ -347,10 +347,16 @@
           "sharedText": "",
           "purchaseOptions": [
             {
-              "label": "PDF",
+              "label": "Option 1",
               "url": "https://www.alveary.org/login",
               "memberOnly": true,
               "memberstackId": "grade-4-lab-book"
+            },
+            {
+              "label": "PDF",
+              "url": "https://www.alveary.org/login",
+              "memberOnly": true,
+              "memberstackId": "grade-4-lab-pdf"
             }
           ]
         }

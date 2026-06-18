@@ -1385,7 +1385,7 @@
                   "sharedText": "",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "art-print-set-hard-copy"
@@ -1426,7 +1426,7 @@
                   "sharedText": "Recitation: Grades 1-2\nPicture Study\nMusic: Intro\nMusic: Level 1",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-g1-2-hard-copy"
@@ -1467,7 +1467,7 @@
                   "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grade-3-hard-copy"
@@ -1508,7 +1508,7 @@
                   "sharedText": "Picture Study\nRecitation: Grades 4-6\nMusic: Level 3\nMusic: Level 4\nMusic: Level 5",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grades-4-6-hard-copy"
@@ -1549,7 +1549,7 @@
                   "sharedText": "Picture Study\nRecitation: Grades 7-8\nMusic: Level 5",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grades-7-8-hard-copy"
@@ -1590,7 +1590,7 @@
                   "sharedText": "Recitation: Grade 9\nRecitation: Grade 10\nRecitation: Grade 11\nRecitation: Grade 12\nMusic: Level 5\nPicture Study",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grades-9-12-hard-copy"
@@ -9049,10 +9049,16 @@
                   "sharedText": "Penmanship & Copywork: Grade 4\nDictation: Grade 4",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "grade-4-copywork-dictation-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "grade-4-copywork-dictation-pdf"
                     }
                   ]
                 }
@@ -9174,10 +9180,16 @@
                   "sharedText": "Penmanship & Copywork: Grade 4\nDictation: Grade 4",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "grade-4-copywork-dictation-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "grade-4-copywork-dictation-pdf"
                     }
                   ]
                 }
@@ -9369,10 +9381,16 @@
                   "sharedText": "Penmanship & Copywork: Grade 5\nDictation: Grade 5",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "grade-5-copywork-dictation-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "grade-5-copywork-dictation-pdf"
                     }
                   ]
                 }
@@ -9494,10 +9512,16 @@
                   "sharedText": "Penmanship & Copywork: Grade 5\nDictation: Grade 5",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "grade-5-copywork-dictation-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "grade-5-copywork-dictation-pdf"
                     }
                   ]
                 }
@@ -9724,10 +9748,16 @@
                   "sharedText": "Penmanship & Copywork: Grade 6\nDictation: Grade 6",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "grade-6-copywork-dictation-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "grade-6-copywork-dictation-pdf"
                     }
                   ]
                 }
@@ -9849,10 +9879,16 @@
                   "sharedText": "Penmanship & Copywork: Grade 6\nDictation: Grade 6",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "grade-6-copywork-dictation-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "grade-6-copywork-dictation-pdf"
                     }
                   ]
                 }
@@ -10044,10 +10080,16 @@
                   "sharedText": "Copywork: Grade 7\nDictation: Grade 7",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "grade-7-copywork-dictation-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "grade-7-copywork-dictation-pdf"
                     }
                   ]
                 }
@@ -10098,10 +10140,16 @@
                   "sharedText": "Copywork: Grade 7\nDictation: Grade 7",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "grade-7-copywork-dictation-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "grade-7-copywork-dictation-pdf"
                     }
                   ]
                 }
@@ -10328,10 +10376,16 @@
                   "sharedText": "Copywork: Grade 8\nDictation: Grade 8",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "grade-8-copywork-dictation-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "grade-8-copywork-dictation-pdf"
                     }
                   ]
                 }
@@ -10382,10 +10436,16 @@
                   "sharedText": "Copywork: Grade 8\nDictation: Grade 8",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "grade-8-copywork-dictation-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "grade-8-copywork-dictation-pdf"
                     }
                   ]
                 }
@@ -11042,7 +11102,7 @@
                   "sharedText": "Recitation: Grades 1-2\nPicture Study\nMusic: Intro\nMusic: Level 1",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-g1-2-hard-copy"
@@ -11116,7 +11176,7 @@
                   "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grade-3-hard-copy"
@@ -11190,7 +11250,7 @@
                   "sharedText": "Picture Study\nRecitation: Grades 4-6\nMusic: Level 3\nMusic: Level 4\nMusic: Level 5",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grades-4-6-hard-copy"
@@ -11264,7 +11324,7 @@
                   "sharedText": "Picture Study\nRecitation: Grades 7-8\nMusic: Level 5",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grades-7-8-hard-copy"
@@ -11338,7 +11398,7 @@
                   "sharedText": "Recitation: Grade 9\nRecitation: Grade 10\nRecitation: Grade 11\nRecitation: Grade 12\nMusic: Level 5\nPicture Study",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grades-9-12-hard-copy"
@@ -11412,7 +11472,7 @@
                   "sharedText": "Recitation: Grade 9\nRecitation: Grade 10\nRecitation: Grade 11\nRecitation: Grade 12\nMusic: Level 5\nPicture Study",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grades-9-12-hard-copy"
@@ -11486,7 +11546,7 @@
                   "sharedText": "Recitation: Grade 9\nRecitation: Grade 10\nRecitation: Grade 11\nRecitation: Grade 12\nMusic: Level 5\nPicture Study",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grades-9-12-hard-copy"
@@ -11560,7 +11620,7 @@
                   "sharedText": "Recitation: Grade 9\nRecitation: Grade 10\nRecitation: Grade 11\nRecitation: Grade 12\nMusic: Level 5\nPicture Study",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grades-9-12-hard-copy"
@@ -34498,7 +34558,7 @@
                   "sharedText": "Recitation: Grades 1-2\nPicture Study\nMusic: Intro\nMusic: Level 1",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-g1-2-hard-copy"
@@ -34870,7 +34930,7 @@
                   "sharedText": "Recitation: Grades 1-2\nPicture Study\nMusic: Intro\nMusic: Level 1",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-g1-2-hard-copy"
@@ -35645,7 +35705,7 @@
                   "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grade-3-hard-copy"
@@ -35686,7 +35746,7 @@
                   "sharedText": "Picture Study\nRecitation: Grades 4-6\nMusic: Level 3\nMusic: Level 4\nMusic: Level 5",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grades-4-6-hard-copy"
@@ -36098,7 +36158,7 @@
                   "sharedText": "Picture Study\nRecitation: Grades 4-6\nMusic: Level 3\nMusic: Level 4\nMusic: Level 5",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grades-4-6-hard-copy"
@@ -36580,7 +36640,7 @@
                   "sharedText": "Picture Study\nRecitation: Grades 4-6\nMusic: Level 3\nMusic: Level 4\nMusic: Level 5",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grades-4-6-hard-copy"
@@ -36621,7 +36681,7 @@
                   "sharedText": "Picture Study\nRecitation: Grades 7-8\nMusic: Level 5",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grades-7-8-hard-copy"
@@ -36662,7 +36722,7 @@
                   "sharedText": "Recitation: Grade 9\nRecitation: Grade 10\nRecitation: Grade 11\nRecitation: Grade 12\nMusic: Level 5\nPicture Study",
                   "purchaseOptions": [
                     {
-                      "label": "Coming Soon",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "our-work-grades-9-12-hard-copy"
@@ -38830,10 +38890,16 @@
                   "sharedText": "",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "grade-4-lab-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "grade-4-lab-pdf"
                     }
                   ]
                 }
@@ -39258,10 +39324,16 @@
                   "sharedText": "",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "grade-5-lab-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "grade-5-lab-pdf"
                     }
                   ]
                 }
@@ -39620,10 +39692,16 @@
                   "sharedText": "",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "grade-6-lab-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "grade-6-lab-pdf"
                     }
                   ]
                 }
@@ -39819,10 +39897,16 @@
                   "sharedText": "",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "grade-7-lab-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "grade-7-lab-pdf"
                     }
                   ]
                 }
@@ -40054,10 +40138,16 @@
                   "sharedText": "",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "grade-8-lab-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "grade-8-lab-pdf"
                     }
                   ]
                 }
@@ -40307,10 +40397,16 @@
                   "sharedText": "",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "chemistry-lab-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "chemistry-lab-pdf"
                     }
                   ]
                 }
@@ -40553,10 +40649,16 @@
                   "sharedText": "",
                   "purchaseOptions": [
                     {
-                      "label": "PDF",
+                      "label": "Option 1",
                       "url": "https://www.alveary.org/login",
                       "memberOnly": true,
                       "memberstackId": "biology-lab-book"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "biology-lab-pdf"
                     }
                   ]
                 }

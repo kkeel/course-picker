@@ -64,10 +64,16 @@
           "sharedText": "Copywork: Grade 7\nDictation: Grade 7",
           "purchaseOptions": [
             {
-              "label": "PDF",
+              "label": "Option 1",
               "url": "https://www.alveary.org/login",
               "memberOnly": true,
               "memberstackId": "grade-7-copywork-dictation-book"
+            },
+            {
+              "label": "PDF",
+              "url": "https://www.alveary.org/login",
+              "memberOnly": true,
+              "memberstackId": "grade-7-copywork-dictation-pdf"
             }
           ]
         }

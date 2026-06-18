@@ -135,10 +135,16 @@
           "sharedText": "Penmanship & Copywork: Grade 4\nDictation: Grade 4",
           "purchaseOptions": [
             {
-              "label": "PDF",
+              "label": "Option 1",
               "url": "https://www.alveary.org/login",
               "memberOnly": true,
               "memberstackId": "grade-4-copywork-dictation-book"
+            },
+            {
+              "label": "PDF",
+              "url": "https://www.alveary.org/login",
+              "memberOnly": true,
+              "memberstackId": "grade-4-copywork-dictation-pdf"
             }
           ]
         }
