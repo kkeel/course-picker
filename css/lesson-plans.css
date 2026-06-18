@@ -1612,6 +1612,13 @@ body.grade-bundle-modal-open {
   cursor: pointer;
 }
 
+.grade-bundle-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 .grade-bundle-tile:hover {
   border-color: rgba(89,110,94,0.42);
   box-shadow: var(--shadow-soft);
