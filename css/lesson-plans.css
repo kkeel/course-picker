@@ -2235,3 +2235,18 @@ body.bulk-download-modal-open {
 .lesson-tracking-add-wrap {
   position: relative;
 }
+
+.card-action-link.is-print-store {
+  border-color: rgba(89,110,94,0.28);
+  background: #fbfbf9;
+  color: var(--brand-dark);
+}
+
+.card-action-link.is-print-store:hover {
+  border-color: rgba(89,110,94,0.5);
+  background: #ffffff;
+}
+
+.card-action-link.is-print-store .card-action-icon {
+  background: #eef1e8;
+}
