@@ -2324,6 +2324,7 @@ function getActionLinks(item) {
     supplies: safeLink(links.supplies),
     lessonLinks: safeLink(links.lessonLinks),
     lessonPdf: safeLink(links.lessonPdf),
+    delivery: safeLink(links.delivery),
     editableSheet: safeLink(links.editableSheet),
     extraHelpings: safeLink(links.extraHelpings),
   };
@@ -2694,6 +2695,23 @@ function renderActionButtons(item, options = {}) {
               </a>
             `
             : ""
+      }
+
+      ${
+        !isDelayedPdf(item) && links.delivery
+          ? `
+            <a
+              class="card-action-link is-print-store"
+              href="${escapeHtml(links.delivery)}"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="card-action-icon">📦</span>
+              <span class="card-action-label">Print Store Option</span>
+              <span class="card-action-arrow">↗</span>
+            </a>
+          `
+          : ""
       }
 
       <span class="card-action-divider">|</span>
