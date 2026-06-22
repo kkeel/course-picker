@@ -3187,7 +3187,15 @@ function setActiveView(view) {
 
 async function loadPlannerStateForLessonPlans() {
   try {
-    const result = await window.AlvearyAuth?.getPlannerState?.();
+    let result = null;
+
+    if (window.AlvearyAuth?.getPlannerState) {
+      result = await window.AlvearyAuth.getPlannerState();
+    } else {
+      const authModuleUrl = new URL("auth.js", LESSON_PLANS_SCRIPT_URL).href;
+      const auth = await import(authModuleUrl);
+      result = await auth.getPlannerState();
+    }
 
     const planner =
       result?.state?.plannerCore ||
