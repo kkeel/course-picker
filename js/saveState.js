@@ -3,6 +3,7 @@
    ============================================================ */
 
 const SECTIONED_AUTH_BASE = "https://alveary-planning-api-sectioned.kim-b5d.workers.dev/api";
+const STATE_V2_BASE = "https://alveary-planning-state-v2.kim-b5d.workers.dev/api/state-v2";
 const UI_STORAGE_KEY = "alveary_schedule_ui_v1";
 // Cards are persisted separately by schedule.js. For cloud saves we store only
 // the *user-authored* + *user-placed* data (NOT the full catalog).
@@ -382,6 +383,48 @@ async function sectionedSetState(state) {
   return res.ok ? json : { ok: false, reason: json?.reason || `http_${res.status}`, detail: json };
 }
 
+async function stateV2Post(path, payload = {}) {
+  const member = await getCurrentMember();
+  if (!member?.id) return { ok: false, reason: "no_memberstack_session" };
+
+  const res = await fetch(`${STATE_V2_BASE}${path}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      memberstackId: String(member.id),
+      ...payload,
+    }),
+  });
+
+  const json = await res.json().catch(() => ({}));
+  return res.ok ? json : { ok: false, reason: json?.reason || `http_${res.status}`, detail: json };
+}
+
+async function stateV2Get() {
+  return stateV2Post("/get");
+}
+
+async function stateV2Migrate() {
+  return stateV2Post("/migrate");
+}
+
+async function stateV2SetSection(section, state) {
+  return stateV2Post("/set-section", { section, state });
+}
+
+function stateV2NeedsMigration(remote) {
+  if (!remote?.ok) return true;
+  if (String(remote.stateVersion || "").trim() !== "2") return true;
+
+  const hasSchedule =
+    remote.schedule &&
+    typeof remote.schedule === "object" &&
+    remote.schedule.cards &&
+    typeof remote.schedule.cards === "object";
+
+  return !hasSchedule;
+}
+
 /* ============================================================
    LOCAL SCHEDULE STATE
    - UI/FILTERS live in UI_STORAGE_KEY
@@ -741,20 +784,20 @@ export async function requireDeveloperForSchedule({ onDenied = null, statusEl = 
 
 async function savePlannerCoreToCloud() {
   try {
-    if (!window.AlvearyAuth?.setPlannerState) {
-      return { ok: false, reason: "planner_api_unavailable" };
+    const localSchedule = getLocalScheduleState();
+    const plannerCore = localSchedule?.plannerCore;
+
+    if (!plannerCore || typeof plannerCore !== "object") {
+      return { ok: false, reason: "no_local_planner_core" };
     }
 
-    const planner = getPlannerState();
-    if (!planner || typeof planner !== "object") {
-      return { ok: false, reason: "no_local_planner_state" };
-    }
-
-    const res = await window.AlvearyAuth.setPlannerState(planner);
-    return res?.ok ? { ok: true, detail: res } : { ok: false, reason: res?.reason || "planner_set_failed", detail: res };
+    const res = await stateV2SetSection("plannerCore", plannerCore);
+    return res?.ok
+      ? { ok: true, detail: res }
+      : { ok: false, reason: res?.reason || "planner_core_v2_set_failed", detail: res };
   } catch (e) {
-    console.warn("[planner] Failed to save planner core from schedule save", e);
-    return { ok: false, reason: "planner_set_exception", detail: e };
+    console.warn("[planner] Failed to save planner core to V2", e);
+    return { ok: false, reason: "planner_core_v2_exception", detail: e };
   }
 }
 
@@ -775,46 +818,48 @@ export async function saveScheduleSectionToCloud({ statusEl = null } = {}) {
 
   setStatus(statusEl, "Saving schedule to account…");
 
-  // 1) Save shared planner state too (students, assignments, notes, etc.)
+  let remote = await stateV2Get();
+
+  if (stateV2NeedsMigration(remote)) {
+    setStatus(statusEl, "Preparing your saved schedule…");
+    const migrated = await stateV2Migrate();
+
+    if (!migrated?.ok) {
+      setStatus(statusEl, `Save failed (migrate): ${migrated?.reason || "unknown"}`, "error");
+      return {
+        ok: false,
+        reason: migrated?.reason || "migration_failed",
+        detail: migrated,
+      };
+    }
+
+    remote = await stateV2Get();
+  }
+
   const plannerSaved = await savePlannerCoreToCloud();
   if (!plannerSaved?.ok) {
-    console.warn("[planner] Shared planner save from schedule page failed:", plannerSaved);
+    console.warn("[planner] Shared planner V2 save from schedule page failed:", plannerSaved);
   }
 
-  // 2) Get existing sectioned state
-  const remote = await sectionedGetState();
-  if (!remote?.ok) {
-    setStatus(statusEl, `Save failed (get): ${remote?.reason || "unknown"}`, "error");
-    return {
-      ok: false,
-      reason: remote?.reason || "get_failed",
-      detail: remote?.detail,
-      plannerSaved,
-    };
-  }
+  const saved = await stateV2SetSection("schedule", localSchedule);
 
-  const next = mergeScheduleIntoSectionedState(remote.state, localSchedule);
-
-  // 3) Set merged sectioned state
-  const saved = await sectionedSetState(next);
   if (!saved?.ok) {
-    console.error("Sectioned save failed:", saved);
-    setStatus(statusEl, `Save failed (set): ${saved?.reason || "unknown"}`, "error");
+    console.error("V2 schedule save failed:", saved);
+    setStatus(statusEl, `Save failed (schedule): ${saved?.reason || "unknown"}`, "error");
     return {
       ok: false,
-      reason: saved?.reason || "set_failed",
-      detail: saved?.detail,
+      reason: saved?.reason || "schedule_set_failed",
+      detail: saved,
       plannerSaved,
     };
   }
 
-  // Update local marker so we don't immediately "pull" over our own changes.
-  setLocalLastSeenCloudFromRemote(remote?.lastUpdated || null);
+  setLocalLastSeenCloudFromRemote(new Date().toISOString());
 
   if (plannerSaved?.ok) {
-    setStatus(statusEl, `Saved ✓`, "ok");
+    setStatus(statusEl, "Saved ✓", "ok");
   } else {
-    setStatus(statusEl, `Saved schedule ✓ (shared planner save needs follow-up)`, "warn");
+    setStatus(statusEl, "Saved schedule ✓ (planner core needs follow-up)", "warn");
   }
 
   return { ok: true, saved, plannerSaved };
@@ -825,29 +870,41 @@ export async function saveScheduleSectionToCloud({ statusEl = null } = {}) {
    ============================================================ */
 
 async function maybeHydrateFromCloud({ statusEl = null, reloadIfApplied = true } = {}) {
-  const remote = await sectionedGetState();
-  if (!remote?.ok) return { ok: false, reason: remote?.reason || "get_failed" };
+  const remote = await stateV2Get();
 
-  const schedUi = remote?.state?.sections?.schedule?.state;
-  if (!schedUi || typeof schedUi !== "object") return { ok: true, empty: true };
+  if (!remote?.ok) {
+    return { ok: false, reason: remote?.reason || "get_failed", detail: remote };
+  }
 
-  const localUi = getLocalScheduleState();
-  const remoteStr = JSON.stringify(schedUi);
-  const localStr = JSON.stringify(localUi || null);
+  // Live safety: do not migrate during page load/focus.
+  // Migration happens only when the user clicks Save.
+  if (stateV2NeedsMigration(remote)) {
+    return { ok: true, needsMigration: true };
+  }
 
-  // Prevent reload loops across this session: only apply once per distinct remote payload.
+  const schedState = remote.schedule;
+  if (!schedState || typeof schedState !== "object") return { ok: true, empty: true };
+
+  const incoming = {
+    ...schedState,
+    plannerCore: remote.plannerCore || null,
+  };
+
+  const localState = getLocalScheduleState();
+  const remoteStr = JSON.stringify(incoming);
+  const localStr = JSON.stringify(localState || null);
+
   const remoteKey = String(simpleHash(remoteStr));
   const appliedMarker = sessionStorage.getItem(SESSION_APPLIED_CLOUD_KEY);
 
   if (appliedMarker === remoteKey) return { ok: true, skipped: true };
 
-  // If identical, just mark as seen and move on.
   if (remoteStr === localStr) {
     sessionStorage.setItem(SESSION_APPLIED_CLOUD_KEY, remoteKey);
     return { ok: true, upToDate: true };
   }
 
-  setLocalScheduleState(schedUi);
+  setLocalScheduleState(incoming);
   sessionStorage.setItem(SESSION_APPLIED_CLOUD_KEY, remoteKey);
 
   if (reloadIfApplied) {
@@ -919,16 +976,18 @@ export async function initScheduleSectionedSave({
 
   // Debug surface
   window.SectionedScheduleState = {
-    SECTIONED_AUTH_BASE,
-    UI_STORAGE_KEY,
-    whoami: sectionedWhoami,
-    getCloud: sectionedGetState,
-    setCloud: sectionedSetState,
-    getLocal: getLocalScheduleState,
-    setLocal: setLocalScheduleState,
-    save: () => saveScheduleSectionToCloud({ statusEl }),
-    initScheduleSectionedSave: (opts) => initScheduleSectionedSave(opts),
-  };
+     SECTIONED_AUTH_BASE,
+     STATE_V2_BASE,
+     UI_STORAGE_KEY,
+     whoami: sectionedWhoami,
+     getCloud: stateV2Get,
+     setCloud: stateV2SetSection,
+     migrate: stateV2Migrate,
+     getLocal: getLocalScheduleState,
+     setLocal: setLocalScheduleState,
+     save: () => saveScheduleSectionToCloud({ statusEl }),
+     initScheduleSectionedSave: (opts) => initScheduleSectionedSave(opts),
+   };
 
   return { ok: true };
 }
