@@ -43,7 +43,7 @@ body {
 .print-card {
   width: 3.5in !important;
   height: 2in !important;
-  border: 0.5pt solid #dddddd !important;
+  border: 1pt solid #333 !important;
   box-sizing: border-box;
 }
 
@@ -77,7 +77,7 @@ body {
 
 .word-mini-card {
   overflow: hidden !important;
-  border: 0.5pt solid #dddddd !important;
+  border: 0.5pt dashed #888 !important;
   background: #ffffff !important;
 }
 
