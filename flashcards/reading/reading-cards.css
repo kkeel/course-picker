@@ -124,7 +124,7 @@
   height: 2in;
   overflow: hidden;
   background: #ffffff;
-  border: 1px dashed #cfd6c6;
+  border: 1.5px solid #000;
 }
 
 .print-card.empty {
@@ -307,7 +307,7 @@
 
 .word-mini-card {
   overflow: hidden;
-  border: 0.5pt solid #dddddd;
+  border: 1px dashed #888;
   background: #ffffff;
 }
 
