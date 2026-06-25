@@ -116,6 +116,8 @@
   grid-auto-rows: 2in;
   gap: 0;
   justify-content: center;
+  border-top: 1pt solid #333;
+  border-left: 1pt solid #333;
 }
 
 .print-card {
@@ -124,7 +126,10 @@
   height: 2in;
   overflow: hidden;
   background: #ffffff;
-  border: 1.5px solid #333;
+  border: none;
+  border-right: 1pt solid #333;
+  border-bottom: 1pt solid #333;
+  box-sizing: border-box;
 }
 
 .print-card.empty {
@@ -253,9 +258,17 @@
     display: none;
   }
 
-  .print-card {
-    border: 0.5pt solid #dddddd;
-  }
+  .card-grid {
+     border-top: 1pt solid #333;
+     border-left: 1pt solid #333;
+   }
+   
+   .print-card {
+     border: none;
+     border-right: 1pt solid #333;
+     border-bottom: 1pt solid #333;
+     box-sizing: border-box;
+   }
 }
 
 /* Reading Cards intro layout */
@@ -301,13 +314,16 @@
   grid-template-columns: repeat(2, 1.75in);
   grid-template-rows: repeat(3, 0.6667in);
   gap: 0;
-  width: 100%;
-  height: 100%;
+
+  /* Inset from the printer cut line */
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  margin: 4px;
 }
 
 .word-mini-card {
   overflow: hidden;
-  border: 1px dashed #888;
+  border: none;
   background: #ffffff;
 }
 
@@ -316,4 +332,12 @@
   width: 100%;
   height: 100%;
   object-fit: fill;
+}
+
+.word-mini-card:nth-child(odd) {
+  border-right: 1px dashed #888;
+}
+
+.word-mini-card:nth-child(n + 3) {
+  border-top: 1px dashed #888;
 }
