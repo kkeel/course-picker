@@ -2291,6 +2291,22 @@ function bookDetailsUrl(item) {
   return `book-details.html?${params.toString()}`;
 }
 
+function sanitizeDownloadFileName(value, fallback = "Lesson Plan") {
+  return String(value || fallback)
+    .replace(/[<>:"/\\|?*\x00-\x1F]+/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 140) || fallback;
+}
+
+function getLessonPdfDownloadName(item) {
+  const baseName = sanitizeDownloadFileName(
+    item?.lessonSetName || item?.title || "Lesson Plan"
+  );
+
+  return `${baseName}.pdf`;
+}
+
 function safeLink(value) {
   return typeof value === "string" && value.trim()
     ? value.trim()
@@ -2686,6 +2702,7 @@ function renderActionButtons(item, options = {}) {
               <a
                 class="card-action-link is-primary"
                 href="${escapeHtml(links.lessonPdf)}"
+                download="${escapeHtml(getLessonPdfDownloadName(item))}"
                 target="_blank"
                 rel="noopener"
               >
