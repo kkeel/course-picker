@@ -116,8 +116,6 @@
   grid-auto-rows: 2in;
   gap: 0;
   justify-content: center;
-  border-top: 1pt solid #333;
-  border-left: 1pt solid #333;
 }
 
 .print-card {
@@ -126,10 +124,16 @@
   height: 2in;
   overflow: hidden;
   background: #ffffff;
-  border: none;
-  border-right: 1pt solid #333;
-  border-bottom: 1pt solid #333;
+  border: 1pt solid #333;
   box-sizing: border-box;
+}
+
+.print-card:nth-child(even) {
+  margin-left: -1pt;
+}
+
+.print-card:nth-child(n + 3) {
+  margin-top: -1pt;
 }
 
 .print-card.empty {
@@ -257,11 +261,6 @@
   .sheet-heading {
     display: none;
   }
-
-  .card-grid {
-     border-top: 1pt solid #333;
-     border-left: 1pt solid #333;
-   }
    
    .print-card {
      border: none;
