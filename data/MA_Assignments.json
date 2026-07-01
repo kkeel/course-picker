@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T11:20:52.695Z",
+  "lastUpdated": "2026-07-01T11:32:58.315Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -19011,14 +19011,15 @@
       "resourceId": "recs8gan9xCWpFTaK",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "003.003.000",
-      "scopeText": "Term 3",
+      "resourceKey": "002.003.000",
+      "scopeText": "Term 2 (Partial Term)\nTerm 3",
       "terms": [
+        "T2",
         "T3"
       ],
       "termNotes": {
         "T1": "",
-        "T2": "",
+        "T2": "The Unweaving (Partial Term)",
         "T3": "The Unweaving (Full Term)"
       },
       "gradeText": "G11, G12,",
