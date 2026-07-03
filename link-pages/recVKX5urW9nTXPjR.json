@@ -4,7 +4,7 @@
   "lessonSetName": "Canadian History: Grades 11-12",
   "subject": "History",
   "gradeText": "GRADE(S): 11-12",
-  "sortId": "008.011.002.001",
+  "sortId": "007.011.002.001",
   "rowType": "topic",
   "hasTopics": false,
   "isStandaloneCourse": false,
@@ -30,7 +30,7 @@
       }
     ]
   },
-  "updatedAt": "2026-07-02T09:44:31.637Z",
+  "updatedAt": "2026-07-03T09:43:57.142Z",
   "terms": [
     {
       "termNumber": 1,
@@ -395,6 +395,32 @@
       "term": "Term 3",
       "weeks": [
         {
+          "weekNumber": 26,
+          "weekLabel": "Week 2",
+          "lessons": [
+            {
+              "lessonId": "recQvo5sSdXFY27sv",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 26,
+              "weekLabel": "Week 2",
+              "sequence": 52,
+              "sort": 0,
+              "lessonLabel": "Lesson 52",
+              "linkLabel": "Canadian History",
+              "title": "30m Canadian History: Grades 11-12 - Lesson 52",
+              "topicTitle": "Canadian History",
+              "anchor": "term-3-week-26-lesson-52",
+              "links": [
+                {
+                  "text": "Parisien, Norbert - Dictionary of Canadian Biography",
+                  "url": "https://www.biographi.ca/en/bio.php?BioId=38763"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "weekNumber": 29,
           "weekLabel": "Week 5",
           "lessons": [
@@ -441,6 +467,36 @@
                 {
                   "text": "Scrip",
                   "url": "https://indigenouspeoplesatlasofcanada.ca/article/scrip/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 33,
+          "weekLabel": "Week 9",
+          "lessons": [
+            {
+              "lessonId": "recOYvA5JMW7FJUee",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 33,
+              "weekLabel": "Week 9",
+              "sequence": 65,
+              "sort": 0,
+              "lessonLabel": "Lesson 65",
+              "linkLabel": "Canadian History",
+              "title": "40m Canadian History: Grades 11-12 - Lesson 65",
+              "topicTitle": "Canadian History",
+              "anchor": "term-3-week-33-lesson-65",
+              "links": [
+                {
+                  "text": "Catharine Parr Traill: The Canadian Encyclopedia",
+                  "url": "https://thecanadianencyclopedia.ca/en/article/catharine-parr-traill"
+                },
+                {
+                  "text": "Susanna Moodie: The Canadian Encyclopedia",
+                  "url": "https://thecanadianencyclopedia.ca/en/article/susanna-moodie"
                 }
               ]
             }
