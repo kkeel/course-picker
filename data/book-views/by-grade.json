@@ -301,7 +301,7 @@
                   "maySubText": "",
                   "discountText": "",
                   "scopeText": "Term 1\nTerm 2\nTerm 3",
-                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
                   "purchaseOptions": [
                     {
                       "label": "Option 1",
@@ -5122,7 +5122,7 @@
                   "maySubText": "",
                   "discountText": "",
                   "scopeText": "Term 1\nTerm 2\nTerm 3",
-                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
                   "purchaseOptions": [
                     {
                       "label": "Option 1",
@@ -9928,7 +9928,7 @@
     {
       "id": "G3",
       "label": "Grade 3",
-      "bookCount": 106,
+      "bookCount": 107,
       "items": [
         {
           "type": "course",
@@ -10222,7 +10222,7 @@
                   "maySubText": "",
                   "discountText": "",
                   "scopeText": "Term 1\nTerm 2\nTerm 3",
-                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
                   "purchaseOptions": [
                     {
                       "label": "Option 1",
@@ -11080,7 +11080,7 @@
                   "maySubText": "",
                   "discountText": "",
                   "scopeText": "Term 1\nTerm 2\nTerm 3",
-                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
                   "purchaseOptions": [
                     {
                       "label": "Option 1",
@@ -13156,6 +13156,47 @@
                       "memberstackId": "hymns-spirituals-folk-songs-pdf"
                     }
                   ]
+                },
+                {
+                  "resourceId": "recYJHQP07uKDyMpq",
+                  "instanceKey": "course:recaWyew9abtlktQB:resource:recYJHQP07uKDyMpq",
+                  "title": "Our Work: Grade 3",
+                  "author": "Alveary",
+                  "isbn": "",
+                  "asin": "",
+                  "isbnAsin": "",
+                  "imagePath": "img/resources/recYJHQP07uKDyMpq.webp",
+                  "placeholderPath": "img/placeholders/book.svg",
+                  "optional": false,
+                  "chooseOne": false,
+                  "gradeLevelTag": "Grade 3 ONLY",
+                  "formatTags": "Ebook",
+                  "formatOptions": [
+                    {
+                      "type": "ebook",
+                      "label": "Ebook"
+                    }
+                  ],
+                  "rationale": "This is a compilation of the year's Recitation, Picture Study, Hymns, Spirituals, and Folk Songs. Line drawings of artifacts from the historical time period are also included to provide students with inspiration for their Book of Centuries. We recommend printing or purchasing a copy for each student.",
+                  "noteText": "Our Work is available to Alveary members only.",
+                  "maySubText": "",
+                  "discountText": "",
+                  "scopeText": "Term 1\nTerm 2\nTerm 3",
+                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
+                  "purchaseOptions": [
+                    {
+                      "label": "Option 1",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "our-work-grade-3-hard-copy"
+                    },
+                    {
+                      "label": "PDF",
+                      "url": "https://www.alveary.org/login",
+                      "memberOnly": true,
+                      "memberstackId": "our-work-grade-3-pdf"
+                    }
+                  ]
                 }
               ]
             },
@@ -14884,7 +14925,7 @@
     {
       "id": "G4",
       "label": "Grade 4",
-      "bookCount": 125,
+      "bookCount": 124,
       "items": [
         {
           "type": "course",
@@ -15173,7 +15214,7 @@
                   "maySubText": "",
                   "discountText": "",
                   "scopeText": "Term 1\nTerm 2\nTerm 3",
-                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
                   "purchaseOptions": [
                     {
                       "label": "Option 1",
@@ -18693,47 +18734,6 @@
                   ]
                 },
                 {
-                  "resourceId": "recYJHQP07uKDyMpq",
-                  "instanceKey": "course:recSybgW92Wd2KXg9:resource:recYJHQP07uKDyMpq",
-                  "title": "Our Work: Grade 3",
-                  "author": "Alveary",
-                  "isbn": "",
-                  "asin": "",
-                  "isbnAsin": "",
-                  "imagePath": "img/resources/recYJHQP07uKDyMpq.webp",
-                  "placeholderPath": "img/placeholders/book.svg",
-                  "optional": false,
-                  "chooseOne": false,
-                  "gradeLevelTag": "Grade 3 ONLY",
-                  "formatTags": "Ebook",
-                  "formatOptions": [
-                    {
-                      "type": "ebook",
-                      "label": "Ebook"
-                    }
-                  ],
-                  "rationale": "This is a compilation of the year's Recitation, Picture Study, Hymns, Spirituals, and Folk Songs. Line drawings of artifacts from the historical time period are also included to provide students with inspiration for their Book of Centuries. We recommend printing or purchasing a copy for each student.",
-                  "noteText": "Our Work is available to Alveary members only.",
-                  "maySubText": "",
-                  "discountText": "",
-                  "scopeText": "Term 1\nTerm 2\nTerm 3",
-                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
-                  "purchaseOptions": [
-                    {
-                      "label": "Option 1",
-                      "url": "https://www.alveary.org/login",
-                      "memberOnly": true,
-                      "memberstackId": "our-work-grade-3-hard-copy"
-                    },
-                    {
-                      "label": "PDF",
-                      "url": "https://www.alveary.org/login",
-                      "memberOnly": true,
-                      "memberstackId": "our-work-grade-3-pdf"
-                    }
-                  ]
-                },
-                {
                   "resourceId": "recpZeVli0urkjOFH",
                   "instanceKey": "course:recSybgW92Wd2KXg9:resource:recpZeVli0urkjOFH",
                   "title": "Our Work: Grades 4-6",
@@ -21185,7 +21185,7 @@
                   "maySubText": "",
                   "discountText": "",
                   "scopeText": "Term 1\nTerm 2\nTerm 3",
-                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
                   "purchaseOptions": [
                     {
                       "label": "Option 1",
@@ -27862,7 +27862,7 @@
                   "maySubText": "",
                   "discountText": "",
                   "scopeText": "Term 1\nTerm 2\nTerm 3",
-                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
                   "purchaseOptions": [
                     {
                       "label": "Option 1",
@@ -34585,7 +34585,7 @@
                   "maySubText": "",
                   "discountText": "",
                   "scopeText": "Term 1\nTerm 2\nTerm 3",
-                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
                   "purchaseOptions": [
                     {
                       "label": "Option 1",
@@ -36191,51 +36191,6 @@
               "sortId": "",
               "books": [
                 {
-                  "resourceId": "rec79eHxNjF5Uhcgx",
-                  "instanceKey": "course:recLpfY3HoY8mk9rj:resource:rec79eHxNjF5Uhcgx",
-                  "title": "Mapping the World with Art",
-                  "author": "Ellen Johnston McHenry",
-                  "isbn": "978-0982537701",
-                  "asin": "",
-                  "isbnAsin": "978-0982537701",
-                  "imagePath": "img/resources/rec79eHxNjF5Uhcgx.webp",
-                  "placeholderPath": "img/placeholders/book.svg",
-                  "optional": false,
-                  "chooseOne": false,
-                  "gradeLevelTag": "",
-                  "formatTags": "Ebook, Video",
-                  "formatOptions": [
-                    {
-                      "type": "ebook",
-                      "label": "Ebook"
-                    },
-                    {
-                      "type": "video",
-                      "label": "Video"
-                    }
-                  ],
-                  "rationale": "This book is a blend of history, geography, and art. The text is about the history of cartography, from the earliest maps that were drawn on clay by the people of Mesopotamia to the exploration of the \"new world.\"  This book also includes map drawing lessons that take students step by step through the process of drawing maps of all the countries mentioned in the text.",
-                  "noteText": "We highly recommend purchasing the videos that guide students through the map drawings. The option linked includes a digital version of the book along with the video course, but you can also purchase the videos in DVD or USB format if you prefer a physical copy of the book. The discount code is valid for all products on the author's site.",
-                  "maySubText": "",
-                  "discountText": "Discount: 35%\nWith code: ALVEARYMAPPINGVIDEOSDISCOUNT",
-                  "scopeText": "Term 1\nTerm 2\nTerm 3",
-                  "sharedText": "Geography: Grade 7 (U.S.)\nGeography: Grade 7 (Canada)",
-                  "purchaseOptions": [
-                    {
-                      "label": "Option 1",
-                      "url": "https://www.amazon.com/Mapping-World-Ellen-Johnston-McHenry/dp/0982537700?&linkCode=ll2&tag=alveary0a-20&linkId=fe385d8fc98f27a2bab1cb2e81328e90&language=en_US&ref_=as_li_ss_tl",
-                      "memberOnly": false,
-                      "memberstackId": ""
-                    },
-                    {
-                      "label": "Video",
-                      "url": "https://ellenjmchenry.com/product/mapping-the-world-with-art-video-e-course/",
-                      "memberOnly": false,
-                      "memberstackId": ""
-                    }
-                  ]
-                },
-                {
                   "resourceId": "recM2Is6mCqMkBedP",
                   "instanceKey": "course:recLpfY3HoY8mk9rj:resource:recM2Is6mCqMkBedP",
                   "title": "Student World Atlas 6th Ed.",
@@ -36302,6 +36257,51 @@
                     {
                       "label": "Option 2",
                       "url": "https://www.christianbook.com/Christian/Books/product?event=AFF&amp;p=1226126&amp;item_no=375248",
+                      "memberOnly": false,
+                      "memberstackId": ""
+                    }
+                  ]
+                },
+                {
+                  "resourceId": "rec79eHxNjF5Uhcgx",
+                  "instanceKey": "course:recLpfY3HoY8mk9rj:resource:rec79eHxNjF5Uhcgx",
+                  "title": "Mapping the World with Art",
+                  "author": "Ellen Johnston McHenry",
+                  "isbn": "978-0982537701",
+                  "asin": "",
+                  "isbnAsin": "978-0982537701",
+                  "imagePath": "img/resources/rec79eHxNjF5Uhcgx.webp",
+                  "placeholderPath": "img/placeholders/book.svg",
+                  "optional": false,
+                  "chooseOne": false,
+                  "gradeLevelTag": "",
+                  "formatTags": "Ebook, Video",
+                  "formatOptions": [
+                    {
+                      "type": "ebook",
+                      "label": "Ebook"
+                    },
+                    {
+                      "type": "video",
+                      "label": "Video"
+                    }
+                  ],
+                  "rationale": "This book is a blend of history, geography, and art. The text is about the history of cartography, from the earliest maps that were drawn on clay by the people of Mesopotamia to the exploration of the \"new world.\"  This book also includes map drawing lessons that take students step by step through the process of drawing maps of all the countries mentioned in the text.",
+                  "noteText": "We highly recommend purchasing the videos that guide students through the map drawings. The option linked includes a digital version of the book along with the video course, but you can also purchase the videos in DVD or USB format if you prefer a physical copy of the book. The discount code is valid for all products on the author's site.",
+                  "maySubText": "",
+                  "discountText": "Discount: 35%\nWith code: ALVEARYMAPPINGVIDEOSDISCOUNT",
+                  "scopeText": "Term 1\nTerm 2\nTerm 3",
+                  "sharedText": "Geography: Grade 7 (U.S.)\nGeography: Grade 7 (Canada)",
+                  "purchaseOptions": [
+                    {
+                      "label": "Option 1",
+                      "url": "https://www.amazon.com/Mapping-World-Ellen-Johnston-McHenry/dp/0982537700?&linkCode=ll2&tag=alveary0a-20&linkId=fe385d8fc98f27a2bab1cb2e81328e90&language=en_US&ref_=as_li_ss_tl",
+                      "memberOnly": false,
+                      "memberstackId": ""
+                    },
+                    {
+                      "label": "Video",
+                      "url": "https://ellenjmchenry.com/product/mapping-the-world-with-art-video-e-course/",
                       "memberOnly": false,
                       "memberstackId": ""
                     }
@@ -42173,7 +42173,7 @@
                   "maySubText": "",
                   "discountText": "",
                   "scopeText": "Term 1\nTerm 2\nTerm 3",
-                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
                   "purchaseOptions": [
                     {
                       "label": "Option 1",
@@ -49967,7 +49967,7 @@
                   "maySubText": "",
                   "discountText": "",
                   "scopeText": "Term 1\nTerm 2\nTerm 3",
-                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
                   "purchaseOptions": [
                     {
                       "label": "Option 1",
@@ -57921,7 +57921,7 @@
                   "maySubText": "",
                   "discountText": "",
                   "scopeText": "Term 1\nTerm 2\nTerm 3",
-                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
                   "purchaseOptions": [
                     {
                       "label": "Option 1",
@@ -66604,7 +66604,7 @@
                   "maySubText": "",
                   "discountText": "",
                   "scopeText": "Term 1\nTerm 2\nTerm 3",
-                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
                   "purchaseOptions": [
                     {
                       "label": "Option 1",
@@ -75861,7 +75861,7 @@
                   "maySubText": "",
                   "discountText": "",
                   "scopeText": "Term 1\nTerm 2\nTerm 3",
-                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+                  "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
                   "purchaseOptions": [
                     {
                       "label": "Option 1",

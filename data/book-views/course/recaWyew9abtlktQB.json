@@ -13,7 +13,7 @@
   "schedText": "",
   "shared": false,
   "sortId": "",
-  "bookCount": 7,
+  "bookCount": 8,
   "sections": [
     {
       "type": "course",
@@ -61,6 +61,47 @@
               "url": "https://www.alveary.org/login",
               "memberOnly": true,
               "memberstackId": "hymns-spirituals-folk-songs-pdf"
+            }
+          ]
+        },
+        {
+          "resourceId": "recYJHQP07uKDyMpq",
+          "instanceKey": "course:recaWyew9abtlktQB:resource:recYJHQP07uKDyMpq",
+          "title": "Our Work: Grade 3",
+          "author": "Alveary",
+          "isbn": "",
+          "asin": "",
+          "isbnAsin": "",
+          "imagePath": "img/resources/recYJHQP07uKDyMpq.webp",
+          "placeholderPath": "img/placeholders/book.svg",
+          "optional": false,
+          "chooseOne": false,
+          "gradeLevelTag": "Grade 3 ONLY",
+          "formatTags": "Ebook",
+          "formatOptions": [
+            {
+              "type": "ebook",
+              "label": "Ebook"
+            }
+          ],
+          "rationale": "This is a compilation of the year's Recitation, Picture Study, Hymns, Spirituals, and Folk Songs. Line drawings of artifacts from the historical time period are also included to provide students with inspiration for their Book of Centuries. We recommend printing or purchasing a copy for each student.",
+          "noteText": "Our Work is available to Alveary members only.",
+          "maySubText": "",
+          "discountText": "",
+          "scopeText": "Term 1\nTerm 2\nTerm 3",
+          "sharedText": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
+          "purchaseOptions": [
+            {
+              "label": "Option 1",
+              "url": "https://www.alveary.org/login",
+              "memberOnly": true,
+              "memberstackId": "our-work-grade-3-hard-copy"
+            },
+            {
+              "label": "PDF",
+              "url": "https://www.alveary.org/login",
+              "memberOnly": true,
+              "memberstackId": "our-work-grade-3-pdf"
             }
           ]
         }
