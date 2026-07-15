@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-14T10:08:17.380Z",
+  "lastUpdated": "2026-07-15T10:14:56.196Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -3036,7 +3036,7 @@
       "resourceId": "reczH8uwlnf97SywN",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -4011,12 +4011,44 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recaWyew9abtlktQB?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "rectUBMAxwI3tb21J",
+      "targetId": "recaWyew9abtlktQB",
+      "resourceId": "recYJHQP07uKDyMpq",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.003.001",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Our Work: Grade 3 (Full Term)",
+        "T2": "Our Work: Grade 3 (Full Term)",
+        "T3": "Our Work: Grade 3 (Full Term)"
+      },
+      "gradeText": "G3,",
+      "grades": [
+        3
+      ],
+      "gradeLevelTag": "Grade 3 ONLY",
+      "optional": false,
+      "sharedTextR3": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
+      "sharedLinesR3": [
+        "Picture Study",
+        "Recitation: Grade 3",
+        "Music: Level 2"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recaWyew9abtlktQB?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "rec20QoUnHc6Y9HYa",
       "targetId": "recaxw6Mq2gCdvmgM",
       "resourceId": "rec79eHxNjF5Uhcgx",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -4047,7 +4079,7 @@
       "resourceId": "recBS1xBXwAdbapNL",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "003.002.000",
+      "resourceKey": "003.001.000",
       "scopeText": "Term 3 (Selections)",
       "terms": [
         "T3"
@@ -5184,7 +5216,7 @@
       "resourceId": "recgECwMa1pjs2VnL",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -5215,7 +5247,7 @@
       "resourceId": "recWe8BWvLumLf1DA",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -5246,7 +5278,7 @@
       "resourceId": "recXRFY35nX9sYw2c",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)\nTerm 3 (Partial Term)",
       "terms": [
         "T1",
@@ -9806,7 +9838,7 @@
       "resourceId": "recBS1xBXwAdbapNL",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
       "terms": [
         "T1",
@@ -9837,7 +9869,7 @@
       "resourceId": "receUD7SFLN5RNZcX",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)",
       "terms": [
         "T1",
@@ -12298,43 +12330,12 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recLPdAR3HvUPBLVg?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recRwmh8VDwIOo3zi",
-      "targetId": "recLpfY3HoY8mk9rj",
-      "resourceId": "rec79eHxNjF5Uhcgx",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "001.002.000",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "Mapping the World with Art (Full Term)",
-        "T2": "Mapping the World with Art (Full Term)",
-        "T3": "Mapping the World with Art (Full Term)"
-      },
-      "gradeText": "G7,",
-      "grades": [
-        7
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "Geography: Grade 7 (U.S.)\nGeography: Grade 7 (Canada)",
-      "sharedLinesR3": [
-        "Geography: Grade 7 (U.S.)",
-        "Geography: Grade 7 (Canada)"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recLpfY3HoY8mk9rj?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "rec7tglUIPIC4eX9n",
       "targetId": "recLpfY3HoY8mk9rj",
       "resourceId": "recM2Is6mCqMkBedP",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -12370,7 +12371,7 @@
       "resourceId": "reczH8uwlnf97SywN",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
       "terms": [
         "T1",
@@ -12400,6 +12401,37 @@
         "Geography: Grade 3 (U.S.)",
         "Geography: Grade 8 (U.S.)",
         "History: Grades 2-3 (U.S.)"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recLpfY3HoY8mk9rj?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recRwmh8VDwIOo3zi",
+      "targetId": "recLpfY3HoY8mk9rj",
+      "resourceId": "rec79eHxNjF5Uhcgx",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.002.000",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Mapping the World with Art (Full Term)",
+        "T2": "Mapping the World with Art (Full Term)",
+        "T3": "Mapping the World with Art (Full Term)"
+      },
+      "gradeText": "G7,",
+      "grades": [
+        7
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Geography: Grade 7 (U.S.)\nGeography: Grade 7 (Canada)",
+      "sharedLinesR3": [
+        "Geography: Grade 7 (U.S.)",
+        "Geography: Grade 7 (Canada)"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recLpfY3HoY8mk9rj?home=pag8nmiUVfXJRZFLW"
     },
@@ -15360,11 +15392,11 @@
       ],
       "gradeLevelTag": "Grade 3 ONLY",
       "optional": false,
-      "sharedTextR3": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+      "sharedTextR3": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
       "sharedLinesR3": [
         "Picture Study",
         "Recitation: Grade 3",
-        "Music: Level 3"
+        "Music: Level 2"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recpmAVPZE4aoIEGv?home=pag8nmiUVfXJRZFLW"
     },
@@ -16452,7 +16484,7 @@
       "resourceId": "rec4S3UHWafRPSXxM",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1 (Partial Term)\nTerm 3 (One Lesson)",
       "terms": [
         "T1",
@@ -16482,7 +16514,7 @@
       "resourceId": "recgECwMa1pjs2VnL",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -16513,7 +16545,7 @@
       "resourceId": "recWe8BWvLumLf1DA",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -16544,7 +16576,7 @@
       "resourceId": "recXRFY35nX9sYw2c",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)\nTerm 3 (Partial Term)",
       "terms": [
         "T1",
@@ -16575,7 +16607,7 @@
       "resourceId": "recBW8QJCHsV0XMoM",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "003.003.000",
+      "resourceKey": "003.001.000",
       "scopeText": "Term 3",
       "terms": [
         "T3"
@@ -17798,7 +17830,7 @@
       "resourceId": "recM2Is6mCqMkBedP",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -17834,7 +17866,7 @@
       "resourceId": "recwzl5VxRwCjiojI",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -17862,7 +17894,7 @@
       "resourceId": "reczH8uwlnf97SywN",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
       "terms": [
         "T1",
@@ -18038,38 +18070,6 @@
         "Music: Level 3",
         "Music: Level 4",
         "Music: Level 5"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recSybgW92Wd2KXg9?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "rectUBMAxwI3tb21J",
-      "targetId": "recSybgW92Wd2KXg9",
-      "resourceId": "recYJHQP07uKDyMpq",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "001.003.001",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "Our Work: Grade 3 (Full Term)",
-        "T2": "Our Work: Grade 3 (Full Term)",
-        "T3": "Our Work: Grade 3 (Full Term)"
-      },
-      "gradeText": "G4,",
-      "grades": [
-        4
-      ],
-      "gradeLevelTag": "Grade 3 ONLY",
-      "optional": false,
-      "sharedTextR3": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
-      "sharedLinesR3": [
-        "Picture Study",
-        "Recitation: Grade 3",
-        "Music: Level 3"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recSybgW92Wd2KXg9?home=pag8nmiUVfXJRZFLW"
     },
@@ -18884,11 +18884,11 @@
       ],
       "gradeLevelTag": "",
       "optional": false,
-      "sharedTextR3": "Picture Study\nRecitation: Grade 3\nMusic: Level 3",
+      "sharedTextR3": "Picture Study\nRecitation: Grade 3\nMusic: Level 2",
       "sharedLinesR3": [
         "Picture Study",
         "Recitation: Grade 3",
-        "Music: Level 3"
+        "Music: Level 2"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recUugNdM1YucXcfA?home=pag8nmiUVfXJRZFLW"
     },
@@ -21253,7 +21253,7 @@
       "resourceId": "recM2Is6mCqMkBedP",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1 (Selections)\nTerm 3 (One Lesson)",
       "terms": [
         "T1",
@@ -21288,7 +21288,7 @@
       "resourceId": "reczH8uwlnf97SywN",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
       "terms": [
         "T1",
@@ -22348,7 +22348,7 @@
       "resourceId": "reczH8uwlnf97SywN",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
       "terms": [
         "T1",
@@ -22387,7 +22387,7 @@
       "resourceId": "recM2Is6mCqMkBedP",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "003.002.000",
+      "resourceKey": "003.001.000",
       "scopeText": "Term 3 (One Lesson)",
       "terms": [
         "T3"
