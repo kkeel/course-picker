@@ -3239,6 +3239,34 @@
           "sortId": "",
           "books": [
             {
+              "resourceId": "recHpEWdHnkOVtfCD",
+              "instanceKey": "course:recbAXXWXkhQdbTrE:resource:recHpEWdHnkOVtfCD",
+              "title": "Cambridge Latin Units 1-4 Teacher Manual (1 Year Digital Access)",
+              "author": "Cambridge School Classics Project",
+              "isbn": "9781316640487",
+              "asin": "",
+              "isbnAsin": "9781316640487",
+              "imagePath": "img/resources/recHpEWdHnkOVtfCD.webp",
+              "placeholderPath": "img/placeholders/book.svg",
+              "optional": false,
+              "chooseOne": false,
+              "gradeLevelTag": "",
+              "formatTags": "Ebook",
+              "formatOptions": [
+                {
+                  "type": "ebook",
+                  "label": "Ebook"
+                }
+              ],
+              "rationale": "Contains important teaching tips.",
+              "noteText": "Students using Unit 1 Companion course by Alveary do not need this book. Please call the Cambridge University Press Customer Service team at 1-800-872-7423 (toll-free) or email them at usschools@cambridge.org to purchase. There is also a 4 Year Digital Access option with ISBN 9781316640524.",
+              "maySubText": "",
+              "discountText": "",
+              "scopeText": "Term 1\nTerm 2\nTerm 3",
+              "sharedText": "Latin 1 (Independent Study)\nLatin 2 (Independent Study)\nLatin 3\nLatin 4",
+              "purchaseOptions": []
+            },
+            {
               "resourceId": "recaycKF6loJo1JNW",
               "instanceKey": "course:recbAXXWXkhQdbTrE:resource:recaycKF6loJo1JNW",
               "title": "North American Cambridge Latin Unit 3 5th Ed.",
@@ -3313,34 +3341,6 @@
                   "memberstackId": ""
                 }
               ]
-            },
-            {
-              "resourceId": "recHpEWdHnkOVtfCD",
-              "instanceKey": "course:recbAXXWXkhQdbTrE:resource:recHpEWdHnkOVtfCD",
-              "title": "Cambridge Latin Units 1-4 Teacher Manual (1 Year Digital Access)",
-              "author": "Cambridge School Classics Project",
-              "isbn": "9781316640487",
-              "asin": "",
-              "isbnAsin": "9781316640487",
-              "imagePath": "img/resources/recHpEWdHnkOVtfCD.webp",
-              "placeholderPath": "img/placeholders/book.svg",
-              "optional": false,
-              "chooseOne": false,
-              "gradeLevelTag": "",
-              "formatTags": "Ebook",
-              "formatOptions": [
-                {
-                  "type": "ebook",
-                  "label": "Ebook"
-                }
-              ],
-              "rationale": "Contains important teaching tips.",
-              "noteText": "Students using Unit 1 Companion course by Alveary do not need this book. Please call the Cambridge University Press Customer Service team at 1-800-872-7423 (toll-free) or email them at usschools@cambridge.org to purchase. There is also a 4 Year Digital Access option with ISBN 9781316640524.",
-              "maySubText": "",
-              "discountText": "",
-              "scopeText": "Term 1\nTerm 2\nTerm 3",
-              "sharedText": "Latin 1 (Independent Study)\nLatin 2 (Independent Study)\nLatin 3\nLatin 4",
-              "purchaseOptions": []
             }
           ]
         }
