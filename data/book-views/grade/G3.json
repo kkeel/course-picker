@@ -725,42 +725,6 @@
               ]
             },
             {
-              "resourceId": "rec01nkYbeecMfZgR",
-              "instanceKey": "course:recwmIzmYdzWW44N9:topic:rec8fMADfpLzUlCnb:resource:rec01nkYbeecMfZgR",
-              "title": "The New Manners and Customs of Bible Times",
-              "author": "Ralph Gower",
-              "isbn": "978-0802459657",
-              "asin": "",
-              "isbnAsin": "978-0802459657",
-              "imagePath": "img/resources/rec01nkYbeecMfZgR.webp",
-              "placeholderPath": "img/placeholders/book.svg",
-              "optional": false,
-              "chooseOne": false,
-              "gradeLevelTag": "",
-              "formatTags": "",
-              "formatOptions": [],
-              "rationale": "Through illustrations, photos, and clear explanations, this best-selling reference book shows what life was like in Bible times and makes Scripture come to life as students imagine living in that time and place. We will assign certain sections before or after Bible readings that will help students understand the context of the passage and gain more insight into the culture and geography of Israel.",
-              "noteText": "",
-              "maySubText": "",
-              "discountText": "",
-              "scopeText": "Term 1\nTerm 2\nTerm 3",
-              "sharedText": "New Testament: Grades 3-6\nOld Testament: Grades 3-6",
-              "purchaseOptions": [
-                {
-                  "label": "Option 1",
-                  "url": "https://www.amazon.com/dp/080245965X?social_share=cm_sw_r_ffobk_cp_ud_dp_HWTZKG3GSBVZV7S4PGQV&skipTwisterOG=1&bestFormat=true&newOGT=1&linkCode=ll2&tag=alveary0a-20&linkId=430847cd254131a8c10f60ebcdac4b53&language=en_US&ref_=as_li_ss_tl",
-                  "memberOnly": false,
-                  "memberstackId": ""
-                },
-                {
-                  "label": "Option 2",
-                  "url": "https://www.christianbook.com/Christian/Books/product?event=AFF&amp;p=1226126&amp;item_no=5965X",
-                  "memberOnly": false,
-                  "memberstackId": ""
-                }
-              ]
-            },
-            {
               "resourceId": "recsZKTv4JyW3fDXQ",
               "instanceKey": "course:recwmIzmYdzWW44N9:topic:rec8fMADfpLzUlCnb:resource:recsZKTv4JyW3fDXQ",
               "title": "ESV Large Print Bible",
@@ -800,6 +764,42 @@
                 {
                   "label": "Option 2",
                   "url": "https://www.christianbook.com/Christian/Books/product?event=AFF&amp;p=1226126&amp;item_no=541537",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                }
+              ]
+            },
+            {
+              "resourceId": "rec01nkYbeecMfZgR",
+              "instanceKey": "course:recwmIzmYdzWW44N9:topic:rec8fMADfpLzUlCnb:resource:rec01nkYbeecMfZgR",
+              "title": "The New Manners and Customs of Bible Times",
+              "author": "Ralph Gower",
+              "isbn": "978-0802459657",
+              "asin": "",
+              "isbnAsin": "978-0802459657",
+              "imagePath": "img/resources/rec01nkYbeecMfZgR.webp",
+              "placeholderPath": "img/placeholders/book.svg",
+              "optional": false,
+              "chooseOne": false,
+              "gradeLevelTag": "",
+              "formatTags": "",
+              "formatOptions": [],
+              "rationale": "Through illustrations, photos, and clear explanations, this best-selling reference book shows what life was like in Bible times and makes Scripture come to life as students imagine living in that time and place. We will assign certain sections before or after Bible readings that will help students understand the context of the passage and gain more insight into the culture and geography of Israel.",
+              "noteText": "",
+              "maySubText": "",
+              "discountText": "",
+              "scopeText": "Term 1\nTerm 2\nTerm 3",
+              "sharedText": "New Testament: Grades 3-6\nOld Testament: Grades 3-6",
+              "purchaseOptions": [
+                {
+                  "label": "Option 1",
+                  "url": "https://www.amazon.com/dp/080245965X?social_share=cm_sw_r_ffobk_cp_ud_dp_HWTZKG3GSBVZV7S4PGQV&skipTwisterOG=1&bestFormat=true&newOGT=1&linkCode=ll2&tag=alveary0a-20&linkId=430847cd254131a8c10f60ebcdac4b53&language=en_US&ref_=as_li_ss_tl",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                },
+                {
+                  "label": "Option 2",
+                  "url": "https://www.christianbook.com/Christian/Books/product?event=AFF&amp;p=1226126&amp;item_no=5965X",
                   "memberOnly": false,
                   "memberstackId": ""
                 }
@@ -3161,7 +3161,14 @@
               "discountText": "",
               "scopeText": "Term 1\nTerm 2\nTerm 3",
               "sharedText": "",
-              "purchaseOptions": []
+              "purchaseOptions": [
+                {
+                  "label": "PDF",
+                  "url": "https://planning.alveary.org/pdf/modern-language/student-notebooks/recvfB9zd1vOwauPP-spanish-student-notebook-full.pdf?",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                }
+              ]
             }
           ]
         }
