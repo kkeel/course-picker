@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-16T10:20:32.167Z",
+  "lastUpdated": "2026-07-17T10:10:27.896Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -873,7 +873,7 @@
       "resourceId": "recPb5gHeLu8G3EXl",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1",
       "terms": [
         "T1"
@@ -1376,6 +1376,32 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec5q2mTTsX5J913g?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "rech4Rs67aGmD3aOd",
+      "targetId": "rec5q2mTTsX5J913g",
+      "resourceId": "reczaILjhQzxPDPGF",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.001.000",
+      "scopeText": "Term 1 (Partial Term)",
+      "terms": [
+        "T1"
+      ],
+      "termNotes": {
+        "T1": "The Pencil (Partial Term)",
+        "T2": "",
+        "T3": ""
+      },
+      "gradeText": "G1,",
+      "grades": [
+        1
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec5q2mTTsX5J913g?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recPO6pIYTCFgy1Mx",
       "targetId": "rec5q2mTTsX5J913g",
       "resourceId": "rec2Ch49DbsTAysS1",
@@ -1404,19 +1430,19 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec5q2mTTsX5J913g?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "rech4Rs67aGmD3aOd",
+      "assignmentId": "rec8EdxdsQoNS3xnQ",
       "targetId": "rec5q2mTTsX5J913g",
-      "resourceId": "reczaILjhQzxPDPGF",
+      "resourceId": "rec8XnhuFDmTFPFP5",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1 (Partial Term)",
+      "resourceKey": "002.001.000",
+      "scopeText": "Term 2 (Partial Term)",
       "terms": [
-        "T1"
+        "T2"
       ],
       "termNotes": {
-        "T1": "The Pencil (Partial Term)",
-        "T2": "",
+        "T1": "",
+        "T2": "The Gift of the Great Buffalo (Partial Term)",
         "T3": ""
       },
       "gradeText": "G1,",
@@ -1443,32 +1469,6 @@
       "termNotes": {
         "T1": "",
         "T2": "Maple Moon (Partial Term)",
-        "T3": ""
-      },
-      "gradeText": "G1,",
-      "grades": [
-        1
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec5q2mTTsX5J913g?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "rec8EdxdsQoNS3xnQ",
-      "targetId": "rec5q2mTTsX5J913g",
-      "resourceId": "rec8XnhuFDmTFPFP5",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "002.003.000",
-      "scopeText": "Term 2 (Partial Term)",
-      "terms": [
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "The Gift of the Great Buffalo (Partial Term)",
         "T3": ""
       },
       "gradeText": "G1,",
@@ -1698,7 +1698,7 @@
       "resourceId": "recSGmJ0X1KxD75S1",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.001",
+      "resourceKey": "001.001.001",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -2270,6 +2270,42 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec8fMADfpLzUlCnb?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "recskqjn9rnY74nLB",
+      "targetId": "rec8fMADfpLzUlCnb",
+      "resourceId": "recsZKTv4JyW3fDXQ",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.001.000",
+      "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "ESV Large Print Bible (Selections)",
+        "T2": "ESV Large Print Bible (Selections)",
+        "T3": "ESV Large Print Bible (Selections)"
+      },
+      "gradeText": "G3, G4, G5, G6, G3, G4, G5, G6,",
+      "grades": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Old Testament: Grade 2\nNew Testament: Grade 2\nOld Testament: Grades 3-6\nNew Testament: Grades 3-6",
+      "sharedLinesR3": [
+        "Old Testament: Grade 2",
+        "New Testament: Grade 2",
+        "Old Testament: Grades 3-6",
+        "New Testament: Grades 3-6"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec8fMADfpLzUlCnb?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recwS1TiwyIpgsRck",
       "targetId": "rec8fMADfpLzUlCnb",
       "resourceId": "rec01nkYbeecMfZgR",
@@ -2300,42 +2336,6 @@
       "sharedLinesR3": [
         "New Testament: Grades 3-6",
         "Old Testament: Grades 3-6"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec8fMADfpLzUlCnb?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recskqjn9rnY74nLB",
-      "targetId": "rec8fMADfpLzUlCnb",
-      "resourceId": "recsZKTv4JyW3fDXQ",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.002.000",
-      "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "ESV Large Print Bible (Selections)",
-        "T2": "ESV Large Print Bible (Selections)",
-        "T3": "ESV Large Print Bible (Selections)"
-      },
-      "gradeText": "G3, G4, G5, G6, G3, G4, G5, G6,",
-      "grades": [
-        3,
-        4,
-        5,
-        6
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "Old Testament: Grade 2\nNew Testament: Grade 2\nOld Testament: Grades 3-6\nNew Testament: Grades 3-6",
-      "sharedLinesR3": [
-        "Old Testament: Grade 2",
-        "New Testament: Grade 2",
-        "Old Testament: Grades 3-6",
-        "New Testament: Grades 3-6"
       ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec8fMADfpLzUlCnb?home=pag8nmiUVfXJRZFLW"
     },
@@ -2540,7 +2540,7 @@
       "resourceId": "rec3jFPfyFSqt2mGU",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2 (Partial Term)",
       "terms": [
         "T1",
@@ -3370,7 +3370,7 @@
       "resourceId": "reciobkv0sISyFiIz",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -3545,7 +3545,7 @@
       "resourceId": "recLHdhKMfjC9IAKG",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -3870,7 +3870,7 @@
       "resourceId": "recZlQfkeOi88FxOK",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -6130,7 +6130,7 @@
       "resourceId": "recDLRBTspENoopYR",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.001",
+      "resourceKey": "001.001.001",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -6951,7 +6951,7 @@
       "resourceId": "recWxUYXUJvlXYpTX",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "002.003.002",
+      "resourceKey": "002.001.002",
       "scopeText": "Term 2 (Partial Term)\nTerm 3",
       "terms": [
         "T2",
@@ -8829,7 +8829,7 @@
       "resourceId": "recYWLOabfTEBdZpB",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -8857,7 +8857,7 @@
       "resourceId": "recXomXTY2RhzQP7K",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -9393,6 +9393,41 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rechkj2wbdVhgZVbF?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "recmltWW934cWOV4J",
+      "targetId": "recHL4qMeuNntUQO7",
+      "resourceId": "rec2ZcWvxi3oeBNF8",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.001.001",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "The Tree is Older Than You Are: A Bilingual Gathering of Poems & Stories from Mexico with Paintings by Mexican Artists (Full Term)",
+        "T2": "The Tree is Older Than You Are: A Bilingual Gathering of Poems & Stories from Mexico with Paintings by Mexican Artists (Full Term)",
+        "T3": "The Tree is Older Than You Are: A Bilingual Gathering of Poems & Stories from Mexico with Paintings by Mexican Artists (Full Term)"
+      },
+      "gradeText": "G11, G12,",
+      "grades": [
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Upper Spanish: Level 1\nUpper Spanish: Level 2\nUpper Spanish: Level 3\nUpper Spanish: Level 4\nUpper Spanish: Level 5",
+      "sharedLinesR3": [
+        "Upper Spanish: Level 1",
+        "Upper Spanish: Level 2",
+        "Upper Spanish: Level 3",
+        "Upper Spanish: Level 4",
+        "Upper Spanish: Level 5"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recHL4qMeuNntUQO7?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recvVrepS6EjlzfiW",
       "targetId": "recHL4qMeuNntUQO7",
       "resourceId": "rec161KeC2t6raqTC",
@@ -9457,47 +9492,12 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recHL4qMeuNntUQO7?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recmltWW934cWOV4J",
-      "targetId": "recHL4qMeuNntUQO7",
-      "resourceId": "rec2ZcWvxi3oeBNF8",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "001.002.001",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "The Tree is Older Than You Are: A Bilingual Gathering of Poems & Stories from Mexico with Paintings by Mexican Artists (Full Term)",
-        "T2": "The Tree is Older Than You Are: A Bilingual Gathering of Poems & Stories from Mexico with Paintings by Mexican Artists (Full Term)",
-        "T3": "The Tree is Older Than You Are: A Bilingual Gathering of Poems & Stories from Mexico with Paintings by Mexican Artists (Full Term)"
-      },
-      "gradeText": "G11, G12,",
-      "grades": [
-        11,
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "Upper Spanish: Level 1\nUpper Spanish: Level 2\nUpper Spanish: Level 3\nUpper Spanish: Level 4\nUpper Spanish: Level 5",
-      "sharedLinesR3": [
-        "Upper Spanish: Level 1",
-        "Upper Spanish: Level 2",
-        "Upper Spanish: Level 3",
-        "Upper Spanish: Level 4",
-        "Upper Spanish: Level 5"
-      ],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recHL4qMeuNntUQO7?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "rectgUkxSHHhBVnio",
       "targetId": "recHL4qMeuNntUQO7",
       "resourceId": "recotvHfKcqxIU6CZ",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.004",
+      "resourceKey": "001.001.004",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -9526,7 +9526,7 @@
       "resourceId": "recTMDZJMuiwGA6Cd",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.005",
+      "resourceKey": "001.001.005",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -9926,7 +9926,7 @@
       "resourceId": "rec15R98Dglfr11MF",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1",
       "terms": [
         "T1"
@@ -9955,7 +9955,7 @@
       "resourceId": "receYiXHRchDVPdO3",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1",
       "terms": [
         "T1"
@@ -9984,7 +9984,7 @@
       "resourceId": "recg8UrzCcsCAySsI",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "002.003.000",
+      "resourceKey": "002.001.000",
       "scopeText": "Term 2",
       "terms": [
         "T2"
@@ -10013,7 +10013,7 @@
       "resourceId": "rec22O3t21BvJaiDw",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "003.003.000",
+      "resourceKey": "003.001.000",
       "scopeText": "Term 3",
       "terms": [
         "T3"
@@ -10107,7 +10107,7 @@
       "resourceId": "recLHdhKMfjC9IAKG",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -10819,7 +10819,7 @@
       "resourceId": "recZlQfkeOi88FxOK",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -11597,7 +11597,7 @@
       "resourceId": "recO7o2cHORX18JsY",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -11636,7 +11636,7 @@
       "resourceId": "rec15R98Dglfr11MF",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1",
       "terms": [
         "T1"
@@ -11665,7 +11665,7 @@
       "resourceId": "receYiXHRchDVPdO3",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1",
       "terms": [
         "T1"
@@ -11725,7 +11725,7 @@
       "resourceId": "rec22O3t21BvJaiDw",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "003.003.000",
+      "resourceKey": "003.001.000",
       "scopeText": "Term 3",
       "terms": [
         "T3"
@@ -11977,7 +11977,7 @@
       "resourceId": "recCiZ8KkqNCQdjfw",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -12008,7 +12008,7 @@
       "resourceId": "reciOSt8LIdiSw3P0",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -12039,7 +12039,7 @@
       "resourceId": "recPT7RAqxzUkKPHR",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -12186,7 +12186,7 @@
       "resourceId": "recoemutvxjrSGUVb",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -12277,7 +12277,7 @@
       "resourceId": "reczUa2kC554OTquf",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2",
       "terms": [
         "T1",
@@ -12633,7 +12633,7 @@
       "resourceId": "recavFDwkQjBdb9fc",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -15024,7 +15024,7 @@
       "resourceId": "recSGmJ0X1KxD75S1",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -15886,7 +15886,7 @@
       "resourceId": "recBswas53sRmzlW8",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1",
       "terms": [
         "T1"
@@ -15946,7 +15946,7 @@
       "resourceId": "rec22O3t21BvJaiDw",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "003.003.000",
+      "resourceKey": "003.001.000",
       "scopeText": "Term 3",
       "terms": [
         "T3"
@@ -16361,7 +16361,7 @@
       "resourceId": "rec3q7fGGsKCEZaVD",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.001",
+      "resourceKey": "001.001.001",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -16390,7 +16390,7 @@
       "resourceId": "recXzM8ureEiS6KdO",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.002",
+      "resourceKey": "001.001.002",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -16903,7 +16903,7 @@
       "resourceId": "recMga8egg3Vcj9Rq",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -17199,7 +17199,7 @@
       "resourceId": "recuVrolXxShuNSdj",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1",
       "terms": [
         "T1"
@@ -17225,7 +17225,7 @@
       "resourceId": "recnNyh56iL4uZbJw",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "002.003.000",
+      "resourceKey": "002.001.000",
       "scopeText": "Term 2",
       "terms": [
         "T2"
@@ -17251,7 +17251,7 @@
       "resourceId": "recxWfONMFDZIC2tj",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "003.003.000",
+      "resourceKey": "003.001.000",
       "scopeText": "Term 3",
       "terms": [
         "T3"
@@ -18834,7 +18834,7 @@
       "resourceId": "recLHdhKMfjC9IAKG",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -20294,7 +20294,7 @@
       "resourceId": "recBswas53sRmzlW8",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1",
       "terms": [
         "T1"
@@ -20323,7 +20323,7 @@
       "resourceId": "recg8UrzCcsCAySsI",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "002.003.000",
+      "resourceKey": "002.001.000",
       "scopeText": "Term 2",
       "terms": [
         "T2"
@@ -20352,7 +20352,7 @@
       "resourceId": "rec22O3t21BvJaiDw",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "003.003.000",
+      "resourceKey": "003.001.000",
       "scopeText": "Term 3",
       "terms": [
         "T3"
@@ -20553,7 +20553,7 @@
       "resourceId": "recO7o2cHORX18JsY",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -20592,7 +20592,7 @@
       "resourceId": "recBToi9LtJZphztW",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2 (Partial Term)",
       "terms": [
         "T1",
@@ -20681,7 +20681,7 @@
       "targetId": "recXNvUndzlFnI497",
       "resourceId": "recgUVxPoomptWyyL",
       "rotation": "R3",
-      "targetType": "course",
+      "targetType": "topic",
       "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2",
       "terms": [
@@ -20693,13 +20693,9 @@
         "T2": "The Plutarch Project Primer: Publicola (Revised) (Full Term)",
         "T3": ""
       },
-      "gradeText": "G5, G6, G7, G8, G9,",
+      "gradeText": "G5,",
       "grades": [
-        5,
-        6,
-        7,
-        8,
-        9
+        5
       ],
       "gradeLevelTag": "",
       "optional": false,
@@ -20944,7 +20940,7 @@
       "resourceId": "rec3jFPfyFSqt2mGU",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "002.003.000",
+      "resourceKey": "002.001.000",
       "scopeText": "Term 2",
       "terms": [
         "T2"
@@ -22543,7 +22539,7 @@
       "resourceId": "recBToi9LtJZphztW",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "002.003.000",
+      "resourceKey": "002.001.000",
       "scopeText": "Term 2 (Partial Term)\nTerm 3",
       "terms": [
         "T2",
@@ -22803,7 +22799,7 @@
       "resourceId": "recCiZ8KkqNCQdjfw",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2 (Partial Term)",
       "terms": [
         "T1",
@@ -22833,7 +22829,7 @@
       "resourceId": "reciOSt8LIdiSw3P0",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2 (Partial Term)",
       "terms": [
         "T1",
@@ -22863,7 +22859,7 @@
       "resourceId": "recPT7RAqxzUkKPHR",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2 (Partial Term)",
       "terms": [
         "T1",
@@ -23630,7 +23626,7 @@
       "resourceId": "recJTXFBabxJ0OLed",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1",
       "terms": [
         "T1"
@@ -23658,7 +23654,7 @@
       "resourceId": "reckpwAMAZAuWx0zl",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -23688,7 +23684,7 @@
       "resourceId": "recEEKaCxpikeBfV9",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "002.002.000",
+      "resourceKey": "002.001.000",
       "scopeText": "Term 2",
       "terms": [
         "T2"
@@ -23716,7 +23712,7 @@
       "resourceId": "recVOSiIUq0uTfGDg",
       "rotation": "R3",
       "targetType": "course",
-      "resourceKey": "003.002.000",
+      "resourceKey": "003.001.000",
       "scopeText": "Term 3",
       "terms": [
         "T3"
