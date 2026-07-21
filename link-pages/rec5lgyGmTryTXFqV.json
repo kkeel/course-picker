@@ -11,6 +11,8 @@
   "isStandaloneCourse": true,
   "courseConnectionNames": [],
   "topicConnectionNames": [],
+  "pdfReleaseMode": "term-1",
+  "releaseNotice": "Term 1 links are available. Additional lesson links and Quick Links are coming soon.",
   "topics": [
     {
       "id": "reckSBjyL3cnr01D7",
@@ -48,9 +50,9 @@
     "bookListUrl": "https://planning.alveary.org/book-details.html?base=subject&id=All%20Subjects&course=recoPQAbrD0LGdLmj",
     "supplyListUrl": "",
     "basicSuppliesUrl": "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY",
-    "lessonPdfUrl": "",
-    "lessonPdfStatus": "coming-soon",
-    "lessonPdfLabel": "Lesson PDF Coming Soon",
+    "lessonPdfUrl": "https://planning.alveary.org/pdf/modern-language/full-course/rec5lgyGmTryTXFqV-full.pdf",
+    "lessonPdfStatus": "active",
+    "lessonPdfLabel": "Lesson PDF",
     "additional": [
       {
         "label": "Lower French: Grades 1-3 only",
@@ -152,7 +154,7 @@
       }
     ]
   },
-  "updatedAt": "2026-07-20T09:42:54.729Z",
+  "updatedAt": "2026-07-21T09:09:57.161Z",
   "terms": [
     {
       "termNumber": 1,
@@ -1057,6 +1059,10 @@
                 {
                   "text": "T1LitAudioL6",
                   "url": "https://soundcloud.com/alveary/literature-term-1-lesson-6-30/s-Cvu3U7HwR2F?in=alveary/sets/lower-french-grades-1-6-26-27/s-FWkSjnSorqF&si=015e26fbaf454c358a0e46c8b8919a91&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
+                },
+                {
+                  "text": "T1LitVideoL6",
+                  "url": "https://vimeo.com/1211245833/f26e2a1554?fl=pl&fe=sh"
                 }
               ]
             },
