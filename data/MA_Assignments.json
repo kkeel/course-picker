@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-20T11:11:13.195Z",
+  "lastUpdated": "2026-07-21T10:32:59.303Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -470,7 +470,7 @@
       "resourceId": "rec8XGWgtVYl2kw7Q",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -505,7 +505,7 @@
       "resourceId": "recegZ7cOGrgBhgVM",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -536,7 +536,7 @@
       "resourceId": "recFPvGjmMX7dg0XZ",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "002.003.000",
+      "resourceKey": "002.001.000",
       "scopeText": "Term 2",
       "terms": [
         "T2"
@@ -565,7 +565,7 @@
       "resourceId": "recG9qqgZZKeR0Omd",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "002.003.000",
+      "resourceKey": "002.001.000",
       "scopeText": "Term 2",
       "terms": [
         "T2"
@@ -594,7 +594,7 @@
       "resourceId": "recs5cmpYAIy1Dpkn",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "002.003.000",
+      "resourceKey": "002.001.000",
       "scopeText": "Term 2",
       "terms": [
         "T2"
@@ -623,7 +623,7 @@
       "resourceId": "recSTb7BTScbNvJpy",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "002.003.000",
+      "resourceKey": "002.001.000",
       "scopeText": "Term 2",
       "terms": [
         "T2"
@@ -652,7 +652,7 @@
       "resourceId": "recto6IC7E6gd219E",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "002.003.000",
+      "resourceKey": "002.001.000",
       "scopeText": "Term 2",
       "terms": [
         "T2"
@@ -681,7 +681,7 @@
       "resourceId": "rec4UoRoJ7Tldyt0J",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "003.003.000",
+      "resourceKey": "003.001.000",
       "scopeText": "Term 3",
       "terms": [
         "T3"
@@ -1600,12 +1600,12 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec5rnTiExW1WHSTC?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "rectVV45p84xUawtY",
+      "assignmentId": "recnn94WBx0GbDsoy",
       "targetId": "rec5wXA5KBcOmYuUn",
       "resourceId": "rec0oGsLUHcktbS7b",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
       "terms": [
         "T1",
@@ -1616,6 +1616,37 @@
         "T1": "English Literature for Boys and Girls (Selections)",
         "T2": "English Literature for Boys and Girls (Selections)",
         "T3": "English Literature for Boys and Girls (Selections)"
+      },
+      "gradeText": "G9, G10, G11, G12, G9, G10, G11, G12,",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec5wXA5KBcOmYuUn?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recoc2kxihnhege1n",
+      "targetId": "rec5wXA5KBcOmYuUn",
+      "resourceId": "rec3R4IiED1XO1HFQ",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.001.000",
+      "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "American Literature (Selections)",
+        "T2": "American Literature (Selections)",
+        "T3": "American Literature (Selections)"
       },
       "gradeText": "G9, G10, G11, G12, G9, G10, G11, G12,",
       "grades": [
@@ -1647,37 +1678,6 @@
         "T1": "History of Literature PDF",
         "T2": "History of Literature PDF",
         "T3": "History of Literature PDF"
-      },
-      "gradeText": "G9, G10, G11, G12, G9, G10, G11, G12,",
-      "grades": [
-        9,
-        10,
-        11,
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec5wXA5KBcOmYuUn?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recO9aa3sWWe624Cp",
-      "targetId": "rec5wXA5KBcOmYuUn",
-      "resourceId": "rec3R4IiED1XO1HFQ",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "American Literature (Selections)",
-        "T2": "American Literature (Selections)",
-        "T3": "American Literature (Selections)"
       },
       "gradeText": "G9, G10, G11, G12, G9, G10, G11, G12,",
       "grades": [
@@ -4916,7 +4916,7 @@
       "resourceId": "rec21UKJaDd8DWlDr",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -6169,7 +6169,7 @@
       "resourceId": "recHnNaWYDRO6RSft",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -6200,7 +6200,7 @@
       "resourceId": "recotFEF8hsyYtMqC",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
       "terms": [
         "T1",
@@ -6322,7 +6322,7 @@
       "resourceId": "reclCiCAHqfLzR2iO",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2 (Partial Term)",
       "terms": [
         "T1",
@@ -6352,7 +6352,7 @@
       "resourceId": "recPvkYZCgdMgjc5F",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1",
       "terms": [
         "T1"
@@ -6381,7 +6381,7 @@
       "resourceId": "recQ1U2LYx0bJOPrc",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2 (Partial Term)",
       "terms": [
         "T1",
@@ -6411,7 +6411,7 @@
       "resourceId": "recO65PpJVUhYm4wS",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "002.003.000",
+      "resourceKey": "002.001.000",
       "scopeText": "Term 2\nTerm 3",
       "terms": [
         "T2",
@@ -6441,7 +6441,7 @@
       "resourceId": "recAvrwNnkmvBUV1x",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "003.003.000",
+      "resourceKey": "003.001.000",
       "scopeText": "Term 3",
       "terms": [
         "T3"
@@ -8170,7 +8170,7 @@
       "resourceId": "rec21UKJaDd8DWlDr",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -9188,6 +9188,37 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rech3p7fPR9avbcP7?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "rec3E52qtGWP5rD8F",
+      "targetId": "rechdAl8LV3A6ohAz",
+      "resourceId": "recAYCiNb4mH6y06V",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.001.000",
+      "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "The Spirit of Canada: Canada's Story in Legends, Fiction, Poems, and Songs (Selections - Canadian Option)",
+        "T2": "The Spirit of Canada: Canada's Story in Legends, Fiction, Poems, and Songs (Selections - Canadian Option)",
+        "T3": "The Spirit of Canada: Canada's Story in Legends, Fiction, Poems, and Songs (Selections - Canadian Option)"
+      },
+      "gradeText": "G1,",
+      "grades": [
+        1
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "Canadian History: Grades 2-4\nTall Tales/ Fables",
+      "sharedLinesR3": [
+        "Canadian History: Grades 2-4",
+        "Tall Tales/ Fables"
+      ],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rechdAl8LV3A6ohAz?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "reca2sG20u2HyiNna",
       "targetId": "rechdAl8LV3A6ohAz",
       "resourceId": "recHLSd4DYDUKCKw4",
@@ -9241,37 +9272,6 @@
       "optional": false,
       "sharedTextR3": "",
       "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rechdAl8LV3A6ohAz?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "rec3E52qtGWP5rD8F",
-      "targetId": "rechdAl8LV3A6ohAz",
-      "resourceId": "recAYCiNb4mH6y06V",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.002.000",
-      "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "The Spirit of Canada: Canada's Story in Legends, Fiction, Poems, and Songs (Selections - Canadian Option)",
-        "T2": "The Spirit of Canada: Canada's Story in Legends, Fiction, Poems, and Songs (Selections - Canadian Option)",
-        "T3": "The Spirit of Canada: Canada's Story in Legends, Fiction, Poems, and Songs (Selections - Canadian Option)"
-      },
-      "gradeText": "G1,",
-      "grades": [
-        1
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "Canadian History: Grades 2-4\nTall Tales/ Fables",
-      "sharedLinesR3": [
-        "Canadian History: Grades 2-4",
-        "Tall Tales/ Fables"
-      ],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rechdAl8LV3A6ohAz?home=pag8nmiUVfXJRZFLW"
     },
     {
@@ -12065,6 +12065,36 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recky33h72vyaCBmp?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "recSd4T0fTQOEbr18",
+      "targetId": "recLbje4VqybSpi0f",
+      "resourceId": "recwsaVlueernp4Mx",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.001.001",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "General Biology, 2nd Edition (Full Term)",
+        "T2": "General Biology, 2nd Edition (Full Term)",
+        "T3": "General Biology, 2nd Edition (Full Term)"
+      },
+      "gradeText": "G10, G11, G12,",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recLbje4VqybSpi0f?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recqI6nTrFpd1Hwwi",
       "targetId": "recLbje4VqybSpi0f",
       "resourceId": "recmN7LMD6XOgHxwB",
@@ -12081,36 +12111,6 @@
         "T1": "The Biology Coloring Book (Selections)",
         "T2": "The Biology Coloring Book (Selections)",
         "T3": "The Biology Coloring Book (Selections)"
-      },
-      "gradeText": "G10, G11, G12,",
-      "grades": [
-        10,
-        11,
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recLbje4VqybSpi0f?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recSd4T0fTQOEbr18",
-      "targetId": "recLbje4VqybSpi0f",
-      "resourceId": "recwsaVlueernp4Mx",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.003.001",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "General Biology, 2nd Edition (Full Term)",
-        "T2": "General Biology, 2nd Edition (Full Term)",
-        "T3": "General Biology, 2nd Edition (Full Term)"
       },
       "gradeText": "G10, G11, G12,",
       "grades": [
@@ -12158,7 +12158,7 @@
       "resourceId": "recqO478sMp9OEGwW",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "003.003.004",
+      "resourceKey": "003.001.004",
       "scopeText": "Term 3 (Partial Term)",
       "terms": [
         "T3"
@@ -14651,7 +14651,7 @@
       "resourceId": "recHnNaWYDRO6RSft",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -14682,7 +14682,7 @@
       "resourceId": "recotFEF8hsyYtMqC",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1 (Selections)\nTerm 2 (Selections)\nTerm 3 (Selections)",
       "terms": [
         "T1",
@@ -14900,7 +14900,7 @@
       "resourceId": "recoHbr1BKFlCOFfZ",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.001.000",
+      "resourceKey": "001.003.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -19711,7 +19711,7 @@
       "resourceId": "rec6q3iZ8glaNQlty",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "003.003.000",
+      "resourceKey": "003.001.000",
       "scopeText": "Term 3 (Partial Term)",
       "terms": [
         "T3"
@@ -20654,7 +20654,7 @@
       "resourceId": "recoM0qt2AsZlIczP",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.002.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -20761,6 +20761,63 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recXTURkL3qi6QDwx?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "rec4pu7FDCbDsgIlq",
+      "targetId": "recXTURkL3qi6QDwx",
+      "resourceId": "reckznAquMePx6jEp",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.001.002",
+      "scopeText": "Term 1\nTerm 2\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Astronomy Textbook (Full Term)",
+        "T2": "Astronomy Textbook (Full Term)",
+        "T3": "Astronomy Textbook (Full Term)"
+      },
+      "gradeText": "G11, G12,",
+      "grades": [
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recXTURkL3qi6QDwx?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recIpgBPpgBTlppN0",
+      "targetId": "recXTURkL3qi6QDwx",
+      "resourceId": "recAUyXZpfAwxmXBm",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.001.003",
+      "scopeText": "Term 1\nTerm 2 (Partial Term)",
+      "terms": [
+        "T1",
+        "T2"
+      ],
+      "termNotes": {
+        "T1": "The Last Stargazers (Full Term)",
+        "T2": "The Last Stargazers (Partial Term)",
+        "T3": ""
+      },
+      "gradeText": "G11, G12,",
+      "grades": [
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recXTURkL3qi6QDwx?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recmMR4T4NlE7filR",
       "targetId": "recXTURkL3qi6QDwx",
       "resourceId": "recw4Dmok7wxnXcXe",
@@ -20819,69 +20876,12 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recXTURkL3qi6QDwx?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "rec4pu7FDCbDsgIlq",
-      "targetId": "recXTURkL3qi6QDwx",
-      "resourceId": "reckznAquMePx6jEp",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.003.002",
-      "scopeText": "Term 1\nTerm 2\nTerm 3",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "Astronomy Textbook (Full Term)",
-        "T2": "Astronomy Textbook (Full Term)",
-        "T3": "Astronomy Textbook (Full Term)"
-      },
-      "gradeText": "G11, G12,",
-      "grades": [
-        11,
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recXTURkL3qi6QDwx?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recIpgBPpgBTlppN0",
-      "targetId": "recXTURkL3qi6QDwx",
-      "resourceId": "recAUyXZpfAwxmXBm",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "001.003.003",
-      "scopeText": "Term 1\nTerm 2 (Partial Term)",
-      "terms": [
-        "T1",
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "The Last Stargazers (Full Term)",
-        "T2": "The Last Stargazers (Partial Term)",
-        "T3": ""
-      },
-      "gradeText": "G11, G12,",
-      "grades": [
-        11,
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recXTURkL3qi6QDwx?home=pag8nmiUVfXJRZFLW"
-    },
-    {
       "assignmentId": "recorYHN8mvidjA8f",
       "targetId": "recXTURkL3qi6QDwx",
       "resourceId": "recobirpr8L7BY3Vu",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "002.003.004",
+      "resourceKey": "002.001.004",
       "scopeText": "Term 2 (Partial Term)\nTerm 3",
       "terms": [
         "T2",
@@ -21522,7 +21522,7 @@
       "resourceId": "recWHKr0AJK2hF7t2",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -21690,7 +21690,7 @@
       "resourceId": "recugX6G65uu0dv8O",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.000",
+      "resourceKey": "001.001.000",
       "scopeText": "Term 1\nTerm 2\nTerm 3",
       "terms": [
         "T1",
@@ -21711,6 +21711,37 @@
       "sharedTextR3": "",
       "sharedLinesR3": [],
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recyJkGRi0eytNpYD?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recbNiY5Dz3nPi0tu",
+      "targetId": "recykTvcJ3yoG8O1t",
+      "resourceId": "recasgdcfznRNlpC4",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "001.001.001",
+      "scopeText": "Term 1\nTerm 2 (Partial Term)\nTerm 3",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Elementary Studies in Plant Life (Full Term)",
+        "T2": "Elementary Studies in Plant Life (Partial Term)",
+        "T3": "Elementary Studies in Plant Life (Full Term)"
+      },
+      "gradeText": "G9, G10, G11, G12,",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recykTvcJ3yoG8O1t?home=pag8nmiUVfXJRZFLW"
     },
     {
       "assignmentId": "recPCnIoO15tomZkv",
@@ -21869,22 +21900,49 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recykTvcJ3yoG8O1t?home=pag8nmiUVfXJRZFLW"
     },
     {
-      "assignmentId": "recbNiY5Dz3nPi0tu",
+      "assignmentId": "rec5JvdhQ1vlDtEaO",
       "targetId": "recykTvcJ3yoG8O1t",
-      "resourceId": "recasgdcfznRNlpC4",
+      "resourceId": "recOIdSs9FaDKaVHx",
       "rotation": "R3",
       "targetType": "topic",
-      "resourceKey": "001.003.001",
-      "scopeText": "Term 1\nTerm 2 (Partial Term)\nTerm 3",
+      "resourceKey": "002.001.007",
+      "scopeText": "Term 2",
       "terms": [
-        "T1",
-        "T2",
-        "T3"
+        "T2"
       ],
       "termNotes": {
-        "T1": "Elementary Studies in Plant Life (Full Term)",
-        "T2": "Elementary Studies in Plant Life (Partial Term)",
-        "T3": "Elementary Studies in Plant Life (Full Term)"
+        "T1": "",
+        "T2": "The Hidden Life of Trees: The Illustrated Edition (Full Term)",
+        "T3": ""
+      },
+      "gradeText": "G9, G10, G11, G12,",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recykTvcJ3yoG8O1t?home=pag8nmiUVfXJRZFLW"
+    },
+    {
+      "assignmentId": "recB2gZoFBajb0fhI",
+      "targetId": "recykTvcJ3yoG8O1t",
+      "resourceId": "rec4OfZDsNgYBKX53",
+      "rotation": "R3",
+      "targetType": "topic",
+      "resourceKey": "002.001.008",
+      "scopeText": "Term 2",
+      "terms": [
+        "T2"
+      ],
+      "termNotes": {
+        "T1": "",
+        "T2": "The Sibley Guide to Trees (Full Term - Various Tree Families)",
+        "T3": ""
       },
       "gradeText": "G9, G10, G11, G12,",
       "grades": [
@@ -22029,64 +22087,6 @@
       "termNotes": {
         "T1": "",
         "T2": "Rocky Mountain Tree Finder (Full Term)",
-        "T3": ""
-      },
-      "gradeText": "G9, G10, G11, G12,",
-      "grades": [
-        9,
-        10,
-        11,
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recykTvcJ3yoG8O1t?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "rec5JvdhQ1vlDtEaO",
-      "targetId": "recykTvcJ3yoG8O1t",
-      "resourceId": "recOIdSs9FaDKaVHx",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "002.002.007",
-      "scopeText": "Term 2",
-      "terms": [
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "The Hidden Life of Trees: The Illustrated Edition (Full Term)",
-        "T3": ""
-      },
-      "gradeText": "G9, G10, G11, G12,",
-      "grades": [
-        9,
-        10,
-        11,
-        12
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/recykTvcJ3yoG8O1t?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recB2gZoFBajb0fhI",
-      "targetId": "recykTvcJ3yoG8O1t",
-      "resourceId": "rec4OfZDsNgYBKX53",
-      "rotation": "R3",
-      "targetType": "topic",
-      "resourceKey": "002.002.008",
-      "scopeText": "Term 2",
-      "terms": [
-        "T2"
-      ],
-      "termNotes": {
-        "T1": "",
-        "T2": "The Sibley Guide to Trees (Full Term - Various Tree Families)",
         "T3": ""
       },
       "gradeText": "G9, G10, G11, G12,",
