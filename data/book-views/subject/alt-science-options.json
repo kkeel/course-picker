@@ -652,6 +652,47 @@
           "sortId": "",
           "books": [
             {
+              "resourceId": "recasgdcfznRNlpC4",
+              "instanceKey": "course:recrhRvDTMhhDMfp7:topic:recykTvcJ3yoG8O1t:resource:recasgdcfznRNlpC4",
+              "title": "Elementary Studies in Plant Life",
+              "author": "F.E. Fritsch & E. J. Salisbury",
+              "isbn": "978-1761539060",
+              "asin": "",
+              "isbnAsin": "978-1761539060",
+              "imagePath": "img/resources/recasgdcfznRNlpC4.webp",
+              "placeholderPath": "img/placeholders/book.svg",
+              "optional": false,
+              "chooseOne": false,
+              "gradeLevelTag": "",
+              "formatTags": "Ebook",
+              "formatOptions": [
+                {
+                  "type": "ebook",
+                  "label": "Ebook"
+                }
+              ],
+              "rationale": "This is a hands-on look at many aspects of how plants work in a classic, digital text.  The text provides many lab activities for the course.",
+              "noteText": "Annotations and updates to text included with lesson plans.",
+              "maySubText": "",
+              "discountText": "",
+              "scopeText": "Term 1\nTerm 2 (Partial Term)\nTerm 3",
+              "sharedText": "",
+              "purchaseOptions": [
+                {
+                  "label": "Free",
+                  "url": "https://babel.hathitrust.org/cgi/pt?id=wu.89047122668&view=1up&seq=10",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                },
+                {
+                  "label": "Option 2",
+                  "url": "https://www.amazon.com/dp/1761539000?social_share=cm_sw_r_ffobk_cp_ud_dp_DMTWKS81MRP2KFGJNRZB&bestFormat=true&linkCode=ll2&tag=alveary0a-20&linkId=ef1e9877e58ca9c6ac23251cccd80ae9&language=en_US&ref_=as_li_ss_tl",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                }
+              ]
+            },
+            {
               "resourceId": "recSc3kZ3GKY7zcnw",
               "instanceKey": "course:recrhRvDTMhhDMfp7:topic:recykTvcJ3yoG8O1t:resource:recSc3kZ3GKY7zcnw",
               "title": "Botany in a Day",
@@ -845,41 +886,71 @@
               ]
             },
             {
-              "resourceId": "recasgdcfznRNlpC4",
-              "instanceKey": "course:recrhRvDTMhhDMfp7:topic:recykTvcJ3yoG8O1t:resource:recasgdcfznRNlpC4",
-              "title": "Elementary Studies in Plant Life",
-              "author": "F.E. Fritsch & E. J. Salisbury",
-              "isbn": "978-1761539060",
+              "resourceId": "recOIdSs9FaDKaVHx",
+              "instanceKey": "course:recrhRvDTMhhDMfp7:topic:recykTvcJ3yoG8O1t:resource:recOIdSs9FaDKaVHx",
+              "title": "The Hidden Life of Trees: The Illustrated Edition",
+              "author": "Peter Wohlleben",
+              "isbn": "978-1771643481",
               "asin": "",
-              "isbnAsin": "978-1761539060",
-              "imagePath": "img/resources/recasgdcfznRNlpC4.webp",
+              "isbnAsin": "978-1771643481",
+              "imagePath": "img/resources/recOIdSs9FaDKaVHx.webp",
               "placeholderPath": "img/placeholders/book.svg",
               "optional": false,
               "chooseOne": false,
               "gradeLevelTag": "",
-              "formatTags": "Ebook",
+              "formatTags": "Audiobook",
               "formatOptions": [
                 {
-                  "type": "ebook",
-                  "label": "Ebook"
+                  "type": "audiobook",
+                  "label": "Audiobook"
                 }
               ],
-              "rationale": "This is a hands-on look at many aspects of how plants work in a classic, digital text.  The text provides many lab activities for the course.",
-              "noteText": "Annotations and updates to text included with lesson plans.",
+              "rationale": "This title provides students with current scientific information and human connections to support their knowledge about trees both as individuals and within their context.  The beautiful photography in this piece of botany literature is inspiring and supportive.",
+              "noteText": "",
               "maySubText": "",
               "discountText": "",
-              "scopeText": "Term 1\nTerm 2 (Partial Term)\nTerm 3",
+              "scopeText": "Term 2",
               "sharedText": "",
               "purchaseOptions": [
                 {
-                  "label": "Free",
-                  "url": "https://babel.hathitrust.org/cgi/pt?id=wu.89047122668&view=1up&seq=10",
+                  "label": "Option 1",
+                  "url": "https://www.amazon.com/dp/177164348X?social_share=cm_sw_r_ffobk_cp_ud_dp_G62CHRN8G9HMKTMBY2B1&_encoding=UTF8&psc=1&peakEvent=3&dealEvent=0&skipTwisterOG=1&bestFormat=true&linkCode=ll2&tag=alveary0a-20&linkId=86388771b848c6fc1fb1efd92220b249&language=en_US&ref_=as_li_ss_tl",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                }
+              ]
+            },
+            {
+              "resourceId": "rec4OfZDsNgYBKX53",
+              "instanceKey": "course:recrhRvDTMhhDMfp7:topic:recykTvcJ3yoG8O1t:resource:rec4OfZDsNgYBKX53",
+              "title": "The Sibley Guide to Trees",
+              "author": "David Allen Sibley",
+              "isbn": "978-0375415197",
+              "asin": "",
+              "isbnAsin": "978-0375415197",
+              "imagePath": "img/resources/rec4OfZDsNgYBKX53.webp",
+              "placeholderPath": "img/placeholders/book.svg",
+              "optional": false,
+              "chooseOne": false,
+              "gradeLevelTag": "",
+              "formatTags": "",
+              "formatOptions": [],
+              "rationale": "Botany students use this guide to study tree families from across North America and to consider various aspects of tree anatomy.",
+              "noteText": "For local tree identification, students will still want one or more of the local/regional field guides.",
+              "maySubText": "",
+              "discountText": "",
+              "scopeText": "Term 2",
+              "sharedText": "",
+              "purchaseOptions": [
+                {
+                  "label": "Option 1",
+                  "url": "https://www.amazon.com/dp/037541519X?social_share=cm_sw_r_ffobk_cp_ud_dp_2QWV0DXPK8HJMBK9A9RY&peakEvent=5&dealEvent=0&skipTwisterOG=1&bestFormat=true&linkCode=ll2&tag=alveary0a-20&linkId=dc2289331dba376d22f0159fa4959226&language=en_US&ref_=as_li_ss_tl",
                   "memberOnly": false,
                   "memberstackId": ""
                 },
                 {
                   "label": "Option 2",
-                  "url": "https://www.amazon.com/dp/1761539000?social_share=cm_sw_r_ffobk_cp_ud_dp_DMTWKS81MRP2KFGJNRZB&bestFormat=true&linkCode=ll2&tag=alveary0a-20&linkId=ef1e9877e58ca9c6ac23251cccd80ae9&language=en_US&ref_=as_li_ss_tl",
+                  "url": "https://bookshop.org/a/90084/9780375415197",
                   "memberOnly": false,
                   "memberstackId": ""
                 }
@@ -1060,77 +1131,6 @@
                 {
                   "label": "Option 2",
                   "url": "https://bookshop.org/a/90084/9780912550466",
-                  "memberOnly": false,
-                  "memberstackId": ""
-                }
-              ]
-            },
-            {
-              "resourceId": "recOIdSs9FaDKaVHx",
-              "instanceKey": "course:recrhRvDTMhhDMfp7:topic:recykTvcJ3yoG8O1t:resource:recOIdSs9FaDKaVHx",
-              "title": "The Hidden Life of Trees: The Illustrated Edition",
-              "author": "Peter Wohlleben",
-              "isbn": "978-1771643481",
-              "asin": "",
-              "isbnAsin": "978-1771643481",
-              "imagePath": "img/resources/recOIdSs9FaDKaVHx.webp",
-              "placeholderPath": "img/placeholders/book.svg",
-              "optional": false,
-              "chooseOne": false,
-              "gradeLevelTag": "",
-              "formatTags": "Audiobook",
-              "formatOptions": [
-                {
-                  "type": "audiobook",
-                  "label": "Audiobook"
-                }
-              ],
-              "rationale": "This title provides students with current scientific information and human connections to support their knowledge about trees both as individuals and within their context.  The beautiful photography in this piece of botany literature is inspiring and supportive.",
-              "noteText": "",
-              "maySubText": "",
-              "discountText": "",
-              "scopeText": "Term 2",
-              "sharedText": "",
-              "purchaseOptions": [
-                {
-                  "label": "Option 1",
-                  "url": "https://www.amazon.com/dp/177164348X?social_share=cm_sw_r_ffobk_cp_ud_dp_G62CHRN8G9HMKTMBY2B1&_encoding=UTF8&psc=1&peakEvent=3&dealEvent=0&skipTwisterOG=1&bestFormat=true&linkCode=ll2&tag=alveary0a-20&linkId=86388771b848c6fc1fb1efd92220b249&language=en_US&ref_=as_li_ss_tl",
-                  "memberOnly": false,
-                  "memberstackId": ""
-                }
-              ]
-            },
-            {
-              "resourceId": "rec4OfZDsNgYBKX53",
-              "instanceKey": "course:recrhRvDTMhhDMfp7:topic:recykTvcJ3yoG8O1t:resource:rec4OfZDsNgYBKX53",
-              "title": "The Sibley Guide to Trees",
-              "author": "David Allen Sibley",
-              "isbn": "978-0375415197",
-              "asin": "",
-              "isbnAsin": "978-0375415197",
-              "imagePath": "img/resources/rec4OfZDsNgYBKX53.webp",
-              "placeholderPath": "img/placeholders/book.svg",
-              "optional": false,
-              "chooseOne": false,
-              "gradeLevelTag": "",
-              "formatTags": "",
-              "formatOptions": [],
-              "rationale": "Botany students use this guide to study tree families from across North America and to consider various aspects of tree anatomy.",
-              "noteText": "For local tree identification, students will still want one or more of the local/regional field guides.",
-              "maySubText": "",
-              "discountText": "",
-              "scopeText": "Term 2",
-              "sharedText": "",
-              "purchaseOptions": [
-                {
-                  "label": "Option 1",
-                  "url": "https://www.amazon.com/dp/037541519X?social_share=cm_sw_r_ffobk_cp_ud_dp_2QWV0DXPK8HJMBK9A9RY&peakEvent=5&dealEvent=0&skipTwisterOG=1&bestFormat=true&linkCode=ll2&tag=alveary0a-20&linkId=dc2289331dba376d22f0159fa4959226&language=en_US&ref_=as_li_ss_tl",
-                  "memberOnly": false,
-                  "memberstackId": ""
-                },
-                {
-                  "label": "Option 2",
-                  "url": "https://bookshop.org/a/90084/9780375415197",
                   "memberOnly": false,
                   "memberstackId": ""
                 }
@@ -1601,6 +1601,81 @@
               ]
             },
             {
+              "resourceId": "reckznAquMePx6jEp",
+              "instanceKey": "course:rec1cxxBHRBfT6T9a:topic:recXTURkL3qi6QDwx:resource:reckznAquMePx6jEp",
+              "title": "Astronomy Textbook",
+              "author": "Charlesworth, Castro, & Delgado",
+              "isbn": "",
+              "asin": "",
+              "isbnAsin": "",
+              "imagePath": "img/resources/reckznAquMePx6jEp.webp",
+              "placeholderPath": "img/placeholders/book.svg",
+              "optional": false,
+              "chooseOne": false,
+              "gradeLevelTag": "",
+              "formatTags": "",
+              "formatOptions": [],
+              "rationale": "This general astronomy text includes a brief history of astronomy, as well as fundamentals of the field.  It is a well-organized and concise text written from the perspective that faith and science are compatible.",
+              "noteText": "",
+              "maySubText": "",
+              "discountText": "",
+              "scopeText": "Term 1\nTerm 2\nTerm 3",
+              "sharedText": "",
+              "purchaseOptions": [
+                {
+                  "label": "Option 1",
+                  "url": "https://books.kolbe.org/products/john-charlesworths-descriptive-astronomy?srsltid=AfmBOoqTCfkDAIVm3p1g88z6ymhP3UvXtJtY91eIlYEbDW-adQw1jPW9",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                }
+              ]
+            },
+            {
+              "resourceId": "recAUyXZpfAwxmXBm",
+              "instanceKey": "course:rec1cxxBHRBfT6T9a:topic:recXTURkL3qi6QDwx:resource:recAUyXZpfAwxmXBm",
+              "title": "The Last Stargazers",
+              "author": "Emily Levesque",
+              "isbn": "978-1728234458",
+              "asin": "",
+              "isbnAsin": "978-1728234458",
+              "imagePath": "img/resources/recAUyXZpfAwxmXBm.webp",
+              "placeholderPath": "img/placeholders/book.svg",
+              "optional": false,
+              "chooseOne": false,
+              "gradeLevelTag": "",
+              "formatTags": "Ebook, Audiobook",
+              "formatOptions": [
+                {
+                  "type": "ebook",
+                  "label": "Ebook"
+                },
+                {
+                  "type": "audiobook",
+                  "label": "Audiobook"
+                }
+              ],
+              "rationale": "From the lonely quiet of midnight stargazing to tall tales of wild bears loose in the observatory, The Last Stargazers is a love letter to astronomy and an affirmation of the crucial role that humans can and must play in the future of scientific discovery.",
+              "noteText": "Available on Kindle with enhanced typesetting and Audible.",
+              "maySubText": "",
+              "discountText": "",
+              "scopeText": "Term 1\nTerm 2 (Partial Term)",
+              "sharedText": "",
+              "purchaseOptions": [
+                {
+                  "label": "Option 1",
+                  "url": "https://www.amazon.com/Last-Stargazers-Astronomys-Vanishing-Explorers/dp/172823445X?&linkCode=ll2&tag=alveary0a-20&linkId=a1595a7398e304ad4ad7f1f9a3afed37&language=en_US&ref_=as_li_ss_tl",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                },
+                {
+                  "label": "Option 2",
+                  "url": "https://bookshop.org/a/90084/9781728234458",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                }
+              ]
+            },
+            {
               "resourceId": "recw4Dmok7wxnXcXe",
               "instanceKey": "course:rec1cxxBHRBfT6T9a:topic:recXTURkL3qi6QDwx:resource:recw4Dmok7wxnXcXe",
               "title": "The Crossroads of Science and Faith: Astronomy Through a Christian Worldview",
@@ -1677,81 +1752,6 @@
                 {
                   "label": "Option 2",
                   "url": "http://www.lovingtruthbooks.com/V2/Res.aspx?xr=t&Sku=3594",
-                  "memberOnly": false,
-                  "memberstackId": ""
-                }
-              ]
-            },
-            {
-              "resourceId": "reckznAquMePx6jEp",
-              "instanceKey": "course:rec1cxxBHRBfT6T9a:topic:recXTURkL3qi6QDwx:resource:reckznAquMePx6jEp",
-              "title": "Astronomy Textbook",
-              "author": "Charlesworth, Castro, & Delgado",
-              "isbn": "",
-              "asin": "",
-              "isbnAsin": "",
-              "imagePath": "img/resources/reckznAquMePx6jEp.webp",
-              "placeholderPath": "img/placeholders/book.svg",
-              "optional": false,
-              "chooseOne": false,
-              "gradeLevelTag": "",
-              "formatTags": "",
-              "formatOptions": [],
-              "rationale": "This general astronomy text includes a brief history of astronomy, as well as fundamentals of the field.  It is a well-organized and concise text written from the perspective that faith and science are compatible.",
-              "noteText": "",
-              "maySubText": "",
-              "discountText": "",
-              "scopeText": "Term 1\nTerm 2\nTerm 3",
-              "sharedText": "",
-              "purchaseOptions": [
-                {
-                  "label": "Option 1",
-                  "url": "https://books.kolbe.org/products/john-charlesworths-descriptive-astronomy?srsltid=AfmBOoqTCfkDAIVm3p1g88z6ymhP3UvXtJtY91eIlYEbDW-adQw1jPW9",
-                  "memberOnly": false,
-                  "memberstackId": ""
-                }
-              ]
-            },
-            {
-              "resourceId": "recAUyXZpfAwxmXBm",
-              "instanceKey": "course:rec1cxxBHRBfT6T9a:topic:recXTURkL3qi6QDwx:resource:recAUyXZpfAwxmXBm",
-              "title": "The Last Stargazers",
-              "author": "Emily Levesque",
-              "isbn": "978-1728234458",
-              "asin": "",
-              "isbnAsin": "978-1728234458",
-              "imagePath": "img/resources/recAUyXZpfAwxmXBm.webp",
-              "placeholderPath": "img/placeholders/book.svg",
-              "optional": false,
-              "chooseOne": false,
-              "gradeLevelTag": "",
-              "formatTags": "Ebook, Audiobook",
-              "formatOptions": [
-                {
-                  "type": "ebook",
-                  "label": "Ebook"
-                },
-                {
-                  "type": "audiobook",
-                  "label": "Audiobook"
-                }
-              ],
-              "rationale": "From the lonely quiet of midnight stargazing to tall tales of wild bears loose in the observatory, The Last Stargazers is a love letter to astronomy and an affirmation of the crucial role that humans can and must play in the future of scientific discovery.",
-              "noteText": "Available on Kindle with enhanced typesetting and Audible.",
-              "maySubText": "",
-              "discountText": "",
-              "scopeText": "Term 1\nTerm 2 (Partial Term)",
-              "sharedText": "",
-              "purchaseOptions": [
-                {
-                  "label": "Option 1",
-                  "url": "https://www.amazon.com/Last-Stargazers-Astronomys-Vanishing-Explorers/dp/172823445X?&linkCode=ll2&tag=alveary0a-20&linkId=a1595a7398e304ad4ad7f1f9a3afed37&language=en_US&ref_=as_li_ss_tl",
-                  "memberOnly": false,
-                  "memberstackId": ""
-                },
-                {
-                  "label": "Option 2",
-                  "url": "https://bookshop.org/a/90084/9781728234458",
                   "memberOnly": false,
                   "memberstackId": ""
                 }

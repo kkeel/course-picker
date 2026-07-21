@@ -325,7 +325,7 @@
                 }
               ],
               "rationale": "Our nature reader brings learners alongside an experienced nature educator as she relates her stories with curiosity, delight, and humility.  Volume 1 explores insects, spiders, birds, seeds, and more.",
-              "noteText": "The print book is formatted for easy reading; the eBook is formatted with enhanced typesetting (i.e. the print automatically adjusts to the device used to read it and the reader can adjust fonts, colors, etc).",
+              "noteText": "The print book is formatted for easy reading; the eBook is formatted with enhanced typesetting (i.e., the print automatically adjusts to the device used to read it, and the reader can adjust fonts, colors, etc).",
               "maySubText": "another nature reader that provides accurate, living ideas across a variety of creatures; supplemental links and prompts may not apply to substituted reader",
               "discountText": "",
               "scopeText": "Term 1\nTerm 2\nTerm 3",
@@ -610,7 +610,7 @@
                 }
               ],
               "rationale": "Our nature reader brings learners alongside an experienced nature educator as she relates her stories with curiosity, delight, and humility.  Volume 2 explores insects, insect larvae, mammals, some aquatic species, and more.",
-              "noteText": "The print book is formatted for easy reading; the eBook is formatted with enhanced typesetting (i.e. the print automatically adjusts to the device used to read it and the reader can adjust fonts, colors, etc).",
+              "noteText": "The print book is formatted for easy reading; the eBook is formatted with enhanced typesetting (i.e., the print automatically adjusts to the device used to read it, and the reader can adjust fonts, colors, etc).",
               "maySubText": "another nature reader that provides accurate, living ideas across a variety of creatures; supplemental links and prompts may not apply to substituted reader",
               "discountText": "",
               "scopeText": "Term 1\nTerm 2\nTerm 3",
@@ -2749,6 +2749,36 @@
           "sortId": "",
           "books": [
             {
+              "resourceId": "recwsaVlueernp4Mx",
+              "instanceKey": "course:recpEmtJeBr6l5oV8:topic:recLbje4VqybSpi0f:resource:recwsaVlueernp4Mx",
+              "title": "General Biology, 2nd Edition",
+              "author": "Heather Ayala & Katie Rogstad",
+              "isbn": "9781600517211",
+              "asin": "",
+              "isbnAsin": "9781600517211",
+              "imagePath": "img/resources/recwsaVlueernp4Mx.webp",
+              "placeholderPath": "img/placeholders/book.svg",
+              "optional": false,
+              "chooseOne": false,
+              "gradeLevelTag": "",
+              "formatTags": "",
+              "formatOptions": [],
+              "rationale": "In a conversational tone and with reverence, the authors of this general biology text clearly guide students from the molecules of biology to the complexities of the human body and evolution.",
+              "noteText": "",
+              "maySubText": "",
+              "discountText": "",
+              "scopeText": "Term 1\nTerm 2\nTerm 3",
+              "sharedText": "",
+              "purchaseOptions": [
+                {
+                  "label": "Option 1",
+                  "url": "https://classicalacademicpress.com/products/general-biology-2nd-edition?pr_prod_strat=e5_desc&pr_rec_id=14d76b80e&pr_rec_pid=7178224271431&pr_ref_pid=4481926889543&pr_seq=uniform",
+                  "memberOnly": false,
+                  "memberstackId": ""
+                }
+              ]
+            },
+            {
               "resourceId": "recmN7LMD6XOgHxwB",
               "instanceKey": "course:recpEmtJeBr6l5oV8:topic:recLbje4VqybSpi0f:resource:recmN7LMD6XOgHxwB",
               "title": "The Biology Coloring Book",
@@ -2779,36 +2809,6 @@
                 {
                   "label": "Option 2",
                   "url": "https://www.amazon.com/gp/product/0064603075?ie=UTF8&psc=1&linkCode=ll2&tag=alveary0a-20&linkId=644117992aa6e7809586dd07724820a0&language=en_US&ref_=as_li_ss_tl",
-                  "memberOnly": false,
-                  "memberstackId": ""
-                }
-              ]
-            },
-            {
-              "resourceId": "recwsaVlueernp4Mx",
-              "instanceKey": "course:recpEmtJeBr6l5oV8:topic:recLbje4VqybSpi0f:resource:recwsaVlueernp4Mx",
-              "title": "General Biology, 2nd Edition",
-              "author": "Heather Ayala & Katie Rogstad",
-              "isbn": "9781600517211",
-              "asin": "",
-              "isbnAsin": "9781600517211",
-              "imagePath": "img/resources/recwsaVlueernp4Mx.webp",
-              "placeholderPath": "img/placeholders/book.svg",
-              "optional": false,
-              "chooseOne": false,
-              "gradeLevelTag": "",
-              "formatTags": "",
-              "formatOptions": [],
-              "rationale": "In a conversational tone and with reverence, the authors of this general biology text clearly guide students from the molecules of biology to the complexities of the human body and evolution.",
-              "noteText": "",
-              "maySubText": "",
-              "discountText": "",
-              "scopeText": "Term 1\nTerm 2\nTerm 3",
-              "sharedText": "",
-              "purchaseOptions": [
-                {
-                  "label": "Option 1",
-                  "url": "https://classicalacademicpress.com/products/general-biology-2nd-edition?pr_prod_strat=e5_desc&pr_rec_id=14d76b80e&pr_rec_pid=7178224271431&pr_ref_pid=4481926889543&pr_seq=uniform",
                   "memberOnly": false,
                   "memberstackId": ""
                 }
