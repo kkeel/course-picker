@@ -2635,7 +2635,11 @@ function renderActionButtons(item, options = {}) {
   const pdfLabel =
     type === "topic"
       ? "Single Topic PDF"
-      : "Full Course PDF";
+      : (
+          item.pdfReleaseMode === "term-1"
+            ? "Term 1 PDF"
+            : "Full Course PDF"
+        );
 
   const toolButtons = [
     {
