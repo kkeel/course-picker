@@ -19,6 +19,7 @@
     quickAccessHeader: document.querySelector(".links-quick-access-header"),
     quickAccess: document.getElementById("linksQuickAccess"),
     quickAccessGrid: document.getElementById("linksQuickAccessGrid"),
+    releaseNotice: document.getElementById("linksReleaseNotice"),
     status: document.getElementById("linksStatus"),
     content: document.getElementById("linksContent")
   };
@@ -62,6 +63,49 @@
     if (lesson.lessonLabel) return lesson.lessonLabel;
     if (lesson.sequence) return `Lesson ${lesson.sequence}`;
     return "Lesson";
+  }
+
+    function isTerm1Release() {
+    return state.data?.pdfReleaseMode === "term-1";
+  }
+
+  function isReleasedTerm(termNumber) {
+    if (!isTerm1Release()) return true;
+
+    return String(termNumber || "") === "1";
+  }
+
+  function renderReleaseNotice() {
+    if (!els.releaseNotice) return;
+
+    if (!isTerm1Release()) {
+      els.releaseNotice.hidden = true;
+      els.releaseNotice.innerHTML = "";
+      return;
+    }
+
+    const notice =
+      state.data?.releaseNotice ||
+      "Term 1 links are available. Additional lesson links and Quick Links are coming soon.";
+
+    const sentences = String(notice)
+      .split(/(?<=[.!?])\s+/)
+      .filter(Boolean);
+
+    const heading =
+      sentences[0] ||
+      "Term 1 links are available.";
+
+    const body =
+      sentences.slice(1).join(" ") ||
+      "Additional lesson links and Quick Links will be released as future terms become available.";
+
+    els.releaseNotice.innerHTML = `
+      <strong>${escapeHtml(heading)}</strong>
+      <div>${escapeHtml(body)}</div>
+    `;
+
+    els.releaseNotice.hidden = false;
   }
 
   function setStatus(message, isError = false) {
@@ -220,122 +264,144 @@
   }
 
     function renderQuickAccess() {
-      const quickLinks = state.data?.quickLinks || {};
-  
-      const supplyListUrl = String(quickLinks.supplyListUrl || "").trim();
-      const additionalLinks = Array.isArray(quickLinks.additional)
-        ? quickLinks.additional
-        : [];
-  
-      const links = [
-        {
-          label: quickLinks.extraHelpingsUrl
-            ? "Extra Helpings"
-            : "No Extra Helpings",
-          icon: "🍯",
-          url: quickLinks.extraHelpingsUrl || "#"
-        },
-        {
-          label: quickLinks.bookListUrl
-            ? "Book List Details"
-            : "No Books",
-          icon: "📚",
-          url: quickLinks.bookListUrl || "#"
-        },
-        {
-          label: supplyListUrl ? "Supply List Details" : "No Supplies",
-          icon: "✂️",
-          url: supplyListUrl || "#"
-        },
-        {
-          label: "Basic Supply List",
-          icon: "✏️",
-          url:
-            quickLinks.basicSuppliesUrl ||
-            "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY"
-        },
-        {
-          label:
-            quickLinks.lessonPdfLabel ||
-            "Lesson PDF",
-          icon: "📝",
-          url: quickLinks.lessonPdfUrl || "#",
-          status:
-            quickLinks.lessonPdfStatus ||
-            "none"
-        }
-      ];
-  
-      els.quickAccess.hidden = false;
-      els.quickAccess.classList.toggle("is-collapsed", state.quickAccessCollapsed);
-      
-      els.quickAccessHeader.innerHTML = `
-        <h2>Quick Links</h2>
-        <button class="links-quick-access-toggle" type="button">
-          ${state.quickAccessCollapsed ? "Show" : "Hide"}
-        </button>
-      `;
-      
-      els.quickAccessHeader
-        .querySelector(".links-quick-access-toggle")
-        .addEventListener("click", () => {
-          state.quickAccessCollapsed = !state.quickAccessCollapsed;
-          renderQuickAccess();
-        });
-  
-      const primaryHtml = links.map(link => {
-        const isComingSoon = link.status === "coming-soon";
-      
-        const isDisabled =
-          isComingSoon ||
-          !link.url ||
-          link.url === "#";
+    const quickLinks = state.data?.quickLinks || {};
 
-        return `
-          <a
-            class="links-quick-access-card ${
+    const supplyListUrl = String(quickLinks.supplyListUrl || "").trim();
+    const additionalLinks = Array.isArray(quickLinks.additional)
+      ? quickLinks.additional
+      : [];
+
+    const releaseDisabled = isTerm1Release();
+
+    const links = [
+      {
+        label: quickLinks.extraHelpingsUrl
+          ? "Extra Helpings"
+          : "No Extra Helpings",
+        icon: "🍯",
+        url: quickLinks.extraHelpingsUrl || "#"
+      },
+      {
+        label: quickLinks.bookListUrl
+          ? "Book List Details"
+          : "No Books",
+        icon: "📚",
+        url: quickLinks.bookListUrl || "#"
+      },
+      {
+        label: supplyListUrl ? "Supply List Details" : "No Supplies",
+        icon: "✂️",
+        url: supplyListUrl || "#"
+      },
+      {
+        label: "Basic Supply List",
+        icon: "✏️",
+        url:
+          quickLinks.basicSuppliesUrl ||
+          "https://planning.alveary.org/supply-details.html?view=course&id=rec02PG0uJRjfJewY"
+      },
+      {
+        label:
+          quickLinks.lessonPdfLabel ||
+          "Lesson PDF",
+        icon: "📝",
+        url: quickLinks.lessonPdfUrl || "#",
+        status:
+          quickLinks.lessonPdfStatus ||
+          "none"
+      }
+    ];
+
+    els.quickAccess.hidden = false;
+    els.quickAccess.classList.toggle(
+      "is-collapsed",
+      state.quickAccessCollapsed
+    );
+
+    els.quickAccessHeader.innerHTML = `
+      <h2>Quick Links</h2>
+      <button class="links-quick-access-toggle" type="button">
+        ${state.quickAccessCollapsed ? "Show" : "Hide"}
+      </button>
+    `;
+
+    els.quickAccessHeader
+      .querySelector(".links-quick-access-toggle")
+      .addEventListener("click", () => {
+        state.quickAccessCollapsed = !state.quickAccessCollapsed;
+        renderQuickAccess();
+      });
+
+    const primaryHtml = links.map(link => {
+      const isComingSoon = link.status === "coming-soon";
+
+      const isUnavailable =
+        isComingSoon ||
+        !link.url ||
+        link.url === "#";
+
+      const isDisabled =
+        releaseDisabled ||
+        isUnavailable;
+
+      return `
+        <a
+          class="links-quick-access-card ${
+            isComingSoon
+              ? "is-coming-soon"
+              : isUnavailable
+                ? "is-disabled"
+                : ""
+          } ${
+            releaseDisabled
+              ? "is-release-disabled"
+              : ""
+          }"
+          href="${escapeHtml(isDisabled ? "#" : link.url)}"
+          ${isDisabled ? "" : `target="_blank" rel="noopener"`}
+          ${isDisabled ? `onclick="return false;"` : ""}
+          aria-disabled="${isDisabled ? "true" : "false"}"
+        >
+          <span class="links-quick-access-icon">${escapeHtml(link.icon)}</span>
+          <span class="links-quick-access-label">${escapeHtml(link.label)}</span>
+          <span class="links-quick-access-arrow">
+            ${
               isComingSoon
-                ? "is-coming-soon"
-                : isDisabled
-                  ? "is-disabled"
-                  : ""
-            }"
-            href="${escapeHtml(isDisabled ? "#" : link.url)}"
-            target="_blank"
-            rel="noopener"
-            aria-disabled="${isDisabled ? "true" : "false"}"
-          >
-            <span class="links-quick-access-icon">${escapeHtml(link.icon)}</span>
-            <span class="links-quick-access-label">${escapeHtml(link.label)}</span>
-            <span class="links-quick-access-arrow">
-              ${isComingSoon ? "⏳" : isDisabled ? "" : "↗"}
-            </span>
-          </a>
-        `;
-      }).join("");
-  
-      const additionalHtml = additionalLinks.length
-        ? `
-          <div class="links-additional-quicklinks">
-            <div class="links-additional-quicklinks-list">
-              ${additionalLinks.map(link => `
-                <a
-                  href="${escapeHtml(link.url)}"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  ${escapeHtml(link.label)}
-                </a>
-              `).join("")}
-            </div>
+                ? "⏳"
+                : isUnavailable
+                  ? ""
+                  : "↗"
+            }
+          </span>
+        </a>
+      `;
+    }).join("");
+
+    const additionalHtml = additionalLinks.length
+      ? `
+        <div class="links-additional-quicklinks">
+          <div class="links-additional-quicklinks-list">
+            ${additionalLinks.map(link => `
+              <a
+                class="${releaseDisabled ? "is-release-disabled" : ""}"
+                href="${escapeHtml(releaseDisabled ? "#" : link.url)}"
+                ${releaseDisabled ? "" : `target="_blank" rel="noopener"`}
+                ${releaseDisabled ? `onclick="return false;"` : ""}
+                aria-disabled="${releaseDisabled ? "true" : "false"}"
+              >
+                ${escapeHtml(link.label)}
+              </a>
+            `).join("")}
           </div>
-        `
-        : "";
+        </div>
+      `
+      : "";
 
-      els.quickAccessGrid.innerHTML = primaryHtml + additionalHtml;
-    }
+    els.quickAccessGrid.innerHTML =
+      primaryHtml + additionalHtml;
+  }
 
-  function renderLinks() {
+    function renderLinks() {
     const terms = getVisibleTerms();
 
     if (!terms.length) {
@@ -360,49 +426,83 @@
 
     els.content.innerHTML = terms.map(term => {
       const weeks = getVisibleWeeks(term);
+      const termIsReleased = isReleasedTerm(term.termNumber);
 
       return `
-        <section class="link-term" data-term="${escapeHtml(term.termNumber)}">
-          <h2 class="link-term-title">${escapeHtml(term.term || `Term ${term.termNumber}`)}</h2>
-      
+        <section
+          class="link-term"
+          data-term="${escapeHtml(term.termNumber)}"
+        >
+          <h2 class="link-term-title">
+            ${escapeHtml(term.term || `Term ${term.termNumber}`)}
+          </h2>
+
           <div class="link-term-card">
             ${weeks.map(week => `
-            <div class="link-week" data-week="${escapeHtml(week.weekNumber)}">
-              <div class="link-week-label">${escapeHtml(week.weekLabel || `Week ${week.weekNumber}`)}</div>
+              <div
+                class="link-week"
+                data-week="${escapeHtml(week.weekNumber)}"
+              >
+                <div class="link-week-label">
+                  ${escapeHtml(week.weekLabel || `Week ${week.weekNumber}`)}
+                </div>
 
-              <div class="link-week-lessons">
-                ${(week.lessons || []).map(lesson => `
-                  <article class="link-lesson" id="${escapeHtml(lesson.anchor)}">
-                    <div class="link-lesson-label">
-                      <div class="link-lesson-number">
-                        ${escapeHtml(lessonDisplayLabel(lesson))}
+                <div class="link-week-lessons">
+                  ${(week.lessons || []).map(lesson => `
+                    <article
+                      class="link-lesson"
+                      id="${escapeHtml(lesson.anchor)}"
+                    >
+                      <div class="link-lesson-label">
+                        <div class="link-lesson-number">
+                          ${escapeHtml(lessonDisplayLabel(lesson))}
+                        </div>
+
+                        ${
+                          lesson.topicTitle
+                            ? `
+                              <div class="link-lesson-topic">
+                                ${escapeHtml(lesson.topicTitle)}
+                              </div>
+                            `
+                            : ""
+                        }
                       </div>
-                    
-                      ${
-                        lesson.topicTitle
-                          ? `
-                            <div class="link-lesson-topic">
-                              ${escapeHtml(lesson.topicTitle)}
-                            </div>
-                          `
-                          : ""
-                      }
-                    </div>
-                    <div class="link-list">
-                      ${(lesson.links || []).map(link => `
-                        <a href="${escapeHtml(link.url)}" target="_blank" rel="noopener">
-                          ${escapeHtml(link.text || link.url)}
-                        </a>
-                      `).join("")}
-                    </div>
-                  </article>
-                `).join("")}
+
+                      <div class="link-list">
+                        ${(lesson.links || []).map(link => {
+                          if (!termIsReleased) {
+                            return `
+                              <a
+                                href="#"
+                                class="is-release-disabled"
+                                aria-disabled="true"
+                                onclick="return false;"
+                              >
+                                ${escapeHtml(link.text || link.url)}
+                              </a>
+                            `;
+                          }
+
+                          return `
+                            <a
+                              href="${escapeHtml(link.url)}"
+                              target="_blank"
+                              rel="noopener"
+                            >
+                              ${escapeHtml(link.text || link.url)}
+                            </a>
+                          `;
+                        }).join("")}
+                      </div>
+                    </article>
+                  `).join("")}
+                </div>
               </div>
-            </div>
-          `).join("")}
-        </div>
-      </section>
-    `;
+            `).join("")}
+          </div>
+        </section>
+      `;
     }).join("");
 
     requestAnimationFrame(scrollToHashIfNeeded);
@@ -457,6 +557,7 @@
 
       els.controls.hidden = false;
 
+      renderReleaseNotice();
       renderQuickAccess();
       renderFilters();
       renderLinks();
