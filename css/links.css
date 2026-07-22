@@ -31,7 +31,28 @@
 }
 
 .links-hero {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+}
+
+.links-release-notice {
+  max-width: 90rem;
+  margin: 0 auto 1.25rem;
+  padding: 0.8rem 1rem;
+
+  box-sizing: border-box;
+  background: #f7f8f4;
+  border: 1px solid #8da08c;
+  border-left: 4px solid var(--links-dark-green);
+
+  color: var(--links-dark-green);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.links-release-notice strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 700;
 }
 
 .links-kicker {
@@ -446,4 +467,15 @@
   font-size: 0.74rem;
   line-height: 1.3;
   font-weight: 400;
+}
+
+
+/*
+ * Term 1 release mode:
+ * Links remain visually unchanged but cannot be opened.
+ */
+.links-quick-access-card.is-release-disabled,
+.links-additional-quicklinks-list a.is-release-disabled,
+.link-list a.is-release-disabled {
+  pointer-events: none;
 }
