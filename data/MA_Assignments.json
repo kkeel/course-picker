@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-22T10:34:08.923Z",
+  "lastUpdated": "2026-07-23T10:34:23.132Z",
   "rotation": "R3",
   "assignments": [
     {
@@ -1348,6 +1348,34 @@
       "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec4dlS5S8PVYawuL?home=pag8nmiUVfXJRZFLW"
     },
     {
+      "assignmentId": "recPO6pIYTCFgy1Mx",
+      "targetId": "rec5q2mTTsX5J913g",
+      "resourceId": "rec2Ch49DbsTAysS1",
+      "rotation": "R3",
+      "targetType": "course",
+      "resourceKey": "001.001.000",
+      "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)\nTerm 3 (Partial Term)",
+      "terms": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "termNotes": {
+        "T1": "Thirteen Moons on Turtle's Back: A Native American Year of Moons (Partial Term)",
+        "T2": "Thirteen Moons on Turtle's Back: A Native American Year of Moons (Partial Term)",
+        "T3": "Thirteen Moons on Turtle's Back: A Native American Year of Moons (Partial Term)"
+      },
+      "gradeText": "G1,",
+      "grades": [
+        1
+      ],
+      "gradeLevelTag": "",
+      "optional": false,
+      "sharedTextR3": "",
+      "sharedLinesR3": [],
+      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec5q2mTTsX5J913g?home=pag8nmiUVfXJRZFLW"
+    },
+    {
       "assignmentId": "recphsRoIkvraLjaN",
       "targetId": "rec5q2mTTsX5J913g",
       "resourceId": "recOBhwtOuGXKi5Vt",
@@ -1390,34 +1418,6 @@
         "T1": "The Pencil (Partial Term)",
         "T2": "",
         "T3": ""
-      },
-      "gradeText": "G1,",
-      "grades": [
-        1
-      ],
-      "gradeLevelTag": "",
-      "optional": false,
-      "sharedTextR3": "",
-      "sharedLinesR3": [],
-      "editUrl": "https://airtable.com/app1aju9e3YhfQTXd/pagBCdEDGiwOR0U36/rec5q2mTTsX5J913g?home=pag8nmiUVfXJRZFLW"
-    },
-    {
-      "assignmentId": "recPO6pIYTCFgy1Mx",
-      "targetId": "rec5q2mTTsX5J913g",
-      "resourceId": "rec2Ch49DbsTAysS1",
-      "rotation": "R3",
-      "targetType": "course",
-      "resourceKey": "001.003.000",
-      "scopeText": "Term 1 (Partial Term)\nTerm 2 (Partial Term)\nTerm 3 (Partial Term)",
-      "terms": [
-        "T1",
-        "T2",
-        "T3"
-      ],
-      "termNotes": {
-        "T1": "Thirteen Moons on Turtle's Back: A Native American Year of Moons (Partial Term)",
-        "T2": "Thirteen Moons on Turtle's Back: A Native American Year of Moons (Partial Term)",
-        "T3": "Thirteen Moons on Turtle's Back: A Native American Year of Moons (Partial Term)"
       },
       "gradeText": "G1,",
       "grades": [
