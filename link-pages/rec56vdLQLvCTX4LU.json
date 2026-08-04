@@ -47,6 +47,13 @@
         "groupType": "course"
       },
       {
+        "label": "Not One Way to Mark a Book",
+        "url": "https://drive.google.com/file/d/1QDZHH4Kp_Qj67MvQFGkqz0MSuQOivxgR/view?usp=drive_link",
+        "sort": "3",
+        "groupTitle": "History: Grade 9 (U.S.)",
+        "groupType": "course"
+      },
+      {
         "label": "Foundations (See Section 15: History)",
         "url": "https://www.alveary.org/alveary-foundations/relational-methods",
         "sort": "5",
@@ -55,7 +62,7 @@
       }
     ]
   },
-  "updatedAt": "2026-08-03T10:14:13.653Z",
+  "updatedAt": "2026-08-04T09:22:13.823Z",
   "terms": [
     {
       "termNumber": 1,
@@ -65,6 +72,26 @@
           "weekNumber": 1,
           "weekLabel": "Week 1",
           "lessons": [
+            {
+              "lessonId": "recgTkZgg3v05ESpC",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100102,
+              "lessonLabel": "",
+              "linkLabel": "U.S. History",
+              "title": "40m U.S. History: Grades 9-12 - Lesson 1",
+              "topicTitle": "U.S. History",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Not One Way to Mark a Book",
+                  "url": "https://drive.google.com/file/d/1QDZHH4Kp_Qj67MvQFGkqz0MSuQOivxgR/view?usp=drive_link"
+                }
+              ]
+            },
             {
               "lessonId": "recNZTn0KSEJclQ8W",
               "termNumber": 1,

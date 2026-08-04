@@ -26,6 +26,13 @@
     "lessonPdfLabel": "Lesson PDF",
     "additional": [
       {
+        "label": "Not One Way to Mark a Book",
+        "url": "https://drive.google.com/file/d/1QDZHH4Kp_Qj67MvQFGkqz0MSuQOivxgR/view?usp=drive_link",
+        "sort": "1",
+        "groupTitle": "History: Grades 11-12 (Canada)",
+        "groupType": "course"
+      },
+      {
         "label": "Foundations (See Section 15: History)",
         "url": "https://www.alveary.org/alveary-foundations/relational-methods",
         "sort": "5",
@@ -34,7 +41,7 @@
       }
     ]
   },
-  "updatedAt": "2026-08-03T10:14:13.663Z",
+  "updatedAt": "2026-08-04T09:22:13.836Z",
   "terms": [
     {
       "termNumber": 1,
@@ -44,6 +51,26 @@
           "weekNumber": 1,
           "weekLabel": "Week 1",
           "lessons": [
+            {
+              "lessonId": "recDsygQxjDKLqWSh",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100101,
+              "lessonLabel": "",
+              "linkLabel": "World History",
+              "title": "30m World History: Grades 10-12 - Lesson 1",
+              "topicTitle": "World History",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Not One Way to Mark a Book",
+                  "url": "https://drive.google.com/file/d/1QDZHH4Kp_Qj67MvQFGkqz0MSuQOivxgR/view?usp=drive_link"
+                }
+              ]
+            },
             {
               "lessonId": "reclHQCEzVOiZXJ8R",
               "termNumber": 1,
@@ -69,6 +96,26 @@
                 {
                   "text": "Canada: A People's History",
                   "url": "https://archive.org/details/canada-a-peoples-history-2000-2001/Canada%3A+A+People's+History+S01E05.mp4"
+                }
+              ]
+            },
+            {
+              "lessonId": "recbY9f2hFxXC6L3u",
+              "termNumber": 1,
+              "termLabel": "Term 1",
+              "weekNumber": 1,
+              "weekLabel": "Week 1",
+              "sequence": 1,
+              "sort": 100103,
+              "lessonLabel": "",
+              "linkLabel": "Ancient History",
+              "title": "30m Ancient History: Grades 10-12 - Lesson 1",
+              "topicTitle": "Ancient History",
+              "anchor": "term-1-week-1-lesson-1",
+              "links": [
+                {
+                  "text": "Not One Way to Mark a Book",
+                  "url": "https://drive.google.com/file/d/1QDZHH4Kp_Qj67MvQFGkqz0MSuQOivxgR/view?usp=drive_link"
                 }
               ]
             },
