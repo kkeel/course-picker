@@ -7,7 +7,7 @@
   "gradeFilter": "G10,",
   "sortId": "010.001.010.000",
   "setting": "Publish",
-  "generatedAt": "2026-08-03T13:30:48.991Z",
+  "generatedAt": "2026-08-04T12:29:51.320Z",
   "ideas": {
     "intro": "Ideas for projects, activities, books, games, and more for students with a high level of interest.",
     "terms": [
@@ -20,6 +20,12 @@
             "term": 1,
             "sort": "",
             "content": "[ ] (Plays) Choose a character from the play and determine where he/she would fit on your Way of the Will chart. Share your reasoning with someone.\n[ ] (Plays) Perform the play. Or act out an abridged version such as[ The 30 Minute Shakespeare](https://www.30minuteshakespeare.com/products/a-midsummer-nights-dream-the-30-minute-shakespeare-5?_pos=1&_sid=ca19d7af8&_ss=r).\n[ ] (Plays) Movie Recommendations: The Tempest (2010) PG-13"
+          },
+          {
+            "id": "recZgrl7rLnR7QNqt",
+            "term": 1,
+            "sort": "2",
+            "content": "[ ] (Poetry Study) Share poems with others or host a poetry night and have everyone bring a poem to share.\n[ ] (Poetry Study) Explore poetry through the [Poetry for All Podcast](https://poetryforall.fireside.fm/episodes)"
           }
         ]
       },
@@ -32,6 +38,12 @@
             "term": 2,
             "sort": "",
             "content": "[ ] (Plays) Choose a character from the play and determine where he/she would fit on your Way of the Will chart. Share your reasoning with someone.\n[ ] (Plays) Perform the play or act out an abridged version such as [The 30 Minute Shakespeare](https://www.30minuteshakespeare.com/products/a-midsummer-nights-dream-the-30-minute-shakespeare-5?_pos=1&_sid=ca19d7af8&_ss=r).\n[ ] (Plays) Movie Recommendations: The Hollow Crown Season 1, Episode 3. Rated TV-14 (please consult a parental guide before watching, consider skipping graphic scenes)."
+          },
+          {
+            "id": "recpzE7kXYXLKFV02",
+            "term": 2,
+            "sort": "2",
+            "content": "[ ] (Poetry Study) Share poems with others or host a poetry night and have everyone bring a poem to share.\n[ ] (Poetry Study) Explore poetry through the [Poetry for All Podcast](https://poetryforall.fireside.fm/episodes)"
           }
         ]
       },
@@ -44,12 +56,69 @@
             "term": 3,
             "sort": "",
             "content": "[ ] (Plays) Choose a character from the play and determine where he/she would fit on your Way of the Will chart. Share your reasoning with someone.\n[ ] (Plays) Perform the play or act out an abridged version such as [The 30 Minute Shakespeare](https://www.30minuteshakespeare.com/products/a-midsummer-nights-dream-the-30-minute-shakespeare-5?_pos=1&_sid=ca19d7af8&_ss=r). \n[ ] (Plays) Movie Recommendations: The Winter's Tale BBC (1981), Branagh's The Winter's Tale (2015)\n[ ] (Plays) Take a [virtual tour](https://www.shakespearesglobe.com/whats-on/globe-theatre-guided-tour/) of Shakespeare's Globe Theatre."
+          },
+          {
+            "id": "recoyhnkDZsEQECFf",
+            "term": 3,
+            "sort": "2",
+            "content": "[ ] (Poetry Study) Share poems with others or host a poetry night and have everyone bring a poem to share.\n[ ] (Poetry Study) Explore poetry through the [Poetry for All Podcast](https://poetryforall.fireside.fm/episodes)"
           }
         ]
       }
     ]
   },
   "resources": [
+    {
+      "id": "recLG8NXV9FlYzBFn",
+      "resourceId": "recLG8NXV9FlYzBFn",
+      "title": "A Poem for Every Day of the Year",
+      "author": "Allie Esiri",
+      "isbnAsin": "978-1509860548",
+      "resourceTagText": "",
+      "scope": "(T1, T2, T3)",
+      "rationale": "While students enjoy more historical poetry in these grades, this delightful anthology adds variety and spice to their diets to make sure they don't forget to simply enjoy the sights and sounds of words and the curious ways poets can communicate silly and serious truths. Poems from across the centuries are featured and come with a short introductory note to whet students' appetites.",
+      "imagePath": "img/extra-helpings/recLG8NXV9FlYzBFn.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://a.co/d/9iUwEVS"
+        }
+      ]
+    },
+    {
+      "id": "recDqnSryfnH84clO",
+      "resourceId": "recDqnSryfnH84clO",
+      "title": "A Poem to Read Aloud Every Day of the Year",
+      "author": "Liz Ison",
+      "isbnAsin": "",
+      "resourceTagText": "",
+      "scope": "(T1, T2, T3)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/recDqnSryfnH84clO.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.amazon.com/Poem-Read-Aloud-Every-Year/dp/1849948461"
+        }
+      ]
+    },
+    {
+      "id": "recd6BASEwBH3jVsG",
+      "resourceId": "recd6BASEwBH3jVsG",
+      "title": "African American Poetry: 250 Years of Struggle & Song",
+      "author": "Kevin Young",
+      "isbnAsin": "",
+      "resourceTagText": "",
+      "scope": "(T1, T2, T3)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/recd6BASEwBH3jVsG.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.amazon.com/African-American-Poetry-Struggle-Library/dp/1598536664"
+        }
+      ]
+    },
     {
       "id": "recL0Bm3AVfeQI6WD",
       "resourceId": "recL0Bm3AVfeQI6WD",
@@ -89,6 +158,44 @@
       ]
     },
     {
+      "id": "recStPYi4FE7izRap",
+      "resourceId": "recStPYi4FE7izRap",
+      "title": "I, Too, Sing America: Three Centuries of African American Poetry",
+      "author": "Catherine Clinton",
+      "isbnAsin": "978-0544582569",
+      "resourceTagText": "",
+      "scope": "(T1, T2, T3)",
+      "rationale": "This is a collection of poems from 25 African American poets across three centuries. Meaningful illustrations and brief biographies bring context to the poems.",
+      "imagePath": "img/extra-helpings/recStPYi4FE7izRap.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://smile.amazon.com/Too-Sing-America-Centuries-American/dp/054458256X/"
+        },
+        {
+          "text": "Option 2",
+          "url": "https://bookshop.org/a/90084/9780544582569"
+        }
+      ]
+    },
+    {
+      "id": "recYv6oDpZZEiS97s",
+      "resourceId": "recYv6oDpZZEiS97s",
+      "title": "Metaphors We Live By",
+      "author": "George Lakoff & Mark Johnson",
+      "isbnAsin": "",
+      "resourceTagText": "",
+      "scope": "(T1, T2, T3)",
+      "rationale": "Classic text discussing metaphors which embed ourselves into everyday language and shape the way we think and see the world.",
+      "imagePath": "img/extra-helpings/recYv6oDpZZEiS97s.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.amazon.com/Metaphors-We-Live-George-Lakoff/dp/0226468011"
+        }
+      ]
+    },
+    {
       "id": "reco866qPSwBQIZNI",
       "resourceId": "reco866qPSwBQIZNI",
       "title": "Stories from Shakespeare",
@@ -123,6 +230,48 @@
         {
           "text": "Option 2",
           "url": "https://archive.org/details/talesfromshakesplamb/page/n9/mode/2up"
+        }
+      ]
+    },
+    {
+      "id": "recoM0qt2AsZlIczP",
+      "resourceId": "recoM0qt2AsZlIczP",
+      "title": "The Making of a Poem",
+      "author": "Eavan Boland, Mark Strand",
+      "isbnAsin": "978-0393321784",
+      "resourceTagText": "",
+      "scope": "(T1, T2, T3)",
+      "rationale": "Students read this anthology to learn how to study the characteristics and history of various poetic forms and then enjoy a number of examples from poets across the years, including many from this year's time period.",
+      "imagePath": "img/extra-helpings/recoM0qt2AsZlIczP.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://www.amazon.com/Making-Poem-Norton-Anthology-Poetic/dp/0393321789?&linkCode=ll2&tag=alveary0a-20&linkId=12265e3904d8d83c6416aa7d670c2123&language=en_US&ref_=as_li_ss_tl"
+        },
+        {
+          "text": "Option 2",
+          "url": "https://bookshop.org/a/90084/9780393321784"
+        }
+      ]
+    },
+    {
+      "id": "reckahKDbFg7lr2jJ",
+      "resourceId": "reckahKDbFg7lr2jJ",
+      "title": "This Day: Collected and New Sabbath Poems",
+      "author": "Wendell Berry",
+      "isbnAsin": "978-1619024366",
+      "resourceTagText": "",
+      "scope": "(T1, T2, T3)",
+      "rationale": "",
+      "imagePath": "img/extra-helpings/reckahKDbFg7lr2jJ.webp",
+      "links": [
+        {
+          "text": "Option 1",
+          "url": "https://smile.amazon.com/This-Day-Collected-Sabbath-Poems/dp/1619024365/"
+        },
+        {
+          "text": "Option 2",
+          "url": "https://bookshop.org/a/90084/9781619024366"
         }
       ]
     }
