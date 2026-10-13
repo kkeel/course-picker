@@ -53,7 +53,7 @@
       }
     ]
   },
-  "updatedAt": "2026-10-12T15:54:51.646Z",
+  "updatedAt": "2026-10-13T14:29:36.971Z",
   "terms": [
     {
       "termNumber": 1,
@@ -808,6 +808,32 @@
               ]
             }
           ]
+        },
+        {
+          "weekNumber": 24,
+          "weekLabel": "Week 12",
+          "lessons": [
+            {
+              "lessonId": "reccRTcd2nsa5aQVe",
+              "termNumber": 2,
+              "termLabel": "Term 2",
+              "weekNumber": 24,
+              "weekLabel": "Week 12",
+              "sequence": 24,
+              "sort": 0,
+              "lessonLabel": "Lesson 24",
+              "linkLabel": "Sol-fa",
+              "title": "10m Sol-fa: Level 2 - Lesson 24",
+              "topicTitle": "Sol-fa",
+              "anchor": "term-2-week-24-lesson-24",
+              "links": [
+                {
+                  "text": "Line of Music",
+                  "url": "https://drive.google.com/file/d/1VVNDNiXss1DdU113WE6oK6EytIKeFk90/view?usp=drive_link"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -1184,6 +1210,32 @@
                 {
                   "text": "Warm-Ups (Audio)",
                   "url": "https://soundcloud.com/alveary/warm-up-form-2-and-3/s-cHDwD?in=alveary/sets/sol-fa-level-3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "weekNumber": 36,
+          "weekLabel": "Week 12",
+          "lessons": [
+            {
+              "lessonId": "recSLf7XpazlQOOmw",
+              "termNumber": 3,
+              "termLabel": "Term 3",
+              "weekNumber": 36,
+              "weekLabel": "Week 12",
+              "sequence": 36,
+              "sort": 0,
+              "lessonLabel": "Lesson 36",
+              "linkLabel": "Sol-fa",
+              "title": "10m Sol-fa: Level 2 - Lesson 36",
+              "topicTitle": "Sol-fa",
+              "anchor": "term-3-week-36-lesson-36",
+              "links": [
+                {
+                  "text": "Line of Music",
+                  "url": "https://drive.google.com/file/d/1y9orjBi7bDmmSXnxgA5cHu6XT35Cihnk/view?usp=drive_link"
                 }
               ]
             }
