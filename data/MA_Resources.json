@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-21T13:44:58.816Z",
+  "lastUpdated": "2026-10-22T13:45:37.925Z",
   "rotation": "R3",
   "resources": [
     {
@@ -6001,7 +6001,14 @@
       "author": "Alveary",
       "isbnAsin": "",
       "resourceTagText": "Ebook",
-      "links": [],
+      "links": [
+        {
+          "text": "PDF",
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "french-student-notebook"
+        }
+      ],
       "flags": {
         "save": true,
         "print": true,
@@ -13921,9 +13928,9 @@
       "links": [
         {
           "text": "PDF",
-          "url": "https://planning.alveary.org/pdf/modern-language/student-notebooks/recvfB9zd1vOwauPP-spanish-student-notebook-full.pdf?",
-          "memberOnly": false,
-          "memberstackId": ""
+          "url": "https://www.alveary.org/login",
+          "memberOnly": true,
+          "memberstackId": "spanish-student-notebook"
         }
       ],
       "flags": {
