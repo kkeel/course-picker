@@ -45,5 +45,21 @@ jobs:
             echo "No lesson plan hub changes to commit"
           else
             git commit -m "Build lesson plan hub and resource view JSON"
-            git push
+
+            # Other scheduled jobs also commit generated data to main.
+            # Rebase on the latest main before each push to handle normal races.
+            # A real rebase conflict stops the job; never force-push generated data.
+            for attempt in 1 2 3 4 5; do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then
+                echo "Lesson Plan Hub data pushed successfully."
+                exit 0
+              fi
+              echo "Push was rejected or failed (attempt ${attempt}/5); retrying after upstream updates."
+              sleep $((attempt * 2))
+            done
+
+            echo "::error::Could not push Lesson Plan Hub data after 5 attempts."
+            exit 1
           fi
